@@ -1,0 +1,7 @@
+{
+  "id": "tab_container",
+  "name": "Tab Container",
+  "description": "Coordinated tab state manager with customizable builders.",
+  "category": "navigation",
+  "tags": ["tabs", "navigation", "layout"]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "date_picker",
+  "name": "Date Picker",
+  "description": "Popover/dialog calendar for single-date and range selection.",
+  "category": "form",
+  "tags": [
+    "form",
+    "date",
+    "picker",
+    "calendar"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "form_control",
+      "localizations",
+      "lucide_icons",
+      "style_value",
+      "theme"
+    ],
+    "components": [
+      "calendar",
+      "form_field"
+    ]
+  }
+}

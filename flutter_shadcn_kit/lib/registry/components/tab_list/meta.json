@@ -1,0 +1,7 @@
+{
+  "id": "tab_list",
+  "name": "Tab List",
+  "description": "Horizontal tab header row with active indicator.",
+  "category": "navigation",
+  "tags": ["tabs", "navigation", "controls"]
+}

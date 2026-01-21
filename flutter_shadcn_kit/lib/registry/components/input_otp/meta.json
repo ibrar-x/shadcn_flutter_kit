@@ -1,0 +1,27 @@
+{
+  "id": "input_otp",
+  "name": "Input OTP",
+  "description": "Fixed-length OTP input field with clipboard integration, paste handling, and focus management.",
+  "category": "form",
+  "tags": [
+    "form",
+    "input",
+    "otp"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "focus_outline",
+      "form_value_supplier",
+      "text_modifiers",
+      "color_extensions",
+      "util"
+    ],
+    "components": [
+      "text_field"
+    ]
+  }
+}

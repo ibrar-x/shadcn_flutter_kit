@@ -1,0 +1,7 @@
+{
+  "id": "focus_outline",
+  "name": "Focus Outline",
+  "description": "Keyboard focus visualization outline with theming support.",
+  "category": "accessibility",
+  "tags": ["focus", "accessibility", "overlay"]
+}

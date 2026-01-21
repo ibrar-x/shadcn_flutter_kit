@@ -1,0 +1,11 @@
+{
+  "id": "expandable_sidebar",
+  "name": "Expandable Sidebar",
+  "description": "Composite export for expandable navigation rails.",
+  "category": "navigation",
+  "tags": ["navigation", "sidebar", "composite"],
+  "dependencies": {
+    "shared": [],
+    "pubspec": {}
+  }
+}

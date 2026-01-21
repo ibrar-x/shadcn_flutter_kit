@@ -1,0 +1,34 @@
+{
+  "id": "color_input",
+  "name": "Color Input",
+  "description": "Popover/dialog color selector that integrates the picker, history, and eye-dropper tools.",
+  "category": "form",
+  "tags": [
+    "color",
+    "input",
+    "picker",
+    "form"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "lucide_icons",
+      "localizations",
+      "form_control",
+      "form_value_supplier"
+    ],
+    "components": [
+      "button",
+      "color",
+      "color_picker",
+      "eye_dropper",
+      "form_field",
+      "history"
+    ]
+  }
+}

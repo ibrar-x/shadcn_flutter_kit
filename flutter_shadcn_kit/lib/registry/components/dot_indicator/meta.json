@@ -1,0 +1,11 @@
+{
+  "id": "dot_indicator",
+  "name": "Dot Indicator",
+  "description": "Animated dot indicator for carousels/steppers with optional tap behavior.",
+  "category": "display",
+  "tags": ["display", "navigation", "indicator"],
+  "dependencies": {
+    "shared": ["theme", "style_value", "constants", "clickable"],
+    "components": []
+  }
+}

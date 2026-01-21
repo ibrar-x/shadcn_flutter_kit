@@ -1,0 +1,28 @@
+{
+  "id": "refresh_trigger",
+  "name": "Refresh Trigger",
+  "description": "Pull-to-refresh wrapper with customizable indicator, extents, and completion animations.",
+  "category": "overlay",
+  "tags": [
+    "overlay",
+    "scroll",
+    "refresh"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "animated_value_builder",
+      "constants",
+      "localizations",
+      "util"
+    ],
+    "components": [
+      "card",
+      "checkbox"
+    ]
+  }
+}

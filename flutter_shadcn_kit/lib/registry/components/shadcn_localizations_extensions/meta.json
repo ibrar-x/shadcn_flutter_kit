@@ -1,0 +1,22 @@
+{
+  "id": "shadcn_localizations_extensions",
+  "name": "Shadcn Localizations Extensions",
+  "description": "Formatting helpers for localized dates, times, durations, and picker labels.",
+  "category": "utility",
+  "tags": [
+    "localization",
+    "formatting",
+    "i18n"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "util"
+    ],
+    "components": [
+      "color_picker",
+      "locale_utils",
+      "shadcn_localizations"
+    ]
+  }
+}

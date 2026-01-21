@@ -1,0 +1,19 @@
+{
+  "id": "stage_container",
+  "name": "Stage Container",
+  "description": "Responsive container that snaps to breakpoint widths.",
+  "category": "layout",
+  "tags": [
+    "layout",
+    "responsive",
+    "container"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "style_value",
+      "theme"
+    ],
+    "components": []
+  }
+}

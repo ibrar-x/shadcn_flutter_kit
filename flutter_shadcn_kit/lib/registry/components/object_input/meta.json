@@ -1,0 +1,24 @@
+{
+  "id": "object_input",
+  "name": "Object Input",
+  "description": "Date, time, and duration inputs powered by formatted editors and pickers.",
+  "category": "form",
+  "tags": ["form", "input", "date", "time"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "form_control",
+      "text",
+      "icons",
+      "localizations",
+      "utils"
+    ],
+    "components": [
+      "formatted_input",
+      "date_picker",
+      "card",
+      "locale_utils"
+    ]
+  }
+}

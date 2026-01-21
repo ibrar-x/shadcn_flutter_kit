@@ -1,0 +1,14 @@
+{
+  "id": "card_image",
+  "name": "CardImage",
+  "description": "Interactive card that pairs an image with title/subtitle content.",
+  "category": "layout",
+  "tags": ["display", "image", "card"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": ["theme", "style_value", "constants"],
+    "components": ["basic", "button", "outlined_container"]
+  }
+}

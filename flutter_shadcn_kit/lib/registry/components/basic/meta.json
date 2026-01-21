@@ -1,0 +1,11 @@
+{
+  "id": "basic",
+  "name": "Basic",
+  "description": "Flexible row layout for leading/title/content/trailing sections.",
+  "category": "layout",
+  "tags": ["layout", "list", "structure"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value", "text_modifiers"]
+  }
+}

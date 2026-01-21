@@ -1,0 +1,11 @@
+{
+  "id": "phone_input",
+  "name": "Phone Input",
+  "description": "International phone number input with country selector and formatting helpers.",
+  "category": "form",
+  "tags": [
+    "form",
+    "input",
+    "phone"
+  ]
+}

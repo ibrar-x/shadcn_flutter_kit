@@ -1,0 +1,11 @@
+{
+  "id": "triple_dots",
+  "name": "More Dots",
+  "description": "Configurable row/column of dots for menu or loading indicators.",
+  "category": "icon",
+  "tags": ["icon", "indicator"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": []
+  }
+}

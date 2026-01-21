@@ -1,0 +1,7 @@
+{
+  "id": "text",
+  "name": "Text",
+  "description": "Typography helpers and fluent text modifiers.",
+  "category": "text",
+  "tags": ["text", "typography"]
+}

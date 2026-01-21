@@ -1,0 +1,11 @@
+{
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "description": "Horizontal breadcrumb trail with arrow/slash separators and overflow handling.",
+  "category": "navigation",
+  "tags": ["navigation", "layout"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value", "basic_layout", "radix_icons"]
+  }
+}

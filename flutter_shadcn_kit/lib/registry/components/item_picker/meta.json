@@ -1,0 +1,28 @@
+{
+  "id": "item_picker",
+  "name": "Item Picker",
+  "description": "Grid/list picker with selection chips, search, and in-place actions.",
+  "category": "form",
+  "tags": [
+    "form",
+    "picker",
+    "selection"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "overlay",
+      "text"
+    ],
+    "components": [
+      "basic",
+      "button",
+      "card",
+      "dialog",
+      "form_field"
+    ]
+  }
+}

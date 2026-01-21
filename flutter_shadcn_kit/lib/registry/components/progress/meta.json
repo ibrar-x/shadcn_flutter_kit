@@ -1,0 +1,11 @@
+{
+  "id": "progress",
+  "name": "Progress",
+  "description": "Normalized linear progress bar with theme overrides.",
+  "category": "display",
+  "tags": ["display", "progress", "indicator"],
+  "dependencies": {
+    "shared": ["theme", "style_value"],
+    "components": []
+  }
+}

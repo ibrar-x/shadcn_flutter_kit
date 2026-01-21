@@ -1,0 +1,14 @@
+{
+  "id": "table",
+  "name": "Table",
+  "description": "Resizable table layout with headers, footers, and frozen cells.",
+  "category": "layout",
+  "tags": ["table", "layout", "data"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": ["theme", "clickable", "resizer"],
+    "components": []
+  }
+}

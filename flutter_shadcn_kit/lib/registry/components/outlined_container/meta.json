@@ -1,0 +1,23 @@
+{
+  "id": "outlined_container",
+  "name": "Outlined Container",
+  "description": "Animated outlined container with theme-aware borders and blur.",
+  "category": "layout",
+  "tags": [
+    "layout",
+    "container",
+    "outline"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "animated_value_builder",
+      "border_utils",
+      "constants",
+      "geometry_extensions",
+      "style_value",
+      "theme"
+    ],
+    "components": []
+  }
+}

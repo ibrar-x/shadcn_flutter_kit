@@ -1,0 +1,23 @@
+{
+  "id": "timeline",
+  "name": "Timeline",
+  "description": "Vertical timeline for chronological entries.",
+  "category": "layout",
+  "tags": [
+    "timeline",
+    "layout",
+    "chronology"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "util"
+    ],
+    "components": [
+      "text"
+    ]
+  }
+}

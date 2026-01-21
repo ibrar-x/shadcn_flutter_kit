@@ -1,0 +1,19 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "description": "Page navigation controls with skip, previous/next, and ellipsis handling.",
+  "category": "navigation",
+  "tags": [
+    "navigation",
+    "pagination"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "style_value",
+      "localizations",
+      "radix_icons"
+    ]
+  }
+}

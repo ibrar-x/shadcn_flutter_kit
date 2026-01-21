@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shadcn_flutter_registry/components.schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "name", "flutter", "defaults", "shared", "components"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "schemaVersion": {"type": "integer", "minimum": 1},
+    "name": {"type": "string"},
+    "flutter": {
+      "type": "object",
+      "required": ["minSdk"],
+      "additionalProperties": false,
+      "properties": {
+        "minSdk": {"type": "string"}
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "required": ["installPath", "sharedPath"],
+      "additionalProperties": false,
+      "properties": {
+        "installPath": {"type": "string"},
+        "sharedPath": {"type": "string"}
+      }
+    },
+    "shared": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/sharedEntry"}
+    },
+    "components": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/componentEntry"}
+    }
+  },
+  "$defs": {
+    "fileMapping": {
+      "oneOf": [
+        {"type": "string"},
+        {
+          "type": "object",
+          "required": ["source", "destination"],
+          "additionalProperties": false,
+          "properties": {
+            "source": {"type": "string"},
+            "destination": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "sharedEntry": {
+      "type": "object",
+      "required": ["id", "files"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string"},
+        "description": {"type": "string"},
+        "files": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fileMapping"}
+        }
+      }
+    },
+    "pubspecDeps": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "componentEntry": {
+      "type": "object",
+      "required": ["id", "name", "description", "category", "files", "shared", "dependsOn", "pubspec", "assets", "postInstall"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "category": {"type": "string"},
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "files": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fileMapping"}
+        },
+        "shared": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "pubspec": {
+          "type": "object",
+          "required": ["dependencies"],
+          "additionalProperties": false,
+          "properties": {
+            "dependencies": {"$ref": "#/$defs/pubspecDeps"},
+            "dev_dependencies": {"$ref": "#/$defs/pubspecDeps"}
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "postInstall": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}

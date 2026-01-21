@@ -1,0 +1,11 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "description": "Compact label/status components built on button styles.",
+  "category": "display",
+  "tags": ["display", "status", "label"],
+  "dependencies": {
+    "shared": ["theme"],
+    "components": ["button"]
+  }
+}

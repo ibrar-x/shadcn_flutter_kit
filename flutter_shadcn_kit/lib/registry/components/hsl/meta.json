@@ -1,0 +1,20 @@
+{
+  "id": "hsl",
+  "name": "HSL Color Slider",
+  "description": "Gradient slider that controls hue, saturation, lightness, or alpha for HSL colors.",
+  "category": "form",
+  "tags": [
+    "color",
+    "slider",
+    "hsl"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "alpha"
+    ]
+  }
+}

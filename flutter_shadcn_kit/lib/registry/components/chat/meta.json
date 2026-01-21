@@ -1,0 +1,24 @@
+{
+  "id": "chat",
+  "name": "Chat",
+  "description": "Chat bubbles, groups, and tail helpers for conversational layouts.",
+  "category": "display",
+  "tags": ["display", "chat", "bubble"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1",
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "clickable"
+    ],
+    "components": [
+      "basic",
+      "button",
+      "outlined_container"
+    ]
+  }
+}

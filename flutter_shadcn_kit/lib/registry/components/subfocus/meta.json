@@ -1,0 +1,18 @@
+{
+  "id": "subfocus",
+  "name": "Subfocus",
+  "description": "Hierarchical focus scope for keyboard navigation.",
+  "category": "navigation",
+  "tags": [
+    "focus",
+    "navigation",
+    "keyboard"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [],
+    "components": []
+  }
+}

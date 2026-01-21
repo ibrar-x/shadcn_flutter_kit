@@ -1,0 +1,19 @@
+{
+  "id": "keyboard_shortcut",
+  "name": "Keyboard Shortcut",
+  "description": "Displays keyboard shortcuts as styled keycaps.",
+  "category": "display",
+  "tags": ["display", "keyboard", "shortcut"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "color_extensions",
+      "util"
+    ],
+    "components": ["card"]
+  }
+}

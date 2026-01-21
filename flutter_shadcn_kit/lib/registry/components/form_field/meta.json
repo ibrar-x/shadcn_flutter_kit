@@ -1,0 +1,18 @@
+{
+  "id": "form_field",
+  "name": "Form Field",
+  "description": "Modal or popover editor field for complex objects.",
+  "category": "form",
+  "tags": ["form", "input", "editor"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "localizations",
+      "form_value_supplier",
+      "overlay"
+    ]
+  }
+}

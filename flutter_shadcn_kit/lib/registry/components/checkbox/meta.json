@@ -1,0 +1,23 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "description": "Animated checkbox with tri-state support and controllers.",
+  "category": "form",
+  "tags": ["form", "input", "control"],
+  "dependencies": {
+    "pubspec": {
+      "animation_kit": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "text_modifiers",
+      "clickable",
+      "form_control",
+      "form_value_supplier",
+      "animated_value_builder",
+      "border_utils",
+      "constants"
+    ]
+  }
+}

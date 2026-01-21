@@ -1,0 +1,11 @@
+{
+  "id": "patch",
+  "name": "Click Detector",
+  "description": "Tracks consecutive taps and exposes click count details.",
+  "category": "control",
+  "tags": [
+    "gesture",
+    "interaction",
+    "utility"
+  ]
+}

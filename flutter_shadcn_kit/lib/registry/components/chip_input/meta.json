@@ -1,0 +1,29 @@
+{
+  "id": "chip_input",
+  "name": "Chip Input",
+  "description": "Inline text input that converts typed tokens into chip widgets with removable buttons and autocomplete hooks.",
+  "category": "form",
+  "tags": [
+    "form",
+    "input",
+    "chips",
+    "tokens"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "form_value_supplier",
+      "lucide_icons"
+    ],
+    "components": [
+      "chip",
+      "text_field",
+      "autocomplete"
+    ]
+  }
+}

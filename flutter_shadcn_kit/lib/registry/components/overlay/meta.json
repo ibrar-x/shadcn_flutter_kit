@@ -1,0 +1,21 @@
+{
+  "id": "overlay",
+  "name": "Overlay",
+  "description": "Shared overlay handler/manager utilities and helpers.",
+  "category": "overlay",
+  "tags": [
+    "overlay",
+    "layer"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "animated_value_builder",
+      "constants",
+      "geometry_extensions",
+      "tween_utils",
+      "data_widget"
+    ]
+  }
+}

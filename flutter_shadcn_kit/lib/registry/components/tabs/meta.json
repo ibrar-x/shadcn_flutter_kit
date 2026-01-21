@@ -1,0 +1,21 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "description": "Tabbed navigation primitives with lists and panes.",
+  "category": "navigation",
+  "tags": ["tabs", "navigation", "layout"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "border_utils",
+      "style_value",
+      "constants",
+      "outlined_container",
+      "fade_scroll"
+    ],
+    "components": ["sortable"]
+  }
+}

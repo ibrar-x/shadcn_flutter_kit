@@ -1,0 +1,30 @@
+{
+  "id": "window",
+  "name": "Window",
+  "description": "Desktop-style window system with drag, resize, and snapping.",
+  "category": "layout",
+  "tags": [
+    "window",
+    "layout",
+    "desktop"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "animated_value_builder",
+      "constants",
+      "theme",
+      "util"
+    ],
+    "components": [
+      "button",
+      "card",
+      "group",
+      "outlined_container",
+      "patch",
+      "text"
+    ]
+  }
+}

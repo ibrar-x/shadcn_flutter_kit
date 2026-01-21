@@ -1,0 +1,13 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "description": "Single-expansion accordion with configurable triggers and theming.",
+  "category": "layout",
+  "tags": ["navigation", "layout", "forms"],
+  "dependencies": {
+    "shared": ["theme", "constants", "style_value"],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  }
+}

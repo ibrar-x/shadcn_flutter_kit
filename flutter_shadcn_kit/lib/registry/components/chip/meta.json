@@ -1,0 +1,11 @@
+{
+  "id": "chip",
+  "name": "Chip",
+  "description": "Compact tag-style button with optional leading/trailing widgets.",
+  "category": "display",
+  "tags": ["display", "forms", "tag"],
+  "dependencies": {
+    "shared": ["theme", "style_value"],
+    "components": ["button"]
+  }
+}

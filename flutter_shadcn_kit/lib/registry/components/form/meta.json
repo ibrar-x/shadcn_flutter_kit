@@ -1,0 +1,23 @@
+{
+  "id": "form",
+  "name": "Form",
+  "description": "Composable form state, validation, and submit helpers.",
+  "category": "form",
+  "tags": ["form", "validation", "state"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "email_validator": "^3.0.0",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "focus_outline",
+      "text"
+    ],
+    "components": [
+      "button",
+      "text_field"
+    ]
+  }
+}

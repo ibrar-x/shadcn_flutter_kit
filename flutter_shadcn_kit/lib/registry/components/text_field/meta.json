@@ -1,0 +1,27 @@
+{
+  "id": "text_field",
+  "name": "Text Field",
+  "description": "Text input with rich features, autocomplete, and actions.",
+  "category": "forms",
+  "tags": ["forms", "input", "text"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "color_extensions",
+      "form_value_supplier",
+      "style_value",
+      "border_utils",
+      "constants",
+      "text_input_utils",
+      "chip_utils",
+      "geometry_extensions",
+      "hidden",
+      "overlay",
+      "lucide_icons"
+    ],
+    "components": ["button"]
+  }
+}

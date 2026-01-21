@@ -1,0 +1,21 @@
+{
+  "id": "shadcn_localizations",
+  "name": "Shadcn Localizations",
+  "description": "Full localization delegate and base translations.",
+  "category": "utility",
+  "tags": [
+    "localization",
+    "i18n",
+    "delegate"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "flutter_localizations": "sdk: flutter",
+      "intl": "any"
+    },
+    "shared": [],
+    "components": [
+      "shadcn_localizations_en"
+    ]
+  }
+}

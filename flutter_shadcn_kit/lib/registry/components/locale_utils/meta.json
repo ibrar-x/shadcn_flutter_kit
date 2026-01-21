@@ -1,0 +1,17 @@
+{
+  "id": "locale_utils",
+  "name": "Locale Utils",
+  "description": "Date/time/duration unit helpers and file size formatting locales.",
+  "category": "utility",
+  "tags": [
+    "locale",
+    "utility",
+    "formatting"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "util"
+    ]
+  }
+}

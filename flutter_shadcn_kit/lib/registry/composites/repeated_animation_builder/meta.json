@@ -1,0 +1,11 @@
+{
+  "id": "repeated_animation_builder",
+  "name": "Repeated Animation Builder",
+  "description": "Composite export for RepeatedAnimationBuilder.",
+  "category": "utility",
+  "tags": ["animation", "utility", "composite"],
+  "dependencies": {
+    "shared": ["util"],
+    "pubspec": {}
+  }
+}

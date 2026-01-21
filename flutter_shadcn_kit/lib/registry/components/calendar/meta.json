@@ -1,0 +1,21 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "description": "Date picker and calendar widgets for single, range, and multi selection.",
+  "category": "display",
+  "tags": ["calendar", "date", "picker", "display"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "text_modifiers",
+      "icon_extensions",
+      "localizations",
+      "lucide_icons"
+    ],
+    "components": ["button"]
+  }
+}

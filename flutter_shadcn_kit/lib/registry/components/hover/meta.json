@@ -1,0 +1,11 @@
+{
+  "id": "hover",
+  "name": "Hover",
+  "description": "Hover timing helpers plus lightweight state tracking widgets.",
+  "category": "control",
+  "tags": ["hover", "pointer", "interaction"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value"]
+  }
+}
