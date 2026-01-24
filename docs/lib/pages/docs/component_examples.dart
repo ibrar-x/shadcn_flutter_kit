@@ -1,6 +1,7 @@
 import 'component_example_models.dart';
 import 'components/accordion/accordion_examples.dart';
 import 'components/alert/alert_examples.dart';
+import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
 import 'components/button/button_examples.dart';
 import 'components/calendar/calendar_examples.dart';
@@ -68,10 +69,17 @@ const List<ComponentExampleBatch> exampleBatches = [
       'scrollview',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 4',
+    componentIds: [
+      'avatar',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
   'button': buttonExamples,
+  'avatar': avatarExamples,
   'badge': badgeExamples,
   'accordion': accordionExamples,
   'card': cardExamples,
