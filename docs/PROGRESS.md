@@ -53,18 +53,18 @@ Last updated: January 23, 2026
 - [ ] Skeleton (`skeleton`) - display
 - [x] Spinner (`spinner`) - display
 - [x] Tracker (`tracker`) - display
-- [ ] Autocomplete (`autocomplete`) - form
+- [x] Autocomplete (`autocomplete`) - form
 - [ ] Checkbox (`checkbox`) - form
-- [ ] Chip Input (`chip_input`) - form
+- [x] Chip Input (`chip_input`) - form
 - [ ] Choices (`choices`) - form
-- [ ] Color Input (`color_input`) - form
-- [ ] Color Picker (`color_picker`) - form
-- [ ] Control (`control`) - form
-- [ ] Date Picker (`date_picker`) - form
-- [ ] File Input (`file_input`) - form
-- [ ] File Picker (`file_picker`) - form
-- [ ] Form (`form`) - form
-- [ ] Form Field (`form_field`) - form
+- [x] Color Input (`color_input`) - form
+- [x] Color Picker (`color_picker`) - form
+- [x] Control (`control`) - form
+- [x] Date Picker (`date_picker`) - form
+- [x] File Input (`file_input`) - form
+- [x] File Picker (`file_picker`) - form
+- [x] Form (`form`) - form
+- [x] Form Field (`form_field`) - form
 - [ ] Formatted Input (`formatted_input`) - form
 - [ ] Formatter (`formatter`) - form
 - [ ] Color History (`history`) - form

@@ -1,6 +1,7 @@
 import 'component_example_models.dart';
 import 'components/accordion/accordion_examples.dart';
 import 'components/alert/alert_examples.dart';
+import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
 import 'components/button/button_examples.dart';
@@ -9,15 +10,24 @@ import 'components/card/card_examples.dart';
 import 'components/carousel/carousel_examples.dart';
 import 'components/chat/chat_examples.dart';
 import 'components/checkbox/checkbox_examples.dart';
+import 'components/chip_input/chip_input_examples.dart';
 import 'components/chip/chip_examples.dart';
 import 'components/circular_progress_indicator/circular_progress_indicator_examples.dart';
 import 'components/clickable/clickable_examples.dart';
 import 'components/code_snippet/code_snippet_examples.dart';
+import 'components/color_input/color_input_examples.dart';
+import 'components/color_picker/color_picker_examples.dart';
 import 'components/command/command_examples.dart';
+import 'components/control/control_examples.dart';
+import 'components/date_picker/date_picker_examples.dart';
 import 'components/dialog/dialog_examples.dart';
 import 'components/divider/divider_examples.dart';
 import 'components/dot_indicator/dot_indicator_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
+import 'components/file_input/file_input_examples.dart';
+import 'components/file_picker/file_picker_examples.dart';
+import 'components/form/form_examples.dart';
+import 'components/form_field/form_field_examples.dart';
 import 'components/hover/hover_examples.dart';
 import 'components/icon/icon_examples.dart';
 import 'components/input/input_examples.dart';
@@ -124,9 +134,25 @@ const List<ComponentExampleBatch> exampleBatches = [
       'triple_dots',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 8',
+    componentIds: [
+      'autocomplete',
+      'chip_input',
+      'color_input',
+      'color_picker',
+      'control',
+      'date_picker',
+      'file_input',
+      'file_picker',
+      'form',
+      'form_field',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
+  'autocomplete': autocompleteExamples,
   'button': buttonExamples,
   'avatar': avatarExamples,
   'badge': badgeExamples,
@@ -136,13 +162,22 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'chat': chatExamples,
   'divider': dividerExamples,
   'checkbox': checkboxExamples,
+  'chip_input': chipInputExamples,
   'chip': chipExamples,
   'circular_progress_indicator': circularProgressIndicatorExamples,
   'clickable': clickableExamples,
   'code_snippet': codeSnippetExamples,
+  'color_input': colorInputExamples,
+  'color_picker': colorPickerExamples,
   'command': commandExamples,
+  'control': controlExamples,
+  'date_picker': datePickerExamples,
   'dot_indicator': dotIndicatorExamples,
   'feature_carousel': featureCarouselExamples,
+  'file_input': fileInputExamples,
+  'file_picker': filePickerExamples,
+  'form': formExamples,
+  'form_field': formFieldExamples,
   'input': inputExamples,
   'hover': hoverExamples,
   'icon': iconExamples,
