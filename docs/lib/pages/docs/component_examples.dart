@@ -1,6 +1,7 @@
 import 'component_example_models.dart';
 import 'components/accordion/accordion_examples.dart';
 import 'components/alert/alert_examples.dart';
+import 'components/alert_dialog/alert_dialog_examples.dart';
 import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
@@ -21,12 +22,15 @@ import 'components/color_input/color_input_examples.dart';
 import 'components/color_picker/color_picker_examples.dart';
 import 'components/command/command_examples.dart';
 import 'components/control/control_examples.dart';
+import 'components/context_menu/context_menu_examples.dart';
 import 'components/card_image/card_image_examples.dart';
 import 'components/collapsible/collapsible_examples.dart';
 import 'components/date_picker/date_picker_examples.dart';
 import 'components/dialog/dialog_examples.dart';
 import 'components/divider/divider_examples.dart';
 import 'components/dot_indicator/dot_indicator_examples.dart';
+import 'components/drawer/drawer_examples.dart';
+import 'components/dropdown_menu/dropdown_menu_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
 import 'components/fade_scroll/fade_scroll_examples.dart';
 import 'components/file_input/file_input_examples.dart';
@@ -38,6 +42,7 @@ import 'components/formatter/formatter_examples.dart';
 import 'components/group/group_examples.dart';
 import 'components/history/history_examples.dart';
 import 'components/hover/hover_examples.dart';
+import 'components/hover_card/hover_card_examples.dart';
 import 'components/hidden/hidden_examples.dart';
 import 'components/icon/icon_examples.dart';
 import 'components/hsl/hsl_examples.dart';
@@ -48,6 +53,7 @@ import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_shortcut/keyboard_shortcut_examples.dart';
 import 'components/linear_progress_indicator/linear_progress_indicator_examples.dart';
 import 'components/multiple_choice/multiple_choice_examples.dart';
+import 'components/menubar/menubar_examples.dart';
 import 'components/navigation_bar/navigation_bar_examples.dart';
 import 'components/navigation_menu/navigation_menu_examples.dart';
 import 'components/number_ticker/number_ticker_examples.dart';
@@ -60,6 +66,7 @@ import 'components/progress/progress_examples.dart';
 import 'components/media_query/media_query_examples.dart';
 import 'components/outlined_container/outlined_container_examples.dart';
 import 'components/overflow_marquee/overflow_marquee_examples.dart';
+import 'components/refresh_trigger/refresh_trigger_examples.dart';
 import 'components/resizable/resizable_examples.dart';
 import 'components/scrollbar/scrollbar_examples.dart';
 import 'components/scrollview/scrollview_examples.dart';
@@ -71,6 +78,7 @@ import 'components/spinner/spinner_examples.dart';
 import 'components/steps/steps_examples.dart';
 import 'components/switch/switch_examples.dart';
 import 'components/switcher/switcher_examples.dart';
+import 'components/sheet/sheet_examples.dart';
 import 'components/table/table_examples.dart';
 import 'components/tab_list/tab_list_examples.dart';
 import 'components/tab_pane/tab_pane_examples.dart';
@@ -85,8 +93,10 @@ import 'components/tree/tree_examples.dart';
 import 'components/triple_dots/triple_dots_examples.dart';
 import 'components/radio_group/radio_group_examples.dart';
 import 'components/star_rating/star_rating_examples.dart';
+import 'components/swiper/swiper_examples.dart';
 import 'components/timeline/timeline_examples.dart';
 import 'components/time_picker/time_picker_examples.dart';
+import 'components/validated/validated_examples.dart';
 import 'components/scaffold/scaffold_examples.dart';
 import 'components/sortable/sortable_examples.dart';
 import 'components/window/window_examples.dart';
@@ -209,6 +219,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'text_area',
       'text_field',
       'time_picker',
+      'validated',
     ],
   ),
   ComponentExampleBatch(
@@ -254,6 +265,20 @@ const List<ComponentExampleBatch> exampleBatches = [
       'tab_pane',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 15',
+    componentIds: [
+      'alert_dialog',
+      'context_menu',
+      'drawer',
+      'dropdown_menu',
+      'hover_card',
+      'menubar',
+      'refresh_trigger',
+      'sheet',
+      'swiper',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
@@ -279,9 +304,12 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'color_picker': colorPickerExamples,
   'command': commandExamples,
   'control': controlExamples,
+  'context_menu': contextMenuExamples,
   'collapsible': collapsibleExamples,
   'date_picker': datePickerExamples,
   'dot_indicator': dotIndicatorExamples,
+  'drawer': drawerExamples,
+  'dropdown_menu': dropdownMenuExamples,
   'feature_carousel': featureCarouselExamples,
   'fade_scroll': fadeScrollExamples,
   'file_input': fileInputExamples,
@@ -295,6 +323,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'hidden': hiddenExamples,
   'input': inputExamples,
   'hover': hoverExamples,
+  'hover_card': hoverCardExamples,
   'icon': iconExamples,
   'hsl': hslExamples,
   'hsv': hsvExamples,
@@ -302,6 +331,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'linear_progress_indicator': linearProgressIndicatorExamples,
   'input_otp': inputOtpExamples,
   'item_picker': itemPickerExamples,
+  'menubar': menubarExamples,
   'navigation_bar': navigationBarExamples,
   'navigation_menu': navigationMenuExamples,
   'multiple_choice': multipleChoiceExamples,
@@ -313,6 +343,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'phone_input': phoneInputExamples,
   'media_query': mediaQueryExamples,
   'outlined_container': outlinedContainerExamples,
+  'refresh_trigger': refreshTriggerExamples,
   'resizable': resizableExamples,
   'selectable': selectableExamples,
   'select': selectExamples,
@@ -325,12 +356,15 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'scrollbar': scrollbarExamples,
   'scrollview': scrollviewExamples,
   'scaffold': scaffoldExamples,
+  'sheet': sheetExamples,
   'sortable': sortableExamples,
   'steps': stepsExamples,
   'text': textExamples,
   'text_area': textAreaExamples,
   'text_field': textFieldExamples,
+  'validated': validatedExamples,
   'alert': alertExamples,
+  'alert_dialog': alertDialogExamples,
   'dialog': dialogExamples,
   'tabs': tabsExamples,
   'table': tableExamples,
@@ -342,6 +376,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'skeleton': skeletonExamples,
   'calendar': calendarExamples,
   'star_rating': starRatingExamples,
+  'swiper': swiperExamples,
   'timeline': timelineExamples,
   'time_picker': timePickerExamples,
   'tracker': trackerExamples,
