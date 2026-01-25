@@ -64,6 +64,7 @@ import 'components/select/select_examples.dart';
 import 'components/skeleton/skeleton_examples.dart';
 import 'components/slider/slider_examples.dart';
 import 'components/spinner/spinner_examples.dart';
+import 'components/steps/steps_examples.dart';
 import 'components/switch/switch_examples.dart';
 import 'components/table/table_examples.dart';
 import 'components/tabs/tabs_examples.dart';
@@ -77,7 +78,11 @@ import 'components/tree/tree_examples.dart';
 import 'components/triple_dots/triple_dots_examples.dart';
 import 'components/radio_group/radio_group_examples.dart';
 import 'components/star_rating/star_rating_examples.dart';
+import 'components/timeline/timeline_examples.dart';
 import 'components/time_picker/time_picker_examples.dart';
+import 'components/scaffold/scaffold_examples.dart';
+import 'components/sortable/sortable_examples.dart';
+import 'components/window/window_examples.dart';
 
 const List<ComponentExampleBatch> exampleBatches = [
   ComponentExampleBatch(
@@ -219,6 +224,16 @@ const List<ComponentExampleBatch> exampleBatches = [
       'outlined_container',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 13',
+    componentIds: [
+      'scaffold',
+      'sortable',
+      'steps',
+      'timeline',
+      'window',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
@@ -284,6 +299,9 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'radio_group': radioGroupExamples,
   'scrollbar': scrollbarExamples,
   'scrollview': scrollviewExamples,
+  'scaffold': scaffoldExamples,
+  'sortable': sortableExamples,
+  'steps': stepsExamples,
   'text': textExamples,
   'text_area': textAreaExamples,
   'text_field': textFieldExamples,
@@ -297,10 +315,12 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'skeleton': skeletonExamples,
   'calendar': calendarExamples,
   'star_rating': starRatingExamples,
+  'timeline': timelineExamples,
   'time_picker': timePickerExamples,
   'tracker': trackerExamples,
   'tree': treeExamples,
   'triple_dots': tripleDotsExamples,
+  'window': windowExamples,
 };
 
 List<ComponentExample> examplesForComponent(String componentId) {
