@@ -19,6 +19,8 @@ import 'components/color_input/color_input_examples.dart';
 import 'components/color_picker/color_picker_examples.dart';
 import 'components/command/command_examples.dart';
 import 'components/control/control_examples.dart';
+import 'components/card_image/card_image_examples.dart';
+import 'components/collapsible/collapsible_examples.dart';
 import 'components/date_picker/date_picker_examples.dart';
 import 'components/dialog/dialog_examples.dart';
 import 'components/divider/divider_examples.dart';
@@ -47,6 +49,8 @@ import 'components/patch/patch_examples.dart';
 import 'components/phone_input/phone_input_examples.dart';
 import 'components/popover/popover_examples.dart';
 import 'components/progress/progress_examples.dart';
+import 'components/overflow_marquee/overflow_marquee_examples.dart';
+import 'components/resizable/resizable_examples.dart';
 import 'components/scrollbar/scrollbar_examples.dart';
 import 'components/scrollview/scrollview_examples.dart';
 import 'components/selectable/selectable_examples.dart';
@@ -189,6 +193,15 @@ const List<ComponentExampleBatch> exampleBatches = [
       'time_picker',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 11',
+    componentIds: [
+      'card_image',
+      'collapsible',
+      'overflow_marquee',
+      'resizable',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
@@ -198,6 +211,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'badge': badgeExamples,
   'accordion': accordionExamples,
   'card': cardExamples,
+  'card_image': cardImageExamples,
   'carousel': carouselExamples,
   'chat': chatExamples,
   'divider': dividerExamples,
@@ -211,6 +225,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'color_picker': colorPickerExamples,
   'command': commandExamples,
   'control': controlExamples,
+  'collapsible': collapsibleExamples,
   'date_picker': datePickerExamples,
   'dot_indicator': dotIndicatorExamples,
   'feature_carousel': featureCarouselExamples,
@@ -233,8 +248,10 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'multiple_choice': multipleChoiceExamples,
   'number_ticker': numberTickerExamples,
   'object_input': objectInputExamples,
+  'overflow_marquee': overflowMarqueeExamples,
   'patch': patchExamples,
   'phone_input': phoneInputExamples,
+  'resizable': resizableExamples,
   'selectable': selectableExamples,
   'select': selectExamples,
   'spinner': spinnerExamples,
