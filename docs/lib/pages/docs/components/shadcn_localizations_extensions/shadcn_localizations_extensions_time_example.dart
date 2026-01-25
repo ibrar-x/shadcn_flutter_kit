@@ -17,6 +17,6 @@ Text(strings.formatTimeOfDay(time, use24HourFormat: false));''',
 
 Widget _buildShadcnLocalizationsExtensionsTimeExample(BuildContext context) {
   final strings = ShadcnLocalizationsEn();
-  final time = const TimeOfDay(hour: 9, minute: 41, second: 12);
+  const time = TimeOfDay(hour: 9, minute: 41, second: 12);
   return Text(strings.formatTimeOfDay(time, use24HourFormat: false));
 }

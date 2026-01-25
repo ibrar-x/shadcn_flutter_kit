@@ -15,7 +15,7 @@ Wrap(
 );
 
 Widget _buildShadcnLocalizationsLocalesExample(BuildContext context) {
-  final locales = ShadcnLocalizations.supportedLocales;
+  const locales = ShadcnLocalizations.supportedLocales;
   return Wrap(
     spacing: 8,
     children: [

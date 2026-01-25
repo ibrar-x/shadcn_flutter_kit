@@ -26,7 +26,7 @@ const ComponentExample alphaOverlayExample = ComponentExample(
 );
 
 Widget _buildAlphaOverlayExample(BuildContext context) {
-  return const SizedBox(
+  return SizedBox(
     width: 160,
     height: 96,
     child: Stack(
@@ -35,7 +35,7 @@ Widget _buildAlphaOverlayExample(BuildContext context) {
           painter: AlphaPainter(),
           size: Size.infinite,
         ),
-        Positioned.fill(
+        const Positioned.fill(
           child: ColoredBox(
             color: Color(0x884F46E5),
           ),

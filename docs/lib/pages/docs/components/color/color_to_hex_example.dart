@@ -12,6 +12,6 @@ Text(colorToHex(color, true));''',
 );
 
 Widget _buildColorToHexExample(BuildContext context) {
-  final color = const Color(0xFF4F46E5);
+  const color = Color(0xFF4F46E5);
   return Text(colorToHex(color, true));
 }

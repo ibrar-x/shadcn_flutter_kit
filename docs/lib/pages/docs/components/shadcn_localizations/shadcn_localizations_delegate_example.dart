@@ -22,12 +22,12 @@ const ComponentExample shadcnLocalizationsDelegateExample = ComponentExample(
 );
 
 Widget _buildShadcnLocalizationsDelegateExample(BuildContext context) {
-  return const Directionality(
+  return Directionality(
     textDirection: TextDirection.ltr,
     child: Localizations(
-      locale: Locale('en'),
+      locale: const Locale('en'),
       delegates: ShadcnLocalizations.localizationsDelegates,
-      child: _LocalizedText(),
+      child: const _LocalizedText(),
     ),
   );
 }

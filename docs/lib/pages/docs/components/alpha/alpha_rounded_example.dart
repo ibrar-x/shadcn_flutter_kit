@@ -29,18 +29,18 @@ const ComponentExample alphaRoundedExample = ComponentExample(
 );
 
 Widget _buildAlphaRoundedExample(BuildContext context) {
-  return const SizedBox(
+  return SizedBox(
     width: 160,
     height: 96,
     child: ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(16)),
+      borderRadius: const BorderRadius.all(Radius.circular(16)),
       child: Stack(
         children: [
           CustomPaint(
             painter: AlphaPainter(),
             size: Size.infinite,
           ),
-          Positioned.fill(
+          const Positioned.fill(
             child: ColoredBox(
               color: Color(0x664ADE80),
             ),

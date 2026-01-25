@@ -16,7 +16,7 @@ const ComponentExample alphaBasicExample = ComponentExample(
 );
 
 Widget _buildAlphaBasicExample(BuildContext context) {
-  return const SizedBox(
+  return SizedBox(
     width: 160,
     height: 96,
     child: CustomPaint(
