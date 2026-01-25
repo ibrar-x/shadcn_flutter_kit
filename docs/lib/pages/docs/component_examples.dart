@@ -4,6 +4,7 @@ import 'components/alert/alert_examples.dart';
 import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
+import 'components/breadcrumb/breadcrumb_examples.dart';
 import 'components/button/button_examples.dart';
 import 'components/basic/basic_examples.dart';
 import 'components/calendar/calendar_examples.dart';
@@ -47,9 +48,12 @@ import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_shortcut/keyboard_shortcut_examples.dart';
 import 'components/linear_progress_indicator/linear_progress_indicator_examples.dart';
 import 'components/multiple_choice/multiple_choice_examples.dart';
+import 'components/navigation_bar/navigation_bar_examples.dart';
+import 'components/navigation_menu/navigation_menu_examples.dart';
 import 'components/number_ticker/number_ticker_examples.dart';
 import 'components/object_input/object_input_examples.dart';
 import 'components/patch/patch_examples.dart';
+import 'components/pagination/pagination_examples.dart';
 import 'components/phone_input/phone_input_examples.dart';
 import 'components/popover/popover_examples.dart';
 import 'components/progress/progress_examples.dart';
@@ -66,7 +70,10 @@ import 'components/slider/slider_examples.dart';
 import 'components/spinner/spinner_examples.dart';
 import 'components/steps/steps_examples.dart';
 import 'components/switch/switch_examples.dart';
+import 'components/switcher/switcher_examples.dart';
 import 'components/table/table_examples.dart';
+import 'components/tab_list/tab_list_examples.dart';
+import 'components/tab_pane/tab_pane_examples.dart';
 import 'components/tabs/tabs_examples.dart';
 import 'components/text_area/text_area_examples.dart';
 import 'components/text/text_examples.dart';
@@ -234,6 +241,19 @@ const List<ComponentExampleBatch> exampleBatches = [
       'window',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 14',
+    componentIds: [
+      'breadcrumb',
+      'navigation_bar',
+      'navigation_menu',
+      'pagination',
+      'stepper',
+      'switcher',
+      'tab_list',
+      'tab_pane',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
@@ -242,6 +262,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'button': buttonExamples,
   'avatar': avatarExamples,
   'badge': badgeExamples,
+  'breadcrumb': breadcrumbExamples,
   'accordion': accordionExamples,
   'card': cardExamples,
   'card_image': cardImageExamples,
@@ -281,11 +302,14 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'linear_progress_indicator': linearProgressIndicatorExamples,
   'input_otp': inputOtpExamples,
   'item_picker': itemPickerExamples,
+  'navigation_bar': navigationBarExamples,
+  'navigation_menu': navigationMenuExamples,
   'multiple_choice': multipleChoiceExamples,
   'number_ticker': numberTickerExamples,
   'object_input': objectInputExamples,
   'overflow_marquee': overflowMarqueeExamples,
   'patch': patchExamples,
+  'pagination': paginationExamples,
   'phone_input': phoneInputExamples,
   'media_query': mediaQueryExamples,
   'outlined_container': outlinedContainerExamples,
@@ -295,6 +319,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'spinner': spinnerExamples,
   'slider': sliderExamples,
   'switch': switchExamples,
+  'switcher': switcherExamples,
   'progress': progressExamples,
   'radio_group': radioGroupExamples,
   'scrollbar': scrollbarExamples,
@@ -309,6 +334,8 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'dialog': dialogExamples,
   'tabs': tabsExamples,
   'table': tableExamples,
+  'tab_list': tabListExamples,
+  'tab_pane': tabPaneExamples,
   'toast': toastExamples,
   'tooltip': tooltipExamples,
   'popover': popoverExamples,
