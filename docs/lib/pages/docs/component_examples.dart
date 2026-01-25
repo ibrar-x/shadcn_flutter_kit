@@ -28,13 +28,23 @@ import 'components/file_input/file_input_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
 import 'components/form_field/form_field_examples.dart';
+import 'components/formatted_input/formatted_input_examples.dart';
+import 'components/formatter/formatter_examples.dart';
+import 'components/history/history_examples.dart';
 import 'components/hover/hover_examples.dart';
 import 'components/icon/icon_examples.dart';
+import 'components/hsl/hsl_examples.dart';
+import 'components/hsv/hsv_examples.dart';
 import 'components/input/input_examples.dart';
+import 'components/input_otp/input_otp_examples.dart';
+import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_shortcut/keyboard_shortcut_examples.dart';
 import 'components/linear_progress_indicator/linear_progress_indicator_examples.dart';
+import 'components/multiple_choice/multiple_choice_examples.dart';
 import 'components/number_ticker/number_ticker_examples.dart';
+import 'components/object_input/object_input_examples.dart';
 import 'components/patch/patch_examples.dart';
+import 'components/phone_input/phone_input_examples.dart';
 import 'components/popover/popover_examples.dart';
 import 'components/progress/progress_examples.dart';
 import 'components/scrollbar/scrollbar_examples.dart';
@@ -47,12 +57,17 @@ import 'components/spinner/spinner_examples.dart';
 import 'components/switch/switch_examples.dart';
 import 'components/table/table_examples.dart';
 import 'components/tabs/tabs_examples.dart';
+import 'components/text_area/text_area_examples.dart';
 import 'components/text/text_examples.dart';
+import 'components/text_field/text_field_examples.dart';
 import 'components/toast/toast_examples.dart';
 import 'components/tooltip/tooltip_examples.dart';
 import 'components/tracker/tracker_examples.dart';
 import 'components/tree/tree_examples.dart';
 import 'components/triple_dots/triple_dots_examples.dart';
+import 'components/radio_group/radio_group_examples.dart';
+import 'components/star_rating/star_rating_examples.dart';
+import 'components/time_picker/time_picker_examples.dart';
 
 const List<ComponentExampleBatch> exampleBatches = [
   ComponentExampleBatch(
@@ -149,6 +164,31 @@ const List<ComponentExampleBatch> exampleBatches = [
       'form_field',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 9',
+    componentIds: [
+      'formatted_input',
+      'formatter',
+      'history',
+      'hsl',
+      'hsv',
+      'input_otp',
+      'item_picker',
+      'multiple_choice',
+      'object_input',
+      'phone_input',
+    ],
+  ),
+  ComponentExampleBatch(
+    title: 'Batch 10',
+    componentIds: [
+      'radio_group',
+      'star_rating',
+      'text_area',
+      'text_field',
+      'time_picker',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
@@ -178,22 +218,35 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'file_picker': filePickerExamples,
   'form': formExamples,
   'form_field': formFieldExamples,
+  'formatted_input': formattedInputExamples,
+  'formatter': formatterExamples,
+  'history': historyExamples,
   'input': inputExamples,
   'hover': hoverExamples,
   'icon': iconExamples,
+  'hsl': hslExamples,
+  'hsv': hsvExamples,
   'keyboard_shortcut': keyboardShortcutExamples,
   'linear_progress_indicator': linearProgressIndicatorExamples,
+  'input_otp': inputOtpExamples,
+  'item_picker': itemPickerExamples,
+  'multiple_choice': multipleChoiceExamples,
   'number_ticker': numberTickerExamples,
+  'object_input': objectInputExamples,
   'patch': patchExamples,
+  'phone_input': phoneInputExamples,
   'selectable': selectableExamples,
   'select': selectExamples,
   'spinner': spinnerExamples,
   'slider': sliderExamples,
   'switch': switchExamples,
   'progress': progressExamples,
+  'radio_group': radioGroupExamples,
   'scrollbar': scrollbarExamples,
   'scrollview': scrollviewExamples,
   'text': textExamples,
+  'text_area': textAreaExamples,
+  'text_field': textFieldExamples,
   'alert': alertExamples,
   'dialog': dialogExamples,
   'tabs': tabsExamples,
@@ -203,6 +256,8 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'popover': popoverExamples,
   'skeleton': skeletonExamples,
   'calendar': calendarExamples,
+  'star_rating': starRatingExamples,
+  'time_picker': timePickerExamples,
   'tracker': trackerExamples,
   'tree': treeExamples,
   'triple_dots': tripleDotsExamples,
