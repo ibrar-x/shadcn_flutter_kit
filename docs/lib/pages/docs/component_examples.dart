@@ -5,6 +5,7 @@ import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
 import 'components/button/button_examples.dart';
+import 'components/basic/basic_examples.dart';
 import 'components/calendar/calendar_examples.dart';
 import 'components/card/card_examples.dart';
 import 'components/carousel/carousel_examples.dart';
@@ -26,14 +27,17 @@ import 'components/dialog/dialog_examples.dart';
 import 'components/divider/divider_examples.dart';
 import 'components/dot_indicator/dot_indicator_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
+import 'components/fade_scroll/fade_scroll_examples.dart';
 import 'components/file_input/file_input_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
 import 'components/form_field/form_field_examples.dart';
 import 'components/formatted_input/formatted_input_examples.dart';
 import 'components/formatter/formatter_examples.dart';
+import 'components/group/group_examples.dart';
 import 'components/history/history_examples.dart';
 import 'components/hover/hover_examples.dart';
+import 'components/hidden/hidden_examples.dart';
 import 'components/icon/icon_examples.dart';
 import 'components/hsl/hsl_examples.dart';
 import 'components/hsv/hsv_examples.dart';
@@ -49,6 +53,8 @@ import 'components/patch/patch_examples.dart';
 import 'components/phone_input/phone_input_examples.dart';
 import 'components/popover/popover_examples.dart';
 import 'components/progress/progress_examples.dart';
+import 'components/media_query/media_query_examples.dart';
+import 'components/outlined_container/outlined_container_examples.dart';
 import 'components/overflow_marquee/overflow_marquee_examples.dart';
 import 'components/resizable/resizable_examples.dart';
 import 'components/scrollbar/scrollbar_examples.dart';
@@ -202,10 +208,22 @@ const List<ComponentExampleBatch> exampleBatches = [
       'resizable',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch 12',
+    componentIds: [
+      'basic',
+      'fade_scroll',
+      'group',
+      'hidden',
+      'media_query',
+      'outlined_container',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
   'autocomplete': autocompleteExamples,
+  'basic': basicExamples,
   'button': buttonExamples,
   'avatar': avatarExamples,
   'badge': badgeExamples,
@@ -229,13 +247,16 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'date_picker': datePickerExamples,
   'dot_indicator': dotIndicatorExamples,
   'feature_carousel': featureCarouselExamples,
+  'fade_scroll': fadeScrollExamples,
   'file_input': fileInputExamples,
   'file_picker': filePickerExamples,
   'form': formExamples,
   'form_field': formFieldExamples,
   'formatted_input': formattedInputExamples,
   'formatter': formatterExamples,
+  'group': groupExamples,
   'history': historyExamples,
+  'hidden': hiddenExamples,
   'input': inputExamples,
   'hover': hoverExamples,
   'icon': iconExamples,
@@ -251,6 +272,8 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'overflow_marquee': overflowMarqueeExamples,
   'patch': patchExamples,
   'phone_input': phoneInputExamples,
+  'media_query': mediaQueryExamples,
+  'outlined_container': outlinedContainerExamples,
   'resizable': resizableExamples,
   'selectable': selectableExamples,
   'select': selectExamples,
