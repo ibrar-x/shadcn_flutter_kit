@@ -23,7 +23,7 @@ Last updated: January 23, 2026
 - [ ] Verify web preloader + manifest parity
 
 ## Component pages
-- [ ] Focus Outline (`focus_outline`) - accessibility
+- [x] Focus Outline (`focus_outline`) - accessibility
 - [ ] Timeline Animation (`timeline_animation`) - animation
 - [ ] Button (`button`) - control
 - [ ] Clickable (`clickable`) - control
@@ -65,19 +65,19 @@ Last updated: January 23, 2026
 - [x] File Picker (`file_picker`) - form
 - [x] Form (`form`) - form
 - [x] Form Field (`form_field`) - form
-- [ ] Formatted Input (`formatted_input`) - form
-- [ ] Formatter (`formatter`) - form
-- [ ] Color History (`history`) - form
-- [ ] HSL Color Slider (`hsl`) - form
-- [ ] HSV Color Slider (`hsv`) - form
+- [x] Formatted Input (`formatted_input`) - form
+- [x] Formatter (`formatter`) - form
+- [x] Color History (`history`) - form
+- [x] HSL Color Slider (`hsl`) - form
+- [x] HSV Color Slider (`hsv`) - form
 - [ ] Input (`input`) - form
-- [ ] Input OTP (`input_otp`) - form
-- [ ] Item Picker (`item_picker`) - form
-- [ ] Multiple Choice (`multiple_choice`) - form
+- [x] Input OTP (`input_otp`) - form
+- [x] Item Picker (`item_picker`) - form
+- [x] Multiple Choice (`multiple_choice`) - form
 - [ ] Multi Select (`multiselect`) - form
 - [ ] Number Input (`number_input`) - form
-- [ ] Object Input (`object_input`) - form
-- [ ] Phone Input (`phone_input`) - form
+- [x] Object Input (`object_input`) - form
+- [x] Phone Input (`phone_input`) - form
 - [ ] Radio Card (`radio_card`) - form
 - [ ] Radio Group (`radio_group`) - form
 - [ ] Select (`select`) - form
@@ -147,14 +147,14 @@ Last updated: January 23, 2026
 - [ ] Tooltip (`tooltip`) - overlay
 - [x] Selectable Text (`selectable`) - text
 - [x] Text (`text`) - text
-- [ ] Alpha (`alpha`) - utility
-- [ ] Async (`async`) - utility
-- [ ] Color Utils (`color`) - utility
-- [ ] Debug (`debug`) - utility
-- [ ] Image (`image`) - utility
-- [ ] Locale Utils (`locale_utils`) - utility
+- [x] Alpha (`alpha`) - utility
+- [x] Async (`async`) - utility
+- [x] Color Utils (`color`) - utility
+- [x] Debug (`debug`) - utility
+- [x] Image (`image`) - utility
+- [x] Locale Utils (`locale_utils`) - utility
 - [ ] Repeated Animation Builder (`repeated_animation_builder`) - utility
-- [ ] Shadcn Localizations (`shadcn_localizations`) - utility
-- [ ] Shadcn Localizations (EN) (`shadcn_localizations_en`) - utility
-- [ ] Shadcn Localizations Extensions (`shadcn_localizations_extensions`) - utility
-- [ ] Wrapper (`wrapper`) - utility
+- [x] Shadcn Localizations (`shadcn_localizations`) - utility
+- [x] Shadcn Localizations (EN) (`shadcn_localizations_en`) - utility
+- [x] Shadcn Localizations Extensions (`shadcn_localizations_extensions`) - utility
+- [x] Wrapper (`wrapper`) - utility

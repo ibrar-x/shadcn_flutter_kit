@@ -1,7 +1,9 @@
 import 'component_example_models.dart';
 import 'components/accordion/accordion_examples.dart';
+import 'components/alpha/alpha_examples.dart';
 import 'components/alert/alert_examples.dart';
 import 'components/alert_dialog/alert_dialog_examples.dart';
+import 'components/async/async_examples.dart';
 import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/badge/badge_examples.dart';
@@ -18,6 +20,7 @@ import 'components/chip/chip_examples.dart';
 import 'components/circular_progress_indicator/circular_progress_indicator_examples.dart';
 import 'components/clickable/clickable_examples.dart';
 import 'components/code_snippet/code_snippet_examples.dart';
+import 'components/color/color_examples.dart';
 import 'components/color_input/color_input_examples.dart';
 import 'components/color_picker/color_picker_examples.dart';
 import 'components/command/command_examples.dart';
@@ -26,6 +29,7 @@ import 'components/context_menu/context_menu_examples.dart';
 import 'components/card_image/card_image_examples.dart';
 import 'components/collapsible/collapsible_examples.dart';
 import 'components/date_picker/date_picker_examples.dart';
+import 'components/debug/debug_examples.dart';
 import 'components/dialog/dialog_examples.dart';
 import 'components/divider/divider_examples.dart';
 import 'components/dot_indicator/dot_indicator_examples.dart';
@@ -33,6 +37,7 @@ import 'components/drawer/drawer_examples.dart';
 import 'components/dropdown_menu/dropdown_menu_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
 import 'components/fade_scroll/fade_scroll_examples.dart';
+import 'components/focus_outline/focus_outline_examples.dart';
 import 'components/file_input/file_input_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
@@ -47,11 +52,13 @@ import 'components/hidden/hidden_examples.dart';
 import 'components/icon/icon_examples.dart';
 import 'components/hsl/hsl_examples.dart';
 import 'components/hsv/hsv_examples.dart';
+import 'components/image/image_examples.dart';
 import 'components/input/input_examples.dart';
 import 'components/input_otp/input_otp_examples.dart';
 import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_shortcut/keyboard_shortcut_examples.dart';
 import 'components/linear_progress_indicator/linear_progress_indicator_examples.dart';
+import 'components/locale_utils/locale_utils_examples.dart';
 import 'components/multiple_choice/multiple_choice_examples.dart';
 import 'components/menubar/menubar_examples.dart';
 import 'components/navigation_bar/navigation_bar_examples.dart';
@@ -72,6 +79,9 @@ import 'components/scrollbar/scrollbar_examples.dart';
 import 'components/scrollview/scrollview_examples.dart';
 import 'components/selectable/selectable_examples.dart';
 import 'components/select/select_examples.dart';
+import 'components/shadcn_localizations/shadcn_localizations_examples.dart';
+import 'components/shadcn_localizations_en/shadcn_localizations_en_examples.dart';
+import 'components/shadcn_localizations_extensions/shadcn_localizations_extensions_examples.dart';
 import 'components/skeleton/skeleton_examples.dart';
 import 'components/slider/slider_examples.dart';
 import 'components/spinner/spinner_examples.dart';
@@ -100,6 +110,7 @@ import 'components/validated/validated_examples.dart';
 import 'components/scaffold/scaffold_examples.dart';
 import 'components/sortable/sortable_examples.dart';
 import 'components/window/window_examples.dart';
+import 'components/wrapper/wrapper_examples.dart';
 
 const List<ComponentExampleBatch> exampleBatches = [
   ComponentExampleBatch(
@@ -279,10 +290,28 @@ const List<ComponentExampleBatch> exampleBatches = [
       'swiper',
     ],
   ),
+  ComponentExampleBatch(
+    title: 'Batch K',
+    componentIds: [
+      'alpha',
+      'async',
+      'color',
+      'debug',
+      'focus_outline',
+      'image',
+      'locale_utils',
+      'shadcn_localizations',
+      'shadcn_localizations_en',
+      'shadcn_localizations_extensions',
+      'wrapper',
+    ],
+  ),
 ];
 
 final Map<String, List<ComponentExample>> componentExamples = {
   'autocomplete': autocompleteExamples,
+  'alpha': alphaExamples,
+  'async': asyncExamples,
   'basic': basicExamples,
   'button': buttonExamples,
   'avatar': avatarExamples,
@@ -300,6 +329,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'circular_progress_indicator': circularProgressIndicatorExamples,
   'clickable': clickableExamples,
   'code_snippet': codeSnippetExamples,
+  'color': colorExamples,
   'color_input': colorInputExamples,
   'color_picker': colorPickerExamples,
   'command': commandExamples,
@@ -307,11 +337,13 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'context_menu': contextMenuExamples,
   'collapsible': collapsibleExamples,
   'date_picker': datePickerExamples,
+  'debug': debugExamples,
   'dot_indicator': dotIndicatorExamples,
   'drawer': drawerExamples,
   'dropdown_menu': dropdownMenuExamples,
   'feature_carousel': featureCarouselExamples,
   'fade_scroll': fadeScrollExamples,
+  'focus_outline': focusOutlineExamples,
   'file_input': fileInputExamples,
   'file_picker': filePickerExamples,
   'form': formExamples,
@@ -327,10 +359,12 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'icon': iconExamples,
   'hsl': hslExamples,
   'hsv': hsvExamples,
+  'image': imageExamples,
   'keyboard_shortcut': keyboardShortcutExamples,
   'linear_progress_indicator': linearProgressIndicatorExamples,
   'input_otp': inputOtpExamples,
   'item_picker': itemPickerExamples,
+  'locale_utils': localeUtilsExamples,
   'menubar': menubarExamples,
   'navigation_bar': navigationBarExamples,
   'navigation_menu': navigationMenuExamples,
@@ -347,6 +381,9 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'resizable': resizableExamples,
   'selectable': selectableExamples,
   'select': selectExamples,
+  'shadcn_localizations': shadcnLocalizationsExamples,
+  'shadcn_localizations_en': shadcnLocalizationsEnExamples,
+  'shadcn_localizations_extensions': shadcnLocalizationsExtensionsExamples,
   'spinner': spinnerExamples,
   'slider': sliderExamples,
   'switch': switchExamples,
@@ -383,6 +420,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'tree': treeExamples,
   'triple_dots': tripleDotsExamples,
   'window': windowExamples,
+  'wrapper': wrapperExamples,
 };
 
 List<ComponentExample> examplesForComponent(String componentId) {
