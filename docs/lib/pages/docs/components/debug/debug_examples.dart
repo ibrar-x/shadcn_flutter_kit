@@ -4,7 +4,7 @@ import 'debug_container_example.dart';
 import 'debug_sticker_example.dart';
 
 const List<ComponentExample> debugExamples = [
-  debugContainerExample,
   debugBoundsExample,
+  debugContainerExample,
   debugStickerExample,
 ];

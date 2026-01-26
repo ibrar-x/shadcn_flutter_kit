@@ -1,96 +1,100 @@
-import 'package:flutter/material.dart';
+import 'package:docs/pages/docs/components/carousel_example.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../carousel/carousel_shared.dart';
-import '../../../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../../../ui/shadcn/components/navigation/stepper/stepper.dart'
-    as shadcn_stepper;
-
-const ComponentExample stepperExample5 = ComponentExample(
-  title: 'Custom icons',
-  builder: _buildStepperExample5,
-  code: '''Step(icon: StepNumber(icon: Icon(Icons.person)))''',
-);
-
-Widget _buildStepperExample5(BuildContext context) {
-  return const _StepperExample5();
-}
-
-class _StepperExample5 extends StatefulWidget {
-  const _StepperExample5();
+class StepperExample5 extends StatefulWidget {
+  const StepperExample5({super.key});
 
   @override
-  State<_StepperExample5> createState() => _StepperExample5State();
+  State<StepperExample5> createState() => _StepperExample5State();
 }
 
-class _StepperExample5State extends State<_StepperExample5> {
-  final shadcn_stepper.StepperController controller =
-      shadcn_stepper.StepperController();
+class _StepperExample5State extends State<StepperExample5> {
+  final StepperController controller = StepperController();
 
   @override
   Widget build(BuildContext context) {
-    return shadcn_stepper.Stepper(
+    return Stepper(
       controller: controller,
       direction: Axis.horizontal,
       steps: [
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 1'),
-          icon: const shadcn_stepper.StepNumber(
+          icon: const StepNumber(
+            // You can customize the step icon, e.g., use a person icon.
             icon: Icon(Icons.person),
           ),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                const shadcn_buttons.SecondaryButton(child: Text('Prev')),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Next'),
+                const SecondaryButton(
+                  child: Text('Prev'),
                 ),
+                PrimaryButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 1, height: 200),
+              child: const NumberedContainer(
+                index: 1,
+                height: 200,
+              ),
             );
           },
         ),
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 2'),
-          icon: const shadcn_stepper.StepNumber(
+          icon: const StepNumber(
+            // Another custom icon for the second step.
             icon: Icon(Icons.house_outlined),
           ),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                shadcn_buttons.SecondaryButton(
-                  onPressed: controller.previousStep,
+                SecondaryButton(
                   child: const Text('Prev'),
+                  onPressed: () {
+                    controller.previousStep();
+                  },
                 ),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Next'),
-                ),
+                PrimaryButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 2, height: 200),
+              child: const NumberedContainer(
+                index: 2,
+                height: 200,
+              ),
             );
           },
         ),
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 3'),
-          icon: const shadcn_stepper.StepNumber(
+          icon: const StepNumber(
+            // And a briefcase icon for the third.
             icon: Icon(Icons.work_outline),
           ),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                shadcn_buttons.SecondaryButton(
-                  onPressed: controller.previousStep,
+                SecondaryButton(
                   child: const Text('Prev'),
+                  onPressed: () {
+                    controller.previousStep();
+                  },
                 ),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Finish'),
-                ),
+                PrimaryButton(
+                    child: const Text('Finish'),
+                    onPressed: () {
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 3, height: 200),
+              child: const NumberedContainer(
+                index: 3,
+                height: 200,
+              ),
             );
           },
         ),

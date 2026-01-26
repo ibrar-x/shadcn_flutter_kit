@@ -5,8 +5,8 @@ import 'text_field_features_example.dart';
 import 'text_field_revalidate_example.dart';
 
 const List<ComponentExample> textFieldExamples = [
+  textFieldActionsExample,
   textFieldBasicExample,
   textFieldFeaturesExample,
-  textFieldActionsExample,
   textFieldRevalidateExample,
 ];

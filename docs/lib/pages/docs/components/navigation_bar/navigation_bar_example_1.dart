@@ -1,73 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../../../ui/shadcn/components/display/divider/divider.dart'
-    as shadcn_divider;
-import '../../../../ui/shadcn/components/form/checkbox/checkbox.dart'
-    as shadcn_checkbox;
-import '../../../../ui/shadcn/components/form/select/select.dart'
-    as shadcn_select;
-import '../../../../ui/shadcn/components/layout/card/card.dart' as shadcn_card;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/components/layout/scaffold/scaffold.dart'
-    as shadcn_scaffold;
-import '../../../../ui/shadcn/components/navigation/navigation_bar/navigation_bar.dart'
-    as shadcn_navbar;
-import '../../../../ui/shadcn/components/overlay/popover/popover.dart'
-    as shadcn_popover;
-
-const ComponentExample navigationBarExample1 = ComponentExample(
-  title: 'Configurator',
-  builder: _buildNavigationBarExample1,
-  code: '''NavigationBar(
-  alignment: alignment,
-  labelType: labelType,
-  expanded: expanded,
-  expands: expands,
-  onSelected: (index) => setState(() => selected = index),
-  index: selected,
-  children: [
-    NavigationItem(label: Text('Home'), child: Icon(Icons.home)),
-  ],
-)''',
-);
-
-Widget _buildNavigationBarExample1(BuildContext context) {
-  return const _NavigationBarExample1();
-}
-
-class _NavigationBarExample1 extends StatefulWidget {
-  const _NavigationBarExample1();
+class NavigationBarExample1 extends StatefulWidget {
+  const NavigationBarExample1({super.key});
 
   @override
-  State<_NavigationBarExample1> createState() => _NavigationBarExample1State();
+  State<NavigationBarExample1> createState() => _NavigationBarExample1State();
 }
 
-class _NavigationBarExample1State extends State<_NavigationBarExample1> {
+class _NavigationBarExample1State extends State<NavigationBarExample1> {
   int selected = 0;
 
-  shadcn_navbar.NavigationBarAlignment alignment =
-      shadcn_navbar.NavigationBarAlignment.spaceAround;
+  NavigationBarAlignment alignment = NavigationBarAlignment.spaceAround;
   bool expands = true;
-  shadcn_navbar.NavigationLabelType labelType =
-      shadcn_navbar.NavigationLabelType.none;
+  NavigationLabelType labelType = NavigationLabelType.none;
   bool customButtonStyle = true;
   bool expanded = true;
 
-  shadcn_navbar.NavigationItem buildButton(String label, IconData icon) {
-    return shadcn_navbar.NavigationItem(
+  NavigationItem buildButton(String label, IconData icon) {
+    return NavigationItem(
       style: customButtonStyle
-          ? const shadcn_buttons.ButtonStyle.muted(
-              density: shadcn_buttons.ButtonDensity.icon,
-            )
+          ? const ButtonStyle.muted(density: ButtonDensity.icon)
           : null,
       selectedStyle: customButtonStyle
-          ? const shadcn_buttons.ButtonStyle.fixed(
-              density: shadcn_buttons.ButtonDensity.icon,
-            )
+          ? const ButtonStyle.fixed(density: ButtonDensity.icon)
           : null,
       label: Text(label),
       child: Icon(icon),
@@ -76,13 +31,13 @@ class _NavigationBarExample1State extends State<_NavigationBarExample1> {
 
   @override
   Widget build(BuildContext context) {
-    return shadcn_outlined.OutlinedContainer(
+    return OutlinedContainer(
       width: 500,
       height: 400,
-      child: shadcn_scaffold.Scaffold(
+      child: Scaffold(
         footers: [
-          const shadcn_divider.Divider(),
-          shadcn_navbar.NavigationBar(
+          const Divider(),
+          NavigationBar(
             alignment: alignment,
             labelType: labelType,
             expanded: expanded,
@@ -94,18 +49,18 @@ class _NavigationBarExample1State extends State<_NavigationBarExample1> {
             },
             index: selected,
             children: [
-              buildButton('Home', Icons.home_outlined),
-              buildButton('Explore', Icons.explore_outlined),
-              buildButton('Library', Icons.library_music_outlined),
-              buildButton('Profile', Icons.person_outline),
-              buildButton('App', Icons.apps_outlined),
+              buildButton('Home', LucideIcons.house),
+              buildButton('Explore', LucideIcons.compass),
+              buildButton('Library', LucideIcons.listMusic),
+              buildButton('Profile', LucideIcons.user),
+              buildButton('App', LucideIcons.layoutGrid),
             ],
           ),
         ],
         child: Container(
           color: Colors.primaries[Colors.primaries.length - selected - 1],
           padding: const EdgeInsets.all(24),
-          child: shadcn_card.Card(
+          child: Card(
             child: Wrap(
               alignment: WrapAlignment.center,
               runAlignment: WrapAlignment.center,
@@ -113,16 +68,14 @@ class _NavigationBarExample1State extends State<_NavigationBarExample1> {
               runSpacing: 8,
               spacing: 8,
               children: [
-                shadcn_select.Select<shadcn_navbar.NavigationBarAlignment>(
+                // Configure how the items are distributed across the bar.
+                Select<NavigationBarAlignment>(
                   value: alignment,
-                  itemBuilder: (
-                    BuildContext context,
-                    shadcn_navbar.NavigationBarAlignment item,
-                  ) {
+                  itemBuilder:
+                      (BuildContext context, NavigationBarAlignment item) {
                     return Text(item.name);
                   },
-                  popupWidthConstraint:
-                      shadcn_popover.PopoverConstraint.anchorFixedSize,
+                  popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
@@ -130,29 +83,23 @@ class _NavigationBarExample1State extends State<_NavigationBarExample1> {
                       });
                     }
                   },
-                  popup: shadcn_select.SelectPopup(
-                    items: shadcn_select.SelectItemList(
-                      children: [
-                        for (var value
-                            in shadcn_navbar.NavigationBarAlignment.values)
-                          shadcn_select.SelectItemButton(
-                            value: value,
-                            child: Text(value.name),
-                          ),
-                      ],
-                    ),
-                  ),
+                  popup: SelectPopup(
+                      items: SelectItemList(children: [
+                    for (var value in NavigationBarAlignment.values)
+                      SelectItemButton(
+                        value: value,
+                        child: Text(value.name),
+                      ),
+                  ])),
                 ),
-                shadcn_select.Select<shadcn_navbar.NavigationLabelType>(
+                // Control how labels are shown for each navigation item.
+                Select<NavigationLabelType>(
                   value: labelType,
-                  itemBuilder: (
-                    BuildContext context,
-                    shadcn_navbar.NavigationLabelType item,
-                  ) {
+                  itemBuilder:
+                      (BuildContext context, NavigationLabelType item) {
                     return Text(item.name);
                   },
-                  popupWidthConstraint:
-                      shadcn_popover.PopoverConstraint.anchorFixedSize,
+                  popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
@@ -160,49 +107,46 @@ class _NavigationBarExample1State extends State<_NavigationBarExample1> {
                       });
                     }
                   },
-                  popup: shadcn_select.SelectPopup(
-                    items: shadcn_select.SelectItemList(
-                      children: [
-                        for (var value
-                            in shadcn_navbar.NavigationLabelType.values)
-                          shadcn_select.SelectItemButton(
-                            value: value,
-                            child: Text(value.name),
-                          ),
-                      ],
-                    ),
-                  ),
+                  popup: SelectPopup(
+                      items: SelectItemList(children: [
+                    for (var value in NavigationLabelType.values)
+                      SelectItemButton(
+                        value: value,
+                        child: Text(value.name),
+                      ),
+                  ])),
                 ),
-                shadcn_checkbox.Checkbox(
-                  state: expands
-                      ? shadcn_checkbox.CheckboxState.checked
-                      : shadcn_checkbox.CheckboxState.unchecked,
+                // Whether the navigation bar can expand to fill width.
+                Checkbox(
+                  state:
+                      expands ? CheckboxState.checked : CheckboxState.unchecked,
                   onChanged: (value) {
                     setState(() {
-                      expands = value == shadcn_checkbox.CheckboxState.checked;
+                      expands = value == CheckboxState.checked;
                     });
                   },
                   trailing: const Text('Expands'),
                 ),
-                shadcn_checkbox.Checkbox(
+                // Use custom button styles for normal vs selected states.
+                Checkbox(
                   state: customButtonStyle
-                      ? shadcn_checkbox.CheckboxState.checked
-                      : shadcn_checkbox.CheckboxState.unchecked,
+                      ? CheckboxState.checked
+                      : CheckboxState.unchecked,
                   onChanged: (value) {
                     setState(() {
-                      customButtonStyle =
-                          value == shadcn_checkbox.CheckboxState.checked;
+                      customButtonStyle = value == CheckboxState.checked;
                     });
                   },
                   trailing: const Text('Custom Button Style'),
                 ),
-                shadcn_checkbox.Checkbox(
+                // Toggle the expanded label behavior.
+                Checkbox(
                   state: expanded
-                      ? shadcn_checkbox.CheckboxState.checked
-                      : shadcn_checkbox.CheckboxState.unchecked,
+                      ? CheckboxState.checked
+                      : CheckboxState.unchecked,
                   onChanged: (value) {
                     setState(() {
-                      expanded = value == shadcn_checkbox.CheckboxState.checked;
+                      expanded = value == CheckboxState.checked;
                     });
                   },
                   trailing: const Text('Expanded'),

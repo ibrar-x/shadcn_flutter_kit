@@ -1,122 +1,323 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yaml/yaml.dart';
+
+import 'pages/docs/colors_page.dart';
+import 'pages/docs/components_page.dart';
+import 'pages/docs/component_detail_page.dart';
+import 'pages/docs/icons_page.dart';
+import 'pages/docs/installation_page.dart';
+import 'pages/docs/introduction_page.dart';
+import 'pages/docs/layout_page.dart';
+import 'pages/docs/components/material_example.dart';
+import 'pages/docs/state_management_page.dart';
+import 'pages/docs/theme_page.dart';
+import 'pages/docs/typography_page.dart';
+import 'pages/docs/web_preloader_page.dart';
+import 'theme/docs_theme.dart';
+import 'theme/theme_controller.dart';
+import 'web_bridge.dart';
+import 'ui/shadcn/components/form/history/history.dart';
+import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
+import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
+import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
+import 'ui/shadcn/shared/primitives/overlay.dart';
+
+const bool enableWebSemantics = bool.fromEnvironment(
+  'ENABLE_WEB_SEMANTICS',
+  defaultValue: false,
+);
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb && enableWebSemantics) {
+    SemanticsBinding.instance.ensureSemantics();
+  }
+
+  final docsConfig = await _loadDocsConfig();
+  final prefs = await SharedPreferences.getInstance();
+  final settings = await _loadSettings(prefs);
+
+  runApp(DocsRoot(
+    docsConfig: docsConfig,
+    settings: settings,
+    prefs: prefs,
+  ));
+  _notifyWebAppReady();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+Future<Map<String, Object?>> _loadDocsConfig() async {
+  try {
+    final raw = await rootBundle.loadString('docs.json');
+    return jsonDecode(raw) as Map<String, Object?>;
+  } catch (_) {
+    return {'flavor': 'local'};
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
+  final presetId = prefs.getString(kPrefsThemePresetId) ?? 'zinc';
+  final themeMode = prefs.getString(kPrefsThemeMode) ?? 'dark';
+  final brightness = themeMode == 'dark' ? Brightness.dark : Brightness.light;
+  shadcn_colors.ColorScheme scheme;
+  final customRaw = prefs.getString(kPrefsCustomScheme);
+  if (presetId == 'custom' && customRaw != null) {
+    scheme = shadcn_colors.ColorScheme.fromMap(
+      jsonDecode(customRaw) as Map<String, dynamic>,
+    );
+  } else {
+    scheme = _schemeForPreset(presetId, brightness);
+  }
+  final storedPath = prefs.getString('initialPath');
+  return DocsSettings(
+    colorScheme: scheme,
+    radius: prefs.getDouble(kPrefsRadius) ?? 0.1,
+    scaling: prefs.getDouble(kPrefsScaling) ?? 1.0,
+    surfaceOpacity: prefs.getDouble(kPrefsSurfaceOpacity) ?? 1.0,
+    surfaceBlur: prefs.getDouble(kPrefsSurfaceBlur) ?? 0.0,
+    initialPath: storedPath ?? '/',
+    presetId: presetId,
+    brightness: brightness,
+  );
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class DocsSettings {
+  final shadcn_colors.ColorScheme colorScheme;
+  final double radius;
+  final double scaling;
+  final double surfaceOpacity;
+  final double surfaceBlur;
+  final String initialPath;
+  final String presetId;
+  final Brightness brightness;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  const DocsSettings({
+    required this.colorScheme,
+    required this.radius,
+    required this.scaling,
+    required this.surfaceOpacity,
+    required this.surfaceBlur,
+    required this.initialPath,
+    required this.presetId,
+    required this.brightness,
+  });
+}
+
+class DocsRoot extends StatefulWidget {
+  final Map<String, Object?> docsConfig;
+  final DocsSettings settings;
+  final SharedPreferences prefs;
+
+  const DocsRoot({
+    super.key,
+    required this.docsConfig,
+    required this.settings,
+    required this.prefs,
+  });
+
+  @override
+  State<DocsRoot> createState() => _DocsRootState();
+}
+
+class _DocsRootState extends State<DocsRoot> {
+  late DocsThemeController controller;
+  late GoRouter router;
+  Brightness? _lastBrightness;
+  shadcn_colors.ColorScheme? _lastScheme;
+
+  @override
+  void initState() {
+    super.initState();
+    final themeData = DocsThemeData(
+      colorScheme: widget.settings.colorScheme,
+      radius: widget.settings.radius,
+      scaling: widget.settings.scaling,
+      surfaceOpacity: widget.settings.surfaceOpacity,
+      surfaceBlur: widget.settings.surfaceBlur,
+    );
+    controller = DocsThemeController(
+      initialData: themeData,
+      prefs: widget.prefs,
+      presetId: widget.settings.presetId,
+      brightness: widget.settings.brightness,
+    );
+
+    router = GoRouter(
+      initialLocation: widget.settings.initialPath,
+      routes: [
+        GoRoute(
+          path: '/',
+          name: 'introduction',
+          builder: (context, state) => const IntroductionPage(),
+        ),
+        GoRoute(
+          path: '/installation',
+          name: 'installation',
+          builder: (context, state) => const InstallationPage(),
+        ),
+        GoRoute(
+          path: '/theme',
+          name: 'theme',
+          builder: (context, state) => const ThemePage(),
+        ),
+        GoRoute(
+          path: '/typography',
+          name: 'typography',
+          builder: (context, state) => const TypographyPage(),
+        ),
+        GoRoute(
+          path: '/layout',
+          name: 'layout',
+          builder: (context, state) => const LayoutPage(),
+        ),
+        GoRoute(
+          path: '/icons',
+          name: 'icons',
+          builder: (context, state) => const IconsPage(),
+        ),
+        GoRoute(
+          path: '/colors',
+          name: 'colors',
+          builder: (context, state) => const ColorsPage(),
+        ),
+        GoRoute(
+          path: '/material',
+          name: 'material',
+          builder: (context, state) => const MaterialExample(),
+        ),
+        GoRoute(
+          path: '/state',
+          name: 'state',
+          builder: (context, state) => const StateManagementPage(),
+        ),
+        GoRoute(
+          path: '/web_preloader',
+          name: 'web_preloader',
+          builder: (context, state) => const WebPreloaderPage(),
+        ),
+        GoRoute(
+          path: '/components',
+          name: 'components',
+          builder: (context, state) => const ComponentsPage(),
+        ),
+        GoRoute(
+          path: '/components/:id',
+          name: 'component_detail',
+          builder: (context, state) => ComponentDetailPage(
+            componentId: state.pathParameters['id'] ?? '',
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DocsThemeControllerScope(
+      controller: controller,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, _) {
+          final data = controller.data;
+          _notifyWebThemeChanged(data);
+          return DocsThemeScope(
+            data: data,
+            child: MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              title: 'shadcn/ui Flutter',
+              theme: data.toMaterialTheme(),
+              routerConfig: router,
+              builder: (context, child) => shadcn_theme.Theme(
+                data: data.toShadcnTheme(),
+                child: ShadcnLayer(
+                  child: RecentColorsScope(
+                    child: EyeDropperLayer(
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: child ?? const SizedBox.shrink(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _notifyWebThemeChanged(DocsThemeData data) {
+    if (!kIsWeb) return;
+    final brightness = data.colorScheme.brightness;
+    if (_lastBrightness == brightness && _lastScheme == data.colorScheme) {
+      return;
+    }
+    _lastBrightness = brightness;
+    _lastScheme = data.colorScheme;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _dispatchWebThemeEvent(data);
     });
   }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+void _notifyWebAppReady() {
+  if (!kIsWeb) return;
+  SchedulerBinding.instance.addPostFrameCallback((_) {
+    dispatchWebAppReady();
+  });
+}
+
+void _dispatchWebThemeEvent(DocsThemeData data) {
+  if (!kIsWeb) return;
+  dispatchWebThemeChanged({
+    'background': _toHexColor(data.colorScheme.background),
+    'foreground': _toHexColor(data.colorScheme.foreground),
+    'primary': _toHexColor(data.colorScheme.primary),
+  });
+}
+
+String _toHexColor(Color color) {
+  final value = color.toARGB32().toRadixString(16).padLeft(8, '0');
+  return '#${value.substring(2)}';
+}
+
+shadcn_colors.ColorScheme _schemeForPreset(
+  String presetId,
+  Brightness brightness,
+) {
+  final preset = DocsThemeController.presets.firstWhere(
+    (preset) => preset.id == presetId,
+    orElse: () => DocsThemeController.presets.first,
+  );
+  return brightness == Brightness.dark ? preset.dark : preset.light;
+}
+
+String getReleaseTagName() {
+  return 'Release';
+}
+
+String? loadPackageVersion(String rawLock) {
+  final lock = loadYaml(rawLock);
+  if (lock is! YamlMap) {
+    return null;
   }
+  final packages = lock['packages'];
+  if (packages is! YamlMap) {
+    return null;
+  }
+  final dep = packages['shadcn_flutter'];
+  if (dep is! YamlMap) {
+    return null;
+  }
+  final version = dep['version'];
+  return version is String ? version : null;
 }

@@ -2,6 +2,27 @@
 
 A new Flutter project.
 
+## Registry docs workflow
+
+Install registry components into this docs app:
+
+```bash
+make docs-install
+```
+
+Generate the registry barrel and docs component pages:
+
+```bash
+make docs-barrel
+make docs-generate
+```
+
+Or run everything in one step:
+
+```bash
+make docs-refresh
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

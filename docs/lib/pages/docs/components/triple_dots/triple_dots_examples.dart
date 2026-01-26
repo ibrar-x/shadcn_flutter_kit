@@ -5,6 +5,6 @@ import 'triple_dots_vertical_example.dart';
 
 const List<ComponentExample> tripleDotsExamples = [
   tripleDotsBasicExample,
-  tripleDotsVerticalExample,
   tripleDotsSizesExample,
+  tripleDotsVerticalExample,
 ];

@@ -5,6 +5,6 @@ import 'shadcn_localizations_en_numeric_example.dart';
 
 const List<ComponentExample> shadcnLocalizationsEnExamples = [
   shadcnLocalizationsEnBasicExample,
-  shadcnLocalizationsEnNumericExample,
   shadcnLocalizationsEnCommandExample,
+  shadcnLocalizationsEnNumericExample,
 ];

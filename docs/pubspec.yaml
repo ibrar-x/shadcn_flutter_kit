@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.7
+  sdk: '>=3.3.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,6 +35,27 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  go_router: ^14.2.3
+  shared_preferences: ^2.3.2
+  http: ^1.2.2
+  widget_visibility_checker: ^1.0.2
+  visibility_detector: ^0.4.0+2
+  font_awesome_flutter: ^10.7.0
+  url_launcher: ^6.3.0
+  yaml: ^3.1.3
+  syntax_highlight: ^0.5.0
+  data_widget: ^0.0.2
+  gap: ^3.0.1
+  animation_kit: ^0.0.2
+  country_flags: ^4.1.1
+  email_validator: ^3.0.0
+  expressions: ^0.2.5+2
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  phonecodes: ^0.0.4
+  skeletonizer: ^2.1.0+1
+  web: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,7 +65,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^6.0.0
+  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -56,6 +77,112 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: LucideIcons
+      fonts:
+        - asset: assets/fonts/lucide.ttf
+    - family: RadixIcons
+      fonts:
+        - asset: assets/fonts/radix.otf
+    - family: BootstrapIcons
+      fonts:
+        - asset: assets/fonts/bootstrap.otf
+    - family: GeistSans
+      fonts:
+        - asset: assets/fonts/Geist-Black.otf
+          weight: 800
+        - asset: assets/fonts/Geist-BlackItalic.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Geist-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Geist-BoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Geist-ExtraLightItalic.otf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Geist-Light.otf
+          weight: 300
+        - asset: assets/fonts/Geist-LightItalic.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Geist-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Geist-MediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Geist-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Geist-RegularItalic.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Geist-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Geist-SemiBoldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Geist-Thin.otf
+          weight: 100
+        - asset: assets/fonts/Geist-ThinItalic.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Geist-UltraBlack.otf
+          weight: 900
+        - asset: assets/fonts/Geist-UltraLight.otf
+          weight: 200
+    - family: GeistMono
+      fonts:
+        - asset: assets/fonts/GeistMono-Black.otf
+          weight: 800
+        - asset: assets/fonts/GeistMono-BlackItalic.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/GeistMono-Bold.otf
+          weight: 700
+        - asset: assets/fonts/GeistMono-BoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/GeistMono-ExtraLightItalic.otf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/GeistMono-Italic.otf
+          style: italic
+        - asset: assets/fonts/GeistMono-Light.otf
+          weight: 300
+        - asset: assets/fonts/GeistMono-LightItalic.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/GeistMono-Medium.otf
+          weight: 500
+        - asset: assets/fonts/GeistMono-MediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/GeistMono-Regular.otf
+          weight: 400
+        - asset: assets/fonts/GeistMono-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/GeistMono-SemiBoldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/GeistMono-Thin.otf
+          weight: 100
+        - asset: assets/fonts/GeistMono-ThinItalic.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/GeistMono-UltraBlack.otf
+          weight: 900
+        - asset: assets/fonts/GeistMono-UltraLight.otf
+          weight: 200
+
+  assets:
+    - docs.json
+    - pubspec.lock
+    - assets/registry/components.json
+    - assets/docs_images/
+    - packages/syntax_highlight/grammars/
+    - packages/syntax_highlight/themes/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

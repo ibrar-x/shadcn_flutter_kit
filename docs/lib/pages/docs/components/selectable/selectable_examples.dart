@@ -5,6 +5,6 @@ import 'selectable_rich_example.dart';
 
 const List<ComponentExample> selectableExamples = [
   selectableBasicExample,
-  selectableRichExample,
   selectableCustomCursorExample,
+  selectableRichExample,
 ];

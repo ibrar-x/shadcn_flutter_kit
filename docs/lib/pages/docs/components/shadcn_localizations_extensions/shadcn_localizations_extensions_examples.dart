@@ -5,6 +5,6 @@ import 'shadcn_localizations_extensions_time_example.dart';
 
 const List<ComponentExample> shadcnLocalizationsExtensionsExamples = [
   shadcnLocalizationsExtensionsDateExample,
-  shadcnLocalizationsExtensionsTimeExample,
   shadcnLocalizationsExtensionsDurationExample,
+  shadcnLocalizationsExtensionsTimeExample,
 ];

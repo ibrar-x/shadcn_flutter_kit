@@ -4,7 +4,7 @@ import 'locale_utils_duration_parts_example.dart';
 import 'locale_utils_file_size_example.dart';
 
 const List<ComponentExample> localeUtilsExamples = [
-  localeUtilsFileSizeExample,
   localeUtilsDatePartsExample,
   localeUtilsDurationPartsExample,
+  localeUtilsFileSizeExample,
 ];

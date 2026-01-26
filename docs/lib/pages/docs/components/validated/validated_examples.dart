@@ -5,6 +5,6 @@ import 'validated_length_example.dart';
 
 const List<ComponentExample> validatedExamples = [
   validatedBasicExample,
-  validatedLengthExample,
   validatedCustomExample,
+  validatedLengthExample,
 ];

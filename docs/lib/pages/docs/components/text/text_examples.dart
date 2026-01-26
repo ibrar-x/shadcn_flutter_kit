@@ -4,7 +4,7 @@ import 'text_inline_example.dart';
 import 'text_scale_example.dart';
 
 const List<ComponentExample> textExamples = [
-  textScaleExample,
-  textInlineExample,
   textEmphasisExample,
+  textInlineExample,
+  textScaleExample,
 ];

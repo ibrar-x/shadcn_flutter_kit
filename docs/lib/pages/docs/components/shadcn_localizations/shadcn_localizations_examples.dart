@@ -4,7 +4,7 @@ import 'shadcn_localizations_delegate_example.dart';
 import 'shadcn_localizations_locales_example.dart';
 
 const List<ComponentExample> shadcnLocalizationsExamples = [
+  shadcnLocalizationsCommandExample,
   shadcnLocalizationsDelegateExample,
   shadcnLocalizationsLocalesExample,
-  shadcnLocalizationsCommandExample,
 ];

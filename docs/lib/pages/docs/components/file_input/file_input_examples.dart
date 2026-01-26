@@ -5,6 +5,6 @@ import 'file_input_custom_map_example.dart';
 
 const List<ComponentExample> fileInputExamples = [
   fileInputBasicExample,
-  fileInputCustomMapExample,
   fileInputCustomBuilderExample,
+  fileInputCustomMapExample,
 ];
