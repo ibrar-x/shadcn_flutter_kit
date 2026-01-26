@@ -1,101 +1,74 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/card/card.dart' as shadcn_card;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/components/layout/sortable/sortable.dart'
-    as shadcn_sortable;
-import '../../../../ui/shadcn/shared/utils/util.dart';
-
-const ComponentExample sortableExample1 = ComponentExample(
-  title: 'Two lists',
-  builder: _buildSortableExample1,
-  code: '''SortableLayer(
-  child: Row(
-    children: [
-      SortableDropFallback(...),
-      SortableDropFallback(...),
-    ],
-  ),
-)''',
-);
-
-Widget _buildSortableExample1(BuildContext context) {
-  return const _SortableExample1();
-}
-
-class _SortableExample1 extends StatefulWidget {
-  const _SortableExample1();
+class SortableExample1 extends StatefulWidget {
+  const SortableExample1({super.key});
 
   @override
-  State<_SortableExample1> createState() => _SortableExample1State();
+  State<SortableExample1> createState() => _SortableExample1State();
 }
 
-class _SortableExample1State extends State<_SortableExample1> {
-  List<shadcn_sortable.SortableData<String>> invited = [
-    const shadcn_sortable.SortableData('James'),
-    const shadcn_sortable.SortableData('John'),
-    const shadcn_sortable.SortableData('Robert'),
-    const shadcn_sortable.SortableData('Michael'),
-    const shadcn_sortable.SortableData('William'),
+class _SortableExample1State extends State<SortableExample1> {
+  // Two separate lists for demonstrating cross-list drag-and-drop.
+  List<SortableData<String>> invited = [
+    const SortableData('James'),
+    const SortableData('John'),
+    const SortableData('Robert'),
+    const SortableData('Michael'),
+    const SortableData('William'),
   ];
-  List<shadcn_sortable.SortableData<String>> reserved = [
-    const shadcn_sortable.SortableData('David'),
-    const shadcn_sortable.SortableData('Richard'),
-    const shadcn_sortable.SortableData('Joseph'),
-    const shadcn_sortable.SortableData('Thomas'),
-    const shadcn_sortable.SortableData('Charles'),
+  List<SortableData<String>> reserved = [
+    const SortableData('David'),
+    const SortableData('Richard'),
+    const SortableData('Joseph'),
+    const SortableData('Thomas'),
+    const SortableData('Charles'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 500,
-      child: shadcn_sortable.SortableLayer(
+      child: SortableLayer(
+        // The SortableLayer coordinates drag-over/accept behavior for nested Sortable zones.
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: shadcn_card.Card(
-                child: shadcn_sortable.SortableDropFallback<String>(
+              child: Card(
+                child: SortableDropFallback<String>(
+                  // If dropped into empty space in this list, append to the end.
                   onAccept: (value) {
                     setState(() {
                       swapItemInLists(
-                        [invited, reserved],
-                        value,
-                        invited,
-                        invited.length,
-                      );
+                          [invited, reserved], value, invited, invited.length);
                     });
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       for (int i = 0; i < invited.length; i++)
-                        shadcn_sortable.Sortable<String>(
+                        Sortable<String>(
                           data: invited[i],
+                          // Insert above the current index when dropped at the top edge.
                           onAcceptTop: (value) {
                             setState(() {
                               swapItemInLists(
-                                [invited, reserved],
-                                value,
-                                invited,
-                                i,
-                              );
+                                  [invited, reserved], value, invited, i);
                             });
                           },
+                          // Insert below the current index when dropped at the bottom edge.
                           onAcceptBottom: (value) {
                             setState(() {
                               swapItemInLists(
-                                [invited, reserved],
-                                value,
-                                invited,
-                                i + 1,
-                              );
+                                  [invited, reserved], value, invited, i + 1);
                             });
                           },
-                          child: shadcn_outlined.OutlinedContainer(
+                          child: OutlinedContainer(
                             padding: const EdgeInsets.all(12),
                             child: Center(child: Text(invited[i].data)),
                           ),
@@ -107,45 +80,34 @@ class _SortableExample1State extends State<_SortableExample1> {
             ),
             gap(12),
             Expanded(
-              child: shadcn_card.Card(
-                child: shadcn_sortable.SortableDropFallback<String>(
+              child: Card(
+                child: SortableDropFallback<String>(
+                  // Same behavior for the second list.
                   onAccept: (value) {
                     setState(() {
-                      swapItemInLists(
-                        [invited, reserved],
-                        value,
-                        reserved,
-                        reserved.length,
-                      );
+                      swapItemInLists([invited, reserved], value, reserved,
+                          reserved.length);
                     });
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       for (int i = 0; i < reserved.length; i++)
-                        shadcn_sortable.Sortable<String>(
+                        Sortable<String>(
                           data: reserved[i],
                           onAcceptTop: (value) {
                             setState(() {
                               swapItemInLists(
-                                [invited, reserved],
-                                value,
-                                reserved,
-                                i,
-                              );
+                                  [invited, reserved], value, reserved, i);
                             });
                           },
                           onAcceptBottom: (value) {
                             setState(() {
                               swapItemInLists(
-                                [invited, reserved],
-                                value,
-                                reserved,
-                                i + 1,
-                              );
+                                  [invited, reserved], value, reserved, i + 1);
                             });
                           },
-                          child: shadcn_outlined.OutlinedContainer(
+                          child: OutlinedContainer(
                             padding: const EdgeInsets.all(12),
                             child: Center(child: Text(reserved[i].data)),
                           ),

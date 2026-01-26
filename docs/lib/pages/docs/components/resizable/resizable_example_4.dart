@@ -1,54 +1,36 @@
-import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
+import 'package:docs/pages/docs/components/carousel_example.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/components/layout/resizable/resizable.dart'
-    as shadcn_resizable;
-import '../carousel/carousel_shared.dart';
-
-const ComponentExample resizableExample4 = ComponentExample(
-  title: 'Controller Example',
-  builder: _buildResizableExample4,
-  code: '''// Controlled panes with AbsoluteResizablePaneController
-''',
-);
-
-Widget _buildResizableExample4(BuildContext context) {
-  return const _ResizableExample4();
-}
-
-class _ResizableExample4 extends StatefulWidget {
-  const _ResizableExample4();
+class ResizableExample4 extends StatefulWidget {
+  const ResizableExample4({super.key});
 
   @override
-  State<_ResizableExample4> createState() => _ResizableExample4State();
+  State<ResizableExample4> createState() => _ResizableExample4State();
 }
 
-class _ResizableExample4State extends State<_ResizableExample4> {
-  final shadcn_resizable.AbsoluteResizablePaneController controller1 =
-      shadcn_resizable.AbsoluteResizablePaneController(80);
-  final shadcn_resizable.AbsoluteResizablePaneController controller2 =
-      shadcn_resizable.AbsoluteResizablePaneController(80);
-  final shadcn_resizable.AbsoluteResizablePaneController controller3 =
-      shadcn_resizable.AbsoluteResizablePaneController(120);
-  final shadcn_resizable.AbsoluteResizablePaneController controller4 =
-      shadcn_resizable.AbsoluteResizablePaneController(80);
-  final shadcn_resizable.AbsoluteResizablePaneController controller5 =
-      shadcn_resizable.AbsoluteResizablePaneController(80);
-
+class _ResizableExample4State extends State<ResizableExample4> {
+  // Controlled panes: each pane has its own controller so we can read/write size
+  // and call helper methods (tryExpandSize, tryCollapse, etc.).
+  final AbsoluteResizablePaneController controller1 =
+      AbsoluteResizablePaneController(80);
+  final AbsoluteResizablePaneController controller2 =
+      AbsoluteResizablePaneController(80);
+  final AbsoluteResizablePaneController controller3 =
+      AbsoluteResizablePaneController(120);
+  final AbsoluteResizablePaneController controller4 =
+      AbsoluteResizablePaneController(80);
+  final AbsoluteResizablePaneController controller5 =
+      AbsoluteResizablePaneController(80);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        shadcn_outlined.OutlinedContainer(
+        OutlinedContainer(
           clipBehavior: Clip.antiAlias,
-          child: shadcn_resizable.ResizablePanel.horizontal(
+          child: ResizablePanel.horizontal(
             children: [
-              shadcn_resizable.ResizablePane.controlled(
+              ResizablePane.controlled(
+                // Bind pane size to controller1 (initial 80px).
                 controller: controller1,
                 child: const NumberedContainer(
                   index: 0,
@@ -56,7 +38,7 @@ class _ResizableExample4State extends State<_ResizableExample4> {
                   fill: false,
                 ),
               ),
-              shadcn_resizable.ResizablePane.controlled(
+              ResizablePane.controlled(
                 controller: controller2,
                 child: const NumberedContainer(
                   index: 1,
@@ -64,8 +46,9 @@ class _ResizableExample4State extends State<_ResizableExample4> {
                   fill: false,
                 ),
               ),
-              shadcn_resizable.ResizablePane.controlled(
+              ResizablePane.controlled(
                 controller: controller3,
+                // Optional constraint: this pane cannot grow beyond 200px.
                 maxSize: 200,
                 child: const NumberedContainer(
                   index: 2,
@@ -73,7 +56,7 @@ class _ResizableExample4State extends State<_ResizableExample4> {
                   fill: false,
                 ),
               ),
-              shadcn_resizable.ResizablePane.controlled(
+              ResizablePane.controlled(
                 controller: controller4,
                 child: const NumberedContainer(
                   index: 3,
@@ -81,9 +64,11 @@ class _ResizableExample4State extends State<_ResizableExample4> {
                   fill: false,
                 ),
               ),
-              shadcn_resizable.ResizablePane.controlled(
+              ResizablePane.controlled(
                 controller: controller5,
+                // Min size prevents the pane from being dragged smaller than 80px.
                 minSize: 80,
+                // When collapsed, this pane will reduce to 20px instead of disappearing.
                 collapsedSize: 20,
                 child: const NumberedContainer(
                   index: 4,
@@ -99,8 +84,9 @@ class _ResizableExample4State extends State<_ResizableExample4> {
           spacing: 16,
           runSpacing: 16,
           children: [
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Restore all panes to their initial sizes.
                 controller1.size = 80;
                 controller2.size = 80;
                 controller3.size = 120;
@@ -109,56 +95,61 @@ class _ResizableExample4State extends State<_ResizableExample4> {
               },
               child: const Text('Reset'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Attempt to grow pane 2 (controller3) by +20px.
                 controller3.tryExpandSize(20);
               },
               child: const Text('Expand Panel 2'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Attempt to shrink pane 2 (controller3) by -20px.
                 controller3.tryExpandSize(-20);
               },
               child: const Text('Shrink Panel 2'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Modify another pane's size incrementally.
                 controller2.tryExpandSize(20);
               },
               child: const Text('Expand Panel 1'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
                 controller2.tryExpandSize(-20);
               },
               child: const Text('Shrink Panel 1'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
                 controller5.tryExpandSize(20);
               },
               child: const Text('Expand Panel 4'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
                 controller5.tryExpandSize(-20);
               },
               child: const Text('Shrink Panel 4'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Collapse reduces the pane to its 'collapsedSize'.
                 controller5.tryCollapse();
               },
               child: const Text('Collapse Panel 4'),
             ),
-            shadcn_buttons.PrimaryButton(
+            PrimaryButton(
               onPressed: () {
+                // Expand restores from the collapsed state.
                 controller5.tryExpand();
               },
               child: const Text('Expand Panel 4'),
             ),
           ],
-        ),
+        )
       ],
     );
   }

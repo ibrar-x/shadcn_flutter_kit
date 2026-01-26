@@ -1,94 +1,91 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/pages/docs/components/carousel_example.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../carousel/carousel_shared.dart';
-import '../../../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../../../ui/shadcn/components/navigation/stepper/stepper.dart'
-    as shadcn_stepper;
-
-const ComponentExample stepperExample1 = ComponentExample(
-  title: 'Vertical',
-  builder: _buildStepperExample1,
-  code: '''Stepper(
-  direction: Axis.vertical,
-  steps: [
-    Step(title: Text('Step 1'), contentBuilder: ...),
-    Step(title: Text('Step 2'), contentBuilder: ...),
-    Step(title: Text('Step 3'), contentBuilder: ...),
-  ],
-)''',
-);
-
-Widget _buildStepperExample1(BuildContext context) {
-  return const _StepperExample1();
-}
-
-class _StepperExample1 extends StatefulWidget {
-  const _StepperExample1();
+class StepperExample1 extends StatefulWidget {
+  const StepperExample1({super.key});
 
   @override
-  State<_StepperExample1> createState() => _StepperExample1State();
+  State<StepperExample1> createState() => _StepperExample1State();
 }
 
-class _StepperExample1State extends State<_StepperExample1> {
-  final shadcn_stepper.StepperController controller =
-      shadcn_stepper.StepperController();
+class _StepperExample1State extends State<StepperExample1> {
+  final StepperController controller = StepperController();
 
   @override
   Widget build(BuildContext context) {
-    return shadcn_stepper.Stepper(
+    return Stepper(
       controller: controller,
+      // Vertical layout with 3 steps and Next/Prev actions.
       direction: Axis.vertical,
       steps: [
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 1'),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                const shadcn_buttons.SecondaryButton(child: Text('Prev')),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Next'),
+                const SecondaryButton(
+                  child: Text('Prev'),
                 ),
+                PrimaryButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      // Advance to the next step.
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 1, height: 200),
+              child: const NumberedContainer(
+                index: 1,
+                height: 200,
+              ),
             );
           },
         ),
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 2'),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                shadcn_buttons.SecondaryButton(
-                  onPressed: controller.previousStep,
+                SecondaryButton(
                   child: const Text('Prev'),
+                  onPressed: () {
+                    // Move back one step.
+                    controller.previousStep();
+                  },
                 ),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Next'),
-                ),
+                PrimaryButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 2, height: 200),
+              child: const NumberedContainer(
+                index: 2,
+                height: 200,
+              ),
             );
           },
         ),
-        shadcn_stepper.Step(
+        Step(
           title: const Text('Step 3'),
           contentBuilder: (context) {
-            return shadcn_stepper.StepContainer(
+            return StepContainer(
               actions: [
-                shadcn_buttons.SecondaryButton(
-                  onPressed: controller.previousStep,
+                SecondaryButton(
                   child: const Text('Prev'),
+                  onPressed: () {
+                    controller.previousStep();
+                  },
                 ),
-                shadcn_buttons.PrimaryButton(
-                  onPressed: controller.nextStep,
-                  child: const Text('Finish'),
-                ),
+                PrimaryButton(
+                    child: const Text('Finish'),
+                    onPressed: () {
+                      controller.nextStep();
+                    }),
               ],
-              child: const NumberedContainer(index: 3, height: 200),
+              child: const NumberedContainer(
+                index: 3,
+                height: 200,
+              ),
             );
           },
         ),

@@ -1,57 +1,33 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/sortable/sortable.dart'
-    as shadcn_sortable;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/shared/utils/util.dart';
-
-const ComponentExample sortableExample4 = ComponentExample(
-  title: 'Scrollable list',
-  builder: _buildSortableExample4,
-  code: '''ScrollableSortableLayer(
-  controller: controller,
-  child: ListView.builder(
-    controller: controller,
-    itemBuilder: (context, i) => Sortable(...),
-    itemCount: names.length,
-  ),
-)''',
-);
-
-Widget _buildSortableExample4(BuildContext context) {
-  return const _SortableExample4();
-}
-
-class _SortableExample4 extends StatefulWidget {
-  const _SortableExample4();
+class SortableExample4 extends StatefulWidget {
+  const SortableExample4({super.key});
 
   @override
-  State<_SortableExample4> createState() => _SortableExample4State();
+  State<SortableExample4> createState() => _SortableExample4State();
 }
 
-class _SortableExample4State extends State<_SortableExample4> {
-  List<shadcn_sortable.SortableData<String>> names = [
-    const shadcn_sortable.SortableData('James'),
-    const shadcn_sortable.SortableData('John'),
-    const shadcn_sortable.SortableData('Robert'),
-    const shadcn_sortable.SortableData('Michael'),
-    const shadcn_sortable.SortableData('William'),
-    const shadcn_sortable.SortableData('David'),
-    const shadcn_sortable.SortableData('Richard'),
-    const shadcn_sortable.SortableData('Joseph'),
-    const shadcn_sortable.SortableData('Thomas'),
-    const shadcn_sortable.SortableData('Charles'),
-    const shadcn_sortable.SortableData('Daniel'),
-    const shadcn_sortable.SortableData('Matthew'),
-    const shadcn_sortable.SortableData('Anthony'),
-    const shadcn_sortable.SortableData('Donald'),
-    const shadcn_sortable.SortableData('Mark'),
-    const shadcn_sortable.SortableData('Paul'),
-    const shadcn_sortable.SortableData('Steven'),
-    const shadcn_sortable.SortableData('Andrew'),
-    const shadcn_sortable.SortableData('Kenneth'),
+class _SortableExample4State extends State<SortableExample4> {
+  List<SortableData<String>> names = [
+    const SortableData('James'),
+    const SortableData('John'),
+    const SortableData('Robert'),
+    const SortableData('Michael'),
+    const SortableData('William'),
+    const SortableData('David'),
+    const SortableData('Richard'),
+    const SortableData('Joseph'),
+    const SortableData('Thomas'),
+    const SortableData('Charles'),
+    const SortableData('Daniel'),
+    const SortableData('Matthew'),
+    const SortableData('Anthony'),
+    const SortableData('Donald'),
+    const SortableData('Mark'),
+    const SortableData('Paul'),
+    const SortableData('Steven'),
+    const SortableData('Andrew'),
+    const SortableData('Kenneth'),
   ];
 
   final ScrollController controller = ScrollController();
@@ -60,20 +36,24 @@ class _SortableExample4State extends State<_SortableExample4> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 400,
-      child: shadcn_sortable.SortableLayer(
+      child: SortableLayer(
+        // Constrain drag overlays to the layer bounds so they scroll within the list.
         lock: true,
-        child: shadcn_sortable.SortableDropFallback<int>(
+        child: SortableDropFallback<int>(
+          // If dropped outside a specific edge target, append to the end.
           onAccept: (value) {
             setState(() {
               names.add(names.removeAt(value.data));
             });
           },
-          child: shadcn_sortable.ScrollableSortableLayer(
+          // Wrap the scrollable so auto-scrolling can occur while dragging near edges.
+          child: ScrollableSortableLayer(
             controller: controller,
             child: ListView.builder(
               controller: controller,
               itemBuilder: (context, i) {
-                return shadcn_sortable.Sortable<String>(
+                return Sortable<String>(
+                  // Stable key helps maintain drag state with virtualization.
                   key: ValueKey(i),
                   data: names[i],
                   onAcceptTop: (value) {
@@ -86,7 +66,7 @@ class _SortableExample4State extends State<_SortableExample4> {
                       names.swapItem(value, i + 1);
                     });
                   },
-                  child: shadcn_outlined.OutlinedContainer(
+                  child: OutlinedContainer(
                     padding: const EdgeInsets.all(12),
                     child: Center(child: Text(names[i].data)),
                   ),

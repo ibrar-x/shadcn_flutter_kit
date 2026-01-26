@@ -1,60 +1,27 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/sortable/sortable.dart'
-    as shadcn_sortable;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/shared/utils/util.dart';
-
-const ComponentExample sortableExample3 = ComponentExample(
-  title: 'Locked horizontal list',
-  builder: _buildSortableExample3,
-  code: '''SortableLayer(
-  lock: true,
-  child: SortableDropFallback<int>(
-    child: SizedBox(
-      height: 50,
-      child: Row(
-        children: [
-          Sortable(
-            data: names[i],
-            onAcceptLeft: (value) => names.swapItem(value, i),
-            onAcceptRight: (value) => names.swapItem(value, i + 1),
-            child: OutlinedContainer(...),
-          ),
-        ],
-      ),
-    ),
-  ),
-)''',
-);
-
-Widget _buildSortableExample3(BuildContext context) {
-  return const _SortableExample3();
-}
-
-class _SortableExample3 extends StatefulWidget {
-  const _SortableExample3();
+class SortableExample3 extends StatefulWidget {
+  const SortableExample3({super.key});
 
   @override
-  State<_SortableExample3> createState() => _SortableExample3State();
+  State<SortableExample3> createState() => _SortableExample3State();
 }
 
-class _SortableExample3State extends State<_SortableExample3> {
-  List<shadcn_sortable.SortableData<String>> names = [
-    const shadcn_sortable.SortableData('James'),
-    const shadcn_sortable.SortableData('John'),
-    const shadcn_sortable.SortableData('Robert'),
-    const shadcn_sortable.SortableData('Michael'),
-    const shadcn_sortable.SortableData('William'),
+class _SortableExample3State extends State<SortableExample3> {
+  List<SortableData<String>> names = [
+    const SortableData('James'),
+    const SortableData('John'),
+    const SortableData('Robert'),
+    const SortableData('Michael'),
+    const SortableData('William'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return shadcn_sortable.SortableLayer(
+    return SortableLayer(
+      // Constrain the drag overlay within the horizontal strip.
       lock: true,
-      child: shadcn_sortable.SortableDropFallback<int>(
+      child: SortableDropFallback<int>(
         onAccept: (value) {
           setState(() {
             names.add(names.removeAt(value.data));
@@ -67,9 +34,10 @@ class _SortableExample3State extends State<_SortableExample3> {
             mainAxisSize: MainAxisSize.min,
             children: [
               for (int i = 0; i < names.length; i++)
-                shadcn_sortable.Sortable<String>(
+                Sortable<String>(
                   key: ValueKey(i),
                   data: names[i],
+                  // For horizontal sorting, drop on the left/right edges to reorder.
                   onAcceptLeft: (value) {
                     setState(() {
                       names.swapItem(value, i);
@@ -80,7 +48,7 @@ class _SortableExample3State extends State<_SortableExample3> {
                       names.swapItem(value, i + 1);
                     });
                   },
-                  child: shadcn_outlined.OutlinedContainer(
+                  child: OutlinedContainer(
                     width: 100,
                     padding: const EdgeInsets.all(12),
                     child: Center(child: Text(names[i].data)),

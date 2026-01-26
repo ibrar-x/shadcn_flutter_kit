@@ -1,70 +1,64 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/pages/docs/components/carousel_example.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/components/layout/resizable/resizable.dart'
-    as shadcn_resizable;
-import '../carousel/carousel_shared.dart';
+class ResizableExample1 extends StatefulWidget {
+  const ResizableExample1({super.key});
 
-const ComponentExample resizableExample1 = ComponentExample(
-  title: 'Horizontal Example',
-  builder: _buildResizableExample1,
-  code: '''ResizablePanel.horizontal(
-  children: [
-    ResizablePane(initialSize: 80, child: NumberedContainer(index: 0)),
-    ResizablePane(initialSize: 80, child: NumberedContainer(index: 1)),
-    ResizablePane(initialSize: 120, child: NumberedContainer(index: 2)),
-  ],
-)''',
-);
+  @override
+  State<ResizableExample1> createState() => _ResizableExample1State();
+}
 
-Widget _buildResizableExample1(BuildContext context) {
-  return const shadcn_outlined.OutlinedContainer(
-    clipBehavior: Clip.antiAlias,
-    child: shadcn_resizable.ResizablePanel.horizontal(
-      children: [
-        shadcn_resizable.ResizablePane(
-          initialSize: 80,
-          child: NumberedContainer(
-            index: 0,
-            height: 200,
-            fill: false,
+class _ResizableExample1State extends State<ResizableExample1> {
+  @override
+  Widget build(BuildContext context) {
+    return const OutlinedContainer(
+      clipBehavior: Clip.antiAlias,
+      // A horizontal panel splits available width into multiple resizable panes.
+      child: ResizablePanel.horizontal(
+        children: [
+          ResizablePane(
+            // Initial width in logical pixels for this pane.
+            initialSize: 80,
+            child: NumberedContainer(
+              index: 0,
+              height: 200,
+              fill: false,
+            ),
           ),
-        ),
-        shadcn_resizable.ResizablePane(
-          initialSize: 80,
-          child: NumberedContainer(
-            index: 1,
-            height: 200,
-            fill: false,
+          ResizablePane(
+            initialSize: 80,
+            child: NumberedContainer(
+              index: 1,
+              height: 200,
+              fill: false,
+            ),
           ),
-        ),
-        shadcn_resizable.ResizablePane(
-          initialSize: 120,
-          child: NumberedContainer(
-            index: 2,
-            height: 200,
-            fill: false,
+          ResizablePane(
+            initialSize: 120,
+            child: NumberedContainer(
+              index: 2,
+              height: 200,
+              fill: false,
+            ),
           ),
-        ),
-        shadcn_resizable.ResizablePane(
-          initialSize: 80,
-          child: NumberedContainer(
-            index: 3,
-            height: 200,
-            fill: false,
+          ResizablePane(
+            initialSize: 80,
+            child: NumberedContainer(
+              index: 3,
+              height: 200,
+              fill: false,
+            ),
           ),
-        ),
-        shadcn_resizable.ResizablePane(
-          initialSize: 80,
-          child: NumberedContainer(
-            index: 4,
-            height: 200,
-            fill: false,
+          ResizablePane(
+            initialSize: 80,
+            child: NumberedContainer(
+              index: 4,
+              height: 200,
+              fill: false,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

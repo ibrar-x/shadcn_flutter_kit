@@ -1,61 +1,28 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/sortable/sortable.dart'
-    as shadcn_sortable;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/shared/utils/util.dart';
-
-const ComponentExample sortableExample2 = ComponentExample(
-  title: 'Locked vertical list',
-  builder: _buildSortableExample2,
-  code: '''SortableLayer(
-  lock: true,
-  child: SortableDropFallback<int>(
-    onAccept: (value) {
-      names.add(names.removeAt(value.data));
-    },
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Sortable(
-          data: names[i],
-          onAcceptTop: (value) => names.swapItem(value, i),
-          onAcceptBottom: (value) => names.swapItem(value, i + 1),
-          child: OutlinedContainer(...),
-        ),
-      ],
-    ),
-  ),
-)''',
-);
-
-Widget _buildSortableExample2(BuildContext context) {
-  return const _SortableExample2();
-}
-
-class _SortableExample2 extends StatefulWidget {
-  const _SortableExample2();
+class SortableExample2 extends StatefulWidget {
+  const SortableExample2({super.key});
 
   @override
-  State<_SortableExample2> createState() => _SortableExample2State();
+  State<SortableExample2> createState() => _SortableExample2State();
 }
 
-class _SortableExample2State extends State<_SortableExample2> {
-  List<shadcn_sortable.SortableData<String>> names = [
-    const shadcn_sortable.SortableData('James'),
-    const shadcn_sortable.SortableData('John'),
-    const shadcn_sortable.SortableData('Robert'),
-    const shadcn_sortable.SortableData('Michael'),
-    const shadcn_sortable.SortableData('William'),
+class _SortableExample2State extends State<SortableExample2> {
+  List<SortableData<String>> names = [
+    const SortableData('James'),
+    const SortableData('John'),
+    const SortableData('Robert'),
+    const SortableData('Michael'),
+    const SortableData('William'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return shadcn_sortable.SortableLayer(
+    return SortableLayer(
+      // With lock enabled, the drag overlay is constrained within the layer.
       lock: true,
-      child: shadcn_sortable.SortableDropFallback<int>(
+      child: SortableDropFallback<int>(
+        // Dropping outside specific edge targets appends the item to the end.
         onAccept: (value) {
           setState(() {
             names.add(names.removeAt(value.data));
@@ -65,20 +32,23 @@ class _SortableExample2State extends State<_SortableExample2> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (int i = 0; i < names.length; i++)
-              shadcn_sortable.Sortable<String>(
+              Sortable<String>(
+                // Use a stable key for better drag/reorder behavior.
                 key: ValueKey(i),
                 data: names[i],
+                // Swap into the target index when dropped on the top edge.
                 onAcceptTop: (value) {
                   setState(() {
                     names.swapItem(value, i);
                   });
                 },
+                // Insert after the target when dropped on the bottom edge.
                 onAcceptBottom: (value) {
                   setState(() {
                     names.swapItem(value, i + 1);
                   });
                 },
-                child: shadcn_outlined.OutlinedContainer(
+                child: OutlinedContainer(
                   padding: const EdgeInsets.all(12),
                   child: Center(child: Text(names[i].data)),
                 ),

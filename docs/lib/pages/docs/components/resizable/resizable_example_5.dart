@@ -1,52 +1,32 @@
-import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/components/layout/resizable/resizable.dart'
-    as shadcn_resizable;
-
-const ComponentExample resizableExample5 = ComponentExample(
-  title: 'Collapsible Example',
-  builder: _buildResizableExample5,
-  code: '''ResizablePanel.horizontal(
-  children: [
-    ResizablePane.controlled(...),
-    ResizablePane(initialSize: 300, child: ...),
-  ],
-)''',
-);
-
-Widget _buildResizableExample5(BuildContext context) {
-  return const _ResizableExample5();
-}
-
-class _ResizableExample5 extends StatefulWidget {
-  const _ResizableExample5();
+class ResizableExample5 extends StatefulWidget {
+  const ResizableExample5({super.key});
 
   @override
-  State<_ResizableExample5> createState() => _ResizableExample5State();
+  State<ResizableExample5> createState() => _ResizableExample5State();
 }
 
-class _ResizableExample5State extends State<_ResizableExample5> {
-  final shadcn_resizable.ResizablePaneController controller =
-      shadcn_resizable.AbsoluteResizablePaneController(120);
-  final shadcn_resizable.ResizablePaneController controller2 =
-      shadcn_resizable.AbsoluteResizablePaneController(120);
-
+class _ResizableExample5State extends State<ResizableExample5> {
+  final ResizablePaneController controller =
+      AbsoluteResizablePaneController(120);
+  final ResizablePaneController controller2 =
+      AbsoluteResizablePaneController(120);
   @override
   Widget build(BuildContext context) {
-    return shadcn_outlined.OutlinedContainer(
+    return OutlinedContainer(
       clipBehavior: Clip.antiAlias,
-      child: shadcn_resizable.ResizablePanel.horizontal(
+      child: ResizablePanel.horizontal(
         children: [
-          shadcn_resizable.ResizablePane.controlled(
+          ResizablePane.controlled(
+            // This controlled pane supports collapsing with a minimum and collapsed size.
             minSize: 100,
             collapsedSize: 40,
             controller: controller,
             child: AnimatedBuilder(
               animation: controller,
               builder: (context, child) {
+                // Render a different UI when the pane is collapsed.
                 if (controller.collapsed) {
                   return Container(
                     alignment: Alignment.center,
@@ -65,7 +45,8 @@ class _ResizableExample5State extends State<_ResizableExample5> {
               },
             ),
           ),
-          shadcn_resizable.ResizablePane(
+          ResizablePane(
+            // A standard resizable pane with an absolute initial width.
             initialSize: 300,
             child: Container(
               alignment: Alignment.center,
@@ -73,7 +54,7 @@ class _ResizableExample5State extends State<_ResizableExample5> {
               child: const Text('Resizable'),
             ),
           ),
-          shadcn_resizable.ResizablePane.controlled(
+          ResizablePane.controlled(
             minSize: 100,
             collapsedSize: 40,
             controller: controller2,
