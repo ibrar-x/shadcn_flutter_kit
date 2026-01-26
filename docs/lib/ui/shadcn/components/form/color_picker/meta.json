@@ -1,0 +1,29 @@
+{
+  "id": "color_picker",
+  "name": "Color Picker",
+  "description": "HSV/HSL/HEX color picker with popovers, eye dropper, and history controls.",
+  "category": "form",
+  "tags": [
+    "color",
+    "picker",
+    "forms"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "style_value",
+      "localizations"
+    ],
+    "components": [
+      "alpha",
+      "button",
+      "color",
+      "eye_dropper",
+      "formatter",
+      "history",
+      "select",
+      "text_field"
+    ]
+  }
+}

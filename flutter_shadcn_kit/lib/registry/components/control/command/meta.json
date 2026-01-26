@@ -1,0 +1,12 @@
+{
+  "id": "command",
+  "name": "Command",
+  "description": "Command palette with search, keyboard navigation, and customizable result builders.",
+  "category": "control",
+  "tags": ["command", "input", "overlay"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  }
+}

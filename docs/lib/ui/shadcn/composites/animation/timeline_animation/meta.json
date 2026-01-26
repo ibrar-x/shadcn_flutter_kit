@@ -1,0 +1,11 @@
+{
+  "id": "timeline_animation",
+  "name": "Timeline Animation",
+  "description": "Composite export for timeline keyframes and helpers.",
+  "category": "animation",
+  "tags": ["animation", "timeline", "composite"],
+  "dependencies": {
+    "shared": [],
+    "pubspec": {}
+  }
+}

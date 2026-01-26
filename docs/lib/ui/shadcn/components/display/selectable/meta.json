@@ -1,0 +1,10 @@
+{
+  "id": "selectable",
+  "name": "Selectable Text",
+  "description": "Selectable text with themed cursor and selection behavior.",
+  "category": "display",
+  "tags": [
+    "text",
+    "selection"
+  ]
+}

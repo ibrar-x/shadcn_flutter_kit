@@ -1,0 +1,29 @@
+{
+  "id": "navigation_bar",
+  "name": "Navigation Bar",
+  "description": "Themed navigation bar supporting destinations, overflow, and responsive layout.",
+  "category": "navigation",
+  "tags": [
+    "navigation",
+    "bar",
+    "tabs"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "animated_value_builder",
+      "text",
+      "util"
+    ],
+    "components": [
+      "button",
+      "hidden"
+    ]
+  }
+}

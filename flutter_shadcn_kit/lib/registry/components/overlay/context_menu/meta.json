@@ -1,0 +1,27 @@
+{
+  "id": "context_menu",
+  "name": "Context Menu",
+  "description": "Desktop-style context menu overlay for editable text and custom actions.",
+  "category": "overlay",
+  "tags": [
+    "menu",
+    "context",
+    "overlay"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "overlay",
+      "sheet_overlay",
+      "localizations",
+      "constants",
+      "util"
+    ],
+    "components": [
+      "menu"
+    ]
+  }
+}

@@ -68,6 +68,28 @@
         "type": "string"
       }
     },
+    "fontFile": {
+      "type": "object",
+      "required": ["asset"],
+      "additionalProperties": false,
+      "properties": {
+        "asset": {"type": "string"},
+        "weight": {"type": "integer"},
+        "style": {"type": "string"}
+      }
+    },
+    "fontEntry": {
+      "type": "object",
+      "required": ["family", "fonts"],
+      "additionalProperties": false,
+      "properties": {
+        "family": {"type": "string"},
+        "fonts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fontFile"}
+        }
+      }
+    },
     "componentEntry": {
       "type": "object",
       "required": ["id", "name", "description", "category", "files", "shared", "dependsOn", "pubspec", "assets", "postInstall"],
@@ -105,6 +127,10 @@
         "assets": {
           "type": "array",
           "items": {"type": "string"}
+        },
+        "fonts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fontEntry"}
         },
         "postInstall": {
           "type": "array",

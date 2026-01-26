@@ -14,11 +14,11 @@ const ComponentExample textFieldRevalidateExample = ComponentExample(
     label: Text('Username'),
     validator: ConditionalValidator((value) async {
       await Future.delayed(Duration(seconds: 1));
-      return !['sunarya-thito', 'septogeddon', 'admin'].contains(value);
+      return !['M Ibrar', 'septogeddon', 'admin'].contains(value);
     }, message: 'Username already taken'),
     child: TextField(
       placeholder: Text('Enter your username'),
-      initialValue: 'sunarya-thito',
+      initialValue: 'M Ibrar',
       features: [InputFeature.revalidate()],
     ),
   ),
@@ -36,7 +36,7 @@ Widget _buildTextFieldRevalidateExample(BuildContext context) {
       ),
       child: shadcn_text_field.TextField(
         placeholder: Text('Enter your username'),
-        initialValue: 'sunarya-thito',
+        initialValue: 'M Ibrar',
         features: [
           shadcn_text_field.InputFeature.revalidate(),
         ],
@@ -51,6 +51,6 @@ class _TextFieldRevalidateExample {
     if (value == null || value.isEmpty) {
       return true;
     }
-    return !['sunarya-thito', 'septogeddon', 'admin'].contains(value);
+    return !['M Ibrar', 'septogeddon', 'admin'].contains(value);
   }
 }

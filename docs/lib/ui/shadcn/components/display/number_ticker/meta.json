@@ -1,0 +1,15 @@
+{
+  "id": "number_ticker",
+  "name": "Number Ticker",
+  "description": "Animated number display with formatter or custom builder.",
+  "category": "display",
+  "tags": ["display", "indicator", "animation"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1",
+      "intl": "^0.20.2"
+    },
+    "shared": ["theme", "style_value", "animated_value_builder"],
+    "components": []
+  }
+}

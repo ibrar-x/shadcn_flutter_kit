@@ -1,0 +1,25 @@
+{
+  "id": "tree",
+  "name": "Tree",
+  "description": "Hierarchical tree view with expandable, selectable nodes.",
+  "category": "display",
+  "tags": [
+    "tree",
+    "hierarchy",
+    "navigation"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "clickable",
+      "color_extensions",
+      "constants",
+      "theme"
+    ],
+    "components": [
+      "icon"
+    ]
+  }
+}

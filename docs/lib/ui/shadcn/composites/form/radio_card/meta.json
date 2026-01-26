@@ -1,0 +1,11 @@
+{
+  "id": "radio_card",
+  "name": "Radio Card",
+  "description": "Composite export for RadioCard and RadioGroup.",
+  "category": "form",
+  "tags": ["form", "selection", "composite"],
+  "dependencies": {
+    "shared": [],
+    "pubspec": {}
+  }
+}

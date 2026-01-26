@@ -1,0 +1,20 @@
+{
+  "id": "swiper",
+  "name": "Swiper",
+  "description": "Swipe-triggered overlays for drawers and sheets.",
+  "category": "overlay",
+  "tags": [
+    "overlay",
+    "drawer",
+    "sheet"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "drawer"
+    ]
+  }
+}

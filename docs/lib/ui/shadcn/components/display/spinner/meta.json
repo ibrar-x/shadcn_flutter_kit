@@ -1,0 +1,11 @@
+{
+  "id": "spinner",
+  "name": "Spinner",
+  "description": "Base spinner helpers for resolving color and size with theming.",
+  "category": "display",
+  "tags": ["display", "indicator", "animation"],
+  "dependencies": {
+    "shared": ["theme", "style_value"],
+    "components": []
+  }
+}

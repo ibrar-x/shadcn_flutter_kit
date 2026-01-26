@@ -99,80 +99,81 @@ class PopoverOverlayHandler extends OverlayHandler {
       builder: (innerContext) {
         return RepaintBoundary(
           child: AnimatedBuilder(
-              animation: isClosed,
-              builder: (innerContext, child) {
-                return FocusScope(
-                  autofocus: dismissBackdropFocus,
-                  canRequestFocus: !isClosed.value,
-                  child: AnimatedValueBuilder<double>(
-                      value: isClosed.value ? 0.0 : 1.0,
-                      initialValue: 0.0,
-                      curve: isClosed.value
-                          ? const Interval(0, 2 / 3)
-                          : Curves.linear,
-                      duration: isClosed.value
-                          ? (showDuration ?? kDefaultDuration)
-                          : (dismissDuration ??
-                              const Duration(milliseconds: 100)),
-                      onEnd: (value) {
-                        if (value == 0.0 && isClosed.value) {
-                          popoverEntry.remove();
-                          popoverEntry.dispose();
-                          animationCompleter.complete();
+            animation: isClosed,
+            builder: (innerContext, child) {
+              return FocusScope(
+                autofocus: dismissBackdropFocus,
+                canRequestFocus: !isClosed.value,
+                child: AnimatedValueBuilder<double>(
+                  value: isClosed.value ? 0.0 : 1.0,
+                  initialValue: 0.0,
+                  curve: isClosed.value
+                      ? const Interval(0, 2 / 3)
+                      : Curves.linear,
+                  duration: isClosed.value
+                      ? (showDuration ?? kDefaultDuration)
+                      : (dismissDuration ?? const Duration(milliseconds: 100)),
+                  onEnd: (value) {
+                    if (value == 0.0 && isClosed.value) {
+                      popoverEntry.remove();
+                      popoverEntry.dispose();
+                      animationCompleter.complete();
+                    }
+                  },
+                  builder: (innerContext, animation, child) {
+                    var popoverAnchor = PopoverOverlayWidget(
+                      animation: animation,
+                      onTapOutside: () {
+                        if (isClosed.value) return;
+                        if (!modal) {
+                          isClosed.value = true;
+                          completer.complete();
                         }
                       },
-                      builder: (innerContext, animation, child) {
-                        var popoverAnchor = PopoverOverlayWidget(
-                          animation: animation,
-                          onTapOutside: () {
-                            if (isClosed.value) return;
-                            if (!modal) {
-                              isClosed.value = true;
-                              completer.complete();
-                            }
-                          },
-                          key: key,
-                          anchorContext: context,
-                          position: position!,
-                          alignment: resolvedAlignment,
-                          themes: themes,
-                          builder: builder,
-                          anchorSize: anchorSize,
-                          // anchorAlignment: anchorAlignment ?? alignment * -1,
-                          anchorAlignment: resolvedAnchorAlignment,
-                          widthConstraint: widthConstraint,
-                          heightConstraint: heightConstraint,
-                          regionGroupId: regionGroupId,
-                          offset: offset,
-                          transitionAlignment: transitionAlignment,
-                          margin: margin,
-                          follow: follow,
-                          consumeOutsideTaps: consumeOutsideTaps,
-                          onTickFollow: onTickFollow,
-                          allowInvertHorizontal: allowInvertHorizontal,
-                          allowInvertVertical: allowInvertVertical,
-                          data: data,
-                          onClose: () {
-                            if (isClosed.value) return Future.value();
-                            isClosed.value = true;
-                            completer.complete();
-                            return animationCompleter.future;
-                          },
-                          onImmediateClose: () {
-                            popoverEntry.remove();
-                            completer.complete();
-                          },
-                          onCloseWithResult: (value) {
-                            if (isClosed.value) return Future.value();
-                            isClosed.value = true;
-                            completer.complete(value as T);
-                            return animationCompleter.future;
-                          },
-                        );
-                        return popoverAnchor;
-                      }),
-                );
-              }),
+                      key: key,
+                      anchorContext: context,
+                      position: position!,
+                      alignment: resolvedAlignment,
+                      themes: themes,
+                      builder: builder,
+                      anchorSize: anchorSize,
+                      // anchorAlignment: anchorAlignment ?? alignment * -1,
+                      anchorAlignment: resolvedAnchorAlignment,
+                      widthConstraint: widthConstraint,
+                      heightConstraint: heightConstraint,
+                      regionGroupId: regionGroupId,
+                      offset: offset,
+                      transitionAlignment: transitionAlignment,
+                      margin: margin,
+                      follow: follow,
+                      consumeOutsideTaps: consumeOutsideTaps,
+                      onTickFollow: onTickFollow,
+                      allowInvertHorizontal: allowInvertHorizontal,
+                      allowInvertVertical: allowInvertVertical,
+                      data: data,
+                      onClose: () {
+                        if (isClosed.value) return Future.value();
+                        isClosed.value = true;
+                        completer.complete();
+                        return animationCompleter.future;
+                      },
+                      onImmediateClose: () {
+                        popoverEntry.remove();
+                        completer.complete();
+                      },
+                      onCloseWithResult: (value) {
+                        if (isClosed.value) return Future.value();
+                        isClosed.value = true;
+                        completer.complete(value as T);
+                        return animationCompleter.future;
+                      },
+                    );
+                    return popoverAnchor;
+                  },
+                ),
+              );
+            },
+          ),
         );
       },
     );
@@ -355,6 +356,8 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   late bool _allowInvertVertical;
   late Ticker _ticker;
   late LayerLink? _layerLink;
+  ScrollableState? _scrollable;
+  ScrollPosition? _scrollPosition;
 
   @override
   set offset(Offset? offset) {
@@ -385,6 +388,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     if (_follow && _layerLink == null) {
       _ticker.start();
     }
+    _attachScrollListener();
   }
 
   @override
@@ -453,12 +457,18 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     }
     if (oldWidget.anchorContext != widget.anchorContext) {
       _anchorContext = widget.anchorContext;
+      _attachScrollListener();
     }
     if (oldWidget.allowInvertHorizontal != widget.allowInvertHorizontal) {
       _allowInvertHorizontal = widget.allowInvertHorizontal;
     }
     if (oldWidget.allowInvertVertical != widget.allowInvertVertical) {
       _allowInvertVertical = widget.allowInvertVertical;
+    }
+    if (_follow) {
+      _attachScrollListener();
+    } else {
+      _detachScrollListener();
     }
     if (oldWidget.position != widget.position && !_follow) {
       _position = widget.position;
@@ -598,6 +608,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
       setState(() {
         _anchorContext = value;
       });
+      _attachScrollListener();
     }
   }
 
@@ -621,11 +632,16 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
 
   @override
   void dispose() {
+    _detachScrollListener();
     _ticker.dispose();
     super.dispose();
   }
 
   void _tick(Duration elapsed) {
+    _updatePosition();
+  }
+
+  void _updatePosition() {
     if (!mounted || !anchorContext.mounted) return;
     // update position based on anchorContext
     RenderBox? renderBox = anchorContext.findRenderObject() as RenderBox?;
@@ -645,6 +661,24 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
         });
       }
     }
+  }
+
+  void _attachScrollListener() {
+    if (!_follow || !mounted || !anchorContext.mounted) return;
+    final scrollable = Scrollable.maybeOf(anchorContext);
+    if (scrollable == _scrollable && scrollable?.position == _scrollPosition) {
+      return;
+    }
+    _detachScrollListener();
+    _scrollable = scrollable;
+    _scrollPosition = scrollable?.position;
+    _scrollPosition?.addListener(_updatePosition);
+  }
+
+  void _detachScrollListener() {
+    _scrollPosition?.removeListener(_updatePosition);
+    _scrollPosition = null;
+    _scrollable = null;
   }
 
   @override
@@ -677,7 +711,8 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
                 widthConstraint: _widthConstraint,
                 heightConstraint: _heightConstraint,
                 offset: _offset,
-                margin: _margin?.optionallyResolve(context) ??
+                margin:
+                    _margin?.optionallyResolve(context) ??
                     (const EdgeInsets.all(8) * scaling),
                 scale: tweenValue(0.9, 1.0, widget.animation),
                 scaleAlignment: (widget.transitionAlignment ?? _alignment)
@@ -686,9 +721,11 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
                 allowInvertHorizontal: _allowInvertHorizontal,
                 child: FadeTransition(
                   opacity: AlwaysStoppedAnimation<double>(widget.animation),
-                  child: Builder(builder: (context) {
-                    return widget.builder(context);
-                  }),
+                  child: Builder(
+                    builder: (context) {
+                      return widget.builder(context);
+                    },
+                  ),
                 ),
               );
             },
@@ -1126,7 +1163,8 @@ class PopoverController extends ChangeNotifier {
       close();
     }
     key ??= GlobalKey<OverlayHandlerStateMixin>(
-        debugLabel: 'PopoverAnchor$hashCode');
+      debugLabel: 'PopoverAnchor$hashCode',
+    );
 
     OverlayCompleter<T?> res = showPopover<T>(
       context: context,
@@ -1152,10 +1190,7 @@ class PopoverController extends ChangeNotifier {
       overlayBarrier: overlayBarrier,
       handler: handler,
     );
-    var popover = Popover._(
-      key,
-      res,
-    );
+    var popover = Popover._(key, res);
     _openPopovers.add(popover);
     notifyListeners();
     await res.future;
@@ -1355,7 +1390,9 @@ class PopoverLayout extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, covariant PopoverLayoutRender renderObject) {
+    BuildContext context,
+    covariant PopoverLayoutRender renderObject,
+  ) {
     bool hasChanged = false;
     if (renderObject._alignment != alignment) {
       renderObject._alignment = alignment;
@@ -1457,20 +1494,20 @@ class PopoverLayoutRender extends RenderShiftedBox {
     FilterQuality? filterQuality,
     bool allowInvertHorizontal = true,
     bool allowInvertVertical = true,
-  })  : _alignment = alignment,
-        _position = position,
-        _anchorAlignment = anchorAlignment,
-        _widthConstraint = widthConstraint,
-        _heightConstraint = heightConstraint,
-        _anchorSize = anchorSize,
-        _offset = offset,
-        _margin = margin,
-        _scale = scale,
-        _scaleAlignment = scaleAlignment,
-        _filterQuality = filterQuality,
-        _allowInvertHorizontal = allowInvertHorizontal,
-        _allowInvertVertical = allowInvertVertical,
-        super(child);
+  }) : _alignment = alignment,
+       _position = position,
+       _anchorAlignment = anchorAlignment,
+       _widthConstraint = widthConstraint,
+       _heightConstraint = heightConstraint,
+       _anchorSize = anchorSize,
+       _offset = offset,
+       _margin = margin,
+       _scale = scale,
+       _scaleAlignment = scaleAlignment,
+       _filterQuality = filterQuality,
+       _allowInvertHorizontal = allowInvertHorizontal,
+       _allowInvertVertical = allowInvertVertical,
+       super(child);
 
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {
@@ -1496,10 +1533,18 @@ class PopoverLayoutRender extends RenderShiftedBox {
     Offset alignmentTranslation = scaleAlignment.alongSize(childSize);
     transform.translateByDouble(childOffset.dx, childOffset.dy, 0, 1);
     transform.translateByDouble(
-        alignmentTranslation.dx, alignmentTranslation.dy, 0, 1);
+      alignmentTranslation.dx,
+      alignmentTranslation.dy,
+      0,
+      1,
+    );
     transform.scaleByDouble(_scale, _scale, 1, 1);
     transform.translateByDouble(
-        -alignmentTranslation.dx, -alignmentTranslation.dy, 0, 1);
+      -alignmentTranslation.dx,
+      -alignmentTranslation.dy,
+      0,
+      1,
+    );
     transform.translateByDouble(-childOffset.dx, -childOffset.dy, 0, 1);
     return transform;
   }
@@ -1638,10 +1683,12 @@ class PopoverLayoutRender extends RenderShiftedBox {
       size.width / 2 + size.width / 2 * _anchorAlignment.x,
       size.height / 2 + size.height / 2 * _anchorAlignment.y,
     );
-    double x = position.dx -
+    double x =
+        position.dx -
         childSize.width / 2 -
         (childSize.width / 2 * _alignment.x);
-    double y = position.dy -
+    double y =
+        position.dy -
         childSize.height / 2 -
         (childSize.height / 2 * _alignment.y);
     double left = x - _margin.left;
@@ -1649,7 +1696,8 @@ class PopoverLayoutRender extends RenderShiftedBox {
     double right = x + childSize.width + _margin.right;
     double bottom = y + childSize.height + _margin.bottom;
     if ((left < 0 || right > size.width) && _allowInvertHorizontal) {
-      x = position.dx -
+      x =
+          position.dx -
           childSize.width / 2 -
           (childSize.width / 2 * -_alignment.x);
       if (_anchorSize != null) {
@@ -1663,7 +1711,8 @@ class PopoverLayoutRender extends RenderShiftedBox {
       _invertX = false;
     }
     if ((top < 0 || bottom > size.height) && _allowInvertVertical) {
-      y = position.dy -
+      y =
+          position.dy -
           childSize.height / 2 -
           (childSize.height / 2 * -_alignment.y);
       if (_anchorSize != null) {
@@ -1679,13 +1728,13 @@ class PopoverLayoutRender extends RenderShiftedBox {
     final double dx = left < 0
         ? -left
         : right > size.width
-            ? size.width - right
-            : 0;
+        ? size.width - right
+        : 0;
     final double dy = top < 0
         ? -top
         : bottom > size.height
-            ? size.height - bottom
-            : 0;
+        ? size.height - bottom
+        : 0;
     Offset result = Offset(x + dx + offsetX, y + dy + offsetY);
     BoxParentData childParentData = child!.parentData as BoxParentData;
     childParentData.offset = result;

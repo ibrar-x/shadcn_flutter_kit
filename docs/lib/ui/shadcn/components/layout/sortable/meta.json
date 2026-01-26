@@ -1,0 +1,13 @@
+{
+  "id": "sortable",
+  "name": "Sortable",
+  "description": "Drag-and-drop sorting primitives with drop zones and scrolling.",
+  "category": "layout",
+  "tags": ["drag", "sortable", "interaction"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": ["constants"]
+  }
+}

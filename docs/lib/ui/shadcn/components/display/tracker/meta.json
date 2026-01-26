@@ -1,0 +1,12 @@
+{
+  "id": "tracker",
+  "name": "Tracker",
+  "description": "Horizontal tracker segments with tooltips.",
+  "category": "display",
+  "tags": ["display", "status"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value", "util"],
+    "components": ["tooltip"]
+  }
+}

@@ -14,10 +14,10 @@ import 'pages/docs/components_page.dart';
 import 'pages/docs/component_detail_page.dart';
 import 'pages/docs/icons_page.dart';
 import 'pages/docs/installation_page.dart';
+import 'pages/docs/registry_guide_page.dart';
 import 'pages/docs/introduction_page.dart';
 import 'pages/docs/layout_page.dart';
 import 'pages/docs/components/material_example.dart';
-import 'pages/docs/state_management_page.dart';
 import 'pages/docs/theme_page.dart';
 import 'pages/docs/typography_page.dart';
 import 'pages/docs/web_preloader_page.dart';
@@ -25,6 +25,7 @@ import 'theme/docs_theme.dart';
 import 'theme/theme_controller.dart';
 import 'web_bridge.dart';
 import 'ui/shadcn/components/form/history/history.dart';
+import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
 import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
@@ -163,6 +164,11 @@ class _DocsRootState extends State<DocsRoot> {
           builder: (context, state) => const InstallationPage(),
         ),
         GoRoute(
+          path: '/registry-guide',
+          name: 'registry-guide',
+          builder: (context, state) => const RegistryGuidePage(),
+        ),
+        GoRoute(
           path: '/theme',
           name: 'theme',
           builder: (context, state) => const ThemePage(),
@@ -191,11 +197,6 @@ class _DocsRootState extends State<DocsRoot> {
           path: '/material',
           name: 'material',
           builder: (context, state) => const MaterialExample(),
-        ),
-        GoRoute(
-          path: '/state',
-          name: 'state',
-          builder: (context, state) => const StateManagementPage(),
         ),
         GoRoute(
           path: '/web_preloader',
@@ -237,11 +238,13 @@ class _DocsRootState extends State<DocsRoot> {
               builder: (context, child) => shadcn_theme.Theme(
                 data: data.toShadcnTheme(),
                 child: ShadcnLayer(
-                  child: RecentColorsScope(
-                    child: EyeDropperLayer(
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: child ?? const SizedBox.shrink(),
+                  child: DrawerOverlay(
+                    child: RecentColorsScope(
+                      child: EyeDropperLayer(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: child ?? const SizedBox.shrink(),
+                        ),
                       ),
                     ),
                   ),

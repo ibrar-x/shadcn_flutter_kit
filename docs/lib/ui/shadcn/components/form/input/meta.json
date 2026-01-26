@@ -1,0 +1,28 @@
+{
+  "id": "input",
+  "name": "Input",
+  "description": "Single-line text input with feature hooks, popovers, and controller integration.",
+  "category": "form",
+  "tags": [
+    "form",
+    "input",
+    "text"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "constants",
+      "form_value_supplier",
+      "lucide_icons",
+      "overlay",
+      "theme",
+      "util"
+    ],
+    "components": [
+      "button",
+      "text_field"
+    ]
+  }
+}

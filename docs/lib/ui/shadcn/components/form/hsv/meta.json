@@ -1,0 +1,20 @@
+{
+  "id": "hsv",
+  "name": "HSV Color Slider",
+  "description": "Gradient slider for HSV color component control (hue, saturation, value, alpha).",
+  "category": "form",
+  "tags": [
+    "color",
+    "slider",
+    "hsv"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "alpha"
+    ]
+  }
+}

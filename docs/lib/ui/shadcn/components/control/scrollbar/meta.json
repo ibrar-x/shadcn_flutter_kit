@@ -1,0 +1,11 @@
+{
+  "id": "scrollbar",
+  "name": "Scrollbar",
+  "description": "Themeable scrollbar wrapper built on RawScrollbar.",
+  "category": "control",
+  "tags": ["control", "scroll"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value"]
+  }
+}

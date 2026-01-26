@@ -1,0 +1,18 @@
+{
+  "id": "card",
+  "name": "Card",
+  "description": "Card container with optional surface blur variant.",
+  "category": "layout",
+  "tags": ["layout", "surface", "container"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "color_extensions",
+      "style_value",
+      "border_utils",
+      "outlined_container",
+      "sheet_overlay"
+    ]
+  }
+}

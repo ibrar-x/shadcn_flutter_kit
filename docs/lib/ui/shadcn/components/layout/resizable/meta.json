@@ -1,0 +1,24 @@
+{
+  "id": "resizable",
+  "name": "Resizable",
+  "description": "Resizable panels with draggable dividers.",
+  "category": "layout",
+  "tags": [
+    "layout",
+    "resizable",
+    "panel"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "constants",
+      "radix_icons",
+      "resizer",
+      "style_value",
+      "theme"
+    ],
+    "components": []
+  }
+}

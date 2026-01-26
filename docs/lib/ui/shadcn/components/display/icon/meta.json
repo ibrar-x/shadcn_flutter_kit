@@ -1,0 +1,16 @@
+{
+  "id": "icon",
+  "name": "Icon Extensions",
+  "description": "Theme-driven icon size/color helpers and WrappedIcon.",
+  "category": "display",
+  "tags": [
+    "icon",
+    "theme"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ]
+  }
+}

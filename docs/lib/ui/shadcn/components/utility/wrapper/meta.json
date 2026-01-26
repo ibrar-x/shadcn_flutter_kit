@@ -1,0 +1,15 @@
+{
+  "id": "wrapper",
+  "name": "Wrapper",
+  "description": "Conditional wrapper for preserving widget structure.",
+  "category": "utility",
+  "tags": [
+    "utility",
+    "layout"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [],
+    "components": []
+  }
+}

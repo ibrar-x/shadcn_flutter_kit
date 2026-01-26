@@ -1,0 +1,26 @@
+{
+  "id": "scaffold",
+  "name": "Scaffold",
+  "description": "Layout scaffold with headers, footers, and loading indicators.",
+  "category": "layout",
+  "tags": [
+    "layout",
+    "scaffold",
+    "structure"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "color_extensions",
+      "theme",
+      "util"
+    ],
+    "components": [
+      "drawer",
+      "linear_progress_indicator",
+      "text"
+    ]
+  }
+}

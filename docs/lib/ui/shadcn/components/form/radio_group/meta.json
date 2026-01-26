@@ -1,0 +1,7 @@
+{
+  "id": "radio_group",
+  "name": "Radio Group",
+  "description": "Exclusive selection group with radio items and cards.",
+  "category": "form",
+  "tags": ["form", "input", "selection"]
+}

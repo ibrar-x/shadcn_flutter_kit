@@ -1,0 +1,22 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "description": "Hover-triggered tooltip overlays with themed containers.",
+  "category": "overlay",
+  "tags": ["overlay", "help"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "color_extensions",
+      "outlined_container",
+      "text_modifiers",
+      "overlay",
+      "hover",
+      "constants"
+    ]
+  }
+}

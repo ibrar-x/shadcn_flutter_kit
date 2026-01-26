@@ -1,0 +1,11 @@
+{
+  "id": "fade_scroll",
+  "name": "Fade Scroll",
+  "description": "Edge fade overlays for scrollable content.",
+  "category": "layout",
+  "tags": ["layout", "scroll", "overlay"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value"]
+  }
+}

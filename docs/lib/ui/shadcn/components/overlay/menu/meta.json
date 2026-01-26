@@ -1,0 +1,25 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "description": "Menu primitives, items, and popup container.",
+  "category": "overlay",
+  "tags": ["menu", "overlay", "navigation"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "color_extensions",
+      "constants",
+      "style_value",
+      "overlay",
+      "subfocus",
+      "basic_layout",
+      "keyboard_shortcut_utils",
+      "radix_icons"
+    ],
+    "components": ["dialog", "drawer"]
+  }
+}

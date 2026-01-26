@@ -1,0 +1,7 @@
+{
+  "id": "tab_pane",
+  "name": "Tab Pane",
+  "description": "Sortable tab strip with integrated content card.",
+  "category": "navigation",
+  "tags": ["tabs", "navigation", "sortable"]
+}

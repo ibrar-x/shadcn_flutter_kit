@@ -31,6 +31,7 @@ import 'components/dot_indicator/dot_indicator_examples.dart';
 import 'components/drawer/drawer_examples.dart';
 import 'components/dropdown_menu/dropdown_menu_examples.dart';
 import 'components/expandable_sidebar/expandable_sidebar_examples.dart';
+import 'components/feature_carousel/feature_carousel_examples.dart';
 import 'components/form/form_examples.dart';
 import 'components/formatted_input/formatted_input_examples.dart';
 import 'components/hover_card/hover_card_examples.dart';
@@ -112,6 +113,7 @@ const Set<String> originalComponentIds = {
   'drawer',
   'dropdown_menu',
   'expandable_sidebar',
+  'feature_carousel',
   'form',
   'formatted_input',
   'hover_card',
@@ -197,6 +199,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'drawer',
       'dropdown_menu',
       'expandable_sidebar',
+      'feature_carousel',
       'form',
       'formatted_input',
       'hover_card',
@@ -281,6 +284,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'drawer': drawerExamples,
   'dropdown_menu': dropdownMenuExamples,
   'expandable_sidebar': expandableSidebarExamples,
+  'feature_carousel': featureCarouselExamples,
   'form': formExamples,
   'formatted_input': formattedInputExamples,
   'hover_card': hoverCardExamples,

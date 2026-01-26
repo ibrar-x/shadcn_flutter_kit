@@ -1,0 +1,16 @@
+{
+  "id": "history",
+  "name": "Color History",
+  "description": "Grid + storage helpers that track recently used colors for reuse.",
+  "category": "form",
+  "tags": ["color", "history", "picker"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme"
+    ]
+  }
+}

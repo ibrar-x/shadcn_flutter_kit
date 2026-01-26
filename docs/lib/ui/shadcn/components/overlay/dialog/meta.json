@@ -1,0 +1,21 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "description": "Modal dialog primitives with alert dialog and overlay handlers.",
+  "category": "overlay",
+  "tags": ["overlay", "modal", "dialog"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "color_extensions",
+      "style_value",
+      "constants",
+      "geometry_extensions",
+      "overlay"
+    ],
+    "components": ["card"]
+  }
+}

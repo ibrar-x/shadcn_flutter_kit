@@ -1,0 +1,29 @@
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
+
+/// Dividers with centered labels.
+///
+/// [Divider.child] can render text or other widgets inline with the rule.
+class DividerExample3 extends StatelessWidget {
+  const DividerExample3({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 300,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text('Item 1'),
+          Divider(
+            child: Text('Divider'),
+          ),
+          Text('Item 2'),
+          Divider(
+            child: Text('Divider'),
+          ),
+          Text('Item 3'),
+        ],
+      ),
+    );
+  }
+}

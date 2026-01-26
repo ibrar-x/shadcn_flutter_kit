@@ -1,0 +1,14 @@
+{
+  "id": "dropdown_menu",
+  "name": "Dropdown Menu",
+  "description": "Dropdown menu overlay built on menu primitives.",
+  "category": "overlay",
+  "tags": ["menu", "dropdown", "overlay"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": ["theme", "overlay"],
+    "components": ["menu", "drawer"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "componentRoot": "registry/components/<category>/<name>",
+  "required": [
+    "<name>.dart",
+    "README.md",
+    "meta.json",
+    "_impl/*.dart"
+  ],
+  "optional": [
+    "preview.dart"
+  ],
+  "structure": [
+    "<category>/<name>/<name>.dart",
+    "<category>/<name>/README.md",
+    "<category>/<name>/meta.json",
+    "<category>/<name>/preview.dart",
+    "<category>/<name>/_impl/*.dart"
+  ],
+  "exampleBasedOn": "registry/components/display/avatar"
+}

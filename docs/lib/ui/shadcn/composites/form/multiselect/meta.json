@@ -1,0 +1,11 @@
+{
+  "id": "multiselect",
+  "name": "Multi Select",
+  "description": "Composite export for MultiSelect built on Select.",
+  "category": "form",
+  "tags": ["form", "selection", "composite"],
+  "dependencies": {
+    "shared": [],
+    "pubspec": {}
+  }
+}

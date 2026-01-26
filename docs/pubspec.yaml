@@ -88,6 +88,9 @@ flutter:
     - family: BootstrapIcons
       fonts:
         - asset: assets/fonts/bootstrap.otf
+    - family: NotoSansSymbols2
+      fonts:
+        - asset: assets/fonts/NotoSansSymbols2-Regular.ttf
     - family: GeistSans
       fonts:
         - asset: assets/fonts/Geist-Black.otf

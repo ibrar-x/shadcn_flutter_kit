@@ -1,0 +1,14 @@
+{
+  "id": "overflow_marquee",
+  "name": "Overflow Marquee",
+  "description": "Smooth marquee for overflowing content with fade edges and looped timing controls.",
+  "category": "layout",
+  "tags": ["animation", "scroll", "layout"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "style_value",
+      "theme"
+    ]
+  }
+}

@@ -14,10 +14,10 @@ const ComponentExample collapsibleBasicExample = ComponentExample(
   code: '''Collapsible(
   children: [
     CollapsibleTrigger(
-      child: Text('@sunarya-thito starred 3 repositories'),
+      child: Text('@mibrar starred 3 repositories'),
     ),
     OutlinedContainer(
-      child: Text('@sunarya-thito/shadcn_flutter').small().mono(),
+      child: Text('@ibrar-x/shadcn_flutter_kit').small().mono(),
     ),
     CollapsibleContent(
       child: OutlinedContainer(
@@ -32,10 +32,10 @@ Widget _buildCollapsibleBasicExample(BuildContext context) {
   return shadcn_collapsible.Collapsible(
     children: [
       const shadcn_collapsible.CollapsibleTrigger(
-        child: Text('@sunarya-thito starred 3 repositories'),
+        child: Text('@mibrar starred 3 repositories'),
       ),
       shadcn_outlined.OutlinedContainer(
-        child: const Text('@sunarya-thito/shadcn_flutter')
+        child: const Text('@ibrar-x/shadcn_flutter_kit')
             .small()
             .mono()
             .withPadding(horizontal: 16, vertical: 8),

@@ -1,0 +1,16 @@
+{
+  "id": "carousel",
+  "name": "Carousel",
+  "description": "Interactive carousel with sliding/fading transitions and autoplay controls.",
+  "category": "display",
+  "tags": ["display", "carousel", "animation"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "style_value",
+      "animation_queue",
+      "wrap_utils"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "hidden",
+  "name": "Hidden",
+  "description": "Animated visibility helper with axis-aware size control.",
+  "category": "layout",
+  "tags": ["animation", "layout", "accessibility"]
+}

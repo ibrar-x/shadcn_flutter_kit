@@ -1,0 +1,18 @@
+{
+  "id": "validated",
+  "name": "Validated",
+  "description": "Validation wrapper that exposes form error state.",
+  "category": "form",
+  "tags": [
+    "form",
+    "validation",
+    "state"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [],
+    "components": [
+      "form"
+    ]
+  }
+}

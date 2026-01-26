@@ -1,0 +1,15 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "description": "Skeletonizer helpers with theme-aware config and extensions.",
+  "category": "display",
+  "tags": ["display", "loading", "animation"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1",
+      "skeletonizer": "^2.1.0+1"
+    },
+    "shared": ["theme", "style_value"],
+    "components": []
+  }
+}

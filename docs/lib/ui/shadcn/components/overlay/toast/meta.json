@@ -1,0 +1,12 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "description": "Overlay toast notifications with configurable timing.",
+  "category": "overlay",
+  "tags": ["overlay", "notification"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "style_value"],
+    "components": []
+  }
+}

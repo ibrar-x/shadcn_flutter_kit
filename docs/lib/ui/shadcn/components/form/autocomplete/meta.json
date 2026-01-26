@@ -1,0 +1,23 @@
+{
+  "id": "autocomplete",
+  "name": "Autocomplete",
+  "description": "Autocomplete overlay for text inputs with keyboard navigation and theming.",
+  "category": "form",
+  "tags": [
+    "form",
+    "input",
+    "autocomplete"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "overlay",
+      "theme",
+      "style_value"
+    ],
+    "components": [
+      "button",
+      "card"
+    ]
+  }
+}

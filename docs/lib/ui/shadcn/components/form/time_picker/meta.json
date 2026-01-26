@@ -1,0 +1,30 @@
+{
+  "id": "time_picker",
+  "name": "Time Picker",
+  "description": "Popover/dialog picker for time and duration values.",
+  "category": "form",
+  "tags": [
+    "form",
+    "time",
+    "duration",
+    "picker"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "form_control",
+      "localizations",
+      "localizations_extensions",
+      "theme",
+      "util"
+    ],
+    "components": [
+      "button",
+      "form_field",
+      "text",
+      "text_field"
+    ]
+  }
+}

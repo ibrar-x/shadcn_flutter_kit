@@ -1,0 +1,23 @@
+{
+  "id": "steps",
+  "name": "Steps",
+  "description": "Vertical step list with numbered indicators and connectors.",
+  "category": "layout",
+  "tags": [
+    "steps",
+    "progress",
+    "layout"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "util"
+    ],
+    "components": [
+      "text"
+    ]
+  }
+}

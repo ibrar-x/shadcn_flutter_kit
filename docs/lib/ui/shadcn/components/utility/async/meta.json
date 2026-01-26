@@ -1,0 +1,7 @@
+{
+  "id": "async",
+  "name": "Async",
+  "description": "Utility for widgets that work with both synchronous and asynchronous values.",
+  "category": "utility",
+  "tags": ["async", "builder", "future"]
+}

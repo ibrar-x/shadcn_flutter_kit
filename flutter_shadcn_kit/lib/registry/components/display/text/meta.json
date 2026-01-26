@@ -1,0 +1,10 @@
+{
+  "id": "text",
+  "name": "Text",
+  "description": "Typography helpers and fluent text modifiers.",
+  "category": "display",
+  "tags": [
+    "text",
+    "typography"
+  ]
+}

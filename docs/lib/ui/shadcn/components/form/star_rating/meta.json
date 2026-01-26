@@ -1,0 +1,24 @@
+{
+  "id": "star_rating",
+  "name": "Star Rating",
+  "description": "Interactive star rating input with theming support.",
+  "category": "form",
+  "tags": [
+    "form",
+    "rating",
+    "input"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "animated_value_builder",
+      "constants",
+      "form_control",
+      "form_value_supplier",
+      "style_value",
+      "theme",
+      "util"
+    ],
+    "components": []
+  }
+}

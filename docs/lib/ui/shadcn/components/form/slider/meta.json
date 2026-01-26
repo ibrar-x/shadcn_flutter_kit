@@ -1,0 +1,7 @@
+{
+  "id": "slider",
+  "name": "Slider",
+  "description": "Single-value and range sliders with keyboard navigation.",
+  "category": "form",
+  "tags": ["form", "input", "range"]
+}

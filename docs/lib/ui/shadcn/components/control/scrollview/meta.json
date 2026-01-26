@@ -1,0 +1,11 @@
+{
+  "id": "scrollview",
+  "name": "Scroll View Interceptor",
+  "description": "Middle-click drag scroll interceptor for desktop/web.",
+  "category": "control",
+  "tags": ["control", "scroll"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": []
+  }
+}

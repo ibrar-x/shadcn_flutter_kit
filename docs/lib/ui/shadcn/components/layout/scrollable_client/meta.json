@@ -1,0 +1,16 @@
+{
+  "id": "scrollable_client",
+  "name": "Scrollable Client",
+  "description": "Two-dimensional scroll surface with builder callbacks for viewport-aware layouts.",
+  "category": "layout",
+  "tags": [
+    "layout",
+    "scroll"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ]
+  }
+}

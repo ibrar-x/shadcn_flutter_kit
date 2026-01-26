@@ -1,0 +1,14 @@
+{
+  "id": "media_query",
+  "name": "Media Query Visibility",
+  "description": "Responsive helper that shows primary or alternate content based on width constraints.",
+  "category": "layout",
+  "tags": ["layout", "responsive"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "style_value"
+    ]
+  }
+}

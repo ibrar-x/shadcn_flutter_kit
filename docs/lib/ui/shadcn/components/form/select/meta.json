@@ -1,0 +1,37 @@
+{
+  "id": "select",
+  "name": "Select",
+  "description": "Dropdown/select control with popup menus, grouped items, and keyboard navigation.",
+  "category": "form",
+  "tags": ["form", "input", "menu"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "overlay",
+      "clickable",
+      "focus_outline",
+      "form_control",
+      "form_value_supplier",
+      "icon_extensions",
+      "subfocus",
+      "text",
+      "util",
+      "lucide_icons",
+      "radix_icons"
+    ],
+    "components": [
+      "async",
+      "button",
+      "chip",
+      "command",
+      "dialog",
+      "hover",
+      "menu",
+      "text_field"
+    ]
+  }
+}

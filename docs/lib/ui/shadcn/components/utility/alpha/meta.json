@@ -1,0 +1,12 @@
+{
+  "id": "alpha",
+  "name": "Alpha",
+  "description": "Checkerboard painter for transparency indicators.",
+  "category": "utility",
+  "tags": ["color", "picker", "utility"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [],
+    "components": []
+  }
+}

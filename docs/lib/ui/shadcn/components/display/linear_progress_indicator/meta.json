@@ -1,0 +1,14 @@
+{
+  "id": "linear_progress_indicator",
+  "name": "Linear Progress Indicator",
+  "description": "Determinate/indeterminate progress bar with optional spark effects and theming.",
+  "category": "display",
+  "tags": ["display", "progress", "indicator"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": ["theme", "style_value", "constants", "animated_value_builder", "color_extensions", "util"],
+    "components": []
+  }
+}

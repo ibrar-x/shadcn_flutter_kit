@@ -1,0 +1,24 @@
+{
+  "id": "eye_dropper",
+  "name": "Eye Dropper",
+  "description": "Layer that lets users sample colors from the screen with preview adornments.",
+  "category": "overlay",
+  "tags": [
+    "color",
+    "picker",
+    "overlay"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": [
+      "theme",
+      "text",
+      "color_extensions"
+    ],
+    "components": [
+      "history"
+    ]
+  }
+}

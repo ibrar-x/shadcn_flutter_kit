@@ -1,0 +1,18 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "description": "Toggle control for boolean values with themed styling.",
+  "category": "form",
+  "tags": ["form", "input", "toggle"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "style_value",
+      "border_utils",
+      "form_control",
+      "form_value_supplier",
+      "focus_outline"
+    ]
+  }
+}

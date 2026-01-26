@@ -1,0 +1,24 @@
+{
+  "id": "drawer",
+  "name": "Drawer",
+  "description": "Sliding drawer and sheet overlays with drag support.",
+  "category": "overlay",
+  "tags": ["overlay", "drawer", "sheet"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "color_extensions",
+      "style_value",
+      "constants",
+      "geometry_extensions",
+      "controlled_animation",
+      "outlined_container",
+      "overlay"
+    ],
+    "components": ["dialog"]
+  }
+}

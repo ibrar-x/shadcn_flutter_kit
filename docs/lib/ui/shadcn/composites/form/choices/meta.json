@@ -1,0 +1,11 @@
+{
+  "id": "choices",
+  "name": "Choices",
+  "description": "Composite export for multiple choice helpers.",
+  "category": "form",
+  "tags": ["form", "selection", "composite"],
+  "dependencies": {
+    "shared": [],
+    "pubspec": {}
+  }
+}

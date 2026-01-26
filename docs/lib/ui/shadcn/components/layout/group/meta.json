@@ -1,0 +1,7 @@
+{
+  "id": "group",
+  "name": "Group",
+  "description": "Absolute-position layout surface with explicit offsets and sizes.",
+  "category": "layout",
+  "tags": ["layout", "positioning", "render"]
+}

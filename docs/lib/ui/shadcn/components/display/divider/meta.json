@@ -1,0 +1,18 @@
+{
+  "id": "divider",
+  "name": "Divider",
+  "description": "Horizontal and vertical separators with optional label support.",
+  "category": "display",
+  "tags": ["display", "layout", "separator"],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "animated_value_builder",
+      "util",
+      "text_modifiers"
+    ],
+    "components": []
+  }
+}

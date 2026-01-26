@@ -1,0 +1,18 @@
+{
+  "id": "file_input",
+  "name": "File Input",
+  "description": "Utilities for mapping file extensions to icon widgets.",
+  "category": "form",
+  "tags": [
+    "form",
+    "file",
+    "input",
+    "icon"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "file_picker",
+  "name": "File Picker",
+  "description": "Dropzone and list for managing selectable files.",
+  "category": "form",
+  "tags": [
+    "form",
+    "file",
+    "picker"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": []
+  }
+}

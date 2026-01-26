@@ -1,0 +1,11 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "description": "Initials/photo avatar with badge and group support.",
+  "category": "display",
+  "tags": ["display", "profile", "user"],
+  "dependencies": {
+    "shared": ["theme", "style_value", "geometry_extensions"],
+    "components": []
+  }
+}

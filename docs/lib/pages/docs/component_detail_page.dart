@@ -109,7 +109,11 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
             WidgetUsageExample(
               title: 'Preview',
               code: '// Example coming soon',
-              child: buildComponentPreview(context, component.id),
+              child: buildComponentPreview(
+                context,
+                component.id,
+                label: component.name,
+              ),
             ),
           ],
         );

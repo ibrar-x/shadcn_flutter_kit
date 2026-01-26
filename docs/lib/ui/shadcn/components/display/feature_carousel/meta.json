@@ -1,0 +1,13 @@
+{
+  "id": "feature_carousel",
+  "name": "Feature Carousel",
+  "description": "Animated feature card carousel with autoplay, swipe, and CTA support. (WIP)",
+  "wip": true,
+  "category": "display",
+  "tags": ["display", "carousel", "feature"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [],
+    "components": []
+  }
+}

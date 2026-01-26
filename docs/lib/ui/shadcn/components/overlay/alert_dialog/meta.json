@@ -1,0 +1,12 @@
+{
+  "id": "alert_dialog",
+  "name": "AlertDialog",
+  "description": "Modal alert dialog with customizable header, content, and actions.",
+  "category": "overlay",
+  "tags": ["overlay", "dialog", "modal"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": ["theme", "overlay"],
+    "components": []
+  }
+}

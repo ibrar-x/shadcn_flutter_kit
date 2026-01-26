@@ -1,0 +1,22 @@
+{
+  "id": "formatter",
+  "name": "Formatter",
+  "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, etc.) and helpers for selection clipping.",
+  "category": "form",
+  "tags": [
+    "input",
+    "format",
+    "text"
+  ],
+  "dependencies": {
+    "pubspec": {
+      "expressions": "^0.2.5+2"
+    },
+    "shared": [
+      "theme",
+      "focus_outline",
+      "form_control",
+      "overlay"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "formatted_input",
+  "name": "Formatted Input",
+  "description": "Low-level formatted-field helpers that sync multiple InputPart segments.",
+  "category": "form",
+  "tags": ["form", "input", "formatter"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme",
+      "form_control",
+      "clickable",
+      "popover",
+      "utils"
+    ],
+    "components": [
+      "button"
+    ]
+  }
+}

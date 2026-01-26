@@ -1,0 +1,11 @@
+{
+  "id": "circular_progress_indicator",
+  "name": "Circular Progress Indicator",
+  "description": "Determinate/indeterminate spinner with theme overrides and optional animation.",
+  "category": "display",
+  "tags": ["display", "progress", "indicator"],
+  "dependencies": {
+    "shared": ["theme", "style_value", "constants", "animated_value_builder", "color_extensions"],
+    "components": []
+  }
+}

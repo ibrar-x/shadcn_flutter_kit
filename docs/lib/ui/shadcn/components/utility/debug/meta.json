@@ -1,0 +1,11 @@
+{
+  "id": "debug",
+  "name": "Debug",
+  "description": "Debug overlays and container helpers for layout inspection.",
+  "category": "utility",
+  "tags": ["debug", "overlay", "layout"],
+  "dependencies": {
+    "pubspec": {},
+    "shared": []
+  }
+}

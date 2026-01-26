@@ -1,0 +1,17 @@
+{
+  "id": "code_snippet",
+  "name": "Code Snippet",
+  "description": "Stylized code container with action slot and theme overrides.",
+  "category": "display",
+  "tags": ["display", "code", "text"],
+  "dependencies": {
+    "pubspec": {
+      "gap": "^3.0.1"
+    },
+    "shared": [
+      "theme",
+      "style_value",
+      "text_modifiers"
+    ]
+  }
+}

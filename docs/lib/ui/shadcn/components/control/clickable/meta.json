@@ -1,0 +1,13 @@
+{
+  "id": "clickable",
+  "name": "Clickable",
+  "description": "State-aware gesture surface with hover, focus, and press handling.",
+  "category": "control",
+  "tags": ["interaction", "primitive", "gesture"],
+  "dependencies": {
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    },
+    "shared": ["clickable"]
+  }
+}
