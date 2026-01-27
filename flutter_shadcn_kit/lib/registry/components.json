@@ -3287,6 +3287,18 @@
           "destination": "{installPath}/components/navigation/breadcrumb/README.md"
         },
         {
+          "source": "registry/components/navigation/breadcrumb/_impl/core/_arrow_separator.dart",
+          "destination": "{installPath}/components/navigation/breadcrumb/_impl/core/_arrow_separator.dart"
+        },
+        {
+          "source": "registry/components/navigation/breadcrumb/_impl/core/_slash_separator.dart",
+          "destination": "{installPath}/components/navigation/breadcrumb/_impl/core/_slash_separator.dart"
+        },
+        {
+          "source": "registry/components/navigation/breadcrumb/_impl/core/breadcrumb_2.dart",
+          "destination": "{installPath}/components/navigation/breadcrumb/_impl/core/breadcrumb_2.dart"
+        },
+        {
           "source": "registry/components/navigation/breadcrumb/breadcrumb.dart",
           "destination": "{installPath}/components/navigation/breadcrumb/breadcrumb.dart"
         },
@@ -7170,6 +7182,94 @@
           "destination": "{installPath}/components/navigation/navigation_bar/README.md"
         },
         {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_child_overflow_handle.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/_navigation_child_overflow_handle.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_label_background_painter.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/_navigation_label_background_painter.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_labeled.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/_navigation_labeled.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_bar_2.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_bar_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_button.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_button.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_child_control_data.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_child_control_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_control_data.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_control_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_divider.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_divider.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_gap.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_gap.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_item.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_item.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_label.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_label.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_padding.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_padding.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_rail.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_rail.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_sidebar.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_sidebar.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_widget.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_widget.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_bar_preview_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_bar_preview_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_bar_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_bar_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_button_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_button_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_item_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_item_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_rail_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_rail_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_sidebar_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_sidebar_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart"
+        },
+        {
           "source": "registry/components/navigation/navigation_bar/meta.json",
           "destination": "{installPath}/components/navigation/navigation_bar/meta.json"
         },
@@ -7228,6 +7328,30 @@
           "destination": "{installPath}/components/navigation/navigation_menu/README.md"
         },
         {
+          "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_2.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/core/navigation_menu_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_content.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/core/navigation_menu_content.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_content_list.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/core/navigation_menu_content_list.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_item.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/core/navigation_menu_item.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_menu/_impl/state/navigation_menu_item_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/state/navigation_menu_item_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_menu/_impl/state/navigation_menu_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_menu/_impl/state/navigation_menu_state.dart"
+        },
+        {
           "source": "registry/components/navigation/navigation_menu/meta.json",
           "destination": "{installPath}/components/navigation/navigation_menu/meta.json"
         },
@@ -7280,6 +7404,14 @@
           "destination": "{installPath}/components/navigation/pagination/README.md"
         },
         {
+          "source": "registry/components/navigation/pagination/_impl/core/pagination_2.dart",
+          "destination": "{installPath}/components/navigation/pagination/_impl/core/pagination_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/pagination/_impl/state/_pagination_preview_state.dart",
+          "destination": "{installPath}/components/navigation/pagination/_impl/state/_pagination_preview_state.dart"
+        },
+        {
           "source": "registry/components/navigation/pagination/meta.json",
           "destination": "{installPath}/components/navigation/pagination/meta.json"
         },
@@ -7326,88 +7458,92 @@
           "destination": "{installPath}/components/navigation/tabs/README.md"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/clip_rect_with_adjustment.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/clip_rect_with_adjustment.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/clip_rect_with_adjustment.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/clip_rect_with_adjustment.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/keyed_tab_child_widget.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/keyed_tab_child_widget.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/keyed_tab_child_widget.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/keyed_tab_child_widget.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/keyed_tab_item.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/keyed_tab_item.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/keyed_tab_item.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/keyed_tab_item.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_builder_typedefs.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_builder_typedefs.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_child_widget.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_child_widget.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_child_widget.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_child_widget.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_container.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_container.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_container.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_container.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_container_data.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_container_data.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_container_data.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_container_data.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_ghost_data.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_ghost_data.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_container_theme.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_container_theme.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_item.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_item.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_ghost_data.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_ghost_data.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_item_painter.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_item_painter.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_item.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_item.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_list.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_list.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_item_painter.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_item_painter.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_pane_data.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_pane_data.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_list.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_list.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_pane_typedefs.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_pane_typedefs.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_list_theme.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_list_theme.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tab_pane_widget.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tab_pane_widget.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_pane_data.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_pane_data.dart"
+          "source": "registry/components/navigation/tabs/_impl/core/tabs_widget.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/core/tabs_widget.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_pane_state.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_pane_state.dart"
+          "source": "registry/components/navigation/tabs/_impl/state/_tabs_preview_state.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/state/_tabs_preview_state.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_pane_theme.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_pane_theme.dart"
+          "source": "registry/components/navigation/tabs/_impl/state/tab_pane_state.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/state/tab_pane_state.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_pane_typedefs.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_pane_typedefs.dart"
+          "source": "registry/components/navigation/tabs/_impl/styles/tabs_text_styles.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/styles/tabs_text_styles.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tab_pane_widget.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tab_pane_widget.dart"
+          "source": "registry/components/navigation/tabs/_impl/themes/tab_container_theme.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/themes/tab_container_theme.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tabs_text_styles.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tabs_text_styles.dart"
+          "source": "registry/components/navigation/tabs/_impl/themes/tab_list_theme.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/themes/tab_list_theme.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tabs_theme.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tabs_theme.dart"
+          "source": "registry/components/navigation/tabs/_impl/themes/tab_pane_theme.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/themes/tab_pane_theme.dart"
         },
         {
-          "source": "registry/components/navigation/tabs/_impl/tabs_widget.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/tabs_widget.dart"
+          "source": "registry/components/navigation/tabs/_impl/themes/tabs_theme.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/themes/tabs_theme.dart"
+        },
+        {
+          "source": "registry/components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart",
+          "destination": "{installPath}/components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart"
         },
         {
           "source": "registry/components/navigation/tabs/meta.json",
@@ -7459,6 +7595,34 @@
           "destination": "{installPath}/components/navigation/tab_container/README.md"
         },
         {
+          "source": "registry/components/navigation/tab_container/_impl/core/keyed_tab_child_widget.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/keyed_tab_child_widget.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/core/keyed_tab_item.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/keyed_tab_item.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/core/tab_child_widget.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/tab_child_widget.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/core/tab_container_2.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/tab_container_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/core/tab_container_data.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/tab_container_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/core/tab_item.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/core/tab_item.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart",
+          "destination": "{installPath}/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart"
+        },
+        {
           "source": "registry/components/navigation/tab_container/meta.json",
           "destination": "{installPath}/components/navigation/tab_container/meta.json"
         },
@@ -7499,16 +7663,28 @@
           "destination": "{installPath}/components/navigation/tab_list/README.md"
         },
         {
+          "source": "registry/components/navigation/tab_list/_impl/core/tab_list.dart",
+          "destination": "{installPath}/components/navigation/tab_list/_impl/core/tab_list.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_list/_impl/core/tab_list_2.dart",
+          "destination": "{installPath}/components/navigation/tab_list/_impl/core/tab_list_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart",
+          "destination": "{installPath}/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_list/_impl/styles/_tab_list_text_style.dart",
+          "destination": "{installPath}/components/navigation/tab_list/_impl/styles/_tab_list_text_style.dart"
+        },
+        {
           "source": "registry/components/navigation/tab_list/meta.json",
           "destination": "{installPath}/components/navigation/tab_list/meta.json"
         },
         {
           "source": "registry/components/navigation/tab_list/preview.dart",
           "destination": "{installPath}/components/navigation/tab_list/preview.dart"
-        },
-        {
-          "source": "registry/components/navigation/tab_list/tab_list.dart",
-          "destination": "{installPath}/components/navigation/tab_list/tab_list.dart"
         }
       ],
       "shared": [
@@ -7539,6 +7715,34 @@
         {
           "source": "registry/components/navigation/tab_pane/README.md",
           "destination": "{installPath}/components/navigation/tab_pane/README.md"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/core/_clip_rect_with_adjustment.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/core/_clip_rect_with_adjustment.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/core/_tab_ghost_data.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/core/_tab_ghost_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/core/_tab_item_painter.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/core/_tab_item_painter.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/core/tab_pane_2.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/core/tab_pane_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/core/tab_pane_data.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/core/tab_pane_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/state/_tab_pane_preview_state.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/state/_tab_pane_preview_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/tab_pane/_impl/state/tab_pane_state.dart",
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/state/tab_pane_state.dart"
         },
         {
           "source": "registry/components/navigation/tab_pane/meta.json",
@@ -7586,6 +7790,26 @@
         {
           "source": "registry/components/navigation/switcher/README.md",
           "destination": "{installPath}/components/navigation/switcher/README.md"
+        },
+        {
+          "source": "registry/components/navigation/switcher/_impl/core/_render_switcher_transition.dart",
+          "destination": "{installPath}/components/navigation/switcher/_impl/core/_render_switcher_transition.dart"
+        },
+        {
+          "source": "registry/components/navigation/switcher/_impl/core/_switcher_parent_data.dart",
+          "destination": "{installPath}/components/navigation/switcher/_impl/core/_switcher_parent_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/switcher/_impl/core/_switcher_transition.dart",
+          "destination": "{installPath}/components/navigation/switcher/_impl/core/_switcher_transition.dart"
+        },
+        {
+          "source": "registry/components/navigation/switcher/_impl/state/_switcher_preview_state.dart",
+          "destination": "{installPath}/components/navigation/switcher/_impl/state/_switcher_preview_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/switcher/_impl/state/_switcher_state.dart",
+          "destination": "{installPath}/components/navigation/switcher/_impl/state/_switcher_state.dart"
         },
         {
           "source": "registry/components/navigation/switcher/meta.json",
@@ -8056,6 +8280,62 @@
           "destination": "{installPath}/components/navigation/stepper/README.md"
         },
         {
+          "source": "registry/components/navigation/stepper/_impl/core/step.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/step_container.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step_container.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/step_number.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step_number.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/step_number_data.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step_number_data.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/step_properties.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step_properties.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/step_title.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/step_title.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/stepper_2.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/stepper_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/core/stepper_value.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/core/stepper_value.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/state/_step_container_state.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/state/_step_container_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/state/_stepper_preview_state.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/state/_stepper_preview_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/utils/stepper_controller.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/utils/stepper_controller.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_circle.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/variants/_step_variant_circle.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_circle_alternative.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/variants/_step_variant_circle_alternative.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_line.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/variants/_step_variant_line.dart"
+        },
+        {
           "source": "registry/components/navigation/stepper/meta.json",
           "destination": "{installPath}/components/navigation/stepper/meta.json"
         },
@@ -8464,6 +8744,18 @@
         {
           "source": "registry/components/navigation/subfocus/README.md",
           "destination": "{installPath}/components/navigation/subfocus/README.md"
+        },
+        {
+          "source": "registry/components/navigation/subfocus/_impl/core/sub_focus.dart",
+          "destination": "{installPath}/components/navigation/subfocus/_impl/core/sub_focus.dart"
+        },
+        {
+          "source": "registry/components/navigation/subfocus/_impl/state/_sub_focus_scope_state.dart",
+          "destination": "{installPath}/components/navigation/subfocus/_impl/state/_sub_focus_scope_state.dart"
+        },
+        {
+          "source": "registry/components/navigation/subfocus/_impl/state/_sub_focus_state.dart",
+          "destination": "{installPath}/components/navigation/subfocus/_impl/state/_sub_focus_state.dart"
         },
         {
           "source": "registry/components/navigation/subfocus/meta.json",
