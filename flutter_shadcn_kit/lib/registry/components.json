@@ -9566,15 +9566,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/form/number_input/README.md",
+          "source": "composites/form/number_input/README.md",
           "destination": "{installPath}/composites/form/number_input/README.md"
         },
         {
-          "source": "registry/composites/form/number_input/meta.json",
+          "source": "composites/form/number_input/meta.json",
           "destination": "{installPath}/composites/form/number_input/meta.json"
         },
         {
-          "source": "registry/composites/form/number_input/number_input.dart",
+          "source": "composites/form/number_input/number_input.dart",
           "destination": "{installPath}/composites/form/number_input/number_input.dart"
         }
       ],
@@ -9601,15 +9601,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/form/choices/README.md",
+          "source": "composites/form/choices/README.md",
           "destination": "{installPath}/composites/form/choices/README.md"
         },
         {
-          "source": "registry/composites/form/choices/choices.dart",
+          "source": "composites/form/choices/choices.dart",
           "destination": "{installPath}/composites/form/choices/choices.dart"
         },
         {
-          "source": "registry/composites/form/choices/meta.json",
+          "source": "composites/form/choices/meta.json",
           "destination": "{installPath}/composites/form/choices/meta.json"
         }
       ],
@@ -9635,15 +9635,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/form/radio_card/README.md",
+          "source": "composites/form/radio_card/README.md",
           "destination": "{installPath}/composites/form/radio_card/README.md"
         },
         {
-          "source": "registry/composites/form/radio_card/meta.json",
+          "source": "composites/form/radio_card/meta.json",
           "destination": "{installPath}/composites/form/radio_card/meta.json"
         },
         {
-          "source": "registry/composites/form/radio_card/radio_card.dart",
+          "source": "composites/form/radio_card/radio_card.dart",
           "destination": "{installPath}/composites/form/radio_card/radio_card.dart"
         }
       ],
@@ -9669,15 +9669,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/form/multiselect/README.md",
+          "source": "composites/form/multiselect/README.md",
           "destination": "{installPath}/composites/form/multiselect/README.md"
         },
         {
-          "source": "registry/composites/form/multiselect/meta.json",
+          "source": "composites/form/multiselect/meta.json",
           "destination": "{installPath}/composites/form/multiselect/meta.json"
         },
         {
-          "source": "registry/composites/form/multiselect/multiselect.dart",
+          "source": "composites/form/multiselect/multiselect.dart",
           "destination": "{installPath}/composites/form/multiselect/multiselect.dart"
         }
       ],
@@ -9703,15 +9703,19 @@
       ],
       "files": [
         {
-          "source": "registry/composites/layout/app/README.md",
+          "source": "composites/layout/app/README.md",
           "destination": "{installPath}/composites/layout/app/README.md"
         },
         {
-          "source": "registry/composites/layout/app/app.dart",
+          "source": "composites/layout/app/_impl/core/shadcn_ui.dart",
+          "destination": "{installPath}/composites/layout/app/_impl/core/shadcn_ui.dart"
+        },
+        {
+          "source": "composites/layout/app/app.dart",
           "destination": "{installPath}/composites/layout/app/app.dart"
         },
         {
-          "source": "registry/composites/layout/app/meta.json",
+          "source": "composites/layout/app/meta.json",
           "destination": "{installPath}/composites/layout/app/meta.json"
         }
       ],
@@ -9741,15 +9745,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/layout/app_bar/README.md",
+          "source": "composites/layout/app_bar/README.md",
           "destination": "{installPath}/composites/layout/app_bar/README.md"
         },
         {
-          "source": "registry/composites/layout/app_bar/app_bar.dart",
+          "source": "composites/layout/app_bar/app_bar.dart",
           "destination": "{installPath}/composites/layout/app_bar/app_bar.dart"
         },
         {
-          "source": "registry/composites/layout/app_bar/meta.json",
+          "source": "composites/layout/app_bar/meta.json",
           "destination": "{installPath}/composites/layout/app_bar/meta.json"
         }
       ],
@@ -9777,15 +9781,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/layout/material/README.md",
+          "source": "composites/layout/material/README.md",
           "destination": "{installPath}/composites/layout/material/README.md"
         },
         {
-          "source": "registry/composites/layout/material/material.dart",
+          "source": "composites/layout/material/material.dart",
           "destination": "{installPath}/composites/layout/material/material.dart"
         },
         {
-          "source": "registry/composites/layout/material/meta.json",
+          "source": "composites/layout/material/meta.json",
           "destination": "{installPath}/composites/layout/material/meta.json"
         }
       ],
@@ -9813,15 +9817,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/navigation/navigation_sidebar/README.md",
+          "source": "composites/navigation/navigation_sidebar/README.md",
           "destination": "{installPath}/composites/navigation/navigation_sidebar/README.md"
         },
         {
-          "source": "registry/composites/navigation/navigation_sidebar/meta.json",
+          "source": "composites/navigation/navigation_sidebar/meta.json",
           "destination": "{installPath}/composites/navigation/navigation_sidebar/meta.json"
         },
         {
-          "source": "registry/composites/navigation/navigation_sidebar/navigation_sidebar.dart",
+          "source": "composites/navigation/navigation_sidebar/navigation_sidebar.dart",
           "destination": "{installPath}/composites/navigation/navigation_sidebar/navigation_sidebar.dart"
         }
       ],
@@ -9848,15 +9852,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/navigation/navigation_rail/README.md",
+          "source": "composites/navigation/navigation_rail/README.md",
           "destination": "{installPath}/composites/navigation/navigation_rail/README.md"
         },
         {
-          "source": "registry/composites/navigation/navigation_rail/meta.json",
+          "source": "composites/navigation/navigation_rail/meta.json",
           "destination": "{installPath}/composites/navigation/navigation_rail/meta.json"
         },
         {
-          "source": "registry/composites/navigation/navigation_rail/navigation_rail.dart",
+          "source": "composites/navigation/navigation_rail/navigation_rail.dart",
           "destination": "{installPath}/composites/navigation/navigation_rail/navigation_rail.dart"
         }
       ],
@@ -9882,15 +9886,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/navigation/expandable_sidebar/README.md",
+          "source": "composites/navigation/expandable_sidebar/README.md",
           "destination": "{installPath}/composites/navigation/expandable_sidebar/README.md"
         },
         {
-          "source": "registry/composites/navigation/expandable_sidebar/expandable_sidebar.dart",
+          "source": "composites/navigation/expandable_sidebar/expandable_sidebar.dart",
           "destination": "{installPath}/composites/navigation/expandable_sidebar/expandable_sidebar.dart"
         },
         {
-          "source": "registry/composites/navigation/expandable_sidebar/meta.json",
+          "source": "composites/navigation/expandable_sidebar/meta.json",
           "destination": "{installPath}/composites/navigation/expandable_sidebar/meta.json"
         }
       ],
@@ -9917,15 +9921,43 @@
       ],
       "files": [
         {
-          "source": "registry/composites/animation/timeline_animation/README.md",
+          "source": "composites/animation/timeline_animation/README.md",
           "destination": "{installPath}/composites/animation/timeline_animation/README.md"
         },
         {
-          "source": "registry/composites/animation/timeline_animation/meta.json",
+          "source": "composites/animation/timeline_animation/_impl/core/absolute_keyframe.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/absolute_keyframe.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/core/keyframe.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/keyframe.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/core/relative_keyframe.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/relative_keyframe.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/core/still_keyframe.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/still_keyframe.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/core/timeline_animation_widget.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/timeline_animation_widget.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/utils/timeline_animatable.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/utils/timeline_animatable.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/_impl/utils/transformers.dart",
+          "destination": "{installPath}/composites/animation/timeline_animation/_impl/utils/transformers.dart"
+        },
+        {
+          "source": "composites/animation/timeline_animation/meta.json",
           "destination": "{installPath}/composites/animation/timeline_animation/meta.json"
         },
         {
-          "source": "registry/composites/animation/timeline_animation/timeline_animation.dart",
+          "source": "composites/animation/timeline_animation/timeline_animation.dart",
           "destination": "{installPath}/composites/animation/timeline_animation/timeline_animation.dart"
         }
       ],
@@ -9950,15 +9982,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/display/avatar_group/README.md",
+          "source": "composites/display/avatar_group/README.md",
           "destination": "{installPath}/composites/display/avatar_group/README.md"
         },
         {
-          "source": "registry/composites/display/avatar_group/avatar_group.dart",
+          "source": "composites/display/avatar_group/avatar_group.dart",
           "destination": "{installPath}/composites/display/avatar_group/avatar_group.dart"
         },
         {
-          "source": "registry/composites/display/avatar_group/meta.json",
+          "source": "composites/display/avatar_group/meta.json",
           "destination": "{installPath}/composites/display/avatar_group/meta.json"
         }
       ],
@@ -10008,15 +10040,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/control/toggle/README.md",
+          "source": "composites/control/toggle/README.md",
           "destination": "{installPath}/composites/control/toggle/README.md"
         },
         {
-          "source": "registry/composites/control/toggle/meta.json",
+          "source": "composites/control/toggle/meta.json",
           "destination": "{installPath}/composites/control/toggle/meta.json"
         },
         {
-          "source": "registry/composites/control/toggle/toggle.dart",
+          "source": "composites/control/toggle/toggle.dart",
           "destination": "{installPath}/composites/control/toggle/toggle.dart"
         }
       ],
@@ -10042,15 +10074,15 @@
       ],
       "files": [
         {
-          "source": "registry/composites/utility/repeated_animation_builder/README.md",
+          "source": "composites/utility/repeated_animation_builder/README.md",
           "destination": "{installPath}/composites/utility/repeated_animation_builder/README.md"
         },
         {
-          "source": "registry/composites/utility/repeated_animation_builder/meta.json",
+          "source": "composites/utility/repeated_animation_builder/meta.json",
           "destination": "{installPath}/composites/utility/repeated_animation_builder/meta.json"
         },
         {
-          "source": "registry/composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
+          "source": "composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
           "destination": "{installPath}/composites/utility/repeated_animation_builder/repeated_animation_builder.dart"
         }
       ],

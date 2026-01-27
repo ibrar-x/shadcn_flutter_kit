@@ -8,6 +8,9 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 
 /// Minimal app wrapper that wires up shadcn theme + overlay handling.
+
+part '_impl/core/shadcn_ui.dart';
+
 class ShadcnApp extends StatelessWidget {
   const ShadcnApp({
     super.key,
@@ -148,29 +151,3 @@ class ShadcnApp extends StatelessWidget {
 }
 
 /// A widget that applies shadcn text + icon styles to descendants.
-class ShadcnUI extends StatelessWidget {
-  const ShadcnUI({
-    super.key,
-    this.textStyle,
-    required this.child,
-  });
-
-  final TextStyle? textStyle;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return AnimatedDefaultTextStyle(
-      style: textStyle ??
-          theme.typography.sans.copyWith(
-            color: theme.colorScheme.foreground,
-          ),
-      duration: kDefaultDuration,
-      child: IconTheme(
-        data: IconThemeData(color: theme.colorScheme.foreground),
-        child: child,
-      ),
-    );
-  }
-}
