@@ -184,8 +184,6 @@ flutter:
     - pubspec.lock
     - assets/registry/components.json
     - assets/docs_images/
-    - packages/syntax_highlight/grammars/
-    - packages/syntax_highlight/themes/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

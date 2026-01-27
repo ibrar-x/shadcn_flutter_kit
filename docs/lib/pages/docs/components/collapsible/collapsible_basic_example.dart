@@ -1,61 +1,62 @@
-import 'package:flutter/widgets.dart';
-
-import '../../component_example_models.dart';
-import '../../../../ui/shadcn/components/layout/collapsible/collapsible.dart'
-    as shadcn_collapsible;
-import '../../../../ui/shadcn/components/layout/outlined_container/outlined_container.dart'
-    as shadcn_outlined;
-import '../../../../ui/shadcn/shared/primitives/text.dart';
-import '../../../../ui/shadcn/shared/utils/util.dart';
-
-const ComponentExample collapsibleBasicExample = ComponentExample(
-  title: 'Collapsible Example',
-  builder: _buildCollapsibleBasicExample,
-  code: '''Collapsible(
-  children: [
-    CollapsibleTrigger(
-      child: Text('@mibrar starred 3 repositories'),
-    ),
-    OutlinedContainer(
-      child: Text('@ibrar-x/shadcn_flutter_kit').small().mono(),
-    ),
-    CollapsibleContent(
-      child: OutlinedContainer(
-        child: Text('@flutter/flutter').small().mono(),
-      ),
-    ),
-  ],
-)''',
-);
-
-Widget _buildCollapsibleBasicExample(BuildContext context) {
-  return shadcn_collapsible.Collapsible(
-    children: [
-      const shadcn_collapsible.CollapsibleTrigger(
-        child: Text('@mibrar starred 3 repositories'),
-      ),
-      shadcn_outlined.OutlinedContainer(
-        child: const Text('@ibrar-x/shadcn_flutter_kit')
-            .small()
-            .mono()
-            .withPadding(horizontal: 16, vertical: 8),
-      ).withPadding(top: 8),
-      shadcn_collapsible.CollapsibleContent(
-        child: shadcn_outlined.OutlinedContainer(
-          child: const Text('@flutter/flutter')
-              .small()
-              .mono()
-              .withPadding(horizontal: 16, vertical: 8),
-        ).withPadding(top: 8),
-      ),
-      shadcn_collapsible.CollapsibleContent(
-        child: shadcn_outlined.OutlinedContainer(
-          child: const Text('@dart-lang/sdk')
-              .small()
-              .mono()
-              .withPadding(horizontal: 16, vertical: 8),
-        ).withPadding(top: 8),
-      ),
-    ],
-  );
-}
+-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-xp-x--xx-xa-x--xx-xc-x--xx-xk-x--xx-xa-x--xx-xg-x--xx-xe-x--xx-x:-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x/-x--xx-xw-x--xx-xi-x--xx-xd-x--xx-xg-x--xx-xe-x--xx-xt-x--xx-xs-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-x
+-x--xx-x-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-xc-x--xx-xo-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xn-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-x_-x--xx-xe-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x_-x--xx-xm-x--xx-xo-x--xx-xd-x--xx-xe-x--xx-xl-x--xx-xs-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-xu-x--xx-xi-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x/-x--xx-xc-x--xx-xo-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xn-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-xs-x--xx-x/-x--xx-xl-x--xx-xa-x--xx-xy-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-x/-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x/-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xa-x--xx-xs-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-xu-x--xx-xi-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x/-x--xx-xc-x--xx-xo-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xn-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-xs-x--xx-x/-x--xx-xl-x--xx-xa-x--xx-xy-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-x/-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x/-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xa-x--xx-xs-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-xu-x--xx-xi-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xr-x--xx-xe-x--xx-xd-x--xx-x/-x--xx-xp-x--xx-xr-x--xx-xi-x--xx-xm-x--xx-xi-x--xx-xt-x--xx-xi-x--xx-xv-x--xx-xe-x--xx-xs-x--xx-x/-x--xx-xt-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-xi-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xr-x--xx-xt-x--xx-x -x--xx-x'-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-x.-x--xx-x.-x--xx-x/-x--xx-xu-x--xx-xi-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xr-x--xx-xe-x--xx-xd-x--xx-x/-x--xx-xu-x--xx-xt-x--xx-xi-x--xx-xl-x--xx-xs-x--xx-x/-x--xx-xu-x--xx-xt-x--xx-xi-x--xx-xl-x--xx-x.-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x'-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-x
+-x--xx-x-x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xs-x--xx-xt-x--xx-x -x--xx-xC-x--xx-xo-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xn-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x -x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xB-x--xx-xa-x--xx-xs-x--xx-xi-x--xx-xc-x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x -x--xx-x=-x--xx-x -x--xx-xC-x--xx-xo-x--xx-xm-x--xx-xp-x--xx-xo-x--xx-xn-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-xt-x--xx-xi-x--xx-xt-x--xx-xl-x--xx-xe-x--xx-x:-x--xx-x -x--xx-x'-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x -x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x'-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-xb-x--xx-xu-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xe-x--xx-xr-x--xx-x:-x--xx-x -x--xx-x_-x--xx-xb-x--xx-xu-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xB-x--xx-xa-x--xx-xs-x--xx-xi-x--xx-xc-x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-xc-x--xx-xo-x--xx-xd-x--xx-xe-x--xx-x:-x--xx-x -x--xx-x'-x--xx-x'-x--xx-x'-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xr-x--xx-xe-x--xx-xn-x--xx-x:-x--xx-x -x--xx-x[-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xT-x--xx-xr-x--xx-xi-x--xx-xg-x--xx-xg-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xm-x--xx-xi-x--xx-xb-x--xx-xr-x--xx-xa-x--xx-xr-x--xx-x -x--xx-xs-x--xx-xt-x--xx-xa-x--xx-xr-x--xx-xr-x--xx-xe-x--xx-xd-x--xx-x -x--xx-x3-x--xx-x -x--xx-xr-x--xx-xe-x--xx-xp-x--xx-xo-x--xx-xs-x--xx-xi-x--xx-xt-x--xx-xo-x--xx-xr-x--xx-xi-x--xx-xe-x--xx-xs-x--xx-x'-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xO-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xi-x--xx-xb-x--xx-xr-x--xx-xa-x--xx-xr-x--xx-x--x--xx-xx-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x_-x--xx-xk-x--xx-xi-x--xx-xt-x--xx-x'-x--xx-x)-x--xx-x.-x--xx-xs-x--xx-xm-x--xx-xa-x--xx-xl-x--xx-xl-x--xx-x(-x--xx-x)-x--xx-x.-x--xx-xm-x--xx-xo-x--xx-xn-x--xx-xo-x--xx-x(-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xO-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x/-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x'-x--xx-x)-x--xx-x.-x--xx-xs-x--xx-xm-x--xx-xa-x--xx-xl-x--xx-xl-x--xx-x(-x--xx-x)-x--xx-x.-x--xx-xm-x--xx-xo-x--xx-xn-x--xx-xo-x--xx-x(-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x]-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x)-x--xx-x'-x--xx-x'-x--xx-x'-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x)-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-x
+-x--xx-x-x--xx-xW-x--xx-xi-x--xx-xd-x--xx-xg-x--xx-xe-x--xx-xt-x--xx-x -x--xx-x_-x--xx-xb-x--xx-xu-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xB-x--xx-xa-x--xx-xs-x--xx-xi-x--xx-xc-x--xx-xE-x--xx-xx-x--xx-xa-x--xx-xm-x--xx-xp-x--xx-xl-x--xx-xe-x--xx-x(-x--xx-xB-x--xx-xu-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x -x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x)-x--xx-x -x--xx-x{-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-xr-x--xx-xe-x--xx-xt-x--xx-xu-x--xx-xr-x--xx-xn-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x.-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-xr-x--xx-xe-x--xx-xn-x--xx-x:-x--xx-x -x--xx-x[-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xs-x--xx-xt-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x.-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xT-x--xx-xr-x--xx-xi-x--xx-xg-x--xx-xg-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xm-x--xx-xi-x--xx-xb-x--xx-xr-x--xx-xa-x--xx-xr-x--xx-x -x--xx-xs-x--xx-xt-x--xx-xa-x--xx-xr-x--xx-xr-x--xx-xe-x--xx-xd-x--xx-x -x--xx-x3-x--xx-x -x--xx-xr-x--xx-xe-x--xx-xp-x--xx-xo-x--xx-xs-x--xx-xi-x--xx-xt-x--xx-xo-x--xx-xr-x--xx-xi-x--xx-xe-x--xx-xs-x--xx-x'-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x.-x--xx-xO-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xs-x--xx-xt-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xi-x--xx-xb-x--xx-xr-x--xx-xa-x--xx-xr-x--xx-x--x--xx-xx-x--xx-x/-x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x_-x--xx-xk-x--xx-xi-x--xx-xt-x--xx-x'-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xs-x--xx-xm-x--xx-xa-x--xx-xl-x--xx-xl-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xm-x--xx-xo-x--xx-xn-x--xx-xo-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xh-x--xx-xo-x--xx-xr-x--xx-xi-x--xx-xz-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x1-x--xx-x6-x--xx-x,-x--xx-x -x--xx-xv-x--xx-xe-x--xx-xr-x--xx-xt-x--xx-xi-x--xx-xc-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xt-x--xx-xo-x--xx-xp-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x.-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x.-x--xx-xO-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xs-x--xx-xt-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x/-x--xx-xf-x--xx-xl-x--xx-xu-x--xx-xt-x--xx-xt-x--xx-xe-x--xx-xr-x--xx-x'-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xs-x--xx-xm-x--xx-xa-x--xx-xl-x--xx-xl-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xm-x--xx-xo-x--xx-xn-x--xx-xo-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xh-x--xx-xo-x--xx-xr-x--xx-xi-x--xx-xz-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x1-x--xx-x6-x--xx-x,-x--xx-x -x--xx-xv-x--xx-xe-x--xx-xr-x--xx-xt-x--xx-xi-x--xx-xc-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xt-x--xx-xo-x--xx-xp-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xc-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-x.-x--xx-xC-x--xx-xo-x--xx-xl-x--xx-xl-x--xx-xa-x--xx-xp-x--xx-xs-x--xx-xi-x--xx-xb-x--xx-xl-x--xx-xe-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xe-x--xx-xn-x--xx-xt-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xs-x--xx-xh-x--xx-xa-x--xx-xd-x--xx-xc-x--xx-xn-x--xx-x_-x--xx-xo-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-x.-x--xx-xO-x--xx-xu-x--xx-xt-x--xx-xl-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xd-x--xx-xC-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xi-x--xx-xn-x--xx-xe-x--xx-xr-x--xx-x(-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-xc-x--xx-xh-x--xx-xi-x--xx-xl-x--xx-xd-x--xx-x:-x--xx-x -x--xx-xc-x--xx-xo-x--xx-xn-x--xx-xs-x--xx-xt-x--xx-x -x--xx-xT-x--xx-xe-x--xx-xx-x--xx-xt-x--xx-x(-x--xx-x'-x--xx-x@-x--xx-xd-x--xx-xa-x--xx-xr-x--xx-xt-x--xx-x--x--xx-xl-x--xx-xa-x--xx-xn-x--xx-xg-x--xx-x/-x--xx-xs-x--xx-xd-x--xx-xk-x--xx-x'-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xs-x--xx-xm-x--xx-xa-x--xx-xl-x--xx-xl-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xm-x--xx-xo-x--xx-xn-x--xx-xo-x--xx-x(-x--xx-x)-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xh-x--xx-xo-x--xx-xr-x--xx-xi-x--xx-xz-x--xx-xo-x--xx-xn-x--xx-xt-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x1-x--xx-x6-x--xx-x,-x--xx-x -x--xx-xv-x--xx-xe-x--xx-xr-x--xx-xt-x--xx-xi-x--xx-xc-x--xx-xa-x--xx-xl-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x.-x--xx-xw-x--xx-xi-x--xx-xt-x--xx-xh-x--xx-xP-x--xx-xa-x--xx-xd-x--xx-xd-x--xx-xi-x--xx-xn-x--xx-xg-x--xx-x(-x--xx-xt-x--xx-xo-x--xx-xp-x--xx-x:-x--xx-x -x--xx-x8-x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x)-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x -x--xx-x -x--xx-x]-x--xx-x,-x--xx-x
+-x--xx-x-x--xx-x -x--xx-x -x--xx-x)-x--xx-x;-x--xx-x
+-x--xx-x-x--xx-x}-x--xx-x
+-x--xx-x

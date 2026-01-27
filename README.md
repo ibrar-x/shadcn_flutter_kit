@@ -4,19 +4,15 @@ An end-to-end shadcn/ui ecosystem for Flutter: **registry components**, a **docs
 app (Widget Catalog)**, and a **CLI** to install and sync components.
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-shadcn_flutter_kit-black?style=for-the-badge&logo=github)](https://github.com/ibrar-x/shadcn_flutter_kit)
-[![Docs](https://img.shields.io/badge/Docs-Widget%20Catalog-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://ibrar-x.github.io/shadcn_flutter_kit/docs/)
+[![Docs](https://img.shields.io/badge/Docs-Widget%20Catalog-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://ibrar-x.github.io/shadcn_flutter_kit/)
 [![CLI on pub.dev](https://img.shields.io/badge/pub.dev-flutter_shadcn_cli-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://pub.dev/packages/flutter_shadcn_cli)
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ibrar-x/shadcn_flutter_kit/docs-deploy.yml?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/ibrar-x/shadcn_flutter_kit/actions)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://github.com/ibrar-x/shadcn_flutter_kit/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/ibrar-x/shadcn_flutter_kit?style=for-the-badge&logo=github)](https://github.com/ibrar-x/shadcn_flutter_kit/stargazers)
 
-**Repo:** https://github.com/ibrar-x/shadcn_flutter_kit.git  
-**Widget Catalog (Docs App):** https://ibrar-x.github.io/shadcn_flutter_kit/docs/  
-**CLI (pub.dev):** https://pub.dev/packages/flutter_shadcn_cli
-
 Docs URL verification:
-- The workflow builds with `--base-href "/shadcn_flutter_kit/docs/"`, so the GitHub Pages URL is:
-  `https://ibrar-x.github.io/shadcn_flutter_kit/docs/`
+- The workflow builds with `baseHref: /shadcn_flutter_kit/`, so the GitHub Pages URL is:
+  `https://ibrar-x.github.io/shadcn_flutter_kit/`
 
 ---
 

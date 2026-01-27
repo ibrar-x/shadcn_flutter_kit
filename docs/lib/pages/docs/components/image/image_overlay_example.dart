@@ -14,7 +14,7 @@ const ComponentExample imageOverlayExample = ComponentExample(
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'assets/docs_images/feature_carousel.png',
+          'assets/docs_images/carousel.png',
           fit: BoxFit.cover,
         ),
         const DecoratedBox(
@@ -45,7 +45,7 @@ Widget _buildImageOverlayExample(BuildContext context) {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/docs_images/feature_carousel.png',
+            'assets/docs_images/carousel.png',
             fit: BoxFit.cover,
           ),
           const DecoratedBox(

@@ -80,7 +80,7 @@ const loaderItems = loaderImageNames.map((name) => {
     return {
         title: title,
         description: `Loading ${title} component…`,
-        src: `assets/docs_images/${name}`,
+        src: `assets/assets/docs_images/${name}`,
     };
 });
 
