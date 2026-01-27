@@ -1,4 +1,6 @@
-part of '../scrollbar.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../../../shared/theme/theme.dart';
 
 /// Theme configuration for Scrollbar.
 class ScrollbarTheme extends ComponentThemeData {

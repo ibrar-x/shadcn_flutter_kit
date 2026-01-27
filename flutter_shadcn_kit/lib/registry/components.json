@@ -478,12 +478,28 @@
           "destination": "{installPath}/components/control/button/README.md"
         },
         {
+          "source": "registry/components/control/button/_impl/abstract_button_style.dart",
+          "destination": "{installPath}/components/control/button/_impl/abstract_button_style.dart"
+        },
+        {
           "source": "registry/components/control/button/_impl/button_core.dart",
           "destination": "{installPath}/components/control/button/_impl/button_core.dart"
         },
         {
+          "source": "registry/components/control/button/_impl/button_density.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_density.dart"
+        },
+        {
           "source": "registry/components/control/button/_impl/button_group.dart",
           "destination": "{installPath}/components/control/button/_impl/button_group.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_group_data.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_group_data.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_group_widget.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_group_widget.dart"
         },
         {
           "source": "registry/components/control/button/_impl/button_helpers.dart",
@@ -498,24 +514,180 @@
           "destination": "{installPath}/components/control/button/_impl/button_overrides.dart"
         },
         {
+          "source": "registry/components/control/button/_impl/button_shape.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_shape.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_size.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_size.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_state.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_state.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_state_property.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_state_property.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_state_property_delegate.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_state_property_delegate.dart"
+        },
+        {
           "source": "registry/components/control/button/_impl/button_style.dart",
           "destination": "{installPath}/components/control/button/_impl/button_style.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_style_class.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_style_class.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_style_extension.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_style_extension.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_style_override.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_style_override.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_style_override_data.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_style_override_data.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_style_property_all.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_style_property_all.dart"
         },
         {
           "source": "registry/components/control/button/_impl/button_theme.dart",
           "destination": "{installPath}/components/control/button/_impl/button_theme.dart"
         },
         {
+          "source": "registry/components/control/button/_impl/button_theme_base.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_theme_base.dart"
+        },
+        {
           "source": "registry/components/control/button/_impl/button_variance.dart",
           "destination": "{installPath}/components/control/button/_impl/button_variance.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/button_variance_class.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_variance_class.dart"
         },
         {
           "source": "registry/components/control/button/_impl/button_variants.dart",
           "destination": "{installPath}/components/control/button/_impl/button_variants.dart"
         },
         {
+          "source": "registry/components/control/button/_impl/button_widget.dart",
+          "destination": "{installPath}/components/control/button/_impl/button_widget.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/card_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/card_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/card_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/card_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/component_theme_button_style.dart",
+          "destination": "{installPath}/components/control/button/_impl/component_theme_button_style.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/controlled_toggle.dart",
+          "destination": "{installPath}/components/control/button/_impl/controlled_toggle.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/copy_with_button_style.dart",
+          "destination": "{installPath}/components/control/button/_impl/copy_with_button_style.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/destructive_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/destructive_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/destructive_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/destructive_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/fixed_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/fixed_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/ghost_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/ghost_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/ghost_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/ghost_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/link_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/link_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/link_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/link_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/menu_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/menu_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/menubar_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/menubar_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/muted_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/muted_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/outline_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/outline_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/outline_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/outline_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/primary_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/primary_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/primary_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/primary_button_theme.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/secondary_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/secondary_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/secondary_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/secondary_button_theme.dart"
+        },
+        {
           "source": "registry/components/control/button/_impl/selected_button.dart",
           "destination": "{installPath}/components/control/button/_impl/selected_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/selected_button_state.dart",
+          "destination": "{installPath}/components/control/button/_impl/selected_button_state.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/selected_button_widget.dart",
+          "destination": "{installPath}/components/control/button/_impl/selected_button_widget.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/tab_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/tab_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/text_button.dart",
+          "destination": "{installPath}/components/control/button/_impl/text_button.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/text_button_theme.dart",
+          "destination": "{installPath}/components/control/button/_impl/text_button_theme.dart"
         },
         {
           "source": "registry/components/control/button/_impl/toggle.dart",
@@ -524,6 +696,18 @@
         {
           "source": "registry/components/control/button/_impl/toggle_controller.dart",
           "destination": "{installPath}/components/control/button/_impl/toggle_controller.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/toggle_controller_class.dart",
+          "destination": "{installPath}/components/control/button/_impl/toggle_controller_class.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/toggle_state.dart",
+          "destination": "{installPath}/components/control/button/_impl/toggle_state.dart"
+        },
+        {
+          "source": "registry/components/control/button/_impl/toggle_widget.dart",
+          "destination": "{installPath}/components/control/button/_impl/toggle_widget.dart"
         },
         {
           "source": "registry/components/control/button/button.dart",
@@ -575,6 +759,42 @@
         {
           "source": "registry/components/control/clickable/README.md",
           "destination": "{installPath}/components/control/clickable/README.md"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/builder_stated_widget.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/builder_stated_widget.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/clickable_state.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/clickable_state.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/clickable_widget.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/clickable_widget.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/map_stated_widget.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/map_stated_widget.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/param_stated_widget.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/param_stated_widget.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/stated_widget.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/stated_widget.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/widget_state_extension.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/widget_state_extension.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/widget_states_data.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/widget_states_data.dart"
+        },
+        {
+          "source": "registry/components/control/clickable/_impl/widget_states_provider.dart",
+          "destination": "{installPath}/components/control/clickable/_impl/widget_states_provider.dart"
         },
         {
           "source": "registry/components/control/clickable/clickable.dart",
@@ -2342,16 +2562,48 @@
           "destination": "{installPath}/components/control/command/README.md"
         },
         {
-          "source": "registry/components/control/command/_impl/command_intents.dart",
-          "destination": "{installPath}/components/control/command/_impl/command_intents.dart"
+          "source": "registry/components/control/command/_impl/command_category.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_category.dart"
         },
         {
-          "source": "registry/components/control/command/_impl/command_item.dart",
-          "destination": "{installPath}/components/control/command/_impl/command_item.dart"
+          "source": "registry/components/control/command/_impl/command_dialog.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_dialog.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_empty.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_empty.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_item_state.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_item_state.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_item_widget.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_item_widget.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_keyboard_display.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_keyboard_display.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_query.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_query.dart"
         },
         {
           "source": "registry/components/control/command/_impl/command_state.dart",
           "destination": "{installPath}/components/control/command/_impl/command_state.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/command_widget.dart",
+          "destination": "{installPath}/components/control/command/_impl/command_widget.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/next_item_intent.dart",
+          "destination": "{installPath}/components/control/command/_impl/next_item_intent.dart"
+        },
+        {
+          "source": "registry/components/control/command/_impl/previous_item_intent.dart",
+          "destination": "{installPath}/components/control/command/_impl/previous_item_intent.dart"
         },
         {
           "source": "registry/components/control/command/command.dart",
@@ -3881,6 +4133,14 @@
           "destination": "{installPath}/components/control/scrollbar/_impl/scrollbar_widget.dart"
         },
         {
+          "source": "registry/components/control/scrollbar/_impl/shadcn_scrollbar.dart",
+          "destination": "{installPath}/components/control/scrollbar/_impl/shadcn_scrollbar.dart"
+        },
+        {
+          "source": "registry/components/control/scrollbar/_impl/shadcn_scrollbar_state.dart",
+          "destination": "{installPath}/components/control/scrollbar/_impl/shadcn_scrollbar_state.dart"
+        },
+        {
           "source": "registry/components/control/scrollbar/meta.json",
           "destination": "{installPath}/components/control/scrollbar/meta.json"
         },
@@ -3954,6 +4214,18 @@
         {
           "source": "registry/components/control/scrollview/README.md",
           "destination": "{installPath}/components/control/scrollview/README.md"
+        },
+        {
+          "source": "registry/components/control/scrollview/_impl/desktop_pointer_scroll_event.dart",
+          "destination": "{installPath}/components/control/scrollview/_impl/desktop_pointer_scroll_event.dart"
+        },
+        {
+          "source": "registry/components/control/scrollview/_impl/scroll_view_interceptor.dart",
+          "destination": "{installPath}/components/control/scrollview/_impl/scroll_view_interceptor.dart"
+        },
+        {
+          "source": "registry/components/control/scrollview/_impl/scroll_view_interceptor_state.dart",
+          "destination": "{installPath}/components/control/scrollview/_impl/scroll_view_interceptor_state.dart"
         },
         {
           "source": "registry/components/control/scrollview/meta.json",
@@ -4487,6 +4759,34 @@
         {
           "source": "registry/components/control/hover/README.md",
           "destination": "{installPath}/components/control/hover/README.md"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_activity.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_activity.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_activity_state.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_activity_state.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_preview.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_preview.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_preview_state.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_preview_state.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_state.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_state.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_theme.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_theme.dart"
+        },
+        {
+          "source": "registry/components/control/hover/_impl/hover_widget.dart",
+          "destination": "{installPath}/components/control/hover/_impl/hover_widget.dart"
         },
         {
           "source": "registry/components/control/hover/hover.dart",
@@ -5870,6 +6170,26 @@
         {
           "source": "registry/components/control/patch/README.md",
           "destination": "{installPath}/components/control/patch/README.md"
+        },
+        {
+          "source": "registry/components/control/patch/_impl/click_details.dart",
+          "destination": "{installPath}/components/control/patch/_impl/click_details.dart"
+        },
+        {
+          "source": "registry/components/control/patch/_impl/click_detector.dart",
+          "destination": "{installPath}/components/control/patch/_impl/click_detector.dart"
+        },
+        {
+          "source": "registry/components/control/patch/_impl/click_detector_state.dart",
+          "destination": "{installPath}/components/control/patch/_impl/click_detector_state.dart"
+        },
+        {
+          "source": "registry/components/control/patch/_impl/patch_preview.dart",
+          "destination": "{installPath}/components/control/patch/_impl/patch_preview.dart"
+        },
+        {
+          "source": "registry/components/control/patch/_impl/patch_preview_state.dart",
+          "destination": "{installPath}/components/control/patch/_impl/patch_preview_state.dart"
         },
         {
           "source": "registry/components/control/patch/meta.json",

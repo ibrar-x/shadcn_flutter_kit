@@ -1,6 +1,15 @@
-part of '../command.dart';
+import 'package:flutter/material.dart' hide Theme, TextField;
+import 'package:gap/gap.dart';
 
-class _CommandItemState extends State<CommandItem> {
+import '../../../../shared/primitives/clickable.dart';
+import '../../../../shared/primitives/subfocus.dart';
+import '../../../../shared/theme/theme.dart';
+import '../../../../shared/utils/constants.dart';
+import '../../../../shared/utils/color_extensions.dart';
+import '../../../../shared/primitives/text.dart';
+import 'command_item_widget.dart';
+
+class CommandItemState extends State<CommandItem> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
@@ -63,54 +72,6 @@ class _CommandItemState extends State<CommandItem> {
           );
         },
       ),
-    );
-  }
-}
-
-class _CommandKeyboardDisplay extends StatelessWidget {
-  const _CommandKeyboardDisplay({super.key, required this.keys});
-
-  factory _CommandKeyboardDisplay.fromActivator(
-      {required SingleActivator activator}) {
-    final keys = <LogicalKeyboardKey>[];
-    if (activator.control) keys.add(LogicalKeyboardKey.control);
-    if (activator.shift) keys.add(LogicalKeyboardKey.shift);
-    if (activator.alt) keys.add(LogicalKeyboardKey.alt);
-    if (activator.meta) keys.add(LogicalKeyboardKey.meta);
-    keys.add(activator.trigger);
-    return _CommandKeyboardDisplay(
-      key: ValueKey(keys.map((key) => key.keyId).join('-')),
-      keys: keys,
-    );
-  }
-
-  final List<LogicalKeyboardKey> keys;
-
-  @override
-  Widget build(BuildContext context) {
-    if (keys.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    final theme = Theme.of(context);
-    return Wrap(
-      spacing: theme.scaling * 4,
-      children: keys.map((key) {
-        final label = key.keyLabel.isNotEmpty
-            ? key.keyLabel
-            : key.debugName ?? key.toString();
-        return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: theme.scaling * 6,
-            vertical: theme.scaling * 2,
-          ),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.card,
-            borderRadius: BorderRadius.circular(theme.radiusSm),
-            border: Border.all(color: theme.colorScheme.border, width: 1),
-          ),
-          child: Text(label).small(),
-        );
-      }).toList(),
     );
   }
 }

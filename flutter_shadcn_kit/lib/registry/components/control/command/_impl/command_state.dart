@@ -1,15 +1,32 @@
-part of '../command.dart';
+import 'package:flutter/material.dart' hide Theme, TextField;
+import 'package:flutter/services.dart';
 
-class _Query {
-  final Stream<List<Widget>> stream;
-  final String? query;
+import '../../button/button.dart';
+import '../../../overlay/dialog/dialog.dart' as shadcn_dialog;
+import '../../../form/text_field/text_field.dart';
+import '../../../../shared/icons/lucide_icons.dart';
+import '../../../../shared/primitives/clickable.dart';
+import '../../../../shared/primitives/focus_outline.dart';
+import '../../../../shared/primitives/outlined_container.dart';
+import '../../../../shared/primitives/subfocus.dart';
+import '../../../../shared/theme/theme.dart';
+import '../../../../shared/utils/border_utils.dart';
+import '../../../../shared/utils/constants.dart';
+import '../../../../shared/utils/color_extensions.dart';
+import '../../../../shared/primitives/text.dart';
+import '../../../../shared/utils/util.dart';
+import '../../../../shared/primitives/icon_extensions.dart';
+import '../../../../shared/localizations/shadcn_localizations.dart';
+import 'command_empty.dart';
+import 'command_keyboard_display.dart';
+import 'command_query.dart';
+import 'command_widget.dart';
+import 'next_item_intent.dart';
+import 'previous_item_intent.dart';
 
-  _Query({required this.stream, this.query});
-}
-
-class _CommandState extends State<Command> {
+class CommandState extends State<Command> {
   final TextEditingController _controller = TextEditingController();
-  late _Query _currentRequest;
+  late CommandQuery _currentRequest;
   int requestCount = 0;
 
   Stream<List<Widget>> _request(BuildContext context, String? query) async* {
@@ -28,13 +45,13 @@ class _CommandState extends State<Command> {
   @override
   void initState() {
     super.initState();
-    _currentRequest = _Query(stream: _request(context, null));
+    _currentRequest = CommandQuery(stream: _request(context, null));
     _controller.addListener(() {
       String? newQuery = _controller.text;
       if (newQuery.isEmpty) newQuery = null;
       if (newQuery != _currentRequest.query) {
         setState(() {
-          _currentRequest = _Query(
+          _currentRequest = CommandQuery(
             stream: _request(context, newQuery),
             query: newQuery,
           );
@@ -170,28 +187,28 @@ class _CommandState extends State<Command> {
                       child: IntrinsicHeight(
                         child: Row(
                           spacing: theme.scaling * 8,
-                        children: [
-                          _CommandKeyboardDisplay.fromActivator(
-                            activator: SingleActivator(
-                              LogicalKeyboardKey.arrowUp,
-                            ),
-                          ).xSmall().muted(),
-                          Text(localization.commandMoveUp).muted().small(),
-                          const VerticalDivider(),
-                          _CommandKeyboardDisplay.fromActivator(
-                            activator: SingleActivator(
-                              LogicalKeyboardKey.arrowDown,
-                            ),
-                          ).xSmall().muted(),
-                          Text(localization.commandMoveDown).muted().small(),
-                          const VerticalDivider(),
-                          _CommandKeyboardDisplay.fromActivator(
-                            activator: SingleActivator(
-                              LogicalKeyboardKey.enter,
-                            ),
-                          ).xSmall().muted(),
-                          Text(localization.commandActivate).muted().small(),
-                        ],
+                          children: [
+                            CommandKeyboardDisplay.fromActivator(
+                              activator: SingleActivator(
+                                LogicalKeyboardKey.arrowUp,
+                              ),
+                            ).xSmall().muted(),
+                            Text(localization.commandMoveUp).muted().small(),
+                            const VerticalDivider(),
+                            CommandKeyboardDisplay.fromActivator(
+                              activator: SingleActivator(
+                                LogicalKeyboardKey.arrowDown,
+                              ),
+                            ).xSmall().muted(),
+                            Text(localization.commandMoveDown).muted().small(),
+                            const VerticalDivider(),
+                            CommandKeyboardDisplay.fromActivator(
+                              activator: SingleActivator(
+                                LogicalKeyboardKey.enter,
+                              ),
+                            ).xSmall().muted(),
+                            Text(localization.commandActivate).muted().small(),
+                          ],
                         ),
                       ),
                     ),

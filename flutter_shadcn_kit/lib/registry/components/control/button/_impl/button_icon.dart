@@ -1,4 +1,12 @@
-part of '../button.dart';
+import 'package:flutter/widgets.dart';
+
+import 'abstract_button_style.dart';
+import 'button_density.dart';
+import 'button_shape.dart';
+import 'button_size.dart';
+import 'button_style_class.dart';
+import 'button_variance_class.dart';
+import 'button_widget.dart';
 
 class IconButton extends StatelessWidget {
   /// The icon widget to display in the button.
