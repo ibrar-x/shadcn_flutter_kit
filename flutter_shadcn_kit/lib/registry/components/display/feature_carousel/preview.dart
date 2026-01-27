@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' as m;
 
 import 'feature_carousel.dart';
-import '_impl/feature_carousel_controller.dart';
-import '_impl/feature_carousel_models.dart';
+import '_impl/state/feature_carousel_controller.dart';
+import '_impl/utils/feature_carousel_models.dart';
 
 class FeatureCarouselPreview extends m.StatelessWidget {
   const FeatureCarouselPreview({super.key});

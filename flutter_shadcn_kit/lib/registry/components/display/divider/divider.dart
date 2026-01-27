@@ -9,8 +9,8 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/divider_theme.dart';
-part '_impl/divider_painters.dart';
+part '_impl/themes/divider_theme.dart';
+part '_impl/utils/divider_painters.dart';
 
 /// Horizontal line separating content with optional label.
 class Divider extends StatelessWidget implements PreferredSizeWidget {

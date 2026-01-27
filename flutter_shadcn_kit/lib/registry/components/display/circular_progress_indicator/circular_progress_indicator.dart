@@ -7,7 +7,7 @@ import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/circular_progress_indicator_theme.dart';
+part '_impl/themes/circular_progress_indicator_theme.dart';
 
 /// Circular progress indicator with determinate/indeterminate modes and theming.
 class CircularProgressIndicator extends StatelessWidget {

@@ -9,10 +9,10 @@ import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/wrap_utils.dart';
 import '../dot_indicator/dot_indicator.dart';
 
-part '_impl/carousel_controller.dart';
-part '_impl/carousel_dot_indicator.dart';
-part '_impl/carousel_layout.dart';
-part '_impl/carousel_theme.dart';
+part '_impl/state/carousel_controller.dart';
+part '_impl/core/carousel_dot_indicator.dart';
+part '_impl/core/carousel_layout.dart';
+part '_impl/themes/carousel_theme.dart';
 
 /// Interactive carousel widget with automatic transitions and customizable layouts.
 class Carousel extends StatefulWidget {

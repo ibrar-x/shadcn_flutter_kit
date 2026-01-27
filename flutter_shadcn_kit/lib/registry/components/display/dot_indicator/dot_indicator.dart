@@ -5,8 +5,8 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/dot_indicator_theme.dart';
-part '_impl/dot_items.dart';
+part '_impl/themes/dot_indicator_theme.dart';
+part '_impl/core/dot_items.dart';
 
 /// Builder function that creates dot widgets.
 typedef DotBuilder = Widget Function(

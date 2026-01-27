@@ -10,8 +10,8 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/linear_progress_indicator_painter.dart';
-part '_impl/linear_progress_indicator_theme.dart';
+part '_impl/utils/linear_progress_indicator_painter.dart';
+part '_impl/themes/linear_progress_indicator_theme.dart';
 
 const int _kIndeterminateLinearDuration = 1800;
 

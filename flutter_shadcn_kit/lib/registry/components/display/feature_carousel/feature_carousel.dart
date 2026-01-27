@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '_impl/feature_carousel_controller.dart';
-import '_impl/feature_carousel_models.dart';
-import '_impl/feature_carousel_theme.dart';
+import '_impl/state/feature_carousel_controller.dart';
+import '_impl/utils/feature_carousel_models.dart';
+import '_impl/themes/feature_carousel_theme.dart';
 
-export '_impl/feature_carousel_controller.dart';
-export '_impl/feature_carousel_models.dart';
-export '_impl/feature_carousel_theme.dart';
+export '_impl/state/feature_carousel_controller.dart';
+export '_impl/utils/feature_carousel_models.dart';
+export '_impl/themes/feature_carousel_theme.dart';
 
 enum _CarouselDirection { left, right }
 

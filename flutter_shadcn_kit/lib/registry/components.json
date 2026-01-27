@@ -1424,12 +1424,12 @@
           "destination": "{installPath}/components/display/badge/README.md"
         },
         {
-          "source": "registry/components/display/badge/_impl/badge_theme.dart",
-          "destination": "{installPath}/components/display/badge/_impl/badge_theme.dart"
+          "source": "registry/components/display/badge/_impl/themes/badge_theme.dart",
+          "destination": "{installPath}/components/display/badge/_impl/themes/badge_theme.dart"
         },
         {
-          "source": "registry/components/display/badge/_impl/badge_widgets.dart",
-          "destination": "{installPath}/components/display/badge/_impl/badge_widgets.dart"
+          "source": "registry/components/display/badge/_impl/core/badge_widgets.dart",
+          "destination": "{installPath}/components/display/badge/_impl/core/badge_widgets.dart"
         },
         {
           "source": "registry/components/display/badge/badge.dart",
@@ -1472,24 +1472,24 @@
           "destination": "{installPath}/components/display/avatar/README.md"
         },
         {
-          "source": "registry/components/display/avatar/_impl/avatar.dart",
-          "destination": "{installPath}/components/display/avatar/_impl/avatar.dart"
+          "source": "registry/components/display/avatar/_impl/core/avatar.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/avatar.dart"
         },
         {
-          "source": "registry/components/display/avatar/_impl/avatar_badge.dart",
-          "destination": "{installPath}/components/display/avatar/_impl/avatar_badge.dart"
+          "source": "registry/components/display/avatar/_impl/core/avatar_badge.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/avatar_badge.dart"
         },
         {
-          "source": "registry/components/display/avatar/_impl/avatar_group.dart",
-          "destination": "{installPath}/components/display/avatar/_impl/avatar_group.dart"
+          "source": "registry/components/display/avatar/_impl/core/avatar_group.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/avatar_group.dart"
         },
         {
-          "source": "registry/components/display/avatar/_impl/avatar_theme.dart",
-          "destination": "{installPath}/components/display/avatar/_impl/avatar_theme.dart"
+          "source": "registry/components/display/avatar/_impl/themes/avatar_theme.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/themes/avatar_theme.dart"
         },
         {
-          "source": "registry/components/display/avatar/_impl/avatar_widget.dart",
-          "destination": "{installPath}/components/display/avatar/_impl/avatar_widget.dart"
+          "source": "registry/components/display/avatar/_impl/core/avatar_widget.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/avatar_widget.dart"
         },
         {
           "source": "registry/components/display/avatar/avatar.dart",
@@ -1572,12 +1572,12 @@
           "destination": "{installPath}/components/display/chip/README.md"
         },
         {
-          "source": "registry/components/display/chip/_impl/chip_button.dart",
-          "destination": "{installPath}/components/display/chip/_impl/chip_button.dart"
+          "source": "registry/components/display/chip/_impl/core/chip_button.dart",
+          "destination": "{installPath}/components/display/chip/_impl/core/chip_button.dart"
         },
         {
-          "source": "registry/components/display/chip/_impl/chip_theme.dart",
-          "destination": "{installPath}/components/display/chip/_impl/chip_theme.dart"
+          "source": "registry/components/display/chip/_impl/themes/chip_theme.dart",
+          "destination": "{installPath}/components/display/chip/_impl/themes/chip_theme.dart"
         },
         {
           "source": "registry/components/display/chip/chip.dart",
@@ -2149,12 +2149,12 @@
           "destination": "{installPath}/components/display/divider/README.md"
         },
         {
-          "source": "registry/components/display/divider/_impl/divider_painters.dart",
-          "destination": "{installPath}/components/display/divider/_impl/divider_painters.dart"
+          "source": "registry/components/display/divider/_impl/utils/divider_painters.dart",
+          "destination": "{installPath}/components/display/divider/_impl/utils/divider_painters.dart"
         },
         {
-          "source": "registry/components/display/divider/_impl/divider_theme.dart",
-          "destination": "{installPath}/components/display/divider/_impl/divider_theme.dart"
+          "source": "registry/components/display/divider/_impl/themes/divider_theme.dart",
+          "destination": "{installPath}/components/display/divider/_impl/themes/divider_theme.dart"
         },
         {
           "source": "registry/components/display/divider/divider.dart",
@@ -2200,12 +2200,12 @@
           "destination": "{installPath}/components/display/dot_indicator/README.md"
         },
         {
-          "source": "registry/components/display/dot_indicator/_impl/dot_indicator_theme.dart",
-          "destination": "{installPath}/components/display/dot_indicator/_impl/dot_indicator_theme.dart"
+          "source": "registry/components/display/dot_indicator/_impl/themes/dot_indicator_theme.dart",
+          "destination": "{installPath}/components/display/dot_indicator/_impl/themes/dot_indicator_theme.dart"
         },
         {
-          "source": "registry/components/display/dot_indicator/_impl/dot_items.dart",
-          "destination": "{installPath}/components/display/dot_indicator/_impl/dot_items.dart"
+          "source": "registry/components/display/dot_indicator/_impl/core/dot_items.dart",
+          "destination": "{installPath}/components/display/dot_indicator/_impl/core/dot_items.dart"
         },
         {
           "source": "registry/components/display/dot_indicator/dot_indicator.dart",
@@ -2249,8 +2249,8 @@
           "destination": "{installPath}/components/display/circular_progress_indicator/README.md"
         },
         {
-          "source": "registry/components/display/circular_progress_indicator/_impl/circular_progress_indicator_theme.dart",
-          "destination": "{installPath}/components/display/circular_progress_indicator/_impl/circular_progress_indicator_theme.dart"
+          "source": "registry/components/display/circular_progress_indicator/_impl/themes/circular_progress_indicator_theme.dart",
+          "destination": "{installPath}/components/display/circular_progress_indicator/_impl/themes/circular_progress_indicator_theme.dart"
         },
         {
           "source": "registry/components/display/circular_progress_indicator/circular_progress_indicator.dart",
@@ -2295,12 +2295,12 @@
           "destination": "{installPath}/components/display/linear_progress_indicator/README.md"
         },
         {
-          "source": "registry/components/display/linear_progress_indicator/_impl/linear_progress_indicator_painter.dart",
-          "destination": "{installPath}/components/display/linear_progress_indicator/_impl/linear_progress_indicator_painter.dart"
+          "source": "registry/components/display/linear_progress_indicator/_impl/utils/linear_progress_indicator_painter.dart",
+          "destination": "{installPath}/components/display/linear_progress_indicator/_impl/utils/linear_progress_indicator_painter.dart"
         },
         {
-          "source": "registry/components/display/linear_progress_indicator/_impl/linear_progress_indicator_theme.dart",
-          "destination": "{installPath}/components/display/linear_progress_indicator/_impl/linear_progress_indicator_theme.dart"
+          "source": "registry/components/display/linear_progress_indicator/_impl/themes/linear_progress_indicator_theme.dart",
+          "destination": "{installPath}/components/display/linear_progress_indicator/_impl/themes/linear_progress_indicator_theme.dart"
         },
         {
           "source": "registry/components/display/linear_progress_indicator/linear_progress_indicator.dart",
@@ -2384,8 +2384,8 @@
           "destination": "{installPath}/components/display/number_ticker/README.md"
         },
         {
-          "source": "registry/components/display/number_ticker/_impl/number_ticker_theme.dart",
-          "destination": "{installPath}/components/display/number_ticker/_impl/number_ticker_theme.dart"
+          "source": "registry/components/display/number_ticker/_impl/themes/number_ticker_theme.dart",
+          "destination": "{installPath}/components/display/number_ticker/_impl/themes/number_ticker_theme.dart"
         },
         {
           "source": "registry/components/display/number_ticker/meta.json",
@@ -2428,8 +2428,8 @@
           "destination": "{installPath}/components/display/spinner/README.md"
         },
         {
-          "source": "registry/components/display/spinner/_impl/spinner_theme.dart",
-          "destination": "{installPath}/components/display/spinner/_impl/spinner_theme.dart"
+          "source": "registry/components/display/spinner/_impl/themes/spinner_theme.dart",
+          "destination": "{installPath}/components/display/spinner/_impl/themes/spinner_theme.dart"
         },
         {
           "source": "registry/components/display/spinner/meta.json",
@@ -2471,8 +2471,8 @@
           "destination": "{installPath}/components/display/progress/README.md"
         },
         {
-          "source": "registry/components/display/progress/_impl/progress_theme.dart",
-          "destination": "{installPath}/components/display/progress/_impl/progress_theme.dart"
+          "source": "registry/components/display/progress/_impl/themes/progress_theme.dart",
+          "destination": "{installPath}/components/display/progress/_impl/themes/progress_theme.dart"
         },
         {
           "source": "registry/components/display/progress/meta.json",
@@ -2514,8 +2514,8 @@
           "destination": "{installPath}/components/display/skeleton/README.md"
         },
         {
-          "source": "registry/components/display/skeleton/_impl/skeleton_theme.dart",
-          "destination": "{installPath}/components/display/skeleton/_impl/skeleton_theme.dart"
+          "source": "registry/components/display/skeleton/_impl/themes/skeleton_theme.dart",
+          "destination": "{installPath}/components/display/skeleton/_impl/themes/skeleton_theme.dart"
         },
         {
           "source": "registry/components/display/skeleton/meta.json",
@@ -2820,20 +2820,20 @@
           "destination": "{installPath}/components/display/carousel/README.md"
         },
         {
-          "source": "registry/components/display/carousel/_impl/carousel_controller.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_controller.dart"
+          "source": "registry/components/display/carousel/_impl/state/carousel_controller.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/state/carousel_controller.dart"
         },
         {
-          "source": "registry/components/display/carousel/_impl/carousel_dot_indicator.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_dot_indicator.dart"
+          "source": "registry/components/display/carousel/_impl/core/carousel_dot_indicator.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_dot_indicator.dart"
         },
         {
-          "source": "registry/components/display/carousel/_impl/carousel_layout.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_layout.dart"
+          "source": "registry/components/display/carousel/_impl/core/carousel_layout.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_layout.dart"
         },
         {
-          "source": "registry/components/display/carousel/_impl/carousel_theme.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_theme.dart"
+          "source": "registry/components/display/carousel/_impl/themes/carousel_theme.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/themes/carousel_theme.dart"
         },
         {
           "source": "registry/components/display/carousel/carousel.dart",
@@ -2880,36 +2880,36 @@
           "destination": "{installPath}/components/display/calendar/README.md"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_grid.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_grid.dart"
+          "source": "registry/components/display/calendar/_impl/core/calendar_grid.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_grid.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_item.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_item.dart"
+          "source": "registry/components/display/calendar/_impl/core/calendar_item.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_item.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_month_year.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_month_year.dart"
+          "source": "registry/components/display/calendar/_impl/core/calendar_month_year.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_month_year.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_theme.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_theme.dart"
+          "source": "registry/components/display/calendar/_impl/themes/calendar_theme.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/themes/calendar_theme.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_value.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_value.dart"
+          "source": "registry/components/display/calendar/_impl/utils/calendar_value.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/calendar_value.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_view.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_view.dart"
+          "source": "registry/components/display/calendar/_impl/utils/calendar_view.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/calendar_view.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/calendar_widget.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/calendar_widget.dart"
+          "source": "registry/components/display/calendar/_impl/core/calendar_widget.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_widget.dart"
         },
         {
-          "source": "registry/components/display/calendar/_impl/date_picker_dialog.dart",
-          "destination": "{installPath}/components/display/calendar/_impl/date_picker_dialog.dart"
+          "source": "registry/components/display/calendar/_impl/core/date_picker_dialog.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/date_picker_dialog.dart"
         },
         {
           "source": "registry/components/display/calendar/calendar.dart",
@@ -3090,16 +3090,16 @@
           "destination": "{installPath}/components/display/keyboard_shortcut/README.md"
         },
         {
-          "source": "registry/components/display/keyboard_shortcut/_impl/keyboard_display.dart",
-          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/keyboard_display.dart"
+          "source": "registry/components/display/keyboard_shortcut/_impl/core/keyboard_display.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/core/keyboard_display.dart"
         },
         {
-          "source": "registry/components/display/keyboard_shortcut/_impl/keyboard_shortcut_mapper.dart",
-          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/keyboard_shortcut_mapper.dart"
+          "source": "registry/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_mapper.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_mapper.dart"
         },
         {
-          "source": "registry/components/display/keyboard_shortcut/_impl/keyboard_shortcut_theme.dart",
-          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/keyboard_shortcut_theme.dart"
+          "source": "registry/components/display/keyboard_shortcut/_impl/themes/keyboard_shortcut_theme.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/themes/keyboard_shortcut_theme.dart"
         },
         {
           "source": "registry/components/display/keyboard_shortcut/keyboard_shortcut.dart",
@@ -4707,16 +4707,16 @@
           "destination": "{installPath}/components/display/tracker/README.md"
         },
         {
-          "source": "registry/components/display/tracker/_impl/tracker_level.dart",
-          "destination": "{installPath}/components/display/tracker/_impl/tracker_level.dart"
+          "source": "registry/components/display/tracker/_impl/utils/tracker_level.dart",
+          "destination": "{installPath}/components/display/tracker/_impl/utils/tracker_level.dart"
         },
         {
-          "source": "registry/components/display/tracker/_impl/tracker_theme.dart",
-          "destination": "{installPath}/components/display/tracker/_impl/tracker_theme.dart"
+          "source": "registry/components/display/tracker/_impl/themes/tracker_theme.dart",
+          "destination": "{installPath}/components/display/tracker/_impl/themes/tracker_theme.dart"
         },
         {
-          "source": "registry/components/display/tracker/_impl/tracker_widget.dart",
-          "destination": "{installPath}/components/display/tracker/_impl/tracker_widget.dart"
+          "source": "registry/components/display/tracker/_impl/core/tracker_widget.dart",
+          "destination": "{installPath}/components/display/tracker/_impl/core/tracker_widget.dart"
         },
         {
           "source": "registry/components/display/tracker/meta.json",
@@ -7917,16 +7917,16 @@
           "destination": "{installPath}/components/display/feature_carousel/README.md"
         },
         {
-          "source": "registry/components/display/feature_carousel/_impl/feature_carousel_controller.dart",
-          "destination": "{installPath}/components/display/feature_carousel/_impl/feature_carousel_controller.dart"
+          "source": "registry/components/display/feature_carousel/_impl/state/feature_carousel_controller.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/state/feature_carousel_controller.dart"
         },
         {
-          "source": "registry/components/display/feature_carousel/_impl/feature_carousel_models.dart",
-          "destination": "{installPath}/components/display/feature_carousel/_impl/feature_carousel_models.dart"
+          "source": "registry/components/display/feature_carousel/_impl/utils/feature_carousel_models.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/utils/feature_carousel_models.dart"
         },
         {
-          "source": "registry/components/display/feature_carousel/_impl/feature_carousel_theme.dart",
-          "destination": "{installPath}/components/display/feature_carousel/_impl/feature_carousel_theme.dart"
+          "source": "registry/components/display/feature_carousel/_impl/themes/feature_carousel_theme.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/themes/feature_carousel_theme.dart"
         },
         {
           "source": "registry/components/display/feature_carousel/feature_carousel.dart",

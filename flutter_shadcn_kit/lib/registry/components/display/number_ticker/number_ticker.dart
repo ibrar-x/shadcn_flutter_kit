@@ -4,7 +4,7 @@ import '../../../shared/primitives/animated_value_builder.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/number_ticker_theme.dart';
+part '_impl/themes/number_ticker_theme.dart';
 
 /// Builder signature for custom ticker content.
 typedef NumberTickerBuilder = Widget Function(
