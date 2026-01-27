@@ -29,5 +29,5 @@ jobs:
         uses: bluefireteam/flutter-gh-pages@v9
         with:
           workingDir: docs
-          baseHref: /shadcn_flutter_kit/docs/
+          baseHref: /shadcn_flutter_kit/
           webRenderer: canvaskit
