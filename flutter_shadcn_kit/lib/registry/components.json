@@ -19,16 +19,44 @@
           "destination": "{sharedPath}/theme/theme.dart"
         },
         {
-          "source": "registry/shared/theme/color_scheme.dart",
-          "destination": "{sharedPath}/theme/color_scheme.dart"
+          "source": "registry/shared/theme/_impl/core/adaptive_scaler.dart",
+          "destination": "{sharedPath}/theme/_impl/core/adaptive_scaler.dart"
         },
         {
-          "source": "registry/shared/theme/typography.dart",
-          "destination": "{sharedPath}/theme/typography.dart"
+          "source": "registry/shared/theme/_impl/core/adaptive_scaling.dart",
+          "destination": "{sharedPath}/theme/_impl/core/adaptive_scaling.dart"
         },
         {
-          "source": "registry/shared/theme/generated_colors.dart",
-          "destination": "{sharedPath}/theme/generated_colors.dart"
+          "source": "registry/shared/theme/_impl/themes/__animated_theme_state.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/__animated_theme_state.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/animated_theme.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/animated_theme.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/component_theme.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/component_theme.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/component_theme_data.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/component_theme_data.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/icon_theme_properties.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/icon_theme_properties.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/theme.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/theme.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/theme_data.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/theme_data.dart"
+        },
+        {
+          "source": "registry/shared/theme/_impl/themes/theme_data_tween.dart",
+          "destination": "{sharedPath}/theme/_impl/themes/theme_data_tween.dart"
         }
       ]
     },
@@ -51,20 +79,36 @@
           "destination": "{sharedPath}/primitives/clickable.dart"
         },
         {
-          "source": "registry/shared/primitives/animated_value_builder.dart",
-          "destination": "{sharedPath}/primitives/animated_value_builder.dart"
+          "source": "registry/shared/primitives/_impl/core/__builder_stated_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__builder_stated_widget.dart"
         },
         {
-          "source": "registry/shared/primitives/focus_outline.dart",
-          "destination": "{sharedPath}/primitives/focus_outline.dart"
+          "source": "registry/shared/primitives/_impl/core/__map_stated_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__map_stated_widget.dart"
         },
         {
-          "source": "registry/shared/utils/constants.dart",
-          "destination": "{sharedPath}/utils/constants.dart"
+          "source": "registry/shared/primitives/_impl/core/__param_stated_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__param_stated_widget.dart"
         },
         {
-          "source": "registry/shared/utils/platform_utils.dart",
-          "destination": "{sharedPath}/utils/platform_utils.dart"
+          "source": "registry/shared/primitives/_impl/core/clickable.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/clickable.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/stated_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/stated_widget.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/widget_states_data.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/widget_states_data.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/widget_states_provider.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/widget_states_provider.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__clickable_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__clickable_state.dart"
         }
       ]
     },
@@ -75,6 +119,22 @@
         {
           "source": "registry/shared/primitives/form_control.dart",
           "destination": "{sharedPath}/primitives/form_control.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/controlled_component_adapter.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/controlled_component_adapter.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/controlled_component_data.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/controlled_component_data.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__controlled_component_adapter_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__controlled_component_adapter_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/utils/component_value_controller.dart",
+          "destination": "{sharedPath}/primitives/_impl/utils/component_value_controller.dart"
         }
       ]
     },
@@ -85,6 +145,22 @@
         {
           "source": "registry/shared/primitives/form_value_supplier.dart",
           "destination": "{sharedPath}/primitives/form_value_supplier.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__form_entry_cached_value.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__form_entry_cached_value.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/form_key.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/form_key.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/replace_result.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/replace_result.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/validation_result.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/validation_result.dart"
         }
       ]
     },
@@ -135,6 +211,18 @@
         {
           "source": "registry/shared/utils/animation_queue.dart",
           "destination": "{sharedPath}/utils/animation_queue.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/__animation_runner.dart",
+          "destination": "{sharedPath}/utils/_impl/core/__animation_runner.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/animation_request.dart",
+          "destination": "{sharedPath}/utils/_impl/core/animation_request.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/utils/animation_queue_controller.dart",
+          "destination": "{sharedPath}/utils/_impl/utils/animation_queue_controller.dart"
         }
       ]
     },
@@ -155,6 +243,14 @@
         {
           "source": "registry/shared/primitives/animated_value_builder.dart",
           "destination": "{sharedPath}/primitives/animated_value_builder.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/animated_value_builder.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/animated_value_builder.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__animated_value_builder_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__animated_value_builder_state.dart"
         }
       ]
     },
@@ -175,6 +271,62 @@
         {
           "source": "registry/shared/utils/util.dart",
           "destination": "{sharedPath}/utils/util.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/bi_directional_convert.dart",
+          "destination": "{sharedPath}/utils/_impl/core/bi_directional_convert.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/cached_value_widget.dart",
+          "destination": "{sharedPath}/utils/_impl/core/cached_value_widget.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/callback_context_action.dart",
+          "destination": "{sharedPath}/utils/_impl/core/callback_context_action.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/captured_wrapper.dart",
+          "destination": "{sharedPath}/utils/_impl/core/captured_wrapper.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/context_callback_action.dart",
+          "destination": "{sharedPath}/utils/_impl/core/context_callback_action.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/form_pending_builder.dart",
+          "destination": "{sharedPath}/utils/_impl/core/form_pending_builder.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/repeated_animation_builder.dart",
+          "destination": "{sharedPath}/utils/_impl/core/repeated_animation_builder.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/separated_flex.dart",
+          "destination": "{sharedPath}/utils/_impl/core/separated_flex.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/time_of_day.dart",
+          "destination": "{sharedPath}/utils/_impl/core/time_of_day.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/state/__cached_value_widget_state.dart",
+          "destination": "{sharedPath}/utils/_impl/state/__cached_value_widget_state.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/state/__captured_wrapper_state.dart",
+          "destination": "{sharedPath}/utils/_impl/state/__captured_wrapper_state.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/state/__repeated_animation_builder_state.dart",
+          "destination": "{sharedPath}/utils/_impl/state/__repeated_animation_builder_state.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/state/__separated_flex_state.dart",
+          "destination": "{sharedPath}/utils/_impl/state/__separated_flex_state.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/utils/converted_controller.dart",
+          "destination": "{sharedPath}/utils/_impl/utils/converted_controller.dart"
         }
       ]
     },
@@ -227,12 +379,20 @@
           "destination": "{sharedPath}/primitives/hidden.dart"
         },
         {
-          "source": "registry/shared/primitives/animated_value_builder.dart",
-          "destination": "{sharedPath}/primitives/animated_value_builder.dart"
+          "source": "registry/shared/primitives/_impl/core/__hidden_layout.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__hidden_layout.dart"
         },
         {
-          "source": "registry/shared/primitives/focus_outline.dart",
-          "destination": "{sharedPath}/primitives/focus_outline.dart"
+          "source": "registry/shared/primitives/_impl/core/__hidden_layout_render.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__hidden_layout_render.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/hidden.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/hidden.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/hidden_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/hidden_theme.dart"
         }
       ]
     },
@@ -245,16 +405,72 @@
           "destination": "{sharedPath}/primitives/overlay.dart"
         },
         {
+          "source": "registry/shared/primitives/_impl/core/__fallback_overlay_manager.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__fallback_overlay_manager.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/overlay_barrier.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/overlay_barrier.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/overlay_manager.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/overlay_manager.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/overlay_manager_layer.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/overlay_manager_layer.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/shadcn_layer.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/shadcn_layer.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__overlay_manager_layer_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__overlay_manager_layer_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/utils/overlay_completer.dart",
+          "destination": "{sharedPath}/primitives/_impl/utils/overlay_completer.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/utils/overlay_handler.dart",
+          "destination": "{sharedPath}/primitives/_impl/utils/overlay_handler.dart"
+        },
+        {
           "source": "registry/shared/primitives/popover.dart",
           "destination": "{sharedPath}/primitives/popover.dart"
         },
         {
-          "source": "registry/shared/primitives/animated_value_builder.dart",
-          "destination": "{sharedPath}/primitives/animated_value_builder.dart"
+          "source": "registry/shared/primitives/_impl/core/overlay_popover_entry.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/overlay_popover_entry.dart"
         },
         {
-          "source": "registry/shared/utils/tween_utils.dart",
-          "destination": "{sharedPath}/utils/tween_utils.dart"
+          "source": "registry/shared/primitives/_impl/core/popover.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/popover.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/popover_layout.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/popover_layout.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/popover_layout_render.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/popover_layout_render.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/popover_overlay_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/popover_overlay_widget.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/popover_overlay_widget_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/popover_overlay_widget_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/utils/popover_controller.dart",
+          "destination": "{sharedPath}/primitives/_impl/utils/popover_controller.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/utils/popover_overlay_handler.dart",
+          "destination": "{sharedPath}/primitives/_impl/utils/popover_overlay_handler.dart"
         }
       ]
     },
@@ -265,6 +481,26 @@
         {
           "source": "registry/shared/primitives/hover.dart",
           "destination": "{sharedPath}/primitives/hover.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/hover.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/hover.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/hover_activity.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/hover_activity.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__hover_activity_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__hover_activity_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__hover_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__hover_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/hover_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/hover_theme.dart"
         }
       ]
     },
@@ -275,6 +511,22 @@
         {
           "source": "registry/shared/primitives/subfocus.dart",
           "destination": "{sharedPath}/primitives/subfocus.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/sub_focus.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/sub_focus.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/sub_focus_scope.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/sub_focus_scope.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__sub_focus_scope_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__sub_focus_scope_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__sub_focus_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__sub_focus_state.dart"
         }
       ]
     },
@@ -287,8 +539,20 @@
           "destination": "{sharedPath}/primitives/basic.dart"
         },
         {
-          "source": "registry/shared/primitives/text.dart",
-          "destination": "{sharedPath}/primitives/text.dart"
+          "source": "registry/shared/primitives/_impl/core/basic.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/basic.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/basic_layout.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/basic_layout.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/label.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/label.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/basic_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/basic_theme.dart"
         }
       ]
     },
@@ -299,6 +563,34 @@
         {
           "source": "registry/shared/primitives/text.dart",
           "destination": "{sharedPath}/primitives/text.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__bullet_painter.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__bullet_painter.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__rich_text_then_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__rich_text_then_widget.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__selectable_text_then_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__selectable_text_then_widget.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__text_then_widget.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__text_then_widget.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/text_modifier.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/text_modifier.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/unordered_list_data.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/unordered_list_data.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/wrapped_text.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/wrapped_text.dart"
         }
       ]
     },
@@ -319,6 +611,14 @@
         {
           "source": "registry/shared/localizations/shadcn_localizations.dart",
           "destination": "{sharedPath}/localizations/shadcn_localizations.dart"
+        },
+        {
+          "source": "registry/shared/localizations/_impl/core/shadcn_localizations.dart",
+          "destination": "{sharedPath}/localizations/_impl/core/shadcn_localizations.dart"
+        },
+        {
+          "source": "registry/shared/localizations/_impl/utils/__shadcn_localizations_delegate.dart",
+          "destination": "{sharedPath}/localizations/_impl/utils/__shadcn_localizations_delegate.dart"
         }
       ]
     },
@@ -339,6 +639,18 @@
         {
           "source": "registry/shared/primitives/fade_scroll.dart",
           "destination": "{sharedPath}/primitives/fade_scroll.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/__scale_gradient.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/__scale_gradient.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/fade_scroll.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/fade_scroll.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/fade_scroll_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/fade_scroll_theme.dart"
         }
       ]
     },
@@ -359,10 +671,6 @@
         {
           "source": "registry/shared/utils/resizable_item.dart",
           "destination": "{sharedPath}/utils/resizable_item.dart"
-        },
-        {
-          "source": "registry/shared/utils/resizer.dart",
-          "destination": "{sharedPath}/utils/resizer.dart"
         }
       ]
     },
@@ -383,6 +691,18 @@
         {
           "source": "registry/shared/utils/animation_queue.dart",
           "destination": "{sharedPath}/utils/animation_queue.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/__animation_runner.dart",
+          "destination": "{sharedPath}/utils/_impl/core/__animation_runner.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/animation_request.dart",
+          "destination": "{sharedPath}/utils/_impl/core/animation_request.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/utils/animation_queue_controller.dart",
+          "destination": "{sharedPath}/utils/_impl/utils/animation_queue_controller.dart"
         }
       ]
     },
@@ -413,6 +733,26 @@
         {
           "source": "registry/shared/primitives/outlined_container.dart",
           "destination": "{sharedPath}/primitives/outlined_container.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/outlined_container.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/outlined_container.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/surface_blur.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/surface_blur.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__outlined_container_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__outlined_container_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/state/__surface_blur_state.dart",
+          "destination": "{sharedPath}/primitives/_impl/state/__surface_blur_state.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/outlined_container_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/outlined_container_theme.dart"
         }
       ]
     },
@@ -433,6 +773,14 @@
         {
           "source": "registry/shared/primitives/focus_outline.dart",
           "destination": "{sharedPath}/primitives/focus_outline.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/focus_outline.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/focus_outline.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/themes/focus_outline_theme.dart",
+          "destination": "{sharedPath}/primitives/_impl/themes/focus_outline_theme.dart"
         }
       ]
     },
@@ -443,6 +791,18 @@
         {
           "source": "registry/shared/utils/axis.dart",
           "destination": "{sharedPath}/utils/axis.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/axis_alignment.dart",
+          "destination": "{sharedPath}/utils/_impl/core/axis_alignment.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/axis_alignment_directional.dart",
+          "destination": "{sharedPath}/utils/_impl/core/axis_alignment_directional.dart"
+        },
+        {
+          "source": "registry/shared/utils/_impl/core/axis_alignment_geometry.dart",
+          "destination": "{sharedPath}/utils/_impl/core/axis_alignment_geometry.dart"
         }
       ]
     },
@@ -453,6 +813,14 @@
         {
           "source": "registry/shared/primitives/phone_number.dart",
           "destination": "{sharedPath}/primitives/phone_number.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/country.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/country.dart"
+        },
+        {
+          "source": "registry/shared/primitives/_impl/core/phone_number.dart",
+          "destination": "{sharedPath}/primitives/_impl/core/phone_number.dart"
         }
       ]
     }
