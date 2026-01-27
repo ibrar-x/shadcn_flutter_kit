@@ -20,10 +20,14 @@ part '_impl/core/navigation_widget.dart';
 part '_impl/core/_navigation_label_background_painter.dart';
 part '_impl/utils/_navigation_label_delegate.dart';
 part '_impl/core/_navigation_child_overflow_handle.dart';
+part '_impl/themes/navigation_bar_theme.dart';
 part '_impl/core/navigation_label.dart';
 part '_impl/core/navigation_padding.dart';
 part '_impl/core/_navigation_labeled.dart';
 part '_impl/state/_navigation_button_state.dart';
+part '_impl/core/navigation_bar_item.dart';
+part '_impl/core/abstract_navigation_button.dart';
+part '_impl/state/_abstract_navigation_button_state.dart';
 part '_impl/core/navigation_button.dart';
 part '_impl/state/_navigation_item_state.dart';
 part '_impl/core/navigation_item.dart';
@@ -89,107 +93,6 @@ enum NavigationContainerType {
 
   /// Expandable sidebar navigation with more space for content.
   sidebar
-}
-
-/// Theme data for customizing [NavigationBar] widget appearance.
-class NavigationBarTheme extends ComponentThemeData {
-  /// Background color of the navigation bar.
-  final Color? backgroundColor;
-
-  /// Alignment of navigation items.
-  final NavigationBarAlignment? alignment;
-
-  /// Layout direction (horizontal or vertical).
-  final Axis? direction;
-
-  /// Spacing between navigation items.
-  final double? spacing;
-
-  /// Type of label display (e.g., always show, hide, etc.).
-  final NavigationLabelType? labelType;
-
-  /// Position of labels relative to icons.
-  final NavigationLabelPosition? labelPosition;
-
-  /// Size variant for labels.
-  final NavigationLabelSize? labelSize;
-
-  /// Internal padding of the navigation bar.
-  final EdgeInsetsGeometry? padding;
-
-  /// Creates a [NavigationBarTheme].
-  const NavigationBarTheme({
-    this.backgroundColor,
-    this.alignment,
-    this.direction,
-    this.spacing,
-    this.labelType,
-    this.labelPosition,
-    this.labelSize,
-    this.padding,
-  });
-
-  /// Creates a copy of this theme with the given fields replaced.
-  NavigationBarTheme copyWith({
-    ValueGetter<Color?>? backgroundColor,
-    ValueGetter<NavigationBarAlignment?>? alignment,
-    ValueGetter<Axis?>? direction,
-    ValueGetter<double?>? spacing,
-    ValueGetter<NavigationLabelType?>? labelType,
-    ValueGetter<NavigationLabelPosition?>? labelPosition,
-    ValueGetter<NavigationLabelSize?>? labelSize,
-    ValueGetter<EdgeInsetsGeometry?>? padding,
-  }) {
-    return NavigationBarTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
-      alignment: alignment == null ? this.alignment : alignment(),
-      direction: direction == null ? this.direction : direction(),
-      spacing: spacing == null ? this.spacing : spacing(),
-      labelType: labelType == null ? this.labelType : labelType(),
-      labelPosition:
-          labelPosition == null ? this.labelPosition : labelPosition(),
-      labelSize: labelSize == null ? this.labelSize : labelSize(),
-      padding: padding == null ? this.padding : padding(),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is NavigationBarTheme &&
-        other.backgroundColor == backgroundColor &&
-        other.alignment == alignment &&
-        other.direction == direction &&
-        other.spacing == spacing &&
-        other.labelType == labelType &&
-        other.labelPosition == labelPosition &&
-        other.labelSize == labelSize &&
-        other.padding == padding;
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        backgroundColor,
-        alignment,
-        direction,
-        spacing,
-        labelType,
-        labelPosition,
-        labelSize,
-        padding,
-      );
-}
-
-/// Base class for navigation bar items.
-///
-/// Abstract widget class that all navigation items must extend.
-/// Provides common interface for items within [NavigationBar].
-abstract class NavigationBarItem extends Widget {
-  /// Creates a [NavigationBarItem].
-  const NavigationBarItem({super.key});
-
-  /// Whether this item can be selected.
-  bool get selectable;
 }
 
 /// A flexible navigation container widget for organizing navigation items.
@@ -504,139 +407,6 @@ enum NavigationLabelSize {
 /// )
 /// ```
 
-/// Abstract base class for navigation button widgets.
-///
-/// Provides common properties and behavior for navigation items and buttons.
-/// Subclasses include [NavigationItem] and [NavigationButton].
-///
-/// Handles layout, labels, styling, and integration with navigation containers.
-abstract class AbstractNavigationButton extends StatefulWidget
-    implements NavigationBarItem {
-  /// Main content widget (typically an icon).
-  final Widget child;
-
-  /// Optional label text widget.
-  final Widget? label;
-
-  /// Spacing between icon and label.
-  final double? spacing;
-
-  /// Custom button style.
-  final AbstractButtonStyle? style;
-
-  /// Content alignment within the button.
-  final AlignmentGeometry? alignment;
-
-  /// Whether the button is enabled for interaction.
-  final bool? enabled;
-
-  /// How to handle label overflow.
-  final NavigationOverflow overflow;
-
-  /// Alignment for margins.
-  final AlignmentGeometry? marginAlignment;
-
-  /// Creates an abstract navigation button.
-  ///
-  /// Parameters:
-  /// - [child] (Widget, required): Main content (icon)
-  /// - [spacing] (double?): Icon-label spacing
-  /// - [label] (Widget?): Label widget
-  /// - [style] (AbstractButtonStyle?): Button style
-  /// - [alignment] (AlignmentGeometry?): Content alignment
-  /// - [enabled] (bool?): Enabled state
-  /// - [overflow] (NavigationOverflow): Overflow behavior, defaults to marquee
-  /// - [marginAlignment] (AlignmentGeometry?): Margin alignment
-  const AbstractNavigationButton({
-    super.key,
-    this.spacing,
-    this.label,
-    this.style,
-    this.alignment,
-    this.enabled,
-    this.overflow = NavigationOverflow.marquee,
-    this.marginAlignment,
-    required this.child,
-  });
-
-  @override
-  State<AbstractNavigationButton> createState();
-}
-
-abstract class _AbstractNavigationButtonState<
-    T extends AbstractNavigationButton> extends State<T> {
-  @override
-  Widget build(BuildContext context) {
-    final data = Data.maybeOf<NavigationControlData>(context);
-    final childData = Data.maybeOf<NavigationChildControlData>(context);
-    if (data?.containerType == NavigationContainerType.sidebar) {
-      return buildSliver(context, data, childData);
-    }
-    final labelType = data?.parentLabelType ?? NavigationLabelType.none;
-    if (labelType == NavigationLabelType.tooltip) {
-      return buildTooltip(context, data, childData);
-    }
-    return _buildBox(context, data, childData);
-  }
-
-  Widget buildTooltip(
-    BuildContext context,
-    NavigationControlData? data,
-    NavigationChildControlData? childData,
-  ) {
-    if (widget.label == null) {
-      return buildBox(context, data, childData);
-    }
-    AlignmentGeometry alignment = Alignment.topCenter;
-    AlignmentGeometry anchorAlignment = Alignment.bottomCenter;
-    if (data?.direction == Axis.vertical) {
-      alignment = AlignmentDirectional.centerStart;
-      anchorAlignment = AlignmentDirectional.centerEnd;
-    }
-    return Tooltip(
-      waitDuration: !isMobile(Theme.of(context).platform)
-          ? Duration.zero
-          : const Duration(milliseconds: 500),
-      alignment: alignment,
-      anchorAlignment: anchorAlignment,
-      tooltip: TooltipContainer(child: widget.label!).call,
-      child: buildBox(context, data, childData),
-    );
-  }
-
-  Widget buildSliver(
-    BuildContext context,
-    NavigationControlData? data,
-    NavigationChildControlData? childData,
-  ) {
-    final labelType = data?.parentLabelType ?? NavigationLabelType.none;
-    if (labelType == NavigationLabelType.tooltip) {
-      return SliverToBoxAdapter(child: buildTooltip(context, data, childData));
-    }
-    return SliverToBoxAdapter(child: _buildBox(context, data, childData));
-  }
-
-  Widget _buildBox(
-    BuildContext context,
-    NavigationControlData? data,
-    NavigationChildControlData? childData,
-  ) {
-    if (childData == null) {
-      return buildBox(context, data, null);
-    } else {
-      return RepaintBoundary.wrap(
-        buildBox(context, data, childData),
-        childData.actualIndex,
-      );
-    }
-  }
-
-  Widget buildBox(
-    BuildContext context,
-    NavigationControlData? data,
-    NavigationChildControlData? childData,
-  );
-}
 
 /// Internal widget that applies spacing between navigation items.
 ///
@@ -705,4 +475,3 @@ typedef NavigationWidgetBuilder = Widget Function(
 ///   ),
 /// )
 /// ```
-

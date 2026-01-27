@@ -17,76 +17,14 @@ part '_impl/core/step_number.dart';
 part '_impl/core/step_number_data.dart';
 part '_impl/core/stepper_2.dart';
 part '_impl/utils/stepper_controller.dart';
+part '_impl/themes/stepper_theme.dart';
 part '_impl/core/step_properties.dart';
+part '_impl/variants/step_variant.dart';
 part '_impl/variants/_step_variant_line.dart';
 part '_impl/variants/_step_variant_circle_alternative.dart';
 part '_impl/variants/_step_variant_circle.dart';
 part '_impl/core/step.dart';
 part '_impl/core/stepper_value.dart';
-
-/// Theme configuration for [Stepper] components.
-///
-/// Defines default values for stepper direction, size, and visual variant.
-/// Applied through [ComponentTheme] to provide consistent styling across
-/// stepper widgets in the application.
-///
-/// Example:
-/// ```dart
-/// ComponentTheme(
-///   data: StepperTheme(
-///     direction: Axis.vertical,
-///     size: StepSize.large,
-///     variant: StepVariant.circle,
-///   ),
-///   child: MyApp(),
-/// );
-/// ```
-class StepperTheme extends ComponentThemeData {
-  /// Layout direction for the stepper.
-  final Axis? direction;
-
-  /// Size variant for step indicators.
-  final StepSize? size;
-
-  /// Visual variant for step presentation.
-  final StepVariant? variant;
-
-  /// Creates a [StepperTheme].
-  ///
-  /// All parameters are optional and provide default values for
-  /// stepper components in the widget tree.
-  ///
-  /// Parameters:
-  /// - [direction] (Axis?): horizontal or vertical layout
-  /// - [size] (StepSize?): step indicator size (small, medium, large)
-  /// - [variant] (StepVariant?): visual style (circle, circleAlt, line)
-  const StepperTheme({this.direction, this.size, this.variant});
-
-  /// Creates a copy of this theme with optionally overridden properties.
-  StepperTheme copyWith({
-    ValueGetter<Axis?>? direction,
-    ValueGetter<StepSize?>? size,
-    ValueGetter<StepVariant?>? variant,
-  }) {
-    return StepperTheme(
-      direction: direction == null ? this.direction : direction(),
-      size: size == null ? this.size : size(),
-      variant: variant == null ? this.variant : variant(),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is StepperTheme &&
-        other.direction == direction &&
-        other.size == size &&
-        other.variant == variant;
-  }
-
-  @override
-  int get hashCode => Object.hash(direction, size, variant);
-}
 
 /// Represents the state of an individual step in a stepper.
 ///
@@ -178,42 +116,6 @@ Widget _mediumSize(BuildContext context, Widget child) {
 /// Applies large text and icon sizing to the child widget.
 Widget _largeSize(BuildContext context, Widget child) {
   return child.large().iconLarge();
-}
-
-/// Abstract base class for step visual presentation variants.
-///
-/// Defines how steps are rendered and connected to each other. Three built-in
-/// variants are provided: circle (default), circleAlt (alternative layout),
-/// and line (minimal design). Custom variants can be created by extending
-/// this class.
-///
-/// Example:
-/// ```dart
-/// Stepper(
-///   variant: StepVariant.circle,
-///   steps: mySteps,
-///   controller: controller,
-/// );
-/// ```
-abstract class StepVariant {
-  /// Circle variant with numbered indicators and connecting lines.
-  static const StepVariant circle = _StepVariantCircle();
-
-  /// Alternative circle variant with centered step names.
-  static const StepVariant circleAlt = _StepVariantCircleAlternative();
-
-  /// Minimal line variant with progress bars as step indicators.
-  static const StepVariant line = _StepVariantLine();
-
-  /// Creates a [StepVariant].
-  const StepVariant();
-
-  /// Builds the stepper widget using this variant's visual style.
-  ///
-  /// Implementations should create the appropriate layout using the
-  /// provided [StepProperties] which contains step data, current state,
-  /// and sizing information.
-  Widget build(BuildContext context, StepProperties properties);
 }
 
 /// Default small step indicator size in logical pixels.
@@ -375,4 +277,3 @@ const kLargeStepIndicatorSize = 44.0;
 ///   ],
 /// );
 /// ```
-

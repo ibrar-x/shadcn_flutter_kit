@@ -7194,8 +7194,16 @@
           "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/_navigation_labeled.dart"
         },
         {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/abstract_navigation_button.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/abstract_navigation_button.dart"
+        },
+        {
           "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_bar_2.dart",
           "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_bar_2.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_bar_item.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/core/navigation_bar_item.dart"
         },
         {
           "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_button.dart",
@@ -7250,6 +7258,10 @@
           "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_bar_state.dart"
         },
         {
+          "source": "registry/components/navigation/navigation_bar/_impl/state/_abstract_navigation_button_state.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_abstract_navigation_button_state.dart"
+        },
+        {
           "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_button_state.dart",
           "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_button_state.dart"
         },
@@ -7268,6 +7280,10 @@
         {
           "source": "registry/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart",
           "destination": "{installPath}/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart"
+        },
+        {
+          "source": "registry/components/navigation/navigation_bar/_impl/themes/navigation_bar_theme.dart",
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/themes/navigation_bar_theme.dart"
         },
         {
           "source": "registry/components/navigation/navigation_bar/meta.json",
@@ -8322,6 +8338,14 @@
         {
           "source": "registry/components/navigation/stepper/_impl/utils/stepper_controller.dart",
           "destination": "{installPath}/components/navigation/stepper/_impl/utils/stepper_controller.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/themes/stepper_theme.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/themes/stepper_theme.dart"
+        },
+        {
+          "source": "registry/components/navigation/stepper/_impl/variants/step_variant.dart",
+          "destination": "{installPath}/components/navigation/stepper/_impl/variants/step_variant.dart"
         },
         {
           "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_circle.dart",
