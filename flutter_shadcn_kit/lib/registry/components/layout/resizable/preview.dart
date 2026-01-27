@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../resizable/resizable.dart';
+import 'resizable.dart';
 
 class ResizablePreview extends StatelessWidget {
   const ResizablePreview({super.key});

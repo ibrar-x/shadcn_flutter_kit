@@ -8,9 +8,12 @@ import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 
-part '_impl/accordion_item.dart';
-part '_impl/accordion_theme.dart';
-part '_impl/accordion_trigger.dart';
+part '_impl/core/accordion_item.dart';
+part '_impl/themes/accordion_theme.dart';
+part '_impl/core/accordion_trigger.dart';
+part '_impl/state/accordion_state.dart';
+part '_impl/state/_accordion_trigger_state.dart';
+part '_impl/state/_accordion_item_state.dart';
 
 /// A container of expandable sections where only one panel may be open at once.
 class Accordion extends StatefulWidget {
@@ -25,44 +28,4 @@ class Accordion extends StatefulWidget {
 }
 
 /// State helper that tracks the currently expanded item.
-class AccordionState extends State<Accordion> {
-  final ValueNotifier<_AccordionItemState?> _expanded = ValueNotifier(null);
 
-  @override
-  void dispose() {
-    _expanded.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
-    final accTheme = ComponentTheme.maybeOf<AccordionTheme>(context);
-    final dividerColor = accTheme?.dividerColor ?? theme.colorScheme.muted;
-    final dividerHeight = accTheme?.dividerHeight ?? 1 * scaling;
-
-    final children = <Widget>[];
-    for (var i = 0; i < widget.items.length; i++) {
-      children.add(widget.items[i]);
-      if (i < widget.items.length - 1) {
-        children.add(Container(
-          color: dividerColor,
-          height: dividerHeight,
-        ));
-      }
-    }
-    children.add(const Divider());
-
-    return Data.inherit(
-      data: this,
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
-        ),
-      ),
-    );
-  }
-}

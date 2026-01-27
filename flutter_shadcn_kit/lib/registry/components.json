@@ -841,12 +841,16 @@
           "destination": "{installPath}/components/layout/card/README.md"
         },
         {
-          "source": "registry/components/layout/card/_impl/card_theme.dart",
-          "destination": "{installPath}/components/layout/card/_impl/card_theme.dart"
+          "source": "registry/components/layout/card/_impl/core/card_widgets.dart",
+          "destination": "{installPath}/components/layout/card/_impl/core/card_widgets.dart"
         },
         {
-          "source": "registry/components/layout/card/_impl/card_widgets.dart",
-          "destination": "{installPath}/components/layout/card/_impl/card_widgets.dart"
+          "source": "registry/components/layout/card/_impl/core/surface_card.dart",
+          "destination": "{installPath}/components/layout/card/_impl/core/surface_card.dart"
+        },
+        {
+          "source": "registry/components/layout/card/_impl/themes/card_theme.dart",
+          "destination": "{installPath}/components/layout/card/_impl/themes/card_theme.dart"
         },
         {
           "source": "registry/components/layout/card/card.dart",
@@ -892,6 +896,14 @@
         {
           "source": "registry/components/layout/card_image/README.md",
           "destination": "{installPath}/components/layout/card_image/README.md"
+        },
+        {
+          "source": "registry/components/layout/card_image/_impl/core/card_image_2.dart",
+          "destination": "{installPath}/components/layout/card_image/_impl/core/card_image_2.dart"
+        },
+        {
+          "source": "registry/components/layout/card_image/_impl/state/_card_image_state.dart",
+          "destination": "{installPath}/components/layout/card_image/_impl/state/_card_image_state.dart"
         },
         {
           "source": "registry/components/layout/card_image/card_image.dart",
@@ -943,8 +955,8 @@
           "destination": "{installPath}/components/layout/alert/README.md"
         },
         {
-          "source": "registry/components/layout/alert/_impl/alert_theme.dart",
-          "destination": "{installPath}/components/layout/alert/_impl/alert_theme.dart"
+          "source": "registry/components/layout/alert/_impl/themes/alert_theme.dart",
+          "destination": "{installPath}/components/layout/alert/_impl/themes/alert_theme.dart"
         },
         {
           "source": "registry/components/layout/alert/alert.dart",
@@ -1258,20 +1270,24 @@
           "destination": "{installPath}/components/layout/collapsible/README.md"
         },
         {
-          "source": "registry/components/layout/collapsible/_impl/collapsible_content.dart",
-          "destination": "{installPath}/components/layout/collapsible/_impl/collapsible_content.dart"
+          "source": "registry/components/layout/collapsible/_impl/core/collapsible_content.dart",
+          "destination": "{installPath}/components/layout/collapsible/_impl/core/collapsible_content.dart"
         },
         {
-          "source": "registry/components/layout/collapsible/_impl/collapsible_state_data.dart",
-          "destination": "{installPath}/components/layout/collapsible/_impl/collapsible_state_data.dart"
+          "source": "registry/components/layout/collapsible/_impl/core/collapsible_trigger.dart",
+          "destination": "{installPath}/components/layout/collapsible/_impl/core/collapsible_trigger.dart"
         },
         {
-          "source": "registry/components/layout/collapsible/_impl/collapsible_theme.dart",
-          "destination": "{installPath}/components/layout/collapsible/_impl/collapsible_theme.dart"
+          "source": "registry/components/layout/collapsible/_impl/state/collapsible_state.dart",
+          "destination": "{installPath}/components/layout/collapsible/_impl/state/collapsible_state.dart"
         },
         {
-          "source": "registry/components/layout/collapsible/_impl/collapsible_trigger.dart",
-          "destination": "{installPath}/components/layout/collapsible/_impl/collapsible_trigger.dart"
+          "source": "registry/components/layout/collapsible/_impl/state/collapsible_state_data.dart",
+          "destination": "{installPath}/components/layout/collapsible/_impl/state/collapsible_state_data.dart"
+        },
+        {
+          "source": "registry/components/layout/collapsible/_impl/themes/collapsible_theme.dart",
+          "destination": "{installPath}/components/layout/collapsible/_impl/themes/collapsible_theme.dart"
         },
         {
           "source": "registry/components/layout/collapsible/collapsible.dart",
@@ -1368,12 +1384,16 @@
           "destination": "{installPath}/components/layout/group/README.md"
         },
         {
-          "source": "registry/components/layout/group/_impl/group_parent_data.dart",
-          "destination": "{installPath}/components/layout/group/_impl/group_parent_data.dart"
+          "source": "registry/components/layout/group/_impl/core/group_parent_data.dart",
+          "destination": "{installPath}/components/layout/group/_impl/core/group_parent_data.dart"
         },
         {
-          "source": "registry/components/layout/group/_impl/render_group.dart",
-          "destination": "{installPath}/components/layout/group/_impl/render_group.dart"
+          "source": "registry/components/layout/group/_impl/core/group_positioned.dart",
+          "destination": "{installPath}/components/layout/group/_impl/core/group_positioned.dart"
+        },
+        {
+          "source": "registry/components/layout/group/_impl/core/render_group.dart",
+          "destination": "{installPath}/components/layout/group/_impl/core/render_group.dart"
         },
         {
           "source": "registry/components/layout/group/group_widget.dart",
@@ -1412,12 +1432,20 @@
           "destination": "{installPath}/components/layout/hidden/README.md"
         },
         {
-          "source": "registry/components/layout/hidden/_impl/hidden_layout.dart",
-          "destination": "{installPath}/components/layout/hidden/_impl/hidden_layout.dart"
+          "source": "registry/components/layout/hidden/_impl/core/_render_hidden_layout.dart",
+          "destination": "{installPath}/components/layout/hidden/_impl/core/_render_hidden_layout.dart"
         },
         {
-          "source": "registry/components/layout/hidden/_impl/hidden_theme.dart",
-          "destination": "{installPath}/components/layout/hidden/_impl/hidden_theme.dart"
+          "source": "registry/components/layout/hidden/_impl/core/hidden_layout.dart",
+          "destination": "{installPath}/components/layout/hidden/_impl/core/hidden_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/hidden/_impl/state/_hidden_preview_state.dart",
+          "destination": "{installPath}/components/layout/hidden/_impl/state/_hidden_preview_state.dart"
+        },
+        {
+          "source": "registry/components/layout/hidden/_impl/themes/hidden_theme.dart",
+          "destination": "{installPath}/components/layout/hidden/_impl/themes/hidden_theme.dart"
         },
         {
           "source": "registry/components/layout/hidden/hidden.dart",
@@ -1463,16 +1491,28 @@
           "destination": "{installPath}/components/layout/accordion/README.md"
         },
         {
-          "source": "registry/components/layout/accordion/_impl/accordion_item.dart",
-          "destination": "{installPath}/components/layout/accordion/_impl/accordion_item.dart"
+          "source": "registry/components/layout/accordion/_impl/core/accordion_item.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/core/accordion_item.dart"
         },
         {
-          "source": "registry/components/layout/accordion/_impl/accordion_theme.dart",
-          "destination": "{installPath}/components/layout/accordion/_impl/accordion_theme.dart"
+          "source": "registry/components/layout/accordion/_impl/core/accordion_trigger.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/core/accordion_trigger.dart"
         },
         {
-          "source": "registry/components/layout/accordion/_impl/accordion_trigger.dart",
-          "destination": "{installPath}/components/layout/accordion/_impl/accordion_trigger.dart"
+          "source": "registry/components/layout/accordion/_impl/state/_accordion_item_state.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/state/_accordion_item_state.dart"
+        },
+        {
+          "source": "registry/components/layout/accordion/_impl/state/_accordion_trigger_state.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/state/_accordion_trigger_state.dart"
+        },
+        {
+          "source": "registry/components/layout/accordion/_impl/state/accordion_state.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/state/accordion_state.dart"
+        },
+        {
+          "source": "registry/components/layout/accordion/_impl/themes/accordion_theme.dart",
+          "destination": "{installPath}/components/layout/accordion/_impl/themes/accordion_theme.dart"
         },
         {
           "source": "registry/components/layout/accordion/accordion.dart",
@@ -1650,6 +1690,18 @@
         {
           "source": "registry/components/layout/basic/README.md",
           "destination": "{installPath}/components/layout/basic/README.md"
+        },
+        {
+          "source": "registry/components/layout/basic/_impl/core/basic_2.dart",
+          "destination": "{installPath}/components/layout/basic/_impl/core/basic_2.dart"
+        },
+        {
+          "source": "registry/components/layout/basic/_impl/core/basic_layout.dart",
+          "destination": "{installPath}/components/layout/basic/_impl/core/basic_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/basic/_impl/core/label.dart",
+          "destination": "{installPath}/components/layout/basic/_impl/core/label.dart"
         },
         {
           "source": "registry/components/layout/basic/basic.dart",
@@ -3795,6 +3847,18 @@
           "destination": "{installPath}/components/layout/fade_scroll/README.md"
         },
         {
+          "source": "registry/components/layout/fade_scroll/_impl/core/_scale_gradient.dart",
+          "destination": "{installPath}/components/layout/fade_scroll/_impl/core/_scale_gradient.dart"
+        },
+        {
+          "source": "registry/components/layout/fade_scroll/_impl/core/fade_scroll_2.dart",
+          "destination": "{installPath}/components/layout/fade_scroll/_impl/core/fade_scroll_2.dart"
+        },
+        {
+          "source": "registry/components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart",
+          "destination": "{installPath}/components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart"
+        },
+        {
           "source": "registry/components/layout/fade_scroll/fade_scroll.dart",
           "destination": "{installPath}/components/layout/fade_scroll/fade_scroll.dart"
         },
@@ -4916,12 +4980,40 @@
           "destination": "{installPath}/components/layout/outlined_container/README.md"
         },
         {
-          "source": "registry/components/layout/outlined_container/_impl/dashed_painters.dart",
-          "destination": "{installPath}/components/layout/outlined_container/_impl/dashed_painters.dart"
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_container.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_container.dart"
         },
         {
-          "source": "registry/components/layout/outlined_container/_impl/outlined_container_theme.dart",
-          "destination": "{installPath}/components/layout/outlined_container/_impl/outlined_container_theme.dart"
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_container_properties.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_container_properties.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_line.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_line.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_line_properties.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_line_properties.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_painter.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_painter.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/core/dashed_painters.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/dashed_painters.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/core/outlined_container_2.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/core/outlined_container_2.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/state/_outlined_container_state.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/state/_outlined_container_state.dart"
+        },
+        {
+          "source": "registry/components/layout/outlined_container/_impl/themes/outlined_container_theme.dart",
+          "destination": "{installPath}/components/layout/outlined_container/_impl/themes/outlined_container_theme.dart"
         },
         {
           "source": "registry/components/layout/outlined_container/meta.json",
@@ -5725,6 +5817,22 @@
         {
           "source": "registry/components/layout/scrollable_client/README.md",
           "destination": "{installPath}/components/layout/scrollable_client/README.md"
+        },
+        {
+          "source": "registry/components/layout/scrollable_client/_impl/core/_scrollable_client_child_vicinity.dart",
+          "destination": "{installPath}/components/layout/scrollable_client/_impl/core/_scrollable_client_child_vicinity.dart"
+        },
+        {
+          "source": "registry/components/layout/scrollable_client/_impl/core/render_scrollable_client_viewport.dart",
+          "destination": "{installPath}/components/layout/scrollable_client/_impl/core/render_scrollable_client_viewport.dart"
+        },
+        {
+          "source": "registry/components/layout/scrollable_client/_impl/core/scrollable_client_2.dart",
+          "destination": "{installPath}/components/layout/scrollable_client/_impl/core/scrollable_client_2.dart"
+        },
+        {
+          "source": "registry/components/layout/scrollable_client/_impl/core/scrollable_client_viewport.dart",
+          "destination": "{installPath}/components/layout/scrollable_client/_impl/core/scrollable_client_viewport.dart"
         },
         {
           "source": "registry/components/layout/scrollable_client/meta.json",
@@ -6810,6 +6918,10 @@
           "destination": "{installPath}/components/layout/media_query/README.md"
         },
         {
+          "source": "registry/components/layout/media_query/_impl/core/media_query_visibility.dart",
+          "destination": "{installPath}/components/layout/media_query/_impl/core/media_query_visibility.dart"
+        },
+        {
           "source": "registry/components/layout/media_query/media_query.dart",
           "destination": "{installPath}/components/layout/media_query/media_query.dart"
         },
@@ -6953,68 +7065,68 @@
           "destination": "{installPath}/components/layout/sortable/README.md"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/scrollable_sortable_layer.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/scrollable_sortable_layer.dart"
+          "source": "registry/components/layout/sortable/_impl/core/scrollable_sortable_layer.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/scrollable_sortable_layer.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/scrollable_sortable_layer_state.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/scrollable_sortable_layer_state.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_data.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_data.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_data.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_data.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_drag_handle.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_drag_handle.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drag_handle.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drag_handle.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_dragging_session.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_dragging_session.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drag_handle_state.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drag_handle_state.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_drop_fallback.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_drop_fallback.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_dragging_session.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_dragging_session.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_drop_location.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_drop_location.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drop_fallback.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drop_fallback.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_drop_transform.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_drop_transform.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drop_fallback_state.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drop_fallback_state.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_dropping_target.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_dropping_target.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drop_location.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drop_location.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_layer.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_layer.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_drop_transform.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_drop_transform.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_pending_drop_transform.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_pending_drop_transform.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_dropping_target.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_dropping_target.dart"
+          "source": "registry/components/layout/sortable/_impl/core/sortable_widget.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/core/sortable_widget.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_layer.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_layer.dart"
+          "source": "registry/components/layout/sortable/_impl/state/scrollable_sortable_layer_state.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/state/scrollable_sortable_layer_state.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_layer_state.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_layer_state.dart"
+          "source": "registry/components/layout/sortable/_impl/state/sortable_drag_handle_state.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/state/sortable_drag_handle_state.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_pending_drop_transform.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_pending_drop_transform.dart"
+          "source": "registry/components/layout/sortable/_impl/state/sortable_drop_fallback_state.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/state/sortable_drop_fallback_state.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_state_part1.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_state_part1.dart"
+          "source": "registry/components/layout/sortable/_impl/state/sortable_layer_state.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/state/sortable_layer_state.dart"
         },
         {
-          "source": "registry/components/layout/sortable/_impl/sortable_widget.dart",
-          "destination": "{installPath}/components/layout/sortable/_impl/sortable_widget.dart"
+          "source": "registry/components/layout/sortable/_impl/state/sortable_state_part1.dart",
+          "destination": "{installPath}/components/layout/sortable/_impl/state/sortable_state_part1.dart"
         },
         {
           "source": "registry/components/layout/sortable/meta.json",
@@ -7514,136 +7626,136 @@
           "destination": "{installPath}/components/layout/table/README.md"
         },
         {
-          "source": "registry/components/layout/table/_impl/cell_predicate.dart",
-          "destination": "{installPath}/components/layout/table/_impl/cell_predicate.dart"
+          "source": "registry/components/layout/table/_impl/core/cell_predicate.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/cell_predicate.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/cell_resizer.dart",
-          "destination": "{installPath}/components/layout/table/_impl/cell_resizer.dart"
+          "source": "registry/components/layout/table/_impl/core/cell_resizer.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/cell_resizer.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/cell_resizer_state_part1.dart",
-          "destination": "{installPath}/components/layout/table/_impl/cell_resizer_state_part1.dart"
+          "source": "registry/components/layout/table/_impl/core/constrained_table_size.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/constrained_table_size.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/constrained_table_size.dart",
-          "destination": "{installPath}/components/layout/table/_impl/constrained_table_size.dart"
+          "source": "registry/components/layout/table/_impl/core/flattened_table_cell.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/flattened_table_cell.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/flattened_table_cell.dart",
-          "destination": "{installPath}/components/layout/table/_impl/flattened_table_cell.dart"
+          "source": "registry/components/layout/table/_impl/core/frozen_table_data.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/frozen_table_data.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/frozen_table_data.dart",
-          "destination": "{installPath}/components/layout/table/_impl/frozen_table_data.dart"
+          "source": "registry/components/layout/table/_impl/core/hover_callback.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/hover_callback.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/hover_callback.dart",
-          "destination": "{installPath}/components/layout/table/_impl/hover_callback.dart"
+          "source": "registry/components/layout/table/_impl/core/hovered_cell.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/hovered_cell.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/hovered_cell.dart",
-          "destination": "{installPath}/components/layout/table/_impl/hovered_cell.dart"
+          "source": "registry/components/layout/table/_impl/core/hovered_line.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/hovered_line.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/hovered_line.dart",
-          "destination": "{installPath}/components/layout/table/_impl/hovered_line.dart"
+          "source": "registry/components/layout/table/_impl/core/intrinsic_computer.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/intrinsic_computer.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/intrinsic_computer.dart",
-          "destination": "{installPath}/components/layout/table/_impl/intrinsic_computer.dart"
+          "source": "registry/components/layout/table/_impl/core/raw_cell.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/raw_cell.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/raw_cell.dart",
-          "destination": "{installPath}/components/layout/table/_impl/raw_cell.dart"
+          "source": "registry/components/layout/table/_impl/core/raw_table_layout.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/raw_table_layout.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/raw_table_layout.dart",
-          "destination": "{installPath}/components/layout/table/_impl/raw_table_layout.dart"
+          "source": "registry/components/layout/table/_impl/core/render_table_layout_part1.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/render_table_layout_part1.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/render_table_layout_part1.dart",
-          "destination": "{installPath}/components/layout/table/_impl/render_table_layout_part1.dart"
+          "source": "registry/components/layout/table/_impl/core/resizable_table.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/resizable_table.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/resizable_table.dart",
-          "destination": "{installPath}/components/layout/table/_impl/resizable_table.dart"
+          "source": "registry/components/layout/table/_impl/core/resizable_table_data.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/resizable_table_data.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/resizable_table_controller.dart",
-          "destination": "{installPath}/components/layout/table/_impl/resizable_table_controller.dart"
+          "source": "registry/components/layout/table/_impl/core/table_cell.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_cell.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/resizable_table_data.dart",
-          "destination": "{installPath}/components/layout/table/_impl/resizable_table_data.dart"
+          "source": "registry/components/layout/table/_impl/core/table_cell_data.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_cell_data.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/resizable_table_state.dart",
-          "destination": "{installPath}/components/layout/table/_impl/resizable_table_state.dart"
+          "source": "registry/components/layout/table/_impl/core/table_cell_resize_mode.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_cell_resize_mode.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/resizable_table_theme.dart",
-          "destination": "{installPath}/components/layout/table/_impl/resizable_table_theme.dart"
+          "source": "registry/components/layout/table/_impl/core/table_footer.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_footer.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_cell.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_cell.dart"
+          "source": "registry/components/layout/table/_impl/core/table_header.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_header.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_cell_data.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_cell_data.dart"
+          "source": "registry/components/layout/table/_impl/core/table_layout_result.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_layout_result.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_cell_resize_mode.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_cell_resize_mode.dart"
+          "source": "registry/components/layout/table/_impl/core/table_parent_data.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_parent_data.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_cell_theme.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_cell_theme.dart"
+          "source": "registry/components/layout/table/_impl/core/table_ref.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_ref.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_cell_theme_builder.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_cell_theme_builder.dart"
+          "source": "registry/components/layout/table/_impl/core/table_row.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_row.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_footer.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_footer.dart"
+          "source": "registry/components/layout/table/_impl/core/table_size_supplier.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_size_supplier.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_header.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_header.dart"
+          "source": "registry/components/layout/table/_impl/core/table_widget.dart",
+          "destination": "{installPath}/components/layout/table/_impl/core/table_widget.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_layout_result.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_layout_result.dart"
+          "source": "registry/components/layout/table/_impl/state/cell_resizer_state_part1.dart",
+          "destination": "{installPath}/components/layout/table/_impl/state/cell_resizer_state_part1.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_parent_data.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_parent_data.dart"
+          "source": "registry/components/layout/table/_impl/state/resizable_table_state.dart",
+          "destination": "{installPath}/components/layout/table/_impl/state/resizable_table_state.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_ref.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_ref.dart"
+          "source": "registry/components/layout/table/_impl/state/table_state.dart",
+          "destination": "{installPath}/components/layout/table/_impl/state/table_state.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_row.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_row.dart"
+          "source": "registry/components/layout/table/_impl/themes/resizable_table_theme.dart",
+          "destination": "{installPath}/components/layout/table/_impl/themes/resizable_table_theme.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_size_supplier.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_size_supplier.dart"
+          "source": "registry/components/layout/table/_impl/themes/table_cell_theme.dart",
+          "destination": "{installPath}/components/layout/table/_impl/themes/table_cell_theme.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_state.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_state.dart"
+          "source": "registry/components/layout/table/_impl/themes/table_cell_theme_builder.dart",
+          "destination": "{installPath}/components/layout/table/_impl/themes/table_cell_theme_builder.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_theme.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_theme.dart"
+          "source": "registry/components/layout/table/_impl/themes/table_theme.dart",
+          "destination": "{installPath}/components/layout/table/_impl/themes/table_theme.dart"
         },
         {
-          "source": "registry/components/layout/table/_impl/table_widget.dart",
-          "destination": "{installPath}/components/layout/table/_impl/table_widget.dart"
+          "source": "registry/components/layout/table/_impl/utils/resizable_table_controller.dart",
+          "destination": "{installPath}/components/layout/table/_impl/utils/resizable_table_controller.dart"
         },
         {
           "source": "registry/components/layout/table/meta.json",
@@ -7687,6 +7799,26 @@
         {
           "source": "registry/components/layout/overflow_marquee/README.md",
           "destination": "{installPath}/components/layout/overflow_marquee/README.md"
+        },
+        {
+          "source": "registry/components/layout/overflow_marquee/_impl/core/_overflow_marquee_layout.dart",
+          "destination": "{installPath}/components/layout/overflow_marquee/_impl/core/_overflow_marquee_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/overflow_marquee/_impl/core/_overflow_marquee_parent_data.dart",
+          "destination": "{installPath}/components/layout/overflow_marquee/_impl/core/_overflow_marquee_parent_data.dart"
+        },
+        {
+          "source": "registry/components/layout/overflow_marquee/_impl/core/_render_overflow_marquee_layout.dart",
+          "destination": "{installPath}/components/layout/overflow_marquee/_impl/core/_render_overflow_marquee_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/overflow_marquee/_impl/core/overflow_marquee_2.dart",
+          "destination": "{installPath}/components/layout/overflow_marquee/_impl/core/overflow_marquee_2.dart"
+        },
+        {
+          "source": "registry/components/layout/overflow_marquee/_impl/state/_overflow_marquee_state.dart",
+          "destination": "{installPath}/components/layout/overflow_marquee/_impl/state/_overflow_marquee_state.dart"
         },
         {
           "source": "registry/components/layout/overflow_marquee/meta.json",
@@ -7971,6 +8103,14 @@
           "destination": "{installPath}/components/layout/steps/README.md"
         },
         {
+          "source": "registry/components/layout/steps/_impl/core/step_item.dart",
+          "destination": "{installPath}/components/layout/steps/_impl/core/step_item.dart"
+        },
+        {
+          "source": "registry/components/layout/steps/_impl/core/steps_2.dart",
+          "destination": "{installPath}/components/layout/steps/_impl/core/steps_2.dart"
+        },
+        {
           "source": "registry/components/layout/steps/meta.json",
           "destination": "{installPath}/components/layout/steps/meta.json"
         },
@@ -8012,6 +8152,74 @@
         {
           "source": "registry/components/layout/resizable/README.md",
           "destination": "{installPath}/components/layout/resizable/README.md"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_render_resizable_layout.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_render_resizable_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizable_item.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizable_item.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizable_layout.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizable_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizable_layout_child.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizable_layout_child.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizable_layout_parent_data.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizable_layout_parent_data.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizable_panel_data.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizable_panel_data.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/_resizer.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/_resizer.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/horizontal_resizable_dragger.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/horizontal_resizable_dragger.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/resizable_data.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/resizable_data.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/resizable_pane.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/resizable_pane.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/resizable_panel.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/resizable_panel.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/core/vertical_resizable_dragger.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/core/vertical_resizable_dragger.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/state/_resizable_pane_state.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/state/_resizable_pane_state.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/state/_resizable_panel_state.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/state/_resizable_panel_state.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/state/_resizer_state.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/state/_resizer_state.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/utils/absolute_resizable_pane_controller.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/utils/absolute_resizable_pane_controller.dart"
+        },
+        {
+          "source": "registry/components/layout/resizable/_impl/utils/flexible_resizable_pane_controller.dart",
+          "destination": "{installPath}/components/layout/resizable/_impl/utils/flexible_resizable_pane_controller.dart"
         },
         {
           "source": "registry/components/layout/resizable/meta.json",
@@ -8336,6 +8544,14 @@
           "destination": "{installPath}/components/layout/timeline/README.md"
         },
         {
+          "source": "registry/components/layout/timeline/_impl/core/timeline_2.dart",
+          "destination": "{installPath}/components/layout/timeline/_impl/core/timeline_2.dart"
+        },
+        {
+          "source": "registry/components/layout/timeline/_impl/core/timeline_data.dart",
+          "destination": "{installPath}/components/layout/timeline/_impl/core/timeline_data.dart"
+        },
+        {
           "source": "registry/components/layout/timeline/meta.json",
           "destination": "{installPath}/components/layout/timeline/meta.json"
         },
@@ -8377,6 +8593,58 @@
         {
           "source": "registry/components/layout/scaffold/README.md",
           "destination": "{installPath}/components/layout/scaffold/README.md"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/_render_scaffold_padding.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/_render_scaffold_padding.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/_scaffold_flex.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/_scaffold_flex.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/_scaffold_parent_data.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/_scaffold_parent_data.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/_scaffold_render_flex.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/_scaffold_render_flex.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/app_bar.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/app_bar.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_2.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_2.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_bar_data.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_bar_data.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_box_constraints.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_box_constraints.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_footer_padding.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_footer_padding.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_header_padding.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_header_padding.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/core/scaffold_padding_storage.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/core/scaffold_padding_storage.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/state/_app_bar_state.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/state/_app_bar_state.dart"
+        },
+        {
+          "source": "registry/components/layout/scaffold/_impl/state/scaffold_state.dart",
+          "destination": "{installPath}/components/layout/scaffold/_impl/state/scaffold_state.dart"
         },
         {
           "source": "registry/components/layout/scaffold/meta.json",
@@ -8423,6 +8691,18 @@
         {
           "source": "registry/components/layout/stage_container/README.md",
           "destination": "{installPath}/components/layout/stage_container/README.md"
+        },
+        {
+          "source": "registry/components/layout/stage_container/_impl/core/stage_container_2.dart",
+          "destination": "{installPath}/components/layout/stage_container/_impl/core/stage_container_2.dart"
+        },
+        {
+          "source": "registry/components/layout/stage_container/_impl/core/staged_breakpoint.dart",
+          "destination": "{installPath}/components/layout/stage_container/_impl/core/staged_breakpoint.dart"
+        },
+        {
+          "source": "registry/components/layout/stage_container/_impl/themes/stage_container_theme.dart",
+          "destination": "{installPath}/components/layout/stage_container/_impl/themes/stage_container_theme.dart"
         },
         {
           "source": "registry/components/layout/stage_container/meta.json",
@@ -8634,6 +8914,66 @@
         {
           "source": "registry/components/layout/window/README.md",
           "destination": "{installPath}/components/layout/window/README.md"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/_blur_container.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/_blur_container.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/_dragging_window.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/_dragging_window.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/_snap_hover.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/_snap_hover.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/_window_layer_group.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/_window_layer_group.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_2.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_2.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_actions.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_actions.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_navigator.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_navigator.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_snap_strategy.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_snap_strategy.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_viewport.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_viewport.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/core/window_widget.dart",
+          "destination": "{installPath}/components/layout/window/_impl/core/window_widget.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/state/_snap_hover_state.dart",
+          "destination": "{installPath}/components/layout/window/_impl/state/_snap_hover_state.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/state/_window_navigator_state.dart",
+          "destination": "{installPath}/components/layout/window/_impl/state/_window_navigator_state.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/state/_window_widget_state.dart",
+          "destination": "{installPath}/components/layout/window/_impl/state/_window_widget_state.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/state/window_state.dart",
+          "destination": "{installPath}/components/layout/window/_impl/state/window_state.dart"
+        },
+        {
+          "source": "registry/components/layout/window/_impl/utils/window_controller.dart",
+          "destination": "{installPath}/components/layout/window/_impl/utils/window_controller.dart"
         },
         {
           "source": "registry/components/layout/window/meta.json",

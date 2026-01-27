@@ -1,0 +1,45 @@
+part of '../../basic.dart';
+
+class Label extends StatelessWidget {
+  /// Optional leading widget displayed before the label.
+  final Widget? leading;
+
+  /// The main label content.
+  final Widget child;
+
+  /// Optional trailing widget displayed after the label.
+  final Widget? trailing;
+
+  /// Creates a [Label].
+  ///
+  /// Parameters:
+  /// - [child] (`Widget`, required): Main label content.
+  /// - [leading] (`Widget?`, optional): Leading widget.
+  /// - [trailing] (`Widget?`, optional): Trailing widget.
+  const Label({
+    super.key,
+    this.leading,
+    required this.child,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    return IntrinsicWidth(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (leading != null) leading!,
+          if (leading != null) SizedBox(width: 8 * scaling),
+          Expanded(child: child),
+          if (trailing != null) SizedBox(width: 8 * scaling),
+          if (trailing != null) trailing!,
+        ],
+      ),
+    );
+  }
+}
