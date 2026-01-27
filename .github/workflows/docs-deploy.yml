@@ -26,8 +26,8 @@ jobs:
           channel: stable
 
       - name: Deploy to GitHub Pages
-        uses: bluefireteam/flutter-gh-pages@v8
+        uses: bluefireteam/flutter-gh-pages@v9
         with:
           workingDir: docs
-          baseHref: /shadcn_flutter_kit/
+          baseHref: /shadcn_flutter_kit/docs/
           webRenderer: canvaskit
