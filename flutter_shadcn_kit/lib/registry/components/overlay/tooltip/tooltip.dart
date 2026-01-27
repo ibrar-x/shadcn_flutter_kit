@@ -11,7 +11,11 @@ import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/tooltip_theme.dart';
-part '_impl/tooltip_container.dart';
-part '_impl/tooltip_widget.dart';
-part '_impl/tooltip_overlay_handlers.dart';
+part '_impl/themes/tooltip_theme.dart';
+part '_impl/core/tooltip_container.dart';
+part '_impl/core/tooltip_widget.dart';
+part '_impl/utils/tooltip_overlay_handlers.dart';
+part '_impl/core/instant_tooltip.dart';
+part '_impl/state/_instant_tooltip_state.dart';
+part '_impl/state/_tooltip_state.dart';
+part '_impl/utils/fixed_tooltip_overlay_handler.dart';

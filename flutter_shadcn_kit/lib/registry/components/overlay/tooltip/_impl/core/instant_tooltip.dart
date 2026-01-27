@@ -1,0 +1,21 @@
+part of '../../tooltip.dart';
+
+class InstantTooltip extends StatefulWidget {
+  final Widget child;
+  final HitTestBehavior behavior;
+  final WidgetBuilder tooltipBuilder;
+  final AlignmentGeometry tooltipAlignment;
+  final AlignmentGeometry? tooltipAnchorAlignment;
+
+  const InstantTooltip({
+    super.key,
+    required this.child,
+    required this.tooltipBuilder,
+    this.behavior = HitTestBehavior.translucent,
+    this.tooltipAlignment = Alignment.bottomCenter,
+    this.tooltipAnchorAlignment,
+  });
+
+  @override
+  State<InstantTooltip> createState() => _InstantTooltipState();
+}

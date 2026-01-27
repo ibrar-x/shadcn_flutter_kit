@@ -2274,19 +2274,55 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/eye_dropper/README.md",
+          "source": "components/overlay/eye_dropper/README.md",
           "destination": "{installPath}/components/overlay/eye_dropper/README.md"
         },
         {
-          "source": "registry/components/overlay/eye_dropper/eye_dropper.dart",
+          "source": "components/overlay/eye_dropper/_impl/core/eye_dropper_layer.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/core/eye_dropper_layer.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/core/eye_dropper_layer_scope.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/core/eye_dropper_layer_scope.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/core/eye_dropper_result.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/core/eye_dropper_result.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/state/_eye_dropper_layer_state.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/state/_eye_dropper_layer_state.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/state/_eye_dropper_preview_state.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/state/_eye_dropper_preview_state.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/utils/_color_preview_painter.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/utils/_color_preview_painter.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/utils/_eye_dropper_completer.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/utils/_eye_dropper_completer.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/utils/_screenshot_image.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/utils/_screenshot_image.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/_impl/utils/_screenshot_result.dart",
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/utils/_screenshot_result.dart"
+        },
+        {
+          "source": "components/overlay/eye_dropper/eye_dropper.dart",
           "destination": "{installPath}/components/overlay/eye_dropper/eye_dropper.dart"
         },
         {
-          "source": "registry/components/overlay/eye_dropper/meta.json",
+          "source": "components/overlay/eye_dropper/meta.json",
           "destination": "{installPath}/components/overlay/eye_dropper/meta.json"
         },
         {
-          "source": "registry/components/overlay/eye_dropper/preview.dart",
+          "source": "components/overlay/eye_dropper/preview.dart",
           "destination": "{installPath}/components/overlay/eye_dropper/preview.dart"
         }
       ],
@@ -6000,19 +6036,27 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/alert_dialog/README.md",
+          "source": "components/overlay/alert_dialog/README.md",
           "destination": "{installPath}/components/overlay/alert_dialog/README.md"
         },
         {
-          "source": "registry/components/overlay/alert_dialog/alert_dialog.dart",
+          "source": "components/overlay/alert_dialog/_impl/core/alert_dialog_widget.dart",
+          "destination": "{installPath}/components/overlay/alert_dialog/_impl/core/alert_dialog_widget.dart"
+        },
+        {
+          "source": "components/overlay/alert_dialog/_impl/state/_alert_dialog_state.dart",
+          "destination": "{installPath}/components/overlay/alert_dialog/_impl/state/_alert_dialog_state.dart"
+        },
+        {
+          "source": "components/overlay/alert_dialog/alert_dialog.dart",
           "destination": "{installPath}/components/overlay/alert_dialog/alert_dialog.dart"
         },
         {
-          "source": "registry/components/overlay/alert_dialog/meta.json",
+          "source": "components/overlay/alert_dialog/meta.json",
           "destination": "{installPath}/components/overlay/alert_dialog/meta.json"
         },
         {
-          "source": "registry/components/overlay/alert_dialog/preview.dart",
+          "source": "components/overlay/alert_dialog/preview.dart",
           "destination": "{installPath}/components/overlay/alert_dialog/preview.dart"
         }
       ],
@@ -6041,59 +6085,67 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/dialog/README.md",
+          "source": "components/overlay/dialog/README.md",
           "destination": "{installPath}/components/overlay/dialog/README.md"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_api.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_api.dart"
+          "source": "components/overlay/dialog/_impl/core/_dialog_overlay_wrapper.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/core/_dialog_overlay_wrapper.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_overlay_completer.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_overlay_completer.dart"
+          "source": "components/overlay/dialog/_impl/core/dialog_route.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/core/dialog_route.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_overlay_full_screen_handler.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_overlay_full_screen_handler.dart"
+          "source": "components/overlay/dialog/_impl/core/modal_backdrop.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/core/modal_backdrop.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_overlay_handler.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_overlay_handler.dart"
+          "source": "components/overlay/dialog/_impl/core/modal_container.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/core/modal_container.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_route.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_route.dart"
+          "source": "components/overlay/dialog/_impl/core/surface_barrier_painter.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/core/surface_barrier_painter.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/dialog_transitions.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/dialog_transitions.dart"
+          "source": "components/overlay/dialog/_impl/state/_dialog_overlay_wrapper_state.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/state/_dialog_overlay_wrapper_state.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/modal_backdrop.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/modal_backdrop.dart"
+          "source": "components/overlay/dialog/_impl/themes/modal_backdrop_theme.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/themes/modal_backdrop_theme.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/modal_backdrop_theme.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/modal_backdrop_theme.dart"
+          "source": "components/overlay/dialog/_impl/utils/dialog_api.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/utils/dialog_api.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/modal_container.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/modal_container.dart"
+          "source": "components/overlay/dialog/_impl/utils/dialog_overlay_completer.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/utils/dialog_overlay_completer.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/_impl/surface_barrier_painter.dart",
-          "destination": "{installPath}/components/overlay/dialog/_impl/surface_barrier_painter.dart"
+          "source": "components/overlay/dialog/_impl/utils/dialog_overlay_full_screen_handler.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/utils/dialog_overlay_full_screen_handler.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/dialog.dart",
+          "source": "components/overlay/dialog/_impl/utils/dialog_overlay_handler.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/utils/dialog_overlay_handler.dart"
+        },
+        {
+          "source": "components/overlay/dialog/_impl/utils/dialog_transitions.dart",
+          "destination": "{installPath}/components/overlay/dialog/_impl/utils/dialog_transitions.dart"
+        },
+        {
+          "source": "components/overlay/dialog/dialog.dart",
           "destination": "{installPath}/components/overlay/dialog/dialog.dart"
         },
         {
-          "source": "registry/components/overlay/dialog/meta.json",
+          "source": "components/overlay/dialog/meta.json",
           "destination": "{installPath}/components/overlay/dialog/meta.json"
         },
         {
-          "source": "registry/components/overlay/dialog/preview.dart",
+          "source": "components/overlay/dialog/preview.dart",
           "destination": "{installPath}/components/overlay/dialog/preview.dart"
         }
       ],
@@ -6128,19 +6180,19 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/popover/README.md",
+          "source": "components/overlay/popover/README.md",
           "destination": "{installPath}/components/overlay/popover/README.md"
         },
         {
-          "source": "registry/components/overlay/popover/meta.json",
+          "source": "components/overlay/popover/meta.json",
           "destination": "{installPath}/components/overlay/popover/meta.json"
         },
         {
-          "source": "registry/components/overlay/popover/popover.dart",
+          "source": "components/overlay/popover/popover.dart",
           "destination": "{installPath}/components/overlay/popover/popover.dart"
         },
         {
-          "source": "registry/components/overlay/popover/preview.dart",
+          "source": "components/overlay/popover/preview.dart",
           "destination": "{installPath}/components/overlay/popover/preview.dart"
         }
       ],
@@ -6171,19 +6223,19 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/overlay/README.md",
+          "source": "components/overlay/overlay/README.md",
           "destination": "{installPath}/components/overlay/overlay/README.md"
         },
         {
-          "source": "registry/components/overlay/overlay/meta.json",
+          "source": "components/overlay/overlay/meta.json",
           "destination": "{installPath}/components/overlay/overlay/meta.json"
         },
         {
-          "source": "registry/components/overlay/overlay/overlay.dart",
+          "source": "components/overlay/overlay/overlay.dart",
           "destination": "{installPath}/components/overlay/overlay/overlay.dart"
         },
         {
-          "source": "registry/components/overlay/overlay/preview.dart",
+          "source": "components/overlay/overlay/preview.dart",
           "destination": "{installPath}/components/overlay/overlay/preview.dart"
         }
       ],
@@ -6215,19 +6267,27 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/popup/README.md",
+          "source": "components/overlay/popup/README.md",
           "destination": "{installPath}/components/overlay/popup/README.md"
         },
         {
-          "source": "registry/components/overlay/popup/meta.json",
+          "source": "components/overlay/popup/_impl/core/menu_popup_widget.dart",
+          "destination": "{installPath}/components/overlay/popup/_impl/core/menu_popup_widget.dart"
+        },
+        {
+          "source": "components/overlay/popup/_impl/themes/menu_popup_theme.dart",
+          "destination": "{installPath}/components/overlay/popup/_impl/themes/menu_popup_theme.dart"
+        },
+        {
+          "source": "components/overlay/popup/meta.json",
           "destination": "{installPath}/components/overlay/popup/meta.json"
         },
         {
-          "source": "registry/components/overlay/popup/popup.dart",
+          "source": "components/overlay/popup/popup.dart",
           "destination": "{installPath}/components/overlay/popup/popup.dart"
         },
         {
-          "source": "registry/components/overlay/popup/preview.dart",
+          "source": "components/overlay/popup/preview.dart",
           "destination": "{installPath}/components/overlay/popup/preview.dart"
         }
       ],
@@ -6260,35 +6320,51 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/tooltip/README.md",
+          "source": "components/overlay/tooltip/README.md",
           "destination": "{installPath}/components/overlay/tooltip/README.md"
         },
         {
-          "source": "registry/components/overlay/tooltip/_impl/tooltip_container.dart",
-          "destination": "{installPath}/components/overlay/tooltip/_impl/tooltip_container.dart"
+          "source": "components/overlay/tooltip/_impl/core/instant_tooltip.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/core/instant_tooltip.dart"
         },
         {
-          "source": "registry/components/overlay/tooltip/_impl/tooltip_overlay_handlers.dart",
-          "destination": "{installPath}/components/overlay/tooltip/_impl/tooltip_overlay_handlers.dart"
+          "source": "components/overlay/tooltip/_impl/core/tooltip_container.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/core/tooltip_container.dart"
         },
         {
-          "source": "registry/components/overlay/tooltip/_impl/tooltip_theme.dart",
-          "destination": "{installPath}/components/overlay/tooltip/_impl/tooltip_theme.dart"
+          "source": "components/overlay/tooltip/_impl/core/tooltip_widget.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/core/tooltip_widget.dart"
         },
         {
-          "source": "registry/components/overlay/tooltip/_impl/tooltip_widget.dart",
-          "destination": "{installPath}/components/overlay/tooltip/_impl/tooltip_widget.dart"
+          "source": "components/overlay/tooltip/_impl/state/_instant_tooltip_state.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/state/_instant_tooltip_state.dart"
         },
         {
-          "source": "registry/components/overlay/tooltip/meta.json",
+          "source": "components/overlay/tooltip/_impl/state/_tooltip_state.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/state/_tooltip_state.dart"
+        },
+        {
+          "source": "components/overlay/tooltip/_impl/themes/tooltip_theme.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/themes/tooltip_theme.dart"
+        },
+        {
+          "source": "components/overlay/tooltip/_impl/utils/fixed_tooltip_overlay_handler.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/utils/fixed_tooltip_overlay_handler.dart"
+        },
+        {
+          "source": "components/overlay/tooltip/_impl/utils/tooltip_overlay_handlers.dart",
+          "destination": "{installPath}/components/overlay/tooltip/_impl/utils/tooltip_overlay_handlers.dart"
+        },
+        {
+          "source": "components/overlay/tooltip/meta.json",
           "destination": "{installPath}/components/overlay/tooltip/meta.json"
         },
         {
-          "source": "registry/components/overlay/tooltip/preview.dart",
+          "source": "components/overlay/tooltip/preview.dart",
           "destination": "{installPath}/components/overlay/tooltip/preview.dart"
         },
         {
-          "source": "registry/components/overlay/tooltip/tooltip.dart",
+          "source": "components/overlay/tooltip/tooltip.dart",
           "destination": "{installPath}/components/overlay/tooltip/tooltip.dart"
         }
       ],
@@ -6326,19 +6402,51 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/refresh_trigger/README.md",
+          "source": "components/overlay/refresh_trigger/README.md",
           "destination": "{installPath}/components/overlay/refresh_trigger/README.md"
         },
         {
-          "source": "registry/components/overlay/refresh_trigger/meta.json",
+          "source": "components/overlay/refresh_trigger/_impl/core/default_refresh_indicator.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/core/default_refresh_indicator.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/core/refresh_trigger_stage.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/core/refresh_trigger_stage.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/core/refresh_trigger_widget.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/core/refresh_trigger_widget.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/state/_default_refresh_indicator_state.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/state/_default_refresh_indicator_state.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/state/refresh_trigger_state.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/state/refresh_trigger_state.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/themes/refresh_trigger_theme.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/themes/refresh_trigger_theme.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/utils/_refresh_trigger_tween.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/utils/_refresh_trigger_tween.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/_impl/utils/refresh_trigger_physics.dart",
+          "destination": "{installPath}/components/overlay/refresh_trigger/_impl/utils/refresh_trigger_physics.dart"
+        },
+        {
+          "source": "components/overlay/refresh_trigger/meta.json",
           "destination": "{installPath}/components/overlay/refresh_trigger/meta.json"
         },
         {
-          "source": "registry/components/overlay/refresh_trigger/preview.dart",
+          "source": "components/overlay/refresh_trigger/preview.dart",
           "destination": "{installPath}/components/overlay/refresh_trigger/preview.dart"
         },
         {
-          "source": "registry/components/overlay/refresh_trigger/refresh_trigger.dart",
+          "source": "components/overlay/refresh_trigger/refresh_trigger.dart",
           "destination": "{installPath}/components/overlay/refresh_trigger/refresh_trigger.dart"
         }
       ],
@@ -6500,27 +6608,31 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/hover_card/README.md",
+          "source": "components/overlay/hover_card/README.md",
           "destination": "{installPath}/components/overlay/hover_card/README.md"
         },
         {
-          "source": "registry/components/overlay/hover_card/_impl/hover_card_theme.dart",
-          "destination": "{installPath}/components/overlay/hover_card/_impl/hover_card_theme.dart"
+          "source": "components/overlay/hover_card/_impl/core/hover_card_widget.dart",
+          "destination": "{installPath}/components/overlay/hover_card/_impl/core/hover_card_widget.dart"
         },
         {
-          "source": "registry/components/overlay/hover_card/_impl/hover_card_widget.dart",
-          "destination": "{installPath}/components/overlay/hover_card/_impl/hover_card_widget.dart"
+          "source": "components/overlay/hover_card/_impl/state/_hover_card_state.dart",
+          "destination": "{installPath}/components/overlay/hover_card/_impl/state/_hover_card_state.dart"
         },
         {
-          "source": "registry/components/overlay/hover_card/hover_card.dart",
+          "source": "components/overlay/hover_card/_impl/themes/hover_card_theme.dart",
+          "destination": "{installPath}/components/overlay/hover_card/_impl/themes/hover_card_theme.dart"
+        },
+        {
+          "source": "components/overlay/hover_card/hover_card.dart",
           "destination": "{installPath}/components/overlay/hover_card/hover_card.dart"
         },
         {
-          "source": "registry/components/overlay/hover_card/meta.json",
+          "source": "components/overlay/hover_card/meta.json",
           "destination": "{installPath}/components/overlay/hover_card/meta.json"
         },
         {
-          "source": "registry/components/overlay/hover_card/preview.dart",
+          "source": "components/overlay/hover_card/preview.dart",
           "destination": "{installPath}/components/overlay/hover_card/preview.dart"
         }
       ],
@@ -6549,31 +6661,39 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/toast/README.md",
+          "source": "components/overlay/toast/README.md",
           "destination": "{installPath}/components/overlay/toast/README.md"
         },
         {
-          "source": "registry/components/overlay/toast/_impl/toast_controller.dart",
-          "destination": "{installPath}/components/overlay/toast/_impl/toast_controller.dart"
+          "source": "components/overlay/toast/_impl/core/toast_entry.dart",
+          "destination": "{installPath}/components/overlay/toast/_impl/core/toast_entry.dart"
         },
         {
-          "source": "registry/components/overlay/toast/_impl/toast_entry.dart",
-          "destination": "{installPath}/components/overlay/toast/_impl/toast_entry.dart"
+          "source": "components/overlay/toast/_impl/state/_toast_entry_state.dart",
+          "destination": "{installPath}/components/overlay/toast/_impl/state/_toast_entry_state.dart"
         },
         {
-          "source": "registry/components/overlay/toast/_impl/toast_theme.dart",
-          "destination": "{installPath}/components/overlay/toast/_impl/toast_theme.dart"
+          "source": "components/overlay/toast/_impl/state/_toast_preview_state.dart",
+          "destination": "{installPath}/components/overlay/toast/_impl/state/_toast_preview_state.dart"
         },
         {
-          "source": "registry/components/overlay/toast/meta.json",
+          "source": "components/overlay/toast/_impl/themes/toast_theme.dart",
+          "destination": "{installPath}/components/overlay/toast/_impl/themes/toast_theme.dart"
+        },
+        {
+          "source": "components/overlay/toast/_impl/utils/toast_controller.dart",
+          "destination": "{installPath}/components/overlay/toast/_impl/utils/toast_controller.dart"
+        },
+        {
+          "source": "components/overlay/toast/meta.json",
           "destination": "{installPath}/components/overlay/toast/meta.json"
         },
         {
-          "source": "registry/components/overlay/toast/preview.dart",
+          "source": "components/overlay/toast/preview.dart",
           "destination": "{installPath}/components/overlay/toast/preview.dart"
         },
         {
-          "source": "registry/components/overlay/toast/toast.dart",
+          "source": "components/overlay/toast/toast.dart",
           "destination": "{installPath}/components/overlay/toast/toast.dart"
         }
       ],
@@ -6600,103 +6720,119 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/drawer/README.md",
+          "source": "components/overlay/drawer/README.md",
           "destination": "{installPath}/components/overlay/drawer/README.md"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/backdrop_transform_data.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/backdrop_transform_data.dart"
+          "source": "components/overlay/drawer/_impl/core/backdrop_transform_data.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/backdrop_transform_data.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_api.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_api.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_close_drawer.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_close_drawer.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_close_drawer.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_close_drawer.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_close_sheet.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_close_sheet.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_close_sheet.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_close_sheet.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_entry_widget.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_entry_widget.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_entry_widget.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_entry_widget.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_layer_data.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_layer_data.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_entry_widget_state.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_entry_widget_state.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_overlay.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_overlay.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_layer_data.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_layer_data.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_overlay_entry.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_overlay_entry.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_overlay.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_overlay.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_overlay_wrapper.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_overlay_wrapper.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_overlay_completer.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_overlay_completer.dart"
+          "source": "components/overlay/drawer/_impl/core/drawer_wrapper.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/drawer_wrapper.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_overlay_entry.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_overlay_entry.dart"
+          "source": "components/overlay/drawer/_impl/core/mounted_overlay_entry_data.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/mounted_overlay_entry_data.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_overlay_wrapper.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_overlay_wrapper.dart"
+          "source": "components/overlay/drawer/_impl/core/overlay_position.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/overlay_position.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_raw_api.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_raw_api.dart"
+          "source": "components/overlay/drawer/_impl/core/sheet_wrapper.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/core/sheet_wrapper.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_theme.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_theme.dart"
+          "source": "components/overlay/drawer/_impl/state/_drawer_overlay_wrapper_state.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/_drawer_overlay_wrapper_state.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_typedefs.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_typedefs.dart"
+          "source": "components/overlay/drawer/_impl/state/_drawer_preview_state.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/_drawer_preview_state.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_types.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_types.dart"
+          "source": "components/overlay/drawer/_impl/state/_sheet_wrapper_state.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/_sheet_wrapper_state.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_wrapper.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_wrapper.dart"
+          "source": "components/overlay/drawer/_impl/state/drawer_entry_widget_state.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/drawer_entry_widget_state.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/drawer_wrapper_state_part1.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/drawer_wrapper_state_part1.dart"
+          "source": "components/overlay/drawer/_impl/state/drawer_overlay_state.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/drawer_overlay_state.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/mounted_overlay_entry_data.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/mounted_overlay_entry_data.dart"
+          "source": "components/overlay/drawer/_impl/state/drawer_wrapper_state_part1.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/drawer_wrapper_state_part1.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/overlay_position.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/overlay_position.dart"
+          "source": "components/overlay/drawer/_impl/themes/drawer_theme.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/themes/drawer_theme.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/sheet_overlay_handler.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/sheet_overlay_handler.dart"
+          "source": "components/overlay/drawer/_impl/utils/drawer_api.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/drawer_api.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/_impl/sheet_wrapper.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/sheet_wrapper.dart"
+          "source": "components/overlay/drawer/_impl/utils/drawer_overlay_completer.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/drawer_overlay_completer.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/drawer.dart",
+          "source": "components/overlay/drawer/_impl/utils/drawer_raw_api.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/drawer_raw_api.dart"
+        },
+        {
+          "source": "components/overlay/drawer/_impl/utils/drawer_typedefs.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/drawer_typedefs.dart"
+        },
+        {
+          "source": "components/overlay/drawer/_impl/utils/drawer_types.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/drawer_types.dart"
+        },
+        {
+          "source": "components/overlay/drawer/_impl/utils/sheet_overlay_handler.dart",
+          "destination": "{installPath}/components/overlay/drawer/_impl/utils/sheet_overlay_handler.dart"
+        },
+        {
+          "source": "components/overlay/drawer/drawer.dart",
           "destination": "{installPath}/components/overlay/drawer/drawer.dart"
         },
         {
-          "source": "registry/components/overlay/drawer/meta.json",
+          "source": "components/overlay/drawer/meta.json",
           "destination": "{installPath}/components/overlay/drawer/meta.json"
         },
         {
-          "source": "registry/components/overlay/drawer/preview.dart",
+          "source": "components/overlay/drawer/preview.dart",
           "destination": "{installPath}/components/overlay/drawer/preview.dart"
         }
       ],
@@ -6735,107 +6871,127 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/menu/README.md",
+          "source": "components/overlay/menu/README.md",
           "destination": "{installPath}/components/overlay/menu/README.md"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_button.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_button.dart"
+          "source": "components/overlay/menu/_impl/core/menu_button.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_button.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_button_state.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_button_state.dart"
+          "source": "components/overlay/menu/_impl/core/menu_checkbox.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_checkbox.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_checkbox.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_checkbox.dart"
+          "source": "components/overlay/menu/_impl/core/menu_data.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_data.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_data.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_data.dart"
+          "source": "components/overlay/menu/_impl/core/menu_divider.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_divider.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_directional_intent.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_directional_intent.dart"
+          "source": "components/overlay/menu/_impl/core/menu_gap.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_gap.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_divider.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_divider.dart"
+          "source": "components/overlay/menu/_impl/core/menu_group.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_group.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_gap.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_gap.dart"
+          "source": "components/overlay/menu/_impl/core/menu_group_data.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_group_data.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_group.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_group.dart"
+          "source": "components/overlay/menu/_impl/core/menu_item.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_item.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_group_data.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_group_data.dart"
+          "source": "components/overlay/menu/_impl/core/menu_label.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_label.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_group_state.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_group_state.dart"
+          "source": "components/overlay/menu/_impl/core/menu_popup.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_popup.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_intents.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_intents.dart"
+          "source": "components/overlay/menu/_impl/core/menu_radio.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_radio.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_item.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_item.dart"
+          "source": "components/overlay/menu/_impl/core/menu_radio_group.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_radio_group.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_label.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_label.dart"
+          "source": "components/overlay/menu/_impl/core/menu_shortcut.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menu_shortcut.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_overlay_handler.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_overlay_handler.dart"
+          "source": "components/overlay/menu/_impl/core/menubar.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/core/menubar.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_popup.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_popup.dart"
+          "source": "components/overlay/menu/_impl/state/_menu_preview_state.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/state/_menu_preview_state.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_popup_theme.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_popup_theme.dart"
+          "source": "components/overlay/menu/_impl/state/menu_button_state.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/state/menu_button_state.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_radio.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_radio.dart"
+          "source": "components/overlay/menu/_impl/state/menu_group_state.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/state/menu_group_state.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_radio_group.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_radio_group.dart"
+          "source": "components/overlay/menu/_impl/state/menubar_state.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/state/menubar_state.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_shortcut.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_shortcut.dart"
+          "source": "components/overlay/menu/_impl/styles/menu_text_styles.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/styles/menu_text_styles.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_text_styles.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_text_styles.dart"
+          "source": "components/overlay/menu/_impl/themes/menu_popup_theme.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/themes/menu_popup_theme.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menu_theme.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menu_theme.dart"
+          "source": "components/overlay/menu/_impl/themes/menu_theme.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/themes/menu_theme.dart"
         },
         {
-          "source": "registry/components/overlay/menu/_impl/menubar.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/menubar.dart"
+          "source": "components/overlay/menu/_impl/themes/menubar_theme.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/themes/menubar_theme.dart"
         },
         {
-          "source": "registry/components/overlay/menu/menu.dart",
+          "source": "components/overlay/menu/_impl/utils/menu_directional_intent.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/utils/menu_directional_intent.dart"
+        },
+        {
+          "source": "components/overlay/menu/_impl/utils/menu_intents.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/utils/menu_intents.dart"
+        },
+        {
+          "source": "components/overlay/menu/_impl/utils/menu_overlay_handler.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/utils/menu_overlay_handler.dart"
+        },
+        {
+          "source": "components/overlay/menu/_impl/utils/next_menu_focus_intent.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/utils/next_menu_focus_intent.dart"
+        },
+        {
+          "source": "components/overlay/menu/_impl/utils/open_sub_menu_intent.dart",
+          "destination": "{installPath}/components/overlay/menu/_impl/utils/open_sub_menu_intent.dart"
+        },
+        {
+          "source": "components/overlay/menu/menu.dart",
           "destination": "{installPath}/components/overlay/menu/menu.dart"
         },
         {
-          "source": "registry/components/overlay/menu/meta.json",
+          "source": "components/overlay/menu/meta.json",
           "destination": "{installPath}/components/overlay/menu/meta.json"
         },
         {
-          "source": "registry/components/overlay/menu/preview.dart",
+          "source": "components/overlay/menu/preview.dart",
           "destination": "{installPath}/components/overlay/menu/preview.dart"
         }
       ],
@@ -6880,19 +7036,31 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/menubar/README.md",
+          "source": "components/overlay/menubar/README.md",
           "destination": "{installPath}/components/overlay/menubar/README.md"
         },
         {
-          "source": "registry/components/overlay/menubar/menubar.dart",
+          "source": "components/overlay/menubar/_impl/core/menubar_widget.dart",
+          "destination": "{installPath}/components/overlay/menubar/_impl/core/menubar_widget.dart"
+        },
+        {
+          "source": "components/overlay/menubar/_impl/state/menubar_state.dart",
+          "destination": "{installPath}/components/overlay/menubar/_impl/state/menubar_state.dart"
+        },
+        {
+          "source": "components/overlay/menubar/_impl/themes/menubar_theme.dart",
+          "destination": "{installPath}/components/overlay/menubar/_impl/themes/menubar_theme.dart"
+        },
+        {
+          "source": "components/overlay/menubar/menubar.dart",
           "destination": "{installPath}/components/overlay/menubar/menubar.dart"
         },
         {
-          "source": "registry/components/overlay/menubar/meta.json",
+          "source": "components/overlay/menubar/meta.json",
           "destination": "{installPath}/components/overlay/menubar/meta.json"
         },
         {
-          "source": "registry/components/overlay/menubar/preview.dart",
+          "source": "components/overlay/menubar/preview.dart",
           "destination": "{installPath}/components/overlay/menubar/preview.dart"
         }
       ],
@@ -6969,19 +7137,51 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/context_menu/README.md",
+          "source": "components/overlay/context_menu/README.md",
           "destination": "{installPath}/components/overlay/context_menu/README.md"
         },
         {
-          "source": "registry/components/overlay/context_menu/context_menu.dart",
+          "source": "components/overlay/context_menu/_impl/core/_context_menu_scope.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/core/_context_menu_scope.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/core/context_menu_popup.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/core/context_menu_popup.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/core/context_menu_widget.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/core/context_menu_widget.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/core/desktop_editable_text_context_menu.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/core/desktop_editable_text_context_menu.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/core/mobile_editable_text_context_menu.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/core/mobile_editable_text_context_menu.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/state/_context_menu_state.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/state/_context_menu_state.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/_impl/themes/context_menu_theme.dart",
+          "destination": "{installPath}/components/overlay/context_menu/_impl/themes/context_menu_theme.dart"
+        },
+        {
+          "source": "components/overlay/context_menu/context_menu.dart",
           "destination": "{installPath}/components/overlay/context_menu/context_menu.dart"
         },
         {
-          "source": "registry/components/overlay/context_menu/meta.json",
+          "source": "components/overlay/context_menu/meta.json",
           "destination": "{installPath}/components/overlay/context_menu/meta.json"
         },
         {
-          "source": "registry/components/overlay/context_menu/preview.dart",
+          "source": "components/overlay/context_menu/preview.dart",
           "destination": "{installPath}/components/overlay/context_menu/preview.dart"
         }
       ],
@@ -7017,31 +7217,35 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/dropdown_menu/README.md",
+          "source": "components/overlay/dropdown_menu/README.md",
           "destination": "{installPath}/components/overlay/dropdown_menu/README.md"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/_impl/dropdown_menu_api.dart",
-          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/dropdown_menu_api.dart"
+          "source": "components/overlay/dropdown_menu/_impl/core/dropdown_menu_widget.dart",
+          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/core/dropdown_menu_widget.dart"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/_impl/dropdown_menu_theme.dart",
-          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/dropdown_menu_theme.dart"
+          "source": "components/overlay/dropdown_menu/_impl/state/_dropdown_menu_state.dart",
+          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/state/_dropdown_menu_state.dart"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/_impl/dropdown_menu_widget.dart",
-          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/dropdown_menu_widget.dart"
+          "source": "components/overlay/dropdown_menu/_impl/themes/dropdown_menu_theme.dart",
+          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/themes/dropdown_menu_theme.dart"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/dropdown_menu.dart",
+          "source": "components/overlay/dropdown_menu/_impl/utils/dropdown_menu_api.dart",
+          "destination": "{installPath}/components/overlay/dropdown_menu/_impl/utils/dropdown_menu_api.dart"
+        },
+        {
+          "source": "components/overlay/dropdown_menu/dropdown_menu.dart",
           "destination": "{installPath}/components/overlay/dropdown_menu/dropdown_menu.dart"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/meta.json",
+          "source": "components/overlay/dropdown_menu/meta.json",
           "destination": "{installPath}/components/overlay/dropdown_menu/meta.json"
         },
         {
-          "source": "registry/components/overlay/dropdown_menu/preview.dart",
+          "source": "components/overlay/dropdown_menu/preview.dart",
           "destination": "{installPath}/components/overlay/dropdown_menu/preview.dart"
         }
       ],
@@ -8816,19 +9020,43 @@
       ],
       "files": [
         {
-          "source": "registry/components/overlay/swiper/README.md",
+          "source": "components/overlay/swiper/README.md",
           "destination": "{installPath}/components/overlay/swiper/README.md"
         },
         {
-          "source": "registry/components/overlay/swiper/meta.json",
+          "source": "components/overlay/swiper/_impl/core/swiper_widget.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/core/swiper_widget.dart"
+        },
+        {
+          "source": "components/overlay/swiper/_impl/state/_swiper_state.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/state/_swiper_state.dart"
+        },
+        {
+          "source": "components/overlay/swiper/_impl/themes/swiper_theme.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/themes/swiper_theme.dart"
+        },
+        {
+          "source": "components/overlay/swiper/_impl/utils/drawer_swiper_handler.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/utils/drawer_swiper_handler.dart"
+        },
+        {
+          "source": "components/overlay/swiper/_impl/utils/sheet_swiper_handler.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/utils/sheet_swiper_handler.dart"
+        },
+        {
+          "source": "components/overlay/swiper/_impl/utils/swiper_handler.dart",
+          "destination": "{installPath}/components/overlay/swiper/_impl/utils/swiper_handler.dart"
+        },
+        {
+          "source": "components/overlay/swiper/meta.json",
           "destination": "{installPath}/components/overlay/swiper/meta.json"
         },
         {
-          "source": "registry/components/overlay/swiper/preview.dart",
+          "source": "components/overlay/swiper/preview.dart",
           "destination": "{installPath}/components/overlay/swiper/preview.dart"
         },
         {
-          "source": "registry/components/overlay/swiper/swiper.dart",
+          "source": "components/overlay/swiper/swiper.dart",
           "destination": "{installPath}/components/overlay/swiper/swiper.dart"
         }
       ],
@@ -9754,20 +9982,7 @@
         "form",
         "composite"
       ],
-      "files": [
-        {
-          "source": "registry/composites/overlay/sheet/README.md",
-          "destination": "{installPath}/composites/overlay/sheet/README.md"
-        },
-        {
-          "source": "registry/composites/overlay/sheet/meta.json",
-          "destination": "{installPath}/composites/overlay/sheet/meta.json"
-        },
-        {
-          "source": "registry/composites/overlay/sheet/sheet.dart",
-          "destination": "{installPath}/composites/overlay/sheet/sheet.dart"
-        }
-      ],
+      "files": [],
       "shared": [],
       "dependsOn": [
         "alert_dialog",
