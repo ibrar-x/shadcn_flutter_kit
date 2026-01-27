@@ -53,52 +53,7 @@ class KeyboardDisplay extends StatelessWidget {
   }
 }
 
-/// A widget that displays a single keyboard key in a styled format.
-class KeyboardKeyDisplay extends StatelessWidget {
-  /// The keyboard key to display.
-  final LogicalKeyboardKey keyboardKey;
 
-  /// Internal padding applied within the key display.
-  final EdgeInsetsGeometry? padding;
-
-  /// Box shadows applied to the key display for depth effect.
-  final List<BoxShadow>? boxShadow;
-
-  /// Creates a [KeyboardKeyDisplay] for the specified keyboard key.
-  const KeyboardKeyDisplay({
-    super.key,
-    required this.keyboardKey,
-    this.padding,
-    this.boxShadow,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final displayMapper = Data.of<KeyboardShortcutDisplayHandle>(context);
-    final theme = Theme.of(context);
-    final directionality = Directionality.of(context);
-    final compTheme = ComponentTheme.maybeOf<KeyboardShortcutTheme>(context);
-    final resolvedPadding = styleValue(
-      widgetValue: padding,
-      themeValue: compTheme?.keyPadding,
-      defaultValue: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-    ).resolve(directionality);
-    final resolvedShadow = styleValue(
-      widgetValue: boxShadow,
-      themeValue: compTheme?.keyShadow,
-      defaultValue: null,
-    );
-
-    return Card(
-      padding: resolvedPadding * theme.scaling,
-      borderRadius: theme.borderRadiusMd,
-      fillColor: theme.colorScheme.background.scaleAlpha(0.7),
-      filled: true,
-      boxShadow: resolvedShadow,
-      child: displayMapper.buildKeyboardDisplay(context, keyboardKey),
-    );
-  }
-}
 
 /// Converts a [ShortcutActivator] into a list of logical keyboard keys.
 List<LogicalKeyboardKey> shortcutActivatorToKeySet(

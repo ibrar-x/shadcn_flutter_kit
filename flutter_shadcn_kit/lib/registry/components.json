@@ -1038,6 +1038,70 @@
         {
           "source": "registry/components/display/chat/preview.dart",
           "destination": "{installPath}/components/display/chat/preview.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_group_theme.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_group_theme.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/render_chat_constrained_box.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/render_chat_constrained_box.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/plain_chat_bubble_type.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/plain_chat_bubble_type.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_group.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_group.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/_chat_tail_behavior.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/_chat_tail_behavior.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/tail_behavior.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/tail_behavior.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/sharp_corner_chat_bubble_type.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/sharp_corner_chat_bubble_type.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_tail_theme.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_tail_theme.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_bubble_corner_directional.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_bubble_corner_directional.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/tail_chat_bubble_type.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/tail_chat_bubble_type.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_bubble_corner.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_bubble_corner.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_bubble_type.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_bubble_type.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/_tail_painter.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/_tail_painter.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_bubble.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_bubble.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_bubble_data.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_bubble_data.dart"
+        },
+        {
+          "source": "registry/components/display/chat/_impl/core/chat_theme.dart",
+          "destination": "{installPath}/components/display/chat/_impl/core/chat_theme.dart"
         }
       ],
       "shared": [
@@ -1446,6 +1510,18 @@
         {
           "source": "registry/components/display/badge/preview.dart",
           "destination": "{installPath}/components/display/badge/preview.dart"
+        },
+        {
+          "source": "registry/components/display/badge/_impl/core/secondary_badge.dart",
+          "destination": "{installPath}/components/display/badge/_impl/core/secondary_badge.dart"
+        },
+        {
+          "source": "registry/components/display/badge/_impl/core/outline_badge.dart",
+          "destination": "{installPath}/components/display/badge/_impl/core/outline_badge.dart"
+        },
+        {
+          "source": "registry/components/display/badge/_impl/core/destructive_badge.dart",
+          "destination": "{installPath}/components/display/badge/_impl/core/destructive_badge.dart"
         }
       ],
       "shared": [
@@ -1506,6 +1582,18 @@
         {
           "source": "registry/components/display/avatar/preview.dart",
           "destination": "{installPath}/components/display/avatar/preview.dart"
+        },
+        {
+          "source": "registry/components/display/avatar/_impl/core/_avatar_widget.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/_avatar_widget.dart"
+        },
+        {
+          "source": "registry/components/display/avatar/_impl/core/avatar_group_clipper.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/avatar_group_clipper.dart"
+        },
+        {
+          "source": "registry/components/display/avatar/_impl/core/_avatar_state.dart",
+          "destination": "{installPath}/components/display/avatar/_impl/core/_avatar_state.dart"
         }
       ],
       "shared": [
@@ -2215,6 +2303,18 @@
         {
           "source": "registry/components/display/divider/preview.dart",
           "destination": "{installPath}/components/display/divider/preview.dart"
+        },
+        {
+          "source": "registry/components/display/divider/_impl/core/vertical_divider.dart",
+          "destination": "{installPath}/components/display/divider/_impl/core/vertical_divider.dart"
+        },
+        {
+          "source": "registry/components/display/divider/_impl/utils/divider_painter.dart",
+          "destination": "{installPath}/components/display/divider/_impl/utils/divider_painter.dart"
+        },
+        {
+          "source": "registry/components/display/divider/_impl/utils/vertical_divider_painter.dart",
+          "destination": "{installPath}/components/display/divider/_impl/utils/vertical_divider_painter.dart"
         }
       ],
       "shared": [
@@ -2266,6 +2366,18 @@
         {
           "source": "registry/components/display/dot_indicator/preview.dart",
           "destination": "{installPath}/components/display/dot_indicator/preview.dart"
+        },
+        {
+          "source": "registry/components/display/dot_indicator/_dot_indicator_preview_state.dart",
+          "destination": "{installPath}/components/display/dot_indicator/_dot_indicator_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/dot_indicator/_impl/core/active_dot_item.dart",
+          "destination": "{installPath}/components/display/dot_indicator/_impl/core/active_dot_item.dart"
+        },
+        {
+          "source": "registry/components/display/dot_indicator/_impl/core/inactive_dot_item.dart",
+          "destination": "{installPath}/components/display/dot_indicator/_impl/core/inactive_dot_item.dart"
         }
       ],
       "shared": [
@@ -2361,6 +2473,14 @@
         {
           "source": "registry/components/display/linear_progress_indicator/preview.dart",
           "destination": "{installPath}/components/display/linear_progress_indicator/preview.dart"
+        },
+        {
+          "source": "registry/components/display/linear_progress_indicator/_linear_progress_indicator_preview_state.dart",
+          "destination": "{installPath}/components/display/linear_progress_indicator/_linear_progress_indicator_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/linear_progress_indicator/_impl/utils/_linear_progress_indicator_painter.dart",
+          "destination": "{installPath}/components/display/linear_progress_indicator/_impl/utils/_linear_progress_indicator_painter.dart"
         }
       ],
       "shared": [
@@ -2458,6 +2578,10 @@
         {
           "source": "registry/components/display/number_ticker/preview.dart",
           "destination": "{installPath}/components/display/number_ticker/preview.dart"
+        },
+        {
+          "source": "registry/components/display/number_ticker/_number_ticker_preview_state.dart",
+          "destination": "{installPath}/components/display/number_ticker/_number_ticker_preview_state.dart"
         }
       ],
       "shared": [
@@ -2502,6 +2626,10 @@
         {
           "source": "registry/components/display/spinner/spinner.dart",
           "destination": "{installPath}/components/display/spinner/spinner.dart"
+        },
+        {
+          "source": "registry/components/display/spinner/circle_spinner.dart",
+          "destination": "{installPath}/components/display/spinner/circle_spinner.dart"
         }
       ],
       "shared": [
@@ -2545,6 +2673,10 @@
         {
           "source": "registry/components/display/progress/progress.dart",
           "destination": "{installPath}/components/display/progress/progress.dart"
+        },
+        {
+          "source": "registry/components/display/progress/_progress_preview_state.dart",
+          "destination": "{installPath}/components/display/progress/_progress_preview_state.dart"
         }
       ],
       "shared": [
@@ -2848,6 +2980,14 @@
         {
           "source": "registry/components/display/code_snippet/preview.dart",
           "destination": "{installPath}/components/display/code_snippet/preview.dart"
+        },
+        {
+          "source": "registry/components/display/code_snippet/_impl/state/_code_snippet_state.dart",
+          "destination": "{installPath}/components/display/code_snippet/_impl/state/_code_snippet_state.dart"
+        },
+        {
+          "source": "registry/components/display/code_snippet/_impl/themes/code_snippet_theme.dart",
+          "destination": "{installPath}/components/display/code_snippet/_impl/themes/code_snippet_theme.dart"
         }
       ],
       "shared": [
@@ -2906,6 +3046,42 @@
         {
           "source": "registry/components/display/carousel/preview.dart",
           "destination": "{installPath}/components/display/carousel/preview.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_carousel_preview_state.dart",
+          "destination": "{installPath}/components/display/carousel/_carousel_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/carousel_alignment.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_alignment.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/carousel_fractional_constraint.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_fractional_constraint.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/carousel_fixed_constraint.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_fixed_constraint.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/sliding_carousel_transition.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/sliding_carousel_transition.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/carousel_transition.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/carousel_transition.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/_placed_carousel_item.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/_placed_carousel_item.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/core/fading_carousel_transition.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/core/fading_carousel_transition.dart"
+        },
+        {
+          "source": "registry/components/display/carousel/_impl/state/_carousel_state.dart",
+          "destination": "{installPath}/components/display/carousel/_impl/state/_carousel_state.dart"
         }
       ],
       "shared": [
@@ -2982,6 +3158,62 @@
         {
           "source": "registry/components/display/calendar/preview.dart",
           "destination": "{installPath}/components/display/calendar/preview.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_calendar_preview_state.dart",
+          "destination": "{installPath}/components/display/calendar/_calendar_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/year_calendar.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/year_calendar.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/calendar_grid_item.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_grid_item.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/_calendar_state.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/_calendar_state.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/_date_picker_dialog_state.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/_date_picker_dialog_state.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/utils/calendar_value_lookup.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/calendar_value_lookup.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/utils/multi_calendar_value.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/multi_calendar_value.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/utils/single_calendar_value.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/single_calendar_value.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/utils/range_calendar_value.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/utils/range_calendar_value.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/themes/calendar_view_type.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/themes/calendar_view_type.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/themes/calendar_selection_mode.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/themes/calendar_selection_mode.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/themes/date_state.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/themes/date_state.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/calendar_item_type.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_item_type.dart"
+        },
+        {
+          "source": "registry/components/display/calendar/_impl/core/calendar_grid_data.dart",
+          "destination": "{installPath}/components/display/calendar/_impl/core/calendar_grid_data.dart"
         }
       ],
       "shared": [
@@ -3172,6 +3404,18 @@
         {
           "source": "registry/components/display/keyboard_shortcut/preview.dart",
           "destination": "{installPath}/components/display/keyboard_shortcut/preview.dart"
+        },
+        {
+          "source": "registry/components/display/keyboard_shortcut/_impl/core/keyboard_key_display.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/core/keyboard_key_display.dart"
+        },
+        {
+          "source": "registry/components/display/keyboard_shortcut/_impl/utils/_keyboard_shortcut_display_mapper_state.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/utils/_keyboard_shortcut_display_mapper_state.dart"
+        },
+        {
+          "source": "registry/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_display_mapper.dart",
+          "destination": "{installPath}/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_display_mapper.dart"
         }
       ],
       "shared": [
@@ -4116,6 +4360,26 @@
         {
           "source": "registry/components/display/text/text.dart",
           "destination": "{installPath}/components/display/text/text.dart"
+        },
+        {
+          "source": "registry/components/display/text/_impl/core/unordered_list_data.dart",
+          "destination": "{installPath}/components/display/text/_impl/core/unordered_list_data.dart"
+        },
+        {
+          "source": "registry/components/display/text/_impl/core/_text_then_widget.dart",
+          "destination": "{installPath}/components/display/text/_impl/core/_text_then_widget.dart"
+        },
+        {
+          "source": "registry/components/display/text/_impl/core/wrapped_text.dart",
+          "destination": "{installPath}/components/display/text/_impl/core/wrapped_text.dart"
+        },
+        {
+          "source": "registry/components/display/text/_impl/core/_selectable_text_then_widget.dart",
+          "destination": "{installPath}/components/display/text/_impl/core/_selectable_text_then_widget.dart"
+        },
+        {
+          "source": "registry/components/display/text/_impl/core/_rich_text_then_widget.dart",
+          "destination": "{installPath}/components/display/text/_impl/core/_rich_text_then_widget.dart"
         }
       ],
       "shared": [
@@ -4158,6 +4422,10 @@
         {
           "source": "registry/components/display/selectable/selectable.dart",
           "destination": "{installPath}/components/display/selectable/selectable.dart"
+        },
+        {
+          "source": "registry/components/display/selectable/_impl/core/selectable_text.dart",
+          "destination": "{installPath}/components/display/selectable/_impl/core/selectable_text.dart"
         }
       ],
       "shared": [
@@ -4789,6 +5057,14 @@
         {
           "source": "registry/components/display/tracker/tracker.dart",
           "destination": "{installPath}/components/display/tracker/tracker.dart"
+        },
+        {
+          "source": "registry/components/display/tracker/_impl/utils/tracker_data.dart",
+          "destination": "{installPath}/components/display/tracker/_impl/utils/tracker_data.dart"
+        },
+        {
+          "source": "registry/components/display/tracker/_impl/utils/_simple_tracker_level.dart",
+          "destination": "{installPath}/components/display/tracker/_impl/utils/_simple_tracker_level.dart"
         }
       ],
       "shared": [
@@ -6898,6 +7174,94 @@
         {
           "source": "registry/components/display/tree/tree.dart",
           "destination": "{installPath}/components/display/tree/tree.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/indent_guide_path.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/indent_guide_path.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/indent_guide_line.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/indent_guide_line.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/directional_select_tree_node_intent.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/directional_select_tree_node_intent.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/branch_line.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/branch_line.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_view.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_view.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/indent_guide_none.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/indent_guide_none.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_selection_default_handler.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_selection_default_handler.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_item_expand_default_handler.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_item_expand_default_handler.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/selection_position.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/selection_position.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/_path_painter.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/_path_painter.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/expand_tree_node_intent.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/expand_tree_node_intent.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/focus_change_reason.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/focus_change_reason.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_item.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_item.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/select_tree_node_intent.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/select_tree_node_intent.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_node_depth.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_node_depth.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_node.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_node.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_root.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_root.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/_tree_view_state.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/_tree_view_state.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/collapse_tree_node_intent.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/collapse_tree_node_intent.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/_tree_item_view_state.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/_tree_item_view_state.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_node_data.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_node_data.dart"
+        },
+        {
+          "source": "registry/components/display/tree/_impl/core/tree_item_view.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_item_view.dart"
         }
       ],
       "shared": [
@@ -8007,6 +8371,42 @@
         {
           "source": "registry/components/display/feature_carousel/preview.dart",
           "destination": "{installPath}/components/display/feature_carousel/preview.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/feature_card_carousel.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/feature_card_carousel.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_ghost_transform.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_ghost_transform.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_center_card.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_center_card.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_nav_arrow.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_nav_arrow.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_ghost_card.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_ghost_card.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_carousel_intent.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_carousel_intent.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_cta_button.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_cta_button.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/core/_feature_card_carousel_state.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/core/_feature_card_carousel_state.dart"
+        },
+        {
+          "source": "registry/components/display/feature_carousel/_impl/utils/feature_carousel_animation_style.dart",
+          "destination": "{installPath}/components/display/feature_carousel/_impl/utils/feature_carousel_animation_style.dart"
         }
       ],
       "shared": [],

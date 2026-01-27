@@ -13,23 +13,3 @@ abstract class TrackerLevel {
   Color get color;
   String get name;
 }
-
-class _SimpleTrackerLevel implements TrackerLevel {
-  @override
-  final Color color;
-  @override
-  final String name;
-
-  const _SimpleTrackerLevel(this.color, this.name);
-}
-
-/// Data for a single tracker segment.
-class TrackerData {
-  final Widget tooltip;
-  final TrackerLevel level;
-
-  const TrackerData({
-    required this.tooltip,
-    required this.level,
-  });
-}

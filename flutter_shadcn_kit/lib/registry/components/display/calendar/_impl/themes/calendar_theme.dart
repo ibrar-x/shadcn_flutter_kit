@@ -32,30 +32,9 @@ class CalendarTheme extends ComponentThemeData {
   int get hashCode => arrowIconColor.hashCode;
 }
 
-/// Defines the different view types available in calendar components.
-///
-/// Specifies what granularity of time selection is displayed.
-enum CalendarViewType {
-  /// Shows individual days in a month grid.
-  date,
 
-  /// Shows months in a year grid.
-  month,
 
-  /// Shows years in a decade grid.
-  year,
-}
 
-/// Represents the interactive state of a date in the calendar.
-///
-/// Controls whether a specific date can be selected or interacted with.
-enum DateState {
-  /// Date cannot be selected or clicked.
-  disabled,
-
-  /// Date is fully interactive and selectable.
-  enabled,
-}
 
 /// Callback function type for determining the state of calendar dates.
 ///
@@ -63,22 +42,7 @@ enum DateState {
 /// that date should be enabled or disabled for user interaction.
 typedef DateStateBuilder = DateState Function(DateTime date);
 
-/// Selection modes available for calendar components.
-///
-/// Determines how users can select dates in calendar widgets.
-enum CalendarSelectionMode {
-  /// No date selection allowed (display only).
-  none,
 
-  /// Only one date can be selected at a time.
-  single,
-
-  /// Two dates can be selected to form a date range.
-  range,
-
-  /// Multiple individual dates can be selected.
-  multi,
-}
 
 /// A date picker dialog that provides comprehensive date selection capabilities.
 ///

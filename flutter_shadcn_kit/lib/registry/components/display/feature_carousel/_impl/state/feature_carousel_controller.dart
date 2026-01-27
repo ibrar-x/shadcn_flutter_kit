@@ -1,18 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../utils/feature_carousel_animation_style.dart';
 import '../utils/feature_carousel_models.dart';
-
-enum FeatureCarouselAnimationStyle {
-  crossfadeScale,
-  slideFade,
-  blurFade,
-  rotateParallax,
-  liftFade,
-  slideUpFade,
-  slideDownFade,
-  rotateFade,
-  zoomFade,
-}
 
 class FeatureCarouselController extends ChangeNotifier {
   FeatureCarouselController({
