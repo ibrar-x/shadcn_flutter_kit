@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'registry/**'
+      - 'flutter_shadcn_kit/**'
       - '.github/workflows/docs-deploy.yml'
 
 permissions:
@@ -15,9 +15,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: docs
 
     steps:
       - name: Checkout
@@ -28,14 +25,9 @@ jobs:
         with:
           channel: stable
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build web
-        run: flutter build web --release --base-href "/shadcn_flutter_kit/docs/"
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: bluefireteam/flutter-gh-pages@v8
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/build/web
+          workingDir: docs
+          baseHref: /shadcn_flutter_kit/
+          webRenderer: canvaskit
