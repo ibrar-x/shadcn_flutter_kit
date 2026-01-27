@@ -83,6 +83,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                   title: example.title,
                   code: example.code,
                   lazyThreshold: _performanceMode ? _lazyThreshold : 0.1,
+                  installCommand: 'flutter_shadcn add ${component.id}',
                   child: example.builder(context),
                 ),
               if (hiddenCount > 0)
@@ -109,6 +110,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
             WidgetUsageExample(
               title: 'Preview',
               code: '// Example coming soon',
+              installCommand: 'flutter_shadcn add ${component.id}',
               child: buildComponentPreview(
                 context,
                 component.id,

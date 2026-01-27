@@ -2823,48 +2823,6 @@
       "postInstall": []
     },
     {
-      "id": "file_picker",
-      "name": "File Picker",
-      "description": "Dropzone/list UI for adding and managing file items.",
-      "category": "form",
-      "tags": [
-        "form",
-        "file",
-        "picker"
-      ],
-      "files": [
-        {
-          "source": "registry/components/form/file_picker/README.md",
-          "destination": "{installPath}/components/form/file_picker/README.md"
-        },
-        {
-          "source": "registry/components/form/file_picker/file_picker.dart",
-          "destination": "{installPath}/components/form/file_picker/file_picker.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/meta.json",
-          "destination": "{installPath}/components/form/file_picker/meta.json"
-        },
-        {
-          "source": "registry/components/form/file_picker/preview.dart",
-          "destination": "{installPath}/components/form/file_picker/preview.dart"
-        }
-      ],
-      "shared": [
-        "theme"
-      ],
-      "dependsOn": [
-        "file_input"
-      ],
-      "pubspec": {
-        "dependencies": {
-          "data_widget": "^0.0.2"
-        }
-      },
-      "assets": [],
-      "postInstall": []
-    },
-    {
       "id": "keyboard_shortcut",
       "name": "Keyboard Shortcut",
       "description": "Displays keyboard shortcuts as styled keycaps.",
@@ -2954,65 +2912,6 @@
         "theme"
       ],
       "dependsOn": [],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": []
-    },
-    {
-      "id": "carousel",
-      "name": "Carousel",
-      "description": "Interactive carousel with sliding/fading transitions and autoplay support.",
-      "category": "display",
-      "tags": [
-        "display",
-        "carousel",
-        "animation"
-      ],
-      "files": [
-        {
-          "source": "registry/components/display/carousel/README.md",
-          "destination": "{installPath}/components/display/carousel/README.md"
-        },
-        {
-          "source": "registry/components/display/carousel/_impl/carousel_controller.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_controller.dart"
-        },
-        {
-          "source": "registry/components/display/carousel/_impl/carousel_dot_indicator.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_dot_indicator.dart"
-        },
-        {
-          "source": "registry/components/display/carousel/_impl/carousel_layout.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_layout.dart"
-        },
-        {
-          "source": "registry/components/display/carousel/_impl/carousel_theme.dart",
-          "destination": "{installPath}/components/display/carousel/_impl/carousel_theme.dart"
-        },
-        {
-          "source": "registry/components/display/carousel/carousel.dart",
-          "destination": "{installPath}/components/display/carousel/carousel.dart"
-        },
-        {
-          "source": "registry/components/display/carousel/meta.json",
-          "destination": "{installPath}/components/display/carousel/meta.json"
-        },
-        {
-          "source": "registry/components/display/carousel/preview.dart",
-          "destination": "{installPath}/components/display/carousel/preview.dart"
-        }
-      ],
-      "shared": [
-        "animation_queue",
-        "style_value",
-        "theme",
-        "wrap_utils"
-      ],
-      "dependsOn": [
-        "dot_indicator"
-      ],
       "pubspec": {
         "dependencies": {}
       },

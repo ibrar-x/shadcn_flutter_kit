@@ -132,6 +132,8 @@ class _DocsRootState extends State<DocsRoot> {
   late GoRouter router;
   Brightness? _lastBrightness;
   shadcn_colors.ColorScheme? _lastScheme;
+  static const _pageTransitionDuration = Duration(milliseconds: 180);
+  static const _pageReverseTransitionDuration = Duration(milliseconds: 120);
 
   @override
   void initState() {
@@ -156,66 +158,130 @@ class _DocsRootState extends State<DocsRoot> {
         GoRoute(
           path: '/',
           name: 'introduction',
-          builder: (context, state) => const IntroductionPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const IntroductionPage(),
+          ),
         ),
         GoRoute(
           path: '/installation',
           name: 'installation',
-          builder: (context, state) => const InstallationPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const InstallationPage(),
+          ),
         ),
         GoRoute(
           path: '/registry-guide',
           name: 'registry-guide',
-          builder: (context, state) => const RegistryGuidePage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const RegistryGuidePage(),
+          ),
         ),
         GoRoute(
           path: '/theme',
           name: 'theme',
-          builder: (context, state) => const ThemePage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const ThemePage(),
+          ),
         ),
         GoRoute(
           path: '/typography',
           name: 'typography',
-          builder: (context, state) => const TypographyPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const TypographyPage(),
+          ),
         ),
         GoRoute(
           path: '/layout',
           name: 'layout',
-          builder: (context, state) => const LayoutPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const LayoutPage(),
+          ),
         ),
         GoRoute(
           path: '/icons',
           name: 'icons',
-          builder: (context, state) => const IconsPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const IconsPage(),
+          ),
         ),
         GoRoute(
           path: '/colors',
           name: 'colors',
-          builder: (context, state) => const ColorsPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const ColorsPage(),
+          ),
         ),
         GoRoute(
           path: '/material',
           name: 'material',
-          builder: (context, state) => const MaterialExample(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const MaterialExample(),
+          ),
         ),
         GoRoute(
           path: '/web_preloader',
           name: 'web_preloader',
-          builder: (context, state) => const WebPreloaderPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const WebPreloaderPage(),
+          ),
         ),
         GoRoute(
           path: '/components',
           name: 'components',
-          builder: (context, state) => const ComponentsPage(),
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const ComponentsPage(),
+          ),
         ),
         GoRoute(
           path: '/components/:id',
           name: 'component_detail',
-          builder: (context, state) => ComponentDetailPage(
-            componentId: state.pathParameters['id'] ?? '',
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            ComponentDetailPage(
+              componentId: state.pathParameters['id'] ?? '',
+            ),
           ),
         ),
       ],
+    );
+  }
+
+  CustomTransitionPage<void> _buildTransitionPage(
+    GoRouterState state,
+    Widget child,
+  ) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: child,
+      transitionDuration: _pageTransitionDuration,
+      reverseTransitionDuration: _pageReverseTransitionDuration,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final curve = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+          reverseCurve: Curves.easeInCubic,
+        );
+        final fade = Tween<double>(begin: 0, end: 1).animate(curve);
+        final slide = Tween<Offset>(
+          begin: const Offset(0, 0.02),
+          end: Offset.zero,
+        ).animate(curve);
+        return FadeTransition(
+          opacity: fade,
+          child: SlideTransition(position: slide, child: child),
+        );
+      },
     );
   }
 

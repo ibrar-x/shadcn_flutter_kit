@@ -108,12 +108,6 @@ class _ComponentPageState extends State<ComponentPage> {
             const SizedBox(height: 8),
             Text('Category: ${widget.category}').small().muted(),
           ],
-          if (widget.component) ...[
-            const SizedBox(height: 16),
-            const Text('Install via CLI').small().semiBold(),
-            const SizedBox(height: 8),
-            DocsCodeBlock(code: 'flutter_shadcn add ${widget.name}'),
-          ],
           const SizedBox(height: 16),
           ...remappedChildren,
         ],

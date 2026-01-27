@@ -14,6 +14,7 @@ class WidgetUsageExample extends StatefulWidget {
   final bool lazy;
   final bool collapsible;
   final double lazyThreshold;
+  final String? installCommand;
 
   const WidgetUsageExample({
     super.key,
@@ -23,6 +24,7 @@ class WidgetUsageExample extends StatefulWidget {
     this.lazy = true,
     this.collapsible = false,
     this.lazyThreshold = 0.1,
+    this.installCommand,
   });
 
   @override
@@ -67,6 +69,12 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
       children: [
         if (widget.title != null) Text(widget.title!).h2(),
         if (widget.title != null) const SizedBox(height: 12),
+        if (widget.installCommand != null) ...[
+          const Text('Install via CLI').small().semiBold(),
+          const SizedBox(height: 8),
+          DocsCodeBlock(code: widget.installCommand!),
+          const SizedBox(height: 16),
+        ],
         const Text('Example Preview').small().semiBold(),
         const SizedBox(height: 8),
         OutlinedContainer(
