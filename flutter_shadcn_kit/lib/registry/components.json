@@ -1239,6 +1239,10 @@
         {
           "source": "registry/components/utility/focus_outline/preview.dart",
           "destination": "{installPath}/components/utility/focus_outline/preview.dart"
+        },
+        {
+          "source": "registry/components/utility/focus_outline/_impl/themes/focus_outline_theme.dart",
+          "destination": "{installPath}/components/utility/focus_outline/_impl/themes/focus_outline_theme.dart"
         }
       ],
       "shared": [
@@ -1630,6 +1634,50 @@
         {
           "source": "registry/components/utility/color/preview.dart",
           "destination": "{installPath}/components/utility/color/preview.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/color_derivative.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/color_derivative.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/color_gradient.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/color_gradient.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/hsl_color_derivative.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/hsl_color_derivative.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/hsv_color_derivative.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/hsv_color_derivative.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/linear_color_gradient.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/linear_color_gradient.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/radial_color_gradient.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/radial_color_gradient.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/core/sweep_color_gradient.dart",
+          "destination": "{installPath}/components/utility/color/_impl/core/sweep_color_gradient.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/utils/color_stop.dart",
+          "destination": "{installPath}/components/utility/color/_impl/utils/color_stop.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/utils/directional_gradient_angle.dart",
+          "destination": "{installPath}/components/utility/color/_impl/utils/directional_gradient_angle.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/utils/gradient_angle.dart",
+          "destination": "{installPath}/components/utility/color/_impl/utils/gradient_angle.dart"
+        },
+        {
+          "source": "registry/components/utility/color/_impl/utils/gradient_angle_geometry.dart",
+          "destination": "{installPath}/components/utility/color/_impl/utils/gradient_angle_geometry.dart"
         }
       ],
       "shared": [],
@@ -2356,6 +2404,18 @@
         {
           "source": "registry/components/utility/locale_utils/preview.dart",
           "destination": "{installPath}/components/utility/locale_utils/preview.dart"
+        },
+        {
+          "source": "registry/components/utility/locale_utils/_impl/core/date_part.dart",
+          "destination": "{installPath}/components/utility/locale_utils/_impl/core/date_part.dart"
+        },
+        {
+          "source": "registry/components/utility/locale_utils/_impl/core/duration_part.dart",
+          "destination": "{installPath}/components/utility/locale_utils/_impl/core/duration_part.dart"
+        },
+        {
+          "source": "registry/components/utility/locale_utils/_impl/core/time_part.dart",
+          "destination": "{installPath}/components/utility/locale_utils/_impl/core/time_part.dart"
         }
       ],
       "shared": [
@@ -6461,6 +6521,10 @@
         {
           "source": "registry/components/utility/shadcn_localizations/shadcn_localizations.dart",
           "destination": "{installPath}/components/utility/shadcn_localizations/shadcn_localizations.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart"
         }
       ],
       "shared": [],
@@ -6878,6 +6942,10 @@
         {
           "source": "registry/components/utility/wrapper/wrapper.dart",
           "destination": "{installPath}/components/utility/wrapper/wrapper.dart"
+        },
+        {
+          "source": "registry/components/utility/wrapper/_impl/state/wrapper_state.dart",
+          "destination": "{installPath}/components/utility/wrapper/_impl/state/wrapper_state.dart"
         }
       ],
       "shared": [],

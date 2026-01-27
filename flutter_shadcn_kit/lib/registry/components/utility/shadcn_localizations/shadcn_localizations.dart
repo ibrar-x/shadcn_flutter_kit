@@ -9,6 +9,8 @@ import '../shadcn_localizations_en/shadcn_localizations_en.dart';
 
 // ignore_for_file: type=lint
 
+part '_impl/utils/shadcn_localizations_delegate.dart';
+
 /// Callers can lookup localized strings with an instance of ShadcnLocalizations
 /// returned by `ShadcnLocalizations.of(context)`.
 ///
@@ -723,24 +725,6 @@ abstract class ShadcnLocalizations {
   /// In en, this message translates to:
   /// **'Second'**
   String get durationSecond;
-}
-
-class _ShadcnLocalizationsDelegate
-    extends LocalizationsDelegate<ShadcnLocalizations> {
-  const _ShadcnLocalizationsDelegate();
-
-  @override
-  Future<ShadcnLocalizations> load(Locale locale) {
-    return SynchronousFuture<ShadcnLocalizations>(
-        lookupShadcnLocalizations(locale));
-  }
-
-  @override
-  bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
-
-  @override
-  bool shouldReload(_ShadcnLocalizationsDelegate old) => false;
 }
 
 ShadcnLocalizations lookupShadcnLocalizations(Locale locale) {

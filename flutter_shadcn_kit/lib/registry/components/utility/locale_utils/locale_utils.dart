@@ -2,6 +2,10 @@ import 'dart:math';
 
 import '../../../shared/utils/util.dart';
 
+part '_impl/core/date_part.dart';
+part '_impl/core/duration_part.dart';
+part '_impl/core/time_part.dart';
+
 /// Configuration for file size unit formatting.
 ///
 /// Defines the base (1024 for binary) and unit labels for formatting
@@ -103,36 +107,6 @@ int _getDay(DateTime dateTime) => dateTime.day;
   return (1, daysInMonth);
 }
 
-/// Represents a part of a date (year, month, or day).
-///
-/// Provides metadata and operations for individual date components.
-enum DatePart {
-  /// Year component (4 digits).
-  year(_getYear, _computeYearValueRange, length: 4),
-
-  /// Month component.
-  month(_getMonth, _computeMonthValueRange),
-
-  /// Day component.
-  day(_getDay, _computeDayValueRange),
-  ;
-
-  /// Function that extracts the date/time component value from a DateTime.
-  final int Function(DateTime dateTime) getter;
-
-  /// Maximum number of digits for this date component.
-  final int length;
-
-  /// Function that computes the valid value range for this component.
-  ///
-  /// Takes a map of already-set date component values and returns the
-  /// minimum and maximum valid values for this component, considering
-  /// constraints like month lengths or leap years.
-  final (int? min, int? max) Function(Map<DatePart, int> values)
-      computeValueRange;
-
-  const DatePart(this.getter, this.computeValueRange, {this.length = 2});
-}
 
 int _getDurationDay(Duration duration) => duration.inDays;
 int _getDurationHour(Duration duration) => duration.inHours % 24;
@@ -152,30 +126,6 @@ int _getDurationSecond(Duration duration) => duration.inSeconds % 60;
         Map<DurationPart, int> values) =>
     (0, 59);
 
-/// Represents a part of a duration (day, hour, minute, or second).
-enum DurationPart {
-  /// Day component.
-  day(_getDurationDay, _computeDurationDayValueRange),
-
-  /// Hour component.
-  hour(_getDurationHour, _computeDurationHourValueRange),
-
-  /// Minute component.
-  minute(_getDurationMinute, _computeDurationMinuteValueRange),
-
-  /// Second component.
-  second(_getDurationSecond, _computeDurationSecondValueRange),
-  ;
-
-  /// Function that extracts the duration component value from a Duration.
-  final int Function(Duration duration) getter;
-
-  /// Function that computes the valid value range for this component.
-  final (int? min, int? max) Function(Map<DurationPart, int> values)
-      computeValueRange;
-
-  const DurationPart(this.getter, this.computeValueRange);
-}
 
 int _getTimeHour(TimeOfDay time) => time.hour;
 int _getTimeMinute(TimeOfDay time) => time.minute;
@@ -187,25 +137,3 @@ int _getTimeSecond(TimeOfDay time) => time.second;
     (0, 59);
 (int? min, int? max) _computeTimeSecondValueRange(Map<TimePart, int> values) =>
     (0, 59);
-
-/// Represents a part of a time (hour, minute, or second).
-enum TimePart {
-  /// Hour component.
-  hour(_getTimeHour, _computeTimeHourValueRange),
-
-  /// Minute component.
-  minute(_getTimeMinute, _computeTimeMinuteValueRange),
-
-  /// Second component.
-  second(_getTimeSecond, _computeTimeSecondValueRange),
-  ;
-
-  /// Function that extracts the time component value from a TimeOfDay.
-  final int Function(TimeOfDay time) getter;
-
-  /// Function that computes the valid value range for this component.
-  final (int? min, int? max) Function(Map<TimePart, int> values)
-      computeValueRange;
-
-  const TimePart(this.getter, this.computeValueRange);
-}

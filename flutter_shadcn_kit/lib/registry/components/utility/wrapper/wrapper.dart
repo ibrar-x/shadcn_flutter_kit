@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+part '_impl/state/wrapper_state.dart';
+
 /// A function signature for building widgets that wrap child widgets.
 ///
 /// Takes a [BuildContext] and a [Widget] child, returning a wrapped [Widget].
@@ -70,22 +72,4 @@ class Wrapper extends StatefulWidget {
 
   @override
   State<Wrapper> createState() => _WrapperState();
-}
-
-class _WrapperState extends State<Wrapper> {
-  final GlobalKey _key = GlobalKey();
-  @override
-  Widget build(BuildContext context) {
-    Widget wrappedChild = widget.child;
-    if (widget.maintainStructure) {
-      wrappedChild = KeyedSubtree(
-        key: _key,
-        child: wrappedChild,
-      );
-    }
-    if (widget.wrap && widget.builder != null) {
-      wrappedChild = widget.builder!(context, wrappedChild);
-    }
-    return wrappedChild;
-  }
 }
