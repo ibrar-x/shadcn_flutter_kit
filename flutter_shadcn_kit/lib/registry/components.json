@@ -1199,27 +1199,27 @@
           "destination": "{installPath}/components/form/autocomplete/preview.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/_autocomplete_preview_state.dart",
+          "source": "registry/components/form/autocomplete/_impl/state/_autocomplete_preview_state.dart",
           "destination": "{installPath}/components/form/autocomplete/_autocomplete_preview_state.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/auto_complete_intent.dart",
+          "source": "registry/components/form/autocomplete/_impl/utils/auto_complete_intent.dart",
           "destination": "{installPath}/components/form/autocomplete/auto_complete_intent.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/auto_complete.dart",
+          "source": "registry/components/form/autocomplete/_impl/core/auto_complete.dart",
           "destination": "{installPath}/components/form/autocomplete/auto_complete.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/auto_complete_mode.dart",
+          "source": "registry/components/form/autocomplete/_impl/core/auto_complete_mode.dart",
           "destination": "{installPath}/components/form/autocomplete/auto_complete_mode.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/accept_suggestion_intent.dart",
+          "source": "registry/components/form/autocomplete/_impl/utils/accept_suggestion_intent.dart",
           "destination": "{installPath}/components/form/autocomplete/accept_suggestion_intent.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/navigate_suggestion_intent.dart",
+          "source": "registry/components/form/autocomplete/_impl/utils/navigate_suggestion_intent.dart",
           "destination": "{installPath}/components/form/autocomplete/navigate_suggestion_intent.dart"
         },
         {
@@ -1832,19 +1832,19 @@
           "destination": "{installPath}/components/form/history/preview.dart"
         },
         {
-          "source": "registry/components/form/history/_color_list_notifier.dart",
+          "source": "registry/components/form/history/_impl/utils/_color_list_notifier.dart",
           "destination": "{installPath}/components/form/history/_color_list_notifier.dart"
         },
         {
-          "source": "registry/components/form/history/recent_colors_scope.dart",
+          "source": "registry/components/form/history/_impl/core/recent_colors_scope.dart",
           "destination": "{installPath}/components/form/history/recent_colors_scope.dart"
         },
         {
-          "source": "registry/components/form/history/recent_colors_scope_state.dart",
+          "source": "registry/components/form/history/_impl/state/recent_colors_scope_state.dart",
           "destination": "{installPath}/components/form/history/recent_colors_scope_state.dart"
         },
         {
-          "source": "registry/components/form/history/color_history_storage.dart",
+          "source": "registry/components/form/history/_impl/core/color_history_storage.dart",
           "destination": "{installPath}/components/form/history/color_history_storage.dart"
         }
       ],
@@ -1902,31 +1902,31 @@
           "destination": "{installPath}/components/form/color_picker/preview.dart"
         },
         {
-          "source": "registry/components/form/color_picker/color_picker_mode.dart",
+          "source": "registry/components/form/color_picker/_impl/core/color_picker_mode.dart",
           "destination": "{installPath}/components/form/color_picker/color_picker_mode.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_color_value_input.dart",
+          "source": "registry/components/form/color_picker/_impl/core/_color_value_input.dart",
           "destination": "{installPath}/components/form/color_picker/_color_value_input.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_color_picker_state.dart",
+          "source": "registry/components/form/color_picker/_impl/state/_color_picker_state.dart",
           "destination": "{installPath}/components/form/color_picker/_color_picker_state.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_color_picker_preview_state.dart",
+          "source": "registry/components/form/color_picker/_impl/state/_color_picker_preview_state.dart",
           "destination": "{installPath}/components/form/color_picker/_color_picker_preview_state.dart"
         },
         {
-          "source": "registry/components/form/color_picker/color_picker_theme.dart",
+          "source": "registry/components/form/color_picker/_impl/themes/color_picker_theme.dart",
           "destination": "{installPath}/components/form/color_picker/color_picker_theme.dart"
         },
         {
-          "source": "registry/components/form/color_picker/color_controls.dart",
+          "source": "registry/components/form/color_picker/_impl/core/color_controls.dart",
           "destination": "{installPath}/components/form/color_picker/color_controls.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_color_value_input_state.dart",
+          "source": "registry/components/form/color_picker/_impl/state/_color_value_input_state.dart",
           "destination": "{installPath}/components/form/color_picker/_color_value_input_state.dart"
         },
         {
@@ -2013,23 +2013,23 @@
           "destination": "{installPath}/components/form/color_input/preview.dart"
         },
         {
-          "source": "registry/components/form/color_input/controlled_color_input.dart",
+          "source": "registry/components/form/color_input/_impl/core/controlled_color_input.dart",
           "destination": "{installPath}/components/form/color_input/controlled_color_input.dart"
         },
         {
-          "source": "registry/components/form/color_input/_color_input_preview_state.dart",
+          "source": "registry/components/form/color_input/_impl/state/_color_input_preview_state.dart",
           "destination": "{installPath}/components/form/color_input/_color_input_preview_state.dart"
         },
         {
-          "source": "registry/components/form/color_input/color_input_controller.dart",
+          "source": "registry/components/form/color_input/_impl/utils/color_input_controller.dart",
           "destination": "{installPath}/components/form/color_input/color_input_controller.dart"
         },
         {
-          "source": "registry/components/form/color_input/color_input_theme.dart",
+          "source": "registry/components/form/color_input/_impl/themes/color_input_theme.dart",
           "destination": "{installPath}/components/form/color_input/color_input_theme.dart"
         },
         {
-          "source": "registry/components/form/color_input/_color_input_state.dart",
+          "source": "registry/components/form/color_input/_impl/state/_color_input_state.dart",
           "destination": "{installPath}/components/form/color_input/_color_input_state.dart"
         }
       ],
@@ -2091,19 +2091,19 @@
           "destination": "{installPath}/components/form/hsl/preview.dart"
         },
         {
-          "source": "registry/components/form/hsl/_hsl_color_slider_state.dart",
+          "source": "registry/components/form/hsl/_impl/state/_hsl_color_slider_state.dart",
           "destination": "{installPath}/components/form/hsl/_hsl_color_slider_state.dart"
         },
         {
-          "source": "registry/components/form/hsl/_hsl_preview_state.dart",
+          "source": "registry/components/form/hsl/_impl/state/_hsl_preview_state.dart",
           "destination": "{installPath}/components/form/hsl/_hsl_preview_state.dart"
         },
         {
-          "source": "registry/components/form/hsl/hsl_color_slider_painter.dart",
+          "source": "registry/components/form/hsl/_impl/core/hsl_color_slider_painter.dart",
           "destination": "{installPath}/components/form/hsl/hsl_color_slider_painter.dart"
         },
         {
-          "source": "registry/components/form/hsl/hsl_color_slider_type.dart",
+          "source": "registry/components/form/hsl/_impl/core/hsl_color_slider_type.dart",
           "destination": "{installPath}/components/form/hsl/hsl_color_slider_type.dart"
         }
       ],
@@ -2147,19 +2147,19 @@
           "destination": "{installPath}/components/form/hsv/preview.dart"
         },
         {
-          "source": "registry/components/form/hsv/hsv_color_slider_painter.dart",
+          "source": "registry/components/form/hsv/_impl/core/hsv_color_slider_painter.dart",
           "destination": "{installPath}/components/form/hsv/hsv_color_slider_painter.dart"
         },
         {
-          "source": "registry/components/form/hsv/_hsv_color_slider_state.dart",
+          "source": "registry/components/form/hsv/_impl/state/_hsv_color_slider_state.dart",
           "destination": "{installPath}/components/form/hsv/_hsv_color_slider_state.dart"
         },
         {
-          "source": "registry/components/form/hsv/_hsv_preview_state.dart",
+          "source": "registry/components/form/hsv/_impl/state/_hsv_preview_state.dart",
           "destination": "{installPath}/components/form/hsv/_hsv_preview_state.dart"
         },
         {
-          "source": "registry/components/form/hsv/hsv_color_slider_type.dart",
+          "source": "registry/components/form/hsv/_impl/core/hsv_color_slider_type.dart",
           "destination": "{installPath}/components/form/hsv/hsv_color_slider_type.dart"
         }
       ],
@@ -2283,27 +2283,27 @@
           "destination": "{installPath}/components/form/chip_input/preview.dart"
         },
         {
-          "source": "registry/components/form/chip_input/_chip_provider.dart",
+          "source": "registry/components/form/chip_input/_impl/utils/_chip_provider.dart",
           "destination": "{installPath}/components/form/chip_input/_chip_provider.dart"
         },
         {
-          "source": "registry/components/form/chip_input/chip_input_state.dart",
+          "source": "registry/components/form/chip_input/_impl/state/chip_input_state.dart",
           "destination": "{installPath}/components/form/chip_input/chip_input_state.dart"
         },
         {
-          "source": "registry/components/form/chip_input/chip_input_theme.dart",
+          "source": "registry/components/form/chip_input/_impl/themes/chip_input_theme.dart",
           "destination": "{installPath}/components/form/chip_input/chip_input_theme.dart"
         },
         {
-          "source": "registry/components/form/chip_input/_chip_input_preview_state.dart",
+          "source": "registry/components/form/chip_input/_impl/state/_chip_input_preview_state.dart",
           "destination": "{installPath}/components/form/chip_input/_chip_input_preview_state.dart"
         },
         {
-          "source": "registry/components/form/chip_input/chip_editing_controller.dart",
+          "source": "registry/components/form/chip_input/_impl/utils/chip_editing_controller.dart",
           "destination": "{installPath}/components/form/chip_input/chip_editing_controller.dart"
         },
         {
-          "source": "registry/components/form/chip_input/chip_submit_intent.dart",
+          "source": "registry/components/form/chip_input/_impl/utils/chip_submit_intent.dart",
           "destination": "{installPath}/components/form/chip_input/chip_submit_intent.dart"
         }
       ],
@@ -2355,91 +2355,91 @@
           "destination": "{installPath}/components/form/select/select.dart"
         },
         {
-          "source": "registry/components/form/select/multi_select_controller.dart",
+          "source": "registry/components/form/select/_impl/utils/multi_select_controller.dart",
           "destination": "{installPath}/components/form/select/multi_select_controller.dart"
         },
         {
-          "source": "registry/components/form/select/select_item_builder.dart",
+          "source": "registry/components/form/select/_impl/utils/select_item_builder.dart",
           "destination": "{installPath}/components/form/select/select_item_builder.dart"
         },
         {
-          "source": "registry/components/form/select/select_label.dart",
+          "source": "registry/components/form/select/_impl/core/select_label.dart",
           "destination": "{installPath}/components/form/select/select_label.dart"
         },
         {
-          "source": "registry/components/form/select/select_group.dart",
+          "source": "registry/components/form/select/_impl/core/select_group.dart",
           "destination": "{installPath}/components/form/select/select_group.dart"
         },
         {
-          "source": "registry/components/form/select/controlled_multi_select.dart",
+          "source": "registry/components/form/select/_impl/core/controlled_multi_select.dart",
           "destination": "{installPath}/components/form/select/controlled_multi_select.dart"
         },
         {
-          "source": "registry/components/form/select/_select_popup_state.dart",
+          "source": "registry/components/form/select/_impl/state/_select_popup_state.dart",
           "destination": "{installPath}/components/form/select/_select_popup_state.dart"
         },
         {
-          "source": "registry/components/form/select/select_popup.dart",
+          "source": "registry/components/form/select/_impl/core/select_popup.dart",
           "destination": "{installPath}/components/form/select/select_popup.dart"
         },
         {
-          "source": "registry/components/form/select/select_popup_handle.dart",
+          "source": "registry/components/form/select/_impl/core/select_popup_handle.dart",
           "destination": "{installPath}/components/form/select/select_popup_handle.dart"
         },
         {
-          "source": "registry/components/form/select/empty_select_item.dart",
+          "source": "registry/components/form/select/_impl/core/empty_select_item.dart",
           "destination": "{installPath}/components/form/select/empty_select_item.dart"
         },
         {
-          "source": "registry/components/form/select/select_item_list.dart",
+          "source": "registry/components/form/select/_impl/core/select_item_list.dart",
           "destination": "{installPath}/components/form/select/select_item_list.dart"
         },
         {
-          "source": "registry/components/form/select/select_item.dart",
+          "source": "registry/components/form/select/_impl/core/select_item.dart",
           "destination": "{installPath}/components/form/select/select_item.dart"
         },
         {
-          "source": "registry/components/form/select/multi_select.dart",
+          "source": "registry/components/form/select/_impl/core/multi_select.dart",
           "destination": "{installPath}/components/form/select/multi_select.dart"
         },
         {
-          "source": "registry/components/form/select/select_base.dart",
+          "source": "registry/components/form/select/_impl/core/select_base.dart",
           "destination": "{installPath}/components/form/select/select_base.dart"
         },
         {
-          "source": "registry/components/form/select/multi_select_chip.dart",
+          "source": "registry/components/form/select/_impl/core/multi_select_chip.dart",
           "destination": "{installPath}/components/form/select/multi_select_chip.dart"
         },
         {
-          "source": "registry/components/form/select/controlled_select.dart",
+          "source": "registry/components/form/select/_impl/core/controlled_select.dart",
           "destination": "{installPath}/components/form/select/controlled_select.dart"
         },
         {
-          "source": "registry/components/form/select/select_item_delegate.dart",
+          "source": "registry/components/form/select/_impl/utils/select_item_delegate.dart",
           "destination": "{installPath}/components/form/select/select_item_delegate.dart"
         },
         {
-          "source": "registry/components/form/select/select_controller.dart",
+          "source": "registry/components/form/select/_impl/utils/select_controller.dart",
           "destination": "{installPath}/components/form/select/select_controller.dart"
         },
         {
-          "source": "registry/components/form/select/_select_preview_state.dart",
+          "source": "registry/components/form/select/_impl/state/_select_preview_state.dart",
           "destination": "{installPath}/components/form/select/_select_preview_state.dart"
         },
         {
-          "source": "registry/components/form/select/select_state.dart",
+          "source": "registry/components/form/select/_impl/state/select_state.dart",
           "destination": "{installPath}/components/form/select/select_state.dart"
         },
         {
-          "source": "registry/components/form/select/select_theme.dart",
+          "source": "registry/components/form/select/_impl/themes/select_theme.dart",
           "destination": "{installPath}/components/form/select/select_theme.dart"
         },
         {
-          "source": "registry/components/form/select/select_item_button.dart",
+          "source": "registry/components/form/select/_impl/core/select_item_button.dart",
           "destination": "{installPath}/components/form/select/select_item_button.dart"
         },
         {
-          "source": "registry/components/form/select/select_data.dart",
+          "source": "registry/components/form/select/_impl/core/select_data.dart",
           "destination": "{installPath}/components/form/select/select_data.dart"
         }
       ],
@@ -2508,31 +2508,31 @@
           "destination": "{installPath}/components/form/checkbox/preview.dart"
         },
         {
-          "source": "registry/components/form/checkbox/animated_check_painter.dart",
+          "source": "registry/components/form/checkbox/_impl/core/animated_check_painter.dart",
           "destination": "{installPath}/components/form/checkbox/animated_check_painter.dart"
         },
         {
-          "source": "registry/components/form/checkbox/_checkbox_preview_state.dart",
+          "source": "registry/components/form/checkbox/_impl/state/_checkbox_preview_state.dart",
           "destination": "{installPath}/components/form/checkbox/_checkbox_preview_state.dart"
         },
         {
-          "source": "registry/components/form/checkbox/controlled_checkbox.dart",
+          "source": "registry/components/form/checkbox/_impl/core/controlled_checkbox.dart",
           "destination": "{installPath}/components/form/checkbox/controlled_checkbox.dart"
         },
         {
-          "source": "registry/components/form/checkbox/_checkbox_state.dart",
+          "source": "registry/components/form/checkbox/_impl/state/_checkbox_state.dart",
           "destination": "{installPath}/components/form/checkbox/_checkbox_state.dart"
         },
         {
-          "source": "registry/components/form/checkbox/checkbox_controller.dart",
+          "source": "registry/components/form/checkbox/_impl/utils/checkbox_controller.dart",
           "destination": "{installPath}/components/form/checkbox/checkbox_controller.dart"
         },
         {
-          "source": "registry/components/form/checkbox/checkbox_state.dart",
+          "source": "registry/components/form/checkbox/_impl/state/checkbox_state.dart",
           "destination": "{installPath}/components/form/checkbox/checkbox_state.dart"
         },
         {
-          "source": "registry/components/form/checkbox/checkbox_theme.dart",
+          "source": "registry/components/form/checkbox/_impl/themes/checkbox_theme.dart",
           "destination": "{installPath}/components/form/checkbox/checkbox_theme.dart"
         }
       ],
@@ -3156,23 +3156,23 @@
           "destination": "{installPath}/components/form/control/preview.dart"
         },
         {
-          "source": "registry/components/form/control/controlled_component.dart",
+          "source": "registry/components/form/control/_impl/core/controlled_component.dart",
           "destination": "{installPath}/components/form/control/controlled_component.dart"
         },
         {
-          "source": "registry/components/form/control/controlled_component_adapter.dart",
+          "source": "registry/components/form/control/_impl/utils/controlled_component_adapter.dart",
           "destination": "{installPath}/components/form/control/controlled_component_adapter.dart"
         },
         {
-          "source": "registry/components/form/control/_controlled_component_adapter_state.dart",
+          "source": "registry/components/form/control/_impl/state/_controlled_component_adapter_state.dart",
           "destination": "{installPath}/components/form/control/_controlled_component_adapter_state.dart"
         },
         {
-          "source": "registry/components/form/control/controlled_component_data.dart",
+          "source": "registry/components/form/control/_impl/core/controlled_component_data.dart",
           "destination": "{installPath}/components/form/control/controlled_component_data.dart"
         },
         {
-          "source": "registry/components/form/control/component_value_controller.dart",
+          "source": "registry/components/form/control/_impl/utils/component_value_controller.dart",
           "destination": "{installPath}/components/form/control/component_value_controller.dart"
         }
       ],
@@ -3571,27 +3571,27 @@
           "destination": "{installPath}/components/form/date_picker/preview.dart"
         },
         {
-          "source": "registry/components/form/date_picker/date_picker_theme.dart",
+          "source": "registry/components/form/date_picker/_impl/themes/date_picker_theme.dart",
           "destination": "{installPath}/components/form/date_picker/date_picker_theme.dart"
         },
         {
-          "source": "registry/components/form/date_picker/date_time_range.dart",
+          "source": "registry/components/form/date_picker/_impl/core/date_time_range.dart",
           "destination": "{installPath}/components/form/date_picker/date_time_range.dart"
         },
         {
-          "source": "registry/components/form/date_picker/date_range_picker.dart",
+          "source": "registry/components/form/date_picker/_impl/core/date_range_picker.dart",
           "destination": "{installPath}/components/form/date_picker/date_range_picker.dart"
         },
         {
-          "source": "registry/components/form/date_picker/_date_picker_preview_state.dart",
+          "source": "registry/components/form/date_picker/_impl/state/_date_picker_preview_state.dart",
           "destination": "{installPath}/components/form/date_picker/_date_picker_preview_state.dart"
         },
         {
-          "source": "registry/components/form/date_picker/controlled_date_picker.dart",
+          "source": "registry/components/form/date_picker/_impl/core/controlled_date_picker.dart",
           "destination": "{installPath}/components/form/date_picker/controlled_date_picker.dart"
         },
         {
-          "source": "registry/components/form/date_picker/date_picker_controller.dart",
+          "source": "registry/components/form/date_picker/_impl/utils/date_picker_controller.dart",
           "destination": "{installPath}/components/form/date_picker/date_picker_controller.dart"
         }
       ],
@@ -3644,7 +3644,7 @@
           "destination": "{installPath}/components/form/file_input/preview.dart"
         },
         {
-          "source": "registry/components/form/file_input/file_icon_provider_data.dart",
+          "source": "registry/components/form/file_input/_impl/utils/file_icon_provider_data.dart",
           "destination": "{installPath}/components/form/file_input/file_icon_provider_data.dart"
         }
       ],
@@ -3688,11 +3688,11 @@
           "destination": "{installPath}/components/form/file_picker/preview.dart"
         },
         {
-          "source": "registry/components/form/file_picker/file_item.dart",
+          "source": "registry/components/form/file_picker/_impl/core/file_item.dart",
           "destination": "{installPath}/components/form/file_picker/file_item.dart"
         },
         {
-          "source": "registry/components/form/file_picker/_file_picker_preview_state.dart",
+          "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
           "destination": "{installPath}/components/form/file_picker/_file_picker_preview_state.dart"
         }
       ],
@@ -4160,91 +4160,91 @@
           "destination": "{installPath}/components/form/input/preview.dart"
         },
         {
-          "source": "registry/components/form/input/_input_paste_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_paste_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_paste_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/_input_spinner_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_spinner_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_spinner_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_paste_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_paste_feature.dart",
           "destination": "{installPath}/components/form/input/input_paste_feature.dart"
         },
         {
-          "source": "registry/components/form/input/input_clear_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_clear_feature.dart",
           "destination": "{installPath}/components/form/input/input_clear_feature.dart"
         },
         {
-          "source": "registry/components/form/input/input_auto_complete_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_auto_complete_feature.dart",
           "destination": "{installPath}/components/form/input/input_auto_complete_feature.dart"
         },
         {
-          "source": "registry/components/form/input/_input_copy_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_copy_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_copy_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_revalidate_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_revalidate_feature.dart",
           "destination": "{installPath}/components/form/input/input_revalidate_feature.dart"
         },
         {
-          "source": "registry/components/form/input/input_spinner_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_spinner_feature.dart",
           "destination": "{installPath}/components/form/input/input_spinner_feature.dart"
         },
         {
-          "source": "registry/components/form/input/_auto_complete_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_auto_complete_feature_state.dart",
           "destination": "{installPath}/components/form/input/_auto_complete_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_copy_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_copy_feature.dart",
           "destination": "{installPath}/components/form/input/input_copy_feature.dart"
         },
         {
-          "source": "registry/components/form/input/input_leading_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_leading_feature.dart",
           "destination": "{installPath}/components/form/input/input_leading_feature.dart"
         },
         {
-          "source": "registry/components/form/input/_input_hint_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_hint_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_hint_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_trailing_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_trailing_feature.dart",
           "destination": "{installPath}/components/form/input/input_trailing_feature.dart"
         },
         {
-          "source": "registry/components/form/input/_input_leading_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_leading_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_leading_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/_input_clear_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_clear_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_clear_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/_input_trailing_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_trailing_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_trailing_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/_input_revalidate_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_revalidate_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_revalidate_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_password_toggle_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_password_toggle_feature.dart",
           "destination": "{installPath}/components/form/input/input_password_toggle_feature.dart"
         },
         {
-          "source": "registry/components/form/input/input_show_hint_intent.dart",
+          "source": "registry/components/form/input/_impl/utils/input_show_hint_intent.dart",
           "destination": "{installPath}/components/form/input/input_show_hint_intent.dart"
         },
         {
-          "source": "registry/components/form/input/_input_password_toggle_feature_state.dart",
+          "source": "registry/components/form/input/_impl/state/_input_password_toggle_feature_state.dart",
           "destination": "{installPath}/components/form/input/_input_password_toggle_feature_state.dart"
         },
         {
-          "source": "registry/components/form/input/input_hint_feature.dart",
+          "source": "registry/components/form/input/_impl/core/input_hint_feature.dart",
           "destination": "{installPath}/components/form/input/input_hint_feature.dart"
         },
         {
-          "source": "registry/components/form/input/password_peek_mode.dart",
+          "source": "registry/components/form/input/_impl/core/password_peek_mode.dart",
           "destination": "{installPath}/components/form/input/password_peek_mode.dart"
         }
       ],
@@ -4297,51 +4297,51 @@
           "destination": "{installPath}/components/form/input_otp/preview.dart"
         },
         {
-          "source": "registry/components/form/input_otp/input_otp_child.dart",
+          "source": "registry/components/form/input_otp/_impl/core/input_otp_child.dart",
           "destination": "{installPath}/components/form/input_otp/input_otp_child.dart"
         },
         {
-          "source": "registry/components/form/input_otp/otp_separator.dart",
+          "source": "registry/components/form/input_otp/_impl/core/otp_separator.dart",
           "destination": "{installPath}/components/form/input_otp/otp_separator.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_input_otp_child.dart",
+          "source": "registry/components/form/input_otp/_impl/core/_input_otp_child.dart",
           "destination": "{installPath}/components/form/input_otp/_input_otp_child.dart"
         },
         {
-          "source": "registry/components/form/input_otp/widget_input_otp_child.dart",
+          "source": "registry/components/form/input_otp/_impl/core/widget_input_otp_child.dart",
           "destination": "{installPath}/components/form/input_otp/widget_input_otp_child.dart"
         },
         {
-          "source": "registry/components/form/input_otp/character_input_otp_child.dart",
+          "source": "registry/components/form/input_otp/_impl/core/character_input_otp_child.dart",
           "destination": "{installPath}/components/form/input_otp/character_input_otp_child.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_otp_character_input_state.dart",
+          "source": "registry/components/form/input_otp/_impl/state/_otp_character_input_state.dart",
           "destination": "{installPath}/components/form/input_otp/_otp_character_input_state.dart"
         },
         {
-          "source": "registry/components/form/input_otp/input_otp_child_data.dart",
+          "source": "registry/components/form/input_otp/_impl/core/input_otp_child_data.dart",
           "destination": "{installPath}/components/form/input_otp/input_otp_child_data.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_input_otp_spacing.dart",
+          "source": "registry/components/form/input_otp/_impl/core/_input_otp_spacing.dart",
           "destination": "{installPath}/components/form/input_otp/_input_otp_spacing.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_input_otp_preview_state.dart",
+          "source": "registry/components/form/input_otp/_impl/state/_input_otp_preview_state.dart",
           "destination": "{installPath}/components/form/input_otp/_input_otp_preview_state.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_input_otp_state.dart",
+          "source": "registry/components/form/input_otp/_impl/state/_input_otp_state.dart",
           "destination": "{installPath}/components/form/input_otp/_input_otp_state.dart"
         },
         {
-          "source": "registry/components/form/input_otp/_otp_character_input.dart",
+          "source": "registry/components/form/input_otp/_impl/core/_otp_character_input.dart",
           "destination": "{installPath}/components/form/input_otp/_otp_character_input.dart"
         },
         {
-          "source": "registry/components/form/input_otp/input_otp_theme.dart",
+          "source": "registry/components/form/input_otp/_impl/themes/input_otp_theme.dart",
           "destination": "{installPath}/components/form/input_otp/input_otp_theme.dart"
         }
       ],
@@ -4391,39 +4391,39 @@
           "destination": "{installPath}/components/form/form_field/preview.dart"
         },
         {
-          "source": "registry/components/form/form_field/_form_field_preview_state.dart",
+          "source": "registry/components/form/form_field/_impl/state/_form_field_preview_state.dart",
           "destination": "{installPath}/components/form/form_field/_form_field_preview_state.dart"
         },
         {
-          "source": "registry/components/form/form_field/_object_form_field_popup_state.dart",
+          "source": "registry/components/form/form_field/_impl/state/_object_form_field_popup_state.dart",
           "destination": "{installPath}/components/form/form_field/_object_form_field_popup_state.dart"
         },
         {
-          "source": "registry/components/form/form_field/_object_form_field_popup.dart",
+          "source": "registry/components/form/form_field/_impl/core/_object_form_field_popup.dart",
           "destination": "{installPath}/components/form/form_field/_object_form_field_popup.dart"
         },
         {
-          "source": "registry/components/form/form_field/object_form_field.dart",
+          "source": "registry/components/form/form_field/_impl/core/object_form_field.dart",
           "destination": "{installPath}/components/form/form_field/object_form_field.dart"
         },
         {
-          "source": "registry/components/form/form_field/_object_form_field_dialog.dart",
+          "source": "registry/components/form/form_field/_impl/core/_object_form_field_dialog.dart",
           "destination": "{installPath}/components/form/form_field/_object_form_field_dialog.dart"
         },
         {
-          "source": "registry/components/form/form_field/object_form_field_state.dart",
+          "source": "registry/components/form/form_field/_impl/state/object_form_field_state.dart",
           "destination": "{installPath}/components/form/form_field/object_form_field_state.dart"
         },
         {
-          "source": "registry/components/form/form_field/object_form_field_dialog_result.dart",
+          "source": "registry/components/form/form_field/_impl/core/object_form_field_dialog_result.dart",
           "destination": "{installPath}/components/form/form_field/object_form_field_dialog_result.dart"
         },
         {
-          "source": "registry/components/form/form_field/_object_form_field_dialog_state.dart",
+          "source": "registry/components/form/form_field/_impl/state/_object_form_field_dialog_state.dart",
           "destination": "{installPath}/components/form/form_field/_object_form_field_dialog_state.dart"
         },
         {
-          "source": "registry/components/form/form_field/object_form_handler.dart",
+          "source": "registry/components/form/form_field/_impl/core/object_form_handler.dart",
           "destination": "{installPath}/components/form/form_field/object_form_handler.dart"
         }
       ],
@@ -4476,75 +4476,75 @@
           "destination": "{installPath}/components/form/formatted_input/preview.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_object_input.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/formatted_object_input.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_object_input.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_static_part_widget.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/_static_part_widget.dart",
           "destination": "{installPath}/components/form/formatted_input/_static_part_widget.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/editable_part.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/editable_part.dart",
           "destination": "{installPath}/components/form/formatted_input/editable_part.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_formatted_object_input_state.dart",
+          "source": "registry/components/form/formatted_input/_impl/state/_formatted_object_input_state.dart",
           "destination": "{installPath}/components/form/formatted_input/_formatted_object_input_state.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/input_part.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/input_part.dart",
           "destination": "{installPath}/components/form/formatted_input/input_part.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_input_data.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/formatted_input_data.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_input_data.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_value_part.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/formatted_value_part.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_value_part.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_static_part_widget_state.dart",
+          "source": "registry/components/form/formatted_input/_impl/state/_static_part_widget_state.dart",
           "destination": "{installPath}/components/form/formatted_input/_static_part_widget_state.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_editable_part_widget.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/_editable_part_widget.dart",
           "destination": "{installPath}/components/form/formatted_input/_editable_part_widget.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_input_controller.dart",
+          "source": "registry/components/form/formatted_input/_impl/utils/formatted_input_controller.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_input_controller.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/widget_part.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/widget_part.dart",
           "destination": "{installPath}/components/form/formatted_input/widget_part.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_editable_part_controller.dart",
+          "source": "registry/components/form/formatted_input/_impl/utils/_editable_part_controller.dart",
           "destination": "{installPath}/components/form/formatted_input/_editable_part_controller.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/static_part.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/static_part.dart",
           "destination": "{installPath}/components/form/formatted_input/static_part.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_formatted_object_controller.dart",
+          "source": "registry/components/form/formatted_input/_impl/utils/_formatted_object_controller.dart",
           "destination": "{installPath}/components/form/formatted_input/_formatted_object_controller.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_value.dart",
+          "source": "registry/components/form/formatted_input/_impl/core/formatted_value.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_value.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_formatted_input_state.dart",
+          "source": "registry/components/form/formatted_input/_impl/state/_formatted_input_state.dart",
           "destination": "{installPath}/components/form/formatted_input/_formatted_input_state.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/_editable_part_widget_state.dart",
+          "source": "registry/components/form/formatted_input/_impl/state/_editable_part_widget_state.dart",
           "destination": "{installPath}/components/form/formatted_input/_editable_part_widget_state.dart"
         },
         {
-          "source": "registry/components/form/formatted_input/formatted_input_theme.dart",
+          "source": "registry/components/form/formatted_input/_impl/themes/formatted_input_theme.dart",
           "destination": "{installPath}/components/form/formatted_input/formatted_input_theme.dart"
         }
       ],
@@ -4598,195 +4598,195 @@
           "destination": "{installPath}/components/form/form/preview.dart"
         },
         {
-          "source": "registry/components/form/form/compare_to.dart",
+          "source": "registry/components/form/form/_impl/core/compare_to.dart",
           "destination": "{installPath}/components/form/form/compare_to.dart"
         },
         {
-          "source": "registry/components/form/form/form_inline.dart",
+          "source": "registry/components/form/form/_impl/core/form_inline.dart",
           "destination": "{installPath}/components/form/form/form_inline.dart"
         },
         {
-          "source": "registry/components/form/form/regex_validator.dart",
+          "source": "registry/components/form/form/_impl/core/regex_validator.dart",
           "destination": "{installPath}/components/form/form/regex_validator.dart"
         },
         {
-          "source": "registry/components/form/form/length_validator.dart",
+          "source": "registry/components/form/form/_impl/core/length_validator.dart",
           "destination": "{installPath}/components/form/form/length_validator.dart"
         },
         {
-          "source": "registry/components/form/form/email_validator.dart",
+          "source": "registry/components/form/form/_impl/core/email_validator.dart",
           "destination": "{installPath}/components/form/form/email_validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_validation_mode.dart",
+          "source": "registry/components/form/form/_impl/core/form_validation_mode.dart",
           "destination": "{installPath}/components/form/form/form_validation_mode.dart"
         },
         {
-          "source": "registry/components/form/form/not_validator.dart",
+          "source": "registry/components/form/form/_impl/core/not_validator.dart",
           "destination": "{installPath}/components/form/form/not_validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_state.dart",
+          "source": "registry/components/form/form/_impl/state/form_state.dart",
           "destination": "{installPath}/components/form/form/form_state.dart"
         },
         {
-          "source": "registry/components/form/form/form_controller.dart",
+          "source": "registry/components/form/form/_impl/utils/form_controller.dart",
           "destination": "{installPath}/components/form/form/form_controller.dart"
         },
         {
-          "source": "registry/components/form/form/composite_validator.dart",
+          "source": "registry/components/form/form/_impl/core/composite_validator.dart",
           "destination": "{installPath}/components/form/form/composite_validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_entry_state.dart",
+          "source": "registry/components/form/form/_impl/state/form_entry_state.dart",
           "destination": "{installPath}/components/form/form/form_entry_state.dart"
         },
         {
-          "source": "registry/components/form/form/_validator_result_stash.dart",
+          "source": "registry/components/form/form/_impl/core/_validator_result_stash.dart",
           "destination": "{installPath}/components/form/form/_validator_result_stash.dart"
         },
         {
-          "source": "registry/components/form/form/form_pending_builder.dart",
+          "source": "registry/components/form/form/_impl/utils/form_pending_builder.dart",
           "destination": "{installPath}/components/form/form/form_pending_builder.dart"
         },
         {
-          "source": "registry/components/form/form/form_field.dart",
+          "source": "registry/components/form/form/_impl/core/form_field.dart",
           "destination": "{installPath}/components/form/form/form_field.dart"
         },
         {
-          "source": "registry/components/form/form/replace_result.dart",
+          "source": "registry/components/form/form/_impl/core/replace_result.dart",
           "destination": "{installPath}/components/form/form/replace_result.dart"
         },
         {
-          "source": "registry/components/form/form/validation_result.dart",
+          "source": "registry/components/form/form/_impl/core/validation_result.dart",
           "destination": "{installPath}/components/form/form/validation_result.dart"
         },
         {
-          "source": "registry/components/form/form/form_entry_error_builder.dart",
+          "source": "registry/components/form/form/_impl/utils/form_entry_error_builder.dart",
           "destination": "{installPath}/components/form/form/form_entry_error_builder.dart"
         },
         {
-          "source": "registry/components/form/form/form_entry.dart",
+          "source": "registry/components/form/form/_impl/core/form_entry.dart",
           "destination": "{installPath}/components/form/form/form_entry.dart"
         },
         {
-          "source": "registry/components/form/form/min_validator.dart",
+          "source": "registry/components/form/form/_impl/core/min_validator.dart",
           "destination": "{installPath}/components/form/form/min_validator.dart"
         },
         {
-          "source": "registry/components/form/form/waiting_result.dart",
+          "source": "registry/components/form/form/_impl/core/waiting_result.dart",
           "destination": "{installPath}/components/form/form/waiting_result.dart"
         },
         {
-          "source": "registry/components/form/form/_form_entry_cached_value.dart",
+          "source": "registry/components/form/form/_impl/core/_form_entry_cached_value.dart",
           "destination": "{installPath}/components/form/form/_form_entry_cached_value.dart"
         },
         {
-          "source": "registry/components/form/form/validator.dart",
+          "source": "registry/components/form/form/_impl/core/validator.dart",
           "destination": "{installPath}/components/form/form/validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_key.dart",
+          "source": "registry/components/form/form/_impl/core/form_key.dart",
           "destination": "{installPath}/components/form/form/form_key.dart"
         },
         {
-          "source": "registry/components/form/form/compare_type.dart",
+          "source": "registry/components/form/form/_impl/core/compare_type.dart",
           "destination": "{installPath}/components/form/form/compare_type.dart"
         },
         {
-          "source": "registry/components/form/form/form_validity_notification.dart",
+          "source": "registry/components/form/form/_impl/core/form_validity_notification.dart",
           "destination": "{installPath}/components/form/form/form_validity_notification.dart"
         },
         {
-          "source": "registry/components/form/form/form_value_state.dart",
+          "source": "registry/components/form/form/_impl/state/form_value_state.dart",
           "destination": "{installPath}/components/form/form/form_value_state.dart"
         },
         {
-          "source": "registry/components/form/form/url_validator.dart",
+          "source": "registry/components/form/form/_impl/core/url_validator.dart",
           "destination": "{installPath}/components/form/form/url_validator.dart"
         },
         {
-          "source": "registry/components/form/form/or_validator.dart",
+          "source": "registry/components/form/form/_impl/core/or_validator.dart",
           "destination": "{installPath}/components/form/form/or_validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_error_builder.dart",
+          "source": "registry/components/form/form/_impl/utils/form_error_builder.dart",
           "destination": "{installPath}/components/form/form/form_error_builder.dart"
         },
         {
-          "source": "registry/components/form/form/_form_entry_handle_interceptor.dart",
+          "source": "registry/components/form/form/_impl/core/_form_entry_handle_interceptor.dart",
           "destination": "{installPath}/components/form/form/_form_entry_handle_interceptor.dart"
         },
         {
-          "source": "registry/components/form/form/range_validator.dart",
+          "source": "registry/components/form/form/_impl/core/range_validator.dart",
           "destination": "{installPath}/components/form/form/range_validator.dart"
         },
         {
-          "source": "registry/components/form/form/form_entry_interceptor.dart",
+          "source": "registry/components/form/form/_impl/core/form_entry_interceptor.dart",
           "destination": "{installPath}/components/form/form/form_entry_interceptor.dart"
         },
         {
-          "source": "registry/components/form/form/compare_with.dart",
+          "source": "registry/components/form/form/_impl/core/compare_with.dart",
           "destination": "{installPath}/components/form/form/compare_with.dart"
         },
         {
-          "source": "registry/components/form/form/safe_password_validator.dart",
+          "source": "registry/components/form/form/_impl/core/safe_password_validator.dart",
           "destination": "{installPath}/components/form/form/safe_password_validator.dart"
         },
         {
-          "source": "registry/components/form/form/submit_button.dart",
+          "source": "registry/components/form/form/_impl/core/submit_button.dart",
           "destination": "{installPath}/components/form/form/submit_button.dart"
         },
         {
-          "source": "registry/components/form/form/form_value_supplier.dart",
+          "source": "registry/components/form/form/_impl/core/form_value_supplier.dart",
           "destination": "{installPath}/components/form/form/form_value_supplier.dart"
         },
         {
-          "source": "registry/components/form/form/form_table_layout.dart",
+          "source": "registry/components/form/form/_impl/core/form_table_layout.dart",
           "destination": "{installPath}/components/form/form/form_table_layout.dart"
         },
         {
-          "source": "registry/components/form/form/validation_mode.dart",
+          "source": "registry/components/form/form/_impl/core/validation_mode.dart",
           "destination": "{installPath}/components/form/form/validation_mode.dart"
         },
         {
-          "source": "registry/components/form/form/_form_entry_interceptor_state.dart",
+          "source": "registry/components/form/form/_impl/state/_form_entry_interceptor_state.dart",
           "destination": "{installPath}/components/form/form/_form_entry_interceptor_state.dart"
         },
         {
-          "source": "registry/components/form/form/max_validator.dart",
+          "source": "registry/components/form/form/_impl/core/max_validator.dart",
           "destination": "{installPath}/components/form/form/max_validator.dart"
         },
         {
-          "source": "registry/components/form/form/not_empty_validator.dart",
+          "source": "registry/components/form/form/_impl/core/not_empty_validator.dart",
           "destination": "{installPath}/components/form/form/not_empty_validator.dart"
         },
         {
-          "source": "registry/components/form/form/submission_result.dart",
+          "source": "registry/components/form/form/_impl/core/submission_result.dart",
           "destination": "{installPath}/components/form/form/submission_result.dart"
         },
         {
-          "source": "registry/components/form/form/validator_builder.dart",
+          "source": "registry/components/form/form/_impl/utils/validator_builder.dart",
           "destination": "{installPath}/components/form/form/validator_builder.dart"
         },
         {
-          "source": "registry/components/form/form/non_null_validator.dart",
+          "source": "registry/components/form/form/_impl/core/non_null_validator.dart",
           "destination": "{installPath}/components/form/form/non_null_validator.dart"
         },
         {
-          "source": "registry/components/form/form/invalid_result.dart",
+          "source": "registry/components/form/form/_impl/core/invalid_result.dart",
           "destination": "{installPath}/components/form/form/invalid_result.dart"
         },
         {
-          "source": "registry/components/form/form/form_field_handle.dart",
+          "source": "registry/components/form/form/_impl/core/form_field_handle.dart",
           "destination": "{installPath}/components/form/form/form_field_handle.dart"
         },
         {
-          "source": "registry/components/form/form/ignore_form.dart",
+          "source": "registry/components/form/form/_impl/core/ignore_form.dart",
           "destination": "{installPath}/components/form/form/ignore_form.dart"
         },
         {
-          "source": "registry/components/form/form/conditional_validator.dart",
+          "source": "registry/components/form/form/_impl/core/conditional_validator.dart",
           "destination": "{installPath}/components/form/form/conditional_validator.dart"
         }
       ],
@@ -4844,35 +4844,35 @@
           "destination": "{installPath}/components/form/object_input/preview.dart"
         },
         {
-          "source": "registry/components/form/object_input/_object_input_preview_state.dart",
+          "source": "registry/components/form/object_input/_impl/state/_object_input_preview_state.dart",
           "destination": "{installPath}/components/form/object_input/_object_input_preview_state.dart"
         },
         {
-          "source": "registry/components/form/object_input/time_input.dart",
+          "source": "registry/components/form/object_input/_impl/core/time_input.dart",
           "destination": "{installPath}/components/form/object_input/time_input.dart"
         },
         {
-          "source": "registry/components/form/object_input/nullable_date.dart",
+          "source": "registry/components/form/object_input/_impl/core/nullable_date.dart",
           "destination": "{installPath}/components/form/object_input/nullable_date.dart"
         },
         {
-          "source": "registry/components/form/object_input/_date_input_state.dart",
+          "source": "registry/components/form/object_input/_impl/state/_date_input_state.dart",
           "destination": "{installPath}/components/form/object_input/_date_input_state.dart"
         },
         {
-          "source": "registry/components/form/object_input/_time_input_state.dart",
+          "source": "registry/components/form/object_input/_impl/state/_time_input_state.dart",
           "destination": "{installPath}/components/form/object_input/_time_input_state.dart"
         },
         {
-          "source": "registry/components/form/object_input/duration_input.dart",
+          "source": "registry/components/form/object_input/_impl/core/duration_input.dart",
           "destination": "{installPath}/components/form/object_input/duration_input.dart"
         },
         {
-          "source": "registry/components/form/object_input/nullable_time_of_day.dart",
+          "source": "registry/components/form/object_input/_impl/core/nullable_time_of_day.dart",
           "destination": "{installPath}/components/form/object_input/nullable_time_of_day.dart"
         },
         {
-          "source": "registry/components/form/object_input/_duration_input_state.dart",
+          "source": "registry/components/form/object_input/_impl/state/_duration_input_state.dart",
           "destination": "{installPath}/components/form/object_input/_duration_input_state.dart"
         }
       ],
@@ -4979,15 +4979,15 @@
           "destination": "{installPath}/components/form/phone_input/preview.dart"
         },
         {
-          "source": "registry/components/form/phone_input/phone_input_theme.dart",
+          "source": "registry/components/form/phone_input/_impl/themes/phone_input_theme.dart",
           "destination": "{installPath}/components/form/phone_input/phone_input_theme.dart"
         },
         {
-          "source": "registry/components/form/phone_input/_phone_input_state.dart",
+          "source": "registry/components/form/phone_input/_impl/state/_phone_input_state.dart",
           "destination": "{installPath}/components/form/phone_input/_phone_input_state.dart"
         },
         {
-          "source": "registry/components/form/phone_input/phone_number.dart",
+          "source": "registry/components/form/phone_input/_impl/core/phone_number.dart",
           "destination": "{installPath}/components/form/phone_input/phone_number.dart"
         }
       ],
@@ -5041,59 +5041,59 @@
           "destination": "{installPath}/components/form/radio_group/radio_group.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_card_theme.dart",
+          "source": "registry/components/form/radio_group/_impl/themes/radio_card_theme.dart",
           "destination": "{installPath}/components/form/radio_group/radio_card_theme.dart"
         },
         {
-          "source": "registry/components/form/radio_group/controlled_radio_group.dart",
+          "source": "registry/components/form/radio_group/_impl/core/controlled_radio_group.dart",
           "destination": "{installPath}/components/form/radio_group/controlled_radio_group.dart"
         },
         {
-          "source": "registry/components/form/radio_group/_radio_group_preview_state.dart",
+          "source": "registry/components/form/radio_group/_impl/state/_radio_group_preview_state.dart",
           "destination": "{installPath}/components/form/radio_group/_radio_group_preview_state.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio.dart",
+          "source": "registry/components/form/radio_group/_impl/core/radio.dart",
           "destination": "{installPath}/components/form/radio_group/radio.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_theme.dart",
+          "source": "registry/components/form/radio_group/_impl/themes/radio_theme.dart",
           "destination": "{installPath}/components/form/radio_group/radio_theme.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_item.dart",
+          "source": "registry/components/form/radio_group/_impl/core/radio_item.dart",
           "destination": "{installPath}/components/form/radio_group/radio_item.dart"
         },
         {
-          "source": "registry/components/form/radio_group/next_item_intent.dart",
+          "source": "registry/components/form/radio_group/_impl/utils/next_item_intent.dart",
           "destination": "{installPath}/components/form/radio_group/next_item_intent.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_group_data.dart",
+          "source": "registry/components/form/radio_group/_impl/core/radio_group_data.dart",
           "destination": "{installPath}/components/form/radio_group/radio_group_data.dart"
         },
         {
-          "source": "registry/components/form/radio_group/_radio_item_state.dart",
+          "source": "registry/components/form/radio_group/_impl/state/_radio_item_state.dart",
           "destination": "{installPath}/components/form/radio_group/_radio_item_state.dart"
         },
         {
-          "source": "registry/components/form/radio_group/previous_item_intent.dart",
+          "source": "registry/components/form/radio_group/_impl/utils/previous_item_intent.dart",
           "destination": "{installPath}/components/form/radio_group/previous_item_intent.dart"
         },
         {
-          "source": "registry/components/form/radio_group/_radio_card_state.dart",
+          "source": "registry/components/form/radio_group/_impl/state/_radio_card_state.dart",
           "destination": "{installPath}/components/form/radio_group/_radio_card_state.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_group_state.dart",
+          "source": "registry/components/form/radio_group/_impl/state/radio_group_state.dart",
           "destination": "{installPath}/components/form/radio_group/radio_group_state.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_group_controller.dart",
+          "source": "registry/components/form/radio_group/_impl/utils/radio_group_controller.dart",
           "destination": "{installPath}/components/form/radio_group/radio_group_controller.dart"
         },
         {
-          "source": "registry/components/form/radio_group/radio_card.dart",
+          "source": "registry/components/form/radio_group/_impl/core/radio_card.dart",
           "destination": "{installPath}/components/form/radio_group/radio_card.dart"
         }
       ],
@@ -5145,31 +5145,31 @@
           "destination": "{installPath}/components/form/slider/slider.dart"
         },
         {
-          "source": "registry/components/form/slider/decrease_slider_value.dart",
+          "source": "registry/components/form/slider/_impl/core/decrease_slider_value.dart",
           "destination": "{installPath}/components/form/slider/decrease_slider_value.dart"
         },
         {
-          "source": "registry/components/form/slider/controlled_slider.dart",
+          "source": "registry/components/form/slider/_impl/core/controlled_slider.dart",
           "destination": "{installPath}/components/form/slider/controlled_slider.dart"
         },
         {
-          "source": "registry/components/form/slider/_slider_preview_state.dart",
+          "source": "registry/components/form/slider/_impl/state/_slider_preview_state.dart",
           "destination": "{installPath}/components/form/slider/_slider_preview_state.dart"
         },
         {
-          "source": "registry/components/form/slider/increase_slider_value.dart",
+          "source": "registry/components/form/slider/_impl/core/increase_slider_value.dart",
           "destination": "{installPath}/components/form/slider/increase_slider_value.dart"
         },
         {
-          "source": "registry/components/form/slider/slider_controller.dart",
+          "source": "registry/components/form/slider/_impl/utils/slider_controller.dart",
           "destination": "{installPath}/components/form/slider/slider_controller.dart"
         },
         {
-          "source": "registry/components/form/slider/_slider_state.dart",
+          "source": "registry/components/form/slider/_impl/state/_slider_state.dart",
           "destination": "{installPath}/components/form/slider/_slider_state.dart"
         },
         {
-          "source": "registry/components/form/slider/slider_theme.dart",
+          "source": "registry/components/form/slider/_impl/themes/slider_theme.dart",
           "destination": "{installPath}/components/form/slider/slider_theme.dart"
         }
       ],
@@ -5219,43 +5219,43 @@
           "destination": "{installPath}/components/form/multiple_choice/preview.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/controlled_multiple_answer.dart",
+          "source": "registry/components/form/multiple_choice/_impl/core/controlled_multiple_answer.dart",
           "destination": "{installPath}/components/form/multiple_choice/controlled_multiple_answer.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/controlled_multiple_choice.dart",
+          "source": "registry/components/form/multiple_choice/_impl/core/controlled_multiple_choice.dart",
           "destination": "{installPath}/components/form/multiple_choice/controlled_multiple_choice.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/multiple_answer_controller.dart",
+          "source": "registry/components/form/multiple_choice/_impl/utils/multiple_answer_controller.dart",
           "destination": "{installPath}/components/form/multiple_choice/multiple_answer_controller.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/choice.dart",
+          "source": "registry/components/form/multiple_choice/_impl/core/choice.dart",
           "destination": "{installPath}/components/form/multiple_choice/choice.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/multiple_choice_theme.dart",
+          "source": "registry/components/form/multiple_choice/_impl/themes/multiple_choice_theme.dart",
           "destination": "{installPath}/components/form/multiple_choice/multiple_choice_theme.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/_multiple_choice_state.dart",
+          "source": "registry/components/form/multiple_choice/_impl/state/_multiple_choice_state.dart",
           "destination": "{installPath}/components/form/multiple_choice/_multiple_choice_state.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/_multiple_choice_preview_state.dart",
+          "source": "registry/components/form/multiple_choice/_impl/state/_multiple_choice_preview_state.dart",
           "destination": "{installPath}/components/form/multiple_choice/_multiple_choice_preview_state.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/multiple_answer.dart",
+          "source": "registry/components/form/multiple_choice/_impl/core/multiple_answer.dart",
           "destination": "{installPath}/components/form/multiple_choice/multiple_answer.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/_multiple_answer_state.dart",
+          "source": "registry/components/form/multiple_choice/_impl/state/_multiple_answer_state.dart",
           "destination": "{installPath}/components/form/multiple_choice/_multiple_answer_state.dart"
         },
         {
-          "source": "registry/components/form/multiple_choice/multiple_choice_controller.dart",
+          "source": "registry/components/form/multiple_choice/_impl/utils/multiple_choice_controller.dart",
           "destination": "{installPath}/components/form/multiple_choice/multiple_choice_controller.dart"
         }
       ],
@@ -5301,51 +5301,51 @@
           "destination": "{installPath}/components/form/item_picker/preview.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_builder.dart",
+          "source": "registry/components/form/item_picker/_impl/utils/item_builder.dart",
           "destination": "{installPath}/components/form/item_picker/item_builder.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_picker_dialog.dart",
+          "source": "registry/components/form/item_picker/_impl/core/item_picker_dialog.dart",
           "destination": "{installPath}/components/form/item_picker/item_picker_dialog.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_picker_option.dart",
+          "source": "registry/components/form/item_picker/_impl/core/item_picker_option.dart",
           "destination": "{installPath}/components/form/item_picker/item_picker_option.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_picker_layout.dart",
+          "source": "registry/components/form/item_picker/_impl/core/item_picker_layout.dart",
           "destination": "{installPath}/components/form/item_picker/item_picker_layout.dart"
         },
         {
-          "source": "registry/components/form/item_picker/_internal_item_picker.dart",
+          "source": "registry/components/form/item_picker/_impl/core/_internal_item_picker.dart",
           "destination": "{installPath}/components/form/item_picker/_internal_item_picker.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_child_delegate.dart",
+          "source": "registry/components/form/item_picker/_impl/utils/item_child_delegate.dart",
           "destination": "{installPath}/components/form/item_picker/item_child_delegate.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_list.dart",
+          "source": "registry/components/form/item_picker/_impl/core/item_list.dart",
           "destination": "{installPath}/components/form/item_picker/item_list.dart"
         },
         {
-          "source": "registry/components/form/item_picker/_item_picker_preview_state.dart",
+          "source": "registry/components/form/item_picker/_impl/state/_item_picker_preview_state.dart",
           "destination": "{installPath}/components/form/item_picker/_item_picker_preview_state.dart"
         },
         {
-          "source": "registry/components/form/item_picker/list_item_picker_layout.dart",
+          "source": "registry/components/form/item_picker/_impl/core/list_item_picker_layout.dart",
           "destination": "{installPath}/components/form/item_picker/list_item_picker_layout.dart"
         },
         {
-          "source": "registry/components/form/item_picker/_item_picker_dialog_state.dart",
+          "source": "registry/components/form/item_picker/_impl/state/_item_picker_dialog_state.dart",
           "destination": "{installPath}/components/form/item_picker/_item_picker_dialog_state.dart"
         },
         {
-          "source": "registry/components/form/item_picker/item_picker_data.dart",
+          "source": "registry/components/form/item_picker/_impl/core/item_picker_data.dart",
           "destination": "{installPath}/components/form/item_picker/item_picker_data.dart"
         },
         {
-          "source": "registry/components/form/item_picker/grid_item_picker_layout.dart",
+          "source": "registry/components/form/item_picker/_impl/core/grid_item_picker_layout.dart",
           "destination": "{installPath}/components/form/item_picker/grid_item_picker_layout.dart"
         }
       ],
@@ -5402,31 +5402,31 @@
           "destination": "{installPath}/components/form/formatter/preview.dart"
         },
         {
-          "source": "registry/components/form/formatter/_integer_only_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_integer_only_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_integer_only_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_to_upper_case_text_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_to_upper_case_text_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_to_upper_case_text_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_time_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_time_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_time_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_double_only_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_double_only_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_double_only_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_to_lower_case_text_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_to_lower_case_text_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_to_lower_case_text_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_math_expression_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_math_expression_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_math_expression_formatter.dart"
         },
         {
-          "source": "registry/components/form/formatter/_hex_text_formatter.dart",
+          "source": "registry/components/form/formatter/_impl/utils/_hex_text_formatter.dart",
           "destination": "{installPath}/components/form/formatter/_hex_text_formatter.dart"
         }
       ],
@@ -5484,7 +5484,7 @@
           "destination": "{installPath}/components/form/switch/switch.dart"
         },
         {
-          "source": "registry/components/form/switch/_switch_preview_state.dart",
+          "source": "registry/components/form/switch/_impl/state/_switch_preview_state.dart",
           "destination": "{installPath}/components/form/switch/_switch_preview_state.dart"
         },
         {
@@ -7797,51 +7797,51 @@
           "destination": "{installPath}/components/form/time_picker/time_picker.dart"
         },
         {
-          "source": "registry/components/form/time_picker/time_picker_controller.dart",
+          "source": "registry/components/form/time_picker/_impl/utils/time_picker_controller.dart",
           "destination": "{installPath}/components/form/time_picker/time_picker_controller.dart"
         },
         {
-          "source": "registry/components/form/time_picker/time_range.dart",
+          "source": "registry/components/form/time_picker/_impl/core/time_range.dart",
           "destination": "{installPath}/components/form/time_picker/time_range.dart"
         },
         {
-          "source": "registry/components/form/time_picker/time_picker_theme.dart",
+          "source": "registry/components/form/time_picker/_impl/themes/time_picker_theme.dart",
           "destination": "{installPath}/components/form/time_picker/time_picker_theme.dart"
         },
         {
-          "source": "registry/components/form/time_picker/_duration_picker_dialog_state.dart",
+          "source": "registry/components/form/time_picker/_impl/state/_duration_picker_dialog_state.dart",
           "destination": "{installPath}/components/form/time_picker/_duration_picker_dialog_state.dart"
         },
         {
-          "source": "registry/components/form/time_picker/_time_formatter.dart",
+          "source": "registry/components/form/time_picker/_impl/utils/_time_formatter.dart",
           "destination": "{installPath}/components/form/time_picker/_time_formatter.dart"
         },
         {
-          "source": "registry/components/form/time_picker/duration_picker_controller.dart",
+          "source": "registry/components/form/time_picker/_impl/utils/duration_picker_controller.dart",
           "destination": "{installPath}/components/form/time_picker/duration_picker_controller.dart"
         },
         {
-          "source": "registry/components/form/time_picker/duration_picker_dialog.dart",
+          "source": "registry/components/form/time_picker/_impl/core/duration_picker_dialog.dart",
           "destination": "{installPath}/components/form/time_picker/duration_picker_dialog.dart"
         },
         {
-          "source": "registry/components/form/time_picker/duration_picker.dart",
+          "source": "registry/components/form/time_picker/_impl/core/duration_picker.dart",
           "destination": "{installPath}/components/form/time_picker/duration_picker.dart"
         },
         {
-          "source": "registry/components/form/time_picker/controlled_time_picker.dart",
+          "source": "registry/components/form/time_picker/_impl/core/controlled_time_picker.dart",
           "destination": "{installPath}/components/form/time_picker/controlled_time_picker.dart"
         },
         {
-          "source": "registry/components/form/time_picker/time_picker_dialog.dart",
+          "source": "registry/components/form/time_picker/_impl/core/time_picker_dialog.dart",
           "destination": "{installPath}/components/form/time_picker/time_picker_dialog.dart"
         },
         {
-          "source": "registry/components/form/time_picker/_time_picker_dialog_state.dart",
+          "source": "registry/components/form/time_picker/_impl/state/_time_picker_dialog_state.dart",
           "destination": "{installPath}/components/form/time_picker/_time_picker_dialog_state.dart"
         },
         {
-          "source": "registry/components/form/time_picker/_time_picker_preview_state.dart",
+          "source": "registry/components/form/time_picker/_impl/state/_time_picker_preview_state.dart",
           "destination": "{installPath}/components/form/time_picker/_time_picker_preview_state.dart"
         }
       ],
@@ -7894,7 +7894,7 @@
           "destination": "{installPath}/components/form/validated/validated.dart"
         },
         {
-          "source": "registry/components/form/validated/_validated_state.dart",
+          "source": "registry/components/form/validated/_impl/state/_validated_state.dart",
           "destination": "{installPath}/components/form/validated/_validated_state.dart"
         }
       ],
@@ -8198,31 +8198,31 @@
           "destination": "{installPath}/components/form/star_rating/star_rating.dart"
         },
         {
-          "source": "registry/components/form/star_rating/_star_rating_preview_state.dart",
+          "source": "registry/components/form/star_rating/_impl/state/_star_rating_preview_state.dart",
           "destination": "{installPath}/components/form/star_rating/_star_rating_preview_state.dart"
         },
         {
-          "source": "registry/components/form/star_rating/star_rating_theme.dart",
+          "source": "registry/components/form/star_rating/_impl/themes/star_rating_theme.dart",
           "destination": "{installPath}/components/form/star_rating/star_rating_theme.dart"
         },
         {
-          "source": "registry/components/form/star_rating/_star_rating_state.dart",
+          "source": "registry/components/form/star_rating/_impl/state/_star_rating_state.dart",
           "destination": "{installPath}/components/form/star_rating/_star_rating_state.dart"
         },
         {
-          "source": "registry/components/form/star_rating/controlled_star_rating.dart",
+          "source": "registry/components/form/star_rating/_impl/core/controlled_star_rating.dart",
           "destination": "{installPath}/components/form/star_rating/controlled_star_rating.dart"
         },
         {
-          "source": "registry/components/form/star_rating/star_rating_controller.dart",
+          "source": "registry/components/form/star_rating/_impl/utils/star_rating_controller.dart",
           "destination": "{installPath}/components/form/star_rating/star_rating_controller.dart"
         },
         {
-          "source": "registry/components/form/star_rating/decrease_star_intent.dart",
+          "source": "registry/components/form/star_rating/_impl/utils/decrease_star_intent.dart",
           "destination": "{installPath}/components/form/star_rating/decrease_star_intent.dart"
         },
         {
-          "source": "registry/components/form/star_rating/increase_star_intent.dart",
+          "source": "registry/components/form/star_rating/_impl/utils/increase_star_intent.dart",
           "destination": "{installPath}/components/form/star_rating/increase_star_intent.dart"
         }
       ],

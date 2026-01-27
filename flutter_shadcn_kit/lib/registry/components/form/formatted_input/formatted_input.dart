@@ -17,26 +17,26 @@ import '../form/form.dart';
 import '../../layout/outlined_container/outlined_container.dart';
 import '../text_field/text_field.dart';
 
-part 'formatted_input_theme.dart';
+part '_impl/themes/formatted_input_theme.dart';
 
 
-part '_editable_part_controller.dart';
-part '_editable_part_widget.dart';
-part '_editable_part_widget_state.dart';
-part '_formatted_input_state.dart';
-part '_formatted_object_controller.dart';
-part '_formatted_object_input_state.dart';
-part '_static_part_widget.dart';
-part '_static_part_widget_state.dart';
-part 'editable_part.dart';
-part 'formatted_input_controller.dart';
-part 'formatted_input_data.dart';
-part 'formatted_object_input.dart';
-part 'formatted_value.dart';
-part 'formatted_value_part.dart';
-part 'input_part.dart';
-part 'static_part.dart';
-part 'widget_part.dart';
+part '_impl/utils/_editable_part_controller.dart';
+part '_impl/core/_editable_part_widget.dart';
+part '_impl/state/_editable_part_widget_state.dart';
+part '_impl/state/_formatted_input_state.dart';
+part '_impl/utils/_formatted_object_controller.dart';
+part '_impl/state/_formatted_object_input_state.dart';
+part '_impl/core/_static_part_widget.dart';
+part '_impl/state/_static_part_widget_state.dart';
+part '_impl/core/editable_part.dart';
+part '_impl/utils/formatted_input_controller.dart';
+part '_impl/core/formatted_input_data.dart';
+part '_impl/core/formatted_object_input.dart';
+part '_impl/core/formatted_value.dart';
+part '_impl/core/formatted_value_part.dart';
+part '_impl/core/input_part.dart';
+part '_impl/core/static_part.dart';
+part '_impl/core/widget_part.dart';
 
 
 

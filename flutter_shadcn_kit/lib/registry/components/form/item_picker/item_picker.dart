@@ -10,17 +10,17 @@ import '../../../shared/primitives/overlay.dart';
 import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';
 
-part '_internal_item_picker.dart';
-part '_item_picker_dialog_state.dart';
-part 'grid_item_picker_layout.dart';
-part 'item_builder.dart';
-part 'item_child_delegate.dart';
-part 'item_list.dart';
-part 'item_picker_data.dart';
-part 'item_picker_dialog.dart';
-part 'item_picker_layout.dart';
-part 'item_picker_option.dart';
-part 'list_item_picker_layout.dart';
+part '_impl/core/_internal_item_picker.dart';
+part '_impl/state/_item_picker_dialog_state.dart';
+part '_impl/core/grid_item_picker_layout.dart';
+part '_impl/utils/item_builder.dart';
+part '_impl/utils/item_child_delegate.dart';
+part '_impl/core/item_list.dart';
+part '_impl/core/item_picker_data.dart';
+part '_impl/core/item_picker_dialog.dart';
+part '_impl/core/item_picker_layout.dart';
+part '_impl/core/item_picker_option.dart';
+part '_impl/core/list_item_picker_layout.dart';
 
 
 /// A widget for selecting items from a collection using various presentation modes.

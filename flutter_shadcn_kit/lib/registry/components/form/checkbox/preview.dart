@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Checkbox;
 
 import '../checkbox/checkbox.dart';
 
-part '_checkbox_preview_state.dart';
+part '_impl/state/_checkbox_preview_state.dart';
 
 
 class CheckboxPreview extends StatefulWidget {

@@ -28,29 +28,29 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part 'select_theme.dart';
+part '_impl/themes/select_theme.dart';
 
 
-part '_select_popup_state.dart';
-part 'controlled_multi_select.dart';
-part 'controlled_select.dart';
-part 'empty_select_item.dart';
-part 'multi_select.dart';
-part 'multi_select_chip.dart';
-part 'multi_select_controller.dart';
-part 'select_base.dart';
-part 'select_controller.dart';
-part 'select_data.dart';
-part 'select_group.dart';
-part 'select_item.dart';
-part 'select_item_builder.dart';
-part 'select_item_button.dart';
-part 'select_item_delegate.dart';
-part 'select_item_list.dart';
-part 'select_label.dart';
-part 'select_popup.dart';
-part 'select_popup_handle.dart';
-part 'select_state.dart';
+part '_impl/state/_select_popup_state.dart';
+part '_impl/core/controlled_multi_select.dart';
+part '_impl/core/controlled_select.dart';
+part '_impl/core/empty_select_item.dart';
+part '_impl/core/multi_select.dart';
+part '_impl/core/multi_select_chip.dart';
+part '_impl/utils/multi_select_controller.dart';
+part '_impl/core/select_base.dart';
+part '_impl/utils/select_controller.dart';
+part '_impl/core/select_data.dart';
+part '_impl/core/select_group.dart';
+part '_impl/core/select_item.dart';
+part '_impl/utils/select_item_builder.dart';
+part '_impl/core/select_item_button.dart';
+part '_impl/utils/select_item_delegate.dart';
+part '_impl/core/select_item_list.dart';
+part '_impl/core/select_label.dart';
+part '_impl/core/select_popup.dart';
+part '_impl/core/select_popup_handle.dart';
+part '_impl/state/select_state.dart';
 
 
 

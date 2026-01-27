@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart' hide Form;
 
 import '../form/form.dart';
 
-part '_validated_state.dart';
+part '_impl/state/_validated_state.dart';
 
 
 /// Builder function for validated widgets.

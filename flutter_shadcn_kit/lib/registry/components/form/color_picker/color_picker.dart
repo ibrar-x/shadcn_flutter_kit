@@ -15,14 +15,14 @@ import '../../../shared/utils/style_value.dart';
 import '_impl/core/hsl_color_slider.dart';
 import '_impl/core/hsv_color_slider.dart';
 
-part 'color_picker_mode.dart';
+part '_impl/core/color_picker_mode.dart';
 
 
-part '_color_picker_state.dart';
-part '_color_value_input.dart';
-part '_color_value_input_state.dart';
-part 'color_controls.dart';
-part 'color_picker_theme.dart';
+part '_impl/state/_color_picker_state.dart';
+part '_impl/core/_color_value_input.dart';
+part '_impl/state/_color_value_input_state.dart';
+part '_impl/core/color_controls.dart';
+part '_impl/themes/color_picker_theme.dart';
 
 
 

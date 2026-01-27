@@ -13,13 +13,13 @@ import '../formatted_input/formatted_input.dart';
 import '../form_field/form_field.dart';
 import '../../utility/locale_utils/locale_utils.dart';
 
-part '_date_input_state.dart';
-part '_duration_input_state.dart';
-part '_time_input_state.dart';
-part 'duration_input.dart';
-part 'nullable_date.dart';
-part 'nullable_time_of_day.dart';
-part 'time_input.dart';
+part '_impl/state/_date_input_state.dart';
+part '_impl/state/_duration_input_state.dart';
+part '_impl/state/_time_input_state.dart';
+part '_impl/core/duration_input.dart';
+part '_impl/core/nullable_date.dart';
+part '_impl/core/nullable_time_of_day.dart';
+part '_impl/core/time_input.dart';
 
 
 /// Reactive date input field with integrated date picker and text editing.

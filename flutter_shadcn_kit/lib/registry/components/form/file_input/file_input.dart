@@ -2,7 +2,7 @@ import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 
-part 'file_icon_provider_data.dart';
+part '_impl/utils/file_icon_provider_data.dart';
 
 
 Widget _buildFileIcon(String extension) {

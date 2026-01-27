@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../multiple_choice/multiple_choice.dart';
 
-part '_multiple_choice_preview_state.dart';
+part '_impl/state/_multiple_choice_preview_state.dart';
 
 
 class MultipleChoicePreview extends StatefulWidget {

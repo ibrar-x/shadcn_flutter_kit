@@ -5,17 +5,17 @@ import '../../../shared/primitives/form_control.dart';
 import '../../../shared/primitives/form_value_supplier.dart';
 import '../../../shared/theme/theme.dart';
 
-part 'multiple_choice_theme.dart';
+part '_impl/themes/multiple_choice_theme.dart';
 
 
-part '_multiple_answer_state.dart';
-part '_multiple_choice_state.dart';
-part 'choice.dart';
-part 'controlled_multiple_answer.dart';
-part 'controlled_multiple_choice.dart';
-part 'multiple_answer.dart';
-part 'multiple_answer_controller.dart';
-part 'multiple_choice_controller.dart';
+part '_impl/state/_multiple_answer_state.dart';
+part '_impl/state/_multiple_choice_state.dart';
+part '_impl/core/choice.dart';
+part '_impl/core/controlled_multiple_answer.dart';
+part '_impl/core/controlled_multiple_choice.dart';
+part '_impl/core/multiple_answer.dart';
+part '_impl/utils/multiple_answer_controller.dart';
+part '_impl/utils/multiple_choice_controller.dart';
 
 
 

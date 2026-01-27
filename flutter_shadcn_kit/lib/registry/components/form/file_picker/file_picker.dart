@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-part 'file_item.dart';
+part '_impl/core/file_item.dart';
 
 
 // const fileByteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];

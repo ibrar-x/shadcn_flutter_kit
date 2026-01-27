@@ -11,14 +11,14 @@ import '../../control/button/button.dart';
 import '../../overlay/dialog/dialog.dart';
 import '../../overlay/alert_dialog/alert_dialog.dart';
 
-part '_object_form_field_dialog.dart';
-part '_object_form_field_dialog_state.dart';
-part '_object_form_field_popup.dart';
-part '_object_form_field_popup_state.dart';
-part 'object_form_field.dart';
-part 'object_form_field_dialog_result.dart';
-part 'object_form_field_state.dart';
-part 'object_form_handler.dart';
+part '_impl/core/_object_form_field_dialog.dart';
+part '_impl/state/_object_form_field_dialog_state.dart';
+part '_impl/core/_object_form_field_popup.dart';
+part '_impl/state/_object_form_field_popup_state.dart';
+part '_impl/core/object_form_field.dart';
+part '_impl/core/object_form_field_dialog_result.dart';
+part '_impl/state/object_form_field_state.dart';
+part '_impl/core/object_form_handler.dart';
 
 
 /// Type definition for the save button in an object input form field.

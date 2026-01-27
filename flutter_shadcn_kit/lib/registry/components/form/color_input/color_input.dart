@@ -15,12 +15,12 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/icons/lucide_icons.dart';
 
-part 'color_input_theme.dart';
+part '_impl/themes/color_input_theme.dart';
 
 
-part '_color_input_state.dart';
-part 'color_input_controller.dart';
-part 'controlled_color_input.dart';
+part '_impl/state/_color_input_state.dart';
+part '_impl/utils/color_input_controller.dart';
+part '_impl/core/controlled_color_input.dart';
 
 
 

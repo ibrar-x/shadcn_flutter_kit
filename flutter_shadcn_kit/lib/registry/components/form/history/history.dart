@@ -6,10 +6,10 @@ import '../../utility/alpha/alpha.dart';
 import '../../control/button/button.dart';
 import '../../../shared/theme/theme.dart';
 
-part '_color_list_notifier.dart';
-part 'color_history_storage.dart';
-part 'recent_colors_scope.dart';
-part 'recent_colors_scope_state.dart';
+part '_impl/utils/_color_list_notifier.dart';
+part '_impl/core/color_history_storage.dart';
+part '_impl/core/recent_colors_scope.dart';
+part '_impl/state/recent_colors_scope_state.dart';
 
 
 /// A grid widget that displays a history of previously used colors.

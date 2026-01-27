@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-part '_file_picker_preview_state.dart';
+part '_impl/state/_file_picker_preview_state.dart';
 
 
 class FilePickerPreview extends StatefulWidget {

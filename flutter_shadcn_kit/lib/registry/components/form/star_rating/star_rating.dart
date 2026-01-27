@@ -9,14 +9,14 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part 'star_rating_theme.dart';
+part '_impl/themes/star_rating_theme.dart';
 
 
-part '_star_rating_state.dart';
-part 'controlled_star_rating.dart';
-part 'decrease_star_intent.dart';
-part 'increase_star_intent.dart';
-part 'star_rating_controller.dart';
+part '_impl/state/_star_rating_state.dart';
+part '_impl/core/controlled_star_rating.dart';
+part '_impl/utils/decrease_star_intent.dart';
+part '_impl/utils/increase_star_intent.dart';
+part '_impl/utils/star_rating_controller.dart';
 
 
 

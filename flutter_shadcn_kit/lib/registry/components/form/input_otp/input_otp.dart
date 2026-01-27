@@ -10,19 +10,19 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/util.dart';
 
-part 'input_otp_theme.dart';
+part '_impl/themes/input_otp_theme.dart';
 
 
-part '_input_otp_child.dart';
-part '_input_otp_spacing.dart';
-part '_input_otp_state.dart';
-part '_otp_character_input.dart';
-part '_otp_character_input_state.dart';
-part 'character_input_otp_child.dart';
-part 'input_otp_child.dart';
-part 'input_otp_child_data.dart';
-part 'otp_separator.dart';
-part 'widget_input_otp_child.dart';
+part '_impl/core/_input_otp_child.dart';
+part '_impl/core/_input_otp_spacing.dart';
+part '_impl/state/_input_otp_state.dart';
+part '_impl/core/_otp_character_input.dart';
+part '_impl/state/_otp_character_input_state.dart';
+part '_impl/core/character_input_otp_child.dart';
+part '_impl/core/input_otp_child.dart';
+part '_impl/core/input_otp_child_data.dart';
+part '_impl/core/otp_separator.dart';
+part '_impl/core/widget_input_otp_child.dart';
 
 
 

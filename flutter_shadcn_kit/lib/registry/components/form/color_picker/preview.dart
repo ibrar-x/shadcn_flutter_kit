@@ -7,7 +7,7 @@ import '../../utility/color/color.dart';
 import '../color_picker/color_picker.dart';
 import '../../overlay/popover/popover.dart';
 
-part '_color_picker_preview_state.dart';
+part '_impl/state/_color_picker_preview_state.dart';
 
 
 class ColorPickerPreview extends StatefulWidget {

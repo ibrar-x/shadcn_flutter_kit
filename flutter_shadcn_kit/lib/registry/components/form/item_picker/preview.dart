@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../item_picker/item_picker.dart';
 
-part '_item_picker_preview_state.dart';
+part '_impl/state/_item_picker_preview_state.dart';
 
 
 class ItemPickerPreview extends StatefulWidget {

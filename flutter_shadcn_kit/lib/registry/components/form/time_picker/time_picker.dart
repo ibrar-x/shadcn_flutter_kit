@@ -13,19 +13,19 @@ import '../form_field/form_field.dart';
 import '../../display/text/text.dart';
 import '../text_field/text_field.dart';
 
-part 'time_picker_theme.dart';
+part '_impl/themes/time_picker_theme.dart';
 
 
-part '_duration_picker_dialog_state.dart';
-part '_time_formatter.dart';
-part '_time_picker_dialog_state.dart';
-part 'controlled_time_picker.dart';
-part 'duration_picker.dart';
-part 'duration_picker_controller.dart';
-part 'duration_picker_dialog.dart';
-part 'time_picker_controller.dart';
-part 'time_picker_dialog.dart';
-part 'time_range.dart';
+part '_impl/state/_duration_picker_dialog_state.dart';
+part '_impl/utils/_time_formatter.dart';
+part '_impl/state/_time_picker_dialog_state.dart';
+part '_impl/core/controlled_time_picker.dart';
+part '_impl/core/duration_picker.dart';
+part '_impl/utils/duration_picker_controller.dart';
+part '_impl/core/duration_picker_dialog.dart';
+part '_impl/utils/time_picker_controller.dart';
+part '_impl/core/time_picker_dialog.dart';
+part '_impl/core/time_range.dart';
 
 
 

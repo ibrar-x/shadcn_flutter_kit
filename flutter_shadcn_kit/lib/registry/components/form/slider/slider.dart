@@ -12,14 +12,14 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 
-part 'slider_controller.dart';
+part '_impl/utils/slider_controller.dart';
 
 
-part '_slider_state.dart';
-part 'controlled_slider.dart';
-part 'decrease_slider_value.dart';
-part 'increase_slider_value.dart';
-part 'slider_theme.dart';
+part '_impl/state/_slider_state.dart';
+part '_impl/core/controlled_slider.dart';
+part '_impl/core/decrease_slider_value.dart';
+part '_impl/core/increase_slider_value.dart';
+part '_impl/themes/slider_theme.dart';
 
 
 

@@ -10,13 +10,13 @@ import '../autocomplete/autocomplete.dart';
 import '../../display/chip/chip.dart';
 import '../text_field/text_field.dart' hide AutoCompleteIntent;
 
-part 'chip_input_theme.dart';
+part '_impl/themes/chip_input_theme.dart';
 
 
-part '_chip_provider.dart';
-part 'chip_editing_controller.dart';
-part 'chip_input_state.dart';
-part 'chip_submit_intent.dart';
+part '_impl/utils/_chip_provider.dart';
+part '_impl/utils/chip_editing_controller.dart';
+part '_impl/state/chip_input_state.dart';
+part '_impl/utils/chip_submit_intent.dart';
 
 
 /// Function signature for building custom chip widgets in chip input fields.

@@ -10,11 +10,11 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
 part '_impl/state/_auto_complete_item_state.dart';
-part 'accept_suggestion_intent.dart';
-part 'auto_complete.dart';
-part 'auto_complete_intent.dart';
-part 'auto_complete_mode.dart';
-part 'navigate_suggestion_intent.dart';
+part '_impl/utils/accept_suggestion_intent.dart';
+part '_impl/core/auto_complete.dart';
+part '_impl/utils/auto_complete_intent.dart';
+part '_impl/core/auto_complete_mode.dart';
+part '_impl/utils/navigate_suggestion_intent.dart';
 
 
 part '_impl/core/autocomplete_item.dart';

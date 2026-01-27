@@ -4,11 +4,11 @@ import 'package:flutter/widgets.dart';
 import '../../utility/alpha/alpha.dart';
 import '../../../shared/theme/theme.dart';
 
-part 'hsv_color_slider_type.dart';
+part '_impl/core/hsv_color_slider_type.dart';
 
 
-part '_hsv_color_slider_state.dart';
-part 'hsv_color_slider_painter.dart';
+part '_impl/state/_hsv_color_slider_state.dart';
+part '_impl/core/hsv_color_slider_painter.dart';
 
 
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../select/select.dart';
 import 'select.dart';
 
-part '_select_preview_state.dart';
+part '_impl/state/_select_preview_state.dart';
 
 
 class SelectPreview extends StatefulWidget {

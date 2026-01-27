@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:expressions/expressions.dart';
 import 'package:flutter/services.dart';
 
-part '_double_only_formatter.dart';
-part '_hex_text_formatter.dart';
-part '_integer_only_formatter.dart';
-part '_math_expression_formatter.dart';
-part '_time_formatter.dart';
-part '_to_lower_case_text_formatter.dart';
-part '_to_upper_case_text_formatter.dart';
+part '_impl/utils/_double_only_formatter.dart';
+part '_impl/utils/_hex_text_formatter.dart';
+part '_impl/utils/_integer_only_formatter.dart';
+part '_impl/utils/_math_expression_formatter.dart';
+part '_impl/utils/_time_formatter.dart';
+part '_impl/utils/_to_lower_case_text_formatter.dart';
+part '_impl/utils/_to_upper_case_text_formatter.dart';
 
 
 /// Constrains the text selection to fit within the new text length.

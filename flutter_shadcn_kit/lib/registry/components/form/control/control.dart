@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-part '_controlled_component_adapter_state.dart';
-part 'component_value_controller.dart';
-part 'controlled_component.dart';
-part 'controlled_component_adapter.dart';
-part 'controlled_component_data.dart';
+part '_impl/state/_controlled_component_adapter_state.dart';
+part '_impl/utils/component_value_controller.dart';
+part '_impl/core/controlled_component.dart';
+part '_impl/utils/controlled_component_adapter.dart';
+part '_impl/core/controlled_component_data.dart';
 
 
 /// A mixin that defines the interface for controlling component values.
