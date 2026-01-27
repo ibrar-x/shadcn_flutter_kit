@@ -74,157 +74,25 @@ abstract class InputFeatureVisibility {
   InputFeatureVisibility operator ~() => InputFeatureVisibility.not(this);
 }
 
-class _LogicAndInputFeatureVisibility extends InputFeatureVisibility {
-  final Iterable<InputFeatureVisibility> features;
-  const _LogicAndInputFeatureVisibility(this.features);
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    for (final feature in features) {
-      yield* feature.getDependencies(state);
-    }
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    return features.every((feature) => feature.canShow(state));
-  }
 
-  @override
-  bool operator ==(Object other) =>
-      other is _LogicAndInputFeatureVisibility &&
-      other.features.length == features.length &&
-      other.features.every((otherFeature) => features.contains(otherFeature));
 
-  @override
-  int get hashCode => features.hashCode;
-}
 
-class _LogicOrInputFeatureVisibility extends InputFeatureVisibility {
-  final Iterable<InputFeatureVisibility> features;
-  const _LogicOrInputFeatureVisibility(this.features);
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    for (final feature in features) {
-      yield* feature.getDependencies(state);
-    }
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    return features.any((feature) => feature.canShow(state));
-  }
 
-  @override
-  bool operator ==(Object other) =>
-      other is _LogicOrInputFeatureVisibility &&
-      other.features.length == features.length &&
-      other.features.every((otherFeature) => features.contains(otherFeature));
 
-  @override
-  int get hashCode => features.hashCode;
-}
 
-class _NegateInputFeatureVisibility extends InputFeatureVisibility {
-  final InputFeatureVisibility feature;
-  const _NegateInputFeatureVisibility(this.feature);
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) =>
-      feature.getDependencies(state);
 
-  @override
-  bool canShow(TextFieldState state) => !feature.canShow(state);
 
-  @override
-  bool operator ==(Object other) =>
-      other is _NegateInputFeatureVisibility && other.feature == feature;
 
-  @override
-  int get hashCode => feature.hashCode;
-}
 
-class _TextNotEmptyInputFeatureVisibility extends InputFeatureVisibility {
-  const _TextNotEmptyInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    yield state._effectiveText;
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    return state._effectiveText.value.isNotEmpty;
-  }
-}
 
-class _TextEmptyInputFeatureVisibility extends InputFeatureVisibility {
-  const _TextEmptyInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    yield state._effectiveText;
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    return state._effectiveText.value.isEmpty;
-  }
-}
 
-class _HasSelectionInputFeatureVisibility extends InputFeatureVisibility {
-  const _HasSelectionInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    yield state._effectiveSelection;
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    var selection = state._effectiveSelection.value;
-    return selection.isValid && selection.start != selection.end;
-  }
-}
 
-class _FocusedInputFeatureVisibility extends InputFeatureVisibility {
-  const _FocusedInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    yield state._effectiveFocusNode;
-  }
 
-  @override
-  bool canShow(TextFieldState state) {
-    return state._effectiveFocusNode.hasFocus;
-  }
-}
-
-class _HoveredInputFeatureVisibility extends InputFeatureVisibility {
-  const _HoveredInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {
-    yield state._statesController;
-  }
-
-  @override
-  bool canShow(TextFieldState state) {
-    return state._statesController.value.hovered;
-  }
-}
-
-class _NeverVisibleInputFeatureVisibility extends InputFeatureVisibility {
-  const _NeverVisibleInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {}
-
-  @override
-  bool canShow(TextFieldState state) => false;
-}
-
-class _AlwaysVisibleInputFeatureVisibility extends InputFeatureVisibility {
-  const _AlwaysVisibleInputFeatureVisibility();
-  @override
-  Iterable<Listenable> getDependencies(TextFieldState state) sync* {}
-
-  @override
-  bool canShow(TextFieldState state) => true;
-}
 
 /// Abstract factory for creating input field feature components.
 ///

@@ -8,6 +8,9 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/border_utils.dart';
 import '../../../shared/utils/style_value.dart';
 
+part '_impl/_switch_state.dart';
+
+
 part '_impl/switch_theme.dart';
 part '_impl/switch_controller.dart';
 part '_impl/controlled_switch.dart';
