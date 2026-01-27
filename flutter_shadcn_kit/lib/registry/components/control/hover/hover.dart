@@ -1,5 +1,5 @@
-export '_impl/hover_activity.dart';
-export '_impl/hover_activity_state.dart';
-export '_impl/hover_state.dart';
-export '_impl/hover_theme.dart';
-export '_impl/hover_widget.dart';
+export '_impl/core/hover_activity.dart';
+export '_impl/core/hover_widget.dart';
+export '_impl/state/hover_activity_state.dart';
+export '_impl/state/hover_state.dart';
+export '_impl/themes/hover_theme.dart';
