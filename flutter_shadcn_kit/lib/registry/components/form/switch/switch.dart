@@ -8,12 +8,12 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/border_utils.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/_switch_state.dart';
+part '_impl/state/_switch_state.dart';
 
 
-part '_impl/switch_theme.dart';
-part '_impl/switch_controller.dart';
-part '_impl/controlled_switch.dart';
-part '_impl/switch_widget.dart';
+part '_impl/themes/switch_theme.dart';
+part '_impl/utils/switch_controller.dart';
+part '_impl/core/controlled_switch.dart';
+part '_impl/core/switch_widget.dart';
 
 const kSwitchDuration = Duration(milliseconds: 100);

@@ -12,8 +12,8 @@ import '../text_field/text_field.dart';
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
-import '_impl/hsl_color_slider.dart';
-import '_impl/hsv_color_slider.dart';
+import '_impl/core/hsl_color_slider.dart';
+import '_impl/core/hsv_color_slider.dart';
 
 part 'color_picker_mode.dart';
 

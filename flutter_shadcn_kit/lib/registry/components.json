@@ -1179,11 +1179,11 @@
           "destination": "{installPath}/components/form/autocomplete/README.md"
         },
         {
-          "source": "registry/components/form/autocomplete/_impl/autocomplete_item.dart",
+          "source": "registry/components/form/autocomplete/_impl/core/autocomplete_item.dart",
           "destination": "{installPath}/components/form/autocomplete/_impl/autocomplete_item.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/_impl/autocomplete_state.dart",
+          "source": "registry/components/form/autocomplete/_impl/state/autocomplete_state.dart",
           "destination": "{installPath}/components/form/autocomplete/_impl/autocomplete_state.dart"
         },
         {
@@ -1223,7 +1223,7 @@
           "destination": "{installPath}/components/form/autocomplete/navigate_suggestion_intent.dart"
         },
         {
-          "source": "registry/components/form/autocomplete/_impl/_auto_complete_item_state.dart",
+          "source": "registry/components/form/autocomplete/_impl/state/_auto_complete_item_state.dart",
           "destination": "{installPath}/components/form/autocomplete/_impl/_auto_complete_item_state.dart"
         }
       ],
@@ -1882,11 +1882,11 @@
           "destination": "{installPath}/components/form/color_picker/README.md"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsl_color_slider.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsl_color_slider.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsv_color_slider.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsv_color_slider.dart"
         },
         {
@@ -1930,27 +1930,27 @@
           "destination": "{installPath}/components/form/color_picker/_color_value_input_state.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/_hsl_color_slider_state.dart",
+          "source": "registry/components/form/color_picker/_impl/state/_hsl_color_slider_state.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/_hsl_color_slider_state.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsv_color_slider_painter.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider_painter.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsv_color_slider_painter.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/_hsv_color_slider_state.dart",
+          "source": "registry/components/form/color_picker/_impl/state/_hsv_color_slider_state.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/_hsv_color_slider_state.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsv_color_slider_type.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider_type.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsv_color_slider_type.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsl_color_slider_painter.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider_painter.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsl_color_slider_painter.dart"
         },
         {
-          "source": "registry/components/form/color_picker/_impl/hsl_color_slider_type.dart",
+          "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider_type.dart",
           "destination": "{installPath}/components/form/color_picker/_impl/hsl_color_slider_type.dart"
         }
       ],
@@ -3834,67 +3834,67 @@
           "destination": "{installPath}/components/form/text_field/README.md"
         },
         {
-          "source": "registry/components/form/text_field/_impl/auto_complete_theme.dart",
+          "source": "registry/components/form/text_field/_impl/themes/auto_complete_theme.dart",
           "destination": "{installPath}/components/form/text_field/_impl/auto_complete_theme.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/auto_complete_widget.dart",
+          "source": "registry/components/form/text_field/_impl/core/auto_complete_widget.dart",
           "destination": "{installPath}/components/form/text_field/_impl/auto_complete_widget.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_feature_base.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_feature_base.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_feature_base.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_features_autocomplete.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_features_autocomplete.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_features_autocomplete.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_features_basic.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_features_basic.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_features_basic.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_features_copy_paste.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_features_copy_paste.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_features_copy_paste.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_features_spinner.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_features_spinner.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_features_spinner.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_gestures.dart",
+          "source": "registry/components/form/text_field/_impl/core/text_field_gestures.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_gestures.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_intents.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_intents.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_intents.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_state_part1.dart",
+          "source": "registry/components/form/text_field/_impl/state/text_field_state_part1.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_state_part1.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_theme.dart",
+          "source": "registry/components/form/text_field/_impl/themes/text_field_theme.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_theme.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_widget.dart",
+          "source": "registry/components/form/text_field/_impl/core/text_field_widget.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_widget.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_input_mixin.dart",
+          "source": "registry/components/form/text_field/_impl/core/text_input_mixin.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_input_mixin.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_input_stateful_widget.dart",
+          "source": "registry/components/form/text_field/_impl/core/text_input_stateful_widget.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_input_stateful_widget.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_input_stateful_widget_cont.dart",
+          "source": "registry/components/form/text_field/_impl/core/text_input_stateful_widget_cont.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_input_stateful_widget_cont.dart"
         },
         {
@@ -3914,191 +3914,191 @@
           "destination": "{installPath}/components/form/text_field/text_field.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_paste_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_paste_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_paste_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_clear_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_clear_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_clear_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_attached_input_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/_attached_input_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_attached_input_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_hovered_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_hovered_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_hovered_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/auto_complete_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/auto_complete_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/auto_complete_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_spinner_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_spinner_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_spinner_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_paste_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_paste_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_paste_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_logic_and_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_logic_and_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_logic_and_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_never_visible_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_never_visible_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_never_visible_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/auto_complete.dart",
+          "source": "registry/components/form/text_field/_impl/core/auto_complete.dart",
           "destination": "{installPath}/components/form/text_field/_impl/auto_complete.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_clear_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_clear_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_clear_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/auto_complete_mode.dart",
+          "source": "registry/components/form/text_field/_impl/core/auto_complete_mode.dart",
           "destination": "{installPath}/components/form/text_field/_impl/auto_complete_mode.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_always_visible_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_always_visible_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_always_visible_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_focused_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_focused_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_focused_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_text_not_empty_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_text_not_empty_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_text_not_empty_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_auto_complete_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_auto_complete_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_auto_complete_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_copy_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_copy_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_copy_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_select_all_and_copy_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_select_all_and_copy_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_select_all_and_copy_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_revalidate_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_revalidate_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_revalidate_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_spinner_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_spinner_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_spinner_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_auto_complete_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_auto_complete_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_auto_complete_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_has_selection_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_has_selection_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_has_selection_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_copy_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_copy_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_copy_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_auto_complete_item.dart",
+          "source": "registry/components/form/text_field/_impl/core/_auto_complete_item.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_auto_complete_item.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_leading_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_leading_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_leading_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_hint_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_hint_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_hint_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_replace_current_word_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_replace_current_word_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_replace_current_word_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_text_empty_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_text_empty_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_text_empty_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_set_text_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_set_text_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_set_text_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_trailing_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_trailing_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_trailing_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/accept_suggestion_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/accept_suggestion_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/accept_suggestion_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_leading_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_leading_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_leading_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_clear_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_clear_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_clear_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_trailing_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_trailing_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_trailing_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/input_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_revalidate_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_revalidate_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_revalidate_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_negate_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_negate_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_negate_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_password_toggle_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_password_toggle_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_password_toggle_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_auto_complete_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_auto_complete_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_auto_complete_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/navigate_suggestion_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/navigate_suggestion_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/navigate_suggestion_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_show_hint_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/input_show_hint_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_show_hint_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_input_password_toggle_feature_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_input_password_toggle_feature_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_input_password_toggle_feature_state.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/input_hint_feature.dart",
+          "source": "registry/components/form/text_field/_impl/core/input_hint_feature.dart",
           "destination": "{installPath}/components/form/text_field/_impl/input_hint_feature.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/password_peek_mode.dart",
+          "source": "registry/components/form/text_field/_impl/core/password_peek_mode.dart",
           "destination": "{installPath}/components/form/text_field/_impl/password_peek_mode.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/text_field_set_selection_intent.dart",
+          "source": "registry/components/form/text_field/_impl/utils/text_field_set_selection_intent.dart",
           "destination": "{installPath}/components/form/text_field/_impl/text_field_set_selection_intent.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_logic_or_input_feature_visibility.dart",
+          "source": "registry/components/form/text_field/_impl/core/_logic_or_input_feature_visibility.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_logic_or_input_feature_visibility.dart"
         },
         {
-          "source": "registry/components/form/text_field/_impl/_auto_complete_item_state.dart",
+          "source": "registry/components/form/text_field/_impl/state/_auto_complete_item_state.dart",
           "destination": "{installPath}/components/form/text_field/_impl/_auto_complete_item_state.dart"
         }
       ],
@@ -5456,19 +5456,19 @@
           "destination": "{installPath}/components/form/switch/README.md"
         },
         {
-          "source": "registry/components/form/switch/_impl/controlled_switch.dart",
+          "source": "registry/components/form/switch/_impl/core/controlled_switch.dart",
           "destination": "{installPath}/components/form/switch/_impl/controlled_switch.dart"
         },
         {
-          "source": "registry/components/form/switch/_impl/switch_controller.dart",
+          "source": "registry/components/form/switch/_impl/utils/switch_controller.dart",
           "destination": "{installPath}/components/form/switch/_impl/switch_controller.dart"
         },
         {
-          "source": "registry/components/form/switch/_impl/switch_theme.dart",
+          "source": "registry/components/form/switch/_impl/themes/switch_theme.dart",
           "destination": "{installPath}/components/form/switch/_impl/switch_theme.dart"
         },
         {
-          "source": "registry/components/form/switch/_impl/switch_widget.dart",
+          "source": "registry/components/form/switch/_impl/core/switch_widget.dart",
           "destination": "{installPath}/components/form/switch/_impl/switch_widget.dart"
         },
         {
@@ -5488,7 +5488,7 @@
           "destination": "{installPath}/components/form/switch/_switch_preview_state.dart"
         },
         {
-          "source": "registry/components/form/switch/_impl/_switch_state.dart",
+          "source": "registry/components/form/switch/_impl/state/_switch_state.dart",
           "destination": "{installPath}/components/form/switch/_impl/_switch_state.dart"
         }
       ],
@@ -5523,11 +5523,11 @@
           "destination": "{installPath}/components/form/text_area/README.md"
         },
         {
-          "source": "registry/components/form/text_area/_impl/text_area_handle.dart",
+          "source": "registry/components/form/text_area/_impl/core/text_area_handle.dart",
           "destination": "{installPath}/components/form/text_area/_impl/text_area_handle.dart"
         },
         {
-          "source": "registry/components/form/text_area/_impl/text_area_state.dart",
+          "source": "registry/components/form/text_area/_impl/state/text_area_state.dart",
           "destination": "{installPath}/components/form/text_area/_impl/text_area_state.dart"
         },
         {
