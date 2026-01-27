@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../docs_page.dart';
 import 'widget_usage_example.dart';
-import 'blocks.dart';
 import '../../ui/shadcn/shared/primitives/text.dart';
 import '../../ui/shadcn/components/control/button/button.dart'
     as shadcn_buttons;
