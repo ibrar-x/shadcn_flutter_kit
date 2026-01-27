@@ -2,15 +2,7 @@ name: Deploy Docs to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'docs/**'
-      - 'flutter_shadcn_kit/**'
-      - '.github/workflows/docs-deploy.yml'
-
-permissions:
-  contents: write
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
