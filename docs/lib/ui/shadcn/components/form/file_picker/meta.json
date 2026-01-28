@@ -1,15 +1,33 @@
 {
   "id": "file_picker",
-  "name": "File Picker",
-  "description": "Dropzone and list for managing selectable files.",
+  "name": "File Upload",
+  "description": "Dropzone and list UI for selecting and managing uploaded files.",
   "category": "form",
   "tags": [
     "form",
     "file",
-    "picker"
+    "picker",
+    "dropzone",
+    "upload",
+    "experimental"
   ],
   "dependencies": {
-    "pubspec": {},
-    "shared": []
+    "shared": [
+      "theme",
+      "outlined_container",
+      "constants",
+      "geometry_extensions",
+      "color_extensions",
+      "radix_icons"
+    ],
+    "components": [
+      "button",
+      "dropzone",
+      "linear_progress_indicator",
+      "scaffold"
+    ],
+    "pubspec": {
+      "file_picker": "^10.3.9"
+    }
   }
 }

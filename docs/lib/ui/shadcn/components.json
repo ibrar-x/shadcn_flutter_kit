@@ -145,12 +145,12 @@
     "data_widget",
     "email_validator",
     "expressions",
+    "file_picker",
     "flutter_localizations",
     "gap",
     "intl",
     "phonecodes",
     "skeletonizer"
   ],
-  "updatedAt": "2026-01-24T03:05:31.212604Z",
-  "components": []
+  "updatedAt": "2026-01-28T21:46:24.616372Z"
 }

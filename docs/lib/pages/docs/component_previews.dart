@@ -26,6 +26,7 @@ typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
+  'file_picker': 'Experimental',
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',

@@ -11134,6 +11134,77 @@
       },
       "assets": [],
       "postInstall": []
+    },
+    {
+      "id": "empty_state",
+      "name": "Empty State",
+      "description": "Standardized empty state block for empty, no-results, or error.",
+      "category": "display",
+      "tags": [
+        "empty",
+        "state",
+        "no-results",
+        "error",
+        "placeholder"
+      ],
+      "files": [
+        {
+          "source": "registry/components/display/empty_state/README.md",
+          "destination": "{installPath}/components/display/empty_state/README.md"
+        },
+        {
+          "source": "registry/components/display/empty_state/empty_state.dart",
+          "destination": "{installPath}/components/display/empty_state/empty_state.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/meta.json",
+          "destination": "{installPath}/components/display/empty_state/meta.json"
+        },
+        {
+          "source": "registry/components/display/empty_state/preview.dart",
+          "destination": "{installPath}/components/display/empty_state/preview.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/core/empty_state.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/core/empty_state.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/core/empty_state_action.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/core/empty_state_action.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/utils/empty_state_defaults.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/utils/empty_state_defaults.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/variants/empty_state_action_style.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/variants/empty_state_action_style.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/variants/empty_state_size.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/variants/empty_state_size.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/variants/empty_state_variant.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/variants/empty_state_variant.dart"
+        }
+      ],
+      "shared": [
+        "theme",
+        "radix_icons"
+      ],
+      "dependsOn": [
+        "card",
+        "button",
+        "divider"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "gap": "^3.0.1"
+        }
+      },
+      "assets": [],
+      "postInstall": []
     }
   ]
 }

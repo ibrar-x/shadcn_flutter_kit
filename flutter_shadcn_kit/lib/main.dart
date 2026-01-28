@@ -1,28 +1,22 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/layout/card/card.dart';
-import 'package:flutter_shadcn_kit/registry/composites/navigation/expandable_sidebar/expandable_sidebar.dart';
 
-import 'registry/composites/layout/app/app.dart';
-import 'registry/components/form/file_picker/preview.dart';
-import 'registry/shared/theme/theme.dart';
+import 'package:flutter_shadcn_kit/registry/composites/layout/app/app.dart';
+import 'package:flutter_shadcn_kit/registry/components/display/empty_state/preview.dart';
+import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
 
 void main() {
-  runApp(const FilePickerDemoApp());
+  runApp(const _RegistryApp());
 }
 
-class FilePickerDemoApp extends StatelessWidget {
-  const FilePickerDemoApp({super.key});
+class _RegistryApp extends StatelessWidget {
+  const _RegistryApp();
 
   @override
   Widget build(BuildContext context) {
     return ShadcnApp(
-      title: 'File Picker',
-      debugShowCheckedModeBanner: false,
-      theme: const ThemeData(),
-      home: OutlinedContainer(
-        height: 400,
-        width: 600,
-        child: const FilePickerPreview()),
+      title: 'Empty State',
+      theme: const shadcn.ThemeData(),
+      home: const EmptyStatePreview(),
     );
   }
 }

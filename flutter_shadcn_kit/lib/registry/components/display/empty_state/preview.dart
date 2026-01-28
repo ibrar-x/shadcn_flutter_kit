@@ -1,0 +1,52 @@
+import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+
+import '../../layout/scaffold/scaffold.dart';
+import '../../../shared/theme/theme.dart';
+import 'empty_state.dart';
+
+class EmptyStatePreview extends StatelessWidget {
+  const EmptyStatePreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      headers: const [AppBar(title: Text('Empty State'))],
+      child: Builder(
+        builder: (context) {
+          final scaling = Theme.of(context).scaling;
+          return ListView(
+            padding: EdgeInsets.all(24 * scaling),
+            children: [
+              EmptyState(
+                variant: EmptyStateVariant.empty,
+                size: EmptyStateSize.compact,
+                primaryAction: const EmptyStateAction(
+                  label: 'Create item',
+                ),
+                secondaryAction: const EmptyStateAction(
+                  label: 'Import',
+                  style: EmptyStateActionStyle.link,
+                ),
+              ),
+              Gap(24 * scaling),
+              EmptyState(
+                variant: EmptyStateVariant.noResults,
+                primaryAction: const EmptyStateAction(label: 'Clear filters'),
+                secondaryAction: const EmptyStateAction(
+                  label: 'Try search',
+                  style: EmptyStateActionStyle.secondary,
+                ),
+              ),
+              Gap(24 * scaling),
+              EmptyState(
+                variant: EmptyStateVariant.errorFallback,
+                primaryAction: const EmptyStateAction(label: 'Retry'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
