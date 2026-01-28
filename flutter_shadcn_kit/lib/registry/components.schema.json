@@ -44,7 +44,11 @@
           "additionalProperties": false,
           "properties": {
             "source": {"type": "string"},
-            "destination": {"type": "string"}
+            "destination": {"type": "string"},
+            "dependsOn": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
           }
         }
       ]

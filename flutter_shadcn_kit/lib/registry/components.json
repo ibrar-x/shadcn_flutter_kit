@@ -1580,7 +1580,10 @@
         },
         {
           "source": "registry/components/form/autocomplete/_impl/state/_autocomplete_preview_state.dart",
-          "destination": "{installPath}/components/form/autocomplete/_autocomplete_preview_state.dart"
+          "destination": "{installPath}/components/form/autocomplete/_autocomplete_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/autocomplete/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/autocomplete/_impl/utils/auto_complete_intent.dart",
@@ -1809,7 +1812,10 @@
         },
         {
           "source": "registry/components/layout/hidden/_impl/state/_hidden_preview_state.dart",
-          "destination": "{installPath}/components/layout/hidden/_impl/state/_hidden_preview_state.dart"
+          "destination": "{installPath}/components/layout/hidden/_impl/state/_hidden_preview_state.dart",
+          "dependsOn": [
+            "registry/components/layout/hidden/preview.dart"
+          ]
         },
         {
           "source": "registry/components/layout/hidden/_impl/themes/hidden_theme.dart",
@@ -2335,7 +2341,10 @@
         },
         {
           "source": "registry/components/form/color_picker/_impl/state/_color_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/color_picker/_color_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/color_picker/_color_picker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/color_picker/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/color_picker/_impl/themes/color_picker_theme.dart",
@@ -2438,7 +2447,10 @@
         },
         {
           "source": "registry/components/form/color_input/_impl/state/_color_input_preview_state.dart",
-          "destination": "{installPath}/components/form/color_input/_color_input_preview_state.dart"
+          "destination": "{installPath}/components/form/color_input/_color_input_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/color_input/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/color_input/_impl/utils/color_input_controller.dart",
@@ -2516,7 +2528,10 @@
         },
         {
           "source": "registry/components/form/hsl/_impl/state/_hsl_preview_state.dart",
-          "destination": "{installPath}/components/form/hsl/_hsl_preview_state.dart"
+          "destination": "{installPath}/components/form/hsl/_hsl_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/hsl/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/hsl/_impl/core/hsl_color_slider_painter.dart",
@@ -2576,7 +2591,10 @@
         },
         {
           "source": "registry/components/form/hsv/_impl/state/_hsv_preview_state.dart",
-          "destination": "{installPath}/components/form/hsv/_hsv_preview_state.dart"
+          "destination": "{installPath}/components/form/hsv/_hsv_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/hsv/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/hsv/_impl/core/hsv_color_slider_type.dart",
@@ -2663,7 +2681,10 @@
         },
         {
           "source": "components/overlay/eye_dropper/_impl/state/_eye_dropper_preview_state.dart",
-          "destination": "{installPath}/components/overlay/eye_dropper/_impl/state/_eye_dropper_preview_state.dart"
+          "destination": "{installPath}/components/overlay/eye_dropper/_impl/state/_eye_dropper_preview_state.dart",
+          "dependsOn": [
+            "components/overlay/eye_dropper/preview.dart"
+          ]
         },
         {
           "source": "components/overlay/eye_dropper/_impl/utils/_color_preview_painter.dart",
@@ -2752,7 +2773,10 @@
         },
         {
           "source": "registry/components/form/chip_input/_impl/state/_chip_input_preview_state.dart",
-          "destination": "{installPath}/components/form/chip_input/_chip_input_preview_state.dart"
+          "destination": "{installPath}/components/form/chip_input/_chip_input_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/chip_input/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/chip_input/_impl/utils/chip_editing_controller.dart",
@@ -2880,7 +2904,10 @@
         },
         {
           "source": "registry/components/form/select/_impl/state/_select_preview_state.dart",
-          "destination": "{installPath}/components/form/select/_select_preview_state.dart"
+          "destination": "{installPath}/components/form/select/_select_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/select/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/select/_impl/state/select_state.dart",
@@ -2969,7 +2996,10 @@
         },
         {
           "source": "registry/components/form/checkbox/_impl/state/_checkbox_preview_state.dart",
-          "destination": "{installPath}/components/form/checkbox/_checkbox_preview_state.dart"
+          "destination": "{installPath}/components/form/checkbox/_checkbox_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/checkbox/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/checkbox/_impl/core/controlled_checkbox.dart",
@@ -3113,7 +3143,10 @@
         },
         {
           "source": "registry/components/display/dot_indicator/_dot_indicator_preview_state.dart",
-          "destination": "{installPath}/components/display/dot_indicator/_dot_indicator_preview_state.dart"
+          "destination": "{installPath}/components/display/dot_indicator/_dot_indicator_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/dot_indicator/preview.dart"
+          ]
         },
         {
           "source": "registry/components/display/dot_indicator/_impl/core/active_dot_item.dart",
@@ -3220,7 +3253,10 @@
         },
         {
           "source": "registry/components/display/linear_progress_indicator/_linear_progress_indicator_preview_state.dart",
-          "destination": "{installPath}/components/display/linear_progress_indicator/_linear_progress_indicator_preview_state.dart"
+          "destination": "{installPath}/components/display/linear_progress_indicator/_linear_progress_indicator_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/linear_progress_indicator/preview.dart"
+          ]
         },
         {
           "source": "registry/components/display/linear_progress_indicator/_impl/utils/_linear_progress_indicator_painter.dart",
@@ -3325,7 +3361,10 @@
         },
         {
           "source": "registry/components/display/number_ticker/_number_ticker_preview_state.dart",
-          "destination": "{installPath}/components/display/number_ticker/_number_ticker_preview_state.dart"
+          "destination": "{installPath}/components/display/number_ticker/_number_ticker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/number_ticker/preview.dart"
+          ]
         }
       ],
       "shared": [
@@ -3420,7 +3459,10 @@
         },
         {
           "source": "registry/components/display/progress/_progress_preview_state.dart",
-          "destination": "{installPath}/components/display/progress/_progress_preview_state.dart"
+          "destination": "{installPath}/components/display/progress/_progress_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/progress/preview.dart"
+          ]
         }
       ],
       "shared": [
@@ -3825,7 +3867,10 @@
         },
         {
           "source": "registry/components/display/carousel/_carousel_preview_state.dart",
-          "destination": "{installPath}/components/display/carousel/_carousel_preview_state.dart"
+          "destination": "{installPath}/components/display/carousel/_carousel_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/carousel/preview.dart"
+          ]
         },
         {
           "source": "registry/components/display/carousel/_impl/core/carousel_alignment.dart",
@@ -3937,7 +3982,10 @@
         },
         {
           "source": "registry/components/display/calendar/_calendar_preview_state.dart",
-          "destination": "{installPath}/components/display/calendar/_calendar_preview_state.dart"
+          "destination": "{installPath}/components/display/calendar/_calendar_preview_state.dart",
+          "dependsOn": [
+            "registry/components/display/calendar/preview.dart"
+          ]
         },
         {
           "source": "registry/components/display/calendar/_impl/core/year_calendar.dart",
@@ -4052,7 +4100,10 @@
         },
         {
           "source": "registry/components/form/date_picker/_impl/state/_date_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/date_picker/_date_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/date_picker/_date_picker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/date_picker/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/date_picker/_impl/core/controlled_date_picker.dart",
@@ -4168,7 +4219,10 @@
         },
         {
           "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/file_picker/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/file_picker/_impl/utils/file_like.dart",
@@ -4370,7 +4424,10 @@
         },
         {
           "source": "registry/components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart",
-          "destination": "{installPath}/components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart"
+          "destination": "{installPath}/components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart",
+          "dependsOn": [
+            "registry/components/layout/fade_scroll/preview.dart"
+          ]
         },
         {
           "source": "registry/components/layout/fade_scroll/fade_scroll.dart",
@@ -4908,7 +4965,10 @@
         },
         {
           "source": "registry/components/form/input_otp/_impl/state/_input_otp_preview_state.dart",
-          "destination": "{installPath}/components/form/input_otp/_input_otp_preview_state.dart"
+          "destination": "{installPath}/components/form/input_otp/_input_otp_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/input_otp/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/input_otp/_impl/state/_input_otp_state.dart",
@@ -4970,7 +5030,10 @@
         },
         {
           "source": "registry/components/form/form_field/_impl/state/_form_field_preview_state.dart",
-          "destination": "{installPath}/components/form/form_field/_form_field_preview_state.dart"
+          "destination": "{installPath}/components/form/form_field/_form_field_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/form_field/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/form_field/_impl/state/_object_form_field_popup_state.dart",
@@ -5423,7 +5486,10 @@
         },
         {
           "source": "registry/components/form/object_input/_impl/state/_object_input_preview_state.dart",
-          "destination": "{installPath}/components/form/object_input/_object_input_preview_state.dart"
+          "destination": "{installPath}/components/form/object_input/_object_input_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/object_input/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/object_input/_impl/core/time_input.dart",
@@ -5656,7 +5722,10 @@
         },
         {
           "source": "registry/components/form/radio_group/_impl/state/_radio_group_preview_state.dart",
-          "destination": "{installPath}/components/form/radio_group/_radio_group_preview_state.dart"
+          "destination": "{installPath}/components/form/radio_group/_radio_group_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/radio_group/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/radio_group/_impl/core/radio.dart",
@@ -5760,7 +5829,10 @@
         },
         {
           "source": "registry/components/form/slider/_impl/state/_slider_preview_state.dart",
-          "destination": "{installPath}/components/form/slider/_slider_preview_state.dart"
+          "destination": "{installPath}/components/form/slider/_slider_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/slider/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/slider/_impl/core/increase_slider_value.dart",
@@ -5850,7 +5922,10 @@
         },
         {
           "source": "registry/components/form/multiple_choice/_impl/state/_multiple_choice_preview_state.dart",
-          "destination": "{installPath}/components/form/multiple_choice/_multiple_choice_preview_state.dart"
+          "destination": "{installPath}/components/form/multiple_choice/_multiple_choice_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/multiple_choice/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/multiple_choice/_impl/core/multiple_answer.dart",
@@ -5936,7 +6011,10 @@
         },
         {
           "source": "registry/components/form/item_picker/_impl/state/_item_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/item_picker/_item_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/item_picker/_item_picker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/item_picker/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/item_picker/_impl/core/list_item_picker_layout.dart",
@@ -6091,7 +6169,10 @@
         },
         {
           "source": "registry/components/form/switch/_impl/state/_switch_preview_state.dart",
-          "destination": "{installPath}/components/form/switch/_switch_preview_state.dart"
+          "destination": "{installPath}/components/form/switch/_switch_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/switch/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/switch/_impl/state/_switch_state.dart",
@@ -7024,7 +7105,10 @@
         },
         {
           "source": "registry/components/control/hover/_impl/state/hover_preview_state.dart",
-          "destination": "{installPath}/components/control/hover/_impl/state/hover_preview_state.dart"
+          "destination": "{installPath}/components/control/hover/_impl/state/hover_preview_state.dart",
+          "dependsOn": [
+            "registry/components/control/hover/preview.dart"
+          ]
         },
         {
           "source": "registry/components/control/hover/_impl/state/hover_state.dart",
@@ -7140,7 +7224,10 @@
         },
         {
           "source": "components/overlay/toast/_impl/state/_toast_preview_state.dart",
-          "destination": "{installPath}/components/overlay/toast/_impl/state/_toast_preview_state.dart"
+          "destination": "{installPath}/components/overlay/toast/_impl/state/_toast_preview_state.dart",
+          "dependsOn": [
+            "components/overlay/toast/preview.dart"
+          ]
         },
         {
           "source": "components/overlay/toast/_impl/themes/toast_theme.dart",
@@ -7243,7 +7330,10 @@
         },
         {
           "source": "components/overlay/drawer/_impl/state/_drawer_preview_state.dart",
-          "destination": "{installPath}/components/overlay/drawer/_impl/state/_drawer_preview_state.dart"
+          "destination": "{installPath}/components/overlay/drawer/_impl/state/_drawer_preview_state.dart",
+          "dependsOn": [
+            "components/overlay/drawer/preview.dart"
+          ]
         },
         {
           "source": "components/overlay/drawer/_impl/state/_sheet_wrapper_state.dart",
@@ -7398,7 +7488,10 @@
         },
         {
           "source": "components/overlay/menu/_impl/state/_menu_preview_state.dart",
-          "destination": "{installPath}/components/overlay/menu/_impl/state/_menu_preview_state.dart"
+          "destination": "{installPath}/components/overlay/menu/_impl/state/_menu_preview_state.dart",
+          "dependsOn": [
+            "components/overlay/menu/preview.dart"
+          ]
         },
         {
           "source": "components/overlay/menu/_impl/state/menu_button_state.dart",
@@ -7628,7 +7721,10 @@
         },
         {
           "source": "components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart",
-          "destination": "{installPath}/components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart"
+          "destination": "{installPath}/components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart",
+          "dependsOn": [
+            "components/overlay/context_menu/preview.dart"
+          ]
         },
         {
           "source": "components/overlay/context_menu/_impl/state/_context_menu_state.dart",
@@ -7921,7 +8017,10 @@
         },
         {
           "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_bar_preview_state.dart",
-          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_bar_preview_state.dart"
+          "destination": "{installPath}/components/navigation/navigation_bar/_impl/state/_navigation_bar_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/navigation_bar/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_bar_state.dart",
@@ -8095,7 +8194,10 @@
         },
         {
           "source": "registry/components/navigation/pagination/_impl/state/_pagination_preview_state.dart",
-          "destination": "{installPath}/components/navigation/pagination/_impl/state/_pagination_preview_state.dart"
+          "destination": "{installPath}/components/navigation/pagination/_impl/state/_pagination_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/pagination/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/pagination/meta.json",
@@ -8201,7 +8303,10 @@
         },
         {
           "source": "registry/components/navigation/tabs/_impl/state/_tabs_preview_state.dart",
-          "destination": "{installPath}/components/navigation/tabs/_impl/state/_tabs_preview_state.dart"
+          "destination": "{installPath}/components/navigation/tabs/_impl/state/_tabs_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/tabs/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/tabs/_impl/state/tab_pane_state.dart",
@@ -8306,7 +8411,10 @@
         },
         {
           "source": "registry/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart",
-          "destination": "{installPath}/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart"
+          "destination": "{installPath}/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/tab_container/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/tab_container/meta.json",
@@ -8358,7 +8466,10 @@
         },
         {
           "source": "registry/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart",
-          "destination": "{installPath}/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart"
+          "destination": "{installPath}/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/tab_list/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/tab_list/_impl/styles/_tab_list_text_style.dart",
@@ -8424,7 +8535,10 @@
         },
         {
           "source": "registry/components/navigation/tab_pane/_impl/state/_tab_pane_preview_state.dart",
-          "destination": "{installPath}/components/navigation/tab_pane/_impl/state/_tab_pane_preview_state.dart"
+          "destination": "{installPath}/components/navigation/tab_pane/_impl/state/_tab_pane_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/tab_pane/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/tab_pane/_impl/state/tab_pane_state.dart",
@@ -8491,7 +8605,10 @@
         },
         {
           "source": "registry/components/navigation/switcher/_impl/state/_switcher_preview_state.dart",
-          "destination": "{installPath}/components/navigation/switcher/_impl/state/_switcher_preview_state.dart"
+          "destination": "{installPath}/components/navigation/switcher/_impl/state/_switcher_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/switcher/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/switcher/_impl/state/_switcher_state.dart",
@@ -8787,7 +8904,10 @@
         },
         {
           "source": "registry/components/control/patch/_impl/state/patch_preview_state.dart",
-          "destination": "{installPath}/components/control/patch/_impl/state/patch_preview_state.dart"
+          "destination": "{installPath}/components/control/patch/_impl/state/patch_preview_state.dart",
+          "dependsOn": [
+            "registry/components/control/patch/preview.dart"
+          ]
         },
         {
           "source": "registry/components/control/patch/meta.json",
@@ -8884,7 +9004,10 @@
         },
         {
           "source": "registry/components/form/time_picker/_impl/state/_time_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/time_picker/_time_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/time_picker/_time_picker_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/time_picker/preview.dart"
+          ]
         }
       ],
       "shared": [
@@ -9003,7 +9126,10 @@
         },
         {
           "source": "registry/components/navigation/stepper/_impl/state/_stepper_preview_state.dart",
-          "destination": "{installPath}/components/navigation/stepper/_impl/state/_stepper_preview_state.dart"
+          "destination": "{installPath}/components/navigation/stepper/_impl/state/_stepper_preview_state.dart",
+          "dependsOn": [
+            "registry/components/navigation/stepper/preview.dart"
+          ]
         },
         {
           "source": "registry/components/navigation/stepper/_impl/utils/stepper_controller.dart",
@@ -9381,7 +9507,10 @@
         },
         {
           "source": "registry/components/form/star_rating/_impl/state/_star_rating_preview_state.dart",
-          "destination": "{installPath}/components/form/star_rating/_star_rating_preview_state.dart"
+          "destination": "{installPath}/components/form/star_rating/_star_rating_preview_state.dart",
+          "dependsOn": [
+            "registry/components/form/star_rating/preview.dart"
+          ]
         },
         {
           "source": "registry/components/form/star_rating/_impl/themes/star_rating_theme.dart",
