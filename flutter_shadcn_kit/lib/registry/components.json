@@ -4130,14 +4130,15 @@
     },
     {
       "id": "file_picker",
-      "name": "File Picker",
+      "name": "File Upload",
       "description": "Dropzone and list UI for selecting and managing uploaded files.",
       "category": "form",
       "tags": [
         "form",
         "file",
         "picker",
-        "dropzone"
+        "dropzone",
+        "upload"
       ],
       "files": [
         {
@@ -4167,6 +4168,34 @@
         {
           "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_like.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_like.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_upload_models.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_upload_models.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_validation.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_validation.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_io.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_io.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart"
         }
       ],
       "shared": [

@@ -1,110 +1,31 @@
 part of '../../file_picker.dart';
 
-/// A widget representing a single file item in a file picker or upload list.
-///
-/// [FileItem] displays information about a selected or uploaded file including
-/// name, size, type, and optional thumbnail. It provides interactive controls
-/// for file management such as remove, retry, download, and preview actions.
-///
-/// Supports displaying upload progress for files currently being uploaded and
-/// provides visual feedback through thumbnails and status indicators.
-///
-/// Example:
-/// ```dart
-/// FileItem(
-///   fileName: Text('document.pdf'),
-///   fileSize: Text('1.2 MB'),
-///   fileType: Text('PDF'),
-///   uploadProgress: 0.75, // 75% uploaded
-///   onRemove: () => removeFile(),
-///   thumbnail: Icon(Icons.picture_as_pdf),
-/// )
-/// ```
+/// A widget representing a single file item in a file upload list.
 class FileItem extends StatelessWidget {
-  /// Optional platform file backing this item.
-  final PlatformFile? file;
-
-  /// Upload progress from 0.0 to 1.0, or null if not uploading.
-  final double? uploadProgress;
-
-  /// Called when the remove button is pressed.
-  final VoidCallback? onRemove;
-
-  /// Called when the retry button is pressed (for failed uploads).
-  final VoidCallback? onRetry;
-
-  /// Called when the download button is pressed.
-  final VoidCallback? onDownload;
-
-  /// Optional thumbnail widget for the file.
-  final Widget? thumbnail;
-
-  /// Called when the preview button is pressed.
-  final VoidCallback? onPreview;
-
-  /// Widget displaying the file name.
-  final Widget fileName;
-
-  /// Optional widget displaying the file size.
-  final Widget? fileSize;
-
-  /// Optional widget displaying the file type/format.
-  final Widget? fileType;
-
-  /// Creates a [FileItem].
   const FileItem({
     super.key,
-    this.file,
-    this.uploadProgress,
+    required this.item,
     this.onRemove,
     this.onRetry,
     this.onDownload,
-    this.thumbnail,
     this.onPreview,
-    required this.fileName,
-    this.fileSize,
-    this.fileType,
+    this.thumbnail,
   });
 
-  /// Creates a [FileItem] from a [PlatformFile].
-  factory FileItem.platform({
-    Key? key,
-    required PlatformFile file,
-    double? uploadProgress,
-    VoidCallback? onRemove,
-    VoidCallback? onRetry,
-    VoidCallback? onDownload,
-    VoidCallback? onPreview,
-    Widget? thumbnail,
-  }) {
-    return FileItem(
-      key: key,
-      file: file,
-      uploadProgress: uploadProgress,
-      onRemove: onRemove,
-      onRetry: onRetry,
-      onDownload: onDownload,
-      onPreview: onPreview,
-      thumbnail: thumbnail,
-      fileName: Text(file.name),
-      fileSize: file.size > 0 ? Text(formatFileSize(file.size)) : null,
-      fileType: file.extension != null
-          ? Text(file.extension!.toUpperCase())
-          : null,
-    );
-  }
+  final FileUploadItem item;
+  final VoidCallback? onRemove;
+  final VoidCallback? onRetry;
+  final VoidCallback? onDownload;
+  final VoidCallback? onPreview;
+  final Widget? thumbnail;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final resolvedThumbnail =
-        thumbnail ??
-        Icon(
-          RadixIcons.file,
-          color: theme.colorScheme.mutedForeground,
-          size: 20 * scaling,
-        );
+    final resolvedThumbnail = thumbnail ?? _buildThumbnail(theme, scaling);
+    final statusLabel = _statusLabel(item.status);
+    final statusColor = _statusColor(theme, item.status);
 
     final actions = <Widget>[];
     if (onPreview != null) {
@@ -123,7 +44,7 @@ class FileItem extends StatelessWidget {
         ),
       );
     }
-    if (onRetry != null) {
+    if (onRetry != null && item.status == FileUploadItemStatus.error) {
       actions.add(
         IconButton.ghost(
           icon: Icon(RadixIcons.update, size: 16 * scaling),
@@ -172,23 +93,28 @@ class FileItem extends StatelessWidget {
                         style: theme.typography.small.merge(
                           theme.typography.semiBold,
                         ),
-                        child: fileName,
+                        child: Text(item.file.name),
                       ),
-                      if (fileSize != null || fileType != null)
-                        Gap(4 * scaling),
-                      if (fileSize != null || fileType != null)
-                        DefaultTextStyle.merge(
-                          style: theme.typography.xSmall.copyWith(
-                            color: theme.colorScheme.mutedForeground,
-                          ),
-                          child: Wrap(
-                            spacing: 8 * scaling,
-                            children: [
-                              if (fileType != null) fileType!,
-                              if (fileSize != null) fileSize!,
-                            ],
-                          ),
+                      Gap(4 * scaling),
+                      DefaultTextStyle.merge(
+                        style: theme.typography.xSmall.copyWith(
+                          color: theme.colorScheme.mutedForeground,
                         ),
+                        child: Wrap(
+                          spacing: 8 * scaling,
+                          children: [
+                            Text(_fileTypeLabel(item.file)),
+                            Text(formatFileSize(item.file.size)),
+                            if (statusLabel != null)
+                              Text(
+                                statusLabel,
+                                style: theme.typography.xSmall.copyWith(
+                                  color: statusColor,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -206,15 +132,67 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (uploadProgress != null) Gap(12 * scaling),
-            if (uploadProgress != null)
+            if (item.progress != null) Gap(12 * scaling),
+            if (item.progress != null)
               LinearProgressIndicator(
-                value: uploadProgress!.clamp(0, 1),
+                value: item.progress!.clamp(0, 1),
                 minHeight: 4 * scaling,
               ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildThumbnail(ThemeData theme, double scaling) {
+    final bytes = item.file.bytes;
+    if (bytes != null && item.file.isImage) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(6 * scaling),
+        child: Image.memory(
+          bytes,
+          fit: BoxFit.cover,
+          width: 32 * scaling,
+          height: 32 * scaling,
+        ),
+      );
+    }
+    return Icon(
+      RadixIcons.file,
+      color: theme.colorScheme.mutedForeground,
+      size: 20 * scaling,
+    );
+  }
+
+  String _fileTypeLabel(FileLike file) {
+    final extension = file.resolvedExtension;
+    if (extension.isEmpty) return 'File';
+    return extension.toUpperCase();
+  }
+
+  String? _statusLabel(FileUploadItemStatus status) {
+    switch (status) {
+      case FileUploadItemStatus.uploading:
+        return 'Uploading';
+      case FileUploadItemStatus.success:
+        return 'Ready';
+      case FileUploadItemStatus.error:
+        return 'Error';
+      case FileUploadItemStatus.idle:
+        return null;
+    }
+  }
+
+  Color? _statusColor(ThemeData theme, FileUploadItemStatus status) {
+    switch (status) {
+      case FileUploadItemStatus.uploading:
+        return theme.colorScheme.primary;
+      case FileUploadItemStatus.success:
+        return theme.colorScheme.accent;
+      case FileUploadItemStatus.error:
+        return theme.colorScheme.destructive;
+      case FileUploadItemStatus.idle:
+        return theme.colorScheme.mutedForeground;
+    }
   }
 }

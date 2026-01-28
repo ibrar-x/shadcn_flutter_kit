@@ -6,6 +6,9 @@ class FileDropzone extends StatelessWidget {
     super.key,
     this.hotDropEnabled = false,
     this.hotDropping = false,
+    this.enabled = true,
+    this.state = FileUploadState.idle,
+    this.isFocused = false,
     this.hint,
     this.icon,
     this.actionLabel,
@@ -21,6 +24,15 @@ class FileDropzone extends StatelessWidget {
 
   /// Whether the dropzone is actively receiving a drop.
   final bool hotDropping;
+
+  /// Whether the dropzone is enabled.
+  final bool enabled;
+
+  /// Current upload state.
+  final FileUploadState state;
+
+  /// Whether the dropzone is focused for keyboard interaction.
+  final bool isFocused;
 
   /// Optional helper text displayed under the primary label.
   final Widget? hint;
@@ -50,23 +62,34 @@ class FileDropzone extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final borderColor = hotDropping
-        ? theme.colorScheme.primary
-        : theme.colorScheme.muted;
+    final borderColor = _resolveBorderColor(theme);
     final effectivePadding = padding ?? EdgeInsets.all(24 * scaling);
     final dropzoneIcon =
         icon ??
         Icon(
           RadixIcons.upload,
           size: 28 * scaling,
-          color: theme.colorScheme.mutedForeground,
+          color: enabled
+              ? theme.colorScheme.mutedForeground
+              : theme.colorScheme.mutedForeground.withOpacity(0.5),
         );
     final label = actionLabel ?? 'Browse files';
+    final statusLabel = _resolveStatusLabel();
+    final focusRing = isFocused
+        ? [
+            BoxShadow(
+              color: theme.colorScheme.ring.withOpacity(0.45),
+              blurRadius: 0,
+              spreadRadius: 2 * scaling,
+            ),
+          ]
+        : null;
 
     return OutlinedContainer(
       borderRadius: borderRadius ?? BorderRadius.circular(16 * scaling),
       borderWidth: 1,
       borderColor: borderColor,
+      boxShadow: focusRing,
       backgroundColor: backgroundColor ?? theme.colorScheme.background,
       child: ConstrainedBox(
         constraints: BoxConstraints(minHeight: minHeight ?? 0),
@@ -79,16 +102,12 @@ class FileDropzone extends StatelessWidget {
               Gap(12 * scaling),
               DefaultTextStyle.merge(
                 style: theme.typography.small.copyWith(
-                  color: theme.colorScheme.mutedForeground,
+                  color: enabled
+                      ? theme.colorScheme.mutedForeground
+                      : theme.colorScheme.mutedForeground.withOpacity(0.6),
                 ),
                 textAlign: TextAlign.center,
-                child: Text(
-                  hotDropping
-                      ? 'Drop files to upload'
-                      : hotDropEnabled
-                      ? 'Drag files here or browse to upload'
-                      : 'Browse to upload files',
-                ),
+                child: Text(statusLabel),
               ),
               if (hint != null) Gap(8 * scaling),
               if (hint != null)
@@ -100,11 +119,56 @@ class FileDropzone extends StatelessWidget {
                   child: hint!,
                 ),
               Gap(16 * scaling),
-              OutlineButton(onPressed: onPressed, child: Text(label)),
+              OutlineButton(
+                onPressed: enabled ? onPressed : null,
+                child: Text(label),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Color _resolveBorderColor(ThemeData theme) {
+    if (!enabled) return theme.colorScheme.muted;
+    if (hotDropping) return theme.colorScheme.primary;
+    switch (state) {
+      case FileUploadState.dragging:
+        return theme.colorScheme.primary;
+      case FileUploadState.uploading:
+        return theme.colorScheme.primary;
+      case FileUploadState.success:
+        return theme.colorScheme.accent;
+      case FileUploadState.error:
+        return theme.colorScheme.destructive;
+      case FileUploadState.disabled:
+        return theme.colorScheme.muted;
+      case FileUploadState.idle:
+        return theme.colorScheme.muted;
+    }
+  }
+
+  String _resolveStatusLabel() {
+    if (!enabled) return 'File uploads disabled';
+    if (hotDropping || state == FileUploadState.dragging) {
+      return 'Drop files to upload';
+    }
+    switch (state) {
+      case FileUploadState.dragging:
+        return 'Drop files to upload';
+      case FileUploadState.uploading:
+        return 'Uploading files...';
+      case FileUploadState.success:
+        return 'Files ready';
+      case FileUploadState.error:
+        return 'Fix errors to continue';
+      case FileUploadState.disabled:
+        return 'File uploads disabled';
+      case FileUploadState.idle:
+        return hotDropEnabled
+            ? 'Drag files here or browse to upload'
+            : 'Browse to upload files';
+    }
   }
 }
