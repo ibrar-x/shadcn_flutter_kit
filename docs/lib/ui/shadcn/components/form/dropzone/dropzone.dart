@@ -1,0 +1,225 @@
+import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+
+import '../../../shared/icons/radix_icons.dart';
+import '../../../shared/primitives/outlined_container.dart';
+import '../../../shared/theme/theme.dart';
+import '../../../shared/utils/constants.dart';
+import '../../control/button/button.dart';
+
+/// Visual states for a dropzone surface.
+enum DropzoneState { idle, dragging, uploading, success, error, disabled }
+
+/// A stylized dropzone surface for file uploads.
+class FileDropzone extends StatelessWidget {
+  const FileDropzone({
+    super.key,
+    this.hotDropEnabled = false,
+    this.hotDropping = false,
+    this.enabled = true,
+    this.state = DropzoneState.idle,
+    this.isFocused = false,
+    this.hint,
+    this.icon,
+    this.actionLabel,
+    this.onPressed,
+    this.backgroundColor,
+    this.borderRadius,
+    this.padding,
+    this.minHeight,
+    this.content,
+    this.showDefaultContent = true,
+  });
+
+  /// Whether drag-and-drop should be emphasized in the copy.
+  final bool hotDropEnabled;
+
+  /// Whether the dropzone is actively receiving a drop.
+  final bool hotDropping;
+
+  /// Whether the dropzone is enabled.
+  final bool enabled;
+
+  /// Current upload state.
+  final DropzoneState state;
+
+  /// Whether the dropzone is focused for keyboard interaction.
+  final bool isFocused;
+
+  /// Optional helper text displayed under the primary label.
+  final Widget? hint;
+
+  /// Optional icon widget shown above the label.
+  final Widget? icon;
+
+  /// Button label text for the browse action.
+  final String? actionLabel;
+
+  /// Called when the browse action is pressed.
+  final VoidCallback? onPressed;
+
+  /// Optional background color override.
+  final Color? backgroundColor;
+
+  /// Optional border radius override.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// Optional padding override.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional minimum height for the dropzone.
+  final double? minHeight;
+
+  /// Optional custom content rendered inside the dropzone container.
+  final Widget? content;
+
+  /// Whether to keep the default dropzone content alongside [content].
+  final bool showDefaultContent;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final isEmphasized = hotDropping || state == DropzoneState.dragging;
+    final borderColor = _resolveBorderColor(theme);
+    final effectivePadding = padding ?? EdgeInsets.all(24 * scaling);
+    final dropzoneIcon = icon ??
+        Icon(
+          RadixIcons.upload,
+          size: 28 * scaling,
+          color: enabled
+              ? theme.colorScheme.mutedForeground
+              : theme.colorScheme.mutedForeground.withValues(alpha: 0.5),
+        );
+    final label = actionLabel ?? 'Browse files';
+    final statusLabel = _resolveStatusLabel();
+    final focusRing = isFocused
+        ? [
+            BoxShadow(
+              color: theme.colorScheme.ring.withValues(alpha: 0.45),
+              blurRadius: 0,
+              spreadRadius: 2 * scaling,
+            ),
+          ]
+        : null;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height =
+            constraints.hasBoundedHeight ? constraints.maxHeight : null;
+        return SizedBox(
+          width: double.infinity,
+          height: height,
+          child: OutlinedContainer(
+            borderRadius: borderRadius ?? BorderRadius.circular(16 * scaling),
+            borderWidth: 1,
+            borderColor: borderColor,
+            boxShadow: focusRing,
+            backgroundColor: backgroundColor ?? theme.colorScheme.background,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: minHeight ?? 0),
+              child: Padding(
+                padding: effectivePadding,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (showDefaultContent) ...[
+                        AnimatedScale(
+                          scale: isEmphasized ? 1.05 : 1,
+                          duration: kDefaultDuration,
+                          curve: Curves.easeOut,
+                          child: dropzoneIcon,
+                        ),
+                        Gap(12 * scaling),
+                        AnimatedOpacity(
+                          opacity: enabled ? 1 : 0.6,
+                          duration: kDefaultDuration,
+                          child: DefaultTextStyle.merge(
+                            style: theme.typography.small.copyWith(
+                              color: enabled
+                                  ? theme.colorScheme.mutedForeground
+                                  : theme.colorScheme.mutedForeground
+                                      .withValues(alpha: 0.6),
+                            ),
+                            textAlign: TextAlign.center,
+                            child: Text(statusLabel),
+                          ),
+                        ),
+                        if (hint != null) Gap(8 * scaling),
+                        if (hint != null)
+                          AnimatedOpacity(
+                            opacity: enabled ? 1 : 0.6,
+                            duration: kDefaultDuration,
+                            child: DefaultTextStyle.merge(
+                              style: theme.typography.xSmall.copyWith(
+                                color: theme.colorScheme.mutedForeground,
+                              ),
+                              textAlign: TextAlign.center,
+                              child: hint!,
+                            ),
+                          ),
+                        Gap(16 * scaling),
+                        OutlineButton(
+                          onPressed: enabled ? onPressed : null,
+                          child: Text(label),
+                        ),
+                      ],
+                      if (!showDefaultContent && content != null) content!,
+                      if (showDefaultContent && content != null) ...[
+                        Gap(16 * scaling),
+                        content!,
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Color _resolveBorderColor(ThemeData theme) {
+    if (!enabled) return theme.colorScheme.muted;
+    if (hotDropping) return theme.colorScheme.primary;
+    switch (state) {
+      case DropzoneState.dragging:
+        return theme.colorScheme.primary;
+      case DropzoneState.uploading:
+        return theme.colorScheme.primary;
+      case DropzoneState.success:
+        return theme.colorScheme.accent;
+      case DropzoneState.error:
+        return theme.colorScheme.destructive;
+      case DropzoneState.disabled:
+        return theme.colorScheme.muted;
+      case DropzoneState.idle:
+        return theme.colorScheme.muted;
+    }
+  }
+
+  String _resolveStatusLabel() {
+    if (!enabled) return 'File uploads disabled';
+    if (hotDropping || state == DropzoneState.dragging) {
+      return 'Drop files to upload';
+    }
+    switch (state) {
+      case DropzoneState.dragging:
+        return 'Drop files to upload';
+      case DropzoneState.uploading:
+        return 'Uploading files...';
+      case DropzoneState.success:
+        return 'Files ready';
+      case DropzoneState.error:
+        return 'Fix errors to continue';
+      case DropzoneState.disabled:
+        return 'File uploads disabled';
+      case DropzoneState.idle:
+        return hotDropEnabled
+            ? 'Drag files here or click browse to upload.'
+            : 'Browse to upload files';
+    }
+  }
+}

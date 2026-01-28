@@ -1,0 +1,27 @@
+{
+  "id": "empty_state",
+  "name": "Empty State",
+  "description": "Standardized empty state block for empty, no-results, or error.",
+  "category": "display",
+  "tags": [
+    "empty",
+    "state",
+    "no-results",
+    "error",
+    "placeholder"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "radix_icons"
+    ],
+    "components": [
+      "card",
+      "button",
+      "divider"
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  }
+}

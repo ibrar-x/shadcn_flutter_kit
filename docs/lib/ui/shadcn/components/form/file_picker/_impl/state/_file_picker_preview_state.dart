@@ -91,17 +91,19 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
               FileUpload(
                 controller: _controller,
                 title: const Text('Upload files'),
-                subtitle: const Text('PDFs, images, and other supported files.'),
+                subtitle:
+                    const Text('PDFs, images, and other supported files.'),
                 hint: const Text('Drag files here or click browse to upload.'),
                 allowMultiple: true,
-               
                 uploadFn: _simulateUpload,
                 onError: (error) {
                   // Errors are announced inline; hook for analytics if needed.
                 },
               ),
-
-              FileUploadItemsView(items:  _controller.items,layout: .list,),
+              FileUploadItemsView(
+                items: _controller.items,
+                layout: FileUploadItemsLayout.list,
+              ),
             ],
           ),
         ),

@@ -18,31 +18,31 @@ class EmptyStatePreview extends StatelessWidget {
           return ListView(
             padding: EdgeInsets.all(24 * scaling),
             children: [
-              EmptyState(
+              const EmptyState(
                 variant: EmptyStateVariant.empty,
                 size: EmptyStateSize.compact,
-                primaryAction: const EmptyStateAction(
+                primaryAction: EmptyStateAction(
                   label: 'Create item',
                 ),
-                secondaryAction: const EmptyStateAction(
+                secondaryAction: EmptyStateAction(
                   label: 'Import',
                   style: EmptyStateActionStyle.link,
                 ),
               ),
               Gap(24 * scaling),
-              EmptyState(
+              const EmptyState(
                 variant: EmptyStateVariant.noResults,
-                primaryAction: const EmptyStateAction(label: 'Clear filters'),
-                secondaryAction:  EmptyStateAction(
+                primaryAction: EmptyStateAction(label: 'Clear filters'),
+                secondaryAction: EmptyStateAction(
                   label: 'Try search',
                   style: EmptyStateActionStyle.secondary,
-                  onPressed: ()=>{}
+                  onPressed: null,
                 ),
               ),
               Gap(24 * scaling),
-              EmptyState(
+              const EmptyState(
                 variant: EmptyStateVariant.errorFallback,
-                primaryAction: const EmptyStateAction(label: 'Retry'),
+                primaryAction: EmptyStateAction(label: 'Retry'),
               ),
             ],
           );

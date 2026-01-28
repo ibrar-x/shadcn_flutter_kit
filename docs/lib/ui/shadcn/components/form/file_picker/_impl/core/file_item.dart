@@ -79,7 +79,7 @@ class FileItem extends StatelessWidget {
                   width: 40 * scaling,
                   height: 40 * scaling,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.muted.withOpacity(0.35),
+                    color: theme.colorScheme.muted.withValues(alpha: 0.35),
                     borderRadius: BorderRadius.circular(8 * scaling),
                   ),
                   alignment: Alignment.center,

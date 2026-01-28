@@ -42,6 +42,10 @@ class _MultiSelectExample3State extends State<MultiSelectExample3> {
     return HSLColor.fromAHSL(1, hue, 0.5, 0.5).toColor();
   }
 
+  Color _hoverColor(Color color) {
+    return HSLColor.fromColor(color).withLightness(0.3).toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Advanced multi-select with async loading, empty and loading builders,
@@ -53,7 +57,7 @@ class _MultiSelectExample3State extends State<MultiSelectExample3> {
           value: item,
           style: const ButtonStyle.primary().withBackgroundColor(
             color: color,
-            hoverColor: color.withLuminance(0.3),
+            hoverColor: _hoverColor(color),
           ),
           child: Text(item),
         );
@@ -92,7 +96,7 @@ class _MultiSelectExample3State extends State<MultiSelectExample3> {
                     SelectItemButton(
                       value: value,
                       style: const ButtonStyle.ghost().withBackgroundColor(
-                        hoverColor: _getColorByChip(value).withLuminance(0.3),
+                        hoverColor: _hoverColor(_getColorByChip(value)),
                       ),
                       child: Text(value),
                     ),

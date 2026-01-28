@@ -11213,8 +11213,7 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": [],
-      "wip": true
+      "postInstall": []
     },
     {
       "id": "dropzone",

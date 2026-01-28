@@ -43,6 +43,8 @@
     "dot_indicator",
     "drawer",
     "dropdown_menu",
+    "dropzone",
+    "empty_state",
     "expandable_sidebar",
     "eye_dropper",
     "fade_scroll",
@@ -152,5 +154,5 @@
     "phonecodes",
     "skeletonizer"
   ],
-  "updatedAt": "2026-01-28T21:46:24.616372Z"
+  "updatedAt": "2026-01-28T22:32:18.777828Z"
 }

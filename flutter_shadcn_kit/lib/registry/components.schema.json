@@ -47,7 +47,20 @@
             "destination": {"type": "string"},
             "dependsOn": {
               "type": "array",
-              "items": {"type": "string"}
+              "items": {
+                "oneOf": [
+                  {"type": "string"},
+                  {
+                    "type": "object",
+                    "required": ["source"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "source": {"type": "string"},
+                      "optional": {"type": "boolean"}
+                    }
+                  }
+                ]
+              }
             }
           }
         }

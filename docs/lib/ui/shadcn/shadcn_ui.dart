@@ -179,7 +179,8 @@ export 'package:docs/ui/shadcn/components/utility/color/color.dart';
 export 'package:docs/ui/shadcn/components/utility/debug/debug.dart';
 export 'package:docs/ui/shadcn/components/utility/focus_outline/focus_outline.dart';
 export 'package:docs/ui/shadcn/components/utility/image/image.dart';
-export 'package:docs/ui/shadcn/components/utility/locale_utils/locale_utils.dart';
+export 'package:docs/ui/shadcn/components/utility/locale_utils/locale_utils.dart'
+    hide formatFileSize;
 export 'package:docs/ui/shadcn/components/utility/shadcn_localizations/shadcn_localizations.dart'
     hide ShadcnLocalizations;
 export 'package:docs/ui/shadcn/components/utility/shadcn_localizations_en/shadcn_localizations_en.dart'

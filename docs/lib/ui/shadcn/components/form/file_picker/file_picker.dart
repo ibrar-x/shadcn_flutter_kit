@@ -11,9 +11,6 @@ import '_impl/utils/file_picker_adapter.dart';
 import '../../../shared/icons/radix_icons.dart';
 import '../../../shared/primitives/outlined_container.dart';
 import '../../../shared/theme/theme.dart';
-import '../../../shared/utils/color_extensions.dart';
-import '../../../shared/utils/constants.dart';
-import '../../../shared/utils/geometry_extensions.dart';
 import '../../control/button/button.dart';
 import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
 import '../dropzone/dropzone.dart';
@@ -218,8 +215,8 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   bool get _isUploading => _effectiveItems.any(
-    (item) => item.status == FileUploadItemStatus.uploading,
-  );
+        (item) => item.status == FileUploadItemStatus.uploading,
+      );
 
   FileUploadState get _state {
     if (!widget.enabled) return FileUploadState.disabled;
@@ -281,9 +278,8 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   void _handleNewFiles(List<FileLike> files) {
-    final effectiveMaxFiles = widget.allowMultiple
-        ? widget.maxFiles
-        : (widget.maxFiles ?? 1);
+    final effectiveMaxFiles =
+        widget.allowMultiple ? widget.maxFiles : (widget.maxFiles ?? 1);
     if (widget.controller != null) {
       widget.controller!.addFiles(files);
       _syncControllerState();
@@ -497,13 +493,13 @@ class _FileUploadState extends State<FileUpload> {
     };
     final singleItemContent =
         (!widget.allowMultiple && _effectiveItems.isNotEmpty)
-        ? FileUploadItemsView(
-            items: [_effectiveItems.first],
-            layout: FileUploadItemsLayout.list,
-            showContainer: false,
-            itemBuilder: widget.itemBuilder,
-          )
-        : null;
+            ? FileUploadItemsView(
+                items: [_effectiveItems.first],
+                layout: FileUploadItemsLayout.list,
+                showContainer: false,
+                itemBuilder: widget.itemBuilder,
+              )
+            : null;
     final dropzone = FileDropzone(
       hotDropEnabled: canDrop,
       hotDropping: _dragActive,
@@ -599,9 +595,8 @@ class _FileUploadState extends State<FileUpload> {
                 widget.itemBuilder?.call(context, item) ??
                 FileItem(
                   item: item,
-                  onRemove: widget.files == null
-                      ? () => _removeItem(item)
-                      : null,
+                  onRemove:
+                      widget.files == null ? () => _removeItem(item) : null,
                 ),
           ),
       ],

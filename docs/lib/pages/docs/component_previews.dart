@@ -27,6 +27,7 @@ typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
   'file_picker': 'Experimental',
+  'empty_state': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',
@@ -87,6 +88,8 @@ Widget buildStatusBadge(String status) {
   switch (status) {
     case 'Experimental':
       return const shadcn_badge.PrimaryBadge(child: Text('Experimental'));
+    case 'New':
+      return const shadcn_badge.SecondaryBadge(child: Text('New'));
     case 'WIP':
       return const shadcn_badge.OutlineBadge(child: Text('WIP'));
     default:

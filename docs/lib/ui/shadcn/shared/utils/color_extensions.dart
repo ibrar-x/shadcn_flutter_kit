@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter/painting.dart' show HSLColor;
 
 String colorToHex(Color color,
     [bool showAlpha = false, bool hashPrefix = true]) {
@@ -27,11 +26,5 @@ extension ColorExtension on Color {
     return withValues(
       alpha: a * factor,
     );
-  }
-
-  /// Returns a color with the given luminance (0.0 - 1.0).
-  Color withLuminance(double luminance) {
-    final hsl = HSLColor.fromColor(this);
-    return hsl.withLightness(luminance.clamp(0.0, 1.0)).toColor();
   }
 }
