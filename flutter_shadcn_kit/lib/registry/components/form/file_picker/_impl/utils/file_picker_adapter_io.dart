@@ -19,6 +19,7 @@ class _IoFilePickerAdapter implements FilePickerAdapter {
     required bool withData,
     required ValueChanged<bool> onDragActive,
     required ValueChanged<List<FileLike>> onDrop,
+    VoidCallback? onTap,
   }) {
     return child;
   }

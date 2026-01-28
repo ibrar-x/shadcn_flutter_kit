@@ -16,12 +16,16 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/geometry_extensions.dart';
 import '../../control/button/button.dart';
 import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
+import '../dropzone/dropzone.dart';
+import '../file_input/file_input.dart';
+import '_impl/utils/file_upload_controller.dart';
 
 export '_impl/utils/file_like.dart';
 export '_impl/utils/file_upload_models.dart';
+export '_impl/utils/file_upload_controller.dart';
 
-part '_impl/core/file_dropzone.dart';
 part '_impl/core/file_item.dart';
+part '_impl/core/file_upload_items_view.dart';
 
 // const fileByteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 // const fileBitUnits = ['Bi', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
@@ -87,6 +91,9 @@ class FileUpload extends StatefulWidget {
   /// Optional list of files to display (controlled).
   final List<FileLike>? files;
 
+  /// Optional controller to manage files and uploads.
+  final FileUploadController? controller;
+
   /// Optional widget shown above the dropzone actions.
   final Widget? hint;
 
@@ -135,6 +142,15 @@ class FileUpload extends StatefulWidget {
   /// Whether the file list should be shown.
   final bool showFileList;
 
+  /// Optional layout for the built-in items view.
+  final FileUploadItemsLayout itemsLayout;
+
+  /// Optional column count when [itemsLayout] is grid.
+  final int itemsGridColumns;
+
+  /// Optional max height for the items list before it scrolls.
+  final double? itemsMaxHeight;
+
   /// Creates a [FileUpload].
   ///
   /// Parameters:
@@ -157,6 +173,7 @@ class FileUpload extends StatefulWidget {
     this.allowedExtensions,
     this.allowedMimeTypes,
     this.files,
+    this.controller,
     this.onFilesSelected,
     this.onFilesChanged,
     this.onUploadStart,
@@ -166,6 +183,9 @@ class FileUpload extends StatefulWidget {
     this.uploadFn,
     this.itemBuilder,
     this.showFileList = true,
+    this.itemsLayout = FileUploadItemsLayout.list,
+    this.itemsGridColumns = 2,
+    this.itemsMaxHeight,
     this.hint,
     this.actionLabel,
     this.icon,
@@ -185,10 +205,14 @@ class _FileUploadState extends State<FileUpload> {
   final List<FileUploadError> _errors = [];
   final Map<String, StreamSubscription<double>> _uploadSubscriptions = {};
   bool _dragActive = false;
+  Timer? _dragDebounce;
   bool _focused = false;
   bool _completedOnce = false;
 
   List<FileUploadItem> get _effectiveItems {
+    if (widget.controller != null) {
+      return widget.controller!.items;
+    }
     if (widget.files == null) return _items;
     return widget.files!.map(FileUploadItem.fromFile).toList();
   }
@@ -202,7 +226,9 @@ class _FileUploadState extends State<FileUpload> {
     if (_dragActive) return FileUploadState.dragging;
     if (_isUploading) return FileUploadState.uploading;
     if (_errors.isNotEmpty) return FileUploadState.error;
-    if (_completedOnce) return FileUploadState.success;
+    if (_completedOnce && _effectiveItems.isNotEmpty) {
+      return FileUploadState.success;
+    }
     return FileUploadState.idle;
   }
 
@@ -218,6 +244,28 @@ class _FileUploadState extends State<FileUpload> {
     for (final error in errors) {
       widget.onError?.call(error);
     }
+  }
+
+  void _syncControllerState() {
+    if (!mounted) return;
+    if (_controllerListenerAttached) return;
+    widget.controller?.addListener(_onControllerChanged);
+    _controllerListenerAttached = true;
+    _onControllerChanged();
+  }
+
+  bool _controllerListenerAttached = false;
+
+  void _onControllerChanged() {
+    if (!mounted) return;
+    setState(() {
+      _errors
+        ..clear()
+        ..addAll(widget.controller?.errors ?? const []);
+      if (widget.controller != null && !widget.controller!.hasItems) {
+        _completedOnce = false;
+      }
+    });
   }
 
   Future<void> _pickFiles() async {
@@ -236,6 +284,14 @@ class _FileUploadState extends State<FileUpload> {
     final effectiveMaxFiles = widget.allowMultiple
         ? widget.maxFiles
         : (widget.maxFiles ?? 1);
+    if (widget.controller != null) {
+      widget.controller!.addFiles(files);
+      _syncControllerState();
+      if (widget.uploadFn != null) {
+        widget.controller!.startUploads(widget.uploadFn!);
+      }
+      return;
+    }
     final validation = validateFiles(
       incoming: files,
       existing: _effectiveItems.map((item) => item.file).toList(),
@@ -323,6 +379,11 @@ class _FileUploadState extends State<FileUpload> {
     required FileUploadItemStatus status,
     double? progress,
   }) {
+    if (widget.controller != null) {
+      widget.controller!.updateItem(file, status, progress);
+      _syncControllerState();
+      return;
+    }
     if (widget.files != null) return;
     final index = _items.indexWhere((item) => item.file.id == file.id);
     if (index == -1) return;
@@ -339,6 +400,11 @@ class _FileUploadState extends State<FileUpload> {
     if (_items.any((item) => item.status == FileUploadItemStatus.uploading)) {
       return;
     }
+    if (_items.isEmpty) {
+      _completedOnce = false;
+      setState(() {});
+      return;
+    }
     _completedOnce = true;
     if (_errors.isEmpty) {
       widget.onComplete?.call(_items.map((item) => item.file).toList());
@@ -347,9 +413,17 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   void _removeItem(FileUploadItem item) {
+    if (widget.controller != null) {
+      widget.controller!.removeFile(item.file);
+      _syncControllerState();
+      return;
+    }
     if (widget.files != null) return;
     setState(() {
       _items.removeWhere((entry) => entry.file.id == item.file.id);
+      if (_items.isEmpty) {
+        _completedOnce = false;
+      }
     });
     widget.onFilesChanged?.call(_items.map((entry) => entry.file).toList());
   }
@@ -359,17 +433,44 @@ class _FileUploadState extends State<FileUpload> {
     _handleNewFiles(files);
   }
 
+  void _setDragActive(bool value) {
+    if (value) {
+      _dragDebounce?.cancel();
+      if (_dragActive) return;
+      setState(() => _dragActive = true);
+      return;
+    }
+    _dragDebounce?.cancel();
+    _dragDebounce = Timer(const Duration(milliseconds: 120), () {
+      if (!mounted) return;
+      setState(() => _dragActive = false);
+    });
+  }
+
   @override
   void didUpdateWidget(covariant FileUpload oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller &&
+        widget.controller != null) {
+      if (_controllerListenerAttached) {
+        oldWidget.controller?.removeListener(_onControllerChanged);
+        _controllerListenerAttached = false;
+      }
+      _syncControllerState();
+    }
     if (widget.files != oldWidget.files && widget.files != null) {
       _errors.clear();
-      _completedOnce = false;
+      _completedOnce = widget.files!.isNotEmpty ? _completedOnce : false;
     }
   }
 
   @override
   void dispose() {
+    _dragDebounce?.cancel();
+    if (_controllerListenerAttached) {
+      widget.controller?.removeListener(_onControllerChanged);
+      _controllerListenerAttached = false;
+    }
     for (final sub in _uploadSubscriptions.values) {
       sub.cancel();
     }
@@ -383,6 +484,8 @@ class _FileUploadState extends State<FileUpload> {
     final scaling = theme.scaling;
     final isEnabled = widget.enabled;
     final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
+    final dropzoneMinHeight = widget.minHeight ?? 220 * scaling;
+    final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
     final shortcutMap = <ShortcutActivator, Intent>{
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
       const SingleActivator(LogicalKeyboardKey.space): const ActivateIntent(),
@@ -392,12 +495,23 @@ class _FileUploadState extends State<FileUpload> {
         onInvoke: (intent) => _pickFiles(),
       ),
     };
+    final singleItemContent =
+        (!widget.allowMultiple && _effectiveItems.isNotEmpty)
+        ? FileUploadItemsView(
+            items: [_effectiveItems.first],
+            layout: FileUploadItemsLayout.list,
+            showContainer: false,
+            itemBuilder: widget.itemBuilder,
+          )
+        : null;
     final dropzone = FileDropzone(
       hotDropEnabled: canDrop,
       hotDropping: _dragActive,
       enabled: isEnabled,
-      state: _state,
+      state: _mapDropzoneState(_state),
       isFocused: _focused,
+      showDefaultContent: widget.allowMultiple || _effectiveItems.isEmpty,
+      content: singleItemContent,
       hint: widget.hint,
       icon: widget.icon,
       actionLabel: widget.actionLabel,
@@ -405,13 +519,14 @@ class _FileUploadState extends State<FileUpload> {
       backgroundColor: widget.backgroundColor,
       borderRadius: widget.borderRadius,
       padding: widget.padding,
-      minHeight: widget.minHeight,
+      minHeight: dropzoneMinHeight,
     );
     final dropTarget = _adapter.buildDropTarget(
       enabled: isEnabled && canDrop,
       withData: widget.withData,
-      onDragActive: (value) => setState(() => _dragActive = value),
+      onDragActive: _setDragActive,
       onDrop: _handleDrop,
+      onTap: isEnabled ? _pickFiles : null,
       child: dropzone,
     );
     return Column(
@@ -468,25 +583,46 @@ class _FileUploadState extends State<FileUpload> {
               ],
             ),
           ),
-        if (widget.showFileList && _effectiveItems.isNotEmpty)
+        if (widget.showFileList &&
+            _effectiveItems.isNotEmpty &&
+            widget.allowMultiple)
           Gap(16 * scaling),
-        if (widget.showFileList && _effectiveItems.isNotEmpty)
-          Column(
-            children: [
-              for (final item in _effectiveItems) ...[
+        if (widget.showFileList &&
+            _effectiveItems.isNotEmpty &&
+            widget.allowMultiple)
+          FileUploadItemsView(
+            items: _effectiveItems,
+            layout: widget.itemsLayout,
+            columns: widget.itemsGridColumns,
+            maxHeight: itemsMaxHeight,
+            itemBuilder: (context, item) =>
                 widget.itemBuilder?.call(context, item) ??
-                    FileItem(
-                      item: item,
-                      onRemove: widget.files == null
-                          ? () => _removeItem(item)
-                          : null,
-                    ),
-                Gap(12 * scaling),
-              ],
-            ],
+                FileItem(
+                  item: item,
+                  onRemove: widget.files == null
+                      ? () => _removeItem(item)
+                      : null,
+                ),
           ),
       ],
     );
+  }
+}
+
+DropzoneState _mapDropzoneState(FileUploadState state) {
+  switch (state) {
+    case FileUploadState.dragging:
+      return DropzoneState.dragging;
+    case FileUploadState.uploading:
+      return DropzoneState.uploading;
+    case FileUploadState.success:
+      return DropzoneState.success;
+    case FileUploadState.error:
+      return DropzoneState.error;
+    case FileUploadState.disabled:
+      return DropzoneState.disabled;
+    case FileUploadState.idle:
+      return DropzoneState.idle;
   }
 }
 

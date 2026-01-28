@@ -15,8 +15,6 @@ enum _EntryType { component, composite }
 
 typedef _Json = Map<String, dynamic>;
 
-typedef _Prompt = String? Function();
-
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
     _printUsage();
@@ -41,6 +39,7 @@ Future<void> main(List<String> args) async {
     case 'add-impl':
       await _addImplFile(root);
       break;
+    case 'help':
     case '-h':
     case '--help':
       _printUsage();
@@ -56,9 +55,18 @@ void _printUsage() {
   stdout.writeln('Usage: dart run tool/registry_tool.dart <command>');
   stdout.writeln('');
   stdout.writeln('Commands:');
-  stdout.writeln('  init      Create a new component/composite');
-  stdout.writeln('  sync      Sync registry files and components.json');
-  stdout.writeln('  add-impl  Add a stub file under _impl taxonomy');
+  stdout.writeln('  init      Interactive component/composite setup:');
+  stdout.writeln('            - prompts for category/name/ids/deps');
+  stdout.writeln('            - creates README.md + meta.json + taxonomy');
+  stdout.writeln('            - updates components.json');
+  stdout.writeln('            - optionally replaces lib/main.dart');
+  stdout.writeln('  sync      Registry sync pass:');
+  stdout.writeln('            - ensures README.md + meta.json exist');
+  stdout.writeln('            - enforces _impl taxonomy folders');
+  stdout.writeln('            - refreshes components.json file lists');
+  stdout.writeln('  add-impl  Add a stub file under _impl taxonomy:');
+  stdout.writeln('            - creates file + adds part directive');
+  stdout.writeln('  help      Show this help');
 }
 
 Directory? _findRepoRoot(Directory start) {

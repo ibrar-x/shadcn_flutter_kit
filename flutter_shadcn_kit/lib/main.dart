@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_shadcn_kit/registry/components/layout/card/card.dart';
+import 'package:flutter_shadcn_kit/registry/composites/navigation/expandable_sidebar/expandable_sidebar.dart';
 
 import 'registry/composites/layout/app/app.dart';
 import 'registry/components/form/file_picker/preview.dart';
@@ -17,7 +19,10 @@ class FilePickerDemoApp extends StatelessWidget {
       title: 'File Picker',
       debugShowCheckedModeBanner: false,
       theme: const ThemeData(),
-      home: const FilePickerPreview(),
+      home: OutlinedContainer(
+        height: 400,
+        width: 600,
+        child: const FilePickerPreview()),
     );
   }
 }

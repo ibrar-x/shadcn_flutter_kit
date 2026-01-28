@@ -1,5 +1,6 @@
 export '../../../components/display/divider/divider.dart' show Divider;
-export '../../../components/layout/scaffold/scaffold.dart' show AppBar, Scaffold;
+export '../../../components/layout/scaffold/scaffold.dart'
+    show AppBar, Scaffold;
 
 import 'package:flutter/widgets.dart';
 
@@ -21,6 +22,7 @@ class ShadcnApp extends StatelessWidget {
     this.onGenerateRoute,
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
+    this.pageRouteBuilder,
     this.navigatorObservers = const <NavigatorObserver>[],
     this.builder,
     this.title = '',
@@ -55,6 +57,7 @@ class ShadcnApp extends StatelessWidget {
   final RouteFactory? onGenerateRoute;
   final InitialRouteListFactory? onGenerateInitialRoutes;
   final RouteFactory? onUnknownRoute;
+  final PageRouteFactory? pageRouteBuilder;
   final List<NavigatorObserver> navigatorObservers;
   final TransitionBuilder? builder;
   final String title;
@@ -84,8 +87,10 @@ class ShadcnApp extends StatelessWidget {
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
         MediaQuery.maybeOf(context)?.platformBrightness ?? Brightness.light;
-    final useDark = themeMode == ThemeMode.dark ||
-        (themeMode == ThemeMode.system && platformBrightness == Brightness.dark);
+    final useDark =
+        themeMode == ThemeMode.dark ||
+        (themeMode == ThemeMode.system &&
+            platformBrightness == Brightness.dark);
     var resolved = useDark ? (darkTheme ?? theme) : theme;
     if (scaling != null) {
       resolved = scaling!.scale(resolved);
@@ -93,7 +98,11 @@ class ShadcnApp extends StatelessWidget {
     return resolved;
   }
 
-  Widget _wrapWithTheme(BuildContext context, Widget child, ThemeData themeData) {
+  Widget _wrapWithTheme(
+    BuildContext context,
+    Widget child,
+    ThemeData themeData,
+  ) {
     final wrapped = Theme(
       data: themeData,
       child: ShadcnUI(child: child),
@@ -124,6 +133,7 @@ class ShadcnApp extends StatelessWidget {
       onGenerateRoute: onGenerateRoute,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       onUnknownRoute: onUnknownRoute,
+      pageRouteBuilder: pageRouteBuilder ?? _defaultPageRouteBuilder,
       navigatorObservers: navigatorObservers,
       builder: (context, child) {
         final built = builder != null ? builder!(context, child) : child;
@@ -149,5 +159,14 @@ class ShadcnApp extends StatelessWidget {
     );
   }
 }
+
+PageRoute<T> _defaultPageRouteBuilder<T>(
+  RouteSettings settings,
+  WidgetBuilder builder,
+) =>
+    PageRouteBuilder<T>(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+    );
 
 /// A widget that applies shadcn text + icon styles to descendants.

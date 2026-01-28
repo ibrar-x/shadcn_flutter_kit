@@ -23,7 +23,8 @@ class FileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final resolvedThumbnail = thumbnail ?? _buildThumbnail(theme, scaling);
+    final resolvedThumbnail =
+        thumbnail ?? _buildThumbnail(context, theme, scaling);
     final statusLabel = _statusLabel(item.status);
     final statusColor = _statusColor(theme, item.status);
 
@@ -144,7 +145,11 @@ class FileItem extends StatelessWidget {
     );
   }
 
-  Widget _buildThumbnail(ThemeData theme, double scaling) {
+  Widget _buildThumbnail(
+    BuildContext context,
+    ThemeData theme,
+    double scaling,
+  ) {
     final bytes = item.file.bytes;
     if (bytes != null && item.file.isImage) {
       return ClipRRect(
@@ -157,10 +162,13 @@ class FileItem extends StatelessWidget {
         ),
       );
     }
-    return Icon(
-      RadixIcons.file,
-      color: theme.colorScheme.mutedForeground,
-      size: 20 * scaling,
+    final extension = item.file.resolvedExtension;
+    return IconTheme(
+      data: IconThemeData(
+        color: theme.colorScheme.mutedForeground,
+        size: 20 * scaling,
+      ),
+      child: FileIconProvider.buildIcon(context, extension),
     );
   }
 

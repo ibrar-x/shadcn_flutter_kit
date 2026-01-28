@@ -1,12 +1,10 @@
 {
-  "id": "file_picker",
-  "name": "File Upload",
-  "description": "Dropzone and list UI for selecting and managing uploaded files.",
+  "id": "dropzone",
+  "name": "Dropzone",
+  "description": "Dropzone surface for file uploads.",
   "category": "form",
   "tags": [
     "form",
-    "file",
-    "picker",
     "dropzone",
     "upload",
     "experimental"
@@ -21,13 +19,10 @@
       "radix_icons"
     ],
     "components": [
-      "button",
-      "dropzone",
-      "linear_progress_indicator",
-      "scaffold"
+      "button"
     ],
     "pubspec": {
-      "file_picker": "^10.3.9"
+      "gap": "^3.0.1"
     }
   }
 }

@@ -4138,7 +4138,8 @@
         "file",
         "picker",
         "dropzone",
-        "upload"
+        "upload",
+        "experimental"
       ],
       "files": [
         {
@@ -4158,8 +4159,8 @@
           "destination": "{installPath}/components/form/file_picker/preview.dart"
         },
         {
-          "source": "registry/components/form/file_picker/_impl/core/file_dropzone.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/core/file_dropzone.dart"
+          "source": "registry/components/form/file_picker/_impl/core/file_upload_items_view.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/core/file_upload_items_view.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/core/file_item.dart",
@@ -4196,6 +4197,10 @@
         {
           "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_upload_controller.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_upload_controller.dart"
         }
       ],
       "shared": [
@@ -4209,7 +4214,8 @@
       "dependsOn": [
         "button",
         "linear_progress_indicator",
-        "scaffold"
+        "scaffold",
+        "dropzone"
       ],
       "pubspec": {
         "dependencies": {
@@ -11080,6 +11086,54 @@
       "assets": [],
       "postInstall": [],
       "wip": true
+    },
+    {
+      "id": "dropzone",
+      "name": "Dropzone",
+      "description": "Dropzone surface for file uploads.",
+      "category": "form",
+      "tags": [
+        "form",
+        "dropzone",
+        "upload",
+        "experimental"
+      ],
+      "files": [
+        {
+          "source": "registry/components/form/dropzone/README.md",
+          "destination": "{installPath}/components/form/dropzone/README.md"
+        },
+        {
+          "source": "registry/components/form/dropzone/dropzone.dart",
+          "destination": "{installPath}/components/form/dropzone/dropzone.dart"
+        },
+        {
+          "source": "registry/components/form/dropzone/meta.json",
+          "destination": "{installPath}/components/form/dropzone/meta.json"
+        },
+        {
+          "source": "registry/components/form/dropzone/preview.dart",
+          "destination": "{installPath}/components/form/dropzone/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme",
+        "outlined_container",
+        "constants",
+        "geometry_extensions",
+        "color_extensions",
+        "radix_icons"
+      ],
+      "dependsOn": [
+        "button"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "gap": "^3.0.1"
+        }
+      },
+      "assets": [],
+      "postInstall": []
     }
   ]
 }

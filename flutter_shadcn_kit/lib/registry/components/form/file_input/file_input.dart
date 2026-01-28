@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 
 part '_impl/utils/file_icon_provider_data.dart';
 
-
 Widget _buildFileIcon(String extension) {
   switch (extension) {
     case 'pdf':
@@ -91,19 +90,13 @@ class FileIconProvider extends StatelessWidget {
   }) : icons = null;
 
   /// Creates a [FileIconProvider] using a static icon map.
-  const FileIconProvider({
-    super.key,
-    required this.icons,
-    required this.child,
-  }) : builder = null;
+  const FileIconProvider({super.key, required this.icons, required this.child})
+    : builder = null;
 
   @override
   Widget build(BuildContext context) {
     return Data.inherit(
-      data: FileIconProviderData._(
-        builder: builder,
-        icons: icons,
-      ),
+      data: FileIconProviderData._(builder: builder, icons: icons),
       child: child,
     );
   }
@@ -116,12 +109,13 @@ class FileIconProvider extends StatelessWidget {
   ///
   /// Returns: The appropriate icon widget for the file type.
   static Widget buildIcon(BuildContext context, String extension) {
-    final data = Data.of<FileIconProviderData>(context);
+    final data = Data.maybeOf<FileIconProviderData>(context);
+    if (data == null) {
+      return _buildFileIcon(extension);
+    }
     return data.buildIcon(extension);
   }
 }
-
-
 
 //
 // class SingleFileInput extends StatelessWidget {
