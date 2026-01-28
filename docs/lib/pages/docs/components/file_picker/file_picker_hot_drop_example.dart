@@ -1,26 +1,31 @@
 import 'package:flutter/widgets.dart';
 
 import '../../component_example_models.dart';
+import '../../../../ui/shadcn/components/form/file_picker/file_picker.dart'
+    as shadcn_file_picker;
+import '../../../../ui/shadcn/shared/icons/radix_icons.dart';
 
 const ComponentExample filePickerHotDropExample = ComponentExample(
-  title: 'Hot drop state (WIP)',
+  title: 'Drag & drop',
   builder: _buildFilePickerHotDropExample,
-  code: '''FilePicker(
-  hotDropEnabled: true,
-  hotDropping: true,
-  children: [],
+  code: '''FileUpload(
+  title: Text('Drop files here'),
+  subtitle: Text('Drag files onto the dropzone'),
+  enableDragDrop: true,
+  hint: Text('Drop files or click to browse'),
+  icon: Icon(RadixIcons.upload),
 )''',
 );
 
 Widget _buildFilePickerHotDropExample(BuildContext context) {
-  return const _WipNotice();
-}
-
-class _WipNotice extends StatelessWidget {
-  const _WipNotice();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('FilePicker is not yet implemented in the registry.');
-  }
+  return shadcn_file_picker.FileUpload(
+    title: const Text('Drop files here'),
+    subtitle: const Text('Drag files onto the dropzone'),
+    enableDragDrop: true,
+    hint: const Text('Drop files or click to browse'),
+    icon: const Icon(RadixIcons.upload),
+    actionLabel: 'Browse',
+    itemsMaxHeight: 220,
+    onFilesSelected: (_) {},
+  );
 }

@@ -1,27 +1,29 @@
 import 'package:flutter/widgets.dart';
 
 import '../../component_example_models.dart';
+import '../../../../ui/shadcn/components/form/file_picker/file_picker.dart'
+    as shadcn_file_picker;
 
 const ComponentExample filePickerBasicExample = ComponentExample(
-  title: 'Basic layout (WIP)',
+  title: 'Basic',
   builder: _buildFilePickerBasicExample,
-  code: '''FilePicker(
+  code: '''FileUpload(
   title: Text('Upload files'),
-  subtitle: Text('Drag or click to upload'),
-  onAdd: () {},
-  children: [],
+  subtitle: Text('PNG, JPG, or PDF up to 5MB'),
+  allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf'],
+  maxFileSizeBytes: 5 * 1024 * 1024,
+  onFilesSelected: (files) {},
 )''',
 );
 
 Widget _buildFilePickerBasicExample(BuildContext context) {
-  return const _WipNotice();
-}
-
-class _WipNotice extends StatelessWidget {
-  const _WipNotice();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('FilePicker is not yet implemented in the registry.');
-  }
+  return shadcn_file_picker.FileUpload(
+    title: const Text('Upload files'),
+    subtitle: const Text('PNG, JPG, or PDF up to 5MB'),
+    allowedExtensions: const ['png', 'jpg', 'jpeg', 'pdf'],
+    maxFileSizeBytes: 5 * 1024 * 1024,
+    actionLabel: 'Browse files',
+    itemsMaxHeight: 220,
+    onFilesSelected: (_) {},
+  );
 }
