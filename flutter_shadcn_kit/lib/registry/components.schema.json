@@ -90,6 +90,40 @@
         }
       }
     },
+    "platformEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "infoPlist": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "entitlements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "podfile": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "gradle": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "config": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "notes": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
     "componentEntry": {
       "type": "object",
       "required": ["id", "name", "description", "category", "files", "shared", "dependsOn", "pubspec", "assets", "postInstall"],
@@ -131,6 +165,10 @@
         "fonts": {
           "type": "array",
           "items": {"$ref": "#/$defs/fontEntry"}
+        },
+        "platform": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/platformEntry"}
         },
         "postInstall": {
           "type": "array",

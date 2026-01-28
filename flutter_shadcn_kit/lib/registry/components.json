@@ -4131,12 +4131,13 @@
     {
       "id": "file_picker",
       "name": "File Picker",
-      "description": "Dropzone/list UI for adding and managing file items.",
+      "description": "Dropzone and list UI for selecting and managing uploaded files.",
       "category": "form",
       "tags": [
         "form",
         "file",
-        "picker"
+        "picker",
+        "dropzone"
       ],
       "files": [
         {
@@ -4156,27 +4157,89 @@
           "destination": "{installPath}/components/form/file_picker/preview.dart"
         },
         {
+          "source": "registry/components/form/file_picker/_impl/core/file_dropzone.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/core/file_dropzone.dart"
+        },
+        {
           "source": "registry/components/form/file_picker/_impl/core/file_item.dart",
-          "destination": "{installPath}/components/form/file_picker/file_item.dart"
+          "destination": "{installPath}/components/form/file_picker/_impl/core/file_item.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/file_picker/_file_picker_preview_state.dart"
+          "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart"
         }
       ],
       "shared": [
-        "theme"
+        "theme",
+        "outlined_container",
+        "constants",
+        "geometry_extensions",
+        "color_extensions",
+        "radix_icons"
       ],
       "dependsOn": [
-        "file_input"
+        "button",
+        "linear_progress_indicator",
+        "scaffold"
       ],
       "pubspec": {
         "dependencies": {
-          "data_widget": "^0.0.2"
+          "file_picker": "^10.3.9",
+          "gap": "^3.0.1"
         }
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "platform": {
+        "android": {
+          "permissions": [
+            "Runtime permissions are required for file access (handled by the plugin)."
+          ],
+          "gradle": [
+            "Ensure a compatible Gradle/AGP version for Android 11+ <query> tag support."
+          ],
+          "notes": [
+            "If overriding onActivityResult, call super.onActivityResult(...) for unhandled activities."
+          ]
+        },
+        "ios": {
+          "podfile": [
+            "Add use_frameworks! in ios/Podfile inside the Runner target.",
+            "Optional: Pod::PICKER_MEDIA = false / Pod::PICKER_AUDIO = false / Pod::PICKER_DOCUMENT = false before target Runner."
+          ],
+          "infoPlist": {
+            "UIBackgroundModes": "fetch, remote-notification",
+            "NSAppleMusicUsageDescription": "Explain why the app needs media library access (FileType.audio).",
+            "UISupportsDocumentBrowser": "true",
+            "LSSupportsOpeningDocumentsInPlace": "true",
+            "NSPhotoLibraryUsageDescription": "Explain why the app needs photo library access (FileType.image/video)."
+          },
+          "notes": [
+            "UIBackgroundModes is required for FileType.any/custom when accessing cloud providers."
+          ]
+        },
+        "macos": {
+          "entitlements": [
+            "com.apple.security.files.user-selected.read-only",
+            "com.apple.security.files.user-selected.read-write"
+          ],
+          "notes": [
+            "Add entitlements to macos/Runner/DebugProfile.entitlements and macos/Runner/Release.entitlements."
+          ]
+        },
+        "desktop": {
+          "config": [
+            "flutter config --enable-windows-desktop",
+            "flutter config --enable-macos-desktop",
+            "flutter config --enable-linux-desktop"
+          ]
+        },
+        "web": {
+          "notes": [
+            "Requires Flutter 2.0+ for web support."
+          ]
+        }
+      }
     },
     {
       "id": "keyboard_shortcut",

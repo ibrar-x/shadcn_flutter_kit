@@ -1,7 +1,18 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
+import '../../../shared/icons/radix_icons.dart';
+import '../../../shared/primitives/outlined_container.dart';
+import '../../../shared/theme/theme.dart';
+import '../../../shared/utils/color_extensions.dart';
+import '../../../shared/utils/constants.dart';
+import '../../../shared/utils/geometry_extensions.dart';
+import '../../control/button/button.dart';
+import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
+
+part '_impl/core/file_dropzone.dart';
 part '_impl/core/file_item.dart';
-
 
 // const fileByteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 // const fileBitUnits = ['Bi', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
@@ -52,6 +63,27 @@ class FilePicker extends StatelessWidget {
   /// List of file item widgets to display.
   final List<Widget> children;
 
+  /// Optional widget shown above the dropzone actions.
+  final Widget? hint;
+
+  /// Label for the add/browse button.
+  final String? actionLabel;
+
+  /// Optional dropzone icon widget.
+  final Widget? icon;
+
+  /// Optional background color for the dropzone container.
+  final Color? backgroundColor;
+
+  /// Optional border radius for the dropzone container.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// Optional padding inside the dropzone container.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional minimum height for the dropzone container.
+  final double? minHeight;
+
   /// Callback when the add file button is pressed.
   final VoidCallback? onAdd;
 
@@ -71,11 +103,78 @@ class FilePicker extends StatelessWidget {
     this.hotDropEnabled = false,
     this.hotDropping = false,
     this.onAdd,
+    this.hint,
+    this.actionLabel,
+    this.icon,
+    this.backgroundColor,
+    this.borderRadius,
+    this.padding,
+    this.minHeight,
     required this.children,
   });
 
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (title != null || subtitle != null)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null)
+                DefaultTextStyle.merge(
+                  style: theme.typography.large.merge(
+                    theme.typography.semiBold,
+                  ),
+                  child: title!,
+                ),
+              if (subtitle != null) Gap(6 * scaling),
+              if (subtitle != null)
+                DefaultTextStyle.merge(
+                  style: theme.typography.small.copyWith(
+                    color: theme.colorScheme.mutedForeground,
+                  ),
+                  child: subtitle!,
+                ),
+              Gap(16 * scaling),
+            ],
+          ),
+        FileDropzone(
+          hotDropEnabled: hotDropEnabled,
+          hotDropping: hotDropping,
+          hint: hint,
+          icon: icon,
+          actionLabel: actionLabel,
+          onPressed: onAdd,
+          backgroundColor: backgroundColor,
+          borderRadius: borderRadius,
+          padding: padding,
+          minHeight: minHeight,
+        ),
+        if (children.isNotEmpty) Gap(16 * scaling),
+        if (children.isNotEmpty)
+          Column(
+            children: [
+              for (final child in children) ...[child, Gap(12 * scaling)],
+            ],
+          ),
+      ],
+    );
   }
+}
+
+String formatFileSize(int bytes) {
+  if (bytes <= 0) return '0 B';
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  var size = bytes.toDouble();
+  var unitIndex = 0;
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex += 1;
+  }
+  final value = size < 10 ? size.toStringAsFixed(1) : size.toStringAsFixed(0);
+  return '$value ${units[unitIndex]}';
 }
