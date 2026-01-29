@@ -8,6 +8,9 @@ import '../core/app_error.dart';
 import '../core/app_error_hub.dart';
 import '../core/guard.dart';
 
+@Deprecated(
+  'Prefer ScreenErrorScope + ErrorSlot.scope(...) + ScreenErrorScopeState.run().',
+)
 mixin ScreenErrorMixin<T extends StatefulWidget> on State<T> {
   /// Unique key for the screen/feature scope (e.g. "LoginScreen", "UserProfile").
   String get screenScope;

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import 'app_error.dart';
 import 'app_error_hub.dart';
+import 'error_scope.dart';
 import 'error_state.dart';
 
 class ErrorSlot extends StatelessWidget {
@@ -34,6 +35,20 @@ class ErrorSlot extends StatelessWidget {
     return ErrorSlot._(
       key: key,
       notifier: AppErrorHub.I.screen(scope),
+      builder: builder,
+      empty: empty,
+    );
+  }
+
+  factory ErrorSlot.scope({
+    Key? key,
+    required ErrorScope scope,
+    Widget Function(BuildContext context, AppError error)? builder,
+    Widget empty = const SizedBox.shrink(),
+  }) {
+    return ErrorSlot._(
+      key: key,
+      notifier: scope.notifier,
       builder: builder,
       empty: empty,
     );
