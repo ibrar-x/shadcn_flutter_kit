@@ -30,7 +30,9 @@ class ErrorSystemPreview extends StatelessWidget {
       title: 'You are offline',
       message:
           'Reconnect to continue. We will restore your screen automatically.',
-      actions: [ErrorAction.retry(() {})],
+      actions: [ErrorAction.retry(() {
+        globalScope.clear();
+      })],
     );
 
     return Scaffold(

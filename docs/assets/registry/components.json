@@ -11333,6 +11333,231 @@
       },
       "assets": [],
       "postInstall": []
+    },
+    {
+      "id": "error_system",
+      "name": "Error System",
+      "description": "Production-ready error handling system with UI components and repository mapping.",
+      "category": "utility",
+      "tags": [
+        "error",
+        "system",
+        "handling",
+        "repository",
+        "ui"
+      ],
+      "files": [
+        {
+          "source": "registry/components/utility/error_system/README.md",
+          "destination": "{installPath}/components/utility/error_system/README.md"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/app_error.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_banner.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_banner.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_gate.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_gate.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_hub.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_hub.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_action.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_action.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_code.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_code.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_dialog.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_dialog.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_exceptions.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_exceptions.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_handled_repository.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_handled_repository.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_mapper.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_mapper.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_registry.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_registry.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_rule.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_rule.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_scope.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_scope.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_scope_type.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_scope_type.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_slot.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_slot.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_snackbar.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_snackbar.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_state.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_state.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/guard.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/guard.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/hub_scopes.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/hub_scopes.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/inline_error.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/inline_error.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/extensions/context_error_extensions.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/extensions/context_error_extensions.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/extensions/future_error_extensions.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/extensions/future_error_extensions.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/state/screen_error_scope.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/state/screen_error_scope.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/themes/error_system_theme.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/themes/error_system_theme.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/api_rules.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/api_rules.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/auth_rules.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/auth_rules.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/env.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/env.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/error_fingerprint.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/error_fingerprint.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/error_reporter.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/error_reporter.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/fallback_rule.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/fallback_rule.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/network_rules.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/network_rules.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/network_rules_io.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/network_rules_io.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/network_rules_stub.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/network_rules_stub.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/platform_rules.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/platform_rules.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/retry_strategy.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/retry_strategy.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/utils/validation_rules.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/utils/validation_rules.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/error_system.dart",
+          "destination": "{installPath}/components/utility/error_system/error_system.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/meta.json",
+          "destination": "{installPath}/components/utility/error_system/meta.json"
+        },
+        {
+          "source": "registry/components/utility/error_system/preview.dart",
+          "destination": "{installPath}/components/utility/error_system/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme",
+        "radix_icons"
+      ],
+      "dependsOn": [
+        "button",
+        "card",
+        "divider",
+        "alert_dialog",
+        "dialog",
+        "toast"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "gap": "^3.0.1"
+        }
+      },
+      "assets": [],
+      "postInstall": []
+    },
+    {
+      "id": "",
+      "name": "",
+      "description": "TODO: describe .",
+      "category": "",
+      "tags": [
+        "",
+        ""
+      ],
+      "files": [
+        {
+          "source": "composites/utility/repeated_animation_builder/README.md",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/README.md"
+        },
+        {
+          "source": "composites/utility/repeated_animation_builder/meta.json",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/meta.json"
+        },
+        {
+          "source": "composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/repeated_animation_builder.dart"
+        }
+      ],
+      "shared": [],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": []
     }
   ]
 }

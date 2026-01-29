@@ -28,6 +28,7 @@ const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
   'file_picker': 'Experimental',
   'empty_state': 'New',
+  'error_system': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',

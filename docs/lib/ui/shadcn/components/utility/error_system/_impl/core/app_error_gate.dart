@@ -39,10 +39,10 @@ class AppErrorGate extends StatelessWidget {
   }) {
     return AppErrorGate(
       key: key,
-      child: child,
       notifier: scope.notifier,
       overlayBuilder: overlayBuilder,
       blockInteraction: blockInteraction,
+      child: child,
     );
   }
 
@@ -53,10 +53,7 @@ class AppErrorGate extends StatelessWidget {
       builder: (context, error, _) {
         return Stack(
           children: [
-            if (error != null && blockInteraction)
-              AbsorbPointer(child: child)
-            else
-              child,
+            child,
             if (error != null)
               Positioned.fill(
                 child: _AppErrorGateOverlay(
@@ -94,6 +91,7 @@ class _AppErrorGateOverlay extends StatelessWidget {
       alignment: Alignment.center,
       child: content,
     );
-    return overlay;
+    if (!blockInteraction) return overlay;
+    return AbsorbPointer(child: overlay);
   }
 }

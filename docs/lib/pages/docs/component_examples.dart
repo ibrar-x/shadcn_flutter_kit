@@ -31,6 +31,7 @@ import 'components/dot_indicator/dot_indicator_examples.dart';
 import 'components/drawer/drawer_examples.dart';
 import 'components/dropdown_menu/dropdown_menu_examples.dart';
 import 'components/empty_state/empty_state_examples.dart';
+import 'components/error_system/error_system_examples.dart';
 import 'components/expandable_sidebar/expandable_sidebar_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
@@ -115,6 +116,7 @@ const Set<String> originalComponentIds = {
   'drawer',
   'dropdown_menu',
   'empty_state',
+  'error_system',
   'expandable_sidebar',
   'feature_carousel',
   'file_picker',
@@ -203,6 +205,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'drawer',
       'dropdown_menu',
       'empty_state',
+      'error_system',
       'expandable_sidebar',
       'feature_carousel',
       'file_picker',
@@ -290,6 +293,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'drawer': drawerExamples,
   'dropdown_menu': dropdownMenuExamples,
   'empty_state': emptyStateExamples,
+  'error_system': errorSystemExamples,
   'expandable_sidebar': expandableSidebarExamples,
   'feature_carousel': featureCarouselExamples,
   'file_picker': filePickerExamples,

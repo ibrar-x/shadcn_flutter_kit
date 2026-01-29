@@ -45,6 +45,7 @@
     "dropdown_menu",
     "dropzone",
     "empty_state",
+    "error_system",
     "expandable_sidebar",
     "eye_dropper",
     "fade_scroll",
@@ -154,5 +155,5 @@
     "phonecodes",
     "skeletonizer"
   ],
-  "updatedAt": "2026-01-28T22:32:18.777828Z"
+  "updatedAt": "2026-01-29T06:05:36.393627Z"
 }
