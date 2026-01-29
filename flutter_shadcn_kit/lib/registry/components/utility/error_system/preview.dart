@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 
 import '../../layout/scaffold/scaffold.dart';
 import '../../control/button/button.dart';
+import '../../display/divider/divider.dart';
 import '../../../shared/theme/theme.dart';
 import 'error_system.dart';
 import '../../../shared/icons/radix_icons.dart';
@@ -31,6 +32,7 @@ class ErrorSystemPreview extends StatelessWidget {
         child: Builder(
           builder: (context) {
             final scope = ScreenErrorScope.of(context);
+            const legacyScope = 'preview.error_system.legacy';
             return ListView(
               padding: EdgeInsets.all(24 * scaling),
               children: [
@@ -150,6 +152,74 @@ class ErrorSystemPreview extends StatelessWidget {
                         error: sampleError,
                       ),
                       child: const Text('Show Error Snackbar'),
+                    ),
+                  ],
+                ),
+                Gap(32 * scaling),
+                const Divider(),
+                Gap(16 * scaling),
+                Text(
+                  'Legacy API (guard + ErrorSlot.screen)',
+                  style: theme.typography.small.merge(
+                    theme.typography.semiBold,
+                  ),
+                ),
+                Gap(12 * scaling),
+                ErrorSlot.screen(
+                  scope: legacyScope,
+                  empty: const InlineError(message: 'No legacy screen error.'),
+                  builder: (context, error) {
+                    final scaling = Theme.of(context).scaling;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InlineError(message: error.message),
+                        Gap(8 * scaling),
+                        Wrap(
+                          spacing: 12 * scaling,
+                          runSpacing: 8 * scaling,
+                          children: [
+                            GhostButton(
+                              onPressed: () =>
+                                  AppErrorHub.I.clearScreen(legacyScope),
+                              child: const Text('Dismiss'),
+                            ),
+                            SecondaryButton(
+                              onPressed: () => ErrorDialog.show(
+                                context: context,
+                                error: error,
+                              ),
+                              child: const Text('Dialog'),
+                            ),
+                            SecondaryButton(
+                              onPressed: () => ErrorSnackbar.show(
+                                context: context,
+                                error: error,
+                              ),
+                              child: const Text('Snackbar'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                Gap(16 * scaling),
+                Wrap(
+                  spacing: 12 * scaling,
+                  runSpacing: 8 * scaling,
+                  children: [
+                    SecondaryButton(
+                      onPressed: () async {
+                        await guard<void>(() async {
+                          throw sampleError;
+                        }, screenScope: legacyScope);
+                      },
+                      child: const Text('guard() -> Legacy Error'),
+                    ),
+                    GhostButton(
+                      onPressed: () => AppErrorHub.I.clearScreen(legacyScope),
+                      child: const Text('Clear Legacy Error'),
                     ),
                   ],
                 ),
