@@ -19,10 +19,12 @@ import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
 import '../dropzone/dropzone.dart';
 import '../file_input/file_input.dart';
 import '_impl/utils/file_upload_controller.dart';
+import '_impl/themes/file_upload_dropzone_theme.dart';
 
 export '_impl/utils/file_like.dart';
 export '_impl/utils/file_upload_models.dart';
 export '_impl/utils/file_upload_controller.dart';
+export '_impl/themes/file_upload_dropzone_theme.dart';
 
 part '_impl/core/file_item.dart';
 part '_impl/core/file_upload_items_view.dart';
@@ -482,9 +484,13 @@ class _FileUploadState extends State<FileUpload> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+    final dropzoneTheme = ComponentTheme.maybeOf<FileUploadDropzoneTheme>(
+      context,
+    );
     final isEnabled = widget.enabled;
     final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
-    final dropzoneMinHeight = widget.minHeight ?? 220 * scaling;
+    final dropzoneMinHeight =
+        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
     final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
     final shortcutMap = <ShortcutActivator, Intent>{
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
@@ -513,12 +519,12 @@ class _FileUploadState extends State<FileUpload> {
       showDefaultContent: widget.allowMultiple || _effectiveItems.isEmpty,
       content: singleItemContent,
       hint: widget.hint,
-      icon: widget.icon,
+      icon: widget.icon ?? dropzoneTheme?.icon,
       actionLabel: widget.actionLabel,
       onPressed: isEnabled ? _pickFiles : null,
-      backgroundColor: widget.backgroundColor,
-      borderRadius: widget.borderRadius,
-      padding: widget.padding,
+      backgroundColor: widget.backgroundColor ?? dropzoneTheme?.backgroundColor,
+      borderRadius: widget.borderRadius ?? dropzoneTheme?.borderRadius,
+      padding: widget.padding ?? dropzoneTheme?.padding,
       minHeight: dropzoneMinHeight,
     );
     final dropTarget = _adapter.buildDropTarget(
