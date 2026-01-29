@@ -1,1 +1,0 @@
-enum EmptyStateSize { compact, fullPage }
