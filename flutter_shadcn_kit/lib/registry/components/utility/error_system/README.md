@@ -1,35 +1,108 @@
 # Error System
 
-Production-ready error handling system with UI components, repository mapping,
-and dual-scope error channels (app-level + screen-level).
+Production-ready error handling for Flutter that keeps business logic clean and
+UI consistent. This system maps any exception to `AppError` once (in your
+repositories), then renders it with shadcn-compatible UI. It also provides a
+dual-scope error bus (app-level + screen-level) so errors can be displayed
+reactively without boilerplate.
 
 ## Contents
 
+- Overview
+- Architecture
+- Installation
 - Quick start
 - Core models
-- Scope system (typed scopes)
-- ScreenErrorScope (widget-based lifecycle)
-- guard() vs run()
-- UI components (ErrorState, InlineError, Dialog, Snackbar, Banner)
-- Theming
 - Error mapping (rules + repositories)
+- Dual scopes (AppErrorHub)
+- ScreenErrorScope (recommended)
+- guard() (optional)
+- UI components
+- Theming
+- Analytics and reporting
+- Localization
+- Testing
 - Best practices
+
+## Overview
+
+This system solves repetitive error handling by:
+
+- Mapping any exception to a user-facing `AppError`
+- Centralizing rules for network/auth/api/validation errors
+- Rendering consistent error UI across your app
+- Providing app-level and screen-level error channels
+
+It is state-management agnostic (Bloc, Riverpod, Provider, custom).
+
+## Architecture
+
+```
+Business Logic
+  └─ Repository (ErrorHandledRepository)
+       └─ ErrorMapper (RuleBasedErrorMapper)
+            └─ AppError (UI model)
+                 └─ UI (ErrorState / InlineError / Snackbar / Dialog / Banner)
+```
+
+Dual scope channels (AppErrorHub):
+
+```
+App scope (global): session expired, maintenance, network down
+Screen scope: form errors, request failed, not found
+```
+
+## Installation
+
+### Via CLI
+```
+flutter_shadcn add error-system
+```
+
+### Manual
+Copy the component folder and add required deps:
+```yaml
+dependencies:
+  gap: ^3.0.1
+  crypto: ^3.0.0 # optional, for fingerprinting
+```
 
 ## Quick Start
 
+### 1) Create an ErrorMapper (once)
 ```dart
 final mapper = RuleBasedErrorMapper(
   rules: [
     ...networkRules(onRetry: () {}, onReport: () {}, onSettings: () {}),
     ...authRules(onLogin: () {}, onRetry: () {}, onReport: () {}),
+    ...apiRules(onRetry: () {}, onReport: () {}, onBack: () {}),
+    ...validationRules(onRetry: () {}),
   ],
   fallback: fallbackRule,
 );
+```
 
-class UserRepository extends ErrorHandledRepository {
-  UserRepository() : super(errorMapper: mapper);
+### 2) Base repository
+```dart
+abstract class BaseRepository extends ErrorHandledRepository {
+  BaseRepository() : super(errorMapper: mapper);
 }
+```
 
+### 3) Use in repositories
+```dart
+class UserRepository extends BaseRepository {
+  final ApiClient _api;
+  UserRepository(this._api);
+
+  Future<User> getUser(String id) {
+    return execute(() => _api.getUser(id));
+  }
+}
+```
+
+### 4) Render in UI
+```dart
 ErrorState(
   error: AppError(
     code: AppErrorCode.network,
@@ -42,59 +115,49 @@ ErrorState(
 
 ## Core Models
 
-### AppError
-UI-safe error model with title, message, code, and actions.
+- `AppError`: user-facing error model (title/message/actions/code)
+- `AppErrorCode`: enum for severity and UI styling
+- `ErrorAction`: action metadata (retry/login/back/etc.)
 
-### AppErrorCode
-Enum used for severity and UI styling.
+## Error Mapping (Rules + Repositories)
 
-### ErrorAction
-Action button metadata with convenience factories: `retry`, `login`, `back`, etc.
-
-## Scope System (Typed Scopes)
-
-### Why typed scopes?
-Avoid string scope keys in your UI and business logic:
-
-- No typos
-- Refactor-friendly
-- Easy to stub in tests
-
-### Types
-
+### Rule-based mapping
 ```dart
-abstract interface class ErrorScope {
-  ValueNotifier<AppError?> get notifier;
-  void clear();
-}
+final mapper = RuleBasedErrorMapper(
+  rules: [
+    ...networkRules(onRetry: () {}, onReport: () {}, onSettings: () {}),
+    ...authRules(onLogin: () {}, onRetry: () {}, onReport: () {}),
+  ],
+  fallback: fallbackRule,
+);
+```
 
-abstract interface class DisposableErrorScope extends ErrorScope {
-  void dispose();
+### Repository base class
+```dart
+abstract class ErrorHandledRepository {
+  Future<T> execute<T>(Future<T> Function() operation);
+  T executeSync<T>(T Function() operation);
 }
 ```
 
-### Hub scopes
+Use `execute()` and all thrown errors are mapped to `AppError`.
+
+## Dual Scopes (AppErrorHub)
+
+Use app-level for global errors and screen-level for per-screen issues.
 
 ```dart
-final appScope = HubAppScope(AppErrorHub.networkUnavailable);
-final screenScope = HubScreenScope('UserScreen');
-```
-
-## AppErrorHub (App + Screen Channels)
-
-Use the hub directly if you need manual control:
-
-```dart
-// App-level (persistent across navigation)
+// App-level (global)
 AppErrorHub.I.app(AppErrorHub.networkUnavailable).value = AppError(...);
 
-// Screen-level (disposed when screen unmounts)
+// Screen-level (if you manage it manually)
 AppErrorHub.I.screen('UserScreen').value = AppError(...);
 ```
 
-## ScreenErrorScope (Widget-Based)
+## ScreenErrorScope (Recommended)
 
-The recommended, lowest-boilerplate API for new screens.
+`ScreenErrorScope` owns a screen channel and disposes it automatically.
+It exposes a typed `HubScreenScope` plus run/runSync helpers.
 
 ```dart
 ScreenErrorScope(
@@ -115,74 +178,28 @@ ScreenErrorScope(
 );
 ```
 
-What it does:
+## guard() (Optional)
 
-- Creates a screen scope once per screen instance
-- Exposes a typed `HubScreenScope`
-- Auto-disposes scope on widget dispose
-- Provides `run()` / `runSync()` helpers (no guard required)
-
-## guard() vs run()
-
-### guard()
-Use anywhere. Works with app or screen scope via string key or notifier.
+If you want to keep call sites small without a ScreenErrorScope, use `guard()`
+with a typed `ErrorScope`:
 
 ```dart
-await guard(
-  () => repo.execute(() async => apiCall()),
-  screenScope: 'UserScreen',
-);
-```
-
-### run() / runSync()
-Use inside `ScreenErrorScope` for the lowest boilerplate.
-
-```dart
-final s = ScreenErrorScope.of(context);
-await s.run(() => repo.execute(() async => apiCall()));
+final scope = HubScreenScope('UserScreen');
+await guard(() => repo.execute(() async => apiCall()), scope: scope);
 ```
 
 ## UI Components
 
-### ErrorSlot (reactive display)
-Listen to any scope and render error UI.
-
-```dart
-ErrorSlot.scope(scope: s.scope);
-// or legacy:
-ErrorSlot.screen(scope: 'UserScreen');
-```
-
-### ErrorState
-Full-card error UI (illustration, title, message, actions).
-
-### InlineError
-Lightweight inline error text.
-
-### ErrorDialog / ErrorSnackbar
-Shadcn-compatible overlay UI for urgent errors.
-
-### AppErrorBanner
-Sticky banner for app-level errors.
-
-```dart
-AppErrorBanner(
-  watchScopes: const [
-    AppErrorHub.sessionExpired,
-    AppErrorHub.networkUnavailable,
-  ],
-);
-```
+- `ErrorState`: full-page/section error UI
+- `InlineError`: compact inline message
+- `ErrorDialog.show(...)`: dialog for blocking errors
+- `ErrorSnackbar.show(...)`: toast-style error
+- `AppErrorBanner`: global banner for app-level errors
+- `ErrorSlot.scope(...)`: reactive slot that renders an error from a scope
 
 ## Theming
 
-Wrap a subtree with `ComponentTheme<ErrorSystemTheme>` to override:
-
-- Icons, typography
-- Card padding, border radius
-- Dialog background, surface blur, padding
-- Snackbar text and border styling
-- Banner colors and icon
+Use `ComponentTheme<ErrorSystemTheme>` to theme the system:
 
 ```dart
 ComponentTheme(
@@ -193,36 +210,27 @@ ComponentTheme(
 );
 ```
 
-## Error Mapping (Rules + Repositories)
+Theme hooks include icon styles, card padding/radius, dialog surface, snackbar
+styling, and banner colors.
 
-Use `ErrorHandledRepository` to map errors into `AppError` once.
+## Analytics and Reporting
 
-```dart
-class UserRepository extends ErrorHandledRepository {
-  UserRepository() : super(errorMapper: mapper);
-}
+Use `ErrorReporter` to integrate Crashlytics or custom analytics.
+Errors can include fingerprints for deduplication via `ErrorFingerprint`.
 
-final mapper = RuleBasedErrorMapper(
-  rules: [
-    ...networkRules(onRetry: () {}, onReport: () {}, onSettings: () {}),
-    ...authRules(onLogin: () {}, onRetry: () {}, onReport: () {}),
-  ],
-  fallback: fallbackRule,
-);
-```
+## Localization
+
+`AppError` is UI-ready; for localization, map errors using localized strings
+in your rules or inject localized copy from the UI layer.
+
+## Testing
+
+- Replace `ErrorScope` with a fake implementation to assert UI behavior.
+- Use `ErrorHandledRepository` with a mock `ErrorMapper` to verify mapping.
 
 ## Best Practices
 
 - Use `ScreenErrorScope` for new screens.
-- Use `AppErrorBanner` only for global issues.
-- Keep errors UI-friendly; reserve `technicalDetails` for logs.
-- Prefer typed `ErrorScope` for refactor safety.
-- Keep action labels concise and user-facing.
-
-## Backward Compatibility
-
-All previous APIs still work:
-
-- `guard(... screenScope: '...')`
-- `ErrorSlot.screen(scope: '...')`
-- `ScreenErrorMixin` (deprecated, still supported)
+- Use `AppErrorBanner` only for app-level issues.
+- Keep error messages short and user-facing.
+- Use `ErrorAction` factories to standardize labels and icons.

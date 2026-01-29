@@ -1,32 +1,29 @@
-// guard/guardSync: small helpers to run an operation and publish any error to a chosen AppErrorHub channel.
-// This keeps UI reactive (ErrorSlot/AppErrorBanner) without forcing every call site to handle try/catch boilerplate.
+// guard/guardSync: run an operation and publish any AppError to a provided ErrorScope.
+// Use this when you want reactive UI updates without writing try/catch in every call site.
 
 import 'package:flutter/foundation.dart';
 
 import 'app_error.dart';
-import 'app_error_hub.dart';
 import 'error_code.dart';
 import 'error_mapper.dart';
+import 'error_scope.dart';
 
 typedef AsyncFn<T> = Future<T> Function();
 
 Future<T?> guard<T>(
   AsyncFn<T> fn, {
-  String? appScope,
-  String? screenScope,
+  ErrorScope? scope,
   ValueNotifier<AppError?>? channel,
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) async {
-  final notifier =
-      channel ??
-      (appScope != null
-          ? AppErrorHub.I.app(appScope)
-          : screenScope != null
-          ? AppErrorHub.I.screen(screenScope)
-          : AppErrorHub.I.app('global'));
+  final notifier = channel ?? scope?.notifier;
+  if (notifier == null) {
+    throw ArgumentError('guard() requires either scope or channel.');
+  }
 
   if (clearBeforeRun) {
+    scope?.clear();
     notifier.value = null;
   }
 
@@ -50,21 +47,18 @@ Future<T?> guard<T>(
 
 T? guardSync<T>(
   T Function() fn, {
-  String? appScope,
-  String? screenScope,
+  ErrorScope? scope,
   ValueNotifier<AppError?>? channel,
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) {
-  final notifier =
-      channel ??
-      (appScope != null
-          ? AppErrorHub.I.app(appScope)
-          : screenScope != null
-          ? AppErrorHub.I.screen(screenScope)
-          : AppErrorHub.I.app('global'));
+  final notifier = channel ?? scope?.notifier;
+  if (notifier == null) {
+    throw ArgumentError('guardSync() requires either scope or channel.');
+  }
 
   if (clearBeforeRun) {
+    scope?.clear();
     notifier.value = null;
   }
 

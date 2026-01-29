@@ -11396,16 +11396,20 @@
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_rule.dart"
         },
         {
+          "source": "registry/components/utility/error_system/_impl/core/error_scope.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_scope.dart"
+        },
+        {
           "source": "registry/components/utility/error_system/_impl/core/error_scope_type.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_scope_type.dart"
         },
         {
-          "source": "registry/components/utility/error_system/_impl/core/error_snackbar.dart",
-          "destination": "{installPath}/components/utility/error_system/_impl/core/error_snackbar.dart"
-        },
-        {
           "source": "registry/components/utility/error_system/_impl/core/error_slot.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_slot.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/error_snackbar.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_snackbar.dart"
         },
         {
           "source": "registry/components/utility/error_system/_impl/core/error_state.dart",
@@ -11414,6 +11418,10 @@
         {
           "source": "registry/components/utility/error_system/_impl/core/guard.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/guard.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/hub_scopes.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/hub_scopes.dart"
         },
         {
           "source": "registry/components/utility/error_system/_impl/core/inline_error.dart",
@@ -11428,8 +11436,8 @@
           "destination": "{installPath}/components/utility/error_system/_impl/extensions/future_error_extensions.dart"
         },
         {
-          "source": "registry/components/utility/error_system/_impl/state/screen_error_mixin.dart",
-          "destination": "{installPath}/components/utility/error_system/_impl/state/screen_error_mixin.dart"
+          "source": "registry/components/utility/error_system/_impl/state/screen_error_scope.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/state/screen_error_scope.dart"
         },
         {
           "source": "registry/components/utility/error_system/_impl/themes/error_system_theme.dart",

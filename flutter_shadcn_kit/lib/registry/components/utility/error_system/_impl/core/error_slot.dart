@@ -1,11 +1,10 @@
-// ErrorSlot: reactive error rendering for a specific AppErrorHub channel.
-// Use ErrorSlot.screen(scope: ...) for per-screen errors (typically inline), or ErrorSlot.app(scope: ...) for app-level channels.
+// ErrorSlot: reactive error rendering for a specific ErrorScope.
+// Pair with ScreenErrorScope (screen-level) or HubAppScope (app-level) to render errors without string keys.
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'app_error.dart';
-import 'app_error_hub.dart';
 import 'error_scope.dart';
 import 'error_state.dart';
 
@@ -26,20 +25,6 @@ class ErrorSlot extends StatelessWidget {
   /// Widget to render when there is no error.
   final Widget empty;
 
-  factory ErrorSlot.screen({
-    Key? key,
-    required String scope,
-    Widget Function(BuildContext context, AppError error)? builder,
-    Widget empty = const SizedBox.shrink(),
-  }) {
-    return ErrorSlot._(
-      key: key,
-      notifier: AppErrorHub.I.screen(scope),
-      builder: builder,
-      empty: empty,
-    );
-  }
-
   factory ErrorSlot.scope({
     Key? key,
     required ErrorScope scope,
@@ -49,20 +34,6 @@ class ErrorSlot extends StatelessWidget {
     return ErrorSlot._(
       key: key,
       notifier: scope.notifier,
-      builder: builder,
-      empty: empty,
-    );
-  }
-
-  factory ErrorSlot.app({
-    Key? key,
-    required String scope,
-    Widget Function(BuildContext context, AppError error)? builder,
-    Widget empty = const SizedBox.shrink(),
-  }) {
-    return ErrorSlot._(
-      key: key,
-      notifier: AppErrorHub.I.app(scope),
       builder: builder,
       empty: empty,
     );

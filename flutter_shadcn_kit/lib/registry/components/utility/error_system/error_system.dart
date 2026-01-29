@@ -23,7 +23,6 @@ export '_impl/core/hub_scopes.dart';
 export '_impl/core/inline_error.dart';
 export '_impl/extensions/context_error_extensions.dart';
 export '_impl/extensions/future_error_extensions.dart';
-export '_impl/state/screen_error_mixin.dart';
 export '_impl/state/screen_error_scope.dart';
 export '_impl/themes/error_system_theme.dart';
 export '_impl/utils/api_rules.dart';

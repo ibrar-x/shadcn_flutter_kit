@@ -1,5 +1,5 @@
 // AppErrorHub: singleton "error bus" that holds ValueNotifier<AppError?> channels.
-// Use app(key) for global, cross-navigation errors; use screen(key) for per-screen channels (dispose via ScreenErrorMixin or disposeScreen()).
+// Use app(key) for global, cross-navigation errors; use screen(key) for per-screen channels (dispose via ScreenErrorScope or disposeScreen()).
 
 import 'package:flutter/foundation.dart';
 
@@ -52,7 +52,7 @@ class AppErrorHub {
 
   /// Returns a screen-level channel.
   ///
-  /// Call [disposeScreen] when the screen unmounts (or use [ScreenErrorMixin]).
+  /// Call [disposeScreen] when the screen unmounts (or use [ScreenErrorScope]).
   ValueNotifier<AppError?> screen(String key) {
     return _screenScopes.putIfAbsent(key, () => ValueNotifier<AppError?>(null));
   }
