@@ -78,13 +78,14 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                 totalExamples: examples.length,
                 hiddenCount: hiddenCount,
               ),
-              for (final example in visibleExamples)
+              for (var index = 0; index < visibleExamples.length; index++)
                 WidgetUsageExample(
-                  title: example.title,
-                  code: example.code,
+                  title: visibleExamples[index].title,
+                  code: visibleExamples[index].code,
                   lazyThreshold: _performanceMode ? _lazyThreshold : 0.1,
-                  installCommand: 'flutter_shadcn add ${component.id}',
-                  child: example.builder(context),
+                  installCommand:
+                      index == 0 ? 'flutter_shadcn add ${component.id}' : null,
+                  child: visibleExamples[index].builder(context),
                 ),
               if (hiddenCount > 0)
                 shadcn_buttons.LinkButton(

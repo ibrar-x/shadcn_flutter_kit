@@ -525,81 +525,83 @@ class _FileUploadState extends State<FileUpload> {
       onTap: isEnabled ? _pickFiles : null,
       child: dropzone,
     );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (widget.title != null || widget.subtitle != null)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.title != null)
-                DefaultTextStyle.merge(
-                  style: theme.typography.large.merge(
-                    theme.typography.semiBold,
-                  ),
-                  child: widget.title!,
-                ),
-              if (widget.subtitle != null) Gap(6 * scaling),
-              if (widget.subtitle != null)
-                DefaultTextStyle.merge(
-                  style: theme.typography.small.copyWith(
-                    color: theme.colorScheme.mutedForeground,
-                  ),
-                  child: widget.subtitle!,
-                ),
-              Gap(16 * scaling),
-            ],
-          ),
-        FocusableActionDetector(
-          enabled: isEnabled,
-          shortcuts: shortcutMap,
-          actions: actionMap,
-          onShowFocusHighlight: (value) => setState(() => _focused = value),
-          child: dropTarget,
-        ),
-        if (_errors.isNotEmpty) Gap(12 * scaling),
-        if (_errors.isNotEmpty)
-          Semantics(
-            liveRegion: true,
-            container: true,
-            label: _errors.map((error) => error.message).join(', '),
-            child: Column(
+    return FileIconProvider.builder(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (widget.title != null || widget.subtitle != null)
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final error in _errors)
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 6 * scaling),
-                    child: DefaultTextStyle.merge(
-                      style: theme.typography.xSmall.copyWith(
-                        color: theme.colorScheme.destructive,
-                      ),
-                      child: Text(error.message),
+                if (widget.title != null)
+                  DefaultTextStyle.merge(
+                    style: theme.typography.large.merge(
+                      theme.typography.semiBold,
                     ),
+                    child: widget.title!,
                   ),
+                if (widget.subtitle != null) Gap(6 * scaling),
+                if (widget.subtitle != null)
+                  DefaultTextStyle.merge(
+                    style: theme.typography.small.copyWith(
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    child: widget.subtitle!,
+                  ),
+                Gap(16 * scaling),
               ],
             ),
+          FocusableActionDetector(
+            enabled: isEnabled,
+            shortcuts: shortcutMap,
+            actions: actionMap,
+            onShowFocusHighlight: (value) => setState(() => _focused = value),
+            child: dropTarget,
           ),
-        if (widget.showFileList &&
-            _effectiveItems.isNotEmpty &&
-            widget.allowMultiple)
-          Gap(16 * scaling),
-        if (widget.showFileList &&
-            _effectiveItems.isNotEmpty &&
-            widget.allowMultiple)
-          FileUploadItemsView(
-            items: _effectiveItems,
-            layout: widget.itemsLayout,
-            columns: widget.itemsGridColumns,
-            maxHeight: itemsMaxHeight,
-            itemBuilder: (context, item) =>
-                widget.itemBuilder?.call(context, item) ??
-                FileItem(
-                  item: item,
-                  onRemove:
-                      widget.files == null ? () => _removeItem(item) : null,
-                ),
-          ),
-      ],
+          if (_errors.isNotEmpty) Gap(12 * scaling),
+          if (_errors.isNotEmpty)
+            Semantics(
+              liveRegion: true,
+              container: true,
+              label: _errors.map((error) => error.message).join(', '),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (final error in _errors)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 6 * scaling),
+                      child: DefaultTextStyle.merge(
+                        style: theme.typography.xSmall.copyWith(
+                          color: theme.colorScheme.destructive,
+                        ),
+                        child: Text(error.message),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          if (widget.showFileList &&
+              _effectiveItems.isNotEmpty &&
+              widget.allowMultiple)
+            Gap(16 * scaling),
+          if (widget.showFileList &&
+              _effectiveItems.isNotEmpty &&
+              widget.allowMultiple)
+            FileUploadItemsView(
+              items: _effectiveItems,
+              layout: widget.itemsLayout,
+              columns: widget.itemsGridColumns,
+              maxHeight: itemsMaxHeight,
+              itemBuilder: (context, item) =>
+                  widget.itemBuilder?.call(context, item) ??
+                  FileItem(
+                    item: item,
+                    onRemove:
+                        widget.files == null ? () => _removeItem(item) : null,
+                  ),
+            ),
+        ],
+      ),
     );
   }
 }

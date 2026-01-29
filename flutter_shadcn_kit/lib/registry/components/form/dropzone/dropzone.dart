@@ -115,11 +115,11 @@ class FileDropzone extends StatelessWidget {
           width: double.infinity,
           height: height,
           child: OutlinedContainer(
-            borderRadius: borderRadius ?? BorderRadius.circular(16 * scaling),
+            borderRadius: borderRadius,
             borderWidth: 1,
             borderColor: borderColor,
             boxShadow: focusRing,
-            backgroundColor: backgroundColor ?? theme.colorScheme.background,
+            backgroundColor: backgroundColor,
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: minHeight ?? 0),
               child: Padding(
@@ -185,8 +185,8 @@ class FileDropzone extends StatelessWidget {
     );
   }
 
-  Color _resolveBorderColor(ThemeData theme) {
-    if (!enabled) return theme.colorScheme.muted;
+  Color? _resolveBorderColor(ThemeData theme) {
+    if (!enabled) return null;
     if (hotDropping) return theme.colorScheme.primary;
     switch (state) {
       case DropzoneState.dragging:
@@ -198,9 +198,9 @@ class FileDropzone extends StatelessWidget {
       case DropzoneState.error:
         return theme.colorScheme.destructive;
       case DropzoneState.disabled:
-        return theme.colorScheme.muted;
+        return null;
       case DropzoneState.idle:
-        return theme.colorScheme.muted;
+        return null;
     }
   }
 

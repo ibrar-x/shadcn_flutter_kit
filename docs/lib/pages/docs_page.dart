@@ -86,16 +86,13 @@ enum DocsTag {
   ;
 
   Widget badge(BuildContext context) {
-    switch (this) {
-      case DocsTag.experimental:
-        return const PrimaryBadge(child: Text('Experimental'));
-      case DocsTag.workInProgress:
-        return const PrimaryBadge(child: Text('WIP'));
-      case DocsTag.updated:
-        return const PrimaryBadge(child: Text('Updated'));
-      case DocsTag.newFeature:
-        return const PrimaryBadge(child: Text('New'));
-    }
+    final badge = switch (this) {
+      DocsTag.experimental => const PrimaryBadge(child: Text('Experimental')),
+      DocsTag.workInProgress => const PrimaryBadge(child: Text('WIP')),
+      DocsTag.updated => const PrimaryBadge(child: Text('Updated')),
+      DocsTag.newFeature => const PrimaryBadge(child: Text('New')),
+    };
+    return IgnorePointer(child: ExcludeSemantics(child: badge));
   }
 }
 
@@ -311,6 +308,10 @@ class DocsPageState extends State<DocsPage> {
         return DocsTag.experimental;
       case 'WIP':
         return DocsTag.workInProgress;
+      case 'New':
+        return DocsTag.newFeature;
+      case 'Updated':
+        return DocsTag.updated;
     }
     return null;
   }
@@ -547,8 +548,7 @@ class DocsPageState extends State<DocsPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Breadcrumb(
-                                          separator:
-                                              Breadcrumb.slashSeparator,
+                                          separator: Breadcrumb.slashSeparator,
                                           children: [
                                             TextButton(
                                               onPressed: () => context.goNamed(
@@ -592,14 +592,14 @@ class DocsPageState extends State<DocsPage> {
                                               SidebarButton(
                                                 onPressed: () {
                                                   Scrollable.ensureVisible(
-                                                    entry
-                                                        .value.currentContext!,
+                                                    entry.value.currentContext!,
                                                     duration: const Duration(
                                                       milliseconds: 200,
                                                     ),
                                                   );
                                                 },
-                                                selected: isVisible(entry.value),
+                                                selected:
+                                                    isVisible(entry.value),
                                                 child: Text(entry.key),
                                               ),
                                           ],

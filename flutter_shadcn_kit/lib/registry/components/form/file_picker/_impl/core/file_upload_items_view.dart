@@ -51,10 +51,7 @@ class FileUploadItemsView extends StatelessWidget {
     }
 
     return OutlinedContainer(
-      borderRadius: BorderRadius.circular(16 * scaling),
       borderWidth: 1,
-      borderColor: theme.colorScheme.muted,
-      backgroundColor: theme.colorScheme.background,
       child: Padding(
         padding: padding ?? EdgeInsets.all(16 * scaling),
         child: content,

@@ -1,5 +1,5 @@
 {
-  "componentRoot": "registry/components/<category>/<name>",
+  "componentRoot": "components/<category>/<name>",
   "required": [
     "<name>.dart",
     "README.md",
@@ -28,5 +28,5 @@
     "<category>/<name>/_impl/state/*.dart",
     "<category>/<name>/_impl/extensions/*.dart"
   ],
-  "exampleBasedOn": "registry/components/display/avatar"
+  "exampleBasedOn": "components/display/avatar"
 }

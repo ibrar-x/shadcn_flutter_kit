@@ -63,10 +63,7 @@ class FileItem extends StatelessWidget {
     }
 
     return OutlinedContainer(
-      borderRadius: BorderRadius.circular(12 * scaling),
       borderWidth: 1,
-      borderColor: theme.colorScheme.muted,
-      backgroundColor: theme.colorScheme.background,
       child: Padding(
         padding: EdgeInsets.all(12 * scaling),
         child: Column(
