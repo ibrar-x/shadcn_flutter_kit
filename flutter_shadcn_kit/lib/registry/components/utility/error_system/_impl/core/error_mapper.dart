@@ -1,3 +1,6 @@
+// ErrorMapper + RuleBasedErrorMapper: converts any thrown error into an AppError.
+// RuleBasedErrorMapper tries rules in priority order and falls back to a default mapping.
+
 import 'app_error.dart';
 import 'error_rule.dart';
 
@@ -6,10 +9,8 @@ abstract class ErrorMapper {
 }
 
 class RuleBasedErrorMapper implements ErrorMapper {
-  RuleBasedErrorMapper({
-    required List<ErrorRule> rules,
-    required this.fallback,
-  }) : rules = _sortByPriority(rules);
+  RuleBasedErrorMapper({required List<ErrorRule> rules, required this.fallback})
+    : rules = _sortByPriority(rules);
 
   final List<ErrorRule> rules;
   final AppError Function(Object error, StackTrace? stackTrace) fallback;

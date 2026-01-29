@@ -1,3 +1,6 @@
+// ErrorRegistry: mutable container to compose/extend ErrorRule lists at runtime.
+// Useful for app-level setup where features can register their own rules.
+
 import 'error_rule.dart';
 
 class ErrorRegistry {

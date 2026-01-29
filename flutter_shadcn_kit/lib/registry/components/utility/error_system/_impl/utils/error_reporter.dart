@@ -1,3 +1,6 @@
+// ErrorReporter: hook point for analytics/Crashlytics.
+// ErrorHandledRepository calls report(mappedAppError, rawError, stackTrace) on failures.
+
 import '../core/app_error.dart';
 
 abstract class ErrorReporter {

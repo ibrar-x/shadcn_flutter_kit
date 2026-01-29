@@ -35,3 +35,24 @@ ErrorState(
   ),
 );
 ```
+
+## Dual Scope (App + Screen)
+
+Use `AppErrorHub` channels to keep error UI reactive:
+
+- App-level: persistent across navigation (use `AppErrorBanner`)
+- Screen-level: dispose when a screen unmounts (use `ScreenErrorMixin` + `ErrorSlot`)
+
+```dart
+// App-level (global) error: show above all screens.
+AppErrorHub.I.app(AppErrorHub.networkUnavailable).value = AppError(
+  code: AppErrorCode.noInternet,
+  title: 'No internet',
+  message: 'Check your connection and try again.',
+);
+
+// Screen-level: publish via guard() and render with ErrorSlot.screen().
+await guard(() => repo.execute(() async => await apiCall()), screenScope: 'UserScreen');
+
+ErrorSlot.screen(scope: 'UserScreen');
+```

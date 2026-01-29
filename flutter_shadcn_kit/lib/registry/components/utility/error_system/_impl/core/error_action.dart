@@ -1,3 +1,6 @@
+// ErrorAction: describes a user action rendered by error UI (Retry/Login/Settings/etc.).
+// Factories set sensible defaults (label/icon/type/primary) for common actions.
+
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/icons/radix_icons.dart';
@@ -82,9 +85,4 @@ class ErrorAction {
   }
 }
 
-enum ErrorActionType {
-  retry,
-  report,
-  navigate,
-  custom,
-}
+enum ErrorActionType { retry, report, navigate, custom }

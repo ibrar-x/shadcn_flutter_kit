@@ -1,3 +1,6 @@
+// ErrorState: full-page/section error UI built from shadcn Card/Divider/Button primitives.
+// Renders optional illustration + icon + title/message and maps ErrorAction list to buttons.
+
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
@@ -14,11 +17,13 @@ class ErrorState extends StatelessWidget {
   const ErrorState({
     super.key,
     required this.error,
+    this.illustration,
     this.icon,
     this.maxWidth,
   });
 
   final AppError error;
+  final Widget? illustration;
   final Widget? icon;
   final double? maxWidth;
 
@@ -27,16 +32,22 @@ class ErrorState extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final resolvedIcon = icon ??
+    final resolvedIcon =
+        icon ??
         Icon(
           RadixIcons.exclamationTriangle,
           size: compTheme?.iconSize ?? 36 * scaling,
           color: compTheme?.iconColor ?? theme.colorScheme.destructive,
         );
+    final resolvedIllustration = illustration;
     final titleStyle =
-        compTheme?.titleStyle ?? theme.typography.medium.merge(theme.typography.semiBold);
-    final messageStyle = compTheme?.messageStyle ??
-        theme.typography.small.copyWith(color: theme.colorScheme.mutedForeground);
+        compTheme?.titleStyle ??
+        theme.typography.medium.merge(theme.typography.semiBold);
+    final messageStyle =
+        compTheme?.messageStyle ??
+        theme.typography.small.copyWith(
+          color: theme.colorScheme.mutedForeground,
+        );
     final padding = compTheme?.cardPadding ?? EdgeInsets.all(24 * scaling);
     final borderRadius = compTheme?.cardBorderRadius;
     final fillColor = compTheme?.cardFillColor;
@@ -52,6 +63,10 @@ class ErrorState extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (resolvedIllustration != null) ...[
+                resolvedIllustration,
+                Gap(16 * scaling),
+              ],
               resolvedIcon,
               Gap(12 * scaling),
               DefaultTextStyle.merge(

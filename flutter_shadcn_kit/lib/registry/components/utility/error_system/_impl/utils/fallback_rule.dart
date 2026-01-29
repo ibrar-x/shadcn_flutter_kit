@@ -1,3 +1,6 @@
+// fallbackRule: default mapping when no ErrorRule matches.
+// Produces a generic AppError (AppErrorCode.unknown) with optional technical details.
+
 import '../core/app_error.dart';
 import '../core/error_code.dart';
 import 'env.dart';

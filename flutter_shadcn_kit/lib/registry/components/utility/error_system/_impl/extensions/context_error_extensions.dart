@@ -1,3 +1,6 @@
+// BuildContext helpers for showing error UI.
+// Adds context.showErrorSnackbar(appError) and context.showErrorDialog(appError).
+
 import 'package:flutter/widgets.dart';
 
 import '../core/app_error.dart';

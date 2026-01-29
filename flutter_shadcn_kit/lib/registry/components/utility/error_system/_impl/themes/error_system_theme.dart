@@ -1,6 +1,10 @@
+// ErrorSystemTheme: ComponentTheme overrides for error UI (icons, card, dialog, snackbar).
+// Wrap a subtree with ComponentTheme<ErrorSystemTheme> to customize styling consistently.
+
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/theme/theme.dart';
+import '../core/app_error.dart';
 
 class ErrorSystemTheme extends ComponentThemeData {
   const ErrorSystemTheme({
@@ -11,6 +15,13 @@ class ErrorSystemTheme extends ComponentThemeData {
     this.cardPadding,
     this.cardBorderRadius,
     this.cardFillColor,
+    this.bannerBackgroundColor,
+    this.bannerBorderRadius,
+    this.bannerPadding,
+    this.bannerTitleStyle,
+    this.bannerMessageStyle,
+    this.bannerIcon,
+    this.bannerBorderColor,
     this.snackbarBackgroundColor,
     this.snackbarTextStyle,
     this.snackbarBorderRadius,
@@ -27,6 +38,13 @@ class ErrorSystemTheme extends ComponentThemeData {
   final EdgeInsetsGeometry? cardPadding;
   final BorderRadiusGeometry? cardBorderRadius;
   final Color? cardFillColor;
+  final Color? bannerBackgroundColor;
+  final BorderRadiusGeometry? bannerBorderRadius;
+  final EdgeInsetsGeometry? bannerPadding;
+  final TextStyle? bannerTitleStyle;
+  final TextStyle? bannerMessageStyle;
+  final IconData? bannerIcon;
+  final Color Function(ThemeData theme, AppError error)? bannerBorderColor;
   final Color? snackbarBackgroundColor;
   final TextStyle? snackbarTextStyle;
   final BorderRadiusGeometry? snackbarBorderRadius;

@@ -1,3 +1,6 @@
+// API rules for mapping ApiException and timeouts to AppError.
+// Converts HTTP-like status codes into AppErrorCode and attaches context actions (retry/report/back).
+
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';

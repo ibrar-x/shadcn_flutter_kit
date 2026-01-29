@@ -1,3 +1,6 @@
+// Auth rules for mapping AuthException to AppError.
+// Produces an authentication-required AppError with login/retry/report actions.
+
 import 'package:flutter/widgets.dart';
 
 import '../core/app_error.dart';

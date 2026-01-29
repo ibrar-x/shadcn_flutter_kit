@@ -1,3 +1,6 @@
+// ErrorDialog: modal error UI using shadcn Dialog + AlertDialog components.
+// ErrorDialog.show(...) opens the dialog and renders ErrorAction buttons in the footer.
+
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
@@ -11,11 +14,7 @@ import 'app_error.dart';
 import 'error_action.dart';
 
 class ErrorDialog extends StatelessWidget {
-  const ErrorDialog({
-    super.key,
-    required this.error,
-    this.icon,
-  });
+  const ErrorDialog({super.key, required this.error, this.icon});
 
   final AppError error;
   final Widget? icon;
@@ -40,16 +39,21 @@ class ErrorDialog extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final resolvedIcon = icon ??
+    final resolvedIcon =
+        icon ??
         Icon(
           RadixIcons.exclamationTriangle,
           size: compTheme?.iconSize ?? 24 * scaling,
           color: compTheme?.iconColor ?? theme.colorScheme.destructive,
         );
     final titleStyle =
-        compTheme?.titleStyle ?? theme.typography.medium.merge(theme.typography.semiBold);
-    final messageStyle = compTheme?.messageStyle ??
-        theme.typography.small.copyWith(color: theme.colorScheme.mutedForeground);
+        compTheme?.titleStyle ??
+        theme.typography.medium.merge(theme.typography.semiBold);
+    final messageStyle =
+        compTheme?.messageStyle ??
+        theme.typography.small.copyWith(
+          color: theme.colorScheme.mutedForeground,
+        );
     final dialogPadding = compTheme?.dialogPadding;
 
     return AlertDialog(
@@ -73,10 +77,7 @@ class ErrorDialog extends StatelessWidget {
                 child: const Text('Dismiss'),
               ),
             ]
-          : [
-              for (final action in error.actions)
-                _buildAction(context, action),
-            ],
+          : [for (final action in error.actions) _buildAction(context, action)],
     );
   }
 

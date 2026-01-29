@@ -1,3 +1,6 @@
+// AppError: UI-safe, user-facing error model used across the system.
+// Carries code/title/message/actions plus optional technicalDetails/metadata for analytics.
+
 import 'error_action.dart';
 import 'error_code.dart';
 
@@ -43,13 +46,13 @@ class AppError implements Exception {
   }
 
   Map<String, dynamic> toJson() => {
-        'code': code.name,
-        'title': title,
-        'message': message,
-        'timestamp': timestamp.toIso8601String(),
-        'fingerprint': fingerprint,
-        'metadata': metadata,
-      };
+    'code': code.name,
+    'title': title,
+    'message': message,
+    'timestamp': timestamp.toIso8601String(),
+    'fingerprint': fingerprint,
+    'metadata': metadata,
+  };
 
   @override
   String toString() =>

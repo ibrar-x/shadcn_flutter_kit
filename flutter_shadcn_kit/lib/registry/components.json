@@ -11356,6 +11356,14 @@
           "destination": "{installPath}/components/utility/error_system/_impl/core/app_error.dart"
         },
         {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_banner.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_banner.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_hub.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_hub.dart"
+        },
+        {
           "source": "registry/components/utility/error_system/_impl/core/error_action.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_action.dart"
         },
@@ -11388,12 +11396,24 @@
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_rule.dart"
         },
         {
+          "source": "registry/components/utility/error_system/_impl/core/error_scope_type.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_scope_type.dart"
+        },
+        {
           "source": "registry/components/utility/error_system/_impl/core/error_snackbar.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_snackbar.dart"
         },
         {
+          "source": "registry/components/utility/error_system/_impl/core/error_slot.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/error_slot.dart"
+        },
+        {
           "source": "registry/components/utility/error_system/_impl/core/error_state.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/error_state.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/core/guard.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/guard.dart"
         },
         {
           "source": "registry/components/utility/error_system/_impl/core/inline_error.dart",
@@ -11406,6 +11426,10 @@
         {
           "source": "registry/components/utility/error_system/_impl/extensions/future_error_extensions.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/extensions/future_error_extensions.dart"
+        },
+        {
+          "source": "registry/components/utility/error_system/_impl/state/screen_error_mixin.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/state/screen_error_mixin.dart"
         },
         {
           "source": "registry/components/utility/error_system/_impl/themes/error_system_theme.dart",
@@ -11488,6 +11512,37 @@
         "dependencies": {
           "gap": "^3.0.1"
         }
+      },
+      "assets": [],
+      "postInstall": []
+    },
+    {
+      "id": "",
+      "name": "",
+      "description": "TODO: describe .",
+      "category": "",
+      "tags": [
+        "",
+        ""
+      ],
+      "files": [
+        {
+          "source": "composites/utility/repeated_animation_builder/README.md",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/README.md"
+        },
+        {
+          "source": "composites/utility/repeated_animation_builder/meta.json",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/meta.json"
+        },
+        {
+          "source": "composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
+          "destination": "{installPath}/composites/utility/repeated_animation_builder/repeated_animation_builder.dart"
+        }
+      ],
+      "shared": [],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
       },
       "assets": [],
       "postInstall": []

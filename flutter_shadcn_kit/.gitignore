@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Registry taxonomy placeholders (skip category-level _impl folders; real entries are deeper).
+lib/registry/composites/*/_impl/

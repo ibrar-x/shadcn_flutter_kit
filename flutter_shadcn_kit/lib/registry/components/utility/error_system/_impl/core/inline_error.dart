@@ -1,3 +1,6 @@
+// InlineError: compact error row for forms and inline validation.
+// Shows an icon + message using shadcn theme typography and destructive/accent colors.
+
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
@@ -6,11 +9,7 @@ import '../../../../../shared/theme/theme.dart';
 import '../themes/error_system_theme.dart';
 
 class InlineError extends StatelessWidget {
-  const InlineError({
-    super.key,
-    required this.message,
-    this.icon,
-  });
+  const InlineError({super.key, required this.message, this.icon});
 
   final String message;
   final Widget? icon;
@@ -20,13 +19,15 @@ class InlineError extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final resolvedIcon = icon ??
+    final resolvedIcon =
+        icon ??
         Icon(
           RadixIcons.infoCircled,
           size: compTheme?.iconSize ?? 16 * scaling,
           color: compTheme?.iconColor ?? theme.colorScheme.destructive,
         );
-    final messageStyle = compTheme?.messageStyle ??
+    final messageStyle =
+        compTheme?.messageStyle ??
         theme.typography.xSmall.copyWith(color: theme.colorScheme.destructive);
 
     return Row(

@@ -1,3 +1,6 @@
+// Network rules for IO platforms (Socket/Timeout/Handshake).
+// Maps low-level IO exceptions to AppError with Retry/Settings/Report actions.
+
 import 'dart:async';
 import 'dart:io';
 
@@ -35,10 +38,7 @@ List<ErrorRule> networkRules({
         code: AppErrorCode.timeout,
         title: 'Request timed out',
         message: 'The server is taking too long to respond.',
-        actions: [
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
-        ],
+        actions: [ErrorAction.retry(onRetry), ErrorAction.report(onReport)],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
       ),
       priority: 9,
@@ -48,10 +48,7 @@ List<ErrorRule> networkRules({
         code: AppErrorCode.sslError,
         title: 'Secure connection failed',
         message: 'We could not establish a secure connection.',
-        actions: [
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
-        ],
+        actions: [ErrorAction.retry(onRetry), ErrorAction.report(onReport)],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
       ),
       priority: 8,

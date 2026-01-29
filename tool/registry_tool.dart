@@ -255,6 +255,9 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
   final componentDirs = <Directory>[];
   for (final category in rootDir.listSync().whereType<Directory>()) {
     for (final compDir in category.listSync().whereType<Directory>()) {
+      final name = compDir.uri.pathSegments.last.replaceAll('/', '');
+      // Skip taxonomy/hidden folders that can exist at the category root.
+      if (name.startsWith('_') || name.startsWith('.')) continue;
       componentDirs.add(compDir);
     }
   }

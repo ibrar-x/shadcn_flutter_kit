@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_shadcn_kit/registry/components/utility/error_system/preview.dart';
 
 import 'package:flutter_shadcn_kit/registry/composites/layout/app/app.dart';
 import 'package:flutter_shadcn_kit/registry/components/display/empty_state/preview.dart';
@@ -14,9 +15,9 @@ class _RegistryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadcnApp(
-      title: 'Empty State',
+      title: 'Error System Preview',
       theme: const shadcn.ThemeData(),
-      home: const EmptyStatePreview(),
+      home: const ErrorSystemPreview(),
     );
   }
 }

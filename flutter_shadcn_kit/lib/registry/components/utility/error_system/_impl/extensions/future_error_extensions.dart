@@ -1,3 +1,6 @@
+// Future helpers for error pipelines.
+// mapError(mapper) converts thrown errors to AppError; onAppError allows side effects for AppError.
+
 import '../core/app_error.dart';
 import '../core/error_mapper.dart';
 

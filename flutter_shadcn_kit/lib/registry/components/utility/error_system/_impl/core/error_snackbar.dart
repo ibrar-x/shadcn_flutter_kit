@@ -1,3 +1,6 @@
+// ErrorSnackbar: toast-style notification for AppError using shadcn ToastEntry.
+// Inserts an OverlayEntry and decorates it with a border color derived from AppErrorCode severity.
+
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
@@ -6,6 +9,7 @@ import '../../../../../shared/theme/theme.dart';
 import '../../../../overlay/toast/toast.dart';
 import '../themes/error_system_theme.dart';
 import 'app_error.dart';
+import 'error_code.dart';
 
 class ErrorSnackbar {
   ErrorSnackbar._();
@@ -23,45 +27,58 @@ class ErrorSnackbar {
     final resolvedDuration =
         duration ?? toastTheme?.duration ?? const Duration(seconds: 3);
     late final OverlayEntry entry;
-    entry = OverlayEntry(builder: (overlayContext) {
-      final padding = toastTheme?.padding ?? const EdgeInsets.all(16);
-      final margin = toastTheme?.margin ?? 8.0;
-      final totalOffset = _entries.length * margin;
-      final backgroundColor = compTheme?.snackbarBackgroundColor ??
-          toastTheme?.backgroundColor ??
-          Theme.of(overlayContext).colorScheme.background;
-      final resolvedRadius = compTheme?.snackbarBorderRadius
-          ?.resolve(Directionality.of(overlayContext));
-      final borderRadius = resolvedRadius ??
-          (toastTheme?.borderRadius != null
-              ? BorderRadius.circular(toastTheme!.borderRadius!)
-              : BorderRadius.circular(12));
-      return Positioned(
-        top: 32 + totalOffset,
-        right: 24,
-        child: ToastEntry(
-          duration: resolvedDuration,
-          animationDuration:
-              toastTheme?.animationDuration ?? const Duration(milliseconds: 250),
-          animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
-          onDismissed: () {
-            entry.remove();
-            _entries.remove(entry);
-          },
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: borderRadius,
-            ),
-            child: Container(
-              padding: padding,
-              width: toastTheme?.width,
-              child: _ErrorSnackbarContent(error: error),
+    entry = OverlayEntry(
+      builder: (overlayContext) {
+        final padding = toastTheme?.padding ?? const EdgeInsets.all(16);
+        final margin = toastTheme?.margin ?? 8.0;
+        final totalOffset = _entries.length * margin;
+        final backgroundColor =
+            compTheme?.snackbarBackgroundColor ??
+            toastTheme?.backgroundColor ??
+            Theme.of(overlayContext).colorScheme.background;
+        final resolvedRadius = compTheme?.snackbarBorderRadius?.resolve(
+          Directionality.of(overlayContext),
+        );
+        final borderRadius =
+            resolvedRadius ??
+            (toastTheme?.borderRadius != null
+                ? BorderRadius.circular(toastTheme!.borderRadius!)
+                : BorderRadius.circular(12));
+        return Positioned(
+          top: 32 + totalOffset,
+          right: 24,
+          child: ToastEntry(
+            duration: resolvedDuration,
+            animationDuration:
+                toastTheme?.animationDuration ??
+                const Duration(milliseconds: 250),
+            animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
+            onDismissed: () {
+              entry.remove();
+              _entries.remove(entry);
+            },
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: borderRadius,
+                border: Border.all(
+                  color: _resolveBorderColor(
+                    Theme.of(overlayContext),
+                    error.code,
+                  ),
+                  width: 1,
+                ),
+              ),
+              child: Container(
+                padding: padding,
+                width: toastTheme?.width,
+                child: _ErrorSnackbarContent(error: error),
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
     _entries.add(entry);
     overlay.insert(entry);
   }
@@ -77,7 +94,8 @@ class _ErrorSnackbarContent extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final textStyle = compTheme?.snackbarTextStyle ??
+    final textStyle =
+        compTheme?.snackbarTextStyle ??
         theme.typography.xSmall.copyWith(color: theme.colorScheme.foreground);
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -97,4 +115,36 @@ class _ErrorSnackbarContent extends StatelessWidget {
       ],
     );
   }
+}
+
+Color _resolveBorderColor(ThemeData theme, AppErrorCode code) {
+  switch (code) {
+    case AppErrorCode.validation:
+    case AppErrorCode.invalidInput:
+      return theme.colorScheme.accent;
+    case AppErrorCode.rateLimited:
+    case AppErrorCode.timeout:
+      return theme.colorScheme.primary;
+    case AppErrorCode.unauthorized:
+    case AppErrorCode.forbidden:
+    case AppErrorCode.sessionExpired:
+    case AppErrorCode.invalidCredentials:
+    case AppErrorCode.permissionDenied:
+      return theme.colorScheme.destructive;
+    case AppErrorCode.network:
+    case AppErrorCode.noInternet:
+    case AppErrorCode.sslError:
+      return theme.colorScheme.destructive;
+    case AppErrorCode.server:
+    case AppErrorCode.badRequest:
+    case AppErrorCode.notFound:
+    case AppErrorCode.conflict:
+      return theme.colorScheme.destructive;
+    case AppErrorCode.cancelled:
+      return theme.colorScheme.mutedForeground;
+    case AppErrorCode.platformError:
+    case AppErrorCode.unknown:
+      return theme.colorScheme.mutedForeground;
+  }
+  return theme.colorScheme.mutedForeground;
 }

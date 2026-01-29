@@ -1,3 +1,6 @@
+// Validation rules for mapping ValidationException to AppError.
+// Attaches field metadata and provides retry/report actions for correction flows.
+
 import 'package:flutter/widgets.dart';
 
 import '../core/app_error.dart';
@@ -17,10 +20,7 @@ List<ErrorRule> validationRules({
         code: AppErrorCode.validation,
         title: 'Invalid input',
         message: e.message ?? 'Please review the highlighted fields.',
-        actions: [
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
-        ],
+        actions: [ErrorAction.retry(onRetry), ErrorAction.report(onReport)],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
         metadata: {'fields': e.fieldErrors},
       ),

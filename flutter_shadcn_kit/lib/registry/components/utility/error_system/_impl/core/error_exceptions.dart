@@ -1,9 +1,8 @@
+// Typed exceptions (ApiException/AuthException/ValidationException) used by rules.
+// Throw these from adapters/repositories to ensure consistent mapping and UI messages.
+
 class ApiException implements Exception {
-  ApiException({
-    required this.statusCode,
-    this.message,
-    this.details,
-  });
+  ApiException({required this.statusCode, this.message, this.details});
 
   final int statusCode;
   final String? message;

@@ -1,3 +1,6 @@
+// ErrorRule + rule<T>(): rule-based mapping unit for converting exceptions -> AppError.
+// Each rule has a matches() predicate and a build() factory, ordered by priority.
+
 import 'app_error.dart';
 
 typedef ErrorMatch = bool Function(Object error, StackTrace? stackTrace);

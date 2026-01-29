@@ -1,3 +1,6 @@
+// Platform rules for mapping PlatformException to AppError.
+// Captures platform code/message and provides retry/report actions.
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,10 +20,7 @@ List<ErrorRule> platformRules({
         code: AppErrorCode.platformError,
         title: 'Platform error',
         message: e.message ?? 'Something went wrong on this device.',
-        actions: [
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
-        ],
+        actions: [ErrorAction.retry(onRetry), ErrorAction.report(onReport)],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
         metadata: {'code': e.code},
       ),
