@@ -27,6 +27,9 @@ import 'web_bridge.dart';
 import 'ui/shadcn/components/form/history/history.dart';
 import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
+import 'ui/shadcn/components/utility/error_system/_impl/core/app_error_gate.dart';
+import 'ui/shadcn/components/utility/error_system/_impl/core/hub_scopes.dart';
+import 'ui/shadcn/components/utility/error_system/_impl/state/screen_error_scope.dart';
 import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'ui/shadcn/shared/primitives/overlay.dart';
@@ -130,6 +133,7 @@ class DocsRoot extends StatefulWidget {
 class _DocsRootState extends State<DocsRoot> {
   late DocsThemeController controller;
   late GoRouter router;
+  late final HubAppScope _appErrorScope = HubAppScope('docs.app');
   Brightness? _lastBrightness;
   shadcn_colors.ColorScheme? _lastScheme;
   static const _pageTransitionDuration = Duration(milliseconds: 180);
@@ -263,7 +267,7 @@ class _DocsRootState extends State<DocsRoot> {
   ) {
     return CustomTransitionPage<void>(
       key: state.pageKey,
-      child: child,
+      child: ScreenErrorScope(child: child),
       transitionDuration: _pageTransitionDuration,
       reverseTransitionDuration: _pageReverseTransitionDuration,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -303,13 +307,16 @@ class _DocsRootState extends State<DocsRoot> {
               routerConfig: router,
               builder: (context, child) => shadcn_theme.Theme(
                 data: data.toShadcnTheme(),
-                child: ShadcnLayer(
-                  child: DrawerOverlay(
-                    child: RecentColorsScope(
-                      child: EyeDropperLayer(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: child ?? const SizedBox.shrink(),
+                child: AppErrorGate.scope(
+                  scope: _appErrorScope,
+                  child: ShadcnLayer(
+                    child: DrawerOverlay(
+                      child: RecentColorsScope(
+                        child: EyeDropperLayer(
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: child ?? const SizedBox.shrink(),
+                          ),
                         ),
                       ),
                     ),

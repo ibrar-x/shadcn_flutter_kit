@@ -4198,43 +4198,24 @@
           "destination": "{installPath}/components/form/file_picker/README.md"
         },
         {
-          "source": "registry/components/form/file_picker/file_picker.dart",
-          "destination": "{installPath}/components/form/file_picker/file_picker.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/meta.json",
-          "destination": "{installPath}/components/form/file_picker/meta.json"
-        },
-        {
-          "source": "registry/components/form/file_picker/preview.dart",
-          "destination": "{installPath}/components/form/file_picker/preview.dart"
+          "source": "registry/components/form/file_picker/_impl/core/file_item.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/core/file_item.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/core/file_upload_items_view.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/core/file_upload_items_view.dart"
         },
         {
-          "source": "registry/components/form/file_picker/_impl/core/file_item.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/core/file_item.dart"
+          "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart"
         },
         {
-          "source": "registry/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/state/_file_picker_preview_state.dart",
-          "dependsOn": [
-            "registry/components/form/file_picker/preview.dart"
-          ]
+          "source": "registry/components/form/file_picker/_impl/themes/file_upload_dropzone_theme.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/themes/file_upload_dropzone_theme.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/utils/file_like.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_like.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_upload_models.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_upload_models.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_validation.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_validation.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter.dart",
@@ -4245,16 +4226,36 @@
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_io.dart"
         },
         {
-          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart"
-        },
-        {
           "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart"
         },
         {
+          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart"
+        },
+        {
           "source": "registry/components/form/file_picker/_impl/utils/file_upload_controller.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_upload_controller.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_upload_models.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_upload_models.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_validation.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_validation.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/file_picker.dart",
+          "destination": "{installPath}/components/form/file_picker/file_picker.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/meta.json",
+          "destination": "{installPath}/components/form/file_picker/meta.json"
+        },
+        {
+          "source": "registry/components/form/file_picker/preview.dart",
+          "destination": "{installPath}/components/form/file_picker/preview.dart"
         }
       ],
       "shared": [
@@ -11281,24 +11282,16 @@
           "destination": "{installPath}/components/display/empty_state/README.md"
         },
         {
-          "source": "registry/components/display/empty_state/empty_state.dart",
-          "destination": "{installPath}/components/display/empty_state/empty_state.dart"
-        },
-        {
-          "source": "registry/components/display/empty_state/meta.json",
-          "destination": "{installPath}/components/display/empty_state/meta.json"
-        },
-        {
-          "source": "registry/components/display/empty_state/preview.dart",
-          "destination": "{installPath}/components/display/empty_state/preview.dart"
-        },
-        {
           "source": "registry/components/display/empty_state/_impl/core/empty_state.dart",
           "destination": "{installPath}/components/display/empty_state/_impl/core/empty_state.dart"
         },
         {
           "source": "registry/components/display/empty_state/_impl/core/empty_state_action.dart",
           "destination": "{installPath}/components/display/empty_state/_impl/core/empty_state_action.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/_impl/themes/empty_state_theme.dart",
+          "destination": "{installPath}/components/display/empty_state/_impl/themes/empty_state_theme.dart"
         },
         {
           "source": "registry/components/display/empty_state/_impl/utils/empty_state_defaults.dart",
@@ -11315,6 +11308,18 @@
         {
           "source": "registry/components/display/empty_state/_impl/variants/empty_state_variant.dart",
           "destination": "{installPath}/components/display/empty_state/_impl/variants/empty_state_variant.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/empty_state.dart",
+          "destination": "{installPath}/components/display/empty_state/empty_state.dart"
+        },
+        {
+          "source": "registry/components/display/empty_state/meta.json",
+          "destination": "{installPath}/components/display/empty_state/meta.json"
+        },
+        {
+          "source": "registry/components/display/empty_state/preview.dart",
+          "destination": "{installPath}/components/display/empty_state/preview.dart"
         }
       ],
       "shared": [
