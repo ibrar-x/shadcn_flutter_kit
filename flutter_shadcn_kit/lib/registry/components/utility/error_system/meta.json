@@ -1,0 +1,30 @@
+{
+  "id": "error_system",
+  "name": "Error System",
+  "description": "Production-ready error handling system with UI components and repository mapping.",
+  "category": "utility",
+  "tags": [
+    "error",
+    "system",
+    "handling",
+    "repository",
+    "ui"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "radix_icons"
+    ],
+    "components": [
+      "button",
+      "card",
+      "divider",
+      "alert_dialog",
+      "dialog",
+      "toast"
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  }
+}
