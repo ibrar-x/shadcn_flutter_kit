@@ -39,10 +39,10 @@ It is state-management agnostic (Bloc, Riverpod, Provider, custom).
 
 ```
 Business Logic
-  └─ Repository (ErrorHandledRepository)
-       └─ ErrorMapper (RuleBasedErrorMapper)
-            └─ AppError (UI model)
-                 └─ UI (ErrorState / InlineError / Snackbar / Dialog / Banner)
+  -> Repository (ErrorHandledRepository)
+      -> ErrorMapper (RuleBasedErrorMapper)
+          -> AppError (UI model)
+              -> UI (ErrorState / InlineError / Snackbar / Dialog / Banner)
 ```
 
 Dual scope channels (AppErrorHub):
@@ -118,6 +118,45 @@ ErrorState(
 - `AppError`: user-facing error model (title/message/actions/code)
 - `AppErrorCode`: enum for severity and UI styling
 - `ErrorAction`: action metadata (retry/login/back/etc.)
+
+## Class Reference (What Each Class Does)
+
+### Core
+- `AppError`: the single error model the UI consumes.
+- `AppErrorCode`: categorizes errors (network/auth/validation/etc.).
+- `ErrorAction`: describes actions shown in error UI.
+- `AppErrorHub`: global store of app-level + screen-level error channels.
+- `ErrorScope`: typed handle to an error channel.
+- `HubAppScope`: typed adapter for app-level channels.
+- `HubScreenScope`: typed adapter for screen-level channels.
+- `ScreenErrorScope`: widget that owns a screen channel and disposes it automatically.
+- `ErrorSlot`: reactive widget that renders an error from an `ErrorScope`.
+- `guard` / `guardSync`: run a task and publish AppErrors to a scope.
+
+### Mapping
+- `ErrorMapper`: interface for mapping exceptions to `AppError`.
+- `RuleBasedErrorMapper`: runs `ErrorRule`s by priority with a fallback.
+- `ErrorRule`: matches an exception and builds an `AppError`.
+- `ErrorRegistry`: mutable container to compose rule lists.
+- `ErrorHandledRepository`: base class that maps exceptions automatically.
+
+### UI
+- `ErrorState`: full-page/section error UI with title/message/actions.
+- `InlineError`: compact inline error message.
+- `ErrorDialog`: dialog helper for blocking errors.
+- `ErrorSnackbar`: toast-style error helper.
+- `AppErrorBanner`: global banner for app-level errors.
+- `AppErrorGate`: full-screen overlay for global blockers (keeps navigator alive).
+
+### Utilities
+- `ErrorReporter`: hook for analytics/crash reporting.
+- `ErrorFingerprint`: deduplicates errors via a stable hash.
+- `RetryStrategy`: backoff helper for retries.
+- `env`: environment helper for rule behavior.
+
+### Built-in Rules
+- `networkRules`, `authRules`, `apiRules`, `validationRules`, `platformRules`
+- `fallbackRule`: default mapping for unknown errors
 
 ## Error Mapping (Rules + Repositories)
 
