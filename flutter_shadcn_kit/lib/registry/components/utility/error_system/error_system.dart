@@ -4,6 +4,7 @@
 
 export '_impl/core/app_error.dart';
 export '_impl/core/app_error_banner.dart';
+export '_impl/core/app_error_gate.dart';
 export '_impl/core/app_error_hub.dart';
 export '_impl/core/error_action.dart';
 export '_impl/core/error_code.dart';

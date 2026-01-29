@@ -64,7 +64,7 @@ class ErrorSystemPreview extends StatelessWidget {
                       Text(
                         'Error',
                         style: theme.typography.x4Large.copyWith(
-                          color: theme.colorScheme.muted,
+                          color: theme.colorScheme.secondaryForeground,
                         ),
                       ),
                       Gap(8 * scaling),
@@ -79,7 +79,7 @@ class ErrorSystemPreview extends StatelessWidget {
                         child: Icon(
                           RadixIcons.target,
                           size: 48 * scaling,
-                          color: theme.colorScheme.mutedForeground,
+                          color: theme.colorScheme.secondaryForeground,
                         ),
                       ),
                     ],

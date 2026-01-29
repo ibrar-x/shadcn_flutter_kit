@@ -11360,6 +11360,10 @@
           "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_banner.dart"
         },
         {
+          "source": "registry/components/utility/error_system/_impl/core/app_error_gate.dart",
+          "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_gate.dart"
+        },
+        {
           "source": "registry/components/utility/error_system/_impl/core/app_error_hub.dart",
           "destination": "{installPath}/components/utility/error_system/_impl/core/app_error_hub.dart"
         },

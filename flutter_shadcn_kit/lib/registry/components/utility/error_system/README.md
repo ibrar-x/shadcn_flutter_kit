@@ -144,7 +144,7 @@ Use `execute()` and all thrown errors are mapped to `AppError`.
 
 ## Dual Scopes (AppErrorHub)
 
-Use app-level for global errors and screen-level for per-screen issues.
+Use app-level for global blockers and screen-level for per-screen issues.
 
 ```dart
 // App-level (global)
@@ -152,6 +152,38 @@ AppErrorHub.I.app(AppErrorHub.networkUnavailable).value = AppError(...);
 
 // Screen-level (if you manage it manually)
 AppErrorHub.I.screen('UserScreen').value = AppError(...);
+```
+
+## App-Level Gate (Full-Screen Overlay)
+
+App-level errors should not replace the Navigator. Instead, render a gate
+overlay above it so the user returns to the exact screen/state once the error
+clears.
+
+```dart
+final globalScope = HubAppScope('global');
+
+return AppErrorGate.scope(
+  scope: globalScope,
+  child: ShadcnApp(
+    title: 'My App',
+    theme: const ThemeData(),
+    home: const MyHomePage(),
+  ),
+);
+```
+
+To trigger or clear:
+```dart
+// Offline
+globalScope.notifier.value = AppError(
+  code: AppErrorCode.noInternet,
+  title: 'You are offline',
+  message: 'Check your connection and try again.',
+);
+
+// Online again
+globalScope.clear();
 ```
 
 ## ScreenErrorScope (Recommended)
