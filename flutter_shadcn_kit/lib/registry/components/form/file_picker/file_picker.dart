@@ -69,6 +69,12 @@ class FileUpload extends StatefulWidget {
   /// Whether drag-and-drop functionality is enabled.
   final bool enableDragDrop;
 
+  /// Whether clicking the dropzone surface opens the file picker.
+  final bool enableDropzoneClick;
+
+  /// Whether the dropzone action button opens the file picker.
+  final bool enableActionButton;
+
   /// Whether file selection is enabled.
   final bool enabled;
 
@@ -159,6 +165,8 @@ class FileUpload extends StatefulWidget {
   /// - [title] (`Widget?`, optional): Title displayed above picker.
   /// - [subtitle] (`Widget?`, optional): Subtitle below title.
   /// - [enableDragDrop] (`bool`, default: `true`): Enable drag-and-drop.
+  /// - [enableDropzoneClick] (`bool`, default: `true`): Click dropzone to open picker.
+  /// - [enableActionButton] (`bool`, default: `false`): Button opens picker.
   /// - [enabled] (`bool`, default: `true`): Enable picking/uploading.
   /// - [allowMultiple] (`bool`, default: `true`): Allow multi-file picking.
   /// - [uploadFn] (`UploadFn?`, optional): Upload handler for progress.
@@ -167,6 +175,8 @@ class FileUpload extends StatefulWidget {
     this.title,
     this.subtitle,
     this.enableDragDrop = true,
+    this.enableDropzoneClick = true,
+    this.enableActionButton = false,
     this.enabled = true,
     this.allowMultiple = true,
     this.withData = true,
@@ -195,7 +205,10 @@ class FileUpload extends StatefulWidget {
     this.borderRadius,
     this.padding,
     this.minHeight,
-  });
+  }) : assert(
+         enableDropzoneClick != enableActionButton,
+         'Enable only one of enableDropzoneClick or enableActionButton.',
+       );
 
   @override
   State<FileUpload> createState() => _FileUploadState();
@@ -489,6 +502,10 @@ class _FileUploadState extends State<FileUpload> {
     );
     final isEnabled = widget.enabled;
     final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
+    final buttonEnabled =
+        widget.enabled &&
+        widget.enableActionButton &&
+        !(widget.enableDropzoneClick && widget.actionLabel != null);
     final dropzoneMinHeight =
         widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
     final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
@@ -521,7 +538,7 @@ class _FileUploadState extends State<FileUpload> {
       hint: widget.hint,
       icon: widget.icon ?? dropzoneTheme?.icon,
       actionLabel: widget.actionLabel,
-      onPressed: isEnabled ? _pickFiles : null,
+      onPressed: buttonEnabled ? _pickFiles : null,
       backgroundColor: widget.backgroundColor ?? dropzoneTheme?.backgroundColor,
       borderRadius: widget.borderRadius ?? dropzoneTheme?.borderRadius,
       padding: widget.padding ?? dropzoneTheme?.padding,
@@ -532,7 +549,7 @@ class _FileUploadState extends State<FileUpload> {
       withData: widget.withData,
       onDragActive: _setDragActive,
       onDrop: _handleDrop,
-      onTap: isEnabled ? _pickFiles : null,
+      onTap: widget.enableDropzoneClick && isEnabled ? _pickFiles : null,
       child: dropzone,
     );
     return Column(
