@@ -2,6 +2,7 @@ export '../../../components/display/divider/divider.dart' show Divider;
 export '../../../components/layout/scaffold/scaffold.dart'
     show AppBar, Scaffold;
 
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
 
 import '../../../shared/primitives/overlay.dart';
@@ -48,7 +49,53 @@ class ShadcnApp extends StatelessWidget {
     this.tooltipHandler,
     this.menuHandler,
     this.enableThemeAnimation = false,
+    this.materialFallback = true,
+    this.routeInformationProvider,
+    this.routeInformationParser,
+    this.routerDelegate,
+    this.backButtonDispatcher,
   });
+
+  const ShadcnApp.router({
+    super.key,
+    this.routeInformationProvider,
+    this.routeInformationParser,
+    this.routerDelegate,
+    this.backButtonDispatcher,
+    this.builder,
+    this.title = '',
+    this.color,
+    this.theme = const ThemeData(),
+    this.darkTheme,
+    this.themeMode = ThemeMode.system,
+    this.locale,
+    this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.debugShowMaterialGrid = false,
+    this.showPerformanceOverlay = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.shortcuts,
+    this.actions,
+    this.restorationScopeId,
+    this.scrollBehavior,
+    this.scaling,
+    this.popoverHandler,
+    this.tooltipHandler,
+    this.menuHandler,
+    this.enableThemeAnimation = false,
+    this.materialFallback = true,
+  }) : navigatorKey = null,
+       home = null,
+       routes = const <String, WidgetBuilder>{},
+       initialRoute = null,
+       onGenerateRoute = null,
+       onGenerateInitialRoutes = null,
+       onUnknownRoute = null,
+       pageRouteBuilder = null,
+       navigatorObservers = const <NavigatorObserver>[];
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final Widget? home;
@@ -83,6 +130,12 @@ class ShadcnApp extends StatelessWidget {
   final OverlayHandler? tooltipHandler;
   final OverlayHandler? menuHandler;
   final bool enableThemeAnimation;
+  final bool materialFallback;
+
+  final RouteInformationProvider? routeInformationProvider;
+  final RouteInformationParser<Object>? routeInformationParser;
+  final RouterDelegate<Object>? routerDelegate;
+  final BackButtonDispatcher? backButtonDispatcher;
 
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
@@ -103,14 +156,14 @@ class ShadcnApp extends StatelessWidget {
     Widget child,
     ThemeData themeData,
   ) {
-    final wrapped = Theme(
+    Widget wrapped = Theme(
       data: themeData,
       child: ShadcnUI(child: child),
     );
     if (!enableThemeAnimation) {
-      return wrapped;
+      return _wrapWithMaterialFallback(wrapped);
     }
-    return TweenAnimationBuilder<ThemeData>(
+    wrapped = TweenAnimationBuilder<ThemeData>(
       tween: ThemeDataTween(begin: themeData, end: themeData),
       duration: kDefaultDuration,
       builder: (context, value, themedChild) {
@@ -118,11 +171,56 @@ class ShadcnApp extends StatelessWidget {
       },
       child: ShadcnUI(child: child),
     );
+    return _wrapWithMaterialFallback(wrapped);
+  }
+
+  Widget _wrapWithMaterialFallback(Widget child) {
+    if (!materialFallback) {
+      return child;
+    }
+    return material.Material(
+      type: material.MaterialType.transparency,
+      child: child,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final resolvedTheme = _resolveTheme(context);
+    Widget appBuilder(BuildContext context, Widget? child) {
+      final built = builder != null ? builder!(context, child) : child;
+      final safeChild = built ?? const SizedBox.shrink();
+      return OverlayManagerLayer(
+        popoverHandler: popoverHandler ?? OverlayHandler.popover,
+        tooltipHandler: tooltipHandler ?? OverlayHandler.popover,
+        menuHandler: menuHandler ?? OverlayHandler.popover,
+        child: _wrapWithTheme(context, safeChild, resolvedTheme),
+      );
+    }
+
+    if (routerDelegate != null && routeInformationParser != null) {
+      return WidgetsApp.router(
+        routeInformationProvider: routeInformationProvider,
+        routeInformationParser: routeInformationParser!,
+        routerDelegate: routerDelegate!,
+        backButtonDispatcher: backButtonDispatcher,
+        color: color ?? resolvedTheme.colorScheme.primary,
+        title: title,
+        builder: appBuilder,
+        locale: locale,
+        localizationsDelegates: localizationsDelegates,
+        localeListResolutionCallback: localeListResolutionCallback,
+        localeResolutionCallback: localeResolutionCallback,
+        supportedLocales: supportedLocales,
+        showPerformanceOverlay: showPerformanceOverlay,
+        showSemanticsDebugger: showSemanticsDebugger,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        shortcuts: shortcuts,
+        actions: actions,
+        restorationScopeId: restorationScopeId,
+      );
+    }
+
     return WidgetsApp(
       navigatorKey: navigatorKey,
       color: color ?? resolvedTheme.colorScheme.primary,
@@ -135,16 +233,7 @@ class ShadcnApp extends StatelessWidget {
       onUnknownRoute: onUnknownRoute,
       pageRouteBuilder: pageRouteBuilder ?? _defaultPageRouteBuilder,
       navigatorObservers: navigatorObservers,
-      builder: (context, child) {
-        final built = builder != null ? builder!(context, child) : child;
-        final safeChild = built ?? const SizedBox.shrink();
-        return OverlayManagerLayer(
-          popoverHandler: popoverHandler ?? OverlayHandler.popover,
-          tooltipHandler: tooltipHandler ?? OverlayHandler.popover,
-          menuHandler: menuHandler ?? OverlayHandler.popover,
-          child: _wrapWithTheme(context, safeChild, resolvedTheme),
-        );
-      },
+      builder: appBuilder,
       locale: locale,
       localizationsDelegates: localizationsDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
@@ -163,10 +252,9 @@ class ShadcnApp extends StatelessWidget {
 PageRoute<T> _defaultPageRouteBuilder<T>(
   RouteSettings settings,
   WidgetBuilder builder,
-) =>
-    PageRouteBuilder<T>(
-      settings: settings,
-      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-    );
+) => PageRouteBuilder<T>(
+  settings: settings,
+  pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+);
 
 /// A widget that applies shadcn text + icon styles to descendants.

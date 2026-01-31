@@ -78,23 +78,26 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
         const Text('Example Preview').small().semiBold(),
         const SizedBox(height: 8),
         OutlinedContainer(
-          child: ClipRect(
-            child: Container(
-              padding: const EdgeInsets.all(40),
-              constraints: const BoxConstraints(minHeight: 350),
-              child: Material(
-                type: MaterialType.transparency,
-                child: Center(
-                  child: !_expanded
-                      ? const Text('Example collapsed').muted()
-                      : _shouldBuildChild
-                          ? ConstrainedBox(
+          child: Container(
+            padding: const EdgeInsets.all(40),
+            constraints: const BoxConstraints(minHeight: 350),
+            child: Material(
+              type: MaterialType.transparency,
+              child: !_expanded
+                  ? Center(child: const Text('Example collapsed').muted())
+                  : _shouldBuildChild
+                      ? SingleChildScrollView(
+                          primary: false,
+                          child: Center(
+                            child: ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 720),
                               child: widget.child,
-                            )
-                          : const Text('Loading preview...').muted(),
-                ),
-              ),
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: const Text('Loading preview...').muted(),
+                        ),
             ),
           ),
         ),

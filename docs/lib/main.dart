@@ -15,6 +15,7 @@ import 'pages/docs/component_detail_page.dart';
 import 'pages/docs/icons_page.dart';
 import 'pages/docs/installation_page.dart';
 import 'pages/docs/registry_guide_page.dart';
+import 'pages/docs/app_setup_page.dart';
 import 'pages/docs/introduction_page.dart';
 import 'pages/docs/layout_page.dart';
 import 'pages/docs/components/material_example.dart';
@@ -27,9 +28,7 @@ import 'web_bridge.dart';
 import 'ui/shadcn/components/form/history/history.dart';
 import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
-import 'ui/shadcn/components/utility/error_system/_impl/core/app_error_gate.dart';
-import 'ui/shadcn/components/utility/error_system/_impl/core/hub_scopes.dart';
-import 'ui/shadcn/components/utility/error_system/_impl/state/screen_error_scope.dart';
+import 'ui/shadcn/components/utility/error_system/error_system.dart';
 import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'ui/shadcn/shared/primitives/overlay.dart';
@@ -176,6 +175,14 @@ class _DocsRootState extends State<DocsRoot> {
           ),
         ),
         GoRoute(
+          path: '/app-setup',
+          name: 'app-setup',
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const AppSetupPage(),
+          ),
+        ),
+        GoRoute(
           path: '/registry-guide',
           name: 'registry-guide',
           pageBuilder: (context, state) => _buildTransitionPage(
@@ -298,26 +305,51 @@ class _DocsRootState extends State<DocsRoot> {
         builder: (context, _) {
           final data = controller.data;
           _notifyWebThemeChanged(data);
-          return DocsThemeScope(
-            data: data,
-            child: MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              title: 'shadcn/ui Flutter',
-              theme: data.toMaterialTheme(),
-              routerConfig: router,
-              builder: (context, child) => shadcn_theme.Theme(
-                data: data.toShadcnTheme(),
-                child: AppErrorGate.scope(
-                  scope: _appErrorScope,
-                  child: ShadcnLayer(
-                    child: DrawerOverlay(
-                      child: RecentColorsScope(
-                        child: EyeDropperLayer(
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: child ?? const SizedBox.shrink(),
+          return ShadcnLayer(
+            child: DocsThemeScope(
+              data: data,
+              child: MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'shadcn/ui Registry Flutter Widget',
+                theme: data.toMaterialTheme(),
+                routerConfig: router,
+                builder: (context, child) => Material(
+                  child: shadcn_theme.Theme(
+                    data: data.toShadcnTheme(),
+                    child: AppErrorGate.scope(
+                      scope: _appErrorScope,
+                      child: Stack(
+                        children: [
+                          ShadcnLayer(
+                            child: DrawerOverlay(
+                              child: RecentColorsScope(
+                                child: EyeDropperLayer(
+                                  child: Material(
+                                    type: MaterialType.transparency,
+                                    child: child ?? const SizedBox.shrink(),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: SafeArea(
+                              bottom: false,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
+                                child: const AppErrorBanner(
+                                  watchScopes: ['docs.app.banner'],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

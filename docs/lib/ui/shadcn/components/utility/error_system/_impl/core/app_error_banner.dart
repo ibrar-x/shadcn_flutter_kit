@@ -109,40 +109,78 @@ class AppErrorBanner extends StatelessWidget {
       borderColor: borderColor,
       borderRadius: compTheme?.bannerBorderRadius ?? theme.borderRadiusLg,
       padding: padding,
-      child: Row(
-        children: [
-          Icon(
-            compTheme?.bannerIcon ?? RadixIcons.exclamationTriangle,
-            size: 18 * scaling,
-            color: borderColor,
-          ),
-          Gap(12 * scaling),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DefaultTextStyle.merge(
-                  style: titleStyle,
-                  child: Text(error.title),
-                ),
-                Gap(4 * scaling),
-                DefaultTextStyle.merge(
-                  style: messageStyle,
-                  child: Text(error.message),
-                ),
-              ],
-            ),
-          ),
-          if (actionButton != null) ...[Gap(12 * scaling), actionButton],
-          Gap(8 * scaling),
-          GhostButton(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isNarrow = constraints.maxWidth < 520 * scaling;
+          final dismissButton = GhostButton(
             onPressed: onDismiss,
             size: ButtonSize.small,
             density: ButtonDensity.iconDense,
             child: Icon(RadixIcons.cross2, size: 16 * scaling),
-          ),
-        ],
+          );
+
+          final icon = Icon(
+            compTheme?.bannerIcon ?? RadixIcons.exclamationTriangle,
+            size: 18 * scaling,
+            color: borderColor,
+          );
+
+          final textBlock = Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DefaultTextStyle.merge(
+                style: titleStyle,
+                child: Text(error.title),
+              ),
+              Gap(4 * scaling),
+              DefaultTextStyle.merge(
+                style: messageStyle,
+                child: Text(error.message),
+              ),
+            ],
+          );
+
+          if (!isNarrow) {
+            return Row(
+              children: [
+                icon,
+                Gap(12 * scaling),
+                Expanded(child: textBlock),
+                if (actionButton != null) ...[
+                  Gap(12 * scaling),
+                  actionButton,
+                ],
+                Gap(8 * scaling),
+                dismissButton,
+              ],
+            );
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  icon,
+                  Gap(12 * scaling),
+                  Expanded(child: textBlock),
+                  Gap(8 * scaling),
+                  dismissButton,
+                ],
+              ),
+              if (actionButton != null) ...[
+                Gap(12 * scaling),
+                Wrap(
+                  spacing: 8 * scaling,
+                  runSpacing: 8 * scaling,
+                  children: [actionButton],
+                ),
+              ],
+            ],
+          );
+        },
       ),
     );
   }

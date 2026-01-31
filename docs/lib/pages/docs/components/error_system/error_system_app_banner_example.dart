@@ -6,34 +6,34 @@ import '../../../../ui/shadcn/components/utility/error_system/error_system.dart'
 import '../../../../ui/shadcn/shared/primitives/text.dart';
 
 const ComponentExample errorSystemAppBannerExample = ComponentExample(
-  title: 'AppErrorBanner (global)',
+  title: 'App-level banner + gate',
   builder: _buildErrorSystemAppBannerExample,
-  code: '''final scope = HubAppScope('global');
+  code: '''final bannerScope = HubAppScope('app.banner');
+final gateScope = HubAppScope('app');
 
-AppErrorBanner();
+// App shell (top-level)
+AppErrorGate.scope(
+  scope: gateScope,
+  child: AppErrorBanner(
+    watchScopes: ['app.banner'],
+  ),
+);
 
-PrimaryButton(
-  onPressed: () {
-    scope.notifier.value = AppError(
-      code: AppErrorCode.noInternet,
-      title: 'You are offline',
-      message: 'Check your connection.',
-    );
-  },
-  child: Text('Show banner'),
-);''',
+// Triggering errors
+bannerScope.notifier.value = AppError(...); // banner
+gateScope.notifier.value = AppError(...); // full-screen gate
+''',
 );
 
 Widget _buildErrorSystemAppBannerExample(BuildContext context) {
-  final scope = HubAppScope('docs.error-banner');
+  final bannerScope = HubAppScope('docs.app.banner');
+  final gateScope = HubAppScope('docs.app');
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      const Text('App-level banner example').small().muted(),
-      const SizedBox(height: 12),
-      const AppErrorBanner(
-        watchScopes: ['docs.error-banner'],
-      ),
+      const Text('Triggers the app-level banner or full-screen gate.')
+          .small()
+          .muted(),
       const SizedBox(height: 12),
       Wrap(
         spacing: 12,
@@ -41,20 +41,36 @@ Widget _buildErrorSystemAppBannerExample(BuildContext context) {
         children: [
           PrimaryButton(
             onPressed: () {
-              scope.notifier.value = AppError(
+              bannerScope.notifier.value = AppError(
                 code: AppErrorCode.noInternet,
                 title: 'You are offline',
                 message: 'Check your connection and try again.',
                 actions: [
-                  ErrorAction.retry(scope.clear),
+                  ErrorAction.retry(bannerScope.clear),
                 ],
               );
             },
             child: const Text('Show banner'),
           ),
           SecondaryButton(
-            onPressed: scope.clear,
-            child: const Text('Clear'),
+            onPressed: () {
+              gateScope.notifier.value = AppError(
+                code: AppErrorCode.server,
+                title: 'Service unavailable',
+                message: 'We are fixing an outage. Please try again soon.',
+                actions: [
+                  ErrorAction.retry(gateScope.clear),
+                ],
+              );
+            },
+            child: const Text('Show app gate'),
+          ),
+          SecondaryButton(
+            onPressed: () {
+              bannerScope.clear();
+              gateScope.clear();
+            },
+            child: const Text('Clear all'),
           ),
         ],
       ),

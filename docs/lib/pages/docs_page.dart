@@ -132,6 +132,7 @@ class DocsPageState extends State<DocsPage> {
       [
         DocsPageRef('Introduction', 'introduction'),
         DocsPageRef('Installation', 'installation'),
+        DocsPageRef('App Setup', 'app-setup'),
         DocsPageRef('Registry Guide', 'registry-guide'),
         DocsPageRef('Theme', 'theme'),
         DocsPageRef('Typography', 'typography'),

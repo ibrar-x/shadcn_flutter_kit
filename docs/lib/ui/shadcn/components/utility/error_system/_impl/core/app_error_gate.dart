@@ -1,6 +1,7 @@
 // AppErrorGate: full-screen overlay for app-level blocking errors.
 // Keeps the navigator subtree mounted so state is preserved while showing a global error UI.
 
+import 'package:docs/ui/shadcn/shadcn_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,13 +54,15 @@ class AppErrorGate extends StatelessWidget {
       builder: (context, error, _) {
         return Stack(
           children: [
-            child,
+            if (error != null && blockInteraction)
+              AbsorbPointer(child: child)
+            else
+              child,
             if (error != null)
               Positioned.fill(
                 child: _AppErrorGateOverlay(
                   error: error,
                   overlayBuilder: overlayBuilder,
-                  blockInteraction: blockInteraction,
                 ),
               ),
           ],
@@ -73,12 +76,10 @@ class _AppErrorGateOverlay extends StatelessWidget {
   const _AppErrorGateOverlay({
     required this.error,
     required this.overlayBuilder,
-    required this.blockInteraction,
   });
 
   final AppError error;
   final Widget Function(BuildContext context, AppError error)? overlayBuilder;
-  final bool blockInteraction;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +92,6 @@ class _AppErrorGateOverlay extends StatelessWidget {
       alignment: Alignment.center,
       child: content,
     );
-    if (!blockInteraction) return overlay;
-    return AbsorbPointer(child: overlay);
+    return overlay;
   }
 }
