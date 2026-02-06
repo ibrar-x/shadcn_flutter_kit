@@ -1,0 +1,186 @@
+{
+  "$schema": "https://schema.example.com/skill/1.0.0",
+  "schemaVersion": 1,
+  "id": "flutter-shadcn-ui",
+  "name": "Flutter Shadcn UI",
+  "version": "1.0.0",
+  "description": "Build beautiful, production-ready Flutter UI components using shadcn-flutter registry. Enables AI models to discover, install, configure, and troubleshoot shadcn components with complete CLI knowledge, 42 theme presets, and real-world workflow examples.",
+  "author": "Flutter Shadcn Contributors",
+  "license": "MIT",
+  "tags": [
+    "flutter",
+    "ui-components",
+    "shadcn",
+    "material-design",
+    "component-library",
+    "theming",
+    "cli"
+  ],
+  "compatibility": {
+    "aiModels": [
+      "claude",
+      "chatgpt",
+      "cursor",
+      "gemini",
+      "any"
+    ],
+    "platforms": [
+      "ios",
+      "android",
+      "macos",
+      "windows",
+      "web",
+      "linux"
+    ]
+  },
+  "capabilities": [
+    "component-discovery",
+    "dependency-resolution",
+    "theme-management",
+    "cli-guidance",
+    "troubleshooting",
+    "workflow-automation"
+  ],
+  "files": {
+    "main": "SKILL.md",
+    "references": {
+      "commands": "references/commands.md",
+      "examples": "references/examples.md",
+      "installation": "references/INSTALLATION.md",
+      "troubleshooting": "references/troubleshooting.md",
+      "best-practices": "references/best_practices.md",
+      "schemas": "references/schemas.md"
+
+    }
+  },
+  "content": {
+    "documentation": {
+      "words": 52000,
+      "sections": 45,
+      "examples": 8,
+      "codeSnippets": 50
+    },
+    "commands": {
+      "documented": 13,
+      "options": 60,
+      "examples": 100
+    },
+    "themes": {
+      "presets": 42,
+      "variants": "light/dark"
+    },
+    "workflows": {
+      "realWorld": 8,
+      "complete": true
+    }
+  },
+  "commands": {
+    "init": {
+      "description": "Initialize Flutter project for shadcn components",
+      "documented": true
+    },
+    "add": {
+      "description": "Install components with dependency resolution",
+      "documented": true
+    },
+    "remove": {
+      "description": "Safely remove components",
+      "documented": true
+    },
+    "list": {
+      "description": "Browse all components",
+      "documented": true
+    },
+    "search": {
+      "description": "Find components by keyword",
+      "documented": true
+    },
+    "info": {
+      "description": "Get component details",
+      "documented": true
+    },
+    "theme": {
+      "description": "Manage color themes (42 presets)",
+      "documented": true
+    },
+    "dry-run": {
+      "description": "Preview installation",
+      "documented": true
+    },
+    "sync": {
+      "description": "Reapply configuration",
+      "documented": true
+    },
+    "doctor": {
+      "description": "Diagnose project setup",
+      "documented": true
+    },
+    "assets": {
+      "description": "Install fonts and icons",
+      "documented": true
+    },
+    "platform": {
+      "description": "Configure platform paths",
+      "documented": true
+    },
+    "install-skill": {
+      "description": "Deploy skills to AI models",
+      "documented": true
+    }
+  },
+  "features": {
+    "componentDiscovery": {
+      "enabled": true,
+      "description": "Search and discover available components"
+    },
+    "dependencyResolution": {
+      "enabled": true,
+      "description": "Automatic component dependency resolution"
+    },
+    "themeManagement": {
+      "enabled": true,
+      "description": "42 preset themes with instant application"
+    },
+    "cliGuidance": {
+      "enabled": true,
+      "description": "Complete CLI command reference and usage"
+    },
+    "troubleshooting": {
+      "enabled": true,
+      "description": "Diagnostic and repair procedures"
+    },
+    "bestPractices": {
+      "enabled": true,
+      "description": "Patterns and proven workflows"
+    }
+  },
+  "requirements": {
+    "flutterSdk": "3.0.0+",
+    "dartSdk": "3.0.0+",
+    "cliVersion": "1.0.0+"
+  },
+  "installation": {
+    "methods": [
+      "cli",
+      "manual",
+      "custom-gpt"
+    ],
+    "setupTime": "2-5 minutes",
+    "complexity": "simple"
+  },
+  "metadata": {
+    "created": "2026-02-04",
+    "updated": "2026-02-04",
+    "status": "stable",
+    "quality": "production-ready"
+  },
+  "resources": {
+    "documentation": "52KB markdown",
+    "compressed": {
+      "zip": "27KB",
+      "targz": "22KB"
+    },
+    "total": "~50KB",
+    "format": "pure-markdown"
+  }
+}
