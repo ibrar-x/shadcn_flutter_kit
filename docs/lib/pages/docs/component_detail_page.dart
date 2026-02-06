@@ -12,7 +12,9 @@ import '../../ui/shadcn/components/layout/outlined_container/outlined_container.
 import '../../ui/shadcn/shared/primitives/slider_value.dart'
     as shadcn_slider_value;
 import '../../ui/shadcn/shared/primitives/text.dart';
+import '../../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'widget_usage_example.dart';
+import 'package:go_router/go_router.dart';
 
 class ComponentDetailPage extends StatefulWidget {
   final String componentId;
@@ -32,6 +34,8 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = shadcn_theme.Theme.of(context);
+    final spacing = theme.spacing;
     return FutureBuilder<List<RegistryComponent>>(
       future: loadRegistryComponents(),
       builder: (context, snapshot) {
@@ -74,15 +78,48 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
             displayName: component.name,
             category: component.category,
             children: [
+              if (component.id == 'error_system')
+                OutlinedContainer(
+                  child: Padding(
+                    padding: EdgeInsets.all(spacing.lg),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Quick Start Guide').semiBold(),
+                              SizedBox(height: spacing.xs),
+                              const Text(
+                                'Open the full guide with setup, rules, and best practices.',
+                              ).muted(),
+                            ],
+                          ),
+                        ),
+                        shadcn_buttons.PrimaryButton(
+                          onPressed: () =>
+                              context.goNamed('error_system_quick_start'),
+                          child: const Text('Open guide'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               _buildPerformanceControls(
                 totalExamples: examples.length,
                 hiddenCount: hiddenCount,
               ),
               for (var index = 0; index < visibleExamples.length; index++)
                 WidgetUsageExample(
+                  key: ValueKey(
+                    'example-${component.id}-$index-${visibleExamples[index].title}-${visibleExamples[index].code.hashCode}',
+                  ),
                   title: visibleExamples[index].title,
                   code: visibleExamples[index].code,
                   lazyThreshold: _performanceMode ? _lazyThreshold : 0.1,
+                  previewPadding: EdgeInsets.all(spacing.xxl),
+                  previewFullBleed: false,
+                  previewMinHeight: null,
                   installCommand:
                       index == 0 ? 'flutter_shadcn add ${component.id}' : null,
                   child: visibleExamples[index].builder(context),
@@ -128,15 +165,16 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
     required int totalExamples,
     required int hiddenCount,
   }) {
+    final spacing = shadcn_theme.Theme.of(context).spacing;
     final thresholdLabel = (_lazyThreshold * 100).round();
-    final selectedMax = _maxRenderedOptions.contains(_maxRendered)
-        ? _maxRendered
-        : _maxRenderedOptions.first;
-    final controls = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Performance mode').semiBold(),
-        const SizedBox(height: 8),
+        final selectedMax = _maxRenderedOptions.contains(_maxRendered)
+            ? _maxRendered
+            : _maxRenderedOptions.first;
+        final controls = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Performance mode').semiBold(),
+        SizedBox(height: spacing.sm),
         shadcn_switch.Switch(
           value: _performanceMode,
           onChanged: (value) => setState(() {
@@ -147,7 +185,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
           }),
           trailing: const Text('Enable performance mode'),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: spacing.md),
         Opacity(
           opacity: _performanceMode ? 1 : 0.4,
           child: IgnorePointer(
@@ -156,7 +194,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Lazy-load threshold: $thresholdLabel%').small(),
-                const SizedBox(height: 8),
+                SizedBox(height: spacing.sm),
                 shadcn_slider.Slider(
                   value: shadcn_slider_value.SliderValue.single(_lazyThreshold),
                   min: 0.05,
@@ -166,11 +204,11 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                     _lazyThreshold = value.value;
                   }),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: spacing.md),
                 Row(
                   children: [
                     const Text('Max rendered examples:').small(),
-                    const SizedBox(width: 8),
+                    SizedBox(width: spacing.sm),
                     DropdownButton<int>(
                       value: selectedMax,
                       onChanged: (value) => setState(() {

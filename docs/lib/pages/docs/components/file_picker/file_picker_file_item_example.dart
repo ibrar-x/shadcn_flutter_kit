@@ -6,6 +6,9 @@ import '../../component_example_models.dart';
 import '../../../../ui/shadcn/components/form/file_input/file_input.dart';
 import '../../../../ui/shadcn/components/form/file_picker/file_picker.dart'
     as shadcn_file_picker;
+import '../../../../ui/shadcn/components/control/button/button.dart'
+    as shadcn_buttons;
+import '../../../../ui/shadcn/shared/primitives/text.dart';
 
 const ComponentExample filePickerFileItemExample = ComponentExample(
   title: 'Controller + uploads',
@@ -33,6 +36,7 @@ class _FilePickerControllerExample extends StatefulWidget {
 class _FilePickerControllerExampleState
     extends State<_FilePickerControllerExample> {
   late final shadcn_file_picker.FileUploadController _controller;
+  var _fileCounter = 0;
 
   @override
   void initState() {
@@ -70,6 +74,34 @@ class _FilePickerControllerExampleState
     super.dispose();
   }
 
+  void _addMockFiles() {
+    _fileCounter += 1;
+    _controller.addFiles([
+      shadcn_file_picker.FileLike(
+        id: 'notes-$_fileCounter',
+        name: 'notes-$_fileCounter.txt',
+        size: 1024 * 12,
+        extension: 'txt',
+        mimeType: 'text/plain',
+      ),
+      shadcn_file_picker.FileLike(
+        id: 'report-$_fileCounter',
+        name: 'report-$_fileCounter.pdf',
+        size: 1024 * 420,
+        extension: 'pdf',
+        mimeType: 'application/pdf',
+      ),
+    ]);
+  }
+
+  void _startUploads() {
+    _controller.startUploads(_mockUpload);
+  }
+
+  void _clearFiles() {
+    _controller.clear();
+  }
+
   Stream<double> _mockUpload(shadcn_file_picker.FileLike file) async* {
     for (var i = 1; i <= 10; i++) {
       await Future<void>.delayed(const Duration(milliseconds: 140));
@@ -80,19 +112,63 @@ class _FilePickerControllerExampleState
   @override
   Widget build(BuildContext context) {
     return FileIconProvider.builder(
-      child: shadcn_file_picker.FileUpload(
-        title: const Text('Upload queue'),
-        subtitle: const Text('Controller manages items and upload state'),
-        controller: _controller,
-        itemsLayout: shadcn_file_picker.FileUploadItemsLayout.list,
-        itemsMaxHeight: 240,
-        uploadFn: _mockUpload,
-        itemBuilder: (context, item) {
-          return shadcn_file_picker.FileItem(
-            item: item,
-            onRemove: () => _controller.removeFile(item.file),
-          );
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              shadcn_buttons.PrimaryButton(
+                onPressed: _addMockFiles,
+                size: shadcn_buttons.ButtonSize.small,
+                child: const Text('Add mock files'),
+              ),
+              shadcn_buttons.OutlineButton(
+                onPressed: _startUploads,
+                size: shadcn_buttons.ButtonSize.small,
+                child: const Text('Start uploads'),
+              ),
+              shadcn_buttons.OutlineButton(
+                onPressed: _clearFiles,
+                size: shadcn_buttons.ButtonSize.small,
+                child: const Text('Clear'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, _) {
+              final status = _controller.isUploading ? 'Uploading' : 'Idle';
+              return Text(
+                'Items: ${_controller.items.length} • $status',
+              ).small().muted();
+            },
+          ),
+          const SizedBox(height: 12),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, _) {
+              return shadcn_file_picker.FileUpload(
+                title: const Text('Upload queue'),
+                subtitle: const Text(
+                  'Controller manages items and upload state',
+                ),
+                controller: _controller,
+                itemsLayout: shadcn_file_picker.FileUploadItemsLayout.list,
+                itemsMaxHeight: 240,
+                uploadFn: _mockUpload,
+                itemBuilder: (context, item) {
+                  return shadcn_file_picker.FileItem(
+                    item: item,
+                    onRemove: () => _controller.removeFile(item.file),
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

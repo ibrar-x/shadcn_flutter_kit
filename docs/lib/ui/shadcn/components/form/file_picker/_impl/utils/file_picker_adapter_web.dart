@@ -50,8 +50,8 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
       type: (allowedExtensions != null && allowedExtensions.isNotEmpty)
           ? fp.FileType.custom
           : fp.FileType.any,
-      allowedExtensions: (allowedExtensions != null &&
-              allowedExtensions.isNotEmpty)
+      allowedExtensions:
+          (allowedExtensions != null && allowedExtensions.isNotEmpty)
           ? allowedExtensions.map((ext) => ext.replaceFirst('.', '')).toList()
           : null,
     );
@@ -61,7 +61,8 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
 
   FileLike _fromPlatformFile(fp.PlatformFile file) {
     return FileLike(
-      id: file.identifier ??
+      id:
+          file.identifier ??
           '${DateTime.now().microsecondsSinceEpoch}-${file.name}',
       name: file.name,
       size: file.size,

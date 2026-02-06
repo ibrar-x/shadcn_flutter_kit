@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 /// Chips with trailing remove buttons in different styles.
 ///

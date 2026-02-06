@@ -2,6 +2,9 @@ import 'package:flutter/widgets.dart' hide Form;
 
 import '../form/form.dart';
 
+part '_impl/state/_validated_state.dart';
+
+
 /// Builder function for validated widgets.
 ///
 /// Creates a widget based on the validation state.
@@ -61,23 +64,4 @@ class Validated<T> extends StatefulWidget {
 
   @override
   State<Validated> createState() => _ValidatedState();
-}
-
-class _ValidatedState extends State<Validated> {
-  final formKey = const FormKey(#validated);
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: FormEntry(
-        key: formKey,
-        validator: widget.validator,
-        child: FormEntryErrorBuilder(
-          builder: (context, error, child) {
-            return widget.builder(context, error, child);
-          },
-          child: widget.child,
-        ),
-      ),
-    );
-  }
 }

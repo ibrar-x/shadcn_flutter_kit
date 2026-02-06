@@ -152,7 +152,10 @@ class Typography {
     this.h4 = const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
     this.p = const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
     this.blockQuote = const TextStyle(
-        fontSize: 16, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.italic,
+    ),
     this.inlineCode = const TextStyle(
       fontFamily: 'GeistMono',
       fontFamilyFallback: ['NotoSansSymbols2'],

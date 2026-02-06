@@ -6,7 +6,7 @@ import '../../../shared/primitives/outlined_container.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/alert_theme.dart';
+part '_impl/themes/alert_theme.dart';
 
 /// Flexible alert box for status, warning, and info messages.
 class Alert extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates a scrollable Table hooked to ScrollableClient with frozen
 // rows/columns and diagonal drag panning.

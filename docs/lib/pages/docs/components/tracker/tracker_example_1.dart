@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates a Tracker strip with varying levels (fine/warning/critical)
 // and per-cell tooltips, similar to a heatmap timeline.

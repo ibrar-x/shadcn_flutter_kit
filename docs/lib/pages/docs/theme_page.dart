@@ -12,6 +12,7 @@ import '../../ui/shadcn/shared/primitives/overlay.dart';
 import '../../ui/shadcn/components/utility/color/color.dart' as color_utils;
 import '../../ui/shadcn/shared/primitives/text.dart';
 import '../../ui/shadcn/shared/theme/color_scheme.dart' as shadcn_scheme;
+import '../../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import '../../ui/shadcn/shared/utils/color_extensions.dart';
 
 class ThemePage extends StatefulWidget {
@@ -226,8 +227,9 @@ class _ThemePageState extends State<ThemePage> {
       return shadcn_buttons.OutlineButton(
         onPressed: onPressed,
         size: shadcn_buttons.ButtonSize.small,
-        density: shadcn_buttons.ButtonDensity.compact,
+        density: shadcn_buttons.ButtonDensity.dense,
         child: Text(label),
+        
       );
     }
     return shadcn_buttons.GhostButton(
@@ -259,7 +261,13 @@ class _PresetChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = preset.light;
+    final brightness = Theme.of(context).brightness;
+    final scheme = brightness == Brightness.dark ? preset.dark : preset.light;
+    final tokens = Theme.of(context).brightness == Brightness.dark
+        ? preset.darkTokens
+        : preset.lightTokens;
+    final radiusValue =
+        shadcn_theme.ThemeData(radius: tokens.radius).radiusMd;
     final indicator = Container(
       width: 14,
       height: 14,
@@ -277,7 +285,10 @@ class _PresetChip extends StatelessWidget {
       children: [
         indicator,
         const SizedBox(width: 6),
-        Text(preset.name).small(),
+        Text(
+          preset.name,
+          style: TextStyle(color: scheme.foreground),
+        ).small(),
       ],
     );
     final paddedChild = Padding(
@@ -285,19 +296,31 @@ class _PresetChip extends StatelessWidget {
       child: child,
     );
 
-    if (selected) {
-      return shadcn_buttons.PrimaryButton(
-        onPressed: onTap,
-        size: shadcn_buttons.ButtonSize.small,
-        density: shadcn_buttons.ButtonDensity.normal,
-        child: paddedChild,
-      );
-    }
-    return shadcn_buttons.OutlineButton(
-      onPressed: onTap,
-      size: shadcn_buttons.ButtonSize.small,
-      density: shadcn_buttons.ButtonDensity.normal,
-      child: paddedChild,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radiusValue),
+      child: shadcn_buttons.ButtonStyleOverride(
+        decoration: (context, states, value) {
+          final borderColor = selected ? scheme.primary : scheme.border;
+          return BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(radiusValue),
+            border: Border.all(color: borderColor),
+          );
+        },
+        child: selected
+            ? shadcn_buttons.OutlineButton(
+                onPressed: onTap,
+                size: shadcn_buttons.ButtonSize.small,
+                density: shadcn_buttons.ButtonDensity.normal,
+                child: paddedChild,
+              )
+            : shadcn_buttons.OutlineButton(
+                onPressed: onTap,
+                size: shadcn_buttons.ButtonSize.small,
+                density: shadcn_buttons.ButtonDensity.normal,
+                child: paddedChild,
+              ),
+      ),
     );
   }
 }

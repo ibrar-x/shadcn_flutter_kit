@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates NumberTicker animating from its previous value to a new value.
 // The TextField lets you enter a target integer; committing the edit triggers

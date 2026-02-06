@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class SortableExample2 extends StatefulWidget {
   const SortableExample2({super.key});

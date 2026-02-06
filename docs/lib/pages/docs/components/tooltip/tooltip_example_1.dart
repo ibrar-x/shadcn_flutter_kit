@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates a Tooltip wrapping a button; shows tooltip content on
 // hover/focus.

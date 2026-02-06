@@ -19,8 +19,8 @@ class ScreenErrorScope extends StatefulWidget {
   final bool clearOnInit;
 
   static ScreenErrorScopeState of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_ScreenErrorScopeHost>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<_ScreenErrorScopeHost>();
     assert(scope != null, 'ScreenErrorScope.of() called with no ancestor.');
     return scope!.state;
   }
@@ -32,7 +32,8 @@ class ScreenErrorScope extends StatefulWidget {
 class ScreenErrorScopeState extends State<ScreenErrorScope> {
   static int _counter = 0;
 
-  late final String _key = widget.scopeKey ??
+  late final String _key =
+      widget.scopeKey ??
       'screen.${DateTime.now().microsecondsSinceEpoch}-${_counter++}';
   late final HubScreenScope scope = HubScreenScope(_key);
 

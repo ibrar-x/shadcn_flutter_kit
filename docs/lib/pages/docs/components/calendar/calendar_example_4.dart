@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 /// Calendar in read-only mode (no selection).
 ///
@@ -34,11 +34,13 @@ class _CalendarExample4State extends State<CalendarExample4> {
                   },
                   child: const Icon(Icons.arrow_back).iconXSmall(),
                 ),
-                Text('${localizations.getMonth(_view.month)} ${_view.year}')
-                    .small()
-                    .medium()
-                    .center()
-                    .expanded(),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      '${localizations.getMonth(_view.month)} ${_view.year}',
+                    ).small().medium(),
+                  ),
+                ),
                 OutlineButton(
                   density: ButtonDensity.icon,
                   onPressed: () {

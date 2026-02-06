@@ -1,5 +1,5 @@
 import 'package:docs/pages/docs/components/carousel_example.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class SwitcherExample1 extends StatefulWidget {
   const SwitcherExample1({super.key});
@@ -27,23 +27,27 @@ class _SwitcherExample1State extends State<SwitcherExample1> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        PrimaryButton(
-            child: Text(
-                'Switch Direction (${directions[directionIndex % directions.length]})'),
-            onPressed: () {
-              setState(() {
-                directionIndex++;
-              });
-            }),
-        gap(8),
-        PrimaryButton(
-            child: const Text('Next Item'),
-            onPressed: () {
-              setState(() {
-                index++;
-              });
-            }),
-        gap(24),
+        ...join(
+          [
+            PrimaryButton(
+                child: Text(
+                    'Switch Direction (${directions[directionIndex % directions.length]})'),
+                onPressed: () {
+                  setState(() {
+                    directionIndex++;
+                  });
+                }),
+            PrimaryButton(
+                child: const Text('Next Item'),
+                onPressed: () {
+                  setState(() {
+                    index++;
+                  });
+                }),
+          ],
+          const Gap(8),
+        ),
+        const Gap(24),
         ClipRect(
           child: Switcher(
             // The index selects which child is visible; transitions are directional.

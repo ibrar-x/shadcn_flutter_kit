@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class RadioCardExample1 extends StatefulWidget {
   const RadioCardExample1({super.key});

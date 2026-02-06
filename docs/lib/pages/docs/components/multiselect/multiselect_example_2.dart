@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class MultiSelectExample2 extends StatefulWidget {
   const MultiSelectExample2({super.key});

@@ -2,6 +2,12 @@ import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../shared/theme/theme.dart';
+part '_impl/core/tab_container_2.dart';
+part '_impl/core/tab_item.dart';
+part '_impl/core/tab_child_widget.dart';
+part '_impl/core/tab_container_data.dart';
+part '_impl/core/keyed_tab_child_widget.dart';
+part '_impl/core/keyed_tab_item.dart';
 
 /// {@template tab_container_theme}
 /// Theme data for [TabContainer] providing default builders.
@@ -54,65 +60,6 @@ class TabContainerTheme extends ComponentThemeData {
 /// by the tab system to coordinate between container and children.
 ///
 /// Accessed via [TabContainerData.of] from within tab child widgets.
-class TabContainerData {
-  /// Retrieves the nearest [TabContainerData] from the widget tree.
-  ///
-  /// Throws an assertion error if no [TabContainer] is found in the
-  /// ancestor chain, as tab children must be descendants of a tab container.
-  ///
-  /// Parameters:
-  /// - [context]: Build context to search from
-  ///
-  /// Returns the container data.
-  static TabContainerData of(BuildContext context) {
-    var data = Data.maybeOf<TabContainerData>(context);
-    assert(data != null, 'TabChild must be a descendant of TabContainer');
-    return data!;
-  }
-
-  /// The index of this tab within the container (0-indexed).
-  final int index;
-
-  /// The index of the currently selected tab.
-  final int selected;
-
-  /// Callback to invoke when this tab should be selected.
-  ///
-  /// Called with the tab's index when the user interacts with the tab.
-  final ValueChanged<int>? onSelect;
-
-  /// Builder function for wrapping tab child content.
-  ///
-  /// Applies consistent styling or layout to tab children.
-  final TabChildBuilder childBuilder;
-
-  /// Creates tab container data.
-  ///
-  /// Parameters:
-  /// - [index]: This tab's index (required)
-  /// - [selected]: Currently selected tab index (required)
-  /// - [onSelect]: Selection callback (required)
-  /// - [childBuilder]: Child wrapping builder (required)
-  TabContainerData({
-    required this.index,
-    required this.selected,
-    required this.onSelect,
-    required this.childBuilder,
-  });
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is TabContainerData &&
-        other.selected == selected &&
-        other.onSelect == onSelect &&
-        other.index == index &&
-        other.childBuilder == childBuilder;
-  }
-
-  @override
-  int get hashCode => Object.hash(index, selected, onSelect, childBuilder);
-}
 
 /// Mixin for widgets that can be used as tab children.
 ///
@@ -143,32 +90,6 @@ mixin KeyedTabChild<T> on TabChild {
 ///
 /// Implements [TabChild] to make any widget usable within a tab container.
 /// The wrapped child is rendered directly without additional decoration.
-class TabChildWidget extends StatelessWidget with TabChild {
-  /// The child widget to display.
-  final Widget child;
-
-  @override
-  /// Whether this tab uses indexed positioning.
-  ///
-  /// Defaults to `false` unless specified in the constructor.
-  final bool indexed;
-
-  /// Creates a tab child widget.
-  ///
-  /// Parameters:
-  /// - [child]: The widget to wrap (required)
-  /// - [indexed]: Whether to use indexed positioning (defaults to `false`)
-  const TabChildWidget({
-    super.key,
-    required this.child,
-    this.indexed = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
-  }
-}
 
 /// A keyed tab child widget identified by a custom key value.
 ///
@@ -177,73 +98,15 @@ class TabChildWidget extends StatelessWidget with TabChild {
 /// tab selection and tracking.
 ///
 /// Type parameter [T] is the type of the key value.
-class KeyedTabChildWidget<T> extends TabChildWidget with KeyedTabChild<T> {
-  /// Creates a keyed tab child widget.
-  ///
-  /// Parameters:
-  /// - [key]: The unique key value for this tab (required)
-  /// - [child]: The widget to wrap (required)
-  /// - [indexed]: Whether to use indexed positioning (optional)
-  KeyedTabChildWidget({
-    required T key,
-    required super.child,
-    super.indexed,
-  }) : super(key: ValueKey(key));
-
-  @override
-  ValueKey<T> get key => super.key as ValueKey<T>;
-
-  @override
-  T get tabKey => key.value;
-}
 
 /// A basic tab item widget.
 ///
 /// Represents a single tab item with content that can be displayed
 /// in a [TabContainer].
-class TabItem extends StatelessWidget with TabChild {
-  /// Content widget for this tab.
-  final Widget child;
-
-  /// Creates a [TabItem].
-  ///
-  /// Parameters:
-  /// - [child] (`Widget`, required): content to display in this tab
-  const TabItem({
-    super.key,
-    required this.child,
-  });
-
-  @override
-  bool get indexed => true;
-
-  @override
-  Widget build(BuildContext context) {
-    TabContainerData data = TabContainerData.of(context);
-    return data.childBuilder(context, data, child);
-  }
-}
 
 /// A keyed tab item widget.
 ///
 /// Similar to [TabItem] but includes a unique key for identification.
-class KeyedTabItem<T> extends TabItem with KeyedTabChild<T> {
-  /// Creates a [KeyedTabItem].
-  ///
-  /// Parameters:
-  /// - [key] (`T`, required): unique key for this tab
-  /// - [child] (`Widget`, required): content to display in this tab
-  KeyedTabItem({
-    required T key,
-    required super.child,
-  }) : super(key: ValueKey(key));
-
-  @override
-  ValueKey<T> get key => super.key as ValueKey<T>;
-
-  @override
-  T get tabKey => key.value;
-}
 
 /// Builder function for creating tab layout.
 ///
@@ -268,72 +131,4 @@ typedef TabChildBuilder = Widget Function(
 /// Container widget for managing multiple tabs.
 ///
 /// Provides tab selection and content display with customizable builders.
-class TabContainer extends StatelessWidget {
-  /// Currently selected tab index.
-  final int selected;
 
-  /// Callback when tab selection changes.
-  final ValueChanged<int>? onSelect;
-
-  /// List of tab children to display.
-  final List<TabChild> children;
-
-  /// Optional custom tab layout builder.
-  final TabBuilder? builder;
-
-  /// Optional custom child widget builder.
-  final TabChildBuilder? childBuilder;
-
-  /// Creates a [TabContainer].
-  ///
-  /// Parameters:
-  /// - [selected] (`int`, required): index of the selected tab
-  /// - [onSelect] (`ValueChanged<int>?`, optional): callback when tab changes
-  /// - [children] (`List<TabChild>`, required): list of tab items
-  /// - [builder] (`TabBuilder?`, optional): custom tab layout builder
-  /// - [childBuilder] (`TabChildBuilder?`, optional): custom child builder
-  const TabContainer({
-    super.key,
-    required this.selected,
-    required this.onSelect,
-    required this.children,
-    this.builder,
-    this.childBuilder,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<TabContainerTheme>(context);
-    final tabBuilder = builder ??
-        compTheme?.builder ??
-        (context, children) => Column(children: children);
-    final tabChildBuilder =
-        childBuilder ?? compTheme?.childBuilder ?? ((_, __, child) => child);
-
-    List<Widget> wrappedChildren = [];
-    int index = 0;
-    for (TabChild child in children) {
-      if (child.indexed) {
-        wrappedChildren.add(
-          Data.inherit(
-            key: ValueKey(child),
-            data: TabContainerData(
-              index: index,
-              selected: selected,
-              onSelect: onSelect,
-              childBuilder: tabChildBuilder,
-            ),
-            child: child,
-          ),
-        );
-        index++;
-      } else {
-        wrappedChildren.add(child);
-      }
-    }
-    return tabBuilder(
-      context,
-      wrappedChildren,
-    );
-  }
-}

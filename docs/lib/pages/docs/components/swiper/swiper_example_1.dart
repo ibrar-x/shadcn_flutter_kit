@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class SwiperExample1 extends StatefulWidget {
   const SwiperExample1({super.key});

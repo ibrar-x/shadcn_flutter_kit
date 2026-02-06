@@ -10,6 +10,7 @@ import '../variants/empty_state_action_style.dart';
 import '../variants/empty_state_size.dart';
 import '../variants/empty_state_variant.dart';
 import 'empty_state_action.dart';
+import '../themes/empty_state_theme.dart';
 
 class EmptyState extends StatelessWidget {
   const EmptyState({
@@ -37,31 +38,41 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+    final compTheme = ComponentTheme.maybeOf<EmptyStateTheme>(context);
     final resolvedTitle = title ?? Text(defaultEmptyStateTitle(variant));
     final resolvedDescription =
         description ?? Text(defaultEmptyStateDescription(variant));
-    final resolvedIcon = icon ??
+    final resolvedIcon =
+        icon ??
         Icon(
           defaultEmptyStateIcon(variant),
-          size: size == EmptyStateSize.compact ? 28 * scaling : 36 * scaling,
-          color: theme.colorScheme.mutedForeground,
+          size:
+              compTheme?.iconSize ??
+              (size == EmptyStateSize.compact ? 28 * scaling : 36 * scaling),
+          color: compTheme?.iconColor ?? theme.colorScheme.mutedForeground,
         );
 
+    final titleStyle =
+        compTheme?.titleStyle ??
+        theme.typography.medium.merge(theme.typography.semiBold);
+    final descriptionStyle =
+        compTheme?.descriptionStyle ??
+        theme.typography.small.copyWith(
+          color: theme.colorScheme.mutedForeground,
+        );
     final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         resolvedIcon,
         Gap(12 * scaling),
         DefaultTextStyle.merge(
-          style: theme.typography.medium.merge(theme.typography.semiBold),
+          style: titleStyle,
           textAlign: TextAlign.center,
           child: resolvedTitle,
         ),
         Gap(6 * scaling),
         DefaultTextStyle.merge(
-          style: theme.typography.small.copyWith(
-            color: theme.colorScheme.mutedForeground,
-          ),
+          style: descriptionStyle,
           textAlign: TextAlign.center,
           child: resolvedDescription,
         ),
@@ -89,16 +100,26 @@ class EmptyState extends StatelessWidget {
     );
 
     final constrained = ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: maxWidth ?? 520 * scaling),
+      constraints: BoxConstraints(
+        maxWidth: compTheme?.maxWidth ?? maxWidth ?? 520 * scaling,
+      ),
       child: Padding(
-        padding: EdgeInsets.all(
-            size == EmptyStateSize.compact ? 20 * scaling : 32 * scaling),
+        padding:
+            compTheme?.padding ??
+            EdgeInsets.all(
+              size == EmptyStateSize.compact ? 20 * scaling : 32 * scaling,
+            ),
         child: content,
       ),
     );
 
     if (size == EmptyStateSize.compact) {
-      return Card(child: constrained);
+      return Card(
+        borderRadius: compTheme?.cardBorderRadius,
+        filled: compTheme?.cardFillColor != null ? true : null,
+        fillColor: compTheme?.cardFillColor,
+        child: constrained,
+      );
     }
 
     return Center(child: constrained);

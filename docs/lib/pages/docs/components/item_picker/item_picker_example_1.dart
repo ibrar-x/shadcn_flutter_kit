@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class ItemPickerExample1 extends StatelessWidget {
   const ItemPickerExample1({super.key});
@@ -27,7 +27,7 @@ class ItemPickerExample1 extends StatelessWidget {
               // Feedback via toast when a selection is made.
               showToast(
                 context: context,
-                builder: (context) {
+                builder: (context, overlay) {
                   return SurfaceCard(
                     child: Text('You picked $value!'),
                   );
@@ -36,7 +36,7 @@ class ItemPickerExample1 extends StatelessWidget {
             } else if (context.mounted) {
               showToast(
                 context: context,
-                builder: (context) {
+                builder: (context, overlay) {
                   return const SurfaceCard(
                     child: Text('You picked nothing!'),
                   );

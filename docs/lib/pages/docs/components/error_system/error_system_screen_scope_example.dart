@@ -47,30 +47,32 @@ Widget _buildErrorSystemScreenScopeExample(BuildContext context) {
               empty: const Text('No errors in this screen yet.').muted(),
             ),
             const SizedBox(height: 16),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                PrimaryButton(
-                  onPressed: () {
-                    scope.set(
-                      AppError(
-                        code: AppErrorCode.validation,
-                        title: 'Missing fields',
-                        message: 'Fill in the required fields.',
-                        actions: [
-                          ErrorAction.retry(scope.clear),
-                        ],
-                      ),
-                    );
-                  },
-                  child: const Text('Trigger error'),
-                ),
-                SecondaryButton(
-                  onPressed: scope.clear,
-                  child: const Text('Clear'),
-                ),
-              ],
+            Center(
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  PrimaryButton(
+                    onPressed: () {
+                      scope.set(
+                        AppError(
+                          code: AppErrorCode.validation,
+                          title: 'Missing fields',
+                          message: 'Fill in the required fields.',
+                          actions: [
+                            ErrorAction.retry(scope.clear),
+                          ],
+                        ),
+                      );
+                    },
+                    child: const Text('Trigger error'),
+                  ),
+                  SecondaryButton(
+                    onPressed: scope.clear,
+                    child: const Text('Clear'),
+                  ),
+                ],
+              ),
             ),
           ],
         );

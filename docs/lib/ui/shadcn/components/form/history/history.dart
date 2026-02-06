@@ -6,6 +6,12 @@ import '../../utility/alpha/alpha.dart';
 import '../../control/button/button.dart';
 import '../../../shared/theme/theme.dart';
 
+part '_impl/utils/_color_list_notifier.dart';
+part '_impl/core/color_history_storage.dart';
+part '_impl/core/recent_colors_scope.dart';
+part '_impl/state/recent_colors_scope_state.dart';
+
+
 /// A grid widget that displays a history of previously used colors.
 ///
 /// [ColorHistoryGrid] presents colors from a [ColorHistoryStorage] in a grid
@@ -156,165 +162,5 @@ class ColorHistoryGrid extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-/// An abstract interface for storing and managing color history.
-///
-/// [ColorHistoryStorage] defines the contract for color history management,
-/// including adding new colors, clearing history, and accessing recent colors.
-/// Implementations should provide storage mechanisms (in-memory, persistent, etc.).
-abstract class ColorHistoryStorage implements Listenable {
-  /// Adds a color to the history.
-  ///
-  /// Parameters:
-  /// - [color]: The color to add to the history.
-  void addHistory(Color color);
-
-  /// Replaces the entire color history with a new list.
-  ///
-  /// Parameters:
-  /// - [colors]: The new list of colors to set as the history.
-  void setHistory(List<Color> colors);
-
-  /// Clears all colors from the history.
-  void clear();
-
-  /// The maximum number of colors that can be stored in the history.
-  int get capacity;
-
-  /// The list of recent colors, ordered from most to least recent.
-  List<Color> get recentColors;
-
-  /// Finds and listens the [ColorHistoryStorage] in the widget tree.
-  static ColorHistoryStorage of(BuildContext context) {
-    return Data.of<ColorHistoryStorage>(context);
-  }
-
-  /// Finds the [ColorHistoryStorage] in the widget tree.
-  static ColorHistoryStorage find(BuildContext context) {
-    return Data.maybeFind<ColorHistoryStorage>(context) ??
-        Data.maybeFindMessenger<ColorHistoryStorage>(context) ??
-        (throw FlutterError(
-          'No ColorHistoryStorage found in context. Make sure to wrap your widget tree with a RecentColorsScope.',
-        ));
-  }
-}
-
-/// Provides color history storage in the widget tree.
-///
-/// [RecentColorsScope] manages a list of recently used colors and makes it
-/// available to descendant widgets through [ColorHistoryStorage]. It supports
-/// a configurable maximum capacity and notifies listeners of changes.
-class RecentColorsScope extends StatefulWidget {
-  /// Initial colors to populate the history.
-  final List<Color> initialRecentColors;
-
-  /// Maximum number of colors to keep in the history.
-  final int maxRecentColors;
-
-  /// Called when the recent colors list changes.
-  final ValueChanged<List<Color>>? onRecentColorsChanged;
-
-  /// The child widget.
-  final Widget child;
-
-  /// Creates a [RecentColorsScope].
-  const RecentColorsScope({
-    super.key,
-    this.initialRecentColors = const [],
-    this.maxRecentColors = 50,
-    this.onRecentColorsChanged,
-    required this.child,
-  });
-
-  @override
-  State<RecentColorsScope> createState() => RecentColorsScopeState();
-}
-
-class _ColorListNotifier extends ChangeNotifier {
-  List<Color> _recentColors;
-
-  _ColorListNotifier(this._recentColors);
-
-  void _notify() {
-    notifyListeners();
-  }
-}
-
-/// State class for [RecentColorsScope] implementing color history storage.
-///
-/// Manages the list of recently used colors and provides storage functionality
-/// for color history tracking.
-class RecentColorsScopeState extends State<RecentColorsScope>
-    implements ColorHistoryStorage {
-  late _ColorListNotifier _recentColors;
-
-  @override
-  int get capacity => widget.maxRecentColors;
-
-  @override
-  void initState() {
-    super.initState();
-    _recentColors = _ColorListNotifier(List.from(widget.initialRecentColors));
-  }
-
-  @override
-  List<Color> get recentColors =>
-      List.unmodifiable(_recentColors._recentColors);
-
-  @override
-  void addHistory(Color color) {
-    var recentColors = _recentColors._recentColors;
-    if (recentColors.contains(color)) {
-      recentColors.remove(color);
-    }
-    recentColors.insert(0, color);
-    if (recentColors.length > widget.maxRecentColors) {
-      recentColors.removeLast();
-    }
-    widget.onRecentColorsChanged?.call(recentColors);
-    _recentColors._notify();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _recentColors.dispose();
-  }
-
-  @override
-  void clear() {
-    _recentColors._recentColors.clear();
-    widget.onRecentColorsChanged?.call(recentColors);
-    _recentColors._notify();
-  }
-
-  @override
-  void setHistory(List<Color> colors) {
-    _recentColors._recentColors = colors;
-    widget.onRecentColorsChanged?.call(recentColors);
-    _recentColors._notify();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ForwardableData<ColorHistoryStorage>(
-      data: this,
-      child: Data<ColorHistoryStorage>.inherit(
-        data: this,
-        child: widget.child,
-      ),
-    );
-  }
-
-  @override
-  void addListener(VoidCallback listener) {
-    _recentColors.addListener(listener);
-  }
-
-  @override
-  void removeListener(VoidCallback listener) {
-    _recentColors.removeListener(listener);
   }
 }

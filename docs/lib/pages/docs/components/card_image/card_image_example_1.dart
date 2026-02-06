@@ -1,6 +1,7 @@
+import 'package:docs/shadcn_ui.dart';
+import 'package:flutter/material.dart' show showDialog;
 import 'dart:ui';
 
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
 /// Horizontally scrollable list of CardImage items.
 ///

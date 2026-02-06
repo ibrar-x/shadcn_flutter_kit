@@ -1,5 +1,5 @@
 import 'package:docs/debug.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates a WindowNavigator simulating multiple desktop-style windows,
 // with an action to add a new window at runtime.

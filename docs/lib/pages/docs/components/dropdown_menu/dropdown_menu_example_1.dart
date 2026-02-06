@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
+import 'package:docs/ui/shadcn/components/overlay/menu/menu.dart';
 
 /// Dropdown menu anchored to a button.
 ///

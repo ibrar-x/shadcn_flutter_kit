@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart' hide Form, TextField;
+
+import '../form/form.dart';
+import '../text_field/text_field.dart';
+import '../validated/validated.dart';
+
+class ValidatedPreview extends StatelessWidget {
+  const ValidatedPreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: 320,
+          child: Validated<String>(
+            validator: const NotEmptyValidator(),
+            builder: (context, error, child) {
+              final message =
+                  error is InvalidResult ? error.message : null;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  child!,
+                  if (message != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      message,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ],
+              );
+            },
+            child: const TextField(
+              placeholder: Text('Name'),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

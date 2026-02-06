@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 /// Calendar with single-date selection and a "today" marker.
 ///
@@ -34,11 +34,13 @@ class _CalendarExample2State extends State<CalendarExample2> {
                   },
                   child: const Icon(Icons.arrow_back).iconXSmall(),
                 ),
-                Text('${localizations.getMonth(_view.month)} ${_view.year}')
-                    .small()
-                    .medium()
-                    .center()
-                    .expanded(),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      '${localizations.getMonth(_view.month)} ${_view.year}',
+                    ).small().medium(),
+                  ),
+                ),
                 OutlineButton(
                   density: ButtonDensity.icon,
                   onPressed: () {

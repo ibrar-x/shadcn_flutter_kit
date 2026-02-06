@@ -63,10 +63,7 @@ class FileItem extends StatelessWidget {
     }
 
     return OutlinedContainer(
-      borderRadius: BorderRadius.circular(12 * scaling),
       borderWidth: 1,
-      borderColor: theme.colorScheme.muted,
-      backgroundColor: theme.colorScheme.background,
       child: Padding(
         padding: EdgeInsets.all(12 * scaling),
         child: Column(
@@ -151,7 +148,9 @@ class FileItem extends StatelessWidget {
     double scaling,
   ) {
     final bytes = item.file.bytes;
-    if (bytes != null && item.file.isImage) {
+    if (bytes != null &&
+        item.file.isImage &&
+        item.file.resolvedExtension != 'svg') {
       return ClipRRect(
         borderRadius: BorderRadius.circular(6 * scaling),
         child: Image.memory(
@@ -159,6 +158,18 @@ class FileItem extends StatelessWidget {
           fit: BoxFit.cover,
           width: 32 * scaling,
           height: 32 * scaling,
+          errorBuilder: (context, error, stackTrace) {
+            return IconTheme(
+              data: IconThemeData(
+                color: theme.colorScheme.mutedForeground,
+                size: 20 * scaling,
+              ),
+              child: FileIconProvider.buildIcon(
+                context,
+                item.file.resolvedExtension,
+              ),
+            );
+          },
         ),
       );
     }

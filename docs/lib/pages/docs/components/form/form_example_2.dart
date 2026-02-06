@@ -1,6 +1,7 @@
+import 'package:docs/shadcn_ui.dart';
+import 'package:flutter/material.dart' show showDialog;
 import 'dart:convert';
 
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
 
 class FormExample2 extends StatefulWidget {
   const FormExample2({super.key});

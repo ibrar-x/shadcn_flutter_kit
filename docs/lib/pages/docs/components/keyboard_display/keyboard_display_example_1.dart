@@ -1,5 +1,4 @@
-import 'package:flutter/services.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class KeyboardDisplayExample1 extends StatelessWidget {
   const KeyboardDisplayExample1({super.key});

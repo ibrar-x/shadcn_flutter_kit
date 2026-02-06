@@ -15,6 +15,7 @@ class ComponentPage extends StatefulWidget {
   final List<Widget> children;
   final bool component;
   final String? category;
+  final Map<String, OnThisPage>? onThisPageOverride;
 
   const ComponentPage({
     super.key,
@@ -24,6 +25,7 @@ class ComponentPage extends StatefulWidget {
     required this.children,
     this.component = true,
     this.category,
+    this.onThisPageOverride,
   });
 
   @override
@@ -43,12 +45,18 @@ class _ComponentPageState extends State<ComponentPage> {
   @override
   void didUpdateWidget(covariant ComponentPage oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.onThisPageOverride != null) {
+      return;
+    }
     if (!listEquals(oldWidget.children, widget.children)) {
       _syncAnchors();
     }
   }
 
   void _syncAnchors() {
+    if (widget.onThisPageOverride != null) {
+      return;
+    }
     keys.clear();
     onThisPage.clear();
     for (final child in widget.children) {
@@ -66,6 +74,34 @@ class _ComponentPageState extends State<ComponentPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.onThisPageOverride != null) {
+      return DocsPage(
+        name: widget.name,
+        onThisPage: widget.onThisPageOverride!,
+        navigationItems: [
+          if (widget.component)
+            shadcn_buttons.LinkButton(
+              density: shadcn_buttons.ButtonDensity.compact,
+              onPressed: () => context.goNamed('components'),
+              child: const Text('Components'),
+            ),
+        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SelectableText(widget.displayName).h1(),
+            SelectableText(widget.description).lead(),
+            if (widget.category != null) ...[
+              const SizedBox(height: 8),
+              Text('Category: ${widget.category}').small().muted(),
+            ],
+            const SizedBox(height: 16),
+            ...widget.children,
+          ],
+        ),
+      );
+    }
+
     final remappedChildren = <Widget>[];
     var index = 0;
     for (final child in widget.children) {

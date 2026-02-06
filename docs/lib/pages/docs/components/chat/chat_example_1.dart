@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class ChatExample1 extends StatefulWidget {
   const ChatExample1({super.key});
@@ -44,6 +44,8 @@ class _ChatExample1State extends State<ChatExample1> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final mutedColor = theme.colorScheme.muted;
     return Column(
       spacing: 8,
       children: [
@@ -60,7 +62,7 @@ class _ChatExample1State extends State<ChatExample1> {
           ],
         ),
         ChatGroup(
-          color: Colors.gray,
+          color: mutedColor,
           avatarPrefix: const Avatar(initials: 'JO'),
           type: otherType,
           alignment: otherAlignment,
@@ -76,7 +78,7 @@ class _ChatExample1State extends State<ChatExample1> {
           child: const Text('SIX SEVENNN'),
         ),
         ChatGroup(
-          color: Colors.gray,
+          color: mutedColor,
           avatarPrefix: const Avatar(initials: 'JO'),
           type: otherType,
           alignment: otherAlignment,

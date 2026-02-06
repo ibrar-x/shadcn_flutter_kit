@@ -7,10 +7,7 @@ import 'blocks.dart';
 import 'components_registry.dart';
 import 'component_examples.dart';
 import 'component_previews.dart';
-import '../../ui/shadcn/components/display/feature_carousel/feature_carousel.dart'
-    as feature_carousel;
 import '../../ui/shadcn/components/layout/outlined_container/outlined_container.dart';
-import '../../ui/shadcn/shared/icons/lucide_icons.dart';
 import '../../ui/shadcn/shared/primitives/text.dart';
 import '../../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 
@@ -119,7 +116,6 @@ class _ComponentsPageState extends State<ComponentsPage> {
               ),
               DocsSectionTitle(title: 'Featured', anchor: featuredKey),
               const SizedBox(height: 12),
-              const _FeatureCarouselPreview(),
               const SizedBox(height: 20),
               if (exampleBatches.isNotEmpty) ...[
                 const SizedBox(height: 8),
@@ -381,73 +377,6 @@ class _LoadMoreTile extends StatelessWidget {
               Text('Loading $remaining more').xSmall().muted(),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FeatureCarouselPreview extends StatefulWidget {
-  const _FeatureCarouselPreview();
-
-  @override
-  State<_FeatureCarouselPreview> createState() =>
-      _FeatureCarouselPreviewState();
-}
-
-class _FeatureCarouselPreviewState extends State<_FeatureCarouselPreview> {
-  final feature_carousel.FeatureCarouselController _controller =
-      feature_carousel.FeatureCarouselController(
-    showCta: false,
-    showNavArrows: false,
-    autoPlay: true,
-    autoPlayInterval: const Duration(seconds: 3),
-    animationStyle: feature_carousel.FeatureCarouselAnimationStyle.zoomFade,
-    cycleAnimationStyles: false,
-    enableKeyboardNavigation: false,
-  );
-
-  final List<feature_carousel.FeatureCarouselItem> _items = const [
-    feature_carousel.FeatureCarouselItem(
-      title: 'Feature carousel',
-      description: 'Stacked cards with smooth transitions and autoplay.',
-      icon: LucideIcons.component,
-      accentColor: Color(0xFF7EA3FF),
-    ),
-    feature_carousel.FeatureCarouselItem(
-      title: 'Animated states',
-      description: 'Cycle animation styles to showcase key product ideas.',
-      icon: LucideIcons.sparkles,
-      accentColor: Color(0xFF9B87FF),
-    ),
-    feature_carousel.FeatureCarouselItem(
-      title: 'Responsive layout',
-      description: 'Tune sizes and typography to fit dense layouts.',
-      icon: LucideIcons.layoutGrid,
-      accentColor: Color(0xFF67D4FF),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedContainer(
-      clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Feature carousel preview').small().semiBold(),
-            const SizedBox(height: 12),
-            Center(
-              child: feature_carousel.FeatureCardCarousel(
-                controller: _controller,
-                width: 520,
-                height: 320,
-                items: _items,
-              ),
-            ),
-          ],
         ),
       ),
     );

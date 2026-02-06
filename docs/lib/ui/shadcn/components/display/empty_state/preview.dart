@@ -30,13 +30,13 @@ class EmptyStatePreview extends StatelessWidget {
                 ),
               ),
               Gap(24 * scaling),
-              const EmptyState(
+              EmptyState(
                 variant: EmptyStateVariant.noResults,
-                primaryAction: EmptyStateAction(label: 'Clear filters'),
-                secondaryAction: EmptyStateAction(
+                primaryAction: const EmptyStateAction(label: 'Clear filters'),
+                secondaryAction:  EmptyStateAction(
                   label: 'Try search',
                   style: EmptyStateActionStyle.secondary,
-                  onPressed: null,
+                  onPressed: ()=>{}
                 ),
               ),
               Gap(24 * scaling),

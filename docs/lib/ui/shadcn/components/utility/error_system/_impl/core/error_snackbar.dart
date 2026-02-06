@@ -32,13 +32,15 @@ class ErrorSnackbar {
         final padding = toastTheme?.padding ?? const EdgeInsets.all(16);
         final margin = toastTheme?.margin ?? 8.0;
         final totalOffset = _entries.length * margin;
-        final backgroundColor = compTheme?.snackbarBackgroundColor ??
+        final backgroundColor =
+            compTheme?.snackbarBackgroundColor ??
             toastTheme?.backgroundColor ??
             Theme.of(overlayContext).colorScheme.background;
         final resolvedRadius = compTheme?.snackbarBorderRadius?.resolve(
           Directionality.of(overlayContext),
         );
-        final borderRadius = resolvedRadius ??
+        final borderRadius =
+            resolvedRadius ??
             (toastTheme?.borderRadius != null
                 ? BorderRadius.circular(toastTheme!.borderRadius!)
                 : BorderRadius.circular(12));
@@ -47,7 +49,8 @@ class ErrorSnackbar {
           right: 24,
           child: ToastEntry(
             duration: resolvedDuration,
-            animationDuration: toastTheme?.animationDuration ??
+            animationDuration:
+                toastTheme?.animationDuration ??
                 const Duration(milliseconds: 250),
             animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
             onDismissed: () {
@@ -91,7 +94,8 @@ class _ErrorSnackbarContent extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final textStyle = compTheme?.snackbarTextStyle ??
+    final textStyle =
+        compTheme?.snackbarTextStyle ??
         theme.typography.xSmall.copyWith(color: theme.colorScheme.foreground);
     return Row(
       mainAxisSize: MainAxisSize.min,

@@ -1,9 +1,6 @@
 import 'package:docs/pages/docs/components/carousel_example.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
-import 'package:docs/ui/shadcn/components/navigation/tab_list/tab_list.dart'
-    as shadcn_tab_list;
-import 'package:docs/ui/shadcn/components/navigation/tab_container/tab_container.dart'
-    as shadcn_tab_container;
+import 'package:docs/shadcn_ui.dart';
+import 'package:docs/ui/shadcn/components/navigation/tabs/tabs.dart' as shadcn_tabs;
 
 // Demonstrates TabList (a low-level tab header) with an IndexedStack body.
 // The header controls the index; the content is managed separately.
@@ -22,7 +19,7 @@ class _TabListExample1State extends State<TabListExample1> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        shadcn_tab_list.TabList(
+        shadcn_tabs.TabList(
           // TabList is a lower-level tab header; it doesn't manage content.
           index: index,
           onChanged: (value) {
@@ -31,13 +28,13 @@ class _TabListExample1State extends State<TabListExample1> {
             });
           },
           children: const [
-            shadcn_tab_container.TabItem(
+            shadcn_tabs.TabItem(
               child: Text('Tab 1'),
             ),
-            shadcn_tab_container.TabItem(
+            shadcn_tabs.TabItem(
               child: Text('Tab 2'),
             ),
-            shadcn_tab_container.TabItem(
+            shadcn_tabs.TabItem(
               child: Text('Tab 3'),
             ),
           ],

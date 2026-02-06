@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class OverflowMarqueeExample1 extends StatelessWidget {
   const OverflowMarqueeExample1({super.key});

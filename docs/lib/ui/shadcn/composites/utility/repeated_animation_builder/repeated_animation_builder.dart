@@ -1,1 +1,3 @@
-export '../../../shared/utils/util.dart' show RepeatedAnimationBuilder;
+import '../../../shared/utils/util.dart' as util;
+
+typedef RepeatedAnimationBuilder = util.RepeatedAnimationBuilder;

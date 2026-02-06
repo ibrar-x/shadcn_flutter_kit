@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 import '../ui/shadcn/shared/theme/preset_themes.dart';
+import '../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'docs_theme.dart';
 
 const String kPrefsThemePresetId = 'themePresetId';
@@ -20,12 +21,16 @@ class DocsThemePreset {
   final String name;
   final shadcn_colors.ColorScheme light;
   final shadcn_colors.ColorScheme dark;
+  final RegistryThemePresetTokens lightTokens;
+  final RegistryThemePresetTokens darkTokens;
 
   const DocsThemePreset({
     required this.id,
     required this.name,
     required this.light,
     required this.dark,
+    required this.lightTokens,
+    required this.darkTokens,
   });
 }
 
@@ -48,12 +53,23 @@ class DocsThemeController extends ChangeNotifier {
   String get presetId => _presetId;
   Brightness get brightness => _brightness;
 
+  static const shadcn_theme.ThemeData _baseTheme = shadcn_theme.ThemeData();
+  static final RegistryThemePresetTokens _defaultTokens =
+      RegistryThemePresetTokens(
+    radius: _baseTheme.radius,
+    spacing: _baseTheme.spacing,
+    tracking: _baseTheme.tracking,
+    shadows: _baseTheme.shadows,
+  );
+
   static final List<DocsThemePreset> presets = [
-    const DocsThemePreset(
+    DocsThemePreset(
       id: 'default',
       name: 'Default',
       light: shadcn_colors.ColorSchemes.lightDefaultColor,
       dark: shadcn_colors.ColorSchemes.darkDefaultColor,
+      lightTokens: _defaultTokens,
+      darkTokens: _defaultTokens,
     ),
     ...registryThemePresets.map(
       (preset) => DocsThemePreset(
@@ -61,6 +77,8 @@ class DocsThemeController extends ChangeNotifier {
         name: preset.name,
         light: preset.light,
         dark: preset.dark,
+        lightTokens: preset.lightTokens,
+        darkTokens: preset.darkTokens,
       ),
     ),
   ];
@@ -68,7 +86,14 @@ class DocsThemeController extends ChangeNotifier {
   void setPreset(String id) {
     if (_presetId == id) return;
     _presetId = id;
-    _data = _data.copyWith(colorScheme: _schemeFor(id, _brightness));
+    final tokens = _tokensFor(id, _brightness);
+    _data = _data.copyWith(
+      colorScheme: _schemeFor(id, _brightness),
+      radius: tokens.radius,
+      spacing: tokens.spacing,
+      tracking: tokens.tracking,
+      shadows: tokens.shadows,
+    );
     prefs.setString(kPrefsThemePresetId, _presetId);
     notifyListeners();
   }
@@ -86,7 +111,14 @@ class DocsThemeController extends ChangeNotifier {
       );
       prefs.setString(kPrefsCustomScheme, _encodeScheme(_data.colorScheme));
     } else {
-      _data = _data.copyWith(colorScheme: _schemeFor(_presetId, _brightness));
+      final tokens = _tokensFor(_presetId, _brightness);
+      _data = _data.copyWith(
+        colorScheme: _schemeFor(_presetId, _brightness),
+        radius: tokens.radius,
+        spacing: tokens.spacing,
+        tracking: tokens.tracking,
+        shadows: tokens.shadows,
+      );
     }
     prefs.setString(
       kPrefsThemeMode,
@@ -133,6 +165,16 @@ class DocsThemeController extends ChangeNotifier {
       orElse: () => presets.first,
     );
     return brightness == Brightness.dark ? preset.dark : preset.light;
+  }
+
+  RegistryThemePresetTokens _tokensFor(String id, Brightness brightness) {
+    final preset = presets.firstWhere(
+      (preset) => preset.id == id,
+      orElse: () => presets.first,
+    );
+    return brightness == Brightness.dark
+        ? preset.darkTokens
+        : preset.lightTokens;
   }
 
   String _encodeScheme(shadcn_colors.ColorScheme scheme) {

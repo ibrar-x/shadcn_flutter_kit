@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class StarRatingExample1 extends StatefulWidget {
   const StarRatingExample1({super.key});

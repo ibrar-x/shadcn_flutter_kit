@@ -10,6 +10,9 @@ class DocsThemeData {
   final double scaling;
   final double surfaceOpacity;
   final double surfaceBlur;
+  final shadcn_theme.SpacingScale spacing;
+  final shadcn_theme.TrackingScale tracking;
+  final shadcn_theme.ShadowScale shadows;
 
   const DocsThemeData({
     required this.colorScheme,
@@ -17,6 +20,9 @@ class DocsThemeData {
     required this.scaling,
     required this.surfaceOpacity,
     required this.surfaceBlur,
+    required this.spacing,
+    required this.tracking,
+    required this.shadows,
   });
 
   DocsThemeData copyWith({
@@ -25,6 +31,9 @@ class DocsThemeData {
     double? scaling,
     double? surfaceOpacity,
     double? surfaceBlur,
+    shadcn_theme.SpacingScale? spacing,
+    shadcn_theme.TrackingScale? tracking,
+    shadcn_theme.ShadowScale? shadows,
   }) {
     return DocsThemeData(
       colorScheme: colorScheme ?? this.colorScheme,
@@ -32,6 +41,9 @@ class DocsThemeData {
       scaling: scaling ?? this.scaling,
       surfaceOpacity: surfaceOpacity ?? this.surfaceOpacity,
       surfaceBlur: surfaceBlur ?? this.surfaceBlur,
+      spacing: spacing ?? this.spacing,
+      tracking: tracking ?? this.tracking,
+      shadows: shadows ?? this.shadows,
     );
   }
 
@@ -42,6 +54,9 @@ class DocsThemeData {
       scaling: scaling,
       surfaceOpacity: surfaceOpacity,
       surfaceBlur: surfaceBlur,
+      spacing: spacing,
+      tracking: tracking,
+      shadows: shadows,
     );
   }
 
@@ -103,6 +118,104 @@ class DocsThemeScope extends InheritedWidget {
     scaling: 1.0,
     surfaceOpacity: 1.0,
     surfaceBlur: 0.0,
+    spacing: shadcn_theme.SpacingScale(3.84),
+    tracking: shadcn_theme.TrackingScale(normal: 0),
+    shadows: shadcn_theme.ShadowScale(
+      shadow2xs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowXs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowSm: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowMd: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 2),
+          blurRadius: 4,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowLg: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 4),
+          blurRadius: 6,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowXl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 8),
+          blurRadius: 10,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow2xl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x61000000),
+        ),
+      ],
+    ),
   );
 
   @override

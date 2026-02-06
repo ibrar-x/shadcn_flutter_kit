@@ -13,6 +13,15 @@ class ThemeData {
   /// Scale factor for sizes and spacing.
   final double scaling;
 
+  /// Spacing scale tokens for padding/margins.
+  final SpacingScale spacing;
+
+  /// Letter-spacing scale for typography tracking.
+  final TrackingScale tracking;
+
+  /// Shadow scale tokens for elevation styling.
+  final ShadowScale shadows;
+
   final TargetPlatform? _platform;
 
   /// Icon theme properties defining icon sizes across different scales.
@@ -39,6 +48,104 @@ class ThemeData {
     this.colorScheme = ColorSchemes.lightDefaultColor,
     this.radius = 0.5,
     this.scaling = 1,
+    this.spacing = const SpacingScale(3.84),
+    this.tracking = const TrackingScale(normal: 0),
+    this.shadows = const ShadowScale(
+      shadow2xs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowXs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowSm: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowMd: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 2),
+          blurRadius: 4,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowLg: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 4),
+          blurRadius: 6,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowXl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 8),
+          blurRadius: 10,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow2xl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x61000000),
+        ),
+      ],
+    ),
     this.typography = const Typography.geist(),
     this.iconTheme = const IconThemeProperties(),
     TargetPlatform? platform,
@@ -61,6 +168,104 @@ class ThemeData {
     this.colorScheme = ColorSchemes.darkDefaultColor,
     this.radius = 0.5,
     this.scaling = 1,
+    this.spacing = const SpacingScale(3.84),
+    this.tracking = const TrackingScale(normal: 0),
+    this.shadows = const ShadowScale(
+      shadow2xs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowXs: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x12000000),
+        ),
+      ],
+      shadowSm: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 1),
+          blurRadius: 2,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowMd: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 2),
+          blurRadius: 4,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowLg: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 4),
+          blurRadius: 6,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadowXl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x26000000),
+        ),
+        BoxShadow(
+          offset: Offset(20.5, 8),
+          blurRadius: 10,
+          spreadRadius: -31,
+          color: Color(0x26000000),
+        ),
+      ],
+      shadow2xl: [
+        BoxShadow(
+          offset: Offset(20.5, 16.5),
+          blurRadius: 25.5,
+          spreadRadius: -30,
+          color: Color(0x61000000),
+        ),
+      ],
+    ),
     this.typography = const Typography.geist(),
     this.iconTheme = const IconThemeProperties(),
     TargetPlatform? platform,
@@ -142,6 +347,9 @@ class ThemeData {
     ValueGetter<Typography>? typography,
     ValueGetter<TargetPlatform>? platform,
     ValueGetter<double>? scaling,
+    ValueGetter<SpacingScale>? spacing,
+    ValueGetter<TrackingScale>? tracking,
+    ValueGetter<ShadowScale>? shadows,
     ValueGetter<IconThemeProperties>? iconTheme,
     ValueGetter<double>? surfaceOpacity,
     ValueGetter<double>? surfaceBlur,
@@ -152,9 +360,13 @@ class ThemeData {
       typography: typography == null ? this.typography : typography(),
       platform: platform == null ? _platform : platform(),
       scaling: scaling == null ? this.scaling : scaling(),
+      spacing: spacing == null ? this.spacing : spacing(),
+      tracking: tracking == null ? this.tracking : tracking(),
+      shadows: shadows == null ? this.shadows : shadows(),
       iconTheme: iconTheme == null ? this.iconTheme : iconTheme(),
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
     );
   }
@@ -167,17 +379,16 @@ class ThemeData {
   /// - [t] (`double`, required): Interpolation position (0.0 to 1.0).
   ///
   /// Returns: `ThemeData` — interpolated theme.
-  static ThemeData lerp(
-    ThemeData a,
-    ThemeData b,
-    double t,
-  ) {
+  static ThemeData lerp(ThemeData a, ThemeData b, double t) {
     return ThemeData(
       colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       radius: lerpDouble(a.radius, b.radius, t)!,
       typography: Typography.lerp(a.typography, b.typography, t),
       platform: t < 0.5 ? a.platform : b.platform,
       scaling: lerpDouble(a.scaling, b.scaling, t)!,
+      spacing: SpacingScale.lerp(a.spacing, b.spacing, t),
+      tracking: TrackingScale.lerp(a.tracking, b.tracking, t),
+      shadows: ShadowScale.lerp(a.shadows, b.shadows, t),
       iconTheme: IconThemeProperties.lerp(a.iconTheme, b.iconTheme, t),
       surfaceOpacity: lerpDouble(a.surfaceOpacity, b.surfaceOpacity, t),
       surfaceBlur: lerpDouble(a.surfaceBlur, b.surfaceBlur, t),
@@ -193,6 +404,9 @@ class ThemeData {
         other.typography == typography &&
         other.radius == radius &&
         other.scaling == scaling &&
+        other.spacing == spacing &&
+        other.tracking == tracking &&
+        other.shadows == shadows &&
         other.iconTheme == iconTheme &&
         other.surfaceOpacity == surfaceOpacity &&
         other.surfaceBlur == surfaceBlur;
@@ -205,6 +419,9 @@ class ThemeData {
       typography,
       radius,
       scaling,
+      spacing,
+      tracking,
+      shadows,
       iconTheme,
       surfaceOpacity,
       surfaceBlur,
@@ -213,7 +430,7 @@ class ThemeData {
 
   @override
   String toString() {
-    return 'ThemeData(colorScheme: $colorScheme, typography: $typography, radius: $radius, scaling: $scaling, iconTheme: $iconTheme, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur)';
+    return 'ThemeData(colorScheme: $colorScheme, typography: $typography, radius: $radius, scaling: $scaling, spacing: $spacing, tracking: $tracking, shadows: $shadows, iconTheme: $iconTheme, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur)';
   }
 }
 

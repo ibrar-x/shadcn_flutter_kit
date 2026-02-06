@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class RebuildCounter extends StatefulWidget {
   const RebuildCounter({Key? key}) : super(key: key);

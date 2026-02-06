@@ -1,4 +1,5 @@
-import '../../../../ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
+import 'package:flutter/material.dart' show showDialog;
 
 class DialogExample1 extends StatelessWidget {
   const DialogExample1({super.key});

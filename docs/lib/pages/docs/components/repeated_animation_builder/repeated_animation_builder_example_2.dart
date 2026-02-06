@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class RepeatedAnimationBuilderExample2 extends StatelessWidget {
   const RepeatedAnimationBuilderExample2({super.key});

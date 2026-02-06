@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart' hide Form, FormField, TextField;
+
+import '../../control/button/button.dart';
+import '../form/form.dart';
+import '../text_field/text_field.dart';
+
+class FormPreview extends StatelessWidget {
+  const FormPreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: 420,
+          child: Form(
+            onSubmit: (context, values) {},
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const FormTableLayout(
+                  rows: [
+                    FormField<String>(
+                      key: FormKey(#name),
+                      label: Text('Name'),
+                      child: TextField(
+                        placeholder: Text('Jane Doe'),
+                      ),
+                    ),
+                    FormField<String>(
+                      key: FormKey(#email),
+                      label: Text('Email'),
+                      child: TextField(
+                        placeholder: Text('jane@example.com'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                PrimaryButton(
+                  onPressed: () => context.submitForm(),
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

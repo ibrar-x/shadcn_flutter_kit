@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class HoverCardExample1 extends StatelessWidget {
   const HoverCardExample1({super.key});

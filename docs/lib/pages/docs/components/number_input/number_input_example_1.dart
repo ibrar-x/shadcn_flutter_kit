@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class NumberInputExample1 extends StatefulWidget {
   const NumberInputExample1({super.key});

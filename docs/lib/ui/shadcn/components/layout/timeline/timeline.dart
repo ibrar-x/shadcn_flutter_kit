@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart' show VerticalDivider;
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +5,8 @@ import 'package:gap/gap.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/util.dart';
 import '../../display/text/text.dart';
+part '_impl/core/timeline_2.dart';
+part '_impl/core/timeline_data.dart';
 
 /// Theme configuration for [Timeline] widgets.
 ///
@@ -152,55 +152,6 @@ class TimelineTheme extends ComponentThemeData {
 ///   color: Colors.green,
 /// );
 /// ```
-class TimelineData {
-  /// Widget displaying the time or timestamp for this timeline entry.
-  ///
-  /// Positioned in the left column of the timeline with right alignment.
-  /// Typically contains time information, dates, or sequence numbers.
-  final Widget time;
-
-  /// Widget displaying the main title or heading for this timeline entry.
-  ///
-  /// Positioned in the right column as the primary content identifier.
-  /// Usually contains the event name, milestone title, or key description.
-  final Widget title;
-
-  /// Optional widget with additional details about this timeline entry.
-  ///
-  /// Positioned below the title in the right column when provided.
-  /// Can contain descriptions, additional context, or supporting information.
-  final Widget? content;
-
-  /// Optional custom color for this entry's indicator and connector.
-  ///
-  /// When provided, overrides the default theme color for this specific
-  /// timeline entry. If null, uses the theme's default color.
-  final Color? color;
-
-  /// Creates a [TimelineData] entry for use in [Timeline] widgets.
-  ///
-  /// Parameters:
-  /// - [time] (Widget, required): Time or timestamp display widget.
-  /// - [title] (Widget, required): Main title or heading widget.
-  /// - [content] (Widget?, optional): Additional details widget.
-  /// - [color] (Color?, optional): Custom color for indicator and connector.
-  ///
-  /// Example:
-  /// ```dart
-  /// TimelineData(
-  ///   time: Text('10:00 AM', style: TextStyle(fontWeight: FontWeight.bold)),
-  ///   title: Text('Project Kickoff'),
-  ///   content: Text('Initial meeting to discuss project scope and timeline.'),
-  ///   color: Colors.blue,
-  /// );
-  /// ```
-  TimelineData({
-    required this.time,
-    required this.title,
-    this.content,
-    this.color,
-  });
-}
 
 /// A vertical timeline widget for displaying chronological data.
 ///
@@ -241,135 +192,4 @@ class TimelineData {
 ///   ],
 /// );
 /// ```
-class Timeline extends StatelessWidget {
-  /// List of timeline entries to display.
-  ///
-  /// Each [TimelineData] object represents one row in the timeline with
-  /// time information, title, optional content, and optional custom color.
-  /// The timeline renders entries in the order provided in this list.
-  final List<TimelineData> data;
 
-  /// Override constraints for the time column width.
-  ///
-  /// When provided, overrides the theme's [TimelineTheme.timeConstraints]
-  /// for this specific timeline instance. Controls how much space is allocated
-  /// for displaying time information. If null, uses theme or default constraints.
-  final BoxConstraints? timeConstraints;
-
-  /// Creates a [Timeline] widget with the specified data entries.
-  ///
-  /// Parameters:
-  /// - [data] (`List<TimelineData>`, required): Timeline entries to display in order.
-  /// - [timeConstraints] (BoxConstraints?, optional): Override width constraints for time column.
-  ///
-  /// The timeline automatically handles layout, styling, and visual indicators
-  /// based on the current theme and provided data. Each entry's time, title,
-  /// content, and color are used to construct the appropriate visual representation.
-  ///
-  /// Example:
-  /// ```dart
-  /// Timeline(
-  ///   timeConstraints: BoxConstraints(minWidth: 80, maxWidth: 120),
-  ///   data: [
-  ///     TimelineData(
-  ///       time: Text('Yesterday'),
-  ///       title: Text('Initial Setup'),
-  ///       content: Text('Project repository created and initial structure added.'),
-  ///     ),
-  ///     TimelineData(
-  ///       time: Text('Today'),
-  ///       title: Text('Feature Development'),
-  ///       content: Text('Implementing core functionality and UI components.'),
-  ///       color: Colors.orange,
-  ///     ),
-  ///   ],
-  /// );
-  /// ```
-  const Timeline({
-    super.key,
-    required this.data,
-    // this.timeConstraints = const BoxConstraints(
-    //   minWidth: 120,
-    //   maxWidth: 120,
-    // ),
-    this.timeConstraints,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TimelineTheme>(context);
-    final timeConstraints = this.timeConstraints ??
-        compTheme?.timeConstraints ??
-        BoxConstraints(minWidth: 120 * scaling, maxWidth: 120 * scaling);
-    final spacing = compTheme?.spacing ?? 16 * scaling;
-    final dotSize = compTheme?.dotSize ?? 12 * scaling;
-    final connectorThickness = compTheme?.connectorThickness ?? 2 * scaling;
-    final defaultColor = compTheme?.color ?? theme.colorScheme.primary;
-    final rowGap = compTheme?.rowGap ?? 16 * scaling;
-    List<Widget> rows = [];
-    for (int i = 0; i < data.length; i++) {
-      final data = this.data[i];
-      rows.add(IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ConstrainedBox(
-              constraints: timeConstraints,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: data.time.medium().small(),
-              ),
-            ),
-            Gap(spacing),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 4 * scaling),
-                  width: dotSize,
-                  height: dotSize,
-                  decoration: BoxDecoration(
-                    shape: theme.radius == 0
-                        ? BoxShape.rectangle
-                        : BoxShape.circle,
-                    color: data.color ?? defaultColor,
-                  ),
-                ),
-                if (i != this.data.length - 1)
-                  Expanded(
-                    child: VerticalDivider(
-                      thickness: connectorThickness,
-                      color: data.color ?? defaultColor,
-                      endIndent: math.max(0.0, (-4 - spacing) * scaling),
-                    ),
-                  ),
-              ],
-            ),
-            Gap(spacing),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  data.title
-                      .semiBold()
-                      .secondaryForeground()
-                      .base()
-                      .withPadding(left: 4 * scaling),
-                  if (data.content != null) Gap(8 * scaling),
-                  if (data.content != null)
-                    Expanded(child: data.content!.muted().small()),
-                ],
-              ),
-            )
-          ],
-        ),
-      ));
-    }
-    return Column(
-      children: rows,
-    ).gap(rowGap);
-  }
-}

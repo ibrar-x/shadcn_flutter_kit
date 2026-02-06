@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class FormattedInputExample3 extends StatefulWidget {
   const FormattedInputExample3({super.key});

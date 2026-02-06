@@ -2,6 +2,8 @@ import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 
+part '_impl/utils/file_icon_provider_data.dart';
+
 Widget _buildFileIcon(String extension) {
   switch (extension) {
     case 'pdf':
@@ -88,19 +90,13 @@ class FileIconProvider extends StatelessWidget {
   }) : icons = null;
 
   /// Creates a [FileIconProvider] using a static icon map.
-  const FileIconProvider({
-    super.key,
-    required this.icons,
-    required this.child,
-  }) : builder = null;
+  const FileIconProvider({super.key, required this.icons, required this.child})
+    : builder = null;
 
   @override
   Widget build(BuildContext context) {
     return Data.inherit(
-      data: FileIconProviderData._(
-        builder: builder,
-        icons: icons,
-      ),
+      data: FileIconProviderData._(builder: builder, icons: icons),
       child: child,
     );
   }
@@ -113,37 +109,11 @@ class FileIconProvider extends StatelessWidget {
   ///
   /// Returns: The appropriate icon widget for the file type.
   static Widget buildIcon(BuildContext context, String extension) {
-    final data = Data.of<FileIconProviderData>(context);
+    final data = Data.maybeOf<FileIconProviderData>(context);
+    if (data == null) {
+      return _buildFileIcon(extension);
+    }
     return data.buildIcon(extension);
-  }
-}
-
-/// Internal data class for [FileIconProvider].
-///
-/// Stores the configuration for file icon provision and provides
-/// a method to build icons based on file extensions.
-class FileIconProviderData {
-  /// Optional builder function for icons.
-  final FileIconBuilder? builder;
-
-  /// Optional map of extension to icon widgets.
-  final Map<String, Widget>? icons;
-
-  /// Creates internal data for file icon provision.
-  const FileIconProviderData._({
-    this.builder,
-    this.icons,
-  });
-
-  /// Builds an icon for the given file extension.
-  ///
-  /// Uses the builder if provided, otherwise checks the icons map,
-  /// and falls back to the default icon builder.
-  Widget buildIcon(String extension) {
-    if (builder != null) return builder!(extension);
-    final icon = icons?[extension];
-    if (icon != null) return icon;
-    return _buildFileIcon(extension);
   }
 }
 

@@ -1,5 +1,7 @@
-import 'package:flutter/services.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
+import 'package:docs/ui/shadcn/components/overlay/menu/menu.dart' as menu;
+import 'package:docs/ui/shadcn/components/overlay/menubar/menubar.dart'
+    as menubar;
 
 class MenubarExample1 extends StatefulWidget {
   const MenubarExample1({super.key});
@@ -16,13 +18,13 @@ class _MenubarExample1State extends State<MenubarExample1> {
   Widget build(BuildContext context) {
     // Typical desktop-style menubar with nested submenus, shortcuts,
     // checkboxes (non-closing), and a radio group.
-    return Menubar(
+    return menubar.Menubar(
       children: [
-        const MenuButton(
+        const menu.MenuButton(
           subMenu: [
-            MenuButton(
+            menu.MenuButton(
               leading: Icon(RadixIcons.filePlus),
-              trailing: MenuShortcut(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyT,
                   control: true,
@@ -30,8 +32,8 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('New Tab'),
             ),
-            MenuButton(
-              trailing: MenuShortcut(
+            menu.MenuButton(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyN,
                   control: true,
@@ -39,27 +41,27 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('New Window'),
             ),
-            MenuButton(
+            menu.MenuButton(
               enabled: false,
               child: Text('New Incognito Window'),
             ),
-            MenuDivider(),
-            MenuButton(
+            menu.MenuDivider(),
+            menu.MenuButton(
               subMenu: [
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Email Link'),
                 ),
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Messages'),
                 ),
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Notes'),
                 ),
               ],
               child: Text('Share'),
             ),
-            MenuButton(
-              trailing: MenuShortcut(
+            menu.MenuButton(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyP,
                   control: true,
@@ -67,12 +69,12 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('Print'),
             ),
-            MenuButton(
+            menu.MenuButton(
               subMenu: [
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Save and Exit'),
                 ),
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Discard and Exit'),
                 ),
               ],
@@ -81,10 +83,10 @@ class _MenubarExample1State extends State<MenubarExample1> {
           ],
           child: Text('File'),
         ),
-        const MenuButton(
+        const menu.MenuButton(
           subMenu: [
-            MenuButton(
-              trailing: MenuShortcut(
+            menu.MenuButton(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyZ,
                   control: true,
@@ -92,8 +94,8 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('Undo'),
             ),
-            MenuButton(
-              trailing: MenuShortcut(
+            menu.MenuButton(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyZ,
                   control: true,
@@ -102,41 +104,41 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('Redo'),
             ),
-            MenuDivider(),
-            MenuButton(
+            menu.MenuDivider(),
+            menu.MenuButton(
               subMenu: [
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Search the Web'),
                 ),
-                MenuDivider(),
-                MenuButton(
+                menu.MenuDivider(),
+                menu.MenuButton(
                   child: Text('Find...'),
                 ),
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Find Next'),
                 ),
-                MenuButton(
+                menu.MenuButton(
                   child: Text('Find Previous'),
                 ),
               ],
               child: Text('Find'),
             ),
-            MenuDivider(),
-            MenuButton(
+            menu.MenuDivider(),
+            menu.MenuButton(
               child: Text('Cut'),
             ),
-            MenuButton(
+            menu.MenuButton(
               child: Text('Copy'),
             ),
-            MenuButton(
+            menu.MenuButton(
               child: Text('Paste'),
             ),
           ],
           child: Text('Edit'),
         ),
-        MenuButton(
+        menu.MenuButton(
           subMenu: [
-            MenuCheckbox(
+            menu.MenuCheckbox(
               value: _showBookmarksBar,
               onChanged: (context, value) {
                 setState(() {
@@ -147,7 +149,7 @@ class _MenubarExample1State extends State<MenubarExample1> {
               autoClose: false,
               child: const Text('Always Show Bookmarks Bar'),
             ),
-            MenuCheckbox(
+            menu.MenuCheckbox(
               value: _showFullURLs,
               onChanged: (context, value) {
                 setState(() {
@@ -158,9 +160,9 @@ class _MenubarExample1State extends State<MenubarExample1> {
               autoClose: false,
               child: const Text('Always Show Full URLs'),
             ),
-            const MenuDivider(),
-            const MenuButton(
-              trailing: MenuShortcut(
+            const menu.MenuDivider(),
+            const menu.MenuButton(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyR,
                   control: true,
@@ -168,9 +170,9 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('Reload'),
             ),
-            const MenuButton(
+            const menu.MenuButton(
               enabled: false,
-              trailing: MenuShortcut(
+              trailing: menu.MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyR,
                   control: true,
@@ -179,20 +181,20 @@ class _MenubarExample1State extends State<MenubarExample1> {
               ),
               child: Text('Force Reload'),
             ),
-            const MenuDivider(),
-            const MenuButton(
+            const menu.MenuDivider(),
+            const menu.MenuButton(
               child: Text('Toggle Full Screen'),
             ),
-            const MenuDivider(),
-            const MenuButton(
+            const menu.MenuDivider(),
+            const menu.MenuButton(
               child: Text('Hide Sidebar'),
             ),
           ],
           child: const Text('View'),
         ),
-        MenuButton(
+        menu.MenuButton(
           subMenu: [
-            MenuRadioGroup<int>(
+            menu.MenuRadioGroup<int>(
               value: _selectedProfile,
               onChanged: (context, value) {
                 setState(() {
@@ -200,30 +202,30 @@ class _MenubarExample1State extends State<MenubarExample1> {
                 });
               },
               children: const [
-                MenuRadio<int>(
+                menu.MenuRadio<int>(
                   value: 0,
                   // Disable auto-close to let users quickly toggle multiple options.
                   autoClose: false,
                   child: Text('Andy'),
                 ),
-                MenuRadio<int>(
+                menu.MenuRadio<int>(
                   value: 1,
                   autoClose: false,
                   child: Text('Benoit'),
                 ),
-                MenuRadio<int>(
+                menu.MenuRadio<int>(
                   value: 2,
                   autoClose: false,
                   child: Text('Luis'),
                 ),
               ],
             ),
-            const MenuDivider(),
-            const MenuButton(
+            const menu.MenuDivider(),
+            const menu.MenuButton(
               child: Text('Edit...'),
             ),
-            const MenuDivider(),
-            const MenuButton(
+            const menu.MenuDivider(),
+            const menu.MenuButton(
               child: Text('Add Profile...'),
             ),
           ],

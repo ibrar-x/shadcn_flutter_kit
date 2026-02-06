@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import '../text_field/text_field.dart';
 import '../../../shared/theme/theme.dart';
 
-part '_impl/text_area_state.dart';
-part '_impl/text_area_handle.dart';
+part '_impl/state/text_area_state.dart';
+part '_impl/core/text_area_handle.dart';
 
 /// Multi-line text input with resizable dimensions.
 class TextArea extends TextInputStatefulWidget {

@@ -7,7 +7,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/skeleton_theme.dart';
+part '_impl/themes/skeleton_theme.dart';
 
 /// Applies Skeletonizer configuration using shadcn theming.
 class ShadcnSkeletonizerConfigLayer extends StatelessWidget {

@@ -44,8 +44,8 @@ class RegistryGuidePage extends StatelessWidget {
           const DocsBulletList(
             items: [
               'Registry root contains components.json and components.schema.json.',
-              'Each component lives under registry/components/<category>/<name>.',
-              'Shared helpers live under registry/shared and are pulled in via the manifest.',
+              'Each component lives under components/<category>/<name>.',
+              'Shared helpers live under shared/ and are pulled in via the manifest.',
               'Optional preview.dart and README.md files can be shipped for docs tooling.',
             ],
           ),
@@ -54,10 +54,11 @@ class RegistryGuidePage extends StatelessWidget {
           const SizedBox(height: 12),
           const DocsParagraph(
             text:
-                'Match the folder layout below. The CLI uses this shape when copying files.',
+                'Match the folder layout below. In this repo, the registry lives under flutter_shadcn_kit/lib/registry.',
           ),
           const DocsCodeBlock(
-            code: 'registry/\n  components.json\n  components.schema.json\n  shared/\n    primitives/\n    theme/\n    utils/\n  components/\n    display/\n      avatar/\n        avatar.dart\n        meta.json\n        README.md\n        preview.dart\n        _impl/\n          avatar_controller.dart\n    form/\n      text_field/\n        text_field.dart\n        meta.json\n        README.md\n        _impl/\n          input_features.dart\n  composites/\n    ...',
+            code:
+                'flutter_shadcn_kit/lib/registry/\n  components.json\n  components.schema.json\n  shared/\n    primitives/\n    theme/\n    utils/\n  components/\n    display/\n      avatar/\n        avatar.dart\n        meta.json\n        README.md\n        preview.dart\n        _impl/\n          avatar_controller.dart\n    form/\n      text_field/\n        text_field.dart\n        meta.json\n        README.md\n        _impl/\n          input_features.dart\n  composites/\n    ...',
             mode: 'text',
           ),
           const SizedBox(height: 20),
@@ -70,6 +71,11 @@ class RegistryGuidePage extends StatelessWidget {
           const DocsCodeBlock(
             code: '{\n  "schemaVersion": 1,\n  "name": "my_registry",\n  "flutter": {"minSdk": ">=3.3.0"},\n  "defaults": {\n    "installPath": "lib/ui/shadcn",\n    "sharedPath": "lib/ui/shadcn/shared"\n  },\n  "shared": [\n    {\n      "id": "theme",\n      "description": "Core theme data.",\n      "files": [\n        {\n          "source": "registry/shared/theme/theme.dart",\n          "destination": "{sharedPath}/theme/theme.dart"\n        }\n      ]\n    }\n  ],\n  "components": [\n    {\n      "id": "avatar",\n      "name": "Avatar",\n      "description": "Circular avatar display.",\n      "category": "display",\n      "files": [\n        {\n          "source": "registry/components/display/avatar/avatar.dart",\n          "destination": "{installPath}/components/display/avatar/avatar.dart"\n        }\n      ],\n      "shared": ["theme"],\n      "dependsOn": [],\n      "pubspec": {"dependencies": {}},\n      "assets": [],\n      "postInstall": []\n    }\n  ]\n}',
             mode: 'json',
+          ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text:
+                'If your registry lives under flutter_shadcn_kit/lib/registry, the manifest source paths should start with that prefix (for example flutter_shadcn_kit/lib/registry/components/...).',
           ),
           const SizedBox(height: 20),
           DocsSectionTitle(title: 'Component shape', anchor: componentKey),
@@ -109,7 +115,7 @@ class RegistryGuidePage extends StatelessWidget {
           ),
           const DocsCodeBlock(
             code:
-                'flutter_shadcn add button --registry remote --registry-url https://cdn.jsdelivr.net/gh/your-org/your-registry@latest/flutter_shadcn_kit/lib/registry',
+                'flutter_shadcn add button --registry remote --registry-url https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/lib/registry',
             mode: 'bash',
           ),
           const SizedBox(height: 12),

@@ -4,8 +4,8 @@ import '../../control/button/button.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/chip_button.dart';
-part '_impl/chip_theme.dart';
+part '_impl/core/chip_button.dart';
+part '_impl/themes/chip_theme.dart';
 
 /// Compact interactive chip with optional leading/trailing widgets.
 class Chip extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 // Demonstrates TreeView with expandable items, branch lines (path/line),
 // and optional recursive selection behavior.

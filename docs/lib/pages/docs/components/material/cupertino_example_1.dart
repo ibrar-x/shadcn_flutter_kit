@@ -1,5 +1,7 @@
+import 'package:docs/shadcn_ui.dart' as shadcnui;
+import 'package:docs/ui/shadcn/components/overlay/dialog/dialog.dart'
+    as shadcn_dialog;
 import 'package:flutter/cupertino.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart' as shadcnui;
 
 class CupertinoExample1 extends StatefulWidget {
   const CupertinoExample1({super.key});
@@ -72,7 +74,7 @@ class _CupertinoExample1State extends State<CupertinoExample1> {
                   shadcnui.SecondaryButton(
                     onPressed: () {
                       // Show a shadcn_flutter dialog as a comparison
-                      shadcnui.showDialog(
+                      shadcn_dialog.showDialog(
                         context: context,
                         builder: (context) {
                           return shadcnui.AlertDialog(

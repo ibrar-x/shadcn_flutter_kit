@@ -1,4 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class SliderExample1 extends StatefulWidget {
   const SliderExample1({super.key});

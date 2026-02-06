@@ -1,5 +1,5 @@
-import 'package:flutter/services.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
+import 'package:docs/ui/shadcn/components/overlay/menu/menu.dart';
 
 /// Context menu with shortcuts, submenu, checkboxes, and radio group.
 ///
@@ -140,7 +140,7 @@ class _ContextMenuExample1State extends State<ContextMenuExample1> {
           borderRadius: BorderRadius.circular(theme.radiusMd),
           strokeWidth: 2,
           gap: 2,
-          child: const Text('Right click here').center(),
+          child: const Center(child: Text('Right click here')),
         ).constrained(
           maxWidth: 300,
           maxHeight: 200,

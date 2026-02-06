@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class NamedColor {
   final String name;

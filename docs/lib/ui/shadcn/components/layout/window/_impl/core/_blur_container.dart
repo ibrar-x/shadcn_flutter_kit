@@ -1,0 +1,40 @@
+part of '../../window.dart';
+
+class _BlurContainer extends StatelessWidget {
+  const _BlurContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return AnimatedValueBuilder(
+        initialValue: 0.0,
+        value: 1.0,
+        duration: kDefaultDuration,
+        curve: Curves.easeInOut,
+        builder: (context, value, child) {
+          return Opacity(
+            opacity: value,
+            child: Transform.scale(
+              scale: lerpDouble(0.8, 1.0, value)!,
+              child: Padding(
+                padding: const EdgeInsets.all(8) * theme.scaling,
+                child: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: theme.colorScheme.border,
+                        ),
+                        color: theme.colorScheme.card.withAlpha(100),
+                        borderRadius: theme.borderRadiusMd,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+}

@@ -1,5 +1,7 @@
+import 'package:docs/shadcn_ui.dart' as shadcnui;
+import 'package:docs/ui/shadcn/components/overlay/dialog/dialog.dart'
+    as shadcn_dialog;
 import 'package:flutter/material.dart';
-import 'package:docs/ui/shadcn/shadcn_ui.dart' as shadcnui;
 
 class MaterialExample1 extends StatefulWidget {
   const MaterialExample1({super.key});
@@ -79,7 +81,7 @@ class _MaterialExample1State extends State<MaterialExample1> {
                   shadcnui.SecondaryButton(
                     onPressed: () {
                       // Show a shadcn_flutter dialog side-by-side for comparison
-                      shadcnui.showDialog(
+                      shadcn_dialog.showDialog(
                         context: context,
                         builder: (context) {
                           return shadcnui.AlertDialog(

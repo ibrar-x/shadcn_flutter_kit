@@ -5,48 +5,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-/// Theme configuration for focus outlines.
-class FocusOutlineTheme extends ComponentThemeData {
-  /// Offset applied when drawing the outline.
-  final double? align;
-
-  /// Border radius for rounded outlines.
-  final BorderRadiusGeometry? borderRadius;
-
-  /// Border style used by the outline.
-  final Border? border;
-
-  /// Creates a theme for [FocusOutline].
-  const FocusOutlineTheme({
-    this.align,
-    this.borderRadius,
-    this.border,
-  });
-
-  /// Copies this theme with selected overrides.
-  FocusOutlineTheme copyWith({
-    ValueGetter<double?>? align,
-    ValueGetter<BorderRadiusGeometry?>? borderRadius,
-    ValueGetter<Border?>? border,
-  }) {
-    return FocusOutlineTheme(
-      align: align == null ? this.align : align(),
-      borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
-      border: border == null ? this.border : border(),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is FocusOutlineTheme &&
-        other.align == align &&
-        other.borderRadius == borderRadius &&
-        other.border == border;
-  }
-
-  @override
-  int get hashCode => Object.hash(align, borderRadius, border);
-}
+part '_impl/themes/focus_outline_theme.dart';
 
 /// Draws a subtle outline around a focused widget.
 class FocusOutline extends StatelessWidget {

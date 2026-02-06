@@ -1,0 +1,11 @@
+part of '../../carousel.dart';
+
+/// A fixed carousel size constraint.
+class CarouselFixedConstraint extends CarouselSizeConstraint {
+  /// The size of the constraint.
+  final double size;
+
+  /// Creates a fixed carousel size constraint.
+  const CarouselFixedConstraint(this.size)
+      : assert(size > 0, 'size must be greater than 0');
+}

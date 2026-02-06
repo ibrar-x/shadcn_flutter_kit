@@ -35,44 +35,46 @@ Widget _buildErrorSystemAppBannerExample(BuildContext context) {
           .small()
           .muted(),
       const SizedBox(height: 12),
-      Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: [
-          PrimaryButton(
-            onPressed: () {
-              bannerScope.notifier.value = AppError(
-                code: AppErrorCode.noInternet,
-                title: 'You are offline',
-                message: 'Check your connection and try again.',
-                actions: [
-                  ErrorAction.retry(bannerScope.clear),
-                ],
-              );
-            },
-            child: const Text('Show banner'),
-          ),
-          SecondaryButton(
-            onPressed: () {
-              gateScope.notifier.value = AppError(
-                code: AppErrorCode.server,
-                title: 'Service unavailable',
-                message: 'We are fixing an outage. Please try again soon.',
-                actions: [
-                  ErrorAction.retry(gateScope.clear),
-                ],
-              );
-            },
-            child: const Text('Show app gate'),
-          ),
-          SecondaryButton(
-            onPressed: () {
-              bannerScope.clear();
-              gateScope.clear();
-            },
-            child: const Text('Clear all'),
-          ),
-        ],
+      Center(
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            PrimaryButton(
+              onPressed: () {
+                bannerScope.notifier.value = AppError(
+                  code: AppErrorCode.noInternet,
+                  title: 'You are offline',
+                  message: 'Check your connection and try again.',
+                  actions: [
+                    ErrorAction.retry(bannerScope.clear),
+                  ],
+                );
+              },
+              child: const Text('Show banner'),
+            ),
+            SecondaryButton(
+              onPressed: () {
+                gateScope.notifier.value = AppError(
+                  code: AppErrorCode.server,
+                  title: 'Service unavailable',
+                  message: 'We are fixing an outage. Please try again soon.',
+                  actions: [
+                    ErrorAction.retry(gateScope.clear),
+                  ],
+                );
+              },
+              child: const Text('Show app gate'),
+            ),
+            SecondaryButton(
+              onPressed: () {
+                bannerScope.clear();
+                gateScope.clear();
+              },
+              child: const Text('Clear all'),
+            ),
+          ],
+        ),
       ),
     ],
   );

@@ -22,6 +22,7 @@ import 'pages/docs/components/material_example.dart';
 import 'pages/docs/theme_page.dart';
 import 'pages/docs/typography_page.dart';
 import 'pages/docs/web_preloader_page.dart';
+import 'pages/docs/components/error_system/error_system_quick_start_page.dart';
 import 'theme/docs_theme.dart';
 import 'theme/theme_controller.dart';
 import 'web_bridge.dart';
@@ -30,6 +31,7 @@ import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
 import 'ui/shadcn/components/utility/error_system/error_system.dart';
 import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
+import 'ui/shadcn/shared/theme/preset_themes.dart';
 import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'ui/shadcn/shared/primitives/overlay.dart';
 
@@ -78,10 +80,15 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
   } else {
     scheme = _schemeForPreset(presetId, brightness);
   }
+  final hasRadiusPref = prefs.containsKey(kPrefsRadius);
+  final presetTokens = _tokensForPreset(presetId, brightness);
+  final resolvedRadius = hasRadiusPref
+      ? (prefs.getDouble(kPrefsRadius) ?? presetTokens.radius)
+      : (presetId == 'custom' ? 0.1 : presetTokens.radius);
   final storedPath = prefs.getString('initialPath');
   return DocsSettings(
     colorScheme: scheme,
-    radius: prefs.getDouble(kPrefsRadius) ?? 0.1,
+    radius: resolvedRadius,
     scaling: prefs.getDouble(kPrefsScaling) ?? 1.0,
     surfaceOpacity: prefs.getDouble(kPrefsSurfaceOpacity) ?? 1.0,
     surfaceBlur: prefs.getDouble(kPrefsSurfaceBlur) ?? 0.0,
@@ -141,12 +148,16 @@ class _DocsRootState extends State<DocsRoot> {
   @override
   void initState() {
     super.initState();
+    const baseTheme = shadcn_theme.ThemeData();
     final themeData = DocsThemeData(
       colorScheme: widget.settings.colorScheme,
       radius: widget.settings.radius,
       scaling: widget.settings.scaling,
       surfaceOpacity: widget.settings.surfaceOpacity,
       surfaceBlur: widget.settings.surfaceBlur,
+      spacing: baseTheme.spacing,
+      tracking: baseTheme.tracking,
+      shadows: baseTheme.shadows,
     );
     controller = DocsThemeController(
       initialData: themeData,
@@ -255,6 +266,14 @@ class _DocsRootState extends State<DocsRoot> {
           ),
         ),
         GoRoute(
+          path: '/components/error-system/quick-start',
+          name: 'error_system_quick_start',
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const ErrorSystemQuickStartPage(),
+          ),
+        ),
+        GoRoute(
           path: '/components/:id',
           name: 'component_detail',
           pageBuilder: (context, state) => _buildTransitionPage(
@@ -332,18 +351,18 @@ class _DocsRootState extends State<DocsRoot> {
                               ),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                             top: 0,
                             left: 0,
                             right: 0,
                             child: SafeArea(
                               bottom: false,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
+                                padding: EdgeInsets.symmetric(
                                   horizontal: 24,
                                   vertical: 12,
                                 ),
-                                child: const AppErrorBanner(
+                                child: AppErrorBanner(
                                   watchScopes: ['docs.app.banner'],
                                 ),
                               ),
@@ -407,6 +426,17 @@ shadcn_colors.ColorScheme _schemeForPreset(
     orElse: () => DocsThemeController.presets.first,
   );
   return brightness == Brightness.dark ? preset.dark : preset.light;
+}
+
+RegistryThemePresetTokens _tokensForPreset(
+  String presetId,
+  Brightness brightness,
+) {
+  final preset = DocsThemeController.presets.firstWhere(
+    (preset) => preset.id == presetId,
+    orElse: () => DocsThemeController.presets.first,
+  );
+  return brightness == Brightness.dark ? preset.darkTokens : preset.lightTokens;
 }
 
 String getReleaseTagName() {

@@ -148,6 +148,7 @@ class DocsPageState extends State<DocsPage> {
 
   final ScrollController scrollController = ScrollController();
   final List<OnThisPage> currentlyVisible = [];
+  bool _isSheetOpen = false;
   late List<DocsSection> _sections;
 
   @override
@@ -158,6 +159,10 @@ class DocsPageState extends State<DocsPage> {
       child.isVisible.addListener(_onVisibilityChanged);
     }
     _loadComponentSections();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      setState(() {});
+    });
   }
 
   @override
@@ -167,6 +172,10 @@ class DocsPageState extends State<DocsPage> {
       for (final child in widget.onThisPage.values) {
         child.isVisible.addListener(_onVisibilityChanged);
       }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() {});
+      });
     }
   }
 
@@ -327,54 +336,69 @@ class DocsPageState extends State<DocsPage> {
   Widget _buildHeader(BuildContext context) {
     final scaling = context.docsTheme.scaling;
     final theme = shadcn_theme.Theme.of(context);
+    final spacing = theme.spacing;
+    final width = MediaQuery.of(context).size.width;
+    final showSearchBar = width >= breakpointWidth2;
+    final showDrawer = width < breakpointWidth;
     return shadcn_scaffold.AppBar(
-      leading: [
-        if (MediaQuery.of(context).size.width < breakpointWidth)
-          shadcn_buttons.GhostButton(
-            onPressed: _openDrawer,
-            density: shadcn_buttons.ButtonDensity.icon,
-            child: const Icon(Icons.menu),
-          ),
-        const Text('shadcn/ui Flutter').semiBold(),
-      ],
-      trailing: [
-        _buildThemeToggle(context),
-        shadcn_buttons.GhostButton(
-          onPressed: () => launchUrlString(
-            'https://github.com/ibrar-x/shadcn_flutter_kit',
-          ),
-          density: shadcn_buttons.ButtonDensity.icon,
-          child: const Icon(LucideIcons.github),
-        ),
-      ],
-      padding: EdgeInsets.symmetric(horizontal: 18 * scaling, vertical: 12),
+      leading: const [],
+      trailing: const [],
+      padding: EdgeInsets.symmetric(
+        horizontal: spacing.xl * scaling,
+        vertical: spacing.md * scaling,
+      ),
       backgroundColor: theme.colorScheme.background,
       surfaceOpacity: 0.9,
       surfaceBlur: 12,
       child: Row(
         children: [
-          const Spacer(),
-          Expanded(
-            flex: 3,
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 520),
-                child: shadcn_buttons.OutlineButton(
-                  onPressed: showSearchDialog,
-                  child: Row(
-                    children: [
-                      const Icon(Icons.search).iconSmall(),
-                      const SizedBox(width: 8),
-                      const Text('Search documentation...').muted(),
-                      const Spacer(),
-                      const Text('Cmd+K / Ctrl+K').xSmall().muted(),
-                    ],
+          if (showDrawer)
+            shadcn_buttons.GhostButton(
+              onPressed: _openDrawer,
+              density: shadcn_buttons.ButtonDensity.icon,
+              child: const Icon(Icons.menu),
+            ),
+          const Text('shadcn_flutter_registry').semiBold(),
+          if (showSearchBar) ...[
+            const Spacer(),
+            Expanded(
+              flex: 3,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 520),
+                  child: shadcn_buttons.OutlineButton(
+                    onPressed: showSearchDialog,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search).iconSmall(),
+                        SizedBox(width: spacing.xs * scaling),
+                        const Text('Search documentation...').muted(),
+                        const Spacer(),
+                        const Text('Cmd+K / Ctrl+K').xSmall().muted(),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
+            const Spacer(),
+          ] else
+            const Spacer(),
+              if (!showSearchBar)
+            shadcn_buttons.GhostButton(
+              onPressed: showSearchDialog,
+              density: shadcn_buttons.ButtonDensity.icon,
+              child: const Icon(Icons.search),
+            ),
+          shadcn_buttons.GhostButton(
+            onPressed: () => launchUrlString(
+              'https://github.com/ibrar-x/shadcn_flutter_kit',
+            ),
+            density: shadcn_buttons.ButtonDensity.icon,
+            child: const Icon(LucideIcons.github),
           ),
-          const Spacer(),
+        
+          _buildThemeToggle(context),
         ],
       ),
     );
@@ -416,16 +440,29 @@ class DocsPageState extends State<DocsPage> {
   }
 
   void _openDrawer() {
+    if (_isSheetOpen) {
+      return;
+    }
+    setState(() {
+      _isSheetOpen = true;
+    });
+    final mediaWidth = MediaQuery.of(context).size.width;
+    final targetWidth = mediaWidth * 0.6;
+    final routerContext = context;
     openSheet(
       context: context,
       position: OverlayPosition.left,
+      constraints: BoxConstraints.tightFor(width: targetWidth),
       builder: (context) {
         final theme = shadcn_theme.Theme.of(context);
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: 32, right: 32, bottom: 48) *
+            padding: const EdgeInsets.only(left: 32, right: 32, bottom: 48,top: 48) *
                 theme.scaling,
-            child: SidebarNav(
+
+            child: SizedBox(
+              width: targetWidth,
+              child: SidebarNav(
               children: [
                 for (final section in _sections)
                   SidebarSection(
@@ -433,10 +470,13 @@ class DocsPageState extends State<DocsPage> {
                     children: [
                       for (final page in section.pages)
                         DocsNavigationButton(
-                          onPressed: () => context.goNamed(
-                            page.routeName,
-                            pathParameters: page.pathParameters,
-                          ),
+                          onPressed: () {
+                            closeSheet(context);
+                            routerContext.goNamed(
+                              page.routeName,
+                              pathParameters: page.pathParameters,
+                            );
+                          },
                           selected: page.name == widget.name,
                           child: shadcn_basic.Basic(
                             content: Text(page.title),
@@ -448,10 +488,17 @@ class DocsPageState extends State<DocsPage> {
                   ),
               ],
             ),
+            ),
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      if (mounted) {
+        setState(() {
+          _isSheetOpen = false;
+        });
+      }
+    });
   }
 
   @override
@@ -461,6 +508,14 @@ class DocsPageState extends State<DocsPage> {
         .expand((section) => section.pages)
         .where((page) => page.name == widget.name)
         .firstOrNull;
+    final width = MediaQuery.of(context).size.width;
+    if (_isSheetOpen && width >= breakpointWidth) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          closeSheet(context);
+        }
+      });
+    }
 
     return StageContainer(
       builder: (context, padding) {
@@ -470,6 +525,8 @@ class DocsPageState extends State<DocsPage> {
             LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK):
                 const _OpenSearchIntent(),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK):
+                const _OpenSearchIntent(),
+            LogicalKeySet(LogicalKeyboardKey.slash):
                 const _OpenSearchIntent(),
           },
           child: Actions(
@@ -498,9 +555,9 @@ class DocsPageState extends State<DocsPage> {
                               child: SingleChildScrollView(
                                 key: const PageStorageKey('sidebar'),
                                 padding: EdgeInsets.only(
-                                      top: 32,
-                                      left: 24 + padding.left,
-                                      bottom: 32,
+                                      top: theme.spacing.xxl,
+                                      left: theme.spacing.xl + padding.left,
+                                      bottom: theme.spacing.xxl,
                                     ) *
                                     theme.scaling,
                                 child: SidebarNav(
@@ -538,11 +595,13 @@ class DocsPageState extends State<DocsPage> {
                             child: widget.scrollable
                                 ? SingleChildScrollView(
                                     controller: scrollController,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 32,
-                                      vertical: 24,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: theme.spacing.xxl,
+                                      vertical: theme.spacing.xl,
                                     ).copyWith(
-                                      right: hasOnThisPage ? 24 : 32,
+                                      right: hasOnThisPage
+                                          ? theme.spacing.xl
+                                          : theme.spacing.xxl,
                                     ),
                                     child: Column(
                                       crossAxisAlignment:
@@ -562,7 +621,9 @@ class DocsPageState extends State<DocsPage> {
                                               Text(currentPage.title),
                                           ],
                                         ),
-                                        const SizedBox(height: 16),
+                                        SizedBox(
+                                          height: theme.spacing.lg,
+                                        ),
                                         widget.child,
                                       ],
                                     ),
@@ -576,11 +637,11 @@ class DocsPageState extends State<DocsPage> {
                                 width: (padding.right + 180) * theme.scaling,
                                 child: FocusTraversalGroup(
                                   child: SingleChildScrollView(
-                                    padding: const EdgeInsets.only(
-                                          top: 32,
-                                          right: 24,
-                                          bottom: 32,
-                                          left: 24,
+                                    padding: EdgeInsets.only(
+                                          top: theme.spacing.xxl,
+                                          right: theme.spacing.xl,
+                                          bottom: theme.spacing.xxl,
+                                          left: theme.spacing.xl,
                                         ) *
                                         theme.scaling,
                                     child: SidebarNav(
@@ -592,15 +653,22 @@ class DocsPageState extends State<DocsPage> {
                                                 in widget.onThisPage.entries)
                                               SidebarButton(
                                                 onPressed: () {
+                                                  final context = entry
+                                                      .value.currentContext;
+                                                  if (context == null) {
+                                                    return;
+                                                  }
                                                   Scrollable.ensureVisible(
-                                                    entry.value.currentContext!,
+                                                    context,
                                                     duration: const Duration(
                                                       milliseconds: 200,
                                                     ),
                                                   );
                                                 },
                                                 selected:
-                                                    isVisible(entry.value),
+                                                    entry.value.currentContext !=
+                                                            null &&
+                                                        isVisible(entry.value),
                                                 child: Text(entry.key),
                                               ),
                                           ],
@@ -645,10 +713,13 @@ class SidebarNav extends StatelessWidget {
     }
     return Container(
       constraints: const BoxConstraints(minWidth: 200),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: spacedChildren,
+      child: SingleChildScrollView(
+        primary: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: spacedChildren,
+        ),
       ),
     );
   }

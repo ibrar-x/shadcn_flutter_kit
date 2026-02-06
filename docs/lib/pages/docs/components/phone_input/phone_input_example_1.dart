@@ -1,6 +1,4 @@
-import 'package:docs/ui/shadcn/shadcn_ui.dart';
-import 'package:docs/ui/shadcn/components/form/phone_input/phone_input.dart'
-    show PhoneNumber;
+import 'package:docs/shadcn_ui.dart';
 import 'package:phonecodes/phonecodes.dart' show Country;
 
 class PhoneInputExample1 extends StatefulWidget {
@@ -16,21 +14,23 @@ class _PhoneInputExample1State extends State<PhoneInputExample1> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        PhoneInput(
-          // Preselect a country; phone parsing/formatting adapt accordingly.
-          initialCountry: Country.unitedStates,
-          onChanged: (value) {
-            setState(() {
-              _phoneNumber = value;
-            });
-          },
-        ),
+      children: join(
+        [
+          PhoneInput(
+            // Preselect a country; phone parsing/formatting adapt accordingly.
+            initialCountry: Country.unitedStates,
+            onChanged: (value) {
+              setState(() {
+                _phoneNumber = value;
+              });
+            },
+          ),
+          Text(
+            _phoneNumber?.value ?? '(No value)',
+          ),
+        ],
         const Gap(24),
-        Text(
-          _phoneNumber?.value ?? '(No value)',
-        ),
-      ],
+      ).toList(),
     );
   }
 }

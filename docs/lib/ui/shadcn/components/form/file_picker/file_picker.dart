@@ -16,10 +16,12 @@ import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
 import '../dropzone/dropzone.dart';
 import '../file_input/file_input.dart';
 import '_impl/utils/file_upload_controller.dart';
+import '_impl/themes/file_upload_dropzone_theme.dart';
 
 export '_impl/utils/file_like.dart';
 export '_impl/utils/file_upload_models.dart';
 export '_impl/utils/file_upload_controller.dart';
+export '_impl/themes/file_upload_dropzone_theme.dart';
 
 part '_impl/core/file_item.dart';
 part '_impl/core/file_upload_items_view.dart';
@@ -63,6 +65,12 @@ class FileUpload extends StatefulWidget {
 
   /// Whether drag-and-drop functionality is enabled.
   final bool enableDragDrop;
+
+  /// Whether clicking the dropzone surface opens the file picker.
+  final bool enableDropzoneClick;
+
+  /// Whether the dropzone action button opens the file picker.
+  final bool enableActionButton;
 
   /// Whether file selection is enabled.
   final bool enabled;
@@ -154,6 +162,8 @@ class FileUpload extends StatefulWidget {
   /// - [title] (`Widget?`, optional): Title displayed above picker.
   /// - [subtitle] (`Widget?`, optional): Subtitle below title.
   /// - [enableDragDrop] (`bool`, default: `true`): Enable drag-and-drop.
+  /// - [enableDropzoneClick] (`bool`, default: `true`): Click dropzone to open picker.
+  /// - [enableActionButton] (`bool`, default: `false`): Button opens picker.
   /// - [enabled] (`bool`, default: `true`): Enable picking/uploading.
   /// - [allowMultiple] (`bool`, default: `true`): Allow multi-file picking.
   /// - [uploadFn] (`UploadFn?`, optional): Upload handler for progress.
@@ -162,6 +172,8 @@ class FileUpload extends StatefulWidget {
     this.title,
     this.subtitle,
     this.enableDragDrop = true,
+    this.enableDropzoneClick = true,
+    this.enableActionButton = false,
     this.enabled = true,
     this.allowMultiple = true,
     this.withData = true,
@@ -190,7 +202,10 @@ class FileUpload extends StatefulWidget {
     this.borderRadius,
     this.padding,
     this.minHeight,
-  });
+  }) : assert(
+         enableDropzoneClick != enableActionButton,
+         'Enable only one of enableDropzoneClick or enableActionButton.',
+       );
 
   @override
   State<FileUpload> createState() => _FileUploadState();
@@ -215,8 +230,8 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   bool get _isUploading => _effectiveItems.any(
-        (item) => item.status == FileUploadItemStatus.uploading,
-      );
+    (item) => item.status == FileUploadItemStatus.uploading,
+  );
 
   FileUploadState get _state {
     if (!widget.enabled) return FileUploadState.disabled;
@@ -278,8 +293,9 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   void _handleNewFiles(List<FileLike> files) {
-    final effectiveMaxFiles =
-        widget.allowMultiple ? widget.maxFiles : (widget.maxFiles ?? 1);
+    final effectiveMaxFiles = widget.allowMultiple
+        ? widget.maxFiles
+        : (widget.maxFiles ?? 1);
     if (widget.controller != null) {
       widget.controller!.addFiles(files);
       _syncControllerState();
@@ -478,9 +494,17 @@ class _FileUploadState extends State<FileUpload> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+    final dropzoneTheme = ComponentTheme.maybeOf<FileUploadDropzoneTheme>(
+      context,
+    );
     final isEnabled = widget.enabled;
     final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
-    final dropzoneMinHeight = widget.minHeight ?? 220 * scaling;
+    final buttonEnabled =
+        widget.enabled &&
+        widget.enableActionButton &&
+        !(widget.enableDropzoneClick && widget.actionLabel != null);
+    final dropzoneMinHeight =
+        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
     final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
     final shortcutMap = <ShortcutActivator, Intent>{
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
@@ -493,13 +517,13 @@ class _FileUploadState extends State<FileUpload> {
     };
     final singleItemContent =
         (!widget.allowMultiple && _effectiveItems.isNotEmpty)
-            ? FileUploadItemsView(
-                items: [_effectiveItems.first],
-                layout: FileUploadItemsLayout.list,
-                showContainer: false,
-                itemBuilder: widget.itemBuilder,
-              )
-            : null;
+        ? FileUploadItemsView(
+            items: [_effectiveItems.first],
+            layout: FileUploadItemsLayout.list,
+            showContainer: false,
+            itemBuilder: widget.itemBuilder,
+          )
+        : null;
     final dropzone = FileDropzone(
       hotDropEnabled: canDrop,
       hotDropping: _dragActive,
@@ -509,12 +533,12 @@ class _FileUploadState extends State<FileUpload> {
       showDefaultContent: widget.allowMultiple || _effectiveItems.isEmpty,
       content: singleItemContent,
       hint: widget.hint,
-      icon: widget.icon,
+      icon: widget.icon ?? dropzoneTheme?.icon,
       actionLabel: widget.actionLabel,
-      onPressed: isEnabled ? _pickFiles : null,
-      backgroundColor: widget.backgroundColor,
-      borderRadius: widget.borderRadius,
-      padding: widget.padding,
+      onPressed: buttonEnabled ? _pickFiles : null,
+      backgroundColor: widget.backgroundColor ?? dropzoneTheme?.backgroundColor,
+      borderRadius: widget.borderRadius ?? dropzoneTheme?.borderRadius,
+      padding: widget.padding ?? dropzoneTheme?.padding,
       minHeight: dropzoneMinHeight,
     );
     final dropTarget = _adapter.buildDropTarget(
@@ -522,86 +546,85 @@ class _FileUploadState extends State<FileUpload> {
       withData: widget.withData,
       onDragActive: _setDragActive,
       onDrop: _handleDrop,
-      onTap: isEnabled ? _pickFiles : null,
+      onTap: widget.enableDropzoneClick && isEnabled ? _pickFiles : null,
       child: dropzone,
     );
-    return FileIconProvider.builder(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (widget.title != null || widget.subtitle != null)
-            Column(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (widget.title != null || widget.subtitle != null)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (widget.title != null)
+                DefaultTextStyle.merge(
+                  style: theme.typography.large.merge(
+                    theme.typography.semiBold,
+                  ),
+                  child: widget.title!,
+                ),
+              if (widget.subtitle != null) Gap(6 * scaling),
+              if (widget.subtitle != null)
+                DefaultTextStyle.merge(
+                  style: theme.typography.small.copyWith(
+                    color: theme.colorScheme.mutedForeground,
+                  ),
+                  child: widget.subtitle!,
+                ),
+              Gap(16 * scaling),
+            ],
+          ),
+        FocusableActionDetector(
+          enabled: isEnabled,
+          shortcuts: shortcutMap,
+          actions: actionMap,
+          onShowFocusHighlight: (value) => setState(() => _focused = value),
+          child: dropTarget,
+        ),
+        if (_errors.isNotEmpty) Gap(12 * scaling),
+        if (_errors.isNotEmpty)
+          Semantics(
+            liveRegion: true,
+            container: true,
+            label: _errors.map((error) => error.message).join(', '),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.title != null)
-                  DefaultTextStyle.merge(
-                    style: theme.typography.large.merge(
-                      theme.typography.semiBold,
+                for (final error in _errors)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 6 * scaling),
+                    child: DefaultTextStyle.merge(
+                      style: theme.typography.xSmall.copyWith(
+                        color: theme.colorScheme.destructive,
+                      ),
+                      child: Text(error.message),
                     ),
-                    child: widget.title!,
                   ),
-                if (widget.subtitle != null) Gap(6 * scaling),
-                if (widget.subtitle != null)
-                  DefaultTextStyle.merge(
-                    style: theme.typography.small.copyWith(
-                      color: theme.colorScheme.mutedForeground,
-                    ),
-                    child: widget.subtitle!,
-                  ),
-                Gap(16 * scaling),
               ],
             ),
-          FocusableActionDetector(
-            enabled: isEnabled,
-            shortcuts: shortcutMap,
-            actions: actionMap,
-            onShowFocusHighlight: (value) => setState(() => _focused = value),
-            child: dropTarget,
           ),
-          if (_errors.isNotEmpty) Gap(12 * scaling),
-          if (_errors.isNotEmpty)
-            Semantics(
-              liveRegion: true,
-              container: true,
-              label: _errors.map((error) => error.message).join(', '),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (final error in _errors)
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 6 * scaling),
-                      child: DefaultTextStyle.merge(
-                        style: theme.typography.xSmall.copyWith(
-                          color: theme.colorScheme.destructive,
-                        ),
-                        child: Text(error.message),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          if (widget.showFileList &&
-              _effectiveItems.isNotEmpty &&
-              widget.allowMultiple)
-            Gap(16 * scaling),
-          if (widget.showFileList &&
-              _effectiveItems.isNotEmpty &&
-              widget.allowMultiple)
-            FileUploadItemsView(
-              items: _effectiveItems,
-              layout: widget.itemsLayout,
-              columns: widget.itemsGridColumns,
-              maxHeight: itemsMaxHeight,
-              itemBuilder: (context, item) =>
-                  widget.itemBuilder?.call(context, item) ??
-                  FileItem(
-                    item: item,
-                    onRemove:
-                        widget.files == null ? () => _removeItem(item) : null,
-                  ),
-            ),
-        ],
-      ),
+        if (widget.showFileList &&
+            _effectiveItems.isNotEmpty &&
+            widget.allowMultiple)
+          Gap(16 * scaling),
+        if (widget.showFileList &&
+            _effectiveItems.isNotEmpty &&
+            widget.allowMultiple)
+          FileUploadItemsView(
+            items: _effectiveItems,
+            layout: widget.itemsLayout,
+            columns: widget.itemsGridColumns,
+            maxHeight: itemsMaxHeight,
+            itemBuilder: (context, item) =>
+                widget.itemBuilder?.call(context, item) ??
+                FileItem(
+                  item: item,
+                  onRemove: widget.files == null
+                      ? () => _removeItem(item)
+                      : null,
+                ),
+          ),
+      ],
     );
   }
 }
