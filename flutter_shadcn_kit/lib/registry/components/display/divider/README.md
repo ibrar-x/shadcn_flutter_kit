@@ -1,33 +1,103 @@
-# Divider
+# Divider (`divider`)
 
-Horizontal and vertical dividers that animate when content includes a label.
+Horizontal and vertical separators with optional label support.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need visual separation between sections.
+  - you want labeled separators.
+- Avoid when:
+  - spacing alone provides sufficient separation.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add divider
+```
+
+---
+
+## Import
 
 ```dart
-Column(
-  children: [
-    Text('Section 1'),
-    const Divider(),
-    Divider(
-      child: const Text('OR'),
-      thickness: 2,
-      indent: 16,
-      endIndent: 16,
-    ),
-    Text('Section 2'),
-  ],
-);
-
-Row(
-  children: [
-    const VerticalDivider(),
-    Expanded(child: Text('Content')),
-  ],
-);
+import 'package:<your_app>/ui/shadcn/display/divider/divider.dart';
 ```
+
+---
+
+## Minimal example
+
+```dart
+const Divider()
+```
+
+---
+
+## Common patterns
+
+### Pattern: Labeled divider
+
+```dart
+Divider(
+  child: const Text('Section'),
+)
+```
+
+### Pattern: Vertical divider
+
+```dart
+const VerticalDivider()
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Divider`
+  - `color`, `height`, `thickness`, `indent`, `endIndent`, `padding`
+  - `child` (`Widget?`) — optional label
+- `VerticalDivider`
+  - `color`, `width`, `thickness`, `indent`, `endIndent`, `padding`
+  - `child` (`Widget?`) — optional label
+
+---
 
 ## Theming
 
-Wrap widgets with `ComponentTheme<DividerTheme>` to override `color`,
-`thickness`, `indent`, `endIndent`, or `padding` defaults across the app.
+- `DividerTheme` provides defaults for color, thickness, and padding.
+
+---
+
+## Accessibility
+
+- Ensure labeled dividers use readable text sizes.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `indent`/`endIndent` to align with content edges.
+
+**Don’t**
+- ❌ Overuse dividers where spacing is clearer.
+
+---
+
+## Related components
+
+- `layout/card`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

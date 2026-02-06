@@ -11,6 +11,7 @@ import '../../../shared/primitives/overlay.dart';
 import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
+import '../../../shared/utils/text_input_utils.dart';
 import '../../../shared/utils/util.dart';
 import '../../control/button/button.dart';
 import '../form/form.dart';

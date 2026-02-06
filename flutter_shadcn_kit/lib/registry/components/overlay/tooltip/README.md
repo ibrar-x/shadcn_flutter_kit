@@ -1,27 +1,102 @@
-# Tooltip
+# Tooltip (`tooltip`)
 
-Hover-triggered tooltips built on the overlay primitives. Use `TooltipContainer` for the styled surface and wrap the trigger with `Tooltip` or `InstantTooltip`.
+Hover-triggered tooltip overlays with themed containers.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need brief text hints on hover or focus.
+  - you want themed tooltip containers and overlay behavior.
+- Avoid when:
+  - users need rich content or interactive controls (use `hover_card`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add tooltip
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/overlay/tooltip/tooltip.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 Tooltip(
-  tooltip: (context) => const TooltipContainer(
-    child: Text('More info'),
-  ),
-  child: Icon(Icons.info_outline),
+  child: const Icon(Icons.info_outline),
+  tooltip: (context) => const Text('More info'),
 )
 ```
+
+---
+
+## Common patterns
+
+### Pattern: Instant tooltip
 
 ```dart
 InstantTooltip(
-  tooltipBuilder: (context) => const TooltipContainer(
-    child: Text('Quick help'),
-  ),
-  child: Icon(Icons.help_outline),
+  child: const Text('Hover'),
+  tooltipBuilder: (context) => const Text('Instant'),
 )
 ```
 
-## Notes
-- Requires the overlay manager (`OverlayManager`) to be present in the widget tree.
-- Styling can be customized via `TooltipTheme` or per-widget overrides.
+---
+
+## API
+
+### Widgets and handlers
+
+- `Tooltip`
+- `InstantTooltip`
+- `TooltipContainer`
+- `TooltipTheme`
+- `FixedTooltipOverlayHandler`
+- `OverlayManagerAsTooltipOverlayHandler`
+
+---
+
+## Theming
+
+- `TooltipTheme` controls surface blur, padding, and typography.
+
+---
+
+## Accessibility
+
+- Pair tooltips with visible labels when possible.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep tooltip copy short.
+
+**Don’t**
+- ❌ Put actionable controls inside tooltips.
+
+---
+
+## Related components
+
+- `hover_card`
+- `popover`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

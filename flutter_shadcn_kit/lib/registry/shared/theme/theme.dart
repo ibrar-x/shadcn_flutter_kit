@@ -8,6 +8,7 @@ import 'typography.dart';
 
 part '_impl/core/adaptive_scaler.dart';
 part '_impl/core/adaptive_scaling.dart';
+part '_impl/core/design_tokens.dart';
 part '_impl/themes/__animated_theme_state.dart';
 part '_impl/themes/animated_theme.dart';
 part '_impl/themes/component_theme.dart';

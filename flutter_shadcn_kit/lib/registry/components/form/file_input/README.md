@@ -1,10 +1,87 @@
-# File Input
+# File Input (`file_input`)
 
-File input helpers that let you register custom icons for extensions and reuse them across the registry.
+Utilities for mapping file extensions to icon widgets.
 
-Wrap tree nodes that render file lists with `FileIconProvider` so downstream widgets can call
-`FileIconProvider.buildIcon(context, extension)` instead of inlining icon logic each time. You can
-provide either a custom builder (for dynamic logic) or a static map of extension→widget pairs.
+---
 
-The default builder already handles common document, image, archive, and media extensions using
-`BootstrapIcons`.
+## When to use
+
+- Use this when:
+  - you need consistent file-type icons.
+- Avoid when:
+  - you already have a custom icon pipeline.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add file_input
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/file_input/file_input.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+FileIconProvider.builder(
+  builder: (ext) => const Icon(Icons.insert_drive_file),
+  child: Builder(
+    builder: (context) => FileIconProvider.buildIcon(context, 'pdf'),
+  ),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `FileIconProvider`
+  - `FileIconProvider.builder(builder: ..., child: ...)`
+  - `FileIconProvider(icons: ..., child: ...)`
+- `FileIconBuilder` — `Widget Function(String extension)`
+
+---
+
+## Theming
+
+- Icons inherit theme colors through `Icon` widgets.
+
+---
+
+## Accessibility
+
+- Provide semantic labels for file icons where appropriate.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use a shared provider to keep file icons consistent.
+
+**Don’t**
+- ❌ Hardcode icons per list item if a provider can be reused.
+
+---
+
+## Related components
+
+- `file_picker`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

@@ -1,22 +1,92 @@
-# Tracker
+# Tracker (`tracker`)
 
-Horizontal status tracker that uses tooltip content per segment.
+Horizontal tracker segments with tooltips.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need a compact status timeline or SLA tracker.
+  - you want tooltips per segment.
+- Avoid when:
+  - a full chart or list is required.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add tracker
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/display/tracker/tracker.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 Tracker(
-  data: [
+  data: const [
     TrackerData(
       level: TrackerLevel.fine,
-      tooltip: Text('Database OK'),
-    ),
-    TrackerData(
-      level: TrackerLevel.warning,
-      tooltip: Text('API latency high'),
+      tooltip: Text('All good'),
     ),
   ],
-);
+)
 ```
 
-You can theme spacing via `TrackerTheme`.
+---
+
+## API
+
+### Constructor
+
+- `Tracker`
+  - `data` (`List<TrackerData>`, required)
+- `TrackerData`
+  - `level` (`TrackerLevel`, required)
+  - `tooltip` (`Widget`, required)
+- `TrackerLevel` — `fine`, `warning`, `critical`, `unknown`
+
+---
+
+## Theming
+
+- `TrackerTheme` controls radius, gap, and segment height.
+
+---
+
+## Accessibility
+
+- Ensure tooltips provide clear status labels.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep segment count small for readability.
+
+**Don’t**
+- ❌ Use color alone to convey critical status.
+
+---
+
+## Related components
+
+- `tooltip`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

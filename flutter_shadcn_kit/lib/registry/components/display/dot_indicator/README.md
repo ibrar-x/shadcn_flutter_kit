@@ -1,25 +1,109 @@
-# Dot Indicator
+# Dot Indicator (`dot_indicator`)
 
-Row/column of dots highlighting the current index. Tap dots to change position if `onChanged` is set.
+Animated dot indicator for carousels/steppers with optional tap behavior.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need a compact pager indicator.
+  - you want clickable dot navigation.
+- Avoid when:
+  - text labels are required for navigation.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add dot_indicator
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/display/dot_indicator/dot_indicator.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 DotIndicator(
-  index: activeIndex,
+  index: 0,
   length: 5,
-  onChanged: (value) => pageController.animateToPage(value),
-  dotBuilder: (context, index, active) {
-    return Container(
-      width: active ? 16 : 10,
-      height: 10,
-      decoration: BoxDecoration(
-        color: active ? Colors.blue : Colors.grey,
-        borderRadius: BorderRadius.circular(5),
-      ),
-    );
-  },
-);
+)
 ```
 
-Use `ComponentTheme<DotIndicatorTheme>` to override spacing, padding, or default colors for the active/inactive dots.
+---
+
+## Common patterns
+
+### Pattern: Clickable dots
+
+```dart
+DotIndicator(
+  index: currentIndex,
+  length: 5,
+  onChanged: (next) => setState(() => currentIndex = next),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `DotIndicator`
+  - `index` (`int`, required)
+  - `length` (`int`, required)
+  - `onChanged` (`ValueChanged<int>?`)
+  - `direction` (`Axis`)
+  - `spacing` (`double?`)
+  - `padding` (`EdgeInsetsGeometry?`)
+  - `dotBuilder` (`DotBuilder?`)
+
+### Callbacks
+
+- `onChanged`
+
+---
+
+## Theming
+
+- `DotIndicatorTheme` controls spacing, padding, and default dot builder.
+
+---
+
+## Accessibility
+
+- Provide additional labels when dots represent critical steps.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep `length` in sync with content pages.
+
+**Don’t**
+- ❌ Use dots as the only navigation for long lists.
+
+---
+
+## Related components
+
+- `carousel`
+- `stepper`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

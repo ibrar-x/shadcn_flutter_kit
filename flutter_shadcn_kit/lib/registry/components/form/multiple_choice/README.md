@@ -1,15 +1,98 @@
-# Multiple Choice
+# Multiple Choice (`multiple_choice`)
 
-Toggle-style grid for selecting zero, one, or multiple options with optional grouped labels and actions.
+Choice widgets with single or multiple selection and form integration.
 
-```dart
-import 'ui/shadcn/components/multiple_choice/multiple_choice.dart';
+---
 
-MultipleChoice<int>(
-  options: List.generate(3, (index) => Option(value: index, label: Text('Option $index'))),
-  value: const {0},
-  onChanged: (values) => print(values),
-);
+## When to use
+
+- Use this when:
+  - you need single-select or multi-select options.
+  - you want form-aware selection state.
+- Avoid when:
+  - a dropdown is a better UX for long lists.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add multiple_choice
 ```
 
-Install `ComponentTheme<MultipleChoiceTheme>` to customize spacing, mode, and density.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/multiple_choice/multiple_choice.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+MultipleChoice<String>(
+  value: selected,
+  onChanged: (value) {},
+  child: Wrap(
+    children: const [
+      Choice(value: 'A', child: Text('A')),
+      Choice(value: 'B', child: Text('B')),
+    ],
+  ),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `MultipleChoice<T>` — single selection.
+- `MultipleAnswer<T>` — multiple selection.
+- `Choice<T>` — selectable child widget.
+- `ControlledMultipleChoice<T>` / `ControlledMultipleAnswer<T>` — controller-backed.
+- `MultipleChoiceController<T>` / `MultipleAnswerController<T>` — controllers.
+
+### Callbacks
+
+- `onChanged`
+
+---
+
+## Theming
+
+- `MultipleChoiceTheme` controls spacing and selection styles.
+
+---
+
+## Accessibility
+
+- Provide clear selected states for keyboard navigation.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `allowUnselect` for optional choices.
+
+**Don’t**
+- ❌ Mix single and multiple choice in the same group.
+
+---
+
+## Related components
+
+- `radio_group`
+- `chip_input`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

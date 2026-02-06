@@ -1,0 +1,50 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "choices",
+  "name": "Choices",
+  "description": "Composite export for multiple choice helpers.",
+  "install": "flutter_shadcn add choices",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/form/choices/choices.dart';",
+  "whenToUse": {
+    "use": [
+      "you need single- or multi-select choice groups.",
+      "you want a shorthand alias for `MultipleChoice`."
+    ],
+    "avoid": [
+      "a radio group or select is a better fit."
+    ]
+  },
+  "examples": {
+    "minimal": "Choices<String>(\n  value: 'A',\n  onChanged: (value) {},\n  child: const Text('Provide choice items here'),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`Choices<T>` (alias of `MultipleChoice<T>`)",
+      "Re-exports `multiple_choice` APIs."
+    ]
+  },
+  "theming": [
+    "Uses `MultipleChoiceTheme` from the form registry."
+  ],
+  "accessibility": [
+    "Ensure selectable items have clear labels."
+  ],
+  "do": [
+    "Keep choices short and descriptive."
+  ],
+  "dont": [
+    "Use for very large option sets."
+  ],
+  "related": [
+    "multiple_choice",
+    "radio_group"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

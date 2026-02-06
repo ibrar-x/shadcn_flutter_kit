@@ -1,28 +1,91 @@
-# App Bar
+# App Bar (`app_bar`)
 
-Composite export that bundles AppBar with common outline-styled building blocks.
+Composite export for AppBar with outline-styled building blocks.
 
-## Usage
+---
 
-```dart
-import 'ui/shadcn/composites/app_bar/app_bar.dart';
+## When to use
 
-OutlinedContainer(
-  child: AppBar(
-    title: const Text('Title'),
-    trailing: [
-      OutlineButton(
-        density: ButtonDensity.icon,
-        onPressed: () {},
-        child: const Icon(Icons.more_vert),
-      ),
-    ],
-  ),
-);
+- Use this when:
+  - you want a compact import for app bar + outline button styling.
+- Avoid when:
+  - you need a fully custom toolbar layout.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add app_bar
 ```
 
-## Included
+---
 
-- AppBar (from Scaffold)
-- OutlinedContainer
-- OutlineButton
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/composites/layout/app_bar/app_bar.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+AppBar(
+  title: const Text('Title'),
+  trailing: [
+    OutlineButton(
+      onPressed: () {},
+      child: const Text('Action'),
+    ),
+  ],
+)
+```
+
+---
+
+## API
+
+### Types
+
+- `AppBar`
+- `OutlinedContainer`
+- `OutlineButton`
+- `ButtonDensity`
+
+---
+
+## Theming
+
+- Uses app bar and button theming from the layout/control registries.
+
+---
+
+## Accessibility
+
+- Ensure actionable items are focusable and labeled.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep trailing actions concise.
+
+**Don’t**
+- ❌ Overload the app bar with too many controls.
+
+---
+
+## Related components
+
+- `scaffold`
+- `button`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

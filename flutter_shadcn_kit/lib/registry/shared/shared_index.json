@@ -1,0 +1,3386 @@
+{
+  "schemaVersion": 1,
+  "id": "shared",
+  "name": "Shared",
+  "description": "Shared helpers, primitives, tokens, and assets used by registry components.",
+  "files": [
+    {
+      "path": "icons/bootstrap_icons.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "BootstrapIcons",
+          "signature": "class BootstrapIcons {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "icons/bootstrap_icons_list.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "BootstrapIconEntry",
+          "signature": "class BootstrapIconEntry {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ],
+          "usageExamples": [
+            "BootstrapIconEntry(dynamic(), dynamic())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "icons/lucide_icons.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "LucideIcons",
+          "signature": "class LucideIcons {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ],
+          "description": "A collection of Lucide icons as Flutter IconData constants",
+          "doc": "A collection of Lucide icons as Flutter IconData constants.\n\nLucide is an open-source icon library that provides a wide range of\ncarefully crafted icons for use in Flutter applications.\n\nEach icon is available as a static constant `IconData` that can be used\ndirectly with Flutter's `Icon` widget.\n\nExample:\n```dart\nIcon(\nLucideIcons.heart,\nsize: 24,\ncolor: Colors.red,\n)\n```",
+          "usageExamples": [
+            "Icon(\nLucideIcons.heart,\nsize: 24,\ncolor: Colors.red,\n)"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "icons/lucide_icons_list.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "LucideIconEntry",
+          "signature": "class LucideIconEntry {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ],
+          "usageExamples": [
+            "LucideIconEntry(dynamic(), dynamic())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "icons/radix_icons.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "RadixIcons",
+          "signature": "class RadixIcons {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ],
+          "description": "A collection of Radix Icons for Flutter applications",
+          "doc": "A collection of Radix Icons for Flutter applications.\n\nThis class provides access to all icons from the Radix Icons library.\nAll icons are defined as static constants of type [IconData]."
+        }
+      ]
+    },
+    {
+      "path": "icons/radix_icons_list.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "RadixIconEntry",
+          "signature": "class RadixIconEntry {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon"
+          ],
+          "usageExamples": [
+            "RadixIconEntry(dynamic(), dynamic())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "localizations/_impl/core/shadcn_localizations.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ShadcnLocalizations",
+          "signature": "class ShadcnLocalizations {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "localizations/_impl/utils/__shadcn_localizations_delegate.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_ShadcnLocalizationsDelegate",
+          "signature": "class _ShadcnLocalizationsDelegate",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "localizations/shadcn_localizations.dart",
+      "symbols": []
+    },
+    {
+      "path": "localizations/shadcn_localizations_extensions.dart",
+      "symbols": [
+        {
+          "kind": "extension",
+          "name": "ShadcnLocalizationsObjectInputExtensions",
+          "signature": "extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Adds helpers required by object input components",
+          "doc": "Adds helpers required by object input components.",
+          "usageExamples": [
+            "ShadcnLocalizations().datePartsOrder"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__builder_stated_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_BuilderStatedWidget",
+          "signature": "class _BuilderStatedWidget extends StatedWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__bullet_painter.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_BulletPainter",
+          "signature": "class _BulletPainter extends CustomPainter {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__fallback_overlay_manager.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_FallbackOverlayManager",
+          "signature": "class _FallbackOverlayManager implements OverlayManager {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__form_entry_cached_value.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_FormEntryCachedValue",
+          "signature": "class _FormEntryCachedValue {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "FormValueSupplier",
+          "signature": "mixin FormValueSupplier<T, X extends StatefulWidget> on State<X> {",
+          "visibility": "internal",
+          "tags": [
+            "mixin"
+          ],
+          "description": "Mixin that provides form value management for stateful widgets",
+          "doc": "Mixin that provides form value management for stateful widgets."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__hidden_layout.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_HiddenLayout",
+          "signature": "class _HiddenLayout extends SingleChildRenderObjectWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__hidden_layout_render.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_HiddenLayoutRender",
+          "signature": "class _HiddenLayoutRender extends RenderShiftedBox {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__map_stated_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_MapStatedWidget",
+          "signature": "class _MapStatedWidget extends StatedWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__param_stated_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_ParamStatedWidget",
+          "signature": "class _ParamStatedWidget extends StatedWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__rich_text_then_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_RichTextThenWidget",
+          "signature": "class _RichTextThenWidget extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__scale_gradient.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_ScaleGradient",
+          "signature": "class _ScaleGradient extends GradientTransform {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__selectable_text_then_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_SelectableTextThenWidget",
+          "signature": "class _SelectableTextThenWidget extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/__text_then_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_TextThenWidget",
+          "signature": "class _TextThenWidget extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/animated_value_builder.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AnimatedValueBuilder",
+          "signature": "class AnimatedValueBuilder<T> extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/basic.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Basic",
+          "signature": "class Basic extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/basic_layout.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "BasicLayout",
+          "signature": "class BasicLayout extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/clickable.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Clickable",
+          "signature": "class Clickable extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "const",
+          "name": "kDoubleTapMinTime",
+          "signature": "const kDoubleTapMinTime = Duration(milliseconds: 300);",
+          "visibility": "internal",
+          "tags": [
+            "const",
+            "interaction"
+          ],
+          "description": "Minimum time interval between taps to be considered a double tap",
+          "doc": "Minimum time interval between taps to be considered a double tap.\n\nTaps that occur within this duration (300ms) of a previous tap are counted\nas part of a multi-tap gesture sequence. Used internally by [Clickable] to\ndetect double-tap gestures."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/controlled_component_adapter.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ControlledComponentAdapter",
+          "signature": "class ControlledComponentAdapter<T> extends StatefulWidget",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/controlled_component_data.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ControlledComponentData",
+          "signature": "class ControlledComponentData<T> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/country.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Country",
+          "signature": "class Country {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/fade_scroll.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FadeScroll",
+          "signature": "class FadeScroll extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/focus_outline.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FocusOutline",
+          "signature": "class FocusOutline extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/form_key.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FormKey",
+          "signature": "class FormKey<T> extends LocalKey {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/hidden.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Hidden",
+          "signature": "class Hidden extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/hover.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Hover",
+          "signature": "class Hover extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/hover_activity.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "HoverActivity",
+          "signature": "class HoverActivity extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/label.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Label",
+          "signature": "class Label extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/outlined_container.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OutlinedContainer",
+          "signature": "class OutlinedContainer extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/overlay_barrier.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayBarrier",
+          "signature": "class OverlayBarrier {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/overlay_manager.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayManager",
+          "signature": "abstract class OverlayManager implements OverlayHandler {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/overlay_manager_layer.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayManagerLayer",
+          "signature": "class OverlayManagerLayer extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/overlay_popover_entry.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayPopoverEntry",
+          "signature": "class OverlayPopoverEntry<T> implements OverlayCompleter<T> {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/phone_number.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PhoneNumber",
+          "signature": "class PhoneNumber {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/popover.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Popover",
+          "signature": "class Popover {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/popover_layout.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverLayout",
+          "signature": "class PopoverLayout extends SingleChildRenderObjectWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/popover_layout_render.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverLayoutRender",
+          "signature": "class PopoverLayoutRender extends RenderShiftedBox {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/popover_overlay_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverOverlayWidget",
+          "signature": "class PopoverOverlayWidget extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "PopoverFutureVoidCallback",
+          "signature": "typedef PopoverFutureVoidCallback<T> = Future<T> Function(T value);",
+          "visibility": "internal",
+          "tags": [
+            "formatting",
+            "popover",
+            "typedef"
+          ],
+          "description": "Callback type for popover futures with value transformation",
+          "doc": "Callback type for popover futures with value transformation.\n\nParameters:\n- [value] (T): Input value to transform\n\nReturns a [Future] with the transformed value."
+        },
+        {
+          "kind": "enum",
+          "name": "PopoverConstraint",
+          "signature": "enum PopoverConstraint {",
+          "visibility": "internal",
+          "tags": [
+            "enum",
+            "popover"
+          ],
+          "description": "Size constraint strategies for popover overlays",
+          "doc": "Size constraint strategies for popover overlays.\n\n- `flexible`: Size flexibly based on content and available space\n- `intrinsic`: Use intrinsic content size\n- `anchorFixedSize`: Match anchor's exact size\n- `anchorMinSize`: Use anchor size as minimum\n- `anchorMaxSize`: Use anchor size as maximum"
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/replace_result.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ReplaceResult",
+          "signature": "class ReplaceResult<T> extends ValidationResult {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "FormFieldHandle",
+          "signature": "mixin FormFieldHandle {",
+          "visibility": "internal",
+          "tags": [
+            "mixin"
+          ],
+          "description": "Interface for form field state management",
+          "doc": "Interface for form field state management."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/shadcn_layer.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ShadcnLayer",
+          "signature": "class ShadcnLayer extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/stated_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "StatedWidget",
+          "signature": "abstract class StatedWidget extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/sub_focus.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SubFocus",
+          "signature": "class SubFocus extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "SubFocusState",
+          "signature": "mixin SubFocusState {",
+          "visibility": "internal",
+          "tags": [
+            "mixin"
+          ],
+          "description": "Mixin providing focus state and control capabilities for focusable widgets",
+          "doc": "Mixin providing focus state and control capabilities for focusable widgets.\n\nDefines the interface for interacting with a [SubFocus] widget, including\nmethods for focus management, visibility control, and action handling.\n\nThis mixin is implemented by internal focus state classes and provides\nthe public API for focus operations on individual focusable elements."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/sub_focus_scope.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SubFocusScope",
+          "signature": "class SubFocusScope extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "SubFocusScopeState",
+          "signature": "mixin SubFocusScopeState {",
+          "visibility": "internal",
+          "tags": [
+            "mixin"
+          ],
+          "description": "Mixin providing focus scope state management capabilities",
+          "doc": "Mixin providing focus scope state management capabilities.\n\nDefines the interface for interacting with a [SubFocusScope], including\nmethods for focus management, child attachment/detachment, and action routing.\n\nThis mixin is implemented by internal scope state classes and provides\nthe public API for focus operations within a scope."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/surface_blur.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SurfaceBlur",
+          "signature": "class SurfaceBlur extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/text_modifier.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "TextModifier",
+          "signature": "abstract class TextModifier extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "TextExtension",
+          "signature": "extension TextExtension on Widget {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension providing text styling modifiers for widgets",
+          "doc": "Extension providing text styling modifiers for widgets.\n\nThis extension adds a fluent API for applying text styles to widgets.\nEach property returns a [TextModifier] that can be further chained.\n\nExample:\n```dart\nText('Hello').sans.large.bold.muted\n```"
+        },
+        {
+          "kind": "typedef",
+          "name": "WrappedTextDataBuilder",
+          "signature": "typedef WrappedTextDataBuilder<T> = T Function(",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "WidgetTextWrapper",
+          "signature": "typedef WidgetTextWrapper = Widget Function(BuildContext context, Widget child);",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/unordered_list_data.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "UnorderedListData",
+          "signature": "class UnorderedListData {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getBullet",
+          "signature": "Widget getBullet(BuildContext context, int depth, double size) {",
+          "visibility": "internal",
+          "tags": [
+            "function"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/validation_result.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ValidationResult",
+          "signature": "abstract class ValidationResult {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/widget_states_data.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "WidgetStatesData",
+          "signature": "class WidgetStatesData {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/widget_states_provider.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "WidgetStatesProvider",
+          "signature": "class WidgetStatesProvider extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/core/wrapped_text.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "WrappedText",
+          "signature": "class WrappedText extends TextModifier {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__animated_value_builder_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_AnimatedValueBuilderState",
+          "signature": "class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__clickable_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_ClickableState",
+          "signature": "class _ClickableState extends State<Clickable> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__controlled_component_adapter_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_ControlledComponentAdapterState",
+          "signature": "class _ControlledComponentAdapterState<T>",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__hover_activity_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_HoverActivityState",
+          "signature": "class _HoverActivityState extends State<HoverActivity>",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__hover_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_HoverState",
+          "signature": "class _HoverState extends State<Hover> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__outlined_container_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_OutlinedContainerState",
+          "signature": "class _OutlinedContainerState extends State<OutlinedContainer> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__overlay_manager_layer_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_OverlayManagerLayerState",
+          "signature": "class _OverlayManagerLayerState extends State<OverlayManagerLayer>",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__sub_focus_scope_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_SubFocusScopeState",
+          "signature": "class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "SubFocusBuilder",
+          "signature": "typedef SubFocusBuilder = Widget Function(",
+          "visibility": "internal",
+          "tags": [
+            "formatting",
+            "typedef"
+          ],
+          "description": "Callback function type for building SubFocus widgets",
+          "doc": "Callback function type for building SubFocus widgets.\n\nReceives the build context and focus state for creating widgets that\nrespond to focus changes and user interactions.\nCallback function type for building SubFocus widgets.\n\nReceives the build context and the focus state for managing focus\npresentation and behavior within the widget.\n\nParameters:\n- [context]: The build context\n- [state]: The focus state providing focus information and control methods\n\nReturns the widget tree for this focusable element."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__sub_focus_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_SubFocusState",
+          "signature": "class _SubFocusState extends State<SubFocus> with SubFocusState {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/__surface_blur_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_SurfaceBlurState",
+          "signature": "class _SurfaceBlurState extends State<SurfaceBlur> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/state/popover_overlay_widget_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverOverlayWidgetState",
+          "signature": "class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/basic_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "BasicTheme",
+          "signature": "class BasicTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/fade_scroll_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FadeScrollTheme",
+          "signature": "class FadeScrollTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/focus_outline_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FocusOutlineTheme",
+          "signature": "class FocusOutlineTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/hidden_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "HiddenTheme",
+          "signature": "class HiddenTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/hover_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "HoverTheme",
+          "signature": "class HoverTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/themes/outlined_container_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OutlinedContainerTheme",
+          "signature": "class OutlinedContainerTheme extends ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/utils/component_value_controller.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ComponentValueController",
+          "signature": "class ComponentValueController<T> extends ValueNotifier<T>",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "ControlledComponent",
+          "signature": "mixin ControlledComponent<T> on Widget {",
+          "visibility": "internal",
+          "tags": [
+            "mixin"
+          ],
+          "description": "A mixin that provides a standardized interface for controlled components",
+          "doc": "A mixin that provides a standardized interface for controlled components.\n\nThis mixin defines the contract that all controlled form components should\nfollow. It provides properties for external control through a controller,\ninitial value specification, change notifications, and enabled state management.\n\nComponents that use this mixin can be controlled either through a\n[ComponentController] (for programmatic control) or through direct\nproperty values (for declarative control).\n\nThe generic type [T] represents the type of value this component manages."
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/utils/overlay_completer.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayCompleter",
+          "signature": "abstract class OverlayCompleter<T> {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/utils/overlay_handler.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OverlayHandler",
+          "signature": "abstract class OverlayHandler {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/utils/popover_controller.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverController",
+          "signature": "class PopoverController extends ChangeNotifier {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/_impl/utils/popover_overlay_handler.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "PopoverOverlayHandler",
+          "signature": "class PopoverOverlayHandler extends OverlayHandler {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "overlay",
+            "popover"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/animated_value_builder.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "AnimatedValueWidgetBuilder",
+          "signature": "typedef AnimatedValueWidgetBuilder<T> = Widget Function(",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "AnimatedValueWidgetBuilder handler = (context, value, child) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "AnimatedValueLerp",
+          "signature": "typedef AnimatedValueLerp<T> = T? Function(T? a, T? b, double t);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "AnimatedValueLerp handler = (a, b, t) {};"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/basic.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/clickable.dart",
+      "symbols": [
+        {
+          "kind": "extension",
+          "name": "WidgetStateExtension",
+          "signature": "extension WidgetStateExtension on Set<WidgetState> {",
+          "visibility": "public",
+          "tags": [
+            "extension",
+            "interaction"
+          ],
+          "description": "Extension on `Set<WidgetState>` providing convenient boolean getters for common states",
+          "doc": "Extension on `Set<WidgetState>` providing convenient boolean getters for common states.\n\nThis extension simplifies checking for widget states by providing readable\nproperty accessors instead of using `contains()` calls.\n\n## Example\n\n```dart\nSet<WidgetState> states = {WidgetState.hovered, WidgetState.focused};\n\nif (states.hovered) {\n// Handle hover state\n}\nif (states.disabled) {\n// Handle disabled state\n}\n```",
+          "usageExamples": [
+            "Set<WidgetState> states = {WidgetState.hovered, WidgetState.focused};\n\nif (states.hovered) {\n// Handle hover state\n}\nif (states.disabled) {\n// Handle disabled state\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/fade_scroll.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/focus_outline.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/form_control.dart",
+      "symbols": [
+        {
+          "kind": "mixin",
+          "name": "ComponentController",
+          "signature": "mixin ComponentController<T> implements ValueNotifier<T> {}",
+          "visibility": "public",
+          "tags": [
+            "mixin",
+            "validation"
+          ],
+          "description": "A mixin that defines the interface for controlling component values",
+          "doc": "A mixin that defines the interface for controlling component values.\n\nThis mixin combines the capabilities of [ValueNotifier] to provide\na standardized way for widgets to expose their current value and\nnotify listeners of changes. Components that implement this interface\ncan be controlled programmatically and integrated with form validation\nsystems.\n\nThe generic type [T] represents the type of value this controller manages.",
+          "usageExamples": [
+            "class _Example with ComponentController {}"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/form_value_supplier.dart",
+      "symbols": [
+        {
+          "kind": "enum",
+          "name": "FormValidationMode",
+          "signature": "enum FormValidationMode {",
+          "visibility": "public",
+          "tags": [
+            "enum",
+            "validation"
+          ],
+          "description": "Defines when form field validation should occur during the component lifecycle",
+          "doc": "Defines when form field validation should occur during the component lifecycle.",
+          "usageExamples": [
+            "const value = FormValidationMode.values.first;"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/hidden.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/hover.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/icon_extensions.dart",
+      "symbols": [
+        {
+          "kind": "extension",
+          "name": "IconExtensions",
+          "signature": "extension IconExtensions on Widget {",
+          "visibility": "public",
+          "tags": [
+            "extension",
+            "icon"
+          ],
+          "description": "Icon extension utilities used by command and other registry components",
+          "doc": "Icon extension utilities used by command and other registry components.",
+          "usageExamples": [
+            "const SizedBox.shrink().iconSmall"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/menu_group.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "MenuGroupData",
+          "signature": "class MenuGroupData {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "layout"
+          ],
+          "description": "Minimal menu group metadata shared across components",
+          "doc": "Minimal menu group metadata shared across components.\n\nThis lightweight shape is enough for menu-aware components (like buttons)\nto adapt padding based on menu layout direction."
+        }
+      ]
+    },
+    {
+      "path": "primitives/outlined_container.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/overlay.dart",
+      "symbols": [
+        {
+          "kind": "mixin",
+          "name": "OverlayHandlerStateMixin",
+          "signature": "mixin OverlayHandlerStateMixin<T extends StatefulWidget> on State<T> {",
+          "visibility": "public",
+          "tags": [
+            "mixin",
+            "overlay"
+          ],
+          "description": "Mixin providing overlay state management methods",
+          "doc": "Mixin providing overlay state management methods.\n\nDefines the interface for overlay state classes, including methods for\nclosing overlays and updating overlay configuration dynamically.\n\nUsed by overlay implementations to provide consistent lifecycle management\nand configuration update capabilities.",
+          "usageExamples": [
+            "class _Example with OverlayHandlerStateMixin {}"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/phone_number.dart",
+      "symbols": []
+    },
+    {
+      "path": "primitives/popover.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "FutureVoidCallback",
+          "signature": "typedef FutureVoidCallback = Future<void> Function();",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "FutureVoidCallback handler = () {};"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/sheet_overlay.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SheetOverlayHandler",
+          "signature": "class SheetOverlayHandler {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "overlay"
+          ],
+          "description": "Minimal helper for checking sheet overlay context",
+          "doc": "Minimal helper for checking sheet overlay context."
+        }
+      ]
+    },
+    {
+      "path": "primitives/slider_value.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SliderValue",
+          "signature": "class SliderValue {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Represents a single-thumb or range slider value",
+          "doc": "Represents a single-thumb or range slider value."
+        }
+      ]
+    },
+    {
+      "path": "primitives/subfocus.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "SubFocusScopeBuilder",
+          "signature": "typedef SubFocusScopeBuilder = Widget Function(",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "description": "Callback function type for building SubFocusScope widgets",
+          "doc": "Callback function type for building SubFocusScope widgets.\n\nReceives the build context and the scope state for managing focus\nwithin the scope's widget tree.",
+          "usageExamples": [
+            "SubFocusScopeBuilder handler = (context, state) {};"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "primitives/text.dart",
+      "symbols": []
+    },
+    {
+      "path": "theme/_impl/core/adaptive_scaler.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AdaptiveScaler",
+          "signature": "class AdaptiveScaler extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/adaptive_scaling.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AdaptiveScaling",
+          "signature": "class AdaptiveScaling {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/chart_color_scheme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ChartColorScheme",
+          "signature": "class ChartColorScheme {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/color_scheme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ColorScheme",
+          "signature": "class ColorScheme implements ChartColorScheme {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "color"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "_MapColorGetter",
+          "signature": "extension _MapColorGetter on Map<String, Color> {",
+          "visibility": "internal",
+          "tags": [
+            "color",
+            "extension"
+          ],
+          "deprecated": {
+            "isDeprecated": true,
+            "message": "Legacy color"
+          }
+        },
+        {
+          "kind": "extension",
+          "name": "_DynamicMapColorGetter",
+          "signature": "extension _DynamicMapColorGetter on Map<String, dynamic> {",
+          "visibility": "internal",
+          "tags": [
+            "color",
+            "extension"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/color_schemes.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ColorSchemes",
+          "signature": "class ColorSchemes {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/color_shades.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ColorShades",
+          "signature": "class ColorShades implements Color, ColorSwatch {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "color"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "hexFromColor",
+          "signature": "String hexFromColor(Color color) {",
+          "visibility": "internal",
+          "tags": [
+            "color",
+            "function"
+          ],
+          "description": "Converts a Flutter [Color] to hexadecimal string representation",
+          "doc": "Converts a Flutter [Color] to hexadecimal string representation.\n\nReturns a hex string with hash prefix (e.g., \"#RRGGBB\" or \"#AARRGGBB\").\n\nParameters:\n- [color] (Color, required): Color to convert\n\nReturns hex string representation.",
+          "deprecated": {
+            "isDeprecated": true,
+            "message": "Use toARGB32() instead"
+          }
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/design_tokens.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SpacingScale",
+          "signature": "class SpacingScale {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Spacing scale for consistent padding/margins",
+          "doc": "Spacing scale for consistent padding/margins."
+        },
+        {
+          "kind": "class",
+          "name": "TrackingScale",
+          "signature": "class TrackingScale {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Letter-spacing scale for typography tracking",
+          "doc": "Letter-spacing scale for typography tracking."
+        },
+        {
+          "kind": "class",
+          "name": "ShadowScale",
+          "signature": "class ShadowScale {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Shadow scale tokens for elevation styling",
+          "doc": "Shadow scale tokens for elevation styling."
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/core/single_chart_color_scheme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SingleChartColorScheme",
+          "signature": "class SingleChartColorScheme implements ChartColorScheme {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/__animated_theme_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_AnimatedThemeState",
+          "signature": "class _AnimatedThemeState extends AnimatedWidgetBaseState<AnimatedTheme> {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/animated_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AnimatedTheme",
+          "signature": "class AnimatedTheme extends ImplicitlyAnimatedWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/component_theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ComponentTheme",
+          "signature": "class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        },
+        {
+          "kind": "enum",
+          "name": "ThemeMode",
+          "signature": "enum ThemeMode {",
+          "visibility": "internal",
+          "tags": [
+            "enum",
+            "theme"
+          ],
+          "description": "Determines which theme mode to use",
+          "doc": "Determines which theme mode to use.\n\n- `system`: Follow system theme preference\n- `light`: Always use light theme\n- `dark`: Always use dark theme"
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/component_theme_data.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ComponentThemeData",
+          "signature": "abstract class ComponentThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/icon_theme_properties.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "IconThemeProperties",
+          "signature": "class IconThemeProperties {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "icon",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/theme.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Theme",
+          "signature": "class Theme extends InheritedTheme {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/theme_data.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ThemeData",
+          "signature": "class ThemeData {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/_impl/themes/theme_data_tween.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ThemeDataTween",
+          "signature": "class ThemeDataTween extends Tween<ThemeData> {",
+          "visibility": "internal",
+          "tags": [
+            "class",
+            "theme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/color_scheme.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "_fromAHSL",
+          "signature": "Color _fromAHSL(double a, double h, double s, double l) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "_fromAHSL(a: 0.0, h: 0.0, s: 0.0, l: 0.0)"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/generated_colors.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Colors",
+          "signature": "class Colors {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "color"
+          ],
+          "description": "A collection of color constants and shades for shadcn_flutter",
+          "doc": "A collection of color constants and shades for shadcn_flutter.\n\nThis class provides predefined colors and color shades that can be used\nthroughout the application. All colors follow the shadcn design system."
+        }
+      ]
+    },
+    {
+      "path": "theme/preset_themes.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "RegistryThemePresetTokens",
+          "signature": "class RegistryThemePresetTokens {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "theme"
+          ],
+          "usageExamples": [
+            "RegistryThemePresetTokens(0.375: radius:(), SpacingScale(4): spacing:(), 0): tracking: TrackingScale(normal:(), ): shadows: ShadowScale( shadow2xs: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowXs: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowSm: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadow: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowMd: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowLg: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowXl: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadow2xl: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ],(), \"Inter: fontSans:(), dynamic(), 4: fontSerif: \"Source Serif(), dynamic(), Mono: fontMono: \"JetBrains(), dynamic())"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "RegistryThemePreset",
+          "signature": "class RegistryThemePreset {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "theme"
+          ],
+          "usageExamples": [
+            "RegistryThemePreset('amber-minimal': id:(), Minimal': name: 'Amber(), ): light: const ColorScheme( brightness: Brightness.light, background: Color(0xFFFFFFFF), foreground: Color(0xFF262626), card: Color(0xFFFFFFFF), cardForeground: Color(0xFF262626), popover: Color(0xFFFFFFFF), popoverForeground: Color(0xFF262626), primary: Color(0xFFF59E0B), primaryForeground: Color(0xFF000000), secondary: Color(0xFFF3F4F6), secondaryForeground: Color(0xFF4B5563), muted: Color(0xFFF9FAFB), mutedForeground: Color(0xFF6B7280), accent: Color(0xFFFFFBEB), accentForeground: Color(0xFF92400E), destructive: Color(0xFFEF4444), destructiveForeground: Color(0xFFFFFFFF), border: Color(0xFFE5E7EB), input: Color(0xFFE5E7EB), ring: Color(0xFFF59E0B), chart1: Color(0xFFF59E0B), chart2: Color(0xFFD97706), chart3: Color(0xFFB45309), chart4: Color(0xFF92400E), chart5: Color(0xFF78350F), sidebar: Color(0xFFF9FAFB), sidebarForeground: Color(0xFF262626), sidebarPrimary: Color(0xFFF59E0B), sidebarPrimaryForeground: Color(0xFFFFFFFF), sidebarAccent: Color(0xFFFFFBEB), sidebarAccentForeground: Color(0xFF92400E), sidebarBorder: Color(0xFFE5E7EB), sidebarRing: Color(0xFFF59E0B),(), ): dark: const ColorScheme( brightness: Brightness.dark, background: Color(0xFF171717), foreground: Color(0xFFE5E5E5), card: Color(0xFF262626), cardForeground: Color(0xFFE5E5E5), popover: Color(0xFF262626), popoverForeground: Color(0xFFE5E5E5), primary: Color(0xFFF59E0B), primaryForeground: Color(0xFF000000), secondary: Color(0xFF262626), secondaryForeground: Color(0xFFE5E5E5), muted: Color(0xFF1F1F1F), mutedForeground: Color(0xFFA3A3A3), accent: Color(0xFF92400E), accentForeground: Color(0xFFFDE68A), destructive: Color(0xFFEF4444), destructiveForeground: Color(0xFFFFFFFF), border: Color(0xFF404040), input: Color(0xFF404040), ring: Color(0xFFF59E0B), chart1: Color(0xFFFBBF24), chart2: Color(0xFFD97706), chart3: Color(0xFF92400E), chart4: Color(0xFFB45309), chart5: Color(0xFF92400E), sidebar: Color(0xFF0F0F0F), sidebarForeground: Color(0xFFE5E5E5), sidebarPrimary: Color(0xFFF59E0B), sidebarPrimaryForeground: Color(0xFFFFFFFF), sidebarAccent: Color(0xFF92400E), sidebarAccentForeground: Color(0xFFFDE68A), sidebarBorder: Color(0xFF404040), sidebarRing: Color(0xFFF59E0B),(), ): lightTokens: RegistryThemePresetTokens( radius: 0.375, spacing: SpacingScale(4), tracking: TrackingScale(normal: 0), shadows: ShadowScale( shadow2xs: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowXs: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowSm: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadow: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowMd: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowLg: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadowXl: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], shadow2xl: [ BoxShadow( offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000), ), ], ), fontSans: \"Inter, sans-serif\", fontSerif: \"Source Serif 4, serif\", fontMono: \"JetBrains Mono, monospace\",(), ): darkTokens: RegistryThemePresetTokens( radius: 0.5, spacing: SpacingScale(3.84), tracking: TrackingScale(normal: 0), shadows: ShadowScale( shadow2xs: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadowXs: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadowSm: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadow: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadowMd: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadowLg: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadowXl: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], shadow2xl: [ BoxShadow( offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000), ), ], ),())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "theme/theme.dart",
+      "symbols": []
+    },
+    {
+      "path": "theme/typography.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Typography",
+          "signature": "class Typography {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Typography definitions for shadcn_flutter",
+          "doc": "Typography definitions for shadcn_flutter.\n\nProvides predefined text styles for different purposes including\nsizes, weights, and semantic styles like headings and paragraphs.",
+          "usageExamples": [
+            "Typography(sans: sans:(), mono: mono:(), xSmall: xSmall:(), small: small:(), base: base:(), large: large:(), xLarge: xLarge:(), x2Large: x2Large:(), x3Large: x3Large:(), x4Large: x4Large:(), x5Large: x5Large:(), x6Large: x6Large:(), x7Large: x7Large:(), x8Large: x8Large:(), x9Large: x9Large:(), thin: thin:(), light: light:(), extraLight: extraLight:(), normal: normal:(), medium: medium:(), semiBold: semiBold:(), bold: bold:(), extraBold: extraBold:(), black: black:(), italic: italic:(), h1: h1:(), h2: h2:(), h3: h3:(), h4: h4:(), p: p:(), blockQuote: blockQuote:(), inlineCode: inlineCode:(), lead: lead:(), textLarge: textLarge:(), textSmall: textSmall:(), textMuted: textMuted:())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/__animation_runner.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_AnimationRunner",
+          "signature": "class _AnimationRunner {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/__borrow_info.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_BorrowInfo",
+          "signature": "class _BorrowInfo {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/animation_request.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AnimationRequest",
+          "signature": "class AnimationRequest {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_alignment.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisAlignment",
+          "signature": "class AxisAlignment extends AxisAlignmentGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_alignment_directional.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisAlignmentDirectional",
+          "signature": "class AxisAlignmentDirectional extends AxisAlignmentGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_alignment_geometry.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisAlignmentGeometry",
+          "signature": "abstract class AxisAlignmentGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_insets.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisInsets",
+          "signature": "class AxisInsets extends AxisInsetsGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Insets along an axis with support for directionality",
+          "doc": "Insets along an axis with support for directionality."
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_insets_directional.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisInsetsDirectional",
+          "signature": "class AxisInsetsDirectional extends AxisInsetsGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Directional insets along an axis",
+          "doc": "Directional insets along an axis.\n\nThese insets are defined as start and end, and resolve to left/right or\nright/left based on the [TextDirection]."
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/axis_insets_geometry.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AxisInsetsGeometry",
+          "signature": "abstract class AxisInsetsGeometry {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ],
+          "description": "Base class for axis-based insets",
+          "doc": "Base class for axis-based insets.\n\nThis allows defining insets along a single axis (start/end) which can be\nresolved to concrete values based on [TextDirection]."
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/bi_directional_convert.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "Convert",
+          "signature": "typedef Convert<F, T> = T Function(F value);",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ],
+          "description": "Function type for converting from type [F] to type [T]",
+          "doc": "Function type for converting from type [F] to type [T]."
+        },
+        {
+          "kind": "class",
+          "name": "BiDirectionalConvert",
+          "signature": "class BiDirectionalConvert<A, B> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/cached_value_widget.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "CachedValueWidget",
+          "signature": "class CachedValueWidget<T> extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/callback_context_action.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "CallbackContextAction",
+          "signature": "class CallbackContextAction<T extends Intent> extends ContextAction<T> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "OnContextedCallback",
+          "signature": "typedef OnContextedCallback<T extends Intent> = Object? Function(T intent,",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/captured_wrapper.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "CapturedWrapper",
+          "signature": "class CapturedWrapper extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/context_callback_action.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ContextCallbackAction",
+          "signature": "class ContextCallbackAction<T extends Intent> extends ContextAction<T> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "FormPendingWidgetBuilder",
+          "signature": "typedef FormPendingWidgetBuilder = Widget Function(",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/form_pending_builder.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "FormPendingBuilder",
+          "signature": "class FormPendingBuilder extends StatelessWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "RepeatedAnimationWidgetBuilder",
+          "signature": "typedef RepeatedAnimationWidgetBuilder = Widget Function(",
+          "visibility": "internal",
+          "tags": [
+            "typedef"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/repeated_animation_builder.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "RepeatedAnimationBuilder",
+          "signature": "class RepeatedAnimationBuilder extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/resizer.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Resizer",
+          "signature": "class Resizer {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/separated_flex.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "SeparatedFlex",
+          "signature": "class SeparatedFlex extends StatefulWidget {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/core/time_of_day.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "TimeOfDay",
+          "signature": "class TimeOfDay {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/state/__cached_value_widget_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_CachedValueWidgetState",
+          "signature": "class _CachedValueWidgetState<T> extends State<CachedValueWidget<T>> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/state/__captured_wrapper_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_CapturedWrapperState",
+          "signature": "class _CapturedWrapperState extends State<CapturedWrapper> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "WidgetPaddingExtension",
+          "signature": "extension WidgetPaddingExtension on Widget {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ],
+          "description": "Wraps this widget with padding using directional helpers",
+          "doc": "Wraps this widget with padding using directional helpers."
+        },
+        {
+          "kind": "extension",
+          "name": "WidgetAlignmentExtension",
+          "signature": "extension WidgetAlignmentExtension on Widget {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ],
+          "description": "Wraps this widget with an [Align] using the provided [alignment]",
+          "doc": "Wraps this widget with an [Align] using the provided [alignment]."
+        },
+        {
+          "kind": "extension",
+          "name": "WidgetSizingExtension",
+          "signature": "extension WidgetSizingExtension on Widget {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension providing sizing helpers for widgets",
+          "doc": "Extension providing sizing helpers for widgets."
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/state/__repeated_animation_builder_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_RepeatedAnimationBuilderState",
+          "signature": "class _RepeatedAnimationBuilderState extends State<RepeatedAnimationBuilder>",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/state/__separated_flex_state.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "_SeparatedFlexState",
+          "signature": "class _SeparatedFlexState extends State<SeparatedFlex> {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "ColumnExtension",
+          "signature": "extension ColumnExtension on Column {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "RowExtension",
+          "signature": "extension RowExtension on Row {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "FlexExtension",
+          "signature": "extension FlexExtension on Flex {",
+          "visibility": "internal",
+          "tags": [
+            "extension"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/utils/animation_queue_controller.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "AnimationQueueController",
+          "signature": "class AnimationQueueController extends ChangeNotifier {",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/_impl/utils/converted_controller.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ConvertedController",
+          "signature": "class ConvertedController<F, T> extends ChangeNotifier",
+          "visibility": "internal",
+          "tags": [
+            "class"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/animation_queue.dart",
+      "symbols": []
+    },
+    {
+      "path": "utils/axis.dart",
+      "symbols": [
+        {
+          "kind": "enum",
+          "name": "AxisDirectional",
+          "signature": "enum AxisDirectional {",
+          "visibility": "public",
+          "tags": [
+            "enum"
+          ],
+          "description": "Represents a directional axis (up/down/start/end) that can be resolved to a concrete [AxisDirection] based on [TextDirection]",
+          "doc": "Represents a directional axis (up/down/start/end) that can be resolved to\na concrete [AxisDirection] based on [TextDirection].",
+          "usageExamples": [
+            "const value = AxisDirectional.values.first;"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/border_utils.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "subtractByBorder",
+          "signature": "BorderRadius subtractByBorder(BorderRadius radius, double borderWidth) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Subtracts a border width from a border radius",
+          "doc": "Subtracts a border width from a border radius.\n\nReduces each corner's radius by the border width, ensuring the inner\nradius accounts for the border thickness. Prevents negative radii.",
+          "usageExamples": [
+            "subtractByBorder(radius: BorderRadius(), borderWidth: 0.0)"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "_subtractSafe",
+          "signature": "Radius _subtractSafe(Radius a, Radius b) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "_subtractSafe(a: Radius(), b: Radius())"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "optionallyResolveBorderRadius",
+          "signature": "BorderRadius? optionallyResolveBorderRadius(",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Resolves a BorderRadiusGeometry to BorderRadius if needed",
+          "doc": "Resolves a BorderRadiusGeometry to BorderRadius if needed.",
+          "usageExamples": [
+            "optionallyResolveBorderRadius()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/chip_utils.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "isChipUnicode",
+          "signature": "bool isChipUnicode(int codeUnit) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "isChipUnicode(codeUnit: 0)"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isChipCharacter",
+          "signature": "bool isChipCharacter(String character) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "isChipCharacter(character: '')"
+          ]
+        },
+        {
+          "kind": "const",
+          "name": "_chipStart",
+          "signature": "const int _chipStart = 0xE000;",
+          "visibility": "public",
+          "tags": [
+            "const"
+          ],
+          "usageExamples": [
+            "final value = _chipStart;"
+          ]
+        },
+        {
+          "kind": "const",
+          "name": "_chipEnd",
+          "signature": "const int _chipEnd = 0xF8FF;",
+          "visibility": "public",
+          "tags": [
+            "const"
+          ],
+          "usageExamples": [
+            "final value = _chipEnd;"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/color_extensions.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "colorToHex",
+          "signature": "String colorToHex(Color color,",
+          "visibility": "public",
+          "tags": [
+            "color",
+            "function"
+          ],
+          "usageExamples": [
+            "colorToHex(color: const Color(0xFF000000))"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "ColorExtension",
+          "signature": "extension ColorExtension on Color {",
+          "visibility": "public",
+          "tags": [
+            "color",
+            "extension"
+          ],
+          "description": "Extension adding color manipulation utilities to [Color]",
+          "doc": "Extension adding color manipulation utilities to [Color].",
+          "usageExamples": [
+            "const Color(0xFF000000).scaleAlpha()"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "HSLColorExtension",
+          "signature": "extension HSLColorExtension on HSLColor {",
+          "visibility": "public",
+          "tags": [
+            "color",
+            "extension"
+          ],
+          "description": "Extension for converting [HSLColor] to other color spaces",
+          "doc": "Extension for converting [HSLColor] to other color spaces.",
+          "usageExamples": [
+            "HSLColor().toHSV()"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "HSVColorExtension",
+          "signature": "extension HSVColorExtension on HSVColor {",
+          "visibility": "public",
+          "tags": [
+            "color",
+            "extension"
+          ],
+          "description": "Extension for converting [HSVColor] to other color spaces",
+          "doc": "Extension for converting [HSVColor] to other color spaces.",
+          "usageExamples": [
+            "HSVColor().toHSL()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/constants.dart",
+      "symbols": [
+        {
+          "kind": "const",
+          "name": "kDefaultDuration",
+          "signature": "const kDefaultDuration = Duration(milliseconds: 150);",
+          "visibility": "public",
+          "tags": [
+            "const"
+          ],
+          "usageExamples": [
+            "final value = kDefaultDuration;"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "degToRad",
+          "signature": "double degToRad(double deg) => deg * (3.141592653589793 / 180);",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Converts degrees to radians",
+          "doc": "Converts degrees to radians.",
+          "usageExamples": [
+            "degToRad(deg): 0.0)"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "radToDeg",
+          "signature": "double radToDeg(double rad) => rad * (180 / 3.141592653589793);",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Converts radians to degrees",
+          "doc": "Converts radians to degrees.",
+          "usageExamples": [
+            "radToDeg(rad): 0.0)"
+          ]
+        },
+        {
+          "kind": "enum",
+          "name": "SortDirection",
+          "signature": "enum SortDirection {",
+          "visibility": "public",
+          "tags": [
+            "enum"
+          ],
+          "description": "The direction for sorting",
+          "doc": "The direction for sorting.",
+          "usageExamples": [
+            "const value = SortDirection.values.first;"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/controlled_animation.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ControlledAnimation",
+          "signature": "class ControlledAnimation extends Animation<double> {",
+          "visibility": "public",
+          "tags": [
+            "animation",
+            "class"
+          ],
+          "description": "A controlled animation that wraps an [AnimationController] and provides smooth transitions between values using curves",
+          "doc": "A controlled animation that wraps an [AnimationController] and provides\nsmooth transitions between values using curves.",
+          "usageExamples": [
+            "ControlledAnimation(dynamic())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/geometry_extensions.dart",
+      "symbols": [
+        {
+          "kind": "extension",
+          "name": "AlignmentGeometryExtension",
+          "signature": "extension AlignmentGeometryExtension on AlignmentGeometry {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "usageExamples": [
+            "AlignmentGeometry().optionallyResolve()"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "BorderRadiusGeometryExtension",
+          "signature": "extension BorderRadiusGeometryExtension on BorderRadiusGeometry {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "usageExamples": [
+            "BorderRadiusGeometry().optionallyResolve()"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "EdgeInsetsGeometryExtension",
+          "signature": "extension EdgeInsetsGeometryExtension on EdgeInsetsGeometry {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "usageExamples": [
+            "EdgeInsetsGeometry().optionallyResolve()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/keyboard_shortcut_utils.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "KeyboardShortcutDisplayBuilder",
+          "signature": "typedef KeyboardShortcutDisplayBuilder = Widget Function(",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "description": "Builder function type for creating custom keyboard key displays",
+          "doc": "Builder function type for creating custom keyboard key displays.",
+          "usageExamples": [
+            "KeyboardShortcutDisplayBuilder handler = (context, key) {};"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "KeyboardShortcutDisplayHandle",
+          "signature": "class KeyboardShortcutDisplayHandle {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Handle for accessing keyboard shortcut display builders",
+          "doc": "Handle for accessing keyboard shortcut display builders.",
+          "usageExamples": [
+            "KeyboardShortcutDisplayHandle(dynamic())"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "shortcutActivatorToKeySet",
+          "signature": "List<LogicalKeyboardKey> shortcutActivatorToKeySet(",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Converts a [ShortcutActivator] into a list of logical keyboard keys",
+          "doc": "Converts a [ShortcutActivator] into a list of logical keyboard keys.",
+          "usageExamples": [
+            "shortcutActivatorToKeySet()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/platform_utils.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "isMobile",
+          "signature": "bool isMobile(TargetPlatform platform) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "isMobile(platform: TargetPlatform())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/resizable_item.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "ResizableItem",
+          "signature": "class ResizableItem {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "usageExamples": [
+            "ResizableItem($value: value:(), $min: min:(), $max: max:())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/resizer.dart",
+      "symbols": []
+    },
+    {
+      "path": "utils/style_value.dart",
+      "symbols": []
+    },
+    {
+      "path": "utils/text_input_utils.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "TextFieldClearIntent",
+          "signature": "class TextFieldClearIntent extends Intent {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Intent for clearing a text field",
+          "doc": "Intent for clearing a text field.",
+          "usageExamples": [
+            "TextFieldClearIntent()"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "ReplacementInfo",
+          "signature": "typedef ReplacementInfo = (int start, String newText);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "ReplacementInfo handler = (value) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "WordInfo",
+          "signature": "typedef WordInfo = (int start, String word);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "WordInfo handler = (value) {};"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "replaceWordAtCaret",
+          "signature": "ReplacementInfo replaceWordAtCaret(",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Replaces the word at the caret position with a new string",
+          "doc": "Replaces the word at the caret position with a new string.",
+          "usageExamples": [
+            "replaceWordAtCaret()"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getWordAtCaret",
+          "signature": "WordInfo getWordAtCaret(String text, int caret, [String separator = ' ']) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Gets the word at the caret position in a text string",
+          "doc": "Gets the word at the caret position in a text string.",
+          "usageExamples": [
+            "getWordAtCaret(text: '', caret: 0)"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "TextEditingControllerExtension",
+          "signature": "extension TextEditingControllerExtension on TextEditingController {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension on TextEditingController",
+          "doc": "Extension on TextEditingController.",
+          "usageExamples": [
+            "TextEditingController().currentWord"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "TextEditingValueExtension",
+          "signature": "extension TextEditingValueExtension on TextEditingValue {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension on TextEditingValue",
+          "doc": "Extension on TextEditingValue.",
+          "usageExamples": [
+            "TextEditingValue().replaceText()"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "clearActiveTextInput",
+          "signature": "void clearActiveTextInput() {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Clears the currently active text input field",
+          "doc": "Clears the currently active text input field.",
+          "usageExamples": [
+            "clearActiveTextInput()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/tween_utils.dart",
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "IconThemeDataTween",
+          "signature": "class IconThemeDataTween extends Tween<IconThemeData> {",
+          "visibility": "public",
+          "tags": [
+            "class",
+            "icon",
+            "theme"
+          ],
+          "description": "A tween for animating between two [IconThemeData] values",
+          "doc": "A tween for animating between two [IconThemeData] values."
+        }
+      ]
+    },
+    {
+      "path": "utils/util.dart",
+      "symbols": [
+        {
+          "kind": "typedef",
+          "name": "Predicate",
+          "signature": "typedef Predicate<T> = bool Function(T value);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "Predicate handler = (value) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "UnaryOperator",
+          "signature": "typedef UnaryOperator<T> = T Function(T value);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "UnaryOperator handler = (value) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "BinaryOperator",
+          "signature": "typedef BinaryOperator<T> = T Function(T a, T b);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "BinaryOperator handler = (a, b) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "ContextedCallback",
+          "signature": "typedef ContextedCallback = void Function(BuildContext context);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "ContextedCallback handler = (context) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "ContextedValueChanged",
+          "signature": "typedef ContextedValueChanged<T> = void Function(BuildContext context, T value);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "ContextedValueChanged handler = (context, value) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "SearchPredicate",
+          "signature": "typedef SearchPredicate<T> = double Function(T value, String query);",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "SearchPredicate handler = (value, query) {};"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "NeverWidgetBuilder",
+          "signature": "typedef NeverWidgetBuilder = Widget Function(",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "NeverWidgetBuilder handler = (dynamic]) {};"
+          ]
+        },
+        {
+          "kind": "mixin",
+          "name": "CachedValue",
+          "signature": "mixin CachedValue {",
+          "visibility": "public",
+          "tags": [
+            "mixin"
+          ],
+          "description": "Mixin for values that need custom rebuild logic",
+          "doc": "Mixin for values that need custom rebuild logic.",
+          "usageExamples": [
+            "class _Example with CachedValue {}"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "OnContextInvokeCallback",
+          "signature": "typedef OnContextInvokeCallback<T extends Intent> = Object? Function(T intent,",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "description": "Callback signature for context actions",
+          "doc": "Callback signature for context actions.",
+          "usageExamples": [
+            "OnContextInvokeCallback handler = (intent, context]) {};"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "SafeLerp",
+          "signature": "class SafeLerp<T> {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "A safe lerp utility class",
+          "doc": "A safe lerp utility class.",
+          "usageExamples": [
+            "SafeLerp(dynamic())"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "unlerpDouble",
+          "signature": "double unlerpDouble(double value, double min, double max) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Unlerp a double value from a min-max range",
+          "doc": "Unlerp a double value from a min-max range.",
+          "usageExamples": [
+            "unlerpDouble(value: 0.0, min: 0.0, max: 0.0)"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "SafeLerpExtension",
+          "signature": "extension SafeLerpExtension<T> on T? Function(T? a, T? b, double t) {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension on nullable lerp functions",
+          "doc": "Extension on nullable lerp functions."
+        },
+        {
+          "kind": "extension",
+          "name": "ListExtension",
+          "signature": "extension ListExtension<T> on List<T> {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension methods for List operations",
+          "doc": "Extension methods for List operations."
+        },
+        {
+          "kind": "extension",
+          "name": "FutureOrExtension",
+          "signature": "extension FutureOrExtension<T> on FutureOr<T> {",
+          "visibility": "public",
+          "tags": [
+            "extension",
+            "formatting"
+          ],
+          "description": "Extension methods for FutureOr transformation",
+          "doc": "Extension methods for FutureOr transformation."
+        },
+        {
+          "kind": "function",
+          "name": "wrapDouble",
+          "signature": "double wrapDouble(double value, double min, double max) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "wrapDouble(value: 0.0, min: 0.0, max: 0.0)"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "WidgetTreeChangeDetector",
+          "signature": "class WidgetTreeChangeDetector extends StatefulWidget {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Widget tree change detector",
+          "doc": "Widget tree change detector"
+        },
+        {
+          "kind": "class",
+          "name": "WidgetTreeChangeDetectorState",
+          "signature": "class WidgetTreeChangeDetectorState extends State<WidgetTreeChangeDetector> {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "usageExamples": [
+            "WidgetTreeChangeDetectorState()"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "gap",
+          "signature": "Widget gap(double gap, {double? crossGap}) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "usageExamples": [
+            "gap(gap: 0.0)"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "Joinable",
+          "signature": "extension Joinable<T extends Widget> on List<T> {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for joining lists of widgets",
+          "doc": "Extension for joining lists of widgets."
+        },
+        {
+          "kind": "extension",
+          "name": "IterableExtension",
+          "signature": "extension IterableExtension<T> on Iterable<T> {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "join",
+          "signature": "Iterable<Widget> join(Iterable<Widget> widgets, Widget separator) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "An iterable that inserts a separator between each widget",
+          "doc": "An iterable that inserts a separator between each widget.",
+          "usageExamples": [
+            "join(widgets: const [], separator: const SizedBox.shrink())"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "SeparatedIterable",
+          "signature": "class SeparatedIterable extends Iterable<Widget> {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "description": "Iterable that lazily inserts separators between widgets",
+          "doc": "Iterable that lazily inserts separators between widgets.",
+          "usageExamples": [
+            "SeparatedIterable(dynamic(), dynamic())"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "_SeparatedIterator",
+          "signature": "class _SeparatedIterator implements Iterator<Widget> {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "usageExamples": [
+            "_SeparatedIterator(dynamic(), dynamic())"
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "mutateSeparated",
+          "signature": "void mutateSeparated(List<Widget> source, List<Widget> separated, Widget separator) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Mutates a separated list in place when the source list changes",
+          "doc": "Mutates a separated list in place when the source list changes.",
+          "usageExamples": [
+            "mutateSeparated(source: const [], separated: const [], separator: const SizedBox.shrink())"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/widget_extensions.dart",
+      "symbols": [
+        {
+          "kind": "extension",
+          "name": "WidgetExtension",
+          "signature": "extension WidgetExtension on Widget {",
+          "visibility": "public",
+          "tags": [
+            "extension",
+            "layout"
+          ],
+          "description": "Extension adding layout and styling utilities to widgets",
+          "doc": "Extension adding layout and styling utilities to widgets.",
+          "usageExamples": [
+            "const SizedBox.shrink().asBuilder"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "ColumnExtension",
+          "signature": "extension ColumnExtension on Column {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for Column widgets",
+          "doc": "Extension for Column widgets.",
+          "usageExamples": [
+            "Column().gap"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "RowExtension",
+          "signature": "extension RowExtension on Row {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for Row widgets",
+          "doc": "Extension for Row widgets.",
+          "usageExamples": [
+            "Row().gap"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "FlexExtension",
+          "signature": "extension FlexExtension on Flex {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for Flex widgets",
+          "doc": "Extension for Flex widgets.",
+          "usageExamples": [
+            "Flex().gap"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "DoubleExtension",
+          "signature": "extension DoubleExtension on double {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for double",
+          "doc": "Extension for double.",
+          "usageExamples": [
+            "0.0.min()"
+          ]
+        },
+        {
+          "kind": "extension",
+          "name": "IntExtension",
+          "signature": "extension IntExtension on int {",
+          "visibility": "public",
+          "tags": [
+            "extension"
+          ],
+          "description": "Extension for int",
+          "doc": "Extension for int.",
+          "usageExamples": [
+            "0.min()"
+          ]
+        },
+        {
+          "kind": "typedef",
+          "name": "NeverWidgetBuilder",
+          "signature": "typedef NeverWidgetBuilder = Widget Function(",
+          "visibility": "public",
+          "tags": [
+            "typedef"
+          ],
+          "usageExamples": [
+            "NeverWidgetBuilder handler = (dynamic]) {};"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "SeparatedFlex",
+          "signature": "class SeparatedFlex extends StatefulWidget {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "usageExamples": [
+            "SeparatedFlex(key: key:(), Axis.vertical: direction:(), mainAxisAlignment: mainAxisAlignment:(), mainAxisSize: mainAxisSize:(), crossAxisAlignment: crossAxisAlignment:(), textDirection: textDirection:(), verticalDirection: verticalDirection:(), textBaseline: textBaseline:(), clipBehavior: clipBehavior:(), separator: separator:(), children: children:())"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "_SeparatedFlexState",
+          "signature": "class _SeparatedFlexState extends State<SeparatedFlex> {",
+          "visibility": "public",
+          "tags": [
+            "class"
+          ],
+          "usageExamples": [
+            "_SeparatedFlexState()"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "utils/wrap_utils.dart",
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "wrapDouble",
+          "signature": "double wrapDouble(double value, double min, double max) {",
+          "visibility": "public",
+          "tags": [
+            "function"
+          ],
+          "description": "Wraps a value within a specified range",
+          "doc": "Wraps a value within a specified range.\n\nIf the value exceeds the range, it wraps around to the beginning.\nReturns the minimum value if the range is zero.\n\nParameters:\n- [value] (`double`, required): Value to wrap.\n- [min] (`double`, required): Minimum value of range.\n- [max] (`double`, required): Maximum value of range.\n\nReturns: `double` \u2014 wrapped value within [min, max).",
+          "usageExamples": [
+            "wrapDouble(value: 0.0, min: 0.0, max: 0.0)"
+          ]
+        }
+      ]
+    }
+  ]
+}

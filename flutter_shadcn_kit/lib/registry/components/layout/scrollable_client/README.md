@@ -1,5 +1,88 @@
-# `ScrollableClient`
+# Scrollable Client (`scrollable_client`)
 
-`ScrollableClient` exposes a two-dimensional scrolling surface that gives fine-grained control over drag behavior, clipping, keyboard dismissal, and overscroll handling. The builder receives the current viewport offset so consumers can redraw layout- or animation-sensitive views without paying for full widget rebuilds.
+Two-dimensional scroll surface with builder callbacks for viewport-aware layouts.
 
-Use the accompanying `ScrollableClientTheme` to override defaults such as drag-gesture behavior, hit testing, or whether overscroll is allowed.
+---
+
+## When to use
+
+- Use this when:
+  - you need custom 2D scrolling with viewport awareness.
+- Avoid when:
+  - a standard `ListView` or `SingleChildScrollView` is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add scrollable_client
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/scrollable_client/scrollable_client.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+ScrollableClient(
+  builder: (context, offset, size, child) {
+    return CustomPaint(size: size);
+  },
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `ScrollableClient`
+  - `builder` (`ScrollableBuilder`, required)
+  - `child` (`Widget?`)
+  - `controller` / `diagonalDragBehavior` / `dragStartBehavior`
+- `ScrollableClientViewport` — viewport widget.
+- `ScrollableBuilder` — `Widget Function(BuildContext, Offset, Size, Widget?)`.
+
+---
+
+## Theming
+
+- `ScrollableClientTheme` controls drag behavior, clipping, and overscroll.
+
+---
+
+## Accessibility
+
+- Provide keyboard scroll handling where appropriate.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use for custom canvas-like interactions.
+
+**Don’t**
+- ❌ Replace basic lists with this without need.
+
+---
+
+## Related components
+
+- `scrollview`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

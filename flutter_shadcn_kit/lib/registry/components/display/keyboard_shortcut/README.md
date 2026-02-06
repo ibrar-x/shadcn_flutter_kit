@@ -1,38 +1,101 @@
-# Keyboard Shortcut
+# Keyboard Shortcut (`keyboard_shortcut`)
 
-Displays keyboard shortcuts as styled keycaps, with optional custom key labels.
+Displays keyboard shortcuts as styled keycaps.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';
+## When to use
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+- Use this when:
+  - you want to show keyboard hints in UI.
+  - you need consistent keycap styling across the app.
+- Avoid when:
+  - a plain text label is sufficient.
 
-  @override
-  Widget build(BuildContext context) {
-    return KeyboardDisplay.fromActivator(
-      activator: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
-    );
-  }
-}
+---
+
+## Install
+
+```bash
+flutter_shadcn add keyboard_shortcut
 ```
 
-## Custom Key Labels
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/display/keyboard_shortcut/keyboard_shortcut.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+KeyboardDisplay.fromActivator(
+  activator: const SingleActivator(LogicalKeyboardKey.keyK, meta: true),
+)
+```
+
+---
+
+## Common patterns
+
+### Pattern: Custom display mapper
 
 ```dart
 KeyboardShortcutDisplayMapper(
   builder: (context, key) => Text(key.keyLabel.toUpperCase()),
   child: KeyboardDisplay(
-    keys: [LogicalKeyboardKey.shift, LogicalKeyboardKey.keyP],
+    keys: const [LogicalKeyboardKey.control, LogicalKeyboardKey.keyS],
   ),
-);
+)
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `KeyboardDisplay`
+  - `KeyboardDisplay(keys: ...)`
+  - `KeyboardDisplay.fromActivator(activator: ...)`
+- `KeyboardKeyDisplay` — single keycap.
+- `KeyboardShortcutDisplayMapper` — custom key rendering.
+
+---
 
 ## Theming
 
-Use `KeyboardShortcutTheme` via `ComponentTheme` to adjust spacing, padding, and
-key shadows.
+- `KeyboardShortcutTheme` controls spacing, key padding, and key shadow.
+
+---
+
+## Accessibility
+
+- Ensure shortcuts match platform conventions.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `fromActivator` to keep shortcuts in sync with bindings.
+
+**Don’t**
+- ❌ Display conflicting shortcuts without clarification.
+
+---
+
+## Related components
+
+- `command`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

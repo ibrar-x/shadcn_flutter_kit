@@ -2,10 +2,24 @@ part of '../../util.dart';
 
 
 class _SeparatedFlexState extends State<SeparatedFlex> {
+  late List<Widget> _children;
+
+  @override
+  void initState() {
+    super.initState();
+    _children = join(widget.children, widget.separator).toList();
+  }
+
+  @override
+  void didUpdateWidget(covariant SeparatedFlex oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    mutateSeparated(widget.children, _children, widget.separator);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final children = widget.children.joinSeparator(widget.separator);
     return Flex(
+      key: widget.key,
       direction: widget.direction,
       mainAxisAlignment: widget.mainAxisAlignment,
       mainAxisSize: widget.mainAxisSize,
@@ -14,7 +28,7 @@ class _SeparatedFlexState extends State<SeparatedFlex> {
       verticalDirection: widget.verticalDirection,
       textBaseline: widget.textBaseline,
       clipBehavior: widget.clipBehavior,
-      children: children,
+      children: _children,
     );
   }
 }

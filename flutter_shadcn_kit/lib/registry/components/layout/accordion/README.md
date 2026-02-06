@@ -1,30 +1,86 @@
-# Accordion
+# Accordion (`accordion`)
 
-Ordered sections that expand one at a time. Each `AccordionItem` pairs a trigger and collapsible content.
+Single-expansion accordion with configurable triggers and theming.
 
-```dart
-import 'ui/shadcn/components/accordion/accordion.dart';
+---
 
-Accordion(
-  items: [
-    AccordionItem(
-      trigger: AccordionTrigger(
-        child: Text('Section 1'),
-      ),
-      content: Padding(
-        padding: const EdgeInsets.all(16),
-        child: const Text('Content 1'),
-      ),
-    ),
-    AccordionItem(
-      trigger: AccordionTrigger(
-        child: Text('Section 2'),
-      ),
-      content: const Text('Content 2'),
-      expanded: true,
-    ),
-  ],
-);
+## When to use
+
+- Use this when:
+  - you need collapsible sections with one open at a time.
+- Avoid when:
+  - multiple sections should stay open (use `collapsible`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add accordion
 ```
 
-Custom theming uses `ComponentTheme<AccordionTheme>` from `registry/shared/theme/theme.dart` to override colors, padding, icons, and animation curves.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/accordion/accordion.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+Accordion(
+  items: const [
+    AccordionItem(title: Text('Title'), content: Text('Content')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Accordion` — takes `items` list.
+- `AccordionItem` — section with `title`, `content`.
+- `AccordionTrigger` — interactive header widget.
+- `AccordionTheme` — theme for spacing and styles.
+
+---
+
+## Theming
+
+- `AccordionTheme` controls spacing, colors, and animation defaults.
+
+---
+
+## Accessibility
+
+- Ensure triggers are keyboard focusable.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep titles short and descriptive.
+
+**Don’t**
+- ❌ Nest large scrollables without constraints.
+
+---
+
+## Related components
+
+- `collapsible`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

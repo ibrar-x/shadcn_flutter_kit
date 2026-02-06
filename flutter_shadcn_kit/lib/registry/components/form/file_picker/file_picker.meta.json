@@ -1,0 +1,59 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "file_picker",
+  "name": "File Upload",
+  "description": "Dropzone and list UI for selecting and managing uploaded files.",
+  "install": "flutter_shadcn add file_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/form/file_picker/file_picker.dart';",
+  "whenToUse": {
+    "use": [
+      "you need drag-and-drop uploads with file list management.",
+      "you want built-in validation for size/types."
+    ],
+    "avoid": [
+      "a simple file picker button is enough."
+    ]
+  },
+  "examples": {
+    "minimal": "FileUpload(\n  onFilesSelected: (files) {},\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [
+      "`FileUpload`",
+      "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`",
+      "`uploadFn` (`UploadFn?`)",
+      "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
+      "`allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`",
+      "`enableDragDrop`, `enableDropzoneClick`, `enableActionButton`",
+      "`title`, `subtitle`, `hint`, `actionLabel`, `icon`",
+      "`showFileList`, `itemsLayout`, `itemsGridColumns`, `itemsMaxHeight`",
+      "`FileUploadController` — manages files and upload state.",
+      "`FileLike` — file abstraction for picker items.",
+      "`FileUploadError` — validation/upload error model."
+    ],
+    "callbacks": []
+  },
+  "theming": [
+    "`FileUploadDropzoneTheme` controls dropzone styling."
+  ],
+  "accessibility": [
+    "Provide clear labels for upload actions and errors."
+  ],
+  "do": [
+    "Use `allowedExtensions` or `allowedMimeTypes` to validate inputs."
+  ],
+  "dont": [
+    "Allow unlimited files without UI feedback."
+  ],
+  "related": [
+    "dropzone",
+    "file_input",
+    "linear_progress_indicator"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

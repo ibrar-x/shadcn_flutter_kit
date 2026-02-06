@@ -101,7 +101,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                 },
               ),
 
-              FileUploadItemsView(items:  _controller.items,layout: .list,),
+              FileUploadItemsView(items:  _controller.items,layout: FileUploadItemsLayout.list,),
             ],
           ),
         ),

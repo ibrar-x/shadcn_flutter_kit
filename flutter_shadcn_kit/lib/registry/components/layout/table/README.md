@@ -1,22 +1,88 @@
-# Table
+# Table (`table`)
 
-Resizable table layout with headers, footers, and frozen rows/columns.
+Resizable table layout with headers, footers, and frozen cells.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/table/table.dart';
+## When to use
 
-Table(
-  rows: [
-    TableHeader(cells: [TableCell(child: Text('Name'))]),
-    TableRow(cells: [TableCell(child: Text('Row 1'))]),
-  ],
-);
+- Use this when:
+  - you need a resizable, structured table layout.
+- Avoid when:
+  - a simple list view is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add table
 ```
 
-## Notes
+---
 
-- Dependencies: `data_widget`.
-- Uses shared resizer utilities for column/row resizing.
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/table/table.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+Table(
+  rows: const [
+    TableRow(cells: [TableCell(child: Text('A')), TableCell(child: Text('B'))]),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Table` — main table widget.
+- `ResizableTable` — table with resizable columns.
+- `TableHeader` / `TableFooter` — row types.
+- `TableRow` — row model.
+- `TableCell` — cell model.
+- `ResizableTableController` — column sizing controller.
+
+---
+
+## Theming
+
+- `TableTheme`, `TableCellTheme`, `ResizableTableTheme`.
+
+---
+
+## Accessibility
+
+- Provide headers for columns where possible.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `ResizableTable` when users need column control.
+
+**Don’t**
+- ❌ Render huge datasets without virtualization.
+
+---
+
+## Related components
+
+- `scrollable_client`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

@@ -1,0 +1,54 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "multiselect",
+  "name": "Multi Select",
+  "description": "Composite export for MultiSelect built on Select.",
+  "install": "flutter_shadcn add multiselect",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/form/multiselect/multiselect.dart';",
+  "whenToUse": {
+    "use": [
+      "you need a chip-based multi-value select.",
+      "you want to reuse select popups and item lists."
+    ],
+    "avoid": [
+      "a simple checklist is enough."
+    ]
+  },
+  "examples": {
+    "minimal": "MultiSelect<String>(\n  value: const ['A'],\n  onChanged: (values) {},\n  popup: SelectPopup(\n    items: const SelectItemList(\n      children: [\n        SelectItemButton(value: 'A', child: Text('Option A')),\n        SelectItemButton(value: 'B', child: Text('Option B')),\n      ],\n    ),\n  ),\n  multiItemBuilder: (context, item) => Text(item),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`MultiSelect<T>`",
+      "`MultiSelectChip`",
+      "`MultiSelectController<T>`",
+      "`SelectPopup`",
+      "`SelectItemList`",
+      "`SelectItemButton`"
+    ]
+  },
+  "theming": [
+    "Uses select theming from the form registry."
+  ],
+  "accessibility": [
+    "Keep chip labels short and readable."
+  ],
+  "do": [
+    "Use `SelectPopup` to keep option lists consistent."
+  ],
+  "dont": [
+    "Use multi-select for extremely long lists."
+  ],
+  "related": [
+    "select",
+    "chip_input"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

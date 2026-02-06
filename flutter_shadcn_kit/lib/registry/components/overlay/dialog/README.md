@@ -1,45 +1,104 @@
-# Dialog
+# Dialog (`dialog`)
 
-Modal dialog primitives with a themed backdrop, container, and overlay handlers.
-Includes a prebuilt `AlertDialog` for common confirmations.
+Modal dialog primitives with alert dialog and overlay handlers.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/dialog/dialog.dart';
+## When to use
 
-Future<void> showConfirm(BuildContext context) async {
-  await showDialog<void>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text('Delete item?'),
-      content: const Text('This action cannot be undone.'),
-      actions: [
-        Button.ghost(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-        Button.destructive(onPressed: () => Navigator.pop(context), child: const Text('Delete')),
-      ],
-    ),
-  );
-}
+- Use this when:
+  - you need custom modal shells or dialog routes.
+  - you want a consistent modal backdrop and surface container.
+- Avoid when:
+  - a simple inline card or sheet works.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add dialog
 ```
 
-## Overlay Handlers
+---
+
+## Import
 
 ```dart
-const DialogOverlayHandler().show<void>(
+import 'package:<your_app>/ui/shadcn/overlay/dialog/dialog.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+await showDialog(
   context: context,
-  alignment: Alignment.center,
-  builder: (context) => const AlertDialog(title: Text('Saved')),
-);
+  builder: (context) => const ModalContainer(
+    child: Text('Hello dialog'),
+  ),
+)
 ```
+
+---
+
+## Common patterns
+
+### Pattern: Custom backdrop
+
+```dart
+ModalBackdrop(
+  barrierColor: const Color.fromRGBO(0, 0, 0, 0.6),
+  child: const ModalContainer(
+    child: Text('Blocking modal'),
+  ),
+)
+```
+
+---
+
+## API
+
+### Widgets and helpers
+
+- `ModalBackdrop`
+- `ModalContainer`
+- `showDialog`
+- `DialogRoute`
+
+---
 
 ## Theming
 
-Dialogs use `shared/theme/theme.dart` for colors, spacing, and scaling. You can
-override values via the local `Theme` widget.
+- `ModalBackdropTheme` controls padding, barrier color, and surface clipping.
 
-## Notes
+---
 
-- Dependencies: `data_widget`.
-- Requires the `card` component for `SurfaceCard`.
+## Accessibility
+
+- Use clear focus order and provide an escape/dismiss action.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `ModalContainer` for consistent surface styling.
+
+**Don’t**
+- ❌ Stack multiple dialog routes on top of each other.
+
+---
+
+## Related components
+
+- `alert_dialog`
+- `drawer`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

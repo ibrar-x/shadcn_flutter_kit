@@ -1,11 +1,10 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/overlay/drawer/drawer.dart';
 
 import '../../../components/control/button/button.dart' as button;
 import '../../../components/form/form/form.dart' as form;
 import '../../../components/overlay/alert_dialog/alert_dialog.dart' as dialog;
-import '../../../components/overlay/drawer/drawer.dart' as drawer;
+import '../../../components/overlay/drawer/drawer.dart';
 import '../../../shared/primitives/overlay.dart';
 
 typedef AlertDialog = dialog.AlertDialog;
@@ -30,7 +29,7 @@ Future<T?> openSheet<T>({
   BoxConstraints? constraints,
   AlignmentGeometry? alignment,
 }) {
-  return drawer.openSheet<T>(
+  return openSheet<T>(
     context: context,
     builder: builder,
     position: position,
@@ -46,5 +45,5 @@ Future<T?> openSheet<T>({
 }
 
 Future<void> closeSheet(BuildContext context) {
-  return drawer.closeSheet(context);
+  return closeSheet(context);
 }

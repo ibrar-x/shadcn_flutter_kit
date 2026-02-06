@@ -1,0 +1,52 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "radio_card",
+  "name": "Radio Card",
+  "description": "Composite export for RadioCard and RadioGroup.",
+  "install": "flutter_shadcn add radio_card",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/form/radio_card/radio_card.dart';",
+  "whenToUse": {
+    "use": [
+      "you want card-like radio selections.",
+      "you need a grouped radio controller."
+    ],
+    "avoid": [
+      "a simple radio list is sufficient."
+    ]
+  },
+  "examples": {
+    "minimal": "RadioGroup<String>(\n  value: 'basic',\n  onChanged: (value) {},\n  children: const [\n    RadioCard(value: 'basic', child: Text('Basic')),\n    RadioCard(value: 'pro', child: Text('Pro')),\n  ],\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`RadioCard<T>`",
+      "`RadioGroup<T>`",
+      "`RadioGroupController<T>`",
+      "`RadioItem<T>`"
+    ]
+  },
+  "theming": [
+    "Uses radio group theming from the form registry."
+  ],
+  "accessibility": [
+    "Ensure cards have proper labels and focus states."
+  ],
+  "do": [
+    "Keep card content concise."
+  ],
+  "dont": [
+    "Use for large, scroll-heavy option sets."
+  ],
+  "related": [
+    "radio_group",
+    "card"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

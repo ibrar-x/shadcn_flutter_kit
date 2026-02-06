@@ -1,0 +1,54 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "sheet",
+  "name": "Sheet",
+  "description": "Composite export for sheet workflows built on drawer + form.",
+  "install": "flutter_shadcn add sheet",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/overlay/sheet/sheet.dart';",
+  "whenToUse": {
+    "use": [
+      "you need a sheet-style overlay that hosts forms.",
+      "you want a single import for sheet + form helpers."
+    ],
+    "avoid": [
+      "a dialog or popover is a better fit."
+    ]
+  },
+  "examples": {
+    "minimal": "await openSheet(\n  context: context,\n  position: OverlayPosition.bottom,\n  builder: (context) => Form(\n    controller: FormController(),\n    child: const Text('Sheet content'),\n  ),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types_and_helpers": [
+      "`openSheet`",
+      "`closeSheet`",
+      "`OverlayPosition` (from `drawer`)",
+      "`AlertDialog`",
+      "`PrimaryButton`, `TextButton`",
+      "`Form`, `FormController`, `FormField<T>`, `FormTableLayout`, `FormErrorBuilder`"
+    ]
+  },
+  "theming": [
+    "Uses drawer and form theming from the registry."
+  ],
+  "accessibility": [
+    "Provide clear close actions and focus management."
+  ],
+  "do": [
+    "Keep sheet content short and task-focused."
+  ],
+  "dont": [
+    "Use for long, scrolling detail pages."
+  ],
+  "related": [
+    "drawer",
+    "form"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

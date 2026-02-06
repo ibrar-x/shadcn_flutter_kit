@@ -1,38 +1,108 @@
-# Chip
+# Chip (`chip`)
 
-Compact tag/tag-like components backed by buttons.
+Compact tag-style button with optional leading/trailing widgets.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need compact tag-like controls.
+  - you want a small clickable label with optional icons.
+- Avoid when:
+  - the label needs full button prominence.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add chip
+```
+
+---
+
+## Import
 
 ```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/chip/chip.dart';
-
-class Example extends StatelessWidget {
-  const Example({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 12,
-      children: [
-        Chip(child: const Text('Label')),
-        Chip(
-          leading: const Icon(Icons.tag),
-          child: const Text('Styled'),
-          trailing: ChipButton(
-            onPressed: () {},
-            child: const Icon(Icons.close, size: 14),
-          ),
-        ),
-      ],
-    );
-  }
-}
+import 'package:<your_app>/ui/shadcn/display/chip/chip.dart';
 ```
+
+---
+
+## Minimal example
+
+```dart
+Chip(
+  child: const Text('Tag'),
+  onPressed: () {},
+)
+```
+
+---
+
+## Common patterns
+
+### Pattern: Leading and trailing
+
+```dart
+Chip(
+  leading: const Icon(Icons.label),
+  trailing: const Icon(Icons.close),
+  child: const Text('Editable'),
+  onPressed: () {},
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Chip`
+  - `child` (`Widget`, required)
+  - `leading` / `trailing` (`Widget?`)
+  - `onPressed` (`VoidCallback?`)
+  - `style` (`AbstractButtonStyle?`)
+
+### Callbacks
+
+- `onPressed`
+
+---
 
 ## Theming
 
-Use `ComponentTheme<ChipTheme>` to override `padding` or base `style`. Chips
-reuse the shared `Button` system so customizing `ButtonVariance` or
-`ButtonTheme` affects them as well.
+- `ChipTheme` controls default padding and style.
+- Uses `Button` styles for consistency with other controls.
+
+---
+
+## Accessibility
+
+- Ensure the chip is large enough for touch targets when interactive.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `style` to match chip variants to context.
+
+**Don’t**
+- ❌ Use chips for long text content.
+
+---
+
+## Related components
+
+- `badge`
+- `button`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

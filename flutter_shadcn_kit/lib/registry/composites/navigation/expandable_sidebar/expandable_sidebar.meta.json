@@ -1,0 +1,55 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "expandable_sidebar",
+  "name": "Expandable Sidebar",
+  "description": "Composite export for expandable navigation rails.",
+  "install": "flutter_shadcn add expandable_sidebar",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/expandable_sidebar/expandable_sidebar.dart';",
+  "whenToUse": {
+    "use": [
+      "you need a rail plus expandable content area.",
+      "you want a simple divider + rail layout wrapper."
+    ],
+    "avoid": [
+      "you already manage layout with a custom split view."
+    ]
+  },
+  "examples": {
+    "minimal": "ExpandableSidebar(\n  rail: NavigationRail(\n    index: 0,\n    onSelected: (index) {},\n    children: const [\n      NavigationItem(child: Icon(Icons.home), label: Text('Home')),\n    ],\n  ),\n  content: const Center(child: Text('Content')),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`ExpandableSidebar`",
+      "`NavigationRail`",
+      "`NavigationItem`",
+      "`NavigationLabel`",
+      "`NavigationDivider`",
+      "`NavigationRailAlignment`",
+      "`OutlinedContainer`"
+    ]
+  },
+  "theming": [
+    "Uses navigation and outlined container theming."
+  ],
+  "accessibility": [
+    "Ensure sidebar and content regions are both reachable."
+  ],
+  "do": [
+    "Keep content scrollable if it grows."
+  ],
+  "dont": [
+    "Hide critical actions only in the rail."
+  ],
+  "related": [
+    "navigation_rail",
+    "navigation_sidebar"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

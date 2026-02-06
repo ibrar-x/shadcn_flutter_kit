@@ -1,23 +1,88 @@
-# CardImage
+# Card Image (`card_image`)
 
-Image-centric card that pairs a scaled photo container with title, subtitle, and optional leading/trailing widgets inside a clickable surface.
+Interactive card that pairs an image with title/subtitle content.
 
-## Features
+---
 
-- Hover-friendly scaling via `WidgetStatesController`.
-- Vertical/horizontal layouts with gap control.
-- Outlined image container with themable colors.
-- Easily plugged into `ComponentTheme<CardImageTheme>` to override spacing or scaling.
+## When to use
 
-## Example
+- Use this when:
+  - you want an image-led card with text content.
+- Avoid when:
+  - you only need a static image (use `Image`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add card_image
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/card_image/card_image.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 CardImage(
-  image: Image.network('https://example.com/photo.jpg', fit: BoxFit.cover),
-  title: Text('Sunset Vista'),
-  subtitle: Text('Captured in the hills'),
-  direction: Axis.horizontal,
-  gap: 16,
-  onPressed: () => print('card tapped'),
-);
+  image: Image.network('https://example.com/image.jpg'),
+  title: const Text('Card title'),
+)
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `CardImage`
+  - `image` (`Widget`, required)
+  - `title`, `subtitle`, `content` (`Widget?`)
+  - `direction` (`Axis?`)
+  - `onPressed` (`VoidCallback?`)
+- `CardImageTheme` — style, spacing, and hover settings.
+
+---
+
+## Theming
+
+- `CardImageTheme` controls button style, gap, and image scaling.
+
+---
+
+## Accessibility
+
+- Provide alt text for images where appropriate.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use concise titles and subtitles.
+
+**Don’t**
+- ❌ Use large images without constraints.
+
+---
+
+## Related components
+
+- `card`
+- `basic`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

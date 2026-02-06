@@ -3,6 +3,9 @@ import 'package:flutter/widgets.dart';
 part '_impl/core/axis_alignment.dart';
 part '_impl/core/axis_alignment_directional.dart';
 part '_impl/core/axis_alignment_geometry.dart';
+part '_impl/core/axis_insets.dart';
+part '_impl/core/axis_insets_directional.dart';
+part '_impl/core/axis_insets_geometry.dart';
 
 /// Represents a directional axis (up/down/start/end) that can be resolved to
 /// a concrete [AxisDirection] based on [TextDirection].

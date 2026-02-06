@@ -1,0 +1,66 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "empty_state",
+  "name": "Empty State",
+  "description": "Standardized empty state block for empty, no-results, or error.",
+  "install": "flutter_shadcn add empty_state",
+  "import": "import 'package:<your_app>/ui/shadcn/display/empty_state/empty_state.dart';",
+  "whenToUse": {
+    "use": [
+      "you need a consistent empty state layout.",
+      "you want primary/secondary actions attached to empty states."
+    ],
+    "avoid": [
+      "a short inline message is sufficient."
+    ]
+  },
+  "examples": {
+    "minimal": "EmptyState(\n  title: const Text('No results'),\n  description: const Text('Try adjusting your filters.'),\n)"
+  },
+  "patterns": [
+    {
+      "title": "Actions",
+      "code": "EmptyState(\n  title: const Text('No items'),\n  description: const Text('Create a new item to get started.'),\n  primaryAction: const EmptyStateAction(\n    label: 'Create item',\n    style: EmptyStateActionStyle.primary,\n  ),\n  secondaryAction: const EmptyStateAction(\n    label: 'Learn more',\n    style: EmptyStateActionStyle.link,\n  ),\n)"
+    }
+  ],
+  "api": {
+    "constructors": [
+      "`EmptyState`",
+      "`variant` (`EmptyStateVariant`)",
+      "`size` (`EmptyStateSize`)",
+      "`icon`, `title`, `description` (`Widget?`)",
+      "`primaryAction`, `secondaryAction` (`EmptyStateAction?`)",
+      "`maxWidth` (`double?`)",
+      "`EmptyStateAction`",
+      "`label` (`String`, required)",
+      "`onPressed` (`VoidCallback?`)",
+      "`icon` (`Widget?`)",
+      "`style` (`EmptyStateActionStyle`)"
+    ],
+    "callbacks": [
+      "`onPressed` (EmptyStateAction)"
+    ]
+  },
+  "theming": [
+    "`EmptyStateTheme` controls icon size/color, text styles, padding, and card styling."
+  ],
+  "accessibility": [
+    "Keep titles and descriptions concise and readable.",
+    "Ensure action labels are descriptive."
+  ],
+  "do": [
+    "Use `variant` to match the situation (empty/no-results/error)."
+  ],
+  "dont": [
+    "Present destructive actions in empty states."
+  ],
+  "related": [
+    "button",
+    "card"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

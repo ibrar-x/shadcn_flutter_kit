@@ -10,6 +10,7 @@ import '_impl/state/feature_carousel_controller.dart';
 import '_impl/utils/feature_carousel_animation_style.dart';
 import '_impl/utils/feature_carousel_models.dart';
 import '_impl/themes/feature_carousel_theme.dart';
+import '../../../shared/theme/theme.dart' as shadcn_theme;
 
 export '_impl/utils/feature_carousel_models.dart';
 export '_impl/utils/feature_carousel_animation_style.dart';

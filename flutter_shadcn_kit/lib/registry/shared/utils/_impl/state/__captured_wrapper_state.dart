@@ -19,88 +19,6 @@ class _CapturedWrapperState extends State<CapturedWrapper> {
   }
 }
 
-Widget gap(double gap, {double? crossGap}) {
-  return Gap(
-    gap,
-    crossAxisExtent: crossGap,
-  );
-}
-
-extension Joinable<T extends Widget> on List<T> {
-  List<T> joinSeparator(T separator) {
-    if (length <= 1) return this;
-    final result = <T>[];
-    for (var i = 0; i < length; i++) {
-      if (i > 0) {
-        result.add(separator);
-      }
-      result.add(this[i]);
-    }
-    return result;
-  }
-}
-
-extension IterableExtension<T> on Iterable<T> {
-  Iterable<T> joinSeparator(T separator) {
-    return map((e) => [separator, e]).expand((element) => element).skip(1);
-  }
-
-  Iterable<T> buildSeparator(ValueGetter<T> separator) {
-    return map((e) => [separator(), e]).expand((element) => element).skip(1);
-  }
-}
-
-extension ListSwapExtension<T> on List<T> {
-  bool swapItem(T element, int targetIndex) {
-    final currentIndex = indexOf(element);
-    if (currentIndex == -1) {
-      insert(targetIndex, element);
-      return true;
-    }
-    if (currentIndex == targetIndex) {
-      return true;
-    }
-    if (targetIndex >= length) {
-      remove(element);
-      add(element);
-      return true;
-    }
-    removeAt(currentIndex);
-    if (currentIndex < targetIndex) {
-      insert(targetIndex - 1, element);
-    } else {
-      insert(targetIndex, element);
-    }
-    return true;
-  }
-
-  bool swapItemWhere(Predicate<T> test, int targetIndex) {
-    final currentIndex = indexWhere(test);
-    if (currentIndex == -1) {
-      return false;
-    }
-    final element = this[currentIndex];
-    return swapItem(element, targetIndex);
-  }
-
-  T? optGet(int index) {
-    if (index < 0 || index >= length) {
-      return null;
-    }
-    return this[index];
-  }
-}
-
-void swapItemInLists<T>(
-    List<List<T>> lists, T element, List<T> targetList, int targetIndex) {
-  for (final list in lists) {
-    if (list != targetList) {
-      list.remove(element);
-    }
-  }
-  targetList.swapItem(element, targetIndex);
-}
-
 (bool enabled, Object? invokeResult) invokeActionOnFocusedWidget(
     Intent intent) {
   final context = primaryFocus?.context;
@@ -113,6 +31,16 @@ void swapItemInLists<T>(
     }
   }
   return (false, null);
+}
+
+void swapItemInLists<T>(
+    List<List<T>> lists, T element, List<T> targetList, int targetIndex) {
+  for (final list in lists) {
+    if (list != targetList) {
+      list.remove(element);
+    }
+  }
+  targetList.swapItem(element, targetIndex);
 }
 
 /// Wraps this widget with padding using directional helpers.
@@ -165,6 +93,23 @@ extension WidgetPaddingExtension on Widget {
       child: this,
     );
   }
+
+  /// Wraps this widget in an [Expanded] to fill available space.
+  Widget expanded({int flex = 1}) {
+    return Expanded(flex: flex, child: this);
+  }
+
+  /// Wraps this widget with intrinsic sizing on both axes.
+  Widget intrinsic({bool width = true, bool height = true}) {
+    Widget current = this;
+    if (height) {
+      current = IntrinsicHeight(child: current);
+    }
+    if (width) {
+      current = IntrinsicWidth(child: current);
+    }
+    return current;
+  }
 }
 
 /// Wraps this widget with an [Align] using the provided [alignment].
@@ -172,6 +117,11 @@ extension WidgetAlignmentExtension on Widget {
   /// Aligns the widget inside an [Align] container.
   Widget withAlign(AlignmentGeometry alignment) {
     return Align(alignment: alignment, child: this);
+  }
+
+  /// Centers the widget inside an [Align].
+  Widget center() {
+    return Align(alignment: Alignment.center, child: this);
   }
 }
 

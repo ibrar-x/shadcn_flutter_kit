@@ -1,21 +1,89 @@
-# Breadcrumb
+# Breadcrumb (`breadcrumb`)
 
-Horizontal breadcrumb navigation with configurable separators, scrolling overflow handling, and theme tokens.
+Horizontal breadcrumb trail with arrow/slash separators and overflow handling.
 
-## Usage
+---
 
-1. Wrap the breadcrumb items in widgets and pass them to `Breadcrumb(children: [...])`.
-2. Customize the separator (arrow or slash) or supply your own widget.
-3. Use `ComponentTheme<BreadcrumbTheme>` to override `separator` or `padding` globally.
+## When to use
 
-Example:
+- Use this when:
+  - you need a path indicator for hierarchical navigation.
+- Avoid when:
+  - users don’t need to navigate back to parent levels.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add breadcrumb
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/navigation/breadcrumb/breadcrumb.dart';
+```
+
+---
+
+## Minimal example
+
 ```dart
 Breadcrumb(
-  separator: Breadcrumb.slashSeparator,
-  children: [
-    TextButton(onPressed: goHome, child: const Text('Home')),
-    TextButton(onPressed: goCategory, child: const Text('Catalog')),
-    const Text('Electronics'),
+  children: const [
+    Text('Home'),
+    Text('Library'),
+    Text('Data'),
   ],
 )
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `Breadcrumb`
+  - `children` (`List<Widget>`, required)
+  - `separator` (`Widget?`)
+  - `padding` (`EdgeInsetsGeometry?`)
+- `BreadcrumbTheme` — separator/padding defaults.
+
+---
+
+## Theming
+
+- `BreadcrumbTheme` controls separator and padding.
+
+---
+
+## Accessibility
+
+- Ensure each segment has a clear label.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep segment count short.
+
+**Don’t**
+- ❌ Use breadcrumbs as the only navigation on mobile.
+
+---
+
+## Related components
+
+- `navigation_bar`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

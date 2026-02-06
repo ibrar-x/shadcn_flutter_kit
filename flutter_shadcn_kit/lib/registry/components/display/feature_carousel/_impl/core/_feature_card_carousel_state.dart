@@ -18,6 +18,27 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
 
   FeatureCarouselThemeData get _theme =>
       widget.theme ?? FeatureCarouselThemeData.defaults();
+  FeatureCarouselThemeData _resolveTheme(BuildContext context) {
+    if (widget.theme != null) {
+      return _theme;
+    }
+    final scheme = shadcn_theme.Theme.of(context).colorScheme;
+    return _theme.copyWith(
+      backgroundColor: scheme.background,
+      cardFillColor: scheme.card,
+      cardBorderColor: scheme.border,
+      ghostFillColor: scheme.muted,
+      ghostBorderColor: scheme.border.withValues(alpha: 0.4),
+      arrowBackground: scheme.muted.withValues(alpha: 0.35),
+      arrowIconColor: scheme.mutedForeground,
+      ctaBackground: scheme.muted.withValues(alpha: 0.3),
+      ctaBorderColor: scheme.border.withValues(alpha: 0.55),
+      ctaTextColor: scheme.foreground,
+      titleColor: scheme.mutedForeground,
+      descriptionColor: scheme.mutedForeground,
+      accentColor: scheme.primary,
+    );
+  }
 
   @override
   void initState() {
@@ -266,33 +287,30 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
       return const SizedBox.shrink();
     }
 
-    final width = widget.width ?? _theme.carouselWidth;
-    final height = widget.height ?? _theme.carouselHeight;
-    final cardWidth = _theme.cardWidth;
-    final cardHeight = _theme.cardHeight;
+    final resolvedTheme = _resolveTheme(context);
+    final width = widget.width ?? resolvedTheme.carouselWidth;
+    final height = widget.height ?? resolvedTheme.carouselHeight;
+    final cardWidth = resolvedTheme.cardWidth;
+    final cardHeight = resolvedTheme.cardHeight;
 
     final titleStyle = TextStyle(
-      fontSize: _theme.titleFontSize,
+      fontSize: resolvedTheme.titleFontSize,
       fontWeight: FontWeight.w500,
       letterSpacing: 0.2,
-      color: _theme.titleColor,
+      color: resolvedTheme.titleColor,
     );
 
     final descriptionStyle = TextStyle(
-      fontSize: _theme.descriptionFontSize,
-      height: _theme.descriptionLineHeight,
-      color: _theme.descriptionColor,
+      fontSize: resolvedTheme.descriptionFontSize,
+      height: resolvedTheme.descriptionLineHeight,
+      color: resolvedTheme.descriptionColor,
       fontWeight: FontWeight.w400,
     );
 
-    final background = widget.backgroundBuilder?.call(context, _theme) ??
+    final background = widget.backgroundBuilder?.call(context, resolvedTheme) ??
         Container(
           decoration: BoxDecoration(
-            color: _theme.backgroundColor,
-            gradient: RadialGradient(
-              colors: [_theme.vignetteInnerColor, _theme.vignetteOuterColor],
-              radius: 0.9,
-            ),
+            color: resolvedTheme.backgroundColor,
           ),
         );
 
@@ -318,21 +336,21 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                 _GhostCard(
                   cardWidth: cardWidth,
                   cardHeight: cardHeight,
-                  theme: _theme,
+                  theme: resolvedTheme,
                   animation: _controller,
                   indexFromFront: 3,
                 ),
                 _GhostCard(
                   cardWidth: cardWidth,
                   cardHeight: cardHeight,
-                  theme: _theme,
+                  theme: resolvedTheme,
                   animation: _controller,
                   indexFromFront: 2,
                 ),
                 _GhostCard(
                   cardWidth: cardWidth,
                   cardHeight: cardHeight,
-                  theme: _theme,
+                  theme: resolvedTheme,
                   animation: _controller,
                   indexFromFront: 1,
                 ),
@@ -358,7 +376,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                           item: widget.items[_index],
                           width: cardWidth,
                           height: cardHeight,
-                          theme: _theme,
+                          theme: resolvedTheme,
                         ),
                   ),
                 ),
@@ -367,10 +385,10 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                     left: 0,
                     child: _NavArrow(
                       direction: _CarouselDirection.left,
-                      size: _theme.arrowSize,
-                      radius: _theme.arrowRadius,
-                      background: _theme.arrowBackground,
-                      iconColor: _theme.arrowIconColor,
+                      size: resolvedTheme.arrowSize,
+                      radius: resolvedTheme.arrowRadius,
+                      background: resolvedTheme.arrowBackground,
+                      iconColor: resolvedTheme.arrowIconColor,
                       pressed: _leftPressed,
                       hovered: _leftHover,
                       onPressed: _goLeft,
@@ -387,10 +405,10 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                     right: 0,
                     child: _NavArrow(
                       direction: _CarouselDirection.right,
-                      size: _theme.arrowSize,
-                      radius: _theme.arrowRadius,
-                      background: _theme.arrowBackground,
-                      iconColor: _theme.arrowIconColor,
+                      size: resolvedTheme.arrowSize,
+                      radius: resolvedTheme.arrowRadius,
+                      background: resolvedTheme.arrowBackground,
+                      iconColor: resolvedTheme.arrowIconColor,
                       pressed: _rightPressed,
                       hovered: _rightHover,
                       onPressed: _goRight,
@@ -432,7 +450,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
               ) ??
               _CtaButton(
                 label: _config.primaryActionLabel,
-                theme: _theme,
+                theme: resolvedTheme,
                 pressed: _ctaPressed,
                 onPressed: _handleCta,
                 onPressedChanged: (pressed) {

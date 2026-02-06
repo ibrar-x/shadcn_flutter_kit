@@ -25,12 +25,3 @@ class _CachedValueWidgetState<T> extends State<CachedValueWidget<T>> {
     return _cachedWidget!;
   }
 }
-
-double degToRad(double deg) => deg * (pi / 180);
-
-double unlerpDouble(double value, double min, double max) {
-  return (value - min) / (max - min);
-}
-
-typedef OnContextInvokeCallback<T extends Intent> = Object? Function(T intent,
-    [BuildContext? context]);

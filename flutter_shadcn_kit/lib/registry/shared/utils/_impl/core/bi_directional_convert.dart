@@ -1,11 +1,14 @@
 part of '../../util.dart';
 
+/// Function type for converting from type [F] to type [T].
+typedef Convert<F, T> = T Function(F value);
+
 class BiDirectionalConvert<A, B> {
   /// Converts from A to B.
-  final B Function(A) aToB;
+  final Convert<A, B> aToB;
 
   /// Converts from B to A.
-  final A Function(B) bToA;
+  final Convert<B, A> bToA;
 
   /// Creates a [BiDirectionalConvert].
   BiDirectionalConvert(this.aToB, this.bToA);
@@ -15,6 +18,11 @@ class BiDirectionalConvert<A, B> {
 
   /// Converts B to A.
   A convertB(B value) => bToA(value);
+
+  @override
+  String toString() {
+    return 'BiDirectionalConvert($aToB, $bToA)';
+  }
 
   @override
   bool operator ==(Object other) {

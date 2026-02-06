@@ -1,23 +1,90 @@
-# Collapsible
+# Collapsible (`collapsible`)
 
-Independent expand/collapse sections that work alongside `CollapsibleTrigger` and `CollapsibleContent`.
+Independent sections that toggle their own visibility.
 
-```dart
-import 'ui/shadcn/components/collapsible/collapsible.dart';
+---
 
-Collapsible(
-  children: [
-    CollapsibleTrigger(
-      child: Text('Show advanced options'),
-    ),
-    CollapsibleContent(
-      child: Padding(
-        padding: EdgeInsets.all(12),
-        child: Text('Details go here.'),
-      ),
-    ),
-  ],
-);
+## When to use
+
+- Use this when:
+  - you need independent expand/collapse sections.
+- Avoid when:
+  - only one section should be open (use `accordion`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add collapsible
 ```
 
-The component uses `GhostButton` from the Button registry and adapts to `ComponentTheme<CollapsibleTheme>` to adjust padding, icons, and layout alignment.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/collapsible/collapsible.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+Collapsible(
+  children: const [
+    CollapsibleTrigger(title: Text('Toggle')),
+    CollapsibleContent(child: Text('Hidden content')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Collapsible`
+  - `children` (`List<Widget>`, required)
+  - `isExpanded` (`bool?`)
+  - `onExpansionChanged` (`ValueChanged<bool>?`)
+- `CollapsibleTrigger` — interactive header.
+- `CollapsibleContent` — animated content panel.
+- `CollapsibleTheme` — spacing and styling.
+
+---
+
+## Theming
+
+- `CollapsibleTheme` controls padding and animation defaults.
+
+---
+
+## Accessibility
+
+- Make triggers keyboard focusable.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep content concise to avoid long scroll jumps.
+
+**Don’t**
+- ❌ Nest collapsibles without clear hierarchy.
+
+---
+
+## Related components
+
+- `accordion`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

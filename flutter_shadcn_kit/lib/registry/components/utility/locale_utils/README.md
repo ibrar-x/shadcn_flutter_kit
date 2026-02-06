@@ -1,27 +1,86 @@
-# Locale Utils
+# Locale Utils (`locale_utils`)
 
-Provides reusable helpers for formatting file sizes and inspecting date/time/duration units.
+Date/time/duration unit helpers and file size formatting locales.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/locale_utils/locale_utils.dart';
+## When to use
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+- Use this when:
+  - you need locale-aware file size labels.
+  - you need date/time/duration part helpers for pickers.
+- Avoid when:
+  - you only need basic `DateTime` formatting.
 
-  @override
-  Widget build(BuildContext context) {
-    final bytes = 42_000;
-    final formatted = formatFileSize(bytes, SizeUnitLocale.fileBytes);
-    return Text('Formatted: $formatted');
-  }
-}
+---
+
+## Install
+
+```bash
+flutter_shadcn add locale_utils
 ```
 
-## Features
+---
 
-- `SizeUnitLocale` describes binary/decimal units and separators.
-- `formatFileSize` converts bytes to a human readable string.
-- `DatePart`, `DurationPart`, `TimePart` helpers describe valid ranges and string lengths.
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/utility/locale_utils/locale_utils.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+final label = formatFileSize(1536, SizeUnitLocale.fileBytes);
+```
+
+---
+
+## API
+
+### Functions
+
+- `formatFileSize`
+
+### Types
+
+- `SizeUnitLocale`
+- `DatePart`, `TimePart`, `DurationPart`
+
+---
+
+## Theming
+
+- No theme hooks; these utilities are pure helpers.
+
+---
+
+## Accessibility
+
+- Use localized labels that users can read at a glance.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `SizeUnitLocale.fileBytes` or `SizeUnitLocale.fileBits` consistently.
+
+**Don’t**
+- ❌ Mix binary and decimal units without clarifying.
+
+---
+
+## Related components
+
+- `shadcn_localizations`
+- `shadcn_localizations_extensions`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

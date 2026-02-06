@@ -1,0 +1,50 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "toggle",
+  "name": "Toggle",
+  "description": "Composite export for Toggle and ToggleController.",
+  "install": "flutter_shadcn add toggle",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/control/toggle/toggle.dart';",
+  "whenToUse": {
+    "use": [
+      "you want a lightweight toggle built on the button component.",
+      "you need a shared toggle controller API."
+    ],
+    "avoid": [
+      "a checkbox or switch is a better semantic fit."
+    ]
+  },
+  "examples": {
+    "minimal": "Toggle(\n  value: true,\n  onChanged: (value) {},\n  child: const Text('Notifications'),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`Toggle`",
+      "`ToggleController`"
+    ]
+  },
+  "theming": [
+    "Inherits button theming from the control registry."
+  ],
+  "accessibility": [
+    "Provide clear labels for on/off state."
+  ],
+  "do": [
+    "Use for binary settings."
+  ],
+  "dont": [
+    "Use without visible labels."
+  ],
+  "related": [
+    "button",
+    "switch"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

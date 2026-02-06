@@ -1,40 +1,84 @@
-# Card
+# Card (`card`)
 
-A flexible card container with optional surface blur for overlays.
+Card container with optional surface blur variant.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/card/card.dart';
+## When to use
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+- Use this when:
+  - you need consistent container styling.
+- Avoid when:
+  - a plain `Container` is enough.
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      filled: true,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: const Text('Card content'),
-      ),
-    );
-  }
-}
+---
+
+## Install
+
+```bash
+flutter_shadcn add card
 ```
 
-## Surface Variant
+---
+
+## Import
 
 ```dart
-SurfaceCard(
-  surfaceBlur: 12,
-  surfaceOpacity: 0.8,
-  child: const Text('Overlay content'),
-);
+import 'package:<your_app>/ui/shadcn/layout/card/card.dart';
 ```
+
+---
+
+## Minimal example
+
+```dart
+Card(
+  child: const Text('Card content'),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Card` — standard container.
+- `SurfaceCard` — card with optional surface blur.
+- `CardTheme` — padding, radius, and background defaults.
+
+---
 
 ## Theming
 
-Use `Theme` from `shared/theme/theme.dart` and optionally provide a `CardTheme`
-with `ComponentTheme` for per-subtree overrides.
+- `CardTheme` controls radius, padding, and background colors.
+
+---
+
+## Accessibility
+
+- Ensure content has adequate padding and contrast.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `SurfaceCard` for translucent overlays.
+
+**Don’t**
+- ❌ Nest too many cards without spacing.
+
+---
+
+## Related components
+
+- `outlined_container`
+- `card_image`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

@@ -1,0 +1,55 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "slider",
+  "name": "Slider",
+  "description": "Single-value and range sliders with keyboard navigation.",
+  "install": "flutter_shadcn add slider",
+  "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
+  "whenToUse": {
+    "use": [
+      "you need continuous or discrete slider input.",
+      "you need range selection with `SliderValue`."
+    ],
+    "avoid": [
+      "a text input is more precise."
+    ]
+  },
+  "examples": {
+    "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [
+      "`Slider`",
+      "`value` (`SliderValue`, required)",
+      "`onChanged`, `onChangeStart`, `onChangeEnd`",
+      "`min`, `max`, `divisions`, `hintValue`",
+      "`increaseStep`, `decreaseStep`, `enabled`",
+      "`ControlledSlider` — controller-backed slider.",
+      "`SliderController` — controller for `SliderValue`."
+    ],
+    "callbacks": [
+      "`onChanged`, `onChangeStart`, `onChangeEnd`"
+    ]
+  },
+  "theming": [
+    "`SliderTheme` controls track/handle size and colors."
+  ],
+  "accessibility": [
+    "Provide labels or values adjacent to the slider."
+  ],
+  "do": [
+    "Use `divisions` for discrete steps."
+  ],
+  "dont": [
+    "Hide current value when precision matters."
+  ],
+  "related": [
+    "progress"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

@@ -1,21 +1,87 @@
-# Alert
+# Alert (`alert`)
 
-Contextual alert panels with optional destructive styling.
+Flexible alert panels with destructive/resilient styling.
 
-```dart
-import 'ui/shadcn/components/alert/alert.dart';
+---
 
-Alert(
-  leading: Icon(Icons.info_outline),
-  title: Text('Heads up'),
-  content: Text('This is an informational alert.'),
-  trailing: IconButton(onPressed: () {}, icon: Icon(Icons.close)),
-);
+## When to use
 
-Alert.destructive(
-  title: Text('Error occurred'),
-  content: Text('Something went wrong.'),
-);
+- Use this when:
+  - you need inline status or warning blocks.
+- Avoid when:
+  - a toast or dialog is more appropriate.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add alert
 ```
 
-Use `ComponentTheme<AlertTheme>` from `registry/shared/theme/theme.dart` to customize padding, colors, and borders; shared assets ensure the component installs cleanly on top of the previously initialized theme.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/alert/alert.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+const Alert(
+  title: Text('Heads up'),
+  content: Text('Something needs your attention.'),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Alert`
+  - `leading`, `title`, `content`, `trailing`
+  - `destructive` (`bool`)
+- `Alert.destructive` — destructive styling shortcut.
+- `AlertTheme` — padding and surface defaults.
+
+---
+
+## Theming
+
+- `AlertTheme` controls padding, background, and border color.
+
+---
+
+## Accessibility
+
+- Use clear titles and content for screen readers.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use destructive styling for critical warnings.
+
+**Don’t**
+- ❌ Overuse alerts for minor messages.
+
+---
+
+## Related components
+
+- `toast`
+- `dialog`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

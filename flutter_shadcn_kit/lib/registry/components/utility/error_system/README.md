@@ -1,307 +1,118 @@
-# Error System
+# Error System (`error_system`)
 
-Production-ready error handling for Flutter that keeps business logic clean and
-UI consistent. This system maps any exception to `AppError` once (in your
-repositories), then renders it with shadcn-compatible UI. It also provides a
-dual-scope error bus (app-level + screen-level) so errors can be displayed
-reactively without boilerplate.
+Production-ready error handling system with UI components and repository mapping.
 
-## Contents
+---
 
-- Overview
-- Architecture
-- Installation
-- Quick start
-- Core models
-- Error mapping (rules + repositories)
-- Dual scopes (AppErrorHub)
-- ScreenErrorScope (recommended)
-- guard() (optional)
-- UI components
-- Theming
-- Analytics and reporting
-- Localization
-- Testing
-- Best practices
+## When to use
 
-## Overview
+- Use this when:
+  - you want structured error models with consistent UI.
+  - you need app-level and screen-level error channels.
+- Avoid when:
+  - you only need a simple inline `Text` error.
 
-This system solves repetitive error handling by:
+---
 
-- Mapping any exception to a user-facing `AppError`
-- Centralizing rules for network/auth/api/validation errors
-- Rendering consistent error UI across your app
-- Providing app-level and screen-level error channels
+## Install
 
-It is state-management agnostic (Bloc, Riverpod, Provider, custom).
-
-## Architecture
-
-```
-Business Logic
-  -> Repository (ErrorHandledRepository)
-      -> ErrorMapper (RuleBasedErrorMapper)
-          -> AppError (UI model)
-              -> UI (ErrorState / InlineError / Snackbar / Dialog / Banner)
+```bash
+flutter_shadcn add error_system
 ```
 
-Dual scope channels (AppErrorHub):
+---
 
-```
-App scope (global): session expired, maintenance, network down
-Screen scope: form errors, request failed, not found
-```
+## Import
 
-## Installation
-
-### Via CLI
-```
-flutter_shadcn add error-system
-```
-
-### Manual
-Copy the component folder and add required deps:
-```yaml
-dependencies:
-  gap: ^3.0.1
-  crypto: ^3.0.0 # optional, for fingerprinting
-```
-
-## Quick Start
-
-### 1) Create an ErrorMapper (once)
 ```dart
-final mapper = RuleBasedErrorMapper(
-  rules: [
-    ...networkRules(onRetry: () {}, onReport: () {}, onSettings: () {}),
-    ...authRules(onLogin: () {}, onRetry: () {}, onReport: () {}),
-    ...apiRules(onRetry: () {}, onReport: () {}, onBack: () {}),
-    ...validationRules(onRetry: () {}),
-  ],
-  fallback: fallbackRule,
+import 'package:<your_app>/ui/shadcn/utility/error_system/error_system.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+final scope = HubAppScope(AppErrorHub.sessionExpired);
+
+AppErrorGate.scope(
+  scope: scope,
+  child: const MyApp(),
+)
+```
+
+---
+
+## Common patterns
+
+### Pattern: Emit an error
+
+```dart
+AppErrorHub.I.app(AppErrorHub.sessionExpired).value = AppError(
+  code: AppErrorCode.sessionExpired,
+  title: 'Session expired',
+  message: 'Please sign in again.',
 );
 ```
 
-### 2) Base repository
-```dart
-abstract class BaseRepository extends ErrorHandledRepository {
-  BaseRepository() : super(errorMapper: mapper);
-}
-```
+---
 
-### 3) Use in repositories
-```dart
-class UserRepository extends BaseRepository {
-  final ApiClient _api;
-  UserRepository(this._api);
+## API
 
-  Future<User> getUser(String id) {
-    return execute(() => _api.getUser(id));
-  }
-}
-```
+### Models and rules
 
-### 4) Render in UI
-```dart
-ErrorState(
-  error: AppError(
-    code: AppErrorCode.network,
-    title: 'Connection failed',
-    message: 'Check your internet connection.',
-    actions: [ErrorAction.retry(() {})],
-  ),
-);
-```
+- `AppError`, `AppErrorCode`, `ErrorAction`
+- `ErrorRule`, `ErrorRegistry`, `ErrorMapper`
+- `Guard`
 
-## Core Models
+### Scopes and hubs
 
-- `AppError`: user-facing error model (title/message/actions/code)
-- `AppErrorCode`: enum for severity and UI styling
-- `ErrorAction`: action metadata (retry/login/back/etc.)
+- `AppErrorHub`
+- `ErrorScope`, `DisposableErrorScope`
+- `HubAppScope`, `HubScreenScope`
 
-## Class Reference (What Each Class Does)
+### UI helpers
 
-### Core
-- `AppError`: the single error model the UI consumes.
-- `AppErrorCode`: categorizes errors (network/auth/validation/etc.).
-- `ErrorAction`: describes actions shown in error UI.
-- `AppErrorHub`: global store of app-level + screen-level error channels.
-- `ErrorScope`: typed handle to an error channel.
-- `HubAppScope`: typed adapter for app-level channels.
-- `HubScreenScope`: typed adapter for screen-level channels.
-- `ScreenErrorScope`: widget that owns a screen channel and disposes it automatically.
-- `ErrorSlot`: reactive widget that renders an error from an `ErrorScope`.
-- `guard` / `guardSync`: run a task and publish AppErrors to a scope.
+- `AppErrorGate`
+- `ErrorState`, `InlineError`
+- `ErrorDialog`, `ErrorSnackbar`, `AppErrorBanner`
 
-### Mapping
-- `ErrorMapper`: interface for mapping exceptions to `AppError`.
-- `RuleBasedErrorMapper`: runs `ErrorRule`s by priority with a fallback.
-- `ErrorRule`: matches an exception and builds an `AppError`.
-- `ErrorRegistry`: mutable container to compose rule lists.
-- `ErrorHandledRepository`: base class that maps exceptions automatically.
+### Utils
 
-### UI
-- `ErrorState`: full-page/section error UI with title/message/actions.
-- `InlineError`: compact inline error message.
-- `ErrorDialog`: dialog helper for blocking errors.
-- `ErrorSnackbar`: toast-style error helper.
-- `AppErrorBanner`: global banner for app-level errors.
-- `AppErrorGate`: full-screen overlay for global blockers (keeps navigator alive).
+- `ErrorReporter`, `RetryStrategy`
 
-### Utilities
-- `ErrorReporter`: hook for analytics/crash reporting.
-- `ErrorFingerprint`: deduplicates errors via a stable hash.
-- `RetryStrategy`: backoff helper for retries.
-- `env`: environment helper for rule behavior.
-
-### Built-in Rules
-- `networkRules`, `authRules`, `apiRules`, `validationRules`, `platformRules`
-- `fallbackRule`: default mapping for unknown errors
-
-## Error Mapping (Rules + Repositories)
-
-### Rule-based mapping
-```dart
-final mapper = RuleBasedErrorMapper(
-  rules: [
-    ...networkRules(onRetry: () {}, onReport: () {}, onSettings: () {}),
-    ...authRules(onLogin: () {}, onRetry: () {}, onReport: () {}),
-  ],
-  fallback: fallbackRule,
-);
-```
-
-### Repository base class
-```dart
-abstract class ErrorHandledRepository {
-  Future<T> execute<T>(Future<T> Function() operation);
-  T executeSync<T>(T Function() operation);
-}
-```
-
-Use `execute()` and all thrown errors are mapped to `AppError`.
-
-## Dual Scopes (AppErrorHub)
-
-Use app-level for global blockers and screen-level for per-screen issues.
-
-```dart
-// App-level (global)
-AppErrorHub.I.app(AppErrorHub.networkUnavailable).value = AppError(...);
-
-// Screen-level (if you manage it manually)
-AppErrorHub.I.screen('UserScreen').value = AppError(...);
-```
-
-## App-Level Gate (Full-Screen Overlay)
-
-App-level errors should not replace the Navigator. Instead, render a gate
-overlay above it so the user returns to the exact screen/state once the error
-clears.
-
-```dart
-final globalScope = HubAppScope('global');
-
-return AppErrorGate.scope(
-  scope: globalScope,
-  child: ShadcnApp(
-    title: 'My App',
-    theme: const ThemeData(),
-    home: const MyHomePage(),
-  ),
-);
-```
-
-To trigger or clear:
-```dart
-// Offline
-globalScope.notifier.value = AppError(
-  code: AppErrorCode.noInternet,
-  title: 'You are offline',
-  message: 'Check your connection and try again.',
-);
-
-// Online again
-globalScope.clear();
-```
-
-## ScreenErrorScope (Recommended)
-
-`ScreenErrorScope` owns a screen channel and disposes it automatically.
-It exposes a typed `HubScreenScope` plus run/runSync helpers.
-
-```dart
-ScreenErrorScope(
-  child: Builder(
-    builder: (context) {
-      final s = ScreenErrorScope.of(context);
-      return Column(
-        children: [
-          ErrorSlot.scope(scope: s.scope),
-          PrimaryButton(
-            onPressed: () => s.run(() => repo.execute(() async => apiCall())),
-            child: const Text('Load'),
-          ),
-        ],
-      );
-    },
-  ),
-);
-```
-
-## guard() (Optional)
-
-If you want to keep call sites small without a ScreenErrorScope, use `guard()`
-with a typed `ErrorScope`:
-
-```dart
-final scope = HubScreenScope('UserScreen');
-await guard(() => repo.execute(() async => apiCall()), scope: scope);
-```
-
-## UI Components
-
-- `ErrorState`: full-page/section error UI
-- `InlineError`: compact inline message
-- `ErrorDialog.show(...)`: dialog for blocking errors
-- `ErrorSnackbar.show(...)`: toast-style error
-- `AppErrorBanner`: global banner for app-level errors
-- `ErrorSlot.scope(...)`: reactive slot that renders an error from a scope
+---
 
 ## Theming
 
-Use `ComponentTheme<ErrorSystemTheme>` to theme the system:
+- `ErrorSystemTheme` controls typography, colors, and spacing for error UI.
 
-```dart
-ComponentTheme(
-  data: const ErrorSystemTheme(
-    bannerBackgroundColor: Color(0xFF1F1F1F),
-  ),
-  child: ...
-);
-```
+---
 
-Theme hooks include icon styles, card padding/radius, dialog surface, snackbar
-styling, and banner colors.
+## Accessibility
 
-## Analytics and Reporting
+- Make sure error text is announced and actionable controls are reachable.
 
-Use `ErrorReporter` to integrate Crashlytics or custom analytics.
-Errors can include fingerprints for deduplication via `ErrorFingerprint`.
+---
 
-## Localization
+## Do / Don’t
 
-`AppError` is UI-ready; for localization, map errors using localized strings
-in your rules or inject localized copy from the UI layer.
+**Do**
+- ✅ Use `AppError` for user-facing errors.
 
-## Testing
+**Don’t**
+- ❌ Leak raw exception messages directly to users.
 
-- Replace `ErrorScope` with a fake implementation to assert UI behavior.
-- Use `ErrorHandledRepository` with a mock `ErrorMapper` to verify mapping.
+---
 
-## Best Practices
+## Related components
 
-- Use `ScreenErrorScope` for new screens.
-- Use `AppErrorBanner` only for app-level issues.
-- Keep error messages short and user-facing.
-- Use `ErrorAction` factories to standardize labels and icons.
+- `toast`
+- `dialog`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

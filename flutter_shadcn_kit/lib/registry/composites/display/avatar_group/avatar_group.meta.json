@@ -1,0 +1,51 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "avatar_group",
+  "name": "Avatar Group",
+  "description": "Composite export for AvatarGroup, Avatar, and AvatarBadge.",
+  "install": "flutter_shadcn add avatar_group",
+  "import": "import 'package:<your_app>/ui/shadcn/composites/display/avatar_group/avatar_group.dart';",
+  "whenToUse": {
+    "use": [
+      "you need overlapping avatar stacks.",
+      "you want a concise import for avatar primitives."
+    ],
+    "avoid": [
+      "a single avatar is enough."
+    ]
+  },
+  "examples": {
+    "minimal": "AvatarGroup.toRight(\n  children: const [\n    Avatar(initials: 'AL'),\n    Avatar(initials: 'BR'),\n    Avatar(initials: 'CT'),\n  ],\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`Avatar`",
+      "`AvatarBadge`",
+      "`AvatarGroup`"
+    ]
+  },
+  "theming": [
+    "Uses avatar theming from the display registry."
+  ],
+  "accessibility": [
+    "Provide initials or labels for screen readers."
+  ],
+  "do": [
+    "Keep avatar groups small to maintain clarity."
+  ],
+  "dont": [
+    "Overlap too many avatars without a summary."
+  ],
+  "related": [
+    "avatar",
+    "badge"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}
