@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Source: `shadcn_flutter_cli/doc/site/troubleshooting.md`
+Source: this skill reference set and CLI troubleshooting behavior.
 
 ## Common Issues
 

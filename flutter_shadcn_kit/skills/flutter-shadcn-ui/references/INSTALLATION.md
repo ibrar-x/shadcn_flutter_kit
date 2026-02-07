@@ -17,7 +17,7 @@ flutter_shadcn install-skill --interactive
 flutter_shadcn install-skill --symlink
 ```
 
-Source: `shadcn_flutter_cli/doc/site/commands/install-skill.md`
+Source: this skill reference set and `flutter_shadcn install-skill --help`.
 
 ## Fallback: Manual Installation (Only if CLI Fails)
 

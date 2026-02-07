@@ -16,11 +16,13 @@ PRIMARY_RULES:
 4. Return to CLI flow once tooling issues are resolved.
 
 CANONICAL_DOCS:
-- shadcn_flutter_cli/doc/site/overview.md
-- shadcn_flutter_cli/doc/site/getting-started.md
-- shadcn_flutter_cli/doc/site/concepts.md
-- shadcn_flutter_cli/doc/site/commands/index.md
-- shadcn_flutter_cli/doc/site/troubleshooting.md
+- SKILL.md
+- references/commands.md
+- references/core_concepts.md
+- references/configuration.md
+- references/troubleshooting.md
+- flutter_shadcn --help
+- flutter_shadcn <command> --help
 
 CORE_COMMANDS:
 - init, add, remove, dry-run, sync

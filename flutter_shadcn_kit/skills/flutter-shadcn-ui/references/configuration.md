@@ -1,6 +1,6 @@
 # Configuration
 
-Source: `shadcn_flutter_cli/doc/site/concepts.md` and command docs.
+Source: this skill reference set and command help output.
 
 ## Primary Files
 

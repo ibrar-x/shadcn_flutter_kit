@@ -1,6 +1,6 @@
 # Flutter Shadcn CLI Command Reference (CLI-Accurate)
 
-Source: `shadcn_flutter_cli/doc/site/commands/*`
+Source: this skill reference set plus CLI `--help` output.
 
 ## Discovery
 
@@ -174,4 +174,4 @@ flutter_shadcn docs [--generate]
 
 ## Accuracy Rule
 
-If a flag is not in `doc/site/commands/*.md` and not in command `--help`, do not assume it exists.
+If a flag is not in this skill and not in command `--help`, do not assume it exists.

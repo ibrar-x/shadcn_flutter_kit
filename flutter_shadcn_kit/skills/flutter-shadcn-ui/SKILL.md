@@ -2,8 +2,11 @@
 name: flutter-shadcn-ui
 description: >
   CLI-first guidance for using flutter_shadcn in Flutter projects. Prefer documented
-  CLI workflows for discovery, install, theming, validation, and skill setup.
+  
+  CLI workflows for discovery, install, theming, validation, and skill setup. 
+  
   Use manual/file-inspection fallback only when CLI execution is unavailable or fails.
+
 compatibility: >
   Requires Flutter/Dart tooling and flutter_shadcn_cli.
   Network is required for remote registry operations unless --offline is used.
@@ -14,23 +17,23 @@ compatibility: >
 ## Mission
 
 Use `flutter_shadcn` as the primary interface for all shadcn component work in Flutter projects.
-Treat CLI docs under `shadcn_flutter_cli/doc/site` as canonical.
+Treat this skill bundle and CLI `--help` output as canonical in runtime environments.
 
 ## Operating Rules
 
 1. CLI first. Use commands before reading or editing registry/component files directly.
-2. No guessed flags. Only use syntax documented in `doc/site` or command `--help` output.
+2. No guessed flags. Only use syntax documented in this skill or command `--help` output.
 3. Manual fallback only when CLI is unavailable or broken.
 4. If fallback is used, state why CLI could not be used and return to CLI flow once recovered.
 
 ## Canonical Sources
 
-- `shadcn_flutter_cli/doc/site/overview.md`
-- `shadcn_flutter_cli/doc/site/getting-started.md`
-- `shadcn_flutter_cli/doc/site/concepts.md`
-- `shadcn_flutter_cli/doc/site/commands/index.md`
-- `shadcn_flutter_cli/doc/site/troubleshooting.md`
-- `shadcn_flutter_cli/doc/site/skills/install-skill.md`
+- `SKILL.md`
+- `references/commands.md`
+- `references/core_concepts.md`
+- `references/configuration.md`
+- `references/troubleshooting.md`
+- `flutter_shadcn --help` and `flutter_shadcn <command> --help`
 
 ## Core CLI Workflow
 
@@ -108,7 +111,7 @@ flutter_shadcn doctor --json
 ```
 
 2. If command or cache issue, follow troubleshooting reset guidance in:
-`shadcn_flutter_cli/doc/site/troubleshooting.md`
+`references/troubleshooting.md`
 
 3. As a temporary manual fallback, inspect only these files:
 

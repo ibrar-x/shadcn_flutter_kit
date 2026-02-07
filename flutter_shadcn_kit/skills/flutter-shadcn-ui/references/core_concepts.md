@@ -1,6 +1,6 @@
 # Core Concepts
 
-Source: `shadcn_flutter_cli/doc/site/concepts.md`
+Source: this skill reference set and CLI behavior.
 
 ## Registry
 

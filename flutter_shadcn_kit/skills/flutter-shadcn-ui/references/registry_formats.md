@@ -1,6 +1,6 @@
 # Registry Formats
 
-Source: `shadcn_flutter_cli/doc/site/registry/*`
+Source: this skill reference set and CLI registry behavior.
 
 ## `index.json`
 
