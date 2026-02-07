@@ -20,11 +20,11 @@ Treat this skill bundle and CLI `--help` output as canonical in runtime environm
 
 ## Canonical Sources
 
-- `SKILL.md`
-- `references/commands.md`
-- `references/core_concepts.md`
-- `references/configuration.md`
-- `references/troubleshooting.md`
+- [SKILL.md](SKILL.md) - Core rules and runtime policy for this skill.
+- [references/commands.md](references/commands.md) - CLI command syntax and options.
+- [references/core_concepts.md](references/core_concepts.md) - Registry, manifests, base widgets, and overlay rules.
+- [references/configuration.md](references/configuration.md) - Config/state files and safe sync flow.
+- [references/troubleshooting.md](references/troubleshooting.md) - Common failures and recovery steps.
 - `flutter_shadcn --help` and `flutter_shadcn <command> --help`
 
 ## Core CLI Workflow
@@ -141,15 +141,15 @@ flutter_shadcn doctor --json
 
 ## References in This Skill
 
-- `references/commands.md`
-- `references/core_concepts.md`
-- `references/configuration.md`
-- `references/common_tasks.md`
-- `references/advanced_usage.md`
-- `references/themes.md`
-- `references/troubleshooting.md`
-- `references/INSTALLATION.md`
-- `references/registry_formats.md`
-- `references/schemas.md`
-- `references/best_practices.md`
-- `references/examples.md`
+- [references/commands.md](references/commands.md) - Command reference and supported flags.
+- [references/core_concepts.md](references/core_concepts.md) - Concepts, base components, and overlay wrapper requirements.
+- [references/configuration.md](references/configuration.md) - Config/state/manifests and sync validation flow.
+- [references/common_tasks.md](references/common_tasks.md) - Common install and lifecycle tasks.
+- [references/advanced_usage.md](references/advanced_usage.md) - JSON/offline and safer change planning workflows.
+- [references/themes.md](references/themes.md) - Theme list/apply flows.
+- [references/troubleshooting.md](references/troubleshooting.md) - Troubleshooting steps for CLI and cache issues.
+- [references/INSTALLATION.md](references/INSTALLATION.md) - Skill installation (CLI-first, manual fallback).
+- [references/registry_formats.md](references/registry_formats.md) - Registry file roles and usage.
+- [references/schemas.md](references/schemas.md) - Validation and schema checks.
+- [references/best_practices.md](references/best_practices.md) - Operational guidelines.
+- [references/examples.md](references/examples.md) - End-to-end command examples.
