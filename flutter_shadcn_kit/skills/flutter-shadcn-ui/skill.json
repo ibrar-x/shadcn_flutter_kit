@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "flutter-shadcn-ui",
   "name": "Flutter Shadcn UI",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "CLI-first guidance for flutter_shadcn component workflows. Uses manual fallback only when CLI execution is unavailable or failing.",
   "author": "Flutter Shadcn Contributors",
   "license": "MIT",

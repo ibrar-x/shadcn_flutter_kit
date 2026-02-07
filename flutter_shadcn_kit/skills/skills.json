@@ -7,7 +7,7 @@
     {
       "id": "flutter-shadcn-ui",
       "name": "Flutter Shadcn UI",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "description": "CLI-first guidance for flutter_shadcn workflows with manual fallback only when the CLI fails.",
       "status": "stable",
       "category": "ui-development",

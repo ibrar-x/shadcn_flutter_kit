@@ -41,3 +41,36 @@ Commands that support `--json` return:
 ## Offline Mode
 
 Use `--offline` to disable network and rely on cached registry/index data.
+
+## Base Widgets from Registry
+
+Core base widgets/composites you should know:
+
+- `app`: provides `ShadcnApp` (app wrapper with overlay + theme wiring)
+- `scaffold`: provides `Scaffold` and `AppBar` base layout primitives
+- `app_bar`: composite export for `AppBar`, `OutlinedContainer`, `OutlineButton`, `ButtonDensity`
+- `card`: provides `Card` and `SurfaceCard`
+
+## Overlay Wrapper Requirement
+
+If a selected component depends on overlay behavior, wrap the tree with one of:
+- `ShadcnApp`
+- `ShadcnLayer`
+- `OverlayManagerLayer`
+
+Overlay category IDs in the registry:
+- `alert_dialog`, `context_menu`, `dialog`, `drawer`, `dropdown_menu`, `eye_dropper`
+- `hover_card`, `menu`, `menubar`, `overlay`, `popover`, `popup`
+- `refresh_trigger`, `sheet`, `swiper`, `toast`, `tooltip`
+
+Components outside the overlay category that currently depend on overlay IDs:
+- `color_input`, `color_picker`, `command`, `error_system`, `form_field`
+- `item_picker`, `material`, `navigation_menu`, `scaffold`, `select`, `tracker`
+
+Verification flow:
+
+```bash
+flutter_shadcn dry-run <component>
+```
+
+If the preview includes overlay-category dependencies, enforce the wrapper requirement.

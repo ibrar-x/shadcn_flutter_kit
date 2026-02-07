@@ -1,5 +1,5 @@
 SKILL_ID: flutter-shadcn-ui
-SKILL_VERSION: 1.1.0
+SKILL_VERSION: 1.1.1
 SKILL_NAME: Flutter Shadcn UI
 SKILL_TYPE: domain-expert
 SKILL_CATEGORY: ui-development
@@ -14,6 +14,8 @@ PRIMARY_RULES:
 2. Do not invent commands or flags not present in docs/help output.
 3. Use manual fallback only after CLI failure is confirmed.
 4. Return to CLI flow once tooling issues are resolved.
+5. If components require overlay behavior, require `ShadcnApp` or `ShadcnLayer` or `OverlayManagerLayer`.
+6. Treat `app`, `scaffold`, `app_bar`, and `card` as base building blocks; note `SurfaceCard` and `AppBar` availability.
 
 CANONICAL_DOCS:
 - SKILL.md

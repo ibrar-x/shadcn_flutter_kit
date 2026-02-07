@@ -48,3 +48,16 @@ flutter_shadcn validate
 flutter_shadcn audit
 flutter_shadcn deps
 ```
+
+## Use Overlay Components Safely
+
+If `dry-run` shows overlay dependencies, ensure one wrapper is present at app/root scope:
+- `ShadcnApp`
+- `ShadcnLayer`
+- `OverlayManagerLayer`
+
+Install common base building blocks:
+
+```bash
+flutter_shadcn add app scaffold app_bar card
+```

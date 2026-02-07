@@ -1,15 +1,7 @@
 ---
 name: flutter-shadcn-ui
-description: >
-  CLI-first guidance for using flutter_shadcn in Flutter projects. Prefer documented
-  
-  CLI workflows for discovery, install, theming, validation, and skill setup. 
-  
-  Use manual/file-inspection fallback only when CLI execution is unavailable or fails.
-
-compatibility: >
-  Requires Flutter/Dart tooling and flutter_shadcn_cli.
-  Network is required for remote registry operations unless --offline is used.
+description: CLI-first guidance for using flutter_shadcn in Flutter projects. Prefer documented CLI workflows for discovery, install, theming, validation, and skill setup. Use manual/file-inspection fallback only when CLI execution is unavailable or fails.
+compatibility: Requires Flutter/Dart tooling and flutter_shadcn_cli. Network is required for remote registry operations unless --offline is used.
 ---
 
 # Flutter Shadcn UI Skill
@@ -94,6 +86,30 @@ flutter_shadcn deps
 - Diagnostics: `doctor`, `validate`, `audit`, `deps`
 - Skill tooling: `install-skill`
 - CLI maintenance: `version`, `upgrade`, `feedback`, `docs`
+
+## Base Components and Overlay Wrappers
+
+When using overlay-capable components, ensure the widget tree is wrapped with one of:
+- `ShadcnApp` (recommended app-level wrapper)
+- `ShadcnLayer`
+- `OverlayManagerLayer`
+
+Registry-backed wrapper guidance:
+- `app` composite provides `ShadcnApp` and already wires `OverlayManagerLayer`.
+- `scaffold` is a base layout component and depends on `drawer` (overlay category).
+- `app_bar` is a base composite export over `AppBar` + outline primitives.
+- `card` exposes `Card` and `SurfaceCard` as base surface widgets.
+
+Overlay category components in the registry:
+- `alert_dialog`, `context_menu`, `dialog`, `drawer`, `dropdown_menu`, `eye_dropper`
+- `hover_card`, `menu`, `menubar`, `overlay`, `popover`, `popup`
+- `refresh_trigger`, `sheet`, `swiper`, `toast`, `tooltip`
+
+Non-overlay components that currently depend on overlay components:
+- `color_input`, `color_picker`, `command`, `error_system`, `form_field`
+- `item_picker`, `material`, `navigation_menu`, `scaffold`, `select`, `tracker`
+
+Rule: if `dry-run` shows overlay-category dependencies, require one of the wrappers above.
 
 ## JSON and Offline Modes
 
