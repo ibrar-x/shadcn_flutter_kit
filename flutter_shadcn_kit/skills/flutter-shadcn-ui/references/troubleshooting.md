@@ -1,29 +1,38 @@
 # Troubleshooting
 
-## Component Not Found
+Source: `shadcn_flutter_cli/doc/site/troubleshooting.md`
+
+## Common Issues
+
+### Flag not found
+
+Refresh command snapshots and reactivate CLI:
 
 ```bash
-flutter_shadcn search <name>  # Search by keyword
-flutter_shadcn list --refresh  # Force cache refresh
+rm -f ~/.pub-cache/hosted/*/bin/cache/flutter_shadcn_cli/* || true
+rm -f .dart_tool/pub/bin/flutter_shadcn_cli/*.snapshot || true
+dart pub global activate flutter_shadcn_cli
 ```
 
-## Dependency Conflicts
+### Registry not found
+
+Set a valid local or remote registry target in command options/config.
+
+### Offline cache missing
+
+Run once without `--offline` to populate cache.
+
+### Schema validation failure
 
 ```bash
-flutter_shadcn dry-run <component>  # Preview dependencies
-flutter_shadcn doctor             # Validate setup
+flutter_shadcn doctor
+flutter_shadcn validate
 ```
 
-## Theme Not Applying
+### Theme file not found
 
-```bash
-flutter_shadcn sync              # Reapply current theme
-flutter_shadcn theme modern-minimal  # Reapply specific theme
-```
+Run `init` first to create shared theme files.
 
-## Cache Issues
+## Fallback Rule
 
-```bash
-flutter_shadcn list --refresh    # Clear and rebuild cache
-flutter_shadcn doctor            # Show cache location
-```
+Manual registry/file inspection is fallback-only and should be used only when CLI execution is failing.

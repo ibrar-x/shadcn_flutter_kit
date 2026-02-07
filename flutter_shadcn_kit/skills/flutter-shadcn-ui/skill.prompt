@@ -1,219 +1,40 @@
 SKILL_ID: flutter-shadcn-ui
-SKILL_VERSION: 1.0.0
+SKILL_VERSION: 1.1.0
+SKILL_NAME: Flutter Shadcn UI
 SKILL_TYPE: domain-expert
 SKILL_CATEGORY: ui-development
 
-SKILL_NAME: Flutter Shadcn UI
-SKILL_DESCRIPTION: Build beautiful, production-ready Flutter UI components using shadcn-flutter registry. Enables AI models to discover, install, configure, and troubleshoot shadcn components with complete CLI knowledge, 42 theme presets, and real-world workflow examples.
+SKILL_DESCRIPTION:
+CLI-first skill for `flutter_shadcn` workflows in Flutter projects.
+Use documented CLI commands as source of truth.
+Use manual fallback only when CLI execution is unavailable or failing.
 
-PRIMARY_USE_CASES:
-  - Component discovery and selection
-  - Project initialization and setup
-  - Component installation with automatic dependency resolution
-  - UI implementation guidance with code examples
-  - Theme selection and customization
-  - Installation troubleshooting and diagnostics
-  - Dependency conflict resolution
-  - Best practices and workflow guidance
+PRIMARY_RULES:
+1. Run CLI discovery before file inspection (`list`, `search`, `info`, `dry-run`).
+2. Do not invent commands or flags not present in docs/help output.
+3. Use manual fallback only after CLI failure is confirmed.
+4. Return to CLI flow once tooling issues are resolved.
 
-COMPATIBLE_AI_MODELS:
-  - claude
-  - chatgpt
-  - cursor
-  - gemini
-  - llama
-  - mistral
-  - any-ai-model-supporting-file-uploads
+CANONICAL_DOCS:
+- shadcn_flutter_cli/doc/site/overview.md
+- shadcn_flutter_cli/doc/site/getting-started.md
+- shadcn_flutter_cli/doc/site/concepts.md
+- shadcn_flutter_cli/doc/site/commands/index.md
+- shadcn_flutter_cli/doc/site/troubleshooting.md
 
-SUPPORTED_PLATFORMS:
-  - ios
-  - android
-  - macos
-  - windows
-  - web
-  - linux
+CORE_COMMANDS:
+- init, add, remove, dry-run, sync
+- list, search, info
+- theme, assets, platform
+- doctor, validate, audit, deps
+- install-skill, version, upgrade, feedback, docs
 
-REQUIRED_TOOLS:
-  - flutter-shadcn cli
-  - flutter sdk 3.0.0+
-  - dart sdk 3.0.0+
+FALLBACK_CONDITION:
+Only if `flutter_shadcn` cannot run or command behavior is failing due environment/tooling problems.
 
-SKILL_CONTENT_STRUCTURE:
-  - Main Definition: SKILL.md (5000 words)
-  - Overview: README.md (3500 words)
-  - Installation Guide: INSTALLATION.md (10000 words)
-  - CLI Reference: references/commands.md (15000 words)
-  - Schema Documentation: references/schemas.md (12000 words)
-  - Real-World Examples: references/examples.md (10000 words)
-
-TOTAL_DOCUMENTATION: 52000 words
-TOTAL_SIZE_UNCOMPRESSED: ~50KB
-TOTAL_SIZE_COMPRESSED_ZIP: 27KB
-TOTAL_SIZE_COMPRESSED_TARGZ: 22KB
-
-DOCUMENTED_COMMANDS: 13
-COMMAND_OPTIONS_DOCUMENTED: 60+
-CODE_EXAMPLES: 100+
-REAL_WORLD_WORKFLOWS: 8
-
-AVAILABLE_THEMES: 42
-THEME_VARIANTS: light/dark
-
-CAPABILITIES:
-  ✓ Component Discovery - Search, list, understand components
-  ✓ Dependency Resolution - Automatic recursive dependency installation
-  ✓ Theme Management - Apply 42 preset themes with code generation
-  ✓ CLI Guidance - Complete command reference with all options
-  ✓ Troubleshooting - Diagnostic procedures and fixes
-  ✓ Best Practices - Proven patterns and workflows
-  ✓ Schema Understanding - Component structure and registry formats
-  ✓ Workflow Automation - Step-by-step guides for common tasks
-
-FEATURES:
-  [✓] CLI Command Documentation (13 commands)
-  [✓] Component Discovery and Search
-  [✓] Dependency Resolution and Management
-  [✓] Theme System Documentation (42 presets)
-  [✓] Real-World Workflow Examples (8 complete examples)
-  [✓] Schema and Structure Documentation
-  [✓] Troubleshooting and Diagnostic Procedures
-  [✓] Best Practices and Patterns
-  [✓] Platform-Specific Configuration
-  [✓] Installation Methods for All AI Models
-
-INSTALLATION_METHODS:
-  1. CLI: flutter_shadcn install-skill --skill flutter-shadcn-ui
-  2. Manual: Copy to .claude/, .gpt4/, .cursor/, .gemini/
-  3. Custom GPT: Upload SKILL.md + references/ to ChatGPT editor
-
-SETUP_TIME: 2-5 minutes
-COMPLEXITY: Simple
-DEPENDENCIES: None (pure markdown)
-
-KNOWLEDGE_PROVIDED:
-  - All 13 flutter_shadcn CLI commands
-  - 60+ command options and flags
-  - 100+ command usage examples
-  - 42 color theme presets with descriptions
-  - Component structure and schemas
-  - Dependency resolution algorithms
-  - Platform configuration details
-  - Real-world workflow patterns
-  - Troubleshooting procedures
-  - Best practices and recommendations
-
-QUALITY_METRICS:
-  Documentation Completeness: 100%
-  Example Coverage: Comprehensive
-  Real-World Scenarios: 8 complete workflows
-  Code Quality: Production-grade
-  Accuracy: Verified against CLI documentation
-  Maintenance Status: Active
-
-TRIGGER_KEYWORDS:
-  - flutter components
-  - shadcn ui
-  - component library
-  - material design
-  - theme management
-  - cli installation
-  - flutter development
-  - ui patterns
-  - responsive design
-  - form building
-  - data tables
-  - navigation
-  - themes and colors
-  - component dependencies
-  - flutter setup
-
-WHEN_TO_USE_THIS_SKILL:
-  ✓ User asks about Flutter Shadcn components
-  ✓ User needs component discovery/search
-  ✓ User is installing shadcn components
-  ✓ User needs theme recommendations
-  ✓ User has installation issues
-  ✓ User needs Flutter UI patterns
-  ✓ User wants best practices
-  ✓ User needs dependency help
-  ✓ User is troubleshooting project
-  ✓ User needs code examples
-
-WHEN_NOT_TO_USE:
-  ✗ User asks about other Flutter UI libraries
-  ✗ User needs general Flutter development help (not shadcn-specific)
-  ✗ User asks about non-component topics
-  ✗ User needs Dart language help (not shadcn-specific)
-
-INTEGRATION_POINTS:
-  - flutter_shadcn CLI (command execution)
-  - Flutter projects (component installation)
-  - Registry (component discovery)
-  - Theme system (42 preset themes)
-  - AI model file systems (.claude/, .gpt4/, etc.)
-
-FILE_MANIFEST:
-  - SKILL.md
-  - README.md
-  - INSTALLATION.md
-  - references/commands.md
-  - references/schemas.md
-  - references/examples.md
-  - skill.json (machine-readable manifest)
-  - skill.yaml (CLI-compatible manifest)
-
-DOCUMENTATION_FILES_PROVIDED:
-  - 00_READ_ME_FIRST.txt
-  - START_HERE.md
-  - QUICK_START.md
-  - SKILL_OVERVIEW.md
-  - INDEX.md
-  - DOWNLOAD_INSTRUCTIONS.md
-  - FINAL_SUMMARY.md
-
-DOWNLOAD_FORMATS:
-  - flutter-shadcn-skill.zip (27KB)
-  - flutter-shadcn-skill.tar.gz (22KB)
-  - Individual .md files
-  - Full folder structure
-
-VERIFICATION:
-  ✓ All commands documented
-  ✓ All options documented
-  ✓ Real-world examples included
-  ✓ Schema documentation complete
-  ✓ Installation guides for all models
-  ✓ Troubleshooting procedures included
-  ✓ Best practices documented
-  ✓ No external dependencies required
-
-PERFORMANCE:
-  - Context window efficiency: HIGH (progressive disclosure)
-  - Load time: FAST (markdown-based)
-  - Relevance: HIGH (specific to flutter_shadcn)
-  - Coverage: COMPREHENSIVE (all commands and features)
-
-SUPPORTED_QUERIES:
-  - "What components are available?"
-  - "How do I install a component?"
-  - "What's the command to [do something]?"
-  - "How do I fix [issue]?"
-  - "Show me how to [build something]"
-  - "What's the best way to [pattern]?"
-  - "I'm getting this error [error]"
-  - "Recommend components for [use case]"
-  - "How do I apply a theme?"
-  - "What are best practices for [topic]?"
-
-EXPORT_READY: true
-DISTRIBUTION_READY: true
-PRODUCTION_READY: true
-
-AUTHOR: Flutter Shadcn Skill Generator
-CREATED: 2026-02-04
-UPDATED: 2026-02-04
-LICENSE: MIT
-
-STATUS: STABLE
-QUALITY_LEVEL: PRODUCTION
-MAINTENANCE: ACTIVE
+FALLBACK_FILES:
+- .shadcn/config.json
+- .shadcn/state.json
+- <installPath>/components.json
+- .shadcn/components/*.json
+- registry/index.json and registry/components.json
