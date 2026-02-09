@@ -14740,8 +14740,7 @@
       ],
       "dependsOn": [
         "card",
-        "button",
-        "divider"
+        "button"
       ],
       "pubspec": {
         "dependencies": {
@@ -15275,6 +15274,18 @@
           "destination": "{installPath}/components/display/text_animate/_impl/core/combined_effect.dart"
         },
         {
+          "source": "registry/components/display/text_animate/_impl/core/fade_in_effect.dart",
+          "destination": "{installPath}/components/display/text_animate/_impl/core/fade_in_effect.dart"
+        },
+        {
+          "source": "registry/components/display/text_animate/_impl/core/scramble_in_effect.dart",
+          "destination": "{installPath}/components/display/text_animate/_impl/core/scramble_in_effect.dart"
+        },
+        {
+          "source": "registry/components/display/text_animate/_impl/core/slide_in_effect.dart",
+          "destination": "{installPath}/components/display/text_animate/_impl/core/slide_in_effect.dart"
+        },
+        {
           "source": "registry/components/display/text_animate/_impl/core/streaming_cursor.dart",
           "destination": "{installPath}/components/display/text_animate/_impl/core/streaming_cursor.dart"
         },
@@ -15340,6 +15351,15 @@
               "source": "registry/components/display/text_animate/_impl/core/blur_in_effect.dart"
             },
             {
+              "source": "registry/components/display/text_animate/_impl/core/fade_in_effect.dart"
+            },
+            {
+              "source": "registry/components/display/text_animate/_impl/core/slide_in_effect.dart"
+            },
+            {
+              "source": "registry/components/display/text_animate/_impl/core/scramble_in_effect.dart"
+            },
+            {
               "source": "registry/components/display/text_animate/_impl/core/combined_effect.dart"
             },
             {
@@ -15369,6 +15389,117 @@
         "style_value"
       ],
       "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": []
+    },
+    {
+      "id": "filter_bar",
+      "name": "Filter Bar",
+      "description": "Controlled filter toolbar for list/table pages with search, sort, chips, date range, and clear-all.",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "filter_bar",
+        "filter",
+        "search",
+        "sort"
+      ],
+      "version": "1.0.0",
+      "files": [
+        {
+          "source": "registry/components/layout/filter_bar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/filter_bar/GETTING_STARTED.md"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/README.md",
+          "destination": "{installPath}/components/layout/filter_bar/README.md"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/core/filter_bar_content.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/core/filter_bar_content.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/extensions/filter_state_extensions.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/extensions/filter_state_extensions.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_state.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/state/filter_bar_state.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/styles/filter_bar_style.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/styles/filter_bar_style.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/themes/filter_bar_theme.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/themes/filter_bar_theme.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/utils/filter_bar_utils.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/utils/filter_bar_utils.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/_impl/variants/filter_bar_layout.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/variants/filter_bar_layout.dart"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/filter_bar.dart",
+          "destination": "{installPath}/components/layout/filter_bar/filter_bar.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/layout/filter_bar/_impl/core/filter_bar_content.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/extensions/filter_state_extensions.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_state.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/styles/filter_bar_style.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/themes/filter_bar_theme.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/utils/filter_bar_utils.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/variants/filter_bar_layout.dart"
+            }
+          ]
+        },
+        {
+          "source": "registry/components/layout/filter_bar/filter_bar.meta.json",
+          "destination": "{installPath}/components/layout/filter_bar/filter_bar.meta.json"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/meta.json",
+          "destination": "{installPath}/components/layout/filter_bar/meta.json"
+        },
+        {
+          "source": "registry/components/layout/filter_bar/preview.dart",
+          "destination": "{installPath}/components/layout/filter_bar/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme",
+        "lucide_icons",
+        "localizations"
+      ],
+      "dependsOn": [
+        "button",
+        "chip",
+        "calendar",
+        "text_field",
+        "select",
+        "date_picker",
+        "form_field",
+        "scaffold"
+      ],
       "pubspec": {
         "dependencies": {}
       },

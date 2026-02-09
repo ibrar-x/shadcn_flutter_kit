@@ -53,6 +53,7 @@
     "feature_carousel",
     "file_input",
     "file_picker",
+    "filter_bar",
     "flex",
     "focus_outline",
     "form",
@@ -569,6 +570,16 @@
         "drag-drop",
         "tile",
         "mobile"
+      ]
+    },
+    "filter_bar": {
+      "version": "1.0.0",
+      "tags": [
+        "layout",
+        "filter_bar",
+        "filter",
+        "search",
+        "sort"
       ]
     },
     "flex": {
@@ -1287,5 +1298,5 @@
       ]
     }
   },
-  "updatedAt": "2026-02-09T11:03:11.838139Z"
+  "updatedAt": "2026-02-09T13:15:21.248303Z"
 }
