@@ -134,28 +134,19 @@ extension _FileUploadStateCompact on _FileUploadState {
     );
   }
 
-  /// Renders title/subtitle block above non-mobile surfaces.
+  /// Renders the title block above non-mobile surfaces.
   Widget _buildTitleBlock(ThemeData theme) {
-    if (widget.title == null && widget.subtitle == null) {
+    if (widget.title == null) {
       return const SizedBox.shrink();
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.title != null)
-          DefaultTextStyle.merge(
-            style: theme.typography.large.merge(theme.typography.semiBold),
-            child: widget.title!,
-          ),
-        if (widget.subtitle != null) DensityGap(0.75),
-        if (widget.subtitle != null)
-          DefaultTextStyle.merge(
-            style: theme.typography.small.copyWith(
-              color: theme.colorScheme.mutedForeground,
-            ),
-            child: widget.subtitle!,
-          ),
+        DefaultTextStyle.merge(
+          style: theme.typography.large.merge(theme.typography.semiBold),
+          child: widget.title!,
+        ),
         DensityGap(gapLg),
       ],
     );

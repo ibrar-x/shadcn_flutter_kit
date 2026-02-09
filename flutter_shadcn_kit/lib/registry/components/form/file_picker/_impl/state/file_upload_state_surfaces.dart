@@ -44,6 +44,16 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           textAlign: TextAlign.center,
           child: Text(_dragDropLabel()),
         ),
+        if (widget.subtitle != null) ...[
+          DensityGap(gapSm),
+          DefaultTextStyle.merge(
+            style: theme.typography.xSmall.copyWith(
+              color: theme.colorScheme.mutedForeground,
+            ),
+            textAlign: TextAlign.center,
+            child: widget.subtitle!,
+          ),
+        ],
         if (widget.hint != null) ...[
           DensityGap(gapSm),
           DefaultTextStyle.merge(
@@ -181,37 +191,53 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                   horizontal: theme.density.baseContainerPadding * scaling,
                   vertical: theme.density.baseGap * scaling,
                 ),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: theme.density.baseContainerPadding * scaling,
-                    vertical: theme.density.baseGap * scaling,
-                  ),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.muted.withOpacity(0.45),
-                    borderRadius: BorderRadius.circular(6 * scaling),
-                  ),
-                  child: DefaultTextStyle.merge(
-                    style: theme.typography.small
-                        .merge(theme.typography.semiBold)
-                        .copyWith(color: textColor),
-                    child: Text(buttonLabel),
-                  ),
-                ),
-                DensityGap(0.75),
-                Expanded(
-                  child: DefaultTextStyle.merge(
-                    style: theme.typography.small.copyWith(
-                      color: fileNameColor,
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal:
+                            theme.density.baseContainerPadding * scaling,
+                        vertical: theme.density.baseGap * scaling,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.muted.withOpacity(0.45),
+                        borderRadius: BorderRadius.circular(6 * scaling),
+                      ),
+                      child: DefaultTextStyle.merge(
+                        style: theme.typography.small
+                            .merge(theme.typography.semiBold)
+                            .copyWith(color: textColor),
+                        child: Text(buttonLabel),
+                      ),
                     ),
-                    child: Text(
-                      selectedLabel,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    DensityGap(0.75),
+                    Expanded(
+                      child: DefaultTextStyle.merge(
+                        style: theme.typography.small.copyWith(
+                          color: fileNameColor,
+                        ),
+                        child: Text(
+                          selectedLabel,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
+                if (widget.subtitle != null) ...[
+                  DensityGap(0.5),
+                  DefaultTextStyle.merge(
+                    style: theme.typography.xSmall.copyWith(
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    child: widget.subtitle!,
+                  ),
+                ],
               ],
             ),
           ),
