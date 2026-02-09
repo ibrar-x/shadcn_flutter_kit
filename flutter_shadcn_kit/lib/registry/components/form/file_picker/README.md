@@ -55,8 +55,11 @@ Future<List<FileLike>> onPick(FileUploadPickRequest request) async {
 FileUpload(
   pickFiles: onPick,
   title: const Text('Upload files'),
-  hint: const Text('Drag files here or click to pick.'),
-  options: const FileUploadDragDropOptions(),
+  options: const FileUploadDragDropOptions(
+    subtitle: Text('PDFs, images, and other supported files.'),
+    hint: Text('Drag files here or click the dropzone to pick.'),
+    idleLabel: 'Drag files here or click to pick files.',
+  ),
 )
 ```
 
@@ -70,7 +73,11 @@ Notes:
 FileUpload(
   pickFiles: onPick,
   title: const Text('Attach files'),
-  options: const FileUploadTileOptions(actionLabel: 'Add files'),
+  options: const FileUploadTileOptions(
+    actionLabel: 'Add files',
+    subtitle: Text('No file chosen'),
+    hint: Text('Good for touch-first layouts.'),
+  ),
 )
 ```
 

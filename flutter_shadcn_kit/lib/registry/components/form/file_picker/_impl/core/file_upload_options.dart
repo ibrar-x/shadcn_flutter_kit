@@ -24,6 +24,15 @@ class FileUploadDragDropOptions extends FileUploadOptions {
     this.enableDropzoneClick = true,
     this.dropTargetBuilder,
     this.icon,
+    this.subtitle,
+    this.hint,
+    this.idleLabel,
+    this.clickToPickLabel,
+    this.draggingLabel,
+    this.uploadingLabel,
+    this.successLabel,
+    this.errorLabel,
+    this.disabledLabel,
   });
 
   /// Enables native/web drag-and-drop where supported.
@@ -38,19 +47,57 @@ class FileUploadDragDropOptions extends FileUploadOptions {
   /// Optional icon shown in the drag-drop surface.
   final Widget? icon;
 
+  /// Optional subtitle shown inside the drag-drop surface.
+  final Widget? subtitle;
+
+  /// Optional hint shown inside the drag-drop surface.
+  final Widget? hint;
+
+  /// Override label for idle state when drag-and-drop is enabled.
+  final String? idleLabel;
+
+  /// Override label for idle state when click-only mode is active.
+  final String? clickToPickLabel;
+
+  /// Override label for active dragging state.
+  final String? draggingLabel;
+
+  /// Override label while upload is in progress.
+  final String? uploadingLabel;
+
+  /// Override label when uploads are complete.
+  final String? successLabel;
+
+  /// Override label when the component has errors.
+  final String? errorLabel;
+
+  /// Override label when uploads are disabled.
+  final String? disabledLabel;
+
   @override
   FileUploadVariant get variant => FileUploadVariant.dragDrop;
 }
 
 /// Options for compact tile-style picker (no drag-and-drop behavior).
 class FileUploadTileOptions extends FileUploadOptions {
-  const FileUploadTileOptions({this.actionLabel, this.icon});
+  const FileUploadTileOptions({
+    this.actionLabel,
+    this.icon,
+    this.subtitle,
+    this.hint,
+  });
 
   /// Label used by the tile action segment.
   final String? actionLabel;
 
   /// Optional icon if tile visuals include one in future updates.
   final Widget? icon;
+
+  /// Optional subtitle shown in empty selection slot.
+  final Widget? subtitle;
+
+  /// Optional hint shown below the tile surface.
+  final Widget? hint;
 
   @override
   FileUploadVariant get variant => FileUploadVariant.tile;
@@ -181,7 +228,7 @@ class FileUploadStatusLabels {
   const FileUploadStatusLabels({
     this.uploading = 'Uploading',
     this.completed = 'Completed',
-    this.waiting = 'Waiting',
+    this.waiting = 'Queued',
     this.failed = 'Failed',
   });
 

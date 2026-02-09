@@ -62,9 +62,20 @@ class FileUpload extends _FileUpload {
        super._internal(
          surface: _surfaceFromOptions(options),
          icon: _iconFromOptions(options),
+         surfaceSubtitle: _surfaceSubtitleFromOptions(options),
+         surfaceHint: _surfaceHintFromOptions(options),
          actionLabel: _actionLabelFromOptions(options),
          enableDragDrop: _enableDragDropFromOptions(options),
          enableDropzoneClick: _enableDropzoneClickFromOptions(options),
+         dragDropIdleLabel: _dragDropIdleLabelFromOptions(options),
+         dragDropClickToPickLabel: _dragDropClickToPickLabelFromOptions(
+           options,
+         ),
+         dragDropDraggingLabel: _dragDropDraggingLabelFromOptions(options),
+         dragDropUploadingLabel: _dragDropUploadingLabelFromOptions(options),
+         dragDropSuccessLabel: _dragDropSuccessLabelFromOptions(options),
+         dragDropErrorLabel: _dragDropErrorLabelFromOptions(options),
+         dragDropDisabledLabel: _dragDropDisabledLabelFromOptions(options),
          dropTargetBuilder: _dropTargetBuilderFromOptions(options),
          mobileMode: _mobileModeFromOptions(options),
          compactIcon: _compactIconFromOptions(options),
@@ -107,6 +118,26 @@ class FileUpload extends _FileUpload {
   static String? _actionLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadTileOptions) {
       return options.actionLabel;
+    }
+    return null;
+  }
+
+  static Widget? _surfaceSubtitleFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.subtitle;
+    }
+    if (options is FileUploadTileOptions) {
+      return options.subtitle;
+    }
+    return null;
+  }
+
+  static Widget? _surfaceHintFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.hint;
+    }
+    if (options is FileUploadTileOptions) {
+      return options.hint;
     }
     return null;
   }
@@ -161,6 +192,57 @@ class FileUpload extends _FileUpload {
     }
     return null;
   }
+
+  static String? _dragDropIdleLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.idleLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropClickToPickLabelFromOptions(
+    FileUploadOptions options,
+  ) {
+    if (options is FileUploadDragDropOptions) {
+      return options.clickToPickLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropDraggingLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.draggingLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropUploadingLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.uploadingLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropSuccessLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.successLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropErrorLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.errorLabel;
+    }
+    return null;
+  }
+
+  static String? _dragDropDisabledLabelFromOptions(FileUploadOptions options) {
+    if (options is FileUploadDragDropOptions) {
+      return options.disabledLabel;
+    }
+    return null;
+  }
 }
 
 /// Internal shared widget used by [FileUpload] after option mapping.
@@ -171,9 +253,18 @@ class _FileUpload extends StatefulWidget {
     this.title,
     this.subtitle,
     this.hint,
+    this.surfaceSubtitle,
+    this.surfaceHint,
     this.icon,
     this.enableDragDrop = false,
     this.enableDropzoneClick = false,
+    this.dragDropIdleLabel,
+    this.dragDropClickToPickLabel,
+    this.dragDropDraggingLabel,
+    this.dragDropUploadingLabel,
+    this.dragDropSuccessLabel,
+    this.dragDropErrorLabel,
+    this.dragDropDisabledLabel,
     this.actionLabel,
     this.enabled = true,
     this.allowMultiple = true,
@@ -221,11 +312,20 @@ class _FileUpload extends StatefulWidget {
   final Widget? title;
   final Widget? subtitle;
   final Widget? hint;
+  final Widget? surfaceSubtitle;
+  final Widget? surfaceHint;
   final Widget? icon;
   final String? actionLabel;
 
   final bool enableDragDrop;
   final bool enableDropzoneClick;
+  final String? dragDropIdleLabel;
+  final String? dragDropClickToPickLabel;
+  final String? dragDropDraggingLabel;
+  final String? dragDropUploadingLabel;
+  final String? dragDropSuccessLabel;
+  final String? dragDropErrorLabel;
+  final String? dragDropDisabledLabel;
   final bool enabled;
   final bool allowMultiple;
   final bool withData;

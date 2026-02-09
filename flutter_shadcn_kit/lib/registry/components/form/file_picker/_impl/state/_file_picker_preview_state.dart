@@ -124,16 +124,17 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   controller: _controller,
                   pickFiles: _simulatePick,
                   title: const Text('Upload files'),
-                  subtitle: const Text(
-                    'PDFs, images, and other supported files.',
-                  ),
-                  hint: const Text(
-                    'Drag files here or click the dropzone to pick.',
-                  ),
+                  showHelpfulInfo: true,
                   allowMultiple: true,
                   maxConcurrentUploads: 1,
                   uploadFn: _simulateUpload,
-                  options: const FileUploadDragDropOptions(),
+                  options: const FileUploadDragDropOptions(
+                    subtitle: Text('PDFs, images, and other supported files.'),
+                    hint: Text(
+                      'Drag files here or click the dropzone to pick.',
+                    ),
+                    idleLabel: 'Drag files here or click to pick files.',
+                  ),
                   onError: (error) {
                     // Errors are announced inline; hook for analytics if needed.
                   },
@@ -142,12 +143,14 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                 FileUpload(
                   pickFiles: _simulatePick,
                   title: const Text('Tile picker (no drag-and-drop)'),
-                  subtitle: const Text('Use a button-only file selection UI.'),
-                  hint: const Text('Good for touch-first layouts.'),
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
                   options: const FileUploadTileOptions(
                     actionLabel: 'Add files',
+                    subtitle: Text(
+                      'No File Chosen. Use a button-only file selection UI.',
+                    ),
+                    hint: Text('Good for touch-first layouts.'),
                   ),
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),

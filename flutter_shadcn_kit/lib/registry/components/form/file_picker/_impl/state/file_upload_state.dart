@@ -171,8 +171,9 @@ class _FileUploadState extends State<_FileUpload> {
     final listItems = widget.allowMultiple
         ? _effectiveItems
         : [_effectiveItems.first];
+    final surfaceHint = widget.surfaceHint ?? widget.hint;
     final showTileHint =
-        widget.surface == _FileUploadSurface.tile && widget.hint != null;
+        widget.surface == _FileUploadSurface.tile && surfaceHint != null;
     final belowHelpfulInfo = _buildHelpfulInfo(theme, insideSurface: false);
 
     return Column(
@@ -192,7 +193,7 @@ class _FileUploadState extends State<_FileUpload> {
             style: theme.typography.small.copyWith(
               color: theme.colorScheme.mutedForeground,
             ),
-            child: widget.hint!,
+            child: surfaceHint,
           ),
         if (belowHelpfulInfo != null) DensityGap(gapSm),
         if (belowHelpfulInfo != null) belowHelpfulInfo,

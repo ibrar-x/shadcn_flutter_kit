@@ -28,6 +28,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
               ? theme.colorScheme.mutedForeground
               : theme.colorScheme.mutedForeground.withOpacity(0.5),
         );
+    final surfaceSubtitle = widget.surfaceSubtitle ?? widget.subtitle;
+    final surfaceHint = widget.surfaceHint ?? widget.hint;
     final helpfulInfo = _buildHelpfulInfo(theme, insideSurface: true);
 
     return Column(
@@ -44,24 +46,24 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           textAlign: TextAlign.center,
           child: Text(_dragDropLabel()),
         ),
-        if (widget.subtitle != null) ...[
+        if (surfaceSubtitle != null) ...[
           DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
             ),
             textAlign: TextAlign.center,
-            child: widget.subtitle!,
+            child: surfaceSubtitle,
           ),
         ],
-        if (widget.hint != null) ...[
+        if (surfaceHint != null) ...[
           DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
             ),
             textAlign: TextAlign.center,
-            child: widget.hint!,
+            child: surfaceHint,
           ),
         ],
         if (helpfulInfo != null) ...[DensityGap(gapSm), helpfulInfo],
@@ -71,23 +73,26 @@ extension _FileUploadStateSurfaces on _FileUploadState {
 
   /// Returns contextual drag-drop helper text from current state.
   String _dragDropLabel() {
-    if (!widget.enabled) return 'File uploads disabled';
+    if (!widget.enabled) {
+      return widget.dragDropDisabledLabel ?? 'File uploads disabled';
+    }
     if (_dragActive || _state == FileUploadState.dragging) {
-      return 'Drop files to upload';
+      return widget.dragDropDraggingLabel ?? 'Drop files to upload';
     }
     switch (_state) {
       case FileUploadState.uploading:
-        return 'Uploading files...';
+        return widget.dragDropUploadingLabel ?? 'Uploading files...';
       case FileUploadState.success:
-        return 'Files ready';
+        return widget.dragDropSuccessLabel ?? 'Files ready';
       case FileUploadState.error:
-        return 'Fix errors to continue';
+        return widget.dragDropErrorLabel ?? 'Fix errors to continue';
       case FileUploadState.idle:
       case FileUploadState.disabled:
       case FileUploadState.dragging:
         return widget.enableDragDrop
-            ? 'Drag files here or click to pick files.'
-            : 'Click to pick files.';
+            ? (widget.dragDropIdleLabel ??
+                  'Drag files here or click to pick files.')
+            : (widget.dragDropClickToPickLabel ?? 'Click to pick files.');
     }
   }
 
@@ -156,6 +161,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
 
     final buttonLabel = widget.actionLabel ?? 'Choose File';
     final selectedLabel = _tileSelectionLabel();
+    final surfaceSubtitle = widget.surfaceSubtitle ?? widget.subtitle;
     final hasSelection = _effectiveItems.isNotEmpty;
     final textColor = widget.enabled
         ? theme.colorScheme.foreground
@@ -227,12 +233,12 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             )
-                          : widget.subtitle != null
+                          : surfaceSubtitle != null
                           ? DefaultTextStyle.merge(
                               style: theme.typography.small.copyWith(
                                 color: fileNameColor,
                               ),
-                              child: widget.subtitle!,
+                              child: surfaceSubtitle,
                             )
                           : DefaultTextStyle.merge(
                               style: theme.typography.small.copyWith(
