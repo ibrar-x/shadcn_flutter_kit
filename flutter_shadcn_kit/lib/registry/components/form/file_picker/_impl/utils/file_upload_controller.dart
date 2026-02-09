@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 
@@ -25,7 +26,11 @@ class FileUploadController extends ChangeNotifier
 
   final List<FileUploadError> _errors = [];
   final Map<String, StreamSubscription<double>> _uploads = {};
+  final ListQueue<FileLike> _uploadQueue = ListQueue<FileLike>();
   List<FileUploadItem> _items;
+  int _activeUploads = 0;
+  UploadFn? _uploadFn;
+  int _maxConcurrentUploads = 1;
 
   @override
   List<FileUploadItem> get items => List.unmodifiable(_items);
@@ -34,9 +39,8 @@ class FileUploadController extends ChangeNotifier
   List<FileUploadError> get errors => List.unmodifiable(_errors);
 
   @override
-  bool get isUploading => _items.any(
-        (item) => item.status == FileUploadItemStatus.uploading,
-      );
+  bool get isUploading =>
+      _items.any((item) => item.status == FileUploadItemStatus.uploading);
 
   @override
   bool get hasItems => _items.isNotEmpty;
@@ -49,6 +53,7 @@ class FileUploadController extends ChangeNotifier
 
   @override
   void clear() {
+    _clearUploads();
     _items = [];
     _errors.clear();
     notifyListeners();
@@ -81,12 +86,17 @@ class FileUploadController extends ChangeNotifier
 
   @override
   void removeFile(FileLike file) {
+    _cancelUploadFor(file.id);
     _items.removeWhere((item) => item.file.id == file.id);
     notifyListeners();
   }
 
   @override
-  void updateItem(FileLike file, FileUploadItemStatus status, double? progress) {
+  void updateItem(
+    FileLike file,
+    FileUploadItemStatus status,
+    double? progress,
+  ) {
     final index = _items.indexWhere((item) => item.file.id == file.id);
     if (index == -1) return;
     _items[index] = _items[index].copyWith(status: status, progress: progress);
@@ -94,32 +104,83 @@ class FileUploadController extends ChangeNotifier
   }
 
   @override
-  void startUploads(UploadFn uploadFn) {
+  void startUploads(UploadFn uploadFn, {int maxConcurrent = 1}) {
+    _uploadFn = uploadFn;
+    _maxConcurrentUploads = maxConcurrent < 1 ? 1 : maxConcurrent;
     for (final item in _items) {
       if (item.status == FileUploadItemStatus.success) continue;
-      _uploads[item.file.id]?.cancel();
-      updateItem(item.file, FileUploadItemStatus.uploading, 0);
-      _uploads[item.file.id] = uploadFn(item.file).listen(
-        (progress) {
-          final clamped = progress.clamp(0, 1).toDouble();
-          updateItem(item.file, FileUploadItemStatus.uploading, clamped);
-        },
-        onError: (_) {
-          updateItem(item.file, FileUploadItemStatus.error, null);
-        },
-        onDone: () {
-          updateItem(item.file, FileUploadItemStatus.success, 1);
-        },
+      final alreadyQueued = _uploadQueue.any(
+        (entry) => entry.id == item.file.id,
       );
+      final alreadyUploading = _uploads.containsKey(item.file.id);
+      if (alreadyQueued || alreadyUploading) continue;
+      updateItem(item.file, FileUploadItemStatus.idle, null);
+      _uploadQueue.addLast(item.file);
+    }
+    _pumpUploadQueue();
+  }
+
+  void _pumpUploadQueue() {
+    final uploadFn = _uploadFn;
+    if (uploadFn == null) return;
+    while (_activeUploads < _maxConcurrentUploads && _uploadQueue.isNotEmpty) {
+      final file = _uploadQueue.removeFirst();
+      _startUpload(file, uploadFn);
     }
   }
 
-  @override
-  void dispose() {
+  void _startUpload(FileLike file, UploadFn uploadFn) {
+    _activeUploads += 1;
+    _uploads[file.id]?.cancel();
+    updateItem(file, FileUploadItemStatus.uploading, 0);
+    _uploads[file.id] = uploadFn(file).listen(
+      (progress) {
+        final clamped = progress.clamp(0, 1).toDouble();
+        updateItem(file, FileUploadItemStatus.uploading, clamped);
+      },
+      onError: (_) {
+        updateItem(file, FileUploadItemStatus.error, null);
+        _completeUpload(file.id);
+      },
+      onDone: () {
+        updateItem(file, FileUploadItemStatus.success, 1);
+        _completeUpload(file.id);
+      },
+    );
+  }
+
+  void _completeUpload(String fileId) {
+    final sub = _uploads.remove(fileId);
+    sub?.cancel();
+    if (_activeUploads > 0) {
+      _activeUploads -= 1;
+    }
+    _pumpUploadQueue();
+  }
+
+  void _cancelUploadFor(String fileId) {
+    _uploadQueue.removeWhere((entry) => entry.id == fileId);
+    final sub = _uploads.remove(fileId);
+    if (sub != null) {
+      sub.cancel();
+      if (_activeUploads > 0) {
+        _activeUploads -= 1;
+      }
+    }
+  }
+
+  void _clearUploads() {
+    _uploadQueue.clear();
+    _activeUploads = 0;
     for (final sub in _uploads.values) {
       sub.cancel();
     }
     _uploads.clear();
+  }
+
+  @override
+  void dispose() {
+    _clearUploads();
     super.dispose();
   }
 }
@@ -134,5 +195,5 @@ abstract class FileUploadControllerBase {
   void addFiles(List<FileLike> files);
   void removeFile(FileLike file);
   void updateItem(FileLike file, FileUploadItemStatus status, double? progress);
-  void startUploads(UploadFn uploadFn);
+  void startUploads(UploadFn uploadFn, {int maxConcurrent = 1});
 }

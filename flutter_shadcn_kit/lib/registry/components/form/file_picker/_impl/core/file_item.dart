@@ -65,7 +65,7 @@ class FileItem extends StatelessWidget {
     return OutlinedContainer(
       borderWidth: 1,
       child: Padding(
-        padding: EdgeInsets.all(12 * scaling),
+        padding: EdgeInsets.all(theme.density.baseGap * scaling * 1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -82,7 +82,7 @@ class FileItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: resolvedThumbnail,
                 ),
-                Gap(12 * scaling),
+                DensityGap(gapMd),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,13 +93,13 @@ class FileItem extends StatelessWidget {
                         ),
                         child: Text(item.file.name),
                       ),
-                      Gap(4 * scaling),
+                      DensityGap(gapXs),
                       DefaultTextStyle.merge(
                         style: theme.typography.xSmall.copyWith(
                           color: theme.colorScheme.mutedForeground,
                         ),
                         child: Wrap(
-                          spacing: 8 * scaling,
+                          spacing: theme.density.baseGap * scaling,
                           children: [
                             Text(_fileTypeLabel(item.file)),
                             Text(formatFileSize(item.file.size)),
@@ -122,7 +122,9 @@ class FileItem extends StatelessWidget {
                     children: actions
                         .map(
                           (action) => Padding(
-                            padding: EdgeInsets.only(left: 4 * scaling),
+                            padding: EdgeInsets.only(
+                              left: theme.density.baseGap * scaling * 0.5,
+                            ),
                             child: action,
                           ),
                         )
@@ -130,7 +132,7 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (item.progress != null) Gap(12 * scaling),
+            if (item.progress != null) DensityGap(gapMd),
             if (item.progress != null)
               LinearProgressIndicator(
                 value: item.progress!.clamp(0, 1),
@@ -180,11 +182,11 @@ class FileItem extends StatelessWidget {
       case FileUploadItemStatus.uploading:
         return 'Uploading';
       case FileUploadItemStatus.success:
-        return 'Ready';
+        return 'Completed';
       case FileUploadItemStatus.error:
-        return 'Error';
+        return 'Failed';
       case FileUploadItemStatus.idle:
-        return null;
+        return 'Waiting';
     }
   }
 

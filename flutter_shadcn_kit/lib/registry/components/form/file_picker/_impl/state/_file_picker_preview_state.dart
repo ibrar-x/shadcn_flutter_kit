@@ -120,7 +120,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
               children: [
                 _buildControllerBar(theme, scaling),
                 SizedBox(height: theme.density.baseContentPadding * scaling),
-                FileUpload.dragDrop(
+                FileUpload(
                   controller: _controller,
                   pickFiles: _simulatePick,
                   title: const Text('Upload files'),
@@ -131,39 +131,47 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                     'Drag files here or click the dropzone to pick.',
                   ),
                   allowMultiple: true,
+                  maxConcurrentUploads: 1,
                   uploadFn: _simulateUpload,
+                  options: const FileUploadDragDropOptions(),
                   onError: (error) {
                     // Errors are announced inline; hook for analytics if needed.
                   },
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUpload.tile(
+                FileUpload(
                   pickFiles: _simulatePick,
                   title: const Text('Tile picker (no drag-and-drop)'),
                   subtitle: const Text('Use a button-only file selection UI.'),
                   hint: const Text('Good for touch-first layouts.'),
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
+                  options: const FileUploadTileOptions(
+                    actionLabel: 'Add files',
+                  ),
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUpload.mobile(
+                FileUpload(
                   pickFiles: _simulatePick,
-                  compactOptions: const [
-                    FileUploadPickOption.pickFiles,
-                    FileUploadPickOption.pickImages,
-                  ],
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
-                  popover: true,
+                  options: const FileUploadMobileOptions(
+                    popover: true,
+                    popoverItems: [
+                      FileUploadPickOption.pickFiles,
+                      FileUploadPickOption.pickImages,
+                    ],
+                  ),
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUpload.mobile(
+                FileUpload(
                   pickFiles: _simulatePick,
-                  compactTrigger: FileUploadCompactTrigger.button,
-                  compactButtonLabel: 'Add files',
-                  compactOptions: const [FileUploadPickOption.pickFiles],
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
+                  options: const FileUploadMobileOptions(
+                    trigger: FileUploadCompactTrigger.button,
+                    buttonLabel: 'Add files',
+                  ),
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
                 FileUploadItemsView(

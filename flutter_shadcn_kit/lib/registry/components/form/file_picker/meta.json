@@ -49,13 +49,13 @@
   ],
   "api": {
     "constructors": [
-      "`FileUpload.dragDrop`",
-      "`FileUpload.tile`",
-      "`FileUpload.mobile` (`popover: false|true`)",
+      "`FileUpload`",
+      "`options` (`FileUploadOptions`) with `FileUploadDragDropOptions`, `FileUploadTileOptions`, `FileUploadMobileOptions`",
       "`pickFiles` (`FileUploadPickFiles?`)",
       "`uploadFn` (`UploadFn?`)",
       "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
       "`allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`",
+      "`maxConcurrentUploads` (`int`) — controls sequential/batched upload count.",
       "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`",
       "`FileUploadController` — manages files and upload state.",
       "`FileLike` — file abstraction for picker items.",

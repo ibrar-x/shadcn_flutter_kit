@@ -8,7 +8,7 @@ UI-only file upload surfaces with pluggable file picking.
 
 - Use this when:
   - you want upload/dropzone UI without coupling to a specific picker plugin.
-  - you need one of three dedicated surfaces via `FileUpload` factory constructors:
+  - you need one constructor with variant behavior controlled by `options`.
     - drag + drop
     - tile picker (no drag)
     - mobile trigger (icon/button)
@@ -47,15 +47,16 @@ Future<List<FileLike>> onPick(FileUploadPickRequest request) async {
 
 ---
 
-## Variants (factory constructors)
+## Variants (`options`)
 
 ### 1) Drag & Drop
 
 ```dart
-FileUpload.dragDrop(
+FileUpload(
   pickFiles: onPick,
   title: const Text('Upload files'),
   hint: const Text('Drag files here or click to pick.'),
+  options: const FileUploadDragDropOptions(),
 )
 ```
 
@@ -66,23 +67,25 @@ Notes:
 ### 2) Tile Picker (No Drag and Drop)
 
 ```dart
-FileUpload.tile(
+FileUpload(
   pickFiles: onPick,
   title: const Text('Attach files'),
-  actionLabel: 'Add files',
+  options: const FileUploadTileOptions(actionLabel: 'Add files'),
 )
 ```
 
 ### 3) Mobile Trigger (Icon/Button)
 
 ```dart
-FileUpload.mobile(
+FileUpload(
   pickFiles: onPick,
-  compactOptions: const [
-    FileUploadPickOption.pickFiles,
-    FileUploadPickOption.pickImages,
-  ],
-  popover: true,
+  options: const FileUploadMobileOptions(
+    popover: true,
+    popoverItems: [
+      FileUploadPickOption.pickFiles,
+      FileUploadPickOption.pickImages,
+    ],
+  ),
 )
 ```
 
@@ -91,18 +94,21 @@ FileUpload.mobile(
 ## Upload support
 
 All three variants support uploads with `uploadFn` and `FileUploadController`.
+List layout groups files by status (`Uploading`, `Completed`, `Waiting`, `Failed`).
 
 ---
 
 ## API
 
-- `FileUpload.dragDrop`
-- `FileUpload.tile`
-- `FileUpload.mobile` (`popover: false|true`)
+- `FileUpload` + `options`:
+  - `FileUploadDragDropOptions`
+  - `FileUploadTileOptions`
+  - `FileUploadMobileOptions`
 - `pickFiles` (`FileUploadPickFiles?`)
 - `uploadFn` (`UploadFn?`)
 - `files` (`List<FileLike>?`), `controller` (`FileUploadController?`)
 - `allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`
+- `maxConcurrentUploads` (`int`, default `1`) for sequential/batched uploads
 - `onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`
 
 ---
