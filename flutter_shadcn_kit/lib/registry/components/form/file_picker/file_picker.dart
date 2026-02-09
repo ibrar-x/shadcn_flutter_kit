@@ -77,7 +77,133 @@ typedef FileUploadDropTargetBuilder =
       VoidCallback? onTap,
     });
 
-class FileUploadDragDrop extends _FileUpload {
+abstract class FileUpload extends Widget {
+  const FileUpload({super.key});
+
+  const factory FileUpload.dragDrop({
+    Key? key,
+    Widget? title,
+    Widget? subtitle,
+    Widget? hint,
+    Widget? icon,
+    bool enableDragDrop,
+    bool enableDropzoneClick,
+    bool enabled,
+    bool allowMultiple,
+    bool withData,
+    int? maxFiles,
+    int? maxFileSizeBytes,
+    List<String>? allowedExtensions,
+    List<String>? allowedMimeTypes,
+    List<FileLike>? files,
+    FileUploadController? controller,
+    ValueChanged<List<FileLike>>? onFilesSelected,
+    ValueChanged<List<FileLike>>? onFilesChanged,
+    VoidCallback? onUploadStart,
+    void Function(FileLike file, double progress)? onProgress,
+    ValueChanged<List<FileLike>>? onComplete,
+    ValueChanged<FileUploadError>? onError,
+    UploadFn? uploadFn,
+    FileUploadPickFiles? pickFiles,
+    FileUploadDropTargetBuilder? dropTargetBuilder,
+    Widget Function(BuildContext context, FileUploadItem item)? itemBuilder,
+    bool showFileList,
+    FileUploadItemsLayout itemsLayout,
+    int itemsGridColumns,
+    double? itemsMaxHeight,
+    Color? backgroundColor,
+    BorderRadiusGeometry? borderRadius,
+    EdgeInsetsGeometry? padding,
+    double? minHeight,
+  }) = FileUploadDragDrop;
+
+  const factory FileUpload.tile({
+    Key? key,
+    Widget? title,
+    Widget? subtitle,
+    Widget? hint,
+    Widget? icon,
+    String? actionLabel,
+    bool enabled,
+    bool allowMultiple,
+    bool withData,
+    int? maxFiles,
+    int? maxFileSizeBytes,
+    List<String>? allowedExtensions,
+    List<String>? allowedMimeTypes,
+    List<FileLike>? files,
+    FileUploadController? controller,
+    ValueChanged<List<FileLike>>? onFilesSelected,
+    ValueChanged<List<FileLike>>? onFilesChanged,
+    VoidCallback? onUploadStart,
+    void Function(FileLike file, double progress)? onProgress,
+    ValueChanged<List<FileLike>>? onComplete,
+    ValueChanged<FileUploadError>? onError,
+    UploadFn? uploadFn,
+    FileUploadPickFiles? pickFiles,
+    Widget Function(BuildContext context, FileUploadItem item)? itemBuilder,
+    bool showFileList,
+    FileUploadItemsLayout itemsLayout,
+    int itemsGridColumns,
+    double? itemsMaxHeight,
+    Color? backgroundColor,
+    BorderRadiusGeometry? borderRadius,
+    EdgeInsetsGeometry? padding,
+    double? minHeight,
+  }) = FileUploadTilePicker;
+
+  const factory FileUpload.mobile({
+    Key? key,
+    bool enabled,
+    bool allowMultiple,
+    bool withData,
+    int? maxFiles,
+    int? maxFileSizeBytes,
+    List<String>? allowedExtensions,
+    List<String>? allowedMimeTypes,
+    List<FileLike>? files,
+    FileUploadController? controller,
+    ValueChanged<List<FileLike>>? onFilesSelected,
+    ValueChanged<List<FileLike>>? onFilesChanged,
+    VoidCallback? onUploadStart,
+    void Function(FileLike file, double progress)? onProgress,
+    ValueChanged<List<FileLike>>? onComplete,
+    ValueChanged<FileUploadError>? onError,
+    UploadFn? uploadFn,
+    FileUploadPickFiles? pickFiles,
+    Widget? compactIcon,
+    FileUploadCompactTrigger compactTrigger,
+    String? compactButtonLabel,
+    List<FileUploadPickOption>? compactOptions,
+  }) = FileUploadMobilePicker;
+
+  const factory FileUpload.mobilePopover({
+    Key? key,
+    bool enabled,
+    bool allowMultiple,
+    bool withData,
+    int? maxFiles,
+    int? maxFileSizeBytes,
+    List<String>? allowedExtensions,
+    List<String>? allowedMimeTypes,
+    List<FileLike>? files,
+    FileUploadController? controller,
+    ValueChanged<List<FileLike>>? onFilesSelected,
+    ValueChanged<List<FileLike>>? onFilesChanged,
+    VoidCallback? onUploadStart,
+    void Function(FileLike file, double progress)? onProgress,
+    ValueChanged<List<FileLike>>? onComplete,
+    ValueChanged<FileUploadError>? onError,
+    UploadFn? uploadFn,
+    FileUploadPickFiles? pickFiles,
+    Widget? compactIcon,
+    FileUploadCompactTrigger compactTrigger,
+    String? compactButtonLabel,
+    List<FileUploadPickOption>? compactOptions,
+  }) = FileUploadMobilePicker.popover;
+}
+
+class FileUploadDragDrop extends _FileUpload implements FileUpload {
   const FileUploadDragDrop({
     super.key,
     super.title,
@@ -116,7 +242,7 @@ class FileUploadDragDrop extends _FileUpload {
   }) : super.dragDrop();
 }
 
-class FileUploadTilePicker extends _FileUpload {
+class FileUploadTilePicker extends _FileUpload implements FileUpload {
   const FileUploadTilePicker({
     super.key,
     super.title,
@@ -153,7 +279,7 @@ class FileUploadTilePicker extends _FileUpload {
   }) : super.tile();
 }
 
-class FileUploadMobilePicker extends _FileUpload {
+class FileUploadMobilePicker extends _FileUpload implements FileUpload {
   const FileUploadMobilePicker({
     super.key,
     super.enabled,
@@ -203,99 +329,6 @@ class FileUploadMobilePicker extends _FileUpload {
     super.compactButtonLabel,
     super.compactOptions,
   }) : super.mobile(compactMode: FileUploadCompactMode.iconButtonPopover);
-}
-
-@Deprecated('Use FileUploadDragDrop.')
-class FileUpload extends FileUploadDragDrop {
-  const FileUpload({
-    super.key,
-    super.title,
-    super.subtitle,
-    super.hint,
-    super.icon,
-    super.enableDragDrop,
-    super.enableDropzoneClick,
-    super.enabled,
-    super.allowMultiple,
-    super.withData,
-    super.maxFiles,
-    super.maxFileSizeBytes,
-    super.allowedExtensions,
-    super.allowedMimeTypes,
-    super.files,
-    super.controller,
-    super.onFilesSelected,
-    super.onFilesChanged,
-    super.onUploadStart,
-    super.onProgress,
-    super.onComplete,
-    super.onError,
-    super.uploadFn,
-    super.pickFiles,
-    super.dropTargetBuilder,
-    super.itemBuilder,
-    super.showFileList,
-    super.itemsLayout,
-    super.itemsGridColumns,
-    super.itemsMaxHeight,
-    super.backgroundColor,
-    super.borderRadius,
-    super.padding,
-    super.minHeight,
-  });
-}
-
-@Deprecated('Use FileUploadMobilePicker.')
-class FileUploadMobile extends FileUploadMobilePicker {
-  const FileUploadMobile({
-    super.key,
-    super.enabled,
-    super.allowMultiple,
-    super.withData,
-    super.maxFiles,
-    super.maxFileSizeBytes,
-    super.allowedExtensions,
-    super.allowedMimeTypes,
-    super.files,
-    super.controller,
-    super.onFilesSelected,
-    super.onFilesChanged,
-    super.onUploadStart,
-    super.onProgress,
-    super.onComplete,
-    super.onError,
-    super.uploadFn,
-    super.pickFiles,
-    super.compactIcon,
-    super.compactTrigger,
-    super.compactButtonLabel,
-    super.compactOptions,
-  });
-
-  const FileUploadMobile.popover({
-    super.key,
-    super.enabled,
-    super.allowMultiple,
-    super.withData,
-    super.maxFiles,
-    super.maxFileSizeBytes,
-    super.allowedExtensions,
-    super.allowedMimeTypes,
-    super.files,
-    super.controller,
-    super.onFilesSelected,
-    super.onFilesChanged,
-    super.onUploadStart,
-    super.onProgress,
-    super.onComplete,
-    super.onError,
-    super.uploadFn,
-    super.pickFiles,
-    super.compactIcon,
-    super.compactTrigger,
-    super.compactButtonLabel,
-    super.compactOptions,
-  }) : super.popover();
 }
 
 enum _FileUploadSurface { dragDrop, tile, mobile }
@@ -609,36 +642,42 @@ class _FileUploadState extends State<_FileUpload> {
       anchorAlignment: AlignmentDirectional.bottomEnd,
       offset: Offset(0, theme.density.baseGap * scaling),
       builder: (context) {
-        return OutlinedContainer(
-          child: Padding(
-            padding: EdgeInsets.all(theme.density.baseGap * scaling),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final option in options)
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: theme.density.baseGap * scaling * 0.25,
-                    ),
-                    child: Button.ghost(
-                      onPressed: () async {
-                        _compactPickerPopoverController.closeLater();
-                        await _pickFilesForOption(option);
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (option.icon != null) ...[
-                            option.icon!,
-                            DensityGap(0.5),
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: 180 * scaling,
+            maxWidth: 280 * scaling,
+          ),
+          child: OutlinedContainer(
+            child: Padding(
+              padding: EdgeInsets.all(theme.density.baseGap * scaling),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final option in options)
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: theme.density.baseGap * scaling * 0.25,
+                      ),
+                      child: Button.ghost(
+                        onPressed: () async {
+                          _compactPickerPopoverController.closeLater();
+                          await _pickFilesForOption(option);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (option.icon != null) ...[
+                              option.icon!,
+                              DensityGap(0.5),
+                            ],
+                            Text(option.label),
                           ],
-                          Text(option.label),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -646,7 +685,7 @@ class _FileUploadState extends State<_FileUpload> {
     );
   }
 
-  Widget _buildCompactPickerTrigger(ThemeData theme) {
+  Widget _buildCompactPickerTrigger() {
     final options = _resolveCompactOptions();
     final firstOption = options.isNotEmpty ? options.first : null;
     final onPressed = !widget.enabled || widget.pickFiles == null
@@ -1140,7 +1179,7 @@ class _FileUploadState extends State<_FileUpload> {
           ),
         },
         onShowFocusHighlight: (value) => setState(() => _focused = value),
-        child: _buildCompactPickerTrigger(theme),
+        child: _buildCompactPickerTrigger(),
       );
     }
 

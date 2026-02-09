@@ -8,7 +8,7 @@ UI-only file upload surfaces with pluggable file picking.
 
 - Use this when:
   - you want upload/dropzone UI without coupling to a specific picker plugin.
-  - you need one of three dedicated class APIs:
+  - you need one of three dedicated surfaces via `FileUpload` factory constructors:
     - drag + drop
     - tile picker (no drag)
     - mobile trigger (icon/button)
@@ -47,12 +47,12 @@ Future<List<FileLike>> onPick(FileUploadPickRequest request) async {
 
 ---
 
-## Variants (classes)
+## Variants (factory constructors)
 
 ### 1) Drag & Drop
 
 ```dart
-FileUploadDragDrop(
+FileUpload.dragDrop(
   pickFiles: onPick,
   title: const Text('Upload files'),
   hint: const Text('Drag files here or click to pick.'),
@@ -66,7 +66,7 @@ Notes:
 ### 2) Tile Picker (No Drag and Drop)
 
 ```dart
-FileUploadTilePicker(
+FileUpload.tile(
   pickFiles: onPick,
   title: const Text('Attach files'),
   actionLabel: 'Add files',
@@ -76,7 +76,7 @@ FileUploadTilePicker(
 ### 3) Mobile Trigger (Icon/Button)
 
 ```dart
-FileUploadMobilePicker.popover(
+FileUpload.mobilePopover(
   pickFiles: onPick,
   compactOptions: const [
     FileUploadPickOption.pickFiles,
@@ -89,15 +89,15 @@ FileUploadMobilePicker.popover(
 
 ## Upload support
 
-All three classes support uploads with `uploadFn` and `FileUploadController`.
+All three variants support uploads with `uploadFn` and `FileUploadController`.
 
 ---
 
 ## API
 
-- `FileUploadDragDrop`
-- `FileUploadTilePicker`
-- `FileUploadMobilePicker`, `FileUploadMobilePicker.popover`
+- `FileUpload.dragDrop`
+- `FileUpload.tile`
+- `FileUpload.mobile`, `FileUpload.mobilePopover`
 - `pickFiles` (`FileUploadPickFiles?`)
 - `uploadFn` (`UploadFn?`)
 - `files` (`List<FileLike>?`), `controller` (`FileUploadController?`)

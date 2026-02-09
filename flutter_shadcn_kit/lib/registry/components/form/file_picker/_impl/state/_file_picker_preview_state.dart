@@ -120,7 +120,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
               children: [
                 _buildControllerBar(theme, scaling),
                 SizedBox(height: theme.density.baseContentPadding * scaling),
-                FileUploadDragDrop(
+                FileUpload.dragDrop(
                   controller: _controller,
                   pickFiles: _simulatePick,
                   title: const Text('Upload files'),
@@ -137,7 +137,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   },
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUploadTilePicker(
+                FileUpload.tile(
                   pickFiles: _simulatePick,
                   title: const Text('Tile picker (no drag-and-drop)'),
                   subtitle: const Text('Use a button-only file selection UI.'),
@@ -146,7 +146,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   uploadFn: _simulateUpload,
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUploadMobilePicker.popover(
+                FileUpload.mobilePopover(
                   pickFiles: _simulatePick,
                   compactOptions: const [
                     FileUploadPickOption.pickFiles,
@@ -156,7 +156,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   uploadFn: _simulateUpload,
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUploadMobilePicker(
+                FileUpload.mobile(
                   pickFiles: _simulatePick,
                   compactTrigger: FileUploadCompactTrigger.button,
                   compactButtonLabel: 'Add files',

@@ -49,9 +49,9 @@
   ],
   "api": {
     "constructors": [
-      "`FileUploadDragDrop`",
-      "`FileUploadTilePicker`",
-      "`FileUploadMobilePicker`, `FileUploadMobilePicker.popover`",
+      "`FileUpload.dragDrop`",
+      "`FileUpload.tile`",
+      "`FileUpload.mobile`, `FileUpload.mobilePopover`",
       "`pickFiles` (`FileUploadPickFiles?`)",
       "`uploadFn` (`UploadFn?`)",
       "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
