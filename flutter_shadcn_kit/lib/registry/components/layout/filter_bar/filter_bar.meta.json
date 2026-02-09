@@ -1,0 +1,81 @@
+{
+  "$schema": "../readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "filter_bar",
+  "name": "Filter Bar",
+  "description": "Controlled filter header with search, sort, chips, date range, and clear-all actions.",
+  "install": "flutter_shadcn add filter_bar",
+  "import": "import 'package:<your_app>/ui/shadcn/layout/filter_bar/filter_bar.dart';",
+  "whenToUse": {
+    "use": [
+      "you need a consistent filter toolbar for list or table pages.",
+      "filtering state is owned by the page and passed down as a single object."
+    ],
+    "avoid": [
+      "you only need one simple search field.",
+      "filtering must be coupled to data fetching inside the widget."
+    ]
+  },
+  "examples": {
+    "minimal": "FilterState state = const FilterState(\n  sortId: 'newest',\n);\n\nFilterBar(\n  state: state,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n  onStateChanged: (next) {\n    setState(() => state = next);\n  },\n)"
+  },
+  "patterns": [
+    {
+      "title": "Generic custom filters",
+      "code": "FilterBar(\n  state: state,\n  customFilters: [\n    FilterCustomFilter(\n      id: 'status',\n      builder: (context, state, onStateChanged) {\n        return Select<String>(\n          value: state.customValue<String>('status'),\n          canUnselect: true,\n          placeholder: const Text('Status'),\n          onChanged: (next) {\n            onStateChanged(state.setCustomValue('status', next));\n          },\n          itemBuilder: (context, value) => Text(value),\n          popup: SelectPopup<String>(\n            items: SelectItemList(\n              children: const [\n                SelectItemButton<String>(value: 'open', child: Text('Open')),\n                SelectItemButton<String>(value: 'closed', child: Text('Closed')),\n              ],\n            ),\n          ).call,\n        );\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
+    },
+    {
+      "title": "Trailing page-specific widgets",
+      "code": "FilterBar(\n  state: state,\n  trailingFilters: [\n    StatusSelect(\n      value: selectedStatus,\n      onChanged: (status) {\n        final chips = [\n          ...state.chips.where((c) => !c.key.startsWith('status:')),\n          if (status != null)\n            FilterChipData(\n              key: 'status:$status',\n              label: 'Status: ${status.label}',\n            ),\n        ];\n        onStateChanged(state.copyWith(chips: chips));\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
+    }
+  ],
+  "api": {
+    "constructors": [
+      "`FilterBar`",
+      "`state` (`FilterState`, required)",
+      "`onStateChanged` (`ValueChanged<FilterState>`, required)",
+      "`sortOptions` (`List<FilterSortOption>`, optional)",
+      "`enableDateRange` (`bool`, optional)",
+      "`resultsCount` (`int?`, optional)",
+      "`searchPlaceholder` (`String`, optional)",
+      "`searchDebounce` (`Duration?`, optional)",
+      "`trailingFilters` (`List<Widget>`, optional)",
+      "`customFilters` (`List<FilterCustomFilter>`, optional)",
+      "`style` (`FilterBarStyle?`, optional)",
+      "`clearPolicy` (`FilterClearPolicy`, optional)",
+      "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
+      "`showClearAllWhenEmpty` (`bool`, optional)",
+      "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
+    ],
+    "callbacks": [
+      "`onStateChanged` emits the next `FilterState` whenever the UI changes.",
+      "`onClearAll` optionally overrides clear-all behavior with custom policy logic."
+    ]
+  },
+  "theming": [
+    "The widget pulls colors/typography from `Theme.of(context)` and supports compact density through `FilterBarStyle`.",
+    "Keep app-level look consistent by overriding `FilterBarStyle` rather than forking behavior."
+  ],
+  "accessibility": [
+    "Search input uses a dedicated label for semantic clarity.",
+    "Clear-all action is disabled when no filters are active.",
+    "Chips expose delete actions with semantic tooltips."
+  ],
+  "do": [
+    "Keep chip keys stable and namespaced (`status:`, `tag:`, `assignee:`).",
+    "Drive queries from `onStateChanged` in page state."
+  ],
+  "dont": [
+    "Fetch data directly inside `FilterBar`.",
+    "Mutate chip labels/keys in place without emitting a new `FilterState`."
+  ],
+  "related": [
+    "table",
+    "chip_input",
+    "date_picker"
+  ],
+  "registryRules": [
+    "One public class in `filter_bar.dart`",
+    "Helpers under `_impl/`"
+  ]
+}
