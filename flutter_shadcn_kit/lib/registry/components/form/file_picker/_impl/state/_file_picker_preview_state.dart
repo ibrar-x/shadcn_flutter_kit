@@ -128,10 +128,23 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   allowMultiple: true,
                   maxConcurrentUploads: 1,
                   uploadFn: _simulateUpload,
-                  options: const FileUploadDragDropOptions(
-                    subtitle: Text('PDFs, images, and other supported files.'),
+                  options: FileUploadDragDropOptions(
+                    loading: FileUploadLoadingOptions(
+                      disableInteractions: true,
+                      isLoading: true,
+                      mode: FileUploadLoadingMode.wrap,
+                      wrapperBuilder: (context, child) {
+                        return BorderLoading(
+                          child: child,
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                    ),
+                    itemLoading: const FileUploadItemLoadingOptions(
+                      mode: FileUploadItemLoadingMode.linear,
+                    ),
                     hint: Text(
-                      'Drag files here or click the dropzone to pick.',
+                      'Drag files here or click the dropzone to pick. Supports PDFs, images.',
                     ),
                     idleLabel: 'Drag files here or click to pick files.',
                   ),
@@ -145,12 +158,21 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   title: const Text('Tile picker (no drag-and-drop)'),
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
-                  options: const FileUploadTileOptions(
+                  options: FileUploadTileOptions(
                     actionLabel: 'Add files',
                     subtitle: Text(
                       'No File Chosen. Use a button-only file selection UI.',
                     ),
                     hint: Text('Good for touch-first layouts.'),
+                    itemLoading: FileUploadItemLoadingOptions(
+                      mode: FileUploadItemLoadingMode.custom,
+                      customBuilder: (context, item) {
+                        if (item.status != FileUploadItemStatus.uploading) {
+                          return const SizedBox.shrink();
+                        }
+                        return const Text('Uploading...');
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
