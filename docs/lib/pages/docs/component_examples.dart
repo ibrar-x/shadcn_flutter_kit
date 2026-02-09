@@ -74,6 +74,7 @@ import 'components/switcher/switcher_examples.dart';
 import 'components/tab_list/tab_list_examples.dart';
 import 'components/table/table_examples.dart';
 import 'components/tabs/tabs_examples.dart';
+import 'components/text_animate/text_animate_examples.dart';
 import 'components/text_area/text_area_examples.dart';
 import 'components/time_picker/time_picker_examples.dart';
 import 'components/timeline/timeline_examples.dart';
@@ -160,6 +161,7 @@ const Set<String> originalComponentIds = {
   'tab_list',
   'table',
   'tabs',
+  'text_animate',
   'text_area',
   'time_picker',
   'timeline',
@@ -250,6 +252,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'tab_list',
       'table',
       'tabs',
+      'text_animate',
       'text_area',
       'time_picker',
       'timeline',
@@ -339,6 +342,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'tab_list': tabListExamples,
   'table': tableExamples,
   'tabs': tabsExamples,
+  'text_animate': textAnimateExamples,
   'text_area': textAreaExamples,
   'time_picker': timePickerExamples,
   'timeline': timelineExamples,

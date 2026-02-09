@@ -10,6 +10,8 @@ import '../../ui/shadcn/components/display/divider/divider.dart'
     as shadcn_divider;
 import '../../ui/shadcn/components/display/progress/progress.dart'
     as shadcn_progress;
+import '../../ui/shadcn/components/display/text_animate/text_animate.dart'
+    as shadcn_text_animate;
 import '../../ui/shadcn/components/form/checkbox/checkbox.dart'
     as shadcn_checkbox;
 import '../../ui/shadcn/components/form/slider/slider.dart' as shadcn_slider;
@@ -28,10 +30,11 @@ typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
-  'file_picker': 'Experimental',
+  'file_picker': 'New',
   'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
+  'text_animate': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',
@@ -52,6 +55,7 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'slider': _sliderPreview,
   'switch': _switchPreview,
   'progress': _progressPreview,
+  'text_animate': _textAnimatePreview,
 };
 
 const Map<String, IconData> categoryIcons = {
@@ -198,5 +202,22 @@ Widget _progressPreview(BuildContext context) {
   return const SizedBox(
     width: 160,
     child: shadcn_progress.Progress(progress: 0.62),
+  );
+}
+
+Widget _textAnimatePreview(BuildContext context) {
+  return const SizedBox(
+    width: 170,
+    child: shadcn_text_animate.StreamingText(
+      text: 'Streaming blur preview',
+      typewriter: shadcn_text_animate.TypewriterEffect(enabled: false),
+      effect: shadcn_text_animate.BlurInEffect(
+        duration: Duration(milliseconds: 700),
+        maxBlurSigma: 12,
+        fadeIn: true,
+        slideUpPx: 6,
+      ),
+      cursor: shadcn_text_animate.StreamingCursor.none(),
+    ),
   );
 }

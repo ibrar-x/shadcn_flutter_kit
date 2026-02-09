@@ -129,6 +129,7 @@
     "table",
     "tabs",
     "text",
+    "text_animate",
     "text_area",
     "text_field",
     "time_picker",
@@ -1168,6 +1169,15 @@
         "typography"
       ]
     },
+    "text_animate": {
+      "version": "1.0.0",
+      "tags": [
+        "display",
+        "text",
+        "animation",
+        "streaming"
+      ]
+    },
     "text_area": {
       "version": "1.0.0",
       "tags": [
@@ -1277,5 +1287,5 @@
       ]
     }
   },
-  "updatedAt": "2026-02-09T10:07:25.365941Z"
+  "updatedAt": "2026-02-09T11:03:11.838139Z"
 }
