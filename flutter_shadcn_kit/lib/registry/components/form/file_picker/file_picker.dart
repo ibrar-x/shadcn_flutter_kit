@@ -5,11 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import '_impl/utils/file_like.dart';
-import '_impl/utils/file_upload_models.dart';
-import '_impl/utils/file_validation.dart';
 import '_impl/utils/file_picker_adapter.dart';
+import '_impl/utils/file_upload_models.dart';
+import '_impl/utils/file_upload_controller.dart';
+import '_impl/utils/file_validation.dart';
+import '_impl/themes/file_upload_dropzone_theme.dart';
 import '../../../shared/icons/radix_icons.dart';
 import '../../../shared/primitives/outlined_container.dart';
+import '../../../shared/primitives/overlay.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
@@ -18,8 +21,6 @@ import '../../control/button/button.dart';
 import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
 import '../dropzone/dropzone.dart';
 import '../file_input/file_input.dart';
-import '_impl/utils/file_upload_controller.dart';
-import '_impl/themes/file_upload_dropzone_theme.dart';
 
 export '_impl/utils/file_like.dart';
 export '_impl/utils/file_upload_models.dart';
@@ -29,154 +30,285 @@ export '_impl/themes/file_upload_dropzone_theme.dart';
 part '_impl/core/file_item.dart';
 part '_impl/core/file_upload_items_view.dart';
 
-// const fileByteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-// const fileBitUnits = ['Bi', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-// String formatFileSize(int bytes, List<String> units) {
-//   if (bytes <= 0) return '0 ${units[0]}';
-//   final
-// }
+enum FileUploadCompactMode { iconButton, iconButtonPopover }
 
-/// A file upload widget for selecting and managing file uploads.
-///
-/// **Work in Progress** - This component is under active development and
-/// may have incomplete functionality or undergo API changes.
-///
-/// Provides a comprehensive interface for file selection with drag-and-drop
-/// support, file management capabilities, and customizable presentation.
-/// Displays selected files as a list of manageable items with options
-/// for adding, removing, and organizing uploaded files.
-///
-/// Supports hot drop functionality for drag-and-drop file uploads and
-/// provides visual feedback during file operations. The picker can be
-/// customized with titles, subtitles, and custom file item presentations.
-///
-/// Example:
-/// ```dart
-/// FileUpload(
-///   title: Text('Upload Documents'),
-///   subtitle: Text('Drag files here or click to browse'),
-///   onFilesSelected: (files) => _onFilesSelected(files),
-///   uploadFn: (file) => _uploadFile(file),
-/// )
-/// ```
-class FileUpload extends StatefulWidget {
-  /// Title widget displayed above the file picker.
-  final Widget? title;
+enum FileUploadCompactTrigger { icon, button }
 
-  /// Subtitle widget displayed below the title.
-  final Widget? subtitle;
+class FileUploadPickOption {
+  const FileUploadPickOption({
+    required this.id,
+    required this.label,
+    this.icon,
+    this.allowMultiple,
+    this.withData,
+    this.allowedExtensions,
+    this.allowedMimeTypes,
+  });
 
-  /// Whether drag-and-drop functionality is enabled.
-  final bool enableDragDrop;
-
-  /// Whether clicking the dropzone surface opens the file picker.
-  final bool enableDropzoneClick;
-
-  /// Whether the dropzone action button opens the file picker.
-  final bool enableActionButton;
-
-  /// Whether file selection is enabled.
-  final bool enabled;
-
-  /// Whether multiple file selection is allowed.
-  final bool allowMultiple;
-
-  /// Whether file bytes should be eagerly loaded.
-  final bool withData;
-
-  /// Maximum number of files allowed, including existing files.
-  final int? maxFiles;
-
-  /// Maximum file size in bytes.
-  final int? maxFileSizeBytes;
-
-  /// Allowed file extensions (without dots).
+  final String id;
+  final String label;
+  final Widget? icon;
+  final bool? allowMultiple;
+  final bool? withData;
   final List<String>? allowedExtensions;
-
-  /// Allowed mime types (supports wildcards like image/*).
   final List<String>? allowedMimeTypes;
 
-  /// Optional list of files to display (controlled).
-  final List<FileLike>? files;
+  static const FileUploadPickOption pickFiles = FileUploadPickOption(
+    id: 'pick_files',
+    label: 'Pick files',
+    icon: Icon(RadixIcons.file),
+  );
 
-  /// Optional controller to manage files and uploads.
-  final FileUploadController? controller;
+  static const FileUploadPickOption pickImages = FileUploadPickOption(
+    id: 'pick_images',
+    label: 'Pick images',
+    icon: Icon(RadixIcons.image),
+    allowedMimeTypes: ['image/*'],
+  );
+}
 
-  /// Optional widget shown above the dropzone actions.
-  final Widget? hint;
+typedef FileUploadDropTargetBuilder =
+    Widget Function({
+      required Widget child,
+      required bool enabled,
+      required bool withData,
+      required ValueChanged<bool> onDragActive,
+      required ValueChanged<List<FileLike>> onDrop,
+      VoidCallback? onTap,
+    });
 
-  /// Label for the add/browse button.
-  final String? actionLabel;
+class FileUploadDragDrop extends _FileUpload {
+  const FileUploadDragDrop({
+    super.key,
+    super.title,
+    super.subtitle,
+    super.hint,
+    super.icon,
+    super.enableDragDrop,
+    super.enableDropzoneClick,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.dropTargetBuilder,
+    super.itemBuilder,
+    super.showFileList,
+    super.itemsLayout,
+    super.itemsGridColumns,
+    super.itemsMaxHeight,
+    super.backgroundColor,
+    super.borderRadius,
+    super.padding,
+    super.minHeight,
+  }) : super.dragDrop();
+}
 
-  /// Optional dropzone icon widget.
-  final Widget? icon;
+class FileUploadTilePicker extends _FileUpload {
+  const FileUploadTilePicker({
+    super.key,
+    super.title,
+    super.subtitle,
+    super.hint,
+    super.icon,
+    super.actionLabel,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.itemBuilder,
+    super.showFileList,
+    super.itemsLayout,
+    super.itemsGridColumns,
+    super.itemsMaxHeight,
+    super.backgroundColor,
+    super.borderRadius,
+    super.padding,
+    super.minHeight,
+  }) : super.tile();
+}
 
-  /// Optional background color for the dropzone container.
-  final Color? backgroundColor;
+class FileUploadMobilePicker extends _FileUpload {
+  const FileUploadMobilePicker({
+    super.key,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.compactIcon,
+    super.compactTrigger,
+    super.compactButtonLabel,
+    super.compactOptions,
+  }) : super.mobile();
 
-  /// Optional border radius for the dropzone container.
-  final BorderRadiusGeometry? borderRadius;
+  const FileUploadMobilePicker.popover({
+    super.key,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.compactIcon,
+    super.compactTrigger,
+    super.compactButtonLabel,
+    super.compactOptions,
+  }) : super.mobile(compactMode: FileUploadCompactMode.iconButtonPopover);
+}
 
-  /// Optional padding inside the dropzone container.
-  final EdgeInsetsGeometry? padding;
-
-  /// Optional minimum height for the dropzone container.
-  final double? minHeight;
-
-  /// Called when new files are selected and validated.
-  final ValueChanged<List<FileLike>>? onFilesSelected;
-
-  /// Called when the internal file list changes (uncontrolled mode).
-  final ValueChanged<List<FileLike>>? onFilesChanged;
-
-  /// Called when uploads begin.
-  final VoidCallback? onUploadStart;
-
-  /// Called as upload progress updates.
-  final void Function(FileLike file, double progress)? onProgress;
-
-  /// Called when all uploads complete successfully.
-  final ValueChanged<List<FileLike>>? onComplete;
-
-  /// Called for validation or upload errors.
-  final ValueChanged<FileUploadError>? onError;
-
-  /// Optional upload function that returns progress stream.
-  final UploadFn? uploadFn;
-
-  /// Optional builder for file list items.
-  final Widget Function(BuildContext context, FileUploadItem item)? itemBuilder;
-
-  /// Whether the file list should be shown.
-  final bool showFileList;
-
-  /// Optional layout for the built-in items view.
-  final FileUploadItemsLayout itemsLayout;
-
-  /// Optional column count when [itemsLayout] is grid.
-  final int itemsGridColumns;
-
-  /// Optional max height for the items list before it scrolls.
-  final double? itemsMaxHeight;
-
-  /// Creates a [FileUpload].
-  ///
-  /// Parameters:
-  /// - [title] (`Widget?`, optional): Title displayed above picker.
-  /// - [subtitle] (`Widget?`, optional): Subtitle below title.
-  /// - [enableDragDrop] (`bool`, default: `true`): Enable drag-and-drop.
-  /// - [enableDropzoneClick] (`bool`, default: `true`): Click dropzone to open picker.
-  /// - [enableActionButton] (`bool`, default: `false`): Button opens picker.
-  /// - [enabled] (`bool`, default: `true`): Enable picking/uploading.
-  /// - [allowMultiple] (`bool`, default: `true`): Allow multi-file picking.
-  /// - [uploadFn] (`UploadFn?`, optional): Upload handler for progress.
+@Deprecated('Use FileUploadDragDrop.')
+class FileUpload extends FileUploadDragDrop {
   const FileUpload({
+    super.key,
+    super.title,
+    super.subtitle,
+    super.hint,
+    super.icon,
+    super.enableDragDrop,
+    super.enableDropzoneClick,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.dropTargetBuilder,
+    super.itemBuilder,
+    super.showFileList,
+    super.itemsLayout,
+    super.itemsGridColumns,
+    super.itemsMaxHeight,
+    super.backgroundColor,
+    super.borderRadius,
+    super.padding,
+    super.minHeight,
+  });
+}
+
+@Deprecated('Use FileUploadMobilePicker.')
+class FileUploadMobile extends FileUploadMobilePicker {
+  const FileUploadMobile({
+    super.key,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.compactIcon,
+    super.compactTrigger,
+    super.compactButtonLabel,
+    super.compactOptions,
+  });
+
+  const FileUploadMobile.popover({
+    super.key,
+    super.enabled,
+    super.allowMultiple,
+    super.withData,
+    super.maxFiles,
+    super.maxFileSizeBytes,
+    super.allowedExtensions,
+    super.allowedMimeTypes,
+    super.files,
+    super.controller,
+    super.onFilesSelected,
+    super.onFilesChanged,
+    super.onUploadStart,
+    super.onProgress,
+    super.onComplete,
+    super.onError,
+    super.uploadFn,
+    super.pickFiles,
+    super.compactIcon,
+    super.compactTrigger,
+    super.compactButtonLabel,
+    super.compactOptions,
+  }) : super.popover();
+}
+
+enum _FileUploadSurface { dragDrop, tile, mobile }
+
+class _FileUpload extends StatefulWidget {
+  const _FileUpload.dragDrop({
     super.key,
     this.title,
     this.subtitle,
+    this.hint,
+    this.icon,
     this.enableDragDrop = true,
     this.enableDropzoneClick = true,
-    this.enableActionButton = false,
     this.enabled = true,
     this.allowMultiple = true,
     this.withData = true,
@@ -193,36 +325,177 @@ class FileUpload extends StatefulWidget {
     this.onComplete,
     this.onError,
     this.uploadFn,
+    this.pickFiles,
+    this.dropTargetBuilder,
     this.itemBuilder,
     this.showFileList = true,
     this.itemsLayout = FileUploadItemsLayout.list,
     this.itemsGridColumns = 2,
     this.itemsMaxHeight,
-    this.hint,
-    this.actionLabel,
-    this.icon,
     this.backgroundColor,
     this.borderRadius,
     this.padding,
     this.minHeight,
-  }) : assert(
-         enableDropzoneClick != enableActionButton,
-         'Enable only one of enableDropzoneClick or enableActionButton.',
-       );
+  }) : surface = _FileUploadSurface.dragDrop,
+       actionLabel = null,
+       compactMode = FileUploadCompactMode.iconButton,
+       compactIcon = null,
+       compactTrigger = FileUploadCompactTrigger.icon,
+       compactButtonLabel = null,
+       compactOptions = null;
+
+  const _FileUpload.tile({
+    super.key,
+    this.title,
+    this.subtitle,
+    this.hint,
+    this.icon,
+    this.actionLabel,
+    this.enabled = true,
+    this.allowMultiple = true,
+    this.withData = true,
+    this.maxFiles,
+    this.maxFileSizeBytes,
+    this.allowedExtensions,
+    this.allowedMimeTypes,
+    this.files,
+    this.controller,
+    this.onFilesSelected,
+    this.onFilesChanged,
+    this.onUploadStart,
+    this.onProgress,
+    this.onComplete,
+    this.onError,
+    this.uploadFn,
+    this.pickFiles,
+    this.itemBuilder,
+    this.showFileList = true,
+    this.itemsLayout = FileUploadItemsLayout.grid,
+    this.itemsGridColumns = 2,
+    this.itemsMaxHeight,
+    this.backgroundColor,
+    this.borderRadius,
+    this.padding,
+    this.minHeight,
+  }) : surface = _FileUploadSurface.tile,
+       enableDragDrop = false,
+       enableDropzoneClick = false,
+       dropTargetBuilder = null,
+       compactMode = FileUploadCompactMode.iconButton,
+       compactIcon = null,
+       compactTrigger = FileUploadCompactTrigger.icon,
+       compactButtonLabel = null,
+       compactOptions = null;
+
+  const _FileUpload.mobile({
+    super.key,
+    this.enabled = true,
+    this.allowMultiple = true,
+    this.withData = true,
+    this.maxFiles,
+    this.maxFileSizeBytes,
+    this.allowedExtensions,
+    this.allowedMimeTypes,
+    this.files,
+    this.controller,
+    this.onFilesSelected,
+    this.onFilesChanged,
+    this.onUploadStart,
+    this.onProgress,
+    this.onComplete,
+    this.onError,
+    this.uploadFn,
+    this.pickFiles,
+    this.compactIcon,
+    this.compactTrigger = FileUploadCompactTrigger.icon,
+    this.compactButtonLabel,
+    this.compactOptions,
+    this.compactMode = FileUploadCompactMode.iconButton,
+  }) : surface = _FileUploadSurface.mobile,
+       title = null,
+       subtitle = null,
+       hint = null,
+       icon = null,
+       actionLabel = null,
+       itemBuilder = null,
+       showFileList = false,
+       itemsLayout = FileUploadItemsLayout.list,
+       itemsGridColumns = 2,
+       itemsMaxHeight = null,
+       enableDragDrop = false,
+       enableDropzoneClick = false,
+       dropTargetBuilder = null,
+       backgroundColor = null,
+       borderRadius = null,
+       padding = null,
+       minHeight = null;
+
+  final _FileUploadSurface surface;
+
+  final Widget? title;
+  final Widget? subtitle;
+  final Widget? hint;
+  final Widget? icon;
+  final String? actionLabel;
+
+  final bool enableDragDrop;
+  final bool enableDropzoneClick;
+  final bool enabled;
+  final bool allowMultiple;
+  final bool withData;
+
+  final int? maxFiles;
+  final int? maxFileSizeBytes;
+  final List<String>? allowedExtensions;
+  final List<String>? allowedMimeTypes;
+
+  final List<FileLike>? files;
+  final FileUploadController? controller;
+
+  final ValueChanged<List<FileLike>>? onFilesSelected;
+  final ValueChanged<List<FileLike>>? onFilesChanged;
+  final VoidCallback? onUploadStart;
+  final void Function(FileLike file, double progress)? onProgress;
+  final ValueChanged<List<FileLike>>? onComplete;
+  final ValueChanged<FileUploadError>? onError;
+  final UploadFn? uploadFn;
+  final FileUploadPickFiles? pickFiles;
+
+  final FileUploadDropTargetBuilder? dropTargetBuilder;
+
+  final Widget Function(BuildContext context, FileUploadItem item)? itemBuilder;
+  final bool showFileList;
+  final FileUploadItemsLayout itemsLayout;
+  final int itemsGridColumns;
+  final double? itemsMaxHeight;
+
+  final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
+  final EdgeInsetsGeometry? padding;
+  final double? minHeight;
+
+  final FileUploadCompactMode compactMode;
+  final Widget? compactIcon;
+  final FileUploadCompactTrigger compactTrigger;
+  final String? compactButtonLabel;
+  final List<FileUploadPickOption>? compactOptions;
 
   @override
-  State<FileUpload> createState() => _FileUploadState();
+  State<_FileUpload> createState() => _FileUploadState();
 }
 
-class _FileUploadState extends State<FileUpload> {
+class _FileUploadState extends State<_FileUpload> {
   final FilePickerAdapter _adapter = createFilePickerAdapter();
+  final PopoverController _compactPickerPopoverController = PopoverController();
   final List<FileUploadItem> _items = [];
   final List<FileUploadError> _errors = [];
   final Map<String, StreamSubscription<double>> _uploadSubscriptions = {};
+
   bool _dragActive = false;
-  Timer? _dragDebounce;
   bool _focused = false;
   bool _completedOnce = false;
+  bool _controllerListenerAttached = false;
+  Timer? _dragDebounce;
 
   List<FileUploadItem> get _effectiveItems {
     if (widget.controller != null) {
@@ -262,14 +535,13 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   void _syncControllerState() {
-    if (!mounted) return;
-    if (_controllerListenerAttached) return;
+    if (!mounted || _controllerListenerAttached) {
+      return;
+    }
     widget.controller?.addListener(_onControllerChanged);
     _controllerListenerAttached = true;
     _onControllerChanged();
   }
-
-  bool _controllerListenerAttached = false;
 
   void _onControllerChanged() {
     if (!mounted) return;
@@ -284,21 +556,154 @@ class _FileUploadState extends State<FileUpload> {
   }
 
   Future<void> _pickFiles() async {
-    if (!widget.enabled) return;
-    final files = await _adapter.pickFiles(
-      allowMultiple: widget.allowMultiple,
-      allowedExtensions: widget.allowedExtensions,
-      allowedMimeTypes: widget.allowedMimeTypes,
-      withData: widget.withData,
+    await _pickFilesForOption(null);
+  }
+
+  Future<void> _pickFilesForOption(FileUploadPickOption? option) async {
+    if (!widget.enabled || widget.pickFiles == null) {
+      return;
+    }
+
+    try {
+      final request = FileUploadPickRequest(
+        allowMultiple: option?.allowMultiple ?? widget.allowMultiple,
+        withData: option?.withData ?? widget.withData,
+        allowedExtensions:
+            option?.allowedExtensions ?? widget.allowedExtensions,
+        allowedMimeTypes: option?.allowedMimeTypes ?? widget.allowedMimeTypes,
+      );
+      final files = await widget.pickFiles!.call(request);
+      if (!mounted || files.isEmpty) return;
+      _handleNewFiles(files);
+    } catch (_) {
+      final error = FileUploadError(
+        code: FileUploadErrorCode.uploadFailed,
+        message: 'File picking failed.',
+      );
+      _setErrors([..._errors, error]);
+    }
+  }
+
+  List<FileUploadPickOption> _resolveCompactOptions() {
+    if (widget.compactOptions != null && widget.compactOptions!.isNotEmpty) {
+      return widget.compactOptions!;
+    }
+    if (widget.compactMode == FileUploadCompactMode.iconButtonPopover) {
+      return const [
+        FileUploadPickOption.pickFiles,
+        FileUploadPickOption.pickImages,
+      ];
+    }
+    return const [FileUploadPickOption.pickFiles];
+  }
+
+  Future<void> _openCompactPickerOptions() async {
+    final options = _resolveCompactOptions();
+    if (options.isEmpty) return;
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+
+    await _compactPickerPopoverController.show<void>(
+      context: context,
+      alignment: AlignmentDirectional.topEnd,
+      anchorAlignment: AlignmentDirectional.bottomEnd,
+      offset: Offset(0, theme.density.baseGap * scaling),
+      builder: (context) {
+        return OutlinedContainer(
+          child: Padding(
+            padding: EdgeInsets.all(theme.density.baseGap * scaling),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final option in options)
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: theme.density.baseGap * scaling * 0.25,
+                    ),
+                    child: Button.ghost(
+                      onPressed: () async {
+                        _compactPickerPopoverController.closeLater();
+                        await _pickFilesForOption(option);
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (option.icon != null) ...[
+                            option.icon!,
+                            DensityGap(0.5),
+                          ],
+                          Text(option.label),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
-    if (!mounted || files.isEmpty) return;
-    _handleNewFiles(files);
+  }
+
+  Widget _buildCompactPickerTrigger(ThemeData theme) {
+    final options = _resolveCompactOptions();
+    final firstOption = options.isNotEmpty ? options.first : null;
+    final onPressed = !widget.enabled || widget.pickFiles == null
+        ? null
+        : widget.compactMode == FileUploadCompactMode.iconButtonPopover
+        ? _openCompactPickerOptions
+        : () => _pickFilesForOption(firstOption);
+    final icon = widget.compactIcon ?? const Icon(RadixIcons.upload);
+
+    if (widget.compactTrigger == FileUploadCompactTrigger.button) {
+      return OutlineButton(
+        onPressed: onPressed,
+        leading: icon,
+        size: ButtonSize.small,
+        child: Text(widget.compactButtonLabel ?? 'Pick files'),
+      );
+    }
+
+    return IconButton.outline(
+      onPressed: onPressed,
+      density: ButtonDensity.icon,
+      size: ButtonSize.small,
+      icon: icon,
+    );
+  }
+
+  Widget _buildTitleBlock(ThemeData theme) {
+    if (widget.title == null && widget.subtitle == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.title != null)
+          DefaultTextStyle.merge(
+            style: theme.typography.large.merge(theme.typography.semiBold),
+            child: widget.title!,
+          ),
+        if (widget.subtitle != null) DensityGap(0.75),
+        if (widget.subtitle != null)
+          DefaultTextStyle.merge(
+            style: theme.typography.small.copyWith(
+              color: theme.colorScheme.mutedForeground,
+            ),
+            child: widget.subtitle!,
+          ),
+        DensityGap(gapLg),
+      ],
+    );
   }
 
   void _handleNewFiles(List<FileLike> files) {
     final effectiveMaxFiles = widget.allowMultiple
         ? widget.maxFiles
         : (widget.maxFiles ?? 1);
+
     if (widget.controller != null) {
       widget.controller!.addFiles(files);
       _syncControllerState();
@@ -307,6 +712,7 @@ class _FileUploadState extends State<FileUpload> {
       }
       return;
     }
+
     final validation = validateFiles(
       incoming: files,
       existing: _effectiveItems.map((item) => item.file).toList(),
@@ -363,7 +769,7 @@ class _FileUploadState extends State<FileUpload> {
           );
           widget.onProgress?.call(file, clamped);
         },
-        onError: (Object error) {
+        onError: (_) {
           if (!mounted) return;
           final uploadError = FileUploadError(
             code: FileUploadErrorCode.uploadFailed,
@@ -400,8 +806,10 @@ class _FileUploadState extends State<FileUpload> {
       return;
     }
     if (widget.files != null) return;
+
     final index = _items.indexWhere((item) => item.file.id == file.id);
     if (index == -1) return;
+
     setState(() {
       _items[index] = _items[index].copyWith(
         status: status,
@@ -412,17 +820,21 @@ class _FileUploadState extends State<FileUpload> {
 
   void _checkUploadCompletion() {
     if (!mounted) return;
-    if (_items.any((item) => item.status == FileUploadItemStatus.uploading)) {
+
+    final items = _effectiveItems;
+    if (items.any((item) => item.status == FileUploadItemStatus.uploading)) {
       return;
     }
-    if (_items.isEmpty) {
+
+    if (items.isEmpty) {
       _completedOnce = false;
       setState(() {});
       return;
     }
+
     _completedOnce = true;
     if (_errors.isEmpty) {
-      widget.onComplete?.call(_items.map((item) => item.file).toList());
+      widget.onComplete?.call(items.map((item) => item.file).toList());
     }
     setState(() {});
   }
@@ -434,12 +846,14 @@ class _FileUploadState extends State<FileUpload> {
       return;
     }
     if (widget.files != null) return;
+
     setState(() {
       _items.removeWhere((entry) => entry.file.id == item.file.id);
       if (_items.isEmpty) {
         _completedOnce = false;
       }
     });
+
     widget.onFilesChanged?.call(_items.map((entry) => entry.file).toList());
   }
 
@@ -455,6 +869,7 @@ class _FileUploadState extends State<FileUpload> {
       setState(() => _dragActive = true);
       return;
     }
+
     _dragDebounce?.cancel();
     _dragDebounce = Timer(const Duration(milliseconds: 120), () {
       if (!mounted) return;
@@ -462,9 +877,214 @@ class _FileUploadState extends State<FileUpload> {
     });
   }
 
+  Widget _buildDragDropContent(ThemeData theme, double scaling) {
+    final singleItemContent =
+        (!widget.allowMultiple && _effectiveItems.isNotEmpty)
+        ? FileUploadItemsView(
+            items: [_effectiveItems.first],
+            layout: FileUploadItemsLayout.list,
+            showContainer: false,
+            itemBuilder: widget.itemBuilder,
+          )
+        : null;
+
+    if (singleItemContent != null) {
+      return singleItemContent;
+    }
+
+    final icon =
+        widget.icon ??
+        Icon(
+          RadixIcons.upload,
+          size: 28 * scaling,
+          color: widget.enabled
+              ? theme.colorScheme.mutedForeground
+              : theme.colorScheme.mutedForeground.withOpacity(0.5),
+        );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        icon,
+        DensityGap(gapMd),
+        DefaultTextStyle.merge(
+          style: theme.typography.small.copyWith(
+            color: widget.enabled
+                ? theme.colorScheme.mutedForeground
+                : theme.colorScheme.mutedForeground.withOpacity(0.6),
+          ),
+          textAlign: TextAlign.center,
+          child: Text(_dragDropLabel()),
+        ),
+        if (widget.hint != null) ...[
+          DensityGap(gapSm),
+          DefaultTextStyle.merge(
+            style: theme.typography.xSmall.copyWith(
+              color: theme.colorScheme.mutedForeground,
+            ),
+            textAlign: TextAlign.center,
+            child: widget.hint!,
+          ),
+        ],
+      ],
+    );
+  }
+
+  String _dragDropLabel() {
+    if (!widget.enabled) return 'File uploads disabled';
+    if (_dragActive || _state == FileUploadState.dragging) {
+      return 'Drop files to upload';
+    }
+    switch (_state) {
+      case FileUploadState.uploading:
+        return 'Uploading files...';
+      case FileUploadState.success:
+        return 'Files ready';
+      case FileUploadState.error:
+        return 'Fix errors to continue';
+      case FileUploadState.idle:
+      case FileUploadState.disabled:
+      case FileUploadState.dragging:
+        return widget.enableDragDrop
+            ? 'Drag files here or click to pick files.'
+            : 'Click to pick files.';
+    }
+  }
+
+  Widget _buildDragDropSurface(
+    ThemeData theme,
+    FileUploadDropzoneTheme? dropzoneTheme,
+  ) {
+    final scaling = theme.scaling;
+    final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
+    final isEnabled = widget.enabled;
+    final dropzoneMinHeight =
+        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
+
+    final dropzone = FileDropzone(
+      hotDropEnabled: canDrop,
+      hotDropping: _dragActive,
+      enabled: isEnabled,
+      state: _mapDropzoneState(_state),
+      isFocused: _focused,
+      showDefaultContent: false,
+      content: _buildDragDropContent(theme, scaling),
+      backgroundColor: widget.backgroundColor ?? dropzoneTheme?.backgroundColor,
+      borderRadius: widget.borderRadius ?? dropzoneTheme?.borderRadius,
+      padding: widget.padding ?? dropzoneTheme?.padding,
+      minHeight: dropzoneMinHeight,
+    );
+
+    final onTap = widget.enableDropzoneClick && widget.enabled
+        ? _pickFiles
+        : null;
+
+    if (widget.dropTargetBuilder != null) {
+      return widget.dropTargetBuilder!(
+        child: dropzone,
+        enabled: isEnabled && canDrop,
+        withData: widget.withData,
+        onDragActive: _setDragActive,
+        onDrop: _handleDrop,
+        onTap: onTap,
+      );
+    }
+
+    return _adapter.buildDropTarget(
+      enabled: isEnabled && canDrop,
+      withData: widget.withData,
+      onDragActive: _setDragActive,
+      onDrop: _handleDrop,
+      onTap: onTap,
+      child: dropzone,
+    );
+  }
+
+  Widget _buildTileSurface(
+    ThemeData theme,
+    FileUploadDropzoneTheme? dropzoneTheme,
+  ) {
+    final scaling = theme.scaling;
+    final minHeight =
+        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
+    final icon =
+        widget.icon ??
+        dropzoneTheme?.icon ??
+        Icon(
+          RadixIcons.file,
+          size: 28 * scaling,
+          color: widget.enabled
+              ? theme.colorScheme.mutedForeground
+              : theme.colorScheme.mutedForeground.withOpacity(0.5),
+        );
+
+    final buttonLabel =
+        widget.actionLabel ??
+        (widget.allowMultiple ? 'Add files' : 'Choose file');
+
+    return OutlinedContainer(
+      borderWidth: 1,
+      borderRadius: widget.borderRadius,
+      backgroundColor: widget.backgroundColor,
+      boxShadow: _focused
+          ? [
+              BoxShadow(
+                color: theme.colorScheme.ring.withOpacity(0.45),
+                blurRadius: 0,
+                spreadRadius: 2 * scaling,
+              ),
+            ]
+          : null,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: minHeight),
+        child: Padding(
+          padding:
+              widget.padding ??
+              EdgeInsets.all(
+                theme.density.baseContainerPadding * scaling * 1.5,
+              ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                icon,
+                DensityGap(gapMd),
+                DefaultTextStyle.merge(
+                  style: theme.typography.small.copyWith(
+                    color: theme.colorScheme.mutedForeground,
+                  ),
+                  textAlign: TextAlign.center,
+                  child: const Text('Select files to upload'),
+                ),
+                if (widget.hint != null) ...[
+                  DensityGap(gapSm),
+                  DefaultTextStyle.merge(
+                    style: theme.typography.xSmall.copyWith(
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    textAlign: TextAlign.center,
+                    child: widget.hint!,
+                  ),
+                ],
+                DensityGap(gapLg),
+                OutlineButton(
+                  onPressed: widget.enabled && widget.pickFiles != null
+                      ? _pickFiles
+                      : null,
+                  child: Text(buttonLabel),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
-  void didUpdateWidget(covariant FileUpload oldWidget) {
+  void didUpdateWidget(covariant _FileUpload oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (widget.controller != oldWidget.controller &&
         widget.controller != null) {
       if (_controllerListenerAttached) {
@@ -473,6 +1093,7 @@ class _FileUploadState extends State<FileUpload> {
       }
       _syncControllerState();
     }
+
     if (widget.files != oldWidget.files && widget.files != null) {
       _errors.clear();
       _completedOnce = widget.files!.isNotEmpty ? _completedOnce : false;
@@ -482,14 +1103,18 @@ class _FileUploadState extends State<FileUpload> {
   @override
   void dispose() {
     _dragDebounce?.cancel();
+    _compactPickerPopoverController.dispose();
+
     if (_controllerListenerAttached) {
       widget.controller?.removeListener(_onControllerChanged);
       _controllerListenerAttached = false;
     }
+
     for (final sub in _uploadSubscriptions.values) {
       sub.cancel();
     }
     _uploadSubscriptions.clear();
+
     super.dispose();
   }
 
@@ -501,90 +1126,56 @@ class _FileUploadState extends State<FileUpload> {
       context,
     );
     final isEnabled = widget.enabled;
-    final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
-    final buttonEnabled =
-        widget.enabled &&
-        widget.enableActionButton &&
-        !(widget.enableDropzoneClick && widget.actionLabel != null);
-    final dropzoneMinHeight =
-        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
-    final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
+
+    if (widget.surface == _FileUploadSurface.mobile) {
+      return FocusableActionDetector(
+        enabled: isEnabled,
+        shortcuts: const <ShortcutActivator, Intent>{
+          SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
+          SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
+        },
+        actions: <Type, Action<Intent>>{
+          ActivateIntent: CallbackAction<ActivateIntent>(
+            onInvoke: (_) => _pickFiles(),
+          ),
+        },
+        onShowFocusHighlight: (value) => setState(() => _focused = value),
+        child: _buildCompactPickerTrigger(theme),
+      );
+    }
+
+    final surface = widget.surface == _FileUploadSurface.dragDrop
+        ? _buildDragDropSurface(theme, dropzoneTheme)
+        : _buildTileSurface(theme, dropzoneTheme);
+
     final shortcutMap = <ShortcutActivator, Intent>{
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
       const SingleActivator(LogicalKeyboardKey.space): const ActivateIntent(),
     };
     final actionMap = <Type, Action<Intent>>{
       ActivateIntent: CallbackAction<ActivateIntent>(
-        onInvoke: (intent) => _pickFiles(),
+        onInvoke: (_) => _pickFiles(),
       ),
     };
-    final singleItemContent =
-        (!widget.allowMultiple && _effectiveItems.isNotEmpty)
-        ? FileUploadItemsView(
-            items: [_effectiveItems.first],
-            layout: FileUploadItemsLayout.list,
-            showContainer: false,
-            itemBuilder: widget.itemBuilder,
-          )
-        : null;
-    final dropzone = FileDropzone(
-      hotDropEnabled: canDrop,
-      hotDropping: _dragActive,
-      enabled: isEnabled,
-      state: _mapDropzoneState(_state),
-      isFocused: _focused,
-      showDefaultContent: widget.allowMultiple || _effectiveItems.isEmpty,
-      content: singleItemContent,
-      hint: widget.hint,
-      icon: widget.icon ?? dropzoneTheme?.icon,
-      actionLabel: widget.actionLabel,
-      onPressed: buttonEnabled ? _pickFiles : null,
-      backgroundColor: widget.backgroundColor ?? dropzoneTheme?.backgroundColor,
-      borderRadius: widget.borderRadius ?? dropzoneTheme?.borderRadius,
-      padding: widget.padding ?? dropzoneTheme?.padding,
-      minHeight: dropzoneMinHeight,
-    );
-    final dropTarget = _adapter.buildDropTarget(
-      enabled: isEnabled && canDrop,
-      withData: widget.withData,
-      onDragActive: _setDragActive,
-      onDrop: _handleDrop,
-      onTap: widget.enableDropzoneClick && isEnabled ? _pickFiles : null,
-      child: dropzone,
-    );
+
+    final hasItems = widget.showFileList && _effectiveItems.isNotEmpty;
+    final itemsMaxHeight = widget.itemsMaxHeight ?? 260 * scaling;
+    final listItems = widget.allowMultiple
+        ? _effectiveItems
+        : [_effectiveItems.first];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (widget.title != null || widget.subtitle != null)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.title != null)
-                DefaultTextStyle.merge(
-                  style: theme.typography.large.merge(
-                    theme.typography.semiBold,
-                  ),
-                  child: widget.title!,
-                ),
-              if (widget.subtitle != null) Gap(6 * scaling),
-              if (widget.subtitle != null)
-                DefaultTextStyle.merge(
-                  style: theme.typography.small.copyWith(
-                    color: theme.colorScheme.mutedForeground,
-                  ),
-                  child: widget.subtitle!,
-                ),
-              Gap(16 * scaling),
-            ],
-          ),
+        _buildTitleBlock(theme),
         FocusableActionDetector(
           enabled: isEnabled,
           shortcuts: shortcutMap,
           actions: actionMap,
           onShowFocusHighlight: (value) => setState(() => _focused = value),
-          child: dropTarget,
+          child: surface,
         ),
-        if (_errors.isNotEmpty) Gap(12 * scaling),
+        if (_errors.isNotEmpty) DensityGap(gapMd),
         if (_errors.isNotEmpty)
           Semantics(
             liveRegion: true,
@@ -595,7 +1186,9 @@ class _FileUploadState extends State<FileUpload> {
               children: [
                 for (final error in _errors)
                   Padding(
-                    padding: EdgeInsets.only(bottom: 6 * scaling),
+                    padding: EdgeInsets.only(
+                      bottom: theme.density.baseGap * scaling * 0.75,
+                    ),
                     child: DefaultTextStyle.merge(
                       style: theme.typography.xSmall.copyWith(
                         color: theme.colorScheme.destructive,
@@ -606,16 +1199,13 @@ class _FileUploadState extends State<FileUpload> {
               ],
             ),
           ),
-        if (widget.showFileList &&
-            _effectiveItems.isNotEmpty &&
-            widget.allowMultiple)
-          Gap(16 * scaling),
-        if (widget.showFileList &&
-            _effectiveItems.isNotEmpty &&
-            widget.allowMultiple)
+        if (hasItems) DensityGap(gapLg),
+        if (hasItems)
           FileUploadItemsView(
-            items: _effectiveItems,
-            layout: widget.itemsLayout,
+            items: listItems,
+            layout: widget.allowMultiple
+                ? widget.itemsLayout
+                : FileUploadItemsLayout.list,
             columns: widget.itemsGridColumns,
             maxHeight: itemsMaxHeight,
             itemBuilder: (context, item) =>

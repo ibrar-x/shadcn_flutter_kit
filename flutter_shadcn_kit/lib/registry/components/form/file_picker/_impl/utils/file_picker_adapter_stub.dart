@@ -20,16 +20,13 @@ class _StubFilePickerAdapter implements FilePickerAdapter {
     required ValueChanged<List<FileLike>> onDrop,
     VoidCallback? onTap,
   }) {
-    return child;
-  }
-
-  @override
-  Future<List<FileLike>> pickFiles({
-    required bool allowMultiple,
-    required bool withData,
-    List<String>? allowedExtensions,
-    List<String>? allowedMimeTypes,
-  }) async {
-    return const [];
+    if (onTap == null || !enabled) {
+      return child;
+    }
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: child,
+    );
   }
 }
