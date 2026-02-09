@@ -23,6 +23,7 @@ Treat this skill bundle and CLI `--help` output as canonical in runtime environm
 - [SKILL.md](SKILL.md) - Core rules and runtime policy for this skill.
 - [references/commands.md](references/commands.md) - CLI command syntax and options.
 - [references/core_concepts.md](references/core_concepts.md) - Registry, manifests, base widgets, and overlay rules.
+- [references/registry_essential_widgets.md](references/registry_essential_widgets.md) - Required wrappers and preferred shadcn replacements over raw material/cupertino usage.
 - [references/configuration.md](references/configuration.md) - Config/state files and safe sync flow.
 - [references/troubleshooting.md](references/troubleshooting.md) - Common failures and recovery steps.
 - `flutter_shadcn --help` and `flutter_shadcn <command> --help`
@@ -143,6 +144,7 @@ flutter_shadcn doctor --json
 
 - [references/commands.md](references/commands.md) - Command reference and supported flags.
 - [references/core_concepts.md](references/core_concepts.md) - Concepts, base components, and overlay wrapper requirements.
+- [references/registry_essential_widgets.md](references/registry_essential_widgets.md) - Essential wrappers, replacement mapping, and import-collision rules.
 - [references/configuration.md](references/configuration.md) - Config/state/manifests and sync validation flow.
 - [references/common_tasks.md](references/common_tasks.md) - Common install and lifecycle tasks.
 - [references/advanced_usage.md](references/advanced_usage.md) - JSON/offline and safer change planning workflows.
