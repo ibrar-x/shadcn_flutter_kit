@@ -4,6 +4,8 @@ import 'package:flutter/material.dart'
 import '../../ui/shadcn/components/control/button/button.dart'
     as shadcn_buttons;
 import '../../ui/shadcn/components/display/badge/badge.dart' as shadcn_badge;
+import '../../ui/shadcn/components/display/border_loading/border_loading.dart'
+    as shadcn_border_loading;
 import '../../ui/shadcn/components/display/divider/divider.dart'
     as shadcn_divider;
 import '../../ui/shadcn/components/display/progress/progress.dart'
@@ -27,6 +29,7 @@ typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
   'file_picker': 'Experimental',
+  'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
   'window': 'Experimental',
@@ -40,6 +43,7 @@ const Map<String, String> componentStatusTags = {
 const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'button': _buttonPreview,
   'badge': _badgePreview,
+  'border_loading': _borderLoadingPreview,
   'accordion': _accordionPreview,
   'card': _cardPreview,
   'divider': _dividerPreview,
@@ -107,6 +111,26 @@ Widget _buttonPreview(BuildContext context) {
 
 Widget _badgePreview(BuildContext context) {
   return const shadcn_badge.PrimaryBadge(child: Text('Badge'));
+}
+
+Widget _borderLoadingPreview(BuildContext context) {
+  return shadcn_border_loading.BorderLoading(
+    mode: shadcn_border_loading.BorderLoadingMode.sweepGradient,
+    spec: const shadcn_border_loading.BorderGradientSpec(
+      type: shadcn_border_loading.BorderGradientType.sweep,
+      colors: [
+        Color(0x00000000),
+        Color(0xFF3B82F6),
+        Color(0xFF22C55E),
+        Color(0x00000000),
+      ],
+      gap: 0.3,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: const Text('Loading').xSmall(),
+    ),
+  );
 }
 
 Widget _accordionPreview(BuildContext context) {

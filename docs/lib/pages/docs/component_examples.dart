@@ -8,6 +8,7 @@ import 'components/autocomplete/autocomplete_examples.dart';
 import 'components/avatar/avatar_examples.dart';
 import 'components/avatar_group/avatar_group_examples.dart';
 import 'components/badge/badge_examples.dart';
+import 'components/border_loading/border_loading_examples.dart';
 import 'components/breadcrumb/breadcrumb_examples.dart';
 import 'components/button/button_examples.dart';
 import 'components/calendar/calendar_examples.dart';
@@ -93,6 +94,7 @@ const Set<String> originalComponentIds = {
   'avatar',
   'avatar_group',
   'badge',
+  'border_loading',
   'breadcrumb',
   'button',
   'calendar',
@@ -182,6 +184,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'avatar',
       'avatar_group',
       'badge',
+      'border_loading',
       'breadcrumb',
       'button',
       'calendar',
@@ -270,6 +273,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'avatar': avatarExamples,
   'avatar_group': avatarGroupExamples,
   'badge': badgeExamples,
+  'border_loading': borderLoadingExamples,
   'breadcrumb': breadcrumbExamples,
   'button': buttonExamples,
   'calendar': calendarExamples,
