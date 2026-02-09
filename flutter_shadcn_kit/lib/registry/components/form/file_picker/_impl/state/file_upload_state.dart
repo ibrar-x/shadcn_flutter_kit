@@ -136,8 +136,12 @@ class _FileUploadState extends State<_FileUpload> {
     final isEnabled = widget.enabled;
 
     if (widget.surface == _FileUploadSurface.mobile) {
+      final compactSurface = _buildLoadingAwareSurface(
+        theme,
+        _buildCompactPickerTrigger(),
+      );
       return FocusableActionDetector(
-        enabled: isEnabled,
+        enabled: isEnabled && !widget.loading.isLoading,
         shortcuts: const <ShortcutActivator, Intent>{
           SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
           SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
@@ -148,13 +152,14 @@ class _FileUploadState extends State<_FileUpload> {
           ),
         },
         onShowFocusHighlight: (value) => setState(() => _focused = value),
-        child: _buildCompactPickerTrigger(),
+        child: compactSurface,
       );
     }
 
-    final surface = widget.surface == _FileUploadSurface.dragDrop
+    final baseSurface = widget.surface == _FileUploadSurface.dragDrop
         ? _buildDragDropSurface(theme, dropzoneTheme)
         : _buildTileSurface(theme, dropzoneTheme);
+    final surface = _buildLoadingAwareSurface(theme, baseSurface);
 
     final shortcutMap = <ShortcutActivator, Intent>{
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
@@ -181,7 +186,7 @@ class _FileUploadState extends State<_FileUpload> {
       children: [
         _buildTitleBlock(theme),
         FocusableActionDetector(
-          enabled: isEnabled,
+          enabled: isEnabled && !widget.loading.isLoading,
           shortcuts: shortcutMap,
           actions: actionMap,
           onShowFocusHighlight: (value) => setState(() => _focused = value),

@@ -6,6 +6,9 @@ enum FileUploadCompactTrigger { icon, button }
 /// Available top-level layouts for [FileUpload].
 enum FileUploadVariant { dragDrop, tile, mobile }
 
+/// Loading behavior for the file upload surface.
+enum FileUploadLoadingMode { replace, hide, wrap }
+
 /// Internal mode for compact/mobile picker rendering.
 enum _FileUploadMobileMode { button, popover }
 
@@ -33,6 +36,7 @@ class FileUploadDragDropOptions extends FileUploadOptions {
     this.successLabel,
     this.errorLabel,
     this.disabledLabel,
+    this.loading = const FileUploadLoadingOptions(),
   });
 
   /// Enables native/web drag-and-drop where supported.
@@ -74,6 +78,9 @@ class FileUploadDragDropOptions extends FileUploadOptions {
   /// Override label when uploads are disabled.
   final String? disabledLabel;
 
+  /// Loading presentation for the dropzone container.
+  final FileUploadLoadingOptions loading;
+
   @override
   FileUploadVariant get variant => FileUploadVariant.dragDrop;
 }
@@ -85,6 +92,7 @@ class FileUploadTileOptions extends FileUploadOptions {
     this.icon,
     this.subtitle,
     this.hint,
+    this.loading = const FileUploadLoadingOptions(),
   });
 
   /// Label used by the tile action segment.
@@ -99,6 +107,9 @@ class FileUploadTileOptions extends FileUploadOptions {
   /// Optional hint shown below the tile surface.
   final Widget? hint;
 
+  /// Loading presentation for the tile container.
+  final FileUploadLoadingOptions loading;
+
   @override
   FileUploadVariant get variant => FileUploadVariant.tile;
 }
@@ -111,6 +122,7 @@ class FileUploadMobileOptions extends FileUploadOptions {
     this.icon,
     this.trigger = FileUploadCompactTrigger.icon,
     this.buttonLabel,
+    this.loading = const FileUploadLoadingOptions(),
   }) : assert(
          !popover || popoverItems != null,
          'popoverItems must be provided when popover is true.',
@@ -130,6 +142,9 @@ class FileUploadMobileOptions extends FileUploadOptions {
 
   /// Label used when [trigger] is [FileUploadCompactTrigger.button].
   final String? buttonLabel;
+
+  /// Loading presentation for compact trigger surface.
+  final FileUploadLoadingOptions loading;
 
   @override
   FileUploadVariant get variant => FileUploadVariant.mobile;
@@ -194,6 +209,36 @@ typedef FileUploadDropTargetBuilder =
       required ValueChanged<List<FileLike>> onDrop,
       VoidCallback? onTap,
     });
+
+/// Wrap builder used in [FileUploadLoadingMode.wrap].
+typedef FileUploadLoadingWrapperBuilder =
+    Widget Function(BuildContext context, Widget child);
+
+/// Configures how a surface behaves while loading.
+class FileUploadLoadingOptions {
+  const FileUploadLoadingOptions({
+    this.isLoading = false,
+    this.mode = FileUploadLoadingMode.replace,
+    this.loadingWidget,
+    this.wrapperBuilder,
+    this.disableInteractions = true,
+  });
+
+  /// Enables loading behavior when true.
+  final bool isLoading;
+
+  /// Loading presentation mode.
+  final FileUploadLoadingMode mode;
+
+  /// Widget used for replace or wrap-overlay loading display.
+  final Widget? loadingWidget;
+
+  /// Builder used to wrap the surface in [FileUploadLoadingMode.wrap].
+  final FileUploadLoadingWrapperBuilder? wrapperBuilder;
+
+  /// Disables pointer interactions while loading.
+  final bool disableInteractions;
+}
 
 /// Builder used to control tile text for selected files.
 typedef FileUploadTileSelectionTextBuilder =

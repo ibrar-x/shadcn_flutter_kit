@@ -135,6 +135,54 @@ FileUpload(
 )
 ```
 
+### Optional Loading Surface Modes
+
+Set loading behavior per variant through `options.loading`:
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  options: FileUploadDragDropOptions(
+    loading: const FileUploadLoadingOptions(
+      isLoading: true,
+      mode: FileUploadLoadingMode.replace,
+      loadingWidget: Center(child: Text('Preparing upload...')),
+    ),
+  ),
+)
+```
+
+Hide surface while loading:
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  options: const FileUploadTileOptions(
+    loading: FileUploadLoadingOptions(
+      isLoading: true,
+      mode: FileUploadLoadingMode.hide,
+    ),
+  ),
+)
+```
+
+Wrap surface while loading (for `border_loading`-style wrappers):
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  options: FileUploadTileOptions(
+    loading: FileUploadLoadingOptions(
+      isLoading: true,
+      mode: FileUploadLoadingMode.wrap,
+      wrapperBuilder: (context, child) {
+        return BorderLoading(child: child);
+      },
+    ),
+  ),
+)
+```
+
 Customize placement and rendering:
 
 ```dart

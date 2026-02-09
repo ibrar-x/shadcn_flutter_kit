@@ -2,6 +2,62 @@ part of '../../file_picker.dart';
 
 /// Surface rendering methods for drag-drop and tile layouts.
 extension _FileUploadStateSurfaces on _FileUploadState {
+  /// Applies configured loading behavior to a surface widget.
+  Widget _buildLoadingAwareSurface(ThemeData theme, Widget surface) {
+    final loading = widget.loading;
+    if (!loading.isLoading) {
+      return surface;
+    }
+
+    Widget resolved;
+    switch (loading.mode) {
+      case FileUploadLoadingMode.hide:
+        resolved = const SizedBox.shrink();
+      case FileUploadLoadingMode.replace:
+        resolved = loading.loadingWidget ?? _buildDefaultLoadingWidget(theme);
+      case FileUploadLoadingMode.wrap:
+        if (loading.wrapperBuilder != null) {
+          resolved = loading.wrapperBuilder!(context, surface);
+        } else if (loading.loadingWidget != null) {
+          resolved = Stack(
+            alignment: Alignment.center,
+            children: [surface, loading.loadingWidget!],
+          );
+        } else {
+          resolved = surface;
+        }
+    }
+
+    if (!loading.disableInteractions ||
+        loading.mode == FileUploadLoadingMode.hide) {
+      return resolved;
+    }
+    return IgnorePointer(child: resolved);
+  }
+
+  /// Default loading replacement widget when mode is replace and no widget is provided.
+  Widget _buildDefaultLoadingWidget(ThemeData theme) {
+    final scaling = theme.scaling;
+    final minHeight =
+        widget.minHeight ??
+        switch (widget.surface) {
+          _FileUploadSurface.dragDrop => 220 * scaling,
+          _FileUploadSurface.tile => 48 * scaling,
+          _FileUploadSurface.mobile => 32 * scaling,
+        };
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: minHeight),
+      child: Center(
+        child: DefaultTextStyle.merge(
+          style: theme.typography.small.copyWith(
+            color: theme.colorScheme.mutedForeground,
+          ),
+          child: const Text('Loading...'),
+        ),
+      ),
+    );
+  }
+
   /// Builds drag-drop content; shows single item preview in single-file mode.
   Widget _buildDragDropContent(ThemeData theme, double scaling) {
     final singleItemContent =

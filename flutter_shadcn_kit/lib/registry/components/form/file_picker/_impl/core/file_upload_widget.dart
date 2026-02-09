@@ -61,6 +61,7 @@ class FileUpload extends _FileUpload {
        ),
        super._internal(
          surface: _surfaceFromOptions(options),
+         loading: _loadingFromOptions(options),
          icon: _iconFromOptions(options),
          surfaceSubtitle: _surfaceSubtitleFromOptions(options),
          surfaceHint: _surfaceHintFromOptions(options),
@@ -150,6 +151,21 @@ class FileUpload extends _FileUpload {
       return options.icon;
     }
     return null;
+  }
+
+  static FileUploadLoadingOptions _loadingFromOptions(
+    FileUploadOptions options,
+  ) {
+    if (options is FileUploadDragDropOptions) {
+      return options.loading;
+    }
+    if (options is FileUploadTileOptions) {
+      return options.loading;
+    }
+    if (options is FileUploadMobileOptions) {
+      return options.loading;
+    }
+    return const FileUploadLoadingOptions();
   }
 
   static Widget? _compactIconFromOptions(FileUploadOptions options) {
@@ -250,6 +266,7 @@ class _FileUpload extends StatefulWidget {
   const _FileUpload._internal({
     super.key,
     required this.surface,
+    this.loading = const FileUploadLoadingOptions(),
     this.title,
     this.subtitle,
     this.hint,
@@ -309,6 +326,7 @@ class _FileUpload extends StatefulWidget {
   });
 
   final _FileUploadSurface surface;
+  final FileUploadLoadingOptions loading;
   final Widget? title;
   final Widget? subtitle;
   final Widget? hint;
