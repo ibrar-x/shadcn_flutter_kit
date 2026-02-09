@@ -216,28 +216,37 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                     ),
                     DensityGap(0.75),
                     Expanded(
-                      child: DefaultTextStyle.merge(
-                        style: theme.typography.small.copyWith(
-                          color: fileNameColor,
-                        ),
-                        child: Text(
-                          selectedLabel,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      child: hasSelection
+                          ? DefaultTextStyle.merge(
+                              style: theme.typography.small.copyWith(
+                                color: fileNameColor,
+                              ),
+                              child: Text(
+                                selectedLabel,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          : widget.subtitle != null
+                          ? DefaultTextStyle.merge(
+                              style: theme.typography.small.copyWith(
+                                color: fileNameColor,
+                              ),
+                              child: widget.subtitle!,
+                            )
+                          : DefaultTextStyle.merge(
+                              style: theme.typography.small.copyWith(
+                                color: fileNameColor,
+                              ),
+                              child: Text(
+                                selectedLabel,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                     ),
                   ],
                 ),
-                if (widget.subtitle != null) ...[
-                  DensityGap(0.5),
-                  DefaultTextStyle.merge(
-                    style: theme.typography.xSmall.copyWith(
-                      color: theme.colorScheme.mutedForeground,
-                    ),
-                    child: widget.subtitle!,
-                  ),
-                ],
               ],
             ),
           ),
