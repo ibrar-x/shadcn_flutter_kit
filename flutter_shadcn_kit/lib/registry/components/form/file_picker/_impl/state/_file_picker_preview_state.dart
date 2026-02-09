@@ -146,7 +146,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   uploadFn: _simulateUpload,
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
-                FileUpload.mobilePopover(
+                FileUpload.mobile(
                   pickFiles: _simulatePick,
                   compactOptions: const [
                     FileUploadPickOption.pickFiles,
@@ -154,6 +154,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   ],
                   allowMultiple: true,
                   uploadFn: _simulateUpload,
+                  popover: true,
                 ),
                 SizedBox(height: theme.density.baseContainerPadding * scaling),
                 FileUpload.mobile(

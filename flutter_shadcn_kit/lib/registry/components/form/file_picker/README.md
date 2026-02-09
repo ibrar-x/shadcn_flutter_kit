@@ -76,12 +76,13 @@ FileUpload.tile(
 ### 3) Mobile Trigger (Icon/Button)
 
 ```dart
-FileUpload.mobilePopover(
+FileUpload.mobile(
   pickFiles: onPick,
   compactOptions: const [
     FileUploadPickOption.pickFiles,
     FileUploadPickOption.pickImages,
   ],
+  popover: true,
 )
 ```
 
@@ -97,7 +98,7 @@ All three variants support uploads with `uploadFn` and `FileUploadController`.
 
 - `FileUpload.dragDrop`
 - `FileUpload.tile`
-- `FileUpload.mobile`, `FileUpload.mobilePopover`
+- `FileUpload.mobile` (`popover: false|true`)
 - `pickFiles` (`FileUploadPickFiles?`)
 - `uploadFn` (`UploadFn?`)
 - `files` (`List<FileLike>?`), `controller` (`FileUploadController?`)

@@ -51,7 +51,7 @@
     "constructors": [
       "`FileUpload.dragDrop`",
       "`FileUpload.tile`",
-      "`FileUpload.mobile`, `FileUpload.mobilePopover`",
+      "`FileUpload.mobile` (`popover: false|true`)",
       "`pickFiles` (`FileUploadPickFiles?`)",
       "`uploadFn` (`UploadFn?`)",
       "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
