@@ -1,0 +1,71 @@
+{
+  "id": "text_animate",
+  "name": "Streaming Text",
+  "description": "Stream-aware animated text renderer for incremental updates.",
+  "category": "display",
+  "tags": [
+    "display",
+    "text",
+    "animation",
+    "streaming"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "GETTING_STARTED.md",
+    "README.md",
+    "_impl/core/blur_in_effect.dart",
+    "_impl/core/combined_effect.dart",
+    "_impl/core/streaming_cursor.dart",
+    "_impl/core/streaming_text_effect_adapter.dart",
+    "_impl/core/typewriter_effect.dart",
+    "_impl/state/_text_animate_preview_state.dart",
+    "_impl/state/streaming_text_state.dart",
+    "_impl/styles/character_span_factory.dart",
+    "_impl/themes/text_animate_theme.dart",
+    "_impl/utils/text_diff.dart",
+    "_impl/utils/time_math.dart",
+    "meta.json",
+    "preview.dart",
+    "text_animate.dart",
+    "text_animate.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`StreamingText`",
+      "`text` (`String`, required)",
+      "`style` (`TextStyle?`)",
+      "`typewriter` (`TypewriterEffect?`)",
+      "`effect` (`StreamingTextEffectAdapter?`)",
+      "`cursor` (`StreamingCursor?`)",
+      "`textAlign` (`TextAlign?`)",
+      "`textDirection` (`TextDirection?`)",
+      "`softWrap` (`bool?`)",
+      "`overflow` (`TextOverflow?`)",
+      "`maxLines` (`int?`)",
+      "`textWidthBasis` (`TextWidthBasis?`)",
+      "`textHeightBehavior` (`TextHeightBehavior?`)",
+      "`locale` (`Locale?`)",
+      "`onSettled` (`StreamingTextSettled?`)"
+    ],
+    "callbacks": [
+      "`onSettled` (`void Function(String text)?`): invoked once when the latest revision fully settles."
+    ],
+    "types_and_helpers": [
+      "`TypewriterEffect`",
+      "`StreamingTextEffectAdapter`",
+      "`NoEffect`",
+      "`BlurInEffect`",
+      "`CombinedEffect`",
+      "`StreamingCursor`",
+      "`TextAnimateTheme`"
+    ]
+  },
+  "version": "1.0.0"
+}
