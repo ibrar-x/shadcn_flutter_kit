@@ -35,6 +35,7 @@ import 'components/empty_state/empty_state_examples.dart';
 import 'components/error_system/error_system_examples.dart';
 import 'components/expandable_sidebar/expandable_sidebar_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
+import 'components/filter_bar/filter_bar_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
 import 'components/formatted_input/formatted_input_examples.dart';
@@ -85,6 +86,11 @@ import 'components/tracker/tracker_examples.dart';
 import 'components/tree/tree_examples.dart';
 import 'components/window/window_examples.dart';
 
+const bool enableTextAnimateComponent = bool.fromEnvironment(
+  'ENABLE_TEXT_ANIMATE_COMPONENT',
+  defaultValue: true,
+);
+
 const Set<String> originalComponentIds = {
   'accordion',
   'alert',
@@ -122,6 +128,7 @@ const Set<String> originalComponentIds = {
   'error_system',
   'expandable_sidebar',
   'feature_carousel',
+  'filter_bar',
   'file_picker',
   'form',
   'formatted_input',
@@ -161,7 +168,7 @@ const Set<String> originalComponentIds = {
   'tab_list',
   'table',
   'tabs',
-  'text_animate',
+  if (enableTextAnimateComponent) 'text_animate',
   'text_area',
   'time_picker',
   'timeline',
@@ -213,6 +220,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'error_system',
       'expandable_sidebar',
       'feature_carousel',
+      'filter_bar',
       'file_picker',
       'form',
       'formatted_input',
@@ -252,7 +260,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'tab_list',
       'table',
       'tabs',
-      'text_animate',
+      if (enableTextAnimateComponent) 'text_animate',
       'text_area',
       'time_picker',
       'timeline',
@@ -303,6 +311,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'error_system': errorSystemExamples,
   'expandable_sidebar': expandableSidebarExamples,
   'feature_carousel': featureCarouselExamples,
+  'filter_bar': filterBarExamples,
   'file_picker': filePickerExamples,
   'form': formExamples,
   'formatted_input': formattedInputExamples,
@@ -342,7 +351,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'tab_list': tabListExamples,
   'table': tableExamples,
   'tabs': tabsExamples,
-  'text_animate': textAnimateExamples,
+  if (enableTextAnimateComponent) 'text_animate': textAnimateExamples,
   'text_area': textAreaExamples,
   'time_picker': timePickerExamples,
   'timeline': timelineExamples,
