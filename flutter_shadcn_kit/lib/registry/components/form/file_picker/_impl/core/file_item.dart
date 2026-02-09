@@ -6,6 +6,7 @@ class FileItem extends StatelessWidget {
     super.key,
     required this.item,
     this.statusLabels = const FileUploadStatusLabels(),
+    this.itemLoading = const FileUploadItemLoadingOptions(),
     this.onRemove,
     this.onRetry,
     this.onDownload,
@@ -15,6 +16,7 @@ class FileItem extends StatelessWidget {
 
   final FileUploadItem item;
   final FileUploadStatusLabels statusLabels;
+  final FileUploadItemLoadingOptions itemLoading;
   final VoidCallback? onRemove;
   final VoidCallback? onRetry;
   final VoidCallback? onDownload;
@@ -29,6 +31,7 @@ class FileItem extends StatelessWidget {
         thumbnail ?? _buildThumbnail(context, theme, scaling);
     final statusLabel = _statusLabel(item.status);
     final statusColor = _statusColor(theme, item.status);
+    final loadingIndicator = _buildLoadingIndicator(context, scaling);
 
     final actions = <Widget>[];
     if (onPreview != null) {
@@ -134,16 +137,31 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (item.progress != null) DensityGap(gapMd),
-            if (item.progress != null)
-              LinearProgressIndicator(
-                value: item.progress!.clamp(0, 1),
-                minHeight: 4 * scaling,
-              ),
+            if (loadingIndicator != null) DensityGap(gapMd),
+            if (loadingIndicator != null) loadingIndicator,
           ],
         ),
       ),
     );
+  }
+
+  Widget? _buildLoadingIndicator(BuildContext context, double scaling) {
+    if (!itemLoading.showForStatuses.contains(item.status)) {
+      return null;
+    }
+
+    switch (itemLoading.mode) {
+      case FileUploadItemLoadingMode.none:
+        return null;
+      case FileUploadItemLoadingMode.custom:
+        return itemLoading.customBuilder?.call(context, item);
+      case FileUploadItemLoadingMode.linear:
+        if (item.progress == null) return null;
+        return LinearProgressIndicator(
+          value: item.progress!.clamp(0, 1),
+          minHeight: 4 * scaling,
+        );
+    }
   }
 
   Widget _buildThumbnail(

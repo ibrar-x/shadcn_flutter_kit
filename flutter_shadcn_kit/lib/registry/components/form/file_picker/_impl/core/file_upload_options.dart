@@ -9,6 +9,9 @@ enum FileUploadVariant { dragDrop, tile, mobile }
 /// Loading behavior for the file upload surface.
 enum FileUploadLoadingMode { replace, hide, wrap }
 
+/// Loading behavior for file items in the uploaded list.
+enum FileUploadItemLoadingMode { linear, none, custom }
+
 /// Internal mode for compact/mobile picker rendering.
 enum _FileUploadMobileMode { button, popover }
 
@@ -37,6 +40,7 @@ class FileUploadDragDropOptions extends FileUploadOptions {
     this.errorLabel,
     this.disabledLabel,
     this.loading = const FileUploadLoadingOptions(),
+    this.itemLoading = const FileUploadItemLoadingOptions(),
   });
 
   /// Enables native/web drag-and-drop where supported.
@@ -81,6 +85,9 @@ class FileUploadDragDropOptions extends FileUploadOptions {
   /// Loading presentation for the dropzone container.
   final FileUploadLoadingOptions loading;
 
+  /// Loading presentation for file items list.
+  final FileUploadItemLoadingOptions itemLoading;
+
   @override
   FileUploadVariant get variant => FileUploadVariant.dragDrop;
 }
@@ -93,6 +100,7 @@ class FileUploadTileOptions extends FileUploadOptions {
     this.subtitle,
     this.hint,
     this.loading = const FileUploadLoadingOptions(),
+    this.itemLoading = const FileUploadItemLoadingOptions(),
   });
 
   /// Label used by the tile action segment.
@@ -110,6 +118,9 @@ class FileUploadTileOptions extends FileUploadOptions {
   /// Loading presentation for the tile container.
   final FileUploadLoadingOptions loading;
 
+  /// Loading presentation for file items list.
+  final FileUploadItemLoadingOptions itemLoading;
+
   @override
   FileUploadVariant get variant => FileUploadVariant.tile;
 }
@@ -123,6 +134,7 @@ class FileUploadMobileOptions extends FileUploadOptions {
     this.trigger = FileUploadCompactTrigger.icon,
     this.buttonLabel,
     this.loading = const FileUploadLoadingOptions(),
+    this.itemLoading = const FileUploadItemLoadingOptions(),
   }) : assert(
          !popover || popoverItems != null,
          'popoverItems must be provided when popover is true.',
@@ -145,6 +157,9 @@ class FileUploadMobileOptions extends FileUploadOptions {
 
   /// Loading presentation for compact trigger surface.
   final FileUploadLoadingOptions loading;
+
+  /// Loading presentation for file items list.
+  final FileUploadItemLoadingOptions itemLoading;
 
   @override
   FileUploadVariant get variant => FileUploadVariant.mobile;
@@ -238,6 +253,28 @@ class FileUploadLoadingOptions {
 
   /// Disables pointer interactions while loading.
   final bool disableInteractions;
+}
+
+/// Builder used in [FileUploadItemLoadingMode.custom].
+typedef FileUploadItemLoadingBuilder =
+    Widget Function(BuildContext context, FileUploadItem item);
+
+/// Configures loading visuals for file list items.
+class FileUploadItemLoadingOptions {
+  const FileUploadItemLoadingOptions({
+    this.mode = FileUploadItemLoadingMode.linear,
+    this.showForStatuses = const {FileUploadItemStatus.uploading},
+    this.customBuilder,
+  });
+
+  /// Indicator mode for item loading visuals.
+  final FileUploadItemLoadingMode mode;
+
+  /// Statuses for which the loading indicator should be rendered.
+  final Set<FileUploadItemStatus> showForStatuses;
+
+  /// Custom loading widget builder when [mode] is `custom`.
+  final FileUploadItemLoadingBuilder? customBuilder;
 }
 
 /// Builder used to control tile text for selected files.

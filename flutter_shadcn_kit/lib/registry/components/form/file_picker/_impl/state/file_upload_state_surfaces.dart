@@ -67,6 +67,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
             layout: FileUploadItemsLayout.list,
             showContainer: false,
             statusLabels: widget.statusLabels,
+            itemLoading: widget.itemLoading,
             itemBuilder: widget.itemBuilder,
           )
         : null;

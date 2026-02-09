@@ -183,6 +183,41 @@ FileUpload(
 )
 ```
 
+### Optional File Item Loading Modes
+
+Set list-item loading behavior per parent via variant options:
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  options: const FileUploadDragDropOptions(
+    itemLoading: FileUploadItemLoadingOptions(
+      mode: FileUploadItemLoadingMode.linear,
+      showForStatuses: {FileUploadItemStatus.uploading},
+    ),
+  ),
+)
+```
+
+Use custom per-item loading widget:
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  options: FileUploadTileOptions(
+    itemLoading: FileUploadItemLoadingOptions(
+      mode: FileUploadItemLoadingMode.custom,
+      customBuilder: (context, item) {
+        return Text('Uploading ${item.file.name}...');
+      },
+    ),
+  ),
+)
+```
+
+If multiple `FileUpload` widgets share one controller, each parent can still
+provide its own `itemLoading` style without coupling through the controller.
+
 Customize placement and rendering:
 
 ```dart

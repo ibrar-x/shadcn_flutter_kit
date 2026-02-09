@@ -235,6 +235,7 @@ class _FileUploadState extends State<_FileUpload> {
                 : FileUploadItemsLayout.list,
             groupByStatus: widget.groupListByStatus,
             statusLabels: widget.statusLabels,
+            itemLoading: widget.itemLoading,
             columns: widget.itemsGridColumns,
             maxHeight: itemsMaxHeight,
             itemBuilder: (context, item) =>
@@ -242,6 +243,7 @@ class _FileUploadState extends State<_FileUpload> {
                 FileItem(
                   item: item,
                   statusLabels: widget.statusLabels,
+                  itemLoading: widget.itemLoading,
                   onRemove: widget.files == null
                       ? () => _removeItem(item)
                       : null,
