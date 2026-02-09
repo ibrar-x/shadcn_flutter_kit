@@ -173,6 +173,7 @@ class _FileUploadState extends State<_FileUpload> {
         : [_effectiveItems.first];
     final showTileHint =
         widget.surface == _FileUploadSurface.tile && widget.hint != null;
+    final belowHelpfulInfo = _buildHelpfulInfo(theme, insideSurface: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -193,6 +194,8 @@ class _FileUploadState extends State<_FileUpload> {
             ),
             child: widget.hint!,
           ),
+        if (belowHelpfulInfo != null) DensityGap(gapSm),
+        if (belowHelpfulInfo != null) belowHelpfulInfo,
         if (_errors.isNotEmpty) DensityGap(gapMd),
         if (_errors.isNotEmpty)
           Semantics(

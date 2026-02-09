@@ -152,6 +152,30 @@ typedef FileUploadDropTargetBuilder =
 typedef FileUploadTileSelectionTextBuilder =
     String Function(List<FileLike> files);
 
+/// Placement options for the optional helpful info text.
+enum FileUploadHelpfulInfoPlacement { automatic, belowSurface, insideSurface }
+
+/// Snapshot of acceptance constraints used by helpful info builders.
+class FileUploadHelpfulInfoData {
+  const FileUploadHelpfulInfoData({
+    required this.allowMultiple,
+    required this.maxFiles,
+    required this.maxFileSizeBytes,
+    required this.allowedExtensions,
+    required this.allowedMimeTypes,
+  });
+
+  final bool allowMultiple;
+  final int? maxFiles;
+  final int? maxFileSizeBytes;
+  final List<String>? allowedExtensions;
+  final List<String>? allowedMimeTypes;
+}
+
+/// Builder used to render optional helpful info for constraints/limits.
+typedef FileUploadHelpfulInfoBuilder =
+    Widget Function(BuildContext context, FileUploadHelpfulInfoData info);
+
 /// Customizable labels for status sections and badges.
 class FileUploadStatusLabels {
   const FileUploadStatusLabels({

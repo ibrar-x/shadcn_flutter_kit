@@ -28,6 +28,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
               ? theme.colorScheme.mutedForeground
               : theme.colorScheme.mutedForeground.withOpacity(0.5),
         );
+    final helpfulInfo = _buildHelpfulInfo(theme, insideSurface: true);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -53,6 +54,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
             child: widget.hint!,
           ),
         ],
+        if (helpfulInfo != null) ...[DensityGap(gapSm), helpfulInfo],
       ],
     );
   }
@@ -238,5 +240,101 @@ extension _FileUploadStateSurfaces on _FileUploadState {
     final firstName = files.first.name;
     final remaining = files.length - 1;
     return '$firstName +$remaining more';
+  }
+
+  /// Builds optional helpful info text from picker constraints.
+  Widget? _buildHelpfulInfo(ThemeData theme, {required bool insideSurface}) {
+    if (!widget.showHelpfulInfo) {
+      return null;
+    }
+
+    final placement = _resolveHelpfulInfoPlacement();
+    if (insideSurface &&
+        placement != FileUploadHelpfulInfoPlacement.insideSurface) {
+      return null;
+    }
+    if (!insideSurface &&
+        placement != FileUploadHelpfulInfoPlacement.belowSurface) {
+      return null;
+    }
+
+    final infoData = FileUploadHelpfulInfoData(
+      allowMultiple: widget.allowMultiple,
+      maxFiles: widget.maxFiles,
+      maxFileSizeBytes: widget.maxFileSizeBytes,
+      allowedExtensions: widget.allowedExtensions,
+      allowedMimeTypes: widget.allowedMimeTypes,
+    );
+
+    if (widget.helpfulInfoBuilder != null) {
+      return widget.helpfulInfoBuilder!(context, infoData);
+    }
+
+    final text = _defaultHelpfulInfoText(infoData);
+    if (text == null) {
+      return null;
+    }
+
+    final color = widget.enabled
+        ? theme.colorScheme.mutedForeground
+        : theme.colorScheme.mutedForeground.withOpacity(0.7);
+
+    return DefaultTextStyle.merge(
+      style: theme.typography.xSmall.copyWith(color: color),
+      textAlign: insideSurface ? TextAlign.center : TextAlign.start,
+      child: Text(text),
+    );
+  }
+
+  /// Chooses automatic placement per surface.
+  FileUploadHelpfulInfoPlacement _resolveHelpfulInfoPlacement() {
+    if (widget.helpfulInfoPlacement !=
+        FileUploadHelpfulInfoPlacement.automatic) {
+      return widget.helpfulInfoPlacement;
+    }
+    return widget.surface == _FileUploadSurface.dragDrop
+        ? FileUploadHelpfulInfoPlacement.insideSurface
+        : FileUploadHelpfulInfoPlacement.belowSurface;
+  }
+
+  /// Generates default text from configured acceptance constraints.
+  String? _defaultHelpfulInfoText(FileUploadHelpfulInfoData info) {
+    final parts = <String>[];
+    final accepted = _formatAcceptedFileTypes(info);
+    if (accepted != null) {
+      parts.add('Accepted: $accepted');
+    }
+    if (info.maxFileSizeBytes != null && info.maxFileSizeBytes! > 0) {
+      parts.add('Max size: ${formatFileSize(info.maxFileSizeBytes!)}');
+    }
+    return parts.isEmpty ? null : parts.join(' • ');
+  }
+
+  /// Formats extension or mime constraints for UI display.
+  String? _formatAcceptedFileTypes(FileUploadHelpfulInfoData info) {
+    final extensions = info.allowedExtensions;
+    if (extensions != null && extensions.isNotEmpty) {
+      final normalized = extensions
+          .map((ext) => ext.trim())
+          .where((ext) => ext.isNotEmpty)
+          .map((ext) => ext.replaceFirst(RegExp(r'^\.'), '').toUpperCase())
+          .toList(growable: false);
+      if (normalized.isNotEmpty) {
+        return normalized.join(', ');
+      }
+    }
+
+    final mimeTypes = info.allowedMimeTypes;
+    if (mimeTypes != null && mimeTypes.isNotEmpty) {
+      final normalized = mimeTypes
+          .map((type) => type.trim())
+          .where((type) => type.isNotEmpty)
+          .toList(growable: false);
+      if (normalized.isNotEmpty) {
+        return normalized.join(', ');
+      }
+    }
+
+    return null;
   }
 }

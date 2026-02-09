@@ -45,6 +45,9 @@ class FileUpload extends _FileUpload {
     super.statusLabels = const FileUploadStatusLabels(),
     super.tileEmptySelectionLabel = 'No file chosen',
     super.tileSelectionTextBuilder,
+    super.showHelpfulInfo = false,
+    super.helpfulInfoPlacement = FileUploadHelpfulInfoPlacement.automatic,
+    super.helpfulInfoBuilder,
     FileUploadOptions options = const FileUploadDragDropOptions(),
   }) : assert(
          maxConcurrentUploads > 0,
@@ -204,6 +207,9 @@ class _FileUpload extends StatefulWidget {
     this.statusLabels = const FileUploadStatusLabels(),
     this.tileEmptySelectionLabel = 'No file chosen',
     this.tileSelectionTextBuilder,
+    this.showHelpfulInfo = false,
+    this.helpfulInfoPlacement = FileUploadHelpfulInfoPlacement.automatic,
+    this.helpfulInfoBuilder,
     this.mobileMode = _FileUploadMobileMode.button,
     this.compactIcon,
     this.compactTrigger = FileUploadCompactTrigger.icon,
@@ -259,6 +265,9 @@ class _FileUpload extends StatefulWidget {
   final FileUploadStatusLabels statusLabels;
   final String tileEmptySelectionLabel;
   final FileUploadTileSelectionTextBuilder? tileSelectionTextBuilder;
+  final bool showHelpfulInfo;
+  final FileUploadHelpfulInfoPlacement helpfulInfoPlacement;
+  final FileUploadHelpfulInfoBuilder? helpfulInfoBuilder;
 
   final _FileUploadMobileMode mobileMode;
   final Widget? compactIcon;
