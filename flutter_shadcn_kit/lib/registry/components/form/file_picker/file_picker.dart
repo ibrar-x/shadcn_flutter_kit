@@ -136,6 +136,36 @@ typedef FileUploadDropTargetBuilder =
       VoidCallback? onTap,
     });
 
+typedef FileUploadTileSelectionTextBuilder =
+    String Function(List<FileLike> files);
+
+class FileUploadStatusLabels {
+  const FileUploadStatusLabels({
+    this.uploading = 'Uploading',
+    this.completed = 'Completed',
+    this.waiting = 'Waiting',
+    this.failed = 'Failed',
+  });
+
+  final String uploading;
+  final String completed;
+  final String waiting;
+  final String failed;
+
+  String resolve(FileUploadItemStatus status) {
+    switch (status) {
+      case FileUploadItemStatus.uploading:
+        return uploading;
+      case FileUploadItemStatus.success:
+        return completed;
+      case FileUploadItemStatus.error:
+        return failed;
+      case FileUploadItemStatus.idle:
+        return waiting;
+    }
+  }
+}
+
 class FileUpload extends _FileUpload {
   FileUpload({
     super.key,
@@ -170,6 +200,9 @@ class FileUpload extends _FileUpload {
     BorderRadiusGeometry? borderRadius,
     EdgeInsetsGeometry? padding,
     double? minHeight,
+    FileUploadStatusLabels statusLabels = const FileUploadStatusLabels(),
+    String tileEmptySelectionLabel = 'No file chosen',
+    FileUploadTileSelectionTextBuilder? tileSelectionTextBuilder,
     FileUploadOptions options = const FileUploadDragDropOptions(),
   }) : assert(
          maxConcurrentUploads > 0,
@@ -214,6 +247,9 @@ class FileUpload extends _FileUpload {
          borderRadius: borderRadius,
          padding: padding,
          minHeight: minHeight,
+         statusLabels: statusLabels,
+         tileEmptySelectionLabel: tileEmptySelectionLabel,
+         tileSelectionTextBuilder: tileSelectionTextBuilder,
          icon: _iconFromOptions(options),
          compactIcon: _compactIconFromOptions(options),
          actionLabel: _actionLabelFromOptions(options),
@@ -358,6 +394,9 @@ class _FileUpload extends StatefulWidget {
     this.borderRadius,
     this.padding,
     this.minHeight,
+    this.statusLabels = const FileUploadStatusLabels(),
+    this.tileEmptySelectionLabel = 'No file chosen',
+    this.tileSelectionTextBuilder,
     this.mobileMode = _FileUploadMobileMode.button,
     this.compactIcon,
     this.compactTrigger = FileUploadCompactTrigger.icon,
@@ -410,6 +449,9 @@ class _FileUpload extends StatefulWidget {
   final BorderRadiusGeometry? borderRadius;
   final EdgeInsetsGeometry? padding;
   final double? minHeight;
+  final FileUploadStatusLabels statusLabels;
+  final String tileEmptySelectionLabel;
+  final FileUploadTileSelectionTextBuilder? tileSelectionTextBuilder;
 
   final _FileUploadMobileMode mobileMode;
   final Widget? compactIcon;
@@ -905,6 +947,7 @@ class _FileUploadState extends State<_FileUpload> {
             items: [_effectiveItems.first],
             layout: FileUploadItemsLayout.list,
             showContainer: false,
+            statusLabels: widget.statusLabels,
             itemBuilder: widget.itemBuilder,
           )
         : null;
@@ -1026,27 +1069,29 @@ class _FileUploadState extends State<_FileUpload> {
     FileUploadDropzoneTheme? dropzoneTheme,
   ) {
     final scaling = theme.scaling;
-    final minHeight =
-        widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
-    final icon =
-        widget.icon ??
-        dropzoneTheme?.icon ??
-        Icon(
-          RadixIcons.file,
-          size: 28 * scaling,
-          color: widget.enabled
-              ? theme.colorScheme.mutedForeground
-              : theme.colorScheme.mutedForeground.withOpacity(0.5),
-        );
+    final minHeight = widget.minHeight ?? 48 * scaling;
+    final canPick = widget.enabled && widget.pickFiles != null;
+    final backgroundColor =
+        widget.backgroundColor ??
+        dropzoneTheme?.backgroundColor ??
+        theme.colorScheme.background;
 
-    final buttonLabel =
-        widget.actionLabel ??
-        (widget.allowMultiple ? 'Add files' : 'Choose file');
+    final buttonLabel = widget.actionLabel ?? 'Choose File';
+    final selectedLabel = _tileSelectionLabel();
+    final hasSelection = _effectiveItems.isNotEmpty;
+    final textColor = widget.enabled
+        ? theme.colorScheme.foreground
+        : theme.colorScheme.mutedForeground.withOpacity(0.7);
+    final fileNameColor = hasSelection
+        ? textColor
+        : theme.colorScheme.mutedForeground.withOpacity(
+            widget.enabled ? 1 : 0.7,
+          );
 
     return OutlinedContainer(
       borderWidth: 1,
       borderRadius: widget.borderRadius,
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: backgroundColor,
       boxShadow: _focused
           ? [
               BoxShadow(
@@ -1058,41 +1103,46 @@ class _FileUploadState extends State<_FileUpload> {
           : null,
       child: ConstrainedBox(
         constraints: BoxConstraints(minHeight: minHeight),
-        child: Padding(
-          padding:
-              widget.padding ??
-              EdgeInsets.all(
-                theme.density.baseContainerPadding * scaling * 1.5,
-              ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                icon,
-                DensityGap(gapMd),
-                DefaultTextStyle.merge(
-                  style: theme.typography.small.copyWith(
-                    color: theme.colorScheme.mutedForeground,
-                  ),
-                  textAlign: TextAlign.center,
-                  child: const Text('Select files to upload'),
+        child: GestureDetector(
+          onTap: canPick ? _pickFiles : null,
+          behavior: HitTestBehavior.opaque,
+          child: Padding(
+            padding:
+                widget.padding ??
+                EdgeInsets.symmetric(
+                  horizontal: theme.density.baseContainerPadding * scaling,
+                  vertical: theme.density.baseGap * scaling,
                 ),
-                if (widget.hint != null) ...[
-                  DensityGap(gapSm),
-                  DefaultTextStyle.merge(
-                    style: theme.typography.xSmall.copyWith(
-                      color: theme.colorScheme.mutedForeground,
-                    ),
-                    textAlign: TextAlign.center,
-                    child: widget.hint!,
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: theme.density.baseContainerPadding * scaling,
+                    vertical: theme.density.baseGap * scaling,
                   ),
-                ],
-                DensityGap(gapLg),
-                OutlineButton(
-                  onPressed: widget.enabled && widget.pickFiles != null
-                      ? _pickFiles
-                      : null,
-                  child: Text(buttonLabel),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.muted.withOpacity(0.45),
+                    borderRadius: BorderRadius.circular(6 * scaling),
+                  ),
+                  child: DefaultTextStyle.merge(
+                    style: theme.typography.small
+                        .merge(theme.typography.semiBold)
+                        .copyWith(color: textColor),
+                    child: Text(buttonLabel),
+                  ),
+                ),
+                DensityGap(0.75),
+                Expanded(
+                  child: DefaultTextStyle.merge(
+                    style: theme.typography.small.copyWith(
+                      color: fileNameColor,
+                    ),
+                    child: Text(
+                      selectedLabel,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1100,6 +1150,27 @@ class _FileUploadState extends State<_FileUpload> {
         ),
       ),
     );
+  }
+
+  String _tileSelectionLabel() {
+    final files = _effectiveItems
+        .map((item) => item.file)
+        .toList(growable: false);
+    if (widget.tileSelectionTextBuilder != null) {
+      final custom = widget.tileSelectionTextBuilder!.call(files);
+      if (custom.trim().isNotEmpty) {
+        return custom;
+      }
+    }
+    if (files.isEmpty) {
+      return widget.tileEmptySelectionLabel;
+    }
+    if (files.length == 1) {
+      return files.first.name;
+    }
+    final firstName = files.first.name;
+    final remaining = files.length - 1;
+    return '$firstName +$remaining more';
   }
 
   @override
@@ -1185,6 +1256,8 @@ class _FileUploadState extends State<_FileUpload> {
     final listItems = widget.allowMultiple
         ? _effectiveItems
         : [_effectiveItems.first];
+    final showTileHint =
+        widget.surface == _FileUploadSurface.tile && widget.hint != null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1197,6 +1270,14 @@ class _FileUploadState extends State<_FileUpload> {
           onShowFocusHighlight: (value) => setState(() => _focused = value),
           child: surface,
         ),
+        if (showTileHint) DensityGap(gapSm),
+        if (showTileHint)
+          DefaultTextStyle.merge(
+            style: theme.typography.small.copyWith(
+              color: theme.colorScheme.mutedForeground,
+            ),
+            child: widget.hint!,
+          ),
         if (_errors.isNotEmpty) DensityGap(gapMd),
         if (_errors.isNotEmpty)
           Semantics(
@@ -1229,12 +1310,14 @@ class _FileUploadState extends State<_FileUpload> {
                 ? widget.itemsLayout
                 : FileUploadItemsLayout.list,
             groupByStatus: widget.groupListByStatus,
+            statusLabels: widget.statusLabels,
             columns: widget.itemsGridColumns,
             maxHeight: itemsMaxHeight,
             itemBuilder: (context, item) =>
                 widget.itemBuilder?.call(context, item) ??
                 FileItem(
                   item: item,
+                  statusLabels: widget.statusLabels,
                   onRemove: widget.files == null
                       ? () => _removeItem(item)
                       : null,

@@ -8,6 +8,7 @@ class FileUploadItemsView extends StatelessWidget {
     required this.items,
     this.layout = FileUploadItemsLayout.list,
     this.groupByStatus = false,
+    this.statusLabels = const FileUploadStatusLabels(),
     this.columns = 2,
     this.gap,
     this.padding,
@@ -19,6 +20,7 @@ class FileUploadItemsView extends StatelessWidget {
   final List<FileUploadItem> items;
   final FileUploadItemsLayout layout;
   final bool groupByStatus;
+  final FileUploadStatusLabels statusLabels;
   final int columns;
   final double? gap;
   final EdgeInsetsGeometry? padding;
@@ -112,10 +114,10 @@ class FileUploadItemsView extends StatelessWidget {
       }
     }
 
-    addSection('Uploading', uploading);
-    addSection('Completed', completed);
-    addSection('Waiting', waiting);
-    addSection('Failed', failed);
+    addSection(statusLabels.uploading, uploading);
+    addSection(statusLabels.completed, completed);
+    addSection(statusLabels.waiting, waiting);
+    addSection(statusLabels.failed, failed);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -147,6 +149,7 @@ class FileUploadItemsView extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, FileUploadItem item) {
-    return itemBuilder?.call(context, item) ?? FileItem(item: item);
+    return itemBuilder?.call(context, item) ??
+        FileItem(item: item, statusLabels: statusLabels);
   }
 }

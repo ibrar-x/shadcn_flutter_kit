@@ -95,6 +95,24 @@ FileUpload(
 
 All three variants support uploads with `uploadFn` and `FileUploadController`.
 List layout groups files by status (`Uploading`, `Completed`, `Waiting`, `Failed`).
+You can override these labels via `statusLabels`.
+
+```dart
+FileUpload(
+  pickFiles: onPick,
+  title: const Text('Upload assets'),
+  subtitle: const Text('Make it match your product voice'),
+  statusLabels: const FileUploadStatusLabels(
+    uploading: 'In progress',
+    completed: 'Done',
+    waiting: 'Queued',
+    failed: 'Needs attention',
+  ),
+  tileEmptySelectionLabel: 'Nothing selected',
+  tileSelectionTextBuilder: (files) =>
+      files.isEmpty ? 'Nothing selected' : '${files.length} files selected',
+)
+```
 
 ---
 

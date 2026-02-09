@@ -5,6 +5,7 @@ class FileItem extends StatelessWidget {
   const FileItem({
     super.key,
     required this.item,
+    this.statusLabels = const FileUploadStatusLabels(),
     this.onRemove,
     this.onRetry,
     this.onDownload,
@@ -13,6 +14,7 @@ class FileItem extends StatelessWidget {
   });
 
   final FileUploadItem item;
+  final FileUploadStatusLabels statusLabels;
   final VoidCallback? onRemove;
   final VoidCallback? onRetry;
   final VoidCallback? onDownload;
@@ -178,16 +180,7 @@ class FileItem extends StatelessWidget {
   }
 
   String? _statusLabel(FileUploadItemStatus status) {
-    switch (status) {
-      case FileUploadItemStatus.uploading:
-        return 'Uploading';
-      case FileUploadItemStatus.success:
-        return 'Completed';
-      case FileUploadItemStatus.error:
-        return 'Failed';
-      case FileUploadItemStatus.idle:
-        return 'Waiting';
-    }
+    return statusLabels.resolve(status);
   }
 
   Color? _statusColor(ThemeData theme, FileUploadItemStatus status) {
