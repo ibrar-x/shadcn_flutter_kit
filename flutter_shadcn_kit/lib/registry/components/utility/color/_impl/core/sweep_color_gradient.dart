@@ -67,21 +67,22 @@ class SweepColorGradient extends ColorGradient {
 
   @override
   SweepColorGradient changeColorAndPositionAt(
-      int index, ColorDerivative color, double position) {
+    int index,
+    ColorDerivative color,
+    double position,
+  ) {
     List<ColorStop> newColors = List.from(colors);
-    newColors[index] = ColorStop(
-      color: color,
-      position: position,
-    );
+    newColors[index] = ColorStop(color: color, position: position);
     return copyWith(colors: newColors);
   }
 
   @override
   ({SweepColorGradient gradient, int index}) insertColorAt(
-      ColorDerivative color,
-      Offset position,
-      Size size,
-      TextDirection textDirection) {
+    ColorDerivative color,
+    Offset position,
+    Size size,
+    TextDirection textDirection,
+  ) {
     Alignment alignCenter = center.resolve(textDirection);
     final px = (position.dx / size.width) * 2 - 1;
     final py = (position.dy / size.height) * 2 - 1;
@@ -101,14 +102,8 @@ class SweepColorGradient extends ColorGradient {
         insertIndex = i + 1;
       }
     }
-    newColors.insert(
-      insertIndex,
-      ColorStop(color: color, position: pos),
-    );
-    return (
-      gradient: copyWith(colors: newColors),
-      index: insertIndex,
-    );
+    newColors.insert(insertIndex, ColorStop(color: color, position: pos));
+    return (gradient: copyWith(colors: newColors), index: insertIndex);
   }
 
   @override

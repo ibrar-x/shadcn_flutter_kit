@@ -38,8 +38,11 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     }
   }
 
-  String getHeaderText(ShadcnLocalizations localizations, CalendarView view,
-      CalendarViewType viewType) {
+  String getHeaderText(
+    ShadcnLocalizations localizations,
+    CalendarView view,
+    CalendarViewType viewType,
+  ) {
     if (viewType == CalendarViewType.date) {
       return '${localizations.getMonth(view.month)} ${view.year}';
     }
@@ -54,8 +57,10 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<CalendarTheme>(context);
-    final arrowColor =
-        styleValue(themeValue: compTheme?.arrowIconColor, defaultValue: null);
+    final arrowColor = styleValue(
+      themeValue: compTheme?.arrowIconColor,
+      defaultValue: null,
+    );
     final viewMode = widget.viewMode ?? widget.selectionMode;
     if (widget.selectionMode == CalendarSelectionMode.range) {
       return IntrinsicWidth(
@@ -88,12 +93,12 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                             }
                           });
                         },
-                        child: Icon(LucideIcons.arrowLeft, color: arrowColor)
-                            .iconXSmall(),
+                        child: Icon(
+                          LucideIcons.arrowLeft,
+                          color: arrowColor,
+                        ).iconXSmall(),
                       ),
-                      SizedBox(
-                        width: theme.scaling * 16,
-                      ),
+                      SizedBox(width: theme.scaling * 16),
                       Expanded(
                         child: SizedBox(
                           height: theme.scaling * 32,
@@ -117,23 +122,17 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               }
                             },
                             child: Center(
-                              child: Text(getHeaderText(
-                                      localizations, _view, _viewType))
-                                  .foreground()
-                                  .small()
-                                  .medium(),
+                              child: Text(
+                                getHeaderText(localizations, _view, _viewType),
+                              ).foreground().small().medium(),
                             ),
                           ),
                         ),
                       ),
                       if (_viewType == CalendarViewType.date &&
                           viewMode == CalendarSelectionMode.range)
-                        SizedBox(
-                          width: theme.scaling * 32,
-                        ),
-                      SizedBox(
-                        width: theme.scaling * 16,
-                      ),
+                        SizedBox(width: theme.scaling * 32),
+                      SizedBox(width: theme.scaling * 16),
                       if (_viewType != CalendarViewType.date ||
                           viewMode != CalendarSelectionMode.range)
                         OutlineButton(
@@ -153,24 +152,26 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               }
                             });
                           },
-                          child: Icon(LucideIcons.arrowRight, color: arrowColor)
-                              .iconXSmall(),
+                          child: Icon(
+                            LucideIcons.arrowRight,
+                            color: arrowColor,
+                          ).iconXSmall(),
                         ),
                     ],
                   ),
                 ),
                 if (_viewType == CalendarViewType.date &&
                     viewMode == CalendarSelectionMode.range)
-                  SizedBox(width: theme.scaling * 16),
+                  SizedBox(
+                    width: theme.density.baseGap * theme.scaling * gapLg,
+                  ),
                 if (_viewType == CalendarViewType.date &&
                     viewMode == CalendarSelectionMode.range)
                   Expanded(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          width: theme.scaling * (32 + 16),
-                        ),
+                        SizedBox(width: theme.scaling * (32 + 16)),
                         Expanded(
                           child: SizedBox(
                             height: theme.scaling * 32,
@@ -193,18 +194,18 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                                 }
                               },
                               child: Center(
-                                child: Text(getHeaderText(
-                                        localizations, _alternateView, _viewType))
-                                    .foreground()
-                                    .small()
-                                    .medium(),
+                                child: Text(
+                                  getHeaderText(
+                                    localizations,
+                                    _alternateView,
+                                    _viewType,
+                                  ),
+                                ).foreground().small().medium(),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: theme.scaling * 16,
-                        ),
+                        SizedBox(width: theme.scaling * 16),
                         OutlineButton(
                           density: ButtonDensity.icon,
                           onPressed: () {
@@ -223,15 +224,17 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               }
                             });
                           },
-                          child: Icon(LucideIcons.arrowRight, color: arrowColor)
-                              .iconXSmall(),
+                          child: Icon(
+                            LucideIcons.arrowRight,
+                            color: arrowColor,
+                          ).iconXSmall(),
                         ),
                       ],
                     ),
                   ),
               ],
             ),
-            SizedBox(height: theme.scaling * 16),
+            SizedBox(height: theme.density.baseGap * theme.scaling * gapLg),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: viewMode == CalendarSelectionMode.range
@@ -268,7 +271,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                 ),
                 if (_viewType == CalendarViewType.date &&
                     viewMode == CalendarSelectionMode.range)
-                  SizedBox(width: theme.scaling * 16),
+                  SizedBox(
+                    width: theme.density.baseGap * theme.scaling * gapLg,
+                  ),
                 if (_viewType == CalendarViewType.date &&
                     viewMode == CalendarSelectionMode.range)
                   buildView(
@@ -309,12 +314,12 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                     }
                   });
                 },
-                child:
-                    Icon(LucideIcons.arrowLeft, color: arrowColor).iconXSmall(),
+                child: Icon(
+                  LucideIcons.arrowLeft,
+                  color: arrowColor,
+                ).iconXSmall(),
               ),
-              SizedBox(
-                width: theme.scaling * 16,
-              ),
+              SizedBox(width: theme.scaling * 16),
               Expanded(
                 child: SizedBox(
                   height: theme.scaling * 32,
@@ -337,17 +342,14 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                       }
                     },
                     child: Center(
-                      child: Text(getHeaderText(localizations, _view, _viewType))
-                          .foreground()
-                          .small()
-                          .medium(),
+                      child: Text(
+                        getHeaderText(localizations, _view, _viewType),
+                      ).foreground().small().medium(),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                width: theme.scaling * 16,
-              ),
+              SizedBox(width: theme.scaling * 16),
               OutlineButton(
                 density: ButtonDensity.icon,
                 onPressed: () {
@@ -365,12 +367,14 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                     }
                   });
                 },
-                child: Icon(LucideIcons.arrowRight, color: arrowColor)
-                    .iconXSmall(),
+                child: Icon(
+                  LucideIcons.arrowRight,
+                  color: arrowColor,
+                ).iconXSmall(),
               ),
             ],
           ),
-          SizedBox(height: theme.scaling * 16),
+          SizedBox(height: theme.density.baseGap * theme.scaling * gapLg),
           buildView(
             context,
             _yearSelectStart,
@@ -399,12 +403,13 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   }
 
   Widget buildView(
-      BuildContext context,
-      int yearSelectStart,
-      CalendarView view,
-      CalendarViewType viewType,
-      CalendarSelectionMode selectionMode,
-      ValueChanged<CalendarView> onViewChanged) {
+    BuildContext context,
+    int yearSelectStart,
+    CalendarView view,
+    CalendarViewType viewType,
+    CalendarSelectionMode selectionMode,
+    ValueChanged<CalendarView> onViewChanged,
+  ) {
     if (viewType == CalendarViewType.year) {
       return YearCalendar(
         value: view.year,

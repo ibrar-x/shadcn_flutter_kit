@@ -94,7 +94,7 @@ class FixedTooltipOverlayHandler extends OverlayHandler {
                         offset: offset,
                         transitionAlignment: Alignment.center,
                         margin: const EdgeInsets.all(48) * theme.scaling,
-                        follow: false,
+                        follow: follow,
                         consumeOutsideTaps: consumeOutsideTaps,
                         allowInvertHorizontal: allowInvertHorizontal,
                         allowInvertVertical: allowInvertVertical,

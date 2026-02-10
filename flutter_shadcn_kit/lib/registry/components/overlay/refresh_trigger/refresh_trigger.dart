@@ -30,8 +30,8 @@ part '_impl/utils/refresh_trigger_physics.dart';
 /// - [stage]: Current refresh trigger stage with progress information
 ///
 /// Returns a widget that visualizes the refresh state.
-typedef RefreshIndicatorBuilder = Widget Function(
-    BuildContext context, RefreshTriggerStage stage);
+typedef RefreshIndicatorBuilder =
+    Widget Function(BuildContext context, RefreshTriggerStage stage);
 
 /// Callback for async refresh operations.
 ///

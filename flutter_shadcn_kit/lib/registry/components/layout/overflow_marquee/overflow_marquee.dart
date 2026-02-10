@@ -58,6 +58,9 @@ class OverflowMarqueeTheme extends ComponentThemeData {
 
   /// Creates an [OverflowMarqueeTheme].
   const OverflowMarqueeTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.direction,
     this.duration,
     this.delayDuration,
@@ -78,8 +81,9 @@ class OverflowMarqueeTheme extends ComponentThemeData {
     return OverflowMarqueeTheme(
       direction: direction == null ? this.direction : direction(),
       duration: duration == null ? this.duration : duration(),
-      delayDuration:
-          delayDuration == null ? this.delayDuration : delayDuration(),
+      delayDuration: delayDuration == null
+          ? this.delayDuration
+          : delayDuration(),
       step: step == null ? this.step : step(),
       fadePortion: fadePortion == null ? this.fadePortion : fadePortion(),
       curve: curve == null ? this.curve : curve(),
@@ -141,4 +145,3 @@ class OverflowMarqueeTheme extends ComponentThemeData {
 ///   ),
 /// )
 /// ```
-

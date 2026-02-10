@@ -9,7 +9,6 @@
     "autocomplete"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "overlay",
       "theme",
@@ -18,6 +17,38 @@
     "components": [
       "button",
       "card"
-    ]
-  }
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/auto_complete.dart",
+    "_impl/core/auto_complete_mode.dart",
+    "_impl/core/autocomplete_item.dart",
+    "_impl/state/_auto_complete_item_state.dart",
+    "_impl/state/_autocomplete_preview_state.dart",
+    "_impl/state/autocomplete_state.dart",
+    "_impl/utils/accept_suggestion_intent.dart",
+    "_impl/utils/auto_complete_intent.dart",
+    "_impl/utils/navigate_suggestion_intent.dart",
+    "autocomplete.dart",
+    "autocomplete.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`AutoComplete`",
+      "`suggestions` (`List<String>`, required)",
+      "`child` (`Widget`, required)",
+      "`mode` (`AutoCompleteMode?`)",
+      "`popoverConstraints`, `popoverWidthConstraint`",
+      "`popoverAnchorAlignment`, `popoverAlignment`",
+      "`completer` (`AutoCompleteCompleter`)",
+      "`AutoCompleteMode` — `append`, `replaceWord`, `replaceAll`",
+      "`AutoCompleteTheme` — popover sizing and alignment defaults"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

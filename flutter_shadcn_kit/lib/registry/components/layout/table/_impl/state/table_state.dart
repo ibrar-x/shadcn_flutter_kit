@@ -24,18 +24,20 @@ class _TableState extends State<Table> {
       final row = widget.rows[r];
       for (int c = 0; c < row.cells.length; c++) {
         final cell = row.cells[c];
-        _cells.add(_FlattenedTableCell(
-          column: c,
-          row: r,
-          columnSpan: cell.columnSpan,
-          rowSpan: cell.rowSpan,
-          builder: cell.build,
-          enabled: cell.enabled,
-          hoveredCellNotifier: _hoveredCellNotifier,
-          dragNotifier: null,
-          tableCellThemeBuilder: row.buildDefaultTheme,
-          selected: row.selected,
-        ));
+        _cells.add(
+          _FlattenedTableCell(
+            column: c,
+            row: r,
+            columnSpan: cell.columnSpan,
+            rowSpan: cell.rowSpan,
+            builder: cell.build,
+            enabled: cell.enabled,
+            hoveredCellNotifier: _hoveredCellNotifier,
+            dragNotifier: null,
+            tableCellThemeBuilder: row.buildDefaultTheme,
+            selected: row.selected,
+          ),
+        );
       }
     }
     _cells = _reorganizeCells(_cells);
@@ -79,9 +81,11 @@ class _TableState extends State<Table> {
               row: cell.row,
               columnSpan: cell.columnSpan,
               rowSpan: cell.rowSpan,
-              child: Builder(builder: (context) {
-                return cell.builder(context);
-              }),
+              child: Builder(
+                builder: (context) {
+                  return cell.builder(context);
+                },
+              ),
             ),
           );
         }).toList(),

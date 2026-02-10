@@ -3,8 +3,9 @@ part of '../../alert_dialog.dart';
 class _AlertDialogState extends State<AlertDialog> {
   Widget _wrapIcon(ThemeData theme, Widget icon) {
     return IconTheme(
-      data: theme.iconTheme.xLarge
-          .copyWith(color: theme.colorScheme.mutedForeground),
+      data: theme.iconTheme.xLarge.copyWith(
+        color: theme.colorScheme.mutedForeground,
+      ),
       child: icon,
     );
   }
@@ -15,8 +16,9 @@ class _AlertDialogState extends State<AlertDialog> {
   }
 
   Widget _wrapContent(ThemeData theme, Widget content) {
-    final style = theme.typography.small
-        .copyWith(color: theme.colorScheme.mutedForeground);
+    final style = theme.typography.small.copyWith(
+      color: theme.colorScheme.mutedForeground,
+    );
     return DefaultTextStyle.merge(style: style, child: content);
   }
 
@@ -34,7 +36,9 @@ class _AlertDialogState extends State<AlertDialog> {
         columnChildren.add(_wrapTitle(theme, widget.title!));
       }
       if (widget.title != null && widget.content != null) {
-        columnChildren.add(SizedBox(height: 8 * theme.scaling));
+        columnChildren.add(
+          SizedBox(height: theme.density.baseGap * theme.scaling),
+        );
       }
       if (widget.content != null) {
         columnChildren.add(_wrapContent(theme, widget.content!));
@@ -92,7 +96,9 @@ class _AlertDialogState extends State<AlertDialog> {
         borderRadius: theme.borderRadiusXxl,
         borderWidth: 1 * scaling,
         borderColor: theme.colorScheme.muted,
-        padding: widget.padding ?? EdgeInsets.all(24 * scaling),
+        padding:
+            widget.padding ??
+            EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5),
         surfaceBlur: widget.surfaceBlur ?? theme.surfaceBlur,
         surfaceOpacity: widget.surfaceOpacity ?? theme.surfaceOpacity,
         child: Column(
@@ -108,7 +114,7 @@ class _AlertDialogState extends State<AlertDialog> {
                 ),
               ),
             if (header.isNotEmpty && actionRow.isNotEmpty)
-              SizedBox(height: 16 * scaling),
+              SizedBox(height: theme.density.baseContentPadding * scaling),
             if (actionRow.isNotEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

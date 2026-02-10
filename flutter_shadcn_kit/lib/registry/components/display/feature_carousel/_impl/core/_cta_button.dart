@@ -32,7 +32,9 @@ class _CtaButton extends StatelessWidget {
             duration: const Duration(milliseconds: 120),
             height: theme.ctaHeight,
             constraints: BoxConstraints(minWidth: theme.ctaMinWidth),
-            padding: EdgeInsets.symmetric(horizontal: theme.ctaHorizontalPadding),
+            padding: EdgeInsets.symmetric(
+              horizontal: theme.ctaHorizontalPadding,
+            ),
             decoration: BoxDecoration(
               color: theme.ctaBackground,
               borderRadius: BorderRadius.circular(theme.ctaHeight / 2),

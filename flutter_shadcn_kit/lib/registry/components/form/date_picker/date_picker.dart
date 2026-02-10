@@ -11,18 +11,10 @@ import '../../../shared/utils/style_value.dart';
 
 part '_impl/themes/date_picker_theme.dart';
 
-
 part '_impl/core/controlled_date_picker.dart';
 part '_impl/utils/date_picker_controller.dart';
 part '_impl/core/date_range_picker.dart';
 part '_impl/core/date_time_range.dart';
-
-
-
-
-
-
-
 
 /// A date picker widget for selecting dates.
 ///
@@ -139,8 +131,9 @@ class DatePicker extends StatelessWidget {
               ? null
               : CalendarValue.single(handler.value!),
           onChanged: (value) {
-            handler.value =
-                value == null ? null : (value as SingleCalendarValue).date;
+            handler.value = value == null
+                ? null
+                : (value as SingleCalendarValue).date;
           },
           stateBuilder: stateBuilder,
         );

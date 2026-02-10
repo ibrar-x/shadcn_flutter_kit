@@ -64,40 +64,42 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
   }
 
   Widget _buildButtons() {
-    return Builder(builder: (context) {
-      final theme = Theme.of(context);
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          IconButton.text(
-            icon: Transform.translate(
-              offset: Offset(0, -1 * theme.scaling),
-              child: Transform.scale(
-                alignment: Alignment.center,
-                scale: 1.5,
-                child: const Icon(LucideIcons.chevronUp),
+    return Builder(
+      builder: (context) {
+        final theme = Theme.of(context);
+        return Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            IconButton.text(
+              icon: Transform.translate(
+                offset: Offset(0, -1 * theme.scaling),
+                child: Transform.scale(
+                  alignment: Alignment.center,
+                  scale: 1.5,
+                  child: const Icon(LucideIcons.chevronUp),
+                ),
               ),
+              onPressed: _increase,
+              density: ButtonDensity.compact,
+              size: ButtonSize.xSmall,
             ),
-            onPressed: _increase,
-            density: ButtonDensity.compact,
-            size: ButtonSize.xSmall,
-          ),
-          IconButton.text(
-            icon: Transform.translate(
-              offset: Offset(0, 1 * theme.scaling),
-              child: Transform.scale(
-                alignment: Alignment.center,
-                scale: 1.5,
-                child: const Icon(LucideIcons.chevronDown),
+            IconButton.text(
+              icon: Transform.translate(
+                offset: Offset(0, 1 * theme.scaling),
+                child: Transform.scale(
+                  alignment: Alignment.center,
+                  scale: 1.5,
+                  child: const Icon(LucideIcons.chevronDown),
+                ),
               ),
+              onPressed: _decrease,
+              density: ButtonDensity.compact,
+              size: ButtonSize.xSmall,
             ),
-            onPressed: _decrease,
-            density: ButtonDensity.compact,
-            size: ButtonSize.xSmall,
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 
   @override

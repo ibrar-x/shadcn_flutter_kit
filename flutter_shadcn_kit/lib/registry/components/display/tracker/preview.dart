@@ -13,10 +13,7 @@ class TrackerPreview extends StatelessWidget {
           width: 260,
           child: Tracker(
             data: const [
-              TrackerData(
-                tooltip: Text('Healthy'),
-                level: TrackerLevel.fine,
-              ),
+              TrackerData(tooltip: Text('Healthy'), level: TrackerLevel.fine),
               TrackerData(
                 tooltip: Text('Warning'),
                 level: TrackerLevel.warning,

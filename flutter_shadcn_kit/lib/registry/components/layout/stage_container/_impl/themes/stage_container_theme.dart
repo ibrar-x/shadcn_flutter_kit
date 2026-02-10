@@ -8,7 +8,13 @@ class StageContainerTheme extends ComponentThemeData {
   final EdgeInsets? padding;
 
   /// Creates a [StageContainerTheme].
-  const StageContainerTheme({this.breakpoint, this.padding});
+  const StageContainerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.breakpoint,
+    this.padding,
+  });
 
   /// Creates a copy of this theme with the given fields replaced.
   StageContainerTheme copyWith({

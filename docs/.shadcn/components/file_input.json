@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "file_input",
+  "name": "File Input",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "file",
+    "input",
+    "icon"
+  ],
+  "installedAt": "2026-02-09T10:18:03.206430Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/form/file_input/README.md",
+    "registry/components/form/file_input/_impl/utils/file_icon_provider_data.dart",
+    "registry/components/form/file_input/file_input.dart",
+    "registry/components/form/file_input/file_input.meta.json",
+    "registry/components/form/file_input/meta.json",
+    "registry/components/form/file_input/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

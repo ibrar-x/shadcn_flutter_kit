@@ -7,7 +7,6 @@ import '../../../shared/theme/theme.dart';
 
 part '_impl/themes/multiple_choice_theme.dart';
 
-
 part '_impl/state/_multiple_answer_state.dart';
 part '_impl/state/_multiple_choice_state.dart';
 part '_impl/core/choice.dart';
@@ -16,19 +15,6 @@ part '_impl/core/controlled_multiple_choice.dart';
 part '_impl/core/multiple_answer.dart';
 part '_impl/utils/multiple_answer_controller.dart';
 part '_impl/utils/multiple_choice_controller.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// A widget for single-selection choice scenarios.
 ///

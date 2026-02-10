@@ -37,4 +37,3 @@ class Collapsible extends StatefulWidget {
 }
 
 /// Tracks the current expansion state and exposes an event for children.
-

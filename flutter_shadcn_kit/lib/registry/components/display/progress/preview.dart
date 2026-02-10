@@ -4,7 +4,6 @@ import '../../control/button/button.dart';
 
 part '_progress_preview_state.dart';
 
-
 class ProgressPreview extends StatefulWidget {
   const ProgressPreview({super.key});
 

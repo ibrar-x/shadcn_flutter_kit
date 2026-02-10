@@ -16,6 +16,7 @@ import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/primitives/text.dart';
 import '../../../../../shared/utils/util.dart';
 import '../../../../../shared/primitives/icon_extensions.dart';
+import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/localizations/shadcn_localizations.dart';
 import '../core/command_empty.dart';
 import '../core/command_keyboard_display.dart';
@@ -100,6 +101,8 @@ class CommandState extends State<Command> {
             child: IntrinsicWidth(
               child: OutlinedContainer(
                 clipBehavior: Clip.hardEdge,
+                backgroundColor: theme.colorScheme.popover,
+                borderColor: theme.colorScheme.border,
                 surfaceBlur: widget.surfaceBlur ?? theme.surfaceBlur,
                 surfaceOpacity: widget.surfaceOpacity ?? theme.surfaceOpacity,
                 child: Column(
@@ -115,13 +118,14 @@ class CommandState extends State<Command> {
                         border: const Border.fromBorderSide(BorderSide.none),
                         borderRadius: BorderRadius.zero,
                         controller: _controller,
-                        placeholder: widget.searchPlaceholder ??
+                        placeholder:
+                            widget.searchPlaceholder ??
                             Text(localization.commandSearch),
                         features: [
                           InputFeature.leading(
-                            const Icon(LucideIcons.search)
-                                .iconSmall()
-                                .iconMutedForeground(),
+                            const Icon(
+                              LucideIcons.search,
+                            ).iconSmall().iconMutedForeground(),
                           ),
                           if (canPop)
                             InputFeature.trailing(
@@ -150,9 +154,15 @@ class CommandState extends State<Command> {
                                   data: IconThemeData(
                                     color: theme.colorScheme.mutedForeground,
                                   ),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ).withPadding(vertical: theme.scaling * 24),
+                                  child:
+                                      Center(
+                                        child: CircularProgressIndicator(),
+                                      ).withPadding(
+                                        vertical:
+                                            theme.density.baseGap *
+                                            theme.scaling *
+                                            gap2xl,
+                                      ),
                                 ),
                               );
                             } else if (items.isEmpty) {
@@ -173,20 +183,27 @@ class CommandState extends State<Command> {
                           return widget.loadingBuilder?.call(context) ??
                               const Center(
                                 child: CircularProgressIndicator(),
-                              ).withPadding(vertical: theme.scaling * 24);
+                              ).withPadding(
+                                vertical:
+                                    theme.density.baseGap *
+                                    theme.scaling *
+                                    gap2xl,
+                              );
                         },
                       ),
                     ),
                     const Divider(),
                     Container(
-                      color: theme.colorScheme.card,
+                      color: theme.colorScheme.muted.scaleAlpha(0.35),
                       padding: EdgeInsets.symmetric(
-                        horizontal: theme.scaling * 12,
-                        vertical: theme.scaling * 6,
+                        horizontal:
+                            theme.density.baseGap * theme.scaling * gapMd,
+                        vertical: theme.density.baseGap * theme.scaling * 0.75,
                       ),
                       child: IntrinsicHeight(
                         child: Row(
-                          spacing: theme.scaling * 8,
+                          spacing:
+                              theme.density.baseGap * theme.scaling * gapSm,
                           children: [
                             CommandKeyboardDisplay.fromActivator(
                               activator: SingleActivator(

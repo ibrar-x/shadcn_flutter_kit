@@ -8,7 +8,23 @@
     "asset"
   ],
   "dependencies": {
-    "pubspec": {},
-    "shared": []
-  }
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "image.dart",
+    "image.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "items": [
+      "No public API in this entry."
+    ]
+  },
+  "version": "1.0.0"
 }

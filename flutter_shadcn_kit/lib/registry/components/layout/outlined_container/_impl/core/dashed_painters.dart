@@ -15,7 +15,9 @@ class DashedLinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final path = Path()..moveTo(0, 0)..lineTo(size.width, 0);
+    final path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width, 0);
     final pathMetrics = path.computeMetrics();
     final draw = Path();
     for (final pathMetric in pathMetrics) {
@@ -45,4 +47,3 @@ class DashedLinePainter extends CustomPainter {
         oldDelegate.color != color;
   }
 }
-

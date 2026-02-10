@@ -14,14 +14,8 @@ import '../text_field/text_field.dart';
 
 part '_impl/core/phone_number.dart';
 
-
 part '_impl/state/_phone_input_state.dart';
 part '_impl/themes/phone_input_theme.dart';
-
-
-
-
-
 
 /// A specialized input widget for entering international phone numbers.
 ///
@@ -154,8 +148,7 @@ class PhoneInput extends StatefulWidget {
   State<PhoneInput> createState() => _PhoneInputState();
 }
 
-
-
 extension _WidgetAsPopupBuilder on Widget {
-  SelectPopupBuilder get asBuilder => (_) => this;
+  SelectPopupBuilder get asBuilder =>
+      (_) => this;
 }

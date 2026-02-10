@@ -47,5 +47,11 @@ class FormattedInputData {
 
   @override
   int get hashCode => Object.hash(
-      partIndex, initialValue, enabled, controller, focusNode, focusNodes);
+    partIndex,
+    initialValue,
+    enabled,
+    controller,
+    focusNode,
+    focusNodes,
+  );
 }

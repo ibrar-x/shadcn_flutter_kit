@@ -3,9 +3,44 @@
   "name": "Avatar",
   "description": "Initials/photo avatar with badge and group support.",
   "category": "display",
-  "tags": ["display", "profile", "user"],
+  "tags": [
+    "display",
+    "profile",
+    "user"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value", "geometry_extensions"],
-    "components": []
-  }
+    "shared": [
+      "theme",
+      "style_value",
+      "geometry_extensions"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_avatar_state.dart",
+    "_impl/core/_avatar_widget.dart",
+    "_impl/core/avatar.dart",
+    "_impl/core/avatar_badge.dart",
+    "_impl/core/avatar_group.dart",
+    "_impl/core/avatar_group_clipper.dart",
+    "_impl/core/avatar_widget.dart",
+    "_impl/themes/avatar_theme.dart",
+    "avatar.dart",
+    "avatar.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Avatar` — initials avatar with optional photo provider.",
+      "`Avatar.network` — loads a network image with optional resize caching.",
+      "`AvatarBadge` — small circular badge widget.",
+      "`AvatarGroup` — stacks multiple avatars with overlap.",
+      "`AvatarGroup.toLeft/toRight/toStart/toEnd/toTop/toBottom` — alignment helpers."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

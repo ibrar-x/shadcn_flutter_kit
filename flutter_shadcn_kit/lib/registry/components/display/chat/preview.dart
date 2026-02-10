@@ -19,9 +19,7 @@ class ChatPreview extends StatelessWidget {
               type: ChatBubbleType.tail,
               alignment: AxisAlignmentDirectional.end,
               children: const [
-                ChatBubble(
-                  child: Text('Did you remember the meeting time?'),
-                ),
+                ChatBubble(child: Text('Did you remember the meeting time?')),
                 ChatBubble(child: Text('Please reply ASAP.')),
               ],
             ),

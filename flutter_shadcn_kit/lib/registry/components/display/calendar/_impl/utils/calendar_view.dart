@@ -102,10 +102,7 @@ class CalendarView {
   int get hashCode => year.hashCode ^ month.hashCode;
 
   /// Creates a copy of this view with the given fields replaced.
-  CalendarView copyWith({
-    ValueGetter<int>? year,
-    ValueGetter<int>? month,
-  }) {
+  CalendarView copyWith({ValueGetter<int>? year, ValueGetter<int>? month}) {
     return CalendarView(
       year == null ? this.year : year(),
       month == null ? this.month : month(),

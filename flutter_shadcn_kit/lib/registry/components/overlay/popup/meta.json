@@ -9,14 +9,35 @@
     "popup"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "theme",
       "style_value",
       "overlay",
       "menu_group"
+    ],
+    "components": [
+      "dialog"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/menu_popup_widget.dart",
+    "_impl/themes/menu_popup_theme.dart",
+    "meta.json",
+    "popup.dart",
+    "popup.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "widgets_and_themes": [
+      "`MenuPopup`",
+      "`MenuPopupTheme`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

@@ -9,13 +9,32 @@
     "delegate"
   ],
   "dependencies": {
-    "pubspec": {
-      "flutter_localizations": "sdk: flutter",
-      "intl": "any"
-    },
     "shared": [],
     "components": [
       "shadcn_localizations_en"
+    ],
+    "pubspec": {
+      "flutter_localizations": "sdk: flutter",
+      "intl": "any"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/utils/shadcn_localizations_delegate.dart",
+    "meta.json",
+    "preview.dart",
+    "shadcn_localizations.dart",
+    "shadcn_localizations.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "core_types": [
+      "`ShadcnLocalizations`",
+      "`ShadcnLocalizations.delegate`",
+      "`ShadcnLocalizations.localizationsDelegates`",
+      "`ShadcnLocalizations.supportedLocales`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

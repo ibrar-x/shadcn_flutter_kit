@@ -3,9 +3,37 @@
   "name": "Progress",
   "description": "Normalized linear progress bar with theme overrides.",
   "category": "display",
-  "tags": ["display", "progress", "indicator"],
+  "tags": [
+    "display",
+    "progress",
+    "indicator"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value"],
-    "components": []
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/themes/progress_theme.dart",
+    "_progress_preview_state.dart",
+    "meta.json",
+    "preview.dart",
+    "progress.dart",
+    "progress.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Progress`",
+      "`progress` (`double?`)",
+      "`min` (`double`, default: `0.0`)",
+      "`max` (`double`, default: `1.0`)",
+      "`color`, `backgroundColor` (`Color?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

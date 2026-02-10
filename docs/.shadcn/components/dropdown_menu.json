@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "dropdown_menu",
+  "name": "Dropdown Menu",
+  "version": "1.0.0",
+  "tags": [
+    "menu",
+    "dropdown",
+    "overlay"
+  ],
+  "installedAt": "2026-02-09T10:18:03.229957Z",
+  "shared": [
+    "overlay",
+    "theme"
+  ],
+  "dependsOn": [
+    "drawer",
+    "menu"
+  ],
+  "files": [
+    "registry/components/overlay/dropdown_menu/README.md",
+    "registry/components/overlay/dropdown_menu/_impl/core/dropdown_menu_widget.dart",
+    "registry/components/overlay/dropdown_menu/_impl/state/_dropdown_menu_state.dart",
+    "registry/components/overlay/dropdown_menu/_impl/themes/dropdown_menu_theme.dart",
+    "registry/components/overlay/dropdown_menu/_impl/utils/dropdown_menu_api.dart",
+    "registry/components/overlay/dropdown_menu/dropdown_menu.dart",
+    "registry/components/overlay/dropdown_menu/dropdown_menu.meta.json",
+    "registry/components/overlay/dropdown_menu/meta.json",
+    "registry/components/overlay/dropdown_menu/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

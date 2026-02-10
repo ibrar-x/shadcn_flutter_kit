@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "star_rating",
+  "name": "Star Rating",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "rating",
+    "input"
+  ],
+  "installedAt": "2026-02-09T10:18:03.198497Z",
+  "shared": [
+    "animated_value_builder",
+    "constants",
+    "form_control",
+    "form_value_supplier",
+    "style_value",
+    "theme",
+    "util"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/form/star_rating/README.md",
+    "registry/components/form/star_rating/_impl/core/controlled_star_rating.dart",
+    "registry/components/form/star_rating/_impl/state/_star_rating_preview_state.dart",
+    "registry/components/form/star_rating/_impl/state/_star_rating_state.dart",
+    "registry/components/form/star_rating/_impl/themes/star_rating_theme.dart",
+    "registry/components/form/star_rating/_impl/utils/decrease_star_intent.dart",
+    "registry/components/form/star_rating/_impl/utils/increase_star_intent.dart",
+    "registry/components/form/star_rating/_impl/utils/star_rating_controller.dart",
+    "registry/components/form/star_rating/meta.json",
+    "registry/components/form/star_rating/preview.dart",
+    "registry/components/form/star_rating/star_rating.dart",
+    "registry/components/form/star_rating/star_rating.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

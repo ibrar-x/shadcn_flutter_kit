@@ -5,7 +5,6 @@ import '../text_field/text_field.dart';
 
 part '_impl/state/_autocomplete_preview_state.dart';
 
-
 class AutocompletePreview extends StatefulWidget {
   const AutocompletePreview({super.key});
 

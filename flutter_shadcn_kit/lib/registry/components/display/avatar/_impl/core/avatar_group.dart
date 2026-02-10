@@ -114,13 +114,7 @@ class AvatarGroup extends StatelessWidget {
       final avatar = children[i];
       final size = avatar.size ?? theme.scaling * 40;
       if (i == 0) {
-        entries.add(
-          Positioned(
-            left: currentX,
-            top: currentY,
-            child: avatar,
-          ),
-        );
+        entries.add(Positioned(left: currentX, top: currentY, child: avatar));
         rect = Rect.fromLTWH(currentX, currentY, size, size);
         currentWidth = size;
         currentHeight = size;
@@ -138,8 +132,7 @@ class AvatarGroup extends StatelessWidget {
       final offsetWidthDiff = widthDiff * resolved.x;
       final offsetHeightDiff = heightDiff * resolved.y;
       final x = (widthDiff / 2) + offsetWidth + currentX + offsetWidthDiff;
-      final y =
-          (heightDiff / 2) + offsetHeight + currentY + offsetHeightDiff;
+      final y = (heightDiff / 2) + offsetHeight + currentY + offsetHeightDiff;
 
       entries.add(
         Positioned(

@@ -12,7 +12,9 @@ class OverflowMarqueePreview extends StatelessWidget {
           width: 200,
           child: OverflowMarquee(
             duration: const Duration(seconds: 6),
-            child: const Text('This text scrolls when it overflows its parent.'),
+            child: const Text(
+              'This text scrolls when it overflows its parent.',
+            ),
           ),
         ),
       ),

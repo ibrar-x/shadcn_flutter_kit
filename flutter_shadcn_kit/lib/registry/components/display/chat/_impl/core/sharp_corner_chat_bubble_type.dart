@@ -56,8 +56,12 @@ class SharpCornerChatBubbleType extends ChatBubbleType {
   }
 
   @override
-  Widget wrap(BuildContext context, Widget child, ChatBubbleData data,
-      ChatBubble chat) {
+  Widget wrap(
+    BuildContext context,
+    Widget child,
+    ChatBubbleData data,
+    ChatBubble chat,
+  ) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final compTailTheme = ComponentTheme.maybeOf<ChatTailTheme>(context);
@@ -71,18 +75,20 @@ class SharpCornerChatBubbleType extends ChatBubbleType {
       ),
     );
     final color = styleValue(
-        widgetValue: chat.color,
-        themeValue: compTheme?.color,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: chat.color,
+      themeValue: compTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
     var radius = styleValue(
       widgetValue: borderRadius,
       themeValue: compTheme?.borderRadius,
       defaultValue: theme.borderRadiusLg,
     ).resolve(textDirection);
     final tailBehavior = styleValue(
-        widgetValue: this.tailBehavior,
-        themeValue: compTailTheme?.tailBehavior,
-        defaultValue: TailBehavior.last);
+      widgetValue: this.tailBehavior,
+      themeValue: compTailTheme?.tailBehavior,
+      defaultValue: TailBehavior.last,
+    );
     if (tailBehavior.wrapWithTail(data)) {
       ChatBubbleCorner? corner = this.corner?.resolve(textDirection);
       if (corner == null) {
@@ -114,10 +120,7 @@ class SharpCornerChatBubbleType extends ChatBubbleType {
       }
     }
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: radius,
-        color: color,
-      ),
+      decoration: BoxDecoration(borderRadius: radius, color: color),
       padding: padding,
       child: child,
     );

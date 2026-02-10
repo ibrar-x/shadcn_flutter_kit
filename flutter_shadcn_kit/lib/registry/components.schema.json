@@ -7,6 +7,7 @@
   "properties": {
     "$schema": {"type": "string"},
     "schemaVersion": {"type": "integer", "minimum": 1},
+    "manifestVersion": {"type": "integer", "minimum": 1},
     "name": {"type": "string"},
     "flutter": {
       "type": "object",
@@ -147,6 +148,7 @@
       "additionalProperties": false,
       "properties": {
         "id": {"type": "string"},
+        "version": {"type": "string"},
         "name": {"type": "string"},
         "description": {"type": "string"},
         "category": {"type": "string"},

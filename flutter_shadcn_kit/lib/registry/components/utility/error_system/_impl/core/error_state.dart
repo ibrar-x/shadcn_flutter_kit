@@ -48,7 +48,9 @@ class ErrorState extends StatelessWidget {
         theme.typography.small.copyWith(
           color: theme.colorScheme.mutedForeground,
         );
-    final padding = compTheme?.cardPadding ?? EdgeInsets.all(24 * scaling);
+    final padding =
+        compTheme?.cardPadding ??
+        EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5);
     final borderRadius = compTheme?.cardBorderRadius;
     final fillColor = compTheme?.cardFillColor;
 
@@ -65,27 +67,27 @@ class ErrorState extends StatelessWidget {
             children: [
               if (resolvedIllustration != null) ...[
                 resolvedIllustration,
-                Gap(16 * scaling),
+                DensityGap(gapLg),
               ],
               resolvedIcon,
-              Gap(12 * scaling),
+              DensityGap(gapMd),
               DefaultTextStyle.merge(
                 style: titleStyle,
                 textAlign: TextAlign.center,
                 child: Text(error.title),
               ),
-              Gap(6 * scaling),
+              DensityGap(0.75),
               DefaultTextStyle.merge(
                 style: messageStyle,
                 textAlign: TextAlign.center,
                 child: Text(error.message),
               ),
               if (error.hasActions) ...[
-                Gap(16 * scaling),
+                DensityGap(gapLg),
                 const Divider(),
-                Gap(16 * scaling),
+                DensityGap(gapLg),
                 Wrap(
-                  spacing: 12 * scaling,
+                  spacing: theme.density.baseGap * scaling * 1.5,
                   runSpacing: 8 * scaling,
                   alignment: WrapAlignment.center,
                   children: [
@@ -109,7 +111,7 @@ class ErrorState extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 16 * Theme.of(context).scaling),
-              Gap(8 * Theme.of(context).scaling),
+              DensityGap(gapSm),
               Text(action.label),
             ],
           );

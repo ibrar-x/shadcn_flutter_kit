@@ -39,17 +39,14 @@ abstract class InputPart implements FormattedValuePart {
   bool get canHaveValue => false;
 
   @override
-
   /// The current value of this part, or null if it doesn't hold a value.
   String? get value => null;
 
   @override
-
   /// Returns this part.
   InputPart get part => this;
 
   @override
-
   /// Creates a copy of this part with the specified value.
   FormattedValuePart withValue(String value) {
     return FormattedValuePart(this, value);

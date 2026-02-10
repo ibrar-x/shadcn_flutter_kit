@@ -30,6 +30,9 @@ class BasicTheme extends ComponentThemeData {
 
   /// Creates a [BasicTheme].
   const BasicTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.leadingAlignment,
     this.trailingAlignment,
     this.titleAlignment,
@@ -54,20 +57,24 @@ class BasicTheme extends ComponentThemeData {
     ValueGetter<EdgeInsetsGeometry?>? padding,
   }) {
     return BasicTheme(
-      leadingAlignment:
-          leadingAlignment == null ? this.leadingAlignment : leadingAlignment(),
+      leadingAlignment: leadingAlignment == null
+          ? this.leadingAlignment
+          : leadingAlignment(),
       trailingAlignment: trailingAlignment == null
           ? this.trailingAlignment
           : trailingAlignment(),
-      titleAlignment:
-          titleAlignment == null ? this.titleAlignment : titleAlignment(),
+      titleAlignment: titleAlignment == null
+          ? this.titleAlignment
+          : titleAlignment(),
       subtitleAlignment: subtitleAlignment == null
           ? this.subtitleAlignment
           : subtitleAlignment(),
-      contentAlignment:
-          contentAlignment == null ? this.contentAlignment : contentAlignment(),
-      contentSpacing:
-          contentSpacing == null ? this.contentSpacing : contentSpacing(),
+      contentAlignment: contentAlignment == null
+          ? this.contentAlignment
+          : contentAlignment(),
+      contentSpacing: contentSpacing == null
+          ? this.contentSpacing
+          : contentSpacing(),
       titleSpacing: titleSpacing == null ? this.titleSpacing : titleSpacing(),
       mainAxisAlignment: mainAxisAlignment == null
           ? this.mainAxisAlignment
@@ -92,16 +99,16 @@ class BasicTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        leadingAlignment,
-        trailingAlignment,
-        titleAlignment,
-        subtitleAlignment,
-        contentAlignment,
-        contentSpacing,
-        titleSpacing,
-        mainAxisAlignment,
-        padding,
-      );
+    leadingAlignment,
+    trailingAlignment,
+    titleAlignment,
+    subtitleAlignment,
+    contentAlignment,
+    contentSpacing,
+    titleSpacing,
+    mainAxisAlignment,
+    padding,
+  );
 }
 
 /// A versatile layout widget for arranging leading, title, subtitle, content, and trailing elements.

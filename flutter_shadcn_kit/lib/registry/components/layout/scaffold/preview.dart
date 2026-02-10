@@ -24,9 +24,7 @@ class ScaffoldPreview extends StatelessWidget {
           child: const Text('Footer'),
         ),
       ],
-      child: const Center(
-        child: Text('Body content'),
-      ),
+      child: const Center(child: Text('Body content')),
     );
   }
 }

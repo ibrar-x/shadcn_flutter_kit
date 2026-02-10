@@ -12,9 +12,9 @@ class MenuDivider extends StatelessWidget implements MenuItem {
       duration: kDefaultDuration,
       padding:
           (menuGroupData == null || menuGroupData.direction == Axis.vertical
-                  ? const EdgeInsets.symmetric(vertical: 4)
-                  : const EdgeInsets.symmetric(horizontal: 4)) *
-              scaling,
+              ? EdgeInsets.symmetric(vertical: theme.density.baseGap * 0.5)
+              : EdgeInsets.symmetric(horizontal: theme.density.baseGap * 0.5)) *
+          scaling,
       child: menuGroupData == null || menuGroupData.direction == Axis.vertical
           ? Divider(
               height: 1 * scaling,

@@ -3,5 +3,30 @@
   "name": "Async",
   "description": "Utility for widgets that work with both synchronous and asynchronous values.",
   "category": "utility",
-  "tags": ["async", "builder", "future"]
+  "tags": [
+    "async",
+    "builder",
+    "future"
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "async.dart",
+    "async.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`FutureOrBuilder<T>`",
+      "`FutureOrWidgetBuilder<T>`"
+    ]
+  },
+  "version": "1.0.0"
 }

@@ -1,15 +1,16 @@
 {
   "id": "file_picker",
   "name": "File Upload",
-  "description": "Dropzone and list UI for selecting and managing uploaded files.",
+  "description": "UI-only drag-drop, tile, and mobile file picker surfaces with upload list management.",
   "category": "form",
   "tags": [
     "form",
     "file",
     "picker",
-    "dropzone",
     "upload",
-    "experimental"
+    "drag-drop",
+    "tile",
+    "mobile"
   ],
   "dependencies": {
     "shared": [
@@ -26,8 +27,52 @@
       "linear_progress_indicator",
       "scaffold"
     ],
-    "pubspec": {
-      "file_picker": "^10.3.9"
-    }
-  }
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/file_item.dart",
+    "_impl/core/file_upload_items_view.dart",
+    "_impl/core/file_upload_options.dart",
+    "_impl/core/file_upload_widget.dart",
+    "_impl/state/_file_picker_preview_state.dart",
+    "_impl/state/file_upload_state.dart",
+    "_impl/state/file_upload_state_compact.dart",
+    "_impl/state/file_upload_state_surfaces.dart",
+    "_impl/state/file_upload_state_uploads.dart",
+    "_impl/themes/file_upload_dropzone_theme.dart",
+    "_impl/utils/file_like.dart",
+    "_impl/utils/file_picker_adapter.dart",
+    "_impl/utils/file_picker_adapter_io.dart",
+    "_impl/utils/file_picker_adapter_stub.dart",
+    "_impl/utils/file_picker_adapter_web.dart",
+    "_impl/utils/file_upload_controller.dart",
+    "_impl/utils/file_upload_formatters.dart",
+    "_impl/utils/file_upload_models.dart",
+    "_impl/utils/file_validation.dart",
+    "_impl/variants/file_upload_variant.dart",
+    "file_picker.dart",
+    "file_picker.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`FileUpload`",
+      "`options` (`FileUploadOptions`) with `FileUploadDragDropOptions`, `FileUploadTileOptions`, `FileUploadMobileOptions`",
+      "`pickFiles` (`FileUploadPickFiles?`)",
+      "`uploadFn` (`UploadFn?`)",
+      "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
+      "`allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`",
+      "`maxConcurrentUploads` (`int`) — controls sequential/batched upload count.",
+      "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`",
+      "`FileUploadController` — manages files and upload state.",
+      "`FileLike` — file abstraction for picker items.",
+      "`FileUploadError` — validation/upload error model.",
+      "`FileUploadPickOption` — compact mobile pick action config.",
+      "`FileUploadPickRequest` — request contract for external pickers."
+    ],
+    "callbacks": []
+  },
+  "version": "1.1.0"
 }

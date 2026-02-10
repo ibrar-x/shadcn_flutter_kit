@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "phone_input",
+  "name": "Phone Input",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "input",
+    "phone"
+  ],
+  "installedAt": "2026-02-09T10:18:03.206148Z",
+  "shared": [
+    "form_value_supplier",
+    "geometry_extensions",
+    "overlay",
+    "style_value",
+    "text_modifiers",
+    "theme"
+  ],
+  "dependsOn": [
+    "select",
+    "text_field"
+  ],
+  "files": [
+    "registry/components/form/phone_input/README.md",
+    "registry/components/form/phone_input/_impl/core/phone_number.dart",
+    "registry/components/form/phone_input/_impl/state/_phone_input_state.dart",
+    "registry/components/form/phone_input/_impl/themes/phone_input_theme.dart",
+    "registry/components/form/phone_input/meta.json",
+    "registry/components/form/phone_input/phone_input.dart",
+    "registry/components/form/phone_input/phone_input.meta.json",
+    "registry/components/form/phone_input/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

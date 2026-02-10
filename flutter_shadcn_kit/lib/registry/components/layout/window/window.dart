@@ -67,7 +67,13 @@ class WindowTheme extends ComponentThemeData {
   ///
   /// Both parameters are optional. When `null`, the corresponding values
   /// will fall back to theme defaults.
-  const WindowTheme({this.titleBarHeight, this.resizeThickness});
+  const WindowTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.titleBarHeight,
+    this.resizeThickness,
+  });
 
   /// Creates a copy of this theme with optionally replaced values.
   ///
@@ -85,10 +91,12 @@ class WindowTheme extends ComponentThemeData {
     ValueGetter<double?>? resizeThickness,
   }) {
     return WindowTheme(
-      titleBarHeight:
-          titleBarHeight == null ? this.titleBarHeight : titleBarHeight(),
-      resizeThickness:
-          resizeThickness == null ? this.resizeThickness : resizeThickness(),
+      titleBarHeight: titleBarHeight == null
+          ? this.titleBarHeight
+          : titleBarHeight(),
+      resizeThickness: resizeThickness == null
+          ? this.resizeThickness
+          : resizeThickness(),
     );
   }
 
@@ -464,10 +472,7 @@ mixin WindowNavigatorHandle on State<WindowNavigator> {
 /// The constraints are:
 /// - Minimum width: 200 pixels
 /// - Minimum height: 200 pixels
-const kDefaultWindowConstraints = BoxConstraints(
-  minWidth: 200,
-  minHeight: 200,
-);
+const kDefaultWindowConstraints = BoxConstraints(minWidth: 200, minHeight: 200);
 
 /// Data class containing viewport information for a window.
 ///
@@ -506,4 +511,3 @@ const kDefaultWindowConstraints = BoxConstraints(
 ///   content: MyContent(),
 /// )
 /// ```
-

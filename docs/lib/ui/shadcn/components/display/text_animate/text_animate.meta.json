@@ -30,6 +30,14 @@
       "code": "StreamingText(\n  text: streamedText,\n  effect: const BlurInEffect(\n    duration: Duration(milliseconds: 260),\n    maxBlurSigma: 6,\n    fadeIn: true,\n    slideUpPx: 2,\n  ),\n)"
     },
     {
+      "title": "Fade-in and slide-in variants",
+      "code": "StreamingText(\n  text: streamedText,\n  effect: const SlideInEffect(\n    duration: Duration(milliseconds: 300),\n    offsetY: 8,\n    fadeIn: true,\n  ),\n)"
+    },
+    {
+      "title": "Scramble-in (custom reveal)",
+      "code": "StreamingText(\n  text: streamedText,\n  effect: const ScrambleInEffect(\n    duration: Duration(milliseconds: 460),\n    scrambleUntil: 0.74,\n  ),\n)"
+    },
+    {
       "title": "Blinking cursor while streaming",
       "code": "StreamingText(\n  text: streamedText,\n  cursor: const StreamingCursor.blink(showWhenSettled: false),\n)"
     },
@@ -44,6 +52,7 @@
       "`text` (`String`, required)",
       "`style` (`TextStyle?`)",
       "`typewriter` (`TypewriterEffect?`)",
+      "`animateByWord` (`bool`, default `false`)",
       "`effect` (`StreamingTextEffectAdapter?`)",
       "`cursor` (`StreamingCursor?`)",
       "`textAlign` (`TextAlign?`)",
@@ -64,6 +73,9 @@
       "`StreamingTextEffectAdapter`",
       "`NoEffect`",
       "`BlurInEffect`",
+      "`FadeInEffect`",
+      "`SlideInEffect`",
+      "`ScrambleInEffect`",
       "`CombinedEffect`",
       "`StreamingCursor`",
       "`TextAnimateTheme`"

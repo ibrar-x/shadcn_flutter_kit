@@ -55,9 +55,7 @@ class IconPreview extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.check_circle)
-                    .iconMutedForeground
-                    .iconLarge,
+                const Icon(Icons.check_circle).iconMutedForeground.iconLarge,
                 const SizedBox(height: 8),
                 const Text('Muted', style: TextStyle(fontSize: 10)),
               ],
@@ -65,9 +63,7 @@ class IconPreview extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.check_circle)
-                    .iconPrimaryForeground
-                    .iconLarge,
+                const Icon(Icons.check_circle).iconPrimaryForeground.iconLarge,
                 const SizedBox(height: 8),
                 const Text('Primary', style: TextStyle(fontSize: 10)),
               ],

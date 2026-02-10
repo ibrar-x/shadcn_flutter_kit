@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "formatted_input",
+  "name": "Formatted Input",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "input",
+    "formatter"
+  ],
+  "installedAt": "2026-02-09T10:18:03.200002Z",
+  "shared": [
+    "clickable",
+    "form_control",
+    "overlay",
+    "theme",
+    "util"
+  ],
+  "dependsOn": [
+    "button"
+  ],
+  "files": [
+    "registry/components/form/formatted_input/README.md",
+    "registry/components/form/formatted_input/_impl/core/_editable_part_widget.dart",
+    "registry/components/form/formatted_input/_impl/core/_static_part_widget.dart",
+    "registry/components/form/formatted_input/_impl/core/editable_part.dart",
+    "registry/components/form/formatted_input/_impl/core/formatted_input_data.dart",
+    "registry/components/form/formatted_input/_impl/core/formatted_object_input.dart",
+    "registry/components/form/formatted_input/_impl/core/formatted_value.dart",
+    "registry/components/form/formatted_input/_impl/core/formatted_value_part.dart",
+    "registry/components/form/formatted_input/_impl/core/input_part.dart",
+    "registry/components/form/formatted_input/_impl/core/static_part.dart",
+    "registry/components/form/formatted_input/_impl/core/widget_part.dart",
+    "registry/components/form/formatted_input/_impl/state/_editable_part_widget_state.dart",
+    "registry/components/form/formatted_input/_impl/state/_formatted_input_state.dart",
+    "registry/components/form/formatted_input/_impl/state/_formatted_object_input_state.dart",
+    "registry/components/form/formatted_input/_impl/state/_static_part_widget_state.dart",
+    "registry/components/form/formatted_input/_impl/themes/formatted_input_theme.dart",
+    "registry/components/form/formatted_input/_impl/utils/_editable_part_controller.dart",
+    "registry/components/form/formatted_input/_impl/utils/_formatted_object_controller.dart",
+    "registry/components/form/formatted_input/_impl/utils/formatted_input_controller.dart",
+    "registry/components/form/formatted_input/formatted_input.dart",
+    "registry/components/form/formatted_input/formatted_input.meta.json",
+    "registry/components/form/formatted_input/meta.json",
+    "registry/components/form/formatted_input/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

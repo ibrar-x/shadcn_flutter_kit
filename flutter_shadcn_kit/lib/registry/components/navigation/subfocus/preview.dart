@@ -31,8 +31,9 @@ class SubfocusPreview extends StatelessWidget {
                         child: Text(
                           'Focusable ${index + 1}',
                           style: TextStyle(
-                            color:
-                                state.isFocused ? Colors.white : Colors.black,
+                            color: state.isFocused
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                       );

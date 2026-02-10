@@ -43,8 +43,12 @@ class NavigationMenuItem extends StatefulWidget {
   ///   ),
   /// )
   /// ```
-  const NavigationMenuItem(
-      {super.key, this.onPressed, this.content, required this.child});
+  const NavigationMenuItem({
+    super.key,
+    this.onPressed,
+    this.content,
+    required this.child,
+  });
 
   @override
   State<NavigationMenuItem> createState() => NavigationMenuItemState();

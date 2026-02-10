@@ -28,6 +28,9 @@ class TimePickerTheme extends ComponentThemeData {
 
   /// Creates a [TimePickerTheme].
   const TimePickerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.mode,
     this.popoverAlignment,
     this.popoverAnchorAlignment,
@@ -49,15 +52,18 @@ class TimePickerTheme extends ComponentThemeData {
   }) {
     return TimePickerTheme(
       mode: mode == null ? this.mode : mode(),
-      popoverAlignment:
-          popoverAlignment == null ? this.popoverAlignment : popoverAlignment(),
+      popoverAlignment: popoverAlignment == null
+          ? this.popoverAlignment
+          : popoverAlignment(),
       popoverAnchorAlignment: popoverAnchorAlignment == null
           ? this.popoverAnchorAlignment
           : popoverAnchorAlignment(),
-      popoverPadding:
-          popoverPadding == null ? this.popoverPadding : popoverPadding(),
-      use24HourFormat:
-          use24HourFormat == null ? this.use24HourFormat : use24HourFormat(),
+      popoverPadding: popoverPadding == null
+          ? this.popoverPadding
+          : popoverPadding(),
+      use24HourFormat: use24HourFormat == null
+          ? this.use24HourFormat
+          : use24HourFormat(),
       showSeconds: showSeconds == null ? this.showSeconds : showSeconds(),
       dialogTitle: dialogTitle == null ? this.dialogTitle : dialogTitle(),
     );
@@ -78,12 +84,12 @@ class TimePickerTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        mode,
-        popoverAlignment,
-        popoverAnchorAlignment,
-        popoverPadding,
-        use24HourFormat,
-        showSeconds,
-        dialogTitle,
-      );
+    mode,
+    popoverAlignment,
+    popoverAnchorAlignment,
+    popoverPadding,
+    use24HourFormat,
+    showSeconds,
+    dialogTitle,
+  );
 }

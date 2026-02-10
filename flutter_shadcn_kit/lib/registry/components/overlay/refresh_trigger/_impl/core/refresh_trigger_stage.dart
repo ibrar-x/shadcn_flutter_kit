@@ -18,7 +18,11 @@ class RefreshTriggerStage {
 
   /// Creates a refresh trigger stage snapshot.
   const RefreshTriggerStage(
-      this.stage, this.extent, this.direction, this.reverse);
+    this.stage,
+    this.extent,
+    this.direction,
+    this.reverse,
+  );
 
   /// Current numeric value of the pull extent.
   ///

@@ -91,8 +91,11 @@ class NullableDate {
   /// - [defaultDay] (`int`, optional): Default day value (1-31).
   ///
   /// Returns: A [DateTime] instance with non-null parts.
-  DateTime? getDateTime(
-      {int? defaultYear = 0, int? defaultMonth = 1, int? defaultDay = 1}) {
+  DateTime? getDateTime({
+    int? defaultYear = 0,
+    int? defaultMonth = 1,
+    int? defaultDay = 1,
+  }) {
     int? year = this.year ?? defaultYear;
     int? month = this.month ?? defaultMonth;
     int? day = this.day ?? defaultDay;

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-03T09:05:05.908795Z",
+  "generatedAt": "2026-02-09T11:00:59.715558Z",
   "components": [
     {
       "id": "accordion",
@@ -13,6 +13,7 @@
         "layout",
         "forms"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add accordion",
       "import": "import 'package:<your_app>/ui/shadcn/layout/accordion/accordion.dart';",
       "importPath": "ui/shadcn/layout/accordion/accordion.dart",
@@ -52,6 +53,7 @@
         "status",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add alert",
       "import": "import 'package:<your_app>/ui/shadcn/layout/alert/alert.dart';",
       "importPath": "ui/shadcn/layout/alert/alert.dart",
@@ -70,7 +72,12 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "basic_layout",
+          "outlined_container",
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "toast",
@@ -87,6 +94,7 @@
         "dialog",
         "modal"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add alert_dialog",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/alert_dialog/alert_dialog.dart';",
       "importPath": "ui/shadcn/overlay/alert_dialog/alert_dialog.dart",
@@ -124,6 +132,7 @@
         "picker",
         "utility"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add alpha",
       "import": "import 'package:<your_app>/ui/shadcn/utility/alpha/alpha.dart';",
       "importPath": "ui/shadcn/utility/alpha/alpha.dart",
@@ -157,6 +166,7 @@
         "app",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add app",
       "import": "import 'package:<your_app>/ui/shadcn/composites/layout/app/app.dart';",
       "importPath": "ui/shadcn/composites/layout/app/app.dart",
@@ -196,6 +206,7 @@
         "navigation",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add app_bar",
       "import": "import 'package:<your_app>/ui/shadcn/composites/layout/app_bar/app_bar.dart';",
       "importPath": "ui/shadcn/composites/layout/app_bar/app_bar.dart",
@@ -231,6 +242,7 @@
         "builder",
         "future"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add async",
       "import": "import 'package:<your_app>/ui/shadcn/utility/async/async.dart';",
       "importPath": "ui/shadcn/utility/async/async.dart",
@@ -264,6 +276,7 @@
         "input",
         "autocomplete"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add autocomplete",
       "import": "import 'package:<your_app>/ui/shadcn/form/autocomplete/autocomplete.dart';",
       "importPath": "ui/shadcn/form/autocomplete/autocomplete.dart",
@@ -307,6 +320,7 @@
         "profile",
         "user"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add avatar",
       "import": "import 'package:<your_app>/ui/shadcn/display/avatar/avatar.dart';",
       "importPath": "ui/shadcn/display/avatar/avatar.dart",
@@ -347,6 +361,7 @@
         "group",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add avatar_group",
       "import": "import 'package:<your_app>/ui/shadcn/composites/display/avatar_group/avatar_group.dart';",
       "importPath": "ui/shadcn/composites/display/avatar_group/avatar_group.dart",
@@ -381,6 +396,7 @@
         "status",
         "label"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add badge",
       "import": "import 'package:<your_app>/ui/shadcn/display/badge/badge.dart';",
       "importPath": "ui/shadcn/display/badge/badge.dart",
@@ -420,6 +436,7 @@
         "list",
         "structure"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add basic",
       "import": "import 'package:<your_app>/ui/shadcn/layout/basic/basic.dart';",
       "importPath": "ui/shadcn/layout/basic/basic.dart",
@@ -449,6 +466,63 @@
       ]
     },
     {
+      "id": "border_loading",
+      "name": "Border Loading",
+      "category": "display",
+      "description": "Animated border wrapper for loading, tracer, static, and determinate progress states.",
+      "tags": [
+        "display",
+        "loading",
+        "border",
+        "animation"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add border_loading",
+      "import": "import 'package:<your_app>/ui/shadcn/display/border_loading/border_loading.dart';",
+      "importPath": "ui/shadcn/display/border_loading/border_loading.dart",
+      "api": {
+        "constructors": [
+          "`BorderLoading`",
+          "`child` (`Widget`, required)",
+          "`strokeWidth` (`double`)",
+          "`padding` (`EdgeInsets`)",
+          "`borderRadius` (`BorderRadius`)",
+          "`shapeBorder` (`ShapeBorder?`)",
+          "`mode` (`BorderLoadingMode`)",
+          "`progress` (`double`, 0..1 used by `BorderLoadingMode.progress`)",
+          "`progressStream` (`Stream<double>?`, optional live progress source)",
+          "`tracer` (`BorderTracerSpec`)",
+          "`spec` (`BorderLoadingSpec`)",
+          "`duration` (`Duration`)",
+          "`curve` (`Curve`)",
+          "`backgroundColor` (`Color?`)",
+          "`opacity` (`double`)"
+        ],
+        "callbacks": [
+          "No callbacks."
+        ],
+        "types_and_helpers": [
+          "`BorderLoadingMode`",
+          "`BorderTracerSpec`",
+          "`BorderLoadingSpec`",
+          "`BorderGradientSpec`",
+          "`BorderGradientType`"
+        ]
+      },
+      "examples": {
+        "minimal": "BorderLoading(\n  mode: BorderLoadingMode.sweepGradient,\n  spec: const BorderGradientSpec(\n    type: BorderGradientType.sweep,\n    colors: [\n      Color(0x00000000),\n      Color(0xFF3B82F6),\n      Color(0xFF22C55E),\n      Color(0xFFF59E0B),\n      Color(0x00000000),\n    ],\n    gap: 0.24,\n  ),\n  child: const Padding(\n    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),\n    child: Text('Saving...'),\n  ),\n)"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": []
+      },
+      "related": [
+        "progress",
+        "linear_progress_indicator",
+        "circular_progress_indicator"
+      ]
+    },
+    {
       "id": "breadcrumb",
       "name": "Breadcrumb",
       "category": "navigation",
@@ -457,6 +531,7 @@
         "navigation",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add breadcrumb",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/breadcrumb/breadcrumb.dart';",
       "importPath": "ui/shadcn/navigation/breadcrumb/breadcrumb.dart",
@@ -496,6 +571,7 @@
         "forms",
         "buttons"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add button",
       "import": "import 'package:<your_app>/ui/shadcn/control/button/button.dart';",
       "importPath": "ui/shadcn/control/button/button.dart",
@@ -553,6 +629,7 @@
         "picker",
         "display"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add calendar",
       "import": "import 'package:<your_app>/ui/shadcn/display/calendar/calendar.dart';",
       "importPath": "ui/shadcn/display/calendar/calendar.dart",
@@ -608,6 +685,7 @@
         "surface",
         "container"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add card",
       "import": "import 'package:<your_app>/ui/shadcn/layout/card/card.dart';",
       "importPath": "ui/shadcn/layout/card/card.dart",
@@ -623,7 +701,9 @@
         "minimal": "Card(\n  child: const Text('Card content'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
         "shared": [
           "theme",
           "color_extensions",
@@ -648,6 +728,7 @@
         "image",
         "card"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add card_image",
       "import": "import 'package:<your_app>/ui/shadcn/layout/card_image/card_image.dart';",
       "importPath": "ui/shadcn/layout/card_image/card_image.dart",
@@ -690,6 +771,7 @@
         "carousel",
         "animation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add carousel",
       "import": "import 'package:<your_app>/ui/shadcn/display/carousel/carousel.dart';",
       "importPath": "ui/shadcn/display/carousel/carousel.dart",
@@ -736,6 +818,7 @@
         "chat",
         "bubble"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add chat",
       "import": "import 'package:<your_app>/ui/shadcn/display/chat/chat.dart';",
       "importPath": "ui/shadcn/display/chat/chat.dart",
@@ -784,6 +867,7 @@
         "input",
         "control"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add checkbox",
       "import": "import 'package:<your_app>/ui/shadcn/form/checkbox/checkbox.dart';",
       "importPath": "ui/shadcn/form/checkbox/checkbox.dart",
@@ -837,6 +921,7 @@
         "forms",
         "tag"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add chip",
       "import": "import 'package:<your_app>/ui/shadcn/display/chip/chip.dart';",
       "importPath": "ui/shadcn/display/chip/chip.dart",
@@ -878,6 +963,7 @@
         "chips",
         "tokens"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add chip_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/chip_input/chip_input.dart';",
       "importPath": "ui/shadcn/form/chip_input/chip_input.dart",
@@ -927,6 +1013,7 @@
         "selection",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add choices",
       "import": "import 'package:<your_app>/ui/shadcn/composites/form/choices/choices.dart';",
       "importPath": "ui/shadcn/composites/form/choices/choices.dart",
@@ -960,6 +1047,7 @@
         "progress",
         "indicator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add circular_progress_indicator",
       "import": "import 'package:<your_app>/ui/shadcn/display/circular_progress_indicator/circular_progress_indicator.dart';",
       "importPath": "ui/shadcn/display/circular_progress_indicator/circular_progress_indicator.dart",
@@ -1004,6 +1092,7 @@
         "primitive",
         "gesture"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add clickable",
       "import": "import 'package:<your_app>/ui/shadcn/control/clickable/clickable.dart';",
       "importPath": "ui/shadcn/control/clickable/clickable.dart",
@@ -1057,6 +1146,7 @@
         "code",
         "text"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add code_snippet",
       "import": "import 'package:<your_app>/ui/shadcn/display/code_snippet/code_snippet.dart';",
       "importPath": "ui/shadcn/display/code_snippet/code_snippet.dart",
@@ -1096,6 +1186,7 @@
         "forms",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add collapsible",
       "import": "import 'package:<your_app>/ui/shadcn/layout/collapsible/collapsible.dart';",
       "importPath": "ui/shadcn/layout/collapsible/collapsible.dart",
@@ -1119,7 +1210,11 @@
           "data_widget": "^0.0.2",
           "gap": "^3.0.1"
         },
-        "shared": []
+        "shared": [
+          "text_modifiers",
+          "theme",
+          "util"
+        ]
       },
       "related": [
         "accordion"
@@ -1134,6 +1229,7 @@
         "color",
         "utility"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add color",
       "import": "import 'package:<your_app>/ui/shadcn/utility/color/color.dart';",
       "importPath": "ui/shadcn/utility/color/color.dart",
@@ -1182,6 +1278,7 @@
         "picker",
         "form"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add color_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/color_input/color_input.dart';",
       "importPath": "ui/shadcn/form/color_input/color_input.dart",
@@ -1236,6 +1333,7 @@
         "picker",
         "forms"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add color_picker",
       "import": "import 'package:<your_app>/ui/shadcn/form/color_picker/color_picker.dart';",
       "importPath": "ui/shadcn/form/color_picker/color_picker.dart",
@@ -1259,7 +1357,10 @@
         "minimal": "ColorPicker(\n  value: ColorDerivative.fromColor(Colors.blue),\n  onChanged: (color) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -1283,6 +1384,7 @@
         "input",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add command",
       "import": "import 'package:<your_app>/ui/shadcn/control/command/command.dart';",
       "importPath": "ui/shadcn/control/command/command.dart",
@@ -1308,7 +1410,22 @@
         "pubspec": {
           "gap": "^3.0.1"
         },
-        "shared": []
+        "shared": [
+          "border_utils",
+          "clickable",
+          "color_extensions",
+          "constants",
+          "focus_outline",
+          "icon_extensions",
+          "localizations",
+          "lucide_icons",
+          "outlined_container",
+          "overlay",
+          "subfocus",
+          "text_modifiers",
+          "theme",
+          "util"
+        ]
       },
       "related": [
         "dialog",
@@ -1326,6 +1443,7 @@
         "context",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add context_menu",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/context_menu/context_menu.dart';",
       "importPath": "ui/shadcn/overlay/context_menu/context_menu.dart",
@@ -1372,6 +1490,7 @@
         "controller",
         "form"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add control",
       "import": "import 'package:<your_app>/ui/shadcn/form/control/control.dart';",
       "importPath": "ui/shadcn/form/control/control.dart",
@@ -1408,6 +1527,7 @@
         "picker",
         "calendar"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add date_picker",
       "import": "import 'package:<your_app>/ui/shadcn/form/date_picker/date_picker.dart';",
       "importPath": "ui/shadcn/form/date_picker/date_picker.dart",
@@ -1460,6 +1580,7 @@
         "overlay",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add debug",
       "import": "import 'package:<your_app>/ui/shadcn/utility/debug/debug.dart';",
       "importPath": "ui/shadcn/utility/debug/debug.dart",
@@ -1494,6 +1615,7 @@
         "modal",
         "dialog"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add dialog",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/dialog/dialog.dart';",
       "importPath": "ui/shadcn/overlay/dialog/dialog.dart",
@@ -1538,6 +1660,7 @@
         "layout",
         "separator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add divider",
       "import": "import 'package:<your_app>/ui/shadcn/display/divider/divider.dart';",
       "importPath": "ui/shadcn/display/divider/divider.dart",
@@ -1580,6 +1703,7 @@
         "navigation",
         "indicator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add dot_indicator",
       "import": "import 'package:<your_app>/ui/shadcn/display/dot_indicator/dot_indicator.dart';",
       "importPath": "ui/shadcn/display/dot_indicator/dot_indicator.dart",
@@ -1625,6 +1749,7 @@
         "drawer",
         "sheet"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add drawer",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/drawer/drawer.dart';",
       "importPath": "ui/shadcn/overlay/drawer/drawer.dart",
@@ -1676,6 +1801,7 @@
         "dropdown",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add dropdown_menu",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/dropdown_menu/dropdown_menu.dart';",
       "importPath": "ui/shadcn/overlay/dropdown_menu/dropdown_menu.dart",
@@ -1716,6 +1842,7 @@
         "upload",
         "experimental"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add dropzone",
       "import": "import 'package:<your_app>/ui/shadcn/form/dropzone/dropzone.dart';",
       "importPath": "ui/shadcn/form/dropzone/dropzone.dart",
@@ -1764,6 +1891,7 @@
         "error",
         "placeholder"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add empty_state",
       "import": "import 'package:<your_app>/ui/shadcn/display/empty_state/empty_state.dart';",
       "importPath": "ui/shadcn/display/empty_state/empty_state.dart",
@@ -1773,12 +1901,13 @@
           "`variant` (`EmptyStateVariant`)",
           "`size` (`EmptyStateSize`)",
           "`icon`, `title`, `description` (`Widget?`)",
-          "`primaryAction`, `secondaryAction` (`EmptyStateAction?`)",
+          "`primaryAction`, `secondaryAction`, `footerAction` (`EmptyStateAction?`)",
           "`maxWidth` (`double?`)",
+          "`showIconContainer` (`bool`)",
           "`EmptyStateAction`",
           "`label` (`String`, required)",
           "`onPressed` (`VoidCallback?`)",
-          "`icon` (`Widget?`)",
+          "`icon`, `trailingIcon` (`Widget?`)",
           "`style` (`EmptyStateActionStyle`)"
         ],
         "callbacks": [
@@ -1814,6 +1943,7 @@
         "repository",
         "ui"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add error_system",
       "import": "import 'package:<your_app>/ui/shadcn/utility/error_system/error_system.dart';",
       "importPath": "ui/shadcn/utility/error_system/error_system.dart",
@@ -1866,6 +1996,7 @@
         "sidebar",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add expandable_sidebar",
       "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/expandable_sidebar/expandable_sidebar.dart';",
       "importPath": "ui/shadcn/composites/navigation/expandable_sidebar/expandable_sidebar.dart",
@@ -1904,6 +2035,7 @@
         "picker",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add eye_dropper",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/eye_dropper/eye_dropper.dart';",
       "importPath": "ui/shadcn/overlay/eye_dropper/eye_dropper.dart",
@@ -1926,7 +2058,7 @@
         },
         "shared": [
           "theme",
-          "text",
+          "text_modifiers",
           "color_extensions"
         ]
       },
@@ -1945,6 +2077,7 @@
         "scroll",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add fade_scroll",
       "import": "import 'package:<your_app>/ui/shadcn/layout/fade_scroll/fade_scroll.dart';",
       "importPath": "ui/shadcn/layout/fade_scroll/fade_scroll.dart",
@@ -1981,6 +2114,7 @@
         "carousel",
         "feature"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add feature_carousel",
       "import": "import 'package:<your_app>/ui/shadcn/display/feature_carousel/feature_carousel.dart';",
       "importPath": "ui/shadcn/display/feature_carousel/feature_carousel.dart",
@@ -2028,6 +2162,7 @@
         "input",
         "icon"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add file_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/file_input/file_input.dart';",
       "importPath": "ui/shadcn/form/file_input/file_input.dart",
@@ -2057,41 +2192,41 @@
       "id": "file_picker",
       "name": "File Upload",
       "category": "form",
-      "description": "Dropzone and list UI for selecting and managing uploaded files.",
+      "description": "UI-only file upload surfaces with pluggable file picking.",
       "tags": [
         "form",
         "file",
         "picker",
-        "dropzone",
         "upload",
-        "experimental"
+        "drag-drop",
+        "tile",
+        "mobile"
       ],
+      "version": "1.1.0",
       "install": "flutter_shadcn add file_picker",
       "import": "import 'package:<your_app>/ui/shadcn/form/file_picker/file_picker.dart';",
       "importPath": "ui/shadcn/form/file_picker/file_picker.dart",
       "api": {
-        "constructors": [
-          "`FileUpload`",
-          "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`",
+        "constructors": [],
+        "callbacks": [],
+        "items": [
+          "`FileUpload` + `options`:",
+          "`FileUploadDragDropOptions`",
+          "`FileUploadTileOptions`",
+          "`FileUploadMobileOptions`",
+          "`pickFiles` (`FileUploadPickFiles?`)",
           "`uploadFn` (`UploadFn?`)",
           "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
           "`allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`",
-          "`enableDragDrop`, `enableDropzoneClick`, `enableActionButton`",
-          "`title`, `subtitle`, `hint`, `actionLabel`, `icon`",
-          "`showFileList`, `itemsLayout`, `itemsGridColumns`, `itemsMaxHeight`",
-          "`FileUploadController` — manages files and upload state.",
-          "`FileLike` — file abstraction for picker items.",
-          "`FileUploadError` — validation/upload error model."
-        ],
-        "callbacks": []
+          "`maxConcurrentUploads` (`int`, default `1`) for sequential/batched uploads",
+          "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`"
+        ]
       },
       "examples": {
-        "minimal": "FileUpload(\n  onFilesSelected: (files) {},\n)"
+        "minimal": ""
       },
       "dependencies": {
-        "pubspec": {
-          "file_picker": "^10.3.9"
-        },
+        "pubspec": {},
         "shared": [
           "theme",
           "outlined_container",
@@ -2108,6 +2243,50 @@
       ]
     },
     {
+      "id": "flex",
+      "name": "Flex",
+      "category": "layout",
+      "description": "Patched `Flex/Row/Column` and `Stack` widgets with custom `paintOrder` support for layered painting and top-first hit testing.",
+      "tags": [
+        "layout",
+        "flex"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add flex",
+      "import": "import 'package:<your_app>/ui/shadcn/layout/flex/flex.dart';",
+      "importPath": "ui/shadcn/layout/flex/flex.dart",
+      "api": {
+        "constructors": [
+          "`Flex` (patched)",
+          "`Row` (patched)",
+          "`Column` (patched)",
+          "`Stack` (patched)",
+          "`Flexible`",
+          "`flex`, `fit`, `paintOrder`",
+          "`Expanded`",
+          "`flex`, `paintOrder`",
+          "`Positioned`",
+          "`left`, `top`, `right`, `bottom`, `width`, `height`, `paintOrder`",
+          "`PaintOrder`",
+          "`paintOrder` (required)"
+        ],
+        "callbacks": [
+          "None"
+        ]
+      },
+      "examples": {
+        "minimal": "Row(\n  children: [\n    PaintOrder(\n      paintOrder: 1,\n      child: Text('On top'),\n    ),\n    Text('Below'),\n  ],\n)"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": []
+      },
+      "related": [
+        "scrollable",
+        "stage_container"
+      ]
+    },
+    {
       "id": "focus_outline",
       "name": "Focus Outline",
       "category": "utility",
@@ -2117,6 +2296,7 @@
         "accessibility",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add focus_outline",
       "import": "import 'package:<your_app>/ui/shadcn/utility/focus_outline/focus_outline.dart';",
       "importPath": "ui/shadcn/utility/focus_outline/focus_outline.dart",
@@ -2135,7 +2315,12 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "animated_value_builder",
+          "constants",
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "subfocus",
@@ -2152,6 +2337,7 @@
         "validation",
         "state"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add form",
       "import": "import 'package:<your_app>/ui/shadcn/form/form/form.dart';",
       "importPath": "ui/shadcn/form/form/form.dart",
@@ -2183,7 +2369,7 @@
         "shared": [
           "theme",
           "focus_outline",
-          "text"
+          "text_modifiers"
         ]
       },
       "related": [
@@ -2202,6 +2388,7 @@
         "input",
         "editor"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add form_field",
       "import": "import 'package:<your_app>/ui/shadcn/form/form_field/form_field.dart';",
       "importPath": "ui/shadcn/form/form_field/form_field.dart",
@@ -2249,6 +2436,7 @@
         "input",
         "formatter"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add formatted_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/formatted_input/formatted_input.dart';",
       "importPath": "ui/shadcn/form/formatted_input/formatted_input.dart",
@@ -2276,8 +2464,8 @@
           "theme",
           "form_control",
           "clickable",
-          "popover",
-          "utils"
+          "overlay",
+          "util"
         ]
       },
       "related": [
@@ -2296,6 +2484,7 @@
         "format",
         "text"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add formatter",
       "import": "import 'package:<your_app>/ui/shadcn/form/formatter/formatter.dart';",
       "importPath": "ui/shadcn/form/formatter/formatter.dart",
@@ -2341,6 +2530,7 @@
         "positioning",
         "render"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add group",
       "import": "import 'package:<your_app>/ui/shadcn/layout/group/group_widget.dart';",
       "importPath": "ui/shadcn/layout/group/group_widget.dart",
@@ -2372,6 +2562,7 @@
         "layout",
         "accessibility"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add hidden",
       "import": "import 'package:<your_app>/ui/shadcn/layout/hidden/hidden.dart';",
       "importPath": "ui/shadcn/layout/hidden/hidden.dart",
@@ -2391,7 +2582,12 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "animated_value_builder",
+          "constants",
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "collapsible"
@@ -2407,6 +2603,7 @@
         "history",
         "picker"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add history",
       "import": "import 'package:<your_app>/ui/shadcn/form/history/history.dart';",
       "importPath": "ui/shadcn/form/history/history.dart",
@@ -2449,6 +2646,7 @@
         "pointer",
         "interaction"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add hover",
       "import": "import 'package:<your_app>/ui/shadcn/control/hover/hover.dart';",
       "importPath": "ui/shadcn/control/hover/hover.dart",
@@ -2487,6 +2685,7 @@
         "hover",
         "popover"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add hover_card",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/hover_card/hover_card.dart';",
       "importPath": "ui/shadcn/overlay/hover_card/hover_card.dart",
@@ -2526,6 +2725,7 @@
         "slider",
         "hsl"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add hsl",
       "import": "import 'package:<your_app>/ui/shadcn/form/hsl/hsl_color_slider.dart';",
       "importPath": "ui/shadcn/form/hsl/hsl_color_slider.dart",
@@ -2563,6 +2763,7 @@
         "slider",
         "hsv"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add hsv",
       "import": "import 'package:<your_app>/ui/shadcn/form/hsv/hsv_color_slider.dart';",
       "importPath": "ui/shadcn/form/hsv/hsv_color_slider.dart",
@@ -2599,6 +2800,7 @@
         "icon",
         "theme"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add icon",
       "import": "import 'package:<your_app>/ui/shadcn/display/icon/icon.dart';",
       "importPath": "ui/shadcn/display/icon/icon.dart",
@@ -2634,6 +2836,7 @@
         "image",
         "asset"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add image",
       "import": "import 'package:<your_app>/ui/shadcn/utility/image/image.dart';",
       "importPath": "ui/shadcn/utility/image/image.dart",
@@ -2659,29 +2862,39 @@
       "id": "input",
       "name": "Input",
       "category": "form",
-      "description": "Single-line text input with feature hooks, popovers, and controller integration.",
+      "description": "Input feature extensions for `TextField`: hint, clear/copy/paste, password toggle, autocomplete, spinner, stepper buttons, and above/below helpers.",
       "tags": [
         "form",
         "input",
         "text"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add input",
       "import": "import 'package:<your_app>/ui/shadcn/form/input/input.dart';",
       "importPath": "ui/shadcn/form/input/input.dart",
       "api": {
-        "constructors": [
-          "`InputFeaturePosition` — `leading` / `trailing`.",
-          "`SuggestionBuilder` — `FutureOr<Iterable<String>> Function(String query)`.",
-          "Feature widgets:",
-          "`InputClearFeature`, `InputPasswordToggleFeature`, `InputHintFeature`",
-          "`InputAutoCompleteFeature`, `InputSpinnerFeature`",
-          "`InputCopyFeature`, `InputPasteFeature`, `InputRevalidateFeature`",
-          "`InputLeadingFeature`, `InputTrailingFeature`"
-        ],
-        "callbacks": []
+        "constructors": [],
+        "callbacks": [],
+        "items": [
+          "`InputFeaturePosition`: `leading`, `trailing`, `above`, `below`.",
+          "`SuggestionBuilder`: `FutureOr<Iterable<String>> Function(String query)`.",
+          "Feature classes:",
+          "`InputHintFeature`",
+          "`InputPasswordToggleFeature`",
+          "`InputClearFeature`",
+          "`InputRevalidateFeature`",
+          "`InputAutoCompleteFeature`",
+          "`InputSpinnerFeature` (`step`, `invalidValue`, `min`, `max`, `enableGesture`)",
+          "`InputStepperButtonFeature` / `InputStepperButtonFeature.decrement`",
+          "`InputCopyFeature`",
+          "`InputPasteFeature`",
+          "`InputLeadingFeature`",
+          "`InputTrailingFeature`",
+          "`InputAboveBelowFeature` (`above`/`below`)"
+        ]
       },
       "examples": {
-        "minimal": "TextField(\n  features: const [InputFeature.clear()],\n)"
+        "minimal": ""
       },
       "dependencies": {
         "pubspec": {
@@ -2696,10 +2909,7 @@
           "util"
         ]
       },
-      "related": [
-        "text_field",
-        "autocomplete"
-      ]
+      "related": []
     },
     {
       "id": "input_otp",
@@ -2711,6 +2921,7 @@
         "input",
         "otp"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add input_otp",
       "import": "import 'package:<your_app>/ui/shadcn/form/input_otp/input_otp.dart';",
       "importPath": "ui/shadcn/form/input_otp/input_otp.dart",
@@ -2759,6 +2970,7 @@
         "picker",
         "selection"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add item_picker",
       "import": "import 'package:<your_app>/ui/shadcn/form/item_picker/item_picker.dart';",
       "importPath": "ui/shadcn/form/item_picker/item_picker.dart",
@@ -2785,7 +2997,7 @@
         "shared": [
           "theme",
           "overlay",
-          "text"
+          "text_modifiers"
         ]
       },
       "related": [
@@ -2803,6 +3015,7 @@
         "keyboard",
         "shortcut"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add keyboard_shortcut",
       "import": "import 'package:<your_app>/ui/shadcn/display/keyboard_shortcut/keyboard_shortcut.dart';",
       "importPath": "ui/shadcn/display/keyboard_shortcut/keyboard_shortcut.dart",
@@ -2844,6 +3057,7 @@
         "progress",
         "indicator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add linear_progress_indicator",
       "import": "import 'package:<your_app>/ui/shadcn/display/linear_progress_indicator/linear_progress_indicator.dart';",
       "importPath": "ui/shadcn/display/linear_progress_indicator/linear_progress_indicator.dart",
@@ -2890,6 +3104,7 @@
         "utility",
         "formatting"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add locale_utils",
       "import": "import 'package:<your_app>/ui/shadcn/utility/locale_utils/locale_utils.dart';",
       "importPath": "ui/shadcn/utility/locale_utils/locale_utils.dart",
@@ -2928,6 +3143,7 @@
         "composite",
         "material"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add material",
       "import": "import 'package:<your_app>/ui/shadcn/composites/layout/material/material.dart';",
       "importPath": "ui/shadcn/composites/layout/material/material.dart",
@@ -2964,6 +3180,7 @@
         "layout",
         "responsive"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add media_query",
       "import": "import 'package:<your_app>/ui/shadcn/layout/media_query/media_query.dart';",
       "importPath": "ui/shadcn/layout/media_query/media_query.dart",
@@ -3001,6 +3218,7 @@
         "overlay",
         "navigation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add menu",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/menu/menu.dart';",
       "importPath": "ui/shadcn/overlay/menu/menu.dart",
@@ -3062,6 +3280,7 @@
         "overlay",
         "navigation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add menubar",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/menubar/menubar.dart';",
       "importPath": "ui/shadcn/overlay/menubar/menubar.dart",
@@ -3083,7 +3302,7 @@
         "shared": [
           "constants",
           "outlined_container",
-          "text",
+          "text_modifiers",
           "theme"
         ]
       },
@@ -3102,6 +3321,7 @@
         "choice",
         "selection"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add multiple_choice",
       "import": "import 'package:<your_app>/ui/shadcn/form/multiple_choice/multiple_choice.dart';",
       "importPath": "ui/shadcn/form/multiple_choice/multiple_choice.dart",
@@ -3145,6 +3365,7 @@
         "selection",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add multiselect",
       "import": "import 'package:<your_app>/ui/shadcn/composites/form/multiselect/multiselect.dart';",
       "importPath": "ui/shadcn/composites/form/multiselect/multiselect.dart",
@@ -3182,6 +3403,7 @@
         "bar",
         "tabs"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add navigation_bar",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/navigation_bar/navigation_bar.dart';",
       "importPath": "ui/shadcn/navigation/navigation_bar/navigation_bar.dart",
@@ -3213,7 +3435,7 @@
           "style_value",
           "constants",
           "animated_value_builder",
-          "text",
+          "text_modifiers",
           "util"
         ]
       },
@@ -3232,6 +3454,7 @@
         "menu",
         "overlay"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add navigation_menu",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/navigation_menu/navigation_menu.dart';",
       "importPath": "ui/shadcn/navigation/navigation_menu/navigation_menu.dart",
@@ -3277,6 +3500,7 @@
         "rail",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add navigation_rail",
       "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/navigation_rail/navigation_rail.dart';",
       "importPath": "ui/shadcn/composites/navigation/navigation_rail/navigation_rail.dart",
@@ -3318,6 +3542,7 @@
         "sidebar",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add navigation_sidebar",
       "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/navigation_sidebar/navigation_sidebar.dart';",
       "importPath": "ui/shadcn/composites/navigation/navigation_sidebar/navigation_sidebar.dart",
@@ -3358,6 +3583,7 @@
         "input",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add number_input",
       "import": "import 'package:<your_app>/ui/shadcn/composites/form/number_input/number_input.dart';",
       "importPath": "ui/shadcn/composites/form/number_input/number_input.dart",
@@ -3393,6 +3619,7 @@
         "indicator",
         "animation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add number_ticker",
       "import": "import 'package:<your_app>/ui/shadcn/display/number_ticker/number_ticker.dart';",
       "importPath": "ui/shadcn/display/number_ticker/number_ticker.dart",
@@ -3440,6 +3667,7 @@
         "date",
         "time"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add object_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/object_input/object_input.dart';",
       "importPath": "ui/shadcn/form/object_input/object_input.dart",
@@ -3466,10 +3694,10 @@
         "shared": [
           "theme",
           "form_control",
-          "text",
-          "icons",
+          "text_modifiers",
+          "lucide_icons",
           "localizations",
-          "utils"
+          "util"
         ]
       },
       "related": [
@@ -3488,6 +3716,7 @@
         "container",
         "outline"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add outlined_container",
       "import": "import 'package:<your_app>/ui/shadcn/layout/outlined_container/outlined_container.dart';",
       "importPath": "ui/shadcn/layout/outlined_container/outlined_container.dart",
@@ -3529,6 +3758,7 @@
         "scroll",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add overflow_marquee",
       "import": "import 'package:<your_app>/ui/shadcn/layout/overflow_marquee/overflow_marquee.dart';",
       "importPath": "ui/shadcn/layout/overflow_marquee/overflow_marquee.dart",
@@ -3564,6 +3794,7 @@
         "overlay",
         "layer"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add overlay",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/overlay/overlay.dart';",
       "importPath": "ui/shadcn/overlay/overlay/overlay.dart",
@@ -3590,14 +3821,15 @@
         "minimal": "ShadcnLayer(\n  child: const MyApp(),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
         "shared": [
           "theme",
           "animated_value_builder",
           "constants",
           "geometry_extensions",
-          "tween_utils",
-          "data_widget"
+          "tween_utils"
         ]
       },
       "related": [
@@ -3615,6 +3847,7 @@
         "navigation",
         "pagination"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add pagination",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/pagination/pagination.dart';",
       "importPath": "ui/shadcn/navigation/pagination/pagination.dart",
@@ -3655,6 +3888,7 @@
         "interaction",
         "utility"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add patch",
       "import": "import 'package:<your_app>/ui/shadcn/control/patch/patch.dart';",
       "importPath": "ui/shadcn/control/patch/patch.dart",
@@ -3692,6 +3926,7 @@
         "input",
         "phone"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add phone_input",
       "import": "import 'package:<your_app>/ui/shadcn/form/phone_input/phone_input.dart';",
       "importPath": "ui/shadcn/form/phone_input/phone_input.dart",
@@ -3713,8 +3948,19 @@
         "minimal": "PhoneInput(\n  onChanged: (phone) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
-        "shared": []
+        "pubspec": {
+          "country_flags": "^4.1.1",
+          "gap": "^3.0.1",
+          "phonecodes": "^0.0.4"
+        },
+        "shared": [
+          "form_value_supplier",
+          "geometry_extensions",
+          "overlay",
+          "style_value",
+          "text_modifiers",
+          "theme"
+        ]
       },
       "related": [
         "select",
@@ -3731,6 +3977,7 @@
         "popover",
         "floating"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add popover",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/popover/popover.dart';",
       "importPath": "ui/shadcn/overlay/popover/popover.dart",
@@ -3749,7 +3996,9 @@
         "minimal": "IconButton(\n  onPressed: () {\n    showPopover(\n      context: context,\n      alignment: Alignment.bottomCenter,\n      builder: (context) => const Text('Popover content'),\n    );\n  },\n  icon: const Icon(Icons.more_horiz),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
         "shared": [
           "theme",
           "color_extensions",
@@ -3774,6 +4023,7 @@
         "menu",
         "popup"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add popup",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/popup/popup.dart';",
       "importPath": "ui/shadcn/overlay/popup/popup.dart",
@@ -3814,6 +4064,7 @@
         "progress",
         "indicator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add progress",
       "import": "import 'package:<your_app>/ui/shadcn/display/progress/progress.dart';",
       "importPath": "ui/shadcn/display/progress/progress.dart",
@@ -3852,6 +4103,7 @@
         "selection",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add radio_card",
       "import": "import 'package:<your_app>/ui/shadcn/composites/form/radio_card/radio_card.dart';",
       "importPath": "ui/shadcn/composites/form/radio_card/radio_card.dart",
@@ -3887,6 +4139,7 @@
         "input",
         "selection"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add radio_group",
       "import": "import 'package:<your_app>/ui/shadcn/form/radio_group/radio_group.dart';",
       "importPath": "ui/shadcn/form/radio_group/radio_group.dart",
@@ -3909,8 +4162,18 @@
         "minimal": "RadioGroup<String>(\n  value: selected,\n  onChanged: (value) {},\n  child: const Column(\n    children: [\n      RadioItem(value: 'A', child: Text('Option A')),\n      RadioItem(value: 'B', child: Text('Option B')),\n    ],\n  ),\n)"
       },
       "dependencies": {
-        "pubspec": {},
-        "shared": []
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
+        "shared": [
+          "color_extensions",
+          "constants",
+          "focus_outline",
+          "form_control",
+          "form_value_supplier",
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "multiple_choice",
@@ -3927,6 +4190,7 @@
         "scroll",
         "refresh"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add refresh_trigger",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/refresh_trigger/refresh_trigger.dart';",
       "importPath": "ui/shadcn/overlay/refresh_trigger/refresh_trigger.dart",
@@ -3972,6 +4236,7 @@
         "utility",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add repeated_animation_builder",
       "import": "import 'package:<your_app>/ui/shadcn/composites/utility/repeated_animation_builder/repeated_animation_builder.dart';",
       "importPath": "ui/shadcn/composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
@@ -4005,6 +4270,7 @@
         "resizable",
         "panel"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add resizable",
       "import": "import 'package:<your_app>/ui/shadcn/layout/resizable/resizable.dart';",
       "importPath": "ui/shadcn/layout/resizable/resizable.dart",
@@ -4047,6 +4313,7 @@
         "scaffold",
         "structure"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add scaffold",
       "import": "import 'package:<your_app>/ui/shadcn/layout/scaffold/scaffold.dart';",
       "importPath": "ui/shadcn/layout/scaffold/scaffold.dart",
@@ -4081,6 +4348,51 @@
       ]
     },
     {
+      "id": "scrollable",
+      "name": "Scrollable",
+      "category": "layout",
+      "description": "Two-dimensional scroll primitives for custom viewport-driven layouts.",
+      "tags": [
+        "layout",
+        "scrollable"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add scrollable",
+      "import": "import 'package:<your_app>/ui/shadcn/layout/scrollable/scrollable.dart';",
+      "importPath": "ui/shadcn/layout/scrollable/scrollable.dart",
+      "api": {
+        "constructors": [
+          "`ScrollableClient`",
+          "`builder` (`ScrollableBuilder`, required)",
+          "`child` (`Widget?`)",
+          "`primary`, `mainAxis`, `verticalDetails`, `horizontalDetails`",
+          "`diagonalDragBehavior`, `dragStartBehavior`, `keyboardDismissBehavior`",
+          "`clipBehavior`, `hitTestBehavior`, `overscroll`",
+          "`ScrollableClientViewport`",
+          "viewport widget for `ScrollableClient`",
+          "`RenderScrollableClientViewport`",
+          "custom two-dimensional viewport renderer",
+          "`FadedScrollableViewport`",
+          "`child` (required), `fadeExtent`, `fadeSize`"
+        ],
+        "callbacks": [
+          "`ScrollableBuilder` (`Widget Function(BuildContext, Offset, Size, Widget?)`)"
+        ]
+      },
+      "examples": {
+        "minimal": "ScrollableClient(\n  builder: (context, offset, viewportSize, child) {\n    return ClipRect(\n      child: Transform.translate(\n        offset: Offset(-offset.dx, -offset.dy),\n        child: child,\n      ),\n    );\n  },\n  child: SizedBox(width: 1200, height: 800),\n)"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": []
+      },
+      "related": [
+        "scrollable_client",
+        "scrollview",
+        "scrollbar"
+      ]
+    },
+    {
       "id": "scrollable_client",
       "name": "Scrollable Client",
       "category": "layout",
@@ -4089,6 +4401,7 @@
         "layout",
         "scroll"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add scrollable_client",
       "import": "import 'package:<your_app>/ui/shadcn/layout/scrollable_client/scrollable_client.dart';",
       "importPath": "ui/shadcn/layout/scrollable_client/scrollable_client.dart",
@@ -4125,6 +4438,7 @@
         "control",
         "scroll"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add scrollbar",
       "import": "import 'package:<your_app>/ui/shadcn/control/scrollbar/scrollbar.dart';",
       "importPath": "ui/shadcn/control/scrollbar/scrollbar.dart",
@@ -4168,6 +4482,7 @@
         "control",
         "scroll"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add scrollview",
       "import": "import 'package:<your_app>/ui/shadcn/control/scrollview/scrollview.dart';",
       "importPath": "ui/shadcn/control/scrollview/scrollview.dart",
@@ -4200,6 +4515,7 @@
         "input",
         "menu"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add select",
       "import": "import 'package:<your_app>/ui/shadcn/form/select/select.dart';",
       "importPath": "ui/shadcn/form/select/select.dart",
@@ -4234,7 +4550,7 @@
           "form_value_supplier",
           "icon_extensions",
           "subfocus",
-          "text",
+          "text_modifiers",
           "util",
           "lucide_icons",
           "radix_icons"
@@ -4255,6 +4571,7 @@
         "text",
         "selection"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add selectable",
       "import": "import 'package:<your_app>/ui/shadcn/display/selectable/selectable.dart';",
       "importPath": "ui/shadcn/display/selectable/selectable.dart",
@@ -4279,7 +4596,9 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "theme"
+        ]
       },
       "related": [
         "text",
@@ -4296,6 +4615,7 @@
         "i18n",
         "delegate"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add shadcn_localizations",
       "import": "import 'package:<your_app>/ui/shadcn/utility/shadcn_localizations/shadcn_localizations.dart';",
       "importPath": "ui/shadcn/utility/shadcn_localizations/shadcn_localizations.dart",
@@ -4334,6 +4654,7 @@
         "i18n",
         "english"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add shadcn_localizations_en",
       "import": "import 'package:<your_app>/ui/shadcn/utility/shadcn_localizations_en/shadcn_localizations_en.dart';",
       "importPath": "ui/shadcn/utility/shadcn_localizations_en/shadcn_localizations_en.dart",
@@ -4367,6 +4688,7 @@
         "formatting",
         "i18n"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add shadcn_localizations_extensions",
       "import": "import 'package:<your_app>/ui/shadcn/utility/shadcn_localizations_extensions/shadcn_localizations_extensions.dart';",
       "importPath": "ui/shadcn/utility/shadcn_localizations_extensions/shadcn_localizations_extensions.dart",
@@ -4406,6 +4728,7 @@
         "form",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add sheet",
       "import": "import 'package:<your_app>/ui/shadcn/composites/overlay/sheet/sheet.dart';",
       "importPath": "ui/shadcn/composites/overlay/sheet/sheet.dart",
@@ -4443,6 +4766,7 @@
         "loading",
         "animation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add skeleton",
       "import": "import 'package:<your_app>/ui/shadcn/display/skeleton/skeleton.dart';",
       "importPath": "ui/shadcn/display/skeleton/skeleton.dart",
@@ -4486,6 +4810,7 @@
         "input",
         "range"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add slider",
       "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
       "importPath": "ui/shadcn/form/slider/slider.dart",
@@ -4508,7 +4833,16 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "animated_value_builder",
+          "color_extensions",
+          "constants",
+          "form_control",
+          "form_value_supplier",
+          "slider_value",
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "progress"
@@ -4524,6 +4858,7 @@
         "sortable",
         "interaction"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add sortable",
       "import": "import 'package:<your_app>/ui/shadcn/layout/sortable/sortable.dart';",
       "importPath": "ui/shadcn/layout/sortable/sortable.dart",
@@ -4562,6 +4897,7 @@
         "indicator",
         "animation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add spinner",
       "import": "import 'package:<your_app>/ui/shadcn/display/spinner/spinner.dart';",
       "importPath": "ui/shadcn/display/spinner/spinner.dart",
@@ -4600,6 +4936,7 @@
         "responsive",
         "container"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add stage_container",
       "import": "import 'package:<your_app>/ui/shadcn/layout/stage_container/stage_container.dart';",
       "importPath": "ui/shadcn/layout/stage_container/stage_container.dart",
@@ -4638,6 +4975,7 @@
         "rating",
         "input"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add star_rating",
       "import": "import 'package:<your_app>/ui/shadcn/form/star_rating/star_rating.dart';",
       "importPath": "ui/shadcn/form/star_rating/star_rating.dart",
@@ -4686,6 +5024,7 @@
         "stepper",
         "progress"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add stepper",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/stepper/stepper.dart';",
       "importPath": "ui/shadcn/navigation/stepper/stepper.dart",
@@ -4732,6 +5071,7 @@
         "progress",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add steps",
       "import": "import 'package:<your_app>/ui/shadcn/layout/steps/steps.dart';",
       "importPath": "ui/shadcn/layout/steps/steps.dart",
@@ -4769,6 +5109,7 @@
         "navigation",
         "keyboard"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add subfocus",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/subfocus/subfocus.dart';",
       "importPath": "ui/shadcn/navigation/subfocus/subfocus.dart",
@@ -4806,6 +5147,7 @@
         "drawer",
         "sheet"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add swiper",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/swiper/swiper.dart';",
       "importPath": "ui/shadcn/overlay/swiper/swiper.dart",
@@ -4843,6 +5185,7 @@
         "input",
         "toggle"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add switch",
       "import": "import 'package:<your_app>/ui/shadcn/form/switch/switch.dart';",
       "importPath": "ui/shadcn/form/switch/switch.dart",
@@ -4887,6 +5230,7 @@
         "transition",
         "animation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add switcher",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/switcher/switcher.dart';",
       "importPath": "ui/shadcn/navigation/switcher/switcher.dart",
@@ -4906,7 +5250,9 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "animated_value_builder"
+        ]
       },
       "related": [
         "tab_container"
@@ -4922,6 +5268,7 @@
         "navigation",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tab_container",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/tab_container/tab_container.dart';",
       "importPath": "ui/shadcn/navigation/tab_container/tab_container.dart",
@@ -4942,8 +5289,12 @@
         "minimal": "TabContainer(\n  index: 0,\n  onChanged: (index) {},\n  children: const [\n    TabItem(child: Text('Tab 1')),\n    TabItem(child: Text('Tab 2')),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
-        "shared": []
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
+        "shared": [
+          "theme"
+        ]
       },
       "related": [
         "tab_list",
@@ -4960,6 +5311,7 @@
         "navigation",
         "controls"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tab_list",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/tab_list/tab_list.dart';",
       "importPath": "ui/shadcn/navigation/tab_list/tab_list.dart",
@@ -4978,7 +5330,10 @@
       },
       "dependencies": {
         "pubspec": {},
-        "shared": []
+        "shared": [
+          "style_value",
+          "theme"
+        ]
       },
       "related": [
         "tab_container",
@@ -4995,6 +5350,7 @@
         "navigation",
         "sortable"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tab_pane",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/tab_pane/tab_pane.dart';",
       "importPath": "ui/shadcn/navigation/tab_pane/tab_pane.dart",
@@ -5015,8 +5371,15 @@
         "minimal": "TabPane<String>(\n  items: const [TabPaneData('A'), TabPaneData('B')],\n  focused: 0,\n  onFocused: (index) {},\n  itemBuilder: (context, item, index) => TabChild(child: Text(item.data)),\n  child: const Text('Content'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
-        "shared": []
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
+        "shared": [
+          "fade_scroll",
+          "geometry_extensions",
+          "theme",
+          "util"
+        ]
       },
       "related": [
         "tabs",
@@ -5033,6 +5396,7 @@
         "layout",
         "data"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add table",
       "import": "import 'package:<your_app>/ui/shadcn/layout/table/table.dart';",
       "importPath": "ui/shadcn/layout/table/table.dart",
@@ -5074,6 +5438,7 @@
         "navigation",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tabs",
       "import": "import 'package:<your_app>/ui/shadcn/navigation/tabs/tabs.dart';",
       "importPath": "ui/shadcn/navigation/tabs/tabs.dart",
@@ -5121,6 +5486,7 @@
         "text",
         "typography"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add text",
       "import": "import 'package:<your_app>/ui/shadcn/display/text/text.dart';",
       "importPath": "ui/shadcn/display/text/text.dart",
@@ -5140,12 +5506,78 @@
         "minimal": "Text('Hello').sans.large.bold.muted"
       },
       "dependencies": {
-        "pubspec": {},
-        "shared": []
+        "pubspec": {
+          "data_widget": "^0.0.2"
+        },
+        "shared": [
+          "theme"
+        ]
       },
       "related": [
         "selectable",
         "code_snippet"
+      ]
+    },
+    {
+      "id": "text_animate",
+      "name": "Streaming Text",
+      "category": "display",
+      "description": "Stream-aware animated text renderer for incremental updates.",
+      "tags": [
+        "display",
+        "text",
+        "animation",
+        "streaming"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add text_animate",
+      "import": "import 'package:<your_app>/ui/shadcn/display/text_animate/text_animate.dart';",
+      "importPath": "ui/shadcn/display/text_animate/text_animate.dart",
+      "api": {
+        "constructors": [
+          "`StreamingText`",
+          "`text` (`String`, required)",
+          "`style` (`TextStyle?`)",
+          "`typewriter` (`TypewriterEffect?`)",
+          "`effect` (`StreamingTextEffectAdapter?`)",
+          "`cursor` (`StreamingCursor?`)",
+          "`textAlign` (`TextAlign?`)",
+          "`textDirection` (`TextDirection?`)",
+          "`softWrap` (`bool?`)",
+          "`overflow` (`TextOverflow?`)",
+          "`maxLines` (`int?`)",
+          "`textWidthBasis` (`TextWidthBasis?`)",
+          "`textHeightBehavior` (`TextHeightBehavior?`)",
+          "`locale` (`Locale?`)",
+          "`onSettled` (`StreamingTextSettled?`)"
+        ],
+        "callbacks": [
+          "`onSettled` (`void Function(String text)?`): invoked once when the latest revision fully settles."
+        ],
+        "types_and_helpers": [
+          "`TypewriterEffect`",
+          "`StreamingTextEffectAdapter`",
+          "`NoEffect`",
+          "`BlurInEffect`",
+          "`CombinedEffect`",
+          "`StreamingCursor`",
+          "`TextAnimateTheme`"
+        ]
+      },
+      "examples": {
+        "minimal": "StreamingText(\n  text: streamedText,\n  style: const TextStyle(fontSize: 16),\n)"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": [
+          "theme",
+          "style_value"
+        ]
+      },
+      "related": [
+        "text",
+        "selectable",
+        "number_ticker"
       ]
     },
     {
@@ -5158,6 +5590,7 @@
         "input",
         "textarea"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add text_area",
       "import": "import 'package:<your_app>/ui/shadcn/form/text_area/text_area.dart';",
       "importPath": "ui/shadcn/form/text_area/text_area.dart",
@@ -5195,6 +5628,7 @@
         "input",
         "text"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add text_field",
       "import": "import 'package:<your_app>/ui/shadcn/form/text_field/text_field.dart';",
       "importPath": "ui/shadcn/form/text_field/text_field.dart",
@@ -5247,6 +5681,7 @@
         "duration",
         "picker"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add time_picker",
       "import": "import 'package:<your_app>/ui/shadcn/form/time_picker/time_picker.dart';",
       "importPath": "ui/shadcn/form/time_picker/time_picker.dart",
@@ -5298,6 +5733,7 @@
         "layout",
         "chronology"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add timeline",
       "import": "import 'package:<your_app>/ui/shadcn/layout/timeline/timeline.dart';",
       "importPath": "ui/shadcn/layout/timeline/timeline.dart",
@@ -5337,6 +5773,7 @@
         "timeline",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add timeline_animation",
       "import": "import 'package:<your_app>/ui/shadcn/composites/animation/timeline_animation/timeline_animation.dart';",
       "importPath": "ui/shadcn/composites/animation/timeline_animation/timeline_animation.dart",
@@ -5375,6 +5812,7 @@
         "overlay",
         "notification"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add toast",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/toast/toast.dart';",
       "importPath": "ui/shadcn/overlay/toast/toast.dart",
@@ -5412,6 +5850,7 @@
         "toggle",
         "composite"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add toggle",
       "import": "import 'package:<your_app>/ui/shadcn/composites/control/toggle/toggle.dart';",
       "importPath": "ui/shadcn/composites/control/toggle/toggle.dart",
@@ -5444,6 +5883,7 @@
         "overlay",
         "help"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tooltip",
       "import": "import 'package:<your_app>/ui/shadcn/overlay/tooltip/tooltip.dart';",
       "importPath": "ui/shadcn/overlay/tooltip/tooltip.dart",
@@ -5491,6 +5931,7 @@
         "display",
         "status"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tracker",
       "import": "import 'package:<your_app>/ui/shadcn/display/tracker/tracker.dart';",
       "importPath": "ui/shadcn/display/tracker/tracker.dart",
@@ -5530,6 +5971,7 @@
         "hierarchy",
         "navigation"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add tree",
       "import": "import 'package:<your_app>/ui/shadcn/display/tree/tree.dart';",
       "importPath": "ui/shadcn/display/tree/tree.dart",
@@ -5576,6 +6018,7 @@
         "icon",
         "indicator"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add triple_dots",
       "import": "import 'package:<your_app>/ui/shadcn/display/triple_dots/triple_dots.dart';",
       "importPath": "ui/shadcn/display/triple_dots/triple_dots.dart",
@@ -5612,6 +6055,7 @@
         "validation",
         "state"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add validated",
       "import": "import 'package:<your_app>/ui/shadcn/form/validated/validated.dart';",
       "importPath": "ui/shadcn/form/validated/validated.dart",
@@ -5646,6 +6090,7 @@
         "layout",
         "desktop"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add window",
       "import": "import 'package:<your_app>/ui/shadcn/layout/window/window.dart';",
       "importPath": "ui/shadcn/layout/window/window.dart",
@@ -5687,6 +6132,7 @@
         "utility",
         "layout"
       ],
+      "version": "1.0.0",
       "install": "flutter_shadcn add wrapper",
       "import": "import 'package:<your_app>/ui/shadcn/utility/wrapper/wrapper.dart';",
       "importPath": "ui/shadcn/utility/wrapper/wrapper.dart",

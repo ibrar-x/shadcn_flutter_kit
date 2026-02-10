@@ -4,9 +4,7 @@ class _ResizerState extends State<_Resizer> {
   Resizer? _dragSession;
 
   void _onDragStart(DragStartDetails details) {
-    _dragSession = Resizer(
-      widget.panelState.computeDraggers(),
-    );
+    _dragSession = Resizer(widget.panelState.computeDraggers());
 
     // Call onSizeChangeStart callbacks for affected panes
     _callSizeChangeStartCallbacks();
@@ -43,10 +41,14 @@ class _ResizerState extends State<_Resizer> {
 
     // Call callbacks for the two panes adjacent to this divider
     _callStartCallbackForPane(
-        widget.index, _dragSession!.items[widget.index].value);
+      widget.index,
+      _dragSession!.items[widget.index].value,
+    );
     if (widget.index + 1 < _dragSession!.items.length) {
       _callStartCallbackForPane(
-          widget.index + 1, _dragSession!.items[widget.index + 1].value);
+        widget.index + 1,
+        _dragSession!.items[widget.index + 1].value,
+      );
     }
   }
 
@@ -55,10 +57,14 @@ class _ResizerState extends State<_Resizer> {
 
     // Call callbacks for the two panes adjacent to this divider
     _callChangeCallbackForPane(
-        widget.index, _dragSession!.items[widget.index].newValue);
+      widget.index,
+      _dragSession!.items[widget.index].newValue,
+    );
     if (widget.index + 1 < _dragSession!.items.length) {
       _callChangeCallbackForPane(
-          widget.index + 1, _dragSession!.items[widget.index + 1].newValue);
+        widget.index + 1,
+        _dragSession!.items[widget.index + 1].newValue,
+      );
     }
   }
 
@@ -67,10 +73,14 @@ class _ResizerState extends State<_Resizer> {
 
     // Call callbacks for the two panes adjacent to this divider
     _callEndCallbackForPane(
-        widget.index, _dragSession!.items[widget.index].newValue);
+      widget.index,
+      _dragSession!.items[widget.index].newValue,
+    );
     if (widget.index + 1 < _dragSession!.items.length) {
       _callEndCallbackForPane(
-          widget.index + 1, _dragSession!.items[widget.index + 1].newValue);
+        widget.index + 1,
+        _dragSession!.items[widget.index + 1].newValue,
+      );
     }
   }
 
@@ -79,10 +89,14 @@ class _ResizerState extends State<_Resizer> {
 
     // Call callbacks for the two panes adjacent to this divider
     _callCancelCallbackForPane(
-        widget.index, _dragSession!.items[widget.index].newValue);
+      widget.index,
+      _dragSession!.items[widget.index].newValue,
+    );
     if (widget.index + 1 < _dragSession!.items.length) {
       _callCancelCallbackForPane(
-          widget.index + 1, _dragSession!.items[widget.index + 1].newValue);
+        widget.index + 1,
+        _dragSession!.items[widget.index + 1].newValue,
+      );
     }
   }
 
@@ -139,22 +153,30 @@ class _ResizerState extends State<_Resizer> {
         hitTestBehavior: HitTestBehavior.translucent,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
-          onVerticalDragStart:
-              widget.direction == Axis.vertical ? _onDragStart : null,
-          onHorizontalDragStart:
-              widget.direction == Axis.horizontal ? _onDragStart : null,
-          onVerticalDragUpdate:
-              widget.direction == Axis.vertical ? _onDragUpdate : null,
-          onHorizontalDragUpdate:
-              widget.direction == Axis.horizontal ? _onDragUpdate : null,
-          onVerticalDragEnd:
-              widget.direction == Axis.vertical ? _onDragEnd : null,
-          onHorizontalDragEnd:
-              widget.direction == Axis.horizontal ? _onDragEnd : null,
-          onVerticalDragCancel:
-              widget.direction == Axis.vertical ? _onDragCancel : null,
-          onHorizontalDragCancel:
-              widget.direction == Axis.horizontal ? _onDragCancel : null,
+          onVerticalDragStart: widget.direction == Axis.vertical
+              ? _onDragStart
+              : null,
+          onHorizontalDragStart: widget.direction == Axis.horizontal
+              ? _onDragStart
+              : null,
+          onVerticalDragUpdate: widget.direction == Axis.vertical
+              ? _onDragUpdate
+              : null,
+          onHorizontalDragUpdate: widget.direction == Axis.horizontal
+              ? _onDragUpdate
+              : null,
+          onVerticalDragEnd: widget.direction == Axis.vertical
+              ? _onDragEnd
+              : null,
+          onHorizontalDragEnd: widget.direction == Axis.horizontal
+              ? _onDragEnd
+              : null,
+          onVerticalDragCancel: widget.direction == Axis.vertical
+              ? _onDragCancel
+              : null,
+          onHorizontalDragCancel: widget.direction == Axis.horizontal
+              ? _onDragCancel
+              : null,
         ),
       ),
     );

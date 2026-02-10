@@ -66,11 +66,14 @@ class ContextMenuPopup extends StatelessWidget {
               child: MenuGroup(
                 direction: direction,
                 itemPadding: isSheetOverlay
-                    ? const EdgeInsets.symmetric(horizontal: 8) * theme.scaling
+                    ? EdgeInsets.symmetric(
+                        horizontal: theme.density.baseGap * theme.scaling,
+                      )
                     : EdgeInsets.zero,
                 builder: (context, children) {
-                  final compTheme =
-                      ComponentTheme.maybeOf<ContextMenuTheme>(context);
+                  final compTheme = ComponentTheme.maybeOf<ContextMenuTheme>(
+                    context,
+                  );
                   return MenuPopup(
                     surfaceOpacity: compTheme?.surfaceOpacity,
                     surfaceBlur: compTheme?.surfaceBlur,

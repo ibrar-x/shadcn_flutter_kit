@@ -3,6 +3,9 @@ part of '../../alert.dart';
 /// Theme extensions used by [Alert].
 class AlertTheme extends ComponentThemeData {
   const AlertTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.padding,
     this.backgroundColor,
     this.borderColor,
@@ -19,8 +22,9 @@ class AlertTheme extends ComponentThemeData {
   }) {
     return AlertTheme(
       padding: padding == null ? this.padding : padding(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
     );
   }

@@ -29,10 +29,7 @@ class _GhostCard extends StatelessWidget {
             offset: Offset(transform.dx, transform.dy),
             child: Transform.rotate(
               angle: transform.rotation,
-              child: Transform.scale(
-                scale: transform.scale,
-                child: child,
-              ),
+              child: Transform.scale(scale: transform.scale, child: child),
             ),
           ),
         );
@@ -43,10 +40,7 @@ class _GhostCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.ghostFillColor,
           borderRadius: BorderRadius.circular(theme.ghostRadius),
-          border: Border.all(
-            color: theme.ghostBorderColor,
-            width: 1,
-          ),
+          border: Border.all(color: theme.ghostBorderColor, width: 1),
         ),
       ),
     );

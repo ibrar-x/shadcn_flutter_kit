@@ -5,6 +5,9 @@ import '../../../../../shared/theme/theme.dart';
 /// Theme overrides for the FileUpload dropzone surface.
 class FileUploadDropzoneTheme extends ComponentThemeData {
   const FileUploadDropzoneTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.borderRadius,
     this.padding,

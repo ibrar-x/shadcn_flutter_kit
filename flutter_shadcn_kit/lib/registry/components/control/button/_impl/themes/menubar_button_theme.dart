@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class MenubarButtonTheme extends ButtonTheme {
   /// Creates a [MenubarButtonTheme] with optional style property delegates.
-  const MenubarButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const MenubarButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   MenubarButtonTheme copyWith({

@@ -14,16 +14,6 @@ abstract class CarouselSizeConstraint {
       CarouselFractionalConstraint;
 }
 
-
-
-
-
-
-
-
-
-
-
 /// Builds a carousel item.
 /// The [index] is the index of the item.
 typedef CarouselItemBuilder = Widget Function(BuildContext context, int index);

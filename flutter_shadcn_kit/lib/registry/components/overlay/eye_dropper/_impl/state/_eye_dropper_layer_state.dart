@@ -63,10 +63,17 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
       final a = byteData.getUint8(i + 3);
       colors.add(Color.fromARGB(a, r, g, b));
     }
-    final img = _ScreenshotImage(byteData.buffer.asUint8List(), image.width,
-        image.height, ui.PixelFormat.rgba8888);
+    final img = _ScreenshotImage(
+      byteData.buffer.asUint8List(),
+      image.width,
+      image.height,
+      ui.PixelFormat.rgba8888,
+    );
     return _ScreenshotResult(
-        colors, Size(image.width.toDouble(), image.height.toDouble()), img);
+      colors,
+      Size(image.width.toDouble(), image.height.toDouble()),
+      img,
+    );
   }
 
   EyeDropperResult? _getPreview(Offset globalPosition, Size size) {
@@ -75,8 +82,10 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
     final colors = <Color>[];
     for (int y = -size.height ~/ 2; y < size.height ~/ 2; y++) {
       for (int x = -size.width ~/ 2; x < size.width ~/ 2; x++) {
-        final localPosition =
-            globalPosition.translate(x.toDouble(), y.toDouble());
+        final localPosition = globalPosition.translate(
+          x.toDouble(),
+          y.toDouble(),
+        );
         if (localPosition.dx < 0 ||
             localPosition.dy < 0 ||
             localPosition.dx >= image.size.width ||
@@ -87,7 +96,8 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
         }
       }
     }
-    final globalIndex = globalPosition.dy.floor() * image.size.width.floor() +
+    final globalIndex =
+        globalPosition.dy.floor() * image.size.width.floor() +
         globalPosition.dx.floor();
     final pickedColor = image.colors[globalIndex];
     return EyeDropperResult(colors, size, pickedColor);
@@ -135,16 +145,14 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
               child: Stack(
                 fit: StackFit.passthrough,
                 children: [
-                  RepaintBoundary(
-                    key: _repaintKey,
-                    child: widget.child,
-                  ),
+                  RepaintBoundary(key: _repaintKey, child: widget.child),
                   if (_currentPicking != null)
                     Positioned.fill(
-                        child: Image(
-                      image: _currentPicking!.image!,
-                      fit: BoxFit.fill,
-                    )),
+                      child: Image(
+                        image: _currentPicking!.image!,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   if (widget.showPreview &&
                       _preview != null &&
                       widget.previewAlignment != null)
@@ -154,7 +162,11 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                       right: 0,
                       bottom: 0,
                       child: Padding(
-                        padding: EdgeInsets.all(theme.scaling * 32),
+                        padding: EdgeInsets.all(
+                          theme.density.baseContainerPadding *
+                              theme.scaling *
+                              padLg,
+                        ),
                         child: Align(
                           alignment: widget.previewAlignment!,
                           child: Stack(
@@ -183,7 +195,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                                   context,
                                   _preview!.pickedColor,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -221,7 +233,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                               context,
                               _preview!.pickedColor,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -239,8 +251,10 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
 ///
 /// Returns the selected color, or null if the operation was cancelled.
 /// Optionally stores the selected color in the provided [storage].
-Future<Color?> pickColorFromScreen(BuildContext context,
-    [ColorHistoryStorage? storage]) {
+Future<Color?> pickColorFromScreen(
+  BuildContext context, [
+  ColorHistoryStorage? storage,
+]) {
   final scope = EyeDropperLayerScope.find(context);
   return scope.promptPickColor(storage);
 }

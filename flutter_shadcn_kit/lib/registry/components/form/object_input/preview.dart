@@ -4,7 +4,6 @@ import '../object_input/object_input.dart';
 
 part '_impl/state/_object_input_preview_state.dart';
 
-
 class ObjectInputPreview extends StatefulWidget {
   const ObjectInputPreview({super.key});
 

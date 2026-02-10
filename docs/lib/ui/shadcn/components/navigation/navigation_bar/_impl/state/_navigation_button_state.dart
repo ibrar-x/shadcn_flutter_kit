@@ -37,6 +37,7 @@ class _NavigationButtonState
       child: Button(
         enabled: widget.enabled,
         onPressed: widget.onPressed,
+        enableFeedback: widget.enableFeedback,
         marginAlignment: widget.marginAlignment,
         style: style,
         alignment: widget.alignment ??

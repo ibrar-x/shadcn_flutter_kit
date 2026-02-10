@@ -18,7 +18,6 @@ part '_impl/core/carousel_transition.dart';
 part '_impl/core/fading_carousel_transition.dart';
 part '_impl/core/sliding_carousel_transition.dart';
 
-
 part '_impl/state/carousel_controller.dart';
 part '_impl/core/carousel_dot_indicator.dart';
 part '_impl/core/carousel_layout.dart';
@@ -114,9 +113,9 @@ class Carousel extends StatefulWidget {
     this.disableDraggingVelocity = false,
     required this.transition,
   }) : assert(
-          wrap || itemCount != null,
-          'itemCount must be provided if wrap is false',
-        );
+         wrap || itemCount != null,
+         'itemCount must be provided if wrap is false',
+       );
 
   @override
   State<Carousel> createState() => _CarouselState();

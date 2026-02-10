@@ -8,13 +8,6 @@ import 'file_picker_adapter_stub.dart'
 abstract class FilePickerAdapter {
   bool get supportsDragDrop;
 
-  Future<List<FileLike>> pickFiles({
-    required bool allowMultiple,
-    required bool withData,
-    List<String>? allowedExtensions,
-    List<String>? allowedMimeTypes,
-  });
-
   Widget buildDropTarget({
     required Widget child,
     required bool enabled,

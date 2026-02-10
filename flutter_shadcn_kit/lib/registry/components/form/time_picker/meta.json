@@ -10,9 +10,6 @@
     "picker"
   ],
   "dependencies": {
-    "pubspec": {
-      "gap": "^3.0.1"
-    },
     "shared": [
       "form_control",
       "localizations",
@@ -25,6 +22,47 @@
       "form_field",
       "text",
       "text_field"
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/controlled_time_picker.dart",
+    "_impl/core/duration_picker.dart",
+    "_impl/core/duration_picker_dialog.dart",
+    "_impl/core/time_picker_dialog.dart",
+    "_impl/core/time_range.dart",
+    "_impl/state/_duration_picker_dialog_state.dart",
+    "_impl/state/_time_picker_dialog_state.dart",
+    "_impl/state/_time_picker_preview_state.dart",
+    "_impl/themes/time_picker_theme.dart",
+    "_impl/utils/_time_formatter.dart",
+    "_impl/utils/duration_picker_controller.dart",
+    "_impl/utils/time_picker_controller.dart",
+    "meta.json",
+    "preview.dart",
+    "time_picker.dart",
+    "time_picker.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`TimePicker`",
+      "`value` (`TimeOfDay?`, required)",
+      "`onChanged` (`ValueChanged<TimeOfDay?>?`)",
+      "`mode` (`PromptMode`)",
+      "`use24HourFormat`, `showSeconds`",
+      "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
+      "`dialogTitle`, `placeholder`, `enabled`",
+      "`DurationPicker` — duration selector.",
+      "`ControlledTimePicker` — controller-backed picker.",
+      "`TimePickerController` / `DurationPickerController` — controllers.",
+      "`TimeRange` — time range value type."
+    ],
+    "callbacks": [
+      "`onChanged`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

@@ -12,7 +12,6 @@ import '../../layout/card/card.dart';
 
 part '_impl/themes/radio_theme.dart';
 
-
 part '_impl/state/_radio_card_state.dart';
 part '_impl/state/_radio_item_state.dart';
 part '_impl/core/controlled_radio_group.dart';
@@ -25,29 +24,6 @@ part '_impl/utils/radio_group_controller.dart';
 part '_impl/core/radio_group_data.dart';
 part '_impl/state/radio_group_state.dart';
 part '_impl/core/radio_item.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// A group of radio buttons for single-selection input.
 ///

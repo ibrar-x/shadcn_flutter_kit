@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "toggle",
+  "name": "Toggle",
+  "version": "1.0.0",
+  "tags": [
+    "control",
+    "toggle",
+    "composite"
+  ],
+  "installedAt": "2026-02-09T10:18:03.248380Z",
+  "shared": [],
+  "dependsOn": [
+    "button"
+  ],
+  "files": [
+    "composites/control/toggle/README.md",
+    "composites/control/toggle/meta.json",
+    "composites/control/toggle/toggle.dart",
+    "composites/control/toggle/toggle.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

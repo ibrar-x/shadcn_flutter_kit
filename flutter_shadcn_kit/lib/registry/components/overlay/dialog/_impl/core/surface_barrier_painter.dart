@@ -72,20 +72,19 @@ class SurfaceBarrierPainter extends CustomPainter {
       rect = _padRect(rect);
       Path path = Path()
         ..addRect(bigOffset & bigScreen)
-        ..addRRect(RRect.fromRectAndCorners(
-          rect,
-          topLeft: borderRadius.topLeft,
-          topRight: borderRadius.topRight,
-          bottomLeft: borderRadius.bottomLeft,
-          bottomRight: borderRadius.bottomRight,
-        ));
+        ..addRRect(
+          RRect.fromRectAndCorners(
+            rect,
+            topLeft: borderRadius.topLeft,
+            topRight: borderRadius.topRight,
+            bottomLeft: borderRadius.bottomLeft,
+            bottomRight: borderRadius.bottomRight,
+          ),
+        );
       path.fillType = PathFillType.evenOdd;
       canvas.clipPath(path);
     }
-    canvas.drawRect(
-      bigOffset & bigScreen,
-      paint,
-    );
+    canvas.drawRect(bigOffset & bigScreen, paint);
   }
 
   @override

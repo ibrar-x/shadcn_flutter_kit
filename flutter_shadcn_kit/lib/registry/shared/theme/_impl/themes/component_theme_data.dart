@@ -1,8 +1,21 @@
 part of '../../theme.dart';
 
 abstract class ComponentThemeData {
+  /// Optional density override for this component theme.
+  final Density? themeDensity;
+
+  /// Optional spacing token override for this component theme.
+  final SpacingScale? themeSpacing;
+
+  /// Optional shadow token override for this component theme.
+  final ShadowScale? themeShadows;
+
   /// Creates a [ComponentThemeData].
-  const ComponentThemeData();
+  const ComponentThemeData({
+    this.themeDensity,
+    this.themeSpacing,
+    this.themeShadows,
+  });
 }
 
 /// An inherited widget that provides component-specific theme data.

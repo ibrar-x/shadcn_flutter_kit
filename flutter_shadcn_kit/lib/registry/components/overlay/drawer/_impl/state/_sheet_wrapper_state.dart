@@ -108,10 +108,7 @@ class _SheetWrapperState extends _DrawerWrapperState {
       }
       backgroundColor = backgroundColor.scaleAlpha(surfaceOpacity);
     }
-    return BoxDecoration(
-      color: backgroundColor,
-      border: getBorder(theme),
-    );
+    return BoxDecoration(color: backgroundColor, border: getBorder(theme));
   }
 }
 

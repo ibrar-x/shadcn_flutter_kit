@@ -4,7 +4,6 @@ import 'select.dart';
 
 part '_impl/state/_select_preview_state.dart';
 
-
 class SelectPreview extends StatefulWidget {
   const SelectPreview({super.key});
 

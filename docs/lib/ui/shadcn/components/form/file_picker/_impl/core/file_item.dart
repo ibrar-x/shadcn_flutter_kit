@@ -5,6 +5,8 @@ class FileItem extends StatelessWidget {
   const FileItem({
     super.key,
     required this.item,
+    this.statusLabels = const FileUploadStatusLabels(),
+    this.itemLoading = const FileUploadItemLoadingOptions(),
     this.onRemove,
     this.onRetry,
     this.onDownload,
@@ -13,6 +15,8 @@ class FileItem extends StatelessWidget {
   });
 
   final FileUploadItem item;
+  final FileUploadStatusLabels statusLabels;
+  final FileUploadItemLoadingOptions itemLoading;
   final VoidCallback? onRemove;
   final VoidCallback? onRetry;
   final VoidCallback? onDownload;
@@ -27,6 +31,7 @@ class FileItem extends StatelessWidget {
         thumbnail ?? _buildThumbnail(context, theme, scaling);
     final statusLabel = _statusLabel(item.status);
     final statusColor = _statusColor(theme, item.status);
+    final loadingIndicator = _buildLoadingIndicator(context, scaling);
 
     final actions = <Widget>[];
     if (onPreview != null) {
@@ -65,7 +70,7 @@ class FileItem extends StatelessWidget {
     return OutlinedContainer(
       borderWidth: 1,
       child: Padding(
-        padding: EdgeInsets.all(12 * scaling),
+        padding: EdgeInsets.all(theme.density.baseGap * scaling * 1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -76,13 +81,13 @@ class FileItem extends StatelessWidget {
                   width: 40 * scaling,
                   height: 40 * scaling,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.muted.withValues(alpha: 0.35),
+                    color: theme.colorScheme.muted.withOpacity(0.35),
                     borderRadius: BorderRadius.circular(8 * scaling),
                   ),
                   alignment: Alignment.center,
                   child: resolvedThumbnail,
                 ),
-                Gap(12 * scaling),
+                DensityGap(gapMd),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,13 +98,13 @@ class FileItem extends StatelessWidget {
                         ),
                         child: Text(item.file.name),
                       ),
-                      Gap(4 * scaling),
+                      DensityGap(gapXs),
                       DefaultTextStyle.merge(
                         style: theme.typography.xSmall.copyWith(
                           color: theme.colorScheme.mutedForeground,
                         ),
                         child: Wrap(
-                          spacing: 8 * scaling,
+                          spacing: theme.density.baseGap * scaling,
                           children: [
                             Text(_fileTypeLabel(item.file)),
                             Text(formatFileSize(item.file.size)),
@@ -122,7 +127,9 @@ class FileItem extends StatelessWidget {
                     children: actions
                         .map(
                           (action) => Padding(
-                            padding: EdgeInsets.only(left: 4 * scaling),
+                            padding: EdgeInsets.only(
+                              left: theme.density.baseGap * scaling * 0.5,
+                            ),
                             child: action,
                           ),
                         )
@@ -130,16 +137,31 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (item.progress != null) Gap(12 * scaling),
-            if (item.progress != null)
-              LinearProgressIndicator(
-                value: item.progress!.clamp(0, 1),
-                minHeight: 4 * scaling,
-              ),
+            if (loadingIndicator != null) DensityGap(gapMd),
+            if (loadingIndicator != null) loadingIndicator,
           ],
         ),
       ),
     );
+  }
+
+  Widget? _buildLoadingIndicator(BuildContext context, double scaling) {
+    if (!itemLoading.showForStatuses.contains(item.status)) {
+      return null;
+    }
+
+    switch (itemLoading.mode) {
+      case FileUploadItemLoadingMode.none:
+        return null;
+      case FileUploadItemLoadingMode.custom:
+        return itemLoading.customBuilder?.call(context, item);
+      case FileUploadItemLoadingMode.linear:
+        if (item.progress == null) return null;
+        return LinearProgressIndicator(
+          value: item.progress!.clamp(0, 1),
+          minHeight: 4 * scaling,
+        );
+    }
   }
 
   Widget _buildThumbnail(
@@ -148,9 +170,7 @@ class FileItem extends StatelessWidget {
     double scaling,
   ) {
     final bytes = item.file.bytes;
-    if (bytes != null &&
-        item.file.isImage &&
-        item.file.resolvedExtension != 'svg') {
+    if (bytes != null && item.file.isImage) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(6 * scaling),
         child: Image.memory(
@@ -158,18 +178,6 @@ class FileItem extends StatelessWidget {
           fit: BoxFit.cover,
           width: 32 * scaling,
           height: 32 * scaling,
-          errorBuilder: (context, error, stackTrace) {
-            return IconTheme(
-              data: IconThemeData(
-                color: theme.colorScheme.mutedForeground,
-                size: 20 * scaling,
-              ),
-              child: FileIconProvider.buildIcon(
-                context,
-                item.file.resolvedExtension,
-              ),
-            );
-          },
         ),
       );
     }
@@ -190,16 +198,7 @@ class FileItem extends StatelessWidget {
   }
 
   String? _statusLabel(FileUploadItemStatus status) {
-    switch (status) {
-      case FileUploadItemStatus.uploading:
-        return 'Uploading';
-      case FileUploadItemStatus.success:
-        return 'Ready';
-      case FileUploadItemStatus.error:
-        return 'Error';
-      case FileUploadItemStatus.idle:
-        return null;
-    }
+    return statusLabels.resolve(status);
   }
 
   Color? _statusColor(ThemeData theme, FileUploadItemStatus status) {

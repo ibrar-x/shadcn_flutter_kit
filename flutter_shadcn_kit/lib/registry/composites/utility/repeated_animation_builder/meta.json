@@ -3,9 +3,30 @@
   "name": "Repeated Animation Builder",
   "description": "Composite export for RepeatedAnimationBuilder.",
   "category": "utility",
-  "tags": ["animation", "utility", "composite"],
+  "tags": [
+    "animation",
+    "utility",
+    "composite"
+  ],
   "dependencies": {
-    "shared": ["util"],
+    "shared": [
+      "util"
+    ],
+    "components": [],
     "pubspec": {}
-  }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "repeated_animation_builder.dart",
+    "repeated_animation_builder.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`RepeatedAnimationBuilder`"
+    ]
+  },
+  "version": "1.0.0"
 }

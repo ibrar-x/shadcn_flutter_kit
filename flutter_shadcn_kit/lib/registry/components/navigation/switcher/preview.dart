@@ -9,4 +9,3 @@ class SwitcherPreview extends StatefulWidget {
   @override
   State<SwitcherPreview> createState() => _SwitcherPreviewState();
 }
-

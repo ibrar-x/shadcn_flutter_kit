@@ -10,4 +10,3 @@ class BackdropTransformData {
   /// - [sizeDifference] (Size, required): Size difference for transform
   BackdropTransformData(this.sizeDifference);
 }
-

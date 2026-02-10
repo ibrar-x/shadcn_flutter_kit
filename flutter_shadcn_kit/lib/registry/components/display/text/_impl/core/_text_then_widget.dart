@@ -4,10 +4,7 @@ class _TextThenWidget extends StatelessWidget {
   final Text text;
   final List<InlineSpan> then;
 
-  const _TextThenWidget({
-    required this.text,
-    required this.then,
-  });
+  const _TextThenWidget({required this.text, required this.then});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +14,9 @@ class _TextThenWidget extends StatelessWidget {
       effectiveTextStyle = defaultTextStyle.style.merge(text.style);
     }
     if (MediaQuery.boldTextOf(context)) {
-      effectiveTextStyle = effectiveTextStyle!
-          .merge(const TextStyle(fontWeight: FontWeight.bold));
+      effectiveTextStyle = effectiveTextStyle!.merge(
+        const TextStyle(fontWeight: FontWeight.bold),
+      );
     }
     final SelectionRegistrar? registrar = SelectionContainer.maybeOf(context);
     Widget result = RichText(
@@ -27,18 +25,21 @@ class _TextThenWidget extends StatelessWidget {
       textDirection: text.textDirection,
       locale: text.locale,
       softWrap: text.softWrap ?? defaultTextStyle.softWrap,
-      overflow: text.overflow ??
+      overflow:
+          text.overflow ??
           effectiveTextStyle?.overflow ??
           defaultTextStyle.overflow,
       textScaler: text.textScaler ?? TextScaler.noScaling,
       maxLines: text.maxLines ?? defaultTextStyle.maxLines,
       strutStyle: text.strutStyle,
       textWidthBasis: text.textWidthBasis ?? defaultTextStyle.textWidthBasis,
-      textHeightBehavior: text.textHeightBehavior ??
+      textHeightBehavior:
+          text.textHeightBehavior ??
           defaultTextStyle.textHeightBehavior ??
           DefaultTextHeightBehavior.maybeOf(context),
       selectionRegistrar: registrar,
-      selectionColor: text.selectionColor ??
+      selectionColor:
+          text.selectionColor ??
           DefaultSelectionStyle.of(context).selectionColor ??
           DefaultSelectionStyle.defaultColor,
       text: TextSpan(
@@ -51,7 +52,8 @@ class _TextThenWidget extends StatelessWidget {
     );
     if (registrar != null) {
       result = MouseRegion(
-        cursor: DefaultSelectionStyle.of(context).mouseCursor ??
+        cursor:
+            DefaultSelectionStyle.of(context).mouseCursor ??
             SystemMouseCursors.text,
         child: result,
       );
@@ -60,9 +62,7 @@ class _TextThenWidget extends StatelessWidget {
       result = Semantics(
         textDirection: text.textDirection,
         label: text.semanticsLabel,
-        child: ExcludeSemantics(
-          child: result,
-        ),
+        child: ExcludeSemantics(child: result),
       );
     }
     return result;

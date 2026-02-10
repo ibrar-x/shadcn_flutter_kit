@@ -67,37 +67,42 @@ class NavigationMenuContentList extends StatelessWidget {
     final scaling = theme.scaling;
     List<Widget> columns = [];
     List<Widget> rows = [];
-    var spacing = this.spacing ?? (12 * scaling);
+    var spacing = this.spacing ?? (theme.density.baseGap * scaling * 1.5);
     var runSpacing = this.runSpacing ?? (12 * scaling);
     for (final child in children) {
       columns.add(Expanded(child: child));
       if (columns.length == crossAxisCount) {
-        rows.add(IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: columns.joinSeparator(SizedBox(height: spacing)),
+        rows.add(
+          IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: columns.joinSeparator(SizedBox(height: spacing)),
+            ),
           ),
-        ));
+        );
         columns = [];
       }
     }
     if (columns.isNotEmpty) {
-      rows.add(IntrinsicWidth(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: columns.joinSeparator(SizedBox(height: runSpacing)),
+      rows.add(
+        IntrinsicWidth(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: columns.joinSeparator(SizedBox(height: runSpacing)),
+          ),
         ),
-      ));
+      );
     }
     return IntrinsicWidth(
       child: IntrinsicHeight(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: (reverse ? rows.reversed.toList() : rows)
-              .joinSeparator(SizedBox(width: spacing)),
+          children: (reverse ? rows.reversed.toList() : rows).joinSeparator(
+            SizedBox(width: spacing),
+          ),
         ),
       ),
     );

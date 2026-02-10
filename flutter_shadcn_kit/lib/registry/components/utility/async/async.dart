@@ -6,10 +6,8 @@ import 'package:flutter/widgets.dart';
 ///
 /// Useful when you need to render either a synchronous value or wait for a
 /// future without duplicating the handling logic.
-typedef FutureOrWidgetBuilder<T> = Widget Function(
-  BuildContext context,
-  AsyncSnapshot<T> snapshot,
-);
+typedef FutureOrWidgetBuilder<T> =
+    Widget Function(BuildContext context, AsyncSnapshot<T> snapshot);
 
 /// A widget that renders based on a [FutureOr] value.
 ///

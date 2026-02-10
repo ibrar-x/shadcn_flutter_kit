@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "version": "1.0.0",
+  "tags": [
+    "navigation",
+    "layout"
+  ],
+  "installedAt": "2026-02-09T10:18:03.219015Z",
+  "shared": [
+    "basic_layout",
+    "radix_icons",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/navigation/breadcrumb/README.md",
+    "registry/components/navigation/breadcrumb/_impl/core/_arrow_separator.dart",
+    "registry/components/navigation/breadcrumb/_impl/core/_slash_separator.dart",
+    "registry/components/navigation/breadcrumb/_impl/core/breadcrumb_2.dart",
+    "registry/components/navigation/breadcrumb/breadcrumb.dart",
+    "registry/components/navigation/breadcrumb/breadcrumb.meta.json",
+    "registry/components/navigation/breadcrumb/meta.json",
+    "registry/components/navigation/breadcrumb/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

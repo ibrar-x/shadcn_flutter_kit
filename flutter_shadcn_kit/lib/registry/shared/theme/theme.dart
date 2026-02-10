@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
 import 'color_scheme.dart';
 import 'typography.dart';
 
 part '_impl/core/adaptive_scaler.dart';
 part '_impl/core/adaptive_scaling.dart';
+part '_impl/core/density.dart';
 part '_impl/core/design_tokens.dart';
 part '_impl/themes/__animated_theme_state.dart';
 part '_impl/themes/animated_theme.dart';

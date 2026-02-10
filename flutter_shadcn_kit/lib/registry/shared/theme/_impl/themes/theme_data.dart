@@ -13,6 +13,9 @@ class ThemeData {
   /// Scale factor for sizes and spacing.
   final double scaling;
 
+  /// Density tokens for container/content padding and inter-item gaps.
+  final Density density;
+
   /// Spacing scale tokens for padding/margins.
   final SpacingScale spacing;
 
@@ -33,6 +36,9 @@ class ThemeData {
   /// Default blur radius for surface effects.
   final double? surfaceBlur;
 
+  /// Default haptic/sound feedback toggle for interactive controls.
+  final bool? enableFeedback;
+
   /// Creates a [ThemeData] with light color scheme.
   ///
   /// Parameters:
@@ -48,7 +54,8 @@ class ThemeData {
     this.colorScheme = ColorSchemes.lightDefaultColor,
     this.radius = 0.5,
     this.scaling = 1,
-    this.spacing = const SpacingScale(3.84),
+    this.density = Density.defaultDensity,
+    this.spacing = const SpacingScale(4.0),
     this.tracking = const TrackingScale(normal: 0),
     this.shadows = const ShadowScale(
       shadow2xs: [
@@ -151,6 +158,7 @@ class ThemeData {
     TargetPlatform? platform,
     this.surfaceOpacity,
     this.surfaceBlur,
+    this.enableFeedback,
   }) : _platform = platform;
 
   /// Creates a [ThemeData] with dark color scheme.
@@ -168,7 +176,8 @@ class ThemeData {
     this.colorScheme = ColorSchemes.darkDefaultColor,
     this.radius = 0.5,
     this.scaling = 1,
-    this.spacing = const SpacingScale(3.84),
+    this.density = Density.defaultDensity,
+    this.spacing = const SpacingScale(4.0),
     this.tracking = const TrackingScale(normal: 0),
     this.shadows = const ShadowScale(
       shadow2xs: [
@@ -271,6 +280,7 @@ class ThemeData {
     TargetPlatform? platform,
     this.surfaceOpacity,
     this.surfaceBlur,
+    this.enableFeedback,
   }) : _platform = platform;
 
   /// The current platform.
@@ -347,20 +357,27 @@ class ThemeData {
     ValueGetter<Typography>? typography,
     ValueGetter<TargetPlatform>? platform,
     ValueGetter<double>? scaling,
+    ValueGetter<Density>? density,
     ValueGetter<SpacingScale>? spacing,
     ValueGetter<TrackingScale>? tracking,
     ValueGetter<ShadowScale>? shadows,
     ValueGetter<IconThemeProperties>? iconTheme,
     ValueGetter<double>? surfaceOpacity,
     ValueGetter<double>? surfaceBlur,
+    ValueGetter<bool>? enableFeedback,
   }) {
+    final nextDensity = density == null ? this.density : density();
+    final nextSpacing = spacing == null
+        ? (density == null ? this.spacing : nextDensity.toSpacingScale())
+        : spacing();
     return ThemeData(
       colorScheme: colorScheme == null ? this.colorScheme : colorScheme(),
       radius: radius == null ? this.radius : radius(),
       typography: typography == null ? this.typography : typography(),
       platform: platform == null ? _platform : platform(),
       scaling: scaling == null ? this.scaling : scaling(),
-      spacing: spacing == null ? this.spacing : spacing(),
+      density: nextDensity,
+      spacing: nextSpacing,
       tracking: tracking == null ? this.tracking : tracking(),
       shadows: shadows == null ? this.shadows : shadows(),
       iconTheme: iconTheme == null ? this.iconTheme : iconTheme(),
@@ -368,6 +385,9 @@ class ThemeData {
           ? this.surfaceOpacity
           : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
+      enableFeedback: enableFeedback == null
+          ? this.enableFeedback
+          : enableFeedback(),
     );
   }
 
@@ -386,12 +406,14 @@ class ThemeData {
       typography: Typography.lerp(a.typography, b.typography, t),
       platform: t < 0.5 ? a.platform : b.platform,
       scaling: lerpDouble(a.scaling, b.scaling, t)!,
+      density: Density.lerp(a.density, b.density, t),
       spacing: SpacingScale.lerp(a.spacing, b.spacing, t),
       tracking: TrackingScale.lerp(a.tracking, b.tracking, t),
       shadows: ShadowScale.lerp(a.shadows, b.shadows, t),
       iconTheme: IconThemeProperties.lerp(a.iconTheme, b.iconTheme, t),
       surfaceOpacity: lerpDouble(a.surfaceOpacity, b.surfaceOpacity, t),
       surfaceBlur: lerpDouble(a.surfaceBlur, b.surfaceBlur, t),
+      enableFeedback: t < 0.5 ? a.enableFeedback : b.enableFeedback,
     );
   }
 
@@ -404,12 +426,14 @@ class ThemeData {
         other.typography == typography &&
         other.radius == radius &&
         other.scaling == scaling &&
+        other.density == density &&
         other.spacing == spacing &&
         other.tracking == tracking &&
         other.shadows == shadows &&
         other.iconTheme == iconTheme &&
         other.surfaceOpacity == surfaceOpacity &&
-        other.surfaceBlur == surfaceBlur;
+        other.surfaceBlur == surfaceBlur &&
+        other.enableFeedback == enableFeedback;
   }
 
   @override
@@ -419,18 +443,20 @@ class ThemeData {
       typography,
       radius,
       scaling,
+      density,
       spacing,
       tracking,
       shadows,
       iconTheme,
       surfaceOpacity,
       surfaceBlur,
+      enableFeedback,
     );
   }
 
   @override
   String toString() {
-    return 'ThemeData(colorScheme: $colorScheme, typography: $typography, radius: $radius, scaling: $scaling, spacing: $spacing, tracking: $tracking, shadows: $shadows, iconTheme: $iconTheme, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur)';
+    return 'ThemeData(colorScheme: $colorScheme, typography: $typography, radius: $radius, scaling: $scaling, spacing: $spacing, tracking: $tracking, shadows: $shadows, iconTheme: $iconTheme, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur, enableFeedback: $enableFeedback)';
   }
 }
 

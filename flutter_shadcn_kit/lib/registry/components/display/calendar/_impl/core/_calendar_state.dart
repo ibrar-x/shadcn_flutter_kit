@@ -6,8 +6,10 @@ class _CalendarState extends State<Calendar> {
   @override
   void initState() {
     super.initState();
-    _gridData =
-        CalendarGridData(month: widget.view.month, year: widget.view.year);
+    _gridData = CalendarGridData(
+      month: widget.view.month,
+      year: widget.view.year,
+    );
   }
 
   @override
@@ -15,8 +17,10 @@ class _CalendarState extends State<Calendar> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.view.year != widget.view.year ||
         oldWidget.view.month != widget.view.month) {
-      _gridData =
-          CalendarGridData(month: widget.view.month, year: widget.view.year);
+      _gridData = CalendarGridData(
+        month: widget.view.month,
+        year: widget.view.year,
+      );
     }
   }
 
@@ -105,7 +109,7 @@ class _CalendarState extends State<Calendar> {
         DateTime date = item.date;
         CalendarValueLookup lookup =
             widget.value?.lookup(date.year, date.month, date.day) ??
-                CalendarValueLookup.none;
+            CalendarValueLookup.none;
         CalendarItemType type = CalendarItemType.none;
         switch (lookup) {
           case CalendarValueLookup.none:
@@ -137,10 +141,7 @@ class _CalendarState extends State<Calendar> {
           child: Text('${date.day}'),
         );
         if (item.fromAnotherMonth) {
-          return Opacity(
-            opacity: 0.5,
-            child: calendarItem,
-          );
+          return Opacity(opacity: 0.5, child: calendarItem);
         }
         return calendarItem;
       },

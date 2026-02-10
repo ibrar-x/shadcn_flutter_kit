@@ -8,8 +8,8 @@ class _ScreenshotResult {
   _ScreenshotResult(this.colors, this.size, this.image);
 
   Color operator [](Offset position) {
-    int index =
-        (position.dy.floor() * size.width + position.dx.floor()).toInt();
+    int index = (position.dy.floor() * size.width + position.dx.floor())
+        .toInt();
     return colors[index];
   }
 }

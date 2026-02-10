@@ -3,9 +3,37 @@
   "name": "Spinner",
   "description": "Base spinner helpers for resolving color and size with theming.",
   "category": "display",
-  "tags": ["display", "indicator", "animation"],
+  "tags": [
+    "display",
+    "indicator",
+    "animation"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value"],
-    "components": []
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/themes/spinner_theme.dart",
+    "circle_spinner.dart",
+    "meta.json",
+    "preview.dart",
+    "spinner.dart",
+    "spinner.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Spinner`",
+      "`color` (`Color?`)",
+      "`size` (`double?`)",
+      "`resolveColor(BuildContext)`",
+      "`resolveSize(BuildContext, double)`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -10,7 +10,6 @@
     "calendar"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "form_control",
       "localizations",
@@ -21,6 +20,41 @@
     "components": [
       "calendar",
       "form_field"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/controlled_date_picker.dart",
+    "_impl/core/date_range_picker.dart",
+    "_impl/core/date_time_range.dart",
+    "_impl/state/_date_picker_preview_state.dart",
+    "_impl/themes/date_picker_theme.dart",
+    "_impl/utils/date_picker_controller.dart",
+    "date_picker.dart",
+    "date_picker.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`DatePicker`",
+      "`value` (`DateTime?`, required)",
+      "`onChanged` (`ValueChanged<DateTime?>?`)",
+      "`mode` (`PromptMode?`)",
+      "`initialView`, `initialViewType`",
+      "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
+      "`dialogTitle`, `placeholder`, `stateBuilder`, `enabled`",
+      "`DateRangePicker`",
+      "`value` (`DateTimeRange?`, required)",
+      "`onChanged` (`ValueChanged<DateTimeRange?>?`)",
+      "`ControlledDatePicker` — controller-backed picker.",
+      "`DatePickerController` — `ValueNotifier<DateTime?>` controller.",
+      "`DateTimeRange` — start/end date value type."
+    ],
+    "callbacks": [
+      "`onChanged`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

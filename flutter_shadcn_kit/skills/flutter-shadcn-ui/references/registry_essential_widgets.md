@@ -88,16 +88,25 @@ For editable text context menus, prefer registry context menu builders when you 
 
 Many registry types intentionally share common names (`Scaffold`, `AppBar`, `Card`, `TextButton`, `AlertDialog`, `showDialog`).
 
-Always alias imports to prevent accidental Flutter SDK usage:
+Prefer hiding conflicting Flutter widgets so registry widgets stay clean in code:
 
 ```dart
-import 'package:flutter/material.dart' as m;
+import 'package:flutter/material.dart'
+    hide
+        Scaffold,
+        AppBar,
+        Card,
+        TextButton,
+        AlertDialog,
+        showDialog;
 
-import 'package:your_app/ui/shadcn/composites/layout/app/app.dart' as shadcn_app;
-import 'package:your_app/ui/shadcn/layout/scaffold/scaffold.dart' as shadcn_layout;
-import 'package:your_app/ui/shadcn/control/button/button.dart' as shadcn_button;
-import 'package:your_app/ui/shadcn/overlay/dialog/dialog.dart' as shadcn_dialog;
+import 'package:your_app/ui/shadcn/composites/layout/app/app.dart';
+import 'package:your_app/ui/shadcn/layout/scaffold/scaffold.dart't;
+import 'package:your_app/ui/shadcn/control/button/button.dart';
+import 'package:your_app/ui/shadcn/overlay/dialog/dialog.dart';
 ```
+
+Use `m.` only for non-conflicting SDK APIs (for example `m.Colors`, `m.Icons`, `m.ThemeMode`).
 
 ## 6) Quick Decision Checklist for Agent Output
 
@@ -106,7 +115,7 @@ Before finalizing generated code:
 1. Is app root wrapped with `ShadcnApp` (or one overlay manager wrapper)?
 2. If drawer APIs are used, does a `DrawerOverlay` host exist?
 3. Are shadcn widgets used instead of direct `material/cupertino` where registry equivalents exist?
-4. Are import aliases preventing name collisions?
+4. Are Flutter conflicting widgets hidden (or clearly prefixed) to avoid collisions?
 5. If overlay components are installed, is overlay infrastructure present?
 
 ## 7) Current Infrastructure Boundaries

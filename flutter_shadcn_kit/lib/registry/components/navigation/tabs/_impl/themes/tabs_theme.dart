@@ -29,6 +29,9 @@ class TabsTheme extends ComponentThemeData {
   ///
   /// All parameters are optional and default to theme values when `null`.
   const TabsTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.containerPadding,
     this.tabPadding,
     this.backgroundColor,
@@ -54,11 +57,13 @@ class TabsTheme extends ComponentThemeData {
     ValueGetter<BorderRadiusGeometry?>? borderRadius,
   }) {
     return TabsTheme(
-      containerPadding:
-          containerPadding == null ? this.containerPadding : containerPadding(),
+      containerPadding: containerPadding == null
+          ? this.containerPadding
+          : containerPadding(),
       tabPadding: tabPadding == null ? this.tabPadding : tabPadding(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
     );
   }

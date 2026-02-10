@@ -34,32 +34,23 @@ class TableRow {
     }
     final theme = Theme.of(context);
     return TableCellTheme(
-      border: WidgetStateProperty.resolveWith(
-        (states) {
-          return Border(
-            bottom: BorderSide(
-              color: theme.colorScheme.border,
-              width: 1,
-            ),
-          );
-        },
-      ),
-      backgroundColor: WidgetStateProperty.resolveWith(
-        (states) {
-          return states.contains(WidgetState.hovered)
-              ? theme.colorScheme.muted.withValues(alpha: 0.5)
-              : null;
-        },
-      ),
-      textStyle: WidgetStateProperty.resolveWith(
-        (states) {
-          return TextStyle(
-            color: states.contains(WidgetState.disabled)
-                ? theme.colorScheme.muted
-                : null,
-          );
-        },
-      ),
+      border: WidgetStateProperty.resolveWith((states) {
+        return Border(
+          bottom: BorderSide(color: theme.colorScheme.border, width: 1),
+        );
+      }),
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.hovered)
+            ? theme.colorScheme.muted.withValues(alpha: 0.5)
+            : null;
+      }),
+      textStyle: WidgetStateProperty.resolveWith((states) {
+        return TextStyle(
+          color: states.contains(WidgetState.disabled)
+              ? theme.colorScheme.muted
+              : null,
+        );
+      }),
     );
   }
 

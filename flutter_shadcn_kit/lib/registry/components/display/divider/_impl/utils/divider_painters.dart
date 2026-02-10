@@ -15,7 +15,10 @@ class DividerProperties {
   });
 
   static DividerProperties lerp(
-      DividerProperties? a, DividerProperties? b, double t) {
+    DividerProperties? a,
+    DividerProperties? b,
+    double t,
+  ) {
     final start = a ?? b;
     final end = b ?? a;
     assert(start != null && end != null);

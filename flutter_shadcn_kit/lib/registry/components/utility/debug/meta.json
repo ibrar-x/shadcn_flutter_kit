@@ -3,9 +3,32 @@
   "name": "Debug",
   "description": "Debug overlays and container helpers for layout inspection.",
   "category": "utility",
-  "tags": ["debug", "overlay", "layout"],
+  "tags": [
+    "debug",
+    "overlay",
+    "layout"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": []
-  }
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "debug.dart",
+    "debug.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "helpers": [
+      "`debugPostSticker`",
+      "`DebugContainer.debugContainer`",
+      "`kDebugStickerVisible`",
+      "`kDebugContainerVisible`"
+    ]
+  },
+  "version": "1.0.0"
 }

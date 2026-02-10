@@ -21,12 +21,19 @@ class OrValidator<T> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     return _chainedValidation(context, value, state, 0);
   }
 
   FutureOr<ValidationResult?> _chainedValidation(
-      BuildContext context, T? value, FormValidationMode state, int index) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+    int index,
+  ) {
     if (index >= validators.length) {
       return null;
     }

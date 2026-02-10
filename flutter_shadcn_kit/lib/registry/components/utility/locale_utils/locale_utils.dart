@@ -49,10 +49,28 @@ class SizeUnitLocale {
   }
 }
 
-const _fileByteUnits =
-    SizeUnitLocale(1024, ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']);
-const _fileBitUnits = SizeUnitLocale(
-    1024, ['Bi', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']);
+const _fileByteUnits = SizeUnitLocale(1024, [
+  'B',
+  'KB',
+  'MB',
+  'GB',
+  'TB',
+  'PB',
+  'EB',
+  'ZB',
+  'YB',
+]);
+const _fileBitUnits = SizeUnitLocale(1024, [
+  'Bi',
+  'KiB',
+  'MiB',
+  'GiB',
+  'TiB',
+  'PiB',
+  'EiB',
+  'ZiB',
+  'YiB',
+]);
 
 double _log10(num x) {
   return log(x) / ln10;
@@ -82,8 +100,9 @@ String formatFileSize(int bytes, SizeUnitLocale unit) {
   // return '${NumberFormat('#,##0.#').format(bytes / pow(base, digitGroups))} ${units[digitGroups]}';
   // do it without NumberFormat, but format to #,##0.# format
   final value = bytes / pow(base, digitGroups);
-  final formattedValue =
-      value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
+  final formattedValue = value.toStringAsFixed(
+    value.truncateToDouble() == value ? 0 : 1,
+  );
   return '$formattedValue ${units[digitGroups]}';
 }
 
@@ -107,25 +126,23 @@ int _getDay(DateTime dateTime) => dateTime.day;
   return (1, daysInMonth);
 }
 
-
 int _getDurationDay(Duration duration) => duration.inDays;
 int _getDurationHour(Duration duration) => duration.inHours % 24;
 int _getDurationMinute(Duration duration) => duration.inMinutes % 60;
 int _getDurationSecond(Duration duration) => duration.inSeconds % 60;
 
 (int? min, int? max) _computeDurationDayValueRange(
-        Map<DurationPart, int> values) =>
-    (0, null);
+  Map<DurationPart, int> values,
+) => (0, null);
 (int? min, int? max) _computeDurationHourValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 23);
+  Map<DurationPart, int> values,
+) => (0, 23);
 (int? min, int? max) _computeDurationMinuteValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 59);
+  Map<DurationPart, int> values,
+) => (0, 59);
 (int? min, int? max) _computeDurationSecondValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 59);
-
+  Map<DurationPart, int> values,
+) => (0, 59);
 
 int _getTimeHour(TimeOfDay time) => time.hour;
 int _getTimeMinute(TimeOfDay time) => time.minute;

@@ -12,6 +12,9 @@ class ToastTheme extends ComponentThemeData {
   final Color? backgroundColor;
 
   const ToastTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.padding,
     this.margin,
     this.duration,
@@ -43,8 +46,7 @@ class ToastTheme extends ComponentThemeData {
           ? this.animationCurve
           : animationCurve(),
       width: width == null ? this.width : width(),
-      borderRadius:
-          borderRadius == null ? this.borderRadius : borderRadius(),
+      borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       backgroundColor: backgroundColor == null
           ? this.backgroundColor
           : backgroundColor(),

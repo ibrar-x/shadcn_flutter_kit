@@ -36,6 +36,9 @@ class ModalBackdropTheme extends ComponentThemeData {
   /// )
   /// ```
   const ModalBackdropTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.borderRadius,
     this.padding,
     this.barrierColor,
@@ -85,13 +88,8 @@ class ModalBackdropTheme extends ComponentThemeData {
   }
 
   @override
-  int get hashCode => Object.hash(
-        borderRadius,
-        padding,
-        barrierColor,
-        modal,
-        surfaceClip,
-      );
+  int get hashCode =>
+      Object.hash(borderRadius, padding, barrierColor, modal, surfaceClip);
 }
 
 /// A visual backdrop widget that creates modal-style overlays.

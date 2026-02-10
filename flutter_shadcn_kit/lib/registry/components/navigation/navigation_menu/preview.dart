@@ -41,10 +41,7 @@ class NavigationMenuPreview extends StatelessWidget {
               ),
               child: const Text('Company'),
             ),
-            NavigationMenuItem(
-              onPressed: () {},
-              child: const Text('Contact'),
-            ),
+            NavigationMenuItem(onPressed: () {}, child: const Text('Contact')),
           ],
         ),
       ),

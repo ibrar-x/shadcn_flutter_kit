@@ -51,75 +51,77 @@ class FixedTooltipOverlayHandler extends OverlayHandler {
           child: FocusScope(
             autofocus: dismissBackdropFocus,
             child: AnimatedBuilder(
-                animation: isClosed,
-                builder: (innerContext, child) {
-                  return AnimatedValueBuilder<double>(
-                    value: isClosed.value ? 0.0 : 1.0,
-                    initialValue: 0.0,
-                    curve: isClosed.value
-                        ? const Interval(0, 2 / 3)
-                        : Curves.linear,
-                    duration: isClosed.value
-                        ? (showDuration ?? kDefaultDuration)
-                        : (dismissDuration ??
-                            const Duration(milliseconds: 100)),
-                    onEnd: (value) {
-                      if (value == 0.0 && isClosed.value) {
+              animation: isClosed,
+              builder: (innerContext, child) {
+                return AnimatedValueBuilder<double>(
+                  value: isClosed.value ? 0.0 : 1.0,
+                  initialValue: 0.0,
+                  curve: isClosed.value
+                      ? const Interval(0, 2 / 3)
+                      : Curves.linear,
+                  duration: isClosed.value
+                      ? (showDuration ?? kDefaultDuration)
+                      : (dismissDuration ?? const Duration(milliseconds: 100)),
+                  onEnd: (value) {
+                    if (value == 0.0 && isClosed.value) {
+                      popoverEntry.remove();
+                      popoverEntry.dispose();
+                      animationCompleter.complete();
+                    }
+                  },
+                  builder: (innerContext, animation, child) {
+                    final theme = Theme.of(innerContext);
+                    var popoverAnchor = PopoverOverlayWidget(
+                      animation: animation,
+                      onTapOutside: () {
+                        if (isClosed.value) return;
+                        if (!modal) {
+                          isClosed.value = true;
+                          completer.complete();
+                        }
+                      },
+                      key: key,
+                      anchorContext: context,
+                      position: position,
+                      alignment: resolvedAlignment,
+                      themes: themes,
+                      builder: builder,
+                      anchorAlignment: resolvedAnchorAlignment,
+                      widthConstraint: widthConstraint,
+                      heightConstraint: heightConstraint,
+                      regionGroupId: regionGroupId,
+                      offset: offset,
+                      transitionAlignment: Alignment.center,
+                      margin: EdgeInsets.all(
+                        theme.density.baseContainerPadding * theme.scaling * 3,
+                      ),
+                      follow: follow,
+                      consumeOutsideTaps: consumeOutsideTaps,
+                      allowInvertHorizontal: allowInvertHorizontal,
+                      allowInvertVertical: allowInvertVertical,
+                      data: data,
+                      onClose: () {
+                        if (isClosed.value) return Future.value();
+                        isClosed.value = true;
+                        completer.complete();
+                        return animationCompleter.future;
+                      },
+                      onImmediateClose: () {
                         popoverEntry.remove();
-                        popoverEntry.dispose();
-                        animationCompleter.complete();
-                      }
-                    },
-                    builder: (innerContext, animation, child) {
-                      final theme = Theme.of(innerContext);
-                      var popoverAnchor = PopoverOverlayWidget(
-                        animation: animation,
-                        onTapOutside: () {
-                          if (isClosed.value) return;
-                          if (!modal) {
-                            isClosed.value = true;
-                            completer.complete();
-                          }
-                        },
-                        key: key,
-                        anchorContext: context,
-                        position: position,
-                        alignment: resolvedAlignment,
-                        themes: themes,
-                        builder: builder,
-                        anchorAlignment: resolvedAnchorAlignment,
-                        widthConstraint: widthConstraint,
-                        heightConstraint: heightConstraint,
-                        regionGroupId: regionGroupId,
-                        offset: offset,
-                        transitionAlignment: Alignment.center,
-                        margin: const EdgeInsets.all(48) * theme.scaling,
-                        follow: false,
-                        consumeOutsideTaps: consumeOutsideTaps,
-                        allowInvertHorizontal: allowInvertHorizontal,
-                        allowInvertVertical: allowInvertVertical,
-                        data: data,
-                        onClose: () {
-                          if (isClosed.value) return Future.value();
-                          isClosed.value = true;
-                          completer.complete();
-                          return animationCompleter.future;
-                        },
-                        onImmediateClose: () {
-                          popoverEntry.remove();
-                          completer.complete();
-                        },
-                        onCloseWithResult: (value) {
-                          if (isClosed.value) return Future.value();
-                          isClosed.value = true;
-                          completer.complete(value as T);
-                          return animationCompleter.future;
-                        },
-                      );
-                      return popoverAnchor;
-                    },
-                  );
-                }),
+                        completer.complete();
+                      },
+                      onCloseWithResult: (value) {
+                        if (isClosed.value) return Future.value();
+                        isClosed.value = true;
+                        completer.complete(value as T);
+                        return animationCompleter.future;
+                      },
+                    );
+                    return popoverAnchor;
+                  },
+                );
+              },
+            ),
           ),
         );
       },

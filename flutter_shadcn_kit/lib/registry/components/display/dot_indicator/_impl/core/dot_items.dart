@@ -25,8 +25,9 @@ class DotItem extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: color,
-        borderRadius:
-            borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
+        borderRadius: borderRadius != null
+            ? BorderRadius.circular(borderRadius!)
+            : null,
         border: borderColor != null && borderWidth != null
             ? Border.all(color: borderColor!, width: borderWidth!)
             : null,

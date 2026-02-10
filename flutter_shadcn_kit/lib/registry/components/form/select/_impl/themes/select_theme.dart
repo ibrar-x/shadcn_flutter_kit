@@ -33,6 +33,9 @@ class SelectTheme extends ComponentThemeData {
 
   /// Creates a select theme.
   const SelectTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.popupConstraints,
     this.popoverAlignment,
     this.popoverAnchorAlignment,
@@ -55,10 +58,12 @@ class SelectTheme extends ComponentThemeData {
     ValueGetter<bool?>? autoClosePopover,
   }) {
     return SelectTheme(
-      popupConstraints:
-          popupConstraints == null ? this.popupConstraints : popupConstraints(),
-      popoverAlignment:
-          popoverAlignment == null ? this.popoverAlignment : popoverAlignment(),
+      popupConstraints: popupConstraints == null
+          ? this.popupConstraints
+          : popupConstraints(),
+      popoverAlignment: popoverAlignment == null
+          ? this.popoverAlignment
+          : popoverAlignment(),
       popoverAnchorAlignment: popoverAnchorAlignment == null
           ? this.popoverAnchorAlignment
           : popoverAnchorAlignment(),
@@ -68,8 +73,9 @@ class SelectTheme extends ComponentThemeData {
           ? this.disableHoverEffect
           : disableHoverEffect(),
       canUnselect: canUnselect == null ? this.canUnselect : canUnselect(),
-      autoClosePopover:
-          autoClosePopover == null ? this.autoClosePopover : autoClosePopover(),
+      autoClosePopover: autoClosePopover == null
+          ? this.autoClosePopover
+          : autoClosePopover(),
     );
   }
 
@@ -88,13 +94,13 @@ class SelectTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        popupConstraints,
-        popoverAlignment,
-        popoverAnchorAlignment,
-        borderRadius,
-        padding,
-        disableHoverEffect,
-        canUnselect,
-        autoClosePopover,
-      );
+    popupConstraints,
+    popoverAlignment,
+    popoverAnchorAlignment,
+    borderRadius,
+    padding,
+    disableHoverEffect,
+    canUnselect,
+    autoClosePopover,
+  );
 }

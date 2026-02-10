@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "triple_dots",
+  "name": "More Dots",
+  "version": "1.0.0",
+  "tags": [
+    "icon",
+    "indicator"
+  ],
+  "installedAt": "2026-02-09T10:18:03.223260Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/triple_dots/README.md",
+    "registry/components/display/triple_dots/meta.json",
+    "registry/components/display/triple_dots/preview.dart",
+    "registry/components/display/triple_dots/triple_dots.dart",
+    "registry/components/display/triple_dots/triple_dots.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

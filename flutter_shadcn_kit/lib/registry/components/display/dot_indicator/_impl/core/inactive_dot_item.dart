@@ -33,7 +33,8 @@ class InactiveDotItem extends StatelessWidget {
       themeValue: compTheme?.borderRadius,
       defaultValue: theme.radiusMd,
     );
-    final resolvedBorderColor = borderColor ??
+    final resolvedBorderColor =
+        borderColor ??
         compTheme?.inactiveBorderColor ??
         theme.colorScheme.secondary;
     final resolvedBorderWidth =
@@ -44,8 +45,10 @@ class InactiveDotItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: resolvedColor,
         borderRadius: BorderRadius.circular(resolvedBorderRadius),
-        border:
-            Border.all(color: resolvedBorderColor, width: resolvedBorderWidth),
+        border: Border.all(
+          color: resolvedBorderColor,
+          width: resolvedBorderWidth,
+        ),
       ),
     );
   }

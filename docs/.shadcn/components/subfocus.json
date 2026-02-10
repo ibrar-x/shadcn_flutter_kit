@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "subfocus",
+  "name": "Subfocus",
+  "version": "1.0.0",
+  "tags": [
+    "focus",
+    "navigation",
+    "keyboard"
+  ],
+  "installedAt": "2026-02-09T10:18:03.219368Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/navigation/subfocus/README.md",
+    "registry/components/navigation/subfocus/_impl/core/sub_focus.dart",
+    "registry/components/navigation/subfocus/_impl/state/_sub_focus_scope_state.dart",
+    "registry/components/navigation/subfocus/_impl/state/_sub_focus_state.dart",
+    "registry/components/navigation/subfocus/meta.json",
+    "registry/components/navigation/subfocus/preview.dart",
+    "registry/components/navigation/subfocus/subfocus.dart",
+    "registry/components/navigation/subfocus/subfocus.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

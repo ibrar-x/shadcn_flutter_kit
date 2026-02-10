@@ -114,13 +114,8 @@ class MenuGroupData {
   }
 
   @override
-  int get hashCode => Object.hash(
-        children,
-        parent,
-        hasLeading,
-        subMenuOffset,
-        onDismissed,
-      );
+  int get hashCode =>
+      Object.hash(children, parent, hasLeading, subMenuOffset, onDismissed);
 
   @override
   String toString() {

@@ -84,8 +84,11 @@ class NullableTimeOfDay {
   /// - [defaultSecond] (`int`, optional): Default second value (0-59).
   ///
   /// Returns: A [TimeOfDay] instance with non-null parts.
-  TimeOfDay? getTimeOfDay(
-      {int? defaultHour = 0, int? defaultMinute = 0, int? defaultSecond = 0}) {
+  TimeOfDay? getTimeOfDay({
+    int? defaultHour = 0,
+    int? defaultMinute = 0,
+    int? defaultSecond = 0,
+  }) {
     int? hour = this.hour ?? defaultHour;
     int? minute = this.minute ?? defaultMinute;
     int? second = this.second ?? defaultSecond;

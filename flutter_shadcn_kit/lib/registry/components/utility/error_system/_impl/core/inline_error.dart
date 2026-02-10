@@ -34,7 +34,7 @@ class InlineError extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         resolvedIcon,
-        Gap(8 * scaling),
+        DensityGap(gapSm),
         Expanded(
           child: DefaultTextStyle.merge(
             style: messageStyle,

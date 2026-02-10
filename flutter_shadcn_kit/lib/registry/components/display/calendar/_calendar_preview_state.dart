@@ -30,9 +30,7 @@ class _CalendarPreviewState extends State<CalendarPreview> {
                       child: Center(
                         child: Text(
                           '${localizations.getMonth(_view.month)} ${_view.year}',
-                        )
-                            .small()
-                            .medium(),
+                        ).small().medium(),
                       ),
                     ),
                     OutlineButton(
@@ -46,7 +44,7 @@ class _CalendarPreviewState extends State<CalendarPreview> {
                     ),
                   ],
                 ),
-                const Gap(16),
+                const DensityGap(gapLg),
                 Calendar(
                   value: _value,
                   view: _view,

@@ -68,11 +68,12 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
     }
   }
 
-  Widget _wrapResizer(
-      {required MouseCursor cursor,
-      required Rect Function(Rect bounds, Offset delta) onResize,
-      required int adjustmentX,
-      required int adjustmentY}) {
+  Widget _wrapResizer({
+    required MouseCursor cursor,
+    required Rect Function(Rect bounds, Offset delta) onResize,
+    required int adjustmentX,
+    required int adjustmentY,
+  }) {
     return MouseRegion(
       cursor: cursor,
       child: GestureDetector(
@@ -95,8 +96,10 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
           deltaXAdjustment *= adjustmentX;
           deltaYAdjustment *= adjustmentY;
           if (deltaXAdjustment != 0 || deltaYAdjustment != 0) {
-            newBounds =
-                onResize(newBounds, Offset(deltaXAdjustment, deltaYAdjustment));
+            newBounds = onResize(
+              newBounds,
+              Offset(deltaXAdjustment, deltaYAdjustment),
+            );
           }
           bounds = newBounds;
         },
@@ -117,7 +120,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               widget.resizeThickness ?? compTheme?.resizeThickness ?? 8;
           final titleBarHeight =
               (widget.titleBarHeight ?? compTheme?.titleBarHeight ?? 32) *
-                  theme.scaling;
+              theme.scaling;
 
           Widget windowClient = Card(
             clipBehavior: Clip.antiAlias,
@@ -150,19 +153,23 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                         var size = _viewport?.size;
                         if (max != null && size != null) {
                           bounds = Rect.fromLTWH(
-                              max.left * size.width,
-                              max.top * size.height,
-                              max.width * size.width,
-                              max.height * size.height);
+                            max.left * size.width,
+                            max.top * size.height,
+                            max.width * size.width,
+                            max.height * size.height,
+                          );
                         }
                         var alignX = lerpDouble(
-                            -1, 1, (localPosition.dx / bounds.width))!;
+                          -1,
+                          1,
+                          (localPosition.dx / bounds.width),
+                        )!;
                         var alignY = lerpDouble(
-                            -1, 1, (localPosition.dy / bounds.height))!;
-                        _dragAlignment = Alignment(
-                          alignX,
-                          alignY,
-                        );
+                          -1,
+                          1,
+                          (localPosition.dy / bounds.height),
+                        )!;
+                        _dragAlignment = Alignment(alignX, alignY);
                         if (_entry != null) {
                           _viewport?.navigator._state._startDraggingWindow(
                             _entry!,
@@ -171,14 +178,18 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                         }
                         if (state.maximized != null) {
                           maximized = null;
-                          RenderBox? layerRenderBox = _viewport
-                              ?.navigator._state.context
-                              .findRenderObject() as RenderBox?;
+                          RenderBox? layerRenderBox =
+                              _viewport?.navigator._state.context
+                                      .findRenderObject()
+                                  as RenderBox?;
                           if (layerRenderBox != null) {
-                            Offset layerLocal = layerRenderBox
-                                .globalToLocal(details.globalPosition);
-                            Size titleSize =
-                                Size(this.bounds.width, titleBarHeight);
+                            Offset layerLocal = layerRenderBox.globalToLocal(
+                              details.globalPosition,
+                            );
+                            Size titleSize = Size(
+                              this.bounds.width,
+                              titleBarHeight,
+                            );
                             this.bounds = Rect.fromLTWH(
                               layerLocal.dx - titleSize.width / 2,
                               layerLocal.dy - titleSize.height / 2,
@@ -219,7 +230,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                       child: Container(
                         height: titleBarHeight,
                         padding: EdgeInsets.all(
-                          2 * theme.scaling,
+                          theme.density.baseGap * theme.scaling * 0.25,
                         ),
                         child: Row(
                           children: [
@@ -231,7 +242,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                                 child: (_viewport?.focused ?? true)
                                     ? (widget.title ?? const SizedBox())
                                     : (widget.title ?? const SizedBox())
-                                        .muted(),
+                                          .muted(),
                               ),
                             ),
                             if (widget.actions != null) widget.actions!,
@@ -240,35 +251,30 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                       ),
                     ),
                   ),
-                if (widget.content != null)
-                  Expanded(
-                    child: widget.content!,
-                  ),
+                if (widget.content != null) Expanded(child: widget.content!),
               ],
             ),
           );
           // add transition
           windowClient = AnimatedValueBuilder(
-              initialValue: 0.0,
-              value: (_viewport?.closed ?? false) ? 0.0 : 1.0,
-              duration: kDefaultDuration,
-              onEnd: (value) {
-                if (_viewport?.closed ?? false) {
-                  _viewport?.navigator.removeWindow(_entry!);
-                }
-              },
-              builder: (context, value, child) {
-                return Transform.scale(
-                  scale: (_viewport?.closed ?? false)
-                      ? lerpDouble(0.8, 1.0, value)!
-                      : lerpDouble(0.9, 1.0, value)!,
-                  child: Opacity(
-                    opacity: value,
-                    child: child,
-                  ),
-                );
-              },
-              child: windowClient);
+            initialValue: 0.0,
+            value: (_viewport?.closed ?? false) ? 0.0 : 1.0,
+            duration: kDefaultDuration,
+            onEnd: (value) {
+              if (_viewport?.closed ?? false) {
+                _viewport?.navigator.removeWindow(_entry!);
+              }
+            },
+            builder: (context, value, child) {
+              return Transform.scale(
+                scale: (_viewport?.closed ?? false)
+                    ? lerpDouble(0.8, 1.0, value)!
+                    : lerpDouble(0.9, 1.0, value)!,
+                child: Opacity(opacity: value, child: child),
+              );
+            },
+            child: windowClient,
+          );
           windowClient = AnimatedScale(
             scale: (_viewport?.minify ?? false) ? 0.65 : 1.0,
             duration: kDefaultDuration,

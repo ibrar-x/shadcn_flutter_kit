@@ -30,7 +30,8 @@ class OutlineBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
-    final baseStyle = style ??
+    final baseStyle =
+        style ??
         compTheme?.outlineStyle ??
         const ButtonStyle.outline(
           size: ButtonSize.small,

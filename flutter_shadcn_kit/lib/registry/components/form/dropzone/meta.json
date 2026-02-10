@@ -24,5 +24,25 @@
     "pubspec": {
       "gap": "^3.0.1"
     }
-  }
+  },
+  "files": [
+    "README.md",
+    "dropzone.dart",
+    "dropzone.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`FileDropzone`",
+      "`state` (`DropzoneState`)",
+      "`enabled`, `hotDropEnabled`, `hotDropping`, `isFocused`",
+      "`hint`, `icon`, `actionLabel`, `onPressed`",
+      "`backgroundColor`, `borderRadius`, `padding`, `minHeight`",
+      "`content`, `showDefaultContent`",
+      "`DropzoneState` — `idle`, `dragging`, `uploading`, `success`, `error`, `disabled`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

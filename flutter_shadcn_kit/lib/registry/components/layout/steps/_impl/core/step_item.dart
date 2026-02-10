@@ -8,20 +8,13 @@ class StepItem extends StatelessWidget {
   final List<Widget> content;
 
   /// Creates a [StepItem].
-  const StepItem({
-    super.key,
-    required this.title,
-    required this.content,
-  });
+  const StepItem({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        title.h4(),
-        ...content,
-      ],
+      children: [title.h4(), ...content],
     );
   }
 }

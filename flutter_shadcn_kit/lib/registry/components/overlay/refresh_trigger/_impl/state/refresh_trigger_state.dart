@@ -33,18 +33,22 @@ class RefreshTriggerState extends State<RefreshTrigger>
     final compTheme = ComponentTheme.maybeOf<RefreshTriggerTheme>(context);
 
     _minExtent = styleValue(
-        widgetValue: widget.minExtent,
-        themeValue: compTheme?.minExtent,
-        defaultValue: 75.0 * theme.scaling);
+      widgetValue: widget.minExtent,
+      themeValue: compTheme?.minExtent,
+      defaultValue: 75.0 * theme.scaling,
+    );
     _maxExtent = styleValue(
-        widgetValue: widget.maxExtent,
-        themeValue: compTheme?.maxExtent,
-        defaultValue: 150.0 * theme.scaling);
-    _indicatorBuilder = widget.indicatorBuilder ??
+      widgetValue: widget.maxExtent,
+      themeValue: compTheme?.maxExtent,
+      defaultValue: 150.0 * theme.scaling,
+    );
+    _indicatorBuilder =
+        widget.indicatorBuilder ??
         compTheme?.indicatorBuilder ??
         RefreshTrigger.defaultIndicatorBuilder;
     _curve = widget.curve ?? compTheme?.curve ?? Curves.easeOutSine;
-    _completeDuration = widget.completeDuration ??
+    _completeDuration =
+        widget.completeDuration ??
         compTheme?.completeDuration ??
         const Duration(milliseconds: 500);
   }
@@ -101,8 +105,9 @@ class RefreshTriggerState extends State<RefreshTrigger>
     }
     if (notification is ScrollEndNotification && _scrolling) {
       setState(() {
-        double normalizedExtent =
-            widget.reverse ? -_currentExtent : _currentExtent;
+        double normalizedExtent = widget.reverse
+            ? -_currentExtent
+            : _currentExtent;
         if (normalizedExtent >= _minExtent) {
           _scrolling = false;
           refresh();
@@ -115,7 +120,8 @@ class RefreshTriggerState extends State<RefreshTrigger>
       final delta = notification.scrollDelta;
       if (delta != null) {
         final axisDirection = notification.metrics.axisDirection;
-        final normalizedDelta = (axisDirection == AxisDirection.down ||
+        final normalizedDelta =
+            (axisDirection == AxisDirection.down ||
                 axisDirection == AxisDirection.right)
             ? -delta
             : delta;
@@ -124,8 +130,9 @@ class RefreshTriggerState extends State<RefreshTrigger>
           if ((forward && _userScrollDirection == ScrollDirection.forward) ||
               (!forward && _userScrollDirection == ScrollDirection.reverse)) {
             setState(() {
-              _currentExtent +=
-                  widget.reverse ? -normalizedDelta : normalizedDelta;
+              _currentExtent += widget.reverse
+                  ? -normalizedDelta
+                  : normalizedDelta;
             });
           } else {
             if (_currentExtent >= _minExtent) {
@@ -133,8 +140,9 @@ class RefreshTriggerState extends State<RefreshTrigger>
               refresh();
             } else {
               setState(() {
-                _currentExtent +=
-                    widget.reverse ? -normalizedDelta : normalizedDelta;
+                _currentExtent += widget.reverse
+                    ? -normalizedDelta
+                    : normalizedDelta;
               });
             }
           }
@@ -154,7 +162,8 @@ class RefreshTriggerState extends State<RefreshTrigger>
       _userScrollDirection = notification.direction;
     } else if (notification is OverscrollNotification) {
       final axisDirection = notification.metrics.axisDirection;
-      final overscroll = (axisDirection == AxisDirection.down ||
+      final overscroll =
+          (axisDirection == AxisDirection.down ||
               axisDirection == AxisDirection.right)
           ? -notification.overscroll
           : notification.overscroll;
@@ -231,15 +240,17 @@ class RefreshTriggerState extends State<RefreshTrigger>
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScrollNotification,
       child: AnimatedValueBuilder<double>(
-        value: _stage == TriggerStage.refreshing ||
+        value:
+            _stage == TriggerStage.refreshing ||
                 _stage == TriggerStage.completed
             ? _minExtent
             : _currentExtent,
         duration: _scrolling ? Duration.zero : kDefaultDuration,
         curve: _curve,
         builder: (context, value, _) {
-          final extentAnimation =
-              AlwaysStoppedAnimation<double>(tween.transform(value));
+          final extentAnimation = AlwaysStoppedAnimation<double>(
+            tween.transform(value),
+          );
           final indicator = _indicatorBuilder(
             context,
             RefreshTriggerStage(

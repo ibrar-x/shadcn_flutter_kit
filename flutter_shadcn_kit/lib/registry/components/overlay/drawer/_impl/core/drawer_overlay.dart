@@ -57,8 +57,10 @@ class DrawerOverlay extends StatefulWidget {
   /// - [root] (bool): Whether to find root layer, defaults to false
   ///
   /// Returns [DrawerLayerData] or null if not found.
-  static DrawerLayerData? maybeFindMessenger(BuildContext context,
-      [bool root = false]) {
+  static DrawerLayerData? maybeFindMessenger(
+    BuildContext context, [
+    bool root = false,
+  ]) {
     var data = Data.maybeFindMessenger<DrawerLayerData>(context);
     if (root) {
       while (data?.parent != null) {

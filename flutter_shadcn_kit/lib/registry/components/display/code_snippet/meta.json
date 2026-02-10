@@ -3,15 +3,39 @@
   "name": "Code Snippet",
   "description": "Stylized code container with action slot and theme overrides.",
   "category": "display",
-  "tags": ["display", "code", "text"],
+  "tags": [
+    "display",
+    "code",
+    "text"
+  ],
   "dependencies": {
-    "pubspec": {
-      "gap": "^3.0.1"
-    },
     "shared": [
       "theme",
       "style_value",
       "text_modifiers"
-    ]
-  }
+    ],
+    "components": [],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/state/_code_snippet_state.dart",
+    "_impl/themes/code_snippet_theme.dart",
+    "code_snippet.dart",
+    "code_snippet.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`CodeSnippet`",
+      "`code` (`Widget`, required)",
+      "`actions` (`List<Widget>`)",
+      "`constraints` (`BoxConstraints?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

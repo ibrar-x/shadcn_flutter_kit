@@ -8,7 +8,13 @@ class ContextMenuTheme extends ComponentThemeData {
   final double? surfaceBlur;
 
   /// Creates a [ContextMenuTheme].
-  const ContextMenuTheme({this.surfaceOpacity, this.surfaceBlur});
+  const ContextMenuTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.surfaceOpacity,
+    this.surfaceBlur,
+  });
 
   /// Returns a copy of this theme with the given fields replaced.
   ContextMenuTheme copyWith({
@@ -16,8 +22,9 @@ class ContextMenuTheme extends ComponentThemeData {
     ValueGetter<double?>? surfaceBlur,
   }) {
     return ContextMenuTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
     );
   }

@@ -12,10 +12,7 @@ class StepperValue {
   /// Parameters:
   /// - [stepStates] (`Map<int, StepState>`, required): step states by index
   /// - [currentStep] (int, required): currently active step index
-  StepperValue({
-    required this.stepStates,
-    required this.currentStep,
-  });
+  StepperValue({required this.stepStates, required this.currentStep});
 
   @override
   bool operator ==(Object other) {

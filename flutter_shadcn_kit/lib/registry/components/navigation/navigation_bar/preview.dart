@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' hide Card, Divider, NavigationBar, Checkbox;
+import 'package:flutter/material.dart'
+    hide Card, Divider, NavigationBar, Checkbox;
 
 import '../../control/button/button.dart' as shadcn_button;
 import '../../../shared/primitives/outlined_container.dart';
@@ -17,4 +18,3 @@ class NavigationBarPreview extends StatefulWidget {
   @override
   State<NavigationBarPreview> createState() => _NavigationBarPreviewState();
 }
-

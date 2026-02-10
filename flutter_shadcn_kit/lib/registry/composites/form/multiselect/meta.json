@@ -3,9 +3,35 @@
   "name": "Multi Select",
   "description": "Composite export for MultiSelect built on Select.",
   "category": "form",
-  "tags": ["form", "selection", "composite"],
+  "tags": [
+    "form",
+    "selection",
+    "composite"
+  ],
   "dependencies": {
     "shared": [],
+    "components": [
+      "select"
+    ],
     "pubspec": {}
-  }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "multiselect.dart",
+    "multiselect.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`MultiSelect<T>`",
+      "`MultiSelectChip`",
+      "`MultiSelectController<T>`",
+      "`SelectPopup`",
+      "`SelectItemList`",
+      "`SelectItemButton`"
+    ]
+  },
+  "version": "1.0.0"
 }

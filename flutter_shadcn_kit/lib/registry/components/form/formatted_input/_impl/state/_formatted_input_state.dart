@@ -22,8 +22,10 @@ class _FormattedInputState extends State<FormattedInput> {
     _focusNodes = _allocateFocusNodes(partIndex);
   }
 
-  List<FocusNode> _allocateFocusNodes(int newLength,
-      [List<FocusNode>? oldNodes]) {
+  List<FocusNode> _allocateFocusNodes(
+    int newLength, [
+    List<FocusNode>? oldNodes,
+  ]) {
     if (oldNodes == null) {
       return List.generate(newLength, (index) => FocusNode());
     }
@@ -131,9 +133,10 @@ class _FormattedInputState extends State<FormattedInput> {
               borderRadius: theme.borderRadiusMd,
               borderColor: theme.colorScheme.border,
               backgroundColor: theme.colorScheme.input.scaleAlpha(0.3),
-              padding: compTheme?.padding ??
+              padding:
+                  compTheme?.padding ??
                   EdgeInsets.symmetric(
-                    horizontal: 6 * theme.scaling,
+                    horizontal: theme.density.baseGap * theme.scaling * 0.75,
                   ),
               child: Form(
                 controller: _controller,

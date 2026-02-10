@@ -3,9 +3,47 @@
   "name": "Dot Indicator",
   "description": "Animated dot indicator for carousels/steppers with optional tap behavior.",
   "category": "display",
-  "tags": ["display", "navigation", "indicator"],
+  "tags": [
+    "display",
+    "navigation",
+    "indicator"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value", "constants", "clickable"],
-    "components": []
-  }
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "clickable"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_dot_indicator_preview_state.dart",
+    "_impl/core/active_dot_item.dart",
+    "_impl/core/dot_items.dart",
+    "_impl/core/inactive_dot_item.dart",
+    "_impl/themes/dot_indicator_theme.dart",
+    "dot_indicator.dart",
+    "dot_indicator.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`DotIndicator`",
+      "`index` (`int`, required)",
+      "`length` (`int`, required)",
+      "`onChanged` (`ValueChanged<int>?`)",
+      "`direction` (`Axis`)",
+      "`spacing` (`double?`)",
+      "`padding` (`EdgeInsetsGeometry?`)",
+      "`dotBuilder` (`DotBuilder?`)"
+    ],
+    "callbacks": [
+      "`onChanged`"
+    ]
+  },
+  "version": "1.0.0"
 }

@@ -26,8 +26,10 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
     final componentTheme = ComponentTheme.maybeOf<RadioCardTheme>(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
     final group = Data.maybeOf<RadioGroupState<T>>(context);
-    assert(groupData != null,
-        'RadioCard<$T> must be a descendant of RadioGroup<$T>');
+    assert(
+      groupData != null,
+      'RadioCard<$T> must be a descendant of RadioGroup<$T>',
+    );
     return GestureDetector(
       onTap: widget.enabled && groupData?.enabled == true
           ? () {
@@ -57,10 +59,12 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
         mouseCursor: widget.enabled && groupData?.enabled == true
             ? styleValue(
                 defaultValue: SystemMouseCursors.click,
-                themeValue: componentTheme?.enabledCursor)
+                themeValue: componentTheme?.enabledCursor,
+              )
             : styleValue(
                 defaultValue: SystemMouseCursors.forbidden,
-                themeValue: componentTheme?.disabledCursor),
+                themeValue: componentTheme?.disabledCursor,
+              ),
         onShowFocusHighlight: (value) {
           if (value && widget.enabled && groupData?.enabled == true) {
             group?._setSelected(widget.value);
@@ -100,8 +104,9 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
                       themeValue: componentTheme?.borderWidth,
                     ),
               borderRadius: styleValue(
-                  defaultValue: theme.borderRadiusMd,
-                  themeValue: componentTheme?.borderRadius),
+                defaultValue: theme.borderRadiusMd,
+                themeValue: componentTheme?.borderRadius,
+              ),
               padding: EdgeInsets.zero,
               clipBehavior: Clip.antiAlias,
               duration: kDefaultDuration,
@@ -116,7 +121,9 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
                     ),
               child: Container(
                 padding: styleValue(
-                  defaultValue: EdgeInsets.all(16 * theme.scaling),
+                  defaultValue: EdgeInsets.all(
+                    theme.density.baseContentPadding * theme.scaling,
+                  ),
                   themeValue: componentTheme?.padding,
                 ),
                 child: AnimatedPadding(
@@ -131,7 +138,8 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
                       // to compensate for the border width
                       : styleValue(
                           defaultValue: EdgeInsets.all(1 * theme.scaling),
-                          themeValue: componentTheme?.borderWidth != null &&
+                          themeValue:
+                              componentTheme?.borderWidth != null &&
                                   componentTheme?.selectedBorderWidth != null
                               ? EdgeInsets.all(
                                   componentTheme!.borderWidth! -

@@ -68,21 +68,22 @@ class LinearColorGradient extends ColorGradient {
 
   @override
   LinearColorGradient changeColorAndPositionAt(
-      int index, ColorDerivative color, double position) {
+    int index,
+    ColorDerivative color,
+    double position,
+  ) {
     List<ColorStop> newColors = List.from(colors);
-    newColors[index] = ColorStop(
-      color: color,
-      position: position,
-    );
+    newColors[index] = ColorStop(color: color, position: position);
     return copyWith(colors: newColors);
   }
 
   @override
   ({LinearColorGradient gradient, int index}) insertColorAt(
-      ColorDerivative color,
-      Offset position,
-      Size size,
-      TextDirection textDirection) {
+    ColorDerivative color,
+    Offset position,
+    Size size,
+    TextDirection textDirection,
+  ) {
     Alignment alignBegin = angle.begin.resolve(textDirection);
     Alignment alignEnd = angle.end.resolve(textDirection);
     final dx = alignEnd.x - alignBegin.x;
@@ -100,14 +101,8 @@ class LinearColorGradient extends ColorGradient {
         insertIndex = i + 1;
       }
     }
-    newColors.insert(
-      insertIndex,
-      ColorStop(color: color, position: pos),
-    );
-    return (
-      gradient: copyWith(colors: newColors),
-      index: insertIndex,
-    );
+    newColors.insert(insertIndex, ColorStop(color: color, position: pos));
+    return (gradient: copyWith(colors: newColors), index: insertIndex);
   }
 
   @override

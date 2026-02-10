@@ -42,7 +42,9 @@ class AppErrorBanner extends StatelessWidget {
             builder: (context, error, _) {
               if (error == null) return const SizedBox.shrink();
               return Padding(
-                padding: EdgeInsets.only(bottom: 8 * scaling),
+                padding: EdgeInsets.only(
+                  bottom: theme.density.baseGap * scaling,
+                ),
                 child: _buildBanner(
                   context,
                   error,
@@ -84,7 +86,10 @@ class AppErrorBanner extends StatelessWidget {
 
     final padding =
         compTheme?.bannerPadding ??
-        EdgeInsets.symmetric(horizontal: 16 * scaling, vertical: 12 * scaling);
+        EdgeInsets.symmetric(
+          horizontal: theme.density.baseContentPadding * scaling,
+          vertical: theme.density.baseGap * scaling * 1.5,
+        );
 
     final action = error.actions.isNotEmpty ? error.actions.first : null;
     final Widget? actionButton = action == null
@@ -116,7 +121,7 @@ class AppErrorBanner extends StatelessWidget {
             size: 18 * scaling,
             color: borderColor,
           ),
-          Gap(12 * scaling),
+          DensityGap(gapMd),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +131,7 @@ class AppErrorBanner extends StatelessWidget {
                   style: titleStyle,
                   child: Text(error.title),
                 ),
-                Gap(4 * scaling),
+                DensityGap(gapXs),
                 DefaultTextStyle.merge(
                   style: messageStyle,
                   child: Text(error.message),
@@ -134,8 +139,8 @@ class AppErrorBanner extends StatelessWidget {
               ],
             ),
           ),
-          if (actionButton != null) ...[Gap(12 * scaling), actionButton],
-          Gap(8 * scaling),
+          if (actionButton != null) ...[DensityGap(gapMd), actionButton],
+          DensityGap(gapSm),
           GhostButton(
             onPressed: onDismiss,
             size: ButtonSize.small,

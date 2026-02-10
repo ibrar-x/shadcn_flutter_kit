@@ -77,131 +77,140 @@ class _MenuGroupState extends State<MenuGroup> {
       if (child.hasLeading) {
         hasLeading = true;
       }
-      children.add(
-        Data<MenuData>.inherit(
-          data: data,
-          child: child,
-        ),
-      );
+      children.add(Data<MenuData>.inherit(data: data, child: child));
     }
     final direction = Directionality.of(context);
     return SubFocusScope(
-        autofocus: widget.autofocus,
-        builder: (context, scope) {
-          return Actions(
-            actions: {
-              NextMenuFocusIntent: CallbackAction<NextMenuFocusIntent>(
-                onInvoke: (intent) {
-                  scope.nextFocus(intent.forward
+      autofocus: widget.autofocus,
+      builder: (context, scope) {
+        return Actions(
+          actions: {
+            NextMenuFocusIntent: CallbackAction<NextMenuFocusIntent>(
+              onInvoke: (intent) {
+                scope.nextFocus(
+                  intent.forward
                       ? widget.direction == Axis.horizontal
-                          ? TraversalDirection.left
-                          : TraversalDirection.up
+                            ? TraversalDirection.left
+                            : TraversalDirection.up
                       : widget.direction == Axis.horizontal
-                          ? TraversalDirection.right
-                          : TraversalDirection.down);
-                  return;
-                },
-              ),
-              DirectionalMenuFocusIntent:
-                  CallbackAction<DirectionalMenuFocusIntent>(
-                onInvoke: (intent) {
-                  if (widget.direction == Axis.vertical) {
-                    if (intent.direction == TraversalDirection.left) {
-                      if (direction == TextDirection.ltr) {
-                        for (final menu in parentGroupData?.children ?? []) {
-                          menu.popoverController.close();
-                        }
-                        return;
-                      } else {}
-                    } else if (intent.direction == TraversalDirection.right) {
-                      if (direction == TextDirection.ltr) {
-                        bool? result = scope.invokeActionOnFocused(
-                            const OpenSubMenuIntent()) as bool?;
-                        if (result != true) {
-                          parentGroupData?.root.focusScope
-                              .nextFocus(TraversalDirection.right);
-                        }
-                        return;
-                      } else {}
-                    }
-                  }
-                  if (!scope.nextFocus(intent.direction)) {
-                    for (final menu in parentGroupData?.children ?? []) {
-                      menu.popoverController.close();
-                    }
-                    parentGroupData?.focusScope.nextFocus(
-                      intent.direction,
-                    );
-                  }
-                  return;
-                },
-              ),
-              CloseMenuIntent: CallbackAction<CloseMenuIntent>(
-                onInvoke: (intent) {
-                  closeAll();
-                  return;
-                },
-              ),
-              ActivateIntent: CallbackAction<ActivateIntent>(
-                onInvoke: (intent) {
-                  scope.invokeActionOnFocused(const ActivateIntent());
-                  return;
-                },
-              ),
-              ...widget.actions,
-            },
-            child: Shortcuts(
-              shortcuts: {
-                const SingleActivator(LogicalKeyboardKey.arrowUp):
-                    const DirectionalMenuFocusIntent(TraversalDirection.up),
-                const SingleActivator(LogicalKeyboardKey.arrowDown):
-                    const DirectionalMenuFocusIntent(TraversalDirection.down),
-                const SingleActivator(LogicalKeyboardKey.arrowLeft):
-                    const DirectionalMenuFocusIntent(TraversalDirection.left),
-                const SingleActivator(LogicalKeyboardKey.arrowRight):
-                    const DirectionalMenuFocusIntent(TraversalDirection.right),
-                const SingleActivator(LogicalKeyboardKey.tab):
-                    DirectionalMenuFocusIntent(widget.direction == Axis.vertical
-                        ? TraversalDirection.down
-                        : TraversalDirection.right),
-                const SingleActivator(LogicalKeyboardKey.tab, shift: true):
-                    DirectionalMenuFocusIntent(widget.direction == Axis.vertical
-                        ? TraversalDirection.up
-                        : TraversalDirection.left),
-                const SingleActivator(LogicalKeyboardKey.escape):
-                    const CloseMenuIntent(),
-                const SingleActivator(LogicalKeyboardKey.enter):
-                    const ActivateIntent(),
-                const SingleActivator(LogicalKeyboardKey.space):
-                    const ActivateIntent(),
-                const SingleActivator(LogicalKeyboardKey.backspace):
-                    const CloseMenuIntent(),
-                const SingleActivator(LogicalKeyboardKey.numpadEnter):
-                    const ActivateIntent(),
+                      ? TraversalDirection.right
+                      : TraversalDirection.down,
+                );
+                return;
               },
-              child: Focus(
-                autofocus: menubarData == null,
-                focusNode: widget.focusNode,
-                child: Data.inherit(
-                  data: MenuGroupData(
-                    widget.parent,
-                    _data,
-                    hasLeading,
-                    subMenuOffset,
-                    widget.onDismissed,
-                    widget.regionGroupId,
-                    widget.direction,
-                    itemPadding,
-                    scope,
-                  ),
-                  child: Builder(builder: (context) {
+            ),
+            DirectionalMenuFocusIntent:
+                CallbackAction<DirectionalMenuFocusIntent>(
+                  onInvoke: (intent) {
+                    if (widget.direction == Axis.vertical) {
+                      if (intent.direction == TraversalDirection.left) {
+                        if (direction == TextDirection.ltr) {
+                          for (final menu in parentGroupData?.children ?? []) {
+                            menu.popoverController.close();
+                          }
+                          return;
+                        } else {}
+                      } else if (intent.direction == TraversalDirection.right) {
+                        if (direction == TextDirection.ltr) {
+                          bool? result =
+                              scope.invokeActionOnFocused(
+                                    const OpenSubMenuIntent(),
+                                  )
+                                  as bool?;
+                          if (result != true) {
+                            parentGroupData?.root.focusScope.nextFocus(
+                              TraversalDirection.right,
+                            );
+                          }
+                          return;
+                        } else {}
+                      }
+                    }
+                    if (!scope.nextFocus(intent.direction)) {
+                      for (final menu in parentGroupData?.children ?? []) {
+                        menu.popoverController.close();
+                      }
+                      parentGroupData?.focusScope.nextFocus(intent.direction);
+                    }
+                    return;
+                  },
+                ),
+            CloseMenuIntent: CallbackAction<CloseMenuIntent>(
+              onInvoke: (intent) {
+                closeAll();
+                return;
+              },
+            ),
+            ActivateIntent: CallbackAction<ActivateIntent>(
+              onInvoke: (intent) {
+                scope.invokeActionOnFocused(const ActivateIntent());
+                return;
+              },
+            ),
+            ...widget.actions,
+          },
+          child: Shortcuts(
+            shortcuts: {
+              const SingleActivator(LogicalKeyboardKey.arrowUp):
+                  const DirectionalMenuFocusIntent(TraversalDirection.up),
+              const SingleActivator(LogicalKeyboardKey.arrowDown):
+                  const DirectionalMenuFocusIntent(TraversalDirection.down),
+              const SingleActivator(LogicalKeyboardKey.arrowLeft):
+                  const DirectionalMenuFocusIntent(TraversalDirection.left),
+              const SingleActivator(LogicalKeyboardKey.arrowRight):
+                  const DirectionalMenuFocusIntent(TraversalDirection.right),
+              const SingleActivator(
+                LogicalKeyboardKey.tab,
+              ): DirectionalMenuFocusIntent(
+                widget.direction == Axis.vertical
+                    ? TraversalDirection.down
+                    : TraversalDirection.right,
+              ),
+              const SingleActivator(
+                LogicalKeyboardKey.tab,
+                shift: true,
+              ): DirectionalMenuFocusIntent(
+                widget.direction == Axis.vertical
+                    ? TraversalDirection.up
+                    : TraversalDirection.left,
+              ),
+              const SingleActivator(LogicalKeyboardKey.escape):
+                  const CloseMenuIntent(),
+              const SingleActivator(LogicalKeyboardKey.enter):
+                  const ActivateIntent(),
+              const SingleActivator(LogicalKeyboardKey.space):
+                  const ActivateIntent(),
+              const SingleActivator(LogicalKeyboardKey.backspace):
+                  const CloseMenuIntent(),
+              const SingleActivator(LogicalKeyboardKey.numpadEnter):
+                  const ActivateIntent(),
+            },
+            child: Focus(
+              autofocus: menubarData == null,
+              focusNode: widget.focusNode,
+              child: Data.inherit(
+                data: MenuGroupData(
+                  widget.parent,
+                  _data,
+                  hasLeading,
+                  subMenuOffset,
+                  widget.onDismissed,
+                  widget.regionGroupId,
+                  widget.direction,
+                  itemPadding,
+                  scope,
+                ),
+                child: Builder(
+                  builder: (context) {
                     return widget.builder(context, children);
-                  }),
+                  },
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 

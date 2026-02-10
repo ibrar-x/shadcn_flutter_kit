@@ -51,6 +51,9 @@ class DatePickerTheme extends ComponentThemeData {
   /// All parameters are optional and fall back to framework defaults when null.
   /// The theme can be applied globally or to specific date picker instances.
   const DatePickerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.mode,
     this.initialView,
     this.initialViewType,
@@ -71,15 +74,18 @@ class DatePickerTheme extends ComponentThemeData {
     return DatePickerTheme(
       mode: mode == null ? this.mode : mode(),
       initialView: initialView == null ? this.initialView : initialView(),
-      initialViewType:
-          initialViewType == null ? this.initialViewType : initialViewType(),
-      popoverAlignment:
-          popoverAlignment == null ? this.popoverAlignment : popoverAlignment(),
+      initialViewType: initialViewType == null
+          ? this.initialViewType
+          : initialViewType(),
+      popoverAlignment: popoverAlignment == null
+          ? this.popoverAlignment
+          : popoverAlignment(),
       popoverAnchorAlignment: popoverAnchorAlignment == null
           ? this.popoverAnchorAlignment
           : popoverAnchorAlignment(),
-      popoverPadding:
-          popoverPadding == null ? this.popoverPadding : popoverPadding(),
+      popoverPadding: popoverPadding == null
+          ? this.popoverPadding
+          : popoverPadding(),
     );
   }
 
@@ -96,11 +102,11 @@ class DatePickerTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        mode,
-        initialView,
-        initialViewType,
-        popoverAlignment,
-        popoverAnchorAlignment,
-        popoverPadding,
-      );
+    mode,
+    initialView,
+    initialViewType,
+    popoverAlignment,
+    popoverAnchorAlignment,
+    popoverPadding,
+  );
 }

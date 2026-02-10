@@ -34,8 +34,7 @@ class _InputOtpPreviewState extends State<InputOtpPreview> {
             ),
             const SizedBox(height: 16),
             Text('Current: $value'),
-            if (submittedValue != null)
-              Text('Submitted: $submittedValue'),
+            if (submittedValue != null) Text('Submitted: $submittedValue'),
           ],
         ),
       ),

@@ -33,7 +33,6 @@ part '_impl/core/tree_root.dart';
 part '_impl/core/tree_selection_default_handler.dart';
 part '_impl/core/tree_view.dart';
 
-
 /// Theme configuration for [TreeView] appearance and behavior.
 ///
 /// TreeTheme defines the visual styling and behavioral options for tree view
@@ -105,6 +104,9 @@ class TreeTheme extends ComponentThemeData {
   /// )
   /// ```
   const TreeTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.branchLine,
     this.padding,
     this.expandIcon,
@@ -133,8 +135,9 @@ class TreeTheme extends ComponentThemeData {
       branchLine: branchLine == null ? this.branchLine : branchLine(),
       padding: padding == null ? this.padding : padding(),
       expandIcon: expandIcon == null ? this.expandIcon : expandIcon(),
-      allowMultiSelect:
-          allowMultiSelect == null ? this.allowMultiSelect : allowMultiSelect(),
+      allowMultiSelect: allowMultiSelect == null
+          ? this.allowMultiSelect
+          : allowMultiSelect(),
       recursiveSelection: recursiveSelection == null
           ? this.recursiveSelection
           : recursiveSelection(),
@@ -152,25 +155,22 @@ class TreeTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      branchLine, padding, expandIcon, allowMultiSelect, recursiveSelection);
+    branchLine,
+    padding,
+    expandIcon,
+    allowMultiSelect,
+    recursiveSelection,
+  );
 
   @override
   String toString() =>
       'TreeTheme(branchLine: $branchLine, padding: $padding, expandIcon: $expandIcon, allowMultiSelect: $allowMultiSelect, recursiveSelection: $recursiveSelection)';
 }
 
-
-
-
-
-
-
-
-
-
-
 BorderRadius _borderRadiusFromPosition(
-    SelectionPosition? position, double value) {
+  SelectionPosition? position,
+  double value,
+) {
   if (position == SelectionPosition.start) {
     return BorderRadius.vertical(top: Radius.circular(value));
   } else if (position == SelectionPosition.end) {
@@ -180,10 +180,6 @@ BorderRadius _borderRadiusFromPosition(
   }
   return BorderRadius.zero;
 }
-
-
-
-
 
 /// Function that transforms a tree node, optionally returning a new node.
 ///
@@ -195,8 +191,8 @@ typedef TreeNodeUnaryOperator<K> = TreeNode<K>? Function(TreeNode<K> node);
 ///
 /// Similar to [TreeNodeUnaryOperator] but provides access to the parent node.
 /// Useful for operations that need parent-child relationship information.
-typedef TreeNodeUnaryOperatorWithParent<K> = TreeNode<K>? Function(
-    TreeNode<K>? parent, TreeNode<K> node);
+typedef TreeNodeUnaryOperatorWithParent<K> =
+    TreeNode<K>? Function(TreeNode<K>? parent, TreeNode<K> node);
 
 /// Extension methods for manipulating lists of tree nodes.
 ///
@@ -472,7 +468,8 @@ extension TreeNodeListExtension<K> on List<TreeNode<K>> {
   ///
   /// Returns: `List<TreeNode<K>>` — new tree with transformed nodes.
   List<TreeNode<K>> replaceNodesWithParent(
-      TreeNodeUnaryOperatorWithParent<K> operator) {
+    TreeNodeUnaryOperatorWithParent<K> operator,
+  ) {
     return TreeView.replaceNodesWithParent(this, operator);
   }
 
@@ -492,16 +489,18 @@ extension TreeNodeListExtension<K> on List<TreeNode<K>> {
 /// - [selectedNodes]: The nodes affected by the selection change
 /// - [multiSelect]: Whether the operation allows multiple selection
 /// - [selected]: Whether the nodes are being selected (true) or deselected (false)
-typedef TreeNodeSelectionChanged<T> = void Function(
-    List<TreeNode<T>> selectedNodes, bool multiSelect, bool selected);
+typedef TreeNodeSelectionChanged<T> =
+    void Function(
+      List<TreeNode<T>> selectedNodes,
+      bool multiSelect,
+      bool selected,
+    );
 
-
-
-
-
-
-
-typedef _TreeWalker<T> = void Function(
-    bool parentExpanded, TreeNode<T> node, List<TreeNodeDepth> depth);
+typedef _TreeWalker<T> =
+    void Function(
+      bool parentExpanded,
+      TreeNode<T> node,
+      List<TreeNodeDepth> depth,
+    );
 
 typedef _NodeWalker<T> = void Function(TreeNode<T> node);

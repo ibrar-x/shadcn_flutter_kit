@@ -80,17 +80,17 @@ class Window {
     this.actions = const WindowActions(),
     this.content,
     required this.controller,
-  })  : bounds = null,
-        maximized = null,
-        minimized = null,
-        alwaysOnTop = null,
-        resizable = null,
-        draggable = null,
-        maximizable = null,
-        minimizable = null,
-        enableSnapping = null,
-        closable = null,
-        constraints = null;
+  }) : bounds = null,
+       maximized = null,
+       minimized = null,
+       alwaysOnTop = null,
+       resizable = null,
+       draggable = null,
+       maximizable = null,
+       minimizable = null,
+       enableSnapping = null,
+       closable = null,
+       constraints = null;
 
   /// Creates a window with explicit state and configuration.
   ///
@@ -164,48 +164,50 @@ class Window {
   /// Returns true if window is mounted, false otherwise.
   bool get mounted => _key.currentContext != null;
 
-  Widget _build(
-      {required bool focused,
-      required WindowNavigatorHandle navigator,
-      required bool alwaysOnTop,
-      required Size size,
-      required bool minifyDragging,
-      bool ignorePointer = false}) {
+  Widget _build({
+    required bool focused,
+    required WindowNavigatorHandle navigator,
+    required bool alwaysOnTop,
+    required Size size,
+    required bool minifyDragging,
+    bool ignorePointer = false,
+  }) {
     return ListenableBuilder(
-        listenable: closed,
-        child: Data.inherit(
-          data: this,
-          child: WindowWidget._raw(
-            key: _key,
-            title: title,
-            actions: actions,
-            content: content,
-            resizable: resizable,
-            draggable: draggable,
-            closable: closable,
-            maximizable: maximizable,
-            minimizable: minimizable,
-            enableSnapping: enableSnapping,
-            controller: controller,
-            bounds: bounds,
-            maximized: maximized,
-            minimized: minimized,
-            constraints: constraints,
-          ),
+      listenable: closed,
+      child: Data.inherit(
+        data: this,
+        child: WindowWidget._raw(
+          key: _key,
+          title: title,
+          actions: actions,
+          content: content,
+          resizable: resizable,
+          draggable: draggable,
+          closable: closable,
+          maximizable: maximizable,
+          minimizable: minimizable,
+          enableSnapping: enableSnapping,
+          controller: controller,
+          bounds: bounds,
+          maximized: maximized,
+          minimized: minimized,
+          constraints: constraints,
         ),
-        builder: (context, child) {
-          return Data.inherit(
-            data: WindowViewport(
-              ignorePointer: ignorePointer,
-              size: size,
-              navigator: navigator,
-              focused: focused,
-              alwaysOnTop: alwaysOnTop,
-              closed: closed.value,
-              minify: minifyDragging,
-            ),
-            child: child,
-          );
-        });
+      ),
+      builder: (context, child) {
+        return Data.inherit(
+          data: WindowViewport(
+            ignorePointer: ignorePointer,
+            size: size,
+            navigator: navigator,
+            focused: focused,
+            alwaysOnTop: alwaysOnTop,
+            closed: closed.value,
+            minify: minifyDragging,
+          ),
+          child: child,
+        );
+      },
+    );
   }
 }

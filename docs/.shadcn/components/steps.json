@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "steps",
+  "name": "Steps",
+  "version": "1.0.0",
+  "tags": [
+    "steps",
+    "progress",
+    "layout"
+  ],
+  "installedAt": "2026-02-09T10:18:03.212520Z",
+  "shared": [
+    "theme",
+    "util"
+  ],
+  "dependsOn": [
+    "text"
+  ],
+  "files": [
+    "registry/components/layout/steps/README.md",
+    "registry/components/layout/steps/_impl/core/step_item.dart",
+    "registry/components/layout/steps/_impl/core/steps_2.dart",
+    "registry/components/layout/steps/meta.json",
+    "registry/components/layout/steps/preview.dart",
+    "registry/components/layout/steps/steps.dart",
+    "registry/components/layout/steps/steps.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

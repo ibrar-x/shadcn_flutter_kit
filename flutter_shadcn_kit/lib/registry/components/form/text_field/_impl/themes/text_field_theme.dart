@@ -38,6 +38,9 @@ class TextFieldTheme extends ComponentThemeData {
   /// - [filled] (`bool?`, optional): Whether background is filled.
   /// - [padding] (`EdgeInsetsGeometry?`, optional): Internal padding.
   const TextFieldTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.border,
     this.borderRadius,
     this.filled,

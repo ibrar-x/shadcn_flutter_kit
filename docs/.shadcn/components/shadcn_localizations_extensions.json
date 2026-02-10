@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "shadcn_localizations_extensions",
+  "name": "Shadcn Localizations Extensions",
+  "version": "1.0.0",
+  "tags": [
+    "localization",
+    "formatting",
+    "i18n"
+  ],
+  "installedAt": "2026-02-09T10:18:03.240376Z",
+  "shared": [
+    "util"
+  ],
+  "dependsOn": [
+    "color_picker",
+    "locale_utils",
+    "shadcn_localizations"
+  ],
+  "files": [
+    "registry/components/utility/shadcn_localizations_extensions/README.md",
+    "registry/components/utility/shadcn_localizations_extensions/meta.json",
+    "registry/components/utility/shadcn_localizations_extensions/preview.dart",
+    "registry/components/utility/shadcn_localizations_extensions/shadcn_localizations_extensions.dart",
+    "registry/components/utility/shadcn_localizations_extensions/shadcn_localizations_extensions.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

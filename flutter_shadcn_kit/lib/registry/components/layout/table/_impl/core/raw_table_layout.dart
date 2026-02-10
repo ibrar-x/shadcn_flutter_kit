@@ -53,19 +53,22 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
   @override
   RenderTableLayout createRenderObject(BuildContext context) {
     return RenderTableLayout(
-        width: width,
-        height: height,
-        clipBehavior: clipBehavior,
-        frozenCell: frozenColumn,
-        frozenRow: frozenRow,
-        verticalOffset: verticalOffset,
-        horizontalOffset: horizontalOffset,
-        viewportSize: viewportSize);
+      width: width,
+      height: height,
+      clipBehavior: clipBehavior,
+      frozenCell: frozenColumn,
+      frozenRow: frozenRow,
+      verticalOffset: verticalOffset,
+      horizontalOffset: horizontalOffset,
+      viewportSize: viewportSize,
+    );
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderTableLayout renderObject) {
+    BuildContext context,
+    RenderTableLayout renderObject,
+  ) {
     bool needsRelayout = false;
     if (renderObject._width != width) {
       renderObject._width = width;

@@ -33,24 +33,24 @@ class RenderTableLayout extends RenderBox
   /// - [viewportSize] (Size?): Size of the visible viewport area
   ///
   /// Frozen cells remain visible during scrolling, useful for sticky headers.
-  RenderTableLayout(
-      {List<RenderBox>? children,
-      required TableSizeSupplier width,
-      required TableSizeSupplier height,
-      required Clip clipBehavior,
-      CellPredicate? frozenCell,
-      CellPredicate? frozenRow,
-      double? verticalOffset,
-      double? horizontalOffset,
-      Size? viewportSize})
-      : _clipBehavior = clipBehavior,
-        _width = width,
-        _height = height,
-        _frozenColumn = frozenCell,
-        _frozenRow = frozenRow,
-        _verticalOffset = verticalOffset,
-        _horizontalOffset = horizontalOffset,
-        _viewportSize = viewportSize {
+  RenderTableLayout({
+    List<RenderBox>? children,
+    required TableSizeSupplier width,
+    required TableSizeSupplier height,
+    required Clip clipBehavior,
+    CellPredicate? frozenCell,
+    CellPredicate? frozenRow,
+    double? verticalOffset,
+    double? horizontalOffset,
+    Size? viewportSize,
+  }) : _clipBehavior = clipBehavior,
+       _width = width,
+       _height = height,
+       _frozenColumn = frozenCell,
+       _frozenRow = frozenRow,
+       _verticalOffset = verticalOffset,
+       _horizontalOffset = horizontalOffset,
+       _viewportSize = viewportSize {
     addAll(children);
   }
 
@@ -85,10 +85,12 @@ class RenderTableLayout extends RenderBox
 
   @override
   double computeMinIntrinsicWidth(double height) {
-    return computeTableSize(BoxConstraints.loose(Size(double.infinity, height)),
-        (child, extent) {
-      return child.getMinIntrinsicWidth(extent);
-    }).width;
+    return computeTableSize(
+      BoxConstraints.loose(Size(double.infinity, height)),
+      (child, extent) {
+        return child.getMinIntrinsicWidth(extent);
+      },
+    ).width;
   }
 
   @override
@@ -102,24 +104,21 @@ class RenderTableLayout extends RenderBox
     // important for column and row spans
     // (ASSUMPTION: children are already sorted in the correct order)
     if (_clipBehavior != Clip.none) {
-      context.pushClipRect(
-        needsCompositing,
+      context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
+        context,
         offset,
-        Offset.zero & size,
-        (context, offset) {
-          RenderBox? child = lastChild;
-          while (child != null) {
-            final parentData = child.parentData as TableParentData;
-            if (parentData.computeSize &&
-                !parentData.frozenRow &&
-                !parentData.frozenColumn) {
-              context.paintChild(child, offset + parentData.offset);
-            }
-            child = childBefore(child);
+      ) {
+        RenderBox? child = lastChild;
+        while (child != null) {
+          final parentData = child.parentData as TableParentData;
+          if (parentData.computeSize &&
+              !parentData.frozenRow &&
+              !parentData.frozenColumn) {
+            context.paintChild(child, offset + parentData.offset);
           }
-        },
-        clipBehavior: _clipBehavior,
-      );
+          child = childBefore(child);
+        }
+      }, clipBehavior: _clipBehavior);
       RenderBox? child = lastChild;
       while (child != null) {
         final parentData = child.parentData as TableParentData;
@@ -130,38 +129,32 @@ class RenderTableLayout extends RenderBox
         }
         child = childBefore(child);
       }
-      context.pushClipRect(
-        needsCompositing,
+      context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
+        context,
         offset,
-        Offset.zero & size,
-        (context, offset) {
-          RenderBox? child = lastChild;
-          while (child != null) {
-            final parentData = child.parentData as TableParentData;
-            if (parentData.frozenColumn) {
-              context.paintChild(child, offset + parentData.offset);
-            }
-            child = childBefore(child);
+      ) {
+        RenderBox? child = lastChild;
+        while (child != null) {
+          final parentData = child.parentData as TableParentData;
+          if (parentData.frozenColumn) {
+            context.paintChild(child, offset + parentData.offset);
           }
-        },
-        clipBehavior: _clipBehavior,
-      );
-      context.pushClipRect(
-        needsCompositing,
+          child = childBefore(child);
+        }
+      }, clipBehavior: _clipBehavior);
+      context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
+        context,
         offset,
-        Offset.zero & size,
-        (context, offset) {
-          RenderBox? child = lastChild;
-          while (child != null) {
-            final parentData = child.parentData as TableParentData;
-            if (parentData.frozenRow) {
-              context.paintChild(child, offset + parentData.offset);
-            }
-            child = childBefore(child);
+      ) {
+        RenderBox? child = lastChild;
+        while (child != null) {
+          final parentData = child.parentData as TableParentData;
+          if (parentData.frozenRow) {
+            context.paintChild(child, offset + parentData.offset);
           }
-        },
-        clipBehavior: _clipBehavior,
-      );
+          child = childBefore(child);
+        }
+      }, clipBehavior: _clipBehavior);
       child = lastChild;
       while (child != null) {
         final parentData = child.parentData as TableParentData;
@@ -208,7 +201,6 @@ class RenderTableLayout extends RenderBox
 
   @override
   void performLayout() {
-
     final result = computeTableSize(constraints);
     size = constraints.constrain(result.size);
 
@@ -221,10 +213,14 @@ class RenderTableLayout extends RenderBox
     if (_viewportSize != null) {
       double maxHorizontalScroll = max(0, size.width - _viewportSize!.width);
       double maxVerticalScroll = max(0, size.height - _viewportSize!.height);
-      effectiveHorizontalOffset =
-          effectiveHorizontalOffset.clamp(0, maxHorizontalScroll);
-      effectiveVerticalOffset =
-          effectiveVerticalOffset.clamp(0, maxVerticalScroll);
+      effectiveHorizontalOffset = effectiveHorizontalOffset.clamp(
+        0,
+        maxHorizontalScroll,
+      );
+      effectiveVerticalOffset = effectiveVerticalOffset.clamp(
+        0,
+        maxVerticalScroll,
+      );
     } else {
       effectiveHorizontalOffset = max(0, effectiveHorizontalOffset);
       effectiveVerticalOffset = max(0, effectiveVerticalOffset);
@@ -242,14 +238,18 @@ class RenderTableLayout extends RenderBox
         int rowSpan = parentData.rowSpan ?? 1;
         bool frozenRow = _frozenRow?.call(row, rowSpan) ?? false;
         bool frozenColumn = _frozenColumn?.call(column, columnSpan) ?? false;
-        for (int i = 0;
-            i < columnSpan && column + i < result.columnWidths.length;
-            i++) {
+        for (
+          int i = 0;
+          i < columnSpan && column + i < result.columnWidths.length;
+          i++
+        ) {
           width += result.columnWidths[column + i];
         }
-        for (int i = 0;
-            i < rowSpan && row + i < result.rowHeights.length;
-            i++) {
+        for (
+          int i = 0;
+          i < rowSpan && row + i < result.rowHeights.length;
+          i++
+        ) {
           height += result.rowHeights[row + i];
         }
         child.layout(BoxConstraints.tightFor(width: width, height: height));
@@ -338,8 +338,10 @@ class RenderTableLayout extends RenderBox
   /// - [intrinsicComputer] (IntrinsicComputer?): Optional function to compute intrinsic sizes
   ///
   /// Returns [TableLayoutResult] containing computed dimensions and layout metadata.
-  TableLayoutResult computeTableSize(BoxConstraints constraints,
-      [IntrinsicComputer? intrinsicComputer]) {
+  TableLayoutResult computeTableSize(
+    BoxConstraints constraints, [
+    IntrinsicComputer? intrinsicComputer,
+  ]) {
     double flexWidth = 0;
     double flexHeight = 0;
     double fixedWidth = 0;
@@ -409,7 +411,6 @@ class RenderTableLayout extends RenderBox
         fixedWidth += value;
         columnWidths[c] = max(columnWidths[c] ?? 0, value);
       }
-
     }
 
     double spacePerFlexWidth = 0;
@@ -448,8 +449,10 @@ class RenderTableLayout extends RenderBox
             // distribute the intrinsic width to all columns
             maxIntrinsicWidth = maxIntrinsicWidth / columnSpan;
             for (int i = 0; i < columnSpan; i++) {
-              columnWidths[column + i] =
-                  max(columnWidths[column + i] ?? 0, maxIntrinsicWidth);
+              columnWidths[column + i] = max(
+                columnWidths[column + i] ?? 0,
+                maxIntrinsicWidth,
+              );
             }
           }
           if (heightConstraint is IntrinsicTableSize ||
@@ -465,8 +468,10 @@ class RenderTableLayout extends RenderBox
 
             maxIntrinsicHeight = maxIntrinsicHeight / rowSpan;
             for (int i = 0; i < rowSpan; i++) {
-              rowHeights[row + i] =
-                  max(rowHeights[row + i] ?? 0, maxIntrinsicHeight);
+              rowHeights[row + i] = max(
+                rowHeights[row + i] ?? 0,
+                maxIntrinsicHeight,
+              );
             }
           }
         }
@@ -571,16 +576,19 @@ class RenderTableLayout extends RenderBox
               }
 
               if (availableWidth > 0) {
-                double maxIntrinsicHeight =
-                    child.getMaxIntrinsicHeight(availableWidth);
+                double maxIntrinsicHeight = child.getMaxIntrinsicHeight(
+                  availableWidth,
+                );
                 maxIntrinsicHeight = min(maxIntrinsicHeight, remainingHeight);
 
                 int rowSpan = parentData.rowSpan ?? 1;
 
                 maxIntrinsicHeight = maxIntrinsicHeight / rowSpan;
                 for (int i = 0; i < rowSpan; i++) {
-                  rowHeights[row + i] =
-                      max(rowHeights[row + i] ?? 0, maxIntrinsicHeight);
+                  rowHeights[row + i] = max(
+                    rowHeights[row + i] ?? 0,
+                    maxIntrinsicHeight,
+                  );
                 }
               }
             }
@@ -600,8 +608,8 @@ class RenderTableLayout extends RenderBox
     List<double> rowHeightsList =
         // List.filled(rowHeights.keys.reduce(max) + 1, 0);
         List.generate(maxRow + 1, (index) {
-      return rowHeights[index] ?? 0;
-    });
+          return rowHeights[index] ?? 0;
+        });
     rowHeights.forEach((key, value) {
       rowHeightsList[key] = value;
     });
@@ -618,28 +626,33 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-
   double computeMaxIntrinsicWidth(double height) {
-    return computeTableSize(BoxConstraints.loose(Size(double.infinity, height)),
-        (child, extent) {
-      return child.getMaxIntrinsicWidth(extent);
-    }).width;
+    return computeTableSize(
+      BoxConstraints.loose(Size(double.infinity, height)),
+      (child, extent) {
+        return child.getMaxIntrinsicWidth(extent);
+      },
+    ).width;
   }
 
   @override
   double computeMinIntrinsicHeight(double width) {
-    return computeTableSize(BoxConstraints.loose(Size(width, double.infinity)),
-        (child, extent) {
-      return child.getMinIntrinsicHeight(extent);
-    }).height;
+    return computeTableSize(
+      BoxConstraints.loose(Size(width, double.infinity)),
+      (child, extent) {
+        return child.getMinIntrinsicHeight(extent);
+      },
+    ).height;
   }
 
   @override
   double computeMaxIntrinsicHeight(double width) {
-    return computeTableSize(BoxConstraints.loose(Size(width, double.infinity)),
-        (child, extent) {
-      return child.getMaxIntrinsicHeight(extent);
-    }).height;
+    return computeTableSize(
+      BoxConstraints.loose(Size(width, double.infinity)),
+      (child, extent) {
+        return child.getMaxIntrinsicHeight(extent);
+      },
+    ).height;
   }
 
   // delegate from TableLayoutResult, with read-only view

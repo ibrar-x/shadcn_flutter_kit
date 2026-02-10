@@ -9,15 +9,14 @@ enum TimePart {
   minute(_getTimeMinute, _computeTimeMinuteValueRange),
 
   /// Second component.
-  second(_getTimeSecond, _computeTimeSecondValueRange),
-  ;
+  second(_getTimeSecond, _computeTimeSecondValueRange);
 
   /// Function that extracts the time component value from a TimeOfDay.
   final int Function(TimeOfDay time) getter;
 
   /// Function that computes the valid value range for this component.
   final (int? min, int? max) Function(Map<TimePart, int> values)
-      computeValueRange;
+  computeValueRange;
 
   const TimePart(this.getter, this.computeValueRange);
 }

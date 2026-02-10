@@ -3,9 +3,38 @@
   "name": "Sheet",
   "description": "Composite export for sheet workflows built on drawer + form.",
   "category": "overlay",
-  "tags": ["overlay", "form", "composite"],
+  "tags": [
+    "overlay",
+    "form",
+    "composite"
+  ],
   "dependencies": {
     "shared": [],
+    "components": [
+      "alert_dialog",
+      "button",
+      "drawer",
+      "form"
+    ],
     "pubspec": {}
-  }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "sheet.dart",
+    "sheet.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types_and_helpers": [
+      "`openSheet`",
+      "`closeSheet`",
+      "`OverlayPosition` (from `drawer`)",
+      "`AlertDialog`",
+      "`PrimaryButton`, `TextButton`",
+      "`Form`, `FormController`, `FormField<T>`, `FormTableLayout`, `FormErrorBuilder`"
+    ]
+  },
+  "version": "1.0.0"
 }

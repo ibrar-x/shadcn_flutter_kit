@@ -25,9 +25,9 @@ class DialogOverlayCompleter<T> extends OverlayCompleter<T> {
 
   @override
   Future<T> get future => route.popped.then((value) {
-        assert(value is T, 'Dialog route was closed without returning a value');
-        return value as T;
-      });
+    assert(value is T, 'Dialog route was closed without returning a value');
+    return value as T;
+  });
 
   @override
   bool get isAnimationCompleted => route.animation?.isCompleted ?? true;

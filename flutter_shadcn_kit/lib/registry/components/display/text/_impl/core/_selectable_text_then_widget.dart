@@ -4,10 +4,7 @@ class _SelectableTextThenWidget extends StatelessWidget {
   final SelectableText text;
   final List<InlineSpan> then;
 
-  const _SelectableTextThenWidget({
-    required this.text,
-    required this.then,
-  });
+  const _SelectableTextThenWidget({required this.text, required this.then});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +13,7 @@ class _SelectableTextThenWidget extends StatelessWidget {
     return SelectableText.rich(
       TextSpan(
         text: stringData,
-        children: [
-          if (textData != null) textData,
-          ...then,
-        ],
+        children: [if (textData != null) textData, ...then],
       ),
       style: text.style,
       useNativeContextMenu: text.useNativeContextMenu,

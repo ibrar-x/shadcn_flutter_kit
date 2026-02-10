@@ -247,7 +247,9 @@ class ButtonStyle implements AbstractButtonStyle {
   }
 
   Decoration _resolveCircleDecoration(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var decoration = variance.decoration(context, states);
     if (decoration is BoxDecoration) {
       return BoxDecoration(
@@ -289,10 +291,12 @@ class ButtonStyle implements AbstractButtonStyle {
   }
 
   EdgeInsetsGeometry _resolvePadding(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     return density.modifier(
-        variance.padding(context, states).optionallyResolve(context) *
-            size.scale);
+      variance.padding(context, states).optionallyResolve(context) * size.scale,
+    );
   }
 
   @override
@@ -309,9 +313,9 @@ class ButtonStyle implements AbstractButtonStyle {
       final textStyle = DefaultTextStyle.of(context).style;
       fontSize = textStyle.fontSize ?? 14;
     }
-    return variance.textStyle(context, states).copyWith(
-          fontSize: fontSize * size.scale,
-        );
+    return variance
+        .textStyle(context, states)
+        .copyWith(fontSize: fontSize * size.scale);
   }
 
   @override
@@ -323,12 +327,14 @@ class ButtonStyle implements AbstractButtonStyle {
   }
 
   IconThemeData _resolveIconTheme(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var iconSize = variance.iconTheme(context, states).size;
     iconSize ??= IconTheme.of(context).size ?? 24;
-    return variance.iconTheme(context, states).copyWith(
-          size: iconSize * size.scale,
-        );
+    return variance
+        .iconTheme(context, states)
+        .copyWith(size: iconSize * size.scale);
   }
 
   @override

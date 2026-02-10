@@ -41,6 +41,9 @@ class HoverTheme extends ComponentThemeData {
 
   /// Creates a [HoverTheme] with optional configuration values.
   const HoverTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.debounceDuration,
     this.hitTestBehavior,
     this.waitDuration,
@@ -59,10 +62,12 @@ class HoverTheme extends ComponentThemeData {
     ValueGetter<Duration?>? showDuration,
   }) {
     return HoverTheme(
-      debounceDuration:
-          debounceDuration == null ? this.debounceDuration : debounceDuration(),
-      hitTestBehavior:
-          hitTestBehavior == null ? this.hitTestBehavior : hitTestBehavior(),
+      debounceDuration: debounceDuration == null
+          ? this.debounceDuration
+          : debounceDuration(),
+      hitTestBehavior: hitTestBehavior == null
+          ? this.hitTestBehavior
+          : hitTestBehavior(),
       waitDuration: waitDuration == null ? this.waitDuration : waitDuration(),
       minDuration: minDuration == null ? this.minDuration : minDuration(),
       showDuration: showDuration == null ? this.showDuration : showDuration(),
@@ -81,10 +86,10 @@ class HoverTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        debounceDuration,
-        hitTestBehavior,
-        waitDuration,
-        minDuration,
-        showDuration,
-      );
+    debounceDuration,
+    hitTestBehavior,
+    waitDuration,
+    minDuration,
+    showDuration,
+  );
 }

@@ -6,12 +6,12 @@ import '../../../../../shared/utils/border_utils.dart';
 import 'command_widget.dart';
 
 /// Async builder that provides command palette rows.
-typedef CommandBuilder = Stream<List<Widget>> Function(
-    BuildContext context, String? query);
+typedef CommandBuilder =
+    Stream<List<Widget>> Function(BuildContext context, String? query);
 
 /// Builder for error states inside a command palette.
-typedef ErrorWidgetBuilder = Widget Function(
-    BuildContext context, Object error, StackTrace? stackTrace);
+typedef ErrorWidgetBuilder =
+    Widget Function(BuildContext context, Object error, StackTrace? stackTrace);
 
 /// Shows a modal dialog with a [Command] palette.
 Future<T?> showCommandDialog<T>({
@@ -34,12 +34,14 @@ Future<T?> showCommandDialog<T>({
       surfaceOpacity ??= theme.surfaceOpacity;
       surfaceBlur ??= theme.surfaceBlur;
       return ConstrainedBox(
-        constraints: constraints ??
+        constraints:
+            constraints ??
             const BoxConstraints.tightFor(width: 510, height: 349) * scaling,
         child: shadcn_dialog.ModalBackdrop(
           borderRadius: subtractByBorder(theme.borderRadiusXxl, 1 * scaling),
-          surfaceClip:
-              shadcn_dialog.ModalBackdrop.shouldClipSurface(surfaceOpacity),
+          surfaceClip: shadcn_dialog.ModalBackdrop.shouldClipSurface(
+            surfaceOpacity,
+          ),
           child: Command(
             autofocus: autofocus,
             builder: builder,

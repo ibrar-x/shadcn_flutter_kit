@@ -8,7 +8,6 @@ import '../../overlay/tooltip/tooltip.dart';
 part '_impl/utils/_simple_tracker_level.dart';
 part '_impl/utils/tracker_data.dart';
 
-
 part '_impl/utils/tracker_level.dart';
 part '_impl/themes/tracker_theme.dart';
 part '_impl/core/tracker_widget.dart';

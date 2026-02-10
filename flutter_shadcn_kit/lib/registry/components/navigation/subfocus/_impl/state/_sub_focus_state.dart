@@ -45,14 +45,12 @@ class _SubFocusState extends State<SubFocus> with SubFocusState {
   }
 
   @override
-  void ensureVisible(
-      {ScrollPositionAlignmentPolicy alignmentPolicy =
-          ScrollPositionAlignmentPolicy.explicit}) {
+  void ensureVisible({
+    ScrollPositionAlignmentPolicy alignmentPolicy =
+        ScrollPositionAlignmentPolicy.explicit,
+  }) {
     if (!mounted || !_active) return;
-    Scrollable.ensureVisible(
-      context,
-      alignmentPolicy: alignmentPolicy,
-    );
+    Scrollable.ensureVisible(context, alignmentPolicy: alignmentPolicy);
   }
 
   @override

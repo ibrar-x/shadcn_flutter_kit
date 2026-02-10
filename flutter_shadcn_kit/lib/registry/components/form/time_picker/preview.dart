@@ -6,7 +6,6 @@ import '../time_picker/time_picker.dart';
 
 part '_impl/state/_time_picker_preview_state.dart';
 
-
 class TimePickerPreview extends StatefulWidget {
   const TimePickerPreview({super.key});
 

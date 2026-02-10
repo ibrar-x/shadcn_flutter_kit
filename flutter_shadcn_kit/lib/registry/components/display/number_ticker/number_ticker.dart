@@ -7,8 +7,8 @@ import '../../../shared/utils/style_value.dart';
 part '_impl/themes/number_ticker_theme.dart';
 
 /// Builder signature for custom ticker content.
-typedef NumberTickerBuilder = Widget Function(
-    BuildContext context, double value, Widget? child);
+typedef NumberTickerBuilder =
+    Widget Function(BuildContext context, double value, Widget? child);
 
 /// Formatter signature for textual tickers.
 typedef NumberTickerFormatted = String Function(double value);
@@ -23,8 +23,8 @@ class NumberTicker extends StatelessWidget {
     this.child,
     this.duration,
     this.curve,
-  })  : formatter = null,
-        style = null;
+  }) : formatter = null,
+       style = null;
 
   const NumberTicker({
     super.key,
@@ -34,8 +34,8 @@ class NumberTicker extends StatelessWidget {
     this.duration,
     this.curve,
     this.style,
-  })  : builder = null,
-        child = null;
+  }) : builder = null,
+       child = null;
 
   final num? initialNumber;
   final num number;
@@ -72,10 +72,7 @@ class NumberTicker extends StatelessWidget {
         curve: resolvedCurve,
         initialValue: initial,
         builder: (context, value, child) {
-          return Text(
-            formatter!(value),
-            style: resolvedStyle,
-          );
+          return Text(formatter!(value), style: resolvedStyle);
         },
       );
     }

@@ -13,6 +13,9 @@ class FocusOutlineTheme extends ComponentThemeData {
 
   /// Creates a theme for [FocusOutline].
   const FocusOutlineTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.align,
     this.borderRadius,
     this.border,

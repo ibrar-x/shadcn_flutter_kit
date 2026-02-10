@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "toast",
+  "name": "Toast",
+  "version": "1.0.0",
+  "tags": [
+    "overlay",
+    "notification"
+  ],
+  "installedAt": "2026-02-09T10:18:03.233597Z",
+  "shared": [
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/overlay/toast/README.md",
+    "registry/components/overlay/toast/_impl/core/toast_entry.dart",
+    "registry/components/overlay/toast/_impl/state/_toast_entry_state.dart",
+    "registry/components/overlay/toast/_impl/state/_toast_preview_state.dart",
+    "registry/components/overlay/toast/_impl/themes/toast_theme.dart",
+    "registry/components/overlay/toast/_impl/utils/toast_controller.dart",
+    "registry/components/overlay/toast/meta.json",
+    "registry/components/overlay/toast/preview.dart",
+    "registry/components/overlay/toast/toast.dart",
+    "registry/components/overlay/toast/toast.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

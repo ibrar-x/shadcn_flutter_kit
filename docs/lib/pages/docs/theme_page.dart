@@ -1,19 +1,84 @@
-import 'package:flutter/material.dart';
+import 'package:docs/shadcn_ui.dart';
 
+import '../../theme/docs_theme.dart';
+import '../../theme/theme_controller.dart';
 import '../docs_page.dart';
 import 'blocks.dart';
-import '../../theme/theme_controller.dart';
-import '../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../ui/shadcn/components/display/badge/badge.dart';
-import '../../ui/shadcn/components/form/color_picker/color_picker.dart';
-import '../../ui/shadcn/components/layout/card/card.dart';
-import '../../ui/shadcn/shared/primitives/overlay.dart';
-import '../../ui/shadcn/components/utility/color/color.dart' as color_utils;
-import '../../ui/shadcn/shared/primitives/text.dart';
-import '../../ui/shadcn/shared/theme/color_scheme.dart' as shadcn_scheme;
-import '../../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
-import '../../ui/shadcn/shared/utils/color_extensions.dart';
+
+const Map<String, String> _themeModes = {
+  'Light': 'light',
+  'Dark': 'dark',
+};
+
+const List<String> _baseColors = [
+  'Slate',
+  'Zinc',
+  'Gray',
+  'Neutral',
+  'Stone',
+];
+
+const List<String> _accentColors = [
+  'Base',
+  'Slate',
+  'Gray',
+  'Zinc',
+  'Neutral',
+  'Stone',
+  'Red',
+  'Orange',
+  'Amber',
+  'Yellow',
+  'Lime',
+  'Green',
+  'Emerald',
+  'Teal',
+  'Cyan',
+  'Sky',
+  'Blue',
+  'Indigo',
+  'Violet',
+  'Purple',
+  'Fuchsia',
+  'Pink',
+  'Rose',
+];
+
+const Map<String, double> _radiusOptions = {
+  'Sharp': 0.0,
+  'Subtle': 0.25,
+  'Default': 0.5,
+  'Rounded': 0.75,
+  'Pill': 1.5,
+};
+
+const Map<String, double> _scalingOptions = {
+  'Compact': 0.85,
+  'Default': 1.0,
+  'Large': 1.15,
+};
+
+const List<String> _densityOptions = [
+  'Compact',
+  'Reduced',
+  'Default',
+  'Spacious',
+];
+
+const Map<String, double> _surfaceOpacityOptions = {
+  'Solid': 1.0,
+  'Frosted': 0.9,
+  'Translucent': 0.8,
+  'Ghosted': 0.7,
+  'Invisible': 0.0,
+};
+
+const Map<String, double> _surfaceBlurOptions = {
+  'None': 0.0,
+  'Soft': 4.0,
+  'Medium': 8.0,
+  'Strong': 12.0,
+};
 
 class ThemePage extends StatefulWidget {
   const ThemePage({super.key});
@@ -23,388 +88,604 @@ class ThemePage extends StatefulWidget {
 }
 
 class _ThemePageState extends State<ThemePage> {
-  final OnThisPage customKey = OnThisPage();
-  final OnThisPage presetKey = OnThisPage();
-  final OnThisPage radiusKey = OnThisPage();
-  final OnThisPage scalingKey = OnThisPage();
-  final OnThisPage opacityKey = OnThisPage();
-  final OnThisPage blurKey = OnThisPage();
-  final OnThisPage codeKey = OnThisPage();
+  String _baseColor = 'Slate';
+  String _accentColor = 'Base';
+  String _density = 'Default';
+
+  bool _previewSwitch = true;
+  CheckboxState _previewCheckbox = CheckboxState.checked;
+  SliderValue _priceRange = const SliderValue.ranged(320, 800);
 
   @override
   Widget build(BuildContext context) {
     final controller = context.docsThemeController;
     final data = controller.data;
-    final scheme = data.colorScheme;
 
     return DocsPage(
       name: 'theme',
-      onThisPage: {
-        'Custom color scheme': customKey,
-        'Preset themes': presetKey,
-        'Radius': radiusKey,
-        'Scaling': scalingKey,
-        'Surface opacity': opacityKey,
-        'Surface blur': blurKey,
-        'Install theme': codeKey,
-      },
+      onThisPage: const {},
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final showThreePreviewCols = constraints.maxWidth >= 1380;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text('Theme').h1(),
+              const SizedBox(height: 12),
+              const DocsParagraph(
+                text:
+                    'Tune visual tokens while previewing live UI blocks, matching the docs theme workflow.',
+              ),
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildKitchenPreview(
+                      context,
+                      threeColumns: showThreePreviewCols,
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  SizedBox(
+                    width: 300,
+                    child: _buildOptionsPanel(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 28),
+              const Text('Code').h2(),
+              const SizedBox(height: 8),
+              DocsCodeBlock(code: _buildCodeSnippet(controller, data)),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildKitchenPreview(BuildContext context,
+      {required bool threeColumns}) {
+    if (threeColumns) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: _buildPaymentCard(context)),
+          const SizedBox(width: 20),
+          Expanded(child: _buildMiddlePreview(context)),
+          const SizedBox(width: 20),
+          Expanded(child: _buildAppearancePanel(context)),
+        ],
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildPaymentCard(context),
+        const SizedBox(height: 20),
+        _buildMiddlePreview(context),
+        const SizedBox(height: 20),
+        _buildAppearancePanel(context),
+      ],
+    );
+  }
+
+  Widget _buildPaymentCard(BuildContext context) {
+    return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Theme').h1(),
-          const SizedBox(height: 12),
-          const DocsParagraph(
-            text: 'Customize the look and feel of your registry-based app.',
-          ),
-          DocsSectionTitle(title: 'Custom color scheme', anchor: customKey),
+          const Text('Payment Method').large().semiBold(),
+          const SizedBox(height: 6),
+          const Text('All transactions are secure and encrypted.')
+              .muted()
+              .small(),
+          const SizedBox(height: 16),
+          const Text('Name on Card').medium(),
           const SizedBox(height: 8),
-          const DocsParagraph(
-            text:
-                'Pick any token to create a custom scheme. Changes apply immediately so you can preview them live.',
-          ),
-          _buildColorGrid(context, scheme),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Preset themes', anchor: presetKey),
-          const SizedBox(height: 8),
-          const DocsParagraph(
-            text:
-                'Select a preset to quickly switch the primary palette. Default is included alongside all generated presets.',
-          ),
+          const TextField(placeholder: Text('John Doe')),
+          const SizedBox(height: 14),
           Row(
             children: [
-              _modeButton(
-                label: 'Light',
-                selected: controller.brightness == Brightness.light,
-                onPressed: () => controller.setBrightness(Brightness.light),
-              ),
-              const SizedBox(width: 8),
-              _modeButton(
-                label: 'Dark',
-                selected: controller.brightness == Brightness.dark,
-                onPressed: () => controller.setBrightness(Brightness.dark),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: [
-              for (final preset in DocsThemeController.presets)
-                _PresetChip(
-                  preset: preset,
-                  selected: controller.presetId == preset.id,
-                  onTap: () => controller.setPreset(preset.id),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Card Number').medium(),
+                    const SizedBox(height: 8),
+                    const TextField(placeholder: Text('1234 5678 9012 3456')),
+                  ],
                 ),
-              if (controller.presetId == 'custom')
-                const PrimaryBadge(child: Text('Custom')),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('CVV').medium(),
+                    const SizedBox(height: 8),
+                    const TextField(placeholder: Text('123')),
+                  ],
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Radius', anchor: radiusKey),
-          const SizedBox(height: 8),
-          _SliderRow(
-            value: data.radius,
-            minValue: 0,
-            maxValue: 2,
-            divisions: 20,
-            label: data.radius.toStringAsFixed(2),
-            onChanged: controller.setRadius,
+          const SizedBox(height: 10),
+          const Text('Enter your 16-digit number.').muted().small(),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: _smallSelect(
+                  value: 'MM',
+                  options: const ['MM', '01', '02', '03', '04', '05'],
+                  onChanged: (_) {},
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _smallSelect(
+                  value: 'YYYY',
+                  options: const ['YYYY', '2026', '2027', '2028', '2029'],
+                  onChanged: (_) {},
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Scaling', anchor: scalingKey),
-          const SizedBox(height: 8),
-          _SliderRow(
-            value: data.scaling,
-            minValue: 0.5,
-            maxValue: 1.5,
-            divisions: 20,
-            label: data.scaling.toStringAsFixed(2),
-            onChanged: controller.setScaling,
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 16),
+          const Text('Billing Address').medium(),
+          const SizedBox(height: 6),
+          const Text('The billing address associated with your payment method')
+              .muted()
+              .small(),
+          const SizedBox(height: 10),
+          Checkbox(
+            state: _previewCheckbox,
+            onChanged: (value) {
+              setState(() {
+                _previewCheckbox = value;
+              });
+            },
+            trailing: const Text('Same as shipping address'),
           ),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Surface opacity', anchor: opacityKey),
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 16),
+          const Text('Comments').medium(),
           const SizedBox(height: 8),
-          _SliderRow(
-            value: data.surfaceOpacity,
-            minValue: 0,
-            maxValue: 1,
-            divisions: 20,
-            label: data.surfaceOpacity.toStringAsFixed(2),
-            onChanged: controller.setSurfaceOpacity,
+          const TextArea(
+            minHeight: 90,
+            maxHeight: 120,
+            placeholder: Text('Add any additional comments'),
           ),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Surface blur', anchor: blurKey),
-          const SizedBox(height: 8),
-          _SliderRow(
-            value: data.surfaceBlur,
-            minValue: 0,
-            maxValue: 20,
-            divisions: 20,
-            label: data.surfaceBlur.toStringAsFixed(1),
-            onChanged: controller.setSurfaceBlur,
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              PrimaryButton(
+                onPressed: () {},
+                child: const Text('Submit'),
+              ),
+              const SizedBox(width: 10),
+              OutlineButton(
+                onPressed: () {},
+                child: const Text('Cancel'),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          DocsSectionTitle(title: 'Install theme', anchor: codeKey),
-          const SizedBox(height: 8),
-          DocsParagraph(
-            text: controller.presetId == 'custom'
-                ? 'Apply a custom theme JSON file using the CLI.'
-                : 'Apply the selected preset theme using the CLI.',
-          ),
-          DocsCodeBlock(code: _buildThemeCliCommand(controller)),
         ],
       ),
     );
   }
 
-  Widget _buildColorGrid(
-      BuildContext context, shadcn_scheme.ColorScheme scheme) {
-    final entries = scheme.toColorMap().entries.toList();
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 4,
-      crossAxisSpacing: 8,
-      mainAxisSpacing: 8,
-      physics: const NeverScrollableScrollPhysics(),
+  Widget _buildMiddlePreview(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final entry in entries)
-          _ColorTile(
-            name: entry.key,
-            color: entry.value,
-            onTap: () => _openColorPicker(context, entry.key, scheme),
+        OutlinedContainer(
+          borderStyle: BorderStyle.solid,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AvatarGroup.toLeft(
+                  offset: 0.7,
+                  gap: 2,
+                  children: const [
+                    Avatar(initials: 'MJ'),
+                    Avatar(initials: 'JS'),
+                    Avatar(initials: 'ST'),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Text('No Team Members').medium(),
+                const SizedBox(height: 8),
+                const Text('Invite your team to collaborate on this project.')
+                    .muted()
+                    .small()
+                    .center(),
+                const SizedBox(height: 12),
+                SecondaryButton(
+                  onPressed: () {},
+                  leading: const Icon(Icons.add),
+                  child: const Text('Invite Members'),
+                ),
+              ],
+            ),
           ),
+        ),
+        const SizedBox(height: 12),
+        const Row(
+          children: [
+            SecondaryBadge(child: Text('Syncing')),
+            SizedBox(width: 8),
+            SecondaryBadge(child: Text('Updating')),
+            SizedBox(width: 8),
+            OutlineBadge(child: Text('Loading')),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            IconButton.outline(
+              icon: const Icon(Icons.add),
+              onPressed: () {},
+            ),
+            const SizedBox(width: 8),
+            const Expanded(
+              child: TextField(
+                placeholder: Text('Send a message...'),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 14),
+        const Text('Price Range').medium(),
+        const SizedBox(height: 6),
+        const Text('Set your budget range (\$320 - \$800)').muted().small(),
+        const SizedBox(height: 8),
+        Slider(
+          min: 0,
+          max: 1000,
+          value: _priceRange,
+          onChanged: (value) {
+            setState(() {
+              _priceRange = value;
+            });
+          },
+        ),
+        const SizedBox(height: 10),
+        const TextField(
+          placeholder: Text('Search...'),
+          features: [
+            InputFeature.leading(Icon(Icons.search)),
+            InputFeature.trailing(Text('12 Results')),
+          ],
+        ),
+        const SizedBox(height: 10),
+        const TextField(
+          placeholder: Text('https://example.com'),
+        ),
+        const SizedBox(height: 10),
+        const TextArea(
+          minHeight: 78,
+          maxHeight: 90,
+          placeholder: Text('Ask, Search, or Chat...'),
+        ),
+        const SizedBox(height: 10),
+        const TextField(
+          placeholder: Text('@sunarya-thito'),
+          features: [
+            InputFeature.trailing(Icon(Icons.check_circle_outline)),
+          ],
+        ),
       ],
     );
   }
 
-  void _openColorPicker(
-    BuildContext context,
-    String key,
-    shadcn_scheme.ColorScheme scheme,
-  ) {
-    final controller = context.docsThemeController;
-    showPopover(
-      context: context,
-      alignment: Alignment.topLeft,
-      anchorAlignment: Alignment.bottomLeft,
-      offset: const Offset(0, 8),
-      widthConstraint: PopoverConstraint.intrinsic,
-      heightConstraint: PopoverConstraint.intrinsic,
-      builder: (context) {
-        return SurfaceCard(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: ColorPicker(
-              value: color_utils.ColorDerivative.fromColor(
-                scheme.toColorMap()[key]!,
+  Widget _buildAppearancePanel(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Card(
+          child: Row(
+            children: [
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Two-factor authentication'),
+                    SizedBox(height: 4),
+                    Text('Verify via email or phone number.'),
+                  ],
+                ),
               ),
-              showAlpha: false,
+              SecondaryButton(
+                onPressed: () {},
+                child: const Text('Enable'),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Card(
+          child: Row(
+            children: [
+              Icon(Icons.verified_outlined),
+              SizedBox(width: 8),
+              Expanded(child: Text('Your profile has been verified.')),
+              Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Divider(),
+        const SizedBox(height: 16),
+        const Text('Compute Environment').large().semiBold(),
+        const SizedBox(height: 6),
+        const Text('Select the compute environment for your cluster.')
+            .muted()
+            .small(),
+        const SizedBox(height: 10),
+        RadioGroup<bool>(
+          value: true,
+          onChanged: (_) {},
+          child: const Column(
+            children: [
+              RadioCard(
+                value: true,
+                child: Basic(
+                  title: Text('Kubernetes'),
+                  subtitle:
+                      Text('Run GPU workloads on a K8s configured cluster.'),
+                  trailing: Radio(value: true),
+                ),
+              ),
+              SizedBox(height: 8),
+              RadioCard(
+                value: false,
+                child: Basic(
+                  title: Text('Virtual Machine'),
+                  subtitle:
+                      Text('Access a VM configured cluster to run workloads.'),
+                  trailing: Radio(value: false),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14),
+        const Divider(),
+        const SizedBox(height: 14),
+        const Row(
+          children: [
+            Expanded(
+              child: Basic(
+                title: Text('Number of GPUs'),
+                subtitle: Text('You can add more later.'),
+              ),
+            ),
+            SizedBox(
+              width: 140,
+              child: TextField(
+                initialValue: '8',
+                features: [
+                  InputFeature.trailing(Icon(Icons.add)),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 14),
+        const Divider(),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            const Expanded(
+              child: Basic(
+                title: Text('Wallpaper Tinting'),
+                subtitle: Text('Allow the wallpaper to be tinted.'),
+              ),
+            ),
+            Switch(
+              value: _previewSwitch,
               onChanged: (value) {
-                final next = Map<String, Color>.from(scheme.toColorMap());
-                next[key] = value.toColor();
-                controller.setCustomScheme(
-                  shadcn_scheme.ColorScheme.fromColors(
-                    colors: next,
-                    brightness: scheme.brightness,
-                  ),
-                );
-                closeOverlay(context);
+                setState(() {
+                  _previewSwitch = value;
+                });
               },
             ),
-          ),
-        );
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOptionsPanel(BuildContext context) {
+    final controller = context.docsThemeController;
+    final data = controller.data;
+    final isDark = controller.brightness == Brightness.dark;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Text('Theme options').h2(),
+        const SizedBox(height: 14),
+        _panelLabel('Theme mode'),
+        _stringSelect(
+          value: isDark ? 'Dark' : 'Light',
+          values: _themeModes.keys.toList(),
+          onChanged: (value) {
+            if (value == null) return;
+            controller.setBrightness(
+              value == 'Dark' ? Brightness.dark : Brightness.light,
+            );
+          },
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Preset themes'),
+        _stringSelect(
+          value: controller.presetId,
+          values: DocsThemeController.presets.map((p) => p.id).toList(),
+          onChanged: (value) {
+            if (value != null) controller.setPreset(value);
+          },
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Base colors'),
+        _stringSelect(
+          value: _baseColor,
+          values: _baseColors,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() => _baseColor = value);
+          },
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Accent colors'),
+        _stringSelect(
+          value: _accentColor,
+          values: _accentColors,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() => _accentColor = value);
+          },
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Radius'),
+        _numericSelect(
+          value: data.radius,
+          options: _radiusOptions,
+          onChanged: controller.setRadius,
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Density'),
+        _stringSelect(
+          value: _density,
+          values: _densityOptions,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() => _density = value);
+          },
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Scaling'),
+        _numericSelect(
+          value: data.scaling,
+          options: _scalingOptions,
+          onChanged: controller.setScaling,
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Surface opacity'),
+        _numericSelect(
+          value: data.surfaceOpacity,
+          options: _surfaceOpacityOptions,
+          onChanged: controller.setSurfaceOpacity,
+        ),
+        const SizedBox(height: 12),
+        _panelLabel('Surface blur'),
+        _numericSelect(
+          value: data.surfaceBlur,
+          options: _surfaceBlurOptions,
+          onChanged: controller.setSurfaceBlur,
+        ),
+      ],
+    );
+  }
+
+  Widget _panelLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(text).small().semiBold(),
+    );
+  }
+
+  Widget _numericSelect({
+    required double value,
+    required Map<String, double> options,
+    required ValueChanged<double> onChanged,
+  }) {
+    var selected = options.entries.first.key;
+    for (final entry in options.entries) {
+      if (entry.value == value) {
+        selected = entry.key;
+        break;
+      }
+    }
+    return _stringSelect(
+      value: selected,
+      values: options.keys.toList(),
+      onChanged: (choice) {
+        if (choice == null) return;
+        final next = options[choice];
+        if (next != null) onChanged(next);
       },
     );
   }
 
-  Widget _modeButton({
-    required String label,
-    required bool selected,
-    required VoidCallback onPressed,
+  Widget _smallSelect({
+    required String value,
+    required List<String> options,
+    required ValueChanged<String?> onChanged,
   }) {
-    if (selected) {
-      return shadcn_buttons.OutlineButton(
-        onPressed: onPressed,
-        size: shadcn_buttons.ButtonSize.small,
-        density: shadcn_buttons.ButtonDensity.dense,
-        child: Text(label),
-        
-      );
-    }
-    return shadcn_buttons.GhostButton(
-      onPressed: onPressed,
-      size: shadcn_buttons.ButtonSize.small,
-      density: shadcn_buttons.ButtonDensity.compact,
-      child: Text(label),
-    );
-  }
-
-  String _buildThemeCliCommand(DocsThemeController controller) {
-    if (controller.presetId == 'custom') {
-      return 'flutter_shadcn --experimental theme --apply-file /path/to/theme.json';
-    }
-    return 'flutter_shadcn theme --apply ${controller.presetId}';
-  }
-}
-
-class _PresetChip extends StatelessWidget {
-  final DocsThemePreset preset;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _PresetChip({
-    required this.preset,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final scheme = brightness == Brightness.dark ? preset.dark : preset.light;
-    final tokens = Theme.of(context).brightness == Brightness.dark
-        ? preset.darkTokens
-        : preset.lightTokens;
-    final radiusValue =
-        shadcn_theme.ThemeData(radius: tokens.radius).radiusMd;
-    final indicator = Container(
-      width: 14,
-      height: 14,
-      decoration: BoxDecoration(
-        color: scheme.primary,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: scheme.primaryForeground,
-          width: 2,
-        ),
-      ),
-    );
-    final child = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        indicator,
-        const SizedBox(width: 6),
-        Text(
-          preset.name,
-          style: TextStyle(color: scheme.foreground),
-        ).small(),
-      ],
-    );
-    final paddedChild = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      child: child,
-    );
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(radiusValue),
-      child: shadcn_buttons.ButtonStyleOverride(
-        decoration: (context, states, value) {
-          final borderColor = selected ? scheme.primary : scheme.border;
-          return BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(radiusValue),
-            border: Border.all(color: borderColor),
-          );
-        },
-        child: selected
-            ? shadcn_buttons.OutlineButton(
-                onPressed: onTap,
-                size: shadcn_buttons.ButtonSize.small,
-                density: shadcn_buttons.ButtonDensity.normal,
-                child: paddedChild,
-              )
-            : shadcn_buttons.OutlineButton(
-                onPressed: onTap,
-                size: shadcn_buttons.ButtonSize.small,
-                density: shadcn_buttons.ButtonDensity.normal,
-                child: paddedChild,
-              ),
-      ),
-    );
-  }
-}
-
-class _ColorTile extends StatelessWidget {
-  final String name;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ColorTile({
-    required this.name,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final labelColor = color.computeLuminance() > 0.5
-        ? Colors.black.withValues(alpha: 0.8)
-        : Colors.white.withValues(alpha: 0.9);
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Stack(
+    return Select<String>(
+      value: value,
+      onChanged: onChanged,
+      itemBuilder: (context, item) => Text(item),
+      popup: SelectPopup.noVirtualization(
+        items: SelectItemList(
           children: [
-            Text(name, style: TextStyle(color: labelColor)).xSmall(),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: Text(
-                colorToHex(color),
-                style: TextStyle(color: labelColor),
-              ).xSmall(),
-            ),
+            for (final item in options)
+              SelectItemButton(
+                value: item,
+                child: Text(item),
+              ),
           ],
         ),
       ),
     );
   }
-}
 
-class _SliderRow extends StatelessWidget {
-  final double value;
-  final double minValue;
-  final double maxValue;
-  final int divisions;
-  final String label;
-  final ValueChanged<double> onChanged;
-
-  const _SliderRow({
-    required this.value,
-    required this.minValue,
-    required this.maxValue,
-    required this.divisions,
-    required this.label,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Slider(
-            value: value.clamp(minValue, maxValue),
-            min: minValue,
-            max: maxValue,
-            divisions: divisions,
-            label: label,
-            onChanged: onChanged,
-          ),
+  Widget _stringSelect({
+    required String value,
+    required List<String> values,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return Select<String>(
+      value: value,
+      onChanged: onChanged,
+      itemBuilder: (context, item) => Text(item),
+      popup: SelectPopup.noVirtualization(
+        items: SelectItemList(
+          children: [
+            for (final item in values)
+              SelectItemButton(
+                value: item,
+                child: Text(item),
+              ),
+          ],
         ),
-        const SizedBox(width: 12),
-        SizedBox(
-          width: 48,
-          child: Text(label).xSmall().muted(),
-        ),
-      ],
+      ),
     );
+  }
+
+  String _buildCodeSnippet(DocsThemeController controller, DocsThemeData data) {
+    final lines = <String>[
+      'ShadcnApp(',
+      "  theme: ThemeData(",
+      "    // preset: ${controller.presetId}",
+      "    radius: ${data.radius},",
+      "    scaling: ${data.scaling},",
+      "    surfaceOpacity: ${data.surfaceOpacity},",
+      "    surfaceBlur: ${data.surfaceBlur},",
+      '  ),',
+      ')',
+    ];
+    return lines.join('\n');
   }
 }

@@ -30,9 +30,11 @@ class ErrorSystemPreview extends StatelessWidget {
       title: 'You are offline',
       message:
           'Reconnect to continue. We will restore your screen automatically.',
-      actions: [ErrorAction.retry(() {
-        globalScope.clear();
-      })],
+      actions: [
+        ErrorAction.retry(() {
+          globalScope.clear();
+        }),
+      ],
     );
 
     return Scaffold(
@@ -47,7 +49,7 @@ class ErrorSystemPreview extends StatelessWidget {
                 padding: EdgeInsets.all(24 * scaling),
                 children: [
                   AppErrorBanner(),
-                  Gap(16 * scaling),
+                  DensityGap(gapLg),
                   Wrap(
                     spacing: 12 * scaling,
                     runSpacing: 8 * scaling,
@@ -76,7 +78,7 @@ class ErrorSystemPreview extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Gap(24 * scaling),
+                  DensityGap(gap2xl),
                   ErrorState(
                     error: sampleError,
                     illustration: Column(
@@ -87,7 +89,7 @@ class ErrorSystemPreview extends StatelessWidget {
                             color: theme.colorScheme.secondaryForeground,
                           ),
                         ),
-                        Gap(8 * scaling),
+                        DensityGap(gapSm),
                         Container(
                           width: 220 * scaling,
                           height: 160 * scaling,
@@ -105,7 +107,7 @@ class ErrorSystemPreview extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Gap(24 * scaling),
+                  DensityGap(gap2xl),
                   ErrorSlot.scope(
                     scope: scope.scope,
                     empty: const InlineError(message: 'No screen-level error.'),
@@ -115,7 +117,7 @@ class ErrorSystemPreview extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InlineError(message: error.message),
-                          Gap(8 * scaling),
+                          DensityGap(gapSm),
                           Wrap(
                             spacing: 12 * scaling,
                             runSpacing: 8 * scaling,
@@ -144,7 +146,7 @@ class ErrorSystemPreview extends StatelessWidget {
                       );
                     },
                   ),
-                  Gap(24 * scaling),
+                  DensityGap(gap2xl),
                   Wrap(
                     spacing: 12 * scaling,
                     runSpacing: 8 * scaling,

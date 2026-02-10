@@ -7,12 +7,12 @@ import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
+import '../../../shared/utils/axis.dart';
 import '../../../shared/utils/util.dart';
 
 part '_impl/utils/divider_painter.dart';
 part '_impl/utils/vertical_divider_painter.dart';
 part '_impl/core/vertical_divider.dart';
-
 
 part '_impl/themes/divider_theme.dart';
 part '_impl/utils/divider_painters.dart';
@@ -28,6 +28,7 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
     this.endIndent,
     this.child,
     this.padding,
+    this.childAlignment,
   });
 
   final Color? color;
@@ -37,6 +38,7 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
   final double? endIndent;
   final Widget? child;
   final EdgeInsetsGeometry? padding;
+  final AxisAlignmentGeometry? childAlignment;
 
   @override
   Size get preferredSize => Size(0, height ?? 1);
@@ -45,11 +47,13 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final componentTheme = ComponentTheme.maybeOf<DividerTheme>(context);
+    final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final resolvedColor = styleValue(
       widgetValue: color,
       themeValue: componentTheme?.color,
       defaultValue: theme.colorScheme.border,
     );
+    final densityGap = theme.scaling * 8;
     final resolvedThickness = styleValue(
       widgetValue: thickness,
       themeValue: componentTheme?.thickness,
@@ -73,69 +77,87 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
     final resolvedPadding = styleValue(
       widgetValue: padding,
       themeValue: componentTheme?.padding,
-      defaultValue: EdgeInsets.symmetric(horizontal: theme.scaling * 8),
+      defaultValue: EdgeInsets.symmetric(horizontal: densityGap),
     );
+    final resolvedChildAlignment = styleValue(
+      widgetValue: childAlignment,
+      themeValue: componentTheme?.childAlignment,
+      defaultValue: AxisAlignment.center,
+    ).resolve(textDirection);
 
     if (child != null) {
-      final labeledChild =
-          child!.muted().small().withPadding(padding: resolvedPadding);
+      final clampedAlignmentValue =
+          resolvedChildAlignment.value.clamp(-1.0, 1.0);
+      final leftRatio = (clampedAlignmentValue + 1) / 2;
+      final rightRatio = 1 - leftRatio;
+      final leftFlex = (leftRatio * 1000).round();
+      final rightFlex = (rightRatio * 1000).round();
+
       return SizedBox(
         width: double.infinity,
         child: IntrinsicHeight(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: SizedBox(
-                  height: resolvedHeight,
-                  child: AnimatedValueBuilder(
-                    value: DividerProperties(
-                      color: resolvedColor,
-                      thickness: resolvedThickness,
-                      indent: resolvedIndent,
-                      endIndent: 0,
+              if (leftFlex > 0)
+                Expanded(
+                  flex: leftFlex,
+                  child: SizedBox(
+                    height: resolvedHeight,
+                    child: AnimatedValueBuilder(
+                      value: DividerProperties(
+                        color: resolvedColor,
+                        thickness: resolvedThickness,
+                        indent: resolvedIndent,
+                        endIndent: 0,
+                      ),
+                      duration: kDefaultDuration,
+                      lerp: DividerProperties.lerp,
+                      builder: (context, value, child) {
+                        return CustomPaint(
+                          painter: DividerPainter(
+                            color: value.color,
+                            thickness: value.thickness,
+                            indent: value.indent,
+                            endIndent: value.endIndent,
+                          ),
+                        );
+                      },
                     ),
-                    duration: kDefaultDuration,
-                    lerp: DividerProperties.lerp,
-                    builder: (context, value, child) {
-                      return CustomPaint(
-                        painter: DividerPainter(
-                          color: value.color,
-                          thickness: value.thickness,
-                          indent: value.indent,
-                          endIndent: value.endIndent,
-                        ),
-                      );
-                    },
                   ),
-                ),
-              ),
-              labeledChild,
-              Expanded(
-                child: SizedBox(
-                  height: resolvedHeight,
-                  child: AnimatedValueBuilder(
-                    value: DividerProperties(
-                      color: resolvedColor,
-                      thickness: resolvedThickness,
-                      indent: 0,
-                      endIndent: resolvedEndIndent,
+                )
+              else
+                const SizedBox.shrink(),
+              child!.muted().small().withPadding(padding: resolvedPadding),
+              if (rightFlex > 0)
+                Expanded(
+                  flex: rightFlex,
+                  child: SizedBox(
+                    height: resolvedHeight,
+                    child: AnimatedValueBuilder(
+                      value: DividerProperties(
+                        color: resolvedColor,
+                        thickness: resolvedThickness,
+                        indent: 0,
+                        endIndent: resolvedEndIndent,
+                      ),
+                      duration: kDefaultDuration,
+                      lerp: DividerProperties.lerp,
+                      builder: (context, value, child) {
+                        return CustomPaint(
+                          painter: DividerPainter(
+                            color: value.color,
+                            thickness: value.thickness,
+                            indent: value.indent,
+                            endIndent: value.endIndent,
+                          ),
+                        );
+                      },
                     ),
-                    duration: kDefaultDuration,
-                    lerp: DividerProperties.lerp,
-                    builder: (context, value, child) {
-                      return CustomPaint(
-                        painter: DividerPainter(
-                          color: value.color,
-                          thickness: value.thickness,
-                          indent: value.indent,
-                          endIndent: value.endIndent,
-                        ),
-                      );
-                    },
                   ),
-                ),
-              ),
+                )
+              else
+                const SizedBox.shrink(),
             ],
           ),
         ),

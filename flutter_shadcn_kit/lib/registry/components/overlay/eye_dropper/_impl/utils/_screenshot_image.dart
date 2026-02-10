@@ -15,10 +15,13 @@ class _ScreenshotImage extends ImageProvider<_ScreenshotImage> {
 
   @override
   ImageStreamCompleter loadImage(
-      _ScreenshotImage key, ImageDecoderCallback decode) {
+    _ScreenshotImage key,
+    ImageDecoderCallback decode,
+  ) {
     Completer<ui.Image> completer = Completer<ui.Image>();
     ui.decodeImageFromPixels(bytes, width, height, format, completer.complete);
     return OneFrameImageStreamCompleter(
-        completer.future.then((ui.Image image) => ImageInfo(image: image)));
+      completer.future.then((ui.Image image) => ImageInfo(image: image)),
+    );
   }
 }

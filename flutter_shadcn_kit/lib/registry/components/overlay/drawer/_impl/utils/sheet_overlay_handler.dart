@@ -75,9 +75,7 @@ class SheetOverlayHandler extends OverlayHandler {
       builder: (context, extraSize, size, padding, stackIndex) {
         final theme = Theme.of(context);
         return MultiModel(
-          data: const [
-            Model(#shadcn_flutter_sheet_overlay, true),
-          ],
+          data: const [Model(#shadcn_flutter_sheet_overlay, true)],
           child: SheetWrapper(
             position: this.position,
             gapAfterDragger: 8 * theme.scaling,
@@ -88,9 +86,11 @@ class SheetOverlayHandler extends OverlayHandler {
             padding: padding,
             barrierColor: barrierColor,
             stackIndex: stackIndex,
-            child: Builder(builder: (context) {
-              return builder(context);
-            }),
+            child: Builder(
+              builder: (context) {
+                return builder(context);
+              },
+            ),
           ),
         );
       },

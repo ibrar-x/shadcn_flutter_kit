@@ -52,11 +52,9 @@ class MenuRadio<T> extends StatelessWidget {
             ? SizedBox(
                 width: 16 * scaling,
                 height: 16 * scaling,
-                child: const Icon(
-                  RadixIcons.dotFilled,
-                ).iconSmall(),
+                child: const Icon(RadixIcons.dotFilled).iconSmall(),
               )
-            : SizedBox(width: 16 * scaling),
+            : SizedBox(width: theme.density.baseContentPadding * scaling),
         onPressed: (context) {
           radioGroup.onChanged?.call(context, value);
         },

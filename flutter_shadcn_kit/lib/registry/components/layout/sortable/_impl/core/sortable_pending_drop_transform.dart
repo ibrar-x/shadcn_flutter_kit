@@ -11,4 +11,3 @@ class _PendingDropTransform {
     required this.data,
   });
 }
-

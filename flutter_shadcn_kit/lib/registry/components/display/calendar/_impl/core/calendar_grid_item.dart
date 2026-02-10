@@ -18,7 +18,11 @@ class CalendarGridItem {
 
   /// Creates a calendar grid item.
   CalendarGridItem(
-      this.date, this.indexInRow, this.fromAnotherMonth, this.rowIndex);
+    this.date,
+    this.indexInRow,
+    this.fromAnotherMonth,
+    this.rowIndex,
+  );
 
   /// Returns true if this item represents today's date.
   bool get isToday {

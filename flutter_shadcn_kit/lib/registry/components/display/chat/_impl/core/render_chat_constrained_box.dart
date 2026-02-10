@@ -17,9 +17,9 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
     required double widthFactor,
     required AxisAlignment alignment,
     RenderBox? child,
-  })  : _widthFactor = widthFactor,
-        _alignment = alignment,
-        super(child);
+  }) : _widthFactor = widthFactor,
+       _alignment = alignment,
+       super(child);
 
   /// The fraction of the available width that the child should occupy.
   double get widthFactor => _widthFactor;
@@ -53,11 +53,13 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
     var newMaxWidth = constraints.maxWidth * _widthFactor;
     constraints = constraints.copyWith(maxWidth: newMaxWidth, minWidth: 0);
     child!.layout(constraints, parentUsesSize: true);
-    size = this
-        .constraints
-        .constrain(Size(this.constraints.maxWidth, child!.size.height));
+    size = this.constraints.constrain(
+      Size(this.constraints.maxWidth, child!.size.height),
+    );
     double x = _alignment.alongValue(
-        Axis.horizontal, this.constraints.maxWidth - child!.size.width);
+      Axis.horizontal,
+      this.constraints.maxWidth - child!.size.width,
+    );
     final data = child!.parentData as BoxParentData;
     data.offset = Offset(x, 0);
   }
@@ -68,8 +70,10 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
       return constraints.smallest;
     }
     var newMaxWidth = constraints.maxWidth * _widthFactor;
-    var newConstraints =
-        constraints.copyWith(maxWidth: newMaxWidth, minWidth: 0);
+    var newConstraints = constraints.copyWith(
+      maxWidth: newMaxWidth,
+      minWidth: 0,
+    );
     Size childSize = child!.getDryLayout(newConstraints);
     return constraints.constrain(Size(constraints.maxWidth, childSize.height));
   }

@@ -11,6 +11,9 @@ part '_impl/core/streaming_cursor.dart';
 part '_impl/core/streaming_text_effect_adapter.dart';
 part '_impl/core/typewriter_effect.dart';
 part '_impl/core/blur_in_effect.dart';
+part '_impl/core/fade_in_effect.dart';
+part '_impl/core/slide_in_effect.dart';
+part '_impl/core/scramble_in_effect.dart';
 part '_impl/core/combined_effect.dart';
 
 part '_impl/styles/character_span_factory.dart';
@@ -32,6 +35,7 @@ class StreamingText extends StatefulWidget {
     required this.text,
     this.style,
     this.typewriter,
+    this.animateByWord = false,
     this.effect,
     this.cursor,
     this.textAlign,
@@ -53,6 +57,10 @@ class StreamingText extends StatefulWidget {
 
   /// Typewriter behavior for newly appended characters.
   final TypewriterEffect? typewriter;
+
+  /// When true, reveal/effect units are words (with trailing whitespace)
+  /// instead of individual characters.
+  final bool animateByWord;
 
   /// Visual effect applied to newly revealed characters.
   final StreamingTextEffectAdapter? effect;

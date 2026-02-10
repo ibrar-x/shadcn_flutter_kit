@@ -52,7 +52,9 @@ class _AvatarState extends State<Avatar> {
       child: FittedBox(
         fit: BoxFit.fill,
         child: Padding(
-          padding: EdgeInsets.all(theme.scaling * 8),
+          padding: EdgeInsets.all(
+            theme.density.baseContentPadding * theme.scaling * padXs,
+          ),
           child: DefaultTextStyle.merge(
             style: styleValue(
               themeValue: compTheme?.textStyle,
@@ -61,9 +63,7 @@ class _AvatarState extends State<Avatar> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            child: Center(
-              child: Text(widget.initials),
-            ),
+            child: Center(child: Text(widget.initials)),
           ),
         ),
       ),
@@ -98,7 +98,7 @@ class _AvatarState extends State<Avatar> {
     final gap = styleValue(
       widgetValue: widget.badgeGap,
       themeValue: compTheme?.badgeGap,
-      defaultValue: theme.scaling * 4,
+      defaultValue: theme.density.baseGap * theme.scaling * gapXs,
     );
     return AvatarGroup(
       alignment: alignment,

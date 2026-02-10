@@ -4,10 +4,55 @@
   "description": "Animated feature card carousel with autoplay, swipe, and CTA support. (WIP)",
   "wip": true,
   "category": "display",
-  "tags": ["display", "carousel", "feature"],
+  "tags": [
+    "display",
+    "carousel",
+    "feature"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_carousel_intent.dart",
+    "_impl/core/_center_card.dart",
+    "_impl/core/_cta_button.dart",
+    "_impl/core/_feature_card_carousel_state.dart",
+    "_impl/core/_ghost_card.dart",
+    "_impl/core/_ghost_transform.dart",
+    "_impl/core/_nav_arrow.dart",
+    "_impl/core/feature_card_carousel.dart",
+    "_impl/state/feature_carousel_controller.dart",
+    "_impl/themes/feature_carousel_theme.dart",
+    "_impl/utils/feature_carousel_animation_style.dart",
+    "_impl/utils/feature_carousel_models.dart",
+    "feature_carousel.dart",
+    "feature_carousel.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`FeatureCardCarousel`",
+      "`items` (`List<FeatureCarouselItem>`, required)",
+      "`controller` (`FeatureCarouselController?`)",
+      "`height`, `width` (`double?`)",
+      "`theme` (`FeatureCarouselThemeData?`)",
+      "`cardBuilder`, `titleBuilder`, `descriptionBuilder`, `ctaBuilder`, `backgroundBuilder`",
+      "`FeatureCarouselItem`",
+      "`title`, `description` (`String?`)",
+      "`icon` (`IconData?`)",
+      "`iconBuilder` (`FeatureCarouselIconBuilder?`)",
+      "`accentColor` (`Color?`)",
+      "`FeatureCarouselController` — autoplay, navigation, CTA configuration.",
+      "`FeatureCarouselAnimationStyle` — animation styles for transitions."
+    ],
+    "callbacks": [
+      "`onPrimaryAction` (FeatureCarouselController)",
+      "`onIndexChanged` (FeatureCarouselController)"
+    ]
+  },
+  "version": "1.0.0"
 }

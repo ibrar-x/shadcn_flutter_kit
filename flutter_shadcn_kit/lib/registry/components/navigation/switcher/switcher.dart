@@ -71,4 +71,3 @@ class Switcher extends StatefulWidget {
   @override
   State<Switcher> createState() => _SwitcherState();
 }
-

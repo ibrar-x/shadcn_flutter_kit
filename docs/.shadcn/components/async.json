@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "async",
+  "name": "Async",
+  "version": "1.0.0",
+  "tags": [
+    "async",
+    "builder",
+    "future"
+  ],
+  "installedAt": "2026-02-09T10:18:03.241634Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/utility/async/README.md",
+    "registry/components/utility/async/async.dart",
+    "registry/components/utility/async/async.meta.json",
+    "registry/components/utility/async/meta.json",
+    "registry/components/utility/async/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

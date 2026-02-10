@@ -6,12 +6,8 @@ import '../../../../../shared/theme/theme.dart';
 
 part 'hsl_color_slider_type.dart';
 
-
 part '../state/_hsl_color_slider_state.dart';
 part 'hsl_color_slider_painter.dart';
-
-
-
 
 /// A slider widget for adjusting HSL color components.
 ///

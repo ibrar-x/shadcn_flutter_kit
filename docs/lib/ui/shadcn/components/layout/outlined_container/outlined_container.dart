@@ -36,24 +36,15 @@ class SurfaceBlur extends StatelessWidget {
     if (surfaceBlur <= 0) {
       return child;
     }
-    return Stack(
-      fit: StackFit.passthrough,
-      children: [
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: borderRadius ?? BorderRadius.zero,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: surfaceBlur,
-                sigmaY: surfaceBlur,
-              ),
-              child: const SizedBox.expand(),
-            ),
-          ),
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.zero,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: surfaceBlur,
+          sigmaY: surfaceBlur,
         ),
-        child,
-      ],
+        child: child,
+      ),
     );
   }
 }
-

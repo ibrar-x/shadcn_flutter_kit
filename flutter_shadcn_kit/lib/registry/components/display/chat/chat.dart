@@ -25,7 +25,6 @@ part '_impl/core/sharp_corner_chat_bubble_type.dart';
 part '_impl/core/tail_behavior.dart';
 part '_impl/core/tail_chat_bubble_type.dart';
 
-
 /// A widget that constrains the width of its child based on a factor and aligns it.
 ///
 /// This widget is used by [ChatBubble] to limit the width of the bubble relative to
@@ -54,17 +53,21 @@ class ChatConstrainedBox extends SingleChildRenderObjectWidget {
   RenderChatConstrainedBox createRenderObject(BuildContext context) {
     return RenderChatConstrainedBox(
       widthFactor: widthFactor,
-      alignment: alignment
-          .resolve(Directionality.maybeOf(context) ?? TextDirection.ltr),
+      alignment: alignment.resolve(
+        Directionality.maybeOf(context) ?? TextDirection.ltr,
+      ),
     );
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderChatConstrainedBox renderObject) {
+    BuildContext context,
+    RenderChatConstrainedBox renderObject,
+  ) {
     renderObject
       ..widthFactor = widthFactor
-      ..alignment = alignment
-          .resolve(Directionality.maybeOf(context) ?? TextDirection.ltr);
+      ..alignment = alignment.resolve(
+        Directionality.maybeOf(context) ?? TextDirection.ltr,
+      );
   }
 }

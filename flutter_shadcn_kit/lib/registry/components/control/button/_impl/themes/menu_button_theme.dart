@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class MenuButtonTheme extends ButtonTheme {
   /// Creates a [MenuButtonTheme] with optional style property delegates.
-  const MenuButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const MenuButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   MenuButtonTheme copyWith({

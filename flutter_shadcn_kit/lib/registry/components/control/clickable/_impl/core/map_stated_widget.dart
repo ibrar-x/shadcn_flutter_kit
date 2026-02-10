@@ -5,16 +5,13 @@ import 'stated_widget.dart';
 import '../state/widget_states_data.dart';
 
 class MapStatedWidget extends StatedWidget {
-  static final Map<String, WidgetState> _mappedNames =
-      WidgetState.values.asNameMap();
+  static final Map<String, WidgetState> _mappedNames = WidgetState.values
+      .asNameMap();
   final Map<Object, Widget> states;
   final Widget? child;
 
-  const MapStatedWidget({
-    super.key,
-    required this.states,
-    this.child,
-  }) : super.base();
+  const MapStatedWidget({super.key, required this.states, this.child})
+    : super.base();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +33,10 @@ class MapStatedWidget extends StatedWidget {
           return entry.value;
         }
       } else {
-        assert(false,
-            'Invalid key type in states map (${keys.runtimeType}) expected WidgetState, Iterable<WidgetState>, or String');
+        assert(
+          false,
+          'Invalid key type in states map (${keys.runtimeType}) expected WidgetState, Iterable<WidgetState>, or String',
+        );
       }
     }
     return child ?? const SizedBox();

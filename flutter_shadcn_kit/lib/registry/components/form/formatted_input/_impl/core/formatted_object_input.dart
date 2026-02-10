@@ -21,12 +21,10 @@ part of '../../formatted_input.dart';
 class FormattedObjectInput<T> extends StatefulWidget
     with ControlledComponent<T?> {
   @override
-
   /// The initial value of the input.
   final T? initialValue;
 
   @override
-
   /// Called when the value changes.
   final ValueChanged<T?>? onChanged;
 
@@ -37,12 +35,10 @@ class FormattedObjectInput<T> extends StatefulWidget
   final FormattedInputPopupBuilder<T>? popupBuilder;
 
   @override
-
   /// Whether the input is enabled.
   final bool enabled;
 
   @override
-
   /// Optional controller for external control.
   final ComponentController<T?>? controller;
 

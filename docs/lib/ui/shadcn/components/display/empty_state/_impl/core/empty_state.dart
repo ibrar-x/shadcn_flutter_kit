@@ -1,16 +1,14 @@
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../../../shared/theme/theme.dart';
 import '../../../../control/button/button.dart';
-import '../../../../display/divider/divider.dart';
 import '../../../../layout/card/card.dart';
 import '../utils/empty_state_defaults.dart';
 import '../variants/empty_state_action_style.dart';
 import '../variants/empty_state_size.dart';
 import '../variants/empty_state_variant.dart';
-import 'empty_state_action.dart';
 import '../themes/empty_state_theme.dart';
+import 'empty_state_action.dart';
 
 class EmptyState extends StatelessWidget {
   const EmptyState({
@@ -22,7 +20,9 @@ class EmptyState extends StatelessWidget {
     this.description,
     this.primaryAction,
     this.secondaryAction,
+    this.footerAction,
     this.maxWidth,
+    this.showIconContainer = true,
   });
 
   final EmptyStateVariant variant;
@@ -32,7 +32,9 @@ class EmptyState extends StatelessWidget {
   final Widget? description;
   final EmptyStateAction? primaryAction;
   final EmptyStateAction? secondaryAction;
+  final EmptyStateAction? footerAction;
   final double? maxWidth;
+  final bool showIconContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -42,59 +44,92 @@ class EmptyState extends StatelessWidget {
     final resolvedTitle = title ?? Text(defaultEmptyStateTitle(variant));
     final resolvedDescription =
         description ?? Text(defaultEmptyStateDescription(variant));
-    final resolvedIcon =
-        icon ??
+    final resolvedIcon = icon ??
         Icon(
           defaultEmptyStateIcon(variant),
-          size:
-              compTheme?.iconSize ??
+          size: compTheme?.iconSize ??
               (size == EmptyStateSize.compact ? 28 * scaling : 36 * scaling),
           color: compTheme?.iconColor ?? theme.colorScheme.mutedForeground,
         );
 
-    final titleStyle =
-        compTheme?.titleStyle ??
-        theme.typography.medium.merge(theme.typography.semiBold);
-    final descriptionStyle =
-        compTheme?.descriptionStyle ??
-        theme.typography.small.copyWith(
-          color: theme.colorScheme.mutedForeground,
-        );
+    final titleStyle = compTheme?.titleStyle ??
+        (size == EmptyStateSize.compact
+                ? theme.typography.large
+                : theme.typography.x2Large)
+            .merge(theme.typography.semiBold);
+    final descriptionStyle = compTheme?.descriptionStyle ??
+        (size == EmptyStateSize.compact
+                ? theme.typography.small
+                : theme.typography.base)
+            .copyWith(height: 1.35, color: theme.colorScheme.mutedForeground);
+    final actionSize =
+        size == EmptyStateSize.compact ? ButtonSize.small : ButtonSize.normal;
+    final hasMainActions = primaryAction != null || secondaryAction != null;
+    final hasFooterAction = footerAction != null;
     final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        resolvedIcon,
-        Gap(12 * scaling),
+        showIconContainer
+            ? DecoratedBox(
+                decoration: BoxDecoration(
+                  color:
+                      compTheme?.iconContainerColor ?? theme.colorScheme.muted,
+                  borderRadius: compTheme?.iconContainerBorderRadius ??
+                      BorderRadius.circular(14 * scaling),
+                  border: Border.all(
+                    color: compTheme?.iconContainerBorderColor ??
+                        theme.colorScheme.border,
+                  ),
+                ),
+                child: Padding(
+                  padding: compTheme?.iconContainerPadding ??
+                      EdgeInsets.all(12 * scaling),
+                  child: resolvedIcon,
+                ),
+              )
+            : resolvedIcon,
+        DensityGap(size == EmptyStateSize.compact ? gapLg : gap2xl),
         DefaultTextStyle.merge(
           style: titleStyle,
           textAlign: TextAlign.center,
           child: resolvedTitle,
         ),
-        Gap(6 * scaling),
+        DensityGap(size == EmptyStateSize.compact ? 0.9 : gapMd),
         DefaultTextStyle.merge(
           style: descriptionStyle,
           textAlign: TextAlign.center,
-          child: resolvedDescription,
-        ),
-        if (primaryAction != null || secondaryAction != null)
-          Padding(
-            padding: EdgeInsets.only(top: 16 * scaling),
-            child: const Divider(),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 560 * scaling),
+            child: resolvedDescription,
           ),
-        if (primaryAction != null || secondaryAction != null)
+        ),
+        if (hasMainActions)
           Padding(
-            padding: EdgeInsets.only(top: 16 * scaling),
+            padding: EdgeInsets.only(
+              top: theme.density.baseGap *
+                  scaling *
+                  (size == EmptyStateSize.compact ? gapLg : gap2xl),
+            ),
             child: Wrap(
-              spacing: 12 * scaling,
-              runSpacing: 8 * scaling,
+              spacing: theme.density.baseGap * scaling * gapMd,
+              runSpacing: theme.density.baseGap * scaling * gapSm,
               alignment: WrapAlignment.center,
               children: [
                 if (primaryAction != null)
-                  _buildAction(context, primaryAction!, isPrimary: true),
+                  _buildAction(primaryAction!, size: actionSize),
                 if (secondaryAction != null)
-                  _buildAction(context, secondaryAction!, isPrimary: false),
+                  _buildAction(secondaryAction!, size: actionSize),
               ],
             ),
+          ),
+        if (hasFooterAction)
+          Padding(
+            padding: EdgeInsets.only(
+              top: theme.density.baseGap *
+                  scaling *
+                  (size == EmptyStateSize.compact ? gapLg : gap2xl),
+            ),
+            child: _buildAction(footerAction!, size: ButtonSize.normal),
           ),
       ],
     );
@@ -104,10 +139,11 @@ class EmptyState extends StatelessWidget {
         maxWidth: compTheme?.maxWidth ?? maxWidth ?? 520 * scaling,
       ),
       child: Padding(
-        padding:
-            compTheme?.padding ??
+        padding: compTheme?.padding ??
             EdgeInsets.all(
-              size == EmptyStateSize.compact ? 20 * scaling : 32 * scaling,
+              size == EmptyStateSize.compact
+                  ? theme.density.baseContainerPadding * scaling * 1.25
+                  : theme.density.baseContainerPadding * scaling * padLg,
             ),
         child: content,
       ),
@@ -125,30 +161,34 @@ class EmptyState extends StatelessWidget {
     return Center(child: constrained);
   }
 
-  Widget _buildAction(
-    BuildContext context,
-    EmptyStateAction action, {
-    required bool isPrimary,
-  }) {
-    final icon = action.icon;
-    final child = icon == null
-        ? Text(action.label)
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              icon,
-              Gap(8 * Theme.of(context).scaling),
-              Text(action.label),
-            ],
-          );
+  Widget _buildAction(EmptyStateAction action, {required ButtonSize size}) {
+    final child = Text(action.label);
 
     switch (action.style) {
       case EmptyStateActionStyle.primary:
-        return PrimaryButton(onPressed: action.onPressed, child: child);
+        return PrimaryButton(
+          onPressed: action.onPressed,
+          leading: action.icon,
+          trailing: action.trailingIcon,
+          size: size,
+          child: child,
+        );
       case EmptyStateActionStyle.secondary:
-        return SecondaryButton(onPressed: action.onPressed, child: child);
+        return SecondaryButton(
+          onPressed: action.onPressed,
+          leading: action.icon,
+          trailing: action.trailingIcon,
+          size: size,
+          child: child,
+        );
       case EmptyStateActionStyle.link:
-        return LinkButton(onPressed: action.onPressed, child: child);
+        return LinkButton(
+          onPressed: action.onPressed,
+          leading: action.icon,
+          trailing: action.trailingIcon,
+          size: size,
+          child: child,
+        );
     }
   }
 }

@@ -39,7 +39,8 @@ class _AccordionTriggerState extends State<AccordionTrigger> {
 
     final arrowColor =
         accTheme?.arrowIconColor ?? theme.colorScheme.mutedForeground;
-    final baseIconSize = theme.iconTheme.medium.size ??
+    final baseIconSize =
+        theme.iconTheme.medium.size ??
         theme.iconTheme.small.size ??
         theme.iconTheme.xSmall.size ??
         (20 * scaling);
@@ -86,7 +87,9 @@ class _AccordionTriggerState extends State<AccordionTrigger> {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: accTheme?.padding ?? 16 * scaling,
+              vertical:
+                  accTheme?.padding ??
+                  theme.density.baseContentPadding * scaling,
             ),
             child: Row(
               children: [
@@ -103,7 +106,11 @@ class _AccordionTriggerState extends State<AccordionTrigger> {
                     ),
                   ),
                 ),
-                SizedBox(width: accTheme?.iconGap ?? 18 * scaling),
+                SizedBox(
+                  width:
+                      accTheme?.iconGap ??
+                      theme.density.baseContentPadding * scaling * 1.125,
+                ),
                 TweenAnimationBuilder<double>(
                   tween: tween,
                   duration: accTheme?.duration ?? kDefaultDuration,
@@ -116,7 +123,8 @@ class _AccordionTriggerState extends State<AccordionTrigger> {
                           size: baseIconSize,
                         ),
                         child: Icon(
-                            accTheme?.arrowIcon ?? Icons.keyboard_arrow_up),
+                          accTheme?.arrowIcon ?? Icons.keyboard_arrow_up,
+                        ),
                       ),
                     );
                   },

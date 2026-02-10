@@ -103,4 +103,3 @@ extension FlexExtension on Flex {
   }
 }
 
-/// Represents a time of day with hour, minute, and second.

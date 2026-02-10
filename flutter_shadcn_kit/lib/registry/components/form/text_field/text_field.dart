@@ -82,7 +82,6 @@ part '_impl/utils/text_field_select_all_and_copy_intent.dart';
 part '_impl/utils/text_field_set_selection_intent.dart';
 part '_impl/utils/text_field_set_text_intent.dart';
 
-
 part '_impl/themes/text_field_theme.dart';
 part '_impl/core/input_feature_visibility.dart';
 part '_impl/core/input_feature_base.dart';
@@ -105,5 +104,6 @@ Widget buildEditableTextContextMenu(
   EditableTextState editableTextState,
 ) {
   return material.AdaptiveTextSelectionToolbar.editableText(
-      editableTextState: editableTextState);
+    editableTextState: editableTextState,
+  );
 }

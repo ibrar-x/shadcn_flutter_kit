@@ -22,7 +22,8 @@ class _TooltipState extends State<Tooltip> {
               barrierColor: Color(0x00000000),
             ),
             handler: OverlayManagerAsTooltipOverlayHandler(
-                overlayManager: OverlayManager.of(context)),
+              overlayManager: OverlayManager.of(context),
+            ),
           );
         } else {
           _controller.close();

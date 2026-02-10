@@ -9,12 +9,7 @@ class PhoneInputPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: 320,
-          child: PhoneInput(
-            onChanged: (_) {},
-          ),
-        ),
+        child: SizedBox(width: 320, child: PhoneInput(onChanged: (_) {})),
       ),
     );
   }

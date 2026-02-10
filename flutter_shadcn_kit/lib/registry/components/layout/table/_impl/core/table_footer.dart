@@ -12,22 +12,18 @@ class TableFooter extends TableRow {
     final theme = Theme.of(context);
     return TableCellTheme(
       border: const WidgetStatePropertyAll(null),
-      backgroundColor: WidgetStateProperty.resolveWith(
-        (states) {
-          return states.contains(WidgetState.hovered)
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.hovered)
+            ? theme.colorScheme.muted
+            : theme.colorScheme.muted.withValues(alpha: 0.5);
+      }),
+      textStyle: WidgetStateProperty.resolveWith((states) {
+        return TextStyle(
+          color: states.contains(WidgetState.disabled)
               ? theme.colorScheme.muted
-              : theme.colorScheme.muted.withValues(alpha: 0.5);
-        },
-      ),
-      textStyle: WidgetStateProperty.resolveWith(
-        (states) {
-          return TextStyle(
-            color: states.contains(WidgetState.disabled)
-                ? theme.colorScheme.muted
-                : null,
-          );
-        },
-      ),
+              : null,
+        );
+      }),
     );
   }
 }

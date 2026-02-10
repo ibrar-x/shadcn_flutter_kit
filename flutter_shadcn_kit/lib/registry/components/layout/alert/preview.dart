@@ -26,7 +26,9 @@ class AlertPreview extends StatelessWidget {
                   // Destructive alert
                   const Alert.destructive(
                     title: Text('Error'),
-                    content: Text('Your session has expired. Please log in again.'),
+                    content: Text(
+                      'Your session has expired. Please log in again.',
+                    ),
                     leading: Icon(Icons.error_outline),
                   ),
                   // Alert with trailing action

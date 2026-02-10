@@ -74,30 +74,33 @@ class TailChatBubbleType extends ChatBubbleType {
   }
 
   @override
-  Widget wrap(BuildContext context, Widget child, ChatBubbleData data,
-      ChatBubble chat) {
+  Widget wrap(
+    BuildContext context,
+    Widget child,
+    ChatBubbleData data,
+    ChatBubble chat,
+  ) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<ChatTailTheme>(context);
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final tailBehavior = styleValue(
-        widgetValue: this.tailBehavior,
-        themeValue: compTheme?.tailBehavior,
-        defaultValue: TailBehavior.last);
+      widgetValue: this.tailBehavior,
+      themeValue: compTheme?.tailBehavior,
+      defaultValue: TailBehavior.last,
+    );
     final color = styleValue(
-        widgetValue: chat.color,
-        themeValue: chatTheme?.color,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: chat.color,
+      themeValue: chatTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
     final radius = styleValue(
-            widgetValue: borderRadius,
-            themeValue: chatTheme?.borderRadius,
-            defaultValue: theme.borderRadiusLg)
-        .resolve(textDirection);
+      widgetValue: borderRadius,
+      themeValue: chatTheme?.borderRadius,
+      defaultValue: theme.borderRadiusLg,
+    ).resolve(textDirection);
     child = Container(
-      decoration: BoxDecoration(
-        borderRadius: radius,
-        color: color,
-      ),
+      decoration: BoxDecoration(borderRadius: radius, color: color),
       padding: EdgeInsets.symmetric(
         horizontal: 12 * theme.scaling,
         vertical: 8 * theme.scaling,
@@ -110,14 +113,15 @@ class TailChatBubbleType extends ChatBubbleType {
     double topPadding;
     double bottomPadding;
     final size = styleValue(
-        widgetValue: this.size,
-        themeValue: compTheme?.size,
-        defaultValue: const Size(8, 8));
+      widgetValue: this.size,
+      themeValue: compTheme?.size,
+      defaultValue: const Size(8, 8),
+    );
     final position = styleValue(
-            widgetValue: this.position,
-            themeValue: compTheme?.position,
-            defaultValue: AxisDirectional.end)
-        .resolve(textDirection);
+      widgetValue: this.position,
+      themeValue: compTheme?.position,
+      defaultValue: AxisDirectional.end,
+    ).resolve(textDirection);
     bool wrapWithTail = tailBehavior.wrapWithTail(data);
     switch ((position, wrapWithTail)) {
       case (AxisDirection.left, _):
@@ -154,28 +158,31 @@ class TailChatBubbleType extends ChatBubbleType {
 
     if (tailBehavior.wrapWithTail(data)) {
       final color = styleValue(
-          widgetValue: chat.color,
-          themeValue: chatTheme?.color,
-          defaultValue: theme.colorScheme.primary);
+        widgetValue: chat.color,
+        themeValue: chatTheme?.color,
+        defaultValue: theme.colorScheme.primary,
+      );
 
       final tailSize = styleValue(
-          widgetValue: size,
-          themeValue: compTheme?.size,
-          defaultValue: const Size(8, 8));
+        widgetValue: size,
+        themeValue: compTheme?.size,
+        defaultValue: const Size(8, 8),
+      );
       final tailRadius = styleValue(
-          widgetValue: this.tailRadius,
-          themeValue: compTheme?.tailRadius,
-          defaultValue: theme.radiusSm);
+        widgetValue: this.tailRadius,
+        themeValue: compTheme?.tailRadius,
+        defaultValue: theme.radiusSm,
+      );
       final tailAlignment = styleValue(
-              widgetValue: this.tailAlignment,
-              themeValue: chatTheme?.alignment,
-              defaultValue: AxisAlignmentDirectional.end)
-          .resolve(textDirection);
+        widgetValue: this.tailAlignment,
+        themeValue: chatTheme?.alignment,
+        defaultValue: AxisAlignmentDirectional.end,
+      ).resolve(textDirection);
       final position = styleValue(
-              widgetValue: this.position,
-              themeValue: compTheme?.position,
-              defaultValue: AxisDirectional.down)
-          .resolve(textDirection);
+        widgetValue: this.position,
+        themeValue: compTheme?.position,
+        defaultValue: AxisDirectional.down,
+      ).resolve(textDirection);
       child = CustomPaint(
         painter: _TailPainter(
           color: color,

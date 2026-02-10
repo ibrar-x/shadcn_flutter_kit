@@ -45,6 +45,9 @@ class TabPaneTheme extends ComponentThemeData {
   /// )
   /// ```
   const TabPaneTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.borderRadius,
     this.backgroundColor,
     this.border,
@@ -68,8 +71,9 @@ class TabPaneTheme extends ComponentThemeData {
   }) {
     return TabPaneTheme(
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       border: border == null ? this.border : border(),
       barHeight: barHeight == null ? this.barHeight : barHeight(),
     );

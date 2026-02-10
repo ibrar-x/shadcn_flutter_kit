@@ -15,9 +15,7 @@ class ScrollbarPreview extends StatelessWidget {
             child: ListView(
               children: List.generate(
                 20,
-                (index) => ListTile(
-                  title: Text('Item ${index + 1}'),
-                ),
+                (index) => ListTile(title: Text('Item ${index + 1}')),
               ),
             ),
           ),

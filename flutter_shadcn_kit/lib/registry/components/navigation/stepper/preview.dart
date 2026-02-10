@@ -10,4 +10,3 @@ class StepperPreview extends StatefulWidget {
   @override
   State<StepperPreview> createState() => _StepperPreviewState();
 }
-

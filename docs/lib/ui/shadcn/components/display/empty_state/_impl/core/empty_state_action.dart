@@ -7,11 +7,13 @@ class EmptyStateAction {
     required this.label,
     this.onPressed,
     this.icon,
+    this.trailingIcon,
     this.style = EmptyStateActionStyle.primary,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final Widget? icon;
+  final Widget? trailingIcon;
   final EmptyStateActionStyle style;
 }

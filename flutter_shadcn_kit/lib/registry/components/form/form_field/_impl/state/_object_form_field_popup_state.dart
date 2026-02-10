@@ -44,13 +44,14 @@ class _ObjectFormFieldPopupState<T> extends State<_ObjectFormFieldPopup<T>>
     return Data<ObjectFormHandler<T>>.inherit(
       data: this,
       child: SurfaceCard(
-        padding: widget.popoverPadding ??
-            (const EdgeInsets.symmetric(vertical: 16, horizontal: 16) *
+        padding:
+            widget.popoverPadding ??
+            (EdgeInsets.symmetric(
+                  vertical: theme.density.baseContentPadding,
+                  horizontal: theme.density.baseContentPadding,
+                ) *
                 theme.scaling),
-        child: widget.editorBuilder(
-          context,
-          this,
-        ),
+        child: widget.editorBuilder(context, this),
       ),
     );
   }

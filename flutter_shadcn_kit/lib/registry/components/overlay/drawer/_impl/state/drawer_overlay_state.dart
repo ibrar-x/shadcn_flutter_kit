@@ -63,10 +63,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
     final parentLayer = Data.maybeOf<DrawerLayerData>(context);
     _layerData = DrawerLayerData(this, parentLayer);
     DrawerOverlay._registerLayer(_layerData!);
-    Widget child = KeyedSubtree(
-      key: backdropKey,
-      child: widget.child,
-    );
+    Widget child = KeyedSubtree(key: backdropKey, child: widget.child);
     int index = 0;
     for (final entry in _entries) {
       child = DrawerEntryWidget(
@@ -105,10 +102,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
           }
         }
       },
-      child: ForwardableData(
-        data: _layerData!,
-        child: child,
-      ),
+      child: ForwardableData(data: _layerData!, child: child),
     );
   }
 

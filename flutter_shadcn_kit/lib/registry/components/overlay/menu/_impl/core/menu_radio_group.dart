@@ -33,7 +33,9 @@ class MenuRadioGroup<T> extends StatelessWidget implements MenuItem {
   Widget build(BuildContext context) {
     final menuGroupData = Data.maybeOf<MenuGroupData>(context);
     assert(
-        menuGroupData != null, 'MenuRadioGroup must be a child of MenuGroup');
+      menuGroupData != null,
+      'MenuRadioGroup must be a child of MenuGroup',
+    );
     return Data<MenuRadioGroup<T>>.inherit(
       data: this,
       child: Flex(

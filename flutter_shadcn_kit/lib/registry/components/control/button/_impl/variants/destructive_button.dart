@@ -136,8 +136,11 @@ class DestructiveButton extends StatelessWidget {
       leading: leading,
       trailing: trailing,
       alignment: alignment,
-      style:
-          ButtonStyle.destructive(size: size, density: density, shape: shape),
+      style: ButtonStyle.destructive(
+        size: size,
+        density: density,
+        shape: shape,
+      ),
       focusNode: focusNode,
       disableTransition: disableTransition,
       onHover: onHover,

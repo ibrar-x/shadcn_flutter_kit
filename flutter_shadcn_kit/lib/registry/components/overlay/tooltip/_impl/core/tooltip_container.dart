@@ -29,25 +29,30 @@ class TooltipContainer extends StatelessWidget {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TooltipTheme>(context);
     Color resolvedColor = styleValue(
-        widgetValue: backgroundColor,
-        themeValue: compTheme?.backgroundColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.primary,
+    );
     var resolvedOpacity = surfaceOpacity ?? compTheme?.surfaceOpacity;
     var resolvedBlur = surfaceBlur ?? compTheme?.surfaceBlur;
     if (resolvedOpacity != null) {
       resolvedColor = resolvedColor.scaleAlpha(resolvedOpacity);
     }
-    final resolvedPadding = styleValue(
-                widgetValue: padding,
-                themeValue: compTheme?.padding,
-                defaultValue:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6))
-            .resolve(Directionality.of(context)) *
+    final resolvedPadding =
+        styleValue(
+          widgetValue: padding,
+          themeValue: compTheme?.padding,
+          defaultValue: EdgeInsets.symmetric(
+            horizontal: theme.density.baseContentPadding * 0.75,
+            vertical: theme.density.baseGap * 0.75,
+          ),
+        ).resolve(Directionality.of(context)) *
         scaling;
     final resolvedRadius = styleValue(
-        widgetValue: borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.circular(theme.radiusSm));
+      widgetValue: borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusSm),
+    );
 
     Widget container = Container(
       padding: resolvedPadding,
@@ -67,7 +72,7 @@ class TooltipContainer extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(6) * scaling,
+      padding: EdgeInsets.all(theme.density.baseGap * scaling * 0.75),
       child: container,
     );
   }

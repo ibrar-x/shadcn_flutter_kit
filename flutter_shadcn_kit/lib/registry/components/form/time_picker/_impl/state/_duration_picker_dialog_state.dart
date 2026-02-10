@@ -11,11 +11,16 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
   }
 
   Widget _buildInput(
-      BuildContext context, TextEditingController controller, String label) {
+    BuildContext context,
+    TextEditingController controller,
+    String label,
+  ) {
     final theme = Theme.of(context);
     return ConstrainedBox(
       constraints: BoxConstraints(
-          minWidth: 72 * theme.scaling, minHeight: 72 * theme.scaling),
+        minWidth: 72 * theme.scaling,
+        minHeight: 72 * theme.scaling,
+      ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -30,10 +35,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
               ],
             ),
           ),
-          Positioned(
-            bottom: (-24) * theme.scaling,
-            child: Text(label).muted(),
-          ),
+          Positioned(bottom: (-24) * theme.scaling, child: Text(label).muted()),
         ],
       ),
     );
@@ -55,12 +57,9 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     minute = minute.clamp(0, 59);
     second = second.clamp(0, 59);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.onChanged?.call(Duration(
-        days: day,
-        hours: hour,
-        minutes: minute,
-        seconds: second,
-      ));
+      widget.onChanged?.call(
+        Duration(days: day, hours: hour, minutes: minute, seconds: second),
+      );
     });
   }
 
@@ -80,9 +79,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     int initialHour = widget.initialValue?.inHours ?? 0;
     int initialMinute = widget.initialValue?.inMinutes ?? 0;
     int initialSecond = widget.initialValue?.inSeconds ?? 0;
-    _dayController = TextEditingController(
-      text: _formatDigits(initialDay),
-    );
+    _dayController = TextEditingController(text: _formatDigits(initialDay));
     _hourController = TextEditingController(
       text: _formatDigits(initialHour % Duration.hoursPerDay),
     );
@@ -106,7 +103,12 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     return IntrinsicWidth(
       child: IntrinsicHeight(
         child: Padding(
-          padding: EdgeInsets.only(bottom: (16 + 12) * scaling),
+          padding: EdgeInsets.only(
+            bottom:
+                ((theme.density.baseContentPadding) +
+                    (theme.density.baseGap * 1.5)) *
+                scaling,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,

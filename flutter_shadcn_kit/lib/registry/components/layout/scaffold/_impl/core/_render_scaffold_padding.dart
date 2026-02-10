@@ -48,15 +48,15 @@ class _RenderScaffoldPadding extends RenderBox
     switch (_paddingType) {
       case _ScaffoldPaddingType.header:
         constraints = this.constraints.copyWith(
-              minHeight: parentData!._headerSize.value,
-              maxHeight: parentData._headerSize.value,
-            );
+          minHeight: parentData!._headerSize.value,
+          maxHeight: parentData._headerSize.value,
+        );
         break;
       case _ScaffoldPaddingType.footer:
         constraints = this.constraints.copyWith(
-              minHeight: parentData!._footerSize.value,
-              maxHeight: parentData._footerSize.value,
-            );
+          minHeight: parentData!._footerSize.value,
+          maxHeight: parentData._footerSize.value,
+        );
         break;
     }
     final child = firstChild;

@@ -30,7 +30,8 @@ class DestructiveBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
-    final baseStyle = style ??
+    final baseStyle =
+        style ??
         compTheme?.destructiveStyle ??
         const ButtonStyle.destructive(
           size: ButtonSize.small,

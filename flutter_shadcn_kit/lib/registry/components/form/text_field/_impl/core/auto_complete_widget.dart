@@ -50,6 +50,9 @@ class AutoCompleteTheme extends ComponentThemeData {
   ///
   /// All parameters are optional and will use framework defaults when null.
   const AutoCompleteTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.popoverConstraints,
     this.popoverWidthConstraint,
     this.popoverAnchorAlignment,
@@ -78,8 +81,9 @@ class AutoCompleteTheme extends ComponentThemeData {
       popoverAnchorAlignment: popoverAnchorAlignment == null
           ? this.popoverAnchorAlignment
           : popoverAnchorAlignment(),
-      popoverAlignment:
-          popoverAlignment == null ? this.popoverAlignment : popoverAlignment(),
+      popoverAlignment: popoverAlignment == null
+          ? this.popoverAlignment
+          : popoverAlignment(),
       mode: mode == null ? this.mode : mode(),
     );
   }
@@ -96,6 +100,11 @@ class AutoCompleteTheme extends ComponentThemeData {
   }
 
   @override
-  int get hashCode => Object.hash(popoverConstraints, popoverWidthConstraint,
-      popoverAnchorAlignment, popoverAlignment, mode);
+  int get hashCode => Object.hash(
+    popoverConstraints,
+    popoverWidthConstraint,
+    popoverAnchorAlignment,
+    popoverAlignment,
+    mode,
+  );
 }

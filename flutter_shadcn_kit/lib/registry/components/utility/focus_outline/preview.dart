@@ -13,10 +13,7 @@ class FocusOutlinePreview extends StatelessWidget {
           children: [
             FocusOutline(
               focused: true,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Focused'),
-              ),
+              child: TextButton(onPressed: () {}, child: const Text('Focused')),
             ),
             const SizedBox(height: 12),
             FocusOutline(

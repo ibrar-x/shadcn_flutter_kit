@@ -13,6 +13,9 @@ class KeyboardShortcutTheme extends ComponentThemeData {
 
   /// Creates a [KeyboardShortcutTheme].
   const KeyboardShortcutTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.spacing,
     this.keyPadding,
     this.keyShadow,

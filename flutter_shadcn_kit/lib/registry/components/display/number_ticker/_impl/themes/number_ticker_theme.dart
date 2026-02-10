@@ -6,7 +6,14 @@ class NumberTickerTheme extends ComponentThemeData {
   final Curve? curve;
   final TextStyle? style;
 
-  const NumberTickerTheme({this.duration, this.curve, this.style});
+  const NumberTickerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.duration,
+    this.curve,
+    this.style,
+  });
 
   NumberTickerTheme copyWith({
     ValueGetter<Duration?>? duration,

@@ -9,15 +9,35 @@
     "chronology"
   ],
   "dependencies": {
-    "pubspec": {
-      "gap": "^3.0.1"
-    },
     "shared": [
       "theme",
       "util"
     ],
     "components": [
       "text"
-    ]
-  }
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/timeline_2.dart",
+    "_impl/core/timeline_data.dart",
+    "meta.json",
+    "preview.dart",
+    "timeline.dart",
+    "timeline.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Timeline`",
+      "`data` (`List<TimelineData>`, required)",
+      "`timeConstraints`, `spacing`, `dotSize`, `connectorThickness`, `rowGap`",
+      "`TimelineData` — `time`, `title`, `content`, `color`.",
+      "`TimelineTheme` — theme defaults."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

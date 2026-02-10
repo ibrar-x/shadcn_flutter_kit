@@ -22,7 +22,10 @@ class _DrawerPreviewState extends State<DrawerPreview> {
               children: [
                 Text(
                   'Drawer at ${positions[count % positions.length].name}',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 PrimaryButton(

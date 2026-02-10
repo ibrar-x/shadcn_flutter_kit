@@ -5,7 +5,6 @@ import '../slider/slider.dart';
 
 part '_impl/state/_slider_preview_state.dart';
 
-
 class SliderPreview extends StatefulWidget {
   const SliderPreview({super.key});
 

@@ -11,7 +11,7 @@ double _normalizedProgress({
   return curve.transform(clamped);
 }
 
-Duration _revealDelayForIndex(int index, TypewriterEffect typewriter) {
+Duration _revealDelayForUnitIndex(int index, TypewriterEffect typewriter) {
   if (!typewriter.enabled || typewriter.charsPerSecond <= 0 || index <= 0) {
     return Duration.zero;
   }
@@ -20,7 +20,7 @@ Duration _revealDelayForIndex(int index, TypewriterEffect typewriter) {
   return Duration(microseconds: micros.round());
 }
 
-int _visibleCharacterCount({
+int _visibleUnitCount({
   required int total,
   required Duration elapsed,
   required TypewriterEffect typewriter,

@@ -17,14 +17,14 @@ class PlainChatBubbleType extends ChatBubbleType {
   /// - [borderRadius] (`BorderRadiusGeometry?`, optional): The border radius of the bubble.
   /// - [border] (`BorderSide?`, optional): The border of the bubble.
   /// - [padding] (`EdgeInsetsGeometry?`, optional): The padding inside the bubble.
-  const PlainChatBubbleType({
-    this.borderRadius,
-    this.border,
-    this.padding,
-  });
+  const PlainChatBubbleType({this.borderRadius, this.border, this.padding});
   @override
-  Widget wrap(BuildContext context, Widget child, ChatBubbleData data,
-      ChatBubble chat) {
+  Widget wrap(
+    BuildContext context,
+    Widget child,
+    ChatBubbleData data,
+    ChatBubble chat,
+  ) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final border = styleValue(
@@ -41,9 +41,10 @@ class PlainChatBubbleType extends ChatBubbleType {
       ),
     );
     final color = styleValue(
-        widgetValue: chat.color,
-        themeValue: compTheme?.color,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: chat.color,
+      themeValue: compTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
     return Container(
       decoration: BoxDecoration(
         borderRadius: styleValue(
@@ -57,7 +58,8 @@ class PlainChatBubbleType extends ChatBubbleType {
                 color: border.color,
                 width: border.width,
                 strokeAlign: border.strokeAlign,
-                style: border.style),
+                style: border.style,
+              ),
         color: color,
       ),
       padding: padding,

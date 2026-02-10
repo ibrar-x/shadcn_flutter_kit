@@ -18,7 +18,13 @@ class InputOTPTheme extends ComponentThemeData {
   /// Parameters:
   /// - [spacing] (`double?`, optional): Space between input fields.
   /// - [height] (`double?`, optional): Height of input containers.
-  const InputOTPTheme({this.spacing, this.height});
+  const InputOTPTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.spacing,
+    this.height,
+  });
 
   /// Creates a copy of this theme with specified properties overridden.
   ///

@@ -21,6 +21,9 @@ class TabContainerTheme extends ComponentThemeData {
 
   /// {@macro tab_container_theme}
   const TabContainerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.builder,
     this.childBuilder,
   });
@@ -115,7 +118,8 @@ mixin KeyedTabChild<T> on TabChild {
 /// - [children] (`List<Widget>`): list of tab widgets
 ///
 /// Returns: `Widget` — the tab layout widget
-typedef TabBuilder = Widget Function(BuildContext context, List<Widget> children);
+typedef TabBuilder =
+    Widget Function(BuildContext context, List<Widget> children);
 
 /// Builder function for creating individual tab child widgets.
 ///
@@ -125,10 +129,9 @@ typedef TabBuilder = Widget Function(BuildContext context, List<Widget> children
 /// - [child] (`Widget`): child widget to wrap
 ///
 /// Returns: `Widget` — the wrapped child widget
-typedef TabChildBuilder = Widget Function(
-    BuildContext context, TabContainerData data, Widget child);
+typedef TabChildBuilder =
+    Widget Function(BuildContext context, TabContainerData data, Widget child);
 
 /// Container widget for managing multiple tabs.
 ///
 /// Provides tab selection and content display with customizable builders.
-

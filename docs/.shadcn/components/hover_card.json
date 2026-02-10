@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "hover_card",
+  "name": "Hover Card",
+  "version": "1.0.0",
+  "tags": [
+    "overlay",
+    "hover",
+    "popover"
+  ],
+  "installedAt": "2026-02-09T10:18:03.231906Z",
+  "shared": [
+    "overlay",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [
+    "tooltip"
+  ],
+  "files": [
+    "registry/components/overlay/hover_card/README.md",
+    "registry/components/overlay/hover_card/_impl/core/hover_card_widget.dart",
+    "registry/components/overlay/hover_card/_impl/state/_hover_card_state.dart",
+    "registry/components/overlay/hover_card/_impl/themes/hover_card_theme.dart",
+    "registry/components/overlay/hover_card/hover_card.dart",
+    "registry/components/overlay/hover_card/hover_card.meta.json",
+    "registry/components/overlay/hover_card/meta.json",
+    "registry/components/overlay/hover_card/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

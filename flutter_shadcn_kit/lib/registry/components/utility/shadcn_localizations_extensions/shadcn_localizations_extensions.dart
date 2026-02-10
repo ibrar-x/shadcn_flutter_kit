@@ -9,10 +9,10 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
   ///
   /// Default is [DatePart.month], [DatePart.day], [DatePart.year].
   List<DatePart> get datePartsOrder => const [
-        DatePart.month,
-        DatePart.day,
-        DatePart.year,
-      ];
+    DatePart.month,
+    DatePart.day,
+    DatePart.year,
+  ];
 
   /// The abbreviation for the year component (e.g., 'YYYY').
   String get dateYearAbbreviation => 'YYYY';
@@ -41,11 +41,13 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
   /// [showTime] - Whether to include the time part.
   /// [showSeconds] - Whether to include seconds in the time part.
   /// [use24HourFormat] - Whether to use 24-hour format for time.
-  String formatDateTime(DateTime dateTime,
-      {bool showDate = true,
-      bool showTime = true,
-      bool showSeconds = false,
-      bool use24HourFormat = true}) {
+  String formatDateTime(
+    DateTime dateTime, {
+    bool showDate = true,
+    bool showTime = true,
+    bool showSeconds = false,
+    bool use24HourFormat = true,
+  }) {
     String result = '';
     if (showDate) {
       result += '${getMonth(dateTime.month)} ${dateTime.day}, ${dateTime.year}';
@@ -79,8 +81,11 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
   ///
   /// [use24HourFormat] - Whether to use 24-hour format.
   /// [showSeconds] - Whether to include seconds.
-  String formatTimeOfDay(TimeOfDay time,
-      {bool use24HourFormat = true, bool showSeconds = false}) {
+  String formatTimeOfDay(
+    TimeOfDay time, {
+    bool use24HourFormat = true,
+    bool showSeconds = false,
+  }) {
     String result = '';
     if (use24HourFormat) {
       result +=
@@ -227,11 +232,13 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
   /// [showHours] - Whether to show hours.
   /// [showMinutes] - Whether to show minutes.
   /// [showSeconds] - Whether to show seconds.
-  String formatDuration(Duration duration,
-      {bool showDays = true,
-      bool showHours = true,
-      bool showMinutes = true,
-      bool showSeconds = true}) {
+  String formatDuration(
+    Duration duration, {
+    bool showDays = true,
+    bool showHours = true,
+    bool showMinutes = true,
+    bool showSeconds = true,
+  }) {
     final days = duration.inDays;
     final hours = duration.inHours % Duration.hoursPerDay;
     final minutes = duration.inMinutes % Duration.minutesPerHour;

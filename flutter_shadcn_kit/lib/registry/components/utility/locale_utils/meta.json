@@ -9,9 +9,32 @@
     "formatting"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "util"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/date_part.dart",
+    "_impl/core/duration_part.dart",
+    "_impl/core/time_part.dart",
+    "locale_utils.dart",
+    "locale_utils.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "functions": [
+      "`formatFileSize`"
+    ],
+    "types": [
+      "`SizeUnitLocale`",
+      "`DatePart`, `TimePart`, `DurationPart`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

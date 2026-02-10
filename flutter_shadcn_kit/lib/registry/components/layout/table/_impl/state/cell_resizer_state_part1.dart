@@ -7,11 +7,13 @@ class _CellResizerState extends State<_CellResizer> {
   void _onDragStartRow(DragStartDetails details) {
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxRow; i++) {
-      items.add(ResizableItem(
-        value: widget.controller.getRowHeight(i),
-        min: widget.controller.getRowMinHeight(i) ?? 0,
-        max: widget.controller.getRowMaxHeight(i) ?? double.infinity,
-      ));
+      items.add(
+        ResizableItem(
+          value: widget.controller.getRowHeight(i),
+          min: widget.controller.getRowMinHeight(i) ?? 0,
+          max: widget.controller.getRowMaxHeight(i) ?? double.infinity,
+        ),
+      );
     }
     _resizer = Resizer(items);
     _resizeRow = true;
@@ -21,11 +23,13 @@ class _CellResizerState extends State<_CellResizer> {
   void _onDragStartColumn(DragStartDetails details) {
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxColumn; i++) {
-      items.add(ResizableItem(
-        value: widget.controller.getColumnWidth(i),
-        min: widget.controller.getColumnMinWidth(i) ?? 0,
-        max: widget.controller.getColumnMaxWidth(i) ?? double.infinity,
-      ));
+      items.add(
+        ResizableItem(
+          value: widget.controller.getColumnWidth(i),
+          min: widget.controller.getColumnMinWidth(i) ?? 0,
+          max: widget.controller.getColumnMaxWidth(i) ?? double.infinity,
+        ),
+      );
     }
     _resizer = Resizer(items);
     _resizeRow = false;
@@ -107,9 +111,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(row - 1, row, details);
                   } else {
                     widget.controller.resizeRow(
-                        row - 1,
-                        widget.controller.getRowHeight(row - 1) +
-                            details.primaryDelta!);
+                      row - 1,
+                      widget.controller.getRowHeight(row - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onVerticalDragEnd: _onDragEnd,
@@ -127,12 +132,13 @@ class _CellResizerState extends State<_CellResizer> {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == row - 1 &&
+                      color:
+                          (hover?.index == row - 1 &&
                                   hover?.direction == Axis.horizontal) ||
                               (drag?.index == row - 1 &&
                                   drag?.direction == Axis.horizontal)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -166,10 +172,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(row + rowSpan - 1, row + rowSpan, details);
                   } else {
                     widget.controller.resizeRow(
-                        row + rowSpan - 1,
-                        widget.controller.getRowHeight(row + rowSpan - 1) +
-
-                            details.primaryDelta!);
+                      row + rowSpan - 1,
+                      widget.controller.getRowHeight(row + rowSpan - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onVerticalDragEnd: _onDragEnd,
@@ -186,12 +192,13 @@ class _CellResizerState extends State<_CellResizer> {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == row + rowSpan - 1 &&
+                      color:
+                          (hover?.index == row + rowSpan - 1 &&
                                   hover?.direction == Axis.horizontal) ||
                               (drag?.index == row + rowSpan - 1 &&
                                   drag?.direction == Axis.horizontal)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -223,9 +230,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(column - 1, column, details);
                   } else {
                     widget.controller.resizeColumn(
-                        column - 1,
-                        widget.controller.getColumnWidth(column - 1) +
-                            details.primaryDelta!);
+                      column - 1,
+                      widget.controller.getColumnWidth(column - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onHorizontalDragEnd: _onDragEnd,
@@ -242,12 +250,13 @@ class _CellResizerState extends State<_CellResizer> {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == column - 1 &&
+                      color:
+                          (hover?.index == column - 1 &&
                                   hover?.direction == Axis.vertical) ||
                               (drag?.index == column - 1 &&
                                   drag?.direction == Axis.vertical)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -279,13 +288,18 @@ class _CellResizerState extends State<_CellResizer> {
                 onHorizontalDragUpdate: (details) {
                   if (widthMode == TableCellResizeMode.reallocate) {
                     _onDragUpdate(
-                        column + columnSpan - 1, column + columnSpan, details);
+                      column + columnSpan - 1,
+                      column + columnSpan,
+                      details,
+                    );
                   } else {
                     widget.controller.resizeColumn(
-                        column + columnSpan - 1,
-                        widget.controller
-                                .getColumnWidth(column + columnSpan - 1) +
-                            details.primaryDelta!);
+                      column + columnSpan - 1,
+                      widget.controller.getColumnWidth(
+                            column + columnSpan - 1,
+                          ) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onHorizontalDragEnd: _onDragEnd,
@@ -302,12 +316,13 @@ class _CellResizerState extends State<_CellResizer> {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == column + columnSpan - 1 &&
+                      color:
+                          (hover?.index == column + columnSpan - 1 &&
                                   hover?.direction == Axis.vertical) ||
                               (drag?.index == column + columnSpan - 1 &&
                                   drag?.direction == Axis.vertical)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -319,4 +334,3 @@ class _CellResizerState extends State<_CellResizer> {
     );
   }
 }
-

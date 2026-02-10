@@ -31,6 +31,9 @@ class SliderTheme extends ComponentThemeData {
 
   /// Creates a [SliderTheme].
   const SliderTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.trackHeight,
     this.trackColor,
     this.valueColor,
@@ -65,8 +68,9 @@ class SliderTheme extends ComponentThemeData {
           ? this.disabledValueColor
           : disabledValueColor(),
       thumbColor: thumbColor == null ? this.thumbColor : thumbColor(),
-      thumbBorderColor:
-          thumbBorderColor == null ? this.thumbBorderColor : thumbBorderColor(),
+      thumbBorderColor: thumbBorderColor == null
+          ? this.thumbBorderColor
+          : thumbBorderColor(),
       thumbFocusedBorderColor: thumbFocusedBorderColor == null
           ? this.thumbFocusedBorderColor
           : thumbFocusedBorderColor(),
@@ -91,13 +95,14 @@ class SliderTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      trackHeight,
-      trackColor,
-      valueColor,
-      disabledTrackColor,
-      disabledValueColor,
-      thumbColor,
-      thumbBorderColor,
-      thumbFocusedBorderColor,
-      thumbSize);
+    trackHeight,
+    trackColor,
+    valueColor,
+    disabledTrackColor,
+    disabledValueColor,
+    thumbColor,
+    thumbBorderColor,
+    thumbFocusedBorderColor,
+    thumbSize,
+  );
 }

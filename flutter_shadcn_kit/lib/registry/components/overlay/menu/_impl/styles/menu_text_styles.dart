@@ -4,18 +4,12 @@ class _MenuTextStyle extends StatelessWidget {
   final Widget child;
   final TextStyle Function(ThemeData theme) styleBuilder;
 
-  const _MenuTextStyle({
-    required this.child,
-    required this.styleBuilder,
-  });
+  const _MenuTextStyle({required this.child, required this.styleBuilder});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DefaultTextStyle.merge(
-      style: styleBuilder(theme),
-      child: child,
-    );
+    return DefaultTextStyle.merge(style: styleBuilder(theme), child: child);
   }
 }
 
@@ -30,9 +24,8 @@ extension MenuTextStyleExtensions on Widget {
   Widget muted() {
     return _MenuTextStyle(
       child: this,
-      styleBuilder: (theme) => TextStyle(
-        color: theme.colorScheme.mutedForeground,
-      ),
+      styleBuilder: (theme) =>
+          TextStyle(color: theme.colorScheme.mutedForeground),
     );
   }
 
@@ -60,12 +53,11 @@ extension MenuTextStyleExtensions on Widget {
 
 extension MenuIconStyleExtensions on Widget {
   Widget iconSmall() {
-    return Builder(builder: (context) {
-      final theme = Theme.of(context);
-      return IconTheme(
-        data: theme.iconTheme.small,
-        child: this,
-      );
-    });
+    return Builder(
+      builder: (context) {
+        final theme = Theme.of(context);
+        return IconTheme(data: theme.iconTheme.small, child: this);
+      },
+    );
   }
 }

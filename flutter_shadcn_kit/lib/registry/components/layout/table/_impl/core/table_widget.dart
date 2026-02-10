@@ -114,4 +114,3 @@ class Table extends StatefulWidget {
   @override
   State<Table> createState() => _TableState();
 }
-

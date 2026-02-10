@@ -32,6 +32,9 @@ class ScrollableClientTheme extends ComponentThemeData {
 
   /// Creates a [ScrollableClientTheme].
   const ScrollableClientTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.diagonalDragBehavior,
     this.dragStartBehavior,
     this.keyboardDismissBehavior,
@@ -60,8 +63,9 @@ class ScrollableClientTheme extends ComponentThemeData {
           ? this.keyboardDismissBehavior
           : keyboardDismissBehavior(),
       clipBehavior: clipBehavior == null ? this.clipBehavior : clipBehavior(),
-      hitTestBehavior:
-          hitTestBehavior == null ? this.hitTestBehavior : hitTestBehavior(),
+      hitTestBehavior: hitTestBehavior == null
+          ? this.hitTestBehavior
+          : hitTestBehavior(),
       overscroll: overscroll == null ? this.overscroll : overscroll(),
     );
   }
@@ -77,8 +81,14 @@ class ScrollableClientTheme extends ComponentThemeData {
       other.overscroll == overscroll;
 
   @override
-  int get hashCode => Object.hash(diagonalDragBehavior, dragStartBehavior,
-      keyboardDismissBehavior, clipBehavior, hitTestBehavior, overscroll);
+  int get hashCode => Object.hash(
+    diagonalDragBehavior,
+    dragStartBehavior,
+    keyboardDismissBehavior,
+    clipBehavior,
+    hitTestBehavior,
+    overscroll,
+  );
 
   @override
   String toString() =>
@@ -86,12 +96,16 @@ class ScrollableClientTheme extends ComponentThemeData {
 }
 
 /// Builder function for creating scrollable content with viewport information.
-typedef ScrollableBuilder = Widget Function(
-    BuildContext context, Offset offset, Size viewportSize, Widget? child);
+typedef ScrollableBuilder =
+    Widget Function(
+      BuildContext context,
+      Offset offset,
+      Size viewportSize,
+      Widget? child,
+    );
 
 /// A customizable scrollable widget with two-axis scrolling support.
 
 /// Viewport widget for [ScrollableClient] with two-dimensional scrolling.
 
 /// Render object for [ScrollableClientViewport].
-

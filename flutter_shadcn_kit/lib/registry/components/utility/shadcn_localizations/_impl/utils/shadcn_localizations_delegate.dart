@@ -7,7 +7,8 @@ class _ShadcnLocalizationsDelegate
   @override
   Future<ShadcnLocalizations> load(Locale locale) {
     return SynchronousFuture<ShadcnLocalizations>(
-        lookupShadcnLocalizations(locale));
+      lookupShadcnLocalizations(locale),
+    );
   }
 
   @override

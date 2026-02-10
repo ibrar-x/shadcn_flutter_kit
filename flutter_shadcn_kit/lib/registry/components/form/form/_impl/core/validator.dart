@@ -37,7 +37,10 @@ abstract class Validator<T> {
   /// Returns a `FutureOr<ValidationResult?>` that is null for valid values
   /// or contains error information for invalid values.
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode lifecycle);
+    BuildContext context,
+    T? value,
+    FormValidationMode lifecycle,
+  );
 
   /// Combines this validator with another validator using AND logic.
   ///

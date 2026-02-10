@@ -9,8 +9,9 @@ class _WindowNavigatorState extends State<WindowNavigator>
   final ValueNotifier<_DraggingWindow?> _draggingWindow =
       ValueNotifier<_DraggingWindow?>(null);
   final ValueNotifier<bool> _hoveringTopSnapper = ValueNotifier(false);
-  final ValueNotifier<WindowSnapStrategy?> _snappingStrategy =
-      ValueNotifier(null);
+  final ValueNotifier<WindowSnapStrategy?> _snappingStrategy = ValueNotifier(
+    null,
+  );
 
   void _startDraggingWindow(Window draggingWindow, Offset cursorPosition) {
     if (_draggingWindow.value != null) return;
@@ -22,8 +23,10 @@ class _WindowNavigatorState extends State<WindowNavigator>
         _draggingWindow.value!.window != handle) {
       return;
     }
-    _draggingWindow.value =
-        _DraggingWindow(_draggingWindow.value!.window, cursorPosition);
+    _draggingWindow.value = _DraggingWindow(
+      _draggingWindow.value!.window,
+      cursorPosition,
+    );
   }
 
   void _stopDraggingWindow(Window handle) {
@@ -76,12 +79,10 @@ class _WindowNavigatorState extends State<WindowNavigator>
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<WindowTheme>(context);
     final titleBarHeight = (compTheme?.titleBarHeight ?? 32) * theme.scaling;
-    return LayoutBuilder(builder: (context, constraints) {
-      return ListenableBuilder(
-          listenable: Listenable.merge([
-            _draggingWindow,
-            _snappingStrategy,
-          ]),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ListenableBuilder(
+          listenable: Listenable.merge([_draggingWindow, _snappingStrategy]),
           builder: (context, child) {
             return ClipRect(
               child: GroupWidget(
@@ -112,37 +113,48 @@ class _WindowNavigatorState extends State<WindowNavigator>
                     showTopSnapBar: widget.showTopSnapBar,
                   ),
                   GroupPositioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: titleBarHeight,
-                      child: _createBorderSnapStrategy(const WindowSnapStrategy(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: titleBarHeight,
+                    child: _createBorderSnapStrategy(
+                      const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0, 0, 1, 1),
                         shouldMinifyWindow: false,
-                      ))),
+                      ),
+                    ),
+                  ),
                   GroupPositioned(
-                      top: titleBarHeight,
-                      bottom: 0,
-                      left: 0,
-                      width: titleBarHeight,
-                      child: _createBorderSnapStrategy(const WindowSnapStrategy(
+                    top: titleBarHeight,
+                    bottom: 0,
+                    left: 0,
+                    width: titleBarHeight,
+                    child: _createBorderSnapStrategy(
+                      const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0, 0, 0.5, 1),
                         shouldMinifyWindow: false,
-                      ))),
+                      ),
+                    ),
+                  ),
                   GroupPositioned(
-                      top: titleBarHeight,
-                      bottom: 0,
-                      right: 0,
-                      width: titleBarHeight,
-                      child: _createBorderSnapStrategy(const WindowSnapStrategy(
+                    top: titleBarHeight,
+                    bottom: 0,
+                    right: 0,
+                    width: titleBarHeight,
+                    child: _createBorderSnapStrategy(
+                      const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0.5, 0, 0.5, 1),
                         shouldMinifyWindow: false,
-                      ))),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
-          });
-    });
+          },
+        );
+      },
+    );
   }
 
   Widget _createBorderSnapStrategy(WindowSnapStrategy snapStrategy) {
@@ -162,15 +174,18 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   Widget _createPaneSnapStrategy(
-      Size size, ThemeData theme, WindowSnapStrategy snapStrategy,
-      {bool topLeft = false,
-      bool topRight = false,
-      bool bottomLeft = false,
-      bool bottomRight = false,
-      bool allLeft = false,
-      bool allRight = false,
-      bool allTop = false,
-      bool allBottom = false}) {
+    Size size,
+    ThemeData theme,
+    WindowSnapStrategy snapStrategy, {
+    bool topLeft = false,
+    bool topRight = false,
+    bool bottomLeft = false,
+    bool bottomRight = false,
+    bool allLeft = false,
+    bool allRight = false,
+    bool allTop = false,
+    bool allBottom = false,
+  }) {
     const double gap = 2;
     var left = snapStrategy.relativeBounds.left * size.width;
     var top = snapStrategy.relativeBounds.top * size.height;
@@ -230,12 +245,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
       }
     }
     return GroupPositioned.fromRect(
-      rect: Rect.fromLTWH(
-        left,
-        top,
-        width,
-        height,
-      ),
+      rect: Rect.fromLTWH(left, top, width, height),
       child: _SnapHover(
         topLeft: topLeft || allLeft || allTop,
         topRight: topRight || allRight || allTop,

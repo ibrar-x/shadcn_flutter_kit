@@ -3,9 +3,32 @@
   "name": "Scroll View Interceptor",
   "description": "Middle-click drag scroll interceptor for desktop/web.",
   "category": "control",
-  "tags": ["control", "scroll"],
+  "tags": [
+    "control",
+    "scroll"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": []
-  }
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/scroll_view_interceptor.dart",
+    "_impl/state/scroll_view_interceptor_state.dart",
+    "_impl/utils/desktop_pointer_scroll_event.dart",
+    "meta.json",
+    "preview.dart",
+    "scrollview.dart",
+    "scrollview.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`ScrollViewInterceptor`",
+      "`child` (`Widget`, required)",
+      "`enabled` (`bool`, default: `true`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

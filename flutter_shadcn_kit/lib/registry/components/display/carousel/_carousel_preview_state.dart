@@ -30,8 +30,9 @@ class _CarouselPreviewState extends m.State<CarouselPreview> {
                         child: m.SizedBox(
                           height: 200,
                           child: shadcn.Carousel(
-                            transition:
-                                const shadcn.CarouselTransition.sliding(gap: 24),
+                            transition: const shadcn.CarouselTransition.sliding(
+                              gap: 24,
+                            ),
                             controller: controller,
                             sizeConstraint:
                                 const shadcn.CarouselFixedConstraint(200),
@@ -40,8 +41,9 @@ class _CarouselPreviewState extends m.State<CarouselPreview> {
                             itemBuilder: (context, index) {
                               return m.Container(
                                 decoration: m.BoxDecoration(
-                                  color: m.Colors.primaries[
-                                      index % m.Colors.primaries.length],
+                                  color:
+                                      m.Colors.primaries[index %
+                                          m.Colors.primaries.length],
                                   borderRadius: m.BorderRadius.circular(8),
                                 ),
                                 child: m.Center(

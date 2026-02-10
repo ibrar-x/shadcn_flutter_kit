@@ -12,7 +12,9 @@ class NavigationMenuState extends State<NavigationMenu> {
   int _hoverCount = 0;
 
   void _attachContentBuilder(
-      NavigationMenuItemState key, WidgetBuilder builder) {
+    NavigationMenuItemState key,
+    WidgetBuilder builder,
+  ) {
     _contentBuilders[key] = builder;
   }
 
@@ -49,15 +51,17 @@ class NavigationMenuState extends State<NavigationMenu> {
       offset: compTheme?.offset ?? const Offset(0, 4) * scaling,
       builder: buildPopover,
       modal: false,
-      margin: requestMargin() ??
+      margin:
+          requestMargin() ??
           compTheme?.margin ??
-          (const EdgeInsets.all(8) * scaling),
+          (EdgeInsets.all(theme.density.baseGap * scaling)),
       allowInvertHorizontal: false,
       allowInvertVertical: false,
       onTickFollow: (value) {
-        value.margin = requestMargin() ??
+        value.margin =
+            requestMargin() ??
             compTheme?.margin ??
-            (const EdgeInsets.all(8) * scaling);
+            (EdgeInsets.all(theme.density.baseGap * scaling));
       },
     );
   }
@@ -97,7 +101,9 @@ class NavigationMenuState extends State<NavigationMenu> {
     if (item != null) {
       return Data<NavigationMenuState>.boundary(
         child: Padding(
-          padding: const EdgeInsets.all(12.0) * scaling,
+          padding: EdgeInsets.all(
+            theme.density.baseContentPadding * scaling * 0.75,
+          ),
           child: _contentBuilders[item]!(context),
         ),
       );
@@ -119,7 +125,8 @@ class NavigationMenuState extends State<NavigationMenu> {
   Widget buildPopover(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<NavigationMenuTheme>(context);
-    final surfaceOpacity = widget.surfaceOpacity ??
+    final surfaceOpacity =
+        widget.surfaceOpacity ??
         compTheme?.surfaceOpacity ??
         theme.surfaceOpacity;
     final surfaceBlur =
@@ -138,67 +145,68 @@ class NavigationMenuState extends State<NavigationMenu> {
         });
       },
       child: AnimatedBuilder(
-          animation: _activeIndex,
-          builder: (context, child) {
-            return AnimatedValueBuilder<double>(
-              value: _activeIndex.value.toDouble(),
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOutCubic,
-              builder: (context, value, child) {
-                int currentIndex = _activeIndex.value;
-                List<Widget> children = [];
-                if (currentIndex - 1 >= 0) {
-                  children.add(
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Opacity(
-                        opacity: (1 + value - currentIndex)
-                            .clamp(0.0, 1.0)
-                            .toDouble(),
-                        child: FractionalTranslation(
-                          translation: Offset(-value + currentIndex - 1, 0),
-                          child: buildContent(currentIndex - 1),
-                        ),
+        animation: _activeIndex,
+        builder: (context, child) {
+          return AnimatedValueBuilder<double>(
+            value: _activeIndex.value.toDouble(),
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+            builder: (context, value, child) {
+              int currentIndex = _activeIndex.value;
+              List<Widget> children = [];
+              if (currentIndex - 1 >= 0) {
+                children.add(
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Opacity(
+                      opacity: (1 + value - currentIndex)
+                          .clamp(0.0, 1.0)
+                          .toDouble(),
+                      child: FractionalTranslation(
+                        translation: Offset(-value + currentIndex - 1, 0),
+                        child: buildContent(currentIndex - 1),
                       ),
                     ),
-                  );
-                }
-                if (currentIndex + 1 < widget.children.length) {
-                  children.add(
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Opacity(
-                        opacity: (1 - value + currentIndex)
-                            .clamp(0.0, 1.0)
-                            .toDouble(),
-                        child: FractionalTranslation(
-                          translation: Offset(-value + currentIndex + 1, 0),
-                          child: buildContent(currentIndex + 1),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-                return OutlinedContainer(
-                  clipBehavior: Clip.antiAlias,
-                  borderRadius: theme.borderRadiusMd,
-                  surfaceOpacity: surfaceOpacity,
-                  surfaceBlur: surfaceBlur,
-                  child: Stack(
-                    children: [
-                      ...children,
-                      FractionalTranslation(
-                        translation: Offset(-value + currentIndex, 0),
-                        child: buildContent(currentIndex),
-                      ),
-                    ],
                   ),
                 );
-              },
-            );
-          }),
+              }
+              if (currentIndex + 1 < widget.children.length) {
+                children.add(
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Opacity(
+                      opacity: (1 - value + currentIndex)
+                          .clamp(0.0, 1.0)
+                          .toDouble(),
+                      child: FractionalTranslation(
+                        translation: Offset(-value + currentIndex + 1, 0),
+                        child: buildContent(currentIndex + 1),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return OutlinedContainer(
+                clipBehavior: Clip.antiAlias,
+                borderRadius: theme.borderRadiusMd,
+                surfaceOpacity: surfaceOpacity,
+                surfaceBlur: surfaceBlur,
+                child: Stack(
+                  children: [
+                    ...children,
+                    FractionalTranslation(
+                      translation: Offset(-value + currentIndex, 0),
+                      child: buildContent(currentIndex),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -211,10 +219,11 @@ class NavigationMenuState extends State<NavigationMenu> {
       Offset globalPosition = box.localToGlobal(Offset.zero);
       Size size = box.size;
       return EdgeInsets.only(
-          left: globalPosition.dx,
-          top: globalPosition.dy + size.height,
-          right: 8,
-          bottom: 8);
+        left: globalPosition.dx,
+        top: globalPosition.dy + size.height,
+        right: 8,
+        bottom: 8,
+      );
     }
     return null;
   }

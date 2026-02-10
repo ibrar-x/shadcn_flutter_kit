@@ -97,10 +97,7 @@ class _SwiperState extends State<Swiper> {
     _activeOverlay = widget.handler.openSwiper(
       context: context,
       builder: (context) {
-        return KeyedSubtree(
-          key: _key,
-          child: widget.builder(context),
-        );
+        return KeyedSubtree(key: _key, child: widget.builder(context));
       },
       position: widget.position,
       expands: widget.expands ?? compTheme?.expands,
@@ -120,10 +117,7 @@ class _SwiperState extends State<Swiper> {
     );
   }
 
-  Widget _buildGesture({
-    required Widget child,
-    required bool draggable,
-  }) {
+  Widget _buildGesture({required Widget child, required bool draggable}) {
     final compTheme = ComponentTheme.maybeOf<SwiperTheme>(context);
     final behavior =
         widget.behavior ?? compTheme?.behavior ?? HitTestBehavior.translucent;
@@ -150,9 +144,6 @@ class _SwiperState extends State<Swiper> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildGesture(
-      child: widget.child,
-      draggable: widget.enabled,
-    );
+    return _buildGesture(child: widget.child, draggable: widget.enabled);
   }
 }

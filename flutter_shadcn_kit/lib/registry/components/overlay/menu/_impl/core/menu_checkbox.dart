@@ -52,11 +52,9 @@ class MenuCheckbox extends StatelessWidget implements MenuItem {
           ? SizedBox(
               width: 16 * scaling,
               height: 16 * scaling,
-              child: const Icon(
-                RadixIcons.check,
-              ).iconSmall(),
+              child: const Icon(RadixIcons.check).iconSmall(),
             )
-          : SizedBox(width: 16 * scaling),
+          : SizedBox(width: theme.density.baseContentPadding * scaling),
       onPressed: (context) {
         onChanged?.call(context, !value);
       },
@@ -67,4 +65,3 @@ class MenuCheckbox extends StatelessWidget implements MenuItem {
     );
   }
 }
-

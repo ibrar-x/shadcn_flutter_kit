@@ -21,15 +21,13 @@ class HoverCardPreview extends StatelessWidget {
                   leading: FlutterLogo(),
                   title: Text('@flutter'),
                   content: Text(
-                      'The Flutter SDK provides the tools to build beautiful apps for mobile, web, and desktop from a single codebase.'),
+                    'The Flutter SDK provides the tools to build beautiful apps for mobile, web, and desktop from a single codebase.',
+                  ),
                 ),
               ),
             );
           },
-          child: LinkButton(
-            onPressed: () {},
-            child: const Text('@flutter'),
-          ),
+          child: LinkButton(onPressed: () {}, child: const Text('@flutter')),
         ),
       ),
     );

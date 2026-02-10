@@ -29,7 +29,10 @@ class _ResizableTableData {
   @override
   int get hashCode {
     return Object.hash(
-        cellWidthResizeMode, maxColumn, maxRow, cellHeightResizeMode);
+      cellWidthResizeMode,
+      maxColumn,
+      maxRow,
+      cellHeightResizeMode,
+    );
   }
 }
-

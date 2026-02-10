@@ -79,8 +79,9 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
     if (oldWidget.data.controller != widget.data.controller) {
       if (oldWidget.data.controller != null) {
-        oldWidget.data.controller!
-            .removeListener(_onFormattedInputControllerChange);
+        oldWidget.data.controller!.removeListener(
+          _onFormattedInputControllerChange,
+        );
       }
       if (widget.data.controller != null) {
         widget.data.controller!.addListener(_onFormattedInputControllerChange);
@@ -167,9 +168,9 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
               maxLength: widget.length,
               onChanged: _onChanged,
               decoration: const BoxDecoration(),
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .merge(theme.typography.mono),
+              style: DefaultTextStyle.of(
+                context,
+              ).style.merge(theme.typography.mono),
               border: const Border.fromBorderSide(BorderSide.none),
               textAlign: TextAlign.center,
               initialValue: data.initialValue,
@@ -178,7 +179,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
               inputFormatters: widget.inputFormatters,
               placeholder: widget.placeholder,
               padding: EdgeInsets.symmetric(
-                horizontal: 6 * theme.scaling,
+                horizontal: theme.density.baseGap * theme.scaling * 0.75,
               ),
             ),
           ),

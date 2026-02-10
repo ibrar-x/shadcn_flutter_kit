@@ -14,7 +14,7 @@ class StagedBreakpoint implements StageBreakpoint {
 
   /// Creates a [StagedBreakpoint] with default responsive breakpoints.
   const StagedBreakpoint.defaultBreakpoints()
-      : breakpoints = _defaultBreakpoints;
+    : breakpoints = _defaultBreakpoints;
 
   @override
   double getMinWidth(double width) {

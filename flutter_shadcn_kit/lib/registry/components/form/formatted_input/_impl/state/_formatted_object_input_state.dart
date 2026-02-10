@@ -12,8 +12,9 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
   void initState() {
     super.initState();
     _controller = widget.controller ?? _FormattedObjectController<T>();
-    List<String?> values = widget.converter
-        .convertA(widget.initialValue ?? widget.controller?.value);
+    List<String?> values = widget.converter.convertA(
+      widget.initialValue ?? widget.controller?.value,
+    );
     List<FormattedValuePart> valueParts = [];
     int partIndex = 0;
     for (var i = 0; i < widget.parts.length; i++) {
@@ -30,9 +31,7 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
         valueParts.add(FormattedValuePart(part));
       }
     }
-    _formattedController = FormattedInputController(
-      FormattedValue(valueParts),
-    );
+    _formattedController = FormattedInputController(FormattedValue(valueParts));
     _formattedController.addListener(_onFormattedControllerUpdate);
     _controller.addListener(_onControllerUpdate);
   }
@@ -43,8 +42,8 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     if (!listEquals(widget.parts, oldWidget.parts)) {
       List<String?> values = widget.converter.convertA(_controller.value);
       List<FormattedValuePart> valueParts = [];
-      List<FormattedValuePart> oldValues =
-          _formattedController.value.values.toList();
+      List<FormattedValuePart> oldValues = _formattedController.value.values
+          .toList();
       int partIndex = 0;
       for (var i = 0; i < widget.parts.length; i++) {
         var part = widget.parts[i];
@@ -53,8 +52,9 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
           if (value != null) {
             valueParts.add(part.withValue(value));
           } else {
-            var oldValue =
-                partIndex < oldValues.length ? oldValues[partIndex] : null;
+            var oldValue = partIndex < oldValues.length
+                ? oldValues[partIndex]
+                : null;
             if (oldValue != null) {
               valueParts.add(oldValue);
             } else {
@@ -80,9 +80,11 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     _updating = true;
     try {
       var value = _formattedController.value;
-      T? newValue = widget.converter.convertB(value.values.map((part) {
-        return part.value ?? '';
-      }).toList());
+      T? newValue = widget.converter.convertB(
+        value.values.map((part) {
+          return part.value ?? '';
+        }).toList(),
+      );
       _controller.value = newValue;
       widget.onChanged?.call(newValue);
     } finally {
@@ -97,8 +99,8 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
       List<String?> values = widget.converter.convertA(_controller.value);
       List<FormattedValuePart> valueParts = [];
       int partIndex = 0;
-      List<FormattedValuePart> oldValues =
-          _formattedController.value.values.toList();
+      List<FormattedValuePart> oldValues = _formattedController.value.values
+          .toList();
       for (var i = 0; i < widget.parts.length; i++) {
         var part = widget.parts[i];
         if (part.canHaveValue) {
@@ -106,8 +108,9 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
           if (value != null) {
             valueParts.add(part.withValue(value));
           } else {
-            var oldValue =
-                partIndex < oldValues.length ? oldValues[partIndex] : null;
+            var oldValue = partIndex < oldValues.length
+                ? oldValues[partIndex]
+                : null;
             if (oldValue != null) {
               valueParts.add(oldValue);
             } else {
@@ -133,14 +136,15 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     }
     final theme = Theme.of(context);
     _popoverController.show(
-        context: context,
-        alignment: widget.popoverAlignment ?? AlignmentDirectional.topStart,
-        anchorAlignment:
-            widget.popoverAnchorAlignment ?? AlignmentDirectional.bottomStart,
-        offset: widget.popoverOffset ?? (const Offset(0, 4) * theme.scaling),
-        builder: (context) {
-          return popupBuilder(context, _controller);
-        });
+      context: context,
+      alignment: widget.popoverAlignment ?? AlignmentDirectional.topStart,
+      anchorAlignment:
+          widget.popoverAnchorAlignment ?? AlignmentDirectional.bottomStart,
+      offset: widget.popoverOffset ?? (const Offset(0, 4) * theme.scaling),
+      builder: (context) {
+        return popupBuilder(context, _controller);
+      },
+    );
   }
 
   @override
@@ -153,32 +157,33 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
   Widget build(BuildContext context) {
     var popoverIcon = widget.popoverIcon;
     return FormattedInput(
-        controller: _formattedController,
-        onChanged: (value) {
-          List<String> values = value.values.map((part) {
-            return part.value ?? '';
-          }).toList();
-          widget.onPartsChanged?.call(values);
-          T? newValue = widget.converter.convertB(values);
-          _controller.value = newValue;
-        },
-        trailing: popoverIcon == null
-            ? null
-            : ListenableBuilder(
-                listenable: _popoverController,
-                builder: (context, child) {
-                  return WidgetStatesProvider(
-                    states: {
-                      if (_popoverController.hasOpenPopover)
-                        WidgetState.hovered,
-                    },
-                    child: child!,
-                  );
-                },
-                child: IconButton.text(
-                  icon: popoverIcon,
-                  density: ButtonDensity.compact,
-                  onPressed: _openPopover,
-                )));
+      controller: _formattedController,
+      onChanged: (value) {
+        List<String> values = value.values.map((part) {
+          return part.value ?? '';
+        }).toList();
+        widget.onPartsChanged?.call(values);
+        T? newValue = widget.converter.convertB(values);
+        _controller.value = newValue;
+      },
+      trailing: popoverIcon == null
+          ? null
+          : ListenableBuilder(
+              listenable: _popoverController,
+              builder: (context, child) {
+                return WidgetStatesProvider(
+                  states: {
+                    if (_popoverController.hasOpenPopover) WidgetState.hovered,
+                  },
+                  child: child!,
+                );
+              },
+              child: IconButton.text(
+                icon: popoverIcon,
+                density: ButtonDensity.compact,
+                onPressed: _openPopover,
+              ),
+            ),
+    );
   }
 }

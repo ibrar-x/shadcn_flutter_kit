@@ -53,6 +53,9 @@ class CheckboxTheme extends ComponentThemeData {
   /// The theme can be applied to individual checkboxes or globally through
   /// the component theme system.
   const CheckboxTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.activeColor,
     this.borderColor,
@@ -82,8 +85,9 @@ class CheckboxTheme extends ComponentThemeData {
     ValueGetter<BorderRadiusGeometry?>? borderRadius,
   }) {
     return CheckboxTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       activeColor: activeColor == null ? this.activeColor : activeColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       size: size == null ? this.size : size(),
@@ -106,11 +110,11 @@ class CheckboxTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        backgroundColor,
-        activeColor,
-        borderColor,
-        size,
-        gap,
-        borderRadius,
-      );
+    backgroundColor,
+    activeColor,
+    borderColor,
+    size,
+    gap,
+    borderRadius,
+  );
 }

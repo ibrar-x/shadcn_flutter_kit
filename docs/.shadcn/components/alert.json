@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "alert",
+  "name": "Alert",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "status",
+    "layout"
+  ],
+  "installedAt": "2026-02-09T10:18:03.211190Z",
+  "shared": [
+    "basic_layout",
+    "outlined_container",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/layout/alert/README.md",
+    "registry/components/layout/alert/_impl/themes/alert_theme.dart",
+    "registry/components/layout/alert/alert.dart",
+    "registry/components/layout/alert/alert.meta.json",
+    "registry/components/layout/alert/meta.json",
+    "registry/components/layout/alert/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

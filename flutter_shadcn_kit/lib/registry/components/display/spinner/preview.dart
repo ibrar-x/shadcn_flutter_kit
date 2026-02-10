@@ -4,7 +4,6 @@ import '../spinner/spinner.dart';
 
 part 'circle_spinner.dart';
 
-
 class SpinnerPreview extends m.StatelessWidget {
   const SpinnerPreview({super.key});
 

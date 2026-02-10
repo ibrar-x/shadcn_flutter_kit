@@ -18,8 +18,8 @@ class RangeCalendarValue extends CalendarValue {
   ///
   /// Automatically normalizes the range so [start] is before [end].
   RangeCalendarValue(DateTime start, DateTime end)
-      : start = start.isBefore(end) ? start : end,
-        end = start.isBefore(end) ? end : start;
+    : start = start.isBefore(end) ? start : end,
+      end = start.isBefore(end) ? end : start;
 
   @override
   CalendarValueLookup lookup(int year, [int? month, int? day]) {
@@ -74,9 +74,11 @@ class RangeCalendarValue extends CalendarValue {
   @override
   MultiCalendarValue toMulti() {
     List<DateTime> dates = [];
-    for (DateTime date = start;
-        date.isBefore(end);
-        date = date.add(const Duration(days: 1))) {
+    for (
+      DateTime date = start;
+      date.isBefore(end);
+      date = date.add(const Duration(days: 1))
+    ) {
       dates.add(date);
     }
     dates.add(end);

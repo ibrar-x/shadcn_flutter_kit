@@ -9,7 +9,6 @@
     "i18n"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "util"
     ],
@@ -17,6 +16,27 @@
       "color_picker",
       "locale_utils",
       "shadcn_localizations"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "preview.dart",
+    "shadcn_localizations_extensions.dart",
+    "shadcn_localizations_extensions.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "extensions": [
+      "`ShadcnLocalizationsExtensions`",
+      "`formatDateTime`",
+      "`formatTimeOfDay`",
+      "`getMonth`, `getAbbreviatedMonth`",
+      "`getAbbreviatedWeekday`",
+      "`getColorPickerMode`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

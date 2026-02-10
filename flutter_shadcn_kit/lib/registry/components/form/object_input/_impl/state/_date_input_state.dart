@@ -19,8 +19,9 @@ class _DateInputState extends State<DateInput> {
     int? month = monthString == null || monthString.isEmpty
         ? null
         : int.tryParse(monthString);
-    int? day =
-        dayString == null || dayString.isEmpty ? null : int.tryParse(dayString);
+    int? day = dayString == null || dayString.isEmpty
+        ? null
+        : int.tryParse(dayString);
     return NullableDate(year: year, month: month, day: day);
   }
 
@@ -93,11 +94,14 @@ class _DateInputState extends State<DateInput> {
     super.initState();
     _controller = widget.controller == null
         ? ComponentValueController<NullableDate>(
-            _convertToNullableDate(widget.initialValue))
+            _convertToNullableDate(widget.initialValue),
+          )
         : ConvertedController<DateTime?, NullableDate>(
             widget.controller!,
             BiDirectionalConvert(
-                _convertToNullableDate, _convertFromNullableDate),
+              _convertToNullableDate,
+              _convertFromNullableDate,
+            ),
           );
   }
 
@@ -140,22 +144,19 @@ class _DateInputState extends State<DateInput> {
       controller: _controller,
       initialValue: _convertToNullableDate(widget.initialValue),
       onChanged: (value) {
-        widget.onChanged
-            ?.call(value == null ? null : _convertFromNullableDate(value));
+        widget.onChanged?.call(
+          value == null ? null : _convertFromNullableDate(value),
+        );
       },
       parts: datePartsOrder
-          .map(
-            (part) {
-              return InputPart.editable(
-                  length: _getLength(part),
-                  width: _getWidth(part),
-                  placeholder:
-                      widget.placeholders?[part] ?? _getPlaceholder(part),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ]);
-            },
-          )
+          .map((part) {
+            return InputPart.editable(
+              length: _getLength(part),
+              width: _getWidth(part),
+              placeholder: widget.placeholders?[part] ?? _getPlaceholder(part),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            );
+          })
           .joinSeparator(const InputPart.static('/'))
           .toList(),
     );

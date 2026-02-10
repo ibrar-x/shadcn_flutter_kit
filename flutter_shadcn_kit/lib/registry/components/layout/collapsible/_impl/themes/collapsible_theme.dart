@@ -4,6 +4,9 @@ part of '../../collapsible.dart';
 class CollapsibleTheme extends ComponentThemeData {
   /// Creates a theme for collapsible sections.
   const CollapsibleTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.padding,
     this.iconExpanded,
     this.iconCollapsed,
@@ -42,8 +45,9 @@ class CollapsibleTheme extends ComponentThemeData {
     return CollapsibleTheme(
       padding: padding == null ? this.padding : padding(),
       iconExpanded: iconExpanded == null ? this.iconExpanded : iconExpanded(),
-      iconCollapsed:
-          iconCollapsed == null ? this.iconCollapsed : iconCollapsed(),
+      iconCollapsed: iconCollapsed == null
+          ? this.iconCollapsed
+          : iconCollapsed(),
       crossAxisAlignment: crossAxisAlignment == null
           ? this.crossAxisAlignment
           : crossAxisAlignment(),
@@ -67,11 +71,11 @@ class CollapsibleTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        padding,
-        iconExpanded,
-        iconCollapsed,
-        crossAxisAlignment,
-        mainAxisAlignment,
-        iconGap,
-      );
+    padding,
+    iconExpanded,
+    iconCollapsed,
+    crossAxisAlignment,
+    mainAxisAlignment,
+    iconGap,
+  );
 }

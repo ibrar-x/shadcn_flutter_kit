@@ -9,16 +9,43 @@
     "overlay"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "theme",
-      "text",
+      "text_modifiers",
       "color_extensions"
     ],
     "components": [
       "history"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/eye_dropper_layer.dart",
+    "_impl/core/eye_dropper_layer_scope.dart",
+    "_impl/core/eye_dropper_result.dart",
+    "_impl/state/_eye_dropper_layer_state.dart",
+    "_impl/state/_eye_dropper_preview_state.dart",
+    "_impl/utils/_color_preview_painter.dart",
+    "_impl/utils/_eye_dropper_completer.dart",
+    "_impl/utils/_screenshot_image.dart",
+    "_impl/utils/_screenshot_result.dart",
+    "eye_dropper.dart",
+    "eye_dropper.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`EyeDropperLayer`",
+      "`EyeDropperLayerScope`",
+      "`EyeDropperResult`",
+      "`PreviewLabelBuilder`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

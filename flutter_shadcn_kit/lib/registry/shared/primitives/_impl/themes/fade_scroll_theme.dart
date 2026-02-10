@@ -12,6 +12,9 @@ class FadeScrollTheme extends ComponentThemeData {
 
   /// Creates a [FadeScrollTheme].
   const FadeScrollTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.startOffset,
     this.endOffset,
     this.gradient,

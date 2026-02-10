@@ -40,6 +40,9 @@ class MenubarTheme extends ComponentThemeData {
 
   /// Creates a [MenubarTheme].
   const MenubarTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.border,
     this.subMenuOffset,
     this.padding,
@@ -59,12 +62,14 @@ class MenubarTheme extends ComponentThemeData {
   }) {
     return MenubarTheme(
       border: border == null ? this.border : border(),
-      subMenuOffset:
-          subMenuOffset == null ? this.subMenuOffset : subMenuOffset(),
+      subMenuOffset: subMenuOffset == null
+          ? this.subMenuOffset
+          : subMenuOffset(),
       padding: padding == null ? this.padding : padding(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
     );
   }
@@ -83,13 +88,13 @@ class MenubarTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        border,
-        subMenuOffset,
-        padding,
-        borderColor,
-        backgroundColor,
-        borderRadius,
-      );
+    border,
+    subMenuOffset,
+    padding,
+    borderColor,
+    backgroundColor,
+    borderRadius,
+  );
 }
 
 /// A horizontal menubar widget for displaying application menus and menu items.

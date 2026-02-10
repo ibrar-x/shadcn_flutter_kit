@@ -9,10 +9,28 @@
     "state"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [],
     "components": [
       "form"
-    ]
-  }
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/state/_validated_state.dart",
+    "meta.json",
+    "preview.dart",
+    "validated.dart",
+    "validated.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Validated<T>`",
+      "`validator` (`Validator<T>`, required)",
+      "`builder` (`ValidatedBuilder`, required)",
+      "`child` (`Widget?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

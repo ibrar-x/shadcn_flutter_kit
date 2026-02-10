@@ -69,4 +69,3 @@ class ScrollableSortableLayer extends StatefulWidget {
   State<ScrollableSortableLayer> createState() =>
       _ScrollableSortableLayerState();
 }
-

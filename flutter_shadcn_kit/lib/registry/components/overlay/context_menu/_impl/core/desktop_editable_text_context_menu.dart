@@ -29,8 +29,9 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
     final scaling = theme.scaling;
     final localizations = ShadcnLocalizations.of(context);
     var undoHistoryController = this.undoHistoryController;
-    var contextMenuButtonItems =
-        List.of(editableTextState.contextMenuButtonItems);
+    var contextMenuButtonItems = List.of(
+      editableTextState.contextMenuButtonItems,
+    );
 
     ContextMenuButtonItem? take(ContextMenuButtonType type) {
       var item = contextMenuButtonItems
@@ -55,10 +56,7 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
         cutButton?.onPressed?.call();
       },
       trailing: const MenuShortcut(
-        activator: SingleActivator(
-          LogicalKeyboardKey.keyX,
-          control: true,
-        ),
+        activator: SingleActivator(LogicalKeyboardKey.keyX, control: true),
       ),
       child: Text(localizations.menuCut),
     );
@@ -68,10 +66,7 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
         copyButton?.onPressed?.call();
       },
       trailing: const MenuShortcut(
-        activator: SingleActivator(
-          LogicalKeyboardKey.keyC,
-          control: true,
-        ),
+        activator: SingleActivator(LogicalKeyboardKey.keyC, control: true),
       ),
       child: Text(localizations.menuCopy),
     );
@@ -81,10 +76,7 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
         pasteButton?.onPressed?.call();
       },
       trailing: const MenuShortcut(
-        activator: SingleActivator(
-          LogicalKeyboardKey.keyV,
-          control: true,
-        ),
+        activator: SingleActivator(LogicalKeyboardKey.keyV, control: true),
       ),
       child: Text(localizations.menuPaste),
     );
@@ -97,37 +89,40 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
         });
       },
       trailing: const MenuShortcut(
-        activator: SingleActivator(
-          LogicalKeyboardKey.keyA,
-          control: true,
-        ),
+        activator: SingleActivator(LogicalKeyboardKey.keyA, control: true),
       ),
       child: Text(localizations.menuSelectAll),
     );
     List<MenuItem> extras = [];
     if (shareButton != null) {
-      extras.add(MenuButton(
-        onPressed: (context) {
-          shareButton.onPressed?.call();
-        },
-        child: Text(localizations.menuShare),
-      ));
+      extras.add(
+        MenuButton(
+          onPressed: (context) {
+            shareButton.onPressed?.call();
+          },
+          child: Text(localizations.menuShare),
+        ),
+      );
     }
     if (searchWebButton != null) {
-      extras.add(MenuButton(
-        onPressed: (context) {
-          searchWebButton.onPressed?.call();
-        },
-        child: Text(localizations.menuSearchWeb),
-      ));
+      extras.add(
+        MenuButton(
+          onPressed: (context) {
+            searchWebButton.onPressed?.call();
+          },
+          child: Text(localizations.menuSearchWeb),
+        ),
+      );
     }
     if (liveTextInput != null) {
-      extras.add(MenuButton(
-        onPressed: (context) {
-          liveTextInput.onPressed?.call();
-        },
-        child: Text(localizations.menuLiveTextInput),
-      ));
+      extras.add(
+        MenuButton(
+          onPressed: (context) {
+            liveTextInput.onPressed?.call();
+          },
+          child: Text(localizations.menuLiveTextInput),
+        ),
+      );
     }
     if (undoHistoryController == null) {
       return TextFieldTapRegion(
@@ -135,7 +130,8 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
           child: ContextMenuPopup(
             anchorSize: Size.zero,
             anchorContext: anchorContext,
-            position: editableTextState.contextMenuAnchors.primaryAnchor +
+            position:
+                editableTextState.contextMenuAnchors.primaryAnchor +
                 const Offset(8, -8) * scaling,
             children: [
               cutButtonWidget,
@@ -152,50 +148,52 @@ class DesktopEditableTextContextMenu extends StatelessWidget {
     return TextFieldTapRegion(
       child: _ContextMenuScope(
         child: AnimatedBuilder(
-            animation: undoHistoryController,
-            builder: (context, child) {
-              return ContextMenuPopup(
-                anchorContext: anchorContext,
-                position: editableTextState.contextMenuAnchors.primaryAnchor +
-                    const Offset(8, -8) * scaling,
-                children: [
-                  MenuButton(
-                    enabled: undoHistoryController.value.canUndo,
-                    onPressed: (context) {
-                      undoHistoryController.undo();
-                    },
-                    trailing: const MenuShortcut(
-                      activator: SingleActivator(
-                        LogicalKeyboardKey.keyZ,
-                        control: true,
-                      ),
+          animation: undoHistoryController,
+          builder: (context, child) {
+            return ContextMenuPopup(
+              anchorContext: anchorContext,
+              position:
+                  editableTextState.contextMenuAnchors.primaryAnchor +
+                  const Offset(8, -8) * scaling,
+              children: [
+                MenuButton(
+                  enabled: undoHistoryController.value.canUndo,
+                  onPressed: (context) {
+                    undoHistoryController.undo();
+                  },
+                  trailing: const MenuShortcut(
+                    activator: SingleActivator(
+                      LogicalKeyboardKey.keyZ,
+                      control: true,
                     ),
-                    child: const Text('Undo'),
                   ),
-                  MenuButton(
-                    enabled: undoHistoryController.value.canRedo,
-                    onPressed: (context) {
-                      undoHistoryController.redo();
-                    },
-                    trailing: const MenuShortcut(
-                      activator: SingleActivator(
-                        LogicalKeyboardKey.keyZ,
-                        control: true,
-                        shift: true,
-                      ),
+                  child: const Text('Undo'),
+                ),
+                MenuButton(
+                  enabled: undoHistoryController.value.canRedo,
+                  onPressed: (context) {
+                    undoHistoryController.redo();
+                  },
+                  trailing: const MenuShortcut(
+                    activator: SingleActivator(
+                      LogicalKeyboardKey.keyZ,
+                      control: true,
+                      shift: true,
                     ),
-                    child: const Text('Redo'),
                   ),
-                  const MenuDivider(),
-                  cutButtonWidget,
-                  copyButtonWidget,
-                  pasteButtonWidget,
-                  selectAllButtonWidget,
-                  if (extras.isNotEmpty) const MenuDivider(),
-                  ...extras,
-                ],
-              );
-            }),
+                  child: const Text('Redo'),
+                ),
+                const MenuDivider(),
+                cutButtonWidget,
+                copyButtonWidget,
+                pasteButtonWidget,
+                selectAllButtonWidget,
+                if (extras.isNotEmpty) const MenuDivider(),
+                ...extras,
+              ],
+            );
+          },
+        ),
       ),
     );
   }

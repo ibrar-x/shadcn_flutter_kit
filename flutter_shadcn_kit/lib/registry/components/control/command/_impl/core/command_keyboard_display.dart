@@ -7,8 +7,9 @@ import '../../../../../shared/primitives/text.dart';
 class CommandKeyboardDisplay extends StatelessWidget {
   const CommandKeyboardDisplay({super.key, required this.keys});
 
-  factory CommandKeyboardDisplay.fromActivator(
-      {required SingleActivator activator}) {
+  factory CommandKeyboardDisplay.fromActivator({
+    required SingleActivator activator,
+  }) {
     final keys = <LogicalKeyboardKey>[];
     if (activator.control) keys.add(LogicalKeyboardKey.control);
     if (activator.shift) keys.add(LogicalKeyboardKey.shift);
@@ -30,15 +31,15 @@ class CommandKeyboardDisplay extends StatelessWidget {
     }
     final theme = Theme.of(context);
     return Wrap(
-      spacing: theme.scaling * 4,
+      spacing: theme.density.baseGap * theme.scaling * gapXs,
       children: keys.map((key) {
         final label = key.keyLabel.isNotEmpty
             ? key.keyLabel
             : key.debugName ?? key.toString();
         return Container(
           padding: EdgeInsets.symmetric(
-            horizontal: theme.scaling * 6,
-            vertical: theme.scaling * 2,
+            horizontal: theme.density.baseGap * theme.scaling * 0.75,
+            vertical: theme.density.baseGap * theme.scaling * 0.25,
           ),
           decoration: BoxDecoration(
             color: theme.colorScheme.card,

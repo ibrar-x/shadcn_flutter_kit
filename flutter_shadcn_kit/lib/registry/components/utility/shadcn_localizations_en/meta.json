@@ -9,12 +9,27 @@
     "english"
   ],
   "dependencies": {
-    "pubspec": {
-      "intl": "any"
-    },
     "shared": [],
     "components": [
       "shadcn_localizations"
+    ],
+    "pubspec": {
+      "intl": "any"
+    }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "preview.dart",
+    "shadcn_localizations_en.dart",
+    "shadcn_localizations_en.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`ShadcnLocalizationsEn`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

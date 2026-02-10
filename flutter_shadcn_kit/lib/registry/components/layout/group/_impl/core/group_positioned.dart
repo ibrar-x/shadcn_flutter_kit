@@ -30,12 +30,12 @@ class GroupPositioned extends ParentDataWidget<GroupParentData> {
     super.key,
     required Rect rect,
     required super.child,
-  })  : left = rect.left,
-        top = rect.top,
-        width = rect.width,
-        height = rect.height,
-        right = null,
-        bottom = null;
+  }) : left = rect.left,
+       top = rect.top,
+       width = rect.width,
+       height = rect.height,
+       right = null,
+       bottom = null;
 
   final double? top;
   final double? left;

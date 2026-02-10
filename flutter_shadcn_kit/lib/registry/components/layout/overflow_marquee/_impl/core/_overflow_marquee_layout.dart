@@ -41,7 +41,9 @@ class _OverflowMarqueeLayout extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _RenderOverflowMarqueeLayout renderObject) {
+    BuildContext context,
+    _RenderOverflowMarqueeLayout renderObject,
+  ) {
     bool hasChanged = false;
     if (renderObject.direction != direction) {
       renderObject.direction = direction;

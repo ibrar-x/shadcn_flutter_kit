@@ -6,12 +6,8 @@ import '../../../../../shared/theme/theme.dart';
 
 part 'hsv_color_slider_type.dart';
 
-
 part '../state/_hsv_color_slider_state.dart';
 part 'hsv_color_slider_painter.dart';
-
-
-
 
 /// A slider widget for adjusting HSV color components.
 ///

@@ -3,9 +3,39 @@
   "name": "Breadcrumb",
   "description": "Horizontal breadcrumb trail with arrow/slash separators and overflow handling.",
   "category": "navigation",
-  "tags": ["navigation", "layout"],
+  "tags": [
+    "navigation",
+    "layout"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": ["theme", "style_value", "basic_layout", "radix_icons"]
-  }
+    "shared": [
+      "theme",
+      "style_value",
+      "basic_layout",
+      "radix_icons"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_arrow_separator.dart",
+    "_impl/core/_slash_separator.dart",
+    "_impl/core/breadcrumb_2.dart",
+    "breadcrumb.dart",
+    "breadcrumb.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Breadcrumb`",
+      "`children` (`List<Widget>`, required)",
+      "`separator` (`Widget?`)",
+      "`padding` (`EdgeInsetsGeometry?`)",
+      "`BreadcrumbTheme` — separator/padding defaults."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

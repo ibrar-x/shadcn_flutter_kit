@@ -11,12 +11,16 @@ class _ResizablePaneState extends State<ResizablePane> {
     if (widget.controller != null) {
       _controller = widget.controller!;
     } else if (widget.initialSize != null) {
-      _controller = AbsoluteResizablePaneController(widget.initialSize!,
-          collapsed: widget.initialCollapsed!);
+      _controller = AbsoluteResizablePaneController(
+        widget.initialSize!,
+        collapsed: widget.initialCollapsed!,
+      );
     } else {
       assert(widget.initialFlex != null, 'initalFlex must not be null');
-      _controller = FlexibleResizablePaneController(widget.initialFlex!,
-          collapsed: widget.initialCollapsed!);
+      _controller = FlexibleResizablePaneController(
+        widget.initialFlex!,
+        collapsed: widget.initialCollapsed!,
+      );
     }
     _controller._attachPaneState(this);
   }
@@ -42,19 +46,25 @@ class _ResizablePaneState extends State<ResizablePane> {
         _controller = widget.controller!;
       } else if (widget.initialSize != null) {
         if (_controller is! AbsoluteResizablePaneController) {
-          _controller = AbsoluteResizablePaneController(widget.initialSize!,
-              collapsed: widget.initialCollapsed!);
+          _controller = AbsoluteResizablePaneController(
+            widget.initialSize!,
+            collapsed: widget.initialCollapsed!,
+          );
         }
       } else {
         if (_controller is! FlexibleResizablePaneController) {
           assert(widget.initialFlex != null, 'initalFlex must not be null');
-          _controller = FlexibleResizablePaneController(widget.initialFlex!,
-              collapsed: widget.initialCollapsed!);
+          _controller = FlexibleResizablePaneController(
+            widget.initialFlex!,
+            collapsed: widget.initialCollapsed!,
+          );
         }
       }
       _panelState?.attach(_controller);
-      assert(_panelState != null,
-          'ResizablePane must be a child of ResizablePanel');
+      assert(
+        _panelState != null,
+        'ResizablePane must be a child of ResizablePanel',
+      );
       _controller._attachPaneState(this);
     }
   }
@@ -65,8 +75,10 @@ class _ResizablePaneState extends State<ResizablePane> {
     }
     List<ResizableItem> draggers = _panelState!.state.computeDraggers();
     Resizer resizer = Resizer(draggers);
-    bool result =
-        resizer.attemptExpandCollapsed(_panelState!.index, direction.direction);
+    bool result = resizer.attemptExpandCollapsed(
+      _panelState!.index,
+      direction.direction,
+    );
     if (result) {
       _panelState!.state.updateDraggers(resizer.items);
     }
@@ -79,20 +91,27 @@ class _ResizablePaneState extends State<ResizablePane> {
     }
     List<ResizableItem> draggers = _panelState!.state.computeDraggers();
     Resizer resizer = Resizer(draggers);
-    bool result =
-        resizer.attemptCollapse(_panelState!.index, direction.direction);
+    bool result = resizer.attemptCollapse(
+      _panelState!.index,
+      direction.direction,
+    );
     if (result) {
       _panelState!.state.updateDraggers(resizer.items);
     }
     return result;
   }
 
-  bool tryExpandSize(double size,
-      [PanelSibling direction = PanelSibling.both]) {
+  bool tryExpandSize(
+    double size, [
+    PanelSibling direction = PanelSibling.both,
+  ]) {
     List<ResizableItem> draggers = _panelState!.state.computeDraggers();
     Resizer resizer = Resizer(draggers);
-    bool result =
-        resizer.attemptExpand(_panelState!.index, direction.direction, size);
+    bool result = resizer.attemptExpand(
+      _panelState!.index,
+      direction.direction,
+      size,
+    );
     if (result) {
       _panelState!.state.updateDraggers(resizer.items);
     }
@@ -131,9 +150,7 @@ class _ResizablePaneState extends State<ResizablePane> {
         return _ResizableLayoutChild(
           size: size,
           flex: flex,
-          child: ClipRect(
-            child: widget.child,
-          ),
+          child: ClipRect(child: widget.child),
         );
       },
     );

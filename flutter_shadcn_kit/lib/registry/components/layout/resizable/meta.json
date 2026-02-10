@@ -9,9 +9,6 @@
     "panel"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "constants",
       "radix_icons",
@@ -19,6 +16,44 @@
       "style_value",
       "theme"
     ],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_render_resizable_layout.dart",
+    "_impl/core/_resizable_item.dart",
+    "_impl/core/_resizable_layout.dart",
+    "_impl/core/_resizable_layout_child.dart",
+    "_impl/core/_resizable_layout_parent_data.dart",
+    "_impl/core/_resizable_panel_data.dart",
+    "_impl/core/_resizer.dart",
+    "_impl/core/horizontal_resizable_dragger.dart",
+    "_impl/core/resizable_data.dart",
+    "_impl/core/resizable_pane.dart",
+    "_impl/core/resizable_panel.dart",
+    "_impl/core/vertical_resizable_dragger.dart",
+    "_impl/state/_resizable_pane_state.dart",
+    "_impl/state/_resizable_panel_state.dart",
+    "_impl/state/_resizer_state.dart",
+    "_impl/utils/absolute_resizable_pane_controller.dart",
+    "_impl/utils/flexible_resizable_pane_controller.dart",
+    "meta.json",
+    "preview.dart",
+    "resizable.dart",
+    "resizable.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`ResizablePanel` — container for panes.",
+      "`ResizablePane` — resizable pane with controller.",
+      "`HorizontalResizableDragger` / `VerticalResizableDragger` — dividers.",
+      "`ResizablePaneController` — base controller interface.",
+      "`AbsoluteResizablePaneController` / `FlexibleResizablePaneController` — controller types."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

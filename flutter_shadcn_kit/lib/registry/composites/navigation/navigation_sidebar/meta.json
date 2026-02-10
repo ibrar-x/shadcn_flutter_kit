@@ -3,9 +3,39 @@
   "name": "Navigation Sidebar",
   "description": "Composite export for NavigationSidebar and related items.",
   "category": "navigation",
-  "tags": ["navigation", "sidebar", "composite"],
+  "tags": [
+    "navigation",
+    "sidebar",
+    "composite"
+  ],
   "dependencies": {
     "shared": [],
+    "components": [
+      "navigation_bar",
+      "outlined_container"
+    ],
     "pubspec": {}
-  }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "navigation_sidebar.dart",
+    "navigation_sidebar.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`NavigationSidebar`",
+      "`NavigationItem`",
+      "`NavigationDivider`",
+      "`NavigationLabel`",
+      "`NavigationGap`",
+      "`NavigationLabelType`",
+      "`NavigationLabelPosition`",
+      "`NavigationButton`",
+      "`OutlinedContainer`"
+    ]
+  },
+  "version": "1.0.0"
 }

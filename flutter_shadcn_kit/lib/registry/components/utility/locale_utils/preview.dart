@@ -7,10 +7,6 @@ class LocaleUtilsPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formatted = formatFileSize(42000, SizeUnitLocale.fileBytes);
-    return Scaffold(
-      body: Center(
-        child: Text('Formatted size: $formatted'),
-      ),
-    );
+    return Scaffold(body: Center(child: Text('Formatted size: $formatted')));
   }
 }

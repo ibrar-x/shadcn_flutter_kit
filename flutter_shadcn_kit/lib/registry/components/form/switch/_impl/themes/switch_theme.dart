@@ -10,6 +10,9 @@ class SwitchTheme extends ComponentThemeData {
   final BorderRadiusGeometry? borderRadius;
 
   const SwitchTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.activeColor,
     this.inactiveColor,
     this.activeThumbColor,
@@ -28,10 +31,12 @@ class SwitchTheme extends ComponentThemeData {
   }) {
     return SwitchTheme(
       activeColor: activeColor == null ? this.activeColor : activeColor(),
-      inactiveColor:
-          inactiveColor == null ? this.inactiveColor : inactiveColor(),
-      activeThumbColor:
-          activeThumbColor == null ? this.activeThumbColor : activeThumbColor(),
+      inactiveColor: inactiveColor == null
+          ? this.inactiveColor
+          : inactiveColor(),
+      activeThumbColor: activeThumbColor == null
+          ? this.activeThumbColor
+          : activeThumbColor(),
       inactiveThumbColor: inactiveThumbColor == null
           ? this.inactiveThumbColor
           : inactiveThumbColor(),
@@ -54,11 +59,11 @@ class SwitchTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        activeColor,
-        inactiveColor,
-        activeThumbColor,
-        inactiveThumbColor,
-        gap,
-        borderRadius,
-      );
+    activeColor,
+    inactiveColor,
+    activeThumbColor,
+    inactiveThumbColor,
+    gap,
+    borderRadius,
+  );
 }

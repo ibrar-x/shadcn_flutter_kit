@@ -192,4 +192,3 @@ class Sortable<T> extends StatefulWidget {
   @override
   State<Sortable<T>> createState() => _SortableState<T>();
 }
-

@@ -16,25 +16,19 @@ class ValidatedPreview extends StatelessWidget {
           child: Validated<String>(
             validator: const NotEmptyValidator(),
             builder: (context, error, child) {
-              final message =
-                  error is InvalidResult ? error.message : null;
+              final message = error is InvalidResult ? error.message : null;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   child!,
                   if (message != null) ...[
                     const SizedBox(height: 6),
-                    Text(
-                      message,
-                      style: const TextStyle(color: Colors.red),
-                    ),
+                    Text(message, style: const TextStyle(color: Colors.red)),
                   ],
                 ],
               );
             },
-            child: const TextField(
-              placeholder: Text('Name'),
-            ),
+            child: const TextField(placeholder: Text('Name')),
           ),
         ),
       ),

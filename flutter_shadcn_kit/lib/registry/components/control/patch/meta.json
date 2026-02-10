@@ -7,5 +7,35 @@
     "gesture",
     "interaction",
     "utility"
-  ]
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/click_detector.dart",
+    "_impl/core/patch_preview.dart",
+    "_impl/state/click_detector_state.dart",
+    "_impl/state/patch_preview_state.dart",
+    "_impl/utils/click_details.dart",
+    "meta.json",
+    "patch.dart",
+    "patch.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`ClickDetector`",
+      "`child` (`Widget`, required)",
+      "`onClick` (`ClickCallback<ClickDetails>?`)",
+      "`behavior` (`HitTestBehavior`, default: `deferToChild`)",
+      "`threshold` (`Duration`, default: `300ms`)"
+    ],
+    "callbacks": [
+      "`onClick` — receives `ClickDetails` with `clickCount`."
+    ]
+  },
+  "version": "1.0.0"
 }

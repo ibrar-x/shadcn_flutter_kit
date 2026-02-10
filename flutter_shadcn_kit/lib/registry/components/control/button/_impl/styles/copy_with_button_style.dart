@@ -56,7 +56,9 @@ class CopyWithButtonStyle implements AbstractButtonStyle {
   }
 
   EdgeInsetsGeometry _buildPadding(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     return _padding!(context, states, _delegate.padding(context, states));
   }
 
@@ -69,7 +71,11 @@ class CopyWithButtonStyle implements AbstractButtonStyle {
   }
 
   MouseCursor _buildMouseCursor(BuildContext context, Set<WidgetState> states) {
-    return _mouseCursor!(context, states, _delegate.mouseCursor(context, states));
+    return _mouseCursor!(
+      context,
+      states,
+      _delegate.mouseCursor(context, states),
+    );
   }
 
   @override
@@ -93,7 +99,9 @@ class CopyWithButtonStyle implements AbstractButtonStyle {
   }
 
   EdgeInsetsGeometry _buildMargin(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     return _margin!(context, states, _delegate.margin(context, states));
   }
 
@@ -113,8 +121,15 @@ class CopyWithButtonStyle implements AbstractButtonStyle {
 
   @override
   int get hashCode {
-    return Object.hash(_delegate, _decoration, _mouseCursor, _padding,
-        _textStyle, _iconTheme, _margin);
+    return Object.hash(
+      _delegate,
+      _decoration,
+      _mouseCursor,
+      _padding,
+      _textStyle,
+      _iconTheme,
+      _margin,
+    );
   }
 
   @override

@@ -10,6 +10,9 @@ class LinearProgressIndicatorTheme extends ComponentThemeData {
   final bool? disableAnimation;
 
   const LinearProgressIndicatorTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.backgroundColor,
     this.minHeight,
@@ -28,13 +31,15 @@ class LinearProgressIndicatorTheme extends ComponentThemeData {
   }) {
     return LinearProgressIndicatorTheme(
       color: color == null ? this.color : color(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       minHeight: minHeight == null ? this.minHeight : minHeight(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       showSparks: showSparks == null ? this.showSparks : showSparks(),
-      disableAnimation:
-          disableAnimation == null ? this.disableAnimation : disableAnimation(),
+      disableAnimation: disableAnimation == null
+          ? this.disableAnimation
+          : disableAnimation(),
     );
   }
 
@@ -52,11 +57,11 @@ class LinearProgressIndicatorTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        color,
-        backgroundColor,
-        minHeight,
-        borderRadius,
-        showSparks,
-        disableAnimation,
-      );
+    color,
+    backgroundColor,
+    minHeight,
+    borderRadius,
+    showSparks,
+    disableAnimation,
+  );
 }

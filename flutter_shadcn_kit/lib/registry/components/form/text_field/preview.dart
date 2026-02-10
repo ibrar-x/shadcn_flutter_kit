@@ -14,24 +14,17 @@ class TextFieldPreview extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: const [
-              TextField(
-                placeholder: Text('Enter your name'),
-              ),
+              TextField(placeholder: Text('Enter your name')),
               SizedBox(height: 16),
               TextField(
                 placeholder: Text('Search...'),
-                features: [
-                  InputFeature.clear(),
-                ],
+                features: [InputFeature.clear()],
               ),
               SizedBox(height: 16),
               TextField(
                 placeholder: Text('Password'),
                 obscureText: true,
-                features: [
-                  InputFeature.passwordToggle(),
-                  InputFeature.clear(),
-                ],
+                features: [InputFeature.passwordToggle(), InputFeature.clear()],
               ),
             ],
           ),

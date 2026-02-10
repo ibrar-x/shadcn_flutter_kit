@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class PrimaryButtonTheme extends ButtonTheme {
   /// Creates a [PrimaryButtonTheme] with optional style property delegates.
-  const PrimaryButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const PrimaryButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   PrimaryButtonTheme copyWith({

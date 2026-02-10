@@ -26,8 +26,12 @@ class _NavigationSidebarState extends State<NavigationSidebar>
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     List<Widget> children = wrapChildren(context, widget.children);
-    var parentPadding = widget.padding ??
-        (const EdgeInsets.symmetric(vertical: 8, horizontal: 12) * scaling);
+    var parentPadding =
+        widget.padding ??
+        (EdgeInsets.symmetric(
+          vertical: theme.density.baseGap * scaling,
+          horizontal: theme.density.baseContentPadding * scaling * 0.75,
+        ));
     var directionality = Directionality.of(context);
     var resolvedPadding = parentPadding.resolve(directionality);
     const direction = Axis.vertical;
@@ -62,17 +66,19 @@ class _NavigationSidebarState extends State<NavigationSidebar>
                   scrollDirection: direction,
                   slivers: [
                     SliverGap(_startPadding(resolvedPadding, direction)),
-                    ...children.map((e) {
-                      return SliverPadding(
-                        padding: _childPadding(
-                          resolvedPadding,
-                          direction,
-                        ),
-                        sliver: e,
-                      ) as Widget;
-                    }).toList().joinSeparator(
-                          SliverGap(widget.spacing ?? 0),
-                        ),
+                    ...children
+                        .map((e) {
+                          return SliverPadding(
+                                padding: _childPadding(
+                                  resolvedPadding,
+                                  direction,
+                                ),
+                                sliver: e,
+                              )
+                              as Widget;
+                        })
+                        .toList()
+                        .joinSeparator(SliverGap(widget.spacing ?? 0)),
                     SliverGap(_endPadding(resolvedPadding, direction)),
                   ],
                 ),

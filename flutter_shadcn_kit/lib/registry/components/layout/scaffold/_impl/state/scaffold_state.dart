@@ -128,7 +128,8 @@ class ScaffoldState extends State<Scaffold> {
     final viewInsets = MediaQuery.viewInsetsOf(context);
     return DrawerOverlay(
       child: Container(
-        color: widget.backgroundColor ??
+        color:
+            widget.backgroundColor ??
             compTheme?.backgroundColor ??
             theme.colorScheme.background,
         child: _ScaffoldFlex(
@@ -138,12 +139,15 @@ class ScaffoldState extends State<Scaffold> {
             buildHeader(context),
             LayoutBuilder(
               builder: (context, constraints) {
-                Widget child = (widget.resizeToAvoidBottomInset ??
+                Widget child =
+                    (widget.resizeToAvoidBottomInset ??
                         compTheme?.resizeToAvoidBottomInset ??
                         true)
                     ? Container(
                         // Clamp to prevent negative padding on web when keyboard appears
-                        padding: EdgeInsets.only(bottom: viewInsets.bottom.clamp(0.0, double.infinity)),
+                        padding: EdgeInsets.only(
+                          bottom: viewInsets.bottom.clamp(0.0, double.infinity),
+                        ),
                         child: MediaQuery(
                           data: MediaQuery.of(context).copyWith(
                             viewInsets: viewInsets.copyWith(bottom: 0),

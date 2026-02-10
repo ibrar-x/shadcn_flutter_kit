@@ -8,8 +8,25 @@
     "layout"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/state/wrapper_state.dart",
+    "meta.json",
+    "preview.dart",
+    "wrapper.dart",
+    "wrapper.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`Wrapper`",
+      "`WrapperBuilder`"
+    ]
+  },
+  "version": "1.0.0"
 }

@@ -8,4 +8,3 @@ class PaginationPreview extends StatefulWidget {
   @override
   State<PaginationPreview> createState() => _PaginationPreviewState();
 }
-

@@ -5,7 +5,13 @@ class ChipTheme extends ComponentThemeData {
   final EdgeInsetsGeometry? padding;
   final AbstractButtonStyle? style;
 
-  const ChipTheme({this.padding, this.style});
+  const ChipTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.padding,
+    this.style,
+  });
 
   ChipTheme copyWith({
     ValueGetter<EdgeInsetsGeometry?>? padding,

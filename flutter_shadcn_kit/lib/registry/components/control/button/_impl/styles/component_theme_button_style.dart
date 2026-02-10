@@ -37,7 +37,9 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   ButtonStateProperty<IconThemeData> get iconTheme => _resolveIconTheme;
 
   IconThemeData _resolveIconTheme(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var resolved = fallback.iconTheme(context, states);
     return find(context)?.iconTheme?.call(context, states, resolved) ??
         resolved;
@@ -47,7 +49,9 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   ButtonStateProperty<EdgeInsetsGeometry> get margin => _resolveMargin;
 
   EdgeInsetsGeometry _resolveMargin(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var resolved = fallback.margin(context, states);
     return find(context)?.margin?.call(context, states, resolved) ?? resolved;
   }
@@ -56,7 +60,9 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   ButtonStateProperty<MouseCursor> get mouseCursor => _resolveMouseCursor;
 
   MouseCursor _resolveMouseCursor(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var resolved = fallback.mouseCursor(context, states);
     return find(context)?.mouseCursor?.call(context, states, resolved) ??
         resolved;
@@ -66,7 +72,9 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   ButtonStateProperty<EdgeInsetsGeometry> get padding => _resolvePadding;
 
   EdgeInsetsGeometry _resolvePadding(
-      BuildContext context, Set<WidgetState> states) {
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
     var resolved = fallback.padding(context, states);
     return find(context)?.padding?.call(context, states, resolved) ?? resolved;
   }

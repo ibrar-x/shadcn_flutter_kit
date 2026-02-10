@@ -8,4 +8,3 @@ class HiddenPreview extends StatefulWidget {
   @override
   State<HiddenPreview> createState() => _HiddenPreviewState();
 }
-

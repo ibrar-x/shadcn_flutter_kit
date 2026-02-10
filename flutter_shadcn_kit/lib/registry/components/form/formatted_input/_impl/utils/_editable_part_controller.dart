@@ -3,18 +3,22 @@ part of '../../formatted_input.dart';
 class _EditablePartController extends TextEditingController {
   final int maxLength;
   final bool hasPlaceholder;
-  _EditablePartController(
-      {required this.maxLength, required this.hasPlaceholder, super.text});
+  _EditablePartController({
+    required this.maxLength,
+    required this.hasPlaceholder,
+    super.text,
+  });
 
   @override
-  TextSpan buildTextSpan(
-      {required BuildContext context,
-      TextStyle? style,
-      required bool withComposing}) {
+  TextSpan buildTextSpan({
+    required BuildContext context,
+    TextStyle? style,
+    required bool withComposing,
+  }) {
     final theme = Theme.of(context);
-    assert(!value.composing.isValid ||
-        !withComposing ||
-        value.isComposingRangeValid);
+    assert(
+      !value.composing.isValid || !withComposing || value.isComposingRangeValid,
+    );
     final bool composingRegionOutOfRange =
         !value.isComposingRangeValid || !withComposing;
 
@@ -24,21 +28,20 @@ class _EditablePartController extends TextEditingController {
         return const TextSpan();
       }
       var padding = '_' * max(0, maxLength - text.length);
-      return TextSpan(children: [
-        TextSpan(
-          style: style,
-          text: text,
-        ),
-        TextSpan(
-          style: style?.copyWith(color: theme.colorScheme.mutedForeground),
-          text: padding,
-        ),
-      ]);
+      return TextSpan(
+        children: [
+          TextSpan(style: style, text: text),
+          TextSpan(
+            style: style?.copyWith(color: theme.colorScheme.mutedForeground),
+            text: padding,
+          ),
+        ],
+      );
     }
 
     final TextStyle composingStyle =
         style?.merge(const TextStyle(decoration: TextDecoration.underline)) ??
-            const TextStyle(decoration: TextDecoration.underline);
+        const TextStyle(decoration: TextDecoration.underline);
     var textBefore = value.composing.textBefore(value.text);
     var textInside = value.composing.textInside(value.text);
     var textAfter = value.composing.textAfter(value.text);
@@ -52,10 +55,7 @@ class _EditablePartController extends TextEditingController {
       style: style,
       children: <TextSpan>[
         TextSpan(text: textBefore),
-        TextSpan(
-          style: composingStyle,
-          text: textInside,
-        ),
+        TextSpan(style: composingStyle, text: textInside),
         TextSpan(text: textAfter),
         TextSpan(
           style: style?.copyWith(color: theme.colorScheme.mutedForeground),

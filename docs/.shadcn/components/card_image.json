@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "card_image",
+  "name": "CardImage",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "image",
+    "card"
+  ],
+  "installedAt": "2026-02-09T10:18:03.208385Z",
+  "shared": [
+    "constants",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [
+    "basic",
+    "button",
+    "outlined_container"
+  ],
+  "files": [
+    "registry/components/layout/card_image/README.md",
+    "registry/components/layout/card_image/_impl/core/card_image_2.dart",
+    "registry/components/layout/card_image/_impl/state/_card_image_state.dart",
+    "registry/components/layout/card_image/card_image.dart",
+    "registry/components/layout/card_image/card_image.meta.json",
+    "registry/components/layout/card_image/meta.json",
+    "registry/components/layout/card_image/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

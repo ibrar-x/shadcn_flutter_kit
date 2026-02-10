@@ -79,6 +79,9 @@ class TimelineTheme extends ComponentThemeData {
   /// - [color] (Color?, optional): Default color for indicators and connectors.
   /// - [rowGap] (double?, optional): Vertical spacing between timeline entries.
   const TimelineTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.timeConstraints,
     this.spacing,
     this.dotSize,
@@ -108,8 +111,9 @@ class TimelineTheme extends ComponentThemeData {
     ValueGetter<double?>? rowGap,
   }) {
     return TimelineTheme(
-      timeConstraints:
-          timeConstraints == null ? this.timeConstraints : timeConstraints(),
+      timeConstraints: timeConstraints == null
+          ? this.timeConstraints
+          : timeConstraints(),
       spacing: spacing == null ? this.spacing : spacing(),
       dotSize: dotSize == null ? this.dotSize : dotSize(),
       connectorThickness: connectorThickness == null
@@ -134,7 +138,13 @@ class TimelineTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      timeConstraints, spacing, dotSize, connectorThickness, color, rowGap);
+    timeConstraints,
+    spacing,
+    dotSize,
+    connectorThickness,
+    color,
+    rowGap,
+  );
 }
 
 /// Data model for individual timeline entries.
@@ -192,4 +202,3 @@ class TimelineTheme extends ComponentThemeData {
 ///   ],
 /// );
 /// ```
-

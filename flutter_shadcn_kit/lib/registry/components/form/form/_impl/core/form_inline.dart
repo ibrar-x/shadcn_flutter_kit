@@ -56,17 +56,17 @@ class FormInline<T> extends StatelessWidget {
                             : null,
                         child: label.textSmall(),
                       ),
-                      Gap(theme.scaling * 8),
+                      DensityGap(gapSm),
                       Expanded(child: child!),
                     ],
                   ),
                 ),
                 if (hint != null) ...[
-                  const Gap(8),
+                  const DensityGap(gapSm),
                   hint!.xSmall().muted(),
                 ],
                 if (error is InvalidResult) ...[
-                  const Gap(8),
+                  const DensityGap(gapSm),
                   DefaultTextStyle.merge(
                     style: TextStyle(color: theme.colorScheme.destructive),
                     child: Text(error.message).xSmall().medium(),

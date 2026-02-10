@@ -11,4 +11,3 @@ class AccordionTrigger extends StatefulWidget {
   @override
   State<AccordionTrigger> createState() => _AccordionTriggerState();
 }
-

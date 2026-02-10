@@ -8,6 +8,9 @@ class ProgressTheme extends ComponentThemeData {
   final double? minHeight;
 
   const ProgressTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.backgroundColor,
     this.borderRadius,
@@ -22,8 +25,9 @@ class ProgressTheme extends ComponentThemeData {
   }) {
     return ProgressTheme(
       color: color == null ? this.color : color(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       minHeight: minHeight == null ? this.minHeight : minHeight(),
     );

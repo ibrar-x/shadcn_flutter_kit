@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "debug",
+  "name": "Debug",
+  "version": "1.0.0",
+  "tags": [
+    "debug",
+    "overlay",
+    "layout"
+  ],
+  "installedAt": "2026-02-09T10:18:03.244053Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/utility/debug/README.md",
+    "registry/components/utility/debug/debug.dart",
+    "registry/components/utility/debug/debug.meta.json",
+    "registry/components/utility/debug/meta.json",
+    "registry/components/utility/debug/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

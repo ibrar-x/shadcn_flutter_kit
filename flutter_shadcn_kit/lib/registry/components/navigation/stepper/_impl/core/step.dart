@@ -29,9 +29,5 @@ class Step {
   ///   contentBuilder: (context) => AccountSetupForm(),
   /// );
   /// ```
-  const Step({
-    required this.title,
-    this.contentBuilder,
-    this.icon,
-  });
+  const Step({required this.title, this.contentBuilder, this.icon});
 }

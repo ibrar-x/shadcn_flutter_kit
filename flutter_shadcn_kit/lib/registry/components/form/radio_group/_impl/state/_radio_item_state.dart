@@ -25,8 +25,10 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
     final theme = Theme.of(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
     final group = Data.maybeOf<RadioGroupState<T>>(context);
-    assert(groupData != null,
-        'RadioItem<$T> must be a descendant of RadioGroup<$T>');
+    assert(
+      groupData != null,
+      'RadioItem<$T> must be a descendant of RadioGroup<$T>',
+    );
     return GestureDetector(
       onTap: widget.enabled && groupData?.enabled == true
           ? () {
@@ -75,13 +77,14 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
                 children: [
                   if (widget.leading != null) widget.leading!,
                   if (widget.leading != null)
-                    SizedBox(width: 8 * theme.scaling),
+                    SizedBox(width: theme.density.baseGap * theme.scaling),
                   Radio(
-                      value: groupData?.selectedItem == widget.value,
-                      focusing:
-                          _focusing && groupData?.selectedItem == widget.value),
+                    value: groupData?.selectedItem == widget.value,
+                    focusing:
+                        _focusing && groupData?.selectedItem == widget.value,
+                  ),
                   if (widget.trailing != null)
-                    SizedBox(width: 8 * theme.scaling),
+                    SizedBox(width: theme.density.baseGap * theme.scaling),
                   if (widget.trailing != null) widget.trailing!,
                 ],
               ),

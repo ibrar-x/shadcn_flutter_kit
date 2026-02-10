@@ -86,14 +86,9 @@ class YearCalendar extends StatelessWidget {
       );
     }
     for (int i = 0; i < years.length; i += 4) {
-      rows.add(SizedBox(height: theme.scaling * 8));
-      rows.add(Row(
-        children: years.sublist(i, i + 4),
-      ));
+      rows.add(SizedBox(height: theme.density.baseGap * theme.scaling * gapSm));
+      rows.add(Row(children: years.sublist(i, i + 4)));
     }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: rows,
-    );
+    return Column(mainAxisSize: MainAxisSize.min, children: rows);
   }
 }

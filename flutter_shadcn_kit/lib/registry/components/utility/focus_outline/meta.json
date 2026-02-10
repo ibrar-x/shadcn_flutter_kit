@@ -7,5 +7,37 @@
     "focus",
     "accessibility",
     "overlay"
-  ]
+  ],
+  "dependencies": {
+    "shared": [
+      "animated_value_builder",
+      "constants",
+      "style_value",
+      "theme"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/themes/focus_outline_theme.dart",
+    "focus_outline.dart",
+    "focus_outline.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Add ComponentTheme<FocusOutlineTheme> to adjust outline bias, borders, or shape."
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "widget": [
+      "`FocusOutline`"
+    ],
+    "theme": [
+      "`FocusOutlineTheme`"
+    ]
+  },
+  "version": "1.0.0"
 }

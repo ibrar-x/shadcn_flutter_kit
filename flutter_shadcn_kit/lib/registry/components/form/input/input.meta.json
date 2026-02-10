@@ -3,57 +3,42 @@
   "schemaVersion": 1,
   "id": "input",
   "name": "Input",
-  "description": "Single-line text input with feature hooks, popovers, and controller integration.",
+  "description": "Input feature extensions for `TextField`: hint, clear/copy/paste, password toggle, autocomplete, spinner, stepper buttons, and above/below helpers.",
   "install": "flutter_shadcn add input",
   "import": "import 'package:<your_app>/ui/shadcn/form/input/input.dart';",
   "whenToUse": {
-    "use": [
-      "you want shared input features (clear, password toggle, hints, etc.).",
-      "you need autocomplete feature hooks."
-    ],
-    "avoid": [
-      "you only need a plain `TextField` without features."
-    ]
+    "use": [],
+    "avoid": []
   },
   "examples": {
-    "minimal": "TextField(\n  features: const [InputFeature.clear()],\n)"
+    "minimal": ""
   },
-  "patterns": [
-    {
-      "title": "Autocomplete feature",
-      "code": "TextField(\n  features: [\n    InputFeature.autoComplete(\n      querySuggestions: (query) async => ['one', 'two'],\n      child: const SizedBox.shrink(),\n    ),\n  ],\n)"
-    }
-  ],
+  "patterns": [],
   "api": {
-    "constructors": [
-      "`InputFeaturePosition` — `leading` / `trailing`.",
-      "`SuggestionBuilder` — `FutureOr<Iterable<String>> Function(String query)`.",
-      "Feature widgets:",
-      "`InputClearFeature`, `InputPasswordToggleFeature`, `InputHintFeature`",
-      "`InputAutoCompleteFeature`, `InputSpinnerFeature`",
-      "`InputCopyFeature`, `InputPasteFeature`, `InputRevalidateFeature`",
-      "`InputLeadingFeature`, `InputTrailingFeature`"
-    ],
-    "callbacks": []
+    "constructors": [],
+    "callbacks": [],
+    "items": [
+      "`InputFeaturePosition`: `leading`, `trailing`, `above`, `below`.",
+      "`SuggestionBuilder`: `FutureOr<Iterable<String>> Function(String query)`.",
+      "Feature classes:",
+      "`InputHintFeature`",
+      "`InputPasswordToggleFeature`",
+      "`InputClearFeature`",
+      "`InputRevalidateFeature`",
+      "`InputAutoCompleteFeature`",
+      "`InputSpinnerFeature` (`step`, `invalidValue`, `min`, `max`, `enableGesture`)",
+      "`InputStepperButtonFeature` / `InputStepperButtonFeature.decrement`",
+      "`InputCopyFeature`",
+      "`InputPasteFeature`",
+      "`InputLeadingFeature`",
+      "`InputTrailingFeature`",
+      "`InputAboveBelowFeature` (`above`/`below`)"
+    ]
   },
-  "theming": [
-    "Feature icons/styles follow the `TextFieldTheme`."
-  ],
-  "accessibility": [
-    "Ensure feature icons have tooltips or labels."
-  ],
-  "do": [
-    "Use `InputFeatureVisibility` to avoid clutter."
-  ],
-  "dont": [
-    "Overload inputs with too many trailing actions."
-  ],
-  "related": [
-    "text_field",
-    "autocomplete"
-  ],
-  "registryRules": [
-    "One public class per file",
-    "Helpers under `_impl/`"
-  ]
+  "theming": [],
+  "accessibility": [],
+  "do": [],
+  "dont": [],
+  "related": [],
+  "registryRules": []
 }

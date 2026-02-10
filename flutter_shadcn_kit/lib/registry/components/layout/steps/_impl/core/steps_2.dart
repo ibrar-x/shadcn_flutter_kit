@@ -25,10 +25,7 @@ class Steps extends StatelessWidget {
   ///   ],
   /// )
   /// ```
-  const Steps({
-    super.key,
-    required this.children,
-  });
+  const Steps({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -36,46 +33,49 @@ class Steps extends StatelessWidget {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<StepsTheme>(context);
     final indicatorSize = compTheme?.indicatorSize ?? 28 * scaling;
-    final spacing = compTheme?.spacing ?? 18 * scaling;
+    final spacing =
+        compTheme?.spacing ??
+        theme.density.baseContentPadding * scaling * 1.125;
     final indicatorColor = compTheme?.indicatorColor ?? theme.colorScheme.muted;
     final connectorThickness = compTheme?.connectorThickness ?? 1 * scaling;
     List<Widget> mapped = [];
     for (var i = 0; i < children.length; i++) {
-      mapped.add(IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: indicatorColor,
-                    shape: BoxShape.circle,
+      mapped.add(
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: indicatorColor,
+                      shape: BoxShape.circle,
+                    ),
+                    width: indicatorSize,
+                    height: indicatorSize,
+                    child: Center(
+                      child: Text((i + 1).toString()).mono().bold(),
+                    ),
                   ),
-                  width: indicatorSize,
-                  height: indicatorSize,
-                  child: Center(
-                    child: Text(
-                      (i + 1).toString(),
-                    ).mono().bold(),
-                  ),
-                ),
-                Gap(4 * scaling),
-                Expanded(
+                  DensityGap(gapXs),
+                  Expanded(
                     child: VerticalDivider(
-                  thickness: connectorThickness,
-                  color: indicatorColor,
-                )),
-                Gap(4 * scaling),
-              ],
-            ),
-            Gap(spacing),
-            Expanded(child: children[i].withPadding(bottom: 32 * scaling)),
-          ],
+                      thickness: connectorThickness,
+                      color: indicatorColor,
+                    ),
+                  ),
+                  DensityGap(gapXs),
+                ],
+              ),
+              Gap(spacing),
+              Expanded(child: children[i].withPadding(bottom: 32 * scaling)),
+            ],
+          ),
         ),
-      ));
+      );
     }
     return IntrinsicWidth(
       child: Column(

@@ -11,6 +11,7 @@ import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/primitives/text.dart';
 import '../../../../../shared/utils/util.dart';
 import '../../../../../shared/primitives/icon_extensions.dart';
+import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/localizations/shadcn_localizations.dart';
 import '../core/command_empty.dart';
 import '../core/command_keyboard_display.dart';
@@ -95,6 +96,8 @@ class CommandState extends State<Command> {
             child: IntrinsicWidth(
               child: OutlinedContainer(
                 clipBehavior: Clip.hardEdge,
+                backgroundColor: theme.colorScheme.popover,
+                borderColor: theme.colorScheme.border,
                 surfaceBlur: widget.surfaceBlur ?? theme.surfaceBlur,
                 surfaceOpacity: widget.surfaceOpacity ?? theme.surfaceOpacity,
                 child: Column(
@@ -174,7 +177,7 @@ class CommandState extends State<Command> {
                     ),
                     const Divider(),
                     Container(
-                      color: theme.colorScheme.card,
+                      color: theme.colorScheme.muted.scaleAlpha(0.35),
                       padding: EdgeInsets.symmetric(
                         horizontal: theme.scaling * 12,
                         vertical: theme.scaling * 6,

@@ -1,12 +1,14 @@
 part of '../../focus_outline.dart';
 
-
 class FocusOutlineTheme extends ComponentThemeData {
   final double? align;
   final BorderRadiusGeometry? borderRadius;
   final Border? border;
 
   const FocusOutlineTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.align,
     this.border,
     this.borderRadius,

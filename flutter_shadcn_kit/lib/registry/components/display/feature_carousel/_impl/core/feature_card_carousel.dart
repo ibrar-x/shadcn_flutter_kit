@@ -25,27 +25,29 @@ class FeatureCardCarousel extends StatefulWidget {
     FeatureCarouselItem item,
     int index,
     FeatureCarouselThemeData theme,
-  )? cardBuilder;
+  )?
+  cardBuilder;
   final Widget Function(
     BuildContext context,
     FeatureCarouselItem item,
     int index,
-  )? titleBuilder;
+  )?
+  titleBuilder;
   final Widget Function(
     BuildContext context,
     FeatureCarouselItem item,
     int index,
-  )? descriptionBuilder;
+  )?
+  descriptionBuilder;
   final Widget Function(
     BuildContext context,
     FeatureCarouselItem item,
     int index,
     VoidCallback onAction,
-  )? ctaBuilder;
-  final Widget Function(
-    BuildContext context,
-    FeatureCarouselThemeData theme,
-  )? backgroundBuilder;
+  )?
+  ctaBuilder;
+  final Widget Function(BuildContext context, FeatureCarouselThemeData theme)?
+  backgroundBuilder;
 
   @override
   State<FeatureCardCarousel> createState() => _FeatureCardCarouselState();

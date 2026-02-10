@@ -28,7 +28,10 @@ class ValidatorBuilder<T> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode lifecycle) {
+    BuildContext context,
+    T? value,
+    FormValidationMode lifecycle,
+  ) {
     return builder(value);
   }
 

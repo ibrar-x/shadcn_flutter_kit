@@ -1,4 +1,5 @@
 import 'package:docs/shadcn_ui.dart';
+import '../../../../ui/shadcn/components/form/input/input.dart' as input;
 
 class InputExample3 extends StatelessWidget {
   const InputExample3({super.key});
@@ -33,6 +34,22 @@ class InputExample3 extends StatelessWidget {
             // Password toggle configured with `hold` mode: press-and-hold to peek,
             // release to hide again.
             InputFeature.passwordToggle(mode: PasswordPeekMode.hold),
+          ],
+        ),
+        const Gap(24),
+        const TextField(
+          initialValue: '10',
+          placeholder: Text('Quantity'),
+          features: [
+            input.InputAboveBelowFeature.above(
+              Text('Numeric input'),
+            ),
+            input.InputAboveBelowFeature.below(
+              Text('Min 0 / Max 20'),
+            ),
+            input.InputStepperButtonFeature.decrement(),
+            input.InputSpinnerFeature(step: 2, min: 0, max: 20),
+            input.InputStepperButtonFeature(),
           ],
         ),
       ],

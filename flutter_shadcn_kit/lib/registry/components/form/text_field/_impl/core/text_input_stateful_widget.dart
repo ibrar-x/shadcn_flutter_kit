@@ -324,8 +324,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
       controller: controller == null ? this.controller : controller(),
       initialValue: initialValue == null ? this.initialValue : initialValue(),
       focusNode: focusNode == null ? this.focusNode : focusNode(),
-      undoController:
-          undoController == null ? this.undoController : undoController(),
+      undoController: undoController == null
+          ? this.undoController
+          : undoController(),
       decoration: decoration == null ? this.decoration : decoration(),
       padding: padding == null ? this.padding : padding(),
       placeholder: placeholder == null ? this.placeholder : placeholder(),
@@ -336,8 +337,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
           ? this.clearButtonSemanticLabel
           : clearButtonSemanticLabel(),
       keyboardType: keyboardType == null ? this.keyboardType : keyboardType(),
-      textInputAction:
-          textInputAction == null ? this.textInputAction : textInputAction(),
+      textInputAction: textInputAction == null
+          ? this.textInputAction
+          : textInputAction(),
       textCapitalization: textCapitalization == null
           ? this.textCapitalization
           : textCapitalization(),
@@ -347,8 +349,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
       textAlignVertical: textAlignVertical == null
           ? this.textAlignVertical
           : textAlignVertical(),
-      textDirection:
-          textDirection == null ? this.textDirection : textDirection(),
+      textDirection: textDirection == null
+          ? this.textDirection
+          : textDirection(),
       readOnly: readOnly == null ? this.readOnly : readOnly(),
       showCursor: showCursor == null ? this.showCursor : showCursor(),
       autofocus: autofocus == null ? this.autofocus : autofocus(),
@@ -357,10 +360,12 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
           : obscuringCharacter(),
       obscureText: obscureText == null ? this.obscureText : obscureText(),
       autocorrect: autocorrect == null ? this.autocorrect : autocorrect(),
-      smartDashesType:
-          smartDashesType == null ? this.smartDashesType : smartDashesType(),
-      smartQuotesType:
-          smartQuotesType == null ? this.smartQuotesType : smartQuotesType(),
+      smartDashesType: smartDashesType == null
+          ? this.smartDashesType
+          : smartDashesType(),
+      smartQuotesType: smartQuotesType == null
+          ? this.smartQuotesType
+          : smartQuotesType(),
       enableSuggestions: enableSuggestions == null
           ? this.enableSuggestions
           : enableSuggestions(),
@@ -377,10 +382,12 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
           : onEditingComplete(),
       onSubmitted: onSubmitted == null ? this.onSubmitted : onSubmitted(),
       onTapOutside: onTapOutside == null ? this.onTapOutside : onTapOutside(),
-      onTapUpOutside:
-          onTapUpOutside == null ? this.onTapUpOutside : onTapUpOutside(),
-      inputFormatters:
-          inputFormatters == null ? this.inputFormatters : inputFormatters(),
+      onTapUpOutside: onTapUpOutside == null
+          ? this.onTapUpOutside
+          : onTapUpOutside(),
+      inputFormatters: inputFormatters == null
+          ? this.inputFormatters
+          : inputFormatters(),
       enabled: enabled == null ? this.enabled : enabled(),
       cursorWidth: cursorWidth == null ? this.cursorWidth : cursorWidth(),
       cursorHeight: cursorHeight == null ? this.cursorHeight : cursorHeight(),
@@ -398,8 +405,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
       keyboardAppearance: keyboardAppearance == null
           ? this.keyboardAppearance
           : keyboardAppearance(),
-      scrollPadding:
-          scrollPadding == null ? this.scrollPadding : scrollPadding(),
+      scrollPadding: scrollPadding == null
+          ? this.scrollPadding
+          : scrollPadding(),
       enableInteractiveSelection: enableInteractiveSelection == null
           ? this.enableInteractiveSelection
           : enableInteractiveSelection(),
@@ -409,16 +417,20 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
       dragStartBehavior: dragStartBehavior == null
           ? this.dragStartBehavior
           : dragStartBehavior(),
-      scrollController:
-          scrollController == null ? this.scrollController : scrollController(),
-      scrollPhysics:
-          scrollPhysics == null ? this.scrollPhysics : scrollPhysics(),
+      scrollController: scrollController == null
+          ? this.scrollController
+          : scrollController(),
+      scrollPhysics: scrollPhysics == null
+          ? this.scrollPhysics
+          : scrollPhysics(),
       onTap: onTap == null ? this.onTap : onTap(),
-      autofillHints:
-          autofillHints == null ? this.autofillHints : autofillHints(),
+      autofillHints: autofillHints == null
+          ? this.autofillHints
+          : autofillHints(),
       clipBehavior: clipBehavior == null ? this.clipBehavior : clipBehavior(),
-      restorationId:
-          restorationId == null ? this.restorationId : restorationId(),
+      restorationId: restorationId == null
+          ? this.restorationId
+          : restorationId(),
       stylusHandwritingEnabled: stylusHandwritingEnabled == null
           ? this.stylusHandwritingEnabled
           : stylusHandwritingEnabled(),
@@ -435,8 +447,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
       border: border == null ? this.border : border(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       filled: filled == null ? this.filled : filled(),
-      statesController:
-          statesController == null ? this.statesController : statesController(),
+      statesController: statesController == null
+          ? this.statesController
+          : statesController(),
       magnifierConfiguration: magnifierConfiguration == null
           ? this.magnifierConfiguration
           : magnifierConfiguration(),
@@ -444,8 +457,9 @@ abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
           ? this.spellCheckConfiguration
           : spellCheckConfiguration(),
       features: features == null ? this.features : features(),
-      submitFormatters:
-          submitFormatters == null ? this.submitFormatters : submitFormatters(),
+      submitFormatters: submitFormatters == null
+          ? this.submitFormatters
+          : submitFormatters(),
       skipInputFeatureFocusTraversal: skipInputFeatureFocusTraversal == null
           ? this.skipInputFeatureFocusTraversal
           : skipInputFeatureFocusTraversal(),

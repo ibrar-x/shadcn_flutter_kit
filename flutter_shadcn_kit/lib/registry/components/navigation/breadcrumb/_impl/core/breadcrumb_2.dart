@@ -34,10 +34,9 @@ class Breadcrumb extends StatelessWidget {
       defaultValue: EdgeInsets.zero,
     );
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(
-        scrollbars: false,
-        dragDevices: {PointerDeviceKind.touch},
-      ),
+      behavior: ScrollConfiguration.of(
+        context,
+      ).copyWith(scrollbars: false, dragDevices: {PointerDeviceKind.touch}),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(

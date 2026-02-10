@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "switcher",
+  "name": "Switcher",
+  "version": "1.0.0",
+  "tags": [
+    "navigation",
+    "transition",
+    "animation"
+  ],
+  "installedAt": "2026-02-09T10:18:03.216976Z",
+  "shared": [
+    "animated_value_builder"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/navigation/switcher/README.md",
+    "registry/components/navigation/switcher/_impl/core/_render_switcher_transition.dart",
+    "registry/components/navigation/switcher/_impl/core/_switcher_parent_data.dart",
+    "registry/components/navigation/switcher/_impl/core/_switcher_transition.dart",
+    "registry/components/navigation/switcher/_impl/state/_switcher_preview_state.dart",
+    "registry/components/navigation/switcher/_impl/state/_switcher_state.dart",
+    "registry/components/navigation/switcher/meta.json",
+    "registry/components/navigation/switcher/preview.dart",
+    "registry/components/navigation/switcher/switcher.dart",
+    "registry/components/navigation/switcher/switcher.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

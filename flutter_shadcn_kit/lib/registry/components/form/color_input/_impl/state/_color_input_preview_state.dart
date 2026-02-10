@@ -26,7 +26,7 @@ class _ColorInputPreviewState extends State<ColorInputPreview> {
                   },
                 ),
               ),
-              const Gap(16),
+              const DensityGap(gapLg),
               ColorInput(
                 value: color,
                 promptMode: PromptMode.dialog,

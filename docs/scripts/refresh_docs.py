@@ -42,6 +42,7 @@ def main() -> None:
             print("python3 scripts/generate_component_pages.py")
         if not args.skip_barrel:
             print("python3 scripts/generate_shadcn_barrel.py")
+            print("dart run scripts/fix_shadcn_barrel.dart --write")
         return
 
     if not args.skip_install:
@@ -52,6 +53,7 @@ def main() -> None:
 
     if not args.skip_barrel:
         run(["python3", "scripts/generate_shadcn_barrel.py"], docs_root)
+        run(["dart", "run", "scripts/fix_shadcn_barrel.dart", "--write"], docs_root)
 
 
 if __name__ == "__main__":

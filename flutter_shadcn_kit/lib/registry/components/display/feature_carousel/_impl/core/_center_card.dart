@@ -21,8 +21,8 @@ class _CenterCard extends StatelessWidget {
     final iconWidget = item.iconBuilder != null
         ? item.iconBuilder!(context, accent, iconSize)
         : (item.icon != null
-            ? Icon(item.icon, size: iconSize, color: accent)
-            : const SizedBox.shrink());
+              ? Icon(item.icon, size: iconSize, color: accent)
+              : const SizedBox.shrink());
 
     return Semantics(
       label: 'Feature preview: ${item.title ?? 'item'}',

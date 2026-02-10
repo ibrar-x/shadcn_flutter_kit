@@ -18,9 +18,6 @@ class CollapsibleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Data.of<CollapsibleStateData>(context);
-    return Offstage(
-      offstage: collapsible && !state.isExpanded,
-      child: child,
-    );
+    return Offstage(offstage: collapsible && !state.isExpanded, child: child);
   }
 }

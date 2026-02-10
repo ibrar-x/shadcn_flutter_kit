@@ -30,10 +30,7 @@ class ClickablePreview extends StatelessWidget {
           }),
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Text(
-              'Clickable',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Clickable', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),

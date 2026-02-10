@@ -4,7 +4,6 @@ import 'dart:js_interop';
 import 'dart:typed_data';
 import 'dart:ui_web' as ui_web;
 
-import 'package:file_picker/file_picker.dart' as fp;
 import 'package:flutter/widgets.dart';
 import 'package:web/web.dart' as web;
 
@@ -28,47 +27,12 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
   }) {
     if (!enabled) return child;
     return _WebDropTargetView(
+      child: child,
       withData: withData,
       onDragActive: onDragActive,
       onDrop: onDrop,
       onTap: onTap,
       handleDrop: _handleDrop,
-      child: child,
-    );
-  }
-
-  @override
-  Future<List<FileLike>> pickFiles({
-    required bool allowMultiple,
-    required bool withData,
-    List<String>? allowedExtensions,
-    List<String>? allowedMimeTypes,
-  }) async {
-    final result = await fp.FilePicker.pickFiles(
-      allowMultiple: allowMultiple,
-      withData: withData,
-      type: (allowedExtensions != null && allowedExtensions.isNotEmpty)
-          ? fp.FileType.custom
-          : fp.FileType.any,
-      allowedExtensions:
-          (allowedExtensions != null && allowedExtensions.isNotEmpty)
-          ? allowedExtensions.map((ext) => ext.replaceFirst('.', '')).toList()
-          : null,
-    );
-    if (result == null) return const [];
-    return result.files.map(_fromPlatformFile).toList();
-  }
-
-  FileLike _fromPlatformFile(fp.PlatformFile file) {
-    return FileLike(
-      id:
-          file.identifier ??
-          '${DateTime.now().microsecondsSinceEpoch}-${file.name}',
-      name: file.name,
-      size: file.size,
-      bytes: file.bytes,
-      extension: file.extension,
-      source: file,
     );
   }
 
@@ -144,7 +108,8 @@ class _WebDropTargetView extends StatefulWidget {
     web.FileList files,
     bool withData,
     ValueChanged<List<FileLike>> onDrop,
-  ) handleDrop;
+  )
+  handleDrop;
 
   @override
   State<_WebDropTargetView> createState() => _WebDropTargetViewState();
@@ -202,6 +167,7 @@ class _WebDropTargetViewState extends State<_WebDropTargetView> {
       final dataTransfer = dragEvent.dataTransfer;
       if (dataTransfer == null) return;
       final files = dataTransfer.files;
+     
       unawaited(widget.handleDrop(files, widget.withData, widget.onDrop));
     });
     if (widget.onTap != null) {

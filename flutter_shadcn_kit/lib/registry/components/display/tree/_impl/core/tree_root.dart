@@ -67,23 +67,16 @@ class TreeRoot<T> extends TreeNode<T> {
   ///   ],
   /// );
   /// ```
-  TreeRoot({
-    required this.children,
-  });
+  TreeRoot({required this.children});
 
   @override
-  TreeRoot<T> updateState({
-    bool? expanded,
-    bool? selected,
-  }) {
+  TreeRoot<T> updateState({bool? expanded, bool? selected}) {
     return this;
   }
 
   @override
   TreeRoot<T> updateChildren(List<TreeNode<T>> children) {
-    return TreeRoot(
-      children: children,
-    );
+    return TreeRoot(children: children);
   }
 
   @override

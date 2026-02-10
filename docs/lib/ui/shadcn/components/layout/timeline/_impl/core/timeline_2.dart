@@ -101,7 +101,7 @@ class Timeline extends StatelessWidget {
                     child: VerticalDivider(
                       thickness: connectorThickness,
                       color: data.color ?? defaultColor,
-                      endIndent: (-4 - spacing) * scaling,
+                      endIndent: 0,
                     ),
                   ),
               ],

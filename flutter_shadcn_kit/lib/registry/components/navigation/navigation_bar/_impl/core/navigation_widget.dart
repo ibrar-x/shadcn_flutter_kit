@@ -16,7 +16,7 @@ class NavigationWidget extends StatelessWidget implements NavigationBarItem {
   /// - [index] (int?): Selection index
   /// - [child] (Widget, required): Static child widget
   const NavigationWidget({super.key, this.index, required Widget this.child})
-      : builder = null;
+    : builder = null;
 
   /// Creates a navigation widget with a selection-aware builder.
   ///

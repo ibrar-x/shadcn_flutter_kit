@@ -23,10 +23,7 @@ class _MultipleChoiceState<T> extends State<MultipleChoice<T>>
 
   @override
   Widget build(BuildContext context) {
-    return Data<Choice<T>>.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data<Choice<T>>.inherit(data: this, child: widget.child);
   }
 
   @override

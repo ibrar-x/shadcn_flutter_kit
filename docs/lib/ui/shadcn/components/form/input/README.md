@@ -1,19 +1,52 @@
-# Input
+# Input (`input`)
 
-Feature-packed single-line text input with hint/history addons, formatting, and controlled component behavior.
+Input feature extensions for `TextField`: hint, clear/copy/paste, password toggle, autocomplete, spinner, stepper buttons, and above/below helpers.
 
-```dart
-import 'ui/shadcn/components/input/input.dart';
+## Install
 
-Input(
-  controller: InputController(),
-  label: Text('Email'),
-  features: [
-    InputHintFeature(
-      popupBuilder: (_) => const Text('Enter your email'),
-    ),
-  ],
-);
+```bash
+flutter_shadcn add input
 ```
 
-Wrap the tree with `ComponentTheme<InputTheme>` before installing to customize height, padding, and feature layouts.
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/input/input.dart';
+```
+
+## Quick example
+
+```dart
+TextField(
+  placeholder: const Text('Amount'),
+  features: const [
+    InputLeadingFeature(Icon(LucideIcons.dollarSign)),
+    InputSpinnerFeature(step: 5, min: 0, max: 500),
+    InputStepperButtonFeature.decrement(),
+    InputStepperButtonFeature(),
+  ],
+)
+```
+
+## API
+
+- `InputFeaturePosition`: `leading`, `trailing`, `above`, `below`.
+- `SuggestionBuilder`: `FutureOr<Iterable<String>> Function(String query)`.
+- Feature classes:
+  - `InputHintFeature`
+  - `InputPasswordToggleFeature`
+  - `InputClearFeature`
+  - `InputRevalidateFeature`
+  - `InputAutoCompleteFeature`
+  - `InputSpinnerFeature` (`step`, `invalidValue`, `min`, `max`, `enableGesture`)
+  - `InputStepperButtonFeature` / `InputStepperButtonFeature.decrement`
+  - `InputCopyFeature`
+  - `InputPasteFeature`
+  - `InputLeadingFeature`
+  - `InputTrailingFeature`
+  - `InputAboveBelowFeature` (`above`/`below`)
+
+## Notes
+
+- Spinner buttons are automatically disabled at min/max bounds.
+- `InputAboveBelowFeature` wraps the field and places helper content above or below it.

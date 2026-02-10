@@ -13,6 +13,9 @@ class DotIndicatorTheme extends ComponentThemeData {
   final double? inactiveBorderWidth;
 
   const DotIndicatorTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.spacing,
     this.padding,
     this.dotBuilder,
@@ -42,8 +45,9 @@ class DotIndicatorTheme extends ComponentThemeData {
       size: size == null ? this.size : size(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       activeColor: activeColor == null ? this.activeColor : activeColor(),
-      inactiveColor:
-          inactiveColor == null ? this.inactiveColor : inactiveColor(),
+      inactiveColor: inactiveColor == null
+          ? this.inactiveColor
+          : inactiveColor(),
       inactiveBorderColor: inactiveBorderColor == null
           ? this.inactiveBorderColor
           : inactiveBorderColor(),
@@ -70,13 +74,14 @@ class DotIndicatorTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      spacing,
-      padding,
-      dotBuilder,
-      size,
-      borderRadius,
-      activeColor,
-      inactiveColor,
-      inactiveBorderColor,
-      inactiveBorderWidth);
+    spacing,
+    padding,
+    dotBuilder,
+    size,
+    borderRadius,
+    activeColor,
+    inactiveColor,
+    inactiveBorderColor,
+    inactiveBorderWidth,
+  );
 }

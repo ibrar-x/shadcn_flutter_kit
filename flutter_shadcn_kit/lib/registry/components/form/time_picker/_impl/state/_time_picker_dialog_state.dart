@@ -10,11 +10,16 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
   }
 
   Widget _buildInput(
-      BuildContext context, TextEditingController controller, String label) {
+    BuildContext context,
+    TextEditingController controller,
+    String label,
+  ) {
     final theme = Theme.of(context);
     return ConstrainedBox(
       constraints: BoxConstraints(
-          minWidth: 72 * theme.scaling, minHeight: 72 * theme.scaling),
+        minWidth: 72 * theme.scaling,
+        minHeight: 72 * theme.scaling,
+      ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -30,10 +35,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
               ],
             ),
           ),
-          Positioned(
-            bottom: (-24) * theme.scaling,
-            child: Text(label).muted(),
-          ),
+          Positioned(bottom: (-24) * theme.scaling, child: Text(label).muted()),
         ],
       ),
     );
@@ -54,8 +56,9 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       minute = minute.clamp(0, 59);
       second = second.clamp(0, 59);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        widget.onChanged
-            ?.call(TimeOfDay(hour: hour, minute: minute, second: second));
+        widget.onChanged?.call(
+          TimeOfDay(hour: hour, minute: minute, second: second),
+        );
       });
     } else {
       if (_pm && hour < 12) {
@@ -68,8 +71,9 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       second = second.clamp(0, 59);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         if (!mounted) return;
-        widget.onChanged
-            ?.call(TimeOfDay(hour: hour, minute: minute, second: second));
+        widget.onChanged?.call(
+          TimeOfDay(hour: hour, minute: minute, second: second),
+        );
       });
     }
   }
@@ -93,9 +97,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       initialHour -= 12;
       _pm = true;
     }
-    _hourController = TextEditingController(
-      text: _formatDigits(initialHour),
-    );
+    _hourController = TextEditingController(text: _formatDigits(initialHour));
     _minuteController = TextEditingController(
       text: _formatDigits(initialMinute),
     );
@@ -115,7 +117,12 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
     return IntrinsicWidth(
       child: IntrinsicHeight(
         child: Padding(
-          padding: EdgeInsets.only(bottom: (16 + 12) * scaling),
+          padding: EdgeInsets.only(
+            bottom:
+                ((theme.density.baseContentPadding) +
+                    (theme.density.baseGap * 1.5)) *
+                scaling,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -146,7 +153,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                 ),
               ],
               if (!widget.use24HourFormat) ...[
-                Gap(8 * scaling),
+                DensityGap(gapSm),
                 IntrinsicWidth(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -178,8 +185,8 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                       ),
                     ],
                   ),
-                )
-              ]
+                ),
+              ],
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 
 import '../../../shared/theme/theme.dart';
@@ -41,10 +40,12 @@ void showToast({
   late final ToastOverlay overlayHandle;
 
   entry = OverlayEntry(builder: (overlayContext) {
+    final theme = Theme.of(overlayContext);
     final toastTheme = ComponentTheme.maybeOf<ToastTheme>(overlayContext);
     final padding = toastTheme?.padding ?? const EdgeInsets.all(16);
     final resolvedSpacing = toastTheme?.margin ?? spacing;
     final totalOffset = entries.indexOf(entry) * resolvedSpacing;
+    final foregroundColor = theme.colorScheme.foreground;
     final isTop = switch (location) {
       ToastLocation.topLeft ||
       ToastLocation.topCenter ||
@@ -72,23 +73,22 @@ void showToast({
             : Alignment.topLeft,
         child: ToastEntry(
           duration: duration,
-          animationDuration:
-              toastTheme?.animationDuration ?? const Duration(milliseconds: 250),
+          animationDuration: toastTheme?.animationDuration ??
+              const Duration(milliseconds: 250),
           animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
           onDismissed: () {
             entry.remove();
             entries.remove(entry);
           },
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: toastTheme?.backgroundColor ?? Colors.black87,
-              borderRadius:
-                  BorderRadius.circular(toastTheme?.borderRadius ?? 12.0),
-            ),
-            child: Container(
-              padding: padding,
-              width: toastTheme?.width,
-              child: builder(overlayContext, overlayHandle),
+          child: DefaultTextStyle.merge(
+            style: TextStyle(color: foregroundColor),
+            child: IconTheme.merge(
+              data: IconThemeData(color: foregroundColor),
+              child: Container(
+                padding: padding,
+                width: toastTheme?.width,
+                child: builder(overlayContext, overlayHandle),
+              ),
             ),
           ),
         ),

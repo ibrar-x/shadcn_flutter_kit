@@ -39,13 +39,15 @@ class HoverActivityState extends State<HoverActivity>
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
     final debounceDuration = styleValue(
-        widgetValue: widget.debounceDuration,
-        themeValue: compTheme?.debounceDuration,
-        defaultValue: const Duration(milliseconds: 100));
+      widgetValue: widget.debounceDuration,
+      themeValue: compTheme?.debounceDuration,
+      defaultValue: const Duration(milliseconds: 100),
+    );
     final behavior = styleValue(
-        widgetValue: widget.hitTestBehavior,
-        themeValue: compTheme?.hitTestBehavior,
-        defaultValue: HitTestBehavior.deferToChild);
+      widgetValue: widget.hitTestBehavior,
+      themeValue: compTheme?.hitTestBehavior,
+      defaultValue: HitTestBehavior.deferToChild,
+    );
     _controller.duration = debounceDuration;
     return MouseRegion(
       hitTestBehavior: behavior,

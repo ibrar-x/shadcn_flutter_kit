@@ -9,7 +9,7 @@ class MenuData {
   /// Parameters:
   /// - [popoverController] (PopoverController?): Optional controller, creates default if null
   MenuData({PopoverController? popoverController})
-      : popoverController = popoverController ?? PopoverController();
+    : popoverController = popoverController ?? PopoverController();
 }
 
 /// Container widget for organizing menu items into a group.

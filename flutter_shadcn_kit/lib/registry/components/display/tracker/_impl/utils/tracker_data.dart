@@ -5,8 +5,5 @@ class TrackerData {
   final Widget tooltip;
   final TrackerLevel level;
 
-  const TrackerData({
-    required this.tooltip,
-    required this.level,
-  });
+  const TrackerData({required this.tooltip, required this.level});
 }

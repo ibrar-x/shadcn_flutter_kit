@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-typedef FeatureCarouselIconBuilder = Widget Function(
-  BuildContext context,
-  Color accentColor,
-  double size,
-);
+typedef FeatureCarouselIconBuilder =
+    Widget Function(BuildContext context, Color accentColor, double size);
 
 class FeatureCarouselItem {
   final String? title;

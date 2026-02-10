@@ -33,8 +33,7 @@ class _TabContainerPreviewState extends State<TabContainerPreview> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: DefaultTextStyle.merge(
                     style: TextStyle(
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w400,
+                      fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                     ),
                     child: child,
                   ),

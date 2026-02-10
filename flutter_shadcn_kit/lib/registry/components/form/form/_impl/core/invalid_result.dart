@@ -15,9 +15,11 @@ class InvalidResult extends ValidationResult {
   const InvalidResult(this.message, {required super.state}) : _key = null;
 
   /// Creates an [InvalidResult] already attached to a form field key.
-  const InvalidResult.attached(this.message,
-      {required FormKey key, required super.state})
-      : _key = key;
+  const InvalidResult.attached(
+    this.message, {
+    required FormKey key,
+    required super.state,
+  }) : _key = key;
 
   @override
   FormKey get key {

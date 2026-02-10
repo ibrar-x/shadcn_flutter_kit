@@ -21,10 +21,7 @@ class BreadcrumbPreview extends StatelessWidget {
                 Breadcrumb(
                   separator: Breadcrumb.arrowSeparator,
                   children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Home'),
-                    ),
+                    TextButton(onPressed: () {}, child: const Text('Home')),
                     const MoreDots(),
                     TextButton(
                       onPressed: () {},
@@ -37,10 +34,7 @@ class BreadcrumbPreview extends StatelessWidget {
                 Breadcrumb(
                   separator: Breadcrumb.slashSeparator,
                   children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Docs'),
-                    ),
+                    TextButton(onPressed: () {}, child: const Text('Docs')),
                     TextButton(
                       onPressed: () {},
                       child: const Text('UI Components'),

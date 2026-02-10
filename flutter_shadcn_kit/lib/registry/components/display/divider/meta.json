@@ -3,7 +3,11 @@
   "name": "Divider",
   "description": "Horizontal and vertical separators with optional label support.",
   "category": "display",
-  "tags": ["display", "layout", "separator"],
+  "tags": [
+    "display",
+    "layout",
+    "separator"
+  ],
   "dependencies": {
     "shared": [
       "theme",
@@ -13,6 +17,31 @@
       "util",
       "text_modifiers"
     ],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/vertical_divider.dart",
+    "_impl/themes/divider_theme.dart",
+    "_impl/utils/divider_painter.dart",
+    "_impl/utils/divider_painters.dart",
+    "_impl/utils/vertical_divider_painter.dart",
+    "divider.dart",
+    "divider.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Divider`",
+      "`color`, `height`, `thickness`, `indent`, `endIndent`, `padding`",
+      "`child` (`Widget?`) — optional label",
+      "`VerticalDivider`",
+      "`color`, `width`, `thickness`, `indent`, `endIndent`, `padding`",
+      "`child` (`Widget?`) — optional label"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

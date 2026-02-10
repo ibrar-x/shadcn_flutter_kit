@@ -41,11 +41,7 @@ class TableCellTheme {
   ///   }),
   /// );
   /// ```
-  const TableCellTheme({
-    this.border,
-    this.backgroundColor,
-    this.textStyle,
-  });
+  const TableCellTheme({this.border, this.backgroundColor, this.textStyle});
 
   @override
   bool operator ==(Object other) {
@@ -82,8 +78,9 @@ class TableCellTheme {
   }) {
     return TableCellTheme(
       border: border == null ? this.border : border(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       textStyle: textStyle == null ? this.textStyle : textStyle(),
     );
   }

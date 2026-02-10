@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "scrollable_client",
+  "name": "Scrollable Client",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "scroll"
+  ],
+  "installedAt": "2026-02-09T10:18:03.208675Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/layout/scrollable_client/README.md",
+    "registry/components/layout/scrollable_client/_impl/core/_scrollable_client_child_vicinity.dart",
+    "registry/components/layout/scrollable_client/_impl/core/render_scrollable_client_viewport.dart",
+    "registry/components/layout/scrollable_client/_impl/core/scrollable_client_2.dart",
+    "registry/components/layout/scrollable_client/_impl/core/scrollable_client_viewport.dart",
+    "registry/components/layout/scrollable_client/meta.json",
+    "registry/components/layout/scrollable_client/preview.dart",
+    "registry/components/layout/scrollable_client/scrollable_client.dart",
+    "registry/components/layout/scrollable_client/scrollable_client.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

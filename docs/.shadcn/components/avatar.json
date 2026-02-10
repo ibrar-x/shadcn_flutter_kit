@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "avatar",
+  "name": "Avatar",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "profile",
+    "user"
+  ],
+  "installedAt": "2026-02-09T10:18:03.225258Z",
+  "shared": [
+    "geometry_extensions",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/avatar/README.md",
+    "registry/components/display/avatar/_impl/core/_avatar_state.dart",
+    "registry/components/display/avatar/_impl/core/_avatar_widget.dart",
+    "registry/components/display/avatar/_impl/core/avatar.dart",
+    "registry/components/display/avatar/_impl/core/avatar_badge.dart",
+    "registry/components/display/avatar/_impl/core/avatar_group.dart",
+    "registry/components/display/avatar/_impl/core/avatar_group_clipper.dart",
+    "registry/components/display/avatar/_impl/core/avatar_widget.dart",
+    "registry/components/display/avatar/_impl/themes/avatar_theme.dart",
+    "registry/components/display/avatar/avatar.dart",
+    "registry/components/display/avatar/avatar.meta.json",
+    "registry/components/display/avatar/meta.json",
+    "registry/components/display/avatar/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

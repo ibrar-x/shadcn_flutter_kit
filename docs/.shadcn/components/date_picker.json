@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "date_picker",
+  "name": "Date Picker",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "date",
+    "picker",
+    "calendar"
+  ],
+  "installedAt": "2026-02-09T10:18:03.197223Z",
+  "shared": [
+    "form_control",
+    "localizations",
+    "lucide_icons",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [
+    "calendar",
+    "form_field"
+  ],
+  "files": [
+    "registry/components/form/date_picker/README.md",
+    "registry/components/form/date_picker/_impl/core/controlled_date_picker.dart",
+    "registry/components/form/date_picker/_impl/core/date_range_picker.dart",
+    "registry/components/form/date_picker/_impl/core/date_time_range.dart",
+    "registry/components/form/date_picker/_impl/state/_date_picker_preview_state.dart",
+    "registry/components/form/date_picker/_impl/themes/date_picker_theme.dart",
+    "registry/components/form/date_picker/_impl/utils/date_picker_controller.dart",
+    "registry/components/form/date_picker/date_picker.dart",
+    "registry/components/form/date_picker/date_picker.meta.json",
+    "registry/components/form/date_picker/meta.json",
+    "registry/components/form/date_picker/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

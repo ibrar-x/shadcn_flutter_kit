@@ -151,9 +151,9 @@ class AppBar extends StatefulWidget {
     this.surfaceOpacity,
     this.useSafeArea = true,
   }) : assert(
-          child == null || title == null,
-          'Cannot provide both child and title',
-        );
+         child == null || title == null,
+         'Cannot provide both child and title',
+       );
 
   @override
   State<AppBar> createState() => _AppBarState();

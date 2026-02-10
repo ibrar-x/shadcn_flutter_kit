@@ -10,6 +10,9 @@ class HiddenTheme extends ComponentThemeData {
   final bool? keepMainAxisSize;
 
   const HiddenTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.direction,
     this.duration,
     this.curve,
@@ -34,8 +37,9 @@ class HiddenTheme extends ComponentThemeData {
       keepCrossAxisSize: keepCrossAxisSize == null
           ? this.keepCrossAxisSize
           : keepCrossAxisSize(),
-      keepMainAxisSize:
-          keepMainAxisSize == null ? this.keepMainAxisSize : keepMainAxisSize(),
+      keepMainAxisSize: keepMainAxisSize == null
+          ? this.keepMainAxisSize
+          : keepMainAxisSize(),
     );
   }
 
@@ -52,11 +56,11 @@ class HiddenTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        direction,
-        duration,
-        curve,
-        reverse,
-        keepCrossAxisSize,
-        keepMainAxisSize,
-      );
+    direction,
+    duration,
+    curve,
+    reverse,
+    keepCrossAxisSize,
+    keepMainAxisSize,
+  );
 }

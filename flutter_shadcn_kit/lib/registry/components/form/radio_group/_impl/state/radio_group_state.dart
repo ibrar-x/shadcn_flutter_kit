@@ -40,9 +40,7 @@ class RadioGroupState<T> extends State<RadioGroup<T>>
         data: this,
         child: Data.inherit(
           data: RadioGroupData<T>(widget.value, enabled),
-          child: FocusTraversalGroup(
-            child: widget.child,
-          ),
+          child: FocusTraversalGroup(child: widget.child),
         ),
       ),
     );

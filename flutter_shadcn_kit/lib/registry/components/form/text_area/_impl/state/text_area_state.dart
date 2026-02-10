@@ -49,19 +49,21 @@ class _TextAreaState extends State<TextArea> {
               hitTestBehavior: HitTestBehavior.translucent,
               cursor: widget.expandableWidth
                   ? widget.expandableHeight
-                      ? SystemMouseCursors.resizeDownRight
-                      : SystemMouseCursors.resizeLeftRight
+                        ? SystemMouseCursors.resizeDownRight
+                        : SystemMouseCursors.resizeLeftRight
                   : widget.expandableHeight
-                      ? SystemMouseCursors.resizeUpDown
-                      : SystemMouseCursors.basic,
+                  ? SystemMouseCursors.resizeUpDown
+                  : SystemMouseCursors.basic,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onPanUpdate: (details) {
                   if (widget.expandableHeight && _height.isFinite) {
                     setState(() {
                       _height += details.delta.dy;
-                      _height =
-                          _height.clamp(widget.minHeight, widget.maxHeight);
+                      _height = _height.clamp(
+                        widget.minHeight,
+                        widget.maxHeight,
+                      );
                       widget.onHeightChanged?.call(_height);
                     });
                   }
@@ -74,15 +76,18 @@ class _TextAreaState extends State<TextArea> {
                   }
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(4.0 * scaling),
+                  padding: EdgeInsets.all(
+                    theme.density.baseGap * scaling * 0.5,
+                  ),
                   child: CustomPaint(
                     painter: _TextAreaDragHandlePainter(
-                        theme.colorScheme.foreground),
+                      theme.colorScheme.foreground,
+                    ),
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

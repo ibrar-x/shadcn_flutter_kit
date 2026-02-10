@@ -52,6 +52,9 @@ class ResizableDraggerTheme extends ComponentThemeData {
 
   /// Creates a [ResizableDraggerTheme].
   const ResizableDraggerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.borderRadius,
     this.width,
@@ -144,8 +147,10 @@ mixin ResizablePaneController implements ValueListenable<double> {
   /// Attempts to expand by [size] pixels in the specified [direction].
   ///
   /// Returns `true` if successful, `false` if expansion was blocked.
-  bool tryExpandSize(double size,
-      [PanelSibling direction = PanelSibling.both]) {
+  bool tryExpandSize(
+    double size, [
+    PanelSibling direction = PanelSibling.both,
+  ]) {
     assert(_paneState != null, 'ResizablePaneController is not attached');
     return _paneState!.tryExpandSize(size, direction);
   }
@@ -281,6 +286,5 @@ typedef OptionalWidgetBuilder = Widget? Function(BuildContext context);
 ///
 /// Used internally to pass layout direction information through the widget tree.
 
-typedef _ResizableLayoutCallback = void Function(
-    double panelSize, double flexCount);
-
+typedef _ResizableLayoutCallback =
+    void Function(double panelSize, double flexCount);

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "badge",
+  "name": "Badge",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "status",
+    "label"
+  ],
+  "installedAt": "2026-02-09T10:18:03.229589Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [
+    "button"
+  ],
+  "files": [
+    "registry/components/display/badge/README.md",
+    "registry/components/display/badge/_impl/core/badge_widgets.dart",
+    "registry/components/display/badge/_impl/core/destructive_badge.dart",
+    "registry/components/display/badge/_impl/core/outline_badge.dart",
+    "registry/components/display/badge/_impl/core/secondary_badge.dart",
+    "registry/components/display/badge/_impl/themes/badge_theme.dart",
+    "registry/components/display/badge/badge.dart",
+    "registry/components/display/badge/badge.meta.json",
+    "registry/components/display/badge/meta.json",
+    "registry/components/display/badge/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

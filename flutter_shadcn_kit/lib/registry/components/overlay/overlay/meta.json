@@ -8,14 +8,43 @@
     "layer"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "animated_value_builder",
       "constants",
       "geometry_extensions",
-      "tween_utils",
-      "data_widget"
+      "tween_utils"
+    ],
+    "components": [],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "overlay.dart",
+    "overlay.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "core_types": [
+      "`OverlayHandler`",
+      "`OverlayCompleter`",
+      "`OverlayManager`",
+      "`OverlayManagerLayer`",
+      "`OverlayBarrier`",
+      "`OverlayHandlerStateMixin`",
+      "`Popover`",
+      "`PopoverController`",
+      "`PopoverConstraint`"
+    ],
+    "helpers": [
+      "`closeOverlay`",
+      "`showPopover`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

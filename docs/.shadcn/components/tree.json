@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "tree",
+  "name": "Tree",
+  "version": "1.0.0",
+  "tags": [
+    "tree",
+    "hierarchy",
+    "navigation"
+  ],
+  "installedAt": "2026-02-09T10:18:03.220009Z",
+  "shared": [
+    "clickable",
+    "color_extensions",
+    "constants",
+    "theme"
+  ],
+  "dependsOn": [
+    "icon"
+  ],
+  "files": [
+    "registry/components/display/tree/README.md",
+    "registry/components/display/tree/_impl/core/_path_painter.dart",
+    "registry/components/display/tree/_impl/core/_tree_item_view_state.dart",
+    "registry/components/display/tree/_impl/core/_tree_view_state.dart",
+    "registry/components/display/tree/_impl/core/branch_line.dart",
+    "registry/components/display/tree/_impl/core/collapse_tree_node_intent.dart",
+    "registry/components/display/tree/_impl/core/directional_select_tree_node_intent.dart",
+    "registry/components/display/tree/_impl/core/expand_tree_node_intent.dart",
+    "registry/components/display/tree/_impl/core/focus_change_reason.dart",
+    "registry/components/display/tree/_impl/core/indent_guide_line.dart",
+    "registry/components/display/tree/_impl/core/indent_guide_none.dart",
+    "registry/components/display/tree/_impl/core/indent_guide_path.dart",
+    "registry/components/display/tree/_impl/core/select_tree_node_intent.dart",
+    "registry/components/display/tree/_impl/core/selection_position.dart",
+    "registry/components/display/tree/_impl/core/tree_item.dart",
+    "registry/components/display/tree/_impl/core/tree_item_expand_default_handler.dart",
+    "registry/components/display/tree/_impl/core/tree_item_view.dart",
+    "registry/components/display/tree/_impl/core/tree_node.dart",
+    "registry/components/display/tree/_impl/core/tree_node_data.dart",
+    "registry/components/display/tree/_impl/core/tree_node_depth.dart",
+    "registry/components/display/tree/_impl/core/tree_root.dart",
+    "registry/components/display/tree/_impl/core/tree_selection_default_handler.dart",
+    "registry/components/display/tree/_impl/core/tree_view.dart",
+    "registry/components/display/tree/meta.json",
+    "registry/components/display/tree/preview.dart",
+    "registry/components/display/tree/tree.dart",
+    "registry/components/display/tree/tree.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

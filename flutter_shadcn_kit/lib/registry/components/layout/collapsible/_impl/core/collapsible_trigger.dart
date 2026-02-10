@@ -15,13 +15,15 @@ class CollapsibleTrigger extends StatelessWidget {
     final state = Data.of<CollapsibleStateData>(context);
     final scaling = theme.scaling;
 
-    final padding = compTheme?.padding ?? 16 * scaling;
+    final padding =
+        compTheme?.padding ?? theme.density.baseContentPadding * scaling;
     final iconGap = compTheme?.iconGap ?? 16 * scaling;
     final iconExpanded = compTheme?.iconExpanded ?? Icons.unfold_less;
     final iconCollapsed = compTheme?.iconCollapsed ?? Icons.unfold_more;
 
     final iconTheme = IconThemeData(
-      size: theme.iconTheme.xSmall.size ??
+      size:
+          theme.iconTheme.xSmall.size ??
           theme.iconTheme.small.size ??
           16 * scaling,
       color: theme.colorScheme.mutedForeground,
@@ -30,17 +32,13 @@ class CollapsibleTrigger extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          child: child.small().semiBold(),
-        ),
+        Expanded(child: child.small().semiBold()),
         Gap(iconGap),
         GhostButton(
           onPressed: state.handleTap,
           child: IconTheme(
             data: iconTheme,
-            child: Icon(
-              state.isExpanded ? iconExpanded : iconCollapsed,
-            ),
+            child: Icon(state.isExpanded ? iconExpanded : iconCollapsed),
           ),
         ),
       ],

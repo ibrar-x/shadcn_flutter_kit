@@ -11,7 +11,6 @@ part '_impl/utils/_time_formatter.dart';
 part '_impl/utils/_to_lower_case_text_formatter.dart';
 part '_impl/utils/_to_upper_case_text_formatter.dart';
 
-
 /// Constrains the text selection to fit within the new text length.
 ///
 /// Helper function that ensures selection offsets don't exceed the bounds
@@ -68,10 +67,16 @@ class TextInputFormatters {
   /// - [min]: Optional minimum value.
   /// - [max]: Optional maximum value.
   /// - [decimalDigits]: Optional fixed number of decimal places.
-  static TextInputFormatter digitsOnly(
-      {double? min, double? max, int? decimalDigits}) {
+  static TextInputFormatter digitsOnly({
+    double? min,
+    double? max,
+    int? decimalDigits,
+  }) {
     return _DoubleOnlyFormatter(
-        min: min, max: max, decimalDigits: decimalDigits);
+      min: min,
+      max: max,
+      decimalDigits: decimalDigits,
+    );
   }
 
   /// Creates a formatter that evaluates mathematical expressions.

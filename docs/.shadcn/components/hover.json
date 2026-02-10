@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "hover",
+  "name": "Hover",
+  "version": "1.0.0",
+  "tags": [
+    "hover",
+    "pointer",
+    "interaction"
+  ],
+  "installedAt": "2026-02-09T10:18:03.238299Z",
+  "shared": [
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/control/hover/README.md",
+    "registry/components/control/hover/_impl/core/hover_activity.dart",
+    "registry/components/control/hover/_impl/core/hover_preview.dart",
+    "registry/components/control/hover/_impl/core/hover_widget.dart",
+    "registry/components/control/hover/_impl/state/hover_activity_state.dart",
+    "registry/components/control/hover/_impl/state/hover_preview_state.dart",
+    "registry/components/control/hover/_impl/state/hover_state.dart",
+    "registry/components/control/hover/_impl/themes/hover_theme.dart",
+    "registry/components/control/hover/hover.dart",
+    "registry/components/control/hover/hover.meta.json",
+    "registry/components/control/hover/meta.json",
+    "registry/components/control/hover/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

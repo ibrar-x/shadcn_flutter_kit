@@ -20,9 +20,6 @@ class _KeyboardShortcutDisplayMapperState
 
   @override
   Widget build(BuildContext context) {
-    return Data.inherit(
-      data: _handle,
-      child: widget.child,
-    );
+    return Data.inherit(data: _handle, child: widget.child);
   }
 }

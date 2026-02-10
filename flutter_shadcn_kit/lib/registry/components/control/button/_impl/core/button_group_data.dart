@@ -30,20 +30,24 @@ class ButtonGroupData {
   static const ButtonGroupData zero = ButtonGroupData.all(0.0);
 
   /// Horizontal start position - full start radius, no end radius.
-  static const ButtonGroupData horizontalStart =
-      ButtonGroupData.horizontal(end: 0.0);
+  static const ButtonGroupData horizontalStart = ButtonGroupData.horizontal(
+    end: 0.0,
+  );
 
   /// Horizontal end position - no start radius, full end radius.
-  static const ButtonGroupData horizontalEnd =
-      ButtonGroupData.horizontal(start: 0.0);
+  static const ButtonGroupData horizontalEnd = ButtonGroupData.horizontal(
+    start: 0.0,
+  );
 
   /// Vertical top position - full top radius, no bottom radius.
-  static const ButtonGroupData verticalTop =
-      ButtonGroupData.vertical(bottom: 0.0);
+  static const ButtonGroupData verticalTop = ButtonGroupData.vertical(
+    bottom: 0.0,
+  );
 
   /// Vertical bottom position - no top radius, full bottom radius.
-  static const ButtonGroupData verticalBottom =
-      ButtonGroupData.vertical(top: 0.0);
+  static const ButtonGroupData verticalBottom = ButtonGroupData.vertical(
+    top: 0.0,
+  );
 
   /// Border radius multiplier for top-start corner (0.0 to 1.0).
   final double topStartValue;
@@ -68,31 +72,27 @@ class ButtonGroupData {
   /// Creates horizontal group data with start and end multipliers.
   ///
   /// Both top and bottom on each side use the same value.
-  const ButtonGroupData.horizontal({
-    double start = 1.0,
-    double end = 1.0,
-  })  : topStartValue = start,
-        topEndValue = end,
-        bottomStartValue = start,
-        bottomEndValue = end;
+  const ButtonGroupData.horizontal({double start = 1.0, double end = 1.0})
+    : topStartValue = start,
+      topEndValue = end,
+      bottomStartValue = start,
+      bottomEndValue = end;
 
   /// Creates vertical group data with top and bottom multipliers.
   ///
   /// Both start and end on each side use the same value.
-  const ButtonGroupData.vertical({
-    double top = 1.0,
-    double bottom = 1.0,
-  })  : topStartValue = top,
-        topEndValue = top,
-        bottomStartValue = bottom,
-        bottomEndValue = bottom;
+  const ButtonGroupData.vertical({double top = 1.0, double bottom = 1.0})
+    : topStartValue = top,
+      topEndValue = top,
+      bottomStartValue = bottom,
+      bottomEndValue = bottom;
 
   /// Creates group data with the same multiplier for all corners.
   const ButtonGroupData.all(double value)
-      : topStartValue = value,
-        topEndValue = value,
-        bottomStartValue = value,
-        bottomEndValue = value;
+    : topStartValue = value,
+      topEndValue = value,
+      bottomStartValue = value,
+      bottomEndValue = value;
 
   /// Creates group data for a button at [index] in a horizontal group of [length] buttons.
   ///
@@ -147,15 +147,21 @@ class ButtonGroupData {
   ///
   /// Returns a new [BorderRadiusGeometry] with modified corner radii.
   BorderRadiusGeometry applyToBorderRadius(
-      BorderRadiusGeometry borderRadius, TextDirection textDirection) {
-    final topLeftValue =
-        textDirection == TextDirection.ltr ? topStartValue : topEndValue;
-    final topRightValue =
-        textDirection == TextDirection.ltr ? topEndValue : topStartValue;
-    final bottomLeftValue =
-        textDirection == TextDirection.ltr ? bottomStartValue : bottomEndValue;
-    final bottomRightValue =
-        textDirection == TextDirection.ltr ? bottomEndValue : bottomStartValue;
+    BorderRadiusGeometry borderRadius,
+    TextDirection textDirection,
+  ) {
+    final topLeftValue = textDirection == TextDirection.ltr
+        ? topStartValue
+        : topEndValue;
+    final topRightValue = textDirection == TextDirection.ltr
+        ? topEndValue
+        : topStartValue;
+    final bottomLeftValue = textDirection == TextDirection.ltr
+        ? bottomStartValue
+        : bottomEndValue;
+    final bottomRightValue = textDirection == TextDirection.ltr
+        ? bottomEndValue
+        : bottomStartValue;
     final resolvedBorderRadius = borderRadius.resolve(textDirection);
     return BorderRadius.only(
       topLeft: Radius.elliptical(

@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class LinkButtonTheme extends ButtonTheme {
   /// Creates a [LinkButtonTheme] with optional style property delegates.
-  const LinkButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const LinkButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   LinkButtonTheme copyWith({

@@ -28,13 +28,19 @@ import '../../ui/shadcn/shared/primitives/slider_value.dart'
 
 typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 
+const bool enableTextAnimateComponent = bool.fromEnvironment(
+  'ENABLE_TEXT_ANIMATE_COMPONENT',
+  defaultValue: true,
+);
+
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
   'file_picker': 'New',
+  'filter_bar': 'New',
   'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
-  'text_animate': 'New',
+  if (enableTextAnimateComponent) 'text_animate': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',
@@ -55,7 +61,7 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'slider': _sliderPreview,
   'switch': _switchPreview,
   'progress': _progressPreview,
-  'text_animate': _textAnimatePreview,
+  if (enableTextAnimateComponent) 'text_animate': _textAnimatePreview,
 };
 
 const Map<String, IconData> categoryIcons = {

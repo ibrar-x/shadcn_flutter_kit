@@ -98,21 +98,25 @@ class Radio extends StatelessWidget {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<RadioTheme>(context);
     final size = styleValue<double>(
-        widgetValue: this.size,
-        themeValue: compTheme?.size,
-        defaultValue: 16 * theme.scaling);
+      widgetValue: this.size,
+      themeValue: compTheme?.size,
+      defaultValue: 16 * theme.scaling,
+    );
     final activeColor = styleValue<Color>(
-        widgetValue: this.activeColor,
-        themeValue: compTheme?.activeColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: this.activeColor,
+      themeValue: compTheme?.activeColor,
+      defaultValue: theme.colorScheme.primary,
+    );
     final borderColor = styleValue<Color>(
-        widgetValue: this.borderColor,
-        themeValue: compTheme?.borderColor,
-        defaultValue: theme.colorScheme.input);
+      widgetValue: this.borderColor,
+      themeValue: compTheme?.borderColor,
+      defaultValue: theme.colorScheme.input,
+    );
     final backgroundColor = styleValue<Color>(
-        widgetValue: this.backgroundColor,
-        themeValue: compTheme?.backgroundColor,
-        defaultValue: theme.colorScheme.input.scaleAlpha(0.3));
+      widgetValue: this.backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.input.scaleAlpha(0.3),
+    );
     final innerSize = value ? (size - (6 + 2) * theme.scaling) : 0.0;
     return FocusOutline(
       focused: focusing,
@@ -124,9 +128,7 @@ class Radio extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: backgroundColor,
-          border: Border.all(
-            color: borderColor,
-          ),
+          border: Border.all(color: borderColor),
         ),
         child: Center(
           child: AnimatedContainer(

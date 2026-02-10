@@ -8,6 +8,9 @@ import '../core/app_error.dart';
 
 class ErrorSystemTheme extends ComponentThemeData {
   const ErrorSystemTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.iconColor,
     this.iconSize,
     this.titleStyle,

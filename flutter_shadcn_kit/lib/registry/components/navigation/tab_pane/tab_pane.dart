@@ -48,6 +48,9 @@ class TabPaneTheme extends ComponentThemeData {
 
   /// Creates a [TabPaneTheme].
   const TabPaneTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.borderRadius,
     this.backgroundColor,
     this.border,
@@ -63,8 +66,9 @@ class TabPaneTheme extends ComponentThemeData {
   }) {
     return TabPaneTheme(
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       border: border == null ? this.border : border(),
       barHeight: barHeight == null ? this.barHeight : barHeight(),
     );
@@ -108,8 +112,8 @@ class TabPaneTheme extends ComponentThemeData {
 /// - [index] (int): Zero-based index of this tab in the list
 ///
 /// Returns: A [TabChild] widget for the tab button
-typedef TabPaneItemBuilder<T> = TabChild Function(
-    BuildContext context, TabPaneData<T> item, int index);
+typedef TabPaneItemBuilder<T> =
+    TabChild Function(BuildContext context, TabPaneData<T> item, int index);
 
 /// A comprehensive tab pane widget with sortable tabs and integrated content display.
 ///
@@ -157,4 +161,3 @@ typedef TabPaneItemBuilder<T> = TabChild Function(
 /// State class for [TabPane] widget.
 ///
 /// Manages the scrolling and rendering of tab pane content.
-

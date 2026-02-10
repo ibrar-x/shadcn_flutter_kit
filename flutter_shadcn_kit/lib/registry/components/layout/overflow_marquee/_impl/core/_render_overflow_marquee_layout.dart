@@ -66,13 +66,9 @@ class _RenderOverflowMarqueeLayout extends RenderShiftedBox
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {
     if (direction == Axis.horizontal) {
-      constraints = constraints.copyWith(
-        maxWidth: double.infinity,
-      );
+      constraints = constraints.copyWith(maxWidth: double.infinity);
     } else {
-      constraints = constraints.copyWith(
-        maxHeight: double.infinity,
-      );
+      constraints = constraints.copyWith(maxHeight: double.infinity);
     }
     final child = this.child;
     if (child != null) {
@@ -93,7 +89,8 @@ class _RenderOverflowMarqueeLayout extends RenderShiftedBox
     int delayDurationInMicros = delayDuration.inMicroseconds;
     double elapsedInMicros = elapsed.inMicroseconds.toDouble();
     // includes the reverse
-    double overalCycleDuration = delayDurationInMicros +
+    double overalCycleDuration =
+        delayDurationInMicros +
         durationInMicros +
         delayDurationInMicros +
         durationInMicros;
@@ -140,7 +137,11 @@ class _RenderOverflowMarqueeLayout extends RenderShiftedBox
   }
 
   Shader _createAlphaShader(
-      bool fadeStart, bool fadeEnd, Rect bounds, double fadePortion) {
+    bool fadeStart,
+    bool fadeEnd,
+    Rect bounds,
+    double fadePortion,
+  ) {
     double portionSize;
     if (direction == Axis.horizontal) {
       portionSize = fadePortion / bounds.width;
@@ -227,13 +228,9 @@ class _RenderOverflowMarqueeLayout extends RenderShiftedBox
     if (child != null) {
       var constraints = this.constraints;
       if (direction == Axis.horizontal) {
-        constraints = constraints.copyWith(
-          maxWidth: double.infinity,
-        );
+        constraints = constraints.copyWith(maxWidth: double.infinity);
       } else {
-        constraints = constraints.copyWith(
-          maxHeight: double.infinity,
-        );
+        constraints = constraints.copyWith(maxHeight: double.infinity);
       }
       child.layout(constraints, parentUsesSize: true);
       size = this.constraints.constrain(child.size);

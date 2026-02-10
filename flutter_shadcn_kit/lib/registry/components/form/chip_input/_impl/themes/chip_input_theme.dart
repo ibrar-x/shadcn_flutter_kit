@@ -21,6 +21,9 @@ class ChipInputTheme extends ComponentThemeData {
   /// All parameters are optional and fall back to framework defaults when null.
   /// The theme can be applied globally or to specific chip input instances.
   const ChipInputTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.spacing,
     this.useChips,
   });

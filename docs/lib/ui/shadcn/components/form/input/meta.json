@@ -9,9 +9,6 @@
     "text"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "constants",
       "form_value_supplier",
@@ -23,6 +20,50 @@
     "components": [
       "button",
       "text_field"
-    ]
-  }
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/input_auto_complete_feature.dart",
+    "_impl/core/input_clear_feature.dart",
+    "_impl/core/input_copy_feature.dart",
+    "_impl/core/input_hint_feature.dart",
+    "_impl/core/input_leading_feature.dart",
+    "_impl/core/input_password_toggle_feature.dart",
+    "_impl/core/input_paste_feature.dart",
+    "_impl/core/input_revalidate_feature.dart",
+    "_impl/core/input_spinner_feature.dart",
+    "_impl/core/input_trailing_feature.dart",
+    "_impl/core/password_peek_mode.dart",
+    "_impl/state/_auto_complete_feature_state.dart",
+    "_impl/state/_input_clear_feature_state.dart",
+    "_impl/state/_input_copy_feature_state.dart",
+    "_impl/state/_input_hint_feature_state.dart",
+    "_impl/state/_input_leading_feature_state.dart",
+    "_impl/state/_input_password_toggle_feature_state.dart",
+    "_impl/state/_input_paste_feature_state.dart",
+    "_impl/state/_input_revalidate_feature_state.dart",
+    "_impl/state/_input_spinner_feature_state.dart",
+    "_impl/state/_input_trailing_feature_state.dart",
+    "_impl/utils/input_show_hint_intent.dart",
+    "input.dart",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`InputFeaturePosition` — `leading` / `trailing`.",
+      "`SuggestionBuilder` — `FutureOr<Iterable<String>> Function(String query)`.",
+      "Feature widgets:",
+      "`InputClearFeature`, `InputPasswordToggleFeature`, `InputHintFeature`",
+      "`InputAutoCompleteFeature`, `InputSpinnerFeature`",
+      "`InputCopyFeature`, `InputPasteFeature`, `InputRevalidateFeature`",
+      "`InputLeadingFeature`, `InputTrailingFeature`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -3,9 +3,43 @@
   "name": "Badge",
   "description": "Compact label/status components built on button styles.",
   "category": "display",
-  "tags": ["display", "status", "label"],
+  "tags": [
+    "display",
+    "status",
+    "label"
+  ],
   "dependencies": {
-    "shared": ["theme"],
-    "components": ["button"]
-  }
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "button"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/badge_widgets.dart",
+    "_impl/core/destructive_badge.dart",
+    "_impl/core/outline_badge.dart",
+    "_impl/core/secondary_badge.dart",
+    "_impl/themes/badge_theme.dart",
+    "badge.dart",
+    "badge.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`PrimaryBadge`, `SecondaryBadge`, `OutlineBadge`, `DestructiveBadge`",
+      "`child` (`Widget`, required)",
+      "`leading` / `trailing` (`Widget?`)",
+      "`onPressed` (`VoidCallback?`)",
+      "`style` (`AbstractButtonStyle?`)"
+    ],
+    "callbacks": [
+      "`onPressed`"
+    ]
+  },
+  "version": "1.0.0"
 }

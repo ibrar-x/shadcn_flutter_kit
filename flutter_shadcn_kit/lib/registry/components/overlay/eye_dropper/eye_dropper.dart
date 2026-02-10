@@ -28,8 +28,8 @@ part '_impl/core/eye_dropper_result.dart';
 /// - [color]: The currently selected color under the cursor.
 ///
 /// Returns: A widget to display as the color preview label.
-typedef PreviewLabelBuilder = Widget Function(
-    BuildContext context, Color color);
+typedef PreviewLabelBuilder =
+    Widget Function(BuildContext context, Color color);
 
 /// A layer widget that provides eye dropper (color picking) functionality.
 ///

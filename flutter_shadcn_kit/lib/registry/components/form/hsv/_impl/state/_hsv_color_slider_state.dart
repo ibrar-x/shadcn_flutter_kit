@@ -21,12 +21,14 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
   }
 
   void _updateColor(Offset localPosition, Size size) {
-    _currentHorizontal = ((localPosition.dx - widget.padding.left) /
-            (size.width - widget.padding.horizontal))
-        .clamp(0, 1);
-    _currentVertical = ((localPosition.dy - widget.padding.top) /
-            (size.height - widget.padding.vertical))
-        .clamp(0, 1);
+    _currentHorizontal =
+        ((localPosition.dx - widget.padding.left) /
+                (size.width - widget.padding.horizontal))
+            .clamp(0, 1);
+    _currentVertical =
+        ((localPosition.dy - widget.padding.top) /
+                (size.height - widget.padding.vertical))
+            .clamp(0, 1);
     if (widget.reverse) {
       if (widget.sliderType == HSVColorSliderType.hueSat) {
         _hue = _currentHorizontal * 360;
@@ -95,12 +97,14 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
         _alpha = _currentVertical;
       }
     }
-    widget.onChanging?.call(HSVColor.fromAHSV(
-      _alpha.clamp(0, 1),
-      _hue.clamp(0, 360),
-      _saturation.clamp(0, 1),
-      _value.clamp(0, 1),
-    ));
+    widget.onChanging?.call(
+      HSVColor.fromAHSV(
+        _alpha.clamp(0, 1),
+        _hue.clamp(0, 360),
+        _saturation.clamp(0, 1),
+        _value.clamp(0, 1),
+      ),
+    );
   }
 
   @override
@@ -132,12 +136,14 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
     return GestureDetector(
       onTapDown: (details) {
         _updateColor(details.localPosition, context.size!);
-        widget.onChanged?.call(HSVColor.fromAHSV(
-          _alpha.clamp(0, 1),
-          _hue.clamp(0, 360),
-          _saturation.clamp(0, 1),
-          _value.clamp(0, 1),
-        ));
+        widget.onChanged?.call(
+          HSVColor.fromAHSV(
+            _alpha.clamp(0, 1),
+            _hue.clamp(0, 360),
+            _saturation.clamp(0, 1),
+            _value.clamp(0, 1),
+          ),
+        );
       },
       onPanUpdate: (details) {
         setState(() {
@@ -145,12 +151,14 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
         });
       },
       onPanEnd: (details) {
-        widget.onChanged?.call(HSVColor.fromAHSV(
-          _alpha.clamp(0, 1),
-          _hue.clamp(0, 360),
-          _saturation.clamp(0, 1),
-          _value.clamp(0, 1),
-        ));
+        widget.onChanged?.call(
+          HSVColor.fromAHSV(
+            _alpha.clamp(0, 1),
+            _hue.clamp(0, 360),
+            _saturation.clamp(0, 1),
+            _value.clamp(0, 1),
+          ),
+        );
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -159,9 +167,7 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
             child: RepaintBoundary(
               child: ClipRRect(
                 borderRadius: BorderRadius.all(widget.radius),
-                child: CustomPaint(
-                  painter: AlphaPainter(),
-                ),
+                child: CustomPaint(painter: AlphaPainter()),
               ),
             ),
           ),
@@ -191,58 +197,61 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
             right: -cursorRadius / radDiv,
             child: isSingleChannel
                 ? (widget.reverse
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                          left: widget.padding.left,
-                          right: widget.padding.right,
-                        ),
-                        child: Align(
-                          alignment: Alignment(
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                            left: widget.padding.left,
+                            right: widget.padding.right,
+                          ),
+                          child: Align(
+                            alignment: Alignment(
                               (_currentHorizontal.clamp(0, 1) * 2) - 1,
-                              (_currentVertical.clamp(0, 1) * 2) - 1),
-                          child: Container(
-                            width: cursorRadius,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                              color: widget.value.toColor(),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: theme.scaling * 2,
+                              (_currentVertical.clamp(0, 1) * 2) - 1,
+                            ),
+                            child: Container(
+                              width: cursorRadius,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: widget.value.toColor(),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: theme.scaling * 2,
+                                ),
+                                borderRadius: BorderRadius.all(widget.radius),
                               ),
-                              borderRadius: BorderRadius.all(widget.radius),
                             ),
                           ),
-                        ),
-                      )
-                    : Padding(
-                        padding: EdgeInsets.only(
-                          top: widget.padding.top,
-                          bottom: widget.padding.bottom,
-                        ),
-                        child: Align(
-                          alignment: Alignment(
+                        )
+                      : Padding(
+                          padding: EdgeInsets.only(
+                            top: widget.padding.top,
+                            bottom: widget.padding.bottom,
+                          ),
+                          child: Align(
+                            alignment: Alignment(
                               (_currentHorizontal.clamp(0, 1) * 2) - 1,
-                              (_currentVertical.clamp(0, 1) * 2) - 1),
-                          child: Container(
-                            height: cursorRadius,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: widget.value.toColor(),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: theme.scaling * 2,
+                              (_currentVertical.clamp(0, 1) * 2) - 1,
+                            ),
+                            child: Container(
+                              height: cursorRadius,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: widget.value.toColor(),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: theme.scaling * 2,
+                                ),
+                                borderRadius: BorderRadius.all(widget.radius),
                               ),
-                              borderRadius: BorderRadius.all(widget.radius),
                             ),
                           ),
-                        ),
-                      ))
+                        ))
                 : Padding(
                     padding: widget.padding,
                     child: Align(
                       alignment: Alignment(
-                          (_currentHorizontal.clamp(0, 1) * 2) - 1,
-                          (_currentVertical.clamp(0, 1) * 2) - 1),
+                        (_currentHorizontal.clamp(0, 1) * 2) - 1,
+                        (_currentVertical.clamp(0, 1) * 2) - 1,
+                      ),
                       child: Container(
                         width: cursorRadius,
                         height: cursorRadius,

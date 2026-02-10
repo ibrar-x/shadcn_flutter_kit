@@ -60,8 +60,9 @@ class ClickableState extends State<Clickable> {
 
   void _onPressed() {
     if (!widget.enabled) return;
-    Duration? deltaTap =
-        _lastTap == null ? null : DateTime.now().difference(_lastTap!);
+    Duration? deltaTap = _lastTap == null
+        ? null
+        : DateTime.now().difference(_lastTap!);
     _lastTap = DateTime.now();
     if (deltaTap != null && deltaTap < kDoubleTapMinTime) {
       _tapCount++;
@@ -87,13 +88,8 @@ class ClickableState extends State<Clickable> {
     var enabled = widget.enabled;
     return WidgetStatesProvider(
       controller: _controller,
-      states: {
-        if (!enabled) WidgetState.disabled,
-      },
-      child: ListenableBuilder(
-        listenable: _controller,
-        builder: _builder,
-      ),
+      states: {if (!enabled) WidgetState.disabled},
+      child: ListenableBuilder(listenable: _controller, builder: _builder),
     );
   }
 
@@ -113,7 +109,8 @@ class ClickableState extends State<Clickable> {
     }
     var buttonContainer = _buildContainer(context, decoration, widgetStates);
     return FocusOutline(
-      focused: widget.focusOutline &&
+      focused:
+          widget.focusOutline &&
           widgetStates.contains(WidgetState.focused) &&
           !widget.disableFocusOutline,
       borderRadius: borderRadius,
@@ -212,7 +209,9 @@ class ClickableState extends State<Clickable> {
           },
           onShowHoverHighlight: (value) {
             _controller.update(
-                WidgetState.hovered, value && !widget.disableHoverEffect);
+              WidgetState.hovered,
+              value && !widget.disableHoverEffect,
+            );
             widget.onHover?.call(value);
           },
           onShowFocusHighlight: (value) {
@@ -263,7 +262,10 @@ class ClickableState extends State<Clickable> {
   }
 
   Widget _buildContainer(
-      BuildContext context, Decoration? decoration, Set<WidgetState> widgetStates) {
+    BuildContext context,
+    Decoration? decoration,
+    Set<WidgetState> widgetStates,
+  ) {
     var resolvedMargin = widget.margin?.resolve(widgetStates);
     var resolvedPadding = widget.padding?.resolve(widgetStates);
     if (widget.disableTransition) {
@@ -275,10 +277,7 @@ class ClickableState extends State<Clickable> {
         child: widget.child,
       );
       if (widget.marginAlignment != null) {
-        container = Align(
-          alignment: widget.marginAlignment!,
-          child: container,
-        );
+        container = Align(alignment: widget.marginAlignment!, child: container);
       }
       return container;
     }

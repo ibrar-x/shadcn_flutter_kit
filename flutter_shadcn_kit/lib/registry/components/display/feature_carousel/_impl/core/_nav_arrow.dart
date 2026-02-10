@@ -57,8 +57,7 @@ class _NavArrow extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                color:
-                    hovered ? iconColor.withValues(alpha: 0.75) : iconColor,
+                color: hovered ? iconColor.withValues(alpha: 0.75) : iconColor,
                 size: 24,
               ),
             ),

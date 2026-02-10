@@ -46,12 +46,16 @@ List<T> _reorganizeCells<T extends _TableCellData>(List<T> cells) {
                 // shift the cell to the right (+ columnSpan)
                 if (row != r) {
                   cellMap.putIfAbsent(i + cell.columnSpan, () => {});
-                  cellMap[i + cell.columnSpan]![row] =
-                      rightCell.shift(cell.columnSpan, 0);
+                  cellMap[i + cell.columnSpan]![row] = rightCell.shift(
+                    cell.columnSpan,
+                    0,
+                  );
                 } else {
                   cellMap.putIfAbsent(i + cell.columnSpan - 1, () => {});
-                  cellMap[i + cell.columnSpan - 1]![row] =
-                      rightCell.shift(cell.columnSpan - 1, 0);
+                  cellMap[i + cell.columnSpan - 1]![row] = rightCell.shift(
+                    cell.columnSpan - 1,
+                    0,
+                  );
                 }
               }
             }
@@ -67,4 +71,3 @@ List<T> _reorganizeCells<T extends _TableCellData>(List<T> cells) {
   }
   return result;
 }
-

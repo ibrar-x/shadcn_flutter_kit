@@ -3,7 +3,7 @@ part of '../../slider.dart';
 class _SliderState extends State<Slider>
     with FormValueSupplier<SliderValue, Slider> {
   late SliderValue
-      _currentValue; // used for the thumb position (not the trackbar)
+  _currentValue; // used for the thumb position (not the trackbar)
   // trackbar position uses the widget.value
   bool _dragging = false;
   bool _moveStart = false;
@@ -94,95 +94,103 @@ class _SliderState extends State<Slider>
         maxHeight: 16 * scaling,
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0 * scaling),
+        padding: EdgeInsets.symmetric(
+          horizontal: theme.density.baseGap * scaling * 0.5,
+        ),
         child: LayoutBuilder(
           builder: (context, constraints) {
             return GestureDetector(
               onTapDown: !enabled
                   ? null
                   : widget.value.isRanged
-                      ? (details) {
-                          // _moveStart to true if the tap is closer to the start thumb
-                          double offset = details.localPosition.dx;
-                          double newValue = offset / constraints.maxWidth;
-                          double start = _currentValue.start;
-                          double end = _currentValue.end;
-                          if (widget.divisions != null) {
-                            start = (start * widget.divisions!).round() /
-                                widget.divisions!;
-                            end = (end * widget.divisions!).round() /
-                                widget.divisions!;
-                          }
-                          _moveStart =
-                              (start - newValue).abs() < (end - newValue).abs();
-                          // find the closest thumb and move it to the tap position
-                          if (_moveStart) {
-                            if (widget.divisions != null) {
-                              double deltaValue = newValue - start;
-                              if (deltaValue >= 0 &&
-                                  deltaValue < 0.5 / widget.divisions!) {
-                                newValue += 0.5 / widget.divisions!;
-                              } else if (deltaValue < 0 &&
-                                  deltaValue > -0.5 / widget.divisions!) {
-                                newValue -= 0.5 / widget.divisions!;
-                              }
-                            }
-                            SliderValue newSliderValue =
-                                SliderValue.ranged(newValue, widget.value.end);
-                            _dispatchValueChangeStart(newSliderValue);
-                            _dispatchValueChange(newSliderValue);
-                            _dispatchValueChangeEnd(newSliderValue);
-                            setState(() {
-                              _currentValue = SliderValue.ranged(newValue, end);
-                            });
-                          } else {
-                            if (widget.divisions != null) {
-                              double deltaValue = newValue - end;
-                              if (deltaValue >= 0 &&
-                                  deltaValue < 0.5 / widget.divisions!) {
-                                newValue += 0.5 / widget.divisions!;
-                              } else if (deltaValue < 0 &&
-                                  deltaValue > -0.5 / widget.divisions!) {
-                                newValue -= 0.5 / widget.divisions!;
-                              }
-                            }
-                            SliderValue newSliderValue = SliderValue.ranged(
-                                widget.value.start, newValue);
-                            _dispatchValueChangeStart(newSliderValue);
-                            _dispatchValueChange(newSliderValue);
-                            _dispatchValueChangeEnd(newSliderValue);
-                            setState(() {
-                              _currentValue =
-                                  SliderValue.ranged(start, newValue);
-                            });
+                  ? (details) {
+                      // _moveStart to true if the tap is closer to the start thumb
+                      double offset = details.localPosition.dx;
+                      double newValue = offset / constraints.maxWidth;
+                      double start = _currentValue.start;
+                      double end = _currentValue.end;
+                      if (widget.divisions != null) {
+                        start =
+                            (start * widget.divisions!).round() /
+                            widget.divisions!;
+                        end =
+                            (end * widget.divisions!).round() /
+                            widget.divisions!;
+                      }
+                      _moveStart =
+                          (start - newValue).abs() < (end - newValue).abs();
+                      // find the closest thumb and move it to the tap position
+                      if (_moveStart) {
+                        if (widget.divisions != null) {
+                          double deltaValue = newValue - start;
+                          if (deltaValue >= 0 &&
+                              deltaValue < 0.5 / widget.divisions!) {
+                            newValue += 0.5 / widget.divisions!;
+                          } else if (deltaValue < 0 &&
+                              deltaValue > -0.5 / widget.divisions!) {
+                            newValue -= 0.5 / widget.divisions!;
                           }
                         }
-                      : (details) {
-                          double offset = details.localPosition.dx;
-                          double newValue = offset / constraints.maxWidth;
-                          newValue = newValue.clamp(0, 1);
-                          if (widget.divisions != null) {
-                            double deltaValue = newValue - _currentValue.value;
-                            if (deltaValue >= 0 &&
-                                deltaValue < 0.5 / widget.divisions!) {
-                              newValue += 0.5 / widget.divisions!;
-                            } else if (deltaValue < 0 &&
-                                deltaValue > -0.5 / widget.divisions!) {
-                              newValue -= 0.5 / widget.divisions!;
-                            }
-                            newValue = (newValue * widget.divisions!).round() /
-                                widget.divisions!;
+                        SliderValue newSliderValue = SliderValue.ranged(
+                          newValue,
+                          widget.value.end,
+                        );
+                        _dispatchValueChangeStart(newSliderValue);
+                        _dispatchValueChange(newSliderValue);
+                        _dispatchValueChangeEnd(newSliderValue);
+                        setState(() {
+                          _currentValue = SliderValue.ranged(newValue, end);
+                        });
+                      } else {
+                        if (widget.divisions != null) {
+                          double deltaValue = newValue - end;
+                          if (deltaValue >= 0 &&
+                              deltaValue < 0.5 / widget.divisions!) {
+                            newValue += 0.5 / widget.divisions!;
+                          } else if (deltaValue < 0 &&
+                              deltaValue > -0.5 / widget.divisions!) {
+                            newValue -= 0.5 / widget.divisions!;
                           }
-                          SliderValue newSliderValue = SliderValue.single(
-                              newValue * (widget.max - widget.min) +
-                                  widget.min);
-                          _dispatchValueChangeStart(newSliderValue);
-                          _dispatchValueChange(newSliderValue);
-                          _dispatchValueChangeEnd(newSliderValue);
-                          setState(() {
-                            _currentValue = SliderValue.single(newValue);
-                          });
-                        },
+                        }
+                        SliderValue newSliderValue = SliderValue.ranged(
+                          widget.value.start,
+                          newValue,
+                        );
+                        _dispatchValueChangeStart(newSliderValue);
+                        _dispatchValueChange(newSliderValue);
+                        _dispatchValueChangeEnd(newSliderValue);
+                        setState(() {
+                          _currentValue = SliderValue.ranged(start, newValue);
+                        });
+                      }
+                    }
+                  : (details) {
+                      double offset = details.localPosition.dx;
+                      double newValue = offset / constraints.maxWidth;
+                      newValue = newValue.clamp(0, 1);
+                      if (widget.divisions != null) {
+                        double deltaValue = newValue - _currentValue.value;
+                        if (deltaValue >= 0 &&
+                            deltaValue < 0.5 / widget.divisions!) {
+                          newValue += 0.5 / widget.divisions!;
+                        } else if (deltaValue < 0 &&
+                            deltaValue > -0.5 / widget.divisions!) {
+                          newValue -= 0.5 / widget.divisions!;
+                        }
+                        newValue =
+                            (newValue * widget.divisions!).round() /
+                            widget.divisions!;
+                      }
+                      SliderValue newSliderValue = SliderValue.single(
+                        newValue * (widget.max - widget.min) + widget.min,
+                      );
+                      _dispatchValueChangeStart(newSliderValue);
+                      _dispatchValueChange(newSliderValue);
+                      _dispatchValueChangeEnd(newSliderValue);
+                      setState(() {
+                        _currentValue = SliderValue.single(newValue);
+                      });
+                    },
               onHorizontalDragStart: !enabled
                   ? null
                   : (details) {
@@ -194,9 +202,11 @@ class _SliderState extends State<Slider>
                         double start = _currentValue.start;
                         double end = _currentValue.end;
                         if (widget.divisions != null) {
-                          start = (start * widget.divisions!).round() /
+                          start =
+                              (start * widget.divisions!).round() /
                               widget.divisions!;
-                          end = (end * widget.divisions!).round() /
+                          end =
+                              (end * widget.divisions!).round() /
                               widget.divisions!;
                         }
                         _moveStart =
@@ -207,117 +217,123 @@ class _SliderState extends State<Slider>
                             end * (widget.max - widget.min) + widget.min;
                         var newStartValue = min(startValue, endValue);
                         var newEndValue = max(startValue, endValue);
-                        SliderValue newSliderValue =
-                            SliderValue.ranged(newStartValue, newEndValue);
+                        SliderValue newSliderValue = SliderValue.ranged(
+                          newStartValue,
+                          newEndValue,
+                        );
                         _dispatchValueChangeStart(newSliderValue);
                       } else {
                         double value = _currentValue.value;
                         if (widget.divisions != null) {
-                          value = (value * widget.divisions!).round() /
+                          value =
+                              (value * widget.divisions!).round() /
                               widget.divisions!;
                         }
                         SliderValue newSliderValue = SliderValue.single(
-                            value * (widget.max - widget.min) + widget.min);
+                          value * (widget.max - widget.min) + widget.min,
+                        );
                         _dispatchValueChangeStart(newSliderValue);
                       }
                     },
               onHorizontalDragUpdate: !enabled
                   ? null
                   : widget.value.isRanged
-                      ? (details) {
-                          // drag the closest thumb to the drag position
-                          // but use delta to calculate the new value
-                          double delta =
-                              details.primaryDelta! / constraints.maxWidth;
-                          if (_moveStart) {
-                            var newStart = _currentValue.start + delta;
-                            var newEnd = _currentValue.end;
-                            newStart = newStart.clamp(0, 1);
-                            newEnd = newEnd.clamp(0, 1);
-                            var newInternalSliderValue =
-                                SliderValue.ranged(newStart, newEnd);
-                            if (newInternalSliderValue == _currentValue) {
-                              return;
-                            }
-                            var sliderStart = newStart;
-                            var sliderEnd = newEnd;
-                            if (widget.divisions != null) {
-                              sliderStart =
-                                  (sliderStart * widget.divisions!).round() /
-                                      widget.divisions!;
-                              sliderEnd =
-                                  (sliderEnd * widget.divisions!).round() /
-                                      widget.divisions!;
-                            }
-                            var startSliderValue =
-                                sliderStart * (widget.max - widget.min) +
-                                    widget.min;
-                            var endSliderValue =
-                                sliderEnd * (widget.max - widget.min) +
-                                    widget.min;
-                            var newSliderValue = SliderValue.ranged(
-                                min(startSliderValue, endSliderValue),
-                                max(startSliderValue, endSliderValue));
-                            _dispatchValueChange(newSliderValue);
-                            setState(() {
-                              _currentValue =
-                                  SliderValue.ranged(newStart, newEnd);
-                            });
-                          } else {
-                            var newStart = _currentValue.start;
-                            var newEnd = _currentValue.end + delta;
-                            newStart = newStart.clamp(0, 1);
-                            newEnd = newEnd.clamp(0, 1);
-                            var newInternalSliderValue =
-                                SliderValue.ranged(newStart, newEnd);
-                            if (newInternalSliderValue == _currentValue) {
-                              return;
-                            }
-                            var sliderStart = newStart;
-                            var sliderEnd = newEnd;
-                            if (widget.divisions != null) {
-                              sliderStart =
-                                  (sliderStart * widget.divisions!).round() /
-                                      widget.divisions!;
-                              sliderEnd =
-                                  (sliderEnd * widget.divisions!).round() /
-                                      widget.divisions!;
-                            }
-                            var startSliderValue =
-                                sliderStart * (widget.max - widget.min) +
-                                    widget.min;
-                            var endSliderValue =
-                                sliderEnd * (widget.max - widget.min) +
-                                    widget.min;
-                            var newSliderValue = SliderValue.ranged(
-                                min(startSliderValue, endSliderValue),
-                                max(startSliderValue, endSliderValue));
-                            _dispatchValueChange(newSliderValue);
-                            setState(() {
-                              _currentValue =
-                                  SliderValue.ranged(newStart, newEnd);
-                            });
-                          }
+                  ? (details) {
+                      // drag the closest thumb to the drag position
+                      // but use delta to calculate the new value
+                      double delta =
+                          details.primaryDelta! / constraints.maxWidth;
+                      if (_moveStart) {
+                        var newStart = _currentValue.start + delta;
+                        var newEnd = _currentValue.end;
+                        newStart = newStart.clamp(0, 1);
+                        newEnd = newEnd.clamp(0, 1);
+                        var newInternalSliderValue = SliderValue.ranged(
+                          newStart,
+                          newEnd,
+                        );
+                        if (newInternalSliderValue == _currentValue) {
+                          return;
                         }
-                      : (details) {
-                          double delta =
-                              details.primaryDelta! / constraints.maxWidth;
-                          double newValue = _currentValue.value + delta;
-                          newValue = newValue.clamp(0, 1);
-                          var sliderValue = newValue;
-                          if (widget.divisions != null) {
-                            sliderValue =
-                                (sliderValue * widget.divisions!).round() /
-                                    widget.divisions!;
-                          }
-                          var newSliderValue = SliderValue.single(
-                              sliderValue * (widget.max - widget.min) +
-                                  widget.min);
-                          _dispatchValueChange(newSliderValue);
-                          setState(() {
-                            _currentValue = SliderValue.single(newValue);
-                          });
-                        },
+                        var sliderStart = newStart;
+                        var sliderEnd = newEnd;
+                        if (widget.divisions != null) {
+                          sliderStart =
+                              (sliderStart * widget.divisions!).round() /
+                              widget.divisions!;
+                          sliderEnd =
+                              (sliderEnd * widget.divisions!).round() /
+                              widget.divisions!;
+                        }
+                        var startSliderValue =
+                            sliderStart * (widget.max - widget.min) +
+                            widget.min;
+                        var endSliderValue =
+                            sliderEnd * (widget.max - widget.min) + widget.min;
+                        var newSliderValue = SliderValue.ranged(
+                          min(startSliderValue, endSliderValue),
+                          max(startSliderValue, endSliderValue),
+                        );
+                        _dispatchValueChange(newSliderValue);
+                        setState(() {
+                          _currentValue = SliderValue.ranged(newStart, newEnd);
+                        });
+                      } else {
+                        var newStart = _currentValue.start;
+                        var newEnd = _currentValue.end + delta;
+                        newStart = newStart.clamp(0, 1);
+                        newEnd = newEnd.clamp(0, 1);
+                        var newInternalSliderValue = SliderValue.ranged(
+                          newStart,
+                          newEnd,
+                        );
+                        if (newInternalSliderValue == _currentValue) {
+                          return;
+                        }
+                        var sliderStart = newStart;
+                        var sliderEnd = newEnd;
+                        if (widget.divisions != null) {
+                          sliderStart =
+                              (sliderStart * widget.divisions!).round() /
+                              widget.divisions!;
+                          sliderEnd =
+                              (sliderEnd * widget.divisions!).round() /
+                              widget.divisions!;
+                        }
+                        var startSliderValue =
+                            sliderStart * (widget.max - widget.min) +
+                            widget.min;
+                        var endSliderValue =
+                            sliderEnd * (widget.max - widget.min) + widget.min;
+                        var newSliderValue = SliderValue.ranged(
+                          min(startSliderValue, endSliderValue),
+                          max(startSliderValue, endSliderValue),
+                        );
+                        _dispatchValueChange(newSliderValue);
+                        setState(() {
+                          _currentValue = SliderValue.ranged(newStart, newEnd);
+                        });
+                      }
+                    }
+                  : (details) {
+                      double delta =
+                          details.primaryDelta! / constraints.maxWidth;
+                      double newValue = _currentValue.value + delta;
+                      newValue = newValue.clamp(0, 1);
+                      var sliderValue = newValue;
+                      if (widget.divisions != null) {
+                        sliderValue =
+                            (sliderValue * widget.divisions!).round() /
+                            widget.divisions!;
+                      }
+                      var newSliderValue = SliderValue.single(
+                        sliderValue * (widget.max - widget.min) + widget.min,
+                      );
+                      _dispatchValueChange(newSliderValue);
+                      setState(() {
+                        _currentValue = SliderValue.single(newValue);
+                      });
+                    },
               onHorizontalDragEnd: !enabled
                   ? null
                   : (details) {
@@ -327,27 +343,34 @@ class _SliderState extends State<Slider>
                         var end = _currentValue.end;
                         var newStart = min(start, end);
                         var newEnd = max(start, end);
-                        _dispatchValueChangeEnd(SliderValue.ranged(
+                        _dispatchValueChangeEnd(
+                          SliderValue.ranged(
                             (newStart * (widget.max - widget.min) + widget.min),
-                            (newEnd * (widget.max - widget.min) + widget.min)));
+                            (newEnd * (widget.max - widget.min) + widget.min),
+                          ),
+                        );
                       } else {
-                        _dispatchValueChangeEnd(SliderValue.single(
+                        _dispatchValueChangeEnd(
+                          SliderValue.single(
                             (_currentValue.value * (widget.max - widget.min) +
-                                widget.min)));
+                                widget.min),
+                          ),
+                        );
                       }
                       setState(() {});
                     },
               child: MouseRegion(
-                  cursor: !enabled
-                      ? SystemMouseCursors.forbidden
-                      : (widget.onChanged != null ||
-                              widget.onChangeStart != null ||
-                              widget.onChangeEnd != null)
-                          ? SystemMouseCursors.click
-                          : SystemMouseCursors.basic,
-                  child: widget.value.isRanged
-                      ? buildRangedSlider(context, constraints, theme)
-                      : buildSingleSlider(context, constraints, theme)),
+                cursor: !enabled
+                    ? SystemMouseCursors.forbidden
+                    : (widget.onChanged != null ||
+                          widget.onChangeStart != null ||
+                          widget.onChangeEnd != null)
+                    ? SystemMouseCursors.click
+                    : SystemMouseCursors.basic,
+                child: widget.value.isRanged
+                    ? buildRangedSlider(context, constraints, theme)
+                    : buildSingleSlider(context, constraints, theme),
+              ),
             );
           },
         ),
@@ -356,7 +379,10 @@ class _SliderState extends State<Slider>
   }
 
   Widget buildSingleSlider(
-      BuildContext context, BoxConstraints constraints, ThemeData theme) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+  ) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -389,7 +415,8 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.single(
-                sliderValue * (widget.max - widget.min) + widget.min);
+              sliderValue * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
@@ -410,7 +437,8 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.single(
-                sliderValue * (widget.max - widget.min) + widget.min);
+              sliderValue * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
@@ -424,47 +452,56 @@ class _SliderState extends State<Slider>
   }
 
   Widget buildHint(
-      BuildContext context, BoxConstraints constraints, ThemeData theme) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+  ) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
 
     return AnimatedValueBuilder(
-        value: widget.hintValue,
-        duration: _dragging ? Duration.zero : kDefaultDuration,
-        curve: Curves.easeInOut,
-        lerp: SliderValue.lerp,
-        builder: (context, hintValue, _) {
-          var start = hintValue.start;
-          var end = hintValue.end;
-          var newStart = min(start, end);
-          var newEnd = max(start, end);
-          var left = (newStart - widget.min) /
-              (widget.max - widget.min) *
-              constraints.maxWidth;
-          var right = (1 - (newEnd - widget.min) / (widget.max - widget.min)) *
-              constraints.maxWidth;
-          return Positioned(
-            left: !_isRanged ? 0 : left,
-            right: right,
-            top: 0,
-            bottom: 0,
-            child: Center(
-              child: Container(
-                height: 6 * scaling,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.scaleAlpha(0.2),
-                  borderRadius: BorderRadius.circular(theme.radiusSm),
-                ),
+      value: widget.hintValue,
+      duration: _dragging ? Duration.zero : kDefaultDuration,
+      curve: Curves.easeInOut,
+      lerp: SliderValue.lerp,
+      builder: (context, hintValue, _) {
+        var start = hintValue.start;
+        var end = hintValue.end;
+        var newStart = min(start, end);
+        var newEnd = max(start, end);
+        var left =
+            (newStart - widget.min) /
+            (widget.max - widget.min) *
+            constraints.maxWidth;
+        var right =
+            (1 - (newEnd - widget.min) / (widget.max - widget.min)) *
+            constraints.maxWidth;
+        return Positioned(
+          left: !_isRanged ? 0 : left,
+          right: right,
+          top: 0,
+          bottom: 0,
+          child: Center(
+            child: Container(
+              height: 6 * scaling,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.scaleAlpha(0.2),
+                borderRadius: BorderRadius.circular(theme.radiusSm),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   bool get _isRanged => widget.value.isRanged;
 
   Widget buildTrackValue(
-      BuildContext context, BoxConstraints constraints, ThemeData theme) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+  ) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -485,43 +522,49 @@ class _SliderState extends State<Slider>
     var newEnd = max(start, end);
 
     return AnimatedValueBuilder(
-        value: Offset(newStart, newEnd),
-        duration: _dragging && widget.divisions == null
-            ? Duration.zero
-            : kDefaultDuration,
-        curve: Curves.easeInOut,
-        lerp: Offset.lerp,
-        builder: (context, value, _) {
-          var newStart = value.dx;
-          var newEnd = value.dy;
-          var left = (newStart - widget.min) /
-              (widget.max - widget.min) *
-              constraints.maxWidth;
-          var right = (1 - (newEnd - widget.min) / (widget.max - widget.min)) *
-              constraints.maxWidth;
-          return Positioned(
-            left: !_isRanged ? 0 : left,
-            right: right,
-            top: 0,
-            bottom: 0,
-            child: Center(
-              child: Container(
-                height: (compTheme?.trackHeight ?? 6) * scaling,
-                decoration: BoxDecoration(
-                  color: enabled
-                      ? (compTheme?.valueColor ?? theme.colorScheme.primary)
-                      : (compTheme?.disabledValueColor ??
+      value: Offset(newStart, newEnd),
+      duration: _dragging && widget.divisions == null
+          ? Duration.zero
+          : kDefaultDuration,
+      curve: Curves.easeInOut,
+      lerp: Offset.lerp,
+      builder: (context, value, _) {
+        var newStart = value.dx;
+        var newEnd = value.dy;
+        var left =
+            (newStart - widget.min) /
+            (widget.max - widget.min) *
+            constraints.maxWidth;
+        var right =
+            (1 - (newEnd - widget.min) / (widget.max - widget.min)) *
+            constraints.maxWidth;
+        return Positioned(
+          left: !_isRanged ? 0 : left,
+          right: right,
+          top: 0,
+          bottom: 0,
+          child: Center(
+            child: Container(
+              height: (compTheme?.trackHeight ?? 6) * scaling,
+              decoration: BoxDecoration(
+                color: enabled
+                    ? (compTheme?.valueColor ?? theme.colorScheme.primary)
+                    : (compTheme?.disabledValueColor ??
                           theme.colorScheme.mutedForeground),
-                  borderRadius: BorderRadius.circular(theme.radiusSm),
-                ),
+                borderRadius: BorderRadius.circular(theme.radiusSm),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   Widget buildTrackBar(
-      BuildContext context, BoxConstraints constraints, ThemeData theme) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+  ) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -536,7 +579,7 @@ class _SliderState extends State<Slider>
           decoration: BoxDecoration(
             color: enabled
                 ? (compTheme?.trackColor ??
-                    theme.colorScheme.primary.scaleAlpha(0.2))
+                      theme.colorScheme.primary.scaleAlpha(0.2))
                 : (compTheme?.disabledTrackColor ?? theme.colorScheme.muted),
             borderRadius: BorderRadius.circular(theme.radiusSm),
           ),
@@ -546,14 +589,15 @@ class _SliderState extends State<Slider>
   }
 
   Widget buildThumb(
-      BuildContext context,
-      BoxConstraints constraints,
-      ThemeData theme,
-      double value,
-      bool focusing,
-      ValueChanged<bool> onFocusing,
-      VoidCallback onIncrease,
-      VoidCallback onDecrease) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+    double value,
+    bool focusing,
+    ValueChanged<bool> onFocusing,
+    VoidCallback onIncrease,
+    VoidCallback onDecrease,
+  ) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -561,76 +605,80 @@ class _SliderState extends State<Slider>
       value = (value * widget.divisions!).round() / widget.divisions!;
     }
     return AnimatedValueBuilder(
-        duration: _dragging && widget.divisions == null
-            ? Duration.zero
-            : kDefaultDuration,
-        curve: Curves.easeInOut,
-        lerp: lerpDouble,
-        value: value,
-        builder: (context, value, _) {
-          return Positioned(
-            left: value * constraints.maxWidth - 8 * scaling,
-            child: FocusableActionDetector(
-              enabled: enabled,
-              onShowFocusHighlight: (showHighlight) {
-                onFocusing(showHighlight);
-              },
-              shortcuts: {
-                LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-                    const DecreaseSliderValue(),
-                LogicalKeySet(LogicalKeyboardKey.arrowRight):
-                    const IncreaseSliderValue(),
-                LogicalKeySet(LogicalKeyboardKey.arrowUp):
-                    const IncreaseSliderValue(),
-                LogicalKeySet(LogicalKeyboardKey.arrowDown):
-                    const DecreaseSliderValue(),
-              },
-              actions: {
-                IncreaseSliderValue: CallbackAction(
-                  onInvoke: (e) {
-                    onIncrease();
-                    return true;
-                  },
-                ),
-                DecreaseSliderValue: CallbackAction(
-                  onInvoke: (e) {
-                    onDecrease();
-                    return true;
-                  },
-                ),
-              },
-              child: Container(
-                width: (compTheme?.thumbSize ?? 16) * scaling,
-                height: (compTheme?.thumbSize ?? 16) * scaling,
-                decoration: BoxDecoration(
-                  color: compTheme?.thumbColor ?? theme.colorScheme.background,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: focusing
-                        ? (enabled
+      duration: _dragging && widget.divisions == null
+          ? Duration.zero
+          : kDefaultDuration,
+      curve: Curves.easeInOut,
+      lerp: lerpDouble,
+      value: value,
+      builder: (context, value, _) {
+        return Positioned(
+          left: value * constraints.maxWidth - 8 * scaling,
+          child: FocusableActionDetector(
+            enabled: enabled,
+            onShowFocusHighlight: (showHighlight) {
+              onFocusing(showHighlight);
+            },
+            shortcuts: {
+              LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                  const DecreaseSliderValue(),
+              LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                  const IncreaseSliderValue(),
+              LogicalKeySet(LogicalKeyboardKey.arrowUp):
+                  const IncreaseSliderValue(),
+              LogicalKeySet(LogicalKeyboardKey.arrowDown):
+                  const DecreaseSliderValue(),
+            },
+            actions: {
+              IncreaseSliderValue: CallbackAction(
+                onInvoke: (e) {
+                  onIncrease();
+                  return true;
+                },
+              ),
+              DecreaseSliderValue: CallbackAction(
+                onInvoke: (e) {
+                  onDecrease();
+                  return true;
+                },
+              ),
+            },
+            child: Container(
+              width: (compTheme?.thumbSize ?? 16) * scaling,
+              height: (compTheme?.thumbSize ?? 16) * scaling,
+              decoration: BoxDecoration(
+                color: compTheme?.thumbColor ?? theme.colorScheme.background,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: focusing
+                      ? (enabled
                             ? (compTheme?.thumbFocusedBorderColor ??
-                                theme.colorScheme.primary)
+                                  theme.colorScheme.primary)
                             : (compTheme?.disabledValueColor ??
-                                theme.colorScheme.mutedForeground))
-                        : (enabled
+                                  theme.colorScheme.mutedForeground))
+                      : (enabled
                             ? (compTheme?.thumbBorderColor ??
-                                theme.colorScheme.primary.scaleAlpha(0.5))
+                                  theme.colorScheme.primary.scaleAlpha(0.5))
                             : (compTheme?.disabledValueColor ??
-                                theme.colorScheme.mutedForeground)),
-                    width: focusing ? 2 * scaling : 1 * scaling,
-                    strokeAlign: focusing
-                        ? BorderSide.strokeAlignOutside
-                        : BorderSide.strokeAlignInside,
-                  ),
+                                  theme.colorScheme.mutedForeground)),
+                  width: focusing ? 2 * scaling : 1 * scaling,
+                  strokeAlign: focusing
+                      ? BorderSide.strokeAlignOutside
+                      : BorderSide.strokeAlignInside,
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   Widget buildRangedSlider(
-      BuildContext context, BoxConstraints constraints, ThemeData theme) {
+    BuildContext context,
+    BoxConstraints constraints,
+    ThemeData theme,
+  ) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -661,8 +709,9 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.ranged(
-                sliderValue * (widget.max - widget.min) + widget.min,
-                _currentValue.end * (widget.max - widget.min) + widget.min);
+              sliderValue * (widget.max - widget.min) + widget.min,
+              _currentValue.end * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
@@ -683,8 +732,9 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.ranged(
-                sliderValue * (widget.max - widget.min) + widget.min,
-                _currentValue.end * (widget.max - widget.min) + widget.min);
+              sliderValue * (widget.max - widget.min) + widget.min,
+              _currentValue.end * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
@@ -717,8 +767,9 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.ranged(
-                _currentValue.start * (widget.max - widget.min) + widget.min,
-                sliderValue * (widget.max - widget.min) + widget.min);
+              _currentValue.start * (widget.max - widget.min) + widget.min,
+              sliderValue * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
@@ -739,8 +790,9 @@ class _SliderState extends State<Slider>
                   (sliderValue * widget.divisions!).round() / widget.divisions!;
             }
             var newSliderValue = SliderValue.ranged(
-                _currentValue.start * (widget.max - widget.min) + widget.min,
-                sliderValue * (widget.max - widget.min) + widget.min);
+              _currentValue.start * (widget.max - widget.min) + widget.min,
+              sliderValue * (widget.max - widget.min) + widget.min,
+            );
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);

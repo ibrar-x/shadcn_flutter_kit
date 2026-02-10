@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "patch",
+  "name": "Click Detector",
+  "version": "1.0.0",
+  "tags": [
+    "gesture",
+    "interaction",
+    "utility"
+  ],
+  "installedAt": "2026-02-09T10:18:03.238636Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/control/patch/README.md",
+    "registry/components/control/patch/_impl/core/click_detector.dart",
+    "registry/components/control/patch/_impl/core/patch_preview.dart",
+    "registry/components/control/patch/_impl/state/click_detector_state.dart",
+    "registry/components/control/patch/_impl/state/patch_preview_state.dart",
+    "registry/components/control/patch/_impl/utils/click_details.dart",
+    "registry/components/control/patch/meta.json",
+    "registry/components/control/patch/patch.dart",
+    "registry/components/control/patch/patch.meta.json",
+    "registry/components/control/patch/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

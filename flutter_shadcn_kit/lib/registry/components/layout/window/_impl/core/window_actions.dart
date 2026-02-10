@@ -30,8 +30,13 @@ class WindowActions extends StatelessWidget {
                 if (handle.maximized != null) {
                   handle.maximized = null;
                 } else {
-                  handle.maximized = viewport?.navigator._state
-                          ._snappingStrategy.value?.relativeBounds ??
+                  handle.maximized =
+                      viewport
+                          ?.navigator
+                          ._state
+                          ._snappingStrategy
+                          .value
+                          ?.relativeBounds ??
                       const Rect.fromLTWH(0, 0, 1, 1);
                 }
               }
@@ -44,7 +49,7 @@ class WindowActions extends StatelessWidget {
             onPressed: () {
               handle?.close();
             },
-          )
+          ),
       ],
     );
   }

@@ -3,9 +3,42 @@
   "name": "Hover",
   "description": "Hover timing helpers plus lightweight state tracking widgets.",
   "category": "control",
-  "tags": ["hover", "pointer", "interaction"],
+  "tags": [
+    "hover",
+    "pointer",
+    "interaction"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": ["theme", "style_value"]
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/hover_activity.dart",
+    "_impl/core/hover_preview.dart",
+    "_impl/core/hover_widget.dart",
+    "_impl/state/hover_activity_state.dart",
+    "_impl/state/hover_preview_state.dart",
+    "_impl/state/hover_state.dart",
+    "_impl/themes/hover_theme.dart",
+    "hover.dart",
+    "hover.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Hover` — timed hover activation with `waitDuration`, `minDuration`, and `showDuration`.",
+      "`HoverActivity` — raw enter/exit/hover callbacks, optional `debounceDuration`."
+    ],
+    "callbacks": [
+      "`onHover` (Hover, HoverActivity)",
+      "`onEnter`, `onExit` (HoverActivity)"
+    ]
+  },
+  "version": "1.0.0"
 }

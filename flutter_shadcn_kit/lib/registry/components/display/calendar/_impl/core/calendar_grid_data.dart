@@ -19,8 +19,9 @@ class CalendarGridData {
     int daysInMonth = DateTime(year, month == 12 ? 1 : month + 1, 0).day;
 
     int prevMonthDays = firstDayOfMonth.weekday;
-    DateTime prevMonthLastDay =
-        firstDayOfMonth.subtract(Duration(days: prevMonthDays));
+    DateTime prevMonthLastDay = firstDayOfMonth.subtract(
+      Duration(days: prevMonthDays),
+    );
 
     List<CalendarGridItem> items = [];
 
@@ -29,24 +30,28 @@ class CalendarGridData {
     if (prevMonthDays < 7) {
       for (int i = 0; i < prevMonthDays; i++) {
         int currentItemIndex = itemCount++;
-        items.add(CalendarGridItem(
-          prevMonthLastDay.add(Duration(days: i)),
-          currentItemIndex % 7,
-          true,
-          currentItemIndex ~/ 7,
-        ));
+        items.add(
+          CalendarGridItem(
+            prevMonthLastDay.add(Duration(days: i)),
+            currentItemIndex % 7,
+            true,
+            currentItemIndex ~/ 7,
+          ),
+        );
       }
     }
 
     for (int i = 0; i < daysInMonth; i++) {
       int currentItemIndex = itemCount++;
       DateTime currentDay = DateTime(year, month, i + 1);
-      items.add(CalendarGridItem(
-        currentDay,
-        currentItemIndex % 7,
-        false,
-        currentItemIndex ~/ 7,
-      ));
+      items.add(
+        CalendarGridItem(
+          currentDay,
+          currentItemIndex % 7,
+          false,
+          currentItemIndex ~/ 7,
+        ),
+      );
     }
 
     int remainingDays = (7 - (items.length % 7)) % 7;
@@ -55,12 +60,14 @@ class CalendarGridData {
     if (remainingDays < 7) {
       for (int i = 0; i < remainingDays; i++) {
         int currentItemIndex = itemCount++;
-        items.add(CalendarGridItem(
-          nextMonthFirstDay.add(Duration(days: i)),
-          currentItemIndex % 7,
-          true,
-          currentItemIndex ~/ 7,
-        ));
+        items.add(
+          CalendarGridItem(
+            nextMonthFirstDay.add(Duration(days: i)),
+            currentItemIndex % 7,
+            true,
+            currentItemIndex ~/ 7,
+          ),
+        );
       }
     }
 

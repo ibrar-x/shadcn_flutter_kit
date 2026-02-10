@@ -8,6 +8,9 @@ class CircularProgressIndicatorTheme extends ComponentThemeData {
   final double? strokeWidth;
 
   const CircularProgressIndicatorTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.backgroundColor,
     this.size,
@@ -22,8 +25,9 @@ class CircularProgressIndicatorTheme extends ComponentThemeData {
   }) {
     return CircularProgressIndicatorTheme(
       color: color == null ? this.color : color(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       size: size == null ? this.size : size(),
       strokeWidth: strokeWidth == null ? this.strokeWidth : strokeWidth(),
     );

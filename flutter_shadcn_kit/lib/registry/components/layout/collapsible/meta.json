@@ -3,11 +3,50 @@
   "name": "Collapsible",
   "description": "Independent sections that toggle their own visibility",
   "category": "layout",
-  "tags": ["forms", "layout"],
+  "tags": [
+    "forms",
+    "layout"
+  ],
   "dependencies": {
+    "shared": [
+      "text_modifiers",
+      "theme",
+      "util"
+    ],
+    "components": [
+      "button"
+    ],
     "pubspec": {
       "data_widget": "^0.0.2",
       "gap": "^3.0.1"
     }
-  }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/collapsible_content.dart",
+    "_impl/core/collapsible_trigger.dart",
+    "_impl/state/collapsible_state.dart",
+    "_impl/state/collapsible_state_data.dart",
+    "_impl/themes/collapsible_theme.dart",
+    "collapsible.dart",
+    "collapsible.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Provide a ComponentTheme<CollapsibleTheme> to customize padding, iconography, and alignment."
+  ],
+  "api": {
+    "constructors": [
+      "`Collapsible`",
+      "`children` (`List<Widget>`, required)",
+      "`isExpanded` (`bool?`)",
+      "`onExpansionChanged` (`ValueChanged<bool>?`)",
+      "`CollapsibleTrigger` — interactive header.",
+      "`CollapsibleContent` — animated content panel.",
+      "`CollapsibleTheme` — spacing and styling."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

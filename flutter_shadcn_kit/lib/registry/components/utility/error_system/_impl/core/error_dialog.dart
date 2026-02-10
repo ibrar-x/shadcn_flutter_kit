@@ -89,7 +89,7 @@ class ErrorDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 16 * Theme.of(context).scaling),
-              Gap(8 * Theme.of(context).scaling),
+              DensityGap(gapSm),
               Text(action.label),
             ],
           );

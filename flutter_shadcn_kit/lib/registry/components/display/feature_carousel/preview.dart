@@ -44,10 +44,7 @@ class FeatureCarouselPreview extends m.StatelessWidget {
     return m.Scaffold(
       backgroundColor: const m.Color(0xFF121212),
       body: m.Center(
-        child: FeatureCardCarousel(
-          items: items,
-          controller: controller,
-        ),
+        child: FeatureCardCarousel(items: items, controller: controller),
       ),
     );
   }

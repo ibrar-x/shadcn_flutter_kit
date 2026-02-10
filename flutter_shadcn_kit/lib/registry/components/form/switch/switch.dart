@@ -10,7 +10,6 @@ import '../../../shared/utils/style_value.dart';
 
 part '_impl/state/_switch_state.dart';
 
-
 part '_impl/themes/switch_theme.dart';
 part '_impl/utils/switch_controller.dart';
 part '_impl/core/controlled_switch.dart';

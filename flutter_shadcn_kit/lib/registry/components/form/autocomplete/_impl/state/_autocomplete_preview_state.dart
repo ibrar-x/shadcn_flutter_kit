@@ -42,8 +42,7 @@ class _AutocompletePreviewState extends State<AutocompletePreview> {
                         _currentSuggestions = [];
                       } else {
                         _currentSuggestions = suggestions
-                            .where((item) =>
-                                item.toLowerCase().contains(query))
+                            .where((item) => item.toLowerCase().contains(query))
                             .toList();
                       }
                     });

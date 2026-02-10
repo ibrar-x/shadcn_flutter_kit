@@ -1,6 +1,6 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart'
-  hide Theme, ThemeData, TextField, ButtonStyle, Tooltip;
+    hide Theme, ThemeData, TextField, ButtonStyle, Tooltip;
 import 'package:gap/gap.dart';
 
 import '../../control/button/button.dart';
@@ -72,6 +72,7 @@ enum NavigationBarAlignment {
   /// Creates a NavigationBarAlignment with the associated MainAxisAlignment.
   const NavigationBarAlignment(this.mainAxisAlignment);
 }
+
 enum NavigationRailAlignment {
   /// Align items to the start (top) of the rail.
   start,
@@ -80,7 +81,7 @@ enum NavigationRailAlignment {
   center,
 
   /// Align items to the end (bottom) of the rail.
-  end
+  end,
 }
 
 /// Enumeration defining the type of navigation container.
@@ -92,7 +93,7 @@ enum NavigationContainerType {
   bar,
 
   /// Expandable sidebar navigation with more space for content.
-  sidebar
+  sidebar,
 }
 
 /// A flexible navigation container widget for organizing navigation items.
@@ -407,7 +408,6 @@ enum NavigationLabelSize {
 /// )
 /// ```
 
-
 /// Internal widget that applies spacing between navigation items.
 ///
 /// Automatically calculates and applies appropriate padding based on
@@ -450,8 +450,8 @@ enum NavigationOverflow {
 /// - [selected] (bool): Whether this item is currently selected
 ///
 /// Returns a widget that adapts to selection state.
-typedef NavigationWidgetBuilder = Widget Function(
-    BuildContext context, bool selected);
+typedef NavigationWidgetBuilder =
+    Widget Function(BuildContext context, bool selected);
 
 /// Custom widget wrapper for navigation items.
 ///

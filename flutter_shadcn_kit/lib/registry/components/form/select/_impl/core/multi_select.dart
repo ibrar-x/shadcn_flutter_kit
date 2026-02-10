@@ -16,8 +16,7 @@ part of '../../select.dart';
 /// ```
 class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   @override
-  final ValueChanged<Iterable<T>?>?
-      onChanged; // if null, then it's a disabled combobox
+  final ValueChanged<Iterable<T>?>? onChanged; // if null, then it's a disabled combobox
   @override
   final Widget? placeholder; // placeholder when value is null
   @override
@@ -56,8 +55,8 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   final SelectPopupBuilder popup;
   @override
   SelectValueBuilder<Iterable<T>> get itemBuilder => (context, value) {
-        return _buildItem(multiItemBuilder, context, value);
-      };
+    return _buildItem(multiItemBuilder, context, value);
+  };
   @override
   final SelectValueSelectionHandler<Iterable<T>>? valueSelectionHandler;
   @override
@@ -130,7 +129,7 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return Wrap(
-      spacing: 4 * scaling,
+      spacing: theme.density.baseGap * scaling * 0.5,
       runSpacing: 4 * scaling,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [for (var value in value) multiItemBuilder(context, value)],

@@ -68,7 +68,7 @@ Future<void> _showContextMenu(
         anchorAlignment: Alignment.topRight,
         regionGroupId: key,
         modal: true,
-        follow: false,
+        follow: true,
         consumeOutsideTaps: false,
         dismissBackdropFocus: false,
         overlayBarrier: OverlayBarrier(

@@ -26,6 +26,9 @@ class ChatTailTheme extends ComponentThemeData {
   /// - [tailRadius] (`double?`, optional): The radius of the tail's curve.
   /// - [tailBehavior] (`TailBehavior?`, optional): The behavior determining when to show the tail.
   const ChatTailTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.position,
     this.size,
     this.borderRadius,
@@ -78,12 +81,6 @@ class ChatTailTheme extends ComponentThemeData {
 
   @override
   int get hashCode {
-    return Object.hash(
-      position,
-      size,
-      borderRadius,
-      tailRadius,
-      tailBehavior,
-    );
+    return Object.hash(position, size, borderRadius, tailRadius, tailBehavior);
   }
 }

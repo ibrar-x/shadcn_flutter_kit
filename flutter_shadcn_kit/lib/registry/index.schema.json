@@ -33,6 +33,7 @@
           "category": { "type": "string" },
           "description": { "type": "string" },
           "tags": { "type": "array", "items": { "type": "string" } },
+          "version": { "type": "string" },
 
           "install": { "type": "string" },
           "import": { "type": "string" },

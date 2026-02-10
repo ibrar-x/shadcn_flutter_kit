@@ -49,6 +49,9 @@ class ScaffoldTheme extends ComponentThemeData {
 
   /// Creates a [ScaffoldTheme].
   const ScaffoldTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.headerBackgroundColor,
     this.footerBackgroundColor,
@@ -65,8 +68,9 @@ class ScaffoldTheme extends ComponentThemeData {
     ValueGetter<bool?>? resizeToAvoidBottomInset,
   }) {
     return ScaffoldTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       headerBackgroundColor: headerBackgroundColor == null
           ? this.headerBackgroundColor
           : headerBackgroundColor(),
@@ -93,12 +97,12 @@ class ScaffoldTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        backgroundColor,
-        headerBackgroundColor,
-        footerBackgroundColor,
-        showLoadingSparks,
-        resizeToAvoidBottomInset,
-      );
+    backgroundColor,
+    headerBackgroundColor,
+    footerBackgroundColor,
+    showLoadingSparks,
+    resizeToAvoidBottomInset,
+  );
 
   @override
   String toString() =>
@@ -218,4 +222,3 @@ class ScaffoldTheme extends ComponentThemeData {
 /// Automatically adjusts padding based on scaffold footer height.
 
 enum _ScaffoldPaddingType { header, footer }
-

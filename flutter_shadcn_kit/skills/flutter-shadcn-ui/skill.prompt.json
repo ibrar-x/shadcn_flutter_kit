@@ -1,0 +1,16 @@
+{
+  "skill": "flutter-shadcn-ui",
+  "purpose": "",
+  "inputs": [],
+  "workflow": [
+    "Search registry_snapshot/index.json",
+    "Output install commands",
+    "Use only documented APIs from {id}.meta.json",
+    "Write app code only (never modify ui/shadcn/**)"
+  ],
+  "constraints": [
+    "Install via CLI only: flutter_shadcn add <id>",
+    "Never guess APIs or imports",
+    "Registry snapshot is read-only"
+  ]
+}

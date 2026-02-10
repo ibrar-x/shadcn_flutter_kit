@@ -3,12 +3,48 @@
   "name": "CardImage",
   "description": "Interactive card that pairs an image with title/subtitle content.",
   "category": "layout",
-  "tags": ["display", "image", "card"],
+  "tags": [
+    "display",
+    "image",
+    "card"
+  ],
   "dependencies": {
+    "shared": [
+      "theme",
+      "style_value",
+      "constants"
+    ],
+    "components": [
+      "basic",
+      "button",
+      "outlined_container"
+    ],
     "pubspec": {
       "gap": "^3.0.1"
-    },
-    "shared": ["theme", "style_value", "constants"],
-    "components": ["basic", "button", "outlined_container"]
-  }
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/card_image_2.dart",
+    "_impl/state/_card_image_state.dart",
+    "card_image.dart",
+    "card_image.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Wrap with ComponentTheme<CardImageTheme> when you need custom scales or spacing."
+  ],
+  "api": {
+    "constructors": [
+      "`CardImage`",
+      "`image` (`Widget`, required)",
+      "`title`, `subtitle`, `content` (`Widget?`)",
+      "`direction` (`Axis?`)",
+      "`onPressed` (`VoidCallback?`)",
+      "`CardImageTheme` — style, spacing, and hover settings."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -61,29 +61,35 @@ class _CheckboxState extends State<Checkbox>
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<CheckboxTheme>(context);
     final size = styleValue(
-        widgetValue: widget.size,
-        themeValue: compTheme?.size,
-        defaultValue: 16 * scaling);
+      widgetValue: widget.size,
+      themeValue: compTheme?.size,
+      defaultValue: 16 * scaling,
+    );
     final gap = styleValue(
-        widgetValue: widget.gap,
-        themeValue: compTheme?.gap,
-        defaultValue: 8 * scaling);
+      widgetValue: widget.gap,
+      themeValue: compTheme?.gap,
+      defaultValue: 8 * scaling,
+    );
     final backgroundColor = styleValue(
-        widgetValue: widget.backgroundColor,
-        themeValue: compTheme?.backgroundColor,
-        defaultValue: theme.colorScheme.input.scaleAlpha(0.3));
+      widgetValue: widget.backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.input.scaleAlpha(0.3),
+    );
     final activeColor = styleValue(
-        widgetValue: widget.activeColor,
-        themeValue: compTheme?.activeColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: widget.activeColor,
+      themeValue: compTheme?.activeColor,
+      defaultValue: theme.colorScheme.primary,
+    );
     final borderColor = styleValue(
-        widgetValue: widget.borderColor,
-        themeValue: compTheme?.borderColor,
-        defaultValue: theme.colorScheme.border);
+      widgetValue: widget.borderColor,
+      themeValue: compTheme?.borderColor,
+      defaultValue: theme.colorScheme.border,
+    );
     final borderRadius = styleValue<BorderRadiusGeometry>(
-        widgetValue: widget.borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.circular(theme.radiusSm));
+      widgetValue: widget.borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusSm),
+    );
     return Clickable(
       enabled: widget.onChanged != null,
       mouseCursor: enabled
@@ -107,13 +113,13 @@ class _CheckboxState extends State<Checkbox>
                   : backgroundColor,
               borderRadius:
                   optionallyResolveBorderRadius(context, borderRadius) ??
-                      BorderRadius.circular(theme.radiusSm),
+                  BorderRadius.circular(theme.radiusSm),
               border: Border.all(
                 color: !enabled
                     ? theme.colorScheme.muted
                     : widget.state == CheckboxState.checked
-                        ? activeColor
-                        : borderColor,
+                    ? activeColor
+                    : borderColor,
                 width: (_focusing ? 2 : 1) * scaling,
               ),
             ),

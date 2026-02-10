@@ -56,7 +56,10 @@ class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
 
   @override
   bool updateShouldNotify(covariant ComponentTheme<T> oldWidget) {
-    return oldWidget.data != data;
+    return oldWidget.data != data ||
+        oldWidget.data.themeDensity != data.themeDensity ||
+        oldWidget.data.themeSpacing != data.themeSpacing ||
+        oldWidget.data.themeShadows != data.themeShadows;
   }
 }
 

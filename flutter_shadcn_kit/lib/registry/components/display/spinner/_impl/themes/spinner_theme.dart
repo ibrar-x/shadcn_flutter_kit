@@ -5,7 +5,13 @@ class SpinnerTheme extends ComponentThemeData {
   final Color? color;
   final double? size;
 
-  const SpinnerTheme({this.color, this.size});
+  const SpinnerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.color,
+    this.size,
+  });
 
   SpinnerTheme copyWith({
     ValueGetter<Color?>? color,

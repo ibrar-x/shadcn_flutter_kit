@@ -9,6 +9,9 @@ class TabContainerTheme extends ComponentThemeData {
 
   /// {@macro tab_container_theme}
   const TabContainerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.builder,
     this.childBuilder,
   });

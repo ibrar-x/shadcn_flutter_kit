@@ -14,9 +14,7 @@ class CollapsiblePreview extends StatelessWidget {
           width: 360,
           child: Collapsible(
             children: [
-              const CollapsibleTrigger(
-                child: Text('Recent activity'),
-              ),
+              const CollapsibleTrigger(child: Text('Recent activity')),
               const SizedBox(height: 8),
               OutlinedContainer(
                 padding: const EdgeInsets.all(12),

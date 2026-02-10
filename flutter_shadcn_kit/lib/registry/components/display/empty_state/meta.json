@@ -17,11 +17,44 @@
     ],
     "components": [
       "card",
-      "button",
-      "divider"
+      "button"
     ],
     "pubspec": {
       "gap": "^3.0.1"
     }
-  }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/empty_state.dart",
+    "_impl/core/empty_state_action.dart",
+    "_impl/themes/empty_state_theme.dart",
+    "_impl/utils/empty_state_defaults.dart",
+    "_impl/variants/empty_state_action_style.dart",
+    "_impl/variants/empty_state_size.dart",
+    "_impl/variants/empty_state_variant.dart",
+    "empty_state.dart",
+    "empty_state.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`EmptyState`",
+      "`variant` (`EmptyStateVariant`)",
+      "`size` (`EmptyStateSize`)",
+      "`icon`, `title`, `description` (`Widget?`)",
+      "`primaryAction`, `secondaryAction`, `footerAction` (`EmptyStateAction?`)",
+      "`maxWidth` (`double?`)",
+      "`showIconContainer` (`bool`)",
+      "`EmptyStateAction`",
+      "`label` (`String`, required)",
+      "`onPressed` (`VoidCallback?`)",
+      "`icon`, `trailingIcon` (`Widget?`)",
+      "`style` (`EmptyStateActionStyle`)"
+    ],
+    "callbacks": [
+      "`onPressed` (EmptyStateAction)"
+    ]
+  },
+  "version": "1.0.0"
 }

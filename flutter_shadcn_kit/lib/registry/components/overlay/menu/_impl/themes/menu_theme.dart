@@ -9,6 +9,9 @@ class MenuTheme extends ComponentThemeData {
 
   /// {@macro menu_theme}
   const MenuTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.itemPadding,
     this.subMenuOffset,
   });
@@ -20,8 +23,9 @@ class MenuTheme extends ComponentThemeData {
   }) {
     return MenuTheme(
       itemPadding: itemPadding == null ? this.itemPadding : itemPadding(),
-      subMenuOffset:
-          subMenuOffset == null ? this.subMenuOffset : subMenuOffset(),
+      subMenuOffset: subMenuOffset == null
+          ? this.subMenuOffset
+          : subMenuOffset(),
     );
   }
 

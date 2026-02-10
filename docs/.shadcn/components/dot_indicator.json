@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "dot_indicator",
+  "name": "Dot Indicator",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "navigation",
+    "indicator"
+  ],
+  "installedAt": "2026-02-09T10:18:03.225566Z",
+  "shared": [
+    "clickable",
+    "constants",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/dot_indicator/README.md",
+    "registry/components/display/dot_indicator/_dot_indicator_preview_state.dart",
+    "registry/components/display/dot_indicator/_impl/core/active_dot_item.dart",
+    "registry/components/display/dot_indicator/_impl/core/dot_items.dart",
+    "registry/components/display/dot_indicator/_impl/core/inactive_dot_item.dart",
+    "registry/components/display/dot_indicator/_impl/themes/dot_indicator_theme.dart",
+    "registry/components/display/dot_indicator/dot_indicator.dart",
+    "registry/components/display/dot_indicator/dot_indicator.meta.json",
+    "registry/components/display/dot_indicator/meta.json",
+    "registry/components/display/dot_indicator/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

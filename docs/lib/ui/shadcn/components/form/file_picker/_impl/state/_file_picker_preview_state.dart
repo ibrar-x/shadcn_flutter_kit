@@ -48,14 +48,43 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     ];
   }
 
-  Widget _buildControllerBar(double scaling) {
+  Future<List<FileLike>> _simulatePick(FileUploadPickRequest request) async {
+    await Future<void>.delayed(const Duration(milliseconds: 120));
+    final files = _seedFiles();
+    final selected = request.allowMultiple ? files : [files.first];
+    return selected.where((file) {
+      final extension = file.resolvedExtension;
+      final mimeType = file.mimeType?.toLowerCase();
+      final extensionAllowed =
+          request.allowedExtensions == null ||
+              request.allowedExtensions!.isEmpty
+          ? true
+          : request.allowedExtensions!
+                .map((ext) => ext.toLowerCase().replaceFirst('.', ''))
+                .contains(extension);
+      final mimeAllowed =
+          request.allowedMimeTypes == null || request.allowedMimeTypes!.isEmpty
+          ? true
+          : request.allowedMimeTypes!.any((allowed) {
+              final normalized = allowed.toLowerCase();
+              if (normalized.endsWith('/*')) {
+                final prefix = normalized.substring(0, normalized.length - 1);
+                return mimeType?.startsWith(prefix) ?? false;
+              }
+              return mimeType == normalized;
+            });
+      return extensionAllowed && mimeAllowed;
+    }).toList();
+  }
+
+  Widget _buildControllerBar(ThemeData theme, double scaling) {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
         final count = _controller.items.length;
         final hasItems = count > 0;
         return Wrap(
-          spacing: 12 * scaling,
+          spacing: theme.density.baseGap * scaling * 1.5,
           runSpacing: 8 * scaling,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
@@ -81,28 +110,102 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     return Scaffold(
       headers: const [AppBar(title: Text('File Upload / Dropzone'))],
       child: Padding(
-        padding: EdgeInsets.all(24 * scaling),
+        padding: EdgeInsets.all(
+          theme.density.baseContainerPadding * scaling * 1.5,
+        ),
         child: FileIconProvider.builder(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildControllerBar(scaling),
-              SizedBox(height: 16 * scaling),
-              FileUpload(
-                controller: _controller,
-                title: const Text('Upload files'),
-                subtitle: const Text('PDFs, images, and other supported files.'),
-                hint: const Text('Drag files here or click browse to upload.'),
-                allowMultiple: true,
-               
-                uploadFn: _simulateUpload,
-                onError: (error) {
-                  // Errors are announced inline; hook for analytics if needed.
-                },
-              ),
-
-              FileUploadItemsView(items:  _controller.items,layout: FileUploadItemsLayout.list,),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildControllerBar(theme, scaling),
+                SizedBox(height: theme.density.baseContentPadding * scaling),
+                FileUpload(
+                  controller: _controller,
+                  pickFiles: _simulatePick,
+                  title: const Text('Upload files'),
+                  showHelpfulInfo: true,
+                  allowMultiple: true,
+                  maxConcurrentUploads: 1,
+                  uploadFn: _simulateUpload,
+                  options: FileUploadDragDropOptions(
+                    loading: FileUploadLoadingOptions(
+                      disableInteractions: true,
+                      isLoading: true,
+                      mode: FileUploadLoadingMode.wrap,
+                      wrapperBuilder: (context, child) {
+                        return BorderLoading(
+                          child: child,
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                    ),
+                    itemLoading: const FileUploadItemLoadingOptions(
+                      mode: FileUploadItemLoadingMode.linear,
+                    ),
+                    hint: Text(
+                      'Drag files here or click the dropzone to pick. Supports PDFs, images.',
+                    ),
+                    idleLabel: 'Drag files here or click to pick files.',
+                  ),
+                  onError: (error) {
+                    // Errors are announced inline; hook for analytics if needed.
+                  },
+                ),
+                SizedBox(height: theme.density.baseContainerPadding * scaling),
+                FileUpload(
+                  pickFiles: _simulatePick,
+                  title: const Text('Tile picker (no drag-and-drop)'),
+                  allowMultiple: true,
+                  uploadFn: _simulateUpload,
+                  options: FileUploadTileOptions(
+                    actionLabel: 'Add files',
+                    subtitle: Text(
+                      'No File Chosen. Use a button-only file selection UI.',
+                    ),
+                    hint: Text('Good for touch-first layouts.'),
+                    itemLoading: FileUploadItemLoadingOptions(
+                      mode: FileUploadItemLoadingMode.custom,
+                      customBuilder: (context, item) {
+                        if (item.status != FileUploadItemStatus.uploading) {
+                          return const SizedBox.shrink();
+                        }
+                        return const Text('Uploading...');
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: theme.density.baseContainerPadding * scaling),
+                FileUpload(
+                  pickFiles: _simulatePick,
+                  allowMultiple: true,
+                  uploadFn: _simulateUpload,
+                  options: const FileUploadMobileOptions(
+                    popover: true,
+                    popoverItems: [
+                      FileUploadPickOption.pickFiles,
+                      FileUploadPickOption.pickImages,
+                    ],
+                  ),
+                ),
+                SizedBox(height: theme.density.baseContainerPadding * scaling),
+                FileUpload(
+                  pickFiles: _simulatePick,
+                  allowMultiple: true,
+                  uploadFn: _simulateUpload,
+                  options: const FileUploadMobileOptions(
+                    trigger: FileUploadCompactTrigger.button,
+                    buttonLabel: 'Add files',
+                  ),
+                ),
+                SizedBox(height: theme.density.baseContainerPadding * scaling),
+                FileUploadItemsView(
+                  items: _controller.items,
+                  layout: FileUploadItemsLayout.list,
+                  maxHeight: 260 * scaling,
+                ),
+              ],
+            ),
           ),
         ),
       ),

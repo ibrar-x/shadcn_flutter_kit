@@ -9,6 +9,9 @@ class TooltipTheme extends ComponentThemeData {
   final BorderRadiusGeometry? borderRadius;
 
   const TooltipTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.padding,
@@ -24,12 +27,14 @@ class TooltipTheme extends ComponentThemeData {
     ValueGetter<BorderRadiusGeometry?>? borderRadius,
   }) {
     return TooltipTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       padding: padding == null ? this.padding : padding(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
     );
   }
@@ -47,5 +52,10 @@ class TooltipTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      surfaceOpacity, surfaceBlur, padding, backgroundColor, borderRadius);
+    surfaceOpacity,
+    surfaceBlur,
+    padding,
+    backgroundColor,
+    borderRadius,
+  );
 }

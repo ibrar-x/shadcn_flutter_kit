@@ -20,7 +20,11 @@ class _TreeViewState<T> extends State<TreeView<T>> {
         newDepth.add(TreeNodeDepth(i, nodes.length));
         walker(parentExpanded, node, newDepth);
         _walkFlattened(
-            walker, node.children, parentExpanded && node.expanded, newDepth);
+          walker,
+          node.children,
+          parentExpanded && node.expanded,
+          newDepth,
+        );
       } else if (node is TreeRoot<T>) {
         _walkFlattened(walker, node.children, parentExpanded, depth);
       }
@@ -40,7 +44,11 @@ class _TreeViewState<T> extends State<TreeView<T>> {
   }
 
   void _onChangeSelectionRange(
-      List<TreeNodeData<T>> children, int start, int end, bool recursive) {
+    List<TreeNodeData<T>> children,
+    int start,
+    int end,
+    bool recursive,
+  ) {
     if (start > end) {
       final temp = start;
       start = end;
@@ -72,43 +80,49 @@ class _TreeViewState<T> extends State<TreeView<T>> {
     final padding = widget.padding ?? compTheme?.padding;
     List<TreeNodeData<T>> children = [];
     int index = 0;
-    _walkFlattened((expanded, node, depth) {
-      if (node is! TreeItem<T>) return;
-      final int currentIndex = index++;
-      children.add(TreeNodeData(
-        depth,
-        node,
-        branchLine,
-        expanded,
-        expandIcon,
-        (reason) {
-          if (reason == FocusChangeReason.focusScope) {
-            _startFocusedIndex = currentIndex;
-            _currentFocusedIndex = currentIndex;
-            return;
-          }
-          _currentFocusedIndex = currentIndex;
-          if (_rangeMultiSelect && _startFocusedIndex != null) {
-            var start = _startFocusedIndex!;
-            var end = _currentFocusedIndex!;
-            _onChangeSelectionRange(children, start, end, recursiveSelection);
-          } else {
-            _startFocusedIndex = currentIndex;
-            if (recursiveSelection) {
-              final selectedItems = <TreeNode<T>>[];
-              _walkNodes((node) {
-                selectedItems.add(node);
-              }, [node]);
-              widget.onSelectionChanged
-                  ?.call(selectedItems, _multiSelect, !node.selected);
-            } else {
-              widget.onSelectionChanged
-                  ?.call([node], _multiSelect, !node.selected);
+    _walkFlattened(
+      (expanded, node, depth) {
+        if (node is! TreeItem<T>) return;
+        final int currentIndex = index++;
+        children.add(
+          TreeNodeData(depth, node, branchLine, expanded, expandIcon, (reason) {
+            if (reason == FocusChangeReason.focusScope) {
+              _startFocusedIndex = currentIndex;
+              _currentFocusedIndex = currentIndex;
+              return;
             }
-          }
-        },
-      ));
-    }, widget.nodes, true, []);
+            _currentFocusedIndex = currentIndex;
+            if (_rangeMultiSelect && _startFocusedIndex != null) {
+              var start = _startFocusedIndex!;
+              var end = _currentFocusedIndex!;
+              _onChangeSelectionRange(children, start, end, recursiveSelection);
+            } else {
+              _startFocusedIndex = currentIndex;
+              if (recursiveSelection) {
+                final selectedItems = <TreeNode<T>>[];
+                _walkNodes((node) {
+                  selectedItems.add(node);
+                }, [node]);
+                widget.onSelectionChanged?.call(
+                  selectedItems,
+                  _multiSelect,
+                  !node.selected,
+                );
+              } else {
+                widget.onSelectionChanged?.call(
+                  [node],
+                  _multiSelect,
+                  !node.selected,
+                );
+              }
+            }
+          }),
+        );
+      },
+      widget.nodes,
+      true,
+      [],
+    );
     int selectedCount = 0;
     for (int i = 0; i < children.length; i++) {
       final child = children[i];
@@ -156,28 +170,42 @@ class _TreeViewState<T> extends State<TreeView<T>> {
           LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowDown):
               const DirectionalSelectTreeNodeIntent(true),
           LogicalKeySet(
-                  LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowUp):
-              const DirectionalSelectTreeNodeIntent(false),
+            LogicalKeyboardKey.shiftLeft,
+            LogicalKeyboardKey.arrowUp,
+          ): const DirectionalSelectTreeNodeIntent(
+            false,
+          ),
           LogicalKeySet(
-                  LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowDown):
-              const DirectionalSelectTreeNodeIntent(true),
+            LogicalKeyboardKey.shiftLeft,
+            LogicalKeyboardKey.arrowDown,
+          ): const DirectionalSelectTreeNodeIntent(
+            true,
+          ),
           LogicalKeySet(
-                  LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowUp):
-              const DirectionalSelectTreeNodeIntent(false),
+            LogicalKeyboardKey.shiftRight,
+            LogicalKeyboardKey.arrowUp,
+          ): const DirectionalSelectTreeNodeIntent(
+            false,
+          ),
           LogicalKeySet(
-                  LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowDown):
-              const DirectionalSelectTreeNodeIntent(true),
+            LogicalKeyboardKey.shiftRight,
+            LogicalKeyboardKey.arrowDown,
+          ): const DirectionalSelectTreeNodeIntent(
+            true,
+          ),
 
           // multi select
           LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.space):
               const SelectTreeNodeIntent(),
           LogicalKeySet(
-                  LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.space):
-              const SelectTreeNodeIntent(),
+            LogicalKeyboardKey.controlLeft,
+            LogicalKeyboardKey.space,
+          ): const SelectTreeNodeIntent(),
           LogicalKeySet(
-                  LogicalKeyboardKey.controlRight, LogicalKeyboardKey.space):
-              const SelectTreeNodeIntent(),
-        }
+            LogicalKeyboardKey.controlRight,
+            LogicalKeyboardKey.space,
+          ): const SelectTreeNodeIntent(),
+        },
       },
       child: Actions(
         actions: {
@@ -191,10 +219,16 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                     selectedItems.add(node);
                   }, [selectedNode.node]);
                   widget.onSelectionChanged?.call(
-                      selectedItems, _multiSelect, !selectedNode.node.selected);
+                    selectedItems,
+                    _multiSelect,
+                    !selectedNode.node.selected,
+                  );
                 } else {
-                  widget.onSelectionChanged?.call([selectedNode.node],
-                      _multiSelect, !selectedNode.node.selected);
+                  widget.onSelectionChanged?.call(
+                    [selectedNode.node],
+                    _multiSelect,
+                    !selectedNode.node.selected,
+                  );
                 }
               }
               return null;
@@ -214,8 +248,8 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                       (equalSelection
                           ? !children[i].node.selected
                           : (reverseSelection
-                              ? children[i].node.selected
-                              : !children[i].node.selected))) {
+                                ? children[i].node.selected
+                                : !children[i].node.selected))) {
                     _currentFocusedIndex = i;
                     break;
                   }
@@ -227,15 +261,19 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                       (equalSelection
                           ? !children[i].node.selected
                           : (reverseSelection
-                              ? !children[i].node.selected
-                              : children[i].node.selected))) {
+                                ? !children[i].node.selected
+                                : children[i].node.selected))) {
                     _currentFocusedIndex = i;
                     break;
                   }
                 }
               }
-              _onChangeSelectionRange(children, _startFocusedIndex!,
-                  _currentFocusedIndex!, recursiveSelection);
+              _onChangeSelectionRange(
+                children,
+                _startFocusedIndex!,
+                _currentFocusedIndex!,
+                recursiveSelection,
+              );
               return null;
             },
           ),
@@ -268,17 +306,24 @@ class _TreeViewState<T> extends State<TreeView<T>> {
             return KeyEventResult.ignored;
           },
           child: ListView(
-            padding: padding ?? const EdgeInsets.all(8),
+            padding:
+                padding ?? EdgeInsets.all(Theme.of(context).density.baseGap),
             shrinkWrap: widget.shrinkWrap,
             controller: widget.controller,
             children: children
-                .map((data) => Data<TreeNodeData>.inherit(
-                      data: data,
-                      child: Builder(builder: (context) {
+                .map(
+                  (data) => Data<TreeNodeData>.inherit(
+                    data: data,
+                    child: Builder(
+                      builder: (context) {
                         return widget.builder(
-                            context, data.node as TreeItem<T>);
-                      }),
-                    ))
+                          context,
+                          data.node as TreeItem<T>,
+                        );
+                      },
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ),

@@ -92,40 +92,39 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     T? delayedResult = value;
     _popoverController
         .show(
-      context: context,
-      alignment: widget.popoverAlignment ?? Alignment.topLeft,
-      anchorAlignment: widget.popoverAnchorAlignment ?? Alignment.bottomLeft,
-      overlayBarrier: OverlayBarrier(
-        borderRadius: BorderRadius.circular(theme.radiusLg),
-      ),
-      modal: true,
-      offset: Offset(0, 8 * scaling),
-      builder: (context) {
-        return _ObjectFormFieldPopup<T>(
-          value: value,
-          editorBuilder: widget.editorBuilder,
-          popoverPadding: widget.popoverPadding,
-          prompt: prompt,
-          decorate: widget.decorate,
-          onChanged: (value) {
-            // by default, popover will immediately inform any changes
-            // but if its explicitly set to false, then we should not inform
-            if (mounted && widget.immediateValueChange != false) {
-              this.value = value;
-            } else {
-              delayedResult = value;
-            }
+          context: context,
+          alignment: widget.popoverAlignment ?? Alignment.topLeft,
+          anchorAlignment:
+              widget.popoverAnchorAlignment ?? Alignment.bottomLeft,
+          overlayBarrier: OverlayBarrier(
+            borderRadius: BorderRadius.circular(theme.radiusLg),
+          ),
+          modal: true,
+          offset: Offset(0, 8 * scaling),
+          builder: (context) {
+            return _ObjectFormFieldPopup<T>(
+              value: value,
+              editorBuilder: widget.editorBuilder,
+              popoverPadding: widget.popoverPadding,
+              prompt: prompt,
+              decorate: widget.decorate,
+              onChanged: (value) {
+                // by default, popover will immediately inform any changes
+                // but if its explicitly set to false, then we should not inform
+                if (mounted && widget.immediateValueChange != false) {
+                  this.value = value;
+                } else {
+                  delayedResult = value;
+                }
+              },
+            );
           },
-        );
-      },
-    )
-        .then(
-      (_) {
-        if (mounted && widget.immediateValueChange == false) {
-          this.value = delayedResult;
-        }
-      },
-    );
+        )
+        .then((_) {
+          if (mounted && widget.immediateValueChange == false) {
+            this.value = delayedResult;
+          }
+        });
   }
 
   /// Prompts the user to select or edit a value via dialog or popover.
@@ -154,10 +153,7 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     final theme = Theme.of(context);
     return IconTheme(
       data: IconThemeData(color: theme.colorScheme.mutedForeground),
-      child: IconTheme(
-        data: theme.iconTheme.small,
-        child: icon,
-      ),
+      child: IconTheme(data: theme.iconTheme.small, child: icon),
     );
   }
 

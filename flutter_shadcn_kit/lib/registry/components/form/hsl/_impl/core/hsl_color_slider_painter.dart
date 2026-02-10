@@ -38,8 +38,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // vertical for hue and horizontal for saturation
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSLColor.fromAHSL(1, i.toDouble(), j / 100, color.lightness);
+            final result = HSLColor.fromAHSL(
+              1,
+              i.toDouble(),
+              j / 100,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -55,8 +59,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // horizontal for hue and vertical for saturation
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
-            final result =
-                HSLColor.fromAHSL(1, j.toDouble(), i / 100, color.lightness);
+            final result = HSLColor.fromAHSL(
+              1,
+              j.toDouble(),
+              i / 100,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -75,8 +83,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // vertical for hue and horizontal for lightness
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSLColor.fromAHSL(1, i.toDouble(), color.saturation, j / 100.0);
+            final result = HSLColor.fromAHSL(
+              1,
+              i.toDouble(),
+              color.saturation,
+              j / 100.0,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -92,8 +104,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // horizontal for hue and vertical for lightness
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
-            final result =
-                HSLColor.fromAHSL(1, j.toDouble(), color.saturation, i / 100);
+            final result = HSLColor.fromAHSL(
+              1,
+              j.toDouble(),
+              color.saturation,
+              i / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -148,7 +164,11 @@ class HSLColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSLColor.fromAHSL(
-                j / 100.0, i.toDouble(), color.saturation, color.lightness);
+              j / 100.0,
+              i.toDouble(),
+              color.saturation,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -165,7 +185,11 @@ class HSLColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
             final result = HSLColor.fromAHSL(
-                i / 100, j.toDouble(), color.saturation, color.lightness);
+              i / 100,
+              j.toDouble(),
+              color.saturation,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -184,8 +208,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // horizontal for saturation and vertical for alpha
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSLColor.fromAHSL(j / 100, color.hue, i / 100, color.lightness);
+            final result = HSLColor.fromAHSL(
+              j / 100,
+              color.hue,
+              i / 100,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -201,8 +229,12 @@ class HSLColorSliderPainter extends CustomPainter {
         // horizontal for saturation and vertical for alpha
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSLColor.fromAHSL(i / 100, color.hue, j / 100, color.lightness);
+            final result = HSLColor.fromAHSL(
+              i / 100,
+              color.hue,
+              j / 100,
+              color.lightness,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -222,7 +254,11 @@ class HSLColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSLColor.fromAHSL(
-                j / 100, color.hue, color.saturation, i / 100);
+              j / 100,
+              color.hue,
+              color.saturation,
+              i / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -239,7 +275,11 @@ class HSLColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSLColor.fromAHSL(
-                i / 100, color.hue, color.saturation, j / 100);
+              i / 100,
+              color.hue,
+              color.saturation,
+              j / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -255,7 +295,11 @@ class HSLColorSliderPainter extends CustomPainter {
         double width = canvasWidth / 360;
         for (var i = 0; i < 360; i++) {
           final result = HSLColor.fromAHSL(
-              1, i.toDouble(), color.saturation, color.lightness.clamp(0, 1));
+            1,
+            i.toDouble(),
+            color.saturation,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -268,7 +312,11 @@ class HSLColorSliderPainter extends CustomPainter {
         double height = canvasHeight / 360;
         for (var i = 0; i < 360; i++) {
           final result = HSLColor.fromAHSL(
-              1, i.toDouble(), color.saturation, color.lightness.clamp(0, 1));
+            1,
+            i.toDouble(),
+            color.saturation,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -283,7 +331,11 @@ class HSLColorSliderPainter extends CustomPainter {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
           final result = HSLColor.fromAHSL(
-              1, color.hue, i / 100, color.lightness.clamp(0, 1));
+            1,
+            color.hue,
+            i / 100,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -296,7 +348,11 @@ class HSLColorSliderPainter extends CustomPainter {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
           final result = HSLColor.fromAHSL(
-              1, color.hue, i / 100, color.lightness.clamp(0, 1));
+            1,
+            color.hue,
+            i / 100,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -310,8 +366,12 @@ class HSLColorSliderPainter extends CustomPainter {
       if (reverse) {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSLColor.fromAHSL(1, color.hue, color.saturation, i / 100);
+          final result = HSLColor.fromAHSL(
+            1,
+            color.hue,
+            color.saturation,
+            i / 100,
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -323,8 +383,12 @@ class HSLColorSliderPainter extends CustomPainter {
       } else {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSLColor.fromAHSL(1, color.hue, color.saturation, i / 100);
+          final result = HSLColor.fromAHSL(
+            1,
+            color.hue,
+            color.saturation,
+            i / 100,
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -338,8 +402,12 @@ class HSLColorSliderPainter extends CustomPainter {
       if (reverse) {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(i / 100, color.hue, color.saturation,
-              color.lightness.clamp(0, 1));
+          final result = HSLColor.fromAHSL(
+            i / 100,
+            color.hue,
+            color.saturation,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -351,8 +419,12 @@ class HSLColorSliderPainter extends CustomPainter {
       } else {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(i / 100, color.hue, color.saturation,
-              color.lightness.clamp(0, 1));
+          final result = HSLColor.fromAHSL(
+            i / 100,
+            color.hue,
+            color.saturation,
+            color.lightness.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;

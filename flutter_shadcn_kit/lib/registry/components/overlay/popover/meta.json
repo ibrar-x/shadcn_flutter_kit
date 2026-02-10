@@ -3,15 +3,41 @@
   "name": "Popover",
   "description": "Anchored overlay surfaces for floating content.",
   "category": "overlay",
-  "tags": ["overlay", "popover", "floating"],
+  "tags": [
+    "overlay",
+    "popover",
+    "floating"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "color_extensions",
       "constants",
       "geometry_extensions",
       "overlay"
+    ],
+    "components": [],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "popover.dart",
+    "popover.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "core_types": [
+      "`showPopover`",
+      "`Popover`",
+      "`PopoverController`",
+      "`PopoverConstraint`",
+      "`OverlayHandlerStateMixin`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

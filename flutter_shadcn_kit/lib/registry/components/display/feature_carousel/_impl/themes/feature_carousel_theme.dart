@@ -165,8 +165,8 @@ class FeatureCarouselThemeData {
       ctaHorizontalPadding: ctaHorizontalPadding ?? this.ctaHorizontalPadding,
       titleFontSize: titleFontSize ?? this.titleFontSize,
       descriptionFontSize: descriptionFontSize ?? this.descriptionFontSize,
-      descriptionLineHeight: descriptionLineHeight ??
-          this.descriptionLineHeight,
+      descriptionLineHeight:
+          descriptionLineHeight ?? this.descriptionLineHeight,
       transitionDuration: transitionDuration ?? this.transitionDuration,
       transitionCurve: transitionCurve ?? this.transitionCurve,
     );

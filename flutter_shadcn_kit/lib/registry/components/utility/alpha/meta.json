@@ -3,10 +3,33 @@
   "name": "Alpha",
   "description": "Checkerboard painter for transparency indicators.",
   "category": "utility",
-  "tags": ["color", "picker", "utility"],
+  "tags": [
+    "color",
+    "picker",
+    "utility"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "alpha.dart",
+    "alpha.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Paint the checkerboard inside a CustomPaint when you need transparency cues."
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "painter": [
+      "`AlphaPainter`",
+      "`checkboardPrimary`, `checkboardSecondary`, `checkboardSize`"
+    ]
+  },
+  "version": "1.0.0"
 }

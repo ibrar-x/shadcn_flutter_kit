@@ -7,10 +7,7 @@ import '../state/widget_states_data.dart';
 class BuilderStatedWidget extends StatedWidget {
   final Widget Function(BuildContext context, Set<WidgetState> states) builder;
 
-  const BuilderStatedWidget({
-    super.key,
-    required this.builder,
-  }) : super.base();
+  const BuilderStatedWidget({super.key, required this.builder}) : super.base();
 
   @override
   Widget build(BuildContext context) {

@@ -22,7 +22,7 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [CompareTo] validator with the specified comparison type.
   const CompareTo(this.value, this.type, {this.message});
@@ -32,18 +32,18 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
 
   /// Creates a validator that checks if field value is greater than the specified value.
   const CompareTo.greater(this.value, {this.message})
-      : type = CompareType.greater;
+    : type = CompareType.greater;
 
   /// Creates a validator that checks if field value is greater than or equal to the specified value.
   const CompareTo.greaterOrEqual(this.value, {this.message})
-      : type = CompareType.greaterOrEqual;
+    : type = CompareType.greaterOrEqual;
 
   /// Creates a validator that checks if field value is less than the specified value.
   const CompareTo.less(this.value, {this.message}) : type = CompareType.less;
 
   /// Creates a validator that checks if field value is less than or equal to the specified value.
   const CompareTo.lessOrEqual(this.value, {this.message})
-      : type = CompareType.lessOrEqual;
+    : type = CompareType.lessOrEqual;
 
   int _compare(T? a, T? b) {
     if (a == null && b == null) {
@@ -60,42 +60,51 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     var localizations = Localizations.of(context, ShadcnLocalizations);
     var compare = _compare(value, this.value);
     switch (type) {
       case CompareType.greater:
         if (compare <= 0) {
           return InvalidResult(
-              message ?? localizations.formGreaterThan(this.value),
-              state: state);
+            message ?? localizations.formGreaterThan(this.value),
+            state: state,
+          );
         }
         break;
       case CompareType.greaterOrEqual:
         if (compare < 0) {
           return InvalidResult(
-              message ?? localizations.formGreaterThanOrEqualTo(this.value),
-              state: state);
+            message ?? localizations.formGreaterThanOrEqualTo(this.value),
+            state: state,
+          );
         }
         break;
       case CompareType.less:
         if (compare >= 0) {
           return InvalidResult(
-              message ?? localizations.formLessThan(this.value),
-              state: state);
+            message ?? localizations.formLessThan(this.value),
+            state: state,
+          );
         }
         break;
       case CompareType.lessOrEqual:
         if (compare > 0) {
           return InvalidResult(
-              message ?? localizations.formLessThanOrEqualTo(this.value),
-              state: state);
+            message ?? localizations.formLessThanOrEqualTo(this.value),
+            state: state,
+          );
         }
         break;
       case CompareType.equal:
         if (compare != 0) {
-          return InvalidResult(message ?? localizations.formEqualTo(this.value),
-              state: state);
+          return InvalidResult(
+            message ?? localizations.formEqualTo(this.value),
+            state: state,
+          );
         }
         break;
     }

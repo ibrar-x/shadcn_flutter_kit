@@ -41,7 +41,10 @@ class _TabsPreviewState extends State<TabsPreview> {
                           children: [
                             Text(
                               'Tab 1 Content',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(height: 8),
                             Text('This is the content for tab 1'),
@@ -61,7 +64,10 @@ class _TabsPreviewState extends State<TabsPreview> {
                           children: [
                             Text(
                               'Tab 2 Content',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(height: 8),
                             Text('This is the content for tab 2'),
@@ -81,7 +87,10 @@ class _TabsPreviewState extends State<TabsPreview> {
                           children: [
                             Text(
                               'Tab 3 Content',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(height: 8),
                             Text('This is the content for tab 3'),

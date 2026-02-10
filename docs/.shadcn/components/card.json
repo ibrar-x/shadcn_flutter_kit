@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "card",
+  "name": "Card",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "surface",
+    "container"
+  ],
+  "installedAt": "2026-02-09T10:18:03.209024Z",
+  "shared": [
+    "border_utils",
+    "color_extensions",
+    "outlined_container",
+    "sheet_overlay",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/layout/card/README.md",
+    "registry/components/layout/card/_impl/core/card_widgets.dart",
+    "registry/components/layout/card/_impl/core/surface_card.dart",
+    "registry/components/layout/card/_impl/themes/card_theme.dart",
+    "registry/components/layout/card/card.dart",
+    "registry/components/layout/card/card.meta.json",
+    "registry/components/layout/card/meta.json",
+    "registry/components/layout/card/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

@@ -15,6 +15,9 @@ class PaginationTheme extends ComponentThemeData {
   final bool? showLabel;
 
   const PaginationTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.gap,
     this.showLabel,
   });
@@ -42,4 +45,3 @@ class PaginationTheme extends ComponentThemeData {
 }
 
 /// Widget that renders pagination controls with page buttons and navigation arrows.
-

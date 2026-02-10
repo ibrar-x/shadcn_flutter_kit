@@ -65,4 +65,3 @@ class _HiddenLayout extends SingleChildRenderObjectWidget {
     }
   }
 }
-

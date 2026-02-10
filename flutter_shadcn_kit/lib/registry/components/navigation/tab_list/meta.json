@@ -3,5 +3,41 @@
   "name": "Tab List",
   "description": "Horizontal tab header row with active indicator.",
   "category": "navigation",
-  "tags": ["tabs", "navigation", "controls"]
+  "tags": [
+    "tabs",
+    "navigation",
+    "controls"
+  ],
+  "dependencies": {
+    "shared": [
+      "style_value",
+      "theme"
+    ],
+    "components": [
+      "button",
+      "tab_container"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/tab_list.dart",
+    "_impl/core/tab_list_2.dart",
+    "_impl/state/_tab_list_preview_state.dart",
+    "_impl/styles/_tab_list_text_style.dart",
+    "meta.json",
+    "preview.dart",
+    "tab_list.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`TabList`",
+      "`index` (`int?`)",
+      "`onChanged` (`ValueChanged<int>?`)",
+      "`children` (`List<TabChild>`)",
+      "`TabListTheme` — border and indicator styling."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

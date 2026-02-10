@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "image",
+  "name": "Image",
+  "version": "1.0.0",
+  "tags": [
+    "image",
+    "asset"
+  ],
+  "installedAt": "2026-02-09T10:18:03.242195Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/utility/image/README.md",
+    "registry/components/utility/image/image.dart",
+    "registry/components/utility/image/image.meta.json",
+    "registry/components/utility/image/meta.json",
+    "registry/components/utility/image/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

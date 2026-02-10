@@ -1,12 +1,16 @@
 import '../../component_example_models.dart';
-import 'text_animate_example_character.dart';
-import 'text_animate_example_chunk.dart';
-import 'text_animate_example_part_stream.dart';
-import 'text_animate_example_word.dart';
+import 'text_animate_example_blur_modes.dart';
+import 'text_animate_example_controls.dart';
+import 'text_animate_example_fade_modes.dart';
+import 'text_animate_example_scramble_modes.dart';
+import 'text_animate_example_slide_modes.dart';
+import 'text_animate_example_typewriter_modes.dart';
 
 const List<ComponentExample> textAnimateExamples = [
-  textAnimateCharacterExample,
-  textAnimateWordExample,
-  textAnimateChunkExample,
-  textAnimatePartStreamExample,
+  textAnimateUniversalControlsExample,
+  textAnimateBlurModesExample,
+  textAnimateTypewriterModesExample,
+  textAnimateFadeModesExample,
+  textAnimateSlideModesExample,
+  textAnimateScrambleModesExample,
 ];

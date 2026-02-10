@@ -166,16 +166,16 @@ class WindowWidget extends StatefulWidget {
     required WindowController this.controller,
     this.titleBarHeight,
     this.resizeThickness,
-  })  : bounds = null,
-        maximized = null,
-        minimized = null,
-        resizable = null,
-        draggable = null,
-        closable = null,
-        maximizable = null,
-        minimizable = null,
-        enableSnapping = null,
-        constraints = null;
+  }) : bounds = null,
+       maximized = null,
+       minimized = null,
+       resizable = null,
+       draggable = null,
+       closable = null,
+       maximizable = null,
+       minimizable = null,
+       enableSnapping = null,
+       constraints = null;
 
   const WindowWidget._raw({
     super.key,
@@ -193,8 +193,8 @@ class WindowWidget extends StatefulWidget {
     this.maximized,
     this.minimized,
     this.constraints,
-  })  : titleBarHeight = null,
-        resizeThickness = null;
+  }) : titleBarHeight = null,
+       resizeThickness = null;
 
   @override
   State<WindowWidget> createState() => _WindowWidgetState();

@@ -11,7 +11,8 @@ class MenubarState extends State<Menubar> {
         compTheme?.backgroundColor ?? theme.colorScheme.background;
     final borderRadius = compTheme?.borderRadius ?? theme.borderRadiusMd;
     final padding =
-        compTheme?.padding ?? const EdgeInsets.all(4) * theme.scaling;
+        compTheme?.padding ??
+        EdgeInsets.all(theme.density.baseGap * theme.scaling * 0.5);
 
     if (border) {
       return OutlinedContainer(
@@ -21,13 +22,21 @@ class MenubarState extends State<Menubar> {
         child: AnimatedPadding(
           duration: kDefaultDuration,
           padding: padding,
-          child: buildContainer(context, theme,
-              compTheme?.subMenuOffset ?? widget.popoverOffset, border),
+          child: buildContainer(
+            context,
+            theme,
+            compTheme?.subMenuOffset ?? widget.popoverOffset,
+            border,
+          ),
         ),
       );
     }
-    return buildContainer(context, theme,
-        compTheme?.subMenuOffset ?? widget.popoverOffset, border);
+    return buildContainer(
+      context,
+      theme,
+      compTheme?.subMenuOffset ?? widget.popoverOffset,
+      border,
+    );
   }
 
   /// Builds the container widget for the menubar.
@@ -39,10 +48,15 @@ class MenubarState extends State<Menubar> {
   /// - [border] (`bool`, required): whether to show border
   ///
   /// Returns: `Widget` — container with menu items
-  Widget buildContainer(BuildContext context, ThemeData theme,
-      Offset? subMenuOffset, bool border) {
+  Widget buildContainer(
+    BuildContext context,
+    ThemeData theme,
+    Offset? subMenuOffset,
+    bool border,
+  ) {
     final scaling = theme.scaling;
-    final offset = subMenuOffset ??
+    final offset =
+        subMenuOffset ??
         ((border ? const Offset(-4, 8) : const Offset(0, 4)) * scaling);
     return Data.inherit(
       data: this,

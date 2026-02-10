@@ -21,6 +21,9 @@ class MenuPopupTheme extends ComponentThemeData {
 
   /// Creates a [MenuPopupTheme].
   const MenuPopupTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.padding,
@@ -39,8 +42,9 @@ class MenuPopupTheme extends ComponentThemeData {
     ValueGetter<BorderRadiusGeometry?>? borderRadius,
   }) {
     return MenuPopupTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       padding: padding == null ? this.padding : padding(),
       fillColor: fillColor == null ? this.fillColor : fillColor(),
@@ -63,13 +67,13 @@ class MenuPopupTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        surfaceOpacity,
-        surfaceBlur,
-        padding,
-        fillColor,
-        borderColor,
-        borderRadius,
-      );
+    surfaceOpacity,
+    surfaceBlur,
+    padding,
+    fillColor,
+    borderColor,
+    borderRadius,
+  );
 }
 
 /// A styled container widget for displaying popup menus.

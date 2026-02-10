@@ -57,8 +57,11 @@ class _StreamingTextState extends State<StreamingText> {
     );
 
     final elapsed = _clock.elapsed - _snapshot.changedAt;
-    final totalAnimated = _snapshot.animatedChars.length;
-    final visibleAnimated = _visibleCharacterCount(
+    final animatedUnits = widget.animateByWord
+        ? _splitToWordUnits(_snapshot.animatedChars.join())
+        : _snapshot.animatedChars;
+    final totalAnimated = animatedUnits.length;
+    final visibleAnimated = _visibleUnitCount(
       total: totalAnimated,
       elapsed: elapsed,
       typewriter: resolvedTypewriter,
@@ -75,8 +78,8 @@ class _StreamingTextState extends State<StreamingText> {
     }
 
     for (var i = 0; i < visibleAnimated; i++) {
-      final char = _snapshot.animatedChars[i];
-      final revealDelay = _revealDelayForIndex(i, resolvedTypewriter);
+      final char = animatedUnits[i];
+      final revealDelay = _revealDelayForUnitIndex(i, resolvedTypewriter);
       final age = elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
       spans.add(
         resolvedEffect.buildSpan(
@@ -135,7 +138,7 @@ class _StreamingTextState extends State<StreamingText> {
     if (visibleAnimated < totalAnimated) return false;
     if (effect.settleDuration <= Duration.zero) return true;
 
-    final revealDelay = _revealDelayForIndex(totalAnimated - 1, typewriter);
+    final revealDelay = _revealDelayForUnitIndex(totalAnimated - 1, typewriter);
     final age = elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
     return age >= effect.settleDuration;
   }

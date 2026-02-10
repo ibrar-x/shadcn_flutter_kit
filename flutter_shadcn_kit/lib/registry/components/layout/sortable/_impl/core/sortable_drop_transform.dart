@@ -19,4 +19,3 @@ class _DropTransform {
     required this.state,
   });
 }
-

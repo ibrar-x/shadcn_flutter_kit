@@ -54,10 +54,14 @@ class _RenderResizableLayout extends RenderBox
             childParentData.index == null) {
           if (direction == Axis.horizontal) {
             intrinsicCross = max(
-                intrinsicCross, child.getMaxIntrinsicHeight(double.infinity));
+              intrinsicCross,
+              child.getMaxIntrinsicHeight(double.infinity),
+            );
           } else {
             intrinsicCross = max(
-                intrinsicCross, child.getMaxIntrinsicWidth(double.infinity));
+              intrinsicCross,
+              child.getMaxIntrinsicWidth(double.infinity),
+            );
           }
         }
         child = childParentData.nextSibling;
@@ -197,7 +201,9 @@ class _RenderResizableLayout extends RenderBox
         // align at center
         var sizeExtent = _getSizeExtent(draggerSize);
         childParentData.offset = _createOffset(
-            dividerOffsets[childParentData.index!] - sizeExtent / 2, 0);
+          dividerOffsets[childParentData.index!] - sizeExtent / 2,
+          0,
+        );
         // childParentData.offset =
         //     _createOffset(draggerOffset - sizeExtent / 2 + dividerOffset, 0);
         // dividerOffset += sizeExtent;
@@ -343,19 +349,23 @@ class _RenderResizableLayout extends RenderBox
           // Calculate divider size
           Size childSize;
           if (direction == Axis.horizontal) {
-            childSize = child.getDryLayout(BoxConstraints(
-              minWidth: 0,
-              maxWidth: constraints.maxWidth,
-              minHeight: intrinsicCross,
-              maxHeight: intrinsicCross,
-            ));
+            childSize = child.getDryLayout(
+              BoxConstraints(
+                minWidth: 0,
+                maxWidth: constraints.maxWidth,
+                minHeight: intrinsicCross,
+                maxHeight: intrinsicCross,
+              ),
+            );
           } else {
-            childSize = child.getDryLayout(BoxConstraints(
-              minWidth: intrinsicCross,
-              maxWidth: intrinsicCross,
-              minHeight: 0,
-              maxHeight: constraints.maxHeight,
-            ));
+            childSize = child.getDryLayout(
+              BoxConstraints(
+                minWidth: intrinsicCross,
+                maxWidth: intrinsicCross,
+                minHeight: 0,
+                maxHeight: constraints.maxHeight,
+              ),
+            );
           }
           totalDividerSize += _getSizeExtent(childSize);
         } else if (childParentData.flex != null) {

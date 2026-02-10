@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/display/text_animate/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/layout/filter_bar/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';
 
 import 'package:flutter_shadcn_kit/registry/composites/layout/app/app.dart';
-import 'package:flutter_shadcn_kit/registry/components/display/empty_state/preview.dart';
 import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
 
 void main() {
@@ -15,9 +15,12 @@ class _RegistryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadcnApp(
-      title: 'Text Animate Preview',
+      title: 'Filter Bar Preview',
       theme: const shadcn.ThemeData(),
-      home: const TextAnimatePreview(),
+      localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
+      supportedLocales: ShadcnLocalizations.supportedLocales,
+      locale: const Locale('en'),
+      home: const FilterBarPreview(),
     );
   }
 }

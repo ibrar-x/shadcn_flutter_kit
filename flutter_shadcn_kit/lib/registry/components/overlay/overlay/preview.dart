@@ -11,9 +11,7 @@ class OverlayPreview extends StatelessWidget {
       tooltipHandler: OverlayHandler.popover,
       menuHandler: OverlayHandler.popover,
       child: const Scaffold(
-        body: Center(
-          child: Text('Overlay manager layer ready'),
-        ),
+        body: Center(child: Text('Overlay manager layer ready')),
       ),
     );
   }

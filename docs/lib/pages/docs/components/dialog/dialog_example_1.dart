@@ -1,5 +1,6 @@
 import 'package:docs/shadcn_ui.dart';
-import 'package:flutter/material.dart' show showDialog;
+import 'package:docs/ui/shadcn/components/overlay/dialog/dialog.dart'
+    as shadcn_dialog;
 
 class DialogExample1 extends StatelessWidget {
   const DialogExample1({super.key});
@@ -9,7 +10,7 @@ class DialogExample1 extends StatelessWidget {
     return PrimaryButton(
       onPressed: () {
         final controller = FormController();
-        showDialog(
+        shadcn_dialog.showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(

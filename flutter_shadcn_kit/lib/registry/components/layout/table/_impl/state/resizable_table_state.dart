@@ -28,18 +28,20 @@ class _ResizableTableState extends State<ResizableTable> {
       final row = widget.rows[r];
       for (int c = 0; c < row.cells.length; c++) {
         final cell = row.cells[c];
-        _cells.add(_FlattenedTableCell(
-          column: c,
-          row: r,
-          columnSpan: cell.columnSpan,
-          rowSpan: cell.rowSpan,
-          builder: cell.build,
-          enabled: cell.enabled,
-          hoveredCellNotifier: _hoveredCellNotifier,
-          dragNotifier: _dragNotifier,
-          tableCellThemeBuilder: row.buildDefaultTheme,
-          selected: row.selected,
-        ));
+        _cells.add(
+          _FlattenedTableCell(
+            column: c,
+            row: r,
+            columnSpan: cell.columnSpan,
+            rowSpan: cell.rowSpan,
+            builder: cell.build,
+            enabled: cell.enabled,
+            hoveredCellNotifier: _hoveredCellNotifier,
+            dragNotifier: _dragNotifier,
+            tableCellThemeBuilder: row.buildDefaultTheme,
+            selected: row.selected,
+          ),
+        );
       }
     }
     _cells = _reorganizeCells(_cells);
@@ -80,7 +82,8 @@ class _ResizableTableState extends State<ResizableTable> {
   Widget build(BuildContext context) {
     ResizableTableTheme? resizableTableTheme =
         widget.theme ?? ComponentTheme.maybeOf<ResizableTableTheme>(context);
-    TableTheme? tableTheme = resizableTableTheme?.tableTheme ??
+    TableTheme? tableTheme =
+        resizableTableTheme?.tableTheme ??
         ComponentTheme.maybeOf<TableTheme>(context);
     var children = _cells.map((cell) {
       return Data.inherit(
@@ -90,9 +93,11 @@ class _ResizableTableState extends State<ResizableTable> {
           row: cell.row,
           columnSpan: cell.columnSpan,
           rowSpan: cell.rowSpan,
-          child: Builder(builder: (context) {
-            return cell.builder(context);
-          }),
+          child: Builder(
+            builder: (context) {
+              return cell.builder(context);
+            },
+          ),
         ),
       );
     }).toList();
@@ -100,11 +105,12 @@ class _ResizableTableState extends State<ResizableTable> {
       data: this,
       child: Data.inherit(
         data: _ResizableTableData(
-            controller: widget.controller,
-            cellWidthResizeMode: widget.cellWidthResizeMode,
-            cellHeightResizeMode: widget.cellHeightResizeMode,
-            maxColumn: _maxColumn,
-            maxRow: _maxRow),
+          controller: widget.controller,
+          cellWidthResizeMode: widget.cellWidthResizeMode,
+          cellHeightResizeMode: widget.cellHeightResizeMode,
+          maxColumn: _maxColumn,
+          maxRow: _maxRow,
+        ),
         child: Container(
           clipBehavior: widget.clipBehavior,
           decoration: BoxDecoration(
@@ -113,27 +119,27 @@ class _ResizableTableState extends State<ResizableTable> {
             borderRadius: tableTheme?.borderRadius,
           ),
           child: ListenableBuilder(
-              listenable: widget.controller,
-              builder: (context, child) {
-                return RawTableLayout(
-                  clipBehavior: widget.clipBehavior,
-                  horizontalOffset: widget.horizontalOffset,
-                  verticalOffset: widget.verticalOffset,
-                  frozenColumn: widget.frozenCells?.testColumn,
-                  frozenRow: widget.frozenCells?.testRow,
-                  viewportSize: widget.viewportSize,
-                  width: (index) {
-                    return _width(index);
-                  },
-                  height: (index) {
-                    return _height(index);
-                  },
-                  children: children,
-                );
-              }),
+            listenable: widget.controller,
+            builder: (context, child) {
+              return RawTableLayout(
+                clipBehavior: widget.clipBehavior,
+                horizontalOffset: widget.horizontalOffset,
+                verticalOffset: widget.verticalOffset,
+                frozenColumn: widget.frozenCells?.testColumn,
+                frozenRow: widget.frozenCells?.testRow,
+                viewportSize: widget.viewportSize,
+                width: (index) {
+                  return _width(index);
+                },
+                height: (index) {
+                  return _height(index);
+                },
+                children: children,
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
-

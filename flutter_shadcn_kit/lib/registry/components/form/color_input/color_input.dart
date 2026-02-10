@@ -17,13 +17,9 @@ import '../../../shared/icons/lucide_icons.dart';
 
 part '_impl/themes/color_input_theme.dart';
 
-
 part '_impl/state/_color_input_state.dart';
 part '_impl/utils/color_input_controller.dart';
 part '_impl/core/controlled_color_input.dart';
-
-
-
 
 /// A color input widget that allows users to select and edit colors.
 ///

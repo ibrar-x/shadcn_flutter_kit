@@ -13,13 +13,19 @@ class _MenuPreviewState extends State<MenuPreview> {
             const MenuLabel(child: Text('File')),
             MenuButton(
               trailing: const MenuShortcut(
-                activator: SingleActivator(LogicalKeyboardKey.keyN, control: true),
+                activator: SingleActivator(
+                  LogicalKeyboardKey.keyN,
+                  control: true,
+                ),
               ),
               child: const Text('New Window'),
             ),
             MenuButton(
               trailing: const MenuShortcut(
-                activator: SingleActivator(LogicalKeyboardKey.keyO, control: true),
+                activator: SingleActivator(
+                  LogicalKeyboardKey.keyO,
+                  control: true,
+                ),
               ),
               child: const Text('Open File...'),
             ),

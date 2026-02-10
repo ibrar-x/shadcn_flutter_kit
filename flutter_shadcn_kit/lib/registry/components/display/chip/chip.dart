@@ -42,8 +42,9 @@ class Chip extends StatelessWidget {
           return styleValue(
             themeValue: componentTheme?.padding,
             defaultValue: EdgeInsets.symmetric(
-              horizontal: theme.scaling * 8,
-              vertical: theme.scaling * 4,
+              horizontal:
+                  theme.density.baseContentPadding * theme.scaling * padXs,
+              vertical: theme.density.baseContentPadding * theme.scaling * 0.25,
             ),
           );
         },

@@ -8,12 +8,37 @@
     "pagination"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "style_value",
       "localizations",
       "radix_icons"
-    ]
-  }
+    ],
+    "components": [
+      "button",
+      "triple_dots"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/pagination_2.dart",
+    "_impl/state/_pagination_preview_state.dart",
+    "meta.json",
+    "pagination.dart",
+    "pagination.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Pagination`",
+      "`page` (`int`, required)",
+      "`total` (`int`, required)",
+      "`onChanged` (`ValueChanged<int>?`)",
+      "`showLabel`, `gap`, `siblingCount`, `boundaryCount`",
+      "`PaginationTheme` — spacing and label visibility."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

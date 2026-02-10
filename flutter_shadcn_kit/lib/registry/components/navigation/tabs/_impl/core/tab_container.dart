@@ -36,7 +36,8 @@ class TabContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TabContainerTheme>(context);
-    final tabBuilder = builder ??
+    final tabBuilder =
+        builder ??
         compTheme?.builder ??
         (context, children) => Column(children: children);
     final tabChildBuilder =
@@ -63,9 +64,6 @@ class TabContainer extends StatelessWidget {
         wrappedChildren.add(child);
       }
     }
-    return tabBuilder(
-      context,
-      wrappedChildren,
-    );
+    return tabBuilder(context, wrappedChildren);
   }
 }

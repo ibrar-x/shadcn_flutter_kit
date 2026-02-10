@@ -4,7 +4,9 @@ class _TimeFormatter extends TextInputFormatter {
   const _TimeFormatter();
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // make sure new value has leading zero
     var newText = newValue.text;
     int substringCount = 0;

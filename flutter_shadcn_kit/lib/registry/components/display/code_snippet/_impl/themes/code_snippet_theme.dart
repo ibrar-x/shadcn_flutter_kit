@@ -19,6 +19,9 @@ class CodeSnippetTheme extends ComponentThemeData {
 
   /// Creates a theme for [CodeSnippet].
   const CodeSnippetTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.borderColor,
     this.borderWidth,
@@ -35,8 +38,9 @@ class CodeSnippetTheme extends ComponentThemeData {
     ValueGetter<EdgeInsetsGeometry?>? padding,
   }) {
     return CodeSnippetTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       borderWidth: borderWidth == null ? this.borderWidth : borderWidth(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
@@ -57,10 +61,10 @@ class CodeSnippetTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        backgroundColor,
-        borderColor,
-        borderWidth,
-        borderRadius,
-        padding,
-      );
+    backgroundColor,
+    borderColor,
+    borderWidth,
+    borderRadius,
+    padding,
+  );
 }

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "text",
+  "name": "Text",
+  "version": "1.0.0",
+  "tags": [
+    "text",
+    "typography"
+  ],
+  "installedAt": "2026-02-09T10:18:03.226178Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [
+    "button",
+    "selectable"
+  ],
+  "files": [
+    "registry/components/display/text/README.md",
+    "registry/components/display/text/_impl/core/_rich_text_then_widget.dart",
+    "registry/components/display/text/_impl/core/_selectable_text_then_widget.dart",
+    "registry/components/display/text/_impl/core/_text_then_widget.dart",
+    "registry/components/display/text/_impl/core/unordered_list_data.dart",
+    "registry/components/display/text/_impl/core/wrapped_text.dart",
+    "registry/components/display/text/meta.json",
+    "registry/components/display/text/preview.dart",
+    "registry/components/display/text/text.dart",
+    "registry/components/display/text/text.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

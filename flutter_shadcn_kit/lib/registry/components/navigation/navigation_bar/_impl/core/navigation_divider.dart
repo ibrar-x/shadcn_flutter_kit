@@ -45,16 +45,22 @@ class NavigationDivider extends StatelessWidget implements NavigationBarItem {
       return SliverToBoxAdapter(
         child: Padding(
           padding: direction == Axis.vertical
-              ? EdgeInsets.symmetric(vertical: 8 * scaling)
-              : EdgeInsets.symmetric(horizontal: 8 * scaling),
+              ? EdgeInsets.symmetric(vertical: theme.density.baseGap * scaling)
+              : EdgeInsets.symmetric(
+                  horizontal: theme.density.baseGap * scaling,
+                ),
           child: child,
         ),
       );
     }
     return Padding(
       padding: direction == Axis.vertical
-          ? EdgeInsets.symmetric(vertical: 4 * scaling)
-          : EdgeInsets.symmetric(horizontal: 4 * scaling),
+          ? EdgeInsets.symmetric(
+              vertical: theme.density.baseGap * scaling * 0.5,
+            )
+          : EdgeInsets.symmetric(
+              horizontal: theme.density.baseGap * scaling * 0.5,
+            ),
       child: child,
     );
   }

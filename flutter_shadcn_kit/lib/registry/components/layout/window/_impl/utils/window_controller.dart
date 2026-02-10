@@ -29,19 +29,21 @@ class WindowController extends ValueNotifier<WindowState> {
     bool minimizable = true,
     bool enableSnapping = true,
     BoxConstraints constraints = kDefaultWindowConstraints,
-  }) : super(WindowState(
-          bounds: bounds,
-          maximized: maximized,
-          minimized: minimized,
-          alwaysOnTop: focused,
-          closable: closable,
-          resizable: resizable,
-          draggable: draggable,
-          maximizable: maximizable,
-          minimizable: minimizable,
-          enableSnapping: enableSnapping,
-          constraints: constraints,
-        ));
+  }) : super(
+         WindowState(
+           bounds: bounds,
+           maximized: maximized,
+           minimized: minimized,
+           alwaysOnTop: focused,
+           closable: closable,
+           resizable: resizable,
+           draggable: draggable,
+           maximizable: maximizable,
+           minimizable: minimizable,
+           enableSnapping: enableSnapping,
+           constraints: constraints,
+         ),
+       );
 
   /// Whether the controller is currently attached to a window widget.
   ///

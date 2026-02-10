@@ -114,17 +114,18 @@ class WindowState {
 
   @override
   int get hashCode => Object.hash(
-      bounds,
-      maximized,
-      minimized,
-      alwaysOnTop,
-      closable,
-      resizable,
-      draggable,
-      maximizable,
-      minimizable,
-      enableSnapping,
-      constraints);
+    bounds,
+    maximized,
+    minimized,
+    alwaysOnTop,
+    closable,
+    resizable,
+    draggable,
+    maximizable,
+    minimizable,
+    enableSnapping,
+    constraints,
+  );
 
   @override
   String toString() {
@@ -199,8 +200,9 @@ class WindowState {
       draggable: draggable == null ? this.draggable : draggable(),
       maximizable: maximizable == null ? this.maximizable : maximizable(),
       minimizable: minimizable == null ? this.minimizable : minimizable(),
-      enableSnapping:
-          enableSnapping == null ? this.enableSnapping : enableSnapping(),
+      enableSnapping: enableSnapping == null
+          ? this.enableSnapping
+          : enableSnapping(),
       constraints: constraints == null ? this.constraints : constraints(),
     );
   }

@@ -39,7 +39,9 @@ class Pagination extends StatelessWidget {
         yield* List.generate(maxPages, (index) => index + 1);
       } else if (end > totalPages) {
         yield* List.generate(
-            maxPages, (index) => totalPages - maxPages + index + 1);
+          maxPages,
+          (index) => totalPages - maxPages + index + 1,
+        );
       } else {
         yield* List.generate(maxPages, (index) => start + index);
       }
@@ -68,7 +70,9 @@ class Pagination extends StatelessWidget {
   bool get hasMoreNextPages => lastShownPage < totalPages;
 
   Widget _buildPreviousLabel(
-      ShadcnLocalizations localizations, bool showLabel) {
+    ShadcnLocalizations localizations,
+    bool showLabel,
+  ) {
     if (showLabel) {
       return GhostButton(
         onPressed: hasPrevious ? () => onPageChanged(page - 1) : null,
@@ -102,13 +106,15 @@ class Pagination extends StatelessWidget {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<PaginationTheme>(context);
     final gapValue = styleValue(
-        widgetValue: gap,
-        themeValue: compTheme?.gap,
-        defaultValue: 4 * scaling);
+      widgetValue: gap,
+      themeValue: compTheme?.gap,
+      defaultValue: 4 * scaling,
+    );
     final showLabel = styleValue(
-        widgetValue: this.showLabel,
-        themeValue: compTheme?.showLabel,
-        defaultValue: true);
+      widgetValue: this.showLabel,
+      themeValue: compTheme?.showLabel,
+      defaultValue: true,
+    );
     final localizations = ShadcnLocalizations.of(context);
 
     final rowChildren = <Widget>[];
@@ -134,17 +140,11 @@ class Pagination extends StatelessWidget {
     for (final p in pages) {
       if (p == page) {
         rowChildren.add(
-          OutlineButton(
-            onPressed: () => onPageChanged(p),
-            child: Text('$p'),
-          ),
+          OutlineButton(onPressed: () => onPageChanged(p), child: Text('$p')),
         );
       } else {
         rowChildren.add(
-          GhostButton(
-            onPressed: () => onPageChanged(p),
-            child: Text('$p'),
-          ),
+          GhostButton(onPressed: () => onPageChanged(p), child: Text('$p')),
         );
       }
     }

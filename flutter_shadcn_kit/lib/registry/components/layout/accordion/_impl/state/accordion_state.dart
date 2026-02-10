@@ -21,10 +21,7 @@ class AccordionState extends State<Accordion> {
     for (var i = 0; i < widget.items.length; i++) {
       children.add(widget.items[i]);
       if (i < widget.items.length - 1) {
-        children.add(Container(
-          color: dividerColor,
-          height: dividerHeight,
-        ));
+        children.add(Container(color: dividerColor, height: dividerHeight));
       }
     }
     children.add(const Divider());

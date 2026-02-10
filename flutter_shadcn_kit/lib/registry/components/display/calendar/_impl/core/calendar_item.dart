@@ -122,26 +122,27 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             onPressed: onTap,
             enabled: state == DateState.enabled,
-            style: const ButtonStyle(
-              variance: ButtonVariance.secondary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: indexAtRow == 0
-                      ? BorderRadius.only(
-                          topLeft: Radius.circular(theme.radiusMd),
-                          bottomLeft: Radius.circular(theme.radiusMd),
-                        )
-                      : indexAtRow == rowCount - 1
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.secondary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: indexAtRow == 0
+                          ? BorderRadius.only(
+                              topLeft: Radius.circular(theme.radiusMd),
+                              bottomLeft: Radius.circular(theme.radiusMd),
+                            )
+                          : indexAtRow == rowCount - 1
                           ? BorderRadius.only(
                               topRight: Radius.circular(theme.radiusMd),
                               bottomRight: Radius.circular(theme.radiusMd),
                             )
                           : BorderRadius.zero,
-                );
-              },
-            ),
+                    );
+                  },
+                ),
             child: child,
           ),
         );
@@ -153,19 +154,20 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             onPressed: onTap,
             enabled: state == DateState.enabled,
-            style: const ButtonStyle(
-              variance: ButtonVariance.secondary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(theme.radiusMd),
-                    bottomLeft: Radius.circular(theme.radiusMd),
-                  ),
-                );
-              },
-            ),
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.secondary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(theme.radiusMd),
+                        bottomLeft: Radius.circular(theme.radiusMd),
+                      ),
+                    );
+                  },
+                ),
             child: child,
           ),
         );
@@ -177,19 +179,20 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             onPressed: onTap,
             enabled: state == DateState.enabled,
-            style: const ButtonStyle(
-              variance: ButtonVariance.secondary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(theme.radiusMd),
-                    bottomRight: Radius.circular(theme.radiusMd),
-                  ),
-                );
-              },
-            ),
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.secondary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(theme.radiusMd),
+                        bottomRight: Radius.circular(theme.radiusMd),
+                      ),
+                    );
+                  },
+                ),
             child: child,
           ),
         );
@@ -257,19 +260,20 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             onPressed: onTap,
             enabled: state == DateState.enabled,
-            style: const ButtonStyle(
-              variance: ButtonVariance.primary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(theme.radiusMd),
-                    bottomLeft: Radius.circular(theme.radiusMd),
-                  ),
-                );
-              },
-            ),
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.primary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(theme.radiusMd),
+                        bottomLeft: Radius.circular(theme.radiusMd),
+                      ),
+                    );
+                  },
+                ),
             child: child,
           ),
         );
@@ -281,19 +285,20 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             onPressed: onTap,
             enabled: state == DateState.enabled,
-            style: const ButtonStyle(
-              variance: ButtonVariance.primary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(theme.radiusMd),
-                    bottomRight: Radius.circular(theme.radiusMd),
-                  ),
-                );
-              },
-            ),
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.primary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(theme.radiusMd),
+                        bottomRight: Radius.circular(theme.radiusMd),
+                      ),
+                    );
+                  },
+                ),
             child: child,
           ),
         );
@@ -305,16 +310,17 @@ class CalendarItem extends StatelessWidget {
             alignment: Alignment.center,
             enabled: state == DateState.enabled,
             onPressed: onTap,
-            style: const ButtonStyle(
-              variance: ButtonVariance.primary,
-              density: ButtonDensity.compact,
-            ).copyWith(
-              decoration: (context, states, value) {
-                return (value as BoxDecoration).copyWith(
-                  borderRadius: BorderRadius.zero,
-                );
-              },
-            ),
+            style:
+                const ButtonStyle(
+                  variance: ButtonVariance.primary,
+                  density: ButtonDensity.compact,
+                ).copyWith(
+                  decoration: (context, states, value) {
+                    return (value as BoxDecoration).copyWith(
+                      borderRadius: BorderRadius.zero,
+                    );
+                  },
+                ),
             child: child,
           ),
         );

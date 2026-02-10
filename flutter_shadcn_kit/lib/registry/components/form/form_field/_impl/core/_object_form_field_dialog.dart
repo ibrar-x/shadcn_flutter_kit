@@ -3,10 +3,13 @@ part of '../../form_field.dart';
 class _ObjectFormFieldDialog<T> extends StatefulWidget {
   final T? value;
   final Widget Function(BuildContext context, ObjectFormHandler<T> handler)
-      editorBuilder;
+  editorBuilder;
   final Widget? dialogTitle;
   final List<Widget> Function(
-      BuildContext context, ObjectFormHandler<T> handler)? dialogActions;
+    BuildContext context,
+    ObjectFormHandler<T> handler,
+  )?
+  dialogActions;
   final ValueChanged<T?> prompt;
   final bool decorate;
   final ValueChanged<T?> onChanged;

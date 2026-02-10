@@ -17,7 +17,9 @@ class _ResizableLayout extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _RenderResizableLayout renderObject) {
+    BuildContext context,
+    _RenderResizableLayout renderObject,
+  ) {
     bool needsLayout = false;
     if (renderObject.direction != direction) {
       renderObject.direction = direction;

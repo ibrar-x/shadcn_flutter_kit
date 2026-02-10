@@ -70,7 +70,8 @@ class SlidingCarouselTransition extends CarouselTransition {
       return [
         for (var item in items)
           Positioned(
-            left: snapOffsetAlignment +
+            left:
+                snapOffsetAlignment +
                 (item.position - currentIndex) * size +
                 (gap * item.relativeIndex),
             width: size,
@@ -82,7 +83,8 @@ class SlidingCarouselTransition extends CarouselTransition {
       return [
         for (var item in items)
           Positioned(
-            top: snapOffsetAlignment +
+            top:
+                snapOffsetAlignment +
                 (item.position - currentIndex) * size +
                 (gap * item.relativeIndex),
             width: constraints.maxWidth,

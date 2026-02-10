@@ -62,8 +62,6 @@ class DatePickerDialog extends StatefulWidget {
   State<DatePickerDialog> createState() => _DatePickerDialogState();
 }
 
-
-
 /// Abstract base class representing calendar selection values.
 ///
 /// Provides a unified interface for different types of calendar selections including

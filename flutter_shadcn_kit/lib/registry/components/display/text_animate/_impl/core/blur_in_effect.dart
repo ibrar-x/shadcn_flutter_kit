@@ -50,24 +50,36 @@ class BlurInEffect extends StreamingTextEffectAdapter
     required TextStyle baseStyle,
   }) {
     final t = _normalizedProgress(age: age, duration: duration, curve: curve);
-    final sigma = (1 - t) * maxBlurSigma;
-    final opacity = fadeIn ? math.max(t, 0.0) : 1.0;
+    final sigma = math.pow(1 - t, 1.15).toDouble() * maxBlurSigma;
+    final blurOpacity = (1 - t).clamp(0.0, 1.0);
+    final sharpOpacity = fadeIn ? t.clamp(0.0, 1.0) : 1.0;
     final dy = slideUpPx * (1 - t);
 
-    var current = child;
+    final sharpLayer = Opacity(opacity: sharpOpacity, child: child);
+
+    Widget blurredLayer = child;
     if (sigma > 0.01) {
-      current = ImageFiltered(
+      blurredLayer = ImageFiltered(
         imageFilter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-        child: current,
+        child: blurredLayer,
       );
     }
-    if (fadeIn) {
-      current = Opacity(opacity: opacity.clamp(0.0, 1.0), child: current);
-    }
+    blurredLayer = Opacity(opacity: blurOpacity, child: blurredLayer);
+
+    var current = blurOpacity > 0.001
+        ? Stack(clipBehavior: Clip.none, children: [sharpLayer, blurredLayer])
+        : sharpLayer;
+
     if (slideUpPx != 0) {
       current = Transform.translate(offset: Offset(0, -dy), child: current);
     }
-    return current;
+
+    final baseline = (baseStyle.fontSize ?? 14) * (baseStyle.height ?? 1.2);
+    return Baseline(
+      baseline: baseline,
+      baselineType: TextBaseline.alphabetic,
+      child: current,
+    );
   }
 
   @override

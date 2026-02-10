@@ -47,49 +47,54 @@ class _AutoCompleteState extends State<AutoComplete> {
           final popoverConstraints = styleValue<BoxConstraints>(
             widgetValue: widget.popoverConstraints,
             themeValue: compTheme?.popoverConstraints,
-            defaultValue: BoxConstraints(
-              maxHeight: 300 * theme.scaling,
-            ),
+            defaultValue: BoxConstraints(maxHeight: 300 * theme.scaling),
           );
           return TextFieldTapRegion(
             child: ConstrainedBox(
               constraints: popoverConstraints,
               child: SurfaceCard(
-                padding: const EdgeInsets.all(4) * theme.scaling,
+                padding: EdgeInsets.all(
+                  theme.density.baseGap * theme.scaling * 0.5,
+                ),
                 child: AnimatedBuilder(
-                    animation: Listenable.merge([_suggestions, _selectedIndex]),
-                    builder: (context, child) {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _suggestions.value.length,
-                          itemBuilder: (context, index) {
-                            final suggestion = _suggestions.value[index];
-                            return _AutoCompleteItem(
-                              suggestion: suggestion,
-                              selected: index == _selectedIndex.value,
-                              onSelected: () {
-                                _selectedIndex.value = index;
-                                _handleProceed();
-                              },
-                            );
-                          });
-                    }),
+                  animation: Listenable.merge([_suggestions, _selectedIndex]),
+                  builder: (context, child) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _suggestions.value.length,
+                      itemBuilder: (context, index) {
+                        final suggestion = _suggestions.value[index];
+                        return _AutoCompleteItem(
+                          suggestion: suggestion,
+                          selected: index == _selectedIndex.value,
+                          onSelected: () {
+                            _selectedIndex.value = index;
+                            _handleProceed();
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           );
         },
         widthConstraint: styleValue(
-            widgetValue: widget.popoverWidthConstraint,
-            themeValue: compTheme?.popoverWidthConstraint,
-            defaultValue: PopoverConstraint.anchorFixedSize),
+          widgetValue: widget.popoverWidthConstraint,
+          themeValue: compTheme?.popoverWidthConstraint,
+          defaultValue: PopoverConstraint.anchorFixedSize,
+        ),
         anchorAlignment: styleValue(
-            widgetValue: widget.popoverAnchorAlignment,
-            themeValue: compTheme?.popoverAnchorAlignment,
-            defaultValue: AlignmentDirectional.bottomStart),
+          widgetValue: widget.popoverAnchorAlignment,
+          themeValue: compTheme?.popoverAnchorAlignment,
+          defaultValue: AlignmentDirectional.bottomStart,
+        ),
         alignment: styleValue(
-            widgetValue: widget.popoverAlignment,
-            themeValue: compTheme?.popoverAlignment,
-            defaultValue: AlignmentDirectional.topStart),
+          widgetValue: widget.popoverAlignment,
+          themeValue: compTheme?.popoverAlignment,
+          defaultValue: AlignmentDirectional.topStart,
+        ),
       );
     }
   }
@@ -101,12 +106,8 @@ class _AutoCompleteState extends State<AutoComplete> {
     }
     _popoverController.close();
     var suggestion = _suggestions.value[selectedIndex];
-    suggestion = widget.completer(
-      suggestion,
-    );
-    invokeActionOnFocusedWidget(
-      AutoCompleteIntent(suggestion, _mode),
-    );
+    suggestion = widget.completer(suggestion);
+    invokeActionOnFocusedWidget(AutoCompleteIntent(suggestion, _mode));
   }
 
   @override
@@ -133,52 +134,53 @@ class _AutoCompleteState extends State<AutoComplete> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-        listenable: _selectedIndex,
-        builder: (context, child) {
-          return FocusableActionDetector(
-            onFocusChange: _onFocusChanged,
-            shortcuts: _popoverController.hasOpenPopover
-                ? {
-                    LogicalKeySet(LogicalKeyboardKey.arrowDown):
-                        const NavigateSuggestionIntent(1),
-                    LogicalKeySet(LogicalKeyboardKey.arrowUp):
-                        const NavigateSuggestionIntent(-1),
-                    if (widget.suggestions.isNotEmpty &&
-                        _selectedIndex.value != -1)
-                      LogicalKeySet(LogicalKeyboardKey.tab):
-                          const AcceptSuggestionIntent(),
-                  }
-                : null,
-            actions: _popoverController.hasOpenPopover
-                ? {
-                    NavigateSuggestionIntent:
-                        CallbackAction<NavigateSuggestionIntent>(
-                      onInvoke: (intent) {
-                        final direction = intent.direction;
-                        final selectedIndex = _selectedIndex.value;
-                        final suggestions = _suggestions.value;
-                        if (suggestions.isEmpty) {
+      listenable: _selectedIndex,
+      builder: (context, child) {
+        return FocusableActionDetector(
+          onFocusChange: _onFocusChanged,
+          shortcuts: _popoverController.hasOpenPopover
+              ? {
+                  LogicalKeySet(LogicalKeyboardKey.arrowDown):
+                      const NavigateSuggestionIntent(1),
+                  LogicalKeySet(LogicalKeyboardKey.arrowUp):
+                      const NavigateSuggestionIntent(-1),
+                  if (widget.suggestions.isNotEmpty &&
+                      _selectedIndex.value != -1)
+                    LogicalKeySet(LogicalKeyboardKey.tab):
+                        const AcceptSuggestionIntent(),
+                }
+              : null,
+          actions: _popoverController.hasOpenPopover
+              ? {
+                  NavigateSuggestionIntent:
+                      CallbackAction<NavigateSuggestionIntent>(
+                        onInvoke: (intent) {
+                          final direction = intent.direction;
+                          final selectedIndex = _selectedIndex.value;
+                          final suggestions = _suggestions.value;
+                          if (suggestions.isEmpty) {
+                            return;
+                          }
+                          final newSelectedIndex =
+                              (selectedIndex + direction) % suggestions.length;
+                          _selectedIndex.value = newSelectedIndex < 0
+                              ? suggestions.length - 1
+                              : newSelectedIndex;
                           return;
-                        }
-                        final newSelectedIndex =
-                            (selectedIndex + direction) % suggestions.length;
-                        _selectedIndex.value = newSelectedIndex < 0
-                            ? suggestions.length - 1
-                            : newSelectedIndex;
-                        return;
-                      },
-                    ),
-                    AcceptSuggestionIntent:
-                        CallbackAction<AcceptSuggestionIntent>(
-                      onInvoke: (intent) {
-                        _handleProceed();
-                        return;
-                      },
-                    ),
-                  }
-                : null,
-            child: widget.child,
-          );
-        });
+                        },
+                      ),
+                  AcceptSuggestionIntent:
+                      CallbackAction<AcceptSuggestionIntent>(
+                        onInvoke: (intent) {
+                          _handleProceed();
+                          return;
+                        },
+                      ),
+                }
+              : null,
+          child: widget.child,
+        );
+      },
+    );
   }
 }

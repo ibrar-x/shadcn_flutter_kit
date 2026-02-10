@@ -22,7 +22,9 @@ class _SwitcherTransition extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _RenderSwitcherTransition renderObject) {
+    BuildContext context,
+    _RenderSwitcherTransition renderObject,
+  ) {
     if (renderObject.progress != progress ||
         renderObject.direction != direction ||
         renderObject.absolute != absolute) {

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "popup",
+  "name": "Popup",
+  "version": "1.0.0",
+  "tags": [
+    "overlay",
+    "menu",
+    "popup"
+  ],
+  "installedAt": "2026-02-09T10:18:03.230657Z",
+  "shared": [
+    "menu_group",
+    "overlay",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [
+    "dialog"
+  ],
+  "files": [
+    "registry/components/overlay/popup/README.md",
+    "registry/components/overlay/popup/_impl/core/menu_popup_widget.dart",
+    "registry/components/overlay/popup/_impl/themes/menu_popup_theme.dart",
+    "registry/components/overlay/popup/meta.json",
+    "registry/components/overlay/popup/popup.dart",
+    "registry/components/overlay/popup/popup.meta.json",
+    "registry/components/overlay/popup/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

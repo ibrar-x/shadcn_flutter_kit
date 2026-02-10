@@ -18,16 +18,10 @@ class GroupPreview extends StatelessWidget {
             ),
             child: GroupWidget(
               children: [
-                const GroupPositioned(
-                  top: 8,
-                  left: 8,
-                  child: Text('Layered'),
-                ),
+                const GroupPositioned(top: 8, left: 8, child: Text('Layered')),
                 GroupPositioned.fromRect(
                   rect: const Rect.fromLTWH(24, 40, 90, 50),
-                  child: Container(
-                    color: Colors.blue.shade300,
-                  ),
+                  child: Container(color: Colors.blue.shade300),
                 ),
                 const GroupPositioned(
                   right: 8,

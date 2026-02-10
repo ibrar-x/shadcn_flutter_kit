@@ -16,8 +16,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   late bool _allowInvertVertical;
   late Ticker _ticker;
   late LayerLink? _layerLink;
+  Offset? _followAnchorDelta;
   ScrollableState? _scrollable;
   ScrollPosition? _scrollPosition;
+  bool _isClosingForRegionLoss = false;
 
   @override
   set offset(Offset? offset) {
@@ -44,11 +46,20 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     _allowInvertHorizontal = widget.allowInvertHorizontal;
     _allowInvertVertical = widget.allowInvertVertical;
     _layerLink = widget.layerLink;
+    _followAnchorDelta = null;
+    _isClosingForRegionLoss = false;
     _ticker = createTicker(_tick);
     if (_follow && _layerLink == null) {
       _ticker.start();
     }
     _attachScrollListener();
+    if (_follow) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _updatePosition();
+        }
+      });
+    }
   }
 
   @override
@@ -97,22 +108,16 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     if (oldWidget.margin != widget.margin) {
       _margin = widget.margin;
     }
-    bool shouldStartTicker = false;
     if (oldWidget.follow != widget.follow) {
       _follow = widget.follow;
-      if (widget.follow) {
-        shouldStartTicker = true;
-      }
     }
     if (_layerLink != widget.layerLink) {
       _layerLink = widget.layerLink;
-      if (_layerLink != null) {
-        shouldStartTicker = false;
-      }
     }
-    if (shouldStartTicker && !_ticker.isActive) {
+    final shouldRunTicker = _follow && _layerLink == null;
+    if (shouldRunTicker && !_ticker.isActive) {
       _ticker.start();
-    } else if (!shouldStartTicker && _ticker.isActive) {
+    } else if (!shouldRunTicker && _ticker.isActive) {
       _ticker.stop();
     }
     if (oldWidget.anchorContext != widget.anchorContext) {
@@ -127,6 +132,12 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     }
     if (_follow) {
       _attachScrollListener();
+      if (oldWidget.position != widget.position ||
+          oldWidget.anchorAlignment != widget.anchorAlignment ||
+          oldWidget.anchorContext != widget.anchorContext) {
+        _followAnchorDelta = null;
+      }
+      _updatePosition();
     } else {
       _detachScrollListener();
     }
@@ -253,12 +264,20 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     if (_follow != value) {
       setState(() {
         _follow = value;
-        if (_follow) {
+      });
+      if (_follow) {
+        if (_layerLink == null && !_ticker.isActive) {
           _ticker.start();
-        } else {
+        }
+        _attachScrollListener();
+        _followAnchorDelta = null;
+        _updatePosition();
+      } else {
+        if (_ticker.isActive) {
           _ticker.stop();
         }
-      });
+        _detachScrollListener();
+      }
     }
   }
 
@@ -269,6 +288,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
         _anchorContext = value;
       });
       _attachScrollListener();
+      if (_follow) {
+        _followAnchorDelta = null;
+        _updatePosition();
+      }
     }
   }
 
@@ -301,25 +324,61 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     _updatePosition();
   }
 
+  Rect _globalRectForRenderBox(RenderBox box) {
+    final topLeft = box.localToGlobal(Offset.zero);
+    return topLeft & box.size;
+  }
+
+  Rect? _resolveVisibleRegionRect() {
+    final scrollableRenderObject = _scrollable?.context.findRenderObject();
+    if (scrollableRenderObject is RenderBox && scrollableRenderObject.hasSize) {
+      return _globalRectForRenderBox(scrollableRenderObject);
+    }
+    final overlayRenderObject = context.findRenderObject();
+    if (overlayRenderObject is RenderBox && overlayRenderObject.hasSize) {
+      return _globalRectForRenderBox(overlayRenderObject);
+    }
+    return null;
+  }
+
   void _updatePosition() {
     if (!mounted || !anchorContext.mounted) return;
     // update position based on anchorContext
-    RenderBox? renderBox = anchorContext.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      Offset pos = renderBox.localToGlobal(Offset.zero);
-      Size size = renderBox.size;
-      var anchorAlignment = _anchorAlignment.optionallyResolve(context);
-      Offset newPos = Offset(
-        pos.dx + size.width / 2 + size.width / 2 * anchorAlignment.x,
-        pos.dy + size.height / 2 + size.height / 2 * anchorAlignment.y,
-      );
-      if (_position != newPos) {
-        setState(() {
-          _anchorSize = size;
-          _position = newPos;
-          widget.onTickFollow?.call(this);
-        });
+    final renderObject = anchorContext.findRenderObject();
+    if (renderObject is! RenderBox || !renderObject.hasSize) return;
+    final anchorRect = _globalRectForRenderBox(renderObject);
+    final visibleRegionRect = _resolveVisibleRegionRect();
+    if (_follow &&
+        visibleRegionRect != null &&
+        !visibleRegionRect.overlaps(anchorRect)) {
+      if (!_isClosingForRegionLoss) {
+        _isClosingForRegionLoss = true;
+        closeLater();
       }
+      return;
+    }
+    _isClosingForRegionLoss = false;
+
+    final pos = renderObject.localToGlobal(Offset.zero);
+    final size = renderObject.size;
+    final resolvedAnchorAlignment = _anchorAlignment.optionallyResolve(context);
+    final anchorPosition = Offset(
+      pos.dx + size.width / 2 + size.width / 2 * resolvedAnchorAlignment.x,
+      pos.dy + size.height / 2 + size.height / 2 * resolvedAnchorAlignment.y,
+    );
+
+    Offset newPos = anchorPosition;
+    if (_follow && widget.position != null) {
+      _followAnchorDelta ??= widget.position! - anchorPosition;
+      newPos = anchorPosition + _followAnchorDelta!;
+    }
+
+    if (_position != newPos || _anchorSize != size) {
+      setState(() {
+        _anchorSize = size;
+        _position = newPos;
+        widget.onTickFollow?.call(this);
+      });
     }
   }
 

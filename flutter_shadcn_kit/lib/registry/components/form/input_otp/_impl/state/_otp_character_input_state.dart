@@ -52,7 +52,10 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
   }
 
   BorderRadius getBorderRadiusByRelativeIndex(
-      ThemeData theme, int relativeIndex, int groupLength) {
+    ThemeData theme,
+    int relativeIndex,
+    int groupLength,
+  ) {
     if (relativeIndex == 0) {
       return BorderRadius.only(
         topLeft: Radius.circular(theme.radiusMd),
@@ -82,9 +85,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
         ),
       );
     }
-    return Text(
-      String.fromCharCode(_value!),
-    ).small().foreground();
+    return Text(String.fromCharCode(_value!)).small().foreground();
   }
 
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
@@ -154,9 +155,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: theme.colorScheme.input.scaleAlpha(0.3),
-                    border: Border.all(
-                      color: theme.colorScheme.border,
-                    ),
+                    border: Border.all(color: theme.colorScheme.border),
                     borderRadius: getBorderRadiusByRelativeIndex(
                       theme,
                       widget.data.relativeIndex,
@@ -169,9 +168,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
             if (_value != null)
               Positioned.fill(
                 child: IgnorePointer(
-                  child: Center(
-                    child: getValueWidget(theme),
-                  ),
+                  child: Center(child: getValueWidget(theme)),
                 ),
               ),
             Positioned.fill(

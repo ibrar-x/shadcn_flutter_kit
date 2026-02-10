@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "expandable_sidebar",
+  "name": "Expandable Sidebar",
+  "version": "1.0.0",
+  "tags": [
+    "navigation",
+    "sidebar",
+    "composite"
+  ],
+  "installedAt": "2026-02-09T10:18:03.247204Z",
+  "shared": [],
+  "dependsOn": [
+    "navigation_bar",
+    "outlined_container"
+  ],
+  "files": [
+    "composites/navigation/expandable_sidebar/README.md",
+    "composites/navigation/expandable_sidebar/expandable_sidebar.dart",
+    "composites/navigation/expandable_sidebar/expandable_sidebar.meta.json",
+    "composites/navigation/expandable_sidebar/meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

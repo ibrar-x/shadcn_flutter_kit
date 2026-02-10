@@ -46,6 +46,9 @@ class TableTheme extends ComponentThemeData {
   /// );
   /// ```
   const TableTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.border,
     this.backgroundColor,
     this.borderRadius,
@@ -90,8 +93,9 @@ class TableTheme extends ComponentThemeData {
   }) {
     return TableTheme(
       border: border == null ? this.border : border(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       cellTheme: cellTheme == null ? this.cellTheme : cellTheme(),
     );
   }

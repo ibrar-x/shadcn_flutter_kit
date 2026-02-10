@@ -4,6 +4,9 @@ part of '../../accordion.dart';
 class AccordionTheme extends ComponentThemeData {
   /// Creates an accordion theme.
   const AccordionTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.duration,
     this.curve,
     this.reverseCurve,
@@ -57,17 +60,17 @@ class AccordionTheme extends ComponentThemeData {
     return AccordionTheme(
       duration: duration == null ? this.duration : duration(),
       curve: curve == null ? this.curve : curve(),
-      reverseCurve:
-          reverseCurve == null ? this.reverseCurve : reverseCurve(),
+      reverseCurve: reverseCurve == null ? this.reverseCurve : reverseCurve(),
       padding: padding == null ? this.padding : padding(),
       iconGap: iconGap == null ? this.iconGap : iconGap(),
-      dividerHeight:
-          dividerHeight == null ? this.dividerHeight : dividerHeight(),
-      dividerColor:
-          dividerColor == null ? this.dividerColor : dividerColor(),
+      dividerHeight: dividerHeight == null
+          ? this.dividerHeight
+          : dividerHeight(),
+      dividerColor: dividerColor == null ? this.dividerColor : dividerColor(),
       arrowIcon: arrowIcon == null ? this.arrowIcon : arrowIcon(),
-      arrowIconColor:
-          arrowIconColor == null ? this.arrowIconColor : arrowIconColor(),
+      arrowIconColor: arrowIconColor == null
+          ? this.arrowIconColor
+          : arrowIconColor(),
     );
   }
 
@@ -86,16 +89,16 @@ class AccordionTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        duration,
-        curve,
-        reverseCurve,
-        padding,
-        iconGap,
-        dividerHeight,
-        dividerColor,
-        arrowIcon,
-        arrowIconColor,
-      );
+    duration,
+    curve,
+    reverseCurve,
+    padding,
+    iconGap,
+    dividerHeight,
+    dividerColor,
+    arrowIcon,
+    arrowIconColor,
+  );
 
   @override
   String toString() {

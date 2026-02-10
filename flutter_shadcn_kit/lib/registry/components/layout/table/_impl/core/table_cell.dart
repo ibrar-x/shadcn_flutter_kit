@@ -97,23 +97,30 @@ class TableCell {
                   if (hoveredCell != null &&
                       ((columnHover &&
                               hoveredCell.intersects(
-                                  currentCell, Axis.vertical)) ||
+                                currentCell,
+                                Axis.vertical,
+                              )) ||
                           (rowHover &&
                               hoveredCell.intersects(
-                                  currentCell, Axis.horizontal))))
+                                currentCell,
+                                Axis.horizontal,
+                              ))))
                     WidgetState.hovered,
                   if (flattenedData.selected) WidgetState.selected,
                   if (!flattenedData.enabled) WidgetState.disabled,
                 };
                 return Container(
                   decoration: BoxDecoration(
-                    border: theme?.border?.resolve(resolvedStates) ??
+                    border:
+                        theme?.border?.resolve(resolvedStates) ??
                         defaultTheme.border?.resolve(resolvedStates),
-                    color: theme?.backgroundColor?.resolve(resolvedStates) ??
+                    color:
+                        theme?.backgroundColor?.resolve(resolvedStates) ??
                         defaultTheme.backgroundColor?.resolve(resolvedStates),
                   ),
                   child: DefaultTextStyle.merge(
-                    style: theme?.textStyle?.resolve(resolvedStates) ??
+                    style:
+                        theme?.textStyle?.resolve(resolvedStates) ??
                         defaultTheme.textStyle?.resolve(resolvedStates),
                     child: child!,
                   ),
@@ -126,15 +133,16 @@ class TableCell {
         if (resizedData != null && resizedState != null)
           Positioned.fill(
             child: _CellResizer(
-                controller: resizedData.controller,
-                onHover: resizedState._onHover,
-                onDrag: resizedState._onDrag,
-                hoverNotifier: resizedState._hoverNotifier,
-                dragNotifier: resizedState._dragNotifier,
-                maxRow: resizedState._maxRow,
-                theme: resizedState.widget.theme,
-                maxColumn: resizedState._maxColumn),
-          )
+              controller: resizedData.controller,
+              onHover: resizedState._onHover,
+              onDrag: resizedState._onDrag,
+              hoverNotifier: resizedState._hoverNotifier,
+              dragNotifier: resizedState._dragNotifier,
+              maxRow: resizedState._maxRow,
+              theme: resizedState.widget.theme,
+              maxColumn: resizedState._maxColumn,
+            ),
+          ),
       ],
     );
   }
@@ -156,8 +164,16 @@ class TableCell {
 
   @override
   int get hashCode {
-    return Object.hash(columnSpan, rowSpan, child, theme, enabled, columnHover,
-        rowHover, backgroundColor);
+    return Object.hash(
+      columnSpan,
+      rowSpan,
+      child,
+      theme,
+      enabled,
+      columnHover,
+      rowHover,
+      backgroundColor,
+    );
   }
 }
 

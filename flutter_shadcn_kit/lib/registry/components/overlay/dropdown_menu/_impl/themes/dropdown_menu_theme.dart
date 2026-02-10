@@ -8,7 +8,13 @@ class DropdownMenuTheme extends ComponentThemeData {
   final double? surfaceBlur;
 
   /// Creates a [DropdownMenuTheme].
-  const DropdownMenuTheme({this.surfaceOpacity, this.surfaceBlur});
+  const DropdownMenuTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.surfaceOpacity,
+    this.surfaceBlur,
+  });
 
   /// Returns a copy of this theme with the given fields replaced.
   DropdownMenuTheme copyWith({
@@ -16,8 +22,9 @@ class DropdownMenuTheme extends ComponentThemeData {
     ValueGetter<double?>? surfaceBlur,
   }) {
     return DropdownMenuTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
     );
   }

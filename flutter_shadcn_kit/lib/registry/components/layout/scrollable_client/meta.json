@@ -8,9 +8,33 @@
     "scroll"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme"
-    ]
-  }
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_scrollable_client_child_vicinity.dart",
+    "_impl/core/render_scrollable_client_viewport.dart",
+    "_impl/core/scrollable_client_2.dart",
+    "_impl/core/scrollable_client_viewport.dart",
+    "meta.json",
+    "preview.dart",
+    "scrollable_client.dart",
+    "scrollable_client.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`ScrollableClient`",
+      "`builder` (`ScrollableBuilder`, required)",
+      "`child` (`Widget?`)",
+      "`controller` / `diagonalDragBehavior` / `dragStartBehavior`",
+      "`ScrollableClientViewport` — viewport widget.",
+      "`ScrollableBuilder` — `Widget Function(BuildContext, Offset, Size, Widget?)`."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -12,6 +12,9 @@ class OutlinedContainerTheme extends ComponentThemeData {
   final double? surfaceBlur;
 
   const OutlinedContainerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.borderColor,
     this.borderRadius,

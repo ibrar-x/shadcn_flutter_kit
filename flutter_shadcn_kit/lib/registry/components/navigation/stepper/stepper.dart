@@ -1,6 +1,7 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Colors, Divider, Icons, VerticalDivider;
+import 'package:flutter/material.dart'
+    show Colors, Divider, Icons, VerticalDivider;
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 

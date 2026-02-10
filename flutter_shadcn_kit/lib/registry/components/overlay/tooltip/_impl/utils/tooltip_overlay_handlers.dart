@@ -5,9 +5,7 @@ part of '../../tooltip.dart';
 class OverlayManagerAsTooltipOverlayHandler extends OverlayHandler {
   final OverlayManager overlayManager;
 
-  const OverlayManagerAsTooltipOverlayHandler({
-    required this.overlayManager,
-  });
+  const OverlayManagerAsTooltipOverlayHandler({required this.overlayManager});
 
   @override
   OverlayCompleter<T?> show<T>({

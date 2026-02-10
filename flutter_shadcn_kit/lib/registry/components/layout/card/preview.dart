@@ -22,9 +22,9 @@ class CardPreview extends StatelessWidget {
               children: [
                 const Text('Create project').semiBold(),
                 const SizedBox(height: 6),
-                const Text('Deploy your new project in one-click.')
-                    .muted()
-                    .small(),
+                const Text(
+                  'Deploy your new project in one-click.',
+                ).muted().small(),
                 const SizedBox(height: 20),
                 const Text('Name').semiBold().small(),
                 const SizedBox(height: 6),

@@ -95,7 +95,9 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
       textAlign: TextAlign.center,
       child: Container(
         alignment: alignment ?? Alignment.center,
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 8 * scaling),
+        padding:
+            padding ??
+            EdgeInsets.symmetric(horizontal: theme.density.baseGap * scaling),
         child: buildChild(context, data).xSmall(),
       ),
     );
@@ -138,7 +140,10 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
               child: Container(
                 alignment: alignment ?? AlignmentDirectional.centerStart,
                 padding:
-                    padding ?? EdgeInsets.symmetric(horizontal: 16 * scaling),
+                    padding ??
+                    EdgeInsets.symmetric(
+                      horizontal: theme.density.baseContentPadding * scaling,
+                    ),
                 child: child!.semiBold().large(),
               ),
             ),

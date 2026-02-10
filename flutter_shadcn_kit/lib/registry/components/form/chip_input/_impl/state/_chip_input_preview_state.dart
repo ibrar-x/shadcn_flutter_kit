@@ -57,7 +57,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
                 },
               ),
             ),
-            const Gap(24),
+            const DensityGap(gap2xl),
             ListenableBuilder(
               listenable: _controller,
               builder: (context, child) {

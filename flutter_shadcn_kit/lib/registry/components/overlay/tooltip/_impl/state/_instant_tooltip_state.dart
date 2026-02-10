@@ -24,11 +24,10 @@ class _InstantTooltipState extends State<InstantTooltip> {
           dismissBackdropFocus: false,
           showDuration: Duration.zero,
           hideDuration: Duration.zero,
-          overlayBarrier: const OverlayBarrier(
-            barrierColor: Color(0x00000000),
-          ),
+          overlayBarrier: const OverlayBarrier(barrierColor: Color(0x00000000)),
           handler: OverlayManagerAsTooltipOverlayHandler(
-              overlayManager: overlayManager),
+            overlayManager: overlayManager,
+          ),
         );
       },
       onExit: (event) {

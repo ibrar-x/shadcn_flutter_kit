@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "app_bar",
+  "name": "App Bar",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "navigation",
+    "composite"
+  ],
+  "installedAt": "2026-02-09T10:18:03.245985Z",
+  "shared": [],
+  "dependsOn": [
+    "button",
+    "outlined_container",
+    "scaffold"
+  ],
+  "files": [
+    "composites/layout/app_bar/README.md",
+    "composites/layout/app_bar/app_bar.dart",
+    "composites/layout/app_bar/app_bar.meta.json",
+    "composites/layout/app_bar/meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

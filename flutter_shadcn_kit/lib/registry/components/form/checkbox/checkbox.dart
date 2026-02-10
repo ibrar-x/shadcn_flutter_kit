@@ -1,4 +1,3 @@
-
 import 'package:animation_kit/animation_kit.dart' show IntervalDuration;
 import 'package:flutter/widgets.dart';
 
@@ -15,21 +14,11 @@ import '../../../shared/utils/style_value.dart';
 
 part '_impl/themes/checkbox_theme.dart';
 
-
 part '_impl/state/_checkbox_state.dart';
 part '_impl/core/animated_check_painter.dart';
 part '_impl/utils/checkbox_controller.dart';
 part '_impl/state/checkbox_state.dart';
 part '_impl/core/controlled_checkbox.dart';
-
-
-
-
-
-
-
-
-
 
 /// Core checkbox widget with comprehensive theming and interaction support.
 ///

@@ -4,11 +4,13 @@ class _SortableLayerState extends State<SortableLayer>
     with SingleTickerProviderStateMixin {
   final MutableNotifier<List<_SortableDraggingSession>> _sessions =
       MutableNotifier([]);
-  final MutableNotifier<List<_DropTransform>> _activeDrops =
-      MutableNotifier([]);
+  final MutableNotifier<List<_DropTransform>> _activeDrops = MutableNotifier(
+    [],
+  );
 
-  final ValueNotifier<_PendingDropTransform?> _pendingDrop =
-      ValueNotifier(null);
+  final ValueNotifier<_PendingDropTransform?> _pendingDrop = ValueNotifier(
+    null,
+  );
 
   late Ticker _ticker;
 
@@ -32,8 +34,11 @@ class _SortableLayerState extends State<SortableLayer>
     return _pendingDrop.value != null && data == _pendingDrop.value!.data;
   }
 
-  _DropTransform? _claimDrop(_SortableState item, SortableData data,
-      [bool force = false]) {
+  _DropTransform? _claimDrop(
+    _SortableState item,
+    SortableData data, [
+    bool force = false,
+  ]) {
     if (_pendingDrop.value != null &&
         (force || data == _pendingDrop.value!.data)) {
       RenderBox layerRenderBox = context.findRenderObject() as RenderBox;
@@ -62,9 +67,10 @@ class _SortableLayerState extends State<SortableLayer>
     List<_DropTransform> toRemove = [];
     for (final drop in _activeDrops.value) {
       drop.start ??= elapsed;
-      double progress = ((elapsed - drop.start!).inMilliseconds /
-              (widget.dropDuration ?? kDefaultDuration).inMilliseconds)
-          .clamp(0, 1);
+      double progress =
+          ((elapsed - drop.start!).inMilliseconds /
+                  (widget.dropDuration ?? kDefaultDuration).inMilliseconds)
+              .clamp(0, 1);
       progress = (widget.dropCurve ?? Curves.easeInOut).transform(progress);
       if (progress >= 1 || !drop.state.mounted) {
         drop.state._hasClaimedDrop.value = false;
@@ -88,18 +94,13 @@ class _SortableLayerState extends State<SortableLayer>
   }
 
   Matrix4 _tweenMatrix(Matrix4 from, Matrix4 to, double progress) {
-    return Matrix4Tween(
-      begin: from,
-      end: to,
-    ).transform(progress);
+    return Matrix4Tween(begin: from, end: to).transform(progress);
   }
 
   void pushDraggingSession(_SortableDraggingSession session) {
-    _sessions.mutate(
-      (value) {
-        value.add(session);
-      },
-    );
+    _sessions.mutate((value) {
+      value.add(session);
+    });
   }
 
   void removeDraggingSession(_SortableDraggingSession session) {
@@ -117,10 +118,7 @@ class _SortableLayerState extends State<SortableLayer>
           RenderBox layerRenderBox = context.findRenderObject() as RenderBox;
           _pendingDrop.value = _PendingDropTransform(
             from: ghostRenderBox.getTransformTo(layerRenderBox),
-            child: SizedBox.fromSize(
-              size: session.size,
-              child: session.ghost,
-            ),
+            child: SizedBox.fromSize(size: session.size, child: session.ghost),
             data: session.data,
           );
         }

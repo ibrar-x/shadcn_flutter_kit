@@ -24,13 +24,14 @@ class ContextMenu extends StatefulWidget {
   /// - [behavior] (`HitTestBehavior`, optional): Hit test behavior.
   /// - [direction] (`Axis`, optional): Menu layout direction.
   /// - [enabled] (`bool`, optional): Whether menu is enabled.
-  const ContextMenu(
-      {super.key,
-      required this.child,
-      required this.items,
-      this.behavior = HitTestBehavior.translucent,
-      this.direction = Axis.vertical,
-      this.enabled = true});
+  const ContextMenu({
+    super.key,
+    required this.child,
+    required this.items,
+    this.behavior = HitTestBehavior.translucent,
+    this.direction = Axis.vertical,
+    this.enabled = true,
+  });
 
   @override
   State<ContextMenu> createState() => _ContextMenuState();

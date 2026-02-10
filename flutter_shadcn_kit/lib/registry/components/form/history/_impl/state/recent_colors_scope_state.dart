@@ -59,10 +59,7 @@ class RecentColorsScopeState extends State<RecentColorsScope>
   Widget build(BuildContext context) {
     return ForwardableData<ColorHistoryStorage>(
       data: this,
-      child: Data<ColorHistoryStorage>.inherit(
-        data: this,
-        child: widget.child,
-      ),
+      child: Data<ColorHistoryStorage>.inherit(data: this, child: widget.child),
     );
   }
 

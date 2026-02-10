@@ -79,15 +79,21 @@ class AnimatedCheckPainter extends CustomPainter {
 
     double firstStrokeProgress =
         progress.clamp(0.0, normalizedFirstStrokeLength) /
-            normalizedFirstStrokeLength;
-    double secondStrokeProgress = (progress - normalizedFirstStrokeLength)
-            .clamp(0.0, normalizedSecondStrokeLength) /
+        normalizedFirstStrokeLength;
+    double secondStrokeProgress =
+        (progress - normalizedFirstStrokeLength).clamp(
+          0.0,
+          normalizedSecondStrokeLength,
+        ) /
         normalizedSecondStrokeLength;
     if (firstStrokeProgress <= 0) {
       return;
     }
-    Offset currentPoint =
-        Offset.lerp(firstStrokeStart, firstStrokeEnd, firstStrokeProgress)!;
+    Offset currentPoint = Offset.lerp(
+      firstStrokeStart,
+      firstStrokeEnd,
+      firstStrokeProgress,
+    )!;
     path.moveTo(firstStrokeStart.dx, firstStrokeStart.dy);
     path.lineTo(currentPoint.dx, currentPoint.dy);
     if (secondStrokeProgress <= 0) {

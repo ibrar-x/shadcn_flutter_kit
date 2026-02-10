@@ -12,8 +12,11 @@ import '../core/button_widget.dart';
 
 class ButtonState<T extends Button> extends State<T> {
   bool get _shouldEnableFeedback {
-    final platform = Theme.of(context).platform;
-    return isMobile(platform);
+    final theme = Theme.of(context);
+    if (theme.enableFeedback != null) {
+      return theme.enableFeedback!;
+    }
+    return isMobile(theme.platform);
   }
 
   AbstractButtonStyle? _style;

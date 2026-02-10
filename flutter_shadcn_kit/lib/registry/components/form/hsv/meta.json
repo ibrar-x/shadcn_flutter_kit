@@ -9,12 +9,34 @@
     "hsv"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme"
     ],
     "components": [
       "alpha"
-    ]
-  }
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/hsv_color_slider_painter.dart",
+    "_impl/core/hsv_color_slider_type.dart",
+    "_impl/state/_hsv_color_slider_state.dart",
+    "_impl/state/_hsv_preview_state.dart",
+    "hsv.meta.json",
+    "hsv_color_slider.dart",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`HSVColorSlider`",
+      "`value` (`HSVColor`, required)",
+      "`sliderType` (`HSVColorSliderType`, required)",
+      "`onChanging`, `onChanged`",
+      "`reverse`, `radius`, `padding`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -31,13 +31,15 @@ class _InputOTPState extends State<InputOTP>
     for (final child in widget.children) {
       if (child.hasValue) {
         int? value = getInitialValue(index);
-        _children.add(_InputOTPChild(
-          focusNode: FocusNode(),
-          child: child,
-          value: value,
-          groupIndex: groupIndex,
-          relativeIndex: relativeIndex,
-        ));
+        _children.add(
+          _InputOTPChild(
+            focusNode: FocusNode(),
+            child: child,
+            value: value,
+            groupIndex: groupIndex,
+            relativeIndex: relativeIndex,
+          ),
+        );
         index++;
         relativeIndex++;
       } else {
@@ -78,13 +80,15 @@ class _InputOTPState extends State<InputOTP>
               child,
             );
           } else {
-            _children.add(_InputOTPChild(
-              focusNode: FocusNode(),
-              child: child,
-              value: getInitialValue(index),
-              groupIndex: groupIndex,
-              relativeIndex: relativeIndex,
-            ));
+            _children.add(
+              _InputOTPChild(
+                focusNode: FocusNode(),
+                child: child,
+                value: getInitialValue(index),
+                groupIndex: groupIndex,
+                relativeIndex: relativeIndex,
+              ),
+            );
           }
           index++;
           relativeIndex++;
@@ -111,25 +115,29 @@ class _InputOTPState extends State<InputOTP>
     int i = 0;
     for (final child in widget.children) {
       if (child.hasValue) {
-        children.add(child.build(
-          context,
-          InputOTPChildData._(
-            this,
-            _children[i].key,
-            focusNode: _children[i].focusNode,
-            index: i,
-            groupIndex: _children[i].groupIndex,
-            relativeIndex: _children[i].relativeIndex,
-            previousFocusNode: i == 0 ? null : _children[i - 1].focusNode,
-            nextFocusNode:
-                i == _children.length - 1 ? null : _children[i + 1].focusNode,
-            value: _children[i].value,
-            groupLength: _children[i].groupLength,
+        children.add(
+          child.build(
+            context,
+            InputOTPChildData._(
+              this,
+              _children[i].key,
+              focusNode: _children[i].focusNode,
+              index: i,
+              groupIndex: _children[i].groupIndex,
+              relativeIndex: _children[i].relativeIndex,
+              previousFocusNode: i == 0 ? null : _children[i - 1].focusNode,
+              nextFocusNode: i == _children.length - 1
+                  ? null
+                  : _children[i + 1].focusNode,
+              value: _children[i].value,
+              groupLength: _children[i].groupLength,
+            ),
           ),
-        ));
+        );
         i++;
       } else {
-        children.add(child.build(
+        children.add(
+          child.build(
             context,
             InputOTPChildData._(
               this,
@@ -142,7 +150,9 @@ class _InputOTPState extends State<InputOTP>
               nextFocusNode: null,
               value: null,
               groupLength: -1,
-            )));
+            ),
+          ),
+        );
       }
     }
     final compTheme = ComponentTheme.maybeOf<InputOTPTheme>(context);
@@ -150,9 +160,7 @@ class _InputOTPState extends State<InputOTP>
       height: compTheme?.height ?? theme.scaling * 36,
       child: IntrinsicWidth(
         child: Row(
-          children: [
-            for (final child in children) Expanded(child: child),
-          ],
+          children: [for (final child in children) Expanded(child: child)],
         ),
       ),
     );

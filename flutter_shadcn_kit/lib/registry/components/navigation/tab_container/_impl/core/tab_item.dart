@@ -8,10 +8,7 @@ class TabItem extends StatelessWidget with TabChild {
   ///
   /// Parameters:
   /// - [child] (`Widget`, required): content to display in this tab
-  const TabItem({
-    super.key,
-    required this.child,
-  });
+  const TabItem({super.key, required this.child});
 
   @override
   bool get indexed => true;

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "multiselect",
+  "name": "Multi Select",
+  "version": "1.0.0",
+  "tags": [
+    "form",
+    "selection",
+    "composite"
+  ],
+  "installedAt": "2026-02-09T10:18:03.245339Z",
+  "shared": [],
+  "dependsOn": [
+    "select"
+  ],
+  "files": [
+    "composites/form/multiselect/README.md",
+    "composites/form/multiselect/meta.json",
+    "composites/form/multiselect/multiselect.dart",
+    "composites/form/multiselect/multiselect.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

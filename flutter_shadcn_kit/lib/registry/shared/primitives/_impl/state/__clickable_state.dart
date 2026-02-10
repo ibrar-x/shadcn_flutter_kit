@@ -1,6 +1,5 @@
 part of '../../clickable.dart';
 
-
 class _ClickableState extends State<Clickable> {
   late FocusNode _focusNode;
   late WidgetStatesController _controller;
@@ -41,8 +40,9 @@ class _ClickableState extends State<Clickable> {
 
   void _onPressed() {
     if (!widget.enabled) return;
-    Duration? deltaTap =
-        _lastTap == null ? null : DateTime.now().difference(_lastTap!);
+    Duration? deltaTap = _lastTap == null
+        ? null
+        : DateTime.now().difference(_lastTap!);
     _lastTap = DateTime.now();
     if (deltaTap != null && deltaTap < kDoubleTapMinTime) {
       _tapCount++;
@@ -63,18 +63,27 @@ class _ClickableState extends State<Clickable> {
     }
   }
 
+  void _updateState(WidgetState state, bool value) {
+    if (!mounted) return;
+    // Avoid notifying listeners during a build; defer to next frame if needed.
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _controller.update(state, value);
+      });
+      return;
+    }
+    _controller.update(state, value);
+  }
+
   @override
   Widget build(BuildContext context) {
     var enabled = widget.enabled;
     return WidgetStatesProvider(
       controller: _controller,
-      states: {
-        if (!enabled) WidgetState.disabled,
-      },
-      child: ListenableBuilder(
-        listenable: _controller,
-        builder: _builder,
-      ),
+      states: {if (!enabled) WidgetState.disabled},
+      child: ListenableBuilder(listenable: _controller, builder: _builder),
     );
   }
 
@@ -92,7 +101,8 @@ class _ClickableState extends State<Clickable> {
     }
     var buttonContainer = _buildContainer(context, decoration, widgetStates);
     return FocusOutline(
-      focused: widget.focusOutline &&
+      focused:
+          widget.focusOutline &&
           widgetStates.contains(WidgetState.focused) &&
           !widget.disableFocusOutline,
       borderRadius: borderRadius,
@@ -117,9 +127,9 @@ class _ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, true);
+                  _updateState(WidgetState.hovered, true);
                 }
-                _controller.update(WidgetState.pressed, true);
+                _updateState(WidgetState.pressed, true);
                 widget.onTapDown?.call(details);
               }
             : widget.onTapDown,
@@ -127,9 +137,9 @@ class _ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapUp?.call(details);
               }
             : widget.onTapUp,
@@ -137,9 +147,9 @@ class _ClickableState extends State<Clickable> {
             ? () {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapCancel?.call();
               }
             : widget.onTapCancel,
@@ -190,12 +200,14 @@ class _ClickableState extends State<Clickable> {
             ...?widget.actions,
           },
           onShowHoverHighlight: (value) {
-            _controller.update(
-                WidgetState.hovered, value && !widget.disableHoverEffect);
+            _updateState(
+              WidgetState.hovered,
+              value && !widget.disableHoverEffect,
+            );
             widget.onHover?.call(value);
           },
           onShowFocusHighlight: (value) {
-            _controller.update(WidgetState.focused, value);
+            _updateState(WidgetState.focused, value);
             widget.onFocus?.call(value);
           },
           mouseCursor:
@@ -203,7 +215,8 @@ class _ClickableState extends State<Clickable> {
           child: DefaultTextStyle.merge(
             style: widget.textStyle?.resolve(widgetStates),
             child: IconTheme.merge(
-              data: widget.iconTheme?.resolve(widgetStates) ??
+              data:
+                  widget.iconTheme?.resolve(widgetStates) ??
                   const IconThemeData(),
               child: AnimatedBuilder(
                 animation: _controller,
@@ -242,8 +255,11 @@ class _ClickableState extends State<Clickable> {
     return tween.transform(t);
   }
 
-  Widget _buildContainer(BuildContext context, Decoration? decoration,
-      Set<WidgetState> widgetStates) {
+  Widget _buildContainer(
+    BuildContext context,
+    Decoration? decoration,
+    Set<WidgetState> widgetStates,
+  ) {
     var resolvedMargin = widget.margin?.resolve(widgetStates);
     var resolvedPadding = widget.padding?.resolve(widgetStates);
     if (widget.disableTransition) {
@@ -255,10 +271,7 @@ class _ClickableState extends State<Clickable> {
         child: widget.child,
       );
       if (widget.marginAlignment != null) {
-        container = Align(
-          alignment: widget.marginAlignment!,
-          child: container,
-        );
+        container = Align(alignment: widget.marginAlignment!, child: container);
       }
       return container;
     }

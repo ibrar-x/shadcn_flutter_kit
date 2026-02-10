@@ -19,10 +19,7 @@ class _TabPanePreviewState extends State<TabPanePreview> {
             focused: _focused,
             onFocused: (index) => setState(() => _focused = index),
             itemBuilder: (context, item, index) {
-              return TabChildWidget(
-                indexed: true,
-                child: Text(item.data),
-              );
+              return TabChildWidget(indexed: true, child: Text(item.data));
             },
             child: Padding(
               padding: const EdgeInsets.all(16),

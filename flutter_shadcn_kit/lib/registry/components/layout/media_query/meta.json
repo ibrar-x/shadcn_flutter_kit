@@ -3,12 +3,35 @@
   "name": "Media Query Visibility",
   "description": "Responsive helper that shows primary or alternate content based on width constraints.",
   "category": "layout",
-  "tags": ["layout", "responsive"],
+  "tags": [
+    "layout",
+    "responsive"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "style_value"
-    ]
-  }
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/media_query_visibility.dart",
+    "media_query.dart",
+    "media_query.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`MediaQueryVisibility`",
+      "`minWidth`, `maxWidth`",
+      "`child` (`Widget`, required)",
+      "`alternate` (`Widget?`)",
+      "`MediaQueryVisibilityTheme` — theme defaults."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -18,10 +18,7 @@ class _MultipleAnswerState<T> extends State<MultipleAnswer<T>>
 
   @override
   Widget build(BuildContext context) {
-    return Data<Choice<T>>.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data<Choice<T>>.inherit(data: this, child: widget.child);
   }
 
   @override

@@ -106,4 +106,3 @@ class SortableLayer extends StatefulWidget {
     layer.dismissDrop();
   }
 }
-

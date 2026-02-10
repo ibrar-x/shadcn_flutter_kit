@@ -1,4 +1,5 @@
 part of '../../util.dart';
+/// Represents a time of day with hour, minute, and second.
 
 class TimeOfDay {
   /// Hour component (0-23).

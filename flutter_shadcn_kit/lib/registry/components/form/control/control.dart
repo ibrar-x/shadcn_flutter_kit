@@ -6,7 +6,6 @@ part '_impl/core/controlled_component.dart';
 part '_impl/utils/controlled_component_adapter.dart';
 part '_impl/core/controlled_component_data.dart';
 
-
 /// A mixin that defines the interface for controlling component values.
 ///
 /// This mixin combines the capabilities of [ValueNotifier] to provide

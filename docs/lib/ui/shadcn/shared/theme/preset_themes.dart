@@ -27,6 +27,9 @@ class RegistryThemePresetTokens {
     this.fontSerif,
     this.fontMono,
   });
+
+  /// Derived density values based on preset spacing scale.
+  Density get density => Density.fromSpacingScale(spacing);
 }
 
 class RegistryThemePreset {

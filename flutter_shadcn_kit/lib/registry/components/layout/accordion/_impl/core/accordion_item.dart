@@ -22,4 +22,3 @@ class AccordionItem extends StatefulWidget {
   @override
   State<AccordionItem> createState() => _AccordionItemState();
 }
-

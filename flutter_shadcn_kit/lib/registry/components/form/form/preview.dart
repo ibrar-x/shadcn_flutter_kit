@@ -23,9 +23,7 @@ class FormPreview extends StatelessWidget {
                     FormField<String>(
                       key: const FormKey(#name),
                       label: const Text('Name'),
-                      child: const TextField(
-                        placeholder: Text('Jane Doe'),
-                      ),
+                      child: const TextField(placeholder: Text('Jane Doe')),
                     ),
                     FormField<String>(
                       key: const FormKey(#email),

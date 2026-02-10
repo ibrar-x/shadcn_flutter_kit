@@ -2,6 +2,7 @@ part of 'preview.dart';
 
 class _NumberTickerPreviewState extends State<NumberTickerPreview> {
   int _number = 0;
+  int _currentNumber = 100;
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -12,11 +13,18 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
 
   @override
   Widget build(BuildContext context) {
+    final random = Random();
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              'Example 1',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const DensityGap(gapSm),
             NumberTicker(
               initialNumber: 0,
               number: _number,
@@ -25,7 +33,7 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
                 return NumberFormat.compact().format(number);
               },
             ),
-            const Gap(24),
+            const DensityGap(gap2xl),
             TextField(
               initialValue: _number.toString(),
               controller: _controller,
@@ -37,6 +45,33 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
                   });
                 }
               },
+            ),
+            const DensityGap(gap2xl),
+            const Divider(),
+            const DensityGap(gap2xl),
+            const Text(
+              'Example 2',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const DensityGap(gapSm),
+            NumberTicker(
+              initialNumber: 100,
+              number: _currentNumber,
+              style: const TextStyle(
+                fontSize: 32,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+              formatter: (value) => value.toInt().toString(),
+            ),
+            const DensityGap(gapLg),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _currentNumber = random.nextInt(9000) + 1000;
+                });
+              },
+              child: const Text('Next Random Number'),
             ),
           ],
         ),

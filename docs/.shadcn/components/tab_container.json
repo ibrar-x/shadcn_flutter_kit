@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "tab_container",
+  "name": "Tab Container",
+  "version": "1.0.0",
+  "tags": [
+    "tabs",
+    "navigation",
+    "layout"
+  ],
+  "installedAt": "2026-02-09T10:18:03.216144Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/navigation/tab_container/README.md",
+    "registry/components/navigation/tab_container/_impl/core/keyed_tab_child_widget.dart",
+    "registry/components/navigation/tab_container/_impl/core/keyed_tab_item.dart",
+    "registry/components/navigation/tab_container/_impl/core/tab_child_widget.dart",
+    "registry/components/navigation/tab_container/_impl/core/tab_container_2.dart",
+    "registry/components/navigation/tab_container/_impl/core/tab_container_data.dart",
+    "registry/components/navigation/tab_container/_impl/core/tab_item.dart",
+    "registry/components/navigation/tab_container/_impl/state/_tab_container_preview_state.dart",
+    "registry/components/navigation/tab_container/meta.json",
+    "registry/components/navigation/tab_container/preview.dart",
+    "registry/components/navigation/tab_container/tab_container.dart",
+    "registry/components/navigation/tab_container/tab_container.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

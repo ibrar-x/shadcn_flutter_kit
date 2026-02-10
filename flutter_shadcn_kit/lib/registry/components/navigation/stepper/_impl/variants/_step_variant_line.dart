@@ -20,23 +20,22 @@ class _StepVariantLine extends StepVariant {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AnimatedBuilder(
-                      animation: properties.state,
-                      builder: (context, child) {
-                        return Divider(
-                          thickness: 3 * scaling,
-                          color: properties.hasFailure &&
-                                  properties.state.value.currentStep <= i
-                              ? theme.colorScheme.destructive
-                              : properties.state.value.currentStep >= i
-                                  ? theme.colorScheme.primary
-                                  : theme.colorScheme.border,
-                        );
-                      }),
-                  Gap(8 * scaling),
-                  properties.size.wrapper(
-                    context,
-                    steps[i].title,
+                    animation: properties.state,
+                    builder: (context, child) {
+                      return Divider(
+                        thickness: 3 * scaling,
+                        color:
+                            properties.hasFailure &&
+                                properties.state.value.currentStep <= i
+                            ? theme.colorScheme.destructive
+                            : properties.state.value.currentStep >= i
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.border,
+                      );
+                    },
                   ),
+                  DensityGap(gapSm),
+                  properties.size.wrapper(context, steps[i].title),
                 ],
               ),
             ),
@@ -54,13 +53,15 @@ class _StepVariantLine extends StepVariant {
             ).gap(16 * scaling),
           ),
           AnimatedBuilder(
-              animation: properties.state,
-              builder: (context, child) {
-                var current = properties.state.value.currentStep;
-                return Flexible(
-                    child: IndexedStack(
+            animation: properties.state,
+            builder: (context, child) {
+              var current = properties.state.value.currentStep;
+              return Flexible(
+                child: IndexedStack(
                   index: current < 0 || current >= properties.steps.length
-                      ? properties.steps.length // will show the placeholder
+                      ? properties
+                            .steps
+                            .length // will show the placeholder
                       : current,
                   children: [
                     for (int i = 0; i < properties.steps.length; i++)
@@ -68,8 +69,10 @@ class _StepVariantLine extends StepVariant {
                           const SizedBox(),
                     const SizedBox(), // for placeholder
                   ],
-                ));
-              }),
+                ),
+              );
+            },
+          ),
         ],
       );
     } else {
@@ -87,19 +90,21 @@ class _StepVariantLine extends StepVariant {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       AnimatedBuilder(
-                          animation: properties.state,
-                          builder: (context, child) {
-                            return VerticalDivider(
-                              thickness: 3 * scaling,
-                              color: properties.hasFailure &&
-                                      properties.state.value.currentStep <= i
-                                  ? theme.colorScheme.destructive
-                                  : properties.state.value.currentStep >= i
-                                      ? theme.colorScheme.primary
-                                      : theme.colorScheme.border,
-                            );
-                          }),
-                      Gap(16 * scaling),
+                        animation: properties.state,
+                        builder: (context, child) {
+                          return VerticalDivider(
+                            thickness: 3 * scaling,
+                            color:
+                                properties.hasFailure &&
+                                    properties.state.value.currentStep <= i
+                                ? theme.colorScheme.destructive
+                                : properties.state.value.currentStep >= i
+                                ? theme.colorScheme.primary
+                                : theme.colorScheme.border,
+                          );
+                        },
+                      ),
+                      DensityGap(gapLg),
                       properties.size
                           .wrapper(context, properties.steps[i].title)
                           .withPadding(vertical: 8 * scaling),
@@ -107,43 +112,42 @@ class _StepVariantLine extends StepVariant {
                   ),
                 ),
                 ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: 16 * scaling,
-                  ),
+                  constraints: BoxConstraints(minHeight: 16 * scaling),
                   child: AnimatedBuilder(
-                      animation: properties.state,
-                      child: properties.steps[i].contentBuilder?.call(context),
-                      builder: (context, child) {
-                        return AnimatedCrossFade(
-                          firstChild: Container(
-                            height: 0,
-                          ),
-                          secondChild: Container(
-                            child: child!,
-                          ),
-                          firstCurve: const Interval(0.0, 0.6,
-                              curve: Curves.fastOutSlowIn),
-                          secondCurve: const Interval(0.4, 1.0,
-                              curve: Curves.fastOutSlowIn),
-                          sizeCurve: Curves.fastOutSlowIn,
-                          crossFadeState:
-                              properties.state.value.currentStep == i
-                                  ? CrossFadeState.showSecond
-                                  : CrossFadeState.showFirst,
-                          duration: kDefaultDuration,
-                        );
-                      }),
+                    animation: properties.state,
+                    child: properties.steps[i].contentBuilder?.call(context),
+                    builder: (context, child) {
+                      return AnimatedCrossFade(
+                        firstChild: Container(height: 0),
+                        secondChild: Container(child: child!),
+                        firstCurve: const Interval(
+                          0.0,
+                          0.6,
+                          curve: Curves.fastOutSlowIn,
+                        ),
+                        secondCurve: const Interval(
+                          0.4,
+                          1.0,
+                          curve: Curves.fastOutSlowIn,
+                        ),
+                        sizeCurve: Curves.fastOutSlowIn,
+                        crossFadeState: properties.state.value.currentStep == i
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: kDefaultDuration,
+                      );
+                    },
+                  ),
                 ),
                 AnimatedBuilder(
-                    animation: properties.state,
-                    builder: (context, child) {
-                      if (i == properties.steps.length - 1) {
-                        return const SizedBox();
-                      }
-                      return SizedBox(
-                        height: 8 * scaling,
-                      );
-                    }),
+                  animation: properties.state,
+                  builder: (context, child) {
+                    if (i == properties.steps.length - 1) {
+                      return const SizedBox();
+                    }
+                    return SizedBox(height: theme.density.baseGap * scaling);
+                  },
+                ),
               ],
             ),
           ),

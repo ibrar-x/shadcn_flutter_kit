@@ -119,11 +119,36 @@ docs app uses the registry components. If you add or remove components, update:
 - `registry/components.schema.json`
 - docs pages/examples as needed
 
+For a contributor onboarding flow (setup, scripts, validation, and docs refresh),
+see [`REGISTRY_CONTRIBUTING.md`](REGISTRY_CONTRIBUTING.md).
+
 ---
+
+
+## Attribution
+
+This project is inspired by and partially derived from
+[shadcn_flutter](https://github.com/sunarya-thito/shadcn_flutter) by Sunarya Thito.
+
+Some components and patterns originated from the shadcn_flutter codebase and
+have been adapted, reorganized, and extended into a registry-first architecture
+with additional tooling (CLI, schema validation, and docs).
+
+The original shadcn_flutter project is licensed under the BSD 3-Clause License.
+A copy of that license is included in this repository under `licenses/`.
+
 
 ## License
 
-MIT
+This project is licensed under the MIT License.
+
+Copyright (c) 2026 Muhammad Ibrar Javid
+
+Third-party code adapted from other projects (such as
+[shadcn_flutter](https://github.com/sunarya-thito/shadcn_flutter)) remains under
+its original license terms. See the `licenses/` directory for details.
+
+See the [LICENSE](LICENSE) file for the full MIT license text.
 
 ---
 
@@ -142,7 +167,7 @@ The widget catalog includes a large set of components across categories:
 - **Utility**: Badge, Calendar, Command, Context Menu, Dropdown Menu
 
 See the **Widget Catalog** for the full list and live examples:
-https://ibrar-x.github.io/shadcn_flutter_kit/docs/
+https://ibrar-x.github.io/shadcn_flutter_kit/
 
 ---
 

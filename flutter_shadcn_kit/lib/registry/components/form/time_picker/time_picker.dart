@@ -15,7 +15,6 @@ import '../text_field/text_field.dart';
 
 part '_impl/themes/time_picker_theme.dart';
 
-
 part '_impl/state/_duration_picker_dialog_state.dart';
 part '_impl/utils/_time_formatter.dart';
 part '_impl/state/_time_picker_dialog_state.dart';
@@ -26,13 +25,6 @@ part '_impl/core/duration_picker_dialog.dart';
 part '_impl/utils/time_picker_controller.dart';
 part '_impl/core/time_picker_dialog.dart';
 part '_impl/core/time_range.dart';
-
-
-
-
-
-
-
 
 /// A time picker widget for selecting time values.
 ///
@@ -92,7 +84,8 @@ class TimePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final compTheme = ComponentTheme.maybeOf<TimePickerTheme>(context);
-    bool use24HourFormat = this.use24HourFormat ??
+    bool use24HourFormat =
+        this.use24HourFormat ??
         compTheme?.use24HourFormat ??
         MediaQuery.of(context).alwaysUse24HourFormat;
     final bool showSeconds = compTheme?.showSeconds ?? this.showSeconds;
@@ -101,8 +94,13 @@ class TimePicker extends StatelessWidget {
       placeholder: placeholder ?? Text(localizations.placeholderTimePicker),
       onChanged: onChanged,
       builder: (context, value) {
-        return Text(localizations.formatTimeOfDay(value,
-            use24HourFormat: use24HourFormat, showSeconds: showSeconds));
+        return Text(
+          localizations.formatTimeOfDay(
+            value,
+            use24HourFormat: use24HourFormat,
+            showSeconds: showSeconds,
+          ),
+        );
       },
       enabled: enabled,
       mode: compTheme?.mode ?? mode,

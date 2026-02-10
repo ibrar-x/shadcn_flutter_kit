@@ -27,6 +27,12 @@ class TreeNodeData<T> {
   SelectionPosition? selectionPosition;
 
   /// Creates a [TreeNodeData] with the specified properties.
-  TreeNodeData(this.depth, this.node, this.indentGuide, this.expanded,
-      this.expandIcon, this.onFocusChanged);
+  TreeNodeData(
+    this.depth,
+    this.node,
+    this.indentGuide,
+    this.expanded,
+    this.expandIcon,
+    this.onFocusChanged,
+  );
 }

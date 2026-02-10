@@ -21,7 +21,6 @@ part '_impl/core/nullable_date.dart';
 part '_impl/core/nullable_time_of_day.dart';
 part '_impl/core/time_input.dart';
 
-
 /// Reactive date input field with integrated date picker and text editing.
 ///
 /// A high-level date input widget that combines text field functionality with

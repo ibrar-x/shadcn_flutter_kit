@@ -73,10 +73,7 @@ class FocusOutline extends StatelessWidget {
     final halfAlpha = ((ringColor.a * 255 * 0.5).round()).clamp(0, 255);
     final visibleRingColor = ringColor.withAlpha(halfAlpha);
     final effectiveBorder = styleValue(
-      defaultValue: Border.all(
-        color: visibleRingColor,
-        width: 3.0,
-      ),
+      defaultValue: Border.all(color: visibleRingColor, width: 3.0),
       themeValue: compTheme?.border,
       widgetValue: border,
     );

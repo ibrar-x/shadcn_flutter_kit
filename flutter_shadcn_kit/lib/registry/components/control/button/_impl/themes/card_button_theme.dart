@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class CardButtonTheme extends ButtonTheme {
   /// Creates a [CardButtonTheme] with optional style property delegates.
-  const CardButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const CardButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   CardButtonTheme copyWith({

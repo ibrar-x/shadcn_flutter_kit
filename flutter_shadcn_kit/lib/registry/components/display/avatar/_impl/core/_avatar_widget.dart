@@ -7,11 +7,7 @@ class _AvatarWidget extends StatelessWidget implements AvatarWidget {
   final double? borderRadius;
   final Widget child;
 
-  const _AvatarWidget({
-    required this.child,
-    this.size,
-    this.borderRadius,
-  });
+  const _AvatarWidget({required this.child, this.size, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {

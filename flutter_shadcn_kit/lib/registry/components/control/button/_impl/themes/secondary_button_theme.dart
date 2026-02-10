@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class SecondaryButtonTheme extends ButtonTheme {
   /// Creates a [SecondaryButtonTheme] with optional style property delegates.
-  const SecondaryButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const SecondaryButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   SecondaryButtonTheme copyWith({

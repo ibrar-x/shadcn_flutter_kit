@@ -8,9 +8,7 @@ class ShadcnLocalizationsEnPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = ShadcnLocalizationsEn();
     return Scaffold(
-      body: Center(
-        child: Text(localizations.placeholderDatePicker),
-      ),
+      body: Center(child: Text(localizations.placeholderDatePicker)),
     );
   }
 }

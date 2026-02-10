@@ -53,6 +53,9 @@ class SwiperTheme extends ComponentThemeData {
   /// )
   /// ```
   const SwiperTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.expands,
     this.draggable,
     this.barrierDismissible,
@@ -93,19 +96,23 @@ class SwiperTheme extends ComponentThemeData {
       barrierDismissible: barrierDismissible == null
           ? this.barrierDismissible
           : barrierDismissible(),
-      backdropBuilder:
-          backdropBuilder == null ? this.backdropBuilder : backdropBuilder(),
+      backdropBuilder: backdropBuilder == null
+          ? this.backdropBuilder
+          : backdropBuilder(),
       useSafeArea: useSafeArea == null ? this.useSafeArea : useSafeArea(),
-      showDragHandle:
-          showDragHandle == null ? this.showDragHandle : showDragHandle(),
+      showDragHandle: showDragHandle == null
+          ? this.showDragHandle
+          : showDragHandle(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
-      dragHandleSize:
-          dragHandleSize == null ? this.dragHandleSize : dragHandleSize(),
+      dragHandleSize: dragHandleSize == null
+          ? this.dragHandleSize
+          : dragHandleSize(),
       transformBackdrop: transformBackdrop == null
           ? this.transformBackdrop
           : transformBackdrop(),
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       barrierColor: barrierColor == null ? this.barrierColor : barrierColor(),
       behavior: behavior == null ? this.behavior : behavior(),
@@ -114,19 +121,20 @@ class SwiperTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      expands,
-      draggable,
-      barrierDismissible,
-      backdropBuilder,
-      useSafeArea,
-      showDragHandle,
-      borderRadius,
-      dragHandleSize,
-      transformBackdrop,
-      surfaceOpacity,
-      surfaceBlur,
-      barrierColor,
-      behavior);
+    expands,
+    draggable,
+    barrierDismissible,
+    backdropBuilder,
+    useSafeArea,
+    showDragHandle,
+    borderRadius,
+    dragHandleSize,
+    transformBackdrop,
+    surfaceOpacity,
+    surfaceBlur,
+    barrierColor,
+    behavior,
+  );
 
   @override
   bool operator ==(Object other) {

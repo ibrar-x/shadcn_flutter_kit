@@ -76,5 +76,10 @@ class EditablePart extends InputPart {
 
   @override
   int get hashCode => Object.hash(
-      length, obscureText, Object.hashAll(inputFormatters), width, placeholder);
+    length,
+    obscureText,
+    Object.hashAll(inputFormatters),
+    width,
+    placeholder,
+  );
 }

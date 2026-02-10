@@ -10,19 +10,10 @@ class PopupPreview extends StatelessWidget {
       body: Center(
         child: MenuPopup(
           children: const [
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Profile'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Settings'),
-            ),
+            Padding(padding: EdgeInsets.all(8), child: Text('Profile')),
+            Padding(padding: EdgeInsets.all(8), child: Text('Settings')),
             Divider(height: 1),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Sign out'),
-            ),
+            Padding(padding: EdgeInsets.all(8), child: Text('Sign out')),
           ],
         ),
       ),

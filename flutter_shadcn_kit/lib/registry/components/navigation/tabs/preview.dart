@@ -8,4 +8,3 @@ class TabsPreview extends StatefulWidget {
   @override
   State<TabsPreview> createState() => _TabsPreviewState();
 }
-

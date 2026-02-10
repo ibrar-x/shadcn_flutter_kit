@@ -48,14 +48,6 @@ DateTime _convertNecessarry(DateTime from, int year, [int? month, int? date]) {
   return DateTime(from.year, from.month, from.day);
 }
 
-
-
-
-
-
-
-
-
 /// Represents a specific month and year view in calendar navigation.
 ///
 /// Provides immutable representation of a calendar's current viewing position

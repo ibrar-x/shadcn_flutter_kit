@@ -17,5 +17,5 @@ enum CalendarValueLookup {
   end,
 
   /// Date falls within a selected range but is not start/end.
-  inRange
+  inRange,
 }

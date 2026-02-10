@@ -26,18 +26,20 @@ class _SnapHoverState extends State<_SnapHover> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color:
-              _hovering ? theme.colorScheme.secondary : theme.colorScheme.card,
-          border: Border.all(
-            color: theme.colorScheme.border,
-          ),
+          color: _hovering
+              ? theme.colorScheme.secondary
+              : theme.colorScheme.card,
+          border: Border.all(color: theme.colorScheme.border),
           borderRadius: BorderRadius.only(
-            topLeft:
-                widget.topLeft ? theme.radiusSmRadius : theme.radiusLgRadius,
-            topRight:
-                widget.topRight ? theme.radiusSmRadius : theme.radiusLgRadius,
-            bottomLeft:
-                widget.bottomLeft ? theme.radiusSmRadius : theme.radiusLgRadius,
+            topLeft: widget.topLeft
+                ? theme.radiusSmRadius
+                : theme.radiusLgRadius,
+            topRight: widget.topRight
+                ? theme.radiusSmRadius
+                : theme.radiusLgRadius,
+            bottomLeft: widget.bottomLeft
+                ? theme.radiusSmRadius
+                : theme.radiusLgRadius,
             bottomRight: widget.bottomRight
                 ? theme.radiusSmRadius
                 : theme.radiusLgRadius,

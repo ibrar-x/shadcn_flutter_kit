@@ -60,7 +60,11 @@ class Stepper extends StatelessWidget {
     final sz = size ?? compTheme?.size ?? StepSize.medium;
     final varnt = variant ?? compTheme?.variant ?? StepVariant.circle;
     var stepProperties = StepProperties(
-        size: sz, steps: steps, state: controller, direction: dir);
+      size: sz,
+      steps: steps,
+      state: controller,
+      direction: dir,
+    );
     return Data.inherit(
       data: stepProperties,
       child: varnt.build(context, stepProperties),

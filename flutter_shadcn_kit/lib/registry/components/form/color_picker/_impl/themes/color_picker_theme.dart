@@ -23,6 +23,9 @@ class ColorPickerTheme extends ComponentThemeData {
 
   /// Creates a [ColorPickerTheme].
   const ColorPickerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.spacing,
     this.controlSpacing,
     this.orientation,
@@ -40,11 +43,13 @@ class ColorPickerTheme extends ComponentThemeData {
   }) {
     return ColorPickerTheme(
       spacing: spacing == null ? this.spacing : spacing(),
-      controlSpacing:
-          controlSpacing == null ? this.controlSpacing : controlSpacing(),
+      controlSpacing: controlSpacing == null
+          ? this.controlSpacing
+          : controlSpacing(),
       orientation: orientation == null ? this.orientation : orientation(),
-      enableEyeDropper:
-          enableEyeDropper == null ? this.enableEyeDropper : enableEyeDropper(),
+      enableEyeDropper: enableEyeDropper == null
+          ? this.enableEyeDropper
+          : enableEyeDropper(),
       sliderSize: sliderSize == null ? this.sliderSize : sliderSize(),
     );
   }
@@ -62,5 +67,10 @@ class ColorPickerTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      spacing, controlSpacing, orientation, enableEyeDropper, sliderSize);
+    spacing,
+    controlSpacing,
+    orientation,
+    enableEyeDropper,
+    sliderSize,
+  );
 }

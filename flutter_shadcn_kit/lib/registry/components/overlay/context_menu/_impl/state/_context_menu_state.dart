@@ -28,7 +28,8 @@ class _ContextMenuState extends State<ContextMenu> {
   @override
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
-    final bool enableLongPress = platform == TargetPlatform.iOS ||
+    final bool enableLongPress =
+        platform == TargetPlatform.iOS ||
         platform == TargetPlatform.android ||
         platform == TargetPlatform.fuchsia;
     return GestureDetector(
@@ -37,12 +38,20 @@ class _ContextMenuState extends State<ContextMenu> {
           ? null
           : (details) {
               _showContextMenu(
-                  context, details.globalPosition, _children, widget.direction);
+                context,
+                details.globalPosition,
+                _children,
+                widget.direction,
+              );
             },
       onLongPressStart: enableLongPress && widget.enabled
           ? (details) {
               _showContextMenu(
-                  context, details.globalPosition, _children, widget.direction);
+                context,
+                details.globalPosition,
+                _children,
+                widget.direction,
+              );
             }
           : null,
       child: widget.child,
@@ -68,7 +77,7 @@ Future<void> _showContextMenu(
         anchorAlignment: Alignment.topRight,
         regionGroupId: key,
         modal: true,
-        follow: false,
+        follow: true,
         consumeOutsideTaps: false,
         dismissBackdropFocus: false,
         overlayBarrier: OverlayBarrier(
@@ -77,38 +86,39 @@ Future<void> _showContextMenu(
         ),
         builder: (context) {
           return AnimatedBuilder(
-              animation: children,
-              builder: (context, child) {
-                bool isSheetOverlay =
-                    SheetOverlayHandler.isSheetOverlay(context);
-                return ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 192,
-                  ),
-                  child: MenuGroup(
-                    itemPadding: isSheetOverlay
-                        ? const EdgeInsets.symmetric(horizontal: 8) *
+            animation: children,
+            builder: (context, child) {
+              bool isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
+              return ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 192),
+                child: MenuGroup(
+                  itemPadding: isSheetOverlay
+                      ? EdgeInsets.symmetric(
+                              horizontal: theme.density.baseGap,
+                            ) *
                             theme.scaling
-                        : EdgeInsets.zero,
-                    direction: direction,
-                    regionGroupId: key,
-                    subMenuOffset: const Offset(8, -4),
-                    onDismissed: () {
-                      closeOverlay(context);
-                    },
-                    builder: (context, children) {
-                      final compTheme =
-                          ComponentTheme.maybeOf<ContextMenuTheme>(context);
-                      return MenuPopup(
-                        surfaceOpacity: compTheme?.surfaceOpacity,
-                        surfaceBlur: compTheme?.surfaceBlur,
-                        children: children,
-                      );
-                    },
-                    children: children.value,
-                  ),
-                );
-              });
+                      : EdgeInsets.zero,
+                  direction: direction,
+                  regionGroupId: key,
+                  subMenuOffset: const Offset(8, -4),
+                  onDismissed: () {
+                    closeOverlay(context);
+                  },
+                  builder: (context, children) {
+                    final compTheme = ComponentTheme.maybeOf<ContextMenuTheme>(
+                      context,
+                    );
+                    return MenuPopup(
+                      surfaceOpacity: compTheme?.surfaceOpacity,
+                      surfaceBlur: compTheme?.surfaceBlur,
+                      children: children,
+                    );
+                  },
+                  children: children.value,
+                ),
+              );
+            },
+          );
         },
       )
       .future;

@@ -20,7 +20,6 @@ part '_impl/core/object_form_field_dialog_result.dart';
 part '_impl/state/object_form_field_state.dart';
 part '_impl/core/object_form_handler.dart';
 
-
 /// Type definition for the save button in an object input form field.
 typedef ObjectInputSaveButton = PrimaryButton;
 

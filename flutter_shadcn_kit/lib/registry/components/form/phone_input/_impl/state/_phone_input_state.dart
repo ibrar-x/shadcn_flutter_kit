@@ -8,10 +8,12 @@ class _PhoneInputState extends State<PhoneInput>
   @override
   void initState() {
     super.initState();
-    _country = widget.initialCountry ??
+    _country =
+        widget.initialCountry ??
         widget.initialValue?.country ??
         Country.unitedStates;
-    _controller = widget.controller ??
+    _controller =
+        widget.controller ??
         TextEditingController(text: widget.initialValue?.number);
     formValue = value;
     _controller.addListener(_dispatchChanged);
@@ -65,10 +67,12 @@ class _PhoneInputState extends State<PhoneInput>
           Select<Country>(
             padding: styleValue(
               defaultValue: EdgeInsets.only(
-                  top: theme.scaling * 8,
-                  left: theme.scaling * 8,
-                  bottom: theme.scaling * 8,
-                  right: theme.scaling * 4),
+                top: theme.density.baseContentPadding * theme.scaling * padXs,
+                left: theme.density.baseContentPadding * theme.scaling * padXs,
+                bottom:
+                    theme.density.baseContentPadding * theme.scaling * padXs,
+                right: theme.density.baseContentPadding * theme.scaling * 0.25,
+              ),
               themeValue: componentTheme?.padding,
             ),
             value: _country,
@@ -97,9 +101,7 @@ class _PhoneInputState extends State<PhoneInput>
                     item.code,
                     theme: ImageTheme(
                       shape: styleValue(
-                        defaultValue: RoundedRectangle(
-                          theme.radiusSm,
-                        ),
+                        defaultValue: RoundedRectangle(theme.radiusSm),
                         themeValue: componentTheme?.flagShape,
                       ),
                       height: styleValue(
@@ -114,7 +116,8 @@ class _PhoneInputState extends State<PhoneInput>
                   ),
                   Gap(
                     styleValue(
-                      defaultValue: theme.scaling * 8,
+                      defaultValue:
+                          theme.density.baseGap * theme.scaling * gapSm,
                       themeValue: componentTheme?.flagGap,
                     ),
                   ),
@@ -131,51 +134,59 @@ class _PhoneInputState extends State<PhoneInput>
             ),
             popup: SelectPopup.builder(
               builder: (context, searchQuery) {
-                return SelectItemList(children: [
-                  for (final country in widget.countries ?? Country.values)
-                    if (searchQuery == null ||
-                        _filterCountryCode(country, searchQuery))
-                      SelectItemButton(
-                        value: country,
-                        child: Row(
-                          children: [
-                            CountryFlag.fromCountryCode(
-                              country.code,
-                              theme: ImageTheme(
-                                shape: styleValue(
-                                  defaultValue: RoundedRectangle(
-                                    theme.radiusSm,
+                return SelectItemList(
+                  children: [
+                    for (final country in widget.countries ?? Country.values)
+                      if (searchQuery == null ||
+                          _filterCountryCode(country, searchQuery))
+                        SelectItemButton(
+                          value: country,
+                          child: Row(
+                            children: [
+                              CountryFlag.fromCountryCode(
+                                country.code,
+                                theme: ImageTheme(
+                                  shape: styleValue(
+                                    defaultValue: RoundedRectangle(
+                                      theme.radiusSm,
+                                    ),
+                                    themeValue: componentTheme?.flagShape,
                                   ),
-                                  themeValue: componentTheme?.flagShape,
-                                ),
-                                height: styleValue(
-                                  defaultValue: theme.scaling * 18,
-                                  themeValue: componentTheme?.flagHeight,
-                                ),
-                                width: styleValue(
-                                  defaultValue: theme.scaling * 24,
-                                  themeValue: componentTheme?.flagWidth,
+                                  height: styleValue(
+                                    defaultValue: theme.scaling * 18,
+                                    themeValue: componentTheme?.flagHeight,
+                                  ),
+                                  width: styleValue(
+                                    defaultValue: theme.scaling * 24,
+                                    themeValue: componentTheme?.flagWidth,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Gap(
-                              styleValue(
-                                defaultValue: theme.scaling * 8,
-                                themeValue: componentTheme?.flagGap,
+                              Gap(
+                                styleValue(
+                                  defaultValue:
+                                      theme.density.baseGap *
+                                      theme.scaling *
+                                      gapSm,
+                                  themeValue: componentTheme?.flagGap,
+                                ),
                               ),
-                            ),
-                            Expanded(child: Text(country.name)),
-                            Gap(
-                              styleValue(
-                                defaultValue: 16 * theme.scaling,
-                                themeValue: componentTheme?.countryGap,
+                              Expanded(child: Text(country.name)),
+                              Gap(
+                                styleValue(
+                                  defaultValue:
+                                      theme.density.baseGap *
+                                      theme.scaling *
+                                      gapLg,
+                                  themeValue: componentTheme?.countryGap,
+                                ),
                               ),
-                            ),
-                            Text(country.dialCode).muted(),
-                          ],
+                              Text(country.dialCode).muted(),
+                            ],
+                          ),
                         ),
-                      ),
-                ]);
+                  ],
+                );
               },
             ).asBuilder,
           ),
@@ -200,7 +211,7 @@ class _PhoneInputState extends State<PhoneInput>
               ),
               initialValue: widget.initialValue?.number,
             ),
-          )
+          ),
         ],
       ),
     );

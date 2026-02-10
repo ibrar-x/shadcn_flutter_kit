@@ -3,13 +3,46 @@
   "name": "Number Ticker",
   "description": "Animated number display with formatter or custom builder.",
   "category": "display",
-  "tags": ["display", "indicator", "animation"],
+  "tags": [
+    "display",
+    "indicator",
+    "animation"
+  ],
   "dependencies": {
+    "shared": [
+      "theme",
+      "style_value",
+      "animated_value_builder"
+    ],
+    "components": [],
     "pubspec": {
       "gap": "^3.0.1",
       "intl": "^0.20.2"
-    },
-    "shared": ["theme", "style_value", "animated_value_builder"],
-    "components": []
-  }
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/themes/number_ticker_theme.dart",
+    "_number_ticker_preview_state.dart",
+    "meta.json",
+    "number_ticker.dart",
+    "number_ticker.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`NumberTicker`",
+      "`number` (`num`, required)",
+      "`formatter` (`NumberTickerFormatted`, required)",
+      "`initialNumber` (`num?`)",
+      "`duration` (`Duration?`)",
+      "`curve` (`Curve?`)",
+      "`style` (`TextStyle?`)",
+      "`NumberTicker.builder`",
+      "`builder` (`NumberTickerBuilder`, required)",
+      "`child` (`Widget?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

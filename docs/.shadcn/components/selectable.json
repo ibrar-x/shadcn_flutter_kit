@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "selectable",
+  "name": "Selectable Text",
+  "version": "1.0.0",
+  "tags": [
+    "text",
+    "selection"
+  ],
+  "installedAt": "2026-02-09T10:18:03.224493Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/selectable/README.md",
+    "registry/components/display/selectable/_impl/core/selectable_text.dart",
+    "registry/components/display/selectable/meta.json",
+    "registry/components/display/selectable/preview.dart",
+    "registry/components/display/selectable/selectable.dart",
+    "registry/components/display/selectable/selectable.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

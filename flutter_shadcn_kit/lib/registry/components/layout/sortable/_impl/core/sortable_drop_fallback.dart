@@ -51,4 +51,3 @@ class SortableDropFallback<T> extends StatefulWidget {
   State<SortableDropFallback<T>> createState() =>
       _SortableDropFallbackState<T>();
 }
-

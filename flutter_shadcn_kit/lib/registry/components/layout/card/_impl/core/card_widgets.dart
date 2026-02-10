@@ -63,7 +63,7 @@ class Card extends StatelessWidget {
     final padding = styleValue(
       widgetValue: this.padding,
       themeValue: compTheme?.padding,
-      defaultValue: EdgeInsets.all(16 * scaling),
+      defaultValue: EdgeInsets.all(theme.density.baseContentPadding * scaling),
     );
     final filled = styleValue(
       widgetValue: this.filled,
@@ -129,13 +129,10 @@ class Card extends StatelessWidget {
       duration: duration,
       child: DefaultTextStyle.merge(
         child: child,
-        style: TextStyle(
-          color: theme.colorScheme.cardForeground,
-        ),
+        style: TextStyle(color: theme.colorScheme.cardForeground),
       ),
     );
   }
 }
 
 /// A card variant with surface blur and opacity effects.
-

@@ -30,32 +30,39 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<SwitchTheme>(context);
     final gap = styleValue(
-        widgetValue: widget.gap,
-        themeValue: compTheme?.gap,
-        defaultValue: 8 * scaling);
+      widgetValue: widget.gap,
+      themeValue: compTheme?.gap,
+      defaultValue: 8 * scaling,
+    );
     final activeColor = styleValue(
-        widgetValue: widget.activeColor,
-        themeValue: compTheme?.activeColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: widget.activeColor,
+      themeValue: compTheme?.activeColor,
+      defaultValue: theme.colorScheme.primary,
+    );
     final inactiveColor = styleValue(
-        widgetValue: widget.inactiveColor,
-        themeValue: compTheme?.inactiveColor,
-        defaultValue: theme.colorScheme.input);
+      widgetValue: widget.inactiveColor,
+      themeValue: compTheme?.inactiveColor,
+      defaultValue: theme.colorScheme.input,
+    );
     final activeThumbColor = styleValue(
-        widgetValue: widget.activeThumbColor,
-        themeValue: compTheme?.activeThumbColor,
-        defaultValue: theme.colorScheme.background);
+      widgetValue: widget.activeThumbColor,
+      themeValue: compTheme?.activeThumbColor,
+      defaultValue: theme.colorScheme.background,
+    );
     final inactiveThumbColor = styleValue(
-        widgetValue: widget.inactiveThumbColor,
-        themeValue: compTheme?.inactiveThumbColor,
-        defaultValue: theme.colorScheme.foreground);
+      widgetValue: widget.inactiveThumbColor,
+      themeValue: compTheme?.inactiveThumbColor,
+      defaultValue: theme.colorScheme.foreground,
+    );
     final borderRadius = styleValue<BorderRadiusGeometry>(
-        widgetValue: widget.borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.circular(theme.radiusXl));
+      widgetValue: widget.borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusXl),
+    );
     return FocusOutline(
       focused: _focusing && _enabled,
-      borderRadius: optionallyResolveBorderRadius(context, borderRadius) ??
+      borderRadius:
+          optionallyResolveBorderRadius(context, borderRadius) ??
           BorderRadius.circular(theme.radiusXl),
       child: GestureDetector(
         onTap: _enabled
@@ -95,16 +102,16 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
                 duration: kSwitchDuration,
                 width: (32 + 4) * scaling,
                 height: (16 + 4) * scaling,
-                padding: EdgeInsets.all(2 * scaling),
+                padding: EdgeInsets.all(theme.density.baseGap * scaling * 0.25),
                 decoration: BoxDecoration(
                   borderRadius:
                       optionallyResolveBorderRadius(context, borderRadius) ??
-                          BorderRadius.circular(theme.radiusXl),
+                      BorderRadius.circular(theme.radiusXl),
                   color: !_enabled
                       ? theme.colorScheme.muted
                       : widget.value
-                          ? activeColor
-                          : inactiveColor,
+                      ? activeColor
+                      : inactiveColor,
                 ),
                 child: Stack(
                   children: [
@@ -118,13 +125,12 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
                         aspectRatio: 1,
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(theme.radiusLg),
+                            borderRadius: BorderRadius.circular(theme.radiusLg),
                             color: !_enabled
                                 ? theme.colorScheme.mutedForeground
                                 : widget.value
-                                    ? activeThumbColor
-                                    : inactiveThumbColor,
+                                ? activeThumbColor
+                                : inactiveThumbColor,
                           ),
                         ),
                       ),

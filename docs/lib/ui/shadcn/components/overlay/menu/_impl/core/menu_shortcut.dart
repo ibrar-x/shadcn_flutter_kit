@@ -19,14 +19,50 @@ class MenuShortcut extends StatelessWidget {
     var activator = this.activator;
     var combiner = this.combiner ?? const Text(' + ');
     final displayMapper = Data.maybeOf<KeyboardShortcutDisplayHandle>(context);
-    assert(displayMapper != null, 'Cannot find KeyboardShortcutDisplayMapper');
     List<LogicalKeyboardKey> keys = shortcutActivatorToKeySet(activator);
     List<Widget> children = [];
+    Widget buildKeyboardDisplay(LogicalKeyboardKey key) {
+      if (displayMapper != null) {
+        return displayMapper.buildKeyboardDisplay(context, key);
+      }
+      switch (key) {
+        case LogicalKeyboardKey.control:
+        case LogicalKeyboardKey.controlLeft:
+        case LogicalKeyboardKey.controlRight:
+          return const Text('Ctrl');
+        case LogicalKeyboardKey.shift:
+        case LogicalKeyboardKey.shiftLeft:
+        case LogicalKeyboardKey.shiftRight:
+          return const Text('Shift');
+        case LogicalKeyboardKey.alt:
+        case LogicalKeyboardKey.altLeft:
+        case LogicalKeyboardKey.altRight:
+          return const Text('Alt');
+        case LogicalKeyboardKey.meta:
+        case LogicalKeyboardKey.metaLeft:
+        case LogicalKeyboardKey.metaRight:
+          return const Text('⌘');
+        case LogicalKeyboardKey.enter:
+          return const Text('↵');
+        case LogicalKeyboardKey.arrowLeft:
+          return const Text('←');
+        case LogicalKeyboardKey.arrowRight:
+          return const Text('→');
+        case LogicalKeyboardKey.arrowUp:
+          return const Text('↑');
+        case LogicalKeyboardKey.arrowDown:
+          return const Text('↓');
+        default:
+          return Text(
+              key.keyLabel.isNotEmpty ? key.keyLabel : (key.debugName ?? ''));
+      }
+    }
+
     for (int i = 0; i < keys.length; i++) {
       if (i > 0) {
         children.add(combiner);
       }
-      children.add(displayMapper!.buildKeyboardDisplay(context, keys[i]));
+      children.add(buildKeyboardDisplay(keys[i]));
     }
     return Row(
       mainAxisSize: MainAxisSize.min,

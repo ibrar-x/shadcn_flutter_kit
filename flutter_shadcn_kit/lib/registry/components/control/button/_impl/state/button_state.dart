@@ -13,8 +13,11 @@ import '../core/button_widget.dart';
 
 class ButtonState<T extends Button> extends State<T> {
   bool get _shouldEnableFeedback {
-    final platform = Theme.of(context).platform;
-    return isMobile(platform);
+    final theme = Theme.of(context);
+    if (theme.enableFeedback != null) {
+      return theme.enableFeedback!;
+    }
+    return isMobile(theme.platform);
   }
 
   AbstractButtonStyle? _style;
@@ -93,8 +96,6 @@ class ButtonState<T extends Button> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
     bool enableFeedback = widget.enableFeedback ?? _shouldEnableFeedback;
     return Clickable(
       disableFocusOutline: widget.disableFocusOutline,
@@ -152,17 +153,18 @@ class ButtonState<T extends Button> extends State<T> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (widget.leading != null) widget.leading!,
-                    if (widget.leading != null) Gap(8 * scaling),
+                    if (widget.leading != null) DensityGap(gapSm),
                     Expanded(
                       child: Align(
                         widthFactor: 1,
                         heightFactor: 1,
-                        alignment: widget.alignment ??
+                        alignment:
+                            widget.alignment ??
                             AlignmentDirectional.centerStart,
                         child: widget.child,
                       ),
                     ),
-                    if (widget.trailing != null) Gap(8 * scaling),
+                    if (widget.trailing != null) DensityGap(gapSm),
                     if (widget.trailing != null) widget.trailing!,
                   ],
                 ),

@@ -31,7 +31,11 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
       newController?.addListener(_onControllerChanged);
       if (_cachedValue != null) {
         newController?.attach(
-            context, this, _cachedValue?.value, widget.validator);
+          context,
+          this,
+          _cachedValue?.value,
+          widget.validator,
+        );
       }
     }
   }
@@ -63,10 +67,7 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
 
   @override
   Widget build(BuildContext context) {
-    return Data<FormFieldHandle>.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data<FormFieldHandle>.inherit(data: this, child: widget.child);
   }
 
   @override
@@ -88,6 +89,11 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
   @override
   FutureOr<ValidationResult?> revalidate() {
     return _controller?.attach(
-        context, this, _cachedValue, widget.validator, true);
+      context,
+      this,
+      _cachedValue,
+      widget.validator,
+      true,
+    );
   }
 }

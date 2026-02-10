@@ -15,9 +15,11 @@ class ReplaceResult<T> extends ValidationResult {
   const ReplaceResult(this.value, {required super.state}) : _key = null;
 
   /// Creates a [ReplaceResult] already attached to a form field key.
-  const ReplaceResult.attached(this.value,
-      {required FormKey key, required super.state})
-      : _key = key;
+  const ReplaceResult.attached(
+    this.value, {
+    required FormKey key,
+    required super.state,
+  }) : _key = key;
 
   @override
   FormKey get key {

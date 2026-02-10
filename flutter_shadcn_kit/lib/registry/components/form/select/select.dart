@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'
-  hide Theme, TextField, ButtonStyle, Chip, ErrorWidgetBuilder;
+    hide Theme, TextField, ButtonStyle, Chip, ErrorWidgetBuilder;
 import 'package:flutter/services.dart';
 
 import '../../utility/async/async.dart';
@@ -12,7 +12,8 @@ import '../../display/chip/chip.dart';
 import '../../control/command/command.dart';
 import '../../overlay/dialog/dialog.dart';
 import '../../control/hover/hover.dart';
-import '../../overlay/menu/menu.dart' hide MenuIconStyleExtensions, MenuTextStyleExtensions;
+import '../../overlay/menu/menu.dart'
+    hide MenuIconStyleExtensions, MenuTextStyleExtensions;
 import '../text_field/text_field.dart';
 import '../../../shared/icons/lucide_icons.dart';
 import '../../../shared/icons/radix_icons.dart';
@@ -29,7 +30,6 @@ import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
 part '_impl/themes/select_theme.dart';
-
 
 part '_impl/state/_select_popup_state.dart';
 part '_impl/core/controlled_multi_select.dart';
@@ -51,25 +51,6 @@ part '_impl/core/select_label.dart';
 part '_impl/core/select_popup.dart';
 part '_impl/core/select_popup_handle.dart';
 part '_impl/state/select_state.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// Builder function for select popup content.
 ///
@@ -93,8 +74,8 @@ typedef SelectValueBuilder<T> = Widget Function(BuildContext context, T value);
 /// - [selected] (`bool`): Whether item is being selected (true) or deselected (false).
 ///
 /// Returns: `T?` — the new selection state.
-typedef SelectValueSelectionHandler<T> = T? Function(
-    T? oldValue, Object? value, bool selected);
+typedef SelectValueSelectionHandler<T> =
+    T? Function(T? oldValue, Object? value, bool selected);
 
 /// Predicate for testing value selection state.
 ///
@@ -103,8 +84,8 @@ typedef SelectValueSelectionHandler<T> = T? Function(
 /// - [test] (`Object?`): Value to test against.
 ///
 /// Returns: `bool` — true if test matches selection.
-typedef SelectValueSelectionPredicate<T> = bool Function(
-    T? value, Object? test);
+typedef SelectValueSelectionPredicate<T> =
+    bool Function(T? value, Object? test);
 
 T? _defaultSingleSelectValueSelectionHandler<T>(
   T? oldValue,
@@ -153,8 +134,6 @@ bool _defaultMultiSelectValueSelectionPredicate<T>(
   }
   return value.contains(test);
 }
-
-
 
 /// A customizable dropdown selection widget for single-value selection.
 ///
@@ -307,40 +286,23 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   SelectState<T> createState() => SelectState<T>();
 }
 
-
-
-
-
-
-
 /// Callback type for handling selection changes in select components.
 ///
 /// Returns true if the change was successful, false otherwise.
 typedef SelectValueChanged<T> = bool Function(T value, bool selected);
 
-
-
 /// Builder function type for creating select item delegates.
 ///
 /// Takes the build context and optional search query, returns a delegate
 /// for rendering select items.
-typedef SelectItemsBuilder<T> = FutureOr<SelectItemDelegate> Function(
-  BuildContext context,
-  String? searchQuery,
-);
-
-
-
-
-
-
-
-
-
-
+typedef SelectItemsBuilder<T> =
+    FutureOr<SelectItemDelegate> Function(
+      BuildContext context,
+      String? searchQuery,
+    );
 
 /// Builder function type for creating select item widgets.
 ///
 /// Takes the build context and item index, returns the widget for that item.
-typedef SelectItemWidgetBuilder = Widget Function(
-    BuildContext context, int index);
+typedef SelectItemWidgetBuilder =
+    Widget Function(BuildContext context, int index);

@@ -25,7 +25,8 @@ class ChipInputState<T> extends State<ChipInput<T>>
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ??
+    _controller =
+        widget.controller ??
         ChipEditingController<T>(
           initialChips: widget.initialChips,
           text: widget.initialValue ?? '',
@@ -74,49 +75,52 @@ class ChipInputState<T> extends State<ChipInput<T>>
   @override
   Widget build(BuildContext context) {
     return Data<_ChipProvider<T>>.inherit(
-        data: this,
-        child: Shortcuts(
-          shortcuts: {
-            LogicalKeySet(LogicalKeyboardKey.enter): const ChipSubmitIntent(),
-          },
-          child: Actions(
-            actions: {
-              if (widget.autoInsertSuggestion)
-                AutoCompleteIntent: Action.overridable(
-                  defaultAction: CallbackAction<AutoCompleteIntent>(
-                    onInvoke: (intent) {
-                      final suggestion = intent.suggestion;
-                      _controller.insertChipAtCursor(
-                          (text) => widget.onChipSubmitted(suggestion));
-                      widget.onChipsChanged?.call(_controller.chips);
-                      return;
-                    },
-                  ),
-                  context: context,
-                ),
-              ChipSubmitIntent: Action.overridable(
-                defaultAction: CallbackAction<ChipSubmitIntent>(
+      data: this,
+      child: Shortcuts(
+        shortcuts: {
+          LogicalKeySet(LogicalKeyboardKey.enter): const ChipSubmitIntent(),
+        },
+        child: Actions(
+          actions: {
+            if (widget.autoInsertSuggestion)
+              AutoCompleteIntent: Action.overridable(
+                defaultAction: CallbackAction<AutoCompleteIntent>(
                   onInvoke: (intent) {
+                    final suggestion = intent.suggestion;
                     _controller.insertChipAtCursor(
-                        (text) => widget.onChipSubmitted(text));
+                      (text) => widget.onChipSubmitted(suggestion),
+                    );
                     widget.onChipsChanged?.call(_controller.chips);
                     return;
                   },
                 ),
                 context: context,
               ),
-            },
-            child: widget.copyWith(
-              controller: () => _controller,
-              onSubmitted: () => (value) {
-                _controller.insertChipAtCursor(widget.onChipSubmitted);
-              },
-              onChanged: () => (text) {
-                widget.onChanged?.call(_controller.plainText);
-              },
+            ChipSubmitIntent: Action.overridable(
+              defaultAction: CallbackAction<ChipSubmitIntent>(
+                onInvoke: (intent) {
+                  _controller.insertChipAtCursor(
+                    (text) => widget.onChipSubmitted(text),
+                  );
+                  widget.onChipsChanged?.call(_controller.chips);
+                  return;
+                },
+              ),
+              context: context,
             ),
+          },
+          child: widget.copyWith(
+            controller: () => _controller,
+            onSubmitted: () => (value) {
+              _controller.insertChipAtCursor(widget.onChipSubmitted);
+            },
+            onChanged: () => (text) {
+              widget.onChanged?.call(_controller.plainText);
+            },
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   @override

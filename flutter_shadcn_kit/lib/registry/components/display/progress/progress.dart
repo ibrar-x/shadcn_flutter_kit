@@ -14,8 +14,10 @@ class Progress extends StatelessWidget {
     this.max = 1.0,
     this.color,
     this.backgroundColor,
-  }) : assert(progress == null || (progress >= min && progress <= max),
-            'Progress must be between min and max');
+  }) : assert(
+         progress == null || (progress >= min && progress <= max),
+         'Progress must be between min and max',
+       );
 
   final double? progress;
   final double min;

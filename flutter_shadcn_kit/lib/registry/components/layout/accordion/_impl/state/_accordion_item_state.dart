@@ -18,7 +18,8 @@ class _AccordionItemState extends State<AccordionItem>
   }
 
   void _updateAnimations() {
-    _controller.duration = _theme?.duration ?? const Duration(milliseconds: 200);
+    _controller.duration =
+        _theme?.duration ?? const Duration(milliseconds: 200);
     _controller.value = _expanded.value ? 1 : 0;
     _easeInAnimation = CurvedAnimation(
       parent: _controller,
@@ -44,7 +45,9 @@ class _AccordionItemState extends State<AccordionItem>
       _updateAnimations();
     }
 
-    if (accordion != null && accordion!._expanded.value == null && widget.expanded) {
+    if (accordion != null &&
+        accordion!._expanded.value == null &&
+        widget.expanded) {
       accordion!._expanded.value = this;
     }
     _onExpandedChanged();
@@ -106,7 +109,9 @@ class _AccordionItemState extends State<AccordionItem>
               axisAlignment: -1,
               child: Padding(
                 padding: EdgeInsets.only(
-                  bottom: _theme?.padding ?? 16 * scaling,
+                  bottom:
+                      _theme?.padding ??
+                      theme.density.baseContentPadding * scaling,
                 ),
                 child: widget.content,
               ).small().normal(),

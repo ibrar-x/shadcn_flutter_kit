@@ -5,7 +5,6 @@ import '../date_picker/date_picker.dart';
 
 part '_impl/state/_date_picker_preview_state.dart';
 
-
 class DatePickerPreview extends StatefulWidget {
   const DatePickerPreview({super.key});
 

@@ -1,0 +1,49 @@
+{
+  "id": "scrollable",
+  "name": "Scrollable",
+  "description": "Two-dimensional scrollable client and faded viewport utilities.",
+  "category": "layout",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "scrollable"
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "GETTING_STARTED.md",
+    "README.md",
+    "_impl/core/faded_scrollable_viewport.dart",
+    "_impl/core/render_scrollable_client_viewport.dart",
+    "_impl/core/scrollable_client.dart",
+    "_impl/core/scrollable_client_child_vicinity.dart",
+    "_impl/core/scrollable_client_viewport.dart",
+    "_impl/themes/scrollable_client_theme.dart",
+    "meta.json",
+    "preview.dart",
+    "scrollable.dart",
+    "scrollable.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`ScrollableClient`",
+      "`builder` (`ScrollableBuilder`, required)",
+      "`child` (`Widget?`)",
+      "`primary`, `mainAxis`, `verticalDetails`, `horizontalDetails`",
+      "`diagonalDragBehavior`, `dragStartBehavior`, `keyboardDismissBehavior`",
+      "`clipBehavior`, `hitTestBehavior`, `overscroll`",
+      "`ScrollableClientViewport`",
+      "viewport widget for `ScrollableClient`",
+      "`RenderScrollableClientViewport`",
+      "custom two-dimensional viewport renderer",
+      "`FadedScrollableViewport`",
+      "`child` (required), `fadeExtent`, `fadeSize`"
+    ],
+    "callbacks": [
+      "`ScrollableBuilder` (`Widget Function(BuildContext, Offset, Size, Widget?)`)"
+    ]
+  }
+}

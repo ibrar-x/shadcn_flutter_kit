@@ -10,8 +10,10 @@ class KeyboardShortcutPreview extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: KeyboardDisplay.fromActivator(
-          activator:
-              const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+          activator: const SingleActivator(
+            LogicalKeyboardKey.keyS,
+            control: true,
+          ),
         ),
       ),
     );

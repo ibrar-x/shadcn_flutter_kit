@@ -69,8 +69,8 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   value: alignment,
                   itemBuilder:
                       (BuildContext context, NavigationBarAlignment item) {
-                    return Text(item.name);
-                  },
+                        return Text(item.name);
+                      },
                   popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
@@ -95,8 +95,8 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   value: labelType,
                   itemBuilder:
                       (BuildContext context, NavigationLabelType item) {
-                    return Text(item.name);
-                  },
+                        return Text(item.name);
+                      },
                   popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
@@ -118,8 +118,9 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   ).call,
                 ),
                 Checkbox(
-                  state:
-                      expands ? CheckboxState.checked : CheckboxState.unchecked,
+                  state: expands
+                      ? CheckboxState.checked
+                      : CheckboxState.unchecked,
                   onChanged: (value) {
                     setState(() {
                       expands = value == CheckboxState.checked;
@@ -139,8 +140,9 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   trailing: const Text('Custom Button Style'),
                 ),
                 Checkbox(
-                  state:
-                      expanded ? CheckboxState.checked : CheckboxState.unchecked,
+                  state: expanded
+                      ? CheckboxState.checked
+                      : CheckboxState.unchecked,
                   onChanged: (value) {
                     setState(() {
                       expanded = value == CheckboxState.checked;

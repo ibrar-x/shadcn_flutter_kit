@@ -70,7 +70,9 @@ class NavigationMenuContent extends StatelessWidget {
     return Button(
       style: ButtonVariance.ghost.copyWith(
         padding: (context, states, value) {
-          return const EdgeInsets.all(12) * scaling;
+          return EdgeInsets.all(
+            theme.density.baseContentPadding * scaling * 0.75,
+          );
         },
       ),
       onPressed: onPressed,

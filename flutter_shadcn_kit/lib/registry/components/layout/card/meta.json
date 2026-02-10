@@ -3,9 +3,12 @@
   "name": "Card",
   "description": "Card container with optional surface blur variant.",
   "category": "layout",
-  "tags": ["layout", "surface", "container"],
+  "tags": [
+    "layout",
+    "surface",
+    "container"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "color_extensions",
@@ -13,6 +16,29 @@
       "border_utils",
       "outlined_container",
       "sheet_overlay"
-    ]
-  }
+    ],
+    "components": [],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/card_widgets.dart",
+    "_impl/core/surface_card.dart",
+    "_impl/themes/card_theme.dart",
+    "card.dart",
+    "card.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Card` — standard container.",
+      "`SurfaceCard` — card with optional surface blur.",
+      "`CardTheme` — padding, radius, and background defaults."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

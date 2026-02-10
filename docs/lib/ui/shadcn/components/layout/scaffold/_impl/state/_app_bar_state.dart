@@ -8,6 +8,8 @@ class _AppBarState extends State<AppBar> {
     final barData = Data.maybeOf<ScaffoldBarData>(context);
     var surfaceBlur = widget.surfaceBlur ?? theme.surfaceBlur;
     var surfaceOpacity = widget.surfaceOpacity ?? theme.surfaceOpacity;
+    final baseBackgroundColor =
+        widget.backgroundColor ?? theme.colorScheme.card;
     return FocusTraversalGroup(
       child: ClipRect(
         child: BackdropFilter(
@@ -16,8 +18,7 @@ class _AppBarState extends State<AppBar> {
             sigmaY: surfaceBlur ?? 0,
           ),
           child: Container(
-            color: widget.backgroundColor ??
-                theme.colorScheme.card.scaleAlpha(surfaceOpacity ?? 1),
+            color: baseBackgroundColor.scaleAlpha(surfaceOpacity ?? 1),
             alignment: widget.alignment,
             padding: widget.padding ??
                 (const EdgeInsets.symmetric(horizontal: 18, vertical: 12) *

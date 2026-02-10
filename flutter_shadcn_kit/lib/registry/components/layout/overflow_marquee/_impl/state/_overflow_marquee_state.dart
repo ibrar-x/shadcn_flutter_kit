@@ -29,25 +29,30 @@ class _OverflowMarqueeState extends State<OverflowMarquee>
     final textDirection = Directionality.of(context);
     final compTheme = ComponentTheme.maybeOf<OverflowMarqueeTheme>(context);
     final direction = styleValue(
-        widgetValue: widget.direction,
-        themeValue: compTheme?.direction,
-        defaultValue: Axis.horizontal);
+      widgetValue: widget.direction,
+      themeValue: compTheme?.direction,
+      defaultValue: Axis.horizontal,
+    );
     final fadePortion = styleValue(
-        widgetValue: widget.fadePortion,
-        themeValue: compTheme?.fadePortion,
-        defaultValue: 25.0);
+      widgetValue: widget.fadePortion,
+      themeValue: compTheme?.fadePortion,
+      defaultValue: 25.0,
+    );
     final duration = styleValue(
-        widgetValue: widget.duration,
-        themeValue: compTheme?.duration,
-        defaultValue: const Duration(seconds: 1));
+      widgetValue: widget.duration,
+      themeValue: compTheme?.duration,
+      defaultValue: const Duration(seconds: 1),
+    );
     final delayDuration = styleValue(
-        widgetValue: widget.delayDuration,
-        themeValue: compTheme?.delayDuration,
-        defaultValue: const Duration(milliseconds: 500));
+      widgetValue: widget.delayDuration,
+      themeValue: compTheme?.delayDuration,
+      defaultValue: const Duration(milliseconds: 500),
+    );
     final step = styleValue(
-        widgetValue: widget.step,
-        themeValue: compTheme?.step,
-        defaultValue: 100.0);
+      widgetValue: widget.step,
+      themeValue: compTheme?.step,
+      defaultValue: 100.0,
+    );
     final curve = widget.curve ?? compTheme?.curve ?? Curves.linear;
     return ClipRect(
       child: _OverflowMarqueeLayout(

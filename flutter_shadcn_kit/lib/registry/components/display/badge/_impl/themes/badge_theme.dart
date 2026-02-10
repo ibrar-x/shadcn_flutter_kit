@@ -16,6 +16,9 @@ class BadgeTheme extends ComponentThemeData {
 
   /// Creates a [BadgeTheme].
   const BadgeTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.primaryStyle,
     this.secondaryStyle,
     this.outlineStyle,
@@ -31,11 +34,13 @@ class BadgeTheme extends ComponentThemeData {
   }) {
     return BadgeTheme(
       primaryStyle: primaryStyle == null ? this.primaryStyle : primaryStyle(),
-      secondaryStyle:
-          secondaryStyle == null ? this.secondaryStyle : secondaryStyle(),
+      secondaryStyle: secondaryStyle == null
+          ? this.secondaryStyle
+          : secondaryStyle(),
       outlineStyle: outlineStyle == null ? this.outlineStyle : outlineStyle(),
-      destructiveStyle:
-          destructiveStyle == null ? this.destructiveStyle : destructiveStyle(),
+      destructiveStyle: destructiveStyle == null
+          ? this.destructiveStyle
+          : destructiveStyle(),
     );
   }
 

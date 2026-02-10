@@ -62,8 +62,6 @@ class _InputPasswordToggleFeatureState
 
   @override
   TextField interceptInput(TextField input) {
-    return input.copyWith(
-      obscureText: () => _obscureText ?? false,
-    );
+    return input.copyWith(obscureText: () => _obscureText ?? false);
   }
 }

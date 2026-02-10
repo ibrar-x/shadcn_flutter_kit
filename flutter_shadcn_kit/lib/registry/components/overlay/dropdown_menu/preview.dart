@@ -20,51 +20,27 @@ class DropdownMenuPreview extends m.StatelessWidget {
                   children: [
                     shadcn_menu.MenuLabel(child: m.Text('My Account')),
                     shadcn_menu.MenuDivider(),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Profile'),
-                    ),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Billing'),
-                    ),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Settings'),
-                    ),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Keyboard shortcuts'),
-                    ),
+                    shadcn_menu.MenuButton(child: m.Text('Profile')),
+                    shadcn_menu.MenuButton(child: m.Text('Billing')),
+                    shadcn_menu.MenuButton(child: m.Text('Settings')),
+                    shadcn_menu.MenuButton(child: m.Text('Keyboard shortcuts')),
                     shadcn_menu.MenuDivider(),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Team'),
-                    ),
+                    shadcn_menu.MenuButton(child: m.Text('Team')),
                     shadcn_menu.MenuButton(
                       subMenu: [
-                        shadcn_menu.MenuButton(
-                          child: m.Text('Email'),
-                        ),
-                        shadcn_menu.MenuButton(
-                          child: m.Text('Message'),
-                        ),
+                        shadcn_menu.MenuButton(child: m.Text('Email')),
+                        shadcn_menu.MenuButton(child: m.Text('Message')),
                         shadcn_menu.MenuDivider(),
-                        shadcn_menu.MenuButton(
-                          child: m.Text('More...'),
-                        ),
+                        shadcn_menu.MenuButton(child: m.Text('More...')),
                       ],
                       child: m.Text('Invite users'),
                     ),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('New Team'),
-                    ),
+                    shadcn_menu.MenuButton(child: m.Text('New Team')),
                     shadcn_menu.MenuDivider(),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('GitHub'),
-                    ),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Support'),
-                    ),
+                    shadcn_menu.MenuButton(child: m.Text('GitHub')),
+                    shadcn_menu.MenuButton(child: m.Text('Support')),
                     shadcn_menu.MenuDivider(),
-                    shadcn_menu.MenuButton(
-                      child: m.Text('Log out'),
-                    ),
+                    shadcn_menu.MenuButton(child: m.Text('Log out')),
                   ],
                 );
               },

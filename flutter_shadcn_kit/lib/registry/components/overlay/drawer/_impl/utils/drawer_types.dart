@@ -1,7 +1,13 @@
 part of '../../drawer.dart';
 
-typedef DrawerBuilder = Widget Function(BuildContext context, Size extraSize,
-    Size size, EdgeInsets padding, int stackIndex);
+typedef DrawerBuilder =
+    Widget Function(
+      BuildContext context,
+      Size extraSize,
+      Size size,
+      EdgeInsets padding,
+      int stackIndex,
+    );
 
 /// Theme configuration for drawer and sheet overlays.
 ///

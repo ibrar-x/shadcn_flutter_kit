@@ -1,8 +1,9 @@
 part of '../../preview.dart';
 
 class _ColorPickerPreviewState extends State<ColorPickerPreview> {
-    final ValueNotifier<ColorDerivative> selectedColorNotifier =
-      ValueNotifier(ColorDerivative.fromColor(Colors.blue));
+  final ValueNotifier<ColorDerivative> selectedColorNotifier = ValueNotifier(
+    ColorDerivative.fromColor(Colors.blue),
+  );
 
   @override
   void dispose() {
@@ -49,7 +50,7 @@ class _ColorPickerPreviewState extends State<ColorPickerPreview> {
               },
               child: const Text('Open Color Picker Popover'),
             ),
-            const Gap(16),
+            const DensityGap(gapLg),
             PrimaryButton(
               onPressed: () {
                 showDialog(

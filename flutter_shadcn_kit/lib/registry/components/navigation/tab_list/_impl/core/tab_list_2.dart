@@ -82,7 +82,7 @@ class TabList extends StatelessWidget {
         );
       },
       childBuilder: _childBuilder,
-    children: children,
-  );
-}
+      children: children,
+    );
+  }
 }

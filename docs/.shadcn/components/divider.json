@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "divider",
+  "name": "Divider",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "layout",
+    "separator"
+  ],
+  "installedAt": "2026-02-09T10:18:03.224932Z",
+  "shared": [
+    "animated_value_builder",
+    "constants",
+    "style_value",
+    "text_modifiers",
+    "theme",
+    "util"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/divider/README.md",
+    "registry/components/display/divider/_impl/core/vertical_divider.dart",
+    "registry/components/display/divider/_impl/themes/divider_theme.dart",
+    "registry/components/display/divider/_impl/utils/divider_painter.dart",
+    "registry/components/display/divider/_impl/utils/divider_painters.dart",
+    "registry/components/display/divider/_impl/utils/vertical_divider_painter.dart",
+    "registry/components/display/divider/divider.dart",
+    "registry/components/display/divider/divider.meta.json",
+    "registry/components/display/divider/meta.json",
+    "registry/components/display/divider/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

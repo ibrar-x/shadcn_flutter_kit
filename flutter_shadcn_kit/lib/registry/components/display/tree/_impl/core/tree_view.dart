@@ -60,7 +60,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns a `TreeNodeSelectionChanged<K>` function that handles selection changes.
   static TreeNodeSelectionChanged<K> defaultSelectionHandler<K>(
-      List<TreeNode<K>> nodes, ValueChanged<List<TreeNode<K>>> onChanged) {
+    List<TreeNode<K>> nodes,
+    ValueChanged<List<TreeNode<K>>> onChanged,
+  ) {
     return TreeSelectionDefaultHandler(nodes, onChanged).call;
   }
 
@@ -75,20 +77,27 @@ class TreeView<T> extends StatefulWidget {
   /// - [onChanged] (`ValueChanged<List<TreeNode<K>>>`, required): Callback when nodes change
   ///
   /// Returns a `ValueChanged<bool>` function that handles expand/collapse events.
-  static ValueChanged<bool> defaultItemExpandHandler<K>(List<TreeNode<K>> nodes,
-      TreeNode<K> target, ValueChanged<List<TreeNode<K>>> onChanged) {
+  static ValueChanged<bool> defaultItemExpandHandler<K>(
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+    ValueChanged<List<TreeNode<K>>> onChanged,
+  ) {
     return TreeItemExpandDefaultHandler(nodes, target, onChanged).call;
   }
 
   static List<TreeNode<K>>? _replaceNodes<K>(
-      List<TreeNode<K>> nodes, TreeNodeUnaryOperator<K> operator) {
+    List<TreeNode<K>> nodes,
+    TreeNodeUnaryOperator<K> operator,
+  ) {
     List<TreeNode<K>> newNodes = List.from(nodes);
     bool changed = false;
     for (int i = 0; i < newNodes.length; i++) {
       final node = newNodes[i];
       var newNode = operator(node);
-      List<TreeNode<K>>? newChildren =
-          _replaceNodes((newNode ?? node).children, operator);
+      List<TreeNode<K>>? newChildren = _replaceNodes(
+        (newNode ?? node).children,
+        operator,
+      );
       if (newChildren != null) {
         newNode = (newNode ?? node).updateChildren(newChildren);
       }
@@ -100,15 +109,21 @@ class TreeView<T> extends StatefulWidget {
     return changed ? newNodes : null;
   }
 
-  static List<TreeNode<K>>? _replaceNodesWithParent<K>(TreeNode<K>? parent,
-      List<TreeNode<K>> nodes, TreeNodeUnaryOperatorWithParent<K> operator) {
+  static List<TreeNode<K>>? _replaceNodesWithParent<K>(
+    TreeNode<K>? parent,
+    List<TreeNode<K>> nodes,
+    TreeNodeUnaryOperatorWithParent<K> operator,
+  ) {
     List<TreeNode<K>> newNodes = List.from(nodes);
     bool changed = false;
     for (int i = 0; i < newNodes.length; i++) {
       final node = newNodes[i];
       var newNode = operator(parent, node);
       List<TreeNode<K>>? newChildren = _replaceNodesWithParent(
-          newNode ?? node, (newNode ?? node).children, operator);
+        newNode ?? node,
+        (newNode ?? node).children,
+        operator,
+      );
       if (newChildren != null) {
         newNode = (newNode ?? node).updateChildren(newChildren);
       }
@@ -128,7 +143,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — transformed tree.
   static List<TreeNode<K>> replaceNodes<K>(
-      List<TreeNode<K>> nodes, TreeNodeUnaryOperator<K> operator) {
+    List<TreeNode<K>> nodes,
+    TreeNodeUnaryOperator<K> operator,
+  ) {
     return _replaceNodes(nodes, operator) ?? nodes;
   }
 
@@ -140,7 +157,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — transformed tree.
   static List<TreeNode<K>> replaceNodesWithParent<K>(
-      List<TreeNode<K>> nodes, TreeNodeUnaryOperatorWithParent<K> operator) {
+    List<TreeNode<K>> nodes,
+    TreeNodeUnaryOperatorWithParent<K> operator,
+  ) {
     return _replaceNodesWithParent(null, nodes, operator) ?? nodes;
   }
 
@@ -153,7 +172,10 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node replaced.
   static List<TreeNode<K>> replaceNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> oldNode, TreeNode<K> newNode) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> oldNode,
+    TreeNode<K> newNode,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == oldNode ? newNode : null;
     });
@@ -168,7 +190,10 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with item replaced.
   static List<TreeNode<K>> replaceItem<K>(
-      List<TreeNode<K>> nodes, K oldItem, TreeNode<K> newItem) {
+    List<TreeNode<K>> nodes,
+    K oldItem,
+    TreeNode<K> newItem,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K> && node.data == oldItem) {
         return newItem;
@@ -184,7 +209,8 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with updated selection.
   static List<TreeNode<K>> updateRecursiveSelection<K>(
-      List<TreeNode<K>> nodes) {
+    List<TreeNode<K>> nodes,
+  ) {
     return replaceNodesWithParent(nodes, (parent, node) {
       if (node is TreeItem<K> &&
           !node.selected &&
@@ -252,7 +278,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node expanded.
   static List<TreeNode<K>> expandNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> target) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == target ? node.updateState(expanded: true) : null;
     });
@@ -282,7 +310,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node collapsed.
   static List<TreeNode<K>> collapseNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> target) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == target ? node.updateState(expanded: false) : null;
     });
@@ -312,7 +342,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node selected.
   static List<TreeNode<K>> selectNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> target) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == target ? node.updateState(selected: true) : null;
     });
@@ -342,7 +374,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node deselected.
   static List<TreeNode<K>> deselectNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> target) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == target ? node.updateState(selected: false) : null;
     });
@@ -372,7 +406,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with node selection toggled.
   static List<TreeNode<K>> toggleSelectNode<K>(
-      List<TreeNode<K>> nodes, TreeNode<K> target) {
+    List<TreeNode<K>> nodes,
+    TreeNode<K> target,
+  ) {
     return replaceNodes(nodes, (node) {
       return node == target ? node.updateState(selected: !node.selected) : null;
     });
@@ -386,7 +422,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with nodes toggled.
   static List<TreeNode<K>> toggleSelectNodes<K>(
-      List<TreeNode<K>> nodes, Iterable<TreeNode<K>> targets) {
+    List<TreeNode<K>> nodes,
+    Iterable<TreeNode<K>> targets,
+  ) {
     return replaceNodes(nodes, (node) {
       return targets.contains(node)
           ? node.updateState(selected: !node.selected)
@@ -402,7 +440,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with item toggled.
   static List<TreeNode<K>> toggleSelectItem<K>(
-      List<TreeNode<K>> nodes, K target) {
+    List<TreeNode<K>> nodes,
+    K target,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K> && node.data == target) {
         return node.updateState(selected: !node.selected);
@@ -419,7 +459,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with items toggled.
   static List<TreeNode<K>> toggleSelectItems<K>(
-      List<TreeNode<K>> nodes, Iterable<K> targets) {
+    List<TreeNode<K>> nodes,
+    Iterable<K> targets,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K> && targets.contains(node.data)) {
         return node.updateState(selected: !node.selected);
@@ -472,7 +514,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with specified nodes selected.
   static List<TreeNode<K>> selectNodes<K>(
-      List<TreeNode<K>> nodes, Iterable<TreeNode<K>> selectedNodes) {
+    List<TreeNode<K>> nodes,
+    Iterable<TreeNode<K>> selectedNodes,
+  ) {
     return replaceNodes(nodes, (node) {
       return selectedNodes.contains(node)
           ? node.updateState(selected: true)
@@ -488,7 +532,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with specified items selected.
   static List<TreeNode<K>> selectItems<K>(
-      List<TreeNode<K>> nodes, Iterable<K> selectedItems) {
+    List<TreeNode<K>> nodes,
+    Iterable<K> selectedItems,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K> && selectedItems.contains(node.data)) {
         return node.updateState(selected: true);
@@ -505,7 +551,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with specified nodes deselected.
   static List<TreeNode<K>> deselectNodes<K>(
-      List<TreeNode<K>> nodes, Iterable<TreeNode<K>> deselectedNodes) {
+    List<TreeNode<K>> nodes,
+    Iterable<TreeNode<K>> deselectedNodes,
+  ) {
     return replaceNodes(nodes, (node) {
       return deselectedNodes.contains(node)
           ? node.updateState(selected: false)
@@ -521,7 +569,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with specified items deselected.
   static List<TreeNode<K>> deselectItems<K>(
-      List<TreeNode<K>> nodes, Iterable<K> deselectedItems) {
+    List<TreeNode<K>> nodes,
+    Iterable<K> deselectedItems,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K> && deselectedItems.contains(node.data)) {
         return node.updateState(selected: false);
@@ -538,7 +588,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with only specified nodes selected.
   static List<TreeNode<K>> setSelectedNodes<K>(
-      List<TreeNode<K>> nodes, Iterable<TreeNode<K>> selectedNodes) {
+    List<TreeNode<K>> nodes,
+    Iterable<TreeNode<K>> selectedNodes,
+  ) {
     return replaceNodes(nodes, (node) {
       return node.updateState(selected: selectedNodes.contains(node));
     });
@@ -552,7 +604,9 @@ class TreeView<T> extends StatefulWidget {
   ///
   /// Returns: `List<TreeNode<K>>` — tree with only specified items selected.
   static List<TreeNode<K>> setSelectedItems<K>(
-      List<TreeNode<K>> nodes, Iterable<K> selectedItems) {
+    List<TreeNode<K>> nodes,
+    Iterable<K> selectedItems,
+  ) {
     return replaceNodes(nodes, (node) {
       if (node is TreeItem<K>) {
         return node.updateState(selected: selectedItems.contains(node.data));

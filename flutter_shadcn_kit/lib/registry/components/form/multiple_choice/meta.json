@@ -9,14 +9,44 @@
     "selection"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "form_control",
       "form_value_supplier",
       "theme"
     ],
-    "components": []
-  }
+    "components": [],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/choice.dart",
+    "_impl/core/controlled_multiple_answer.dart",
+    "_impl/core/controlled_multiple_choice.dart",
+    "_impl/core/multiple_answer.dart",
+    "_impl/state/_multiple_answer_state.dart",
+    "_impl/state/_multiple_choice_preview_state.dart",
+    "_impl/state/_multiple_choice_state.dart",
+    "_impl/themes/multiple_choice_theme.dart",
+    "_impl/utils/multiple_answer_controller.dart",
+    "_impl/utils/multiple_choice_controller.dart",
+    "meta.json",
+    "multiple_choice.dart",
+    "multiple_choice.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`MultipleChoice<T>` — single selection.",
+      "`MultipleAnswer<T>` — multiple selection.",
+      "`Choice<T>` — selectable child widget.",
+      "`ControlledMultipleChoice<T>` / `ControlledMultipleAnswer<T>` — controller-backed.",
+      "`MultipleChoiceController<T>` / `MultipleAnswerController<T>` — controllers."
+    ],
+    "callbacks": [
+      "`onChanged`"
+    ]
+  },
+  "version": "1.0.0"
 }

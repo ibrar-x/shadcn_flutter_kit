@@ -17,7 +17,9 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
       themeValue: compTheme?.backgroundColor,
       defaultValue: theme.colorScheme.background,
     );
-    final resolvedBorderRadius = borderRadius.resolve(Directionality.of(context));
+    final resolvedBorderRadius = borderRadius.resolve(
+      Directionality.of(context),
+    );
     final surfaceOpacity = styleValue<double?>(
       widgetValue: widget.surfaceOpacity,
       themeValue: compTheme?.surfaceOpacity,
@@ -25,7 +27,10 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
     );
     final baseBackgroundColor = surfaceOpacity != null
         ? backgroundColor.withValues(
-            alpha: ((backgroundColor.a / 255.0) * surfaceOpacity).clamp(0.0, 1.0),
+            alpha: ((backgroundColor.a / 255.0) * surfaceOpacity).clamp(
+              0.0,
+              1.0,
+            ),
           )
         : backgroundColor;
     final borderColor = styleValue<Color>(
@@ -76,7 +81,9 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
       ),
       child: AnimatedContainer(
         duration: widget.duration ?? Duration.zero,
-        decoration: widget.clipBehavior == Clip.none ? null : const BoxDecoration(),
+        decoration: widget.clipBehavior == Clip.none
+            ? null
+            : const BoxDecoration(),
         clipBehavior: widget.clipBehavior,
         padding: padding,
         child: widget.child,

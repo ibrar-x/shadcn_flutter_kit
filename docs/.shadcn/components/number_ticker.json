@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "number_ticker",
+  "name": "Number Ticker",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "indicator",
+    "animation"
+  ],
+  "installedAt": "2026-02-09T10:18:03.226633Z",
+  "shared": [
+    "animated_value_builder",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/number_ticker/README.md",
+    "registry/components/display/number_ticker/_impl/themes/number_ticker_theme.dart",
+    "registry/components/display/number_ticker/_number_ticker_preview_state.dart",
+    "registry/components/display/number_ticker/meta.json",
+    "registry/components/display/number_ticker/number_ticker.dart",
+    "registry/components/display/number_ticker/number_ticker.meta.json",
+    "registry/components/display/number_ticker/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

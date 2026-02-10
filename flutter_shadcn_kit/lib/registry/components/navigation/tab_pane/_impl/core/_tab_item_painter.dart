@@ -29,14 +29,22 @@ class _TabItemPainter extends CustomPainter {
     double adjustment = borderWidth;
     path.moveTo(-borderRadius.bottomLeft.x, size.height + adjustment);
     path.quadraticBezierTo(
-        0, size.height, 0, size.height - borderRadius.bottomLeft.y);
+      0,
+      size.height,
+      0,
+      size.height - borderRadius.bottomLeft.y,
+    );
     path.lineTo(0, borderRadius.topLeft.y);
     path.quadraticBezierTo(0, 0, borderRadius.topLeft.x, 0);
     path.lineTo(size.width - borderRadius.topRight.x, 0);
     path.quadraticBezierTo(size.width, 0, size.width, borderRadius.topRight.y);
     path.lineTo(size.width, size.height - borderRadius.bottomRight.y);
-    path.quadraticBezierTo(size.width, size.height,
-        size.width + borderRadius.bottomRight.x, size.height + adjustment);
+    path.quadraticBezierTo(
+      size.width,
+      size.height,
+      size.width + borderRadius.bottomRight.x,
+      size.height + adjustment,
+    );
     if (closed) {
       path.close();
     }

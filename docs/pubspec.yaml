@@ -57,6 +57,7 @@ dependencies:
   skeletonizer: ^2.1.0+1
   web: ^1.1.1
   file_picker: 10.3.9
+  cross_file: 0.3.4+2
 dev_dependencies:
   flutter_test:
     sdk: flutter

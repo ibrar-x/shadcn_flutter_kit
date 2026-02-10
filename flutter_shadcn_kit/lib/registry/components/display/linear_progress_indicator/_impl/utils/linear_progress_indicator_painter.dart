@@ -39,8 +39,11 @@ class _LinearProgressIndicatorProperties {
       start2: _lerpDouble(start.start2, end.start2, t),
       end2: _lerpDouble(start.end2, end.end2, t),
       color: Color.lerp(start.color, end.color, t)!,
-      backgroundColor:
-          Color.lerp(start.backgroundColor, end.backgroundColor, t)!,
+      backgroundColor: Color.lerp(
+        start.backgroundColor,
+        end.backgroundColor,
+        t,
+      )!,
       showSparks: end.showSparks,
       sparksColor: Color.lerp(start.sparksColor, end.sparksColor, t)!,
       sparksRadius: _lerpDouble(start.sparksRadius, end.sparksRadius, t)!,

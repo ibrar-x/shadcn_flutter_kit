@@ -5,6 +5,9 @@ import '../../../../../shared/theme/theme.dart';
 /// Theme overrides for the EmptyState widget.
 class EmptyStateTheme extends ComponentThemeData {
   const EmptyStateTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.iconColor,
     this.iconSize,
     this.titleStyle,
@@ -13,6 +16,10 @@ class EmptyStateTheme extends ComponentThemeData {
     this.maxWidth,
     this.cardBorderRadius,
     this.cardFillColor,
+    this.iconContainerColor,
+    this.iconContainerBorderColor,
+    this.iconContainerBorderRadius,
+    this.iconContainerPadding,
   });
 
   final Color? iconColor;
@@ -23,4 +30,8 @@ class EmptyStateTheme extends ComponentThemeData {
   final double? maxWidth;
   final BorderRadiusGeometry? cardBorderRadius;
   final Color? cardFillColor;
+  final Color? iconContainerColor;
+  final Color? iconContainerBorderColor;
+  final BorderRadiusGeometry? iconContainerBorderRadius;
+  final EdgeInsetsGeometry? iconContainerPadding;
 }

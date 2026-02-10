@@ -3,8 +3,8 @@ part of '../../text_field.dart';
 class _TextFieldSelectionGestureDetectorBuilder
     extends TextSelectionGestureDetectorBuilder {
   _TextFieldSelectionGestureDetectorBuilder({required TextFieldState state})
-      : _state = state,
-        super(delegate: state);
+    : _state = state,
+      super(delegate: state);
 
   final TextFieldState _state;
 
@@ -15,10 +15,12 @@ class _TextFieldSelectionGestureDetectorBuilder
     // this handler. If the clear button widget recognizes the up event,
     // then do not handle it.
     if (_state._clearGlobalKey.currentContext != null) {
-      final RenderBox renderBox = _state._clearGlobalKey.currentContext!
-          .findRenderObject()! as RenderBox;
-      final Offset localOffset =
-          renderBox.globalToLocal(details.globalPosition);
+      final RenderBox renderBox =
+          _state._clearGlobalKey.currentContext!.findRenderObject()!
+              as RenderBox;
+      final Offset localOffset = renderBox.globalToLocal(
+        details.globalPosition,
+      );
       if (renderBox.hitTest(BoxHitTestResult(), position: localOffset)) {
         return;
       }

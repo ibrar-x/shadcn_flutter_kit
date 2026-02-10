@@ -64,41 +64,45 @@ class BasicLayout extends StatelessWidget {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<BasicTheme>(context);
     final contentSpacing = styleValue(
-        widgetValue: this.contentSpacing,
-        themeValue: compTheme?.contentSpacing,
-        defaultValue: 16 * scaling);
+      widgetValue: this.contentSpacing,
+      themeValue: compTheme?.contentSpacing,
+      defaultValue: 16 * scaling,
+    );
     final titleSpacing = styleValue(
-        widgetValue: this.titleSpacing,
-        themeValue: compTheme?.titleSpacing,
-        defaultValue: 4 * scaling);
+      widgetValue: this.titleSpacing,
+      themeValue: compTheme?.titleSpacing,
+      defaultValue: 4 * scaling,
+    );
     final leadingAlignment = styleValue(
-        widgetValue: this.leadingAlignment,
-        themeValue: compTheme?.leadingAlignment,
-        defaultValue: Alignment.topCenter);
+      widgetValue: this.leadingAlignment,
+      themeValue: compTheme?.leadingAlignment,
+      defaultValue: Alignment.topCenter,
+    );
     final trailingAlignment = styleValue(
-        widgetValue: this.trailingAlignment,
-        themeValue: compTheme?.trailingAlignment,
-        defaultValue: Alignment.topCenter);
+      widgetValue: this.trailingAlignment,
+      themeValue: compTheme?.trailingAlignment,
+      defaultValue: Alignment.topCenter,
+    );
     final titleAlignment = styleValue(
-        widgetValue: this.titleAlignment,
-        themeValue: compTheme?.titleAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.titleAlignment,
+      themeValue: compTheme?.titleAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     final subtitleAlignment = styleValue(
-        widgetValue: this.subtitleAlignment,
-        themeValue: compTheme?.subtitleAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.subtitleAlignment,
+      themeValue: compTheme?.subtitleAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     final contentAlignment = styleValue(
-        widgetValue: this.contentAlignment,
-        themeValue: compTheme?.contentAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.contentAlignment,
+      themeValue: compTheme?.contentAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     Widget child = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (leading != null)
-          Align(
-            alignment: leadingAlignment,
-            child: leading!,
-          ),
+          Align(alignment: leadingAlignment, child: leading!),
         if (leading != null &&
             (title != null || content != null || subtitle != null))
           SizedBox(width: contentSpacing),
@@ -110,24 +114,15 @@ class BasicLayout extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (title != null)
-                  Align(
-                    alignment: titleAlignment,
-                    child: title!,
-                  ),
+                  Align(alignment: titleAlignment, child: title!),
                 if (title != null && subtitle != null)
-                  SizedBox(height: 2 * scaling),
+                  SizedBox(height: theme.density.baseGap * scaling * 0.25),
                 if (subtitle != null)
-                  Align(
-                    alignment: subtitleAlignment,
-                    child: subtitle!,
-                  ),
+                  Align(alignment: subtitleAlignment, child: subtitle!),
                 if ((title != null || subtitle != null) && content != null)
                   SizedBox(height: titleSpacing),
                 if (content != null)
-                  Align(
-                    alignment: contentAlignment,
-                    child: content!,
-                  ),
+                  Align(alignment: contentAlignment, child: content!),
               ],
             ),
           ),
@@ -138,18 +133,12 @@ class BasicLayout extends StatelessWidget {
                 subtitle != null))
           SizedBox(width: contentSpacing),
         if (trailing != null)
-          Align(
-            alignment: trailingAlignment,
-            child: trailing!,
-          ),
+          Align(alignment: trailingAlignment, child: trailing!),
       ],
     );
 
     if (constraints != null) {
-      child = ConstrainedBox(
-        constraints: constraints!,
-        child: child,
-      );
+      child = ConstrainedBox(constraints: constraints!, child: child);
     }
 
     return child;

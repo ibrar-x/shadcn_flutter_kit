@@ -2,23 +2,24 @@ import 'package:flutter/widgets.dart';
 
 import '../../component_example_models.dart';
 import '../../../../ui/shadcn/components/display/empty_state/empty_state.dart';
+import '../../../../ui/shadcn/shared/icons/radix_icons.dart';
 
 const ComponentExample emptyStateExample3 = ComponentExample(
-  title: 'Error fallback',
+  title: 'Single action',
   builder: _buildEmptyStateExample3,
   code: '''EmptyState(
-  variant: EmptyStateVariant.errorFallback,
-  title: Text('Something went wrong'),
-  description: Text('Please try again in a moment.'),
-  primaryAction: EmptyStateAction(label: 'Retry'),
+  icon: Icon(RadixIcons.upload),
+  title: Text('No Files Uploaded'),
+  description: Text('Upload your first file or import from cloud storage.'),
+  primaryAction: EmptyStateAction(label: 'Upload Files'),
 )''',
 );
 
 Widget _buildEmptyStateExample3(BuildContext context) {
   return const EmptyState(
-    variant: EmptyStateVariant.errorFallback,
-    title: Text('Something went wrong'),
-    description: Text('Please try again in a moment.'),
-    primaryAction: EmptyStateAction(label: 'Retry'),
+    icon: Icon(RadixIcons.upload),
+    title: Text('No Files Uploaded'),
+    description: Text('Upload your first file or import from cloud storage.'),
+    primaryAction: EmptyStateAction(label: 'Upload Files'),
   );
 }

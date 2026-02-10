@@ -13,6 +13,9 @@ class OutlinedContainerTheme extends ComponentThemeData {
   final double? surfaceBlur;
 
   const OutlinedContainerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.borderColor,
     this.borderRadius,
@@ -36,16 +39,18 @@ class OutlinedContainerTheme extends ComponentThemeData {
     ValueGetter<double?>? surfaceBlur,
   }) {
     return OutlinedContainerTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       borderStyle: borderStyle == null ? this.borderStyle : borderStyle(),
       borderWidth: borderWidth == null ? this.borderWidth : borderWidth(),
       boxShadow: boxShadow == null ? this.boxShadow : boxShadow(),
       padding: padding == null ? this.padding : padding(),
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
     );
   }
@@ -66,14 +71,14 @@ class OutlinedContainerTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        backgroundColor,
-        borderColor,
-        borderRadius,
-        borderStyle,
-        borderWidth,
-        boxShadow,
-        padding,
-        surfaceOpacity,
-        surfaceBlur,
-      );
+    backgroundColor,
+    borderColor,
+    borderRadius,
+    borderStyle,
+    borderWidth,
+    boxShadow,
+    padding,
+    surfaceOpacity,
+    surfaceBlur,
+  );
 }

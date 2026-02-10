@@ -27,8 +27,12 @@ class _NavigationRailState extends State<NavigationRail>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    var parentPadding = widget.padding ??
-        (const EdgeInsets.symmetric(vertical: 8, horizontal: 12) * scaling);
+    var parentPadding =
+        widget.padding ??
+        (EdgeInsets.symmetric(
+          vertical: theme.density.baseGap * scaling,
+          horizontal: theme.density.baseContentPadding * scaling * 0.75,
+        ));
     var directionality = Directionality.of(context);
     var resolvedPadding = parentPadding.resolve(directionality);
     return RepaintBoundary(
@@ -44,14 +48,15 @@ class _NavigationRailState extends State<NavigationRail>
           onSelected: _onSelected,
           expanded: widget.expanded,
           childCount: widget.children.length,
-          spacing: widget.spacing ?? (8 * scaling),
+          spacing: widget.spacing ?? (theme.density.baseGap * scaling),
           keepCrossAxisSize: widget.keepCrossAxisSize,
           keepMainAxisSize: widget.keepMainAxisSize,
         ),
         child: SurfaceBlur(
           surfaceBlur: widget.surfaceBlur,
           child: Container(
-            color: widget.backgroundColor ??
+            color:
+                widget.backgroundColor ??
                 (theme.colorScheme.background.scaleAlpha(
                   widget.surfaceOpacity ?? 1,
                 )),

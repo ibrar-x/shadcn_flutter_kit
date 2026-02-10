@@ -36,8 +36,9 @@ class CircularProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconTheme = IconTheme.of(context);
     final theme = Theme.of(context);
-    final compTheme =
-        ComponentTheme.maybeOf<CircularProgressIndicatorTheme>(context);
+    final compTheme = ComponentTheme.maybeOf<CircularProgressIndicatorTheme>(
+      context,
+    );
 
     final effectiveSize = styleValue(
       widgetValue: size,
@@ -48,8 +49,9 @@ class CircularProgressIndicator extends StatelessWidget {
     final effectiveColor = styleValue(
       widgetValue: color,
       themeValue: compTheme?.color,
-      defaultValue:
-          onSurface ? theme.colorScheme.background : theme.colorScheme.primary,
+      defaultValue: onSurface
+          ? theme.colorScheme.background
+          : theme.colorScheme.primary,
     );
 
     final effectiveBackgroundColor = styleValue(

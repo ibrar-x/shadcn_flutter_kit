@@ -1,6 +1,22 @@
 import 'file_like.dart';
 
 typedef UploadFn = Stream<double> Function(FileLike file);
+typedef FileUploadPickFiles =
+    Future<List<FileLike>> Function(FileUploadPickRequest request);
+
+class FileUploadPickRequest {
+  const FileUploadPickRequest({
+    required this.allowMultiple,
+    required this.withData,
+    this.allowedExtensions,
+    this.allowedMimeTypes,
+  });
+
+  final bool allowMultiple;
+  final bool withData;
+  final List<String>? allowedExtensions;
+  final List<String>? allowedMimeTypes;
+}
 
 enum FileUploadState { idle, dragging, uploading, success, error, disabled }
 

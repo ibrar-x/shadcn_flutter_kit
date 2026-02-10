@@ -12,7 +12,13 @@ class FormattedInputTheme extends ComponentThemeData {
   final EdgeInsetsGeometry? padding;
 
   /// Creates a [FormattedInputTheme].
-  const FormattedInputTheme({this.height, this.padding});
+  const FormattedInputTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.height,
+    this.padding,
+  });
 
   /// Creates a copy of this theme with specified properties overridden.
   FormattedInputTheme copyWith({

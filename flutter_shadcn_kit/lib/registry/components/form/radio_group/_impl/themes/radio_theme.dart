@@ -30,8 +30,15 @@ class RadioTheme extends ComponentThemeData {
   /// - [borderColor] (`Color?`, optional): Border color.
   /// - [backgroundColor] (`Color?`, optional): Background color.
   /// - [size] (`double?`, optional): Radio button size.
-  const RadioTheme(
-      {this.activeColor, this.borderColor, this.size, this.backgroundColor});
+  const RadioTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.activeColor,
+    this.borderColor,
+    this.size,
+    this.backgroundColor,
+  });
 
   /// Creates a copy of this theme with the given fields replaced.
   ///
@@ -52,8 +59,9 @@ class RadioTheme extends ComponentThemeData {
       activeColor: activeColor == null ? this.activeColor : activeColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       size: size == null ? this.size : size(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
     );
   }
 

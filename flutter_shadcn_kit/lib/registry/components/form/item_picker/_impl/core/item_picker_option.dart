@@ -72,18 +72,16 @@ class ItemPickerOption<T> extends StatelessWidget {
           if (label == null) {
             return child;
           }
-          return BasicLayout(
-            leading: child,
-            content: label,
-          );
+          return BasicLayout(leading: child, content: label);
         },
       );
     }
     if (data.layout is ListItemPickerLayout) {
       if (label == null) {
         return Button(
-          onPressed:
-              data.onChanged == null ? null : () => data.onChanged!(value),
+          onPressed: data.onChanged == null
+              ? null
+              : () => data.onChanged!(value),
           style: data.value == value
               ? (selectedStyle ?? ButtonVariance.primary)
               : (style ?? ButtonVariance.ghost),

@@ -1,6 +1,8 @@
 part of '../../navigation_bar.dart';
 
-abstract class _AbstractNavigationButtonState<T extends AbstractNavigationButton>
+abstract class _AbstractNavigationButtonState<
+  T extends AbstractNavigationButton
+>
     extends State<T> {
   @override
   Widget build(BuildContext context) {

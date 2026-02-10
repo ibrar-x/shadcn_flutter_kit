@@ -18,6 +18,9 @@ class RefreshTriggerTheme extends ComponentThemeData {
 
   /// Creates a [RefreshTriggerTheme].
   const RefreshTriggerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.minExtent,
     this.maxExtent,
     this.indicatorBuilder,
@@ -36,11 +39,13 @@ class RefreshTriggerTheme extends ComponentThemeData {
     return RefreshTriggerTheme(
       minExtent: minExtent == null ? this.minExtent : minExtent(),
       maxExtent: maxExtent == null ? this.maxExtent : maxExtent(),
-      indicatorBuilder:
-          indicatorBuilder == null ? this.indicatorBuilder : indicatorBuilder(),
+      indicatorBuilder: indicatorBuilder == null
+          ? this.indicatorBuilder
+          : indicatorBuilder(),
       curve: curve == null ? this.curve : curve(),
-      completeDuration:
-          completeDuration == null ? this.completeDuration : completeDuration(),
+      completeDuration: completeDuration == null
+          ? this.completeDuration
+          : completeDuration(),
     );
   }
 
@@ -57,7 +62,12 @@ class RefreshTriggerTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      minExtent, maxExtent, indicatorBuilder, curve, completeDuration);
+    minExtent,
+    maxExtent,
+    indicatorBuilder,
+    curve,
+    completeDuration,
+  );
 
   @override
   String toString() {

@@ -38,8 +38,9 @@ class ButtonDensity {
   static const ButtonDensity icon = ButtonDensity(_densityIcon);
 
   /// Comfortable square padding for icon-only buttons.
-  static const ButtonDensity iconComfortable =
-      ButtonDensity(_densityIconComfortable);
+  static const ButtonDensity iconComfortable = ButtonDensity(
+    _densityIconComfortable,
+  );
 
   /// Dense square padding for compact icon buttons.
   static const ButtonDensity iconDense = ButtonDensity(_densityIconDense);
@@ -65,18 +66,21 @@ EdgeInsets _densityCompact(EdgeInsets padding) {
 
 EdgeInsets _densityIcon(EdgeInsets padding) {
   return EdgeInsets.all(
-      min(padding.top, min(padding.bottom, min(padding.left, padding.right))));
+    min(padding.top, min(padding.bottom, min(padding.left, padding.right))),
+  );
 }
 
 EdgeInsets _densityIconComfortable(EdgeInsets padding) {
   return EdgeInsets.all(
-      max(padding.top, max(padding.bottom, max(padding.left, padding.right))));
+    max(padding.top, max(padding.bottom, max(padding.left, padding.right))),
+  );
 }
 
 EdgeInsets _densityIconDense(EdgeInsets padding) {
   return EdgeInsets.all(
-      min(padding.top, min(padding.bottom, min(padding.left, padding.right))) *
-          0.5);
+    min(padding.top, min(padding.bottom, min(padding.left, padding.right))) *
+        0.5,
+  );
 }
 
 EdgeInsets _densityComfortable(EdgeInsets padding) {

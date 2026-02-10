@@ -76,9 +76,6 @@ class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
 
   @override
   Widget build(BuildContext context) {
-    return Data.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data.inherit(data: this, child: widget.child);
   }
 }

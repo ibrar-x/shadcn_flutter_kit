@@ -31,6 +31,9 @@ class PhoneInputTheme extends ComponentThemeData {
 
   /// Theme data for [PhoneInput].
   const PhoneInputTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.padding,
     this.borderRadius,
     this.popupConstraints,
@@ -57,8 +60,9 @@ class PhoneInputTheme extends ComponentThemeData {
     return PhoneInputTheme(
       padding: padding != null ? padding() : this.padding,
       borderRadius: borderRadius != null ? borderRadius() : this.borderRadius,
-      popupConstraints:
-          popupConstraints != null ? popupConstraints() : this.popupConstraints,
+      popupConstraints: popupConstraints != null
+          ? popupConstraints()
+          : this.popupConstraints,
       maxWidth: maxWidth != null ? maxWidth() : this.maxWidth,
       flagHeight: flagHeight != null ? flagHeight() : this.flagHeight,
       flagWidth: flagWidth != null ? flagWidth() : this.flagWidth,
@@ -86,16 +90,16 @@ class PhoneInputTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        padding,
-        borderRadius,
-        popupConstraints,
-        maxWidth,
-        flagHeight,
-        flagWidth,
-        flagGap,
-        countryGap,
-        flagShape,
-      );
+    padding,
+    borderRadius,
+    popupConstraints,
+    maxWidth,
+    flagHeight,
+    flagWidth,
+    flagGap,
+    countryGap,
+    flagShape,
+  );
 
   @override
   String toString() {

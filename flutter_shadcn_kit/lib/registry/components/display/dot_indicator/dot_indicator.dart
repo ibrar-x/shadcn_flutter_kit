@@ -8,18 +8,20 @@ import '../../../shared/utils/style_value.dart';
 part '_impl/core/active_dot_item.dart';
 part '_impl/core/inactive_dot_item.dart';
 
-
 part '_impl/themes/dot_indicator_theme.dart';
 part '_impl/core/dot_items.dart';
 
 /// Builder function that creates dot widgets.
-typedef DotBuilder = Widget Function(
-    BuildContext context, int index, bool active);
+typedef DotBuilder =
+    Widget Function(BuildContext context, int index, bool active);
 
 /// Navigation indicator with a row/column of animated dots.
 class DotIndicator extends StatelessWidget {
   static Widget _defaultDotBuilder(
-      BuildContext context, int index, bool active) {
+    BuildContext context,
+    int index,
+    bool active,
+  ) {
     return active ? const ActiveDotItem() : const InactiveDotItem();
   }
 
@@ -53,10 +55,11 @@ class DotIndicator extends StatelessWidget {
       themeValue: compTheme?.spacing,
       defaultValue: 8 * scaling,
     );
-    final resolvedPadding = styleValue(
+    final resolvedPadding =
+        styleValue(
           widgetValue: padding,
           themeValue: compTheme?.padding,
-          defaultValue: const EdgeInsets.all(8),
+          defaultValue: EdgeInsets.all(theme.density.baseGap),
         ).resolve(directionality) *
         scaling;
     final resolvedBuilder =

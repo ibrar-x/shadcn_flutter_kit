@@ -6,5 +6,37 @@
   "tags": [
     "text",
     "selection"
-  ]
+  ],
+  "dependencies": {
+    "shared": [
+      "theme"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/selectable_text.dart",
+    "meta.json",
+    "preview.dart",
+    "selectable.dart",
+    "selectable.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`SelectableText`",
+      "`data` (`String`, required)",
+      "`style`, `textAlign`, `textDirection`, `textScaler`",
+      "`cursorWidth`, `cursorHeight`, `cursorRadius`, `cursorColor`",
+      "`selectionHeightStyle`, `selectionWidthStyle`",
+      "`enableInteractiveSelection`, `useNativeContextMenu`",
+      "`SelectableText.rich`",
+      "`textSpan` (`TextSpan`, required)"
+    ],
+    "callbacks": [
+      "`onTap`",
+      "`onSelectionChanged`"
+    ]
+  },
+  "version": "1.0.0"
 }

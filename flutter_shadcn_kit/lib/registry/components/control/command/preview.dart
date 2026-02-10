@@ -29,11 +29,13 @@ class CommandPreview extends StatelessWidget {
               for (final item in values.value) {
                 if (query == null ||
                     item.toLowerCase().contains(query.toLowerCase())) {
-                  resultItems.add(CommandItem(
-                    title: Text(item),
-                    leading: icons[item],
-                    onTap: () {},
-                  ));
+                  resultItems.add(
+                    CommandItem(
+                      title: Text(item),
+                      leading: icons[item],
+                      onTap: () {},
+                    ),
+                  );
                 }
               }
               if (resultItems.isNotEmpty) {

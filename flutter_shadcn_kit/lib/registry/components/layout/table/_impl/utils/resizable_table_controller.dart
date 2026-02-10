@@ -45,14 +45,14 @@ class ResizableTableController extends ChangeNotifier {
     ConstrainedTableSize? defaultHeightConstraint,
     Map<int, ConstrainedTableSize>? widthConstraints,
     Map<int, ConstrainedTableSize>? heightConstraints,
-  })  : _columnWidths = columnWidths,
-        _rowHeights = rowHeights,
-        _defaultColumnWidth = defaultColumnWidth,
-        _defaultRowHeight = defaultRowHeight,
-        _widthConstraints = widthConstraints,
-        _heightConstraints = heightConstraints,
-        _defaultWidthConstraint = defaultWidthConstraint,
-        _defaultHeightConstraint = defaultHeightConstraint;
+  }) : _columnWidths = columnWidths,
+       _rowHeights = rowHeights,
+       _defaultColumnWidth = defaultColumnWidth,
+       _defaultRowHeight = defaultRowHeight,
+       _widthConstraints = widthConstraints,
+       _heightConstraints = heightConstraints,
+       _defaultWidthConstraint = defaultWidthConstraint,
+       _defaultHeightConstraint = defaultHeightConstraint;
 
   /// Resizes a specific column to a new width.
   ///
@@ -66,10 +66,11 @@ class ResizableTableController extends ChangeNotifier {
       return false;
     }
     width = width.clamp(
-        _widthConstraints?[column]?.min ?? _defaultWidthConstraint?.min ?? 0,
-        _widthConstraints?[column]?.max ??
-            _defaultWidthConstraint?.max ??
-            double.infinity);
+      _widthConstraints?[column]?.min ?? _defaultWidthConstraint?.min ?? 0,
+      _widthConstraints?[column]?.max ??
+          _defaultWidthConstraint?.max ??
+          double.infinity,
+    );
     if (_columnWidths != null && _columnWidths![column] == width) {
       return false;
     }
@@ -88,7 +89,10 @@ class ResizableTableController extends ChangeNotifier {
   ///
   /// Returns: `double` — actual width change applied.
   double resizeColumnBorder(
-      int previousColumn, int nextColumn, double deltaWidth) {
+    int previousColumn,
+    int nextColumn,
+    double deltaWidth,
+  ) {
     if (previousColumn < 0 || nextColumn < 0 || deltaWidth == 0) {
       return 0;
     }
@@ -98,19 +102,19 @@ class ResizableTableController extends ChangeNotifier {
     var nextWidth = _columnWidths?[nextColumn] ?? _defaultColumnWidth;
     double newNextWidth = nextWidth - deltaWidth;
     double clampedPreviousWidth = newPreviousWidth.clamp(
-        _widthConstraints?[previousColumn]?.min ??
-            _defaultWidthConstraint?.min ??
-            0,
-        _widthConstraints?[previousColumn]?.max ??
-            _defaultWidthConstraint?.max ??
-            double.infinity);
+      _widthConstraints?[previousColumn]?.min ??
+          _defaultWidthConstraint?.min ??
+          0,
+      _widthConstraints?[previousColumn]?.max ??
+          _defaultWidthConstraint?.max ??
+          double.infinity,
+    );
     double clampedNextWidth = newNextWidth.clamp(
-        _widthConstraints?[nextColumn]?.min ??
-            _defaultWidthConstraint?.min ??
-            0,
-        _widthConstraints?[nextColumn]?.max ??
-            _defaultWidthConstraint?.max ??
-            double.infinity);
+      _widthConstraints?[nextColumn]?.min ?? _defaultWidthConstraint?.min ?? 0,
+      _widthConstraints?[nextColumn]?.max ??
+          _defaultWidthConstraint?.max ??
+          double.infinity,
+    );
     double previousDelta = clampedPreviousWidth - previousWidth;
     double nextDelta = clampedNextWidth - nextWidth;
     // find the delta that can be applied to both columns
@@ -149,17 +153,19 @@ class ResizableTableController extends ChangeNotifier {
     var nextHeight = _rowHeights?[nextRow] ?? _defaultRowHeight;
     double newNextHeight = nextHeight - deltaHeight;
     double clampedPreviousHeight = newPreviousHeight.clamp(
-        _heightConstraints?[previousRow]?.min ??
-            _defaultHeightConstraint?.min ??
-            0,
-        _heightConstraints?[previousRow]?.max ??
-            _defaultHeightConstraint?.max ??
-            double.infinity);
+      _heightConstraints?[previousRow]?.min ??
+          _defaultHeightConstraint?.min ??
+          0,
+      _heightConstraints?[previousRow]?.max ??
+          _defaultHeightConstraint?.max ??
+          double.infinity,
+    );
     double clampedNextHeight = newNextHeight.clamp(
-        _heightConstraints?[nextRow]?.min ?? _defaultHeightConstraint?.min ?? 0,
-        _heightConstraints?[nextRow]?.max ??
-            _defaultHeightConstraint?.max ??
-            double.infinity);
+      _heightConstraints?[nextRow]?.min ?? _defaultHeightConstraint?.min ?? 0,
+      _heightConstraints?[nextRow]?.max ??
+          _defaultHeightConstraint?.max ??
+          double.infinity,
+    );
     double previousDelta = clampedPreviousHeight - previousHeight;
     double nextDelta = clampedNextHeight - nextHeight;
     // find the delta that can be applied to both rows
@@ -186,10 +192,11 @@ class ResizableTableController extends ChangeNotifier {
       return false;
     }
     height = height.clamp(
-        _heightConstraints?[row]?.min ?? _defaultHeightConstraint?.min ?? 0,
-        _heightConstraints?[row]?.max ??
-            _defaultHeightConstraint?.max ??
-            double.infinity);
+      _heightConstraints?[row]?.min ?? _defaultHeightConstraint?.min ?? 0,
+      _heightConstraints?[row]?.max ??
+          _defaultHeightConstraint?.max ??
+          double.infinity,
+    );
     if (_rowHeights != null && _rowHeights![row] == height) {
       return false;
     }

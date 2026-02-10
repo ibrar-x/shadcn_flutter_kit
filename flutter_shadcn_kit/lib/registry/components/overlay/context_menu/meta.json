@@ -9,9 +9,6 @@
     "overlay"
   ],
   "dependencies": {
-    "pubspec": {
-      "gap": "^3.0.1"
-    },
     "shared": [
       "theme",
       "overlay",
@@ -22,6 +19,41 @@
     ],
     "components": [
       "menu"
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_context_menu_scope.dart",
+    "_impl/core/context_menu_popup.dart",
+    "_impl/core/context_menu_widget.dart",
+    "_impl/core/desktop_editable_text_context_menu.dart",
+    "_impl/core/mobile_editable_text_context_menu.dart",
+    "_impl/state/_context_menu_preview_state.dart",
+    "_impl/state/_context_menu_state.dart",
+    "_impl/themes/context_menu_theme.dart",
+    "context_menu.dart",
+    "context_menu.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Wrap editable text fields with `ContextMenu` to provide native-like action menus."
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "widgets": [
+      "`ContextMenu`",
+      "`ContextMenuPopup`",
+      "`DesktopEditableTextContextMenu`",
+      "`MobileEditableTextContextMenu`"
+    ],
+    "theming": [
+      "`ContextMenuTheme`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

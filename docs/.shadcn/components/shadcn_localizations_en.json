@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "shadcn_localizations_en",
+  "name": "Shadcn Localizations (EN)",
+  "version": "1.0.0",
+  "tags": [
+    "localization",
+    "i18n",
+    "english"
+  ],
+  "installedAt": "2026-02-09T10:18:03.240704Z",
+  "shared": [],
+  "dependsOn": [
+    "shadcn_localizations"
+  ],
+  "files": [
+    "registry/components/utility/shadcn_localizations_en/README.md",
+    "registry/components/utility/shadcn_localizations_en/meta.json",
+    "registry/components/utility/shadcn_localizations_en/preview.dart",
+    "registry/components/utility/shadcn_localizations_en/shadcn_localizations_en.dart",
+    "registry/components/utility/shadcn_localizations_en/shadcn_localizations_en.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

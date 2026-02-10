@@ -8,7 +8,6 @@ import '../../../shared/theme/theme.dart';
 
 part '_impl/core/selectable_text.dart';
 
-
 /// {@template selectable_text_theme}
 /// Theme data for [SelectableText] to customize cursor and selection behavior.
 /// {@endtemplate}
@@ -53,6 +52,9 @@ class SelectableTextTheme extends ComponentThemeData {
 
   /// {@macro selectable_text_theme}
   const SelectableTextTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.cursorWidth,
     this.cursorHeight,
     this.cursorRadius,
@@ -105,13 +107,14 @@ class SelectableTextTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      cursorWidth,
-      cursorHeight,
-      cursorRadius,
-      cursorColor,
-      selectionHeightStyle,
-      selectionWidthStyle,
-      enableInteractiveSelection);
+    cursorWidth,
+    cursorHeight,
+    cursorRadius,
+    cursorColor,
+    selectionHeightStyle,
+    selectionWidthStyle,
+    enableInteractiveSelection,
+  );
 
   @override
   bool operator ==(Object other) {

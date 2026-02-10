@@ -9,6 +9,9 @@ class ScrollbarTheme extends ComponentThemeData {
   final Radius? radius;
 
   const ScrollbarTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.thickness,
     this.radius,

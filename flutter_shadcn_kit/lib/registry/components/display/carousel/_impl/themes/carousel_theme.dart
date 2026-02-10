@@ -28,6 +28,9 @@ class CarouselTheme extends ComponentThemeData {
 
   /// Creates a carousel theme.
   const CarouselTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.alignment,
     this.direction,
     this.wrap,
@@ -54,8 +57,9 @@ class CarouselTheme extends ComponentThemeData {
       direction: direction == null ? this.direction : direction(),
       wrap: wrap == null ? this.wrap : wrap(),
       pauseOnHover: pauseOnHover == null ? this.pauseOnHover : pauseOnHover(),
-      autoplaySpeed:
-          autoplaySpeed == null ? this.autoplaySpeed : autoplaySpeed(),
+      autoplaySpeed: autoplaySpeed == null
+          ? this.autoplaySpeed
+          : autoplaySpeed(),
       draggable: draggable == null ? this.draggable : draggable(),
       speed: speed == null ? this.speed : speed(),
       curve: curve == null ? this.curve : curve(),
@@ -77,13 +81,13 @@ class CarouselTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        alignment,
-        direction,
-        wrap,
-        pauseOnHover,
-        autoplaySpeed,
-        draggable,
-        speed,
-        curve,
-      );
+    alignment,
+    direction,
+    wrap,
+    pauseOnHover,
+    autoplaySpeed,
+    draggable,
+    speed,
+    curve,
+  );
 }

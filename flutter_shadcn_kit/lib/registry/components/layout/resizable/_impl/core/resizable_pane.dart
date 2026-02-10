@@ -50,8 +50,8 @@ class ResizablePane extends StatefulWidget {
     this.onSizeChangeEnd,
     this.onSizeChangeCancel,
     bool this.initialCollapsed = false,
-  })  : controller = null,
-        initialFlex = null;
+  }) : controller = null,
+       initialFlex = null;
 
   /// Creates a [ResizablePane] with flex-based proportional sizing.
   const ResizablePane.flex({
@@ -66,8 +66,8 @@ class ResizablePane extends StatefulWidget {
     this.onSizeChangeEnd,
     this.onSizeChangeCancel,
     bool this.initialCollapsed = false,
-  })  : controller = null,
-        initialSize = null;
+  }) : controller = null,
+       initialSize = null;
 
   /// Creates a [ResizablePane] controlled by an external [controller].
   const ResizablePane.controlled({
@@ -81,9 +81,9 @@ class ResizablePane extends StatefulWidget {
     this.onSizeChange,
     this.onSizeChangeEnd,
     this.onSizeChangeCancel,
-  })  : initialSize = null,
-        initialFlex = null,
-        initialCollapsed = null;
+  }) : initialSize = null,
+       initialFlex = null,
+       initialCollapsed = null;
 
   @override
   State<ResizablePane> createState() => _ResizablePaneState();

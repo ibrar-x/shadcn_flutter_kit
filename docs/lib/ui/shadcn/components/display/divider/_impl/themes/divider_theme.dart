@@ -8,6 +8,7 @@ class DividerTheme extends ComponentThemeData {
   final double? indent;
   final double? endIndent;
   final EdgeInsetsGeometry? padding;
+  final AxisAlignmentGeometry? childAlignment;
 
   const DividerTheme({
     this.color,
@@ -16,6 +17,7 @@ class DividerTheme extends ComponentThemeData {
     this.indent,
     this.endIndent,
     this.padding,
+    this.childAlignment,
   });
 
   DividerTheme copyWith({
@@ -25,6 +27,7 @@ class DividerTheme extends ComponentThemeData {
     ValueGetter<double?>? indent,
     ValueGetter<double?>? endIndent,
     ValueGetter<EdgeInsetsGeometry?>? padding,
+    ValueGetter<AxisAlignmentGeometry?>? childAlignment,
   }) {
     return DividerTheme(
       color: color == null ? this.color : color(),
@@ -33,6 +36,8 @@ class DividerTheme extends ComponentThemeData {
       indent: indent == null ? this.indent : indent(),
       endIndent: endIndent == null ? this.endIndent : endIndent(),
       padding: padding == null ? this.padding : padding(),
+      childAlignment:
+          childAlignment == null ? this.childAlignment : childAlignment(),
     );
   }
 
@@ -44,10 +49,18 @@ class DividerTheme extends ComponentThemeData {
         other.thickness == thickness &&
         other.indent == indent &&
         other.endIndent == endIndent &&
-        other.padding == padding;
+        other.padding == padding &&
+        other.childAlignment == childAlignment;
   }
 
   @override
-  int get hashCode =>
-      Object.hash(color, height, thickness, indent, endIndent, padding);
+  int get hashCode => Object.hash(
+        color,
+        height,
+        thickness,
+        indent,
+        endIndent,
+        padding,
+        childAlignment,
+      );
 }

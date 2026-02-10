@@ -1,6 +1,5 @@
 part of '../../calendar.dart';
 
-
 /// Theme configuration for calendar widgets.
 ///
 /// Provides styling options for calendar components, including arrow icon colors
@@ -13,13 +12,20 @@ class CalendarTheme extends ComponentThemeData {
   ///
   /// Parameters:
   /// - [arrowIconColor] (`Color?`, optional): Color for navigation arrow icons.
-  const CalendarTheme({this.arrowIconColor});
+  const CalendarTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.arrowIconColor,
+  });
 
   /// Creates a copy of this theme with the given fields replaced.
   CalendarTheme copyWith({ValueGetter<Color?>? arrowIconColor}) {
     return CalendarTheme(
-        arrowIconColor:
-            arrowIconColor == null ? this.arrowIconColor : arrowIconColor());
+      arrowIconColor: arrowIconColor == null
+          ? this.arrowIconColor
+          : arrowIconColor(),
+    );
   }
 
   @override
@@ -32,17 +38,11 @@ class CalendarTheme extends ComponentThemeData {
   int get hashCode => arrowIconColor.hashCode;
 }
 
-
-
-
-
 /// Callback function type for determining the state of calendar dates.
 ///
 /// Takes a [DateTime] and returns a [DateState] to control whether
 /// that date should be enabled or disabled for user interaction.
 typedef DateStateBuilder = DateState Function(DateTime date);
-
-
 
 /// A date picker dialog that provides comprehensive date selection capabilities.
 ///

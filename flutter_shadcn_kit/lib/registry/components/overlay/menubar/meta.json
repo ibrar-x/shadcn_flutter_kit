@@ -9,17 +9,36 @@
     "navigation"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "constants",
       "outlined_container",
-      "text",
+      "text_modifiers",
       "theme"
     ],
     "components": [
       "menu"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/menubar_widget.dart",
+    "_impl/state/menubar_state.dart",
+    "_impl/themes/menubar_theme.dart",
+    "menubar.dart",
+    "menubar.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "widgets_and_themes": [
+      "`Menubar`",
+      "`MenubarTheme`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

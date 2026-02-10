@@ -27,6 +27,7 @@ import 'theme/docs_theme.dart';
 import 'theme/theme_controller.dart';
 import 'web_bridge.dart';
 import 'ui/shadcn/components/form/history/history.dart';
+import 'ui/shadcn/components/display/keyboard_shortcut/keyboard_shortcut.dart';
 import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
 import 'ui/shadcn/components/utility/error_system/error_system.dart';
@@ -335,40 +336,42 @@ class _DocsRootState extends State<DocsRoot> {
                 builder: (context, child) => Material(
                   child: shadcn_theme.Theme(
                     data: data.toShadcnTheme(),
-                    child: AppErrorGate.scope(
-                      scope: _appErrorScope,
-                      child: Stack(
-                        children: [
-                          ShadcnLayer(
-                            child: DrawerOverlay(
-                              child: RecentColorsScope(
-                                child: EyeDropperLayer(
-                                  child: Material(
-                                    type: MaterialType.transparency,
-                                    child: child ?? const SizedBox.shrink(),
+                    child: KeyboardShortcutDisplayMapper(
+                      child: AppErrorGate.scope(
+                        scope: _appErrorScope,
+                        child: Stack(
+                          children: [
+                            ShadcnLayer(
+                              child: DrawerOverlay(
+                                child: RecentColorsScope(
+                                  child: EyeDropperLayer(
+                                    child: Material(
+                                      type: MaterialType.transparency,
+                                      child: child ?? const SizedBox.shrink(),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: SafeArea(
-                              bottom: false,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 12,
-                                ),
-                                child: AppErrorBanner(
-                                  watchScopes: ['docs.app.banner'],
+                            const Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              child: SafeArea(
+                                bottom: false,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 12,
+                                  ),
+                                  child: AppErrorBanner(
+                                    watchScopes: ['docs.app.banner'],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

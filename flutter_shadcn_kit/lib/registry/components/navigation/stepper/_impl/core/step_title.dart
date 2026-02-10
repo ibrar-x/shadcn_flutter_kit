@@ -43,11 +43,10 @@ class StepTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
     return Clickable(
       mouseCursor: WidgetStatePropertyAll(
-          onPressed == null ? MouseCursor.defer : SystemMouseCursors.click),
+        onPressed == null ? MouseCursor.defer : SystemMouseCursors.click,
+      ),
       onPressed: onPressed,
       child: IntrinsicWidth(
         child: Column(
@@ -55,7 +54,7 @@ class StepTitle extends StatelessWidget {
           children: [
             title,
             if (subtitle != null) ...[
-              Gap(2 * scaling),
+              DensityGap(0.25),
               subtitle!.muted().xSmall(),
             ],
           ],

@@ -50,14 +50,14 @@ class SortableDragHandle extends StatefulWidget {
   ///   ),
   /// )
   /// ```
-  const SortableDragHandle(
-      {super.key,
-      required this.child,
-      this.enabled = true,
-      this.behavior,
-      this.cursor});
+  const SortableDragHandle({
+    super.key,
+    required this.child,
+    this.enabled = true,
+    this.behavior,
+    this.cursor,
+  });
 
   @override
   State<SortableDragHandle> createState() => _SortableDragHandleState();
 }
-

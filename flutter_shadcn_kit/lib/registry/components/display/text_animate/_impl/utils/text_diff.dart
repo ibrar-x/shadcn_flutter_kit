@@ -57,3 +57,12 @@ List<String> _splitToCharacters(String value) {
     value.runes.map((rune) => String.fromCharCode(rune)),
   );
 }
+
+List<String> _splitToWordUnits(String value) {
+  if (value.isEmpty) return const <String>[];
+  final matches = RegExp(r'\S+\s*|\s+').allMatches(value);
+  return List<String>.unmodifiable([
+    for (final match in matches)
+      if ((match.group(0) ?? '').isNotEmpty) match.group(0)!,
+  ]);
+}

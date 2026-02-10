@@ -3,5 +3,52 @@
   "name": "Slider",
   "description": "Single-value and range sliders with keyboard navigation.",
   "category": "form",
-  "tags": ["form", "input", "range"]
+  "tags": [
+    "form",
+    "input",
+    "range"
+  ],
+  "dependencies": {
+    "shared": [
+      "animated_value_builder",
+      "color_extensions",
+      "constants",
+      "form_control",
+      "form_value_supplier",
+      "slider_value",
+      "style_value",
+      "theme"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/controlled_slider.dart",
+    "_impl/core/decrease_slider_value.dart",
+    "_impl/core/increase_slider_value.dart",
+    "_impl/state/_slider_preview_state.dart",
+    "_impl/state/_slider_state.dart",
+    "_impl/themes/slider_theme.dart",
+    "_impl/utils/slider_controller.dart",
+    "meta.json",
+    "preview.dart",
+    "slider.dart",
+    "slider.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Slider`",
+      "`value` (`SliderValue`, required)",
+      "`onChanged`, `onChangeStart`, `onChangeEnd`",
+      "`min`, `max`, `divisions`, `hintValue`",
+      "`increaseStep`, `decreaseStep`, `enabled`",
+      "`ControlledSlider` — controller-backed slider.",
+      "`SliderController` — controller for `SliderValue`."
+    ],
+    "callbacks": [
+      "`onChanged`, `onChangeStart`, `onChangeEnd`"
+    ]
+  },
+  "version": "1.0.0"
 }

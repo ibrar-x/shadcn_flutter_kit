@@ -6,18 +6,18 @@ class DividerPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Item 1'),
-              Divider(),
-              Text('Item 2'),
-              Divider(),
-              Text('Item 3'),
+              const Text('Item 1'),
+              const Divider(),
+              const Text('Item 2'),
+              const Divider(),
+              const Text('Item 3'),
             ],
           ),
         ),

@@ -41,34 +41,38 @@ class ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
   @override
   Widget build(BuildContext context) {
     return Button(
-        statesController: statesController,
-        enabled: widget.enabled,
-        style: widget.value
-            ? ButtonStyle.secondary(
-                density: widget.style.density,
-                shape: widget.style.shape,
-                size: widget.style.size,
-              )
-            : widget.style.copyWith(textStyle: (context, states, value) {
+      statesController: statesController,
+      enabled: widget.enabled,
+      style: widget.value
+          ? ButtonStyle.secondary(
+              density: widget.style.density,
+              shape: widget.style.shape,
+              size: widget.style.size,
+            )
+          : widget.style.copyWith(
+              textStyle: (context, states, value) {
                 final theme = Theme.of(context);
                 return value.copyWith(
                   color: states.contains(WidgetState.hovered)
                       ? theme.colorScheme.mutedForeground
                       : null,
                 );
-              }, iconTheme: (context, states, value) {
+              },
+              iconTheme: (context, states, value) {
                 final theme = Theme.of(context);
                 return value.copyWith(
                   color: states.contains(WidgetState.hovered)
                       ? theme.colorScheme.mutedForeground
                       : null,
                 );
-              }),
-        onPressed: widget.onChanged != null
-            ? () {
-                widget.onChanged!(!widget.value);
-              }
-            : null,
-        child: widget.child);
+              },
+            ),
+      onPressed: widget.onChanged != null
+          ? () {
+              widget.onChanged!(!widget.value);
+            }
+          : null,
+      child: widget.child,
+    );
   }
 }

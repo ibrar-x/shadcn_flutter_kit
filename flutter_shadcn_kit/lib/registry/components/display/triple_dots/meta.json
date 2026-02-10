@@ -8,7 +8,28 @@
     "indicator"
   ],
   "dependencies": {
-    "pubspec": {},
-    "shared": []
-  }
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "preview.dart",
+    "triple_dots.dart",
+    "triple_dots.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`MoreDots`",
+      "`direction` (`Axis`, default: `Axis.horizontal`)",
+      "`count` (`int`, default: `3`)",
+      "`size` (`double?`)",
+      "`color` (`Color?`)",
+      "`spacing` (`double`)",
+      "`padding` (`EdgeInsetsGeometry?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

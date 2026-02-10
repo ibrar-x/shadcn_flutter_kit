@@ -28,13 +28,17 @@ abstract class ButtonTheme extends ComponentThemeData {
   ///
   /// All parameters are optional, allowing selective override of specific
   /// style properties while leaving others to use default values.
-  const ButtonTheme(
-      {this.decoration,
-      this.mouseCursor,
-      this.padding,
-      this.textStyle,
-      this.iconTheme,
-      this.margin});
+  const ButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.decoration,
+    this.mouseCursor,
+    this.padding,
+    this.textStyle,
+    this.iconTheme,
+    this.margin,
+  });
 
   @override
   bool operator ==(Object other) {
@@ -50,7 +54,13 @@ abstract class ButtonTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      decoration, mouseCursor, padding, textStyle, iconTheme, margin);
+    decoration,
+    mouseCursor,
+    padding,
+    textStyle,
+    iconTheme,
+    margin,
+  );
 
   @override
   String toString() =>

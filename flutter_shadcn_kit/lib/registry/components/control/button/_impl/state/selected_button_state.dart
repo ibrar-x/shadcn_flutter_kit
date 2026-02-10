@@ -38,39 +38,40 @@ class SelectedButtonState extends State<SelectedButton> {
   @override
   Widget build(BuildContext context) {
     return Button(
-        statesController: statesController,
-        enabled: widget.enabled,
-        style: widget.value ? widget.selectedStyle : widget.style,
-        alignment: widget.alignment,
-        marginAlignment: widget.marginAlignment,
-        disableTransition: widget.disableTransition,
-        onHover: widget.onHover,
-        onFocus: widget.onFocus,
-        enableFeedback: widget.enableFeedback,
-        onTapDown: widget.onTapDown,
-        onTapUp: widget.onTapUp,
-        onTapCancel: widget.onTapCancel,
-        onSecondaryTapDown: widget.onSecondaryTapDown,
-        onSecondaryTapUp: widget.onSecondaryTapUp,
-        onSecondaryTapCancel: widget.onSecondaryTapCancel,
-        onTertiaryTapDown: widget.onTertiaryTapDown,
-        onTertiaryTapUp: widget.onTertiaryTapUp,
-        onTertiaryTapCancel: widget.onTertiaryTapCancel,
-        onLongPressStart: widget.onLongPressStart,
-        onLongPressUp: widget.onLongPressUp,
-        onLongPressMoveUpdate: widget.onLongPressMoveUpdate,
-        onLongPressEnd: widget.onLongPressEnd,
-        onSecondaryLongPress: widget.onSecondaryLongPress,
-        onTertiaryLongPress: widget.onTertiaryLongPress,
-        disableHoverEffect: widget.disableHoverEffect,
-        onPressed: () {
-          if (widget.onChanged != null) {
-            widget.onChanged!(!widget.value);
-          }
-          if (widget.onPressed != null) {
-            widget.onPressed!();
-          }
-        },
-        child: widget.child);
+      statesController: statesController,
+      enabled: widget.enabled,
+      style: widget.value ? widget.selectedStyle : widget.style,
+      alignment: widget.alignment,
+      marginAlignment: widget.marginAlignment,
+      disableTransition: widget.disableTransition,
+      onHover: widget.onHover,
+      onFocus: widget.onFocus,
+      enableFeedback: widget.enableFeedback,
+      onTapDown: widget.onTapDown,
+      onTapUp: widget.onTapUp,
+      onTapCancel: widget.onTapCancel,
+      onSecondaryTapDown: widget.onSecondaryTapDown,
+      onSecondaryTapUp: widget.onSecondaryTapUp,
+      onSecondaryTapCancel: widget.onSecondaryTapCancel,
+      onTertiaryTapDown: widget.onTertiaryTapDown,
+      onTertiaryTapUp: widget.onTertiaryTapUp,
+      onTertiaryTapCancel: widget.onTertiaryTapCancel,
+      onLongPressStart: widget.onLongPressStart,
+      onLongPressUp: widget.onLongPressUp,
+      onLongPressMoveUpdate: widget.onLongPressMoveUpdate,
+      onLongPressEnd: widget.onLongPressEnd,
+      onSecondaryLongPress: widget.onSecondaryLongPress,
+      onTertiaryLongPress: widget.onTertiaryLongPress,
+      disableHoverEffect: widget.disableHoverEffect,
+      onPressed: () {
+        if (widget.onChanged != null) {
+          widget.onChanged!(!widget.value);
+        }
+        if (widget.onPressed != null) {
+          widget.onPressed!();
+        }
+      },
+      child: widget.child,
+    );
   }
 }

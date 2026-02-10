@@ -16,12 +16,7 @@ class Label extends StatelessWidget {
   /// - [child] (`Widget`, required): Main label content.
   /// - [leading] (`Widget?`, optional): Leading widget.
   /// - [trailing] (`Widget?`, optional): Trailing widget.
-  const Label({
-    super.key,
-    this.leading,
-    required this.child,
-    this.trailing,
-  });
+  const Label({super.key, this.leading, required this.child, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +29,10 @@ class Label extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (leading != null) leading!,
-          if (leading != null) SizedBox(width: 8 * scaling),
+          if (leading != null) SizedBox(width: theme.density.baseGap * scaling),
           Expanded(child: child),
-          if (trailing != null) SizedBox(width: 8 * scaling),
+          if (trailing != null)
+            SizedBox(width: theme.density.baseGap * scaling),
           if (trailing != null) trailing!,
         ],
       ),

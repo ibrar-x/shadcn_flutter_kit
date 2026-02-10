@@ -61,4 +61,3 @@ class ResizableTable extends StatefulWidget {
   @override
   State<ResizableTable> createState() => _ResizableTableState();
 }
-

@@ -37,6 +37,9 @@ class CardTheme extends ComponentThemeData {
 
   /// Creates a [CardTheme].
   const CardTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.padding,
     this.filled,
     this.fillColor,
@@ -73,8 +76,9 @@ class CardTheme extends ComponentThemeData {
       borderWidth: borderWidth == null ? this.borderWidth : borderWidth(),
       clipBehavior: clipBehavior == null ? this.clipBehavior : clipBehavior(),
       boxShadow: boxShadow == null ? this.boxShadow : boxShadow(),
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       duration: duration == null ? this.duration : duration(),
     );
@@ -99,16 +103,16 @@ class CardTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        padding,
-        filled,
-        fillColor,
-        borderRadius,
-        borderColor,
-        borderWidth,
-        clipBehavior,
-        boxShadow,
-        surfaceOpacity,
-        surfaceBlur,
-        duration,
-      );
+    padding,
+    filled,
+    fillColor,
+    borderRadius,
+    borderColor,
+    borderWidth,
+    clipBehavior,
+    boxShadow,
+    surfaceOpacity,
+    surfaceBlur,
+    duration,
+  );
 }

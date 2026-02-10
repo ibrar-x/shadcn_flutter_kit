@@ -17,4 +17,3 @@ class _SortableDropFallbackState<T> extends State<SortableDropFallback<T>> {
     );
   }
 }
-

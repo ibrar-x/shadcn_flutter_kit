@@ -24,7 +24,7 @@ class OTPSeparator extends StatelessWidget {
     final theme = Theme.of(context);
     return const Text('-')
         .bold()
-        .withPadding(horizontal: theme.scaling * 4)
+        .withPadding(horizontal: theme.density.baseGap * theme.scaling * gapXs)
         .base()
         .foreground();
   }

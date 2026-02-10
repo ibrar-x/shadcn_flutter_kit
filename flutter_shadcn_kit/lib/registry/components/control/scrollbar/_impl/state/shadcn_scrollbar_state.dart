@@ -39,18 +39,21 @@ class ShadcnScrollbarState extends RawScrollbarState<ShadcnScrollbar> {
     final compTheme = ComponentTheme.maybeOf<ScrollbarTheme>(context);
     scrollbarPainter
       ..color = styleValue(
-          widgetValue: widget.color,
-          themeValue: compTheme?.color,
-          defaultValue: _theme.colorScheme.border)
+        widgetValue: widget.color,
+        themeValue: compTheme?.color,
+        defaultValue: _theme.colorScheme.border,
+      )
       ..textDirection = Directionality.of(context)
       ..thickness = styleValue(
-          widgetValue: widget.thickness,
-          themeValue: compTheme?.thickness,
-          defaultValue: 7.0 * _theme.scaling)
+        widgetValue: widget.thickness,
+        themeValue: compTheme?.thickness,
+        defaultValue: 7.0 * _theme.scaling,
+      )
       ..radius = styleValue(
-          widgetValue: widget.radius,
-          themeValue: compTheme?.radius,
-          defaultValue: Radius.circular(_theme.radiusSm))
+        widgetValue: widget.radius,
+        themeValue: compTheme?.radius,
+        defaultValue: Radius.circular(_theme.radiusSm),
+      )
       ..minLength = _kScrollbarMinLength
       ..padding = MediaQuery.paddingOf(context) + EdgeInsets.all(_theme.scaling)
       ..scrollbarOrientation = widget.scrollbarOrientation

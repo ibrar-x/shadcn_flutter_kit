@@ -33,4 +33,3 @@ class _DroppingTarget<T> {
   @override
   String toString() => '_DroppingTarget($source, $location)';
 }
-

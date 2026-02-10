@@ -21,6 +21,9 @@ class StarRatingTheme extends ComponentThemeData {
 
   /// Creates a [StarRatingTheme].
   const StarRatingTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.activeColor,
     this.backgroundColor,
     this.starSize,
@@ -36,8 +39,9 @@ class StarRatingTheme extends ComponentThemeData {
   }) {
     return StarRatingTheme(
       activeColor: activeColor == null ? this.activeColor : activeColor(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       starSize: starSize == null ? this.starSize : starSize(),
       starSpacing: starSpacing == null ? this.starSpacing : starSpacing(),
     );
@@ -54,10 +58,6 @@ class StarRatingTheme extends ComponentThemeData {
   }
 
   @override
-  int get hashCode => Object.hash(
-        activeColor,
-        backgroundColor,
-        starSize,
-        starSpacing,
-      );
+  int get hashCode =>
+      Object.hash(activeColor, backgroundColor, starSize, starSpacing);
 }

@@ -22,7 +22,11 @@ const kDebugContainerVisible = true;
 /// - [color]: The background color of the sticker.
 /// - [text]: The text to display in the sticker.
 void debugPostSticker(
-    BuildContext context, Rect rect, Color color, String text) {
+  BuildContext context,
+  Rect rect,
+  Color color,
+  String text,
+) {
   if (!kDebugStickerVisible) {
     return;
   }
@@ -39,15 +43,10 @@ void debugPostSticker(
             opacity: 0.2,
             child: Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color,
-              ),
+              decoration: BoxDecoration(color: color),
               child: Text(
                 text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
           ),
@@ -75,9 +74,6 @@ extension DebugContainer on Widget {
     if (!kDebugContainerVisible) {
       return this;
     }
-    return Container(
-      color: color,
-      child: this,
-    );
+    return Container(color: color, child: this);
   }
 }

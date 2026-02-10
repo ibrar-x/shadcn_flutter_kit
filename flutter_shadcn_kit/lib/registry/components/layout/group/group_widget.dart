@@ -20,4 +20,3 @@ class GroupWidget extends MultiChildRenderObjectWidget {
 }
 
 /// Places a child inside a [GroupWidget] at precise coordinates.
-

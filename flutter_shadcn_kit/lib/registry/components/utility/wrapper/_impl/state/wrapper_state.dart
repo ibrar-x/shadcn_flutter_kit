@@ -7,10 +7,7 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     Widget wrappedChild = widget.child;
     if (widget.maintainStructure) {
-      wrappedChild = KeyedSubtree(
-        key: _key,
-        child: wrappedChild,
-      );
+      wrappedChild = KeyedSubtree(key: _key, child: wrappedChild);
     }
     if (widget.wrap && widget.builder != null) {
       wrappedChild = widget.builder!(context, wrappedChild);

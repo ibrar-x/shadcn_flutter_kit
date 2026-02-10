@@ -7,11 +7,15 @@ class TabPaneState<T> extends State<TabPane<T>> {
   static const kTabDrag = #tabDrag;
 
   Widget _childBuilder(
-      BuildContext context, TabContainerData data, Widget child) {
+    BuildContext context,
+    TabContainerData data,
+    Widget child,
+  ) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
     final isFocused = data.index == data.selected;
-    final backgroundColor = widget.backgroundColor ??
+    final backgroundColor =
+        widget.backgroundColor ??
         compTheme?.backgroundColor ??
         theme.colorScheme.card;
     final border = widget.border ?? compTheme?.border;
@@ -20,24 +24,29 @@ class TabPaneState<T> extends State<TabPane<T>> {
     final borderRadius =
         (widget.borderRadius ?? compTheme?.borderRadius ?? theme.borderRadiusLg)
             .optionallyResolve(context);
-    return Builder(builder: (context) {
-      var tabGhost = Data.maybeOf<_TabGhostData>(context);
-      return SizedBox(
+    return Builder(
+      builder: (context) {
+        var tabGhost = Data.maybeOf<_TabGhostData>(context);
+        return SizedBox(
           height: double.infinity,
           child: CustomPaint(
-              painter: _TabItemPainter(
-                  borderRadius: borderRadius,
-                  backgroundColor: backgroundColor,
-                  isFocused: isFocused || tabGhost != null,
-                  borderColor: borderColor,
-                  borderWidth: borderWidth),
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8) * theme.scaling,
-                  child: IntrinsicWidth(
-                    child: child,
-                  ))));
-    });
+            painter: _TabItemPainter(
+              borderRadius: borderRadius,
+              backgroundColor: backgroundColor,
+              isFocused: isFocused || tabGhost != null,
+              borderColor: borderColor,
+              borderWidth: borderWidth,
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: theme.density.baseGap * theme.scaling,
+              ),
+              child: IntrinsicWidth(child: child),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   List<TabChild> _buildTabItems() {
@@ -54,17 +63,20 @@ class TabPaneState<T> extends State<TabPane<T>> {
     final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
     final BorderRadiusGeometry borderRadius =
         widget.borderRadius ?? compTheme?.borderRadius ?? theme.borderRadiusLg;
-    final BorderRadius resolvedBorderRadius =
-        borderRadius.optionallyResolve(context);
-    final backgroundColor = widget.backgroundColor ??
+    final BorderRadius resolvedBorderRadius = borderRadius.optionallyResolve(
+      context,
+    );
+    final backgroundColor =
+        widget.backgroundColor ??
         compTheme?.backgroundColor ??
         theme.colorScheme.card;
     final border = widget.border ?? compTheme?.border;
     final barHeight =
         widget.barHeight ?? compTheme?.barHeight ?? (32 * theme.scaling);
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context)
-          .copyWith(scrollbars: false, overscroll: false),
+      behavior: ScrollConfiguration.of(
+        context,
+      ).copyWith(scrollbars: false, overscroll: false),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,10 +99,11 @@ class TabPaneState<T> extends State<TabPane<T>> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 2) * theme.scaling,
+                  padding: EdgeInsets.symmetric(
+                    vertical: theme.density.baseGap * theme.scaling * 0.25,
+                  ),
                   child: Row(
-                    spacing: 2 * theme.scaling,
+                    spacing: theme.density.baseGap * theme.scaling * 0.25,
                     children: widget.leading,
                   ),
                 ),
@@ -98,9 +111,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
                   child: FadeScroll(
                     startOffset: resolvedBorderRadius.bottomLeft.x,
                     endOffset: resolvedBorderRadius.bottomRight.x,
-                    gradient: [
-                      Colors.white.withAlpha(0),
-                    ],
+                    gradient: [Colors.white.withAlpha(0)],
                     endCrossOffset: border?.width ?? 1,
                     controller: _scrollController,
                     child: ClipRect(
@@ -182,12 +193,17 @@ class TabPaneState<T> extends State<TabPane<T>> {
                                         widget.focused == index + 1;
                                     if (!beforeIsFocused && !afterIsFocused) {
                                       return VerticalDivider(
-                                        indent: 8 * theme.scaling,
+                                        indent:
+                                            theme.density.baseGap *
+                                            theme.scaling,
                                         endIndent: 8 * theme.scaling,
                                         width: 8 * theme.scaling,
                                       );
                                     }
-                                    return SizedBox(width: 8 * theme.scaling);
+                                    return SizedBox(
+                                      width:
+                                          theme.density.baseGap * theme.scaling,
+                                    );
                                   },
                                   itemCount: children.length,
                                 );
@@ -202,10 +218,11 @@ class TabPaneState<T> extends State<TabPane<T>> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 2) * theme.scaling,
+                  padding: EdgeInsets.symmetric(
+                    vertical: theme.density.baseGap * theme.scaling * 0.25,
+                  ),
                   child: Row(
-                    spacing: 2 * theme.scaling,
+                    spacing: theme.density.baseGap * theme.scaling * 0.25,
                     children: widget.trailing,
                   ),
                 ),

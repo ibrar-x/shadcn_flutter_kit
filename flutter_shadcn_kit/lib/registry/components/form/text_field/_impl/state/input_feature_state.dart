@@ -11,7 +11,9 @@ abstract class InputFeatureState<T extends InputFeature> {
   /// The input feature associated with this state.
   T get feature {
     assert(
-        _attached != null && _attached!.feature is T, 'Feature not attached');
+      _attached != null && _attached!.feature is T,
+      'Feature not attached',
+    );
     return _attached!.feature as T;
   }
 
@@ -29,8 +31,9 @@ abstract class InputFeatureState<T extends InputFeature> {
     final context = inputState!.editableTextKey.currentContext;
     if (context == null) {
       throw FlutterError(
-          'InputFeatureState.context was accessed but editableTextKey.currentContext is null.\n'
-          'This usually means the widget is not mounted. Ensure the widget is mounted before accessing context.');
+        'InputFeatureState.context was accessed but editableTextKey.currentContext is null.\n'
+        'This usually means the widget is not mounted. Ensure the widget is mounted before accessing context.',
+      );
     }
     return context;
   }
@@ -88,8 +91,9 @@ abstract class InputFeatureState<T extends InputFeature> {
       vsync: tickerProvider,
       duration: kDefaultDuration,
     );
-    _visibilityController.value =
-        feature.visibility.canShow(_inputState!) ? 1 : 0;
+    _visibilityController.value = feature.visibility.canShow(_inputState!)
+        ? 1
+        : 0;
     _visibilityController.addListener(_updateAnimation);
     for (var dependency in feature.visibility.getDependencies(_inputState!)) {
       dependency.addListener(_updateVisibility);
@@ -131,12 +135,14 @@ abstract class InputFeatureState<T extends InputFeature> {
   /// Override to respond to feature configuration changes.
   void didFeatureUpdate(InputFeature oldFeature) {
     if (oldFeature.visibility != feature.visibility) {
-      for (var oldDependency
-          in oldFeature.visibility.getDependencies(_inputState!)) {
+      for (var oldDependency in oldFeature.visibility.getDependencies(
+        _inputState!,
+      )) {
         oldDependency.removeListener(_updateVisibility);
       }
-      for (var newDependency
-          in feature.visibility.getDependencies(_inputState!)) {
+      for (var newDependency in feature.visibility.getDependencies(
+        _inputState!,
+      )) {
         newDependency.addListener(_updateVisibility);
       }
     }

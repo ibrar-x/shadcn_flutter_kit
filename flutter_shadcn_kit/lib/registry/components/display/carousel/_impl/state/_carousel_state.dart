@@ -22,52 +22,52 @@ class _CarouselState extends State<Carousel>
   }
 
   CarouselAlignment get _alignment => styleValue(
-        widgetValue: widget.alignment,
-        themeValue: _theme?.alignment,
-        defaultValue: CarouselAlignment.center,
-      );
+    widgetValue: widget.alignment,
+    themeValue: _theme?.alignment,
+    defaultValue: CarouselAlignment.center,
+  );
 
   Axis get _direction => styleValue(
-        widgetValue: widget.direction,
-        themeValue: _theme?.direction,
-        defaultValue: Axis.horizontal,
-      );
+    widgetValue: widget.direction,
+    themeValue: _theme?.direction,
+    defaultValue: Axis.horizontal,
+  );
 
   bool get _wrap => styleValue(
-        widgetValue: widget.wrap,
-        themeValue: _theme?.wrap,
-        defaultValue: true,
-      );
+    widgetValue: widget.wrap,
+    themeValue: _theme?.wrap,
+    defaultValue: true,
+  );
 
   bool get _pauseOnHover => styleValue(
-        widgetValue: widget.pauseOnHover,
-        themeValue: _theme?.pauseOnHover,
-        defaultValue: true,
-      );
+    widgetValue: widget.pauseOnHover,
+    themeValue: _theme?.pauseOnHover,
+    defaultValue: true,
+  );
 
   Duration? get _autoplaySpeed => styleValue(
-        widgetValue: widget.autoplaySpeed,
-        themeValue: _theme?.autoplaySpeed,
-        defaultValue: null,
-      );
+    widgetValue: widget.autoplaySpeed,
+    themeValue: _theme?.autoplaySpeed,
+    defaultValue: null,
+  );
 
   bool get _draggable => styleValue(
-        widgetValue: widget.draggable,
-        themeValue: _theme?.draggable,
-        defaultValue: true,
-      );
+    widgetValue: widget.draggable,
+    themeValue: _theme?.draggable,
+    defaultValue: true,
+  );
 
   Duration get _speed => styleValue(
-        widgetValue: widget.speed,
-        themeValue: _theme?.speed,
-        defaultValue: const Duration(milliseconds: 200),
-      );
+    widgetValue: widget.speed,
+    themeValue: _theme?.speed,
+    defaultValue: const Duration(milliseconds: 200),
+  );
 
   Curve get _curve => styleValue(
-        widgetValue: widget.curve,
-        themeValue: _theme?.curve,
-        defaultValue: Curves.easeInOut,
-      );
+    widgetValue: widget.curve,
+    themeValue: _theme?.curve,
+    defaultValue: Curves.easeInOut,
+  );
 
   Duration? get _currentSlideDuration {
     double currentIndex = _controller.getCurrentIndex(widget.itemCount);
@@ -269,7 +269,8 @@ class _CarouselState extends State<Carousel>
     if (widget.sizeConstraint is CarouselFixedConstraint) {
       size = (widget.sizeConstraint as CarouselFixedConstraint).size;
     } else if (widget.sizeConstraint is CarouselFractionalConstraint) {
-      size = constraints.maxHeight *
+      size =
+          constraints.maxHeight *
           (widget.sizeConstraint as CarouselFractionalConstraint).fraction;
     } else {
       size = constraints.maxHeight;
@@ -312,7 +313,8 @@ class _CarouselState extends State<Carousel>
     if (widget.sizeConstraint is CarouselFixedConstraint) {
       size = (widget.sizeConstraint as CarouselFixedConstraint).size;
     } else if (widget.sizeConstraint is CarouselFractionalConstraint) {
-      size = constraints.maxWidth *
+      size =
+          constraints.maxWidth *
           (widget.sizeConstraint as CarouselFractionalConstraint).fraction;
     } else {
       size = constraints.maxWidth;

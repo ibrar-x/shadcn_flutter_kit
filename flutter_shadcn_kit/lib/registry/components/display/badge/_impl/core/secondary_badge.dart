@@ -30,7 +30,8 @@ class SecondaryBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
-    final baseStyle = style ??
+    final baseStyle =
+        style ??
         compTheme?.secondaryStyle ??
         const ButtonStyle.secondary(
           size: ButtonSize.small,

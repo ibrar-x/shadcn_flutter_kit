@@ -8,8 +8,10 @@ class FrozenTableData {
   final Iterable<TableRef> frozenColumns;
 
   /// Creates a [FrozenTableData].
-  const FrozenTableData(
-      {this.frozenRows = const [], this.frozenColumns = const []});
+  const FrozenTableData({
+    this.frozenRows = const [],
+    this.frozenColumns = const [],
+  });
 
   /// Tests if a row at the given index and span is frozen.
   bool testRow(int index, int span) {

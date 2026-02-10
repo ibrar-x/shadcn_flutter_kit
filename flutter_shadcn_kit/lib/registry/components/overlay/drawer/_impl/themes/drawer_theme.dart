@@ -36,6 +36,9 @@ class DrawerTheme extends ComponentThemeData {
   /// )
   /// ```
   const DrawerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.barrierColor,
@@ -61,14 +64,17 @@ class DrawerTheme extends ComponentThemeData {
     ValueGetter<Size?>? dragHandleSize,
   }) {
     return DrawerTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       barrierColor: barrierColor == null ? this.barrierColor : barrierColor(),
-      showDragHandle:
-          showDragHandle == null ? this.showDragHandle : showDragHandle(),
-      dragHandleSize:
-          dragHandleSize == null ? this.dragHandleSize : dragHandleSize(),
+      showDragHandle: showDragHandle == null
+          ? this.showDragHandle
+          : showDragHandle(),
+      dragHandleSize: dragHandleSize == null
+          ? this.dragHandleSize
+          : dragHandleSize(),
     );
   }
 
@@ -82,8 +88,13 @@ class DrawerTheme extends ComponentThemeData {
       other.dragHandleSize == dragHandleSize;
 
   @override
-  int get hashCode => Object.hash(surfaceOpacity, surfaceBlur, barrierColor,
-      showDragHandle, dragHandleSize);
+  int get hashCode => Object.hash(
+    surfaceOpacity,
+    surfaceBlur,
+    barrierColor,
+    showDragHandle,
+    dragHandleSize,
+  );
 
   @override
   String toString() =>

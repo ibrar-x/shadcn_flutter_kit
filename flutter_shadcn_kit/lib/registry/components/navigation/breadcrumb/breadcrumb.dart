@@ -19,7 +19,13 @@ class BreadcrumbTheme extends ComponentThemeData {
   final EdgeInsetsGeometry? padding;
 
   /// Creates a [BreadcrumbTheme].
-  const BreadcrumbTheme({this.separator, this.padding});
+  const BreadcrumbTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.separator,
+    this.padding,
+  });
 
   /// Returns a copy of this theme with the given values replaced.
   BreadcrumbTheme copyWith({
@@ -45,4 +51,3 @@ class BreadcrumbTheme extends ComponentThemeData {
 }
 
 /// Navigation breadcrumb trail showing hierarchical path with customizable separators.
-

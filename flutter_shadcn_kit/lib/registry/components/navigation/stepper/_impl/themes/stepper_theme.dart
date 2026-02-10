@@ -36,7 +36,14 @@ class StepperTheme extends ComponentThemeData {
   /// - [direction] (Axis?): horizontal or vertical layout
   /// - [size] (StepSize?): step indicator size (small, medium, large)
   /// - [variant] (StepVariant?): visual style (circle, circleAlt, line)
-  const StepperTheme({this.direction, this.size, this.variant});
+  const StepperTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.direction,
+    this.size,
+    this.variant,
+  });
 
   /// Creates a copy of this theme with optionally overridden properties.
   StepperTheme copyWith({

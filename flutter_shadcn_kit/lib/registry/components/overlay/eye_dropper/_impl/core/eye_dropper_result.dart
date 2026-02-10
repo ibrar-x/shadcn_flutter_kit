@@ -20,8 +20,8 @@ class EyeDropperResult {
   ///
   /// Returns: The color at that position.
   Color operator [](Offset position) {
-    int index =
-        (position.dy.floor() * size.width + position.dx.floor()).toInt();
+    int index = (position.dy.floor() * size.width + position.dx.floor())
+        .toInt();
     return colors[index];
   }
 }

@@ -15,8 +15,14 @@ class MultiCalendarValue extends CalendarValue {
   @override
   CalendarValueLookup lookup(int year, [int? month, int? day]) {
     DateTime current = DateTime(year, month ?? 1, day ?? 1);
-    if (dates.any((element) => _convertNecessarry(element, year, month, day)
-        .isAtSameMomentAs(current))) {
+    if (dates.any(
+      (element) => _convertNecessarry(
+        element,
+        year,
+        month,
+        day,
+      ).isAtSameMomentAs(current),
+    )) {
       return CalendarValueLookup.selected;
     }
     return CalendarValueLookup.none;
@@ -49,10 +55,12 @@ class MultiCalendarValue extends CalendarValue {
   @override
   RangeCalendarValue toRange() {
     assert(dates.isNotEmpty, 'Cannot convert empty list to range');
-    DateTime min = dates
-        .reduce((value, element) => value.isBefore(element) ? value : element);
-    DateTime max = dates
-        .reduce((value, element) => value.isAfter(element) ? value : element);
+    DateTime min = dates.reduce(
+      (value, element) => value.isBefore(element) ? value : element,
+    );
+    DateTime max = dates.reduce(
+      (value, element) => value.isAfter(element) ? value : element,
+    );
     return CalendarValue.range(min, max);
   }
 

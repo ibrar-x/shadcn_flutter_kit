@@ -154,6 +154,6 @@ abstract class StatedWidget extends StatelessWidget {
   const factory StatedWidget.builder({
     Key? key,
     required Widget Function(BuildContext context, Set<WidgetState> states)
-        builder,
+    builder,
   }) = BuilderStatedWidget;
 }

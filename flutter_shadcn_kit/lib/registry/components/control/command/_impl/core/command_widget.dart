@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' hide Theme, TextField, ErrorWidgetBuilder;
+import 'package:flutter/material.dart'
+    hide Theme, TextField, ErrorWidgetBuilder;
 
 import 'command_dialog.dart';
 import '../state/command_state.dart';

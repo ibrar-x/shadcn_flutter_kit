@@ -18,11 +18,11 @@ class _InputOTPChild {
   }) : key = GlobalKey<_OTPCharacterInputState>();
 
   _InputOTPChild.withNewChild(_InputOTPChild old, InputOTPChild newChild)
-      : focusNode = old.focusNode,
-        value = old.value,
-        groupIndex = old.groupIndex,
-        relativeIndex = old.relativeIndex,
-        child = newChild,
-        groupLength = old.groupLength,
-        key = old.key;
+    : focusNode = old.focusNode,
+      value = old.value,
+      groupIndex = old.groupIndex,
+      relativeIndex = old.relativeIndex,
+      child = newChild,
+      groupLength = old.groupLength,
+      key = old.key;
 }

@@ -54,20 +54,20 @@ class _TreeItemViewState extends State<TreeItemView> {
     final data = _data;
     assert(data != null, 'TreeItemView must be a descendant of TreeView');
     List<Widget> rowChildren = [];
-    if (data!.expandIcon) rowChildren.add(SizedBox(width: 8 * scaling));
+    if (data!.expandIcon)
+      rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
     for (int i = 0; i < data.depth.length; i++) {
       if (i == 0) {
         continue; // skip the first depth
       }
-      if (!data.expandIcon) rowChildren.add(SizedBox(width: 8 * scaling));
-      rowChildren.add(SizedBox(
-        width: 16 * scaling,
-        child: data.indentGuide.build(
-          context,
-          data.depth,
-          i,
+      if (!data.expandIcon)
+        rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
+      rowChildren.add(
+        SizedBox(
+          width: 16 * scaling,
+          child: data.indentGuide.build(context, data.depth, i),
         ),
-      ));
+      );
     }
     List<Widget> subRowChildren = [];
     if (data.expandIcon) {
@@ -88,35 +88,35 @@ class _TreeItemViewState extends State<TreeItemView> {
         );
       } else {
         if (data.depth.length > 1) {
-          rowChildren.add(SizedBox(
-            width: 16 * scaling,
-            child: data.indentGuide.build(
-              context,
-              data.depth,
-              -1,
+          rowChildren.add(
+            SizedBox(
+              width: 16 * scaling,
+              child: data.indentGuide.build(context, data.depth, -1),
             ),
-          ));
+          );
         } else {
-          rowChildren.add(SizedBox(
-            width: 16 * scaling,
-          ));
+          rowChildren.add(
+            SizedBox(width: theme.density.baseContentPadding * scaling),
+          );
         }
       }
     }
     if (widget.leading != null) {
       subRowChildren.add(widget.leading!);
-      subRowChildren.add(SizedBox(width: 8 * scaling));
+      subRowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
     }
     subRowChildren.add(Expanded(child: widget.child));
     if (widget.trailing != null) {
-      subRowChildren.add(SizedBox(width: 8 * scaling));
+      subRowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
       subRowChildren.add(widget.trailing!);
     }
     rowChildren.add(
       Expanded(
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 8, vertical: 4) * scaling,
+          padding: EdgeInsets.symmetric(
+            horizontal: theme.density.baseGap * scaling,
+            vertical: theme.density.baseGap * scaling * 0.5,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: subRowChildren,
@@ -183,31 +183,30 @@ class _TreeItemViewState extends State<TreeItemView> {
                   },
                 ),
               },
-              decoration: WidgetStateProperty.resolveWith(
-                (states) {
-                  if (states.contains(WidgetState.selected)) {
-                    if (states.contains(WidgetState.focused)) {
-                      return BoxDecoration(
-                        color: theme.colorScheme.primary.scaleAlpha(0.1),
-                        borderRadius: _borderRadiusFromPosition(
-                          data.selectionPosition,
-                          theme.radiusMd,
-                        ),
-                      );
-                    }
+              decoration: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  if (states.contains(WidgetState.focused)) {
                     return BoxDecoration(
-                      color: theme.colorScheme.primary.scaleAlpha(0.05),
+                      color: theme.colorScheme.primary.scaleAlpha(0.1),
                       borderRadius: _borderRadiusFromPosition(
                         data.selectionPosition,
                         theme.radiusMd,
                       ),
                     );
                   }
-                  return const BoxDecoration();
-                },
-              ),
+                  return BoxDecoration(
+                    color: theme.colorScheme.primary.scaleAlpha(0.05),
+                    borderRadius: _borderRadiusFromPosition(
+                      data.selectionPosition,
+                      theme.radiusMd,
+                    ),
+                  );
+                }
+                return const BoxDecoration();
+              }),
               behavior: HitTestBehavior.translucent,
-              mouseCursor: widget.onDoublePressed != null ||
+              mouseCursor:
+                  widget.onDoublePressed != null ||
                       widget.onPressed != null ||
                       (widget.onExpand != null &&
                           (widget.expandable ?? data.node.children.isNotEmpty))
@@ -230,7 +229,8 @@ class _TreeItemViewState extends State<TreeItemView> {
                 _focusNode.requestFocus();
                 _data!.onFocusChanged?.call(FocusChangeReason.userInteraction);
               },
-              enabled: widget.onPressed != null ||
+              enabled:
+                  widget.onPressed != null ||
                   widget.onDoublePressed != null ||
                   (widget.onExpand != null &&
                       (widget.expandable ?? data.node.children.isNotEmpty)),

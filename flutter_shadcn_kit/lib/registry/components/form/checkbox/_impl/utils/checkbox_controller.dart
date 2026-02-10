@@ -72,8 +72,8 @@ class CheckboxController extends ValueNotifier<CheckboxState>
     value = value == CheckboxState.checked
         ? CheckboxState.unchecked
         : value == CheckboxState.unchecked
-            ? CheckboxState.indeterminate
-            : CheckboxState.checked;
+        ? CheckboxState.indeterminate
+        : CheckboxState.checked;
   }
 
   /// Returns true if the checkbox is currently checked.

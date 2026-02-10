@@ -7,8 +7,9 @@ class ColorPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final derivative = ColorDerivative.fromColor(Colors.blue);
-    final adjusted =
-        derivative.changeToHSV(const HSVColor.fromAHSV(1, 210, 0.6, 0.8));
+    final adjusted = derivative.changeToHSV(
+      const HSVColor.fromAHSV(1, 210, 0.6, 0.8),
+    );
     final hex = colorToHex(adjusted.toColor(), true);
     return Scaffold(
       body: Center(

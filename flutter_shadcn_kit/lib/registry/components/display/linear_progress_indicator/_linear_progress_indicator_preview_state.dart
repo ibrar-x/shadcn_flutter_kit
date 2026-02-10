@@ -11,16 +11,10 @@ class _LinearProgressIndicatorPreviewState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              width: 200,
-              child: LinearProgressIndicator(),
-            ),
-            const Gap(24),
-            SizedBox(
-              width: 200,
-              child: LinearProgressIndicator(value: value),
-            ),
-            const Gap(24),
+            const SizedBox(width: 200, child: LinearProgressIndicator()),
+            const DensityGap(gap2xl),
+            SizedBox(width: 200, child: LinearProgressIndicator(value: value)),
+            const DensityGap(gap2xl),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -32,7 +26,7 @@ class _LinearProgressIndicatorPreviewState
                   },
                   child: const Text('Reset'),
                 ),
-                const Gap(24),
+                const DensityGap(gap2xl),
                 PrimaryButton(
                   onPressed: () {
                     setState(() {

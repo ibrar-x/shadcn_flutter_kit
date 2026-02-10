@@ -28,5 +28,9 @@ abstract class ChatBubbleType {
   /// Returns:
   /// A [Widget] that wraps the child with the bubble styling.
   Widget wrap(
-      BuildContext context, Widget child, ChatBubbleData data, ChatBubble chat);
+    BuildContext context,
+    Widget child,
+    ChatBubbleData data,
+    ChatBubble chat,
+  );
 }

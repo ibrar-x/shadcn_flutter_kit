@@ -13,7 +13,6 @@ part of '../../item_picker.dart';
 /// ```
 class ItemBuilder<T> extends ItemChildDelegate<T> {
   @override
-
   /// The total number of items, or null if infinite.
   final int? itemCount;
 

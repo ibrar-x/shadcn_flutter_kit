@@ -5,9 +5,7 @@ class StepNumberData {
   final int stepIndex;
 
   /// Creates [StepNumberData].
-  const StepNumberData({
-    required this.stepIndex,
-  });
+  const StepNumberData({required this.stepIndex});
 
   @override
   bool operator ==(Object other) {

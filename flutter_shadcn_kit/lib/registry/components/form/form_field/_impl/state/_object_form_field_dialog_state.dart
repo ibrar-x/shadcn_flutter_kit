@@ -49,25 +49,24 @@ class _ObjectFormFieldDialogState<T> extends State<_ObjectFormFieldDialog<T>>
       child: AlertDialog(
         title: widget.dialogTitle,
         content: Padding(
-          padding: EdgeInsets.only(top: 8 * theme.scaling),
-          child: widget.editorBuilder(
-            context,
-            this,
-          ),
+          padding: EdgeInsets.only(top: theme.density.baseGap * theme.scaling),
+          child: widget.editorBuilder(context, this),
         ),
         actions: [
           if (widget.dialogActions != null)
             ...widget.dialogActions!(context, this),
           ObjectInputCancelButton(
-              child: Text(localizations.buttonCancel),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+            child: Text(localizations.buttonCancel),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           ObjectInputSaveButton(
-              child: Text(localizations.buttonSave),
-              onPressed: () {
-                Navigator.of(context).pop(ObjectFormFieldDialogResult(_value));
-              }),
+            child: Text(localizations.buttonSave),
+            onPressed: () {
+              Navigator.of(context).pop(ObjectFormFieldDialogResult(_value));
+            },
+          ),
         ],
       ),
     );

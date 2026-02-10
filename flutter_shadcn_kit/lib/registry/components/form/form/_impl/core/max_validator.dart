@@ -22,32 +22,38 @@ class MaxValidator<T extends num> extends Validator<T> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [MaxValidator] with the specified maximum value.
   const MaxValidator(this.max, {this.inclusive = true, this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
     if (inclusive) {
       if (value > max) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formLessThanOrEqualTo(max),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formLessThanOrEqualTo(max),
+          state: state,
+        );
       }
     } else {
       if (value >= max) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formLessThan(max),
-            state: state);
+          message ??
+              Localizations.of(context, ShadcnLocalizations).formLessThan(max),
+          state: state,
+        );
       }
     }
     return null;

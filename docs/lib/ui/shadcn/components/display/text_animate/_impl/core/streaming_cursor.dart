@@ -4,28 +4,28 @@ part of '../../text_animate.dart';
 @immutable
 class StreamingCursor {
   const StreamingCursor.none()
-    : enabled = false,
-      blink = false,
-      character = '',
-      blinkPeriod = Duration.zero,
-      showWhenSettled = false,
-      style = null;
+      : enabled = false,
+        blink = false,
+        character = '',
+        blinkPeriod = Duration.zero,
+        showWhenSettled = false,
+        style = null;
 
   const StreamingCursor.blink({
     this.character = '|',
     this.blinkPeriod = const Duration(milliseconds: 650),
     this.showWhenSettled = true,
     this.style,
-  }) : enabled = true,
-       blink = true;
+  })  : enabled = true,
+        blink = true;
 
   const StreamingCursor.solid({
     this.character = '|',
     this.showWhenSettled = true,
     this.style,
-  }) : enabled = true,
-       blink = false,
-       blinkPeriod = Duration.zero;
+  })  : enabled = true,
+        blink = false,
+        blinkPeriod = Duration.zero;
 
   /// Whether the cursor is rendered.
   final bool enabled;
@@ -59,11 +59,11 @@ class StreamingCursor {
 
   @override
   int get hashCode => Object.hash(
-    enabled,
-    blink,
-    character,
-    blinkPeriod,
-    showWhenSettled,
-    style,
-  );
+        enabled,
+        blink,
+        character,
+        blinkPeriod,
+        showWhenSettled,
+        style,
+      );
 }

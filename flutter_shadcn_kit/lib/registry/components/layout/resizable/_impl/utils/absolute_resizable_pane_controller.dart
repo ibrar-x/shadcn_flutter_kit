@@ -21,7 +21,7 @@ class AbsoluteResizablePaneController extends ChangeNotifier
   /// - [_size] (`double`, required): Initial absolute size in pixels.
   /// - [collapsed] (`bool`, default: `false`): Initial collapsed state.
   AbsoluteResizablePaneController(this._size, {bool collapsed = false})
-      : _collapsed = collapsed;
+    : _collapsed = collapsed;
 
   @override
   double get value => _size;
@@ -49,8 +49,12 @@ class AbsoluteResizablePaneController extends ChangeNotifier
   }
 
   @override
-  void resize(double newSize, double paneSize,
-      {double? minSize, double? maxSize}) {
+  void resize(
+    double newSize,
+    double paneSize, {
+    double? minSize,
+    double? maxSize,
+  }) {
     _size = newSize.clamp(minSize ?? 0, maxSize ?? double.infinity);
     notifyListeners();
   }

@@ -28,12 +28,16 @@ class _InternalItemPicker<T> extends StatelessWidget {
       children: [
         if (title != null)
           Padding(
-            padding: EdgeInsets.all(16.0 * theme.scaling) +
+            padding:
+                EdgeInsets.all(
+                  theme.density.baseContentPadding * theme.scaling,
+                ) +
                 EdgeInsets.only(top: padding.top),
             child: title?.large.semiBold,
           ),
         ConstrainedBox(
-          constraints: constraints ??
+          constraints:
+              constraints ??
               BoxConstraints(
                 maxWidth: 320 * theme.scaling,
                 maxHeight: 320 * theme.scaling,
@@ -42,10 +46,14 @@ class _InternalItemPicker<T> extends StatelessWidget {
             data: MediaQuery.of(context).copyWith(
               padding: title != null
                   ? padding.copyWith(top: 0) +
-                      const EdgeInsets.only(
-                              bottom: 8.0, left: 8.0, right: 8.0) *
-                          theme.scaling
-                  : padding + const EdgeInsets.all(8) * theme.scaling,
+                        const EdgeInsets.only(
+                              bottom: 8.0,
+                              left: 8.0,
+                              right: 8.0,
+                            ) *
+                            theme.scaling
+                  : padding +
+                        EdgeInsets.all(theme.density.baseGap * theme.scaling),
             ),
             child: ItemPickerDialog<T>(
               items: items,

@@ -22,32 +22,41 @@ class MinValidator<T extends num> extends Validator<T> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [MinValidator] with the specified minimum value.
   const MinValidator(this.min, {this.inclusive = true, this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
     if (inclusive) {
       if (value < min) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formGreaterThanOrEqualTo(min),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formGreaterThanOrEqualTo(min),
+          state: state,
+        );
       }
     } else {
       if (value <= min) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formGreaterThan(min),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formGreaterThan(min),
+          state: state,
+        );
       }
     }
     return null;

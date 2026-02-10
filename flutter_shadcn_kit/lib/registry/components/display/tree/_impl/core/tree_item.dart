@@ -92,10 +92,7 @@ class TreeItem<T> extends TreeNode<T> {
   });
 
   @override
-  TreeItem<T> updateState({
-    bool? expanded,
-    bool? selected,
-  }) {
+  TreeItem<T> updateState({bool? expanded, bool? selected}) {
     return TreeItem(
       data: data,
       children: children,

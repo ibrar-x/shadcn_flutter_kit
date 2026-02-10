@@ -9,9 +9,6 @@
     "overlay"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "color_extensions",
       "constants",
@@ -22,6 +19,35 @@
     "components": [
       "button",
       "popover"
-    ]
-  }
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/navigation_menu_2.dart",
+    "_impl/core/navigation_menu_content.dart",
+    "_impl/core/navigation_menu_content_list.dart",
+    "_impl/core/navigation_menu_item.dart",
+    "_impl/state/navigation_menu_item_state.dart",
+    "_impl/state/navigation_menu_state.dart",
+    "meta.json",
+    "navigation_menu.dart",
+    "navigation_menu.meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`NavigationMenu`",
+      "`children` (`List<Widget>`, required)",
+      "`surfaceOpacity`, `surfaceBlur`, `margin`, `offset`",
+      "`NavigationMenuItem` — item with optional `content`.",
+      "`NavigationMenuContent` — content entry.",
+      "`NavigationMenuContentList` — grid/list of contents.",
+      "`NavigationMenuTheme` — surface styling."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

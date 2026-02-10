@@ -3,9 +3,41 @@
   "name": "Chip",
   "description": "Compact tag-style button with optional leading/trailing widgets.",
   "category": "display",
-  "tags": ["display", "forms", "tag"],
+  "tags": [
+    "display",
+    "forms",
+    "tag"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value"],
-    "components": ["button"]
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [
+      "button"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/chip_button.dart",
+    "_impl/themes/chip_theme.dart",
+    "chip.dart",
+    "chip.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Chip`",
+      "`child` (`Widget`, required)",
+      "`leading` / `trailing` (`Widget?`)",
+      "`onPressed` (`VoidCallback?`)",
+      "`style` (`AbstractButtonStyle?`)"
+    ],
+    "callbacks": [
+      "`onPressed`"
+    ]
+  },
+  "version": "1.0.0"
 }

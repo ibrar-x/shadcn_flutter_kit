@@ -15,11 +15,7 @@ class TabChildWidget extends StatelessWidget with TabChild {
   /// Parameters:
   /// - [child]: The widget to wrap (required)
   /// - [indexed]: Whether to use indexed positioning (defaults to `false`)
-  const TabChildWidget({
-    super.key,
-    required this.child,
-    this.indexed = false,
-  });
+  const TabChildWidget({super.key, required this.child, this.indexed = false});
 
   @override
   Widget build(BuildContext context) {

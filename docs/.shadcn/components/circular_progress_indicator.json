@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "circular_progress_indicator",
+  "name": "Circular Progress Indicator",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "progress",
+    "indicator"
+  ],
+  "installedAt": "2026-02-09T10:18:03.225867Z",
+  "shared": [
+    "animated_value_builder",
+    "color_extensions",
+    "constants",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/circular_progress_indicator/README.md",
+    "registry/components/display/circular_progress_indicator/_impl/themes/circular_progress_indicator_theme.dart",
+    "registry/components/display/circular_progress_indicator/circular_progress_indicator.dart",
+    "registry/components/display/circular_progress_indicator/circular_progress_indicator.meta.json",
+    "registry/components/display/circular_progress_indicator/meta.json",
+    "registry/components/display/circular_progress_indicator/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

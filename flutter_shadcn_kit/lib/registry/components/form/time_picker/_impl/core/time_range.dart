@@ -20,10 +20,7 @@ class TimeRange {
   final TimeOfDay end;
 
   /// Creates a [TimeRange] with the specified start and end times.
-  const TimeRange({
-    required this.start,
-    required this.end,
-  });
+  const TimeRange({required this.start, required this.end});
 
   /// Creates a copy of this range with the given fields replaced.
   TimeRange copyWith({

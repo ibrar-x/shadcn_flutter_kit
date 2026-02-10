@@ -3,9 +3,44 @@
   "name": "Scrollbar",
   "description": "Themeable scrollbar wrapper built on RawScrollbar.",
   "category": "control",
-  "tags": ["control", "scroll"],
+  "tags": [
+    "control",
+    "scroll"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": ["theme", "style_value"]
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/scrollbar_widget.dart",
+    "_impl/core/shadcn_scrollbar.dart",
+    "_impl/state/shadcn_scrollbar_state.dart",
+    "_impl/themes/scrollbar_theme.dart",
+    "meta.json",
+    "preview.dart",
+    "scrollbar.dart",
+    "scrollbar.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Scrollbar`",
+      "`child` (`Widget`, required)",
+      "`controller` (`ScrollController?`)",
+      "`thumbVisibility` (`bool?`)",
+      "`trackVisibility` (`bool?`)",
+      "`thickness` (`double?`)",
+      "`radius` (`Radius?`)",
+      "`color` (`Color?`)",
+      "`interactive` (`bool?`)",
+      "`notificationPredicate` (`ScrollNotificationPredicate?`)",
+      "`scrollbarOrientation` (`ScrollbarOrientation?`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

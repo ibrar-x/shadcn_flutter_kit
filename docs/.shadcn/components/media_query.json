@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "media_query",
+  "name": "Media Query Visibility",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "responsive"
+  ],
+  "installedAt": "2026-02-09T10:18:03.211905Z",
+  "shared": [
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/layout/media_query/README.md",
+    "registry/components/layout/media_query/_impl/core/media_query_visibility.dart",
+    "registry/components/layout/media_query/media_query.dart",
+    "registry/components/layout/media_query/media_query.meta.json",
+    "registry/components/layout/media_query/meta.json",
+    "registry/components/layout/media_query/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

@@ -14,7 +14,6 @@ part of '../../color.dart';
 /// ```
 class DirectionalGradientAngle extends GradientAngleGeometry {
   @override
-
   /// The angle of the gradient in radians.
   final double angle;
 
@@ -22,7 +21,6 @@ class DirectionalGradientAngle extends GradientAngleGeometry {
   const DirectionalGradientAngle(this.angle);
 
   @override
-
   /// The beginning alignment calculated from the angle.
   AlignmentGeometry get begin {
     final x = 0.5 + 0.5 * cos(angle);
@@ -31,7 +29,6 @@ class DirectionalGradientAngle extends GradientAngleGeometry {
   }
 
   @override
-
   /// The ending alignment calculated from the angle.
   AlignmentGeometry get end {
     final x = 0.5 + 0.5 * cos(angle + pi);

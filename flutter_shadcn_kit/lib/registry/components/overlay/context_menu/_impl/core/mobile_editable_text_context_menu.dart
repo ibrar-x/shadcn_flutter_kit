@@ -29,8 +29,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     final scaling = theme.scaling;
     final localizations = ShadcnLocalizations.of(context);
     var undoHistoryController = this.undoHistoryController;
-    var contextMenuButtonItems =
-        List.of(editableTextState.contextMenuButtonItems);
+    var contextMenuButtonItems = List.of(
+      editableTextState.contextMenuButtonItems,
+    );
 
     ContextMenuButtonItem? take(ContextMenuButtonType type) {
       var item = contextMenuButtonItems
@@ -53,76 +54,93 @@ class MobileEditableTextContextMenu extends StatelessWidget {
 
     List<MenuItem> modificationCategory = [];
     if (cutButton != null) {
-      modificationCategory.add(MenuButton(
-        onPressed: (context) {
-          cutButton.onPressed?.call();
-        },
-        child: Text(localizations.menuCut),
-      ));
+      modificationCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            cutButton.onPressed?.call();
+          },
+          child: Text(localizations.menuCut),
+        ),
+      );
     }
     if (copyButton != null) {
-      modificationCategory.add(MenuButton(
-        onPressed: (context) {
-          copyButton.onPressed?.call();
-        },
-        child: Text(localizations.menuCopy),
-      ));
+      modificationCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            copyButton.onPressed?.call();
+          },
+          child: Text(localizations.menuCopy),
+        ),
+      );
     }
     if (pasteButton != null) {
-      modificationCategory.add(MenuButton(
-        onPressed: (context) {
-          pasteButton.onPressed?.call();
-        },
-        child: Text(localizations.menuPaste),
-      ));
+      modificationCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            pasteButton.onPressed?.call();
+          },
+          child: Text(localizations.menuPaste),
+        ),
+      );
     }
     if (selectAllButton != null) {
-      modificationCategory.add(MenuButton(
-        onPressed: (context) {
-          selectAllButton.onPressed?.call();
-        },
-        child: Text(localizations.menuSelectAll),
-      ));
+      modificationCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            selectAllButton.onPressed?.call();
+          },
+          child: Text(localizations.menuSelectAll),
+        ),
+      );
     }
 
     List<MenuItem> destructiveCategory = [];
     if (deleteButton != null) {
-      destructiveCategory.add(MenuButton(
-        onPressed: (context) {
-          deleteButton.onPressed?.call();
-        },
-        child: Text(localizations.menuDelete),
-      ));
+      destructiveCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            deleteButton.onPressed?.call();
+          },
+          child: Text(localizations.menuDelete),
+        ),
+      );
     }
 
     if (shareButton != null) {
-      destructiveCategory.add(MenuButton(
-        onPressed: (context) {
-          shareButton.onPressed?.call();
-        },
-        child: Text(localizations.menuShare),
-      ));
+      destructiveCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            shareButton.onPressed?.call();
+          },
+          child: Text(localizations.menuShare),
+        ),
+      );
     }
 
     if (searchWebButton != null) {
-      destructiveCategory.add(MenuButton(
-        onPressed: (context) {
-          searchWebButton.onPressed?.call();
-        },
-        child: Text(localizations.menuSearchWeb),
-      ));
+      destructiveCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            searchWebButton.onPressed?.call();
+          },
+          child: Text(localizations.menuSearchWeb),
+        ),
+      );
     }
 
     if (liveTextInput != null) {
-      destructiveCategory.add(MenuButton(
-        onPressed: (context) {
-          liveTextInput.onPressed?.call();
-        },
-        child: Text(localizations.menuLiveTextInput),
-      ));
+      destructiveCategory.add(
+        MenuButton(
+          onPressed: (context) {
+            liveTextInput.onPressed?.call();
+          },
+          child: Text(localizations.menuLiveTextInput),
+        ),
+      );
     }
 
-    var primaryAnchor = (editableTextState.contextMenuAnchors.secondaryAnchor ??
+    var primaryAnchor =
+        (editableTextState.contextMenuAnchors.secondaryAnchor ??
             editableTextState.contextMenuAnchors.primaryAnchor) +
         const Offset(-8, 8) * scaling;
     if (undoHistoryController == null) {
@@ -138,9 +156,7 @@ class MobileEditableTextContextMenu extends StatelessWidget {
             position: primaryAnchor,
             direction: Axis.horizontal,
             children: categories
-                .expand((element) => [
-                      ...element,
-                    ])
+                .expand((element) => [...element])
                 .toList()
                 .joinSeparator(const MenuDivider()),
           ),
@@ -151,46 +167,49 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     return TextFieldTapRegion(
       child: _ContextMenuScope(
         child: AnimatedBuilder(
-            animation: undoHistoryController,
-            builder: (context, child) {
-              List<MenuItem> historyCategory = [];
-              if (undoHistoryController.value.canUndo) {
-                historyCategory.add(MenuButton(
+          animation: undoHistoryController,
+          builder: (context, child) {
+            List<MenuItem> historyCategory = [];
+            if (undoHistoryController.value.canUndo) {
+              historyCategory.add(
+                MenuButton(
                   enabled: undoHistoryController.value.canUndo,
                   onPressed: (context) {
                     undoHistoryController.undo();
                   },
                   child: Text(localizations.menuUndo),
-                ));
-              }
-              if (undoHistoryController.value.canRedo) {
-                historyCategory.add(MenuButton(
+                ),
+              );
+            }
+            if (undoHistoryController.value.canRedo) {
+              historyCategory.add(
+                MenuButton(
                   enabled: undoHistoryController.value.canRedo,
                   onPressed: (context) {
                     undoHistoryController.redo();
                   },
                   child: Text(localizations.menuRedo),
-                ));
-              }
-              List<List<MenuItem>> categories = [
-                if (historyCategory.isNotEmpty) historyCategory,
-                if (modificationCategory.isNotEmpty) modificationCategory,
-                if (destructiveCategory.isNotEmpty) destructiveCategory,
-              ];
-
-              return ContextMenuPopup(
-                direction: Axis.horizontal,
-                anchorContext: anchorContext,
-                position: primaryAnchor,
-                anchorSize: Size.zero,
-                children: categories
-                    .expand((element) => [
-                          ...element,
-                        ])
-                    .toList()
-                    .joinSeparator(const MenuDivider()),
+                ),
               );
-            }),
+            }
+            List<List<MenuItem>> categories = [
+              if (historyCategory.isNotEmpty) historyCategory,
+              if (modificationCategory.isNotEmpty) modificationCategory,
+              if (destructiveCategory.isNotEmpty) destructiveCategory,
+            ];
+
+            return ContextMenuPopup(
+              direction: Axis.horizontal,
+              anchorContext: anchorContext,
+              position: primaryAnchor,
+              anchorSize: Size.zero,
+              children: categories
+                  .expand((element) => [...element])
+                  .toList()
+                  .joinSeparator(const MenuDivider()),
+            );
+          },
+        ),
       ),
     );
   }
@@ -212,8 +231,11 @@ class MobileEditableTextContextMenu extends StatelessWidget {
 ///
 /// Returns: Platform-appropriate context menu widget.
 Widget buildEditableTextContextMenu(
-    BuildContext innerContext, EditableTextState editableTextState,
-    {UndoHistoryController? undoHistoryController, TargetPlatform? platform}) {
+  BuildContext innerContext,
+  EditableTextState editableTextState, {
+  UndoHistoryController? undoHistoryController,
+  TargetPlatform? platform,
+}) {
   if (platform == null) {
     // First we check if the user specified a platform via the theme.
     // When set, this one is favored.

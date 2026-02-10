@@ -176,13 +176,16 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     if (!_config.cycleAnimationStyles) {
       return _config.animationStyle;
     }
-    return FeatureCarouselAnimationStyle
-        .values[_animationIndex % FeatureCarouselAnimationStyle.values.length];
+    return FeatureCarouselAnimationStyle.values[_animationIndex %
+        FeatureCarouselAnimationStyle.values.length];
   }
 
   Widget _buildTransition(Widget child, Animation<double> animation) {
     final direction = _direction == _CarouselDirection.right ? 1 : -1;
-    final curve = CurvedAnimation(parent: animation, curve: _theme.transitionCurve);
+    final curve = CurvedAnimation(
+      parent: animation,
+      curve: _theme.transitionCurve,
+    );
     switch (_resolvedAnimationStyle) {
       case FeatureCarouselAnimationStyle.crossfadeScale:
         return FadeTransition(
@@ -210,7 +213,10 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
         return FadeTransition(
           opacity: curve,
           child: Transform.translate(
-            offset: Offset(12 * direction * (1 - curve.value), 6 * (1 - curve.value)),
+            offset: Offset(
+              12 * direction * (1 - curve.value),
+              6 * (1 - curve.value),
+            ),
             child: Transform.rotate(
               angle: (1 - curve.value) * (direction * 0.03),
               child: Transform.scale(
@@ -283,6 +289,10 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
 
   @override
   Widget build(BuildContext context) {
+    final theme = shadcn_theme.Theme.of(context);
+    final densityGap = theme.density.baseGap * theme.scaling;
+    final densityContentPadding =
+        theme.density.baseContentPadding * theme.scaling;
     if (widget.items.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -307,11 +317,10 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
       fontWeight: FontWeight.w400,
     );
 
-    final background = widget.backgroundBuilder?.call(context, resolvedTheme) ??
+    final background =
+        widget.backgroundBuilder?.call(context, resolvedTheme) ??
         Container(
-          decoration: BoxDecoration(
-            color: resolvedTheme.backgroundColor,
-          ),
+          decoration: BoxDecoration(color: resolvedTheme.backgroundColor),
         );
 
     final content = Column(
@@ -325,7 +334,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                     textAlign: TextAlign.center,
                   )
                 : const SizedBox.shrink()),
-        const SizedBox(height: 18),
+        SizedBox(height: densityGap * 2.25),
         RepaintBoundary(
           child: SizedBox(
             width: width,
@@ -363,16 +372,17 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                     switchOutCurve: _theme.transitionCurve,
                     transitionBuilder: (child, animation) =>
                         _buildTransition(child, animation),
-                    child: widget.cardBuilder?.call(
+                    child:
+                        widget.cardBuilder?.call(
                           context,
                           widget.items[_index],
                           _index,
                           _theme,
                         ) ??
                         _CenterCard(
-                      key: ValueKey(
-                        '${_index}_${widget.items[_index].title ?? 'item'}',
-                      ),
+                          key: ValueKey(
+                            '${_index}_${widget.items[_index].title ?? 'item'}',
+                          ),
                           item: widget.items[_index],
                           width: cardWidth,
                           height: cardHeight,
@@ -424,13 +434,19 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
             ),
           ),
         ),
-        const SizedBox(height: 22),
+        SizedBox(height: densityGap * 2.75),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 760),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: widget.descriptionBuilder
-                    ?.call(context, widget.items[_index], _index) ??
+            padding: EdgeInsets.symmetric(
+              horizontal: densityContentPadding * 1.25,
+            ),
+            child:
+                widget.descriptionBuilder?.call(
+                  context,
+                  widget.items[_index],
+                  _index,
+                ) ??
                 (widget.items[_index].description != null
                     ? Text(
                         widget.items[_index].description!,
@@ -441,7 +457,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
           ),
         ),
         if (_config.showCta) ...[
-          const SizedBox(height: 18),
+          SizedBox(height: densityGap * 2.25),
           widget.ctaBuilder?.call(
                 context,
                 widget.items[_index],
@@ -467,19 +483,14 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     );
 
     if (!_config.enableKeyboardNavigation) {
-      return Semantics(
-        label: 'Feature carousel',
-        child: wrapped,
-      );
+      return Semantics(label: 'Feature carousel', child: wrapped);
     }
 
     return FocusableActionDetector(
       autofocus: false,
       shortcuts: {
-        LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-            _CarouselIntent.left,
-        LogicalKeySet(LogicalKeyboardKey.arrowRight):
-            _CarouselIntent.right,
+        LogicalKeySet(LogicalKeyboardKey.arrowLeft): _CarouselIntent.left,
+        LogicalKeySet(LogicalKeyboardKey.arrowRight): _CarouselIntent.right,
         LogicalKeySet(LogicalKeyboardKey.enter): _CarouselIntent.action,
         LogicalKeySet(LogicalKeyboardKey.space): _CarouselIntent.action,
       },
@@ -498,10 +509,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
           },
         ),
       },
-      child: Semantics(
-        label: 'Feature carousel',
-        child: wrapped,
-      ),
+      child: Semantics(label: 'Feature carousel', child: wrapped),
     );
   }
 }

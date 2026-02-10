@@ -10,9 +10,31 @@
     "icon"
   ],
   "dependencies": {
+    "shared": [],
+    "components": [],
     "pubspec": {
       "data_widget": "^0.0.2"
-    },
-    "shared": []
-  }
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/utils/file_icon_provider_data.dart",
+    "file_input.dart",
+    "file_input.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Wrap file list widgets with FileIconProvider so FileIconProvider.buildIcon can resolve extensions."
+  ],
+  "api": {
+    "constructors": [
+      "`FileIconProvider`",
+      "`FileIconProvider.builder(builder: ..., child: ...)`",
+      "`FileIconProvider(icons: ..., child: ...)`",
+      "`FileIconBuilder` — `Widget Function(String extension)`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -8,7 +8,9 @@ class _ArrowSeparator extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12 * scaling),
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.density.baseGap * scaling * 1.5,
+      ),
       child: IconTheme(
         data: IconThemeData(
           color: theme.colorScheme.mutedForeground,

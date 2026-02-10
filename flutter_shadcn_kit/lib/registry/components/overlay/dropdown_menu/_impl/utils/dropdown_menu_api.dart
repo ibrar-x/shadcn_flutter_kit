@@ -54,10 +54,7 @@ OverlayCompleter<T?> showDropdown<T>({
       borderRadius: BorderRadius.circular(theme.radiusMd),
     ),
     builder: (context) {
-      return Data.inherit(
-        data: DropdownMenuData(key),
-        child: builder(context),
-      );
+      return Data.inherit(data: DropdownMenuData(key), child: builder(context));
     },
   );
 }

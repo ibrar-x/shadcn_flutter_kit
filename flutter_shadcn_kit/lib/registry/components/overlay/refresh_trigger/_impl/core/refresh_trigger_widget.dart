@@ -6,7 +6,9 @@ class RefreshTrigger extends StatefulWidget {
   /// Displays a platform-appropriate circular progress indicator that rotates
   /// based on pull extent and animates during refresh.
   static Widget defaultIndicatorBuilder(
-      BuildContext context, RefreshTriggerStage stage) {
+    BuildContext context,
+    RefreshTriggerStage stage,
+  ) {
     return DefaultRefreshIndicator(stage: stage);
   }
 

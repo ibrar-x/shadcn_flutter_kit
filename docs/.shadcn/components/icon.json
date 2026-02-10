@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "icon",
+  "name": "Icon Extensions",
+  "version": "1.0.0",
+  "tags": [
+    "icon",
+    "theme"
+  ],
+  "installedAt": "2026-02-09T10:18:03.227141Z",
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/display/icon/README.md",
+    "registry/components/display/icon/icon.dart",
+    "registry/components/display/icon/icon.meta.json",
+    "registry/components/display/icon/meta.json",
+    "registry/components/display/icon/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

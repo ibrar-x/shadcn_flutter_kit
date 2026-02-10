@@ -8,4 +8,3 @@ class FadeScrollPreview extends StatefulWidget {
   @override
   State<FadeScrollPreview> createState() => _FadeScrollPreviewState();
 }
-

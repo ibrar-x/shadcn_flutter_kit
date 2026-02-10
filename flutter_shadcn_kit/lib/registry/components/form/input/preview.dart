@@ -20,8 +20,8 @@ class InputPreview extends StatelessWidget {
                 popupBuilder: (context) =>
                     const Text('We never share your email.'),
               ),
-              input.InputClearFeature(),
-              input.InputCopyFeature(),
+              const input.InputClearFeature(),
+              const input.InputCopyFeature(),
             ],
           ),
         ),

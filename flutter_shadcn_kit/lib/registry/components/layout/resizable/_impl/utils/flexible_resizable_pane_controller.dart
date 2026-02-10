@@ -11,7 +11,7 @@ class FlexibleResizablePaneController extends ChangeNotifier
   /// - [_flex] (`double`, required): Initial flex factor.
   /// - [collapsed] (`bool`, default: `false`): Initial collapsed state.
   FlexibleResizablePaneController(this._flex, {bool collapsed = false})
-      : _collapsed = collapsed;
+    : _collapsed = collapsed;
 
   @override
   double get value => _flex;
@@ -37,8 +37,12 @@ class FlexibleResizablePaneController extends ChangeNotifier
   }
 
   @override
-  void resize(double newSize, double paneSize,
-      {double? minSize, double? maxSize}) {
+  void resize(
+    double newSize,
+    double paneSize, {
+    double? minSize,
+    double? maxSize,
+  }) {
     _flex = newSize.clamp(minSize ?? 0, maxSize ?? double.infinity) / paneSize;
     notifyListeners();
   }

@@ -18,7 +18,9 @@ class _SortableState<T> extends State<Sortable<T>>
   final ValueNotifier<bool> _hasDraggedOff = ValueNotifier(false);
 
   (_SortableState<T>, Offset)? _findState(
-      _SortableLayerState target, Offset globalPosition) {
+    _SortableLayerState target,
+    Offset globalPosition,
+  ) {
     BoxHitTestResult result = BoxHitTestResult();
     RenderBox renderBox = target.context.findRenderObject() as RenderBox;
     renderBox.hitTest(result, position: globalPosition);
@@ -29,7 +31,7 @@ class _SortableState<T> extends State<Sortable<T>>
             metaData.metaData != this) {
           return (
             metaData.metaData as _SortableState<T>,
-            (entry as BoxHitTestEntry).localPosition
+            (entry as BoxHitTestEntry).localPosition,
           );
         }
       }
@@ -38,7 +40,9 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   _SortableDropFallbackState<T>? _findFallbackState(
-      _SortableLayerState target, Offset globalPosition) {
+    _SortableLayerState target,
+    Offset globalPosition,
+  ) {
     BoxHitTestResult result = BoxHitTestResult();
     RenderBox renderBox = target.context.findRenderObject() as RenderBox;
     renderBox.hitTest(result, position: globalPosition);
@@ -115,7 +119,8 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   ValueNotifier<_SortableDraggingSession<T>?> _getByLocation(
-      _SortableDropLocation location) {
+    _SortableDropLocation location,
+  ) {
     switch (location) {
       case _SortableDropLocation.top:
         return topCandidate;
@@ -153,15 +158,22 @@ class _SortableState<T> extends State<Sortable<T>>
       } else {
         _session!.offset.value += delta;
       }
-      Offset globalPosition = _session!.offset.value +
+      Offset globalPosition =
+          _session!.offset.value +
           minOffset +
-          Offset((maxOffset.dx - minOffset.dx) / 2,
-              (maxOffset.dy - minOffset.dy) / 2);
-      (_SortableState<T>, Offset)? target =
-          _findState(_session!.layer, globalPosition);
+          Offset(
+            (maxOffset.dx - minOffset.dx) / 2,
+            (maxOffset.dy - minOffset.dy) / 2,
+          );
+      (_SortableState<T>, Offset)? target = _findState(
+        _session!.layer,
+        globalPosition,
+      );
       if (target == null) {
-        _SortableDropFallbackState<T>? fallback =
-            _findFallbackState(_session!.layer, globalPosition);
+        _SortableDropFallbackState<T>? fallback = _findFallbackState(
+          _session!.layer,
+          globalPosition,
+        );
         _currentFallback.value = fallback;
         if (_currentTarget.value != null && fallback == null) {
           _currentTarget.value!.dispose(_session!);
@@ -184,12 +196,15 @@ class _SortableState<T> extends State<Sortable<T>>
           acceptBottom: widget.onAcceptBottom != null,
         );
         if (location != null) {
-          ValueNotifier<_SortableDraggingSession<T>?> candidate =
-              target.$1._getByLocation(location);
+          ValueNotifier<_SortableDraggingSession<T>?> candidate = target.$1
+              ._getByLocation(location);
 
           candidate.value = _session;
           _currentTarget.value = _DroppingTarget(
-              candidate: candidate, source: target.$1, location: location);
+            candidate: candidate,
+            source: target.$1,
+            location: location,
+          );
         }
       }
     }
@@ -344,11 +359,7 @@ class _SortableState<T> extends State<Sortable<T>>
     if (!hasCandidate) {
       return child!;
     }
-    return AnimatedSize(
-      duration: duration,
-      alignment: alignment,
-      child: child,
-    );
+    return AnimatedSize(duration: duration, alignment: alignment, child: child);
   }
 
   @override
@@ -432,34 +443,34 @@ class _SortableState<T> extends State<Sortable<T>>
                         Flexible(
                           child: _dragging
                               ? widget.fallback ??
-                                  ListenableBuilder(
-                                    listenable: _hasDraggedOff,
-                                    builder: (context, child) {
-                                      return (_hasDraggedOff.value
-                                          ? AbsorbPointer(
-                                              child: Visibility(
-                                                visible: false,
-                                                maintainState: true,
-                                                child: KeyedSubtree(
-                                                  key: _key,
-                                                  child: widget.child,
+                                    ListenableBuilder(
+                                      listenable: _hasDraggedOff,
+                                      builder: (context, child) {
+                                        return (_hasDraggedOff.value
+                                            ? AbsorbPointer(
+                                                child: Visibility(
+                                                  visible: false,
+                                                  maintainState: true,
+                                                  child: KeyedSubtree(
+                                                    key: _key,
+                                                    child: widget.child,
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          : AbsorbPointer(
-                                              child: Visibility(
-                                                maintainSize: true,
-                                                maintainAnimation: true,
-                                                maintainState: true,
-                                                visible: false,
-                                                child: KeyedSubtree(
-                                                  key: _key,
-                                                  child: widget.child,
+                                              )
+                                            : AbsorbPointer(
+                                                child: Visibility(
+                                                  maintainSize: true,
+                                                  maintainAnimation: true,
+                                                  maintainState: true,
+                                                  visible: false,
+                                                  child: KeyedSubtree(
+                                                    key: _key,
+                                                    child: widget.child,
+                                                  ),
                                                 ),
-                                              ),
-                                            ));
-                                    },
-                                  )
+                                              ));
+                                      },
+                                    )
                               : ListenableBuilder(
                                   listenable: _hasClaimedDrop,
                                   builder: (context, child) {
@@ -527,10 +538,7 @@ class _SortableState<T> extends State<Sortable<T>>
             if (!hasCandidate) {
               return container;
             }
-            return AnimatedSize(
-              duration: kDefaultDuration,
-              child: container,
-            );
+            return AnimatedSize(duration: kDefaultDuration, child: container);
           },
         ),
       ),

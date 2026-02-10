@@ -93,8 +93,9 @@ class ButtonGroup extends StatelessWidget {
             decoration: (context, states, value) {
               if (value is BoxDecoration) {
                 final borderRadius = groupData.applyToBorderRadius(
-                    value.borderRadius ?? BorderRadius.zero,
-                    Directionality.of(context));
+                  value.borderRadius ?? BorderRadius.zero,
+                  Directionality.of(context),
+                );
                 return value.copyWith(borderRadius: borderRadius);
               }
               return value;

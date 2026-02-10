@@ -13,23 +13,27 @@ class StageContainer extends StatelessWidget {
 
   /// Base padding for the container.
   ///
-  /// Defaults to `EdgeInsets.symmetric(horizontal: 72)`.
-  final EdgeInsets padding;
+  /// Defaults to a density-aware horizontal padding when not provided.
+  final EdgeInsets? padding;
 
   /// Creates a [StageContainer].
   const StageContainer({
     super.key,
     this.breakpoint = StageBreakpoint.defaultBreakpoints,
     required this.builder,
-    this.padding = const EdgeInsets.symmetric(horizontal: 72),
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<StageContainerTheme>(context);
     final StageBreakpoint breakpoint = compTheme?.breakpoint ?? this.breakpoint;
     final EdgeInsets padding = styleValue(
-      defaultValue: this.padding,
+      widgetValue: this.padding,
+      defaultValue: EdgeInsets.symmetric(
+        horizontal: theme.density.baseContainerPadding * 4.5,
+      ),
       themeValue: compTheme?.padding,
     );
     return LayoutBuilder(

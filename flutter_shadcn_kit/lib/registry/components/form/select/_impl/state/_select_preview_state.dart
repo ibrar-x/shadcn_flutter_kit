@@ -30,26 +30,11 @@ class _SelectPreviewState extends State<SelectPreview> {
                 popup: const SelectPopup(
                   items: SelectItemList(
                     children: [
-                      SelectItemButton(
-                        value: 'Apple',
-                        child: Text('Apple'),
-                      ),
-                      SelectItemButton(
-                        value: 'Banana',
-                        child: Text('Banana'),
-                      ),
-                      SelectItemButton(
-                        value: 'Cherry',
-                        child: Text('Cherry'),
-                      ),
-                      SelectItemButton(
-                        value: 'Date',
-                        child: Text('Date'),
-                      ),
-                      SelectItemButton(
-                        value: 'Grape',
-                        child: Text('Grape'),
-                      ),
+                      SelectItemButton(value: 'Apple', child: Text('Apple')),
+                      SelectItemButton(value: 'Banana', child: Text('Banana')),
+                      SelectItemButton(value: 'Cherry', child: Text('Cherry')),
+                      SelectItemButton(value: 'Date', child: Text('Date')),
+                      SelectItemButton(value: 'Grape', child: Text('Grape')),
                     ],
                   ),
                 ).call,

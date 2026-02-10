@@ -3,9 +3,37 @@
   "name": "Fade Scroll",
   "description": "Edge fade overlays for scrollable content.",
   "category": "layout",
-  "tags": ["layout", "scroll", "overlay"],
+  "tags": [
+    "layout",
+    "scroll",
+    "overlay"
+  ],
   "dependencies": {
-    "pubspec": {},
-    "shared": ["theme", "style_value"]
-  }
+    "shared": [
+      "theme",
+      "style_value"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_scale_gradient.dart",
+    "_impl/core/fade_scroll_2.dart",
+    "_impl/state/_fade_scroll_preview_state.dart",
+    "fade_scroll.dart",
+    "fade_scroll.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`FadeScroll`",
+      "`startOffset`, `endOffset`",
+      "`gradient` (`List<Color>?`)",
+      "`FadeScrollTheme` — theme defaults."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

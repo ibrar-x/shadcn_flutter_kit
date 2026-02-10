@@ -3,5 +3,45 @@
   "name": "Hidden",
   "description": "Animated visibility helper with axis-aware size control.",
   "category": "layout",
-  "tags": ["animation", "layout", "accessibility"]
+  "tags": [
+    "animation",
+    "layout",
+    "accessibility"
+  ],
+  "dependencies": {
+    "shared": [
+      "animated_value_builder",
+      "constants",
+      "style_value",
+      "theme"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_render_hidden_layout.dart",
+    "_impl/core/hidden_layout.dart",
+    "_impl/state/_hidden_preview_state.dart",
+    "_impl/themes/hidden_theme.dart",
+    "hidden.dart",
+    "hidden.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "postInstall": [
+    "Register ComponentTheme<HiddenTheme> to override default curves, duration, or size retention."
+  ],
+  "api": {
+    "constructors": [
+      "`Hidden`",
+      "`hidden` (`bool`, required)",
+      "`direction` (`Axis?`)",
+      "`duration`, `curve`, `reverse`",
+      "`keepCrossAxisSize`, `keepMainAxisSize`",
+      "`HiddenTheme` — theme defaults for animation and axis."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

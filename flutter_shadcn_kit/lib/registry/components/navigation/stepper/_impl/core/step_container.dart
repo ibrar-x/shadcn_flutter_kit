@@ -26,11 +26,7 @@ class StepContainer extends StatefulWidget {
   ///   ],
   /// );
   /// ```
-  const StepContainer({
-    super.key,
-    required this.child,
-    required this.actions,
-  });
+  const StepContainer({super.key, required this.child, required this.actions});
 
   @override
   State<StepContainer> createState() => _StepContainerState();

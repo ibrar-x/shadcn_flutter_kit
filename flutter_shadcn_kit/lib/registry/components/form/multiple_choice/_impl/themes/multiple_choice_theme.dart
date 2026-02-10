@@ -6,14 +6,20 @@ class MultipleChoiceTheme extends ComponentThemeData {
   final bool? allowUnselect;
 
   /// Creates a [MultipleChoiceTheme].
-  const MultipleChoiceTheme({this.allowUnselect});
+  const MultipleChoiceTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.allowUnselect,
+  });
 
   /// Returns a copy of this theme with the given fields replaced by the
   /// non-null parameters.
   MultipleChoiceTheme copyWith({ValueGetter<bool?>? allowUnselect}) {
     return MultipleChoiceTheme(
-      allowUnselect:
-          allowUnselect == null ? this.allowUnselect : allowUnselect(),
+      allowUnselect: allowUnselect == null
+          ? this.allowUnselect
+          : allowUnselect(),
     );
   }
 

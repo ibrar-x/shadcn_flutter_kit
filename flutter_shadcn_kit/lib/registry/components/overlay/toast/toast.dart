@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 
 import '../../../shared/theme/theme.dart';

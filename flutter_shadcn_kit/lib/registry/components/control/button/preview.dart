@@ -13,30 +13,12 @@ class ButtonPreview extends StatelessWidget {
           spacing: 12,
           runSpacing: 12,
           children: [
-            PrimaryButton(
-              onPressed: () {},
-              child: const Text('Primary'),
-            ),
-            SecondaryButton(
-              onPressed: () {},
-              child: const Text('Secondary'),
-            ),
-            OutlineButton(
-              onPressed: () {},
-              child: const Text('Outline'),
-            ),
-            GhostButton(
-              onPressed: () {},
-              child: const Text('Ghost'),
-            ),
-            DestructiveButton(
-              onPressed: () {},
-              child: const Text('Delete'),
-            ),
-            LinkButton(
-              onPressed: () {},
-              child: const Text('Link'),
-            ),
+            PrimaryButton(onPressed: () {}, child: const Text('Primary')),
+            SecondaryButton(onPressed: () {}, child: const Text('Secondary')),
+            OutlineButton(onPressed: () {}, child: const Text('Outline')),
+            GhostButton(onPressed: () {}, child: const Text('Ghost')),
+            DestructiveButton(onPressed: () {}, child: const Text('Delete')),
+            LinkButton(onPressed: () {}, child: const Text('Link')),
           ],
         ),
       ),

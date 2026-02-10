@@ -8,7 +8,6 @@ part '_impl/core/_avatar_state.dart';
 part '_impl/core/_avatar_widget.dart';
 part '_impl/core/avatar_group_clipper.dart';
 
-
 part '_impl/core/avatar.dart';
 part '_impl/core/avatar_badge.dart';
 part '_impl/core/avatar_group.dart';

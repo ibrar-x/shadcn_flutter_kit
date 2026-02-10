@@ -27,9 +27,7 @@ class WidgetInputOTPChild extends InputOTPChild {
     return SizedBox(
       width: theme.scaling * 32,
       height: theme.scaling * 32,
-      child: Center(
-        child: child,
-      ),
+      child: Center(child: child),
     );
   }
 

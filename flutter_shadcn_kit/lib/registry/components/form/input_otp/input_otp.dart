@@ -12,7 +12,6 @@ import '../../../shared/utils/util.dart';
 
 part '_impl/themes/input_otp_theme.dart';
 
-
 part '_impl/core/_input_otp_child.dart';
 part '_impl/core/_input_otp_spacing.dart';
 part '_impl/state/_input_otp_state.dart';
@@ -23,13 +22,6 @@ part '_impl/core/input_otp_child.dart';
 part '_impl/core/input_otp_child_data.dart';
 part '_impl/core/otp_separator.dart';
 part '_impl/core/widget_input_otp_child.dart';
-
-
-
-
-
-
-
 
 /// A predicate that tests whether a Unicode codepoint is valid.
 ///
@@ -46,20 +38,6 @@ typedef CodepointPredicate = bool Function(int codepoint);
 ///
 /// Returns: The transformed codepoint.
 typedef CodepointUnaryOperator = int Function(int codepoint);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// A list of nullable codepoints representing OTP input values.
 ///

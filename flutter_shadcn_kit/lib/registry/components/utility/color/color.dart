@@ -15,7 +15,6 @@ part '_impl/utils/directional_gradient_angle.dart';
 part '_impl/utils/gradient_angle.dart';
 part '_impl/utils/gradient_angle_geometry.dart';
 
-
 /// Converts a [Color] to its hexadecimal string representation.
 ///
 /// This function transforms a Flutter [Color] object into a hex string format
@@ -42,14 +41,18 @@ part '_impl/utils/gradient_angle_geometry.dart';
 /// print(colorToHex(color, true)); // Output: #FF0080FF
 /// print(colorToHex(color, false, false)); // Output: 0080FF
 /// ```
-String colorToHex(Color color,
-    [bool showAlpha = false, bool hashPrefix = true]) {
+String colorToHex(
+  Color color, [
+  bool showAlpha = false,
+  bool hashPrefix = true,
+]) {
   String r = ((color.r * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   String g = ((color.g * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   String b = ((color.b * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   if (showAlpha) {
-    String a =
-        ((color.a * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
+    String a = ((color.a * 255).round() & 0xFF)
+        .toRadixString(16)
+        .padLeft(2, '0');
     return hashPrefix ? '#$a$r$g$b' : '$a$r$g$b';
   } else {
     return hashPrefix ? '#$r$g$b' : '$r$g$b';

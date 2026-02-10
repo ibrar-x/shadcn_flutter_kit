@@ -13,20 +13,11 @@ class _RadioGroupPreviewState extends State<RadioGroupPreview> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: const [
-              RadioItem(
-                value: 'starter',
-                leading: Text('Starter'),
-              ),
+              RadioItem(value: 'starter', leading: Text('Starter')),
               SizedBox(height: 8),
-              RadioItem(
-                value: 'pro',
-                leading: Text('Pro'),
-              ),
+              RadioItem(value: 'pro', leading: Text('Pro')),
               SizedBox(height: 8),
-              RadioItem(
-                value: 'enterprise',
-                leading: Text('Enterprise'),
-              ),
+              RadioItem(value: 'enterprise', leading: Text('Enterprise')),
             ],
           ),
         ),

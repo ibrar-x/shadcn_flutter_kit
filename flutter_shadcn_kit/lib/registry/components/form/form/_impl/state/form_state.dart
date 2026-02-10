@@ -35,10 +35,7 @@ class FormState extends State<Form> {
   Widget build(BuildContext context) {
     return Data.inherit(
       data: this,
-      child: Data.inherit(
-        data: _controller,
-        child: widget.child,
-      ),
+      child: Data.inherit(data: _controller, child: widget.child),
     );
   }
 }

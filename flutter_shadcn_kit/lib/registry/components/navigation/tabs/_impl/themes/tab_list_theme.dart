@@ -45,6 +45,9 @@ class TabListTheme extends ComponentThemeData {
   /// )
   /// ```
   const TabListTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.borderColor,
     this.borderWidth,
     this.indicatorColor,
@@ -69,10 +72,12 @@ class TabListTheme extends ComponentThemeData {
     return TabListTheme(
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       borderWidth: borderWidth == null ? this.borderWidth : borderWidth(),
-      indicatorColor:
-          indicatorColor == null ? this.indicatorColor : indicatorColor(),
-      indicatorHeight:
-          indicatorHeight == null ? this.indicatorHeight : indicatorHeight(),
+      indicatorColor: indicatorColor == null
+          ? this.indicatorColor
+          : indicatorColor(),
+      indicatorHeight: indicatorHeight == null
+          ? this.indicatorHeight
+          : indicatorHeight(),
     );
   }
 

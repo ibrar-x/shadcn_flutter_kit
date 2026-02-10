@@ -24,4 +24,3 @@ class _CellResizer extends StatefulWidget {
   @override
   State<_CellResizer> createState() => _CellResizerState();
 }
-

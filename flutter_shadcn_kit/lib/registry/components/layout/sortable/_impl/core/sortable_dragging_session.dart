@@ -30,4 +30,3 @@ class _SortableDraggingSession<T> {
     required Offset offset,
   }) : offset = ValueNotifier(offset);
 }
-

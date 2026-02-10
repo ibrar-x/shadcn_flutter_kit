@@ -3,9 +3,42 @@
   "name": "Circular Progress Indicator",
   "description": "Determinate/indeterminate spinner with theme overrides and optional animation.",
   "category": "display",
-  "tags": ["display", "progress", "indicator"],
+  "tags": [
+    "display",
+    "progress",
+    "indicator"
+  ],
   "dependencies": {
-    "shared": ["theme", "style_value", "constants", "animated_value_builder", "color_extensions"],
-    "components": []
-  }
+    "shared": [
+      "theme",
+      "style_value",
+      "constants",
+      "animated_value_builder",
+      "color_extensions"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/themes/circular_progress_indicator_theme.dart",
+    "circular_progress_indicator.dart",
+    "circular_progress_indicator.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`CircularProgressIndicator`",
+      "`value` (`double?`) — null for indeterminate.",
+      "`size` (`double?`)",
+      "`color`, `backgroundColor` (`Color?`)",
+      "`strokeWidth` (`double?`)",
+      "`duration` (`Duration`)",
+      "`animated` (`bool`)",
+      "`onSurface` (`bool`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

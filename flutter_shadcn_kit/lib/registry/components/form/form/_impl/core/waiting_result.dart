@@ -9,7 +9,7 @@ class WaitingResult extends ValidationResult {
 
   /// Creates a waiting result attached to a form key.
   const WaitingResult.attached({required FormKey key, required super.state})
-      : _key = key;
+    : _key = key;
 
   @override
   FormKey get key {

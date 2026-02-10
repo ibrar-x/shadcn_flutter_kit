@@ -12,15 +12,14 @@ enum DurationPart {
   minute(_getDurationMinute, _computeDurationMinuteValueRange),
 
   /// Second component.
-  second(_getDurationSecond, _computeDurationSecondValueRange),
-  ;
+  second(_getDurationSecond, _computeDurationSecondValueRange);
 
   /// Function that extracts the duration component value from a Duration.
   final int Function(Duration duration) getter;
 
   /// Function that computes the valid value range for this component.
   final (int? min, int? max) Function(Map<DurationPart, int> values)
-      computeValueRange;
+  computeValueRange;
 
   const DurationPart(this.getter, this.computeValueRange);
 }

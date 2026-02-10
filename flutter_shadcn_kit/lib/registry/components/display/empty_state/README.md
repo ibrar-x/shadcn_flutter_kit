@@ -8,7 +8,7 @@ Standardized empty state block for empty, no-results, or error.
 
 - Use this when:
   - you need a consistent empty state layout.
-  - you want primary/secondary actions attached to empty states.
+  - you want primary/secondary actions plus a supporting link action.
 - Avoid when:
   - a short inline message is sufficient.
 
@@ -47,15 +47,22 @@ EmptyState(
 
 ```dart
 EmptyState(
-  title: const Text('No items'),
-  description: const Text('Create a new item to get started.'),
+  title: const Text('No Projects Yet'),
+  description: const Text(
+    "You haven't created any projects yet. Get started by creating your first project.",
+  ),
   primaryAction: const EmptyStateAction(
-    label: 'Create item',
+    label: 'Create Project',
     style: EmptyStateActionStyle.primary,
   ),
   secondaryAction: const EmptyStateAction(
-    label: 'Learn more',
+    label: 'Import Project',
+    style: EmptyStateActionStyle.secondary,
+  ),
+  footerAction: const EmptyStateAction(
+    label: 'Learn More',
     style: EmptyStateActionStyle.link,
+    trailingIcon: Icon(RadixIcons.arrowTopRight),
   ),
 )
 ```
@@ -70,12 +77,13 @@ EmptyState(
   - `variant` (`EmptyStateVariant`)
   - `size` (`EmptyStateSize`)
   - `icon`, `title`, `description` (`Widget?`)
-  - `primaryAction`, `secondaryAction` (`EmptyStateAction?`)
+  - `primaryAction`, `secondaryAction`, `footerAction` (`EmptyStateAction?`)
   - `maxWidth` (`double?`)
+  - `showIconContainer` (`bool`)
 - `EmptyStateAction`
   - `label` (`String`, required)
   - `onPressed` (`VoidCallback?`)
-  - `icon` (`Widget?`)
+  - `icon`, `trailingIcon` (`Widget?`)
   - `style` (`EmptyStateActionStyle`)
 
 ### Callbacks
@@ -86,7 +94,7 @@ EmptyState(
 
 ## Theming
 
-- `EmptyStateTheme` controls icon size/color, text styles, padding, and card styling.
+- `EmptyStateTheme` controls icon size/color, icon badge styling, text styles, padding, and card styling.
 
 ---
 

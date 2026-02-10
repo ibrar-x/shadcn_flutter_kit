@@ -333,7 +333,7 @@ class DocsPageState extends State<DocsPage> {
     return value[0].toUpperCase() + value.substring(1);
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, {required double contentHeight}) {
     final scaling = context.docsTheme.scaling;
     final theme = shadcn_theme.Theme.of(context);
     final spacing = theme.spacing;
@@ -343,13 +343,14 @@ class DocsPageState extends State<DocsPage> {
     return shadcn_scaffold.AppBar(
       leading: const [],
       trailing: const [],
+      height: contentHeight,
       padding: EdgeInsets.symmetric(
         horizontal: spacing.xl * scaling,
         vertical: spacing.md * scaling,
       ),
-      backgroundColor: theme.colorScheme.background,
-      surfaceOpacity: 0.9,
-      surfaceBlur: 12,
+      backgroundColor: theme.colorScheme.card,
+      surfaceOpacity: theme.surfaceOpacity,
+      surfaceBlur: theme.surfaceBlur,
       child: Row(
         children: [
           if (showDrawer)
@@ -384,7 +385,7 @@ class DocsPageState extends State<DocsPage> {
             const Spacer(),
           ] else
             const Spacer(),
-              if (!showSearchBar)
+          if (!showSearchBar)
             shadcn_buttons.GhostButton(
               onPressed: showSearchDialog,
               density: shadcn_buttons.ButtonDensity.icon,
@@ -397,7 +398,6 @@ class DocsPageState extends State<DocsPage> {
             density: shadcn_buttons.ButtonDensity.icon,
             child: const Icon(LucideIcons.github),
           ),
-        
           _buildThemeToggle(context),
         ],
       ),
@@ -457,37 +457,38 @@ class DocsPageState extends State<DocsPage> {
         final theme = shadcn_theme.Theme.of(context);
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: 32, right: 32, bottom: 48,top: 48) *
+            padding: const EdgeInsets.only(
+                    left: 32, right: 32, bottom: 48, top: 48) *
                 theme.scaling,
-
             child: SizedBox(
               width: targetWidth,
               child: SidebarNav(
-              children: [
-                for (final section in _sections)
-                  SidebarSection(
-                    header: Text(section.title),
-                    children: [
-                      for (final page in section.pages)
-                        DocsNavigationButton(
-                          onPressed: () {
-                            closeSheet(context);
-                            routerContext.goNamed(
-                              page.routeName,
-                              pathParameters: page.pathParameters,
-                            );
-                          },
-                          selected: page.name == widget.name,
-                          child: shadcn_basic.Basic(
-                            content: Text(page.title),
-                            trailing: page.tag?.badge(context),
-                            trailingAlignment: AlignmentDirectional.centerStart,
+                children: [
+                  for (final section in _sections)
+                    SidebarSection(
+                      header: Text(section.title),
+                      children: [
+                        for (final page in section.pages)
+                          DocsNavigationButton(
+                            onPressed: () {
+                              closeSheet(context);
+                              routerContext.goNamed(
+                                page.routeName,
+                                pathParameters: page.pathParameters,
+                              );
+                            },
+                            selected: page.name == widget.name,
+                            child: shadcn_basic.Basic(
+                              content: Text(page.title),
+                              trailing: page.tag?.badge(context),
+                              trailingAlignment:
+                                  AlignmentDirectional.centerStart,
+                            ),
                           ),
-                        ),
-                    ],
-                  ),
-              ],
-            ),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         );
@@ -520,14 +521,14 @@ class DocsPageState extends State<DocsPage> {
     return StageContainer(
       builder: (context, padding) {
         final theme = shadcn_theme.Theme.of(context);
+        final headerContentHeight = 36 * theme.scaling;
         return Shortcuts(
           shortcuts: {
             LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK):
                 const _OpenSearchIntent(),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK):
                 const _OpenSearchIntent(),
-            LogicalKeySet(LogicalKeyboardKey.slash):
-                const _OpenSearchIntent(),
+            LogicalKeySet(LogicalKeyboardKey.slash): const _OpenSearchIntent(),
           },
           child: Actions(
             actions: {
@@ -540,148 +541,142 @@ class DocsPageState extends State<DocsPage> {
             },
             child: Focus(
               autofocus: true,
-              child: Scaffold(
-                body: Column(
+              child: shadcn_scaffold.Scaffold(
+                headers: [
+                  _buildHeader(
+                    context,
+                    contentHeight: headerContentHeight,
+                  ),
+                  const Divider(height: 1),
+                ],
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildHeader(context),
-                    const Divider(height: 1),
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MediaQueryVisibility(
-                            minWidth: breakpointWidth,
-                            child: FocusTraversalGroup(
-                              child: SingleChildScrollView(
-                                key: const PageStorageKey('sidebar'),
-                                padding: EdgeInsets.only(
-                                      top: theme.spacing.xxl,
-                                      left: theme.spacing.xl + padding.left,
-                                      bottom: theme.spacing.xxl,
-                                    ) *
-                                    theme.scaling,
-                                child: SidebarNav(
+                    MediaQueryVisibility(
+                      minWidth: breakpointWidth,
+                      child: FocusTraversalGroup(
+                        child: SingleChildScrollView(
+                          key: const PageStorageKey('sidebar'),
+                          padding: EdgeInsets.only(
+                                top: theme.spacing.xxl,
+                                left: theme.spacing.xl + padding.left,
+                                bottom: theme.spacing.xxl,
+                              ) *
+                              theme.scaling,
+                          child: SidebarNav(
+                            children: [
+                              for (final section in _sections)
+                                SidebarSection(
+                                  header: Text(section.title),
                                   children: [
-                                    for (final section in _sections)
-                                      SidebarSection(
-                                        header: Text(section.title),
-                                        children: [
-                                          for (final page in section.pages)
-                                            DocsNavigationButton(
-                                              onPressed: () => context.goNamed(
-                                                page.routeName,
-                                                pathParameters:
-                                                    page.pathParameters,
-                                              ),
-                                              selected:
-                                                  page.name == widget.name,
-                                              child: shadcn_basic.Basic(
-                                                content: Text(page.title),
-                                                trailing:
-                                                    page.tag?.badge(context),
-                                                trailingAlignment:
-                                                    AlignmentDirectional
-                                                        .centerStart,
-                                              ),
-                                            ),
-                                        ],
+                                    for (final page in section.pages)
+                                      DocsNavigationButton(
+                                        onPressed: () => context.goNamed(
+                                          page.routeName,
+                                          pathParameters: page.pathParameters,
+                                        ),
+                                        selected: page.name == widget.name,
+                                        child: shadcn_basic.Basic(
+                                          content: Text(page.title),
+                                          trailing: page.tag?.badge(context),
+                                          trailingAlignment:
+                                              AlignmentDirectional.centerStart,
+                                        ),
                                       ),
                                   ],
                                 ),
-                              ),
-                            ),
+                            ],
                           ),
-                          Expanded(
-                            child: widget.scrollable
-                                ? SingleChildScrollView(
-                                    controller: scrollController,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: theme.spacing.xxl,
-                                      vertical: theme.spacing.xl,
-                                    ).copyWith(
-                                      right: hasOnThisPage
-                                          ? theme.spacing.xl
-                                          : theme.spacing.xxl,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Breadcrumb(
-                                          separator: Breadcrumb.slashSeparator,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () => context.goNamed(
-                                                'introduction',
-                                              ),
-                                              child: const Text('Docs'),
-                                            ),
-                                            ...widget.navigationItems,
-                                            if (currentPage != null)
-                                              Text(currentPage.title),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: theme.spacing.lg,
-                                        ),
-                                        widget.child,
-                                      ],
-                                    ),
-                                  )
-                                : widget.child,
-                          ),
-                          if (hasOnThisPage)
-                            MediaQueryVisibility(
-                              minWidth: breakpointWidth2,
-                              child: SizedBox(
-                                width: (padding.right + 180) * theme.scaling,
-                                child: FocusTraversalGroup(
-                                  child: SingleChildScrollView(
-                                    padding: EdgeInsets.only(
-                                          top: theme.spacing.xxl,
-                                          right: theme.spacing.xl,
-                                          bottom: theme.spacing.xxl,
-                                          left: theme.spacing.xl,
-                                        ) *
-                                        theme.scaling,
-                                    child: SidebarNav(
-                                      children: [
-                                        SidebarSection(
-                                          header: const Text('On This Page'),
-                                          children: [
-                                            for (final entry
-                                                in widget.onThisPage.entries)
-                                              SidebarButton(
-                                                onPressed: () {
-                                                  final context = entry
-                                                      .value.currentContext;
-                                                  if (context == null) {
-                                                    return;
-                                                  }
-                                                  Scrollable.ensureVisible(
-                                                    context,
-                                                    duration: const Duration(
-                                                      milliseconds: 200,
-                                                    ),
-                                                  );
-                                                },
-                                                selected:
-                                                    entry.value.currentContext !=
-                                                            null &&
-                                                        isVisible(entry.value),
-                                                child: Text(entry.key),
-                                              ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
+                        ),
                       ),
                     ),
+                    Expanded(
+                      child: widget.scrollable
+                          ? SingleChildScrollView(
+                              controller: scrollController,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: theme.spacing.xxl,
+                                vertical: theme.spacing.xl,
+                              ).copyWith(
+                                right: hasOnThisPage
+                                    ? theme.spacing.xl
+                                    : theme.spacing.xxl,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Breadcrumb(
+                                    separator: Breadcrumb.slashSeparator,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () => context.goNamed(
+                                          'introduction',
+                                        ),
+                                        child: const Text('Docs'),
+                                      ),
+                                      ...widget.navigationItems,
+                                      if (currentPage != null)
+                                        Text(currentPage.title),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: theme.spacing.lg,
+                                  ),
+                                  widget.child,
+                                ],
+                              ),
+                            )
+                          : widget.child,
+                    ),
+                    if (hasOnThisPage)
+                      MediaQueryVisibility(
+                        minWidth: breakpointWidth2,
+                        child: SizedBox(
+                          width: (padding.right + 180) * theme.scaling,
+                          child: FocusTraversalGroup(
+                            child: SingleChildScrollView(
+                              padding: EdgeInsets.only(
+                                    top: theme.spacing.xxl,
+                                    right: theme.spacing.xl,
+                                    bottom: theme.spacing.xxl,
+                                    left: theme.spacing.xl,
+                                  ) *
+                                  theme.scaling,
+                              child: SidebarNav(
+                                children: [
+                                  SidebarSection(
+                                    header: const Text('On This Page'),
+                                    children: [
+                                      for (final entry
+                                          in widget.onThisPage.entries)
+                                        SidebarButton(
+                                          onPressed: () {
+                                            final context =
+                                                entry.value.currentContext;
+                                            if (context == null) {
+                                              return;
+                                            }
+                                            Scrollable.ensureVisible(
+                                              context,
+                                              duration: const Duration(
+                                                milliseconds: 200,
+                                              ),
+                                            );
+                                          },
+                                          selected:
+                                              entry.value.currentContext !=
+                                                      null &&
+                                                  isVisible(entry.value),
+                                          child: Text(entry.key),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

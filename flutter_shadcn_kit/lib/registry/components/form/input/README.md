@@ -1,18 +1,6 @@
 # Input (`input`)
 
-Single-line text input with feature hooks, popovers, and controller integration.
-
----
-
-## When to use
-
-- Use this when:
-  - you want shared input features (clear, password toggle, hints, etc.).
-  - you need autocomplete feature hooks.
-- Avoid when:
-  - you only need a plain `TextField` without features.
-
----
+Input feature extensions for `TextField`: hint, clear/copy/paste, password toggle, autocomplete, spinner, stepper buttons, and above/below helpers.
 
 ## Install
 
@@ -20,87 +8,45 @@ Single-line text input with feature hooks, popovers, and controller integration.
 flutter_shadcn add input
 ```
 
----
-
 ## Import
 
 ```dart
 import 'package:<your_app>/ui/shadcn/form/input/input.dart';
 ```
 
----
-
-## Minimal example
+## Quick example
 
 ```dart
 TextField(
-  features: const [InputFeature.clear()],
-)
-```
-
----
-
-## Common patterns
-
-### Pattern: Autocomplete feature
-
-```dart
-TextField(
-  features: [
-    InputFeature.autoComplete(
-      querySuggestions: (query) async => ['one', 'two'],
-      child: const SizedBox.shrink(),
-    ),
+  placeholder: const Text('Amount'),
+  features: const [
+    InputLeadingFeature(Icon(LucideIcons.dollarSign)),
+    InputSpinnerFeature(step: 5, min: 0, max: 500),
+    InputStepperButtonFeature.decrement(),
+    InputStepperButtonFeature(),
   ],
 )
 ```
 
----
-
 ## API
 
-### Constructor
+- `InputFeaturePosition`: `leading`, `trailing`, `above`, `below`.
+- `SuggestionBuilder`: `FutureOr<Iterable<String>> Function(String query)`.
+- Feature classes:
+  - `InputHintFeature`
+  - `InputPasswordToggleFeature`
+  - `InputClearFeature`
+  - `InputRevalidateFeature`
+  - `InputAutoCompleteFeature`
+  - `InputSpinnerFeature` (`step`, `invalidValue`, `min`, `max`, `enableGesture`)
+  - `InputStepperButtonFeature` / `InputStepperButtonFeature.decrement`
+  - `InputCopyFeature`
+  - `InputPasteFeature`
+  - `InputLeadingFeature`
+  - `InputTrailingFeature`
+  - `InputAboveBelowFeature` (`above`/`below`)
 
-- `InputFeaturePosition` — `leading` / `trailing`.
-- `SuggestionBuilder` — `FutureOr<Iterable<String>> Function(String query)`.
-- Feature widgets:
-  - `InputClearFeature`, `InputPasswordToggleFeature`, `InputHintFeature`
-  - `InputAutoCompleteFeature`, `InputSpinnerFeature`
-  - `InputCopyFeature`, `InputPasteFeature`, `InputRevalidateFeature`
-  - `InputLeadingFeature`, `InputTrailingFeature`
+## Notes
 
----
-
-## Theming
-
-- Feature icons/styles follow the `TextFieldTheme`.
-
----
-
-## Accessibility
-
-- Ensure feature icons have tooltips or labels.
-
----
-
-## Do / Don’t
-
-**Do**
-- ✅ Use `InputFeatureVisibility` to avoid clutter.
-
-**Don’t**
-- ❌ Overload inputs with too many trailing actions.
-
----
-
-## Related components
-
-- `text_field`
-- `autocomplete`
-
----
-
-## Registry rules
-
-- One public class per file
-- Helpers under `_impl/`
+- Spinner buttons are automatically disabled at min/max bounds.
+- `InputAboveBelowFeature` wraps the field and places helper content above or below it.

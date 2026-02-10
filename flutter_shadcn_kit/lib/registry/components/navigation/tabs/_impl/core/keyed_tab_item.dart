@@ -6,10 +6,8 @@ class KeyedTabItem<T> extends TabItem with KeyedTabChild<T> {
   /// Parameters:
   /// - [key] (`T`, required): unique key for this tab
   /// - [child] (`Widget`, required): content to display in this tab
-  KeyedTabItem({
-    required T key,
-    required super.child,
-  }) : super(key: ValueKey(key));
+  KeyedTabItem({required T key, required super.child})
+    : super(key: ValueKey(key));
 
   @override
   ValueKey<T> get key => super.key as ValueKey<T>;

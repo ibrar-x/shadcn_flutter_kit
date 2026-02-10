@@ -17,7 +17,10 @@ class NotEmptyValidator extends NonNullValidator<String> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null || value.isEmpty) {
       var localizations = Localizations.of(context, ShadcnLocalizations);
       return InvalidResult(message ?? localizations.formNotEmpty, state: state);

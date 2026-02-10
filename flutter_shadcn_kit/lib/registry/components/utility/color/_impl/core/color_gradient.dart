@@ -44,7 +44,10 @@ abstract class ColorGradient {
   ///
   /// Returns: A new [ColorGradient] with both values updated.
   ColorGradient changeColorAndPositionAt(
-      int index, ColorDerivative color, double position);
+    int index,
+    ColorDerivative color,
+    double position,
+  );
 
   /// Inserts a new color stop at a specific position in the gradient.
   ///
@@ -55,8 +58,12 @@ abstract class ColorGradient {
   /// - [textDirection]: The text direction for resolving directional alignments.
   ///
   /// Returns: A record containing the updated gradient and the index where the color was inserted.
-  ({ColorGradient gradient, int index}) insertColorAt(ColorDerivative color,
-      Offset position, Size size, TextDirection textDirection);
+  ({ColorGradient gradient, int index}) insertColorAt(
+    ColorDerivative color,
+    Offset position,
+    Size size,
+    TextDirection textDirection,
+  );
 
   /// Converts this color gradient to a Flutter [Gradient].
   ///

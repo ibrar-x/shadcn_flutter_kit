@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class DestructiveButtonTheme extends ButtonTheme {
   /// Creates a [DestructiveButtonTheme] with optional style property delegates.
-  const DestructiveButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const DestructiveButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   DestructiveButtonTheme copyWith({

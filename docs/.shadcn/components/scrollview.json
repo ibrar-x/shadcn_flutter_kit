@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "scrollview",
+  "name": "Scroll View Interceptor",
+  "version": "1.0.0",
+  "tags": [
+    "control",
+    "scroll"
+  ],
+  "installedAt": "2026-02-09T10:18:03.237787Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/control/scrollview/README.md",
+    "registry/components/control/scrollview/_impl/core/scroll_view_interceptor.dart",
+    "registry/components/control/scrollview/_impl/state/scroll_view_interceptor_state.dart",
+    "registry/components/control/scrollview/_impl/utils/desktop_pointer_scroll_event.dart",
+    "registry/components/control/scrollview/meta.json",
+    "registry/components/control/scrollview/preview.dart",
+    "registry/components/control/scrollview/scrollview.dart",
+    "registry/components/control/scrollview/scrollview.meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

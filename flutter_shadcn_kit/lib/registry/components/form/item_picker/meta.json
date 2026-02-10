@@ -9,13 +9,10 @@
     "selection"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "theme",
       "overlay",
-      "text"
+      "text_modifiers"
     ],
     "components": [
       "basic",
@@ -23,6 +20,42 @@
       "card",
       "dialog",
       "form_field"
-    ]
-  }
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_internal_item_picker.dart",
+    "_impl/core/grid_item_picker_layout.dart",
+    "_impl/core/item_list.dart",
+    "_impl/core/item_picker_data.dart",
+    "_impl/core/item_picker_dialog.dart",
+    "_impl/core/item_picker_layout.dart",
+    "_impl/core/item_picker_option.dart",
+    "_impl/core/list_item_picker_layout.dart",
+    "_impl/state/_item_picker_dialog_state.dart",
+    "_impl/state/_item_picker_preview_state.dart",
+    "_impl/utils/item_builder.dart",
+    "_impl/utils/item_child_delegate.dart",
+    "item_picker.dart",
+    "item_picker.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`ItemPicker<T>`",
+      "`items` (`ItemChildDelegate<T>`, required)",
+      "`builder` (`ItemPickerBuilder<T>`, required)",
+      "`value`, `onChanged`",
+      "`layout` (`ItemPickerLayout?`)",
+      "`mode` (`PromptMode?`), `title`, `constraints`, `placeholder`",
+      "`ItemList<T>` / `ItemBuilder<T>` — delegates for item sources.",
+      "`ItemPickerLayout` — `grid` or `list`."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

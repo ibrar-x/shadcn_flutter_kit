@@ -5,8 +5,8 @@ class _ScaffoldRenderFlex extends RenderBox
   _ScaffoldRenderFlex({
     required bool floatingHeader,
     required bool floatingFooter,
-  })  : _floatingHeader = floatingHeader,
-        _floatingFooter = floatingFooter;
+  }) : _floatingHeader = floatingHeader,
+       _floatingFooter = floatingFooter;
 
   bool _floatingHeader = false;
   bool _floatingFooter = false;

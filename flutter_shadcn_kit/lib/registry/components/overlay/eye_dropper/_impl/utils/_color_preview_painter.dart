@@ -23,8 +23,14 @@ class _ColorPreviewPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // clip it to circle
     final clipPath = Path()
-      ..addOval(Rect.fromLTWH(
-          0, 0, size.width.floorToDouble(), size.height.floorToDouble()));
+      ..addOval(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width.floorToDouble(),
+          size.height.floorToDouble(),
+        ),
+      );
     canvas.clipPath(clipPath);
     final paint = Paint();
 
@@ -32,13 +38,20 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.color = backgroundColor;
     paint.style = PaintingStyle.fill;
     canvas.drawRect(
-        Rect.fromLTWH(
-            0, 0, size.width.floorToDouble(), size.height.floorToDouble()),
-        paint);
+      Rect.fromLTWH(
+        0,
+        0,
+        size.width.floorToDouble(),
+        size.height.floorToDouble(),
+      ),
+      paint,
+    );
 
     // draw the color cells
-    final cellSize = Size(size.width.floor() / this.size.width.floor(),
-        size.height.floor() / this.size.height.floor());
+    final cellSize = Size(
+      size.width.floor() / this.size.width.floor(),
+      size.height.floor() / this.size.height.floor(),
+    );
     for (int y = 0; y < this.size.height.floor(); y++) {
       for (int x = 0; x < this.size.width.floor(); x++) {
         final color = colors[y * this.size.width.floor() + x];
@@ -46,10 +59,11 @@ class _ColorPreviewPainter extends CustomPainter {
         paint.style = PaintingStyle.fill;
         canvas.drawRect(
           Rect.fromLTWH(
-              (x * cellSize.width).floorToDouble(),
-              (y * cellSize.height).floorToDouble(),
-              cellSize.width.floorToDouble(),
-              cellSize.height.floorToDouble()),
+            (x * cellSize.width).floorToDouble(),
+            (y * cellSize.height).floorToDouble(),
+            cellSize.width.floorToDouble(),
+            cellSize.height.floorToDouble(),
+          ),
           paint,
         );
         paint.color = borderColor;
@@ -58,11 +72,11 @@ class _ColorPreviewPainter extends CustomPainter {
         // draw a border
         canvas.drawRect(
           Rect.fromLTWH(
-                  (x * cellSize.width).floorToDouble(),
-                  (y * cellSize.height).floorToDouble(),
-                  cellSize.width.floorToDouble(),
-                  cellSize.height.floorToDouble())
-              .inflate(paint.strokeWidth / 2),
+            (x * cellSize.width).floorToDouble(),
+            (y * cellSize.height).floorToDouble(),
+            cellSize.width.floorToDouble(),
+            cellSize.height.floorToDouble(),
+          ).inflate(paint.strokeWidth / 2),
           paint,
         );
       }
@@ -89,9 +103,14 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = borderWidth;
     canvas.drawOval(
-        Rect.fromLTWH(
-            0, 0, size.width.floorToDouble(), size.height.floorToDouble()),
-        paint);
+      Rect.fromLTWH(
+        0,
+        0,
+        size.width.floorToDouble(),
+        size.height.floorToDouble(),
+      ),
+      paint,
+    );
   }
 
   @override

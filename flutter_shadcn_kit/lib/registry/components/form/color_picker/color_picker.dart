@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'
-  hide Theme, TextField, IconButton, ButtonStyle;
+    hide Theme, TextField, IconButton, ButtonStyle;
 import 'package:flutter/services.dart';
 
 import '../../control/button/button.dart';
@@ -17,17 +17,11 @@ import '_impl/core/hsv_color_slider.dart';
 
 part '_impl/core/color_picker_mode.dart';
 
-
 part '_impl/state/_color_picker_state.dart';
 part '_impl/core/_color_value_input.dart';
 part '_impl/state/_color_value_input_state.dart';
 part '_impl/core/color_controls.dart';
 part '_impl/themes/color_picker_theme.dart';
-
-
-
-
-
 
 /// A comprehensive color picker widget with multiple color mode support.
 ///
@@ -121,10 +115,6 @@ class ColorPicker extends StatefulWidget {
   @override
   State<ColorPicker> createState() => _ColorPickerState();
 }
-
-
-
-
 
 // Removed _FocusBuilder in favor of _ColorValueInput which internally
 // handles focus state and onChanged gating.

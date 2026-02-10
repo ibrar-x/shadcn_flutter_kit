@@ -25,14 +25,8 @@ class _SwitchPreviewState extends State<SwitchPreview> {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 16,
               children: [
-                Switch(
-                  value: false,
-                  onChanged: null,
-                ),
-                Switch(
-                  value: true,
-                  onChanged: null,
-                ),
+                Switch(value: false, onChanged: null),
+                Switch(value: true, onChanged: null),
               ],
             ),
           ],

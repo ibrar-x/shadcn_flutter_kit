@@ -14,13 +14,13 @@ class StepperController extends ValueNotifier<StepperValue> {
   ///   stepStates: {0: StepState.failed},
   /// );
   /// ```
-  StepperController({
-    Map<int, StepState>? stepStates,
-    int? currentStep,
-  }) : super(StepperValue(
+  StepperController({Map<int, StepState>? stepStates, int? currentStep})
+    : super(
+        StepperValue(
           stepStates: stepStates ?? {},
           currentStep: currentStep ?? 0,
-        ));
+        ),
+      );
 
   /// Advances to the next step.
   ///
@@ -79,10 +79,7 @@ class StepperController extends ValueNotifier<StepperValue> {
     } else {
       newStates[step] = state;
     }
-    value = StepperValue(
-      stepStates: newStates,
-      currentStep: value.currentStep,
-    );
+    value = StepperValue(stepStates: newStates, currentStep: value.currentStep);
   }
 
   /// Jumps directly to the specified step.
@@ -96,9 +93,6 @@ class StepperController extends ValueNotifier<StepperValue> {
   /// controller.jumpToStep(steps.length - 1);
   /// ```
   void jumpToStep(int step) {
-    value = StepperValue(
-      stepStates: value.stepStates,
-      currentStep: step,
-    );
+    value = StepperValue(stepStates: value.stepStates, currentStep: step);
   }
 }

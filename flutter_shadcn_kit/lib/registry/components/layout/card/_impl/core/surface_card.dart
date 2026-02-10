@@ -64,12 +64,11 @@ class SurfaceCard extends StatelessWidget {
       final padding = styleValue(
         widgetValue: this.padding,
         themeValue: compTheme?.padding,
-        defaultValue: EdgeInsets.all(16 * scaling),
+        defaultValue: EdgeInsets.all(
+          theme.density.baseContentPadding * scaling,
+        ),
       );
-      return Padding(
-        padding: padding,
-        child: child,
-      );
+      return Padding(padding: padding, child: child);
     }
     return Card(
       clipBehavior: clipBehavior,

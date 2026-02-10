@@ -22,33 +22,45 @@ class LengthValidator extends Validator<String> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [LengthValidator] with optional min/max bounds.
   const LengthValidator({this.min, this.max, this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       if (min != null) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formLengthLessThan(min!),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formLengthLessThan(min!),
+          state: state,
+        );
       }
       return null;
     }
-    ShadcnLocalizations localizations =
-        Localizations.of(context, ShadcnLocalizations);
+    ShadcnLocalizations localizations = Localizations.of(
+      context,
+      ShadcnLocalizations,
+    );
     if (min != null && value.length < min!) {
-      return InvalidResult(message ?? localizations.formLengthLessThan(min!),
-          state: state);
+      return InvalidResult(
+        message ?? localizations.formLengthLessThan(min!),
+        state: state,
+      );
     }
     if (max != null && value.length > max!) {
-      return InvalidResult(message ?? localizations.formLengthGreaterThan(max!),
-          state: state);
+      return InvalidResult(
+        message ?? localizations.formLengthGreaterThan(max!),
+        state: state,
+      );
     }
     return null;
   }

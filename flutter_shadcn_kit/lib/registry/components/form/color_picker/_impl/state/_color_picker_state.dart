@@ -37,18 +37,20 @@ class _ColorPickerState extends State<ColorPicker> {
     final theme = Theme.of(context);
     final componentTheme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final spacing = styleValue(
-        defaultValue: 12.0,
-        themeValue: componentTheme?.spacing,
-        widgetValue: widget.spacing);
+      defaultValue: 12.0,
+      themeValue: componentTheme?.spacing,
+      widgetValue: widget.spacing,
+    );
     final controlSpacing = styleValue(
       defaultValue: 8.0,
       themeValue: componentTheme?.controlSpacing,
       widgetValue: widget.controlSpacing,
     );
     final orientation = styleValue(
-        defaultValue: Axis.vertical,
-        themeValue: componentTheme?.orientation,
-        widgetValue: widget.orientation);
+      defaultValue: Axis.vertical,
+      themeValue: componentTheme?.orientation,
+      widgetValue: widget.orientation,
+    );
 
     var colorControls = ColorControls(
       value: _effectiveValue,
@@ -148,9 +150,10 @@ class _ColorPickerState extends State<ColorPicker> {
       widgetValue: widget.sliderSize,
     );
     final orientation = styleValue(
-        defaultValue: Axis.vertical,
-        themeValue: componentTheme?.orientation,
-        widgetValue: widget.orientation);
+      defaultValue: Axis.vertical,
+      themeValue: componentTheme?.orientation,
+      widgetValue: widget.orientation,
+    );
     return [
       SizedBox(
         height: orientation == Axis.vertical ? sliderSize : null,
@@ -158,19 +161,17 @@ class _ColorPickerState extends State<ColorPicker> {
         child: HSVColorSlider(
           reverse: orientation == Axis.vertical,
           radius: Theme.of(context).radiusSmRadius,
-          value:
-              _effectiveValue.toHSVColor().withSaturation(1.0).withValue(1.0),
+          value: _effectiveValue
+              .toHSVColor()
+              .withSaturation(1.0)
+              .withValue(1.0),
           onChanging: (hsvColor) {
             final hue = hsvColor.hue;
-            _onChanging(
-              _effectiveValue.changeToHSVHue(hue),
-            );
+            _onChanging(_effectiveValue.changeToHSVHue(hue));
           },
           onChanged: (hsvColor) {
             final hue = hsvColor.hue;
-            _onChanged(
-              _effectiveValue.changeToHSVHue(hue),
-            );
+            _onChanged(_effectiveValue.changeToHSVHue(hue));
           },
           sliderType: HSVColorSliderType.hue,
         ),
@@ -185,15 +186,11 @@ class _ColorPickerState extends State<ColorPicker> {
             value: _effectiveValue.toHSVColor(),
             onChanging: (hsvColor) {
               final alpha = hsvColor.alpha;
-              _onChanging(
-                _effectiveValue.changeToOpacity(alpha),
-              );
+              _onChanging(_effectiveValue.changeToOpacity(alpha));
             },
             onChanged: (hsvColor) {
               final alpha = hsvColor.alpha;
-              _onChanged(
-                _effectiveValue.changeToOpacity(alpha),
-              );
+              _onChanged(_effectiveValue.changeToOpacity(alpha));
             },
             sliderType: HSVColorSliderType.alpha,
           ),

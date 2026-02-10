@@ -18,15 +18,24 @@ class _StepperPreviewState extends State<StepperPreview> {
   @override
   Widget build(BuildContext context) {
     final steps = [
-      Step(title: const Text('Details'), contentBuilder: (_) {
-        return const Text('Provide your details.');
-      }),
-      Step(title: const Text('Payment'), contentBuilder: (_) {
-        return const Text('Choose a payment method.');
-      }),
-      Step(title: const Text('Confirm'), contentBuilder: (_) {
-        return const Text('Review and submit.');
-      }),
+      Step(
+        title: const Text('Details'),
+        contentBuilder: (_) {
+          return const Text('Provide your details.');
+        },
+      ),
+      Step(
+        title: const Text('Payment'),
+        contentBuilder: (_) {
+          return const Text('Choose a payment method.');
+        },
+      ),
+      Step(
+        title: const Text('Confirm'),
+        contentBuilder: (_) {
+          return const Text('Review and submit.');
+        },
+      ),
     ];
 
     return Scaffold(

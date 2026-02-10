@@ -19,40 +19,45 @@ class ToastController {
     final overlay = Overlay.of(context);
     final resolvedDuration = duration ?? defaultDuration;
     late final OverlayEntry entry;
-    entry = OverlayEntry(builder: (overlayContext) {
-      final toastTheme = ComponentTheme.maybeOf<ToastTheme>(overlayContext);
-      final padding = toastTheme?.padding ?? const EdgeInsets.all(16);
-      final resolvedSpacing = spacing ?? toastTheme?.margin ?? 8.0;
-      final totalOffset = _entries.length * resolvedSpacing;
-      return Positioned(
-        top: 32 + totalOffset,
-        right: 24,
-        child: Padding(
-          padding: EdgeInsets.zero,
-          child: ToastEntry(
-            duration: resolvedDuration,
-            animationDuration: animationDuration,
-            animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
-            onDismissed: () {
-              entry.remove();
-              _entries.remove(entry);
-            },
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: toastTheme?.backgroundColor ?? Colors.black87,
-                borderRadius: BorderRadius.circular(
-                    toastTheme?.borderRadius ?? 12.0),
-              ),
-              child: Container(
-                padding: padding,
-                width: toastTheme?.width,
-                child: builder(overlayContext),
+    entry = OverlayEntry(
+      builder: (overlayContext) {
+        final theme = Theme.of(overlayContext);
+        final toastTheme = ComponentTheme.maybeOf<ToastTheme>(overlayContext);
+        final padding =
+            toastTheme?.padding ??
+            EdgeInsets.all(theme.density.baseContentPadding);
+        final resolvedSpacing = spacing ?? toastTheme?.margin ?? 8.0;
+        final totalOffset = _entries.length * resolvedSpacing;
+        final foregroundColor = theme.colorScheme.foreground;
+        return Positioned(
+          top: 32 + totalOffset,
+          right: 24,
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: ToastEntry(
+              duration: resolvedDuration,
+              animationDuration: animationDuration,
+              animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
+              onDismissed: () {
+                entry.remove();
+                _entries.remove(entry);
+              },
+              child: DefaultTextStyle.merge(
+                style: TextStyle(color: foregroundColor),
+                child: IconTheme.merge(
+                  data: IconThemeData(color: foregroundColor),
+                  child: Container(
+                    padding: padding,
+                    width: toastTheme?.width,
+                    child: builder(overlayContext),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
     _entries.add(entry);
     overlay.insert(entry);
   }

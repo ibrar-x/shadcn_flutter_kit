@@ -3,14 +3,58 @@
   "name": "Carousel",
   "description": "Interactive carousel with sliding/fading transitions and autoplay controls.",
   "category": "display",
-  "tags": ["display", "carousel", "animation"],
+  "tags": [
+    "display",
+    "carousel",
+    "animation"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "style_value",
       "animation_queue",
       "wrap_utils"
+    ],
+    "components": [
+      "dot_indicator"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_carousel_preview_state.dart",
+    "_impl/core/_placed_carousel_item.dart",
+    "_impl/core/carousel_alignment.dart",
+    "_impl/core/carousel_dot_indicator.dart",
+    "_impl/core/carousel_fixed_constraint.dart",
+    "_impl/core/carousel_fractional_constraint.dart",
+    "_impl/core/carousel_layout.dart",
+    "_impl/core/carousel_transition.dart",
+    "_impl/core/fading_carousel_transition.dart",
+    "_impl/core/sliding_carousel_transition.dart",
+    "_impl/state/_carousel_state.dart",
+    "_impl/state/carousel_controller.dart",
+    "_impl/themes/carousel_theme.dart",
+    "carousel.dart",
+    "carousel.meta.json",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`Carousel`",
+      "`itemBuilder` (`Widget Function(BuildContext, int)`, required)",
+      "`transition` (`CarouselTransition`, required)",
+      "`itemCount` (`int?`)",
+      "`controller` (`CarouselController?`)",
+      "`autoplaySpeed` / `pauseOnHover` / `wrap` / `draggable`",
+      "`CarouselController` — imperative control for index and animation.",
+      "`SlidingCarouselTransition`, `FadingCarouselTransition` — built-in transitions.",
+      "`CarouselDotIndicator` — indicator that follows a controller."
+    ],
+    "callbacks": [
+      "`onIndexChanged` (Carousel)"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

@@ -1,17 +1,15 @@
 part of '../../sortable.dart';
 
-enum _SortableDropLocation {
-  top,
-  left,
-  right,
-  bottom,
-}
+enum _SortableDropLocation { top, left, right, bottom }
 
-_SortableDropLocation? _getPosition(Offset position, Size size,
-    {bool acceptTop = false,
-    bool acceptLeft = false,
-    bool acceptRight = false,
-    bool acceptBottom = false}) {
+_SortableDropLocation? _getPosition(
+  Offset position,
+  Size size, {
+  bool acceptTop = false,
+  bool acceptLeft = false,
+  bool acceptRight = false,
+  bool acceptBottom = false,
+}) {
   double dx = position.dx;
   double dy = position.dy;
   double width = size.width;

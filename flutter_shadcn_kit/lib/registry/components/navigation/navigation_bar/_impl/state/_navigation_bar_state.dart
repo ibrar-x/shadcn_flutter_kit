@@ -49,8 +49,10 @@ class _NavigationBarState extends State<NavigationBar>
     final parentPadding = styleValue(
       widgetValue: widget.padding,
       themeValue: compTheme?.padding,
-      defaultValue:
-          const EdgeInsets.symmetric(vertical: 8, horizontal: 12) * scaling,
+      defaultValue: EdgeInsets.symmetric(
+        vertical: theme.density.baseGap * scaling,
+        horizontal: theme.density.baseContentPadding * scaling * 0.75,
+      ),
     );
     final backgroundColor = styleValue<Color?>(
       widgetValue: widget.backgroundColor,
@@ -111,7 +113,8 @@ class _NavigationBarState extends State<NavigationBar>
             keepMainAxisSize: widget.keepMainAxisSize ?? false,
           ),
           child: Container(
-            color: backgroundColor ??
+            color:
+                backgroundColor ??
                 theme.colorScheme.background.scaleAlpha(
                   widget.surfaceOpacity ?? 1,
                 ),

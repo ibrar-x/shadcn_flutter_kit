@@ -25,19 +25,23 @@ class _NavigationLabeled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var direction = position == NavigationLabelPosition.top ||
+    var direction =
+        position == NavigationLabelPosition.top ||
             position == NavigationLabelPosition.bottom
         ? Axis.vertical
         : Axis.horizontal;
     var animatedSize = Hidden(
       hidden: !showLabel,
       direction: direction,
-      reverse: position == NavigationLabelPosition.start ||
+      reverse:
+          position == NavigationLabelPosition.start ||
           position == NavigationLabelPosition.top,
-      keepCrossAxisSize:
-          (this.direction != direction ? keepCrossAxisSize : keepMainAxisSize),
-      keepMainAxisSize:
-          (this.direction != direction ? keepMainAxisSize : keepCrossAxisSize),
+      keepCrossAxisSize: (this.direction != direction
+          ? keepCrossAxisSize
+          : keepMainAxisSize),
+      keepMainAxisSize: (this.direction != direction
+          ? keepMainAxisSize
+          : keepCrossAxisSize),
       child: Padding(
         padding: EdgeInsetsDirectional.only(
           top: position == NavigationLabelPosition.bottom ? spacing : 0,

@@ -7,6 +7,9 @@ class TrackerTheme extends ComponentThemeData {
   final double? itemHeight;
 
   const TrackerTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.radius,
     this.gap,
     this.itemHeight,

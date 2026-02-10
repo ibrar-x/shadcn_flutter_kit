@@ -3,9 +3,34 @@
   "name": "Number Input",
   "description": "Composite export for numeric input helpers.",
   "category": "form",
-  "tags": ["form", "input", "composite"],
+  "tags": [
+    "form",
+    "input",
+    "composite"
+  ],
   "dependencies": {
     "shared": [],
+    "components": [
+      "formatter",
+      "text_field"
+    ],
     "pubspec": {}
-  }
+  },
+  "files": [
+    "README.md",
+    "meta.json",
+    "number_input.dart",
+    "number_input.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "widgets_and_helpers": [
+      "`NumberInput`",
+      "`TextField`",
+      "`InputFeature`",
+      "`TextInputFormatters`"
+    ]
+  },
+  "version": "1.0.0"
 }

@@ -84,7 +84,9 @@ class FileDropzone extends StatelessWidget {
     final scaling = theme.scaling;
     final isEmphasized = hotDropping || state == DropzoneState.dragging;
     final borderColor = _resolveBorderColor(theme);
-    final effectivePadding = padding ?? EdgeInsets.all(24 * scaling);
+    final effectivePadding =
+        padding ??
+        EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5);
     final dropzoneIcon =
         icon ??
         Icon(
@@ -135,7 +137,7 @@ class FileDropzone extends StatelessWidget {
                           curve: Curves.easeOut,
                           child: dropzoneIcon,
                         ),
-                        Gap(12 * scaling),
+                        DensityGap(gapMd),
                         AnimatedOpacity(
                           opacity: enabled ? 1 : 0.6,
                           duration: kDefaultDuration,
@@ -144,13 +146,13 @@ class FileDropzone extends StatelessWidget {
                               color: enabled
                                   ? theme.colorScheme.mutedForeground
                                   : theme.colorScheme.mutedForeground
-                                      .withOpacity(0.6),
+                                        .withOpacity(0.6),
                             ),
                             textAlign: TextAlign.center,
                             child: Text(statusLabel),
                           ),
                         ),
-                        if (hint != null) Gap(8 * scaling),
+                        if (hint != null) DensityGap(gapSm),
                         if (hint != null)
                           AnimatedOpacity(
                             opacity: enabled ? 1 : 0.6,
@@ -163,7 +165,7 @@ class FileDropzone extends StatelessWidget {
                               child: hint!,
                             ),
                           ),
-                        Gap(16 * scaling),
+                        DensityGap(gapLg),
                         OutlineButton(
                           onPressed: enabled ? onPressed : null,
                           child: Text(label),
@@ -171,7 +173,7 @@ class FileDropzone extends StatelessWidget {
                       ],
                       if (!showDefaultContent && content != null) content!,
                       if (showDefaultContent && content != null) ...[
-                        Gap(16 * scaling),
+                        DensityGap(gapLg),
                         content!,
                       ],
                     ],

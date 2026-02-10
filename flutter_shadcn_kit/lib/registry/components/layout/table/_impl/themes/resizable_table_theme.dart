@@ -12,6 +12,9 @@ class ResizableTableTheme extends ComponentThemeData {
 
   /// Creates a [ResizableTableTheme].
   const ResizableTableTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.tableTheme,
     this.resizerThickness,
     this.resizerColor,
@@ -47,10 +50,10 @@ class ResizableTableTheme extends ComponentThemeData {
   }) {
     return ResizableTableTheme(
       tableTheme: tableTheme == null ? this.tableTheme : tableTheme(),
-      resizerThickness:
-          resizerThickness == null ? this.resizerThickness : resizerThickness(),
+      resizerThickness: resizerThickness == null
+          ? this.resizerThickness
+          : resizerThickness(),
       resizerColor: resizerColor == null ? this.resizerColor : resizerColor(),
     );
   }
 }
-

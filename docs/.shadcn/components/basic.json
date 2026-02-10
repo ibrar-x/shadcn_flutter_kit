@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "basic",
+  "name": "Basic",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "list",
+    "structure"
+  ],
+  "installedAt": "2026-02-09T10:18:03.212197Z",
+  "shared": [
+    "style_value",
+    "text_modifiers",
+    "theme"
+  ],
+  "dependsOn": [],
+  "files": [
+    "registry/components/layout/basic/README.md",
+    "registry/components/layout/basic/_impl/core/basic_2.dart",
+    "registry/components/layout/basic/_impl/core/basic_layout.dart",
+    "registry/components/layout/basic/_impl/core/label.dart",
+    "registry/components/layout/basic/basic.dart",
+    "registry/components/layout/basic/basic.meta.json",
+    "registry/components/layout/basic/meta.json",
+    "registry/components/layout/basic/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

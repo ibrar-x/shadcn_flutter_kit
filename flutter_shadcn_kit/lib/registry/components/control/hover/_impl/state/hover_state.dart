@@ -19,10 +19,7 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
     _waitDur = widget.waitDuration ?? const Duration(milliseconds: 500);
     _minDur = widget.minDuration ?? const Duration(milliseconds: 0);
     _showDur = widget.showDuration ?? const Duration(milliseconds: 200);
-    _controller = AnimationController(
-      vsync: this,
-      duration: _waitDur,
-    );
+    _controller = AnimationController(vsync: this, duration: _waitDur);
     _controller.addStatusListener(_onStatusChanged);
   }
 
@@ -63,23 +60,28 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
     final platform = Theme.of(context).platform;
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
     _waitDur = styleValue(
-        widgetValue: widget.waitDuration,
-        themeValue: compTheme?.waitDuration,
-        defaultValue: const Duration(milliseconds: 500));
+      widgetValue: widget.waitDuration,
+      themeValue: compTheme?.waitDuration,
+      defaultValue: const Duration(milliseconds: 500),
+    );
     _minDur = styleValue(
-        widgetValue: widget.minDuration,
-        themeValue: compTheme?.minDuration,
-        defaultValue: const Duration(milliseconds: 0));
+      widgetValue: widget.minDuration,
+      themeValue: compTheme?.minDuration,
+      defaultValue: const Duration(milliseconds: 0),
+    );
     _showDur = styleValue(
-        widgetValue: widget.showDuration,
-        themeValue: compTheme?.showDuration,
-        defaultValue: const Duration(milliseconds: 200));
+      widgetValue: widget.showDuration,
+      themeValue: compTheme?.showDuration,
+      defaultValue: const Duration(milliseconds: 200),
+    );
     _behavior = styleValue(
-        widgetValue: widget.hitTestBehavior,
-        themeValue: compTheme?.hitTestBehavior,
-        defaultValue: HitTestBehavior.deferToChild);
+      widgetValue: widget.hitTestBehavior,
+      themeValue: compTheme?.hitTestBehavior,
+      defaultValue: HitTestBehavior.deferToChild,
+    );
     _controller.duration = _waitDur;
-    bool enableLongPress = platform == TargetPlatform.iOS ||
+    bool enableLongPress =
+        platform == TargetPlatform.iOS ||
         platform == TargetPlatform.android ||
         platform == TargetPlatform.fuchsia;
     return TapRegion(

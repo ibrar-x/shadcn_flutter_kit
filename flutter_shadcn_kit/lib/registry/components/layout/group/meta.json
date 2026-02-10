@@ -3,5 +3,32 @@
   "name": "Group",
   "description": "Absolute-position layout surface with explicit offsets and sizes.",
   "category": "layout",
-  "tags": ["layout", "positioning", "render"]
+  "tags": [
+    "layout",
+    "positioning",
+    "render"
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/group_parent_data.dart",
+    "_impl/core/group_positioned.dart",
+    "_impl/core/render_group.dart",
+    "group.meta.json",
+    "group_widget.dart",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`GroupWidget` — parent for absolute positioning.",
+      "`GroupPositioned` — child with explicit `left`, `top`, `right`, `bottom`, `width`, `height`."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

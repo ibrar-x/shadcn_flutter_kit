@@ -8,13 +8,17 @@ import 'button_theme_base.dart';
 
 class MutedButtonTheme extends ButtonTheme {
   /// Creates a [MutedButtonTheme] with optional style property delegates.
-  const MutedButtonTheme(
-      {super.decoration,
-      super.mouseCursor,
-      super.padding,
-      super.textStyle,
-      super.iconTheme,
-      super.margin});
+  const MutedButtonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    super.decoration,
+    super.mouseCursor,
+    super.padding,
+    super.textStyle,
+    super.iconTheme,
+    super.margin,
+  });
 
   /// Creates a copy of this theme with selectively replaced properties.
   MutedButtonTheme copyWith({

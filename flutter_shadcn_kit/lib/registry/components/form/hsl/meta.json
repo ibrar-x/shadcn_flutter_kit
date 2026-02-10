@@ -9,12 +9,34 @@
     "hsl"
   ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme"
     ],
     "components": [
       "alpha"
-    ]
-  }
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/hsl_color_slider_painter.dart",
+    "_impl/core/hsl_color_slider_type.dart",
+    "_impl/state/_hsl_color_slider_state.dart",
+    "_impl/state/_hsl_preview_state.dart",
+    "hsl.meta.json",
+    "hsl_color_slider.dart",
+    "meta.json",
+    "preview.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`HSLColorSlider`",
+      "`color` (`HSLColor`, required)",
+      "`sliderType` (`HSLColorSliderType`, required)",
+      "`onChanging`, `onChanged`",
+      "`reverse`, `radius`, `padding`"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

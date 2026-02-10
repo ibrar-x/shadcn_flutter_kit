@@ -18,6 +18,9 @@ class ChatGroupTheme extends ComponentThemeData {
   /// - [avatarAlignment] (`AxisAlignmentGeometry?`, optional): The alignment of the avatar relative to the chat bubbles.
   /// - [avatarSpacing] (`double?`, optional): The spacing between the avatar and the chat bubbles.
   const ChatGroupTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.spacing,
     this.avatarAlignment,
     this.avatarSpacing,
@@ -39,10 +42,12 @@ class ChatGroupTheme extends ComponentThemeData {
   }) {
     return ChatGroupTheme(
       spacing: spacing == null ? this.spacing : spacing(),
-      avatarAlignment:
-          avatarAlignment == null ? this.avatarAlignment : avatarAlignment(),
-      avatarSpacing:
-          avatarSpacing == null ? this.avatarSpacing : avatarSpacing(),
+      avatarAlignment: avatarAlignment == null
+          ? this.avatarAlignment
+          : avatarAlignment(),
+      avatarSpacing: avatarSpacing == null
+          ? this.avatarSpacing
+          : avatarSpacing(),
     );
   }
 

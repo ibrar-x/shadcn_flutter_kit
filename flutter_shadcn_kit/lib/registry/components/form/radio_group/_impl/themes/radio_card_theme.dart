@@ -34,6 +34,9 @@ class RadioCardTheme extends ComponentThemeData {
 
   /// Theme data for the [RadioCard] widget.
   const RadioCardTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.enabledCursor,
     this.disabledCursor,
     this.hoverColor,
@@ -65,10 +68,12 @@ class RadioCardTheme extends ComponentThemeData {
     ValueGetter<Color?>? selectedBorderColor,
   }) {
     return RadioCardTheme(
-      enabledCursor:
-          enabledCursor != null ? enabledCursor() : this.enabledCursor,
-      disabledCursor:
-          disabledCursor != null ? disabledCursor() : this.disabledCursor,
+      enabledCursor: enabledCursor != null
+          ? enabledCursor()
+          : this.enabledCursor,
+      disabledCursor: disabledCursor != null
+          ? disabledCursor()
+          : this.disabledCursor,
       hoverColor: hoverColor != null ? hoverColor() : this.hoverColor,
       color: color != null ? color() : this.color,
       borderWidth: borderWidth != null ? borderWidth() : this.borderWidth,
@@ -103,15 +108,15 @@ class RadioCardTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        enabledCursor,
-        disabledCursor,
-        hoverColor,
-        color,
-        borderWidth,
-        selectedBorderWidth,
-        borderRadius,
-        padding,
-        borderColor,
-        selectedBorderColor,
-      );
+    enabledCursor,
+    disabledCursor,
+    hoverColor,
+    color,
+    borderWidth,
+    selectedBorderWidth,
+    borderRadius,
+    padding,
+    borderColor,
+    selectedBorderColor,
+  );
 }

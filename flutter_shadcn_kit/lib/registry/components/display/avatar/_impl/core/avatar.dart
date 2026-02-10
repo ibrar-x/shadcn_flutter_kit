@@ -26,10 +26,10 @@ class Avatar extends StatefulWidget implements AvatarWidget {
     int? cacheHeight,
     required String photoUrl,
   }) : provider = ResizeImage.resizeIfNeeded(
-          cacheWidth,
-          cacheHeight,
-          NetworkImage(photoUrl),
-        );
+         cacheWidth,
+         cacheHeight,
+         NetworkImage(photoUrl),
+       );
 
   static String getInitials(String name) {
     final trimmed = name.trim();

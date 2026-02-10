@@ -28,4 +28,3 @@ class Accordion extends StatefulWidget {
 }
 
 /// State helper that tracks the currently expanded item.
-

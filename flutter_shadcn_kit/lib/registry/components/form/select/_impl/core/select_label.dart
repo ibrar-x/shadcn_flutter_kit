@@ -25,7 +25,7 @@ class SelectLabel extends StatelessWidget {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return Padding(
-      padding: const EdgeInsets.all(8) * scaling,
+      padding: EdgeInsets.all(theme.density.baseGap * scaling),
       child: child.semiBold().small(),
     );
   }

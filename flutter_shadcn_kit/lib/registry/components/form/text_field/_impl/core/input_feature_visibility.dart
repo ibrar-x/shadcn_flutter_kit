@@ -74,26 +74,6 @@ abstract class InputFeatureVisibility {
   InputFeatureVisibility operator ~() => InputFeatureVisibility.not(this);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /// Abstract factory for creating input field feature components.
 ///
 /// Provides factory constructors for common text field features like password

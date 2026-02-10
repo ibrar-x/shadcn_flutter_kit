@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "pagination",
+  "name": "Pagination",
+  "version": "1.0.0",
+  "tags": [
+    "navigation",
+    "pagination"
+  ],
+  "installedAt": "2026-02-09T10:18:03.216579Z",
+  "shared": [
+    "localizations",
+    "radix_icons",
+    "style_value",
+    "theme"
+  ],
+  "dependsOn": [
+    "button",
+    "triple_dots"
+  ],
+  "files": [
+    "registry/components/navigation/pagination/README.md",
+    "registry/components/navigation/pagination/_impl/core/pagination_2.dart",
+    "registry/components/navigation/pagination/_impl/state/_pagination_preview_state.dart",
+    "registry/components/navigation/pagination/meta.json",
+    "registry/components/navigation/pagination/pagination.dart",
+    "registry/components/navigation/pagination/pagination.meta.json",
+    "registry/components/navigation/pagination/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

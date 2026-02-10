@@ -8,6 +8,9 @@ class SkeletonTheme extends ComponentThemeData {
   final bool? enableSwitchAnimation;
 
   const SkeletonTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.duration,
     this.fromColor,
     this.toColor,

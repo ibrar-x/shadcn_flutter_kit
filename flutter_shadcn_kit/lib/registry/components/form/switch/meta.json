@@ -3,9 +3,12 @@
   "name": "Switch",
   "description": "Toggle control for boolean values with themed styling.",
   "category": "form",
-  "tags": ["form", "input", "toggle"],
+  "tags": [
+    "form",
+    "input",
+    "toggle"
+  ],
   "dependencies": {
-    "pubspec": {},
     "shared": [
       "theme",
       "style_value",
@@ -13,6 +16,35 @@
       "form_control",
       "form_value_supplier",
       "focus_outline"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "_impl/core/controlled_switch.dart",
+    "_impl/core/switch_widget.dart",
+    "_impl/state/_switch_preview_state.dart",
+    "_impl/state/_switch_state.dart",
+    "_impl/themes/switch_theme.dart",
+    "_impl/utils/switch_controller.dart",
+    "meta.json",
+    "preview.dart",
+    "switch.dart",
+    "switch.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Switch`",
+      "`value` (`bool`, required)",
+      "`onChanged` (`ValueChanged<bool>?`)",
+      "`enabled` (`bool?`)",
+      "`ControlledSwitch` — controller-backed switch.",
+      "`SwitchController` — controller."
+    ],
+    "callbacks": [
+      "`onChanged`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

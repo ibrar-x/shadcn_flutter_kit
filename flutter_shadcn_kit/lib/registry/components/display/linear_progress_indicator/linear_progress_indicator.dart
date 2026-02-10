@@ -12,7 +12,6 @@ import '../../../shared/utils/util.dart';
 
 part '_impl/utils/_linear_progress_indicator_painter.dart';
 
-
 part '_impl/utils/linear_progress_indicator_painter.dart';
 part '_impl/themes/linear_progress_indicator_theme.dart';
 
@@ -64,8 +63,9 @@ class LinearProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final directionality = Directionality.of(context);
-    final compTheme =
-        ComponentTheme.maybeOf<LinearProgressIndicatorTheme>(context);
+    final compTheme = ComponentTheme.maybeOf<LinearProgressIndicatorTheme>(
+      context,
+    );
 
     final colorValue = styleValue(
       widgetValue: color,
@@ -180,10 +180,7 @@ class LinearProgressIndicator extends StatelessWidget {
     return RepaintBoundary(
       child: SizedBox(
         height: minHeightValue,
-        child: ClipRRect(
-          borderRadius: borderRadiusValue,
-          child: childWidget,
-        ),
+        child: ClipRRect(borderRadius: borderRadiusValue, child: childWidget),
       ),
     );
   }

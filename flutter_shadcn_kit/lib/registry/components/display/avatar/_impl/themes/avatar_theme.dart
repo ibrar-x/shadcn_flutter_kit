@@ -9,6 +9,9 @@ class AvatarTheme extends ComponentThemeData {
   final TextStyle? textStyle;
 
   const AvatarTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.size,
     this.borderRadius,
     this.backgroundColor,
@@ -28,10 +31,12 @@ class AvatarTheme extends ComponentThemeData {
     return AvatarTheme(
       size: size == null ? this.size : size(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
-      badgeAlignment:
-          badgeAlignment == null ? this.badgeAlignment : badgeAlignment(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
+      badgeAlignment: badgeAlignment == null
+          ? this.badgeAlignment
+          : badgeAlignment(),
       badgeGap: badgeGap == null ? this.badgeGap : badgeGap(),
       textStyle: textStyle == null ? this.textStyle : textStyle(),
     );
@@ -51,11 +56,11 @@ class AvatarTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        size,
-        borderRadius,
-        backgroundColor,
-        badgeAlignment,
-        badgeGap,
-        textStyle,
-      );
+    size,
+    borderRadius,
+    backgroundColor,
+    badgeAlignment,
+    badgeGap,
+    textStyle,
+  );
 }

@@ -25,8 +25,9 @@ class AvatarBadge extends StatelessWidget implements AvatarWidget {
       height: resolvedSize,
       decoration: BoxDecoration(
         color: color ?? theme.colorScheme.primary,
-        borderRadius:
-            BorderRadius.circular(borderRadius ?? theme.radius * resolvedSize),
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? theme.radius * resolvedSize,
+        ),
       ),
       child: child,
     );

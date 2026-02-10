@@ -3,7 +3,7 @@ part of '../../form_field.dart';
 class _ObjectFormFieldPopup<T> extends StatefulWidget {
   final T? value;
   final Widget Function(BuildContext context, ObjectFormHandler<T> handler)
-      editorBuilder;
+  editorBuilder;
   final EdgeInsetsGeometry? popoverPadding;
   final ValueChanged<T?>? onChanged;
   final ValueChanged<T?> prompt;

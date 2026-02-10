@@ -11,9 +11,12 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   @override
   void initState() {
     super.initState();
-    _controller = widget.animationController ??
+    _controller =
+        widget.animationController ??
         AnimationController(
-            vsync: this, duration: const Duration(milliseconds: 350));
+          vsync: this,
+          duration: const Duration(milliseconds: 350),
+        );
 
     _controlledAnimation = ControlledAnimation(_controller);
     if (widget.animationController == null && widget.autoOpen) {
@@ -38,7 +41,8 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
       if (oldWidget.animationController == null) {
         _controller.dispose();
       }
-      _controller = widget.animationController ??
+      _controller =
+          widget.animationController ??
           AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 350),
@@ -107,123 +111,139 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
         data: widget.data,
         child: Data.inherit(
           data: _MountedOverlayEntryData(this),
-          child: Builder(builder: (context) {
-            Widget barrier = (widget.modal
-                    ? widget.barrierBuilder(context, widget.backdrop,
-                        _controlledAnimation, widget.stackIndex)
-                    : null) ??
-                Positioned(
-                  top: -9999,
-                  left: -9999,
-                  right: -9999,
-                  bottom: -9999,
-                  child: GestureDetector(
-                    onTap: () {
-                      close();
-                    },
-                  ),
-                );
-            final extraSize =
-                Data.maybeOf<BackdropTransformData>(context)?.sizeDifference;
-            Size additionalSize;
-            Offset additionalOffset;
-            bool insetTop =
-                widget.useSafeArea && position == OverlayPosition.top;
-            bool insetBottom =
-                widget.useSafeArea && position == OverlayPosition.bottom;
-            bool insetLeft =
-                widget.useSafeArea && position == OverlayPosition.left;
-            bool insetRight =
-                widget.useSafeArea && position == OverlayPosition.right;
-            MediaQueryData mediaQueryData = MediaQuery.of(context);
-            EdgeInsets padding =
-                mediaQueryData.padding + mediaQueryData.viewInsets;
-            if (extraSize == null) {
-              additionalSize = Size.zero;
-              additionalOffset = Offset.zero;
-            } else {
-              switch (position) {
-                case OverlayPosition.left:
-                  additionalSize = Size(extraSize.width / 2, 0);
-                  additionalOffset = Offset(-additionalSize.width, 0);
-                  break;
-                case OverlayPosition.right:
-                  additionalSize = Size(extraSize.width / 2, 0);
-                  additionalOffset = Offset(additionalSize.width, 0);
-                  break;
-                case OverlayPosition.top:
-                  additionalSize = Size(0, extraSize.height / 2);
-                  additionalOffset = Offset(0, -additionalSize.height);
-                  break;
-                case OverlayPosition.bottom:
-                  additionalSize = Size(0, extraSize.height / 2);
-                  additionalOffset = Offset(0, additionalSize.height);
-                  break;
-                default:
-                  throw UnimplementedError('Unknown position');
+          child: Builder(
+            builder: (context) {
+              Widget barrier =
+                  (widget.modal
+                      ? widget.barrierBuilder(
+                          context,
+                          widget.backdrop,
+                          _controlledAnimation,
+                          widget.stackIndex,
+                        )
+                      : null) ??
+                  Positioned(
+                    top: -9999,
+                    left: -9999,
+                    right: -9999,
+                    bottom: -9999,
+                    child: GestureDetector(
+                      onTap: () {
+                        close();
+                      },
+                    ),
+                  );
+              final extraSize = Data.maybeOf<BackdropTransformData>(
+                context,
+              )?.sizeDifference;
+              Size additionalSize;
+              Offset additionalOffset;
+              bool insetTop =
+                  widget.useSafeArea && position == OverlayPosition.top;
+              bool insetBottom =
+                  widget.useSafeArea && position == OverlayPosition.bottom;
+              bool insetLeft =
+                  widget.useSafeArea && position == OverlayPosition.left;
+              bool insetRight =
+                  widget.useSafeArea && position == OverlayPosition.right;
+              MediaQueryData mediaQueryData = MediaQuery.of(context);
+              EdgeInsets padding =
+                  mediaQueryData.padding + mediaQueryData.viewInsets;
+              if (extraSize == null) {
+                additionalSize = Size.zero;
+                additionalOffset = Offset.zero;
+              } else {
+                switch (position) {
+                  case OverlayPosition.left:
+                    additionalSize = Size(extraSize.width / 2, 0);
+                    additionalOffset = Offset(-additionalSize.width, 0);
+                    break;
+                  case OverlayPosition.right:
+                    additionalSize = Size(extraSize.width / 2, 0);
+                    additionalOffset = Offset(additionalSize.width, 0);
+                    break;
+                  case OverlayPosition.top:
+                    additionalSize = Size(0, extraSize.height / 2);
+                    additionalOffset = Offset(0, -additionalSize.height);
+                    break;
+                  case OverlayPosition.bottom:
+                    additionalSize = Size(0, extraSize.height / 2);
+                    additionalOffset = Offset(0, additionalSize.height);
+                    break;
+                  default:
+                    throw UnimplementedError('Unknown position');
+                }
               }
-            }
-            return Stack(
-              clipBehavior: Clip.none,
-              fit: StackFit.passthrough,
-              children: [
-                IgnorePointer(
-                  child: widget.backdropBuilder(context, widget.backdrop,
-                      _controlledAnimation, widget.stackIndex),
-                ),
-                barrier,
-                Positioned.fill(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return MediaQuery(
-                      data: widget.useSafeArea
-                          ? mediaQueryData.removePadding(
-                              removeTop: true,
-                              removeBottom: true,
-                              removeLeft: true,
-                              removeRight: true,
-                            )
-                          : mediaQueryData,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: padTop ? padding.top : 0,
-                          bottom: padBottom ? padding.bottom : 0,
-                          left: padLeft ? padding.left : 0,
-                          right: padRight ? padding.right : 0,
-                        ),
-                        child: Align(
-                          alignment: alignment,
-                          child: AnimatedBuilder(
-                            animation: _controlledAnimation,
-                            builder: (context, child) {
-                              return FractionalTranslation(
-                                translation: startFractionalOffset *
-                                    (1 - _controlledAnimation.value),
-                                child: child,
-                              );
-                            },
-                            child: Transform.translate(
-                              offset: additionalOffset / kBackdropScaleDown,
-                              child: widget.builder(
-                                  context,
-                                  additionalSize,
-                                  constraints.biggest,
-                                  EdgeInsets.only(
-                                    top: insetTop ? padding.top : 0,
-                                    bottom: insetBottom ? padding.bottom : 0,
-                                    left: insetLeft ? padding.left : 0,
-                                    right: insetRight ? padding.right : 0,
+              return Stack(
+                clipBehavior: Clip.none,
+                fit: StackFit.passthrough,
+                children: [
+                  IgnorePointer(
+                    child: widget.backdropBuilder(
+                      context,
+                      widget.backdrop,
+                      _controlledAnimation,
+                      widget.stackIndex,
+                    ),
+                  ),
+                  barrier,
+                  Positioned.fill(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return MediaQuery(
+                          data: widget.useSafeArea
+                              ? mediaQueryData.removePadding(
+                                  removeTop: true,
+                                  removeBottom: true,
+                                  removeLeft: true,
+                                  removeRight: true,
+                                )
+                              : mediaQueryData,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: padTop ? padding.top : 0,
+                              bottom: padBottom ? padding.bottom : 0,
+                              left: padLeft ? padding.left : 0,
+                              right: padRight ? padding.right : 0,
+                            ),
+                            child: Align(
+                              alignment: alignment,
+                              child: AnimatedBuilder(
+                                animation: _controlledAnimation,
+                                builder: (context, child) {
+                                  return FractionalTranslation(
+                                    translation:
+                                        startFractionalOffset *
+                                        (1 - _controlledAnimation.value),
+                                    child: child,
+                                  );
+                                },
+                                child: Transform.translate(
+                                  offset: additionalOffset / kBackdropScaleDown,
+                                  child: widget.builder(
+                                    context,
+                                    additionalSize,
+                                    constraints.biggest,
+                                    EdgeInsets.only(
+                                      top: insetTop ? padding.top : 0,
+                                      bottom: insetBottom ? padding.bottom : 0,
+                                      left: insetLeft ? padding.left : 0,
+                                      right: insetRight ? padding.right : 0,
+                                    ),
+                                    widget.stackIndex,
                                   ),
-                                  widget.stackIndex),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ],
-            );
-          }),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

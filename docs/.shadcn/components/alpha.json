@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "alpha",
+  "name": "Alpha",
+  "version": "1.0.0",
+  "tags": [
+    "color",
+    "picker",
+    "utility"
+  ],
+  "installedAt": "2026-02-09T10:18:03.243139Z",
+  "shared": [],
+  "dependsOn": [],
+  "files": [
+    "registry/components/utility/alpha/README.md",
+    "registry/components/utility/alpha/alpha.dart",
+    "registry/components/utility/alpha/alpha.meta.json",
+    "registry/components/utility/alpha/meta.json",
+    "registry/components/utility/alpha/preview.dart"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

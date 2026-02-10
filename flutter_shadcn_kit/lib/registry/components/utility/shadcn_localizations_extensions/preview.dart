@@ -19,9 +19,7 @@ class ShadcnLocalizationsExtensionsPreview extends StatelessWidget {
       const Duration(hours: 2, minutes: 30),
     );
     return Scaffold(
-      body: Center(
-        child: Text('$formattedTime • $formattedDuration'),
-      ),
+      body: Center(child: Text('$formattedTime • $formattedDuration')),
     );
   }
 }

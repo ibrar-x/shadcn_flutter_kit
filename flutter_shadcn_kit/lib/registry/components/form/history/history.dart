@@ -11,7 +11,6 @@ part '_impl/core/color_history_storage.dart';
 part '_impl/core/recent_colors_scope.dart';
 part '_impl/state/recent_colors_scope_state.dart';
 
-
 /// A grid widget that displays a history of previously used colors.
 ///
 /// [ColorHistoryGrid] presents colors from a [ColorHistoryStorage] in a grid
@@ -52,9 +51,7 @@ class ColorHistoryGrid extends StatelessWidget {
       return const AspectRatio(
         aspectRatio: 1,
         child: Button(
-          style: ButtonStyle.outline(
-            density: ButtonDensity.compact,
-          ),
+          style: ButtonStyle.outline(density: ButtonDensity.compact),
           child: SizedBox.shrink(),
         ),
       );
@@ -63,16 +60,16 @@ class ColorHistoryGrid extends StatelessWidget {
       decoration: selectedColor != null && color == selectedColor
           ? BoxDecoration(
               border: Border.all(
-                  color: theme.colorScheme.primary, width: 2 * theme.scaling),
+                color: theme.colorScheme.primary,
+                width: 2 * theme.scaling,
+              ),
               borderRadius: BorderRadius.circular(theme.radiusMd),
             )
           : null,
       child: AspectRatio(
         aspectRatio: 1,
         child: Button(
-          style: const ButtonStyle.outline(
-            density: ButtonDensity.compact,
-          ),
+          style: const ButtonStyle.outline(density: ButtonDensity.compact),
           onPressed: () {
             onColorPicked?.call(color);
           },
@@ -83,16 +80,10 @@ class ColorHistoryGrid extends StatelessWidget {
                 left: selectedColor != null && color == selectedColor ? -2 : 0,
                 child: ClipRRect(
                   borderRadius: theme.borderRadiusSm,
-                  child: CustomPaint(
-                    painter: AlphaPainter(),
-                  ),
+                  child: CustomPaint(painter: AlphaPainter()),
                 ),
               ),
-              Positioned.fill(
-                child: Container(
-                  color: color,
-                ),
-              ),
+              Positioned.fill(child: Container(color: color)),
             ],
           ),
         ),
@@ -103,17 +94,20 @@ class ColorHistoryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final spacing = this.spacing ?? (4 * theme.scaling);
+    final spacing =
+        this.spacing ?? (theme.density.baseGap * theme.scaling * 0.5);
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 100),
       child: ListenableBuilder(
         listenable: storage,
         builder: (context, child) {
           List<Widget> rows = [];
-          for (int i = 0;
-              i < storage.capacity &&
-                  (maxTotalColors == null || i < maxTotalColors!);
-              i += crossAxisCount) {
+          for (
+            int i = 0;
+            i < storage.capacity &&
+                (maxTotalColors == null || i < maxTotalColors!);
+            i += crossAxisCount
+          ) {
             List<Widget> tiles = [];
             for (int j = 0; j < crossAxisCount; j++) {
               final index = i + j;
@@ -122,11 +116,7 @@ class ColorHistoryGrid extends StatelessWidget {
                   : null;
               if (index >= storage.capacity ||
                   (maxTotalColors != null && index >= maxTotalColors!)) {
-                tiles.add(
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                );
+                tiles.add(const Expanded(child: SizedBox()));
               } else {
                 tiles.add(
                   Expanded(
@@ -142,12 +132,14 @@ class ColorHistoryGrid extends StatelessWidget {
                 tiles.add(Gap(spacing));
               }
             }
-            rows.add(IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: tiles,
+            rows.add(
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: tiles,
+                ),
               ),
-            ));
+            );
             if (i < storage.capacity - crossAxisCount) {
               rows.add(Gap(spacing));
             }

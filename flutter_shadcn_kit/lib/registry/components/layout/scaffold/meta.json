@@ -9,9 +9,6 @@
     "structure"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "color_extensions",
       "theme",
@@ -21,6 +18,42 @@
       "drawer",
       "linear_progress_indicator",
       "text"
-    ]
-  }
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/_render_scaffold_padding.dart",
+    "_impl/core/_scaffold_flex.dart",
+    "_impl/core/_scaffold_parent_data.dart",
+    "_impl/core/_scaffold_render_flex.dart",
+    "_impl/core/app_bar.dart",
+    "_impl/core/scaffold_2.dart",
+    "_impl/core/scaffold_bar_data.dart",
+    "_impl/core/scaffold_box_constraints.dart",
+    "_impl/core/scaffold_footer_padding.dart",
+    "_impl/core/scaffold_header_padding.dart",
+    "_impl/core/scaffold_padding_storage.dart",
+    "_impl/state/_app_bar_state.dart",
+    "_impl/state/scaffold_state.dart",
+    "meta.json",
+    "preview.dart",
+    "scaffold.dart",
+    "scaffold.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Scaffold`",
+      "`headers`, `footers`",
+      "`child`",
+      "`loadingProgress`, `showLoadingSparks`",
+      "`resizeToAvoidBottomInset`",
+      "`AppBar` — header bar widget.",
+      "`ScaffoldTheme` — background and loading styling."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

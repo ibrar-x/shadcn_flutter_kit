@@ -8,6 +8,8 @@ class _AppBarState extends State<AppBar> {
     final barData = Data.maybeOf<ScaffoldBarData>(context);
     var surfaceBlur = widget.surfaceBlur ?? theme.surfaceBlur;
     var surfaceOpacity = widget.surfaceOpacity ?? theme.surfaceOpacity;
+    final baseBackgroundColor =
+        widget.backgroundColor ?? theme.colorScheme.card;
     return FocusTraversalGroup(
       child: ClipRect(
         child: BackdropFilter(
@@ -16,19 +18,24 @@ class _AppBarState extends State<AppBar> {
             sigmaY: surfaceBlur ?? 0,
           ),
           child: Container(
-            color: widget.backgroundColor ??
-                theme.colorScheme.card.scaleAlpha(surfaceOpacity ?? 1),
+            color: baseBackgroundColor.scaleAlpha(surfaceOpacity ?? 1),
             alignment: widget.alignment,
-            padding: widget.padding ??
-                (const EdgeInsets.symmetric(horizontal: 18, vertical: 12) *
+            padding:
+                widget.padding ??
+                (EdgeInsets.symmetric(
+                      horizontal: theme.density.baseContentPadding * 1.125,
+                      vertical: theme.density.baseGap * 1.5,
+                    ) *
                     scaling),
             child: SafeArea(
-              top: widget.useSafeArea &&
+              top:
+                  widget.useSafeArea &&
                   barData?.isHeader == true &&
                   barData?.childIndex == 0,
               right: widget.useSafeArea,
               left: widget.useSafeArea,
-              bottom: widget.useSafeArea &&
+              bottom:
+                  widget.useSafeArea &&
                   barData?.isHeader == false &&
                   barData?.childIndex == (barData?.childrenCount ?? 0) - 1,
               child: SizedBox(
@@ -46,7 +53,8 @@ class _AppBarState extends State<AppBar> {
                         fit: widget.trailingExpanded
                             ? FlexFit.loose
                             : FlexFit.tight,
-                        child: widget.child ??
+                        child:
+                            widget.child ??
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.center,

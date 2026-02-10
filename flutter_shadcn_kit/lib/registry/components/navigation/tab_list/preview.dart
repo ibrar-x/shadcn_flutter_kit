@@ -10,4 +10,3 @@ class TabListPreview extends StatefulWidget {
   @override
   State<TabListPreview> createState() => _TabListPreviewState();
 }
-

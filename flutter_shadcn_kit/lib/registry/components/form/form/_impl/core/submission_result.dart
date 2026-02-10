@@ -28,5 +28,7 @@ class SubmissionResult {
 
   @override
   int get hashCode => Object.hash(
-      Object.hashAll(values.entries), Object.hashAll(errors.entries));
+    Object.hashAll(values.entries),
+    Object.hashAll(errors.entries),
+  );
 }

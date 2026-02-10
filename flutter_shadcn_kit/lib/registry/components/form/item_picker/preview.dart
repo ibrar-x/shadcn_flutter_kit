@@ -4,7 +4,6 @@ import '../item_picker/item_picker.dart';
 
 part '_impl/state/_item_picker_preview_state.dart';
 
-
 class ItemPickerPreview extends StatefulWidget {
   const ItemPickerPreview({super.key});
 

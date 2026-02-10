@@ -9,10 +9,31 @@
     "keyboard"
   ],
   "dependencies": {
+    "shared": [],
+    "components": [],
     "pubspec": {
       "data_widget": "^0.0.2"
-    },
-    "shared": [],
-    "components": []
-  }
+    }
+  },
+  "files": [
+    "README.md",
+    "_impl/core/sub_focus.dart",
+    "_impl/state/_sub_focus_scope_state.dart",
+    "_impl/state/_sub_focus_state.dart",
+    "meta.json",
+    "preview.dart",
+    "subfocus.dart",
+    "subfocus.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`SubFocusScope`",
+      "`builder` (`SubFocusScopeBuilder?`)",
+      "`autofocus` (`bool`)",
+      "`SubFocus` — focusable child widget.",
+      "`SubFocusScopeState` — focus management interface."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
 }

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "avatar_group",
+  "name": "Avatar Group",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "avatar",
+    "group",
+    "composite"
+  ],
+  "installedAt": "2026-02-09T10:18:03.247793Z",
+  "shared": [],
+  "dependsOn": [
+    "avatar"
+  ],
+  "files": [
+    "composites/display/avatar_group/README.md",
+    "composites/display/avatar_group/avatar_group.dart",
+    "composites/display/avatar_group/avatar_group.meta.json",
+    "composites/display/avatar_group/meta.json"
+  ],
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
+}

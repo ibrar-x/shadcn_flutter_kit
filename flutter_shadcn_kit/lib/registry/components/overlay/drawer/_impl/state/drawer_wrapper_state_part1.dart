@@ -23,7 +23,8 @@ class _DrawerWrapperState extends State<DrawerWrapper>
   @override
   void initState() {
     super.initState();
-    _controller = widget.animationController ??
+    _controller =
+        widget.animationController ??
         AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 350),
@@ -130,28 +131,37 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedBuilder(
-                  animation: _extraOffset,
-                  builder: (context, child) {
-                    return Gap(
-                        widget.extraSize.width + max(_extraOffset.value, 0));
-                  }),
+                animation: _extraOffset,
+                builder: (context, child) {
+                  return Gap(
+                    widget.extraSize.width + max(_extraOffset.value, 0),
+                  );
+                },
+              ),
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
                     return Transform.scale(
-                        scaleX:
-                            1 + _extraOffset.value / getSize(context).width / 4,
-                        alignment: Alignment.centerRight,
-                        child: child);
+                      scaleX:
+                          1 + _extraOffset.value / getSize(context).width / 4,
+                      alignment: Alignment.centerRight,
+                      child: child,
+                    );
                   },
                   animation: _extraOffset,
                   child: child,
                 ),
               ),
               if (widget.showDragHandle) ...[
-                Gap(widget.gapAfterDragger ?? 16 * theme.scaling),
+                Gap(
+                  widget.gapAfterDragger ??
+                      theme.density.baseGap * theme.scaling * gapLg,
+                ),
                 buildDraggableBar(theme),
-                Gap(widget.gapBeforeDragger ?? 12 * theme.scaling),
+                Gap(
+                  widget.gapBeforeDragger ??
+                      theme.density.baseGap * theme.scaling * gapMd,
+                ),
               ],
             ],
           ),
@@ -194,29 +204,38 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.showDragHandle) ...[
-                Gap(widget.gapBeforeDragger ?? 12 * theme.scaling),
+                Gap(
+                  widget.gapBeforeDragger ??
+                      theme.density.baseGap * theme.scaling * gapMd,
+                ),
                 buildDraggableBar(theme),
-                Gap(widget.gapAfterDragger ?? 16 * theme.scaling),
+                Gap(
+                  widget.gapAfterDragger ??
+                      theme.density.baseGap * theme.scaling * gapLg,
+                ),
               ],
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
                     return Transform.scale(
-                        scaleX:
-                            1 + _extraOffset.value / getSize(context).width / 4,
-                        alignment: Alignment.centerLeft,
-                        child: child);
+                      scaleX:
+                          1 + _extraOffset.value / getSize(context).width / 4,
+                      alignment: Alignment.centerLeft,
+                      child: child,
+                    );
                   },
                   animation: _extraOffset,
                   child: child,
                 ),
               ),
               AnimatedBuilder(
-                  animation: _extraOffset,
-                  builder: (context, child) {
-                    return Gap(
-                        widget.extraSize.width + max(_extraOffset.value, 0));
-                  }),
+                animation: _extraOffset,
+                builder: (context, child) {
+                  return Gap(
+                    widget.extraSize.width + max(_extraOffset.value, 0),
+                  );
+                },
+              ),
             ],
           ),
         );
@@ -257,28 +276,37 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedBuilder(
-                  animation: _extraOffset,
-                  builder: (context, child) {
-                    return Gap(
-                        widget.extraSize.height + max(_extraOffset.value, 0));
-                  }),
+                animation: _extraOffset,
+                builder: (context, child) {
+                  return Gap(
+                    widget.extraSize.height + max(_extraOffset.value, 0),
+                  );
+                },
+              ),
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
                     return Transform.scale(
-                        scaleY: 1 +
-                            _extraOffset.value / getSize(context).height / 4,
-                        alignment: Alignment.bottomCenter,
-                        child: child);
+                      scaleY:
+                          1 + _extraOffset.value / getSize(context).height / 4,
+                      alignment: Alignment.bottomCenter,
+                      child: child,
+                    );
                   },
                   animation: _extraOffset,
                   child: child,
                 ),
               ),
               if (widget.showDragHandle) ...[
-                Gap(widget.gapAfterDragger ?? 16 * theme.scaling),
+                Gap(
+                  widget.gapAfterDragger ??
+                      theme.density.baseGap * theme.scaling * gapLg,
+                ),
                 buildDraggableBar(theme),
-                Gap(widget.gapBeforeDragger ?? 12 * theme.scaling),
+                Gap(
+                  widget.gapBeforeDragger ??
+                      theme.density.baseGap * theme.scaling * gapMd,
+                ),
               ],
             ],
           ),
@@ -320,29 +348,38 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.showDragHandle) ...[
-                Gap(widget.gapBeforeDragger ?? 12 * theme.scaling),
+                Gap(
+                  widget.gapBeforeDragger ??
+                      theme.density.baseGap * theme.scaling * gapMd,
+                ),
                 buildDraggableBar(theme),
-                Gap(widget.gapAfterDragger ?? 16 * theme.scaling),
+                Gap(
+                  widget.gapAfterDragger ??
+                      theme.density.baseGap * theme.scaling * gapLg,
+                ),
               ],
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
                     return Transform.scale(
-                        scaleY: 1 +
-                            _extraOffset.value / getSize(context).height / 4,
-                        alignment: Alignment.topCenter,
-                        child: child);
+                      scaleY:
+                          1 + _extraOffset.value / getSize(context).height / 4,
+                      alignment: Alignment.topCenter,
+                      child: child,
+                    );
                   },
                   animation: _extraOffset,
                   child: child,
                 ),
               ),
               AnimatedBuilder(
-                  animation: _extraOffset,
-                  builder: (context, child) {
-                    return Gap(
-                        widget.extraSize.height + max(_extraOffset.value, 0));
-                  }),
+                animation: _extraOffset,
+                builder: (context, child) {
+                  return Gap(
+                    widget.extraSize.height + max(_extraOffset.value, 0),
+                  );
+                },
+              ),
             ],
           ),
         );
@@ -358,7 +395,8 @@ class _DrawerWrapperState extends State<DrawerWrapper>
       if (oldWidget.animationController == null) {
         _controller.dispose();
       }
-      _controller = widget.animationController ??
+      _controller =
+          widget.animationController ??
           AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 350),
@@ -497,10 +535,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     }
 
     if (widget.alignment != null) {
-      container = Align(
-        alignment: widget.alignment!,
-        child: container,
-      );
+      container = Align(alignment: widget.alignment!, child: container);
     }
 
     if (surfaceBlur != null && surfaceBlur > 0) {
