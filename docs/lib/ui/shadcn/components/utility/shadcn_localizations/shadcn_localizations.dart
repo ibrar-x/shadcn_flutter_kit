@@ -69,7 +69,8 @@ abstract class ShadcnLocalizations {
   final String localeName;
 
   static ShadcnLocalizations of(BuildContext context) {
-    return Localizations.of<ShadcnLocalizations>(context, ShadcnLocalizations)!;
+    return Localizations.of<ShadcnLocalizations>(context, ShadcnLocalizations) ??
+        ShadcnLocalizationsEn();
   }
 
   static const LocalizationsDelegate<ShadcnLocalizations> delegate =
