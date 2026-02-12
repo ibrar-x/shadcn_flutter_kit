@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/layout/filter_bar/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/layout/app/app.dart';
 import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';
 import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
 
@@ -12,15 +13,13 @@ class _RegistryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetsApp(
-      color: const Color(0xFF111827),
+    return ShadcnApp(
+      title: 'Filter Bar Preview',
+      theme: const shadcn.ThemeData(),
       localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
       supportedLocales: ShadcnLocalizations.supportedLocales,
       locale: const Locale('en'),
-      home: shadcn.Theme(
-        data: const shadcn.ThemeData(),
-        child: const FilterBarPreview(),
-      ),
+      home: const FilterBarPreview(),
     );
   }
 }

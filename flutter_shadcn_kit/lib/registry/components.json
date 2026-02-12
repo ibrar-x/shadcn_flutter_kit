@@ -15502,6 +15502,69 @@
       },
       "assets": [],
       "postInstall": []
+    },
+    {
+      "id": "app",
+      "name": "App",
+      "description": "App wrapper with shadcn theme and overlay handling.",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "app",
+        "theming",
+        "overlay"
+      ],
+      "files": [
+        {
+          "source": "registry/components/layout/app/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/app/GETTING_STARTED.md"
+        },
+        {
+          "source": "registry/components/layout/app/README.md",
+          "destination": "{installPath}/components/layout/app/README.md"
+        },
+        {
+          "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart",
+          "destination": "{installPath}/components/layout/app/_impl/core/shadcn_ui.dart"
+        },
+        {
+          "source": "registry/components/layout/app/app.dart",
+          "destination": "{installPath}/components/layout/app/app.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart"
+            }
+          ]
+        },
+        {
+          "source": "registry/components/layout/app/app.meta.json",
+          "destination": "{installPath}/components/layout/app/app.meta.json"
+        },
+        {
+          "source": "registry/components/layout/app/meta.json",
+          "destination": "{installPath}/components/layout/app/meta.json"
+        },
+        {
+          "source": "registry/components/layout/app/preview.dart",
+          "destination": "{installPath}/components/layout/app/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme",
+        "overlay",
+        "constants"
+      ],
+      "dependsOn": [
+        "scaffold",
+        "divider",
+        "shadcn_localizations"
+      ],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0"
     }
   ],
   "manifestVersion": 1

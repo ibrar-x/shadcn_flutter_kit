@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-12T00:10:02.812706Z",
+  "generatedAt": "2026-02-12T00:20:02.903332Z",
   "components": [
     {
       "id": "accordion",
@@ -154,6 +154,45 @@
       "related": [
         "color_picker",
         "color"
+      ]
+    },
+    {
+      "id": "app",
+      "name": "App",
+      "category": "layout",
+      "description": "Application wrapper for shadcn theme and overlay layers.",
+      "tags": [
+        "layout",
+        "app",
+        "theming",
+        "overlay"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add app",
+      "import": "import 'package:<your_app>/ui/shadcn/layout/app/app.dart';",
+      "importPath": "ui/shadcn/layout/app/app.dart",
+      "api": {
+        "constructors": [
+          "`ShadcnApp`",
+          "`ShadcnApp.router`"
+        ],
+        "callbacks": []
+      },
+      "examples": {
+        "minimal": "import 'package:flutter/widgets.dart';\nimport 'package:<your_app>/ui/shadcn/layout/app/app.dart';\nimport 'package:<your_app>/ui/shadcn/utility/shadcn_localizations/shadcn_localizations.dart';\n\nvoid main() => runApp(const AppExample());\n\nclass AppExample extends StatelessWidget {\n  const AppExample({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return ShadcnApp(\n      title: 'Demo',\n      localizationsDelegates: ShadcnLocalizations.localizationsDelegates,\n      supportedLocales: ShadcnLocalizations.supportedLocales,\n      locale: const Locale('en'),\n      home: const Scaffold(\n        child: Center(child: Text('Hello from ShadcnApp')),\n      ),\n    );\n  }\n}"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": [
+          "theme",
+          "overlay",
+          "constants"
+        ]
+      },
+      "related": [
+        "scaffold",
+        "theme",
+        "popover"
       ]
     },
     {

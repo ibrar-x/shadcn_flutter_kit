@@ -1,0 +1,35 @@
+{
+  "id": "app",
+  "name": "App",
+  "description": "App wrapper with shadcn theme and overlay handling.",
+  "category": "layout",
+  "version": "1.0.0",
+  "tags": [
+    "layout",
+    "app",
+    "theming",
+    "overlay"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "overlay",
+      "constants"
+    ],
+    "components": [
+      "scaffold",
+      "divider",
+      "shadcn_localizations"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "GETTING_STARTED.md",
+    "README.md",
+    "_impl/core/shadcn_ui.dart",
+    "app.dart",
+    "app.meta.json",
+    "meta.json",
+    "preview.dart"
+  ]
+}
