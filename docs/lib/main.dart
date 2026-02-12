@@ -150,6 +150,10 @@ class _DocsRootState extends State<DocsRoot> {
   static const _pageTransitionDuration = Duration(milliseconds: 180);
   static const _pageReverseTransitionDuration = Duration(milliseconds: 120);
 
+  String _fromKebabCase(String value) {
+    return value.replaceAll('-', '_');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -288,7 +292,7 @@ class _DocsRootState extends State<DocsRoot> {
           pageBuilder: (context, state) => _buildTransitionPage(
             state,
             ComponentDetailPage(
-              componentId: state.pathParameters['id'] ?? '',
+              componentId: _fromKebabCase(state.pathParameters['id'] ?? ''),
             ),
           ),
         ),

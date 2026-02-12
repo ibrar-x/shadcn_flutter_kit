@@ -32,25 +32,95 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
   double _lazyThreshold = 0.1;
   int _maxRendered = 6;
 
-  static const Map<String, String> _dependentInstallCommands = {
-    'toggle': 'flutter_shadcn add button',
-    'avatar_group': 'flutter_shadcn add avatar',
-    'choices': 'flutter_shadcn add multiple_choice',
-    'multiselect': 'flutter_shadcn add select chip button',
-    'number_input': 'flutter_shadcn add text_field formatter',
-    'radio_card': 'flutter_shadcn add radio_group card',
-    'app_bar': 'flutter_shadcn add scaffold button outlined_container',
-    'material': 'flutter_shadcn add app card alert_dialog button',
-    'expandable_sidebar':
-        'flutter_shadcn add navigation_bar outlined_container',
-    'navigation_rail': 'flutter_shadcn add navigation_bar',
-    'navigation_sidebar':
-        'flutter_shadcn add navigation_bar outlined_container',
-    'sheet': 'flutter_shadcn add drawer form alert_dialog button',
+  static const Map<String, List<String>> _dependentComponentSets = {
+    'toggle': ['button'],
+    'avatar_group': ['avatar'],
+    'choices': ['multiple_choice'],
+    'multiselect': ['select', 'chip', 'button'],
+    'number_input': ['text_field', 'formatter'],
+    'radio_card': ['radio_group', 'card'],
+    'app_bar': ['scaffold', 'button', 'outlined_container'],
+    'material': ['app', 'card', 'alert_dialog', 'button'],
+    'expandable_sidebar': ['navigation_bar', 'outlined_container'],
+    'navigation_rail': ['navigation_bar'],
+    'navigation_sidebar': ['navigation_bar', 'outlined_container'],
+    'sheet': ['drawer', 'form', 'alert_dialog', 'button'],
   };
 
-  String _installCommandFor(String id) {
-    return _dependentInstallCommands[id] ?? 'flutter_shadcn add $id';
+  String _singleInstallCommandFor(String id) {
+    return 'flutter_shadcn add $id';
+  }
+
+  String _exactInstallCommandFor(String id) {
+    final deps = _dependentComponentSets[id];
+    if (deps == null || deps.isEmpty) {
+      return _singleInstallCommandFor(id);
+    }
+    return 'flutter_shadcn add ${deps.join(' ')}';
+  }
+
+  String _toKebabCase(String value) {
+    return value.replaceAll('_', '-');
+  }
+
+  Widget? _buildDependentSetupPanel(String componentId) {
+    final deps = _dependentComponentSets[componentId];
+    if (deps == null || deps.isEmpty) {
+      return null;
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: OutlinedContainer(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Install Options').semiBold(),
+              const SizedBox(height: 8),
+              const Text(
+                'Use the exact command below if you want this docs example to work as-is. '
+                'Or install individual widgets and customize composition yourself.',
+              ).muted(),
+              const SizedBox(height: 12),
+              const Text('Exact Example Command').small().semiBold(),
+              const SizedBox(height: 6),
+              SelectableText(_exactInstallCommandFor(componentId))
+                  .small()
+                  .mono(),
+              const SizedBox(height: 12),
+              const Text('Single Widget Commands').small().semiBold(),
+              const SizedBox(height: 6),
+              for (final dep in deps)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: SelectableText(_singleInstallCommandFor(dep))
+                      .small()
+                      .mono(),
+                ),
+              const SizedBox(height: 12),
+              const Text('Required Components').small().semiBold(),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final dep in deps)
+                    shadcn_buttons.LinkButton(
+                      density: shadcn_buttons.ButtonDensity.compact,
+                      onPressed: () => context.goNamed(
+                        'component_detail',
+                        pathParameters: {'id': _toKebabCase(dep)},
+                      ),
+                      child: Text(dep),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -118,8 +188,8 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                           ),
                         ),
                         shadcn_buttons.PrimaryButton(
-                          onPressed: () =>
-                              context.goNamed('error_system_quick_start'),
+                          onPressed: () => context
+                              .go('/components/error-system/quick-start'),
                           child: const Text('Open guide'),
                         ),
                       ],
@@ -130,6 +200,8 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                 totalExamples: examples.length,
                 hiddenCount: hiddenCount,
               ),
+              if (_buildDependentSetupPanel(component.id) != null)
+                _buildDependentSetupPanel(component.id)!,
               for (var index = 0; index < visibleExamples.length; index++)
                 WidgetUsageExample(
                   key: ValueKey(
@@ -142,7 +214,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                   previewFullBleed: false,
                   previewMinHeight: null,
                   installCommand:
-                      index == 0 ? _installCommandFor(component.id) : null,
+                      index == 0 ? _exactInstallCommandFor(component.id) : null,
                   child: visibleExamples[index].builder(context),
                 ),
               if (hiddenCount > 0)
@@ -166,10 +238,12 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
               totalExamples: 0,
               hiddenCount: 0,
             ),
+            if (_buildDependentSetupPanel(component.id) != null)
+              _buildDependentSetupPanel(component.id)!,
             WidgetUsageExample(
               title: 'Preview',
               code: '// Example coming soon',
-              installCommand: _installCommandFor(component.id),
+              installCommand: _exactInstallCommandFor(component.id),
               child: buildComponentPreview(
                 context,
                 component.id,

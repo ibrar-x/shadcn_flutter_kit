@@ -297,7 +297,7 @@ class DocsPageState extends State<DocsPage> {
                     component.name,
                     component.id,
                     routeName: 'component_detail',
-                    pathParameters: {'id': component.id},
+                    pathParameters: {'id': _toKebabCase(component.id)},
                     tag: _tagForComponent(component.id),
                   ))
               .toList(),
@@ -856,4 +856,8 @@ class SidebarButton extends StatelessWidget {
       ),
     );
   }
+}
+
+String _toKebabCase(String value) {
+  return value.replaceAll('_', '-');
 }

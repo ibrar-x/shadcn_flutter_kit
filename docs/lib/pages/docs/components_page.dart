@@ -222,6 +222,10 @@ class _ComponentTile extends StatefulWidget {
 class _ComponentTileState extends State<_ComponentTile> {
   bool _hovering = false;
 
+  String _toKebabCase(String value) {
+    return value.replaceAll('_', '-');
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = shadcn_theme.Theme.of(context);
@@ -233,7 +237,8 @@ class _ComponentTileState extends State<_ComponentTile> {
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
       child: GestureDetector(
-        onTap: () => context.go('/components/${widget.component.id}'),
+        onTap: () =>
+            context.go('/components/${_toKebabCase(widget.component.id)}'),
         child: SizedBox(
           width: 250,
           height: 200,
