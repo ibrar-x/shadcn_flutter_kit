@@ -32,6 +32,27 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
   double _lazyThreshold = 0.1;
   int _maxRendered = 6;
 
+  static const Map<String, String> _dependentInstallCommands = {
+    'toggle': 'flutter_shadcn add button',
+    'avatar_group': 'flutter_shadcn add avatar',
+    'choices': 'flutter_shadcn add multiple_choice',
+    'multiselect': 'flutter_shadcn add select chip button',
+    'number_input': 'flutter_shadcn add text_field formatter',
+    'radio_card': 'flutter_shadcn add radio_group card',
+    'app_bar': 'flutter_shadcn add scaffold button outlined_container',
+    'material': 'flutter_shadcn add app card alert_dialog button',
+    'expandable_sidebar':
+        'flutter_shadcn add navigation_bar outlined_container',
+    'navigation_rail': 'flutter_shadcn add navigation_bar',
+    'navigation_sidebar':
+        'flutter_shadcn add navigation_bar outlined_container',
+    'sheet': 'flutter_shadcn add drawer form alert_dialog button',
+  };
+
+  String _installCommandFor(String id) {
+    return _dependentInstallCommands[id] ?? 'flutter_shadcn add $id';
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = shadcn_theme.Theme.of(context);
@@ -121,7 +142,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                   previewFullBleed: false,
                   previewMinHeight: null,
                   installCommand:
-                      index == 0 ? 'flutter_shadcn add ${component.id}' : null,
+                      index == 0 ? _installCommandFor(component.id) : null,
                   child: visibleExamples[index].builder(context),
                 ),
               if (hiddenCount > 0)
@@ -148,7 +169,7 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
             WidgetUsageExample(
               title: 'Preview',
               code: '// Example coming soon',
-              installCommand: 'flutter_shadcn add ${component.id}',
+              installCommand: _installCommandFor(component.id),
               child: buildComponentPreview(
                 context,
                 component.id,
@@ -167,13 +188,13 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
   }) {
     final spacing = shadcn_theme.Theme.of(context).spacing;
     final thresholdLabel = (_lazyThreshold * 100).round();
-        final selectedMax = _maxRenderedOptions.contains(_maxRendered)
-            ? _maxRendered
-            : _maxRenderedOptions.first;
-        final controls = Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Performance mode').semiBold(),
+    final selectedMax = _maxRenderedOptions.contains(_maxRendered)
+        ? _maxRendered
+        : _maxRenderedOptions.first;
+    final controls = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Performance mode').semiBold(),
         SizedBox(height: spacing.sm),
         shadcn_switch.Switch(
           value: _performanceMode,
