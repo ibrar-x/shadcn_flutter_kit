@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "timeline_animation",
+  "name": "Timeline Animation",
+  "description": "Keyframe-based animation timeline utilities.",
+  "install": "flutter_shadcn add timeline_animation",
+  "import": "import 'package:<your_app>/ui/shadcn/components/utility/timeline_animation/timeline_animation.dart';",
+  "whenToUse": {
+    "use": [
+      "you need keyframe-based animation timelines.",
+      "you want explicit durations per keyframe."
+    ],
+    "avoid": [
+      "a simple Tween/Curve animation is enough."
+    ]
+  },
+  "examples": {
+    "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/timeline_animation/timeline_animation.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatefulWidget {\n  const Demo({super.key});\n\n  @override\n  State<Demo> createState() => _DemoState();\n}\n\nclass _DemoState extends State<Demo> with SingleTickerProviderStateMixin {\n  late final AnimationController controller;\n  late final TimelineAnimation<double> timeline;\n\n  @override\n  void initState() {\n    super.initState();\n    controller = AnimationController(\n      vsync: this,\n      duration: const Duration(milliseconds: 1400),\n    )..repeat(reverse: true);\n\n    timeline = TimelineAnimation<double>(\n      keyframes: [\n        AbsoluteKeyframe(const Duration(milliseconds: 400), 0.6, 1.0),\n        RelativeKeyframe(const Duration(milliseconds: 300), 1.2),\n        StillKeyframe(const Duration(milliseconds: 150)),\n        AbsoluteKeyframe(const Duration(milliseconds: 550), 1.2, 0.6),\n      ],\n    );\n  }\n\n  @override\n  void dispose() {\n    controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: AnimatedBuilder(\n          animation: controller,\n          builder: (context, child) {\n            final value = timeline.transform(controller.value);\n            return Transform.scale(scale: value, child: child);\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types_and_helpers": [
+      "`TimelineAnimation<T>`",
+      "`TimelineAnimatable<T>`",
+      "`Keyframe<T>`",
+      "`AbsoluteKeyframe<T>`",
+      "`RelativeKeyframe<T>`",
+      "`StillKeyframe<T>`",
+      "`PropertyLerp<T>`",
+      "`Transformers`",
+      "`timelineMaxDuration`"
+    ]
+  },
+  "theming": [
+    "Not applicable."
+  ],
+  "accessibility": [
+    "Avoid overly aggressive motion and very short flash intervals."
+  ],
+  "do": [
+    "Keep keyframe durations explicit and measurable."
+  ],
+  "dont": [
+    "Do not stack long keyframe chains without performance testing."
+  ],
+  "related": [
+    "timeline"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

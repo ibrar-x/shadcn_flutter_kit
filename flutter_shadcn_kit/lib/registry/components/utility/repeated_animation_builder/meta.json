@@ -1,0 +1,33 @@
+{
+  "id": "repeated_animation_builder",
+  "name": "Repeated Animation Builder",
+  "description": "Looping animation builder with interpolated values.",
+  "category": "utility",
+  "tags": [
+    "animation",
+    "utility",
+    "builder"
+  ],
+  "dependencies": {
+    "shared": [
+      "util"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "GETTING_STARTED.md",
+    "meta.json",
+    "repeated_animation_builder.dart",
+    "repeated_animation_builder.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`RepeatedAnimationBuilder`"
+    ]
+  },
+  "version": "1.0.0"
+}

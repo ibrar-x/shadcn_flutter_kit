@@ -1238,6 +1238,10 @@
           "destination": "{installPath}/components/control/button/.DS_Store"
         },
         {
+          "source": "registry/components/control/button/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/button/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/control/button/README.md",
           "destination": "{installPath}/components/control/button/README.md"
         },
@@ -1523,6 +1527,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/control/clickable/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/clickable/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/control/clickable/README.md",
           "destination": "{installPath}/components/control/clickable/README.md"
         },
@@ -1604,6 +1612,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/card/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/card/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/card/README.md",
           "destination": "{installPath}/components/layout/card/README.md"
         },
@@ -1677,6 +1689,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/card_image/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/card_image/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/card_image/README.md",
           "destination": "{installPath}/components/layout/card_image/README.md"
         },
@@ -1746,6 +1762,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/alert/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/alert/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/alert/README.md",
           "destination": "{installPath}/components/layout/alert/README.md"
         },
@@ -1803,6 +1823,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/alpha/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/alpha/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/alpha/README.md",
           "destination": "{installPath}/components/utility/alpha/README.md"
         },
@@ -1845,6 +1869,10 @@
         "bubble"
       ],
       "files": [
+        {
+          "source": "registry/components/display/chat/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/chat/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/chat/README.md",
           "destination": "{installPath}/components/display/chat/README.md"
@@ -2015,6 +2043,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/async/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/async/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/async/README.md",
           "destination": "{installPath}/components/utility/async/README.md"
         },
@@ -2055,6 +2087,10 @@
         "autocomplete"
       ],
       "files": [
+        {
+          "source": "registry/components/form/autocomplete/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/autocomplete/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/autocomplete/README.md",
           "destination": "{installPath}/components/form/autocomplete/README.md"
@@ -2170,6 +2206,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/collapsible/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/collapsible/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/collapsible/README.md",
           "destination": "{installPath}/components/layout/collapsible/README.md"
         },
@@ -2259,6 +2299,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/focus_outline/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/focus_outline/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/focus_outline/README.md",
           "destination": "{installPath}/components/utility/focus_outline/README.md"
         },
@@ -2315,6 +2359,10 @@
         "render"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/group/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/group/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/group/README.md",
           "destination": "{installPath}/components/layout/group/README.md"
@@ -2379,6 +2427,10 @@
         "accessibility"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/hidden/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/hidden/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/hidden/README.md",
           "destination": "{installPath}/components/layout/hidden/README.md"
@@ -2459,6 +2511,10 @@
         "forms"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/accordion/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/accordion/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/accordion/README.md",
           "destination": "{installPath}/components/layout/accordion/README.md"
@@ -2553,6 +2609,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/badge/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/badge/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/badge/README.md",
           "destination": "{installPath}/components/display/badge/README.md"
         },
@@ -2634,6 +2694,10 @@
         "user"
       ],
       "files": [
+        {
+          "source": "registry/components/display/avatar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/avatar/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/avatar/README.md",
           "destination": "{installPath}/components/display/avatar/README.md"
@@ -2738,6 +2802,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/basic/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/basic/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/basic/README.md",
           "destination": "{installPath}/components/layout/basic/README.md"
         },
@@ -2806,6 +2874,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/chip/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/chip/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/chip/README.md",
           "destination": "{installPath}/components/display/chip/README.md"
         },
@@ -2866,6 +2938,10 @@
         "utility"
       ],
       "files": [
+        {
+          "source": "registry/components/utility/color/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/color/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/utility/color/README.md",
           "destination": "{installPath}/components/utility/color/README.md"
@@ -2995,6 +3071,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/history/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/history/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/history/README.md",
           "destination": "{installPath}/components/form/history/README.md"
         },
@@ -3075,6 +3155,10 @@
         "forms"
       ],
       "files": [
+        {
+          "source": "registry/components/form/color_picker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/color_picker/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/color_picker/README.md",
           "destination": "{installPath}/components/form/color_picker/README.md"
@@ -3243,6 +3327,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/color_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/color_input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/color_input/README.md",
           "destination": "{installPath}/components/form/color_input/README.md"
         },
@@ -3342,6 +3430,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/hsl/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/hsl/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/hsl/README.md",
           "destination": "{installPath}/components/form/hsl/README.md"
         },
@@ -3419,6 +3511,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/hsv/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/hsv/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/hsv/README.md",
           "destination": "{installPath}/components/form/hsv/README.md"
         },
@@ -3495,6 +3591,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/image/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/image/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/image/README.md",
           "destination": "{installPath}/components/utility/image/README.md"
         },
@@ -3535,6 +3635,10 @@
         "overlay"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/eye_dropper/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/eye_dropper/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/eye_dropper/README.md",
           "destination": "{installPath}/components/overlay/eye_dropper/README.md"
@@ -3653,6 +3757,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/chip_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/chip_input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/chip_input/README.md",
           "destination": "{installPath}/components/form/chip_input/README.md"
         },
@@ -3751,6 +3859,10 @@
         "menu"
       ],
       "files": [
+        {
+          "source": "registry/components/form/select/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/select/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/select/README.md",
           "destination": "{installPath}/components/form/select/README.md"
@@ -3976,6 +4088,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/checkbox/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/checkbox/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/checkbox/README.md",
           "destination": "{installPath}/components/form/checkbox/README.md"
         },
@@ -4082,6 +4198,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/divider/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/divider/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/divider/README.md",
           "destination": "{installPath}/components/display/divider/README.md"
         },
@@ -4166,6 +4286,10 @@
         "indicator"
       ],
       "files": [
+        {
+          "source": "registry/components/display/dot_indicator/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/dot_indicator/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/dot_indicator/README.md",
           "destination": "{installPath}/components/display/dot_indicator/README.md"
@@ -4252,6 +4376,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/circular_progress_indicator/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/circular_progress_indicator/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/circular_progress_indicator/README.md",
           "destination": "{installPath}/components/display/circular_progress_indicator/README.md"
         },
@@ -4307,6 +4435,10 @@
         "indicator"
       ],
       "files": [
+        {
+          "source": "registry/components/display/linear_progress_indicator/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/linear_progress_indicator/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/linear_progress_indicator/README.md",
           "destination": "{installPath}/components/display/linear_progress_indicator/README.md"
@@ -4390,6 +4522,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/locale_utils/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/locale_utils/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/locale_utils/README.md",
           "destination": "{installPath}/components/utility/locale_utils/README.md"
         },
@@ -4455,6 +4591,10 @@
         "animation"
       ],
       "files": [
+        {
+          "source": "registry/components/display/number_ticker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/number_ticker/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/number_ticker/README.md",
           "destination": "{installPath}/components/display/number_ticker/README.md"
@@ -4522,6 +4662,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/spinner/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/spinner/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/spinner/README.md",
           "destination": "{installPath}/components/display/spinner/README.md"
         },
@@ -4583,6 +4727,10 @@
         "indicator"
       ],
       "files": [
+        {
+          "source": "registry/components/display/progress/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/progress/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/progress/README.md",
           "destination": "{installPath}/components/display/progress/README.md"
@@ -4646,6 +4794,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/skeleton/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/skeleton/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/skeleton/README.md",
           "destination": "{installPath}/components/display/skeleton/README.md"
         },
@@ -4703,6 +4855,10 @@
         "overlay"
       ],
       "files": [
+        {
+          "source": "registry/components/control/command/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/command/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/control/command/README.md",
           "destination": "{installPath}/components/control/command/README.md"
@@ -4810,6 +4966,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/control/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/control/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/control/README.md",
           "destination": "{installPath}/components/form/control/README.md"
         },
@@ -4888,6 +5048,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/debug/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/debug/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/debug/README.md",
           "destination": "{installPath}/components/utility/debug/README.md"
         },
@@ -4927,6 +5091,10 @@
         "layout"
       ],
       "files": [
+        {
+          "source": "registry/components/navigation/breadcrumb/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/breadcrumb/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/navigation/breadcrumb/README.md",
           "destination": "{installPath}/components/navigation/breadcrumb/README.md"
@@ -4997,6 +5165,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/code_snippet/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/code_snippet/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/code_snippet/README.md",
           "destination": "{installPath}/components/display/code_snippet/README.md"
         },
@@ -5059,6 +5231,10 @@
         "animation"
       ],
       "files": [
+        {
+          "source": "registry/components/display/carousel/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/carousel/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/carousel/README.md",
           "destination": "{installPath}/components/display/carousel/README.md"
@@ -5203,6 +5379,10 @@
         "display"
       ],
       "files": [
+        {
+          "source": "registry/components/display/calendar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/calendar/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/calendar/README.md",
           "destination": "{installPath}/components/display/calendar/README.md"
@@ -5415,6 +5595,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/date_picker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/date_picker/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/date_picker/README.md",
           "destination": "{installPath}/components/form/date_picker/README.md"
         },
@@ -5512,6 +5696,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/file_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/file_input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/file_input/README.md",
           "destination": "{installPath}/components/form/file_input/README.md"
         },
@@ -5569,6 +5757,10 @@
         "mobile"
       ],
       "files": [
+        {
+          "source": "registry/components/form/file_picker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/file_picker/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/file_picker/README.md",
           "destination": "{installPath}/components/form/file_picker/README.md"
@@ -5738,6 +5930,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/keyboard_shortcut/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/keyboard_shortcut/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/keyboard_shortcut/README.md",
           "destination": "{installPath}/components/display/keyboard_shortcut/README.md"
         },
@@ -5832,6 +6028,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/fade_scroll/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/fade_scroll/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/fade_scroll/README.md",
           "destination": "{installPath}/components/layout/fade_scroll/README.md"
         },
@@ -5900,6 +6100,10 @@
         "text"
       ],
       "files": [
+        {
+          "source": "registry/components/form/text_field/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/text_field/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/text_field/README.md",
           "destination": "{installPath}/components/form/text_field/README.md"
@@ -6406,6 +6610,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/input/README.md",
           "destination": "{installPath}/components/form/input/README.md"
         },
@@ -6643,6 +6851,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/input_otp/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/input_otp/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/input_otp/README.md",
           "destination": "{installPath}/components/form/input_otp/README.md"
         },
@@ -6783,6 +6995,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/form_field/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/form_field/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/form_field/README.md",
           "destination": "{installPath}/components/form/form_field/README.md"
         },
@@ -6902,6 +7118,10 @@
         "formatter"
       ],
       "files": [
+        {
+          "source": "registry/components/form/formatted_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/formatted_input/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/formatted_input/README.md",
           "destination": "{installPath}/components/form/formatted_input/README.md"
@@ -7079,6 +7299,10 @@
         "state"
       ],
       "files": [
+        {
+          "source": "registry/components/form/form/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/form/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/form/README.md",
           "destination": "{installPath}/components/form/form/README.md"
@@ -7471,6 +7695,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/object_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/object_input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/object_input/README.md",
           "destination": "{installPath}/components/form/object_input/README.md"
         },
@@ -7583,6 +7811,10 @@
         "outline"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/outlined_container/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/outlined_container/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/outlined_container/README.md",
           "destination": "{installPath}/components/layout/outlined_container/README.md"
@@ -7697,6 +7929,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/phone_input/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/phone_input/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/phone_input/README.md",
           "destination": "{installPath}/components/form/phone_input/README.md"
         },
@@ -7774,6 +8010,10 @@
         "selection"
       ],
       "files": [
+        {
+          "source": "registry/components/form/radio_group/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/radio_group/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/radio_group/README.md",
           "destination": "{installPath}/components/form/radio_group/README.md"
@@ -7930,6 +8170,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/slider/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/slider/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/slider/README.md",
           "destination": "{installPath}/components/form/slider/README.md"
         },
@@ -8032,6 +8276,10 @@
         "selection"
       ],
       "files": [
+        {
+          "source": "registry/components/form/multiple_choice/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/multiple_choice/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/multiple_choice/README.md",
           "destination": "{installPath}/components/form/multiple_choice/README.md"
@@ -8153,6 +8401,10 @@
         "selection"
       ],
       "files": [
+        {
+          "source": "registry/components/form/item_picker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/item_picker/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/item_picker/README.md",
           "destination": "{installPath}/components/form/item_picker/README.md"
@@ -8295,6 +8547,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/formatter/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/formatter/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/formatter/README.md",
           "destination": "{installPath}/components/form/formatter/README.md"
         },
@@ -8394,6 +8650,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/switch/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/switch/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/switch/README.md",
           "destination": "{installPath}/components/form/switch/README.md"
         },
@@ -8488,6 +8748,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/text_area/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/text_area/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/text_area/README.md",
           "destination": "{installPath}/components/form/text_area/README.md"
         },
@@ -8547,6 +8811,10 @@
         "typography"
       ],
       "files": [
+        {
+          "source": "registry/components/display/text/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/text/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/text/README.md",
           "destination": "{installPath}/components/display/text/README.md"
@@ -8632,6 +8900,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/selectable/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/selectable/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/selectable/README.md",
           "destination": "{installPath}/components/display/selectable/README.md"
         },
@@ -8682,6 +8954,10 @@
         "scroll"
       ],
       "files": [
+        {
+          "source": "registry/components/control/scrollbar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/scrollbar/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/control/scrollbar/README.md",
           "destination": "{installPath}/components/control/scrollbar/README.md"
@@ -8741,6 +9017,10 @@
         "scroll"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/scrollable_client/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/scrollable_client/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/scrollable_client/README.md",
           "destination": "{installPath}/components/layout/scrollable_client/README.md"
@@ -8814,6 +9094,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/control/scrollview/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/scrollview/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/control/scrollview/README.md",
           "destination": "{installPath}/components/control/scrollview/README.md"
         },
@@ -8866,6 +9150,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/triple_dots/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/triple_dots/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/triple_dots/README.md",
           "destination": "{installPath}/components/display/triple_dots/README.md"
         },
@@ -8905,6 +9193,10 @@
         "theme"
       ],
       "files": [
+        {
+          "source": "registry/components/display/icon/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/icon/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/icon/README.md",
           "destination": "{installPath}/components/display/icon/README.md"
@@ -8948,6 +9240,10 @@
         "modal"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/alert_dialog/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/alert_dialog/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/alert_dialog/README.md",
           "destination": "{installPath}/components/overlay/alert_dialog/README.md"
@@ -9010,6 +9306,10 @@
         "dialog"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/dialog/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/dialog/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/dialog/README.md",
           "destination": "{installPath}/components/overlay/dialog/README.md"
@@ -9149,6 +9449,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/overlay/popover/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/popover/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/overlay/popover/README.md",
           "destination": "{installPath}/components/overlay/popover/README.md"
         },
@@ -9196,6 +9500,10 @@
         "layer"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/overlay/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/overlay/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/overlay/README.md",
           "destination": "{installPath}/components/overlay/overlay/README.md"
@@ -9245,6 +9553,10 @@
         "popup"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/popup/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/popup/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/popup/README.md",
           "destination": "{installPath}/components/overlay/popup/README.md"
@@ -9310,6 +9622,10 @@
         "help"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/tooltip/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/tooltip/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/tooltip/README.md",
           "destination": "{installPath}/components/overlay/tooltip/README.md"
@@ -9423,6 +9739,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/overlay/refresh_trigger/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/refresh_trigger/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/overlay/refresh_trigger/README.md",
           "destination": "{installPath}/components/overlay/refresh_trigger/README.md"
         },
@@ -9533,6 +9853,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/display/tracker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/tracker/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/display/tracker/README.md",
           "destination": "{installPath}/components/display/tracker/README.md"
         },
@@ -9617,6 +9941,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/control/hover/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/hover/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/control/hover/README.md",
           "destination": "{installPath}/components/control/hover/README.md"
         },
@@ -9689,6 +10017,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/overlay/hover_card/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/hover_card/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/overlay/hover_card/README.md",
           "destination": "{installPath}/components/overlay/hover_card/README.md"
         },
@@ -9757,6 +10089,10 @@
         "notification"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/toast/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/toast/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/toast/README.md",
           "destination": "{installPath}/components/overlay/toast/README.md"
@@ -9840,6 +10176,10 @@
         "sheet"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/drawer/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/drawer/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/drawer/README.md",
           "destination": "{installPath}/components/overlay/drawer/README.md"
@@ -10074,6 +10414,10 @@
         "navigation"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/menu/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/menu/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/menu/README.md",
           "destination": "{installPath}/components/overlay/menu/README.md"
@@ -10325,6 +10669,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/overlay/menubar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/menubar/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/overlay/menubar/README.md",
           "destination": "{installPath}/components/overlay/menubar/README.md"
         },
@@ -10397,6 +10745,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/media_query/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/media_query/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/media_query/README.md",
           "destination": "{installPath}/components/layout/media_query/README.md"
         },
@@ -10449,6 +10801,10 @@
         "overlay"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/context_menu/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/context_menu/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/context_menu/README.md",
           "destination": "{installPath}/components/overlay/context_menu/README.md"
@@ -10564,6 +10920,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/overlay/dropdown_menu/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/dropdown_menu/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/overlay/dropdown_menu/README.md",
           "destination": "{installPath}/components/overlay/dropdown_menu/README.md"
         },
@@ -10642,6 +11002,10 @@
         "interaction"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/sortable/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/sortable/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/sortable/README.md",
           "destination": "{installPath}/components/layout/sortable/README.md"
@@ -10801,6 +11165,10 @@
         "tabs"
       ],
       "files": [
+        {
+          "source": "registry/components/navigation/navigation_bar/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/navigation_bar/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/navigation/navigation_bar/README.md",
           "destination": "{installPath}/components/navigation/navigation_bar/README.md"
@@ -11042,6 +11410,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/navigation_menu/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/navigation_menu/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/navigation_menu/README.md",
           "destination": "{installPath}/components/navigation/navigation_menu/README.md"
         },
@@ -11137,6 +11509,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/pagination/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/pagination/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/pagination/README.md",
           "destination": "{installPath}/components/navigation/pagination/README.md"
         },
@@ -11203,6 +11579,10 @@
         "layout"
       ],
       "files": [
+        {
+          "source": "registry/components/navigation/tabs/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/tabs/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/navigation/tabs/README.md",
           "destination": "{installPath}/components/navigation/tabs/README.md"
@@ -11414,6 +11794,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/tab_container/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/tab_container/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/tab_container/README.md",
           "destination": "{installPath}/components/navigation/tab_container/README.md"
         },
@@ -11512,6 +11896,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/tab_list/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/tab_list/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/tab_list/README.md",
           "destination": "{installPath}/components/navigation/tab_list/README.md"
         },
@@ -11583,6 +11971,10 @@
         "sortable"
       ],
       "files": [
+        {
+          "source": "registry/components/navigation/tab_pane/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/tab_pane/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/navigation/tab_pane/README.md",
           "destination": "{installPath}/components/navigation/tab_pane/README.md"
@@ -11689,6 +12081,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/switcher/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/switcher/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/switcher/README.md",
           "destination": "{installPath}/components/navigation/switcher/README.md"
         },
@@ -11770,6 +12166,10 @@
         "data"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/table/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/table/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/table/README.md",
           "destination": "{installPath}/components/layout/table/README.md"
@@ -12051,6 +12451,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/overflow_marquee/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/overflow_marquee/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/overflow_marquee/README.md",
           "destination": "{installPath}/components/layout/overflow_marquee/README.md"
         },
@@ -12132,6 +12536,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/control/patch/GETTING_STARTED.md",
+          "destination": "{installPath}/components/control/patch/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/control/patch/README.md",
           "destination": "{installPath}/components/control/patch/README.md"
         },
@@ -12193,6 +12601,10 @@
         "picker"
       ],
       "files": [
+        {
+          "source": "registry/components/form/time_picker/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/time_picker/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/time_picker/README.md",
           "destination": "{installPath}/components/form/time_picker/README.md"
@@ -12336,6 +12748,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/validated/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/validated/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/validated/README.md",
           "destination": "{installPath}/components/form/validated/README.md"
         },
@@ -12387,6 +12803,10 @@
         "progress"
       ],
       "files": [
+        {
+          "source": "registry/components/navigation/stepper/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/stepper/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/navigation/stepper/README.md",
           "destination": "{installPath}/components/navigation/stepper/README.md"
@@ -12556,6 +12976,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/steps/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/steps/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/steps/README.md",
           "destination": "{installPath}/components/layout/steps/README.md"
         },
@@ -12619,6 +13043,10 @@
         "panel"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/resizable/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/resizable/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/resizable/README.md",
           "destination": "{installPath}/components/layout/resizable/README.md"
@@ -12790,6 +13218,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/shadcn_localizations/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/shadcn_localizations/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/shadcn_localizations/README.md",
           "destination": "{installPath}/components/utility/shadcn_localizations/README.md"
         },
@@ -12845,6 +13277,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/shadcn_localizations_en/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/shadcn_localizations_en/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/shadcn_localizations_en/README.md",
           "destination": "{installPath}/components/utility/shadcn_localizations_en/README.md"
         },
@@ -12889,6 +13325,10 @@
         "i18n"
       ],
       "files": [
+        {
+          "source": "registry/components/utility/shadcn_localizations_extensions/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/shadcn_localizations_extensions/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/utility/shadcn_localizations_extensions/README.md",
           "destination": "{installPath}/components/utility/shadcn_localizations_extensions/README.md"
@@ -12936,6 +13376,10 @@
         "input"
       ],
       "files": [
+        {
+          "source": "registry/components/form/star_rating/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/star_rating/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/form/star_rating/README.md",
           "destination": "{installPath}/components/form/star_rating/README.md"
@@ -13039,6 +13483,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/navigation/subfocus/GETTING_STARTED.md",
+          "destination": "{installPath}/components/navigation/subfocus/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/navigation/subfocus/README.md",
           "destination": "{installPath}/components/navigation/subfocus/README.md"
         },
@@ -13104,6 +13552,10 @@
         "sheet"
       ],
       "files": [
+        {
+          "source": "registry/components/overlay/swiper/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/swiper/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/overlay/swiper/README.md",
           "destination": "{installPath}/components/overlay/swiper/README.md"
@@ -13194,6 +13646,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/timeline/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/timeline/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/timeline/README.md",
           "destination": "{installPath}/components/layout/timeline/README.md"
         },
@@ -13257,6 +13713,10 @@
         "structure"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/scaffold/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/scaffold/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/scaffold/README.md",
           "destination": "{installPath}/components/layout/scaffold/README.md"
@@ -13402,6 +13862,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/layout/stage_container/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/stage_container/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/layout/stage_container/README.md",
           "destination": "{installPath}/components/layout/stage_container/README.md"
         },
@@ -13468,6 +13932,10 @@
         "navigation"
       ],
       "files": [
+        {
+          "source": "registry/components/display/tree/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/tree/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/tree/README.md",
           "destination": "{installPath}/components/display/tree/README.md"
@@ -13674,6 +14142,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/utility/wrapper/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/wrapper/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/utility/wrapper/README.md",
           "destination": "{installPath}/components/utility/wrapper/README.md"
         },
@@ -13723,6 +14195,10 @@
         "desktop"
       ],
       "files": [
+        {
+          "source": "registry/components/layout/window/GETTING_STARTED.md",
+          "destination": "{installPath}/components/layout/window/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/layout/window/README.md",
           "destination": "{installPath}/components/layout/window/README.md"
@@ -13875,464 +14351,86 @@
       "version": "1.0.0"
     },
     {
-      "id": "number_input",
-      "name": "Number Input",
-      "description": "Composite export for numeric input helpers.",
-      "category": "form",
-      "tags": [
-        "form",
-        "input",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/form/number_input/README.md",
-          "destination": "{installPath}/composites/form/number_input/README.md"
-        },
-        {
-          "source": "composites/form/number_input/meta.json",
-          "destination": "{installPath}/composites/form/number_input/meta.json"
-        },
-        {
-          "source": "composites/form/number_input/number_input.dart",
-          "destination": "{installPath}/composites/form/number_input/number_input.dart"
-        },
-        {
-          "source": "composites/form/number_input/number_input.meta.json",
-          "destination": "{installPath}/composites/form/number_input/number_input.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "formatter",
-        "text_field"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "choices",
-      "name": "Choices",
-      "description": "Composite export for multiple choice helpers.",
-      "category": "form",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/form/choices/README.md",
-          "destination": "{installPath}/composites/form/choices/README.md"
-        },
-        {
-          "source": "composites/form/choices/choices.dart",
-          "destination": "{installPath}/composites/form/choices/choices.dart"
-        },
-        {
-          "source": "composites/form/choices/choices.meta.json",
-          "destination": "{installPath}/composites/form/choices/choices.meta.json"
-        },
-        {
-          "source": "composites/form/choices/meta.json",
-          "destination": "{installPath}/composites/form/choices/meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "multiple_choice"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "radio_card",
-      "name": "Radio Card",
-      "description": "Composite export for RadioCard and RadioGroup.",
-      "category": "form",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/form/radio_card/README.md",
-          "destination": "{installPath}/composites/form/radio_card/README.md"
-        },
-        {
-          "source": "composites/form/radio_card/meta.json",
-          "destination": "{installPath}/composites/form/radio_card/meta.json"
-        },
-        {
-          "source": "composites/form/radio_card/radio_card.dart",
-          "destination": "{installPath}/composites/form/radio_card/radio_card.dart"
-        },
-        {
-          "source": "composites/form/radio_card/radio_card.meta.json",
-          "destination": "{installPath}/composites/form/radio_card/radio_card.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "radio_group"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "multiselect",
-      "name": "Multi Select",
-      "description": "Composite export for MultiSelect built on Select.",
-      "category": "form",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/form/multiselect/README.md",
-          "destination": "{installPath}/composites/form/multiselect/README.md"
-        },
-        {
-          "source": "composites/form/multiselect/meta.json",
-          "destination": "{installPath}/composites/form/multiselect/meta.json"
-        },
-        {
-          "source": "composites/form/multiselect/multiselect.dart",
-          "destination": "{installPath}/composites/form/multiselect/multiselect.dart"
-        },
-        {
-          "source": "composites/form/multiselect/multiselect.meta.json",
-          "destination": "{installPath}/composites/form/multiselect/multiselect.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "select"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "app",
-      "name": "App",
-      "description": "Composite app wrapper with shadcn theme and overlay handling.",
-      "category": "layout",
-      "tags": [
-        "layout",
-        "app",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/layout/app/README.md",
-          "destination": "{installPath}/composites/layout/app/README.md"
-        },
-        {
-          "source": "composites/layout/app/_impl/core/shadcn_ui.dart",
-          "destination": "{installPath}/composites/layout/app/_impl/core/shadcn_ui.dart"
-        },
-        {
-          "source": "composites/layout/app/app.dart",
-          "destination": "{installPath}/composites/layout/app/app.dart"
-        },
-        {
-          "source": "composites/layout/app/app.meta.json",
-          "destination": "{installPath}/composites/layout/app/app.meta.json"
-        },
-        {
-          "source": "composites/layout/app/meta.json",
-          "destination": "{installPath}/composites/layout/app/meta.json"
-        }
-      ],
-      "shared": [
-        "theme",
-        "overlay"
-      ],
-      "dependsOn": [
-        "divider",
-        "scaffold"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "app_bar",
-      "name": "App Bar",
-      "description": "Composite export for AppBar with outline-styled building blocks.",
-      "category": "layout",
-      "tags": [
-        "layout",
-        "navigation",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/layout/app_bar/README.md",
-          "destination": "{installPath}/composites/layout/app_bar/README.md"
-        },
-        {
-          "source": "composites/layout/app_bar/app_bar.dart",
-          "destination": "{installPath}/composites/layout/app_bar/app_bar.dart"
-        },
-        {
-          "source": "composites/layout/app_bar/app_bar.meta.json",
-          "destination": "{installPath}/composites/layout/app_bar/app_bar.meta.json"
-        },
-        {
-          "source": "composites/layout/app_bar/meta.json",
-          "destination": "{installPath}/composites/layout/app_bar/meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "button",
-        "outlined_container",
-        "scaffold"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "material",
-      "name": "Material",
-      "description": "Composite export for ShadcnUI, cards, buttons, and dialogs.",
-      "category": "layout",
-      "tags": [
-        "layout",
-        "composite",
-        "material"
-      ],
-      "files": [
-        {
-          "source": "composites/layout/material/README.md",
-          "destination": "{installPath}/composites/layout/material/README.md"
-        },
-        {
-          "source": "composites/layout/material/material.dart",
-          "destination": "{installPath}/composites/layout/material/material.dart"
-        },
-        {
-          "source": "composites/layout/material/material.meta.json",
-          "destination": "{installPath}/composites/layout/material/material.meta.json"
-        },
-        {
-          "source": "composites/layout/material/meta.json",
-          "destination": "{installPath}/composites/layout/material/meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "alert_dialog",
-        "button",
-        "card"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "navigation_sidebar",
-      "name": "Navigation Sidebar",
-      "description": "Composite export for NavigationSidebar and related items.",
-      "category": "navigation",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/navigation/navigation_sidebar/README.md",
-          "destination": "{installPath}/composites/navigation/navigation_sidebar/README.md"
-        },
-        {
-          "source": "composites/navigation/navigation_sidebar/meta.json",
-          "destination": "{installPath}/composites/navigation/navigation_sidebar/meta.json"
-        },
-        {
-          "source": "composites/navigation/navigation_sidebar/navigation_sidebar.dart",
-          "destination": "{installPath}/composites/navigation/navigation_sidebar/navigation_sidebar.dart"
-        },
-        {
-          "source": "composites/navigation/navigation_sidebar/navigation_sidebar.meta.json",
-          "destination": "{installPath}/composites/navigation/navigation_sidebar/navigation_sidebar.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "navigation_bar",
-        "outlined_container"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "navigation_rail",
-      "name": "Navigation Rail",
-      "description": "Composite export for NavigationRail and related items.",
-      "category": "navigation",
-      "tags": [
-        "navigation",
-        "rail",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/navigation/navigation_rail/README.md",
-          "destination": "{installPath}/composites/navigation/navigation_rail/README.md"
-        },
-        {
-          "source": "composites/navigation/navigation_rail/meta.json",
-          "destination": "{installPath}/composites/navigation/navigation_rail/meta.json"
-        },
-        {
-          "source": "composites/navigation/navigation_rail/navigation_rail.dart",
-          "destination": "{installPath}/composites/navigation/navigation_rail/navigation_rail.dart"
-        },
-        {
-          "source": "composites/navigation/navigation_rail/navigation_rail.meta.json",
-          "destination": "{installPath}/composites/navigation/navigation_rail/navigation_rail.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "navigation_bar"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "expandable_sidebar",
-      "name": "Expandable Sidebar",
-      "description": "Composite export for expandable navigation rails.",
-      "category": "navigation",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/navigation/expandable_sidebar/README.md",
-          "destination": "{installPath}/composites/navigation/expandable_sidebar/README.md"
-        },
-        {
-          "source": "composites/navigation/expandable_sidebar/expandable_sidebar.dart",
-          "destination": "{installPath}/composites/navigation/expandable_sidebar/expandable_sidebar.dart"
-        },
-        {
-          "source": "composites/navigation/expandable_sidebar/expandable_sidebar.meta.json",
-          "destination": "{installPath}/composites/navigation/expandable_sidebar/expandable_sidebar.meta.json"
-        },
-        {
-          "source": "composites/navigation/expandable_sidebar/meta.json",
-          "destination": "{installPath}/composites/navigation/expandable_sidebar/meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "navigation_bar",
-        "outlined_container"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
       "id": "timeline_animation",
       "name": "Timeline Animation",
-      "description": "Composite export for timeline keyframes and helpers.",
-      "category": "animation",
+      "description": "Keyframe-based animation timeline utilities.",
+      "category": "utility",
       "tags": [
         "animation",
         "timeline",
-        "composite"
+        "keyframes"
       ],
       "files": [
         {
-          "source": "composites/animation/timeline_animation/README.md",
-          "destination": "{installPath}/composites/animation/timeline_animation/README.md"
+          "source": "registry/components/utility/timeline_animation/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/timeline_animation/GETTING_STARTED.md"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/core/absolute_keyframe.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/absolute_keyframe.dart"
+          "source": "registry/components/utility/timeline_animation/README.md",
+          "destination": "{installPath}/components/utility/timeline_animation/README.md"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/core/keyframe.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/keyframe.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/core/absolute_keyframe.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/core/absolute_keyframe.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/core/relative_keyframe.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/relative_keyframe.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/core/keyframe.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/core/keyframe.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/core/still_keyframe.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/still_keyframe.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/core/relative_keyframe.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/core/relative_keyframe.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/core/timeline_animation_widget.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/core/timeline_animation_widget.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/core/still_keyframe.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/core/still_keyframe.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/utils/timeline_animatable.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/utils/timeline_animatable.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/core/timeline_animation_widget.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/core/timeline_animation_widget.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/_impl/utils/transformers.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/_impl/utils/transformers.dart"
+          "source": "registry/components/utility/timeline_animation/_impl/utils/timeline_animatable.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/utils/timeline_animatable.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/meta.json",
-          "destination": "{installPath}/composites/animation/timeline_animation/meta.json"
+          "source": "registry/components/utility/timeline_animation/_impl/utils/transformers.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/_impl/utils/transformers.dart"
         },
         {
-          "source": "composites/animation/timeline_animation/timeline_animation.dart",
-          "destination": "{installPath}/composites/animation/timeline_animation/timeline_animation.dart"
+          "source": "registry/components/utility/timeline_animation/meta.json",
+          "destination": "{installPath}/components/utility/timeline_animation/meta.json"
         },
         {
-          "source": "composites/animation/timeline_animation/timeline_animation.meta.json",
-          "destination": "{installPath}/composites/animation/timeline_animation/timeline_animation.meta.json"
+          "source": "registry/components/utility/timeline_animation/timeline_animation.dart",
+          "destination": "{installPath}/components/utility/timeline_animation/timeline_animation.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/utils/transformers.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/core/keyframe.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/core/absolute_keyframe.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/core/relative_keyframe.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/core/still_keyframe.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/utils/timeline_animatable.dart"
+            },
+            {
+              "source": "registry/components/utility/timeline_animation/_impl/core/timeline_animation_widget.dart"
+            }
+          ]
+        },
+        {
+          "source": "registry/components/utility/timeline_animation/timeline_animation.meta.json",
+          "destination": "{installPath}/components/utility/timeline_animation/timeline_animation.meta.json"
         }
       ],
       "shared": [],
@@ -14345,152 +14443,35 @@
       "version": "1.0.0"
     },
     {
-      "id": "avatar_group",
-      "name": "Avatar Group",
-      "description": "Composite export for AvatarGroup, Avatar, and AvatarBadge.",
-      "category": "display",
-      "tags": [
-        "display",
-        "avatar",
-        "group",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/display/avatar_group/README.md",
-          "destination": "{installPath}/composites/display/avatar_group/README.md"
-        },
-        {
-          "source": "composites/display/avatar_group/avatar_group.dart",
-          "destination": "{installPath}/composites/display/avatar_group/avatar_group.dart"
-        },
-        {
-          "source": "composites/display/avatar_group/avatar_group.meta.json",
-          "destination": "{installPath}/composites/display/avatar_group/avatar_group.meta.json"
-        },
-        {
-          "source": "composites/display/avatar_group/meta.json",
-          "destination": "{installPath}/composites/display/avatar_group/meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "avatar"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "sheet",
-      "name": "Sheet",
-      "description": "Composite export for sheet workflows built on drawer + form.",
-      "category": "overlay",
-      "tags": [
-        "overlay",
-        "form",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/overlay/sheet/README.md",
-          "destination": "{installPath}/composites/overlay/sheet/README.md"
-        },
-        {
-          "source": "composites/overlay/sheet/meta.json",
-          "destination": "{installPath}/composites/overlay/sheet/meta.json"
-        },
-        {
-          "source": "composites/overlay/sheet/sheet.dart",
-          "destination": "{installPath}/composites/overlay/sheet/sheet.dart"
-        },
-        {
-          "source": "composites/overlay/sheet/sheet.meta.json",
-          "destination": "{installPath}/composites/overlay/sheet/sheet.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "alert_dialog",
-        "button",
-        "drawer",
-        "form"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
-      "id": "toggle",
-      "name": "Toggle",
-      "description": "Composite export for Toggle and ToggleController.",
-      "category": "control",
-      "tags": [
-        "control",
-        "toggle",
-        "composite"
-      ],
-      "files": [
-        {
-          "source": "composites/control/toggle/README.md",
-          "destination": "{installPath}/composites/control/toggle/README.md"
-        },
-        {
-          "source": "composites/control/toggle/meta.json",
-          "destination": "{installPath}/composites/control/toggle/meta.json"
-        },
-        {
-          "source": "composites/control/toggle/toggle.dart",
-          "destination": "{installPath}/composites/control/toggle/toggle.dart"
-        },
-        {
-          "source": "composites/control/toggle/toggle.meta.json",
-          "destination": "{installPath}/composites/control/toggle/toggle.meta.json"
-        }
-      ],
-      "shared": [],
-      "dependsOn": [
-        "button"
-      ],
-      "pubspec": {
-        "dependencies": {}
-      },
-      "assets": [],
-      "postInstall": [],
-      "version": "1.0.0"
-    },
-    {
       "id": "repeated_animation_builder",
       "name": "Repeated Animation Builder",
-      "description": "Composite export for RepeatedAnimationBuilder.",
+      "description": "Looping animation builder with interpolated values.",
       "category": "utility",
       "tags": [
         "animation",
         "utility",
-        "composite"
+        "builder"
       ],
       "files": [
         {
-          "source": "composites/utility/repeated_animation_builder/README.md",
-          "destination": "{installPath}/composites/utility/repeated_animation_builder/README.md"
+          "source": "registry/components/utility/repeated_animation_builder/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/repeated_animation_builder/GETTING_STARTED.md"
         },
         {
-          "source": "composites/utility/repeated_animation_builder/meta.json",
-          "destination": "{installPath}/composites/utility/repeated_animation_builder/meta.json"
+          "source": "registry/components/utility/repeated_animation_builder/README.md",
+          "destination": "{installPath}/components/utility/repeated_animation_builder/README.md"
         },
         {
-          "source": "composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
-          "destination": "{installPath}/composites/utility/repeated_animation_builder/repeated_animation_builder.dart"
+          "source": "registry/components/utility/repeated_animation_builder/meta.json",
+          "destination": "{installPath}/components/utility/repeated_animation_builder/meta.json"
         },
         {
-          "source": "composites/utility/repeated_animation_builder/repeated_animation_builder.meta.json",
-          "destination": "{installPath}/composites/utility/repeated_animation_builder/repeated_animation_builder.meta.json"
+          "source": "registry/components/utility/repeated_animation_builder/repeated_animation_builder.dart",
+          "destination": "{installPath}/components/utility/repeated_animation_builder/repeated_animation_builder.dart"
+        },
+        {
+          "source": "registry/components/utility/repeated_animation_builder/repeated_animation_builder.meta.json",
+          "destination": "{installPath}/components/utility/repeated_animation_builder/repeated_animation_builder.meta.json"
         }
       ],
       "shared": [
@@ -14515,6 +14496,10 @@
         "feature"
       ],
       "files": [
+        {
+          "source": "registry/components/display/feature_carousel/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/feature_carousel/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/feature_carousel/README.md",
           "destination": "{installPath}/components/display/feature_carousel/README.md"
@@ -14632,6 +14617,10 @@
       ],
       "files": [
         {
+          "source": "registry/components/form/dropzone/GETTING_STARTED.md",
+          "destination": "{installPath}/components/form/dropzone/GETTING_STARTED.md"
+        },
+        {
           "source": "registry/components/form/dropzone/README.md",
           "destination": "{installPath}/components/form/dropzone/README.md"
         },
@@ -14685,6 +14674,10 @@
         "placeholder"
       ],
       "files": [
+        {
+          "source": "registry/components/display/empty_state/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/empty_state/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/display/empty_state/README.md",
           "destination": "{installPath}/components/display/empty_state/README.md"
@@ -14764,6 +14757,10 @@
         "ui"
       ],
       "files": [
+        {
+          "source": "registry/components/utility/error_system/GETTING_STARTED.md",
+          "destination": "{installPath}/components/utility/error_system/GETTING_STARTED.md"
+        },
         {
           "source": "registry/components/utility/error_system/README.md",
           "destination": "{installPath}/components/utility/error_system/README.md"

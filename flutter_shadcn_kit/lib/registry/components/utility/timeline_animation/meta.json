@@ -1,0 +1,46 @@
+{
+  "id": "timeline_animation",
+  "name": "Timeline Animation",
+  "description": "Keyframe-based animation timeline utilities.",
+  "category": "utility",
+  "tags": [
+    "animation",
+    "timeline",
+    "keyframes"
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "README.md",
+    "GETTING_STARTED.md",
+    "_impl/core/absolute_keyframe.dart",
+    "_impl/core/keyframe.dart",
+    "_impl/core/relative_keyframe.dart",
+    "_impl/core/still_keyframe.dart",
+    "_impl/core/timeline_animation_widget.dart",
+    "_impl/utils/timeline_animatable.dart",
+    "_impl/utils/transformers.dart",
+    "meta.json",
+    "timeline_animation.dart",
+    "timeline_animation.meta.json"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types_and_helpers": [
+      "`TimelineAnimation<T>`",
+      "`TimelineAnimatable<T>`",
+      "`Keyframe<T>`",
+      "`AbsoluteKeyframe<T>`",
+      "`RelativeKeyframe<T>`",
+      "`StillKeyframe<T>`",
+      "`PropertyLerp<T>`",
+      "`Transformers`",
+      "`timelineMaxDuration`"
+    ]
+  },
+  "version": "1.0.0"
+}

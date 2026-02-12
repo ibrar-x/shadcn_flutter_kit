@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-09T11:00:59.715558Z",
+  "generatedAt": "2026-02-12T00:10:02.812706Z",
   "components": [
     {
       "id": "accordion",
@@ -157,82 +157,6 @@
       ]
     },
     {
-      "id": "app",
-      "name": "App",
-      "category": "layout",
-      "description": "Composite app wrapper with shadcn theme and overlay handling.",
-      "tags": [
-        "layout",
-        "app",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add app",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/layout/app/app.dart';",
-      "importPath": "ui/shadcn/composites/layout/app/app.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "widgets": [
-          "`ShadcnApp`",
-          "`ShadcnUI`",
-          "`Scaffold`",
-          "`AppBar`",
-          "`Divider`"
-        ]
-      },
-      "examples": {
-        "minimal": "ShadcnApp(\n  home: Scaffold(\n    appBar: AppBar(title: const Text('Home')),\n    body: const Center(child: Text('Hello')),\n  ),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": [
-          "theme",
-          "overlay"
-        ]
-      },
-      "related": [
-        "overlay",
-        "scaffold"
-      ]
-    },
-    {
-      "id": "app_bar",
-      "name": "App Bar",
-      "category": "layout",
-      "description": "Composite export for AppBar with outline-styled building blocks.",
-      "tags": [
-        "layout",
-        "navigation",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add app_bar",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/layout/app_bar/app_bar.dart';",
-      "importPath": "ui/shadcn/composites/layout/app_bar/app_bar.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`AppBar`",
-          "`OutlinedContainer`",
-          "`OutlineButton`",
-          "`ButtonDensity`"
-        ]
-      },
-      "examples": {
-        "minimal": "AppBar(\n  title: const Text('Title'),\n  trailing: [\n    OutlineButton(\n      onPressed: () {},\n      child: const Text('Action'),\n    ),\n  ],\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "scaffold",
-        "button"
-      ]
-    },
-    {
       "id": "async",
       "name": "Async",
       "category": "utility",
@@ -348,42 +272,6 @@
       "related": [
         "badge",
         "icon"
-      ]
-    },
-    {
-      "id": "avatar_group",
-      "name": "Avatar Group",
-      "category": "display",
-      "description": "Composite export for AvatarGroup, Avatar, and AvatarBadge.",
-      "tags": [
-        "display",
-        "avatar",
-        "group",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add avatar_group",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/display/avatar_group/avatar_group.dart';",
-      "importPath": "ui/shadcn/composites/display/avatar_group/avatar_group.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`Avatar`",
-          "`AvatarBadge`",
-          "`AvatarGroup`"
-        ]
-      },
-      "examples": {
-        "minimal": "AvatarGroup.toRight(\n  children: const [\n    Avatar(initials: 'AL'),\n    Avatar(initials: 'BR'),\n    Avatar(initials: 'CT'),\n  ],\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "avatar",
-        "badge"
       ]
     },
     {
@@ -1001,40 +889,6 @@
         "chip",
         "text_field",
         "autocomplete"
-      ]
-    },
-    {
-      "id": "choices",
-      "name": "Choices",
-      "category": "form",
-      "description": "Composite export for multiple choice helpers.",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add choices",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/form/choices/choices.dart';",
-      "importPath": "ui/shadcn/composites/form/choices/choices.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`Choices<T>` (alias of `MultipleChoice<T>`)",
-          "Re-exports `multiple_choice` APIs."
-        ]
-      },
-      "examples": {
-        "minimal": "Choices<String>(\n  value: 'A',\n  onChanged: (value) {},\n  child: const Text('Provide choice items here'),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "multiple_choice",
-        "radio_group"
       ]
     },
     {
@@ -1987,45 +1841,6 @@
       ]
     },
     {
-      "id": "expandable_sidebar",
-      "name": "Expandable Sidebar",
-      "category": "navigation",
-      "description": "Composite export for expandable navigation rails.",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add expandable_sidebar",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/expandable_sidebar/expandable_sidebar.dart';",
-      "importPath": "ui/shadcn/composites/navigation/expandable_sidebar/expandable_sidebar.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`ExpandableSidebar`",
-          "`NavigationRail`",
-          "`NavigationItem`",
-          "`NavigationLabel`",
-          "`NavigationDivider`",
-          "`NavigationRailAlignment`",
-          "`OutlinedContainer`"
-        ]
-      },
-      "examples": {
-        "minimal": "ExpandableSidebar(\n  rail: NavigationRail(\n    index: 0,\n    onSelected: (index) {},\n    children: const [\n      NavigationItem(child: Icon(Icons.home), label: Text('Home')),\n    ],\n  ),\n  content: const Center(child: Text('Content')),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "navigation_rail",
-        "navigation_sidebar"
-      ]
-    },
-    {
       "id": "eye_dropper",
       "name": "Eye Dropper",
       "category": "overlay",
@@ -2240,6 +2055,62 @@
         "dropzone",
         "file_input",
         "linear_progress_indicator"
+      ]
+    },
+    {
+      "id": "filter_bar",
+      "name": "Filter Bar",
+      "category": "layout",
+      "description": "Controlled filter header with search, sort, chips, date range, and clear-all actions.",
+      "tags": [
+        "layout",
+        "filter_bar",
+        "filter",
+        "search",
+        "sort"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add filter_bar",
+      "import": "import 'package:<your_app>/ui/shadcn/layout/filter_bar/filter_bar.dart';",
+      "importPath": "ui/shadcn/layout/filter_bar/filter_bar.dart",
+      "api": {
+        "constructors": [
+          "`FilterBar`",
+          "`state` (`FilterState`, required)",
+          "`onStateChanged` (`ValueChanged<FilterState>`, required)",
+          "`sortOptions` (`List<FilterSortOption>`, optional)",
+          "`enableDateRange` (`bool`, optional)",
+          "`resultsCount` (`int?`, optional)",
+          "`searchPlaceholder` (`String`, optional)",
+          "`searchDebounce` (`Duration?`, optional)",
+          "`trailingFilters` (`List<Widget>`, optional)",
+          "`customFilters` (`List<FilterCustomFilter>`, optional)",
+          "`style` (`FilterBarStyle?`, optional)",
+          "`clearPolicy` (`FilterClearPolicy`, optional)",
+          "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
+          "`showClearAllWhenEmpty` (`bool`, optional)",
+          "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
+        ],
+        "callbacks": [
+          "`onStateChanged` emits the next `FilterState` whenever the UI changes.",
+          "`onClearAll` optionally overrides clear-all behavior with custom policy logic."
+        ]
+      },
+      "examples": {
+        "minimal": "FilterState state = const FilterState(\n  sortId: 'newest',\n);\n\nFilterBar(\n  state: state,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n  onStateChanged: (next) {\n    setState(() => state = next);\n  },\n)"
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": [
+          "theme",
+          "lucide_icons",
+          "localizations"
+        ]
+      },
+      "related": [
+        "table",
+        "chip_input",
+        "date_picker"
       ]
     },
     {
@@ -3134,44 +3005,6 @@
       ]
     },
     {
-      "id": "material",
-      "name": "Material",
-      "category": "layout",
-      "description": "Composite export for ShadcnUI, cards, buttons, and dialogs.",
-      "tags": [
-        "layout",
-        "composite",
-        "material"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add material",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/layout/material/material.dart';",
-      "importPath": "ui/shadcn/composites/layout/material/material.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`ShadcnUI`",
-          "`AlertDialog`",
-          "`PrimaryButton`, `SecondaryButton`, `TextButton`",
-          "`ButtonDensity`",
-          "`Card`"
-        ]
-      },
-      "examples": {
-        "minimal": "ShadcnUI(\n  child: Card(\n    child: PrimaryButton(\n      onPressed: () {},\n      child: const Text('Continue'),\n    ),\n  ),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "app",
-        "card",
-        "button"
-      ]
-    },
-    {
       "id": "media_query",
       "name": "Media Query Visibility",
       "category": "layout",
@@ -3356,44 +3189,6 @@
       ]
     },
     {
-      "id": "multiselect",
-      "name": "Multi Select",
-      "category": "form",
-      "description": "Composite export for MultiSelect built on Select.",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add multiselect",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/form/multiselect/multiselect.dart';",
-      "importPath": "ui/shadcn/composites/form/multiselect/multiselect.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`MultiSelect<T>`",
-          "`MultiSelectChip`",
-          "`MultiSelectController<T>`",
-          "`SelectPopup`",
-          "`SelectItemList`",
-          "`SelectItemButton`"
-        ]
-      },
-      "examples": {
-        "minimal": "MultiSelect<String>(\n  value: const ['A'],\n  onChanged: (values) {},\n  popup: SelectPopup(\n    items: const SelectItemList(\n      children: [\n        SelectItemButton(value: 'A', child: Text('Option A')),\n        SelectItemButton(value: 'B', child: Text('Option B')),\n      ],\n    ),\n  ),\n  multiItemBuilder: (context, item) => Text(item),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "select",
-        "chip_input"
-      ]
-    },
-    {
       "id": "navigation_bar",
       "name": "Navigation Bar",
       "category": "navigation",
@@ -3488,125 +3283,6 @@
       "related": [
         "navigation_bar",
         "popover"
-      ]
-    },
-    {
-      "id": "navigation_rail",
-      "name": "Navigation Rail",
-      "category": "navigation",
-      "description": "Composite export for NavigationRail and related items.",
-      "tags": [
-        "navigation",
-        "rail",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add navigation_rail",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/navigation_rail/navigation_rail.dart';",
-      "importPath": "ui/shadcn/composites/navigation/navigation_rail/navigation_rail.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`NavigationRail`",
-          "`NavigationItem`",
-          "`NavigationDivider`",
-          "`NavigationLabel`",
-          "`NavigationGap`",
-          "`NavigationWidget`",
-          "`NavigationLabelType`",
-          "`NavigationLabelPosition`",
-          "`NavigationRailAlignment`",
-          "`NavigationButton`"
-        ]
-      },
-      "examples": {
-        "minimal": "NavigationRail(\n  index: 0,\n  onSelected: (index) {},\n  children: const [\n    NavigationItem(child: Icon(Icons.home), label: Text('Home')),\n    NavigationItem(child: Icon(Icons.settings), label: Text('Settings')),\n  ],\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "navigation_bar",
-        "navigation_sidebar"
-      ]
-    },
-    {
-      "id": "navigation_sidebar",
-      "name": "Navigation Sidebar",
-      "category": "navigation",
-      "description": "Composite export for NavigationSidebar and related items.",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add navigation_sidebar",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/navigation/navigation_sidebar/navigation_sidebar.dart';",
-      "importPath": "ui/shadcn/composites/navigation/navigation_sidebar/navigation_sidebar.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`NavigationSidebar`",
-          "`NavigationItem`",
-          "`NavigationDivider`",
-          "`NavigationLabel`",
-          "`NavigationGap`",
-          "`NavigationLabelType`",
-          "`NavigationLabelPosition`",
-          "`NavigationButton`",
-          "`OutlinedContainer`"
-        ]
-      },
-      "examples": {
-        "minimal": "NavigationSidebar(\n  index: 0,\n  onSelected: (index) {},\n  children: const [\n    NavigationItem(child: Icon(Icons.home), label: Text('Home')),\n    NavigationItem(child: Icon(Icons.settings), label: Text('Settings')),\n  ],\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "navigation_bar",
-        "navigation_rail"
-      ]
-    },
-    {
-      "id": "number_input",
-      "name": "Number Input",
-      "category": "form",
-      "description": "Composite export for numeric input helpers.",
-      "tags": [
-        "form",
-        "input",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add number_input",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/form/number_input/number_input.dart';",
-      "importPath": "ui/shadcn/composites/form/number_input/number_input.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "widgets_and_helpers": [
-          "`NumberInput`",
-          "`TextField`",
-          "`InputFeature`",
-          "`TextInputFormatters`"
-        ]
-      },
-      "examples": {
-        "minimal": "NumberInput(\n  value: 12,\n  onChanged: (value) {},\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "text_field",
-        "slider"
       ]
     },
     {
@@ -4094,42 +3770,6 @@
       ]
     },
     {
-      "id": "radio_card",
-      "name": "Radio Card",
-      "category": "form",
-      "description": "Composite export for RadioCard and RadioGroup.",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add radio_card",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/form/radio_card/radio_card.dart';",
-      "importPath": "ui/shadcn/composites/form/radio_card/radio_card.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`RadioCard<T>`",
-          "`RadioGroup<T>`",
-          "`RadioGroupController<T>`",
-          "`RadioItem<T>`"
-        ]
-      },
-      "examples": {
-        "minimal": "RadioGroup<String>(\n  value: 'basic',\n  onChanged: (value) {},\n  children: const [\n    RadioCard(value: 'basic', child: Text('Basic')),\n    RadioCard(value: 'pro', child: Text('Pro')),\n  ],\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "radio_group",
-        "card"
-      ]
-    },
-    {
       "id": "radio_group",
       "name": "Radio Group",
       "category": "form",
@@ -4230,16 +3870,16 @@
       "id": "repeated_animation_builder",
       "name": "Repeated Animation Builder",
       "category": "utility",
-      "description": "Composite export for RepeatedAnimationBuilder.",
+      "description": "Looping animation builder with interpolated values.",
       "tags": [
         "animation",
         "utility",
-        "composite"
+        "builder"
       ],
       "version": "1.0.0",
       "install": "flutter_shadcn add repeated_animation_builder",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/utility/repeated_animation_builder/repeated_animation_builder.dart';",
-      "importPath": "ui/shadcn/composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
+      "import": "import 'package:<your_app>/ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart';",
+      "importPath": "ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart",
       "api": {
         "constructors": [],
         "callbacks": [],
@@ -4248,7 +3888,7 @@
         ]
       },
       "examples": {
-        "minimal": "RepeatedAnimationBuilder(\n  start: 0,\n  end: 1,\n  duration: const Duration(seconds: 1),\n  builder: (context, value, child) => Opacity(\n    opacity: value,\n    child: child,\n  ),\n  child: const Text('Pulse'),\n)"
+        "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatelessWidget {\n  const Demo({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: RepeatedAnimationBuilder(\n          start: 0.7,\n          end: 1.0,\n          duration: const Duration(milliseconds: 900),\n          curve: Curves.easeInOut,\n          builder: (context, value, child) {\n            return Opacity(\n              opacity: value,\n              child: Transform.scale(scale: value, child: child),\n            );\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
       },
       "dependencies": {
         "pubspec": {},
@@ -4716,44 +4356,6 @@
       "related": [
         "shadcn_localizations",
         "locale_utils"
-      ]
-    },
-    {
-      "id": "sheet",
-      "name": "Sheet",
-      "category": "overlay",
-      "description": "Composite export for sheet workflows built on drawer + form.",
-      "tags": [
-        "overlay",
-        "form",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add sheet",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/overlay/sheet/sheet.dart';",
-      "importPath": "ui/shadcn/composites/overlay/sheet/sheet.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types_and_helpers": [
-          "`openSheet`",
-          "`closeSheet`",
-          "`OverlayPosition` (from `drawer`)",
-          "`AlertDialog`",
-          "`PrimaryButton`, `TextButton`",
-          "`Form`, `FormController`, `FormField<T>`, `FormTableLayout`, `FormErrorBuilder`"
-        ]
-      },
-      "examples": {
-        "minimal": "await openSheet(\n  context: context,\n  position: OverlayPosition.bottom,\n  builder: (context) => Form(\n    controller: FormController(),\n    child: const Text('Sheet content'),\n  ),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "drawer",
-        "form"
       ]
     },
     {
@@ -5539,6 +5141,7 @@
           "`text` (`String`, required)",
           "`style` (`TextStyle?`)",
           "`typewriter` (`TypewriterEffect?`)",
+          "`animateByWord` (`bool`, default `false`)",
           "`effect` (`StreamingTextEffectAdapter?`)",
           "`cursor` (`StreamingCursor?`)",
           "`textAlign` (`TextAlign?`)",
@@ -5559,6 +5162,9 @@
           "`StreamingTextEffectAdapter`",
           "`NoEffect`",
           "`BlurInEffect`",
+          "`FadeInEffect`",
+          "`SlideInEffect`",
+          "`ScrambleInEffect`",
           "`CombinedEffect`",
           "`StreamingCursor`",
           "`TextAnimateTheme`"
@@ -5766,17 +5372,17 @@
     {
       "id": "timeline_animation",
       "name": "Timeline Animation",
-      "category": "animation",
-      "description": "Composite export for timeline keyframes and helpers.",
+      "category": "utility",
+      "description": "Keyframe-based animation timeline utilities.",
       "tags": [
         "animation",
         "timeline",
-        "composite"
+        "keyframes"
       ],
       "version": "1.0.0",
       "install": "flutter_shadcn add timeline_animation",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/animation/timeline_animation/timeline_animation.dart';",
-      "importPath": "ui/shadcn/composites/animation/timeline_animation/timeline_animation.dart",
+      "import": "import 'package:<your_app>/ui/shadcn/components/utility/timeline_animation/timeline_animation.dart';",
+      "importPath": "ui/shadcn/components/utility/timeline_animation/timeline_animation.dart",
       "api": {
         "constructors": [],
         "callbacks": [],
@@ -5793,7 +5399,7 @@
         ]
       },
       "examples": {
-        "minimal": "final timeline = TimelineAnimation<double>(\n  keyframes: [\n    AbsoluteKeyframe(const Duration(milliseconds: 200), 0, 1),\n    StillKeyframe(const Duration(milliseconds: 200)),\n  ],\n);"
+        "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/timeline_animation/timeline_animation.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatefulWidget {\n  const Demo({super.key});\n\n  @override\n  State<Demo> createState() => _DemoState();\n}\n\nclass _DemoState extends State<Demo> with SingleTickerProviderStateMixin {\n  late final AnimationController controller;\n  late final TimelineAnimation<double> timeline;\n\n  @override\n  void initState() {\n    super.initState();\n    controller = AnimationController(\n      vsync: this,\n      duration: const Duration(milliseconds: 1400),\n    )..repeat(reverse: true);\n\n    timeline = TimelineAnimation<double>(\n      keyframes: [\n        AbsoluteKeyframe(const Duration(milliseconds: 400), 0.6, 1.0),\n        RelativeKeyframe(const Duration(milliseconds: 300), 1.2),\n        StillKeyframe(const Duration(milliseconds: 150)),\n        AbsoluteKeyframe(const Duration(milliseconds: 550), 1.2, 0.6),\n      ],\n    );\n  }\n\n  @override\n  void dispose() {\n    controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: AnimatedBuilder(\n          animation: controller,\n          builder: (context, child) {\n            final value = timeline.transform(controller.value);\n            return Transform.scale(scale: value, child: child);\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
       },
       "dependencies": {
         "pubspec": {},
@@ -5838,40 +5444,6 @@
       "related": [
         "dialog",
         "error_system"
-      ]
-    },
-    {
-      "id": "toggle",
-      "name": "Toggle",
-      "category": "control",
-      "description": "Composite export for Toggle and ToggleController.",
-      "tags": [
-        "control",
-        "toggle",
-        "composite"
-      ],
-      "version": "1.0.0",
-      "install": "flutter_shadcn add toggle",
-      "import": "import 'package:<your_app>/ui/shadcn/composites/control/toggle/toggle.dart';",
-      "importPath": "ui/shadcn/composites/control/toggle/toggle.dart",
-      "api": {
-        "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`Toggle`",
-          "`ToggleController`"
-        ]
-      },
-      "examples": {
-        "minimal": "Toggle(\n  value: true,\n  onChanged: (value) {},\n  child: const Text('Notifications'),\n)"
-      },
-      "dependencies": {
-        "pubspec": {},
-        "shared": []
-      },
-      "related": [
-        "button",
-        "switch"
       ]
     },
     {
