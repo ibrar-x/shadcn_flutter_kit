@@ -66,9 +66,11 @@ class CalendarItem extends StatelessWidget {
     required this.state,
   });
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     var type = this.type;
     if ((indexAtRow == 0 || indexAtRow == rowCount - 1) &&
         (type == CalendarItemType.startRangeSelected ||
@@ -214,6 +216,7 @@ class CalendarItem extends StatelessWidget {
                   ),
                 ),
               ),
+
               PrimaryButton(
                 density: ButtonDensity.compact,
                 alignment: Alignment.center,
@@ -242,6 +245,7 @@ class CalendarItem extends StatelessWidget {
                   ),
                 ),
               ),
+
               PrimaryButton(
                 density: ButtonDensity.compact,
                 alignment: Alignment.center,

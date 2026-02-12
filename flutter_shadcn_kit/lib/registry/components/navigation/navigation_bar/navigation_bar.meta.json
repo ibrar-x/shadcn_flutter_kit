@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "navigation_bar",
   "name": "Navigation Bar",
@@ -26,10 +25,10 @@
       "`children` (`List<Widget>`)",
       "`alignment` (`NavigationBarAlignment`)",
       "`type` (`NavigationContainerType`)",
-      "`NavigationItem` / `NavigationButton` — navigation entries.",
-      "`NavigationRail` / `NavigationSidebar` — alternate layouts.",
-      "`NavigationDivider`, `NavigationGap` — separators.",
-      "`NavigationBarTheme` — colors, padding, and label styles."
+      "`NavigationItem` / `NavigationButton` \u2014 navigation entries.",
+      "`NavigationRail` / `NavigationSidebar` \u2014 alternate layouts.",
+      "`NavigationDivider`, `NavigationGap` \u2014 separators.",
+      "`NavigationBarTheme` \u2014 colors, padding, and label styles."
     ],
     "callbacks": []
   },

@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _FilePickerPreviewState stores and manages mutable widget state.
 class _FilePickerPreviewState extends State<FilePickerPreview> {
+  /// Controller used to coordinate `_controller` behavior.
   late final FileUploadController _controller;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -14,6 +17,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.dispose();
@@ -28,6 +32,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     }
   }
 
+  /// Performs `_seedFiles` logic for this form component.
   List<FileLike> _seedFiles() {
     final now = DateTime.now().millisecondsSinceEpoch;
     return [
@@ -77,6 +82,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     }).toList();
   }
 
+  /// Performs `_buildControllerBar` logic for this form component.
   Widget _buildControllerBar(ThemeData theme, double scaling) {
     return AnimatedBuilder(
       animation: _controller,
@@ -103,6 +109,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

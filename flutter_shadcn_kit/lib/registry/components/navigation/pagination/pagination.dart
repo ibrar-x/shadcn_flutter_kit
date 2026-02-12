@@ -11,9 +11,12 @@ part '_impl/core/pagination_2.dart';
 
 /// Theme data for customizing [Pagination] appearance.
 class PaginationTheme extends ComponentThemeData {
+/// Stores `gap` state/configuration for this implementation.
   final double? gap;
+/// Stores `showLabel` state/configuration for this implementation.
   final bool? showLabel;
 
+/// Creates a `PaginationTheme` instance.
   const PaginationTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -22,6 +25,7 @@ class PaginationTheme extends ComponentThemeData {
     this.showLabel,
   });
 
+/// Creates a `PaginationTheme` instance.
   PaginationTheme copyWith({
     ValueGetter<double?>? gap,
     ValueGetter<bool?>? showLabel,
@@ -33,6 +37,7 @@ class PaginationTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is PaginationTheme &&

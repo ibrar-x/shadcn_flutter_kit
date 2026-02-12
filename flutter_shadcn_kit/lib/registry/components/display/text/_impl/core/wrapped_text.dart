@@ -119,6 +119,7 @@ class WrappedText extends StatelessWidget implements TextModifier {
     );
   }
 
+  /// Builds the widget tree for text.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

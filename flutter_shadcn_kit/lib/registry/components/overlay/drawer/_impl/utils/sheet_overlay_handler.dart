@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// SheetOverlayHandler defines a reusable type for this registry module.
 class SheetOverlayHandler extends OverlayHandler {
   /// Checks if the current context is within a sheet overlay.
   ///
@@ -28,6 +29,7 @@ class SheetOverlayHandler extends OverlayHandler {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is SheetOverlayHandler &&

@@ -2,13 +2,20 @@ part of '../../hidden.dart';
 
 /// Theme data for [Hidden].
 class HiddenTheme extends ComponentThemeData {
+/// Stores `direction` state/configuration for this implementation.
   final Axis? direction;
+/// Stores `duration` state/configuration for this implementation.
   final Duration? duration;
+/// Stores `curve` state/configuration for this implementation.
   final Curve? curve;
+/// Stores `reverse` state/configuration for this implementation.
   final bool? reverse;
+/// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool? keepCrossAxisSize;
+/// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool? keepMainAxisSize;
 
+/// Creates a `HiddenTheme` instance.
   const HiddenTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -21,6 +28,7 @@ class HiddenTheme extends ComponentThemeData {
     this.keepMainAxisSize,
   });
 
+/// Creates a `HiddenTheme` instance.
   HiddenTheme copyWith({
     ValueGetter<Axis?>? direction,
     ValueGetter<Duration?>? duration,
@@ -44,6 +52,7 @@ class HiddenTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is HiddenTheme &&
         other.direction == direction &&

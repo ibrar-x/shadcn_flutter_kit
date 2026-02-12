@@ -13,7 +13,9 @@ import 'app_error.dart';
 import 'app_error_hub.dart';
 import 'error_code.dart';
 
+/// AppErrorBanner defines a reusable type for this registry module.
 class AppErrorBanner extends StatelessWidget {
+/// Creates a `AppErrorBanner` instance.
   const AppErrorBanner({
     super.key,
     this.watchScopes = const [
@@ -29,8 +31,10 @@ class AppErrorBanner extends StatelessWidget {
   final List<String> watchScopes;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
 
     return Column(
@@ -65,6 +69,7 @@ class AppErrorBanner extends StatelessWidget {
     required VoidCallback onDismiss,
   }) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
 
@@ -86,11 +91,13 @@ class AppErrorBanner extends StatelessWidget {
 
     final padding =
         compTheme?.bannerPadding ??
+/// Creates a `EdgeInsets.symmetric` instance.
         EdgeInsets.symmetric(
           horizontal: theme.density.baseContentPadding * scaling,
           vertical: theme.density.baseGap * scaling * 1.5,
         );
 
+/// Stores `action` state/configuration for this implementation.
     final action = error.actions.isNotEmpty ? error.actions.first : null;
     final Widget? actionButton = action == null
         ? null
@@ -116,22 +123,28 @@ class AppErrorBanner extends StatelessWidget {
       padding: padding,
       child: Row(
         children: [
+/// Creates a `Icon` instance.
           Icon(
             compTheme?.bannerIcon ?? RadixIcons.exclamationTriangle,
             size: 18 * scaling,
             color: borderColor,
           ),
+/// Creates a `DensityGap` instance.
           DensityGap(gapMd),
+/// Creates a `Expanded` instance.
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+/// Creates a `DefaultTextStyle.merge` instance.
                 DefaultTextStyle.merge(
                   style: titleStyle,
                   child: Text(error.title),
                 ),
+/// Creates a `DensityGap` instance.
                 DensityGap(gapXs),
+/// Creates a `DefaultTextStyle.merge` instance.
                 DefaultTextStyle.merge(
                   style: messageStyle,
                   child: Text(error.message),
@@ -140,7 +153,9 @@ class AppErrorBanner extends StatelessWidget {
             ),
           ),
           if (actionButton != null) ...[DensityGap(gapMd), actionButton],
+/// Creates a `DensityGap` instance.
           DensityGap(gapSm),
+/// Creates a `GhostButton` instance.
           GhostButton(
             onPressed: onDismiss,
             size: ButtonSize.small,
@@ -153,6 +168,7 @@ class AppErrorBanner extends StatelessWidget {
   }
 }
 
+/// Executes `_borderForCode` behavior for this component/composite.
 Color _borderForCode(ThemeData theme, AppErrorCode code) {
   switch (code) {
     case AppErrorCode.validation:

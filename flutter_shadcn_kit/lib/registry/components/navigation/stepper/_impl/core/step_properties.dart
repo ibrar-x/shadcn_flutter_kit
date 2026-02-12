@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepProperties defines a reusable type for this registry module.
 class StepProperties {
   /// Size configuration for step indicators.
   final StepSize size;
@@ -33,10 +34,12 @@ class StepProperties {
   bool get hasFailure => state.value.stepStates.containsValue(StepState.failed);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StepProperties &&
         other.size == size &&
+/// Creates a `listEquals` instance.
         listEquals(other.steps, steps) &&
         other.state == state &&
         other.direction == direction;

@@ -1,12 +1,15 @@
 part of '../../menu.dart';
 
+/// MenuDivider defines a reusable type for this registry module.
 class MenuDivider extends StatelessWidget implements MenuItem {
   /// Creates a menu divider.
   const MenuDivider({super.key});
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final menuGroupData = Data.maybeOf<MenuGroupData>(context);
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return AnimatedPadding(
       duration: kDefaultDuration,
@@ -34,9 +37,11 @@ class MenuDivider extends StatelessWidget implements MenuItem {
   }
 
   @override
+/// Stores `hasLeading` state/configuration for this implementation.
   bool get hasLeading => false;
 
   @override
+/// Stores `popoverController` state/configuration for this implementation.
   PopoverController? get popoverController => null;
 }
 

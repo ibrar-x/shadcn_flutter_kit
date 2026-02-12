@@ -1,11 +1,20 @@
 part of '../../time_picker.dart';
 
+/// _DurationPickerDialogState stores and manages mutable widget state.
 class _DurationPickerDialogState extends State<DurationPickerDialog> {
+  /// Controller used to coordinate `_dayController` behavior.
   late TextEditingController _dayController;
+
+  /// Controller used to coordinate `_hourController` behavior.
   late TextEditingController _hourController;
+
+  /// Controller used to coordinate `_minuteController` behavior.
   late TextEditingController _minuteController;
+
+  /// Controller used to coordinate `_secondController` behavior.
   late TextEditingController _secondController;
 
+  /// Performs `_formatDigits` logic for this form component.
   String _formatDigits(int value) {
     return value.toString().padLeft(2, '0');
   }
@@ -41,12 +50,14 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     );
   }
 
+  /// Performs `_buildSeparator` logic for this form component.
   Widget _buildSeparator(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return const Text(':').x5Large().withPadding(horizontal: 8 * scaling);
   }
 
+  /// Performs `_onChanged` logic for this form component.
   void _onChanged() {
     int day = int.tryParse(_dayController.text) ?? 0;
     int hour = int.tryParse(_hourController.text) ?? 0;
@@ -63,6 +74,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     });
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _dayController.dispose();
@@ -72,6 +84,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     super.dispose();
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -95,6 +108,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     _secondController.addListener(_onChanged);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuPopupTheme defines a reusable type for this registry module.
 class MenuPopupTheme extends ComponentThemeData {
   /// The opacity of the surface.
   final double? surfaceOpacity;
@@ -54,6 +55,7 @@ class MenuPopupTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is MenuPopupTheme &&

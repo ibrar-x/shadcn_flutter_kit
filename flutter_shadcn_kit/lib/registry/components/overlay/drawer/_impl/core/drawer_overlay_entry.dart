@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// DrawerOverlayEntry defines a reusable type for this registry module.
 class DrawerOverlayEntry<T> {
   /// Key for accessing the drawer entry widget state.
   final GlobalKey<DrawerEntryWidgetState<T>> key = GlobalKey();

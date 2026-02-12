@@ -1,5 +1,6 @@
 part of '../../refresh_trigger.dart';
 
+/// RefreshTriggerStage defines a reusable type for this registry module.
 class RefreshTriggerStage {
   /// Current stage of the refresh lifecycle.
   final TriggerStage stage;

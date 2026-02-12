@@ -1,7 +1,9 @@
 part of '../../filter_bar.dart';
 
+/// Extension helpers used by this registry module.
 extension FilterStateExtensions on FilterState {
   bool get hasActiveFilters =>
+/// Creates a `search.trim` instance.
       search.trim().isNotEmpty ||
       sortId != null ||
       dateRange != null ||
@@ -9,6 +11,7 @@ extension FilterStateExtensions on FilterState {
       customFilters.values.any(_isCustomFilterActive);
 
   int get activeFilterCount {
+/// Stores `count` state/configuration for this implementation.
     var count = 0;
     if (search.trim().isNotEmpty) count += 1;
     if (sortId != null) count += 1;
@@ -18,6 +21,7 @@ extension FilterStateExtensions on FilterState {
     return count;
   }
 
+/// Executes `withoutChip` behavior for this component/composite.
   FilterState withoutChip(String chipKey) {
     final next = chips
         .where((chip) => chip.key != chipKey)
@@ -25,6 +29,7 @@ extension FilterStateExtensions on FilterState {
     return copyWith(chips: next);
   }
 
+/// Executes `cleared` behavior for this component/composite.
   FilterState cleared({FilterClearPolicy policy = const FilterClearPolicy()}) {
     return copyWith(
       search: policy.clearSearch ? '' : search,
@@ -38,6 +43,7 @@ extension FilterStateExtensions on FilterState {
   }
 
   T? customValue<T>(String key) {
+/// Stores `value` state/configuration for this implementation.
     final value = customFilters[key];
     if (value is T) {
       return value;
@@ -45,6 +51,7 @@ extension FilterStateExtensions on FilterState {
     return null;
   }
 
+/// Executes `setCustomValue` behavior for this component/composite.
   FilterState setCustomValue(String key, Object? value) {
     final next = Map<String, Object?>.of(customFilters);
     if (_isCustomFilterActive(value)) {
@@ -56,6 +63,7 @@ extension FilterStateExtensions on FilterState {
   }
 }
 
+/// Executes `_isCustomFilterActive` behavior for this component/composite.
 bool _isCustomFilterActive(Object? value) {
   if (value == null) return false;
   if (value is String) return value.trim().isNotEmpty;

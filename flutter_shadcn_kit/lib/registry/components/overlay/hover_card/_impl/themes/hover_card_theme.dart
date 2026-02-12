@@ -2,13 +2,20 @@ part of '../../hover_card.dart';
 
 /// Theme configuration for hover card behavior and appearance.
 class HoverCardTheme extends ComponentThemeData {
+/// Stores `debounce` state/configuration for this implementation.
   final Duration? debounce;
+/// Stores `wait` state/configuration for this implementation.
   final Duration? wait;
+/// Stores `popoverAlignment` state/configuration for this implementation.
   final AlignmentGeometry? popoverAlignment;
+/// Stores `anchorAlignment` state/configuration for this implementation.
   final AlignmentGeometry? anchorAlignment;
+/// Stores `popoverOffset` state/configuration for this implementation.
   final Offset? popoverOffset;
+/// Stores `behavior` state/configuration for this implementation.
   final HitTestBehavior? behavior;
 
+/// Creates a `HoverCardTheme` instance.
   const HoverCardTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -21,6 +28,7 @@ class HoverCardTheme extends ComponentThemeData {
     this.behavior,
   });
 
+/// Creates a `HoverCardTheme` instance.
   HoverCardTheme copyWith({
     ValueGetter<Duration?>? debounce,
     ValueGetter<Duration?>? wait,
@@ -46,6 +54,7 @@ class HoverCardTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is HoverCardTheme &&
         other.debounce == debounce &&

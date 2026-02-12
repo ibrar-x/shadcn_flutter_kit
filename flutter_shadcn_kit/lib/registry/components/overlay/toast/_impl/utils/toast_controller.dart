@@ -2,9 +2,13 @@ part of '../../toast.dart';
 
 /// Controller that displays toast entries using Overlay.
 class ToastController {
+/// Stores `_entries` state/configuration for this implementation.
   final List<OverlayEntry> _entries = [];
+/// Stores `defaultDuration` state/configuration for this implementation.
   final Duration defaultDuration;
+/// Stores `animationDuration` state/configuration for this implementation.
   final Duration animationDuration;
+/// Creates a `ToastController` instance.
   ToastController({
     this.defaultDuration = const Duration(seconds: 3),
     this.animationDuration = const Duration(milliseconds: 250),
@@ -17,7 +21,9 @@ class ToastController {
     double? spacing,
   }) {
     final overlay = Overlay.of(context);
+/// Stores `resolvedDuration` state/configuration for this implementation.
     final resolvedDuration = duration ?? defaultDuration;
+/// Stores `entry` state/configuration for this implementation.
     late final OverlayEntry entry;
     entry = OverlayEntry(
       builder: (overlayContext) {
@@ -26,8 +32,11 @@ class ToastController {
         final padding =
             toastTheme?.padding ??
             EdgeInsets.all(theme.density.baseContentPadding);
+/// Stores `resolvedSpacing` state/configuration for this implementation.
         final resolvedSpacing = spacing ?? toastTheme?.margin ?? 8.0;
+/// Stores `totalOffset` state/configuration for this implementation.
         final totalOffset = _entries.length * resolvedSpacing;
+/// Stores `foregroundColor` state/configuration for this implementation.
         final foregroundColor = theme.colorScheme.foreground;
         return Positioned(
           top: 32 + totalOffset,

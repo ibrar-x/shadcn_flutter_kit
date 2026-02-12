@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../group/group_widget.dart';
 
+/// GroupPreview defines a reusable type for this registry module.
 class GroupPreview extends StatelessWidget {
   const GroupPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -18,11 +20,14 @@ class GroupPreview extends StatelessWidget {
             ),
             child: GroupWidget(
               children: [
+/// Creates a `GroupPositioned` instance.
                 const GroupPositioned(top: 8, left: 8, child: Text('Layered')),
+/// Creates a `GroupPositioned.fromRect` instance.
                 GroupPositioned.fromRect(
                   rect: const Rect.fromLTWH(24, 40, 90, 50),
                   child: Container(color: Colors.blue.shade300),
                 ),
+/// Creates a `GroupPositioned` instance.
                 const GroupPositioned(
                   right: 8,
                   bottom: 8,

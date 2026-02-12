@@ -1,5 +1,6 @@
 part of '../../theme.dart';
 
+/// ComponentThemeData defines a reusable type for this registry module.
 abstract class ComponentThemeData {
   /// Optional density override for this component theme.
   final Density? themeDensity;

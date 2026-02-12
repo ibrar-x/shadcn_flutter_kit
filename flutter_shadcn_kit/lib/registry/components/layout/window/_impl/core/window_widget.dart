@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowWidget defines a reusable type for this registry module.
 class WindowWidget extends StatefulWidget {
   /// Widget displayed in the window's title bar.
   ///
@@ -197,5 +198,6 @@ class WindowWidget extends StatefulWidget {
        resizeThickness = null;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<WindowWidget> createState() => _WindowWidgetState();
 }

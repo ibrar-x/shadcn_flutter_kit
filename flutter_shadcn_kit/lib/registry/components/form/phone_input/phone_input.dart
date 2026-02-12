@@ -144,10 +144,12 @@ class PhoneInput extends StatefulWidget {
     this.searchPlaceholder,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<PhoneInput> createState() => _PhoneInputState();
 }
 
+/// Extension helpers for form-related types.
 extension _WidgetAsPopupBuilder on Widget {
   SelectPopupBuilder get asBuilder =>
       (_) => this;

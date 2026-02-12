@@ -64,9 +64,11 @@ class ConstantBreakpoint implements StageBreakpoint {
   final double breakpoint;
 
   @override
+/// Stores `minSize` state/configuration for this implementation.
   final double minSize;
 
   @override
+/// Stores `maxSize` state/configuration for this implementation.
   final double maxSize;
 
   /// Creates a [ConstantBreakpoint].
@@ -77,6 +79,7 @@ class ConstantBreakpoint implements StageBreakpoint {
   });
 
   @override
+/// Executes `getMinWidth` behavior for this component/composite.
   double getMinWidth(double width) {
     // 0 < width < breakpoint * 1 ? breakpoint * 1 : width
     // breakpoint * 1 < width < breakpoint * 2 ? breakpoint * 2 : width
@@ -85,6 +88,7 @@ class ConstantBreakpoint implements StageBreakpoint {
   }
 
   @override
+/// Executes `getMaxWidth` behavior for this component/composite.
   double getMaxWidth(double width) {
     return breakpoint * (width / breakpoint).ceil();
   }

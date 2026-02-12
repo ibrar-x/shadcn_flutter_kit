@@ -56,6 +56,7 @@ class Card extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<CardTheme>(context);

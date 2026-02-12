@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// Type alias for `TabPaneItemBuilder` used by public or internal APIs.
 typedef TabPaneItemBuilder<T> =
     TabChild Function(BuildContext context, TabPaneData<T> item, int index);
 

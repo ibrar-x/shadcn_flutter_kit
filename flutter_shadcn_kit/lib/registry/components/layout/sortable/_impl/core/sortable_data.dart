@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// SortableData defines a reusable type for this registry module.
 class SortableData<T> {
   /// The actual data being wrapped for sorting operations.
   ///
@@ -26,13 +27,16 @@ class SortableData<T> {
 
   @override
   @nonVirtual
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) => super == other;
 
   @override
   @nonVirtual
+/// Stores `hashCode` state/configuration for this implementation.
   int get hashCode => super.hashCode;
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() => 'SortableData($data)';
 }
 

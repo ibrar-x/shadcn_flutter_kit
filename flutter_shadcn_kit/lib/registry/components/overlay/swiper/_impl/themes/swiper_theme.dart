@@ -1,5 +1,6 @@
 part of '../../swiper.dart';
 
+/// SwiperTheme defines a reusable type for this registry module.
 class SwiperTheme extends ComponentThemeData {
   /// Whether the swiper should expand to fill available space.
   final bool? expands;
@@ -137,6 +138,7 @@ class SwiperTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is SwiperTheme &&
@@ -156,6 +158,7 @@ class SwiperTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'SwiperTheme(expands: $expands, draggable: $draggable, barrierDismissible: $barrierDismissible, backdropBuilder: $backdropBuilder, useSafeArea: $useSafeArea, showDragHandle: $showDragHandle, borderRadius: $borderRadius, dragHandleSize: $dragHandleSize, transformBackdrop: $transformBackdrop, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur, barrierColor: $barrierColor, behavior: $behavior)';
   }

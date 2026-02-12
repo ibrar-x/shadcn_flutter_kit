@@ -1,12 +1,15 @@
 part of '../../outlined_container.dart';
 
 
+/// _OutlinedContainerState defines a reusable type for this registry module.
 class _OutlinedContainerState extends State<OutlinedContainer> {
   final GlobalKey _mainContainerKey = GlobalKey();
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<OutlinedContainerTheme>(context);
     final borderRadius = styleValue(

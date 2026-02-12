@@ -58,6 +58,7 @@ class ColorControls extends StatelessWidget {
     this.showHistoryButton = true,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
@@ -72,6 +73,8 @@ class ColorControls extends StatelessWidget {
       themeValue: theme?.controlSpacing,
       widgetValue: this.controlSpacing,
     );
+
+    /// Performs `pickerModeToLabel` logic for this form component.
     String pickerModeToLabel(ColorPickerMode mode) {
       switch (mode) {
         case ColorPickerMode.rgb:
@@ -365,6 +368,7 @@ class ColorControls extends StatelessWidget {
     ];
   }
 
+  /// Performs `_toHex` logic for this form component.
   String _toHex() {
     int r = value.red.toInt();
     int g = value.green.toInt();

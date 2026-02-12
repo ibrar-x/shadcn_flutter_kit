@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart' hide Scrollbar;
 import '../scrollbar/scrollbar.dart';
 
+/// ScrollbarPreview defines a reusable type for this registry module.
 class ScrollbarPreview extends StatelessWidget {
   const ScrollbarPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

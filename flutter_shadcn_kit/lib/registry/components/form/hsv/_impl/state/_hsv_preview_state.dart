@@ -1,8 +1,10 @@
 part of '../../preview.dart';
 
+/// _HsvPreviewState stores and manages mutable widget state.
 class _HsvPreviewState extends State<HsvPreview> {
   HSVColor _color = HSVColor.fromColor(Colors.deepPurple);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

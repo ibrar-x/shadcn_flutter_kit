@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "media_query",
   "name": "Media Query Visibility",
@@ -24,7 +23,7 @@
       "`minWidth`, `maxWidth`",
       "`child` (`Widget`, required)",
       "`alternate` (`Widget?`)",
-      "`MediaQueryVisibilityTheme` — theme defaults."
+      "`MediaQueryVisibilityTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

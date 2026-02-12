@@ -66,6 +66,7 @@ class CarouselTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two carousel values for structural equality.
   @override
   bool operator ==(Object other) {
     return other is CarouselTheme &&

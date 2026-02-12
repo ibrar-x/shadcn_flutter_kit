@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../overflow_marquee/overflow_marquee.dart';
 
+/// OverflowMarqueePreview defines a reusable type for this registry module.
 class OverflowMarqueePreview extends StatelessWidget {
   const OverflowMarqueePreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

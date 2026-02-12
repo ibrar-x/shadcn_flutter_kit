@@ -1,9 +1,14 @@
 part of '../../text_area.dart';
 
+/// _TextAreaState stores and manages mutable widget state.
 class _TextAreaState extends State<TextArea> {
+  /// Field storing `_height` for this form implementation.
   late double _height;
+
+  /// Field storing `_width` for this form implementation.
   late double _width;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -11,6 +16,7 @@ class _TextAreaState extends State<TextArea> {
     _width = widget.initialWidth;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant TextArea oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -22,6 +28,7 @@ class _TextAreaState extends State<TextArea> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -58,6 +65,7 @@ class _TextAreaState extends State<TextArea> {
                 behavior: HitTestBehavior.translucent,
                 onPanUpdate: (details) {
                   if (widget.expandableHeight && _height.isFinite) {
+                    /// Triggers a rebuild after mutating local state.
                     setState(() {
                       _height += details.delta.dy;
                       _height = _height.clamp(
@@ -68,6 +76,7 @@ class _TextAreaState extends State<TextArea> {
                     });
                   }
                   if (widget.expandableWidth && _width.isFinite) {
+                    /// Triggers a rebuild after mutating local state.
                     setState(() {
                       _width += details.delta.dx;
                       _width = _width.clamp(widget.minWidth, widget.maxWidth);

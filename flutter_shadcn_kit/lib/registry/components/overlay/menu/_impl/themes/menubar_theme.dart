@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenubarTheme defines a reusable type for this registry module.
 class MenubarTheme extends ComponentThemeData {
   /// Whether to draw a border around the menubar container.
   ///
@@ -75,6 +76,7 @@ class MenubarTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is MenubarTheme &&

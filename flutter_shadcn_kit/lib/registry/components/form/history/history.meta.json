@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "history",
   "name": "Color History",
@@ -11,7 +10,7 @@
       "you need a shared color history across pickers."
     ],
     "avoid": [
-      "history isn’t relevant for the workflow."
+      "history isn\u2019t relevant for the workflow."
     ]
   },
   "examples": {
@@ -26,7 +25,7 @@
       "`crossAxisCount`, `spacing`, `selectedColor`, `maxTotalColors`",
       "`RecentColorsScope`",
       "`initialRecentColors`, `maxRecentColors`, `onRecentColorsChanged`",
-      "`ColorHistoryStorage` — storage interface for recent colors."
+      "`ColorHistoryStorage` \u2014 storage interface for recent colors."
     ],
     "callbacks": []
   },

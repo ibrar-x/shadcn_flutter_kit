@@ -9,15 +9,24 @@ import 'package:flutter/painting.dart';
 import 'color_scheme.dart';
 import 'theme.dart';
 
+/// RegistryThemePresetTokens defines a reusable type for this registry module.
 class RegistryThemePresetTokens {
+/// Stores `radius` state/configuration for this implementation.
   final double radius;
+/// Stores `spacing` state/configuration for this implementation.
   final SpacingScale spacing;
+/// Stores `tracking` state/configuration for this implementation.
   final TrackingScale tracking;
+/// Stores `shadows` state/configuration for this implementation.
   final ShadowScale shadows;
+/// Stores `fontSans` state/configuration for this implementation.
   final String? fontSans;
+/// Stores `fontSerif` state/configuration for this implementation.
   final String? fontSerif;
+/// Stores `fontMono` state/configuration for this implementation.
   final String? fontMono;
 
+/// Creates a `RegistryThemePresetTokens` instance.
   RegistryThemePresetTokens({
     required this.radius,
     required this.spacing,
@@ -32,14 +41,22 @@ class RegistryThemePresetTokens {
   Density get density => Density.fromSpacingScale(spacing);
 }
 
+/// RegistryThemePreset defines a reusable type for this registry module.
 class RegistryThemePreset {
+/// Stores `id` state/configuration for this implementation.
   final String id;
+/// Stores `name` state/configuration for this implementation.
   final String name;
+/// Stores `light` state/configuration for this implementation.
   final ColorScheme light;
+/// Stores `dark` state/configuration for this implementation.
   final ColorScheme dark;
+/// Stores `lightTokens` state/configuration for this implementation.
   final RegistryThemePresetTokens lightTokens;
+/// Stores `darkTokens` state/configuration for this implementation.
   final RegistryThemePresetTokens darkTokens;
 
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset({
     required this.id,
     required this.name,
@@ -51,6 +68,7 @@ class RegistryThemePreset {
 }
 
 final List<RegistryThemePreset> registryThemePresets = [
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'amber-minimal',
     name: 'Amber Minimal',
@@ -130,6 +148,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -138,6 +157,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -146,6 +166,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -154,6 +175,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -162,6 +184,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -170,6 +193,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -178,6 +202,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -186,6 +211,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -204,6 +230,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -212,6 +239,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -220,6 +248,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -228,6 +257,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -236,6 +266,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -244,6 +275,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -252,6 +284,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -260,6 +293,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -270,6 +304,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'amethyst-haze',
     name: 'Amethyst Haze',
@@ -349,6 +384,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -357,6 +393,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -365,6 +402,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -373,6 +411,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -381,6 +420,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -389,6 +429,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -397,6 +438,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -405,6 +447,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 2),
             blurRadius: 5,
@@ -423,6 +466,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -431,6 +475,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -439,6 +484,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -447,6 +493,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -455,6 +502,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -463,6 +511,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -471,6 +520,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -479,6 +529,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -489,6 +540,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'bold-tech',
     name: 'Bold Tech',
@@ -568,6 +620,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -576,6 +629,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -584,6 +638,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -592,6 +647,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -600,6 +656,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -608,6 +665,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -616,6 +674,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -624,6 +683,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -642,6 +702,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -650,6 +711,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -658,6 +720,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -666,6 +729,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -674,6 +738,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -682,6 +747,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -690,6 +756,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -698,6 +765,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -708,6 +776,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'bubblegum',
     name: 'Bubblegum',
@@ -787,6 +856,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -795,6 +865,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -803,6 +874,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -811,6 +883,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -819,6 +892,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -827,6 +901,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -835,6 +910,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -843,6 +919,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 0,
@@ -861,6 +938,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -869,6 +947,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -877,6 +956,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -885,6 +965,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -893,6 +974,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -901,6 +983,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -909,6 +992,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -917,6 +1001,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -930,6 +1015,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Fira Code, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'caffeine',
     name: 'Caffeine',
@@ -1009,6 +1095,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1017,6 +1104,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1025,6 +1113,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1033,6 +1122,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1041,6 +1131,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1049,6 +1140,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1057,6 +1149,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1065,6 +1158,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1080,6 +1174,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1088,6 +1183,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1096,6 +1192,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1104,6 +1201,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1112,6 +1210,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1120,6 +1219,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1128,6 +1228,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1136,6 +1237,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1146,6 +1248,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'candyland',
     name: 'Candyland',
@@ -1225,6 +1328,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1233,6 +1337,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1241,6 +1346,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1249,6 +1355,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1257,6 +1364,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1265,6 +1373,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1273,6 +1382,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1281,6 +1391,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1298,6 +1409,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1306,6 +1418,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1314,6 +1427,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1322,6 +1436,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1330,6 +1445,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1338,6 +1454,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1346,6 +1463,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1354,6 +1472,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1364,6 +1483,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'catppuccin',
     name: 'Catppuccin',
@@ -1443,6 +1563,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1451,6 +1572,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1459,6 +1581,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1467,6 +1590,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1475,6 +1599,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1483,6 +1608,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1491,6 +1617,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1499,6 +1626,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 6,
@@ -1517,6 +1645,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1525,6 +1654,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1533,6 +1663,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1541,6 +1672,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1549,6 +1681,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1557,6 +1690,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1565,6 +1699,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1573,6 +1708,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1583,6 +1719,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'claude',
     name: 'Claude',
@@ -1662,6 +1799,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1670,6 +1808,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1678,6 +1817,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1686,6 +1826,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1694,6 +1835,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1702,6 +1844,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1710,6 +1853,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1718,6 +1862,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1733,6 +1878,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1741,6 +1887,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1749,6 +1896,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1757,6 +1905,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1765,6 +1914,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1773,6 +1923,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1781,6 +1932,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1789,6 +1941,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -1799,6 +1952,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'claymorphism',
     name: 'Claymorphism',
@@ -1878,6 +2032,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1886,6 +2041,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1894,6 +2050,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1902,6 +2059,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1910,6 +2068,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1918,6 +2077,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1926,6 +2086,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1934,6 +2095,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 10,
@@ -1952,6 +2114,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -1960,6 +2123,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -1968,6 +2132,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -1976,6 +2141,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -1984,6 +2150,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -1992,6 +2159,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2000,6 +2168,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2008,6 +2177,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2018,6 +2188,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'clean-slate',
     name: 'Clean Slate',
@@ -2097,6 +2268,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2105,6 +2277,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2113,6 +2286,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2121,6 +2295,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2129,6 +2304,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2137,6 +2313,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2145,6 +2322,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2153,6 +2331,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2171,6 +2350,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2179,6 +2359,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2187,6 +2368,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2195,6 +2377,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2203,6 +2386,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2211,6 +2395,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2219,6 +2404,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2227,6 +2413,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2237,6 +2424,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'cosmic-night',
     name: 'Cosmic Night',
@@ -2316,6 +2504,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2324,6 +2513,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2332,6 +2522,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2340,6 +2531,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2348,6 +2540,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2356,6 +2549,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2364,6 +2558,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2372,6 +2567,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
@@ -2390,6 +2586,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2398,6 +2595,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2406,6 +2604,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2414,6 +2613,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2422,6 +2622,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2430,6 +2631,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2438,6 +2640,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2446,6 +2649,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2456,6 +2660,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'cyberpunk',
     name: 'Cyberpunk',
@@ -2535,6 +2740,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2543,6 +2749,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2551,6 +2758,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2559,6 +2767,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2567,6 +2776,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2575,6 +2785,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2583,6 +2794,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2591,6 +2803,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -2608,6 +2821,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2616,6 +2830,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2624,6 +2839,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2632,6 +2848,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2640,6 +2857,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2648,6 +2866,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2656,6 +2875,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2664,6 +2884,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -2674,6 +2895,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'darkmatter',
     name: 'Darkmatter',
@@ -2753,6 +2975,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2761,6 +2984,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2769,6 +2993,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2777,6 +3002,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2785,6 +3011,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2793,6 +3020,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2801,6 +3029,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2809,6 +3038,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -2827,6 +3057,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2835,6 +3066,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2843,6 +3075,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2851,6 +3084,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2859,6 +3093,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2867,6 +3102,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2875,6 +3111,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2883,6 +3120,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -2893,6 +3131,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'doom-64',
     name: 'Doom 64',
@@ -2972,6 +3211,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -2980,6 +3220,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -2988,6 +3229,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -2996,6 +3238,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -3004,6 +3247,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -3012,6 +3256,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -3020,6 +3265,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -3028,6 +3274,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 4,
@@ -3047,6 +3294,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3055,6 +3303,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3063,6 +3312,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3071,6 +3321,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3079,6 +3330,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3087,6 +3339,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3095,6 +3348,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3103,6 +3357,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 5,
@@ -3117,6 +3372,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "\"Source Code Pro\", monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'elegant-luxury',
     name: 'Elegant Luxury',
@@ -3196,6 +3452,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3204,6 +3461,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3212,6 +3470,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3220,6 +3479,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3228,6 +3488,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3236,6 +3497,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3244,6 +3506,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3252,6 +3515,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 16,
@@ -3270,6 +3534,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3278,6 +3543,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3286,6 +3552,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3294,6 +3561,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3302,6 +3570,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3310,6 +3579,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3318,6 +3588,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3326,6 +3597,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3336,6 +3608,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'graphite',
     name: 'Graphite',
@@ -3415,6 +3688,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3423,6 +3697,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3431,6 +3706,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3439,6 +3715,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3447,6 +3724,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3455,6 +3733,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3463,6 +3742,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3471,6 +3751,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -3489,6 +3770,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3497,6 +3779,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3505,6 +3788,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3513,6 +3797,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3521,6 +3806,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3529,6 +3815,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3537,6 +3824,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3545,6 +3833,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3558,6 +3847,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Fira Code, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'kodama-grove',
     name: 'Kodama Grove',
@@ -3637,6 +3927,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3645,6 +3936,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3653,6 +3945,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3661,6 +3954,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3669,6 +3963,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3677,6 +3972,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3685,6 +3981,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3693,6 +3990,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(3, 3),
             blurRadius: 2,
@@ -3711,6 +4009,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3719,6 +4018,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3727,6 +4027,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3735,6 +4036,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3743,6 +4045,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3751,6 +4054,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3759,6 +4063,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3767,6 +4072,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3777,6 +4083,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'midnight-bloom',
     name: 'Midnight Bloom',
@@ -3856,6 +4163,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3864,6 +4172,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3872,6 +4181,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3880,6 +4190,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3888,6 +4199,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3896,6 +4208,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3904,6 +4217,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3912,6 +4226,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 5),
             blurRadius: 10,
@@ -3930,6 +4245,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3938,6 +4254,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3946,6 +4263,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3954,6 +4272,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3962,6 +4281,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3970,6 +4290,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3978,6 +4299,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3986,6 +4308,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -3996,6 +4319,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'mocha-mousse',
     name: 'Mocha Mousse',
@@ -4075,6 +4399,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4083,6 +4408,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4091,6 +4417,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4099,6 +4426,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4107,6 +4435,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4115,6 +4444,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4123,6 +4453,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4131,6 +4462,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 0,
@@ -4149,6 +4481,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4157,6 +4490,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4165,6 +4499,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4173,6 +4508,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4181,6 +4517,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4189,6 +4526,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4197,6 +4535,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4205,6 +4544,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -4215,6 +4555,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'modern-minimal',
     name: 'Modern Minimal',
@@ -4294,6 +4635,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4302,6 +4644,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4310,6 +4653,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4318,6 +4662,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4326,6 +4671,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4334,6 +4680,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4342,6 +4689,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4350,6 +4698,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4368,6 +4717,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4376,6 +4726,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4384,6 +4735,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4392,6 +4744,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4400,6 +4753,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4408,6 +4762,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4416,6 +4771,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4424,6 +4780,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4434,6 +4791,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'mono',
     name: 'Mono',
@@ -4513,6 +4871,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4521,6 +4880,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4529,6 +4889,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4537,6 +4898,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4545,6 +4907,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4553,6 +4916,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4561,6 +4925,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4569,6 +4934,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 0,
@@ -4587,6 +4953,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4595,6 +4962,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4603,6 +4971,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4611,6 +4980,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4619,6 +4989,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4627,6 +4998,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4635,6 +5007,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4643,6 +5016,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4653,6 +5027,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'nature',
     name: 'Nature',
@@ -4732,6 +5107,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4740,6 +5116,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4748,6 +5125,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4756,6 +5134,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4764,6 +5143,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4772,6 +5152,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4780,6 +5161,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4788,6 +5170,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4806,6 +5189,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4814,6 +5198,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4822,6 +5207,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4830,6 +5216,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4838,6 +5225,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4846,6 +5234,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4854,6 +5243,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4862,6 +5252,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -4872,6 +5263,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'neo-brutalism',
     name: 'Neo Brutalism',
@@ -4951,6 +5343,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4959,6 +5352,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4967,6 +5361,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4975,6 +5370,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4983,6 +5379,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4991,6 +5388,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -4999,6 +5397,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -5007,6 +5406,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(4, 4),
             blurRadius: 0,
@@ -5024,6 +5424,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5032,6 +5433,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5040,6 +5442,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5048,6 +5451,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5056,6 +5460,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5064,6 +5469,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5072,6 +5478,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5080,6 +5487,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5090,6 +5498,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'northern-lights',
     name: 'Northern Lights',
@@ -5169,6 +5578,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5177,6 +5587,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5185,6 +5596,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5193,6 +5605,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5201,6 +5614,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5209,6 +5623,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5217,6 +5632,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5225,6 +5641,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5243,6 +5660,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5251,6 +5669,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5259,6 +5678,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5267,6 +5687,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5275,6 +5696,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5283,6 +5705,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5291,6 +5714,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5299,6 +5723,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5309,6 +5734,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'notebook',
     name: 'Notebook',
@@ -5388,6 +5814,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0.5),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5396,6 +5823,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5404,6 +5832,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5412,6 +5841,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5420,6 +5850,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5428,6 +5859,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5436,6 +5868,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5444,6 +5877,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5462,6 +5896,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0.5),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5470,6 +5905,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5478,6 +5914,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5486,6 +5923,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5494,6 +5932,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5502,6 +5941,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5510,6 +5950,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5518,6 +5959,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 4),
             blurRadius: 5,
@@ -5531,6 +5973,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "\"Fira Code\", \"Courier New\", monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'ocean-breeze',
     name: 'Ocean Breeze',
@@ -5610,6 +6053,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5618,6 +6062,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5626,6 +6071,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5634,6 +6080,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5642,6 +6089,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5650,6 +6098,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5658,6 +6107,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5666,6 +6116,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 8,
@@ -5684,6 +6135,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5692,6 +6144,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5700,6 +6153,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5708,6 +6162,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5716,6 +6171,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5724,6 +6180,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5732,6 +6189,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5740,6 +6198,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5750,6 +6209,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'pastel-dreams',
     name: 'Pastel Dreams',
@@ -5829,6 +6289,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5837,6 +6298,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5845,6 +6307,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5853,6 +6316,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5861,6 +6325,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5869,6 +6334,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5877,6 +6343,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5885,6 +6352,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 8),
             blurRadius: 16,
@@ -5903,6 +6371,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5911,6 +6380,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5919,6 +6389,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5927,6 +6398,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5935,6 +6407,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5943,6 +6416,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5951,6 +6425,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5959,6 +6434,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -5969,6 +6445,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'perpetuity',
     name: 'Perpetuity',
@@ -6048,6 +6525,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6056,6 +6534,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6064,6 +6543,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6072,6 +6552,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6080,6 +6561,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6088,6 +6570,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6096,6 +6579,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6104,6 +6588,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6122,6 +6607,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6130,6 +6616,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6138,6 +6625,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6146,6 +6634,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6154,6 +6643,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6162,6 +6652,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6170,6 +6661,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6178,6 +6670,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(1, 1),
             blurRadius: 2,
@@ -6191,6 +6684,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Source Code Pro, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'quantum-rose',
     name: 'Quantum Rose',
@@ -6270,6 +6764,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6278,6 +6773,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6286,6 +6782,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6294,6 +6791,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6302,6 +6800,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6310,6 +6809,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6318,6 +6818,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6326,6 +6827,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 3),
             blurRadius: 0,
@@ -6344,6 +6846,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6352,6 +6855,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6360,6 +6864,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6368,6 +6873,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6376,6 +6882,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6384,6 +6891,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6392,6 +6900,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6400,6 +6909,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6413,6 +6923,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Space Mono, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'retro-arcade',
     name: 'Retro Arcade',
@@ -6492,6 +7003,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6500,6 +7012,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6508,6 +7021,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6516,6 +7030,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6524,6 +7039,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6532,6 +7048,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6540,6 +7057,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6548,6 +7066,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 2),
             blurRadius: 4,
@@ -6565,6 +7084,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6573,6 +7093,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6581,6 +7102,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6589,6 +7111,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6597,6 +7120,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6605,6 +7129,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6613,6 +7138,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6621,6 +7147,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -6631,6 +7158,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'sage-garden',
     name: 'Sage Garden',
@@ -6710,6 +7238,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6718,6 +7247,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6726,6 +7256,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6734,6 +7265,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6742,6 +7274,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6750,6 +7283,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6758,6 +7292,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6766,6 +7301,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -6784,6 +7320,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6792,6 +7329,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6800,6 +7338,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6808,6 +7347,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6816,6 +7356,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6824,6 +7365,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6832,6 +7374,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6840,6 +7383,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6850,6 +7394,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'soft-pop',
     name: 'Soft Pop',
@@ -6929,6 +7474,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6937,6 +7483,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6945,6 +7492,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6953,6 +7501,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6961,6 +7510,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6969,6 +7519,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6977,6 +7528,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -6985,6 +7537,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7003,6 +7556,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7011,6 +7565,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7019,6 +7574,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7027,6 +7583,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7035,6 +7592,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7043,6 +7601,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7051,6 +7610,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7059,6 +7619,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7072,6 +7633,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Space Mono, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'solar-dusk',
     name: 'Solar Dusk',
@@ -7151,6 +7713,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7159,6 +7722,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7167,6 +7731,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7175,6 +7740,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7183,6 +7749,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7191,6 +7758,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7199,6 +7767,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7207,6 +7776,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -7225,6 +7795,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7233,6 +7804,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7241,6 +7813,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7249,6 +7822,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7257,6 +7831,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7265,6 +7840,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7273,6 +7849,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7281,6 +7858,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -7291,6 +7869,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'starry-night',
     name: 'Starry Night',
@@ -7370,6 +7949,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7378,6 +7958,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7386,6 +7967,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7394,6 +7976,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7402,6 +7985,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7410,6 +7994,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7418,6 +8003,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7426,6 +8012,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7442,6 +8029,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7450,6 +8038,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7458,6 +8047,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7466,6 +8056,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7474,6 +8065,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7482,6 +8074,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7490,6 +8083,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7498,6 +8092,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7508,6 +8103,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'sunset-horizon',
     name: 'Sunset Horizon',
@@ -7587,6 +8183,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7595,6 +8192,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7603,6 +8201,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7611,6 +8210,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7619,6 +8219,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7627,6 +8228,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7635,6 +8237,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7643,6 +8246,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 6),
             blurRadius: 12,
@@ -7661,6 +8265,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7669,6 +8274,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7677,6 +8283,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7685,6 +8292,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7693,6 +8301,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7701,6 +8310,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7709,6 +8319,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7717,6 +8328,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7727,6 +8339,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'supabase',
     name: 'Supabase',
@@ -7806,6 +8419,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0.4),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7814,6 +8428,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7822,6 +8437,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7830,6 +8446,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7838,6 +8455,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7846,6 +8464,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7854,6 +8473,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7862,6 +8482,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -7881,6 +8502,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7889,6 +8511,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7897,6 +8520,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7905,6 +8529,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7913,6 +8538,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7921,6 +8547,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7929,6 +8556,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7937,6 +8565,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -7947,6 +8576,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 't3-chat',
     name: 'T3 Chat',
@@ -8026,6 +8656,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8034,6 +8665,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8042,6 +8674,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8050,6 +8683,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8058,6 +8692,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8066,6 +8701,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8074,6 +8710,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8082,6 +8719,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8097,6 +8735,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8105,6 +8744,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8113,6 +8753,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8121,6 +8762,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8129,6 +8771,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8137,6 +8780,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8145,6 +8789,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8153,6 +8798,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8163,6 +8809,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'tangerine',
     name: 'Tangerine',
@@ -8242,6 +8889,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8250,6 +8898,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8258,6 +8907,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8266,6 +8916,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8274,6 +8925,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8282,6 +8934,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8290,6 +8943,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8298,6 +8952,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 3,
@@ -8316,6 +8971,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8324,6 +8980,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8332,6 +8989,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8340,6 +8998,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8348,6 +9007,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8356,6 +9016,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8364,6 +9025,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8372,6 +9034,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8382,6 +9045,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'twitter',
     name: 'Twitter',
@@ -8461,6 +9125,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8469,6 +9134,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8477,6 +9143,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8485,6 +9152,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8493,6 +9161,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8501,6 +9170,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8509,6 +9179,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8517,6 +9188,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 0,
@@ -8535,6 +9207,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8543,6 +9216,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8551,6 +9225,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8559,6 +9234,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8567,6 +9243,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8575,6 +9252,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8583,6 +9261,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8591,6 +9270,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 0),
             blurRadius: 0,
@@ -8601,6 +9281,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'vercel',
     name: 'Vercel',
@@ -8680,6 +9361,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8688,6 +9370,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8696,6 +9379,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8704,6 +9388,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8712,6 +9397,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8720,6 +9406,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8728,6 +9415,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8736,6 +9424,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 1),
             blurRadius: 2,
@@ -8754,6 +9443,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8762,6 +9452,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8770,6 +9461,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8778,6 +9470,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8786,6 +9479,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8794,6 +9488,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8802,6 +9497,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8810,6 +9506,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8823,6 +9520,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       fontMono: "Geist Mono, monospace",
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'vintage-paper',
     name: 'Vintage Paper',
@@ -8902,6 +9600,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8910,6 +9609,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8918,6 +9618,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8926,6 +9627,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8934,6 +9636,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8942,6 +9645,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8950,6 +9654,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8958,6 +9663,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(2, 3),
             blurRadius: 5,
@@ -8976,6 +9682,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: 0),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8984,6 +9691,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -8992,6 +9700,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9000,6 +9709,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9008,6 +9718,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9016,6 +9727,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9024,6 +9736,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9032,6 +9745,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(20.5, 16.5),
             blurRadius: 25.5,
@@ -9042,6 +9756,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       ),
     ),
   ),
+/// Creates a `RegistryThemePreset` instance.
   RegistryThemePreset(
     id: 'violet-bloom',
     name: 'Violet Bloom',
@@ -9121,6 +9836,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: -0.4),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9129,6 +9845,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9137,6 +9854,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9145,6 +9863,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9153,6 +9872,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9161,6 +9881,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9169,6 +9890,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9177,6 +9899,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9195,6 +9918,7 @@ final List<RegistryThemePreset> registryThemePresets = [
       tracking: TrackingScale(normal: -0.4),
       shadows: ShadowScale(
         shadow2xs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9203,6 +9927,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXs: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9211,6 +9936,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowSm: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9219,6 +9945,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9227,6 +9954,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowMd: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9235,6 +9963,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowLg: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9243,6 +9972,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadowXl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,
@@ -9251,6 +9981,7 @@ final List<RegistryThemePreset> registryThemePresets = [
           ),
         ],
         shadow2xl: [
+/// Creates a `BoxShadow` instance.
           BoxShadow(
             offset: Offset(0, 2),
             blurRadius: 3,

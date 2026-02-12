@@ -7,7 +7,9 @@ import '../state/shadcn_scrollbar_state.dart';
 const Duration _kScrollbarFadeDuration = Duration(milliseconds: 300);
 const Duration _kScrollbarTimeToFade = Duration(milliseconds: 600);
 
+/// ShadcnScrollbar defines a reusable type for this registry module.
 class ShadcnScrollbar extends RawScrollbar {
+/// Creates a `ShadcnScrollbar` instance.
   const ShadcnScrollbar({
     super.key,
     required super.child,
@@ -28,8 +30,10 @@ class ShadcnScrollbar extends RawScrollbar {
              notificationPredicate ?? defaultScrollNotificationPredicate,
        );
 
+/// Stores `color` state/configuration for this implementation.
   final Color? color;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   RawScrollbarState<ShadcnScrollbar> createState() => ShadcnScrollbarState();
 }

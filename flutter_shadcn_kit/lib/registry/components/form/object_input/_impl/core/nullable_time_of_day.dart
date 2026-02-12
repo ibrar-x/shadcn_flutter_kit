@@ -28,11 +28,13 @@ class NullableTimeOfDay {
   /// - [second] (`int?`, optional): Second value (0-59).
   NullableTimeOfDay({this.hour, this.minute, this.second});
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'NullableTimeOfDay{hour: $hour, minute: $minute, second: $second}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

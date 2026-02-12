@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "chip_input",
   "name": "Chip Input",
@@ -33,7 +32,7 @@
       "`initialChips` (`List<T>?`)",
       "`useChips` (`bool?`)",
       "`autoInsertSuggestion` (`bool`)",
-      "`ChipEditingController<T>` — controller for chip text and values."
+      "`ChipEditingController<T>` \u2014 controller for chip text and values."
     ],
     "callbacks": [
       "`onChipsChanged`"

@@ -23,6 +23,7 @@ class SelectState<T> extends State<Select<T>>
 
   SelectTheme? _theme;
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -77,6 +78,7 @@ class SelectState<T> extends State<Select<T>>
     defaultValue: true,
   );
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -85,6 +87,7 @@ class SelectState<T> extends State<Select<T>>
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(Select<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -119,11 +122,13 @@ class SelectState<T> extends State<Select<T>>
     return const SizedBox();
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(T value) {
     widget.onChanged?.call(value);
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _popoverController.dispose();
@@ -146,6 +151,7 @@ class SelectState<T> extends State<Select<T>>
     return _padding!;
   }
 
+  /// Performs `_onChanged` logic for this form component.
   bool _onChanged(Object? value, bool selected) {
     if (!selected && !_canUnselect) {
       return false;
@@ -158,6 +164,7 @@ class SelectState<T> extends State<Select<T>>
     return true;
   }
 
+  /// Performs `_isSelected` logic for this form component.
   bool _isSelected(Object? value) {
     final selectionPredicate =
         widget.valueSelectionPredicate ??
@@ -165,6 +172,7 @@ class SelectState<T> extends State<Select<T>>
     return selectionPredicate(widget.value, value);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

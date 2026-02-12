@@ -79,6 +79,7 @@ class SelectTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is SelectTheme &&

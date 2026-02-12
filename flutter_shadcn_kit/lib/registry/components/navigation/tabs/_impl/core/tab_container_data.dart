@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabContainerData defines a reusable type for this registry module.
 class TabContainerData {
   /// Retrieves the nearest [TabContainerData] from the widget tree.
   ///
@@ -47,6 +48,7 @@ class TabContainerData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabContainerData &&

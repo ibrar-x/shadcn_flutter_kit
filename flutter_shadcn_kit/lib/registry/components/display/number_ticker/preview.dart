@@ -9,9 +9,11 @@ import '../../form/text_field/text_field.dart';
 
 part '_number_ticker_preview_state.dart';
 
+/// Core class used by the number ticker component.
 class NumberTickerPreview extends StatefulWidget {
   const NumberTickerPreview({super.key});
 
+  /// Creates the State object used by this number ticker widget.
   @override
   State<NumberTickerPreview> createState() => _NumberTickerPreviewState();
 }

@@ -1,24 +1,30 @@
 part of '../../window.dart';
 
+/// _SnapHoverState defines a reusable type for this registry module.
 class _SnapHoverState extends State<_SnapHover> {
+/// Stores `_hovering` state/configuration for this implementation.
   bool _hovering = false;
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return MouseRegion(
       onEnter: (_) {
+/// Creates a `setState` instance.
         setState(() {
           _hovering = true;
           widget.hovering(true);
         });
       },
       onHover: (_) {
+/// Creates a `setState` instance.
         setState(() {
           _hovering = true;
           widget.hovering(true);
         });
       },
       onExit: (_) {
+/// Creates a `setState` instance.
         setState(() {
           _hovering = false;
           widget.hovering(false);

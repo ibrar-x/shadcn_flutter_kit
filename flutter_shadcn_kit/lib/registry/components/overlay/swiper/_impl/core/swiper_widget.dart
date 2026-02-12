@@ -1,5 +1,6 @@
 part of '../../swiper.dart';
 
+/// Swiper defines a reusable type for this registry module.
 class Swiper extends StatefulWidget {
   /// Whether swipe gestures are enabled.
   final bool enabled;
@@ -115,5 +116,6 @@ class Swiper extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Swiper> createState() => _SwiperState();
 }

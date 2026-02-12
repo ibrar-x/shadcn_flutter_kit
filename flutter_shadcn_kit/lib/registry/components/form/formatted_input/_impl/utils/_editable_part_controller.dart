@@ -1,8 +1,14 @@
 part of '../../formatted_input.dart';
 
+/// _EditablePartController coordinates state and interactions for this form component.
 class _EditablePartController extends TextEditingController {
+  /// Field storing `maxLength` for this form implementation.
   final int maxLength;
+
+  /// Flag indicating whether `hasPlaceholder` is enabled/active.
   final bool hasPlaceholder;
+
+  /// Constructs `_EditablePartController` with the provided parameters.
   _EditablePartController({
     required this.maxLength,
     required this.hasPlaceholder,

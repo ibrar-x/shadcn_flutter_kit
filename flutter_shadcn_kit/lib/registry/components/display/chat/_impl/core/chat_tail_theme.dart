@@ -35,6 +35,8 @@ class ChatTailTheme extends ComponentThemeData {
     this.tailRadius,
     this.tailBehavior,
   });
+
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatTailTheme(position: $position, size: $size, borderRadius: $borderRadius, tailRadius: $tailRadius, tailBehavior: $tailBehavior)';
@@ -67,6 +69,7 @@ class ChatTailTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

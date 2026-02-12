@@ -2,11 +2,19 @@ part of '../../progress.dart';
 
 /// Theme data for [Progress].
 class ProgressTheme extends ComponentThemeData {
+  /// Color value used by progress painting or state styling.
   final Color? color;
+
+  /// Color value used by progress painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects progress rendering.
   final BorderRadiusGeometry? borderRadius;
+
+  /// Layout/size setting that affects progress rendering.
   final double? minHeight;
 
+  /// Creates `ProgressTheme` for configuring or rendering progress.
   const ProgressTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -33,6 +41,7 @@ class ProgressTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two progress values for structural equality.
   @override
   bool operator ==(Object other) {
     return other is ProgressTheme &&

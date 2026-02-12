@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// Scaffold defines a reusable type for this registry module.
 class Scaffold extends StatefulWidget {
   /// Header widgets displayed at the top of the scaffold.
   final List<Widget> headers;
@@ -55,5 +56,6 @@ class Scaffold extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Scaffold> createState() => ScaffoldState();
 }

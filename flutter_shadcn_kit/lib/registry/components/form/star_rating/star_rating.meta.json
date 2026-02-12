@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "star_rating",
   "name": "Star Rating",
@@ -27,8 +26,8 @@
       "`activeColor`, `backgroundColor`",
       "`starSize`, `starSpacing`, `starPoints`",
       "`starPointRounding`, `starValleyRounding`, `starSquash`, `starInnerRadiusRatio`, `starRotation`",
-      "`ControlledStarRating` — controller-backed rating.",
-      "`StarRatingController` — controller."
+      "`ControlledStarRating` \u2014 controller-backed rating.",
+      "`StarRatingController` \u2014 controller."
     ],
     "callbacks": [
       "`onChanged`"

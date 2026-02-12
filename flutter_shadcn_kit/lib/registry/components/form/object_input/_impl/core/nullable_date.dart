@@ -28,11 +28,13 @@ class NullableDate {
   /// - [day] (`int?`, optional): Day value (1-31).
   NullableDate({this.year, this.month, this.day});
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'NullableDate{year: $year, month: $month, day: $day}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

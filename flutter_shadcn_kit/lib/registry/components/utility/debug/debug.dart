@@ -55,6 +55,7 @@ void debugPostSticker(
     },
   );
   Overlay.of(context).insert(entry);
+/// Executes `Timer` behavior for this component/composite.
   Timer(const Duration(seconds: 2), () {
     entry.remove();
   });

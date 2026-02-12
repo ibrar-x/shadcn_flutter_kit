@@ -38,26 +38,28 @@ abstract class InputPart implements FormattedValuePart {
   /// Whether this part can hold a value.
   bool get canHaveValue => false;
 
-  @override
   /// The current value of this part, or null if it doesn't hold a value.
+  @override
   String? get value => null;
 
-  @override
   /// Returns this part.
+  @override
   InputPart get part => this;
 
-  @override
   /// Creates a copy of this part with the specified value.
+  @override
   FormattedValuePart withValue(String value) {
     return FormattedValuePart(this, value);
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is InputPart && other.partKey == partKey;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => partKey.hashCode;
 }

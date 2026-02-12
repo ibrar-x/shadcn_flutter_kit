@@ -1,15 +1,19 @@
 part of '../../context_menu.dart';
 
+/// _ContextMenuState defines a reusable type for this registry module.
 class _ContextMenuState extends State<ContextMenu> {
+/// Stores `_children` state/configuration for this implementation.
   late ValueNotifier<List<MenuItem>> _children;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _children = ValueNotifier(widget.items);
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant ContextMenu oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(widget.items, oldWidget.items)) {
@@ -20,12 +24,14 @@ class _ContextMenuState extends State<ContextMenu> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _children.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
     final bool enableLongPress =
@@ -37,6 +43,7 @@ class _ContextMenuState extends State<ContextMenu> {
       onSecondaryTapDown: !widget.enabled
           ? null
           : (details) {
+/// Creates a `_showContextMenu` instance.
               _showContextMenu(
                 context,
                 details.globalPosition,
@@ -46,6 +53,7 @@ class _ContextMenuState extends State<ContextMenu> {
             },
       onLongPressStart: enableLongPress && widget.enabled
           ? (details) {
+/// Creates a `_showContextMenu` instance.
               _showContextMenu(
                 context,
                 details.globalPosition,

@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuShortcut defines a reusable type for this registry module.
 class MenuShortcut extends StatelessWidget {
   /// The keyboard shortcut to display.
   final ShortcutActivator activator;
@@ -15,12 +16,16 @@ class MenuShortcut extends StatelessWidget {
   const MenuShortcut({super.key, required this.activator, this.combiner});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `activator` state/configuration for this implementation.
     var activator = this.activator;
     var combiner = this.combiner ?? const Text(' + ');
     final displayMapper = Data.maybeOf<KeyboardShortcutDisplayHandle>(context);
     List<LogicalKeyboardKey> keys = shortcutActivatorToKeySet(activator);
+/// Stores `children` state/configuration for this implementation.
     List<Widget> children = [];
+/// Executes `buildKeyboardDisplay` behavior for this component/composite.
     Widget buildKeyboardDisplay(LogicalKeyboardKey key) {
       if (displayMapper != null) {
         return displayMapper.buildKeyboardDisplay(context, key);

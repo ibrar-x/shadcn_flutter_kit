@@ -74,6 +74,7 @@ Shader _buildLinearShader({
 }) {
   // Start with configured endpoints.
   var begin = spec.begin;
+
   var end = spec.end;
 
   // Optionally add a subtle sinusoidal drift.

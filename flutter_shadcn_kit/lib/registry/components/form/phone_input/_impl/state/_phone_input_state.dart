@@ -1,10 +1,12 @@
 part of '../../phone_input.dart';
 
+/// _PhoneInputState stores and manages mutable widget state.
 class _PhoneInputState extends State<PhoneInput>
     with FormValueSupplier<PhoneNumber, PhoneInput> {
   late Country _country;
   late TextEditingController _controller;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -19,6 +21,7 @@ class _PhoneInputState extends State<PhoneInput>
     _controller.addListener(_dispatchChanged);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant PhoneInput oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -29,6 +32,7 @@ class _PhoneInputState extends State<PhoneInput>
     }
   }
 
+  /// Performs `_dispatchChanged` logic for this form component.
   void _dispatchChanged() {
     widget.onChanged?.call(value);
     formValue = value;
@@ -49,12 +53,14 @@ class _PhoneInputState extends State<PhoneInput>
     return PhoneNumber(_country, text);
   }
 
+  /// Performs `_filterCountryCode` logic for this form component.
   bool _filterCountryCode(Country country, String text) {
     return country.name.toLowerCase().contains(text) ||
         country.dialCode.contains(text) ||
         country.code.toLowerCase().contains(text);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -88,6 +94,7 @@ class _PhoneInputState extends State<PhoneInput>
             popupWidthConstraint: PopoverConstraint.flexible,
             onChanged: (value) {
               if (value != null) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _country = value;
                   _dispatchChanged();
@@ -217,6 +224,7 @@ class _PhoneInputState extends State<PhoneInput>
     );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(PhoneNumber value) {
     _controller.text = value.toString();

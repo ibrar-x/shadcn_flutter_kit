@@ -1,5 +1,6 @@
 export '../../../components/display/divider/divider.dart' show Divider;
 export '../../../components/layout/scaffold/scaffold.dart'
+/// Stores `Scaffold` state/configuration for this implementation.
     show AppBar, Scaffold;
 
 import 'package:flutter/material.dart' as material;
@@ -13,7 +14,9 @@ import '../../../shared/utils/constants.dart';
 
 part '_impl/core/shadcn_ui.dart';
 
+/// ShadcnApp defines a reusable type for this registry module.
 class ShadcnApp extends StatelessWidget {
+/// Creates a `ShadcnApp` instance.
   const ShadcnApp({
     super.key,
     this.navigatorKey,
@@ -56,6 +59,7 @@ class ShadcnApp extends StatelessWidget {
     this.backButtonDispatcher,
   });
 
+/// Creates a `ShadcnApp.router` instance.
   const ShadcnApp.router({
     super.key,
     this.routeInformationProvider,
@@ -97,46 +101,85 @@ class ShadcnApp extends StatelessWidget {
        pageRouteBuilder = null,
        navigatorObservers = const <NavigatorObserver>[];
 
+/// Stores `navigatorKey` state/configuration for this implementation.
   final GlobalKey<NavigatorState>? navigatorKey;
+/// Stores `home` state/configuration for this implementation.
   final Widget? home;
+/// Stores `routes` state/configuration for this implementation.
   final Map<String, WidgetBuilder> routes;
+/// Stores `initialRoute` state/configuration for this implementation.
   final String? initialRoute;
+/// Stores `onGenerateRoute` state/configuration for this implementation.
   final RouteFactory? onGenerateRoute;
+/// Stores `onGenerateInitialRoutes` state/configuration for this implementation.
   final InitialRouteListFactory? onGenerateInitialRoutes;
+/// Stores `onUnknownRoute` state/configuration for this implementation.
   final RouteFactory? onUnknownRoute;
+/// Stores `pageRouteBuilder` state/configuration for this implementation.
   final PageRouteFactory? pageRouteBuilder;
+/// Stores `navigatorObservers` state/configuration for this implementation.
   final List<NavigatorObserver> navigatorObservers;
+/// Stores `builder` state/configuration for this implementation.
   final TransitionBuilder? builder;
+/// Stores `title` state/configuration for this implementation.
   final String title;
+/// Stores `color` state/configuration for this implementation.
   final Color? color;
+/// Stores `theme` state/configuration for this implementation.
   final ThemeData theme;
+/// Stores `darkTheme` state/configuration for this implementation.
   final ThemeData? darkTheme;
+/// Stores `themeMode` state/configuration for this implementation.
   final ThemeMode themeMode;
+/// Stores `locale` state/configuration for this implementation.
   final Locale? locale;
+/// Stores `localizationsDelegates` state/configuration for this implementation.
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+/// Stores `localeListResolutionCallback` state/configuration for this implementation.
   final LocaleListResolutionCallback? localeListResolutionCallback;
+/// Stores `localeResolutionCallback` state/configuration for this implementation.
   final LocaleResolutionCallback? localeResolutionCallback;
+/// Stores `supportedLocales` state/configuration for this implementation.
   final Iterable<Locale> supportedLocales;
+/// Stores `showPerformanceOverlay` state/configuration for this implementation.
   final bool showPerformanceOverlay;
+/// Stores `showSemanticsDebugger` state/configuration for this implementation.
   final bool showSemanticsDebugger;
+/// Stores `debugShowCheckedModeBanner` state/configuration for this implementation.
   final bool debugShowCheckedModeBanner;
+/// Stores `debugShowMaterialGrid` state/configuration for this implementation.
   final bool debugShowMaterialGrid;
+/// Stores `shortcuts` state/configuration for this implementation.
   final Map<ShortcutActivator, Intent>? shortcuts;
+/// Stores `actions` state/configuration for this implementation.
   final Map<Type, Action<Intent>>? actions;
+/// Stores `restorationScopeId` state/configuration for this implementation.
   final String? restorationScopeId;
+/// Stores `scrollBehavior` state/configuration for this implementation.
   final ScrollBehavior? scrollBehavior;
+/// Stores `scaling` state/configuration for this implementation.
   final AdaptiveScaling? scaling;
+/// Stores `popoverHandler` state/configuration for this implementation.
   final OverlayHandler? popoverHandler;
+/// Stores `tooltipHandler` state/configuration for this implementation.
   final OverlayHandler? tooltipHandler;
+/// Stores `menuHandler` state/configuration for this implementation.
   final OverlayHandler? menuHandler;
+/// Stores `enableThemeAnimation` state/configuration for this implementation.
   final bool enableThemeAnimation;
+/// Stores `materialFallback` state/configuration for this implementation.
   final bool materialFallback;
 
+/// Stores `routeInformationProvider` state/configuration for this implementation.
   final RouteInformationProvider? routeInformationProvider;
+/// Stores `routeInformationParser` state/configuration for this implementation.
   final RouteInformationParser<Object>? routeInformationParser;
+/// Stores `routerDelegate` state/configuration for this implementation.
   final RouterDelegate<Object>? routerDelegate;
+/// Stores `backButtonDispatcher` state/configuration for this implementation.
   final BackButtonDispatcher? backButtonDispatcher;
 
+/// Executes `_resolveTheme` behavior for this component/composite.
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
         MediaQuery.maybeOf(context)?.platformBrightness ?? Brightness.light;
@@ -174,6 +217,7 @@ class ShadcnApp extends StatelessWidget {
     return _wrapWithMaterialFallback(wrapped);
   }
 
+/// Executes `_wrapWithMaterialFallback` behavior for this component/composite.
   Widget _wrapWithMaterialFallback(Widget child) {
     if (!materialFallback) {
       return child;
@@ -185,8 +229,10 @@ class ShadcnApp extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final resolvedTheme = _resolveTheme(context);
+/// Executes `appBuilder` behavior for this component/composite.
     Widget appBuilder(BuildContext context, Widget? child) {
       final built = builder != null ? builder!(context, child) : child;
       final safeChild = built ?? const SizedBox.shrink();

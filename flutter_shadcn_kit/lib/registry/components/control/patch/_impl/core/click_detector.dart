@@ -60,5 +60,6 @@ class ClickDetector extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ClickDetector> createState() => ClickDetectorState();
 }

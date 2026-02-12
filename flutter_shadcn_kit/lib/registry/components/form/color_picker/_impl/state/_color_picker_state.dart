@@ -1,12 +1,17 @@
 part of '../../color_picker.dart';
 
+/// _ColorPickerState stores and manages mutable widget state.
 class _ColorPickerState extends State<ColorPicker> {
+  /// Field storing `_mode` for this form implementation.
   late ColorPickerMode _mode;
 
+  /// Current value stored for `_changingValue`.
   ColorDerivative? _changingValue;
 
+  /// Field storing `_showHistory` for this form implementation.
   late bool _showHistory;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -18,20 +23,25 @@ class _ColorPickerState extends State<ColorPicker> {
     return _changingValue ?? widget.value;
   }
 
+  /// Performs `_onChanging` logic for this form component.
   void _onChanging(ColorDerivative value) {
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       _changingValue = value;
       widget.onChanging?.call(value);
     });
   }
 
+  /// Performs `_onChanged` logic for this form component.
   void _onChanged(ColorDerivative value) {
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       _changingValue = null;
       widget.onChanged?.call(value);
     });
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -64,11 +74,13 @@ class _ColorPickerState extends State<ColorPicker> {
       showHistoryButton:
           widget.showHistoryButton && orientation == Axis.vertical,
       onShowHistoryChanged: (show) {
+        /// Triggers a rebuild after mutating local state.
         setState(() {
           _showHistory = show;
         });
       },
       onModeChanged: (mode) {
+        /// Triggers a rebuild after mutating local state.
         setState(() {
           _mode = mode;
         });
@@ -142,6 +154,7 @@ class _ColorPickerState extends State<ColorPicker> {
     return IntrinsicWidth(child: content);
   }
 
+  /// Performs `buildSliders` logic for this form component.
   List<Widget> buildSliders(BuildContext context) {
     final componentTheme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final sliderSize = styleValue(
@@ -209,6 +222,7 @@ class _ColorPickerState extends State<ColorPicker> {
     ];
   }
 
+  /// Performs `buildSlider` logic for this form component.
   Widget buildSlider(BuildContext context) {
     return switch (widget.initialMode) {
       ColorPickerMode.hsl => buildHSLSlider(context),
@@ -216,6 +230,7 @@ class _ColorPickerState extends State<ColorPicker> {
     };
   }
 
+  /// Performs `buildHSVSlider` logic for this form component.
   Widget buildHSVSlider(BuildContext context) {
     return HSVColorSlider(
       value: _effectiveValue.toHSVColor(),
@@ -238,6 +253,7 @@ class _ColorPickerState extends State<ColorPicker> {
     );
   }
 
+  /// Performs `buildHSLSlider` logic for this form component.
   Widget buildHSLSlider(BuildContext context) {
     return HSLColorSlider(
       color: _effectiveValue.toHSLColor(),

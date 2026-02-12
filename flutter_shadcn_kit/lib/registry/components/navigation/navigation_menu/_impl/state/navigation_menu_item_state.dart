@@ -1,12 +1,16 @@
 part of '../../navigation_menu.dart';
 
+/// NavigationMenuItemState defines a reusable type for this registry module.
 class NavigationMenuItemState extends State<NavigationMenuItem> {
+/// Stores `_menuState` state/configuration for this implementation.
   NavigationMenuState? _menuState;
 
   @override
+/// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     var newMenuState = Data.maybeOf<NavigationMenuState>(context);
+/// Creates a `assert` instance.
     assert(
       newMenuState != null,
       'NavigationItem must be a descendant of NavigationMenu',
@@ -22,6 +26,7 @@ class NavigationMenuItemState extends State<NavigationMenuItem> {
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant NavigationMenuItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.content != oldWidget.content) {
@@ -36,6 +41,7 @@ class NavigationMenuItemState extends State<NavigationMenuItem> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (widget.content != null) {
       _menuState!._contentBuilders.remove(this);
@@ -44,6 +50,7 @@ class NavigationMenuItemState extends State<NavigationMenuItem> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedBuilder(

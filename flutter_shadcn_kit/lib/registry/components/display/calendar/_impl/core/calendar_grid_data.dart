@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// Core class used by the calendar component.
 class CalendarGridData {
   /// The month number (1-12) this grid represents.
   final int month;
@@ -30,6 +31,7 @@ class CalendarGridData {
     if (prevMonthDays < 7) {
       for (int i = 0; i < prevMonthDays; i++) {
         int currentItemIndex = itemCount++;
+
         items.add(
           CalendarGridItem(
             prevMonthLastDay.add(Duration(days: i)),
@@ -44,6 +46,7 @@ class CalendarGridData {
     for (int i = 0; i < daysInMonth; i++) {
       int currentItemIndex = itemCount++;
       DateTime currentDay = DateTime(year, month, i + 1);
+
       items.add(
         CalendarGridItem(
           currentDay,
@@ -60,6 +63,7 @@ class CalendarGridData {
     if (remainingDays < 7) {
       for (int i = 0; i < remainingDays; i++) {
         int currentItemIndex = itemCount++;
+
         items.add(
           CalendarGridItem(
             nextMonthFirstDay.add(Duration(days: i)),
@@ -76,6 +80,7 @@ class CalendarGridData {
 
   CalendarGridData._(this.month, this.year, this.items);
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -86,6 +91,7 @@ class CalendarGridData {
         listEquals(other.items, items);
   }
 
+  /// State flag that toggles specific calendar behavior.
   @override
   int get hashCode => Object.hash(month, year, items);
 }

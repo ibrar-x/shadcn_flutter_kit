@@ -5,10 +5,12 @@ import '../../overlay/alert_dialog/alert_dialog.dart';
 import '../../control/button/button.dart';
 import '../card_image/card_image.dart';
 
+/// CardImagePreview defines a reusable type for this registry module.
 class CardImagePreview extends StatelessWidget {
   const CardImagePreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScrollConfiguration(
@@ -24,8 +26,10 @@ class CardImagePreview extends StatelessWidget {
               children: [
                 for (int i = 0; i < 10; i++) ...[
                   if (i > 0) const SizedBox(width: 8),
+/// Creates a `CardImage` instance.
                   CardImage(
                     onPressed: () {
+/// Creates a `showDialog` instance.
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -33,6 +37,7 @@ class CardImagePreview extends StatelessWidget {
                             title: const Text('Card Image'),
                             content: const Text('You clicked on a card image.'),
                             actions: [
+/// Creates a `PrimaryButton` instance.
                               PrimaryButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();

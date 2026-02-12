@@ -1,5 +1,6 @@
 part of '../../context_menu.dart';
 
+/// ContextMenu defines a reusable type for this registry module.
 class ContextMenu extends StatefulWidget {
   /// The child widget that triggers the context menu.
   final Widget child;
@@ -34,5 +35,6 @@ class ContextMenu extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ContextMenu> createState() => _ContextMenuState();
 }

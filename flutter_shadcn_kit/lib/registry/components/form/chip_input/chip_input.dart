@@ -151,6 +151,7 @@ class ChipInput<T> extends TextInputStatefulWidget {
   ChipEditingController<T>? get controller =>
       super.controller as ChipEditingController<T>?;
 
+  /// Creates the `State` object for this widget.
   @override
   State<ChipInput<T>> createState() => ChipInputState();
 }

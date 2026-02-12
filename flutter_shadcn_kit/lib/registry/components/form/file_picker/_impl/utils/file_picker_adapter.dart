@@ -5,7 +5,9 @@ import 'file_picker_adapter_stub.dart'
     if (dart.library.html) 'file_picker_adapter_web.dart'
     if (dart.library.io) 'file_picker_adapter_io.dart';
 
+/// FilePickerAdapter represents a form-related type in the registry.
 abstract class FilePickerAdapter {
+  /// Field storing `supportsDragDrop` for this form implementation.
   bool get supportsDragDrop;
 
   Widget buildDropTarget({
@@ -18,4 +20,5 @@ abstract class FilePickerAdapter {
   });
 }
 
+/// Performs `createFilePickerAdapter` logic for this form component.
 FilePickerAdapter createFilePickerAdapter() => createAdapter();

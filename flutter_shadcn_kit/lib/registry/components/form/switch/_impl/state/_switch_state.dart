@@ -1,16 +1,21 @@
 part of '../../switch.dart';
 
+/// _SwitchState stores and manages mutable widget state.
 class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
+  /// Focus node/reference used by `_focusing` interactions.
   bool _focusing = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.value;
   }
 
+  /// Field storing `_enabled` for this form implementation.
   bool get _enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant Switch oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -19,11 +24,13 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(bool value) {
     widget.onChanged?.call(value);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -73,6 +80,7 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
         child: FocusableActionDetector(
           enabled: _enabled,
           onShowFocusHighlight: (value) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusing = value;
             });

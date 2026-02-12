@@ -148,6 +148,7 @@ class ItemPicker<T> extends StatelessWidget {
     this.constraints,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final layout = this.layout ?? ItemPickerLayout.grid;

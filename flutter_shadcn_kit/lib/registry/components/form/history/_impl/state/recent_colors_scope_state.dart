@@ -11,6 +11,7 @@ class RecentColorsScopeState extends State<RecentColorsScope>
   @override
   int get capacity => widget.maxRecentColors;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -21,6 +22,7 @@ class RecentColorsScopeState extends State<RecentColorsScope>
   List<Color> get recentColors =>
       List.unmodifiable(_recentColors._recentColors);
 
+  /// Performs `addHistory` logic for this form component.
   @override
   void addHistory(Color color) {
     var recentColors = _recentColors._recentColors;
@@ -35,12 +37,14 @@ class RecentColorsScopeState extends State<RecentColorsScope>
     _recentColors._notify();
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     super.dispose();
     _recentColors.dispose();
   }
 
+  /// Performs `clear` logic for this form component.
   @override
   void clear() {
     _recentColors._recentColors.clear();
@@ -48,6 +52,7 @@ class RecentColorsScopeState extends State<RecentColorsScope>
     _recentColors._notify();
   }
 
+  /// Performs `setHistory` logic for this form component.
   @override
   void setHistory(List<Color> colors) {
     _recentColors._recentColors = colors;
@@ -55,6 +60,7 @@ class RecentColorsScopeState extends State<RecentColorsScope>
     _recentColors._notify();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ForwardableData<ColorHistoryStorage>(
@@ -63,11 +69,13 @@ class RecentColorsScopeState extends State<RecentColorsScope>
     );
   }
 
+  /// Performs `addListener` logic for this form component.
   @override
   void addListener(VoidCallback listener) {
     _recentColors.addListener(listener);
   }
 
+  /// Performs `removeListener` logic for this form component.
   @override
   void removeListener(VoidCallback listener) {
     _recentColors.removeListener(listener);

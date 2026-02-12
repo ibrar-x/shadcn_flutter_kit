@@ -5,6 +5,7 @@ import '../styles/abstract_button_style.dart';
 import '../styles/button_state_property.dart';
 import '../styles/button_state_property_delegate.dart';
 
+/// ButtonTheme defines a reusable type for this registry module.
 abstract class ButtonTheme extends ComponentThemeData {
   /// Optional decoration override (background, border, shadows).
   final ButtonStatePropertyDelegate<Decoration>? decoration;
@@ -41,6 +42,7 @@ abstract class ButtonTheme extends ComponentThemeData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is ButtonTheme &&
@@ -63,6 +65,7 @@ abstract class ButtonTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() =>
       '$runtimeType{decoration: $decoration, mouseCursor: $mouseCursor, padding: $padding, textStyle: $textStyle, iconTheme: $iconTheme, margin: $margin}';
 }

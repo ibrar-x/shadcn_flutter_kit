@@ -1,6 +1,8 @@
 part of '../../text_field.dart';
 
+/// _InputCopyFeatureState stores and manages mutable widget state.
 class _InputCopyFeatureState extends InputFeatureState<InputCopyFeature> {
+  /// Performs `_copy` logic for this form component.
   void _copy() {
     Actions.invoke(context, const TextFieldSelectAllAndCopyIntent());
   }

@@ -33,6 +33,7 @@ class RadialColorGradient extends ColorGradient {
   });
 
   @override
+/// Creates a `RadialColorGradient` instance.
   RadialColorGradient copyWith({
     List<ColorStop>? colors,
     TileMode? tileMode,
@@ -52,6 +53,7 @@ class RadialColorGradient extends ColorGradient {
   }
 
   @override
+/// Executes `changeColorAt` behavior for this component/composite.
   RadialColorGradient changeColorAt(int index, ColorDerivative color) {
     List<ColorStop> newColors = List.from(colors);
     newColors[index] = ColorStop(
@@ -62,6 +64,7 @@ class RadialColorGradient extends ColorGradient {
   }
 
   @override
+/// Executes `changePositionAt` behavior for this component/composite.
   RadialColorGradient changePositionAt(int index, double position) {
     List<ColorStop> newColors = List.from(colors);
     newColors[index] = ColorStop(
@@ -72,6 +75,7 @@ class RadialColorGradient extends ColorGradient {
   }
 
   @override
+/// Creates a `RadialColorGradient` instance.
   RadialColorGradient changeColorAndPositionAt(
     int index,
     ColorDerivative color,
@@ -92,12 +96,16 @@ class RadialColorGradient extends ColorGradient {
     Alignment alignCenter = center.resolve(textDirection);
     final px = (position.dx / size.width) * 2 - 1;
     final py = (position.dy / size.height) * 2 - 1;
+/// Stores `dx` state/configuration for this implementation.
     final dx = px - alignCenter.x;
+/// Stores `dy` state/configuration for this implementation.
     final dy = py - alignCenter.y;
     final dist =
+/// Creates a `sqrt` instance.
         sqrt(dx * dx + dy * dy) / sqrt(2); // max distance in square is sqrt(2)
     final pos = dist.clamp(0.0, 1.0);
     List<ColorStop> newColors = List.from(colors);
+/// Stores `insertIndex` state/configuration for this implementation.
     int insertIndex = 0;
     for (int i = 0; i < newColors.length; i++) {
       if (newColors[i].position < pos) {
@@ -109,6 +117,7 @@ class RadialColorGradient extends ColorGradient {
   }
 
   @override
+/// Executes `toGradient` behavior for this component/composite.
   RadialGradient toGradient() {
     return RadialGradient(
       colors: colors.map((e) => e.color.toColor()).toList(),

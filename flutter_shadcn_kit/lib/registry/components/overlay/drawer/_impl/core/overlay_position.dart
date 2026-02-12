@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// OverlayPosition enumerates fixed values used by this implementation.
 enum OverlayPosition {
   /// Positioned on the left edge
   left,

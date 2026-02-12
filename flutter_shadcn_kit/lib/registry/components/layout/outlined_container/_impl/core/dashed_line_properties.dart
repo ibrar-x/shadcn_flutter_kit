@@ -1,11 +1,17 @@
 part of '../../outlined_container.dart';
 
+/// DashedLineProperties defines a reusable type for this registry module.
 class DashedLineProperties {
+/// Stores `width` state/configuration for this implementation.
   final double width;
+/// Stores `gap` state/configuration for this implementation.
   final double gap;
+/// Stores `thickness` state/configuration for this implementation.
   final double thickness;
+/// Stores `color` state/configuration for this implementation.
   final Color color;
 
+/// Creates a `DashedLineProperties` instance.
   const DashedLineProperties({
     required this.width,
     required this.gap,

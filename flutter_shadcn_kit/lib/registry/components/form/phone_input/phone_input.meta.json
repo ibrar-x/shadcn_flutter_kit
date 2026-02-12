@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "phone_input",
   "name": "Phone Input",
@@ -28,7 +27,7 @@
       "`filterPlusCode`, `filterZeroCode`, `filterCountryCode`, `onlyNumber`",
       "`countries` (`List<Country>?`)",
       "`searchPlaceholder` (`Widget?`)",
-      "`PhoneNumber` — value model."
+      "`PhoneNumber` \u2014 value model."
     ],
     "callbacks": []
   },

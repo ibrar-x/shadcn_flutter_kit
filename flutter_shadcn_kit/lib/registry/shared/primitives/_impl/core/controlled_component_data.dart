@@ -1,5 +1,6 @@
 part of '../../form_control.dart';
 
+/// ControlledComponentData defines a reusable type for this registry module.
 class ControlledComponentData<T> {
   /// The current value of the component.
   ///

@@ -1,15 +1,20 @@
 part of '../../overflow_marquee.dart';
 
+/// _OverflowMarqueeState defines a reusable type for this registry module.
 class _OverflowMarqueeState extends State<OverflowMarquee>
     with SingleTickerProviderStateMixin {
+/// Stores `_ticker` state/configuration for this implementation.
   late Ticker _ticker;
+/// Stores `elapsed` state/configuration for this implementation.
   Duration elapsed = Duration.zero;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _ticker = createTicker((elapsed) {
       if (mounted) {
+/// Creates a `setState` instance.
         setState(() {
           this.elapsed = elapsed;
         });
@@ -19,12 +24,14 @@ class _OverflowMarqueeState extends State<OverflowMarquee>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _ticker.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final textDirection = Directionality.of(context);
     final compTheme = ComponentTheme.maybeOf<OverflowMarqueeTheme>(context);
@@ -53,6 +60,7 @@ class _OverflowMarqueeState extends State<OverflowMarquee>
       themeValue: compTheme?.step,
       defaultValue: 100.0,
     );
+/// Stores `curve` state/configuration for this implementation.
     final curve = widget.curve ?? compTheme?.curve ?? Curves.linear;
     return ClipRect(
       child: _OverflowMarqueeLayout(

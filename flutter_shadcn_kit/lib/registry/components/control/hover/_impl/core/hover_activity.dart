@@ -57,5 +57,6 @@ class HoverActivity extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<HoverActivity> createState() => HoverActivityState();
 }

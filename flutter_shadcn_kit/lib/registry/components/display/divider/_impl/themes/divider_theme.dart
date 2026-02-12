@@ -2,14 +2,28 @@ part of '../../divider.dart';
 
 /// Theme data for divider widgets.
 class DividerTheme extends ComponentThemeData {
+  /// Color value used by divider painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects divider rendering.
   final double? height;
+
+  /// Input parameter used by `DividerTheme` during rendering and behavior handling.
   final double? thickness;
+
+  /// Input parameter used by `DividerTheme` during rendering and behavior handling.
   final double? indent;
+
+  /// Input parameter used by `DividerTheme` during rendering and behavior handling.
   final double? endIndent;
+
+  /// Layout/size setting that affects divider rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Child content displayed inside the divider widget.
   final AxisAlignmentGeometry? childAlignment;
 
+  /// Creates `DividerTheme` for configuring or rendering divider.
   const DividerTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -45,6 +59,7 @@ class DividerTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two divider values for structural equality.
   @override
   bool operator ==(Object other) {
     return other is DividerTheme &&

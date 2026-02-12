@@ -2,13 +2,25 @@ part of '../../linear_progress_indicator.dart';
 
 /// Theme data for [LinearProgressIndicator].
 class LinearProgressIndicatorTheme extends ComponentThemeData {
+  /// Color value used by linear progress indicator painting or state styling.
   final Color? color;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects linear progress indicator rendering.
   final double? minHeight;
+
+  /// Layout/size setting that affects linear progress indicator rendering.
   final BorderRadiusGeometry? borderRadius;
+
+  /// Input parameter used by `LinearProgressIndicatorTheme` during rendering and behavior handling.
   final bool? showSparks;
+
+  /// Animation/progress setting used by linear progress indicator transitions.
   final bool? disableAnimation;
 
+  /// Creates `LinearProgressIndicatorTheme` for configuring or rendering linear progress indicator.
   const LinearProgressIndicatorTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -43,6 +55,7 @@ class LinearProgressIndicatorTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two linear progress indicator values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

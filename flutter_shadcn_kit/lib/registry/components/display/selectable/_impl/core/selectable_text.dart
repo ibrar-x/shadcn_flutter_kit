@@ -329,6 +329,7 @@ class SelectableText extends StatelessWidget {
   /// {@macro flutter.widgets.magnifier.intro}
   final TextMagnifierConfiguration? magnifierConfiguration;
 
+  /// Builds the widget tree for selectable.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<SelectableTextTheme>(context);

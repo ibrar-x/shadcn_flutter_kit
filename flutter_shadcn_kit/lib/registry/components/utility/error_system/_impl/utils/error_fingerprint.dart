@@ -3,6 +3,7 @@
 
 import '../core/app_error.dart';
 
+/// Executes `fingerprintFor` behavior for this component/composite.
 String fingerprintFor(AppError error) {
   final hash = Object.hash(
     error.code,

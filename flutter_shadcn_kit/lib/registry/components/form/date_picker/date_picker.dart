@@ -74,6 +74,7 @@ class DatePicker extends StatelessWidget {
     this.enabled,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);

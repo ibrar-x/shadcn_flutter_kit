@@ -1,9 +1,11 @@
 part of '../../tooltip.dart';
 
+/// _TooltipState defines a reusable type for this registry module.
 class _TooltipState extends State<Tooltip> {
   final PopoverController _controller = PopoverController();
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Hover(
       waitDuration: widget.waitDuration,
@@ -11,6 +13,7 @@ class _TooltipState extends State<Tooltip> {
       showDuration: widget.showDuration,
       onHover: (hovered) {
         if (hovered) {
+/// Creates a `_controller.show` instance.
           _controller.show(
             context: context,
             modal: false,

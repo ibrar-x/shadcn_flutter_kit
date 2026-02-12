@@ -1,13 +1,17 @@
 part of '../../stepper.dart';
 
+/// _StepVariantCircle defines a reusable type for this registry module.
 class _StepVariantCircle extends StepVariant {
   const _StepVariantCircle();
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context, StepProperties properties) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     if (properties.direction == Axis.horizontal) {
+/// Stores `children` state/configuration for this implementation.
       List<Widget> children = [];
       for (int i = 0; i < properties.steps.length; i++) {
         Widget childWidget = Data.inherit(
@@ -15,13 +19,16 @@ class _StepVariantCircle extends StepVariant {
           child: Row(
             children: [
               properties[i]?.icon ?? const StepNumber(),
+/// Creates a `DensityGap` instance.
               DensityGap(gapSm),
               properties.size.wrapper(
                 context,
                 properties[i]?.title ?? const SizedBox(),
               ),
               if (i != properties.steps.length - 1) ...[
+/// Creates a `DensityGap` instance.
                 DensityGap(gapSm),
+/// Creates a `Expanded` instance.
                 Expanded(
                   child: AnimatedBuilder(
                     animation: properties.state,
@@ -39,11 +46,13 @@ class _StepVariantCircle extends StepVariant {
                     },
                   ),
                 ),
+/// Creates a `DensityGap` instance.
                 DensityGap(gapSm),
               ],
             ],
           ),
         );
+/// Creates a `children.add` instance.
         children.add(
           i == properties.steps.length - 1
               ? childWidget
@@ -54,15 +63,18 @@ class _StepVariantCircle extends StepVariant {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+/// Creates a `IntrinsicHeight` instance.
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: children,
             ),
           ),
+/// Creates a `AnimatedBuilder` instance.
           AnimatedBuilder(
             animation: properties.state,
             builder: (context, child) {
+/// Stores `current` state/configuration for this implementation.
               var current = properties.state.value.currentStep;
               return Flexible(
                 child: IndexedStack(
@@ -74,7 +86,9 @@ class _StepVariantCircle extends StepVariant {
                   children: [
                     for (int i = 0; i < properties.steps.length; i++)
                       properties[i]?.contentBuilder?.call(context) ??
+/// Creates a `SizedBox` instance.
                           const SizedBox(),
+/// Creates a `SizedBox` instance.
                     const SizedBox(), // for placeholder
                   ],
                 ),
@@ -84,28 +98,36 @@ class _StepVariantCircle extends StepVariant {
         ],
       );
     } else {
+/// Stores `children` state/configuration for this implementation.
       List<Widget> children = [];
       for (int i = 0; i < properties.steps.length; i++) {
+/// Creates a `children.add` instance.
         children.add(
+/// Creates a `Data.inherit` instance.
           Data.inherit(
             data: StepNumberData(stepIndex: i),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+/// Creates a `Row` instance.
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     properties.steps[i].icon ?? const StepNumber(),
+/// Creates a `DensityGap` instance.
                     DensityGap(gapSm),
                     properties.size.wrapper(context, properties.steps[i].title),
                   ],
                 ),
+/// Creates a `DensityGap` instance.
                 DensityGap(gapSm),
+/// Creates a `ConstrainedBox` instance.
                 ConstrainedBox(
                   constraints: BoxConstraints(minHeight: 16 * scaling),
                   child: Stack(
                     children: [
+/// Creates a `PositionedDirectional` instance.
                       PositionedDirectional(
                         top: 0,
                         start: 0,
@@ -139,6 +161,7 @@ class _StepVariantCircle extends StepVariant {
                                 ),
                         ),
                       ),
+/// Creates a `AnimatedBuilder` instance.
                       AnimatedBuilder(
                         animation: properties.state,
                         child: properties.steps[i].contentBuilder?.call(
@@ -175,6 +198,7 @@ class _StepVariantCircle extends StepVariant {
                     ],
                   ),
                 ),
+/// Creates a `AnimatedBuilder` instance.
                 AnimatedBuilder(
                   animation: properties.state,
                   builder: (context, child) {

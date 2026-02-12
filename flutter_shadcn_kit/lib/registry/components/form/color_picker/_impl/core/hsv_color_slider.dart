@@ -60,6 +60,7 @@ class HSVColorSlider extends StatefulWidget {
     this.padding = const EdgeInsets.all(0),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<HSVColorSlider> createState() => _HSVColorSliderState();
 }

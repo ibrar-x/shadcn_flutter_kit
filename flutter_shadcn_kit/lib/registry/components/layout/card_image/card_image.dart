@@ -47,6 +47,7 @@ class CardImageTheme extends ComponentThemeData {
     this.gap,
   });
 
+/// Creates a `CardImageTheme` instance.
   CardImageTheme copyWith({
     ValueGetter<AbstractButtonStyle?>? style,
     ValueGetter<Axis?>? direction,
@@ -70,6 +71,7 @@ class CardImageTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is CardImageTheme &&
         other.style == style &&

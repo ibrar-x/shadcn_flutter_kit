@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// ConstrainedTableSize defines a reusable type for this registry module.
 class ConstrainedTableSize {
   /// Minimum allowed size. Defaults to negative infinity (no minimum).
   final double min;

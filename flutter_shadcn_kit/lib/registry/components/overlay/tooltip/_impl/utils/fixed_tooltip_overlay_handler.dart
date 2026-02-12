@@ -1,5 +1,6 @@
 part of '../../tooltip.dart';
 
+/// FixedTooltipOverlayHandler defines a reusable type for this registry module.
 class FixedTooltipOverlayHandler extends OverlayHandler {
   const FixedTooltipOverlayHandler();
 
@@ -41,9 +42,12 @@ class FixedTooltipOverlayHandler extends OverlayHandler {
     final data = Data.capture(from: context, to: overlay.context);
 
     ValueNotifier<bool> isClosed = ValueNotifier(false);
+/// Stores `overlayEntry` state/configuration for this implementation.
     late OverlayEntry overlayEntry;
     final OverlayPopoverEntry<T> popoverEntry = OverlayPopoverEntry();
+/// Stores `completer` state/configuration for this implementation.
     final completer = popoverEntry.completer;
+/// Stores `animationCompleter` state/configuration for this implementation.
     final animationCompleter = popoverEntry.animationCompleter;
     overlayEntry = OverlayEntry(
       builder: (innerContext) {

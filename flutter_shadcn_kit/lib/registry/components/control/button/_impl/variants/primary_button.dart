@@ -6,6 +6,7 @@ import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
 
+/// PrimaryButton defines a reusable type for this registry module.
 class PrimaryButton extends StatelessWidget {
   /// The widget displayed as the button's main content.
   final Widget child;
@@ -129,6 +130,7 @@ class PrimaryButton extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       onPressed: onPressed,

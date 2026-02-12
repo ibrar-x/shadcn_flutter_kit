@@ -17,6 +17,7 @@ class FormTableLayout extends StatelessWidget {
   /// - [spacing] (`double?`, optional): Custom row spacing.
   const FormTableLayout({super.key, required this.rows, this.spacing});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

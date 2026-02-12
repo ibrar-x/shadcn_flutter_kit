@@ -23,13 +23,16 @@ class MultipleChoiceTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) =>
       other is MultipleChoiceTheme && other.allowUnselect == allowUnselect;
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => allowUnselect.hashCode;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() => 'MultipleChoiceTheme(allowUnselect: $allowUnselect)';
 }

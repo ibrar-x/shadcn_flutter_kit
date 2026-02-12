@@ -6,6 +6,7 @@ import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
 
+/// SecondaryButton defines a reusable type for this registry module.
 class SecondaryButton extends StatelessWidget {
   /// The widget to display as the button's content.
   final Widget child;
@@ -129,6 +130,7 @@ class SecondaryButton extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       onPressed: onPressed,

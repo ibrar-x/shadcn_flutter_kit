@@ -6,7 +6,9 @@ import '../core/error_code.dart';
 import 'env.dart';
 import 'error_fingerprint.dart';
 
+/// Executes `fallbackRule` behavior for this component/composite.
 AppError fallbackRule(Object error, [StackTrace? stackTrace]) {
+/// Stores `details` state/configuration for this implementation.
   final details = Env.showTechnicalDetails ? '$error\n$stackTrace' : null;
   final appError = AppError(
     code: AppErrorCode.unknown,

@@ -1,6 +1,8 @@
 part of '../../preview.dart';
 
+/// _ChipInputPreviewState stores and manages mutable widget state.
 class _ChipInputPreviewState extends State<ChipInputPreview> {
+  /// Field storing `_suggestions` for this form implementation.
   List<String> _suggestions = [];
   final ChipEditingController<String> _controller = ChipEditingController();
 
@@ -12,10 +14,12 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
     'flutter dart',
   ];
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _controller.addListener(() {
+      /// Triggers a rebuild after mutating local state.
       setState(() {
         final value = _controller.textAtCursor;
         if (value.isNotEmpty) {
@@ -29,12 +33,14 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
     });
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +53,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
               child: ChipInput<String>(
                 controller: _controller,
                 onChipSubmitted: (value) {
+                  /// Triggers a rebuild after mutating local state.
                   setState(() {
                     _suggestions = [];
                   });

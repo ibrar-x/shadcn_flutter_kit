@@ -43,6 +43,7 @@ class TabContainerTheme extends ComponentThemeData {
   int get hashCode => Object.hash(builder, childBuilder);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabContainerTheme &&
@@ -51,6 +52,7 @@ class TabContainerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'TabContainerTheme(builder: $builder, childBuilder: $childBuilder)';
   }

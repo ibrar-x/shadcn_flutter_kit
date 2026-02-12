@@ -9,16 +9,21 @@ class CollapsibleTrigger extends StatelessWidget {
   final Widget child;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<CollapsibleTheme>(context);
     final state = Data.of<CollapsibleStateData>(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
 
     final padding =
         compTheme?.padding ?? theme.density.baseContentPadding * scaling;
+/// Stores `iconGap` state/configuration for this implementation.
     final iconGap = compTheme?.iconGap ?? 16 * scaling;
+/// Stores `iconExpanded` state/configuration for this implementation.
     final iconExpanded = compTheme?.iconExpanded ?? Icons.unfold_less;
+/// Stores `iconCollapsed` state/configuration for this implementation.
     final iconCollapsed = compTheme?.iconCollapsed ?? Icons.unfold_more;
 
     final iconTheme = IconThemeData(
@@ -32,8 +37,11 @@ class CollapsibleTrigger extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+/// Creates a `Expanded` instance.
         Expanded(child: child.small().semiBold()),
+/// Creates a `Gap` instance.
         Gap(iconGap),
+/// Creates a `GhostButton` instance.
         GhostButton(
           onPressed: state.handleTap,
           child: IconTheme(

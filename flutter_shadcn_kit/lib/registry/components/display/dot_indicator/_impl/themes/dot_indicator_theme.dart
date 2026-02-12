@@ -2,16 +2,34 @@ part of '../../dot_indicator.dart';
 
 /// Theme data for [DotIndicator] and children.
 class DotIndicatorTheme extends ComponentThemeData {
+  /// Layout/size setting that affects dot indicator rendering.
   final double? spacing;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Input parameter used by `DotIndicatorTheme` during rendering and behavior handling.
   final DotBuilder? dotBuilder;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? size;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? borderRadius;
+
+  /// Color value used by dot indicator painting or state styling.
   final Color? activeColor;
+
+  /// Color value used by dot indicator painting or state styling.
   final Color? inactiveColor;
+
+  /// Color value used by dot indicator painting or state styling.
   final Color? inactiveBorderColor;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? inactiveBorderWidth;
 
+  /// Creates `DotIndicatorTheme` for configuring or rendering dot indicator.
   const DotIndicatorTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -57,6 +75,7 @@ class DotIndicatorTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two dot indicator values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

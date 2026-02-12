@@ -1,9 +1,12 @@
 part of '../../text_field.dart';
 
+/// _AutoCompleteState stores and manages mutable widget state.
 class _AutoCompleteState extends State<AutoComplete> {
   final ValueNotifier<List<String>> _suggestions = ValueNotifier([]);
   final ValueNotifier<int> _selectedIndex = ValueNotifier(-1);
   final PopoverController _popoverController = PopoverController();
+
+  /// Focus node/reference used by `_isFocused` interactions.
   bool _isFocused = false;
 
   AutoCompleteMode get _mode {
@@ -15,6 +18,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     );
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -30,6 +34,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     }
   }
 
+  /// Performs `_onSuggestionsChanged` logic for this form component.
   void _onSuggestionsChanged() {
     if ((_suggestions.value.isEmpty && _popoverController.hasOpenPopover) ||
         !_isFocused) {
@@ -99,6 +104,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     }
   }
 
+  /// Performs `_handleProceed` logic for this form component.
   void _handleProceed() {
     final selectedIndex = _selectedIndex.value;
     if (selectedIndex < 0 || selectedIndex >= _suggestions.value.length) {
@@ -110,6 +116,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     invokeActionOnFocusedWidget(AutoCompleteIntent(suggestion, _mode));
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant AutoComplete oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -124,6 +131,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     }
   }
 
+  /// Performs `_onFocusChanged` logic for this form component.
   void _onFocusChanged(bool focused) {
     _isFocused = focused;
     if (!focused) {
@@ -131,6 +139,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(

@@ -86,6 +86,7 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
   final resolvedRadius = hasRadiusPref
       ? (prefs.getDouble(kPrefsRadius) ?? presetTokens.radius)
       : (presetId == 'custom' ? 0.1 : presetTokens.radius);
+  final resolvedDensity = _densityFromPrefs(prefs) ?? presetTokens.density;
   final storedPath = prefs.getString('initialPath');
   return DocsSettings(
     colorScheme: scheme,
@@ -93,6 +94,7 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
     scaling: prefs.getDouble(kPrefsScaling) ?? 1.0,
     surfaceOpacity: prefs.getDouble(kPrefsSurfaceOpacity) ?? 1.0,
     surfaceBlur: prefs.getDouble(kPrefsSurfaceBlur) ?? 0.0,
+    density: resolvedDensity,
     initialPath: storedPath ?? '/',
     presetId: presetId,
     brightness: brightness,
@@ -105,6 +107,7 @@ class DocsSettings {
   final double scaling;
   final double surfaceOpacity;
   final double surfaceBlur;
+  final shadcn_theme.Density density;
   final String initialPath;
   final String presetId;
   final Brightness brightness;
@@ -115,6 +118,7 @@ class DocsSettings {
     required this.scaling,
     required this.surfaceOpacity,
     required this.surfaceBlur,
+    required this.density,
     required this.initialPath,
     required this.presetId,
     required this.brightness,
@@ -149,16 +153,20 @@ class _DocsRootState extends State<DocsRoot> {
   @override
   void initState() {
     super.initState();
-    const baseTheme = shadcn_theme.ThemeData();
+    final presetTokens = _tokensForPreset(
+      widget.settings.presetId,
+      widget.settings.brightness,
+    );
     final themeData = DocsThemeData(
       colorScheme: widget.settings.colorScheme,
       radius: widget.settings.radius,
       scaling: widget.settings.scaling,
       surfaceOpacity: widget.settings.surfaceOpacity,
       surfaceBlur: widget.settings.surfaceBlur,
-      spacing: baseTheme.spacing,
-      tracking: baseTheme.tracking,
-      shadows: baseTheme.shadows,
+      density: widget.settings.density,
+      spacing: widget.settings.density.toSpacingScale(),
+      tracking: presetTokens.tracking,
+      shadows: presetTokens.shadows,
     );
     controller = DocsThemeController(
       initialData: themeData,
@@ -440,6 +448,20 @@ RegistryThemePresetTokens _tokensForPreset(
     orElse: () => DocsThemeController.presets.first,
   );
   return brightness == Brightness.dark ? preset.darkTokens : preset.lightTokens;
+}
+
+shadcn_theme.Density? _densityFromPrefs(SharedPreferences prefs) {
+  final container = prefs.getDouble(kPrefsDensityBaseContainerPadding);
+  final gap = prefs.getDouble(kPrefsDensityBaseGap);
+  final content = prefs.getDouble(kPrefsDensityBaseContentPadding);
+  if (container == null || gap == null || content == null) {
+    return null;
+  }
+  return shadcn_theme.Density(
+    baseContainerPadding: container,
+    baseGap: gap,
+    baseContentPadding: content,
+  );
 }
 
 String getReleaseTagName() {

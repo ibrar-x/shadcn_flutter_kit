@@ -80,6 +80,7 @@ class SubFocusScope extends StatefulWidget {
   const SubFocusScope({super.key, this.builder, this.autofocus = false});
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SubFocusScope> createState() => _SubFocusScopeState();
 }
 

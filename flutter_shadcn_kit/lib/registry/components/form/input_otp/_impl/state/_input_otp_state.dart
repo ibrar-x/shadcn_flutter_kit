@@ -1,5 +1,6 @@
 part of '../../input_otp.dart';
 
+/// _InputOTPState stores and manages mutable widget state.
 class _InputOTPState extends State<InputOTP>
     with FormValueSupplier<OTPCodepointList, InputOTP> {
   final List<_InputOTPChild> _children = [];
@@ -8,6 +9,7 @@ class _InputOTPState extends State<InputOTP>
     return _children.map((e) => e.value).toList();
   }
 
+  /// Performs `_changeValue` logic for this form component.
   void _changeValue(int index, int? value) {
     _children[index].value = value;
     var val = this.value;
@@ -22,6 +24,7 @@ class _InputOTPState extends State<InputOTP>
     formValue = this.value;
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -57,6 +60,7 @@ class _InputOTPState extends State<InputOTP>
     formValue = value;
   }
 
+  /// Performs `getInitialValue` logic for this form component.
   int? getInitialValue(int index) {
     if (widget.initialValue != null && index < widget.initialValue!.length) {
       return widget.initialValue![index];
@@ -64,6 +68,7 @@ class _InputOTPState extends State<InputOTP>
     return null;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant InputOTP oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -108,6 +113,7 @@ class _InputOTPState extends State<InputOTP>
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -166,6 +172,7 @@ class _InputOTPState extends State<InputOTP>
     );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(OTPCodepointList value) {
     widget.onChanged?.call(value);

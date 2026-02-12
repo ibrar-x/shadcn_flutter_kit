@@ -1,6 +1,8 @@
 part of '../../window.dart';
 
+/// WindowController defines a reusable type for this registry module.
 class WindowController extends ValueNotifier<WindowState> {
+/// Stores `_attachedState` state/configuration for this implementation.
   WindowHandle? _attachedState;
 
   /// Creates a [WindowController].

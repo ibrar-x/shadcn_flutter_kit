@@ -1,13 +1,26 @@
 part of '../../avatar.dart';
 
+/// AvatarTheme defines theme tokens and defaults for the avatar widget.
 class AvatarTheme extends ComponentThemeData {
+  /// Layout/size setting that affects avatar rendering.
   final double? size;
+
+  /// Layout/size setting that affects avatar rendering.
   final double? borderRadius;
+
+  /// Color value used by avatar painting or state styling.
   final Color? backgroundColor;
+
+  /// Controls how avatar content is aligned within available space.
   final AlignmentGeometry? badgeAlignment;
+
+  /// Layout/size setting that affects avatar rendering.
   final double? badgeGap;
+
+  /// Data consumed by `AvatarTheme` to render avatar content.
   final TextStyle? textStyle;
 
+  /// Creates `AvatarTheme` for configuring or rendering avatar.
   const AvatarTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -42,6 +55,7 @@ class AvatarTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two avatar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

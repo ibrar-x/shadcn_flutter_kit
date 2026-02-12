@@ -6,6 +6,7 @@ import '../styles/button_state_property.dart';
 import '../styles/component_theme_button_style.dart';
 import '../themes/button_theme.dart';
 
+/// ButtonVariance defines a reusable type for this registry module.
 class ButtonVariance implements AbstractButtonStyle {
   /// Primary button variant with prominent filled appearance.
   ///
@@ -188,16 +189,22 @@ class ButtonVariance implements AbstractButtonStyle {
       );
 
   @override
+/// Stores `decoration` state/configuration for this implementation.
   final ButtonStateProperty<Decoration> decoration;
   @override
+/// Stores `mouseCursor` state/configuration for this implementation.
   final ButtonStateProperty<MouseCursor> mouseCursor;
   @override
+/// Stores `padding` state/configuration for this implementation.
   final ButtonStateProperty<EdgeInsetsGeometry> padding;
   @override
+/// Stores `textStyle` state/configuration for this implementation.
   final ButtonStateProperty<TextStyle> textStyle;
   @override
+/// Stores `iconTheme` state/configuration for this implementation.
   final ButtonStateProperty<IconThemeData> iconTheme;
   @override
+/// Stores `margin` state/configuration for this implementation.
   final ButtonStateProperty<EdgeInsetsGeometry> margin;
 
   /// Creates a custom [ButtonVariance] with the specified style properties.
@@ -214,6 +221,7 @@ class ButtonVariance implements AbstractButtonStyle {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -239,6 +247,7 @@ class ButtonVariance implements AbstractButtonStyle {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'ButtonVariance(decoration: $decoration, mouseCursor: $mouseCursor, padding: $padding, textStyle: $textStyle, iconTheme: $iconTheme, margin: $margin)';
   }

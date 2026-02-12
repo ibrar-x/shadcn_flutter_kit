@@ -1,20 +1,26 @@
 part of '../../table.dart';
 
+/// _ResizableTableState defines a reusable type for this registry module.
 class _ResizableTableState extends State<ResizableTable> {
+/// Stores `_cells` state/configuration for this implementation.
   late List<_FlattenedTableCell> _cells;
+/// Stores `_maxColumn` state/configuration for this implementation.
   late int _maxColumn;
+/// Stores `_maxRow` state/configuration for this implementation.
   late int _maxRow;
   final ValueNotifier<_HoveredLine?> _hoverNotifier = ValueNotifier(null);
   final ValueNotifier<_HoveredCell?> _hoveredCellNotifier = ValueNotifier(null);
   final ValueNotifier<_HoveredLine?> _dragNotifier = ValueNotifier(null);
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _initResizerRows();
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant ResizableTable oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(widget.rows, oldWidget.rows)) {
@@ -22,13 +28,18 @@ class _ResizableTableState extends State<ResizableTable> {
     }
   }
 
+/// Executes `_initResizerRows` behavior for this component/composite.
   void _initResizerRows() {
     _cells = [];
     for (int r = 0; r < widget.rows.length; r++) {
+/// Stores `row` state/configuration for this implementation.
       final row = widget.rows[r];
       for (int c = 0; c < row.cells.length; c++) {
+/// Stores `cell` state/configuration for this implementation.
         final cell = row.cells[c];
+/// Creates a `_cells.add` instance.
         _cells.add(
+/// Creates a `_FlattenedTableCell` instance.
           _FlattenedTableCell(
             column: c,
             row: r,
@@ -53,6 +64,7 @@ class _ResizableTableState extends State<ResizableTable> {
     }
   }
 
+/// Executes `_onHover` behavior for this component/composite.
   void _onHover(bool hover, int index, Axis direction) {
     if (hover) {
       _hoverNotifier.value = _HoveredLine(index, direction);
@@ -62,6 +74,7 @@ class _ResizableTableState extends State<ResizableTable> {
     }
   }
 
+/// Executes `_onDrag` behavior for this component/composite.
   void _onDrag(bool drag, int index, Axis direction) {
     if (drag && _dragNotifier.value == null) {
       _dragNotifier.value = _HoveredLine(index, direction);
@@ -70,15 +83,18 @@ class _ResizableTableState extends State<ResizableTable> {
     }
   }
 
+/// Executes `_width` behavior for this component/composite.
   TableSize _width(int index) {
     return FixedTableSize(widget.controller.getColumnWidth(index));
   }
 
+/// Executes `_height` behavior for this component/composite.
   TableSize _height(int index) {
     return FixedTableSize(widget.controller.getRowHeight(index));
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     ResizableTableTheme? resizableTableTheme =
         widget.theme ?? ComponentTheme.maybeOf<ResizableTableTheme>(context);

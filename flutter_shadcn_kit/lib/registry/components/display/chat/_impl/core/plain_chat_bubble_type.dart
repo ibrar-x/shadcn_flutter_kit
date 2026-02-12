@@ -26,6 +26,7 @@ class PlainChatBubbleType extends ChatBubbleType {
     ChatBubble chat,
   ) {
     final theme = Theme.of(context);
+
     final compTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final border = styleValue(
       widgetValue: this.border,

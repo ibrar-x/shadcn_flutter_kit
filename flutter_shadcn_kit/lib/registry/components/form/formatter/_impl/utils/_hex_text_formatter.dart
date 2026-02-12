@@ -1,6 +1,8 @@
 part of '../../formatter.dart';
 
+/// _HexTextFormatter represents a form-related type in the registry.
 class _HexTextFormatter extends TextInputFormatter {
+  /// Flag indicating whether `hashPrefix` is enabled/active.
   final bool hashPrefix;
   const _HexTextFormatter({this.hashPrefix = false});
   @override

@@ -1,9 +1,14 @@
 part of '../../preview.dart';
 
+/// _InputOtpPreviewState stores and manages mutable widget state.
 class _InputOtpPreviewState extends State<InputOtpPreview> {
+  /// Current value stored for `value`.
   String value = '';
+
+  /// Current value stored for `submittedValue`.
   String? submittedValue;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,11 +18,13 @@ class _InputOtpPreviewState extends State<InputOtpPreview> {
           children: [
             InputOTP(
               onChanged: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   this.value = value.otpToString();
                 });
               },
               onSubmitted: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   submittedValue = value.otpToString();
                 });

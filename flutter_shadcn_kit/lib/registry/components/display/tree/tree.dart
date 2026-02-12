@@ -144,6 +144,7 @@ class TreeTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two tree values for structural equality.
   @override
   bool operator ==(Object other) =>
       other is TreeTheme &&
@@ -162,6 +163,7 @@ class TreeTheme extends ComponentThemeData {
     recursiveSelection,
   );
 
+  /// Returns a debug string for this tree value.
   @override
   String toString() =>
       'TreeTheme(branchLine: $branchLine, padding: $padding, expandIcon: $expandIcon, allowMultiSelect: $allowMultiSelect, recursiveSelection: $recursiveSelection)';
@@ -496,6 +498,7 @@ typedef TreeNodeSelectionChanged<T> =
       bool selected,
     );
 
+/// Function/type signature used by tree APIs.
 typedef _TreeWalker<T> =
     void Function(
       bool parentExpanded,
@@ -503,4 +506,5 @@ typedef _TreeWalker<T> =
       List<TreeNodeDepth> depth,
     );
 
+/// Function/type signature used by tree APIs.
 typedef _NodeWalker<T> = void Function(TreeNode<T> node);

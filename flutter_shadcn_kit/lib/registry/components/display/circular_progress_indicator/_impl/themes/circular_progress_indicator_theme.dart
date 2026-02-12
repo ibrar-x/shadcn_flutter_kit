@@ -2,11 +2,19 @@ part of '../../circular_progress_indicator.dart';
 
 /// Theme data for [CircularProgressIndicator].
 class CircularProgressIndicatorTheme extends ComponentThemeData {
+  /// Color value used by circular progress indicator painting or state styling.
   final Color? color;
+
+  /// Color value used by circular progress indicator painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects circular progress indicator rendering.
   final double? size;
+
+  /// Layout/size setting that affects circular progress indicator rendering.
   final double? strokeWidth;
 
+  /// Creates `CircularProgressIndicatorTheme` for configuring or rendering circular progress indicator.
   const CircularProgressIndicatorTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -33,6 +41,7 @@ class CircularProgressIndicatorTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two circular progress indicator values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -43,6 +52,7 @@ class CircularProgressIndicatorTheme extends ComponentThemeData {
         other.strokeWidth == strokeWidth;
   }
 
+  /// State flag that toggles specific circular progress indicator behavior.
   @override
   int get hashCode => Object.hash(color, backgroundColor, size, strokeWidth);
 }

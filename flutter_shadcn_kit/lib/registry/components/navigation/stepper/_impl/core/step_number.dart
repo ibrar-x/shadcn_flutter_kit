@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepNumber defines a reusable type for this registry module.
 class StepNumber extends StatelessWidget {
   /// Custom icon to display instead of step number.
   final Widget? icon;
@@ -27,14 +28,17 @@ class StepNumber extends StatelessWidget {
   const StepNumber({super.key, this.icon, this.onPressed});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final properties = Data.maybeOf<StepProperties>(context);
     final stepNumberData = Data.maybeOf<StepNumberData>(context);
     assert(properties != null, 'StepNumber must be a descendant of Stepper');
+/// Creates a `assert` instance.
     assert(
       stepNumberData != null,
       'StepNumber must be a descendant of StepNumberData',
     );
+/// Stores `stepIndex` state/configuration for this implementation.
     final int stepIndex = stepNumberData!.stepIndex;
     final theme = Theme.of(context);
     return AnimatedBuilder(
@@ -42,6 +46,7 @@ class StepNumber extends StatelessWidget {
       builder: (context, child) {
         return properties.size.wrapper(
           context,
+/// Creates a `DefaultTextStyle.merge` instance.
           DefaultTextStyle.merge(
             style: TextStyle(
               color:
@@ -84,7 +89,9 @@ class StepNumber extends StatelessWidget {
                           : properties.state.value.currentStep > stepIndex
                           ? theme.colorScheme.primary
                           : properties.state.value.currentStep == stepIndex ||
+/// Creates a `states.contains` instance.
                                 states.contains(WidgetState.hovered) ||
+/// Creates a `states.contains` instance.
                                 states.contains(WidgetState.focused)
                           ? theme.colorScheme.secondary
                           : theme.colorScheme.background,

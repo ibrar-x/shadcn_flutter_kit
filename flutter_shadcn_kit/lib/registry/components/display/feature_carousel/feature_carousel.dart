@@ -26,4 +26,5 @@ part '_impl/core/_ghost_transform.dart';
 part '_impl/core/_nav_arrow.dart';
 part '_impl/core/feature_card_carousel.dart';
 
+/// _CarouselDirection enumerates fixed values used by this implementation.
 enum _CarouselDirection { left, right }

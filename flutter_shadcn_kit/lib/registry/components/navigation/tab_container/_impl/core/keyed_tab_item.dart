@@ -1,5 +1,6 @@
 part of '../../tab_container.dart';
 
+/// KeyedTabItem defines a reusable type for this registry module.
 class KeyedTabItem<T> extends TabItem with KeyedTabChild<T> {
   /// Creates a [KeyedTabItem].
   ///
@@ -10,8 +11,10 @@ class KeyedTabItem<T> extends TabItem with KeyedTabChild<T> {
     : super(key: ValueKey(key));
 
   @override
+/// Stores `key` state/configuration for this implementation.
   ValueKey<T> get key => super.key as ValueKey<T>;
 
   @override
+/// Stores `tabKey` state/configuration for this implementation.
   T get tabKey => key.value;
 }

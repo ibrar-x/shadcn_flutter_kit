@@ -24,9 +24,11 @@ class FormEntry<T> extends StatefulWidget {
     this.validator,
   });
 
+  /// Field storing `key` for this form implementation.
   @override
   FormKey get key => super.key as FormKey;
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormEntry> createState() => FormEntryState();
 }

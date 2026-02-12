@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// InputFeatureVisibility renders form UI and wires input behavior.
 abstract class InputFeatureVisibility {
   /// Creates a visibility condition that is true when all [features] are true.
   const factory InputFeatureVisibility.and(

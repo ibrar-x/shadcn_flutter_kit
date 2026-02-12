@@ -1,12 +1,19 @@
 part of '../../table.dart';
 
+/// _ResizableTableData defines a reusable type for this registry module.
 class _ResizableTableData {
+/// Stores `controller` state/configuration for this implementation.
   final ResizableTableController controller;
+/// Stores `cellWidthResizeMode` state/configuration for this implementation.
   final TableCellResizeMode cellWidthResizeMode;
+/// Stores `cellHeightResizeMode` state/configuration for this implementation.
   final TableCellResizeMode cellHeightResizeMode;
+/// Stores `maxColumn` state/configuration for this implementation.
   final int maxColumn;
+/// Stores `maxRow` state/configuration for this implementation.
   final int maxRow;
 
+/// Creates a `_ResizableTableData` instance.
   const _ResizableTableData({
     required this.controller,
     required this.cellWidthResizeMode,
@@ -16,6 +23,7 @@ class _ResizableTableData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

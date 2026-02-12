@@ -117,6 +117,7 @@ class Carousel extends StatefulWidget {
          'itemCount must be provided if wrap is false',
        );
 
+  /// Creates the State object used by this carousel widget.
   @override
   State<Carousel> createState() => _CarouselState();
 }

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'app_error.dart';
 
 abstract interface class ErrorScope {
+/// Stores `notifier` state/configuration for this implementation.
   ValueNotifier<AppError?> get notifier;
   void clear();
 }

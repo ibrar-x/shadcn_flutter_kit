@@ -1,15 +1,18 @@
 part of '../../preview.dart';
 
+/// _FadeScrollPreviewState defines a reusable type for this registry module.
 class _FadeScrollPreviewState extends State<FadeScrollPreview> {
   final ScrollController _controller = ScrollController();
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

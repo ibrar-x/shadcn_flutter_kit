@@ -5,6 +5,7 @@ import 'button_state_property_delegate.dart';
 import 'button_style_override_data.dart';
 import '../variants/button_variance.dart';
 
+/// ButtonStyleOverride defines a reusable type for this registry module.
 class ButtonStyleOverride extends StatelessWidget {
   /// Whether to inherit and chain with parent overrides.
   ///
@@ -64,12 +65,19 @@ class ButtonStyleOverride extends StatelessWidget {
   }) : inherit = true;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `decoration` state/configuration for this implementation.
     var decoration = this.decoration;
+/// Stores `mouseCursor` state/configuration for this implementation.
     var mouseCursor = this.mouseCursor;
+/// Stores `padding` state/configuration for this implementation.
     var padding = this.padding;
+/// Stores `textStyle` state/configuration for this implementation.
     var textStyle = this.textStyle;
+/// Stores `iconTheme` state/configuration for this implementation.
     var iconTheme = this.iconTheme;
+/// Stores `margin` state/configuration for this implementation.
     var margin = this.margin;
     if (inherit) {
       var data = Data.maybeOf<ButtonStyleOverrideData>(context);

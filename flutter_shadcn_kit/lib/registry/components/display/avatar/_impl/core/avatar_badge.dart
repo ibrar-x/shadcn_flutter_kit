@@ -1,6 +1,8 @@
 part of '../../avatar.dart';
 
+/// Core class used by the avatar component.
 class AvatarBadge extends StatelessWidget implements AvatarWidget {
+  /// Creates `AvatarBadge` for configuring or rendering avatar.
   const AvatarBadge({
     super.key,
     this.child,
@@ -9,16 +11,25 @@ class AvatarBadge extends StatelessWidget implements AvatarWidget {
     this.color,
   });
 
+  /// Child content displayed inside the avatar widget.
   final Widget? child;
+
+  /// Layout/size setting that affects avatar rendering.
   @override
   final double? size;
+
+  /// Layout/size setting that affects avatar rendering.
   @override
   final double? borderRadius;
+
+  /// Color value used by avatar painting or state styling.
   final Color? color;
 
+  /// Builds the widget tree for avatar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final resolvedSize = size ?? theme.scaling * 12;
     return Container(
       width: resolvedSize,

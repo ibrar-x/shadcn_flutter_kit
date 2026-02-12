@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// Window defines a reusable type for this registry module.
 class Window {
   /// Title widget displayed in the window's title bar.
   final Widget? title;
@@ -150,6 +151,7 @@ class Window {
   ///
   /// Returns [WindowHandle] for controlling the window state.
   WindowHandle get handle {
+/// Stores `currentState` state/configuration for this implementation.
     var currentState = _key.currentState;
     assert(currentState != null, 'Window is not mounted');
     return currentState!;

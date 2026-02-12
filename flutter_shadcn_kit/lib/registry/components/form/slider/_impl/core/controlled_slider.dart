@@ -152,6 +152,7 @@ class ControlledSlider extends StatelessWidget
     this.enabled = true,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledComponentAdapter(

@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationButton defines a reusable type for this registry module.
 class NavigationButton extends AbstractNavigationButton {
   /// Callback when button is pressed.
   final VoidCallback? onPressed;
@@ -40,5 +41,6 @@ class NavigationButton extends AbstractNavigationButton {
   }
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AbstractNavigationButton> createState() => _NavigationButtonState();
 }

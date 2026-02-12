@@ -1,6 +1,8 @@
 part of '../../code_snippet.dart';
 
+/// _CodeSnippetState holds mutable state for the code snippet implementation.
 class _CodeSnippetState extends State<CodeSnippet> {
+  /// Builds the widget tree for code snippet.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -66,6 +68,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
     if (actions.isEmpty) {
       return const [];
     }
+
     final spaced = <Widget>[];
     for (var i = 0; i < actions.length; i++) {
       spaced.add(actions[i]);

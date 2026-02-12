@@ -1,18 +1,23 @@
 part of '../../drawer.dart';
 
+/// DrawerEntryWidgetState defines a reusable type for this registry module.
 class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
     with SingleTickerProviderStateMixin {
   /// Notifier for additional offset applied during drag gestures.
   late ValueNotifier<double> additionalOffset = ValueNotifier(0);
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+/// Stores `_controlledAnimation` state/configuration for this implementation.
   late ControlledAnimation _controlledAnimation;
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _controller =
         widget.animationController ??
+/// Creates a `AnimationController` instance.
         AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 350),
@@ -27,6 +32,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (widget.animationController == null) {
       _controller.dispose();
@@ -35,6 +41,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant DrawerEntryWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.animationController != oldWidget.animationController) {
@@ -43,6 +50,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
       }
       _controller =
           widget.animationController ??
+/// Creates a `AnimationController` instance.
           AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 350),
@@ -66,9 +74,13 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `alignment` state/configuration for this implementation.
     AlignmentGeometry alignment;
+/// Stores `startFractionalOffset` state/configuration for this implementation.
     Offset startFractionalOffset;
+/// Stores `position` state/configuration for this implementation.
     var position = widget.position;
     final textDirection = Directionality.of(context);
     if (position == OverlayPosition.start) {
@@ -80,9 +92,13 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
           ? OverlayPosition.right
           : OverlayPosition.left;
     }
+/// Stores `padTop` state/configuration for this implementation.
     bool padTop = widget.useSafeArea && position != OverlayPosition.top;
+/// Stores `padBottom` state/configuration for this implementation.
     bool padBottom = widget.useSafeArea && position != OverlayPosition.bottom;
+/// Stores `padLeft` state/configuration for this implementation.
     bool padLeft = widget.useSafeArea && position != OverlayPosition.left;
+/// Stores `padRight` state/configuration for this implementation.
     bool padRight = widget.useSafeArea && position != OverlayPosition.right;
     switch (position) {
       case OverlayPosition.left:
@@ -122,6 +138,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
                           widget.stackIndex,
                         )
                       : null) ??
+/// Creates a `Positioned` instance.
                   Positioned(
                     top: -9999,
                     left: -9999,
@@ -136,7 +153,9 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
               final extraSize = Data.maybeOf<BackdropTransformData>(
                 context,
               )?.sizeDifference;
+/// Stores `additionalSize` state/configuration for this implementation.
               Size additionalSize;
+/// Stores `additionalOffset` state/configuration for this implementation.
               Offset additionalOffset;
               bool insetTop =
                   widget.useSafeArea && position == OverlayPosition.top;
@@ -178,6 +197,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
                 clipBehavior: Clip.none,
                 fit: StackFit.passthrough,
                 children: [
+/// Creates a `IgnorePointer` instance.
                   IgnorePointer(
                     child: widget.backdropBuilder(
                       context,
@@ -187,6 +207,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
                     ),
                   ),
                   barrier,
+/// Creates a `Positioned.fill` instance.
                   Positioned.fill(
                     child: LayoutBuilder(
                       builder: (context, constraints) {
@@ -224,6 +245,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
                                     context,
                                     additionalSize,
                                     constraints.biggest,
+/// Creates a `EdgeInsets.only` instance.
                                     EdgeInsets.only(
                                       top: insetTop ? padding.top : 0,
                                       bottom: insetBottom ? padding.bottom : 0,

@@ -1,11 +1,14 @@
 part of '../../axis.dart';
 
+/// AxisAlignment defines a reusable type for this registry module.
 class AxisAlignment extends AxisAlignmentGeometry {
   static const AxisAlignment left = AxisAlignment(-1.0);
   static const AxisAlignment right = AxisAlignment(1.0);
   static const AxisAlignment center = AxisAlignment(0.0);
 
+/// Stores `direction` state/configuration for this implementation.
   final TextDirection? direction;
+/// Stores `value` state/configuration for this implementation.
   final double value;
 
   const AxisAlignment._(this.direction, this.value);
@@ -22,6 +25,7 @@ class AxisAlignment extends AxisAlignmentGeometry {
 
   /// Positions a child within a span of [size] using this alignment.
   double alongValue(Axis axis, double size) {
+/// Stores `center` state/configuration for this implementation.
     final center = size / 2;
     return center + resolveValue(axis) * center;
   }
@@ -37,6 +41,7 @@ class AxisAlignment extends AxisAlignmentGeometry {
   }
 
   @override
+/// Executes `resolve` behavior for this component/composite.
   AxisAlignment resolve(TextDirection textDirection) {
     return AxisAlignment._(textDirection, value);
   }

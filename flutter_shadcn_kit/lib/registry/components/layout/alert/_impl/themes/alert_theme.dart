@@ -2,6 +2,7 @@ part of '../../alert.dart';
 
 /// Theme extensions used by [Alert].
 class AlertTheme extends ComponentThemeData {
+/// Creates a `AlertTheme` instance.
   const AlertTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -11,10 +12,14 @@ class AlertTheme extends ComponentThemeData {
     this.borderColor,
   });
 
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
+/// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
+/// Stores `borderColor` state/configuration for this implementation.
   final Color? borderColor;
 
+/// Creates a `AlertTheme` instance.
   AlertTheme copyWith({
     ValueGetter<EdgeInsetsGeometry?>? padding,
     ValueGetter<Color?>? backgroundColor,
@@ -30,6 +35,7 @@ class AlertTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is AlertTheme &&
         other.padding == padding &&

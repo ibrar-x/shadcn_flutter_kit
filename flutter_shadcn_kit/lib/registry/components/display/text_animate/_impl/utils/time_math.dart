@@ -6,11 +6,13 @@ double _normalizedProgress({
   required Curve curve,
 }) {
   if (duration <= Duration.zero) return 1;
+
   final raw = age.inMicroseconds / duration.inMicroseconds;
   final clamped = raw.clamp(0.0, 1.0).toDouble();
   return curve.transform(clamped);
 }
 
+/// Implements `_revealDelayForUnitIndex` behavior for text animate.
 Duration _revealDelayForUnitIndex(int index, TypewriterEffect typewriter) {
   if (!typewriter.enabled || typewriter.charsPerSecond <= 0 || index <= 0) {
     return Duration.zero;
@@ -29,6 +31,7 @@ int _visibleUnitCount({
   if (!typewriter.enabled || typewriter.charsPerSecond <= 0) {
     return total;
   }
+
   final micros = elapsed.inMicroseconds;
   if (micros <= 0) {
     return 1;

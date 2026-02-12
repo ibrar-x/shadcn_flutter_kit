@@ -36,14 +36,17 @@ class FormKey<T> extends LocalKey {
     return values.getValue(this);
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is FormKey && other.key == key;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => key.hashCode;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'FormKey($key)';

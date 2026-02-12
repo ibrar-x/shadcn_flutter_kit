@@ -40,12 +40,15 @@ class EditablePart extends InputPart {
     required this.width,
   });
 
+  /// Field storing `partKey` for this form implementation.
   @override
   Object? get partKey => null;
 
+  /// Current value stored for `canHaveValue`.
   @override
   bool get canHaveValue => true;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, FormattedInputData data) {
     return _EditablePartWidget(
@@ -58,11 +61,13 @@ class EditablePart extends InputPart {
     );
   }
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'EditablePart{length: $length, obscureText: $obscureText, inputFormatters: $inputFormatters, width: $width, placeholder: $placeholder}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

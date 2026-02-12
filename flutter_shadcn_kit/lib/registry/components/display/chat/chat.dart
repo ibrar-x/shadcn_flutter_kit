@@ -49,6 +49,7 @@ class ChatConstrainedBox extends SingleChildRenderObjectWidget {
     super.key,
   });
 
+  /// Implements `createRenderObject` behavior for chat.
   @override
   RenderChatConstrainedBox createRenderObject(BuildContext context) {
     return RenderChatConstrainedBox(

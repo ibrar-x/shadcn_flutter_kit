@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuTheme defines a reusable type for this registry module.
 class MenuTheme extends ComponentThemeData {
   /// Default padding applied to each menu item.
   final EdgeInsets? itemPadding;
@@ -33,6 +34,7 @@ class MenuTheme extends ComponentThemeData {
   int get hashCode => Object.hash(itemPadding, subMenuOffset);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is MenuTheme &&
@@ -41,6 +43,7 @@ class MenuTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'MenuTheme(itemPadding: $itemPadding, subMenuOffset: $subMenuOffset)';
   }

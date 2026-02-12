@@ -107,6 +107,7 @@ class ObjectFormField<T> extends StatefulWidget {
     this.immediateValueChange,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ObjectFormField<T>> createState() => ObjectFormFieldState<T>();
 }

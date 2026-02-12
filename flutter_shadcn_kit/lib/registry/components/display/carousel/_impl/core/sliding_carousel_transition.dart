@@ -23,10 +23,12 @@ class SlidingCarouselTransition extends CarouselTransition {
     required bool reverse,
   }) {
     int additionalPreviousItems = 1;
+
     int additionalNextItems = 1;
     double originalSize = direction == Axis.horizontal
         ? constraints.maxWidth
         : constraints.maxHeight;
+
     double size;
     if (sizeConstraint is CarouselFixedConstraint) {
       size = sizeConstraint.size;
@@ -35,18 +37,25 @@ class SlidingCarouselTransition extends CarouselTransition {
     } else {
       size = originalSize;
     }
+
     double snapOffsetAlignment = (originalSize - size) * alignment.alignment;
+
     double gapBeforeItem = snapOffsetAlignment;
+
     double gapAfterItem = originalSize - size - gapBeforeItem;
     additionalPreviousItems += max(0, (gapBeforeItem / size).ceil());
     additionalNextItems += max(0, (gapAfterItem / size).ceil());
+
     List<_PlacedCarouselItem> items = [];
+
     int start = progressedIndex.floor() - additionalPreviousItems;
+
     int end = progressedIndex.floor() + additionalNextItems;
     if (!wrap && itemCount != null) {
       start = start.clamp(0, itemCount - 1);
       end = end.clamp(0, itemCount - 1);
     }
+
     double currentIndex = progressedIndex + (gap / size) * progressedIndex;
     for (int i = start; i <= end; i++) {
       double index;
@@ -55,9 +64,13 @@ class SlidingCarouselTransition extends CarouselTransition {
       } else {
         index = i.toDouble();
       }
+
       var itemIndex = reverse ? (-index).toInt() : index.toInt();
+
       final item = itemBuilder(context, itemIndex);
+
       double position = i.toDouble();
+
       items.add(
         _PlacedCarouselItem._(
           relativeIndex: i,

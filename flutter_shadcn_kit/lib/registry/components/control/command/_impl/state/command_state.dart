@@ -25,32 +25,42 @@ import '../core/command_widget.dart';
 import '../utils/next_item_intent.dart';
 import '../utils/previous_item_intent.dart';
 
+/// CommandState defines a reusable type for this registry module.
 class CommandState extends State<Command> {
   final TextEditingController _controller = TextEditingController();
+/// Stores `_currentRequest` state/configuration for this implementation.
   late CommandQuery _currentRequest;
+/// Stores `requestCount` state/configuration for this implementation.
   int requestCount = 0;
 
   Stream<List<Widget>> _request(BuildContext context, String? query) async* {
+/// Stores `currentRequest` state/configuration for this implementation.
     int currentRequest = ++requestCount;
     yield [];
     await Future.delayed(widget.debounceDuration);
     if (!context.mounted || currentRequest != requestCount) return;
+/// Stores `resultItems` state/configuration for this implementation.
     List<Widget> resultItems = [];
     await for (final items in widget.builder(context, query)) {
       if (currentRequest != requestCount) continue;
       resultItems.addAll(items);
+/// Stores `resultItems` state/configuration for this implementation.
       yield resultItems;
     }
   }
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _currentRequest = CommandQuery(stream: _request(context, null));
+/// Creates a `_controller.addListener` instance.
     _controller.addListener(() {
+/// Stores `newQuery` state/configuration for this implementation.
       String? newQuery = _controller.text;
       if (newQuery.isEmpty) newQuery = null;
       if (newQuery != _currentRequest.query) {
+/// Creates a `setState` instance.
         setState(() {
           _currentRequest = CommandQuery(
             stream: _request(context, newQuery),
@@ -62,6 +72,7 @@ class CommandState extends State<Command> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final canPop = Navigator.of(context).canPop();
@@ -92,10 +103,15 @@ class CommandState extends State<Command> {
           },
           child: Shortcuts(
             shortcuts: {
+/// Creates a `LogicalKeySet` instance.
               LogicalKeySet(LogicalKeyboardKey.arrowUp):
+/// Creates a `PreviousItemIntent` instance.
                   const PreviousItemIntent(),
+/// Creates a `LogicalKeySet` instance.
               LogicalKeySet(LogicalKeyboardKey.arrowDown):
+/// Creates a `NextItemIntent` instance.
                   const NextItemIntent(),
+/// Creates a `LogicalKeySet` instance.
               LogicalKeySet(LogicalKeyboardKey.enter): const ActivateIntent(),
             },
             child: IntrinsicWidth(
@@ -109,6 +125,7 @@ class CommandState extends State<Command> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+/// Creates a `ComponentTheme` instance.
                     ComponentTheme(
                       data: const FocusOutlineTheme(
                         border: Border.fromBorderSide(BorderSide.none),
@@ -120,15 +137,20 @@ class CommandState extends State<Command> {
                         controller: _controller,
                         placeholder:
                             widget.searchPlaceholder ??
+/// Creates a `Text` instance.
                             Text(localization.commandSearch),
                         features: [
+/// Creates a `InputFeature.leading` instance.
                           InputFeature.leading(
+/// Creates a `Icon` instance.
                             const Icon(
                               LucideIcons.search,
                             ).iconSmall().iconMutedForeground(),
                           ),
                           if (canPop)
+/// Creates a `InputFeature.trailing` instance.
                             InputFeature.trailing(
+/// Creates a `GhostButton` instance.
                               GhostButton(
                                 density: ButtonDensity.iconDense,
                                 onPressed: () {
@@ -140,7 +162,9 @@ class CommandState extends State<Command> {
                         ],
                       ),
                     ),
+/// Creates a `Divider` instance.
                     const Divider(),
+/// Creates a `Expanded` instance.
                     Expanded(
                       child: StreamBuilder<List<Widget>>(
                         stream: _currentRequest.stream,
@@ -149,12 +173,15 @@ class CommandState extends State<Command> {
                             List<Widget> items = List.of(snapshot.data!);
                             if (snapshot.connectionState ==
                                 ConnectionState.active) {
+/// Creates a `items.add` instance.
                               items.add(
+/// Creates a `IconTheme.merge` instance.
                                 IconTheme.merge(
                                   data: IconThemeData(
                                     color: theme.colorScheme.mutedForeground,
                                   ),
                                   child:
+/// Creates a `Center` instance.
                                       Center(
                                         child: CircularProgressIndicator(),
                                       ).withPadding(
@@ -171,6 +198,7 @@ class CommandState extends State<Command> {
                             }
                             return ListView.separated(
                               separatorBuilder: (context, index) =>
+/// Creates a `Divider` instance.
                                   const Divider(),
                               padding: EdgeInsets.symmetric(
                                 vertical: theme.scaling * 2,
@@ -181,6 +209,7 @@ class CommandState extends State<Command> {
                             );
                           }
                           return widget.loadingBuilder?.call(context) ??
+/// Creates a `Center` instance.
                               const Center(
                                 child: CircularProgressIndicator(),
                               ).withPadding(
@@ -192,7 +221,9 @@ class CommandState extends State<Command> {
                         },
                       ),
                     ),
+/// Creates a `Divider` instance.
                     const Divider(),
+/// Creates a `Container` instance.
                     Container(
                       color: theme.colorScheme.muted.scaleAlpha(0.35),
                       padding: EdgeInsets.symmetric(
@@ -205,25 +236,33 @@ class CommandState extends State<Command> {
                           spacing:
                               theme.density.baseGap * theme.scaling * gapSm,
                           children: [
+/// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                             CommandKeyboardDisplay.fromActivator(
                               activator: SingleActivator(
                                 LogicalKeyboardKey.arrowUp,
                               ),
                             ).xSmall().muted(),
+/// Creates a `Text` instance.
                             Text(localization.commandMoveUp).muted().small(),
+/// Creates a `VerticalDivider` instance.
                             const VerticalDivider(),
+/// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                             CommandKeyboardDisplay.fromActivator(
                               activator: SingleActivator(
                                 LogicalKeyboardKey.arrowDown,
                               ),
                             ).xSmall().muted(),
+/// Creates a `Text` instance.
                             Text(localization.commandMoveDown).muted().small(),
+/// Creates a `VerticalDivider` instance.
                             const VerticalDivider(),
+/// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                             CommandKeyboardDisplay.fromActivator(
                               activator: SingleActivator(
                                 LogicalKeyboardKey.enter,
                               ),
                             ).xSmall().muted(),
+/// Creates a `Text` instance.
                             Text(localization.commandActivate).muted().small(),
                           ],
                         ),

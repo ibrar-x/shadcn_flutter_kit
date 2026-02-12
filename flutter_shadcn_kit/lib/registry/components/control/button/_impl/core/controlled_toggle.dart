@@ -6,6 +6,7 @@ import '../styles/button_style_class.dart';
 import '../state/toggle_controller_class.dart';
 import 'toggle_widget.dart';
 
+/// ControlledToggle defines a reusable type for this registry module.
 class ControlledToggle extends StatelessWidget with ControlledComponent<bool> {
   /// The initial toggle state when no controller is provided.
   ///
@@ -81,6 +82,7 @@ class ControlledToggle extends StatelessWidget with ControlledComponent<bool> {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return ControlledComponentAdapter(
       controller: controller,

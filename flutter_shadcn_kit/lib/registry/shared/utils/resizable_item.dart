@@ -1,4 +1,6 @@
+/// ResizableItem defines a reusable type for this registry module.
 class ResizableItem {
+/// Stores `_value` state/configuration for this implementation.
   double _value;
 
   /// Minimum size this item can be resized to.
@@ -15,7 +17,9 @@ class ResizableItem {
 
   /// Whether this item can be resized.
   final bool resizable;
+/// Stores `_newValue` state/configuration for this implementation.
   double? _newValue;
+/// Stores `_newCollapsed` state/configuration for this implementation.
   bool? _newCollapsed;
 
   /// Creates a resizable item with the given constraints.
@@ -48,26 +52,32 @@ class ResizableItem {
     return _value;
   }
 
+/// Stores `hasPendingValue` state/configuration for this implementation.
   bool get hasPendingValue => _newValue != null;
 
+/// Executes `setNewValue` behavior for this component/composite.
   void setNewValue(double? value) {
     _newValue = value;
   }
 
+/// Executes `setNewCollapsed` behavior for this component/composite.
   void setNewCollapsed(bool? value) {
     _newCollapsed = value;
   }
 
+/// Executes `setValue` behavior for this component/composite.
   void setValue(double value) {
     _value = value;
   }
 
+/// Executes `resetPending` behavior for this component/composite.
   void resetPending() {
     _newValue = null;
     _newCollapsed = null;
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'ResizableItem(value: $value, min: $min, max: $max)';
   }

@@ -1,11 +1,15 @@
 part of '../../resizable.dart';
 
+/// _ResizablePaneState defines a reusable type for this registry module.
 class _ResizablePaneState extends State<ResizablePane> {
+/// Stores `_controller` state/configuration for this implementation.
   late ResizablePaneController _controller;
 
+/// Stores `_panelState` state/configuration for this implementation.
   _ResizablePanelData? _panelState;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     if (widget.controller != null) {
@@ -26,6 +30,7 @@ class _ResizablePaneState extends State<ResizablePane> {
   }
 
   @override
+/// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     var newPanelState = Data.maybeOf<_ResizablePanelData>(context);
@@ -37,6 +42,7 @@ class _ResizablePaneState extends State<ResizablePane> {
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant ResizablePane oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
@@ -61,6 +67,7 @@ class _ResizablePaneState extends State<ResizablePane> {
         }
       }
       _panelState?.attach(_controller);
+/// Creates a `assert` instance.
       assert(
         _panelState != null,
         'ResizablePane must be a child of ResizablePanel',
@@ -69,6 +76,7 @@ class _ResizablePaneState extends State<ResizablePane> {
     }
   }
 
+/// Executes `tryExpand` behavior for this component/composite.
   bool tryExpand([PanelSibling direction = PanelSibling.both]) {
     if (!_controller.collapsed) {
       return false;
@@ -85,6 +93,7 @@ class _ResizablePaneState extends State<ResizablePane> {
     return result;
   }
 
+/// Executes `tryCollapse` behavior for this component/composite.
   bool tryCollapse([PanelSibling direction = PanelSibling.both]) {
     if (_controller.collapsed) {
       return false;
@@ -119,6 +128,7 @@ class _ResizablePaneState extends State<ResizablePane> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     super.dispose();
     _controller._detachPaneState(this);
@@ -126,13 +136,17 @@ class _ResizablePaneState extends State<ResizablePane> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: _controller,
       builder: (context, child) {
+/// Stores `size` state/configuration for this implementation.
         double? size;
+/// Stores `flex` state/configuration for this implementation.
         double? flex;
         if (_controller is AbsoluteResizablePaneController) {
+/// Stores `controller` state/configuration for this implementation.
           final controller = _controller as AbsoluteResizablePaneController;
           if (controller.collapsed) {
             size = widget.collapsedSize;
@@ -140,6 +154,7 @@ class _ResizablePaneState extends State<ResizablePane> {
             size = controller.value;
           }
         } else if (_controller is FlexibleResizablePaneController) {
+/// Stores `controller` state/configuration for this implementation.
           final controller = _controller as FlexibleResizablePaneController;
           if (controller.collapsed) {
             size = widget.collapsedSize;

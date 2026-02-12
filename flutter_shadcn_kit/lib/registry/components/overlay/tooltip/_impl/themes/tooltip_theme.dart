@@ -2,12 +2,18 @@ part of '../../tooltip.dart';
 
 /// Theme data for customizing tooltip container appearance.
 class TooltipTheme extends ComponentThemeData {
+/// Stores `surfaceOpacity` state/configuration for this implementation.
   final double? surfaceOpacity;
+/// Stores `surfaceBlur` state/configuration for this implementation.
   final double? surfaceBlur;
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
+/// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
+/// Creates a `TooltipTheme` instance.
   const TooltipTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -19,6 +25,7 @@ class TooltipTheme extends ComponentThemeData {
     this.borderRadius,
   });
 
+/// Creates a `TooltipTheme` instance.
   TooltipTheme copyWith({
     ValueGetter<double?>? surfaceOpacity,
     ValueGetter<double?>? surfaceBlur,
@@ -40,6 +47,7 @@ class TooltipTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TooltipTheme &&

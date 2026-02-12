@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableCellResizeMode enumerates fixed values used by this implementation.
 enum TableCellResizeMode {
   /// The cell size will expand when resized
   expand,

@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// Core class used by the calendar component.
 class CalendarView {
   /// The year component of this view.
   final int year;
@@ -86,11 +87,13 @@ class CalendarView {
     return CalendarView(year - 1, month);
   }
 
+  /// Returns a debug string for this calendar value.
   @override
   String toString() {
     return 'CalendarView($year, $month)';
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

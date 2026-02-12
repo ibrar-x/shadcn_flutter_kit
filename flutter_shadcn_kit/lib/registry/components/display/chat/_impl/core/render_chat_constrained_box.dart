@@ -4,7 +4,10 @@ part of '../../chat.dart';
 ///
 /// This render object implements the layout logic for [ChatConstrainedBox].
 class RenderChatConstrainedBox extends RenderShiftedBox {
+  /// Layout/size setting that affects chat rendering.
   double _widthFactor;
+
+  /// Controls how chat content is aligned within available space.
   AxisAlignment _alignment;
 
   /// Creates a [RenderChatConstrainedBox].
@@ -43,13 +46,16 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
     }
   }
 
+  /// Implements `performLayout` behavior for chat.
   @override
   void performLayout() {
     if (child == null) {
       size = this.constraints.smallest;
       return;
     }
+
     var constraints = this.constraints;
+
     var newMaxWidth = constraints.maxWidth * _widthFactor;
     constraints = constraints.copyWith(maxWidth: newMaxWidth, minWidth: 0);
     child!.layout(constraints, parentUsesSize: true);
@@ -60,15 +66,18 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
       Axis.horizontal,
       this.constraints.maxWidth - child!.size.width,
     );
+
     final data = child!.parentData as BoxParentData;
     data.offset = Offset(x, 0);
   }
 
+  /// Implements `computeDryLayout` behavior for chat.
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {
     if (child == null) {
       return constraints.smallest;
     }
+
     var newMaxWidth = constraints.maxWidth * _widthFactor;
     var newConstraints = constraints.copyWith(
       maxWidth: newMaxWidth,
@@ -78,11 +87,13 @@ class RenderChatConstrainedBox extends RenderShiftedBox {
     return constraints.constrain(Size(constraints.maxWidth, childSize.height));
   }
 
+  /// Implements `computeMaxIntrinsicHeight` behavior for chat.
   @override
   double computeMaxIntrinsicHeight(double width) {
     return super.computeMaxIntrinsicHeight(width * _widthFactor);
   }
 
+  /// Implements `computeMinIntrinsicHeight` behavior for chat.
   @override
   double computeMinIntrinsicHeight(double width) {
     return super.computeMinIntrinsicHeight(width * _widthFactor);

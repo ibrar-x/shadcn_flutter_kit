@@ -48,6 +48,7 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
     bool showSeconds = false,
     bool use24HourFormat = true,
   }) {
+/// Stores `result` state/configuration for this implementation.
     String result = '';
     if (showDate) {
       result += '${getMonth(dateTime.month)} ${dateTime.day}, ${dateTime.year}';
@@ -65,6 +66,7 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
         if (result.isNotEmpty) {
           result += ' ';
         }
+/// Stores `hour` state/configuration for this implementation.
         int hour = dateTime.hour;
         if (hour > 12) {
           hour -= 12;
@@ -86,6 +88,7 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
     bool use24HourFormat = true,
     bool showSeconds = false,
   }) {
+/// Stores `result` state/configuration for this implementation.
     String result = '';
     if (use24HourFormat) {
       result +=
@@ -94,6 +97,7 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
         result += ':${time.second.toString().padLeft(2, '0')}';
       }
     } else {
+/// Stores `hour` state/configuration for this implementation.
       int hour = time.hour;
       if (hour > 12) {
         hour -= 12;
@@ -239,10 +243,15 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
     bool showMinutes = true,
     bool showSeconds = true,
   }) {
+/// Stores `days` state/configuration for this implementation.
     final days = duration.inDays;
+/// Stores `hours` state/configuration for this implementation.
     final hours = duration.inHours % Duration.hoursPerDay;
+/// Stores `minutes` state/configuration for this implementation.
     final minutes = duration.inMinutes % Duration.minutesPerHour;
+/// Stores `seconds` state/configuration for this implementation.
     final seconds = duration.inSeconds % Duration.secondsPerMinute;
+/// Stores `parts` state/configuration for this implementation.
     final parts = <String>[];
     if (showDays && days > 0) {
       parts.add('${days}d');

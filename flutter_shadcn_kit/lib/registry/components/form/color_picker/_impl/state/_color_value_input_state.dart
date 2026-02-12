@@ -1,15 +1,21 @@
 part of '../../color_picker.dart';
 
+/// _ColorValueInputState stores and manages mutable widget state.
 class _ColorValueInputState extends State<_ColorValueInput> {
+  /// Controller used to coordinate `_controller` behavior.
   late TextEditingController _controller;
+
+  /// Focus node/reference used by `_focused` interactions.
   bool _focused = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.value);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant _ColorValueInput oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -18,10 +24,12 @@ class _ColorValueInputState extends State<_ColorValueInput> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Focus(
       onFocusChange: (focused) {
+        /// Triggers a rebuild after mutating local state.
         setState(() {
           _focused = focused;
         });

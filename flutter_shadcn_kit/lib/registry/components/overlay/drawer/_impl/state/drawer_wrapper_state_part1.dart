@@ -1,11 +1,15 @@
 part of '../../drawer.dart';
 
+/// _DrawerWrapperState defines a reusable type for this registry module.
 class _DrawerWrapperState extends State<DrawerWrapper>
     with SingleTickerProviderStateMixin {
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+/// Stores `_extraOffset` state/configuration for this implementation.
   late ControlledAnimation _extraOffset;
 
   OverlayPosition get resolvedPosition {
+/// Stores `position` state/configuration for this implementation.
     var position = widget.position;
     if (position == OverlayPosition.start) {
       return Directionality.of(context) == TextDirection.ltr
@@ -21,10 +25,12 @@ class _DrawerWrapperState extends State<DrawerWrapper>
   }
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _controller =
         widget.animationController ??
+/// Creates a `AnimationController` instance.
         AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 350),
@@ -52,6 +58,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     }
   }
 
+/// Executes `buildDraggableBar` behavior for this component/composite.
   Widget buildDraggableBar(ThemeData theme) {
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -79,6 +86,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     }
   }
 
+/// Executes `getSize` behavior for this component/composite.
   Size getSize(BuildContext context) {
     final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
     return renderBox?.hasSize ?? false
@@ -101,7 +109,9 @@ class _DrawerWrapperState extends State<DrawerWrapper>
               return;
             }
             final size = getSize(context);
+/// Stores `increment` state/configuration for this implementation.
             final increment = details.primaryDelta! / size.width;
+/// Stores `newValue` state/configuration for this implementation.
             double newValue = controlled.value + increment;
             if (newValue < 0) {
               newValue = 0;
@@ -119,6 +129,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
             _extraOffset.forward(0, Curves.easeOut);
             if (controlled.value + _extraOffset.value < 0.5) {
+/// Creates a `controlled.forward` instance.
               controlled.forward(0, Curves.easeOut).then((value) {
                 closeDrawer(context);
               });
@@ -130,6 +141,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             textDirection: TextDirection.ltr,
             mainAxisSize: MainAxisSize.min,
             children: [
+/// Creates a `AnimatedBuilder` instance.
               AnimatedBuilder(
                 animation: _extraOffset,
                 builder: (context, child) {
@@ -138,6 +150,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                   );
                 },
               ),
+/// Creates a `Flexible` instance.
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
@@ -153,11 +166,14 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                 ),
               ),
               if (widget.showDragHandle) ...[
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapAfterDragger ??
                       theme.density.baseGap * theme.scaling * gapLg,
                 ),
+/// Creates a `buildDraggableBar` instance.
                 buildDraggableBar(theme),
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapBeforeDragger ??
                       theme.density.baseGap * theme.scaling * gapMd,
@@ -174,7 +190,9 @@ class _DrawerWrapperState extends State<DrawerWrapper>
               return;
             }
             final size = getSize(context);
+/// Stores `increment` state/configuration for this implementation.
             final increment = details.primaryDelta! / size.width;
+/// Stores `newValue` state/configuration for this implementation.
             double newValue = controlled.value - increment;
             if (newValue < 0) {
               newValue = 0;
@@ -192,6 +210,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
             _extraOffset.forward(0, Curves.easeOut);
             if (controlled.value + _extraOffset.value < 0.5) {
+/// Creates a `controlled.forward` instance.
               controlled.forward(0, Curves.easeOut).then((value) {
                 closeDrawer(context);
               });
@@ -204,16 +223,20 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.showDragHandle) ...[
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapBeforeDragger ??
                       theme.density.baseGap * theme.scaling * gapMd,
                 ),
+/// Creates a `buildDraggableBar` instance.
                 buildDraggableBar(theme),
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapAfterDragger ??
                       theme.density.baseGap * theme.scaling * gapLg,
                 ),
               ],
+/// Creates a `Flexible` instance.
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
@@ -228,6 +251,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                   child: child,
                 ),
               ),
+/// Creates a `AnimatedBuilder` instance.
               AnimatedBuilder(
                 animation: _extraOffset,
                 builder: (context, child) {
@@ -247,7 +271,9 @@ class _DrawerWrapperState extends State<DrawerWrapper>
               return;
             }
             final size = getSize(context);
+/// Stores `increment` state/configuration for this implementation.
             final increment = details.primaryDelta! / size.height;
+/// Stores `newValue` state/configuration for this implementation.
             double newValue = controlled.value + increment;
             if (newValue < 0) {
               newValue = 0;
@@ -265,6 +291,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
             _extraOffset.forward(0, Curves.easeOut);
             if (controlled.value + _extraOffset.value < 0.5) {
+/// Creates a `controlled.forward` instance.
               controlled.forward(0, Curves.easeOut).then((value) {
                 closeDrawer(context);
               });
@@ -275,6 +302,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+/// Creates a `AnimatedBuilder` instance.
               AnimatedBuilder(
                 animation: _extraOffset,
                 builder: (context, child) {
@@ -283,6 +311,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                   );
                 },
               ),
+/// Creates a `Flexible` instance.
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
@@ -298,11 +327,14 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                 ),
               ),
               if (widget.showDragHandle) ...[
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapAfterDragger ??
                       theme.density.baseGap * theme.scaling * gapLg,
                 ),
+/// Creates a `buildDraggableBar` instance.
                 buildDraggableBar(theme),
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapBeforeDragger ??
                       theme.density.baseGap * theme.scaling * gapMd,
@@ -319,7 +351,9 @@ class _DrawerWrapperState extends State<DrawerWrapper>
               return;
             }
             final size = getSize(context);
+/// Stores `increment` state/configuration for this implementation.
             final increment = details.primaryDelta! / size.height;
+/// Stores `newValue` state/configuration for this implementation.
             double newValue = controlled.value - increment;
             if (newValue < 0) {
               newValue = 0;
@@ -337,6 +371,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
             _extraOffset.forward(0, Curves.easeOut);
             if (controlled.value + _extraOffset.value < 0.5) {
+/// Creates a `controlled.forward` instance.
               controlled.forward(0, Curves.easeOut).then((value) {
                 closeDrawer(context);
               });
@@ -348,16 +383,20 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.showDragHandle) ...[
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapBeforeDragger ??
                       theme.density.baseGap * theme.scaling * gapMd,
                 ),
+/// Creates a `buildDraggableBar` instance.
                 buildDraggableBar(theme),
+/// Creates a `Gap` instance.
                 Gap(
                   widget.gapAfterDragger ??
                       theme.density.baseGap * theme.scaling * gapLg,
                 ),
               ],
+/// Creates a `Flexible` instance.
               Flexible(
                 child: AnimatedBuilder(
                   builder: (context, child) {
@@ -372,6 +411,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                   child: child,
                 ),
               ),
+/// Creates a `AnimatedBuilder` instance.
               AnimatedBuilder(
                 animation: _extraOffset,
                 builder: (context, child) {
@@ -389,6 +429,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant DrawerWrapper oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.animationController != oldWidget.animationController) {
@@ -397,6 +438,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
       }
       _controller =
           widget.animationController ??
+/// Creates a `AnimationController` instance.
           AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 350),
@@ -405,6 +447,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (widget.animationController == null) {
       _controller.dispose();
@@ -412,6 +455,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     super.dispose();
   }
 
+/// Executes `getBorder` behavior for this component/composite.
   Border getBorder(ThemeData theme) {
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -447,6 +491,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     }
   }
 
+/// Executes `getBorderRadius` behavior for this component/composite.
   BorderRadiusGeometry getBorderRadius(double radius) {
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -474,12 +519,15 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     }
   }
 
+/// Executes `getDecoration` behavior for this component/composite.
   BoxDecoration getDecoration(ThemeData theme) {
     var border = getBorder(theme);
     // according to the design, the border radius is 10
     // seems to be a fixed value
     var borderRadius = widget.borderRadius ?? getBorderRadius(theme.radiusXxl);
+/// Stores `backgroundColor` state/configuration for this implementation.
     var backgroundColor = theme.colorScheme.background;
+/// Stores `surfaceOpacity` state/configuration for this implementation.
     var surfaceOpacity = widget.surfaceOpacity ?? theme.surfaceOpacity;
     if (surfaceOpacity != null && surfaceOpacity < 1) {
       if (widget.stackIndex == 0) {
@@ -496,24 +544,31 @@ class _DrawerWrapperState extends State<DrawerWrapper>
     );
   }
 
+/// Executes `buildChild` behavior for this component/composite.
   Widget buildChild(BuildContext context) {
     return widget.child;
   }
 
+/// Executes `buildPadding` behavior for this component/composite.
   EdgeInsets buildPadding(BuildContext context) {
     return widget.padding;
   }
 
+/// Executes `buildMargin` behavior for this component/composite.
   EdgeInsets buildMargin(BuildContext context) {
     return EdgeInsets.zero;
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<_MountedOverlayEntryData>(context);
+/// Stores `animation` state/configuration for this implementation.
     final animation = data?.state._controlledAnimation;
     final theme = Theme.of(context);
+/// Stores `surfaceBlur` state/configuration for this implementation.
     var surfaceBlur = widget.surfaceBlur ?? theme.surfaceBlur;
+/// Stores `surfaceOpacity` state/configuration for this implementation.
     var surfaceOpacity = widget.surfaceOpacity ?? theme.surfaceOpacity;
     var borderRadius = widget.borderRadius ?? getBorderRadius(theme.radiusXxl);
     Widget container = Container(

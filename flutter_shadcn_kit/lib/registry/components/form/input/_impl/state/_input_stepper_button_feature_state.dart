@@ -1,7 +1,9 @@
 part of '../../input.dart';
 
+/// _InputStepperButtonFeatureState stores and manages mutable widget state.
 class _InputStepperButtonFeatureState
     extends InputFeatureState<InputStepperButtonFeature> {
+  /// Performs `_clampValue` logic for this form component.
   double _clampValue(double value) {
     final min = feature.min;
     final max = feature.max;
@@ -14,11 +16,13 @@ class _InputStepperButtonFeatureState
     return value;
   }
 
+  /// Performs `_effectiveValue` logic for this form component.
   double? _effectiveValue() {
     final value = double.tryParse(controller.text);
     return value ?? feature.invalidValue;
   }
 
+  /// Performs `_canApplyStep` logic for this form component.
   bool _canApplyStep(double? value) {
     if (value == null) return false;
     final step = feature.step;
@@ -30,6 +34,7 @@ class _InputStepperButtonFeatureState
     return min == null || value > min;
   }
 
+  /// Performs `_replaceText` logic for this form component.
   void _replaceText(UnaryOperator<String> replacer) {
     var controller = this.controller;
     var text = controller.text;
@@ -40,6 +45,7 @@ class _InputStepperButtonFeatureState
     }
   }
 
+  /// Performs `_newText` logic for this form component.
   String _newText(double value) {
     String newText = value.toString();
     if (newText.contains('.')) {
@@ -53,7 +59,9 @@ class _InputStepperButtonFeatureState
     return newText;
   }
 
+  /// Performs `_increase` logic for this form component.
   void _increase() {
+    /// Performs `_replaceText` logic for this form component.
     _replaceText((text) {
       var value = double.tryParse(text);
       if (value == null) {
@@ -66,17 +74,19 @@ class _InputStepperButtonFeatureState
     });
   }
 
+  /// Performs `_buildButton` logic for this form component.
   Widget _buildButton() {
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: controller,
       builder: (context, value, child) {
+        final theme = Theme.of(context);
         final currentValue = _effectiveValue();
         final clampedValue = currentValue == null
             ? null
             : _clampValue(currentValue);
         final canApplyStep = _canApplyStep(clampedValue);
-        return AspectRatio(
-          aspectRatio: 1,
+        return SizedBox.square(
+          dimension: 32 * theme.scaling,
           child: IconButton.outline(
             icon: feature.icon ?? const Icon(LucideIcons.plus),
             onPressed: canApplyStep ? _increase : null,

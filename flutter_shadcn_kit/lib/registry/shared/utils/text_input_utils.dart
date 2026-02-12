@@ -9,7 +9,9 @@ class TextFieldClearIntent extends Intent {
   const TextFieldClearIntent();
 }
 
+/// Type alias for `ReplacementInfo` used by public or internal APIs.
 typedef ReplacementInfo = (int start, String newText);
+/// Type alias for `WordInfo` used by public or internal APIs.
 typedef WordInfo = (int start, String word);
 
 /// Replaces the word at the caret position with a new string.
@@ -23,11 +25,13 @@ ReplacementInfo replaceWordAtCaret(
     throw RangeError('Caret position is out of bounds.');
   }
 
+/// Stores `start` state/configuration for this implementation.
   int start = caret;
   while (start > 0 && !isSeparator(text[start - 1])) {
     start--;
   }
 
+/// Stores `end` state/configuration for this implementation.
   int end = caret;
   while (end < text.length && !isSeparator(text[end])) {
     end++;
@@ -44,12 +48,14 @@ WordInfo getWordAtCaret(String text, int caret, [String separator = ' ']) {
   }
 
   // Find the start of the word
+/// Stores `start` state/configuration for this implementation.
   int start = caret;
   while (start > 0 && !separator.contains(text[start - 1])) {
     start--;
   }
 
   // Find the end of the word
+/// Stores `end` state/configuration for this implementation.
   int end = caret;
   while (end < text.length && !separator.contains(text[end])) {
     end++;
@@ -64,8 +70,11 @@ WordInfo getWordAtCaret(String text, int caret, [String separator = ' ']) {
 extension TextEditingControllerExtension on TextEditingController {
   /// Gets the word at the current cursor position.
   String? get currentWord {
+/// Stores `value` state/configuration for this implementation.
     final value = this.value;
+/// Stores `text` state/configuration for this implementation.
     final text = value.text;
+/// Stores `selection` state/configuration for this implementation.
     final selection = value.selection;
     if (text.isEmpty) {
       return null;
@@ -81,6 +90,7 @@ extension TextEditingControllerExtension on TextEditingController {
 extension TextEditingValueExtension on TextEditingValue {
   /// Replaces the text while preserving selection within bounds.
   TextEditingValue replaceText(String newText) {
+/// Stores `selection` state/configuration for this implementation.
     var selection = this.selection;
     selection = selection.copyWith(
       baseOffset: selection.baseOffset.clamp(0, newText.length),

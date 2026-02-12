@@ -10,6 +10,7 @@ class DocsThemeData {
   final double scaling;
   final double surfaceOpacity;
   final double surfaceBlur;
+  final shadcn_theme.Density density;
   final shadcn_theme.SpacingScale spacing;
   final shadcn_theme.TrackingScale tracking;
   final shadcn_theme.ShadowScale shadows;
@@ -20,6 +21,7 @@ class DocsThemeData {
     required this.scaling,
     required this.surfaceOpacity,
     required this.surfaceBlur,
+    required this.density,
     required this.spacing,
     required this.tracking,
     required this.shadows,
@@ -31,6 +33,7 @@ class DocsThemeData {
     double? scaling,
     double? surfaceOpacity,
     double? surfaceBlur,
+    shadcn_theme.Density? density,
     shadcn_theme.SpacingScale? spacing,
     shadcn_theme.TrackingScale? tracking,
     shadcn_theme.ShadowScale? shadows,
@@ -41,6 +44,7 @@ class DocsThemeData {
       scaling: scaling ?? this.scaling,
       surfaceOpacity: surfaceOpacity ?? this.surfaceOpacity,
       surfaceBlur: surfaceBlur ?? this.surfaceBlur,
+      density: density ?? this.density,
       spacing: spacing ?? this.spacing,
       tracking: tracking ?? this.tracking,
       shadows: shadows ?? this.shadows,
@@ -54,6 +58,7 @@ class DocsThemeData {
       scaling: scaling,
       surfaceOpacity: surfaceOpacity,
       surfaceBlur: surfaceBlur,
+      density: density,
       spacing: spacing,
       tracking: tracking,
       shadows: shadows,
@@ -118,6 +123,7 @@ class DocsThemeScope extends InheritedWidget {
     scaling: 1.0,
     surfaceOpacity: 1.0,
     surfaceBlur: 0.0,
+    density: shadcn_theme.Density.defaultDensity,
     spacing: shadcn_theme.SpacingScale(3.84),
     tracking: shadcn_theme.TrackingScale(normal: 0),
     shadows: shadcn_theme.ShadowScale(

@@ -26,5 +26,6 @@ class CommandItem extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<CommandItem> createState() => CommandItemState();
 }

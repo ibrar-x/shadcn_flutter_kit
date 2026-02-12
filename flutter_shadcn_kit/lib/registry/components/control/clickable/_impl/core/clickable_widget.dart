@@ -230,5 +230,6 @@ class Clickable extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Clickable> createState() => ClickableState();
 }

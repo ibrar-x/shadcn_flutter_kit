@@ -51,11 +51,13 @@ class ChatGroupTheme extends ComponentThemeData {
     );
   }
 
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatGroupTheme(spacing: $spacing, avatarAlignment: $avatarAlignment, avatarSpacing: $avatarSpacing)';
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

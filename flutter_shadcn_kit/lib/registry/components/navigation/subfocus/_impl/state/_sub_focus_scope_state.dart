@@ -1,11 +1,16 @@
 part of '../../subfocus.dart';
 
+/// _SubFocusScopeState defines a reusable type for this registry module.
 class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
+/// Stores `_attachedStates` state/configuration for this implementation.
   final List<SubFocusState> _attachedStates = [];
+/// Stores `_currentState` state/configuration for this implementation.
   SubFocusState? _currentState;
+/// Stores `_active` state/configuration for this implementation.
   bool _active = true;
 
   @override
+/// Executes `unfocus` behavior for this component/composite.
   bool unfocus(SubFocusState child) {
     if (_currentState == child) {
       _currentState?.markFocused(false);
@@ -16,24 +21,29 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
   }
 
   @override
+/// Executes `activate` behavior for this component/composite.
   void activate() {
     super.activate();
     _active = true;
   }
 
   @override
+/// Executes `deactivate` behavior for this component/composite.
   void deactivate() {
     _active = false;
     super.deactivate();
   }
 
   @override
+/// Executes `invokeActionOnFocused` behavior for this component/composite.
   Object? invokeActionOnFocused(Intent intent) {
     return _currentState?.invokeAction(intent);
   }
 
   @override
+/// Executes `attach` behavior for this component/composite.
   bool attach(SubFocusState state) {
+/// Creates a `assert` instance.
     assert(
       !_attachedStates.contains(state),
       'SubFocusState is already attached to this SubFocusScope.',
@@ -46,6 +56,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
   }
 
   @override
+/// Executes `detach` behavior for this component/composite.
   void detach(SubFocusState state) {
     _attachedStates.remove(state);
     if (_currentState == state) {
@@ -54,16 +65,19 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
     }
   }
 
+/// Executes `_setCurrentItem` behavior for this component/composite.
   void _setCurrentItem(SubFocusState item, bool? forward) {
     if (!mounted || !_active) {
       return;
     }
+/// Stores `currentItem` state/configuration for this implementation.
     final currentItem = _currentState;
     if (!mounted || !_active) {
       return;
     }
     currentItem?.markFocused(false);
     item.markFocused(true);
+/// Creates a `item.ensureVisible` instance.
     item.ensureVisible(
       alignmentPolicy: forward == null
           ? ScrollPositionAlignmentPolicy.explicit
@@ -74,6 +88,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
     _currentState = item;
   }
 
+/// Executes `findRenderObject` behavior for this component/composite.
   RenderBox? findRenderObject() {
     if (!mounted || !_active) {
       return null;
@@ -82,6 +97,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
   }
 
   @override
+/// Executes `nextFocus` behavior for this component/composite.
   bool nextFocus([TraversalDirection direction = TraversalDirection.down]) {
     if (!mounted || !_active) return false;
     if (_currentState != null) {
@@ -95,7 +111,9 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
         ancestor: parentBox,
       );
 
+/// Stores `horizontal` state/configuration for this implementation.
       late final bool horizontal;
+/// Stores `forward` state/configuration for this implementation.
       late final bool forward;
       switch (direction) {
         case TraversalDirection.down:
@@ -148,6 +166,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
     return false;
   }
 
+/// Executes `findFirstFocus` behavior for this component/composite.
   void findFirstFocus() {
     if (!mounted || !_active) return;
     (SubFocusState, int)? mostItem;
@@ -185,6 +204,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Data<SubFocusScopeState>.inherit(
       data: this,
@@ -193,6 +213,7 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
   }
 
   @override
+/// Executes `requestFocus` behavior for this component/composite.
   bool requestFocus(SubFocusState child) {
     if (!mounted || !_active) return false;
     _currentState?.markFocused(false);

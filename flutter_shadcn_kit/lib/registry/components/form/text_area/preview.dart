@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../text_area/text_area.dart';
 
+/// TextAreaPreview represents a form-related type in the registry.
 class TextAreaPreview extends StatelessWidget {
   const TextAreaPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

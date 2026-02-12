@@ -7,6 +7,7 @@ import 'file_like.dart';
 import 'file_upload_models.dart';
 import 'file_validation.dart';
 
+/// FileUploadController coordinates state and interactions for this form component.
 class FileUploadController extends ChangeNotifier
     implements FileUploadControllerBase {
   FileUploadController({
@@ -45,12 +46,14 @@ class FileUploadController extends ChangeNotifier
   @override
   bool get hasItems => _items.isNotEmpty;
 
+  /// Performs `setItems` logic for this form component.
   @override
   void setItems(List<FileUploadItem> items) {
     _items = List<FileUploadItem>.from(items);
     notifyListeners();
   }
 
+  /// Performs `clear` logic for this form component.
   @override
   void clear() {
     _clearUploads();
@@ -59,6 +62,7 @@ class FileUploadController extends ChangeNotifier
     notifyListeners();
   }
 
+  /// Performs `addFiles` logic for this form component.
   @override
   void addFiles(List<FileLike> files) {
     final effectiveMaxFiles = allowMultiple ? maxFiles : (maxFiles ?? 1);
@@ -84,6 +88,7 @@ class FileUploadController extends ChangeNotifier
     notifyListeners();
   }
 
+  /// Performs `removeFile` logic for this form component.
   @override
   void removeFile(FileLike file) {
     _cancelUploadFor(file.id);
@@ -103,6 +108,7 @@ class FileUploadController extends ChangeNotifier
     notifyListeners();
   }
 
+  /// Performs `startUploads` logic for this form component.
   @override
   void startUploads(UploadFn uploadFn, {int maxConcurrent = 1}) {
     _uploadFn = uploadFn;
@@ -120,6 +126,7 @@ class FileUploadController extends ChangeNotifier
     _pumpUploadQueue();
   }
 
+  /// Performs `_pumpUploadQueue` logic for this form component.
   void _pumpUploadQueue() {
     final uploadFn = _uploadFn;
     if (uploadFn == null) return;
@@ -129,6 +136,7 @@ class FileUploadController extends ChangeNotifier
     }
   }
 
+  /// Performs `_startUpload` logic for this form component.
   void _startUpload(FileLike file, UploadFn uploadFn) {
     _activeUploads += 1;
     _uploads[file.id]?.cancel();
@@ -149,6 +157,7 @@ class FileUploadController extends ChangeNotifier
     );
   }
 
+  /// Performs `_completeUpload` logic for this form component.
   void _completeUpload(String fileId) {
     final sub = _uploads.remove(fileId);
     sub?.cancel();
@@ -158,6 +167,7 @@ class FileUploadController extends ChangeNotifier
     _pumpUploadQueue();
   }
 
+  /// Performs `_cancelUploadFor` logic for this form component.
   void _cancelUploadFor(String fileId) {
     _uploadQueue.removeWhere((entry) => entry.id == fileId);
     final sub = _uploads.remove(fileId);
@@ -169,6 +179,7 @@ class FileUploadController extends ChangeNotifier
     }
   }
 
+  /// Performs `_clearUploads` logic for this form component.
   void _clearUploads() {
     _uploadQueue.clear();
     _activeUploads = 0;
@@ -178,6 +189,7 @@ class FileUploadController extends ChangeNotifier
     _uploads.clear();
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _clearUploads();
@@ -185,10 +197,18 @@ class FileUploadController extends ChangeNotifier
   }
 }
 
+/// FileUploadControllerBase coordinates state and interactions for this form component.
 abstract class FileUploadControllerBase {
+  /// Field storing `items` for this form implementation.
   List<FileUploadItem> get items;
+
+  /// Field storing `errors` for this form implementation.
   List<FileUploadError> get errors;
+
+  /// Flag indicating whether `isUploading` is enabled/active.
   bool get isUploading;
+
+  /// Flag indicating whether `hasItems` is enabled/active.
   bool get hasItems;
   void setItems(List<FileUploadItem> items);
   void clear();

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../clickable/clickable.dart';
 
+/// ClickablePreview defines a reusable type for this registry module.
 class ClickablePreview extends StatelessWidget {
   const ClickablePreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

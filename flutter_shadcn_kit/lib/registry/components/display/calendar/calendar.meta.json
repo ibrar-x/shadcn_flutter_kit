@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "calendar",
   "name": "Calendar",
@@ -41,8 +40,8 @@
       "`selectionMode` (`CalendarSelectionMode`, required)",
       "`initialValue` (`CalendarValue?`)",
       "`onChanged` (`ValueChanged<CalendarValue?>?`)",
-      "`CalendarView` — view helpers (`now`, `fromDateTime`).",
-      "`CalendarValue` — single/range/multi selection values."
+      "`CalendarView` \u2014 view helpers (`now`, `fromDateTime`).",
+      "`CalendarValue` \u2014 single/range/multi selection values."
     ],
     "callbacks": [
       "`onChanged` (Calendar, DatePickerDialog)",

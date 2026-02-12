@@ -1,5 +1,6 @@
 part of '../../resizable.dart';
 
+/// ResizablePanel defines a reusable type for this registry module.
 class ResizablePanel extends StatefulWidget {
   /// Default builder for dividers between resizable panes.
   ///
@@ -166,5 +167,6 @@ class ResizablePanel extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ResizablePanel> createState() => _ResizablePanelState();
 }

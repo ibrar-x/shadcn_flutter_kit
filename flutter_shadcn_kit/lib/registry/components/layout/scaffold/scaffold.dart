@@ -87,6 +87,7 @@ class ScaffoldTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) =>
       other is ScaffoldTheme &&
       other.backgroundColor == backgroundColor &&
@@ -105,6 +106,7 @@ class ScaffoldTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() =>
       'ScaffoldTheme(background: $backgroundColor, header: $headerBackgroundColor, footer: $footerBackgroundColor, showLoadingSparks: $showLoadingSparks, resizeToAvoidBottomInset: $resizeToAvoidBottomInset)';
 }
@@ -221,4 +223,5 @@ class ScaffoldTheme extends ComponentThemeData {
 ///
 /// Automatically adjusts padding based on scaffold footer height.
 
+/// _ScaffoldPaddingType enumerates fixed values used by this implementation.
 enum _ScaffoldPaddingType { header, footer }

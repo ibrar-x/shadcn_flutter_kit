@@ -2,6 +2,7 @@ import 'package:docs/shadcn_ui.dart';
 
 import '../../theme/docs_theme.dart';
 import '../../theme/theme_controller.dart';
+import '../../ui/shadcn/shared/theme/preset_themes.dart';
 import '../docs_page.dart';
 import 'blocks.dart';
 
@@ -58,12 +59,12 @@ const Map<String, double> _scalingOptions = {
   'Large': 1.15,
 };
 
-const List<String> _densityOptions = [
-  'Compact',
-  'Reduced',
-  'Default',
-  'Spacious',
-];
+const Map<String, Density> _densityOptions = {
+  'Compact': Density.compactDensity,
+  'Reduced': Density.reducedDensity,
+  'Default': Density.defaultDensity,
+  'Spacious': Density.spaciousDensity,
+};
 
 const Map<String, double> _surfaceOpacityOptions = {
   'Solid': 1.0,
@@ -88,9 +89,8 @@ class ThemePage extends StatefulWidget {
 }
 
 class _ThemePageState extends State<ThemePage> {
-  String _baseColor = 'Slate';
-  String _accentColor = 'Base';
-  String _density = 'Default';
+  String? _baseColorOverride;
+  String? _accentColorOverride;
 
   bool _previewSwitch = true;
   CheckboxState _previewCheckbox = CheckboxState.checked;
@@ -100,10 +100,15 @@ class _ThemePageState extends State<ThemePage> {
   Widget build(BuildContext context) {
     final controller = context.docsThemeController;
     final data = controller.data;
+    final showInlineOptions = MediaQuery.of(context).size.width < breakpointWidth2;
 
     return DocsPage(
       name: 'theme',
       onThisPage: const {},
+      sidebar: SizedBox(
+        width: 300,
+        child: _buildOptionsPanel(context),
+      ),
       child: LayoutBuilder(
         builder: (context, constraints) {
           final showThreePreviewCols = constraints.maxWidth >= 1380;
@@ -117,22 +122,14 @@ class _ThemePageState extends State<ThemePage> {
                 text:
                     'Tune visual tokens while previewing live UI blocks, matching the docs theme workflow.',
               ),
-              const SizedBox(height: 8),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: _buildKitchenPreview(
-                      context,
-                      threeColumns: showThreePreviewCols,
-                    ),
-                  ),
-                  const SizedBox(width: 24),
-                  SizedBox(
-                    width: 300,
-                    child: _buildOptionsPanel(context),
-                  ),
-                ],
+              const SizedBox(height: 14),
+              if (showInlineOptions) ...[
+                _buildOptionsPanel(context),
+                const SizedBox(height: 24),
+              ],
+              _buildKitchenPreview(
+                context,
+                threeColumns: showThreePreviewCols,
               ),
               const SizedBox(height: 28),
               const Text('Code').h2(),
@@ -510,6 +507,23 @@ class _ThemePageState extends State<ThemePage> {
     final controller = context.docsThemeController;
     final data = controller.data;
     final isDark = controller.brightness == Brightness.dark;
+    final presetTokens = _activePresetTokens(controller);
+    final baseColor = _inferBaseColor(
+      presetId: controller.presetId,
+      scheme: data.colorScheme,
+      isDark: isDark,
+    );
+    final accentColor = _inferAccentColor(
+      data.colorScheme.primary,
+      _baseColorOverride ?? baseColor,
+    );
+    final selectedBaseColor = _baseColorOverride ?? baseColor;
+    final selectedAccentColor = _accentColorOverride ?? accentColor;
+    final densityLabel = _densityLabel(
+      density: data.density,
+      presetDensity: presetTokens.density,
+    );
+    final densityValues = ['Preset', ..._densityOptions.keys];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -533,27 +547,37 @@ class _ThemePageState extends State<ThemePage> {
           value: controller.presetId,
           values: DocsThemeController.presets.map((p) => p.id).toList(),
           onChanged: (value) {
-            if (value != null) controller.setPreset(value);
+            if (value != null) {
+              controller.setPreset(value);
+              setState(() {
+                _baseColorOverride = null;
+                _accentColorOverride = null;
+              });
+            }
           },
         ),
         const SizedBox(height: 12),
         _panelLabel('Base colors'),
         _stringSelect(
-          value: _baseColor,
+          value: selectedBaseColor,
           values: _baseColors,
           onChanged: (value) {
             if (value == null) return;
-            setState(() => _baseColor = value);
+            setState(() {
+              _baseColorOverride = value == baseColor ? null : value;
+            });
           },
         ),
         const SizedBox(height: 12),
         _panelLabel('Accent colors'),
         _stringSelect(
-          value: _accentColor,
+          value: selectedAccentColor,
           values: _accentColors,
           onChanged: (value) {
             if (value == null) return;
-            setState(() => _accentColor = value);
+            setState(() {
+              _accentColorOverride = value == accentColor ? null : value;
+            });
           },
         ),
         const SizedBox(height: 12),
@@ -566,11 +590,18 @@ class _ThemePageState extends State<ThemePage> {
         const SizedBox(height: 12),
         _panelLabel('Density'),
         _stringSelect(
-          value: _density,
-          values: _densityOptions,
+          value: densityLabel,
+          values: densityValues,
           onChanged: (value) {
             if (value == null) return;
-            setState(() => _density = value);
+            if (value == 'Preset') {
+              controller.setDensity(presetTokens.density);
+              return;
+            }
+            final density = _densityOptions[value];
+            if (density != null) {
+              controller.setDensity(density);
+            }
           },
         ),
         const SizedBox(height: 12),
@@ -654,7 +685,7 @@ class _ThemePageState extends State<ThemePage> {
   Widget _stringSelect({
     required String value,
     required List<String> values,
-    required ValueChanged<String?> onChanged,
+    ValueChanged<String?>? onChanged,
   }) {
     return Select<String>(
       value: value,
@@ -675,17 +706,175 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   String _buildCodeSnippet(DocsThemeController controller, DocsThemeData data) {
+    final isDark = controller.brightness == Brightness.dark;
+    final presetTokens = _activePresetTokens(controller);
+    final baseColor = _inferBaseColor(
+      presetId: controller.presetId,
+      scheme: data.colorScheme,
+      isDark: isDark,
+    );
+    final accentColor = _inferAccentColor(data.colorScheme.primary, baseColor);
+    final selectedBase = _baseColorOverride ?? baseColor;
+    final selectedAccent = _accentColorOverride ?? accentColor;
+    final densityLabel = _densityLabel(
+      density: data.density,
+      presetDensity: presetTokens.density,
+    );
+
+    final extras = <String>[];
+    if (!isDark) {
+      extras.add('--mode light');
+    }
+    if (_baseColorOverride != null) {
+      extras.add('--base ${selectedBase.toLowerCase()}');
+    }
+    if (_accentColorOverride != null) {
+      extras.add('--accent ${selectedAccent.toLowerCase()}');
+    }
+    if (data.radius != presetTokens.radius) {
+      extras.add('--radius ${data.radius}');
+    }
+    if (densityLabel != 'Preset') {
+      extras.add('--density ${densityLabel.toLowerCase()}');
+    }
+    if (data.scaling != 1.0) {
+      extras.add('--scaling ${data.scaling}');
+    }
+    if (data.surfaceOpacity != 1.0) {
+      extras.add('--surface-opacity ${data.surfaceOpacity}');
+    }
+    if (data.surfaceBlur != 0.0) {
+      extras.add('--surface-blur ${data.surfaceBlur}');
+    }
+
     final lines = <String>[
-      'ShadcnApp(',
-      "  theme: ThemeData(",
-      "    // preset: ${controller.presetId}",
-      "    radius: ${data.radius},",
-      "    scaling: ${data.scaling},",
-      "    surfaceOpacity: ${data.surfaceOpacity},",
-      "    surfaceBlur: ${data.surfaceBlur},",
-      '  ),',
-      ')',
+      'flutter_shadcn theme --apply ${controller.presetId}',
+      for (final extra in extras) '  $extra',
     ];
+    if (lines.length > 1) {
+      for (var i = 0; i < lines.length - 1; i += 1) {
+        lines[i] = '${lines[i]} \\';
+      }
+    }
     return lines.join('\n');
+  }
+
+  RegistryThemePresetTokens _activePresetTokens(DocsThemeController controller) {
+    final preset = DocsThemeController.presets.firstWhere(
+      (entry) => entry.id == controller.presetId,
+      orElse: () => DocsThemeController.presets.first,
+    );
+    return controller.brightness == Brightness.dark
+        ? preset.darkTokens
+        : preset.lightTokens;
+  }
+
+  String _densityLabel({
+    required Density density,
+    required Density presetDensity,
+  }) {
+    if (density == presetDensity) {
+      return 'Preset';
+    }
+    return _densityOptions.entries
+        .firstWhere(
+          (entry) => entry.value == density,
+          orElse: () => const MapEntry('Default', Density.defaultDensity),
+        )
+        .key;
+  }
+
+  String _inferBaseColor({
+    required String presetId,
+    required ColorScheme scheme,
+    required bool isDark,
+  }) {
+    final lower = presetId.toLowerCase();
+    for (final base in _baseColors) {
+      if (lower.contains(base.toLowerCase())) {
+        return base;
+      }
+    }
+
+    const baseAnchors = <String, Color>{
+      'Slate': Color(0xFF020617),
+      'Zinc': Color(0xFF09090B),
+      'Gray': Color(0xFF030712),
+      'Neutral': Color(0xFF0A0A0A),
+      'Stone': Color(0xFF0C0A09),
+    };
+
+    final sample = isDark ? scheme.background : scheme.foreground;
+    var best = 'Slate';
+    var minDistance = double.infinity;
+    for (final entry in baseAnchors.entries) {
+      final distance = _colorDistance(sample, entry.value);
+      if (distance < minDistance) {
+        minDistance = distance;
+        best = entry.key;
+      }
+    }
+    return best;
+  }
+
+  String _inferAccentColor(Color primary, String baseColor) {
+    const accentAnchors = <String, Color>{
+      'Slate': Color(0xFF64748B),
+      'Gray': Color(0xFF6B7280),
+      'Zinc': Color(0xFF71717A),
+      'Neutral': Color(0xFF737373),
+      'Stone': Color(0xFF78716C),
+      'Red': Color(0xFFEF4444),
+      'Orange': Color(0xFFF97316),
+      'Amber': Color(0xFFF59E0B),
+      'Yellow': Color(0xFFEAB308),
+      'Lime': Color(0xFF84CC16),
+      'Green': Color(0xFF22C55E),
+      'Emerald': Color(0xFF10B981),
+      'Teal': Color(0xFF14B8A6),
+      'Cyan': Color(0xFF06B6D4),
+      'Sky': Color(0xFF0EA5E9),
+      'Blue': Color(0xFF3B82F6),
+      'Indigo': Color(0xFF6366F1),
+      'Violet': Color(0xFF8B5CF6),
+      'Purple': Color(0xFFA855F7),
+      'Fuchsia': Color(0xFFD946EF),
+      'Pink': Color(0xFFEC4899),
+      'Rose': Color(0xFFF43F5E),
+    };
+
+    var best = 'Base';
+    var minDistance = double.infinity;
+    for (final entry in accentAnchors.entries) {
+      final distance = _colorDistance(primary, entry.value);
+      if (distance < minDistance) {
+        minDistance = distance;
+        best = entry.key;
+      }
+    }
+
+    final baseDistance = _colorDistance(
+      primary,
+      accentAnchors[baseColor] ?? accentAnchors['Slate']!,
+    );
+    if (baseDistance <= minDistance + 10) {
+      return 'Base';
+    }
+    return best;
+  }
+
+  double _colorDistance(Color a, Color b) {
+    final aValue = a.toARGB32();
+    final bValue = b.toARGB32();
+    final aRed = (aValue >> 16) & 0xFF;
+    final aGreen = (aValue >> 8) & 0xFF;
+    final aBlue = aValue & 0xFF;
+    final bRed = (bValue >> 16) & 0xFF;
+    final bGreen = (bValue >> 8) & 0xFF;
+    final bBlue = bValue & 0xFF;
+    final dr = (aRed - bRed).toDouble();
+    final dg = (aGreen - bGreen).toDouble();
+    final db = (aBlue - bBlue).toDouble();
+    return (dr * dr) + (dg * dg) + (db * db);
   }
 }

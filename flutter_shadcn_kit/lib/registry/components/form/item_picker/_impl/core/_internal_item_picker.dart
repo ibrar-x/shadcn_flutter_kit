@@ -1,13 +1,29 @@
 part of '../../item_picker.dart';
 
+/// _InternalItemPicker represents a form-related type in the registry.
 class _InternalItemPicker<T> extends StatelessWidget {
+  /// Field storing `items` for this form implementation.
   final ItemChildDelegate<T> items;
+
+  /// Field storing `builder` for this form implementation.
   final ItemPickerBuilder<T> builder;
+
+  /// Current value stored for `initialValue`.
   final T? initialValue;
+
+  /// Field storing `layout` for this form implementation.
   final ItemPickerLayout layout;
+
+  /// Field storing `title` for this form implementation.
   final Widget? title;
+
+  /// Field storing `constraints` for this form implementation.
   final BoxConstraints? constraints;
+
+  /// Callback invoked for `onChanged` events.
   final ValueChanged<T?> onChanged;
+
+  /// Constructs `_InternalItemPicker` with the provided parameters.
   const _InternalItemPicker({
     super.key,
     required this.items,
@@ -18,6 +34,8 @@ class _InternalItemPicker<T> extends StatelessWidget {
     this.constraints,
     required this.onChanged,
   });
+
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

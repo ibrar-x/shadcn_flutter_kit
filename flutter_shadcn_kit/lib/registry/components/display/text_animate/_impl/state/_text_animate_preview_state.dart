@@ -1,10 +1,14 @@
 part of '../../preview.dart';
 
+/// _StreamingMode enumerates fixed values used by this implementation.
 enum _StreamingMode { character, word, chunk, part }
 
+/// _AnimationVariant enumerates fixed values used by this implementation.
 enum _AnimationVariant { blur, fade, slide, scramble }
 
+/// _TextAnimatePreviewState holds mutable state for the text animate implementation.
 class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   static const String _part1 = 'The assistant is thinking...';
   static const String _part2 =
       'The assistant is thinking...\nStreaming tokens into the UI in real time.';
@@ -23,14 +27,25 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     _AnimationVariant.scramble,
   ];
 
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   late final Map<_StreamingMode, List<String>> _chunksByMode;
+
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   late final Map<_StreamingMode, String> _streamByMode;
+
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   late final Map<_StreamingMode, int> _indexByMode;
 
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   Timer? _timer;
+
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   int _tickCount = 0;
+
+  /// Input parameter used by `_TextAnimatePreviewState` during rendering and behavior handling.
   double _streamIntervalMs = 70;
 
+  /// Initializes controllers and listeners required by text animate.
   @override
   void initState() {
     super.initState();
@@ -47,14 +62,18 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     _startStream();
   }
 
+  /// Disposes resources allocated by this text animate state.
   @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
   }
 
+  /// Implements `_startStream` behavior for text animate.
   void _startStream() {
     _timer?.cancel();
+
+    /// Implements `setState` behavior for text animate.
     setState(() {
       _tickCount = 0;
       for (final mode in _modes) {
@@ -71,6 +90,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
         return;
       }
 
+      /// Implements `setState` behavior for text animate.
       setState(() {
         _tickCount += 1;
         for (final mode in _modes) {
@@ -90,6 +110,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
   bool get _isAllStreamsComplete {
     for (final mode in _modes) {
       final index = _indexByMode[mode] ?? 0;
+
       final chunks = _chunksByMode[mode] ?? const <String>[];
       if (index < chunks.length) {
         return false;
@@ -98,8 +119,10 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     return true;
   }
 
+  /// Implements `_advanceStream` behavior for text animate.
   void _advanceStream(_StreamingMode mode) {
     final chunks = _chunksByMode[mode] ?? const <String>[];
+
     final index = _indexByMode[mode] ?? 0;
     if (index >= chunks.length) {
       return;
@@ -132,26 +155,36 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
                       fontWeight: m.FontWeight.w700,
                     ),
                   ),
+
                   const m.SizedBox(height: 8),
+
                   const m.Text(
                     'Responsive grid preview: each animation is shown with character, word, chunk, and part-stream updates.',
                   ),
+
                   const m.SizedBox(height: 14),
+
                   _buildGrid(),
+
                   const m.SizedBox(height: 16),
+
                   m.Text(
                     'Base stream tick: ${_streamIntervalMs.toStringAsFixed(0)} ms',
                   ),
+
                   m.Slider(
                     value: _streamIntervalMs,
                     min: 30,
                     max: 260,
                     divisions: 23,
                     onChanged: (value) {
+                      /// Implements `setState` behavior for text animate.
                       setState(() => _streamIntervalMs = value);
                     },
                   ),
+
                   const m.SizedBox(height: 4),
+
                   m.Wrap(
                     spacing: 10,
                     runSpacing: 10,
@@ -160,9 +193,12 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
                         onPressed: _startStream,
                         child: const m.Text('Restart stream'),
                       ),
+
                       m.OutlinedButton(
                         onPressed: () {
                           _timer?.cancel();
+
+                          /// Implements `setState` behavior for text animate.
                           setState(() {
                             for (final mode in _modes) {
                               _streamByMode[mode] = _part2;
@@ -241,21 +277,27 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
               fontWeight: m.FontWeight.w700,
             ),
           ),
+
           const m.SizedBox(height: 2),
+
           m.Text(
             _modeDescription(mode),
             style: const m.TextStyle(fontSize: 11, height: 1.35),
             maxLines: 2,
             overflow: m.TextOverflow.ellipsis,
           ),
+
           const m.SizedBox(height: 2),
+
           m.Text(
             _animationDescription(animation),
             style: const m.TextStyle(fontSize: 11, height: 1.35),
             maxLines: 2,
             overflow: m.TextOverflow.ellipsis,
           ),
+
           const m.SizedBox(height: 10),
+
           m.Container(
             width: double.infinity,
             constraints: const m.BoxConstraints(minHeight: 106),
@@ -277,6 +319,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     );
   }
 
+  /// Implements `_effectFor` behavior for text animate.
   StreamingTextEffectAdapter _effectFor(_AnimationVariant animation) {
     switch (animation) {
       case _AnimationVariant.blur:
@@ -308,6 +351,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_modeTickFactor` behavior for text animate.
   int _modeTickFactor(_StreamingMode mode) {
     switch (mode) {
       case _StreamingMode.character:
@@ -321,6 +365,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_modeLabel` behavior for text animate.
   String _modeLabel(_StreamingMode mode) {
     switch (mode) {
       case _StreamingMode.character:
@@ -334,6 +379,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_modeDescription` behavior for text animate.
   String _modeDescription(_StreamingMode mode) {
     switch (mode) {
       case _StreamingMode.character:
@@ -347,6 +393,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_animationLabel` behavior for text animate.
   String _animationLabel(_AnimationVariant animation) {
     switch (animation) {
       case _AnimationVariant.blur:
@@ -360,6 +407,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_animationDescription` behavior for text animate.
   String _animationDescription(_AnimationVariant animation) {
     switch (animation) {
       case _AnimationVariant.blur:
@@ -373,8 +421,10 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     }
   }
 
+  /// Implements `_buildWordChunks` behavior for text animate.
   List<String> _buildWordChunks(String text) {
     final matches = RegExp(r'\S+\s*').allMatches(text);
+
     final chunks = <String>[];
     for (final match in matches) {
       final value = match.group(0);
@@ -385,11 +435,13 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
     return chunks;
   }
 
+  /// Implements `_buildFixedChunks` behavior for text animate.
   List<String> _buildFixedChunks(String text, int chunkSize) {
     if (chunkSize <= 0) {
       return [text];
     }
     final runes = text.runes.toList();
+
     final chunks = <String>[];
     for (var i = 0; i < runes.length; i += chunkSize) {
       final end = (i + chunkSize).clamp(0, runes.length);

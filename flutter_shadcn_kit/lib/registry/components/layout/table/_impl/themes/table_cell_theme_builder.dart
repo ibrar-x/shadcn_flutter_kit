@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// Type alias for `TableCellThemeBuilder` used by public or internal APIs.
 typedef TableCellThemeBuilder = TableCellTheme Function(BuildContext context);
 
 /// Represents a row in a table.

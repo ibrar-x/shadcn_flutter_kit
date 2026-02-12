@@ -1,5 +1,6 @@
 part of '../../axis.dart';
 
+/// AxisAlignmentGeometry defines a reusable type for this registry module.
 abstract class AxisAlignmentGeometry {
   /// Creates an [AxisAlignmentGeometry].
   const AxisAlignmentGeometry();

@@ -8,6 +8,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     implements _ChipProvider<T> {
   late ChipEditingController<T> _controller;
 
+  /// Performs `buildChip` logic for this form component.
   @override
   Widget? buildChip(BuildContext context, T chip) {
     return _chipBuilder(chip);
@@ -22,6 +23,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -35,10 +37,12 @@ class ChipInputState<T> extends State<ChipInput<T>>
     formValue = widget.controller?.chips ?? [];
   }
 
+  /// Performs `_onTextChanged` logic for this form component.
   void _onTextChanged() {
     formValue = _controller.chips;
   }
 
+  /// Performs `_chipBuilder` logic for this form component.
   Widget? _chipBuilder(T chip) {
     if (!_useChips) {
       return widget.chipBuilder(context, chip);
@@ -55,6 +59,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant ChipInput<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -66,12 +71,14 @@ class ChipInputState<T> extends State<ChipInput<T>>
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.removeListener(_onTextChanged);
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Data<_ChipProvider<T>>.inherit(
@@ -123,6 +130,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(List<T> value) {
     widget.onChipsChanged?.call(value);

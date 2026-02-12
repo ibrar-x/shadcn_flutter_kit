@@ -77,6 +77,7 @@ class WidgetStatesProvider extends StatelessWidget {
       inherit = false;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (boundary) {
       return Data<WidgetStatesData>.boundary(child: child);

@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowSnapStrategy defines a reusable type for this registry module.
 class WindowSnapStrategy {
   /// Relative bounds where the window should snap, in screen-relative coordinates.
   ///

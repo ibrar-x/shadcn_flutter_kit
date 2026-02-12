@@ -1,22 +1,26 @@
 part of '../../checkbox.dart';
 
+/// _CheckboxState stores and manages mutable widget state.
 class _CheckboxState extends State<Checkbox>
     with FormValueSupplier<CheckboxState, Checkbox> {
   final bool _focusing = false;
   bool _shouldAnimate = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.state;
   }
 
+  /// Performs `_changeTo` logic for this form component.
   void _changeTo(CheckboxState state) {
     if (widget.onChanged != null) {
       widget.onChanged!(state);
     }
   }
 
+  /// Performs `_tap` logic for this form component.
   void _tap() {
     if (widget.tristate) {
       switch (widget.state) {
@@ -39,11 +43,13 @@ class _CheckboxState extends State<Checkbox>
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(CheckboxState value) {
     _changeTo(value);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant Checkbox oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -55,6 +61,7 @@ class _CheckboxState extends State<Checkbox>
 
   bool get enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

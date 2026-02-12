@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "subfocus",
   "name": "Subfocus",
@@ -23,8 +22,8 @@
       "`SubFocusScope`",
       "`builder` (`SubFocusScopeBuilder?`)",
       "`autofocus` (`bool`)",
-      "`SubFocus` — focusable child widget.",
-      "`SubFocusScopeState` — focus management interface."
+      "`SubFocus` \u2014 focusable child widget.",
+      "`SubFocusScopeState` \u2014 focus management interface."
     ],
     "callbacks": []
   },

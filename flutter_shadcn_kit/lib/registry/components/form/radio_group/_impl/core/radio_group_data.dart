@@ -13,6 +13,7 @@ class RadioGroupData<T> {
   /// Creates radio group data.
   RadioGroupData(this.selectedItem, this.enabled);
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

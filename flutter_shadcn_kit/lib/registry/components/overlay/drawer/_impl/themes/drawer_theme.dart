@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// DrawerTheme defines a reusable type for this registry module.
 class DrawerTheme extends ComponentThemeData {
   /// Surface opacity for backdrop effects.
   final double? surfaceOpacity;
@@ -79,6 +80,7 @@ class DrawerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) =>
       other is DrawerTheme &&
       other.surfaceOpacity == surfaceOpacity &&
@@ -97,6 +99,7 @@ class DrawerTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() =>
       'DrawerTheme(surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur, barrierColor: $barrierColor, showDragHandle: $showDragHandle, dragHandleSize: $dragHandleSize)';
 }

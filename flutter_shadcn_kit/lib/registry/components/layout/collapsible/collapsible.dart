@@ -33,6 +33,7 @@ class Collapsible extends StatefulWidget {
   final ValueChanged<bool>? onExpansionChanged;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Collapsible> createState() => CollapsibleState();
 }
 

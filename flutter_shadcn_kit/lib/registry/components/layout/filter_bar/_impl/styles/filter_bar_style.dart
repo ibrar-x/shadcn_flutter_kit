@@ -1,7 +1,10 @@
 part of '../../filter_bar.dart';
 
+/// Type alias for `FilterBarClearResolver` used by public or internal APIs.
 typedef FilterBarClearResolver = FilterState Function(FilterState current);
+/// Type alias for `FilterStateChanged` used by public or internal APIs.
 typedef FilterStateChanged = void Function(FilterState next);
+/// Type alias for `FilterCustomFilterBuilder` used by public or internal APIs.
 typedef FilterCustomFilterBuilder =
     Widget Function(
       BuildContext context,
@@ -10,21 +13,31 @@ typedef FilterCustomFilterBuilder =
     );
 
 @immutable
+/// FilterCustomFilter defines a reusable type for this registry module.
 class FilterCustomFilter {
+/// Stores `id` state/configuration for this implementation.
   final String id;
+/// Stores `builder` state/configuration for this implementation.
   final FilterCustomFilterBuilder builder;
 
   const FilterCustomFilter({required this.id, required this.builder});
 }
 
 @immutable
+/// FilterBarStyle defines a reusable type for this registry module.
 class FilterBarStyle {
+/// Stores `spacing` state/configuration for this implementation.
   final double spacing;
+/// Stores `runSpacing` state/configuration for this implementation.
   final double runSpacing;
+/// Stores `minSearchWidth` state/configuration for this implementation.
   final double minSearchWidth;
+/// Stores `minSortWidth` state/configuration for this implementation.
   final double minSortWidth;
+/// Stores `dense` state/configuration for this implementation.
   final bool dense;
 
+/// Creates a `FilterBarStyle` instance.
   const FilterBarStyle({
     this.spacing = 12,
     this.runSpacing = 8,
@@ -33,6 +46,7 @@ class FilterBarStyle {
     this.dense = false,
   });
 
+/// Creates a `FilterBarStyle` instance.
   FilterBarStyle copyWith({
     double? spacing,
     double? runSpacing,
@@ -50,6 +64,7 @@ class FilterBarStyle {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FilterBarStyle &&
@@ -66,13 +81,20 @@ class FilterBarStyle {
 }
 
 @immutable
+/// FilterClearPolicy defines a reusable type for this registry module.
 class FilterClearPolicy {
+/// Stores `clearSearch` state/configuration for this implementation.
   final bool clearSearch;
+/// Stores `clearSort` state/configuration for this implementation.
   final bool clearSort;
+/// Stores `clearDateRange` state/configuration for this implementation.
   final bool clearDateRange;
+/// Stores `clearChips` state/configuration for this implementation.
   final bool clearChips;
+/// Stores `clearCustomFilters` state/configuration for this implementation.
   final bool clearCustomFilters;
 
+/// Creates a `FilterClearPolicy` instance.
   const FilterClearPolicy({
     this.clearSearch = true,
     this.clearSort = true,
@@ -81,6 +103,7 @@ class FilterClearPolicy {
     this.clearCustomFilters = true,
   });
 
+/// Creates a `FilterClearPolicy` instance.
   FilterClearPolicy copyWith({
     bool? clearSearch,
     bool? clearSort,
@@ -98,6 +121,7 @@ class FilterClearPolicy {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FilterClearPolicy &&

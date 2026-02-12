@@ -1,7 +1,11 @@
 part of '../../formatter.dart';
 
+/// _IntegerOnlyFormatter represents a form-related type in the registry.
 class _IntegerOnlyFormatter extends TextInputFormatter {
+  /// Field storing `min` for this form implementation.
   final int? min;
+
+  /// Field storing `max` for this form implementation.
   final int? max;
 
   _IntegerOnlyFormatter({this.min, this.max});

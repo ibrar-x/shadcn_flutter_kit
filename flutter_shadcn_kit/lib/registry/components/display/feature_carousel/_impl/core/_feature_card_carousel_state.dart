@@ -1,23 +1,38 @@
 part of '../../feature_carousel.dart';
 
+/// _FeatureCardCarouselState holds mutable state for the feature carousel implementation.
 class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     with SingleTickerProviderStateMixin {
   late int _index;
+
   late AnimationController _controller;
+
   _CarouselDirection _direction = _CarouselDirection.right;
+
   bool _leftPressed = false;
+
   bool _rightPressed = false;
+
   bool _ctaPressed = false;
+
   bool _leftHover = false;
+
   bool _rightHover = false;
+
   int _animationIndex = 0;
+
   Timer? _autoTimer;
+
   FeatureCarouselController? _ownedController;
+
   late FeatureCarouselController _config;
+
   double _dragDistance = 0;
 
   FeatureCarouselThemeData get _theme =>
       widget.theme ?? FeatureCarouselThemeData.defaults();
+
+  /// Implements `_resolveTheme` behavior for feature carousel.
   FeatureCarouselThemeData _resolveTheme(BuildContext context) {
     if (widget.theme != null) {
       return _theme;
@@ -40,6 +55,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     );
   }
 
+  /// Initializes controllers and listeners required by feature carousel.
   @override
   void initState() {
     super.initState();
@@ -54,6 +70,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     _startAutoPlay();
   }
 
+  /// Updates internal state when feature carousel configuration changes.
   @override
   void didUpdateWidget(FeatureCardCarousel oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -75,6 +92,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     _startAutoPlay();
   }
 
+  /// Disposes resources allocated by this feature carousel state.
   @override
   void dispose() {
     _controller.dispose();
@@ -84,20 +102,25 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     super.dispose();
   }
 
+  /// Implements `_createOwnedController` behavior for feature carousel.
   FeatureCarouselController _createOwnedController() {
     _ownedController?.dispose();
     _ownedController = FeatureCarouselController();
     return _ownedController!;
   }
 
+  /// Implements `_handleControllerChange` behavior for feature carousel.
   void _handleControllerChange() {
     if (!mounted) return;
+
+    /// Implements `setState` behavior for feature carousel.
     setState(() {
       _index = _config.index.clamp(0, widget.items.length - 1);
     });
     _startAutoPlay();
   }
 
+  /// Implements `_startAutoPlay` behavior for feature carousel.
   void _startAutoPlay() {
     _autoTimer?.cancel();
     if (!_config.autoPlay || widget.items.length <= 1) {
@@ -109,10 +132,13 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     });
   }
 
+  /// Implements `_changeIndex` behavior for feature carousel.
   void _changeIndex(int next, _CarouselDirection direction) {
     if (widget.items.isEmpty) {
       return;
     }
+
+    /// Implements `setState` behavior for feature carousel.
     setState(() {
       _direction = direction;
       _index = (next + widget.items.length) % widget.items.length;
@@ -125,6 +151,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     _controller.forward(from: 0);
   }
 
+  /// Implements `_goLeft` behavior for feature carousel.
   void _goLeft({bool auto = false}) {
     _changeIndex(_index - 1, _CarouselDirection.left);
     if (!auto) {
@@ -132,6 +159,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
   }
 
+  /// Implements `_goRight` behavior for feature carousel.
   void _goRight({bool auto = false}) {
     _changeIndex(_index + 1, _CarouselDirection.right);
     if (!auto) {
@@ -139,6 +167,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
   }
 
+  /// Implements `_handleCta` behavior for feature carousel.
   void _handleCta() {
     if (widget.items.isEmpty) {
       return;
@@ -149,12 +178,15 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
   }
 
+  /// Implements `_handleDragEnd` behavior for feature carousel.
   void _handleDragEnd(DragEndDetails details) {
     if (!_config.enableSwipe) {
       return;
     }
+
     final dragDistance = _dragDistance;
     _dragDistance = 0;
+
     final velocity = details.primaryVelocity ?? 0;
     if (velocity.abs() > 550) {
       velocity < 0 ? _goRight() : _goLeft();
@@ -165,6 +197,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
   }
 
+  /// Implements `_handleDragUpdate` behavior for feature carousel.
   void _handleDragUpdate(DragUpdateDetails details) {
     if (!_config.enableSwipe) {
       return;
@@ -180,6 +213,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
         FeatureCarouselAnimationStyle.values.length];
   }
 
+  /// Implements `_buildTransition` behavior for feature carousel.
   Widget _buildTransition(Widget child, Animation<double> animation) {
     final direction = _direction == _CarouselDirection.right ? 1 : -1;
     final curve = CurvedAnimation(
@@ -287,9 +321,11 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
   }
 
+  /// Builds the widget tree for feature carousel.
   @override
   Widget build(BuildContext context) {
     final theme = shadcn_theme.Theme.of(context);
+
     final densityGap = theme.density.baseGap * theme.scaling;
     final densityContentPadding =
         theme.density.baseContentPadding * theme.scaling;
@@ -298,9 +334,13 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
     }
 
     final resolvedTheme = _resolveTheme(context);
+
     final width = widget.width ?? resolvedTheme.carouselWidth;
+
     final height = widget.height ?? resolvedTheme.carouselHeight;
+
     final cardWidth = resolvedTheme.cardWidth;
+
     final cardHeight = resolvedTheme.cardHeight;
 
     final titleStyle = TextStyle(
@@ -334,7 +374,9 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                     textAlign: TextAlign.center,
                   )
                 : const SizedBox.shrink()),
+
         SizedBox(height: densityGap * 2.25),
+
         RepaintBoundary(
           child: SizedBox(
             width: width,
@@ -349,6 +391,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                   animation: _controller,
                   indexFromFront: 3,
                 ),
+
                 _GhostCard(
                   cardWidth: cardWidth,
                   cardHeight: cardHeight,
@@ -356,6 +399,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                   animation: _controller,
                   indexFromFront: 2,
                 ),
+
                 _GhostCard(
                   cardWidth: cardWidth,
                   cardHeight: cardHeight,
@@ -363,6 +407,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                   animation: _controller,
                   indexFromFront: 1,
                 ),
+
                 GestureDetector(
                   onHorizontalDragUpdate: _handleDragUpdate,
                   onHorizontalDragEnd: _handleDragEnd,
@@ -403,9 +448,11 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                       hovered: _leftHover,
                       onPressed: _goLeft,
                       onPressedChanged: (pressed) {
+                        /// Implements `setState` behavior for feature carousel.
                         setState(() => _leftPressed = pressed);
                       },
                       onHoverChanged: (hovered) {
+                        /// Implements `setState` behavior for feature carousel.
                         setState(() => _leftHover = hovered);
                       },
                     ),
@@ -423,9 +470,11 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                       hovered: _rightHover,
                       onPressed: _goRight,
                       onPressedChanged: (pressed) {
+                        /// Implements `setState` behavior for feature carousel.
                         setState(() => _rightPressed = pressed);
                       },
                       onHoverChanged: (hovered) {
+                        /// Implements `setState` behavior for feature carousel.
                         setState(() => _rightHover = hovered);
                       },
                     ),
@@ -434,7 +483,9 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
             ),
           ),
         ),
+
         SizedBox(height: densityGap * 2.75),
+
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 760),
           child: Padding(
@@ -470,6 +521,7 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
                 pressed: _ctaPressed,
                 onPressed: _handleCta,
                 onPressedChanged: (pressed) {
+                  /// Implements `setState` behavior for feature carousel.
                   setState(() => _ctaPressed = pressed);
                 },
               ),
@@ -490,8 +542,11 @@ class _FeatureCardCarouselState extends State<FeatureCardCarousel>
       autofocus: false,
       shortcuts: {
         LogicalKeySet(LogicalKeyboardKey.arrowLeft): _CarouselIntent.left,
+
         LogicalKeySet(LogicalKeyboardKey.arrowRight): _CarouselIntent.right,
+
         LogicalKeySet(LogicalKeyboardKey.enter): _CarouselIntent.action,
+
         LogicalKeySet(LogicalKeyboardKey.space): _CarouselIntent.action,
       },
       actions: {

@@ -32,6 +32,7 @@ class FutureOrBuilder<T> extends StatelessWidget {
   final T? initialValue;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (future is Future<T>) {
       return FutureBuilder<T>(

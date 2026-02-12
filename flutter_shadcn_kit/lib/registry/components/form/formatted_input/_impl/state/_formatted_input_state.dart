@@ -1,11 +1,19 @@
 part of '../../formatted_input.dart';
 
+/// _FormattedInputState stores and manages mutable widget state.
 class _FormattedInputState extends State<FormattedInput> {
   final FormController _controller = FormController();
+
+  /// Focus node/reference used by `_hasFocus` interactions.
   bool _hasFocus = false;
+
+  /// Current value stored for `_value`.
   FormattedValue? _value;
+
+  /// Focus node/reference used by `_focusNodes` interactions.
   late List<FocusNode> _focusNodes;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -44,6 +52,7 @@ class _FormattedInputState extends State<FormattedInput> {
     ];
   }
 
+  /// Performs `_buildPart` logic for this form component.
   Widget _buildPart(int index, InputPart part) {
     var formattedInputData = FormattedInputData(
       partIndex: index,
@@ -56,7 +65,10 @@ class _FormattedInputState extends State<FormattedInput> {
     return part.build(context, formattedInputData);
   }
 
+  /// Field storing `_updating` for this form implementation.
   bool _updating = false;
+
+  /// Performs `_notifyChanged` logic for this form component.
   void _notifyChanged() {
     if (_updating) {
       return;
@@ -92,6 +104,7 @@ class _FormattedInputState extends State<FormattedInput> {
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.dispose();
@@ -101,6 +114,7 @@ class _FormattedInputState extends State<FormattedInput> {
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -122,6 +136,7 @@ class _FormattedInputState extends State<FormattedInput> {
       child: TextFieldTapRegion(
         child: Focus(
           onFocusChange: (hasFocus) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _hasFocus = hasFocus;
             });

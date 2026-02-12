@@ -64,10 +64,15 @@ class DialogRoute<T> extends RawDialogRoute<T> {
             if (useSafeArea) {
               dialog = SafeArea(child: dialog);
             }
+            if (!fullScreen) {
+              dialog = Align(
+                alignment: alignment,
+                child: dialog,
+              );
+            }
             return dialog;
           },
           barrierLabel: barrierLabel ?? 'Dismiss',
           transitionDuration: const Duration(milliseconds: 150),
         );
 }
-

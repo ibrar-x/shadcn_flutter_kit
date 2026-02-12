@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../tree/tree.dart';
 
+/// Core class used by the tree component.
 class TreePreview extends StatelessWidget {
   const TreePreview({super.key});
 
+  /// Builds the widget tree for tree.
   @override
   Widget build(BuildContext context) {
     final nodes = <TreeNode<String>>[
@@ -13,18 +15,23 @@ class TreePreview extends StatelessWidget {
         expanded: true,
         children: [
           TreeItem(data: 'Research'),
+
           TreeItem(data: 'Wireframes'),
+
           TreeItem(data: 'Prototypes'),
         ],
       ),
+
       TreeItem(
         data: 'Development',
         expanded: true,
         children: [
           TreeItem(data: 'Frontend'),
+
           TreeItem(data: 'Backend'),
         ],
       ),
+
       TreeItem(data: 'Launch'),
     ];
     return Scaffold(

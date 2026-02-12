@@ -130,19 +130,26 @@ extension IconExtension on Widget {
   }
 }
 
+/// Function/type signature used by icon APIs.
 typedef WrappedIconDataBuilder<T> =
     T Function(BuildContext context, ThemeData theme);
 
+/// Core class used by the icon component.
 class WrappedIcon extends StatelessWidget {
+  /// Data consumed by `WrappedIcon` to render icon content.
   final WrappedIconDataBuilder<IconThemeData> data;
+
+  /// Child content displayed inside the icon widget.
   final Widget child;
 
   const WrappedIcon({super.key, required this.data, required this.child});
 
+  /// Implements `call` behavior for icon.
   Widget call() {
     return this;
   }
 
+  /// Builds the widget tree for icon.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -150,6 +157,7 @@ class WrappedIcon extends StatelessWidget {
     return IconTheme.merge(data: iconTheme, child: child);
   }
 
+  /// Returns a copy with selected icon properties overridden.
   WrappedIcon copyWith({WrappedIconDataBuilder<IconThemeData>? data}) {
     return WrappedIcon(
       data: (context, theme) {

@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabPaneTheme defines a reusable type for this registry module.
 class TabPaneTheme extends ComponentThemeData {
   /// Border radius for the tab pane container and individual tabs.
   ///
@@ -80,6 +81,7 @@ class TabPaneTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabPaneTheme &&

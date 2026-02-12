@@ -1,11 +1,17 @@
 part of '../../tree.dart';
 
+/// _TreeItemViewState holds mutable state for the tree implementation.
 class _TreeItemViewState extends State<TreeItemView> {
+  /// Input parameter used by `_TreeItemViewState` during rendering and behavior handling.
   late FocusNode _focusNode;
+
+  /// Controller dependency used to coordinate tree behavior.
   final WidgetStatesController _statesController = WidgetStatesController();
 
+  /// Data consumed by `_TreeItemViewState` to render tree content.
   TreeNodeData? _data;
 
+  /// Initializes controllers and listeners required by tree.
   @override
   void initState() {
     super.initState();
@@ -13,6 +19,7 @@ class _TreeItemViewState extends State<TreeItemView> {
     _focusNode.addListener(_onFocusChanged);
   }
 
+  /// Updates internal state when tree configuration changes.
   @override
   void didUpdateWidget(covariant TreeItemView oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -23,18 +30,21 @@ class _TreeItemViewState extends State<TreeItemView> {
     }
   }
 
+  /// Disposes resources allocated by this tree state.
   @override
   void dispose() {
     _focusNode.removeListener(_onFocusChanged);
     super.dispose();
   }
 
+  /// Implements `_onFocusChanged` behavior for tree.
   void _onFocusChanged() {
     if (_data != null && _focusNode.hasFocus) {
       _data!.onFocusChanged?.call(FocusChangeReason.focusScope);
     }
   }
 
+  /// Recomputes derived values when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -47,12 +57,16 @@ class _TreeItemViewState extends State<TreeItemView> {
     }
   }
 
+  /// Builds the widget tree for tree.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final scaling = theme.scaling;
+
     final data = _data;
     assert(data != null, 'TreeItemView must be a descendant of TreeView');
+
     List<Widget> rowChildren = [];
     if (data!.expandIcon)
       rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
@@ -62,6 +76,7 @@ class _TreeItemViewState extends State<TreeItemView> {
       }
       if (!data.expandIcon)
         rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
+
       rowChildren.add(
         SizedBox(
           width: 16 * scaling,
@@ -69,6 +84,7 @@ class _TreeItemViewState extends State<TreeItemView> {
         ),
       );
     }
+
     List<Widget> subRowChildren = [];
     if (data.expandIcon) {
       if (widget.expandable ?? data.node.children.isNotEmpty) {
@@ -110,6 +126,7 @@ class _TreeItemViewState extends State<TreeItemView> {
       subRowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
       subRowChildren.add(widget.trailing!);
     }
+
     rowChildren.add(
       Expanded(
         child: Padding(

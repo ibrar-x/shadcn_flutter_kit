@@ -46,6 +46,7 @@ class ColorHistoryGrid extends StatelessWidget {
     this.maxTotalColors,
   });
 
+  /// Performs `_buildGridTile` logic for this form component.
   Widget _buildGridTile(BuildContext context, Color? color, ThemeData theme) {
     if (color == null) {
       return const AspectRatio(
@@ -91,6 +92,7 @@ class ColorHistoryGrid extends StatelessWidget {
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

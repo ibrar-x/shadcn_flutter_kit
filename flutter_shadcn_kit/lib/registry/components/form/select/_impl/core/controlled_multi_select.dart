@@ -168,6 +168,7 @@ class ControlledMultiSelect<T> extends StatelessWidget
     this.valueSelectionPredicate,
   }) : multiItemBuilder = itemBuilder;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledSelect<Iterable<T>>(

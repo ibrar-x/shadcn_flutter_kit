@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableCellTheme defines a reusable type for this registry module.
 class TableCellTheme {
   /// State-aware border configuration for table cells.
   ///
@@ -44,6 +45,7 @@ class TableCellTheme {
   const TableCellTheme({this.border, this.backgroundColor, this.textStyle});
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

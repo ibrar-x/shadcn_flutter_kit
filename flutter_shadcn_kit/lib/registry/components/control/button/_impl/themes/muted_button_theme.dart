@@ -6,6 +6,7 @@ import '../styles/button_state_property.dart';
 import '../styles/button_state_property_delegate.dart';
 import 'button_theme_base.dart';
 
+/// MutedButtonTheme defines a reusable type for this registry module.
 class MutedButtonTheme extends ButtonTheme {
   /// Creates a [MutedButtonTheme] with optional style property delegates.
   const MutedButtonTheme({

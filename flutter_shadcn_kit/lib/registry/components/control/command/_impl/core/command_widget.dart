@@ -47,5 +47,6 @@ class Command extends StatefulWidget {
   final Widget? searchPlaceholder;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Command> createState() => CommandState();
 }

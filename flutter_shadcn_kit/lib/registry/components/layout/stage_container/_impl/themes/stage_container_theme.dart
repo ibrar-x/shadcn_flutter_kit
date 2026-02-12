@@ -1,5 +1,6 @@
 part of '../../stage_container.dart';
 
+/// StageContainerTheme defines a reusable type for this registry module.
 class StageContainerTheme extends ComponentThemeData {
   /// The breakpoint strategy to use.
   final StageBreakpoint? breakpoint;
@@ -28,6 +29,7 @@ class StageContainerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StageContainerTheme &&

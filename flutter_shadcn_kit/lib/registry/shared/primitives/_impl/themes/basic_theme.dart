@@ -1,5 +1,6 @@
 part of '../../basic.dart';
 
+/// BasicTheme defines a reusable type for this registry module.
 class BasicTheme extends ComponentThemeData {
   /// Alignment for the leading widget.
   final AlignmentGeometry? leadingAlignment;
@@ -84,6 +85,7 @@ class BasicTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is BasicTheme &&
         other.leadingAlignment == leadingAlignment &&

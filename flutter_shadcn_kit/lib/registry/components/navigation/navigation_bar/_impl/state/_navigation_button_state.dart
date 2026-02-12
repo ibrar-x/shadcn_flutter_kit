@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// _NavigationButtonState defines a reusable type for this registry module.
 class _NavigationButtonState
     extends _AbstractNavigationButtonState<NavigationButton> {
   @override
@@ -9,8 +10,11 @@ class _NavigationButtonState
     NavigationChildControlData? childData,
   ) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
+/// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
+/// Stores `direction` state/configuration for this implementation.
     final direction = data?.direction ?? Axis.vertical;
     bool showLabel =
         labelType == NavigationLabelType.all ||

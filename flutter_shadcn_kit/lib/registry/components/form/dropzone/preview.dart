@@ -4,9 +4,11 @@ import '../../layout/scaffold/scaffold.dart';
 import '../../../shared/theme/theme.dart';
 import 'dropzone.dart';
 
+/// DropzonePreview represents a form-related type in the registry.
 class DropzonePreview extends StatelessWidget {
   const DropzonePreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

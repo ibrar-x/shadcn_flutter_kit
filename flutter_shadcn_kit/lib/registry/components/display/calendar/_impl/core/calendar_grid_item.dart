@@ -32,6 +32,7 @@ class CalendarGridItem {
         date.day == now.day;
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -43,6 +44,7 @@ class CalendarGridItem {
         other.rowIndex == rowIndex;
   }
 
+  /// State flag that toggles specific calendar behavior.
   @override
   int get hashCode => Object.hash(date, indexInRow, fromAnotherMonth, rowIndex);
 }

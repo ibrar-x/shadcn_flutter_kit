@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// Type alias for `DrawerBuilder` used by public or internal APIs.
 typedef DrawerBuilder =
     Widget Function(
       BuildContext context,

@@ -61,6 +61,7 @@ class PageItemWidget extends StatelessWidget {
 class DocsPage extends StatefulWidget {
   final String name;
   final Widget child;
+  final Widget? sidebar;
   final Map<String, OnThisPage> onThisPage;
   final List<Widget> navigationItems;
   final bool scrollable;
@@ -69,6 +70,7 @@ class DocsPage extends StatefulWidget {
     super.key,
     required this.name,
     required this.child,
+    this.sidebar,
     this.onThisPage = const {},
     this.navigationItems = const [],
     this.scrollable = true,
@@ -598,7 +600,7 @@ class DocsPageState extends State<DocsPage> {
                                 horizontal: theme.spacing.xxl,
                                 vertical: theme.spacing.xl,
                               ).copyWith(
-                                right: hasOnThisPage
+                                right: (hasOnThisPage || widget.sidebar != null)
                                     ? theme.spacing.xl
                                     : theme.spacing.xxl,
                               ),
@@ -628,6 +630,22 @@ class DocsPageState extends State<DocsPage> {
                             )
                           : widget.child,
                     ),
+                    if (widget.sidebar != null)
+                      MediaQueryVisibility(
+                        minWidth: breakpointWidth2,
+                        child: FocusTraversalGroup(
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                                  top: theme.spacing.xxl,
+                                  right: theme.spacing.xl,
+                                  bottom: theme.spacing.xxl,
+                                  left: theme.spacing.xl,
+                                ) *
+                                theme.scaling,
+                            child: widget.sidebar ?? const SizedBox.shrink(),
+                          ),
+                        ),
+                      ),
                     if (hasOnThisPage)
                       MediaQueryVisibility(
                         minWidth: breakpointWidth2,

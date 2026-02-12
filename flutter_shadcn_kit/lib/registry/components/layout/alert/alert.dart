@@ -45,6 +45,7 @@ class Alert extends StatelessWidget {
   }) : destructive = true;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (destructive) {
       final destructiveColor = Theme.of(context).colorScheme.destructive;
@@ -59,6 +60,7 @@ class Alert extends StatelessWidget {
     return _build(context);
   }
 
+/// Executes `_build` behavior for this component/composite.
   Widget _build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<AlertTheme>(context);

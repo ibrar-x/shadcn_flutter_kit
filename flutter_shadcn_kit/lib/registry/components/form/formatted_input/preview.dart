@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../formatted_input/formatted_input.dart';
 
+/// FormattedInputPreview renders form UI and wires input behavior.
 class FormattedInputPreview extends StatelessWidget {
   const FormattedInputPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

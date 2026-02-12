@@ -11,6 +11,7 @@ class TypewriterEffect {
   /// Reveal speed for newly appended characters.
   final double charsPerSecond;
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -19,6 +20,7 @@ class TypewriterEffect {
         other.charsPerSecond == charsPerSecond;
   }
 
+  /// State flag that toggles specific text animate behavior.
   @override
   int get hashCode => Object.hash(enabled, charsPerSecond);
 }

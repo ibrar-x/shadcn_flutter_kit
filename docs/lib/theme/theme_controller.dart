@@ -15,6 +15,9 @@ const String kPrefsRadius = 'radius';
 const String kPrefsScaling = 'scaling';
 const String kPrefsSurfaceOpacity = 'surfaceOpacity';
 const String kPrefsSurfaceBlur = 'surfaceBlur';
+const String kPrefsDensityBaseContainerPadding = 'densityBaseContainerPadding';
+const String kPrefsDensityBaseGap = 'densityBaseGap';
+const String kPrefsDensityBaseContentPadding = 'densityBaseContentPadding';
 
 class DocsThemePreset {
   final String id;
@@ -90,10 +93,12 @@ class DocsThemeController extends ChangeNotifier {
     _data = _data.copyWith(
       colorScheme: _schemeFor(id, _brightness),
       radius: tokens.radius,
+      density: tokens.density,
       spacing: tokens.spacing,
       tracking: tokens.tracking,
       shadows: tokens.shadows,
     );
+    _persistDensity(tokens.density);
     prefs.setString(kPrefsThemePresetId, _presetId);
     notifyListeners();
   }
@@ -115,10 +120,12 @@ class DocsThemeController extends ChangeNotifier {
       _data = _data.copyWith(
         colorScheme: _schemeFor(_presetId, _brightness),
         radius: tokens.radius,
+        density: tokens.density,
         spacing: tokens.spacing,
         tracking: tokens.tracking,
         shadows: tokens.shadows,
       );
+      _persistDensity(tokens.density);
     }
     prefs.setString(
       kPrefsThemeMode,
@@ -159,6 +166,15 @@ class DocsThemeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setDensity(shadcn_theme.Density density) {
+    _data = _data.copyWith(
+      density: density,
+      spacing: density.toSpacingScale(),
+    );
+    _persistDensity(density);
+    notifyListeners();
+  }
+
   shadcn_colors.ColorScheme _schemeFor(String id, Brightness brightness) {
     final preset = presets.firstWhere(
       (preset) => preset.id == id,
@@ -179,6 +195,15 @@ class DocsThemeController extends ChangeNotifier {
 
   String _encodeScheme(shadcn_colors.ColorScheme scheme) {
     return jsonEncode(scheme.toMap());
+  }
+
+  void _persistDensity(shadcn_theme.Density density) {
+    prefs.setDouble(
+      kPrefsDensityBaseContainerPadding,
+      density.baseContainerPadding,
+    );
+    prefs.setDouble(kPrefsDensityBaseGap, density.baseGap);
+    prefs.setDouble(kPrefsDensityBaseContentPadding, density.baseContentPadding);
   }
 }
 

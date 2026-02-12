@@ -27,6 +27,7 @@ class RecentColorsScope extends StatefulWidget {
     required this.child,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<RecentColorsScope> createState() => RecentColorsScopeState();
 }

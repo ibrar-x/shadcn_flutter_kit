@@ -16,25 +16,30 @@ class StaticPart extends InputPart {
   /// ```
   const StaticPart(this.text);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, FormattedInputData data) {
     return _StaticPartWidget(text: text);
   }
 
+  /// Field storing `partKey` for this form implementation.
   @override
   String get partKey => text;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'StaticPart{text: $text}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StaticPart && other.text == text;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => text.hashCode;
 }

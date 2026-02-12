@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' as m;
 import '../outlined_container/outlined_container.dart';
 import 'scrollable.dart';
 
+/// ScrollablePreview defines a reusable type for this registry module.
 class ScrollablePreview extends m.StatelessWidget {
   const ScrollablePreview({super.key});
 

@@ -187,45 +187,77 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   final ValueChanged<T?>? onChanged; // if null, then it's a disabled combobox
   @override
   final Widget? placeholder; // placeholder when value is null
+  /// Field storing `filled` for this form implementation.
   @override
   final bool filled;
+
+  /// Focus node/reference used by `focusNode` interactions.
   @override
   final FocusNode? focusNode;
+
+  /// Field storing `constraints` for this form implementation.
   @override
   final BoxConstraints? constraints;
+
+  /// Field storing `popupConstraints` for this form implementation.
   @override
   final BoxConstraints? popupConstraints;
+
+  /// Field storing `popupWidthConstraint` for this form implementation.
   @override
   final PopoverConstraint popupWidthConstraint;
 
   /// The currently selected value.
   final T? value;
 
+  /// Field storing `borderRadius` for this form implementation.
   @override
   final BorderRadiusGeometry? borderRadius;
+
+  /// Field storing `padding` for this form implementation.
   @override
   final EdgeInsetsGeometry? padding;
+
+  /// Field storing `popoverAlignment` for this form implementation.
   @override
   final AlignmentGeometry popoverAlignment;
+
+  /// Field storing `popoverAnchorAlignment` for this form implementation.
   @override
   final AlignmentGeometry? popoverAnchorAlignment;
+
+  /// Field storing `disableHoverEffect` for this form implementation.
   @override
   final bool disableHoverEffect;
+
+  /// Field storing `canUnselect` for this form implementation.
   @override
   final bool canUnselect;
+
+  /// Field storing `autoClosePopover` for this form implementation.
   @override
   final bool? autoClosePopover;
 
   /// Whether the select is enabled for user interaction.
   final bool? enabled;
+
+  /// Field storing `popup` for this form implementation.
   @override
   final SelectPopupBuilder popup;
+
+  /// Field storing `itemBuilder` for this form implementation.
   @override
   final SelectValueBuilder<T> itemBuilder;
+
+  /// Current value stored for `valueSelectionHandler`.
   @override
   final SelectValueSelectionHandler<T>? valueSelectionHandler;
+
+  /// Current value stored for `valueSelectionPredicate`.
   @override
   final SelectValueSelectionPredicate<T>? valueSelectionPredicate;
+
+  /// Current value stored for `showValuePredicate`.
   @override
   final Predicate<T>? showValuePredicate;
 
@@ -282,6 +314,7 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
     required this.itemBuilder,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   SelectState<T> createState() => SelectState<T>();
 }

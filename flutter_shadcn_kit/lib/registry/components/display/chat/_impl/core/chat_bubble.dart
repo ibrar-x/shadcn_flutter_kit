@@ -61,6 +61,7 @@ class ChatBubble extends StatelessWidget {
     this.widthFactor,
   });
 
+  /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);

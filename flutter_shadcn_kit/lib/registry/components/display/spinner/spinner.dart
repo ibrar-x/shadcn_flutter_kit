@@ -15,6 +15,7 @@ abstract class Spinner extends StatelessWidget {
 
   const Spinner({super.key, this.color, this.size});
 
+  /// Implements `resolveColor` behavior for spinner.
   Color? resolveColor(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<SpinnerTheme>(context);
     return styleValue(
@@ -24,6 +25,7 @@ abstract class Spinner extends StatelessWidget {
     );
   }
 
+  /// Implements `resolveSize` behavior for spinner.
   double resolveSize(BuildContext context, double defaultValue) {
     final compTheme = ComponentTheme.maybeOf<SpinnerTheme>(context);
     return styleValue(

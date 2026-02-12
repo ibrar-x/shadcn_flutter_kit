@@ -4,6 +4,7 @@ import '../../../../../shared/theme/theme.dart';
 
 /// Theme overrides for the EmptyState widget.
 class EmptyStateTheme extends ComponentThemeData {
+  /// Creates `EmptyStateTheme` for configuring or rendering empty state.
   const EmptyStateTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -22,16 +23,39 @@ class EmptyStateTheme extends ComponentThemeData {
     this.iconContainerPadding,
   });
 
+  /// Color value used by empty state painting or state styling.
   final Color? iconColor;
+
+  /// Layout/size setting that affects empty state rendering.
   final double? iconSize;
+
+  /// Style/theme override that customizes `EmptyStateTheme` appearance.
   final TextStyle? titleStyle;
+
+  /// Style/theme override that customizes `EmptyStateTheme` appearance.
   final TextStyle? descriptionStyle;
+
+  /// Layout/size setting that affects empty state rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Layout/size setting that affects empty state rendering.
   final double? maxWidth;
+
+  /// Layout/size setting that affects empty state rendering.
   final BorderRadiusGeometry? cardBorderRadius;
+
+  /// Color value used by empty state painting or state styling.
   final Color? cardFillColor;
+
+  /// Color value used by empty state painting or state styling.
   final Color? iconContainerColor;
+
+  /// Color value used by empty state painting or state styling.
   final Color? iconContainerBorderColor;
+
+  /// Layout/size setting that affects empty state rendering.
   final BorderRadiusGeometry? iconContainerBorderRadius;
+
+  /// Layout/size setting that affects empty state rendering.
   final EdgeInsetsGeometry? iconContainerPadding;
 }

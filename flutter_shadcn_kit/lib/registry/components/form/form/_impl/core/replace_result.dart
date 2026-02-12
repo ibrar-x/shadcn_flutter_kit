@@ -9,6 +9,7 @@ class ReplaceResult<T> extends ValidationResult {
   /// The replacement value to use.
   final T value;
 
+  /// Field storing `_key` for this form implementation.
   final FormKey? _key;
 
   /// Creates a [ReplaceResult] with the specified replacement value.
@@ -27,6 +28,7 @@ class ReplaceResult<T> extends ValidationResult {
     return _key!;
   }
 
+  /// Performs `attach` logic for this form component.
   @override
   ReplaceResult<T> attach(FormKey key) {
     return ReplaceResult.attached(value, key: key, state: state);

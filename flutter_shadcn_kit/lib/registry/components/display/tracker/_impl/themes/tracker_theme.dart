@@ -2,10 +2,16 @@ part of '../../tracker.dart';
 
 /// Theme for tracker appearance.
 class TrackerTheme extends ComponentThemeData {
+  /// Layout/size setting that affects tracker rendering.
   final double? radius;
+
+  /// Layout/size setting that affects tracker rendering.
   final double? gap;
+
+  /// Layout/size setting that affects tracker rendering.
   final double? itemHeight;
 
+  /// Creates `TrackerTheme` for configuring or rendering tracker.
   const TrackerTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -27,6 +33,7 @@ class TrackerTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two tracker values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -36,6 +43,7 @@ class TrackerTheme extends ComponentThemeData {
         other.itemHeight == itemHeight;
   }
 
+  /// State flag that toggles specific tracker behavior.
   @override
   int get hashCode => Object.hash(radius, gap, itemHeight);
 }

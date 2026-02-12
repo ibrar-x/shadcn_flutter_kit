@@ -136,6 +136,7 @@ class InputOTP extends StatefulWidget {
     this.onSubmitted,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<InputOTP> createState() => _InputOTPState();
 }

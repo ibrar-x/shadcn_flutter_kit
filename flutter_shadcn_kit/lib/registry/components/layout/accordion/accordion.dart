@@ -24,6 +24,7 @@ class Accordion extends StatefulWidget {
   final List<Widget> items;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   AccordionState createState() => AccordionState();
 }
 

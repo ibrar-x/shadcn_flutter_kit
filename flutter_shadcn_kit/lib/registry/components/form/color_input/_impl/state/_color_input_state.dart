@@ -1,15 +1,18 @@
 part of '../../color_input.dart';
 
+/// _ColorInputState stores and manages mutable widget state.
 class _ColorInputState extends State<ColorInput>
     with FormValueSupplier<ColorDerivative, ColorInput> {
   ColorDerivative? _changingValue;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant ColorInput oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -20,6 +23,7 @@ class _ColorInputState extends State<ColorInput>
 
   final ValueNotifier<bool> _showHistoryNotifier = ValueNotifier<bool>(false);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final locale = ShadcnLocalizations.of(context);
@@ -83,6 +87,8 @@ class _ColorInputState extends State<ColorInput>
         if (color != null) {
           widget.onChanged?.call(color);
           ColorHistoryStorage.find(context).addHistory(color.toColor());
+
+          /// Triggers a rebuild after mutating local state.
           setState(() {
             _changingValue = null;
           });
@@ -189,6 +195,8 @@ class _ColorInputState extends State<ColorInput>
                     showHistory && promptMode == PromptMode.popover,
                 onChanging: (color) {
                   widget.onChanging?.call(color);
+
+                  /// Triggers a rebuild after mutating local state.
                   setState(() {
                     _changingValue = color;
                   });
@@ -218,6 +226,7 @@ class _ColorInputState extends State<ColorInput>
     );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(ColorDerivative value) {
     widget.onChanged?.call(value);

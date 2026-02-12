@@ -19,6 +19,7 @@ class OTPSeparator extends StatelessWidget {
   /// Creates an [OTPSeparator].
   const OTPSeparator({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

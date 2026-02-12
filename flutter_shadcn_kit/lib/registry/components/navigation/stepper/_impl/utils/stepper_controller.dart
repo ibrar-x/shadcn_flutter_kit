@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepperController defines a reusable type for this registry module.
 class StepperController extends ValueNotifier<StepperValue> {
   /// Creates a [StepperController].
   ///

@@ -42,6 +42,7 @@ class ValidationMode<T> extends Validator<T> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is ValidationMode &&

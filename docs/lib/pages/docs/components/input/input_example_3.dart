@@ -48,7 +48,6 @@ class InputExample3 extends StatelessWidget {
               Text('Min 0 / Max 20'),
             ),
             input.InputStepperButtonFeature.decrement(),
-            input.InputSpinnerFeature(step: 2, min: 0, max: 20),
             input.InputStepperButtonFeature(),
           ],
         ),

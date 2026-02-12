@@ -22,6 +22,7 @@ class HSVColorSliderPainter extends CustomPainter {
     this.reverse = false,
   });
 
+  /// Performs `paint` logic for this form component.
   @override
   void paint(Canvas canvas, Size size) {
     // disable anti-aliasing
@@ -437,6 +438,7 @@ class HSVColorSliderPainter extends CustomPainter {
     }
   }
 
+  /// Performs `shouldRepaint` logic for this form component.
   @override
   bool shouldRepaint(covariant HSVColorSliderPainter oldDelegate) {
     if (oldDelegate.reverse != reverse ||

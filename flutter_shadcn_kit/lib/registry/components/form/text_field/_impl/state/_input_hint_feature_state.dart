@@ -1,7 +1,10 @@
 part of '../../text_field.dart';
 
+/// _InputHintFeatureState stores and manages mutable widget state.
 class _InputHintFeatureState extends InputFeatureState<InputHintFeature> {
   final _popoverController = PopoverController();
+
+  /// Performs `_showPopup` logic for this form component.
   void _showPopup(BuildContext context) {
     _popoverController.show(
       context: context,

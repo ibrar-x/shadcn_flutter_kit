@@ -1,6 +1,8 @@
 part of '../../input.dart';
 
+/// _InputSpinnerFeatureState stores and manages mutable widget state.
 class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
+  /// Performs `_clampValue` logic for this form component.
   double _clampValue(double value) {
     final min = feature.min;
     final max = feature.max;
@@ -13,23 +15,27 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     return value;
   }
 
+  /// Performs `_effectiveValue` logic for this form component.
   double? _effectiveValue() {
     final value = double.tryParse(controller.text);
     return value ?? feature.invalidValue;
   }
 
+  /// Performs `_canIncrease` logic for this form component.
   bool _canIncrease(double? value) {
     if (value == null) return false;
     final max = feature.max;
     return max == null || value < max;
   }
 
+  /// Performs `_canDecrease` logic for this form component.
   bool _canDecrease(double? value) {
     if (value == null) return false;
     final min = feature.min;
     return min == null || value > min;
   }
 
+  /// Performs `_replaceText` logic for this form component.
   void _replaceText(UnaryOperator<String> replacer) {
     var controller = this.controller;
     var text = controller.text;
@@ -40,7 +46,9 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     }
   }
 
+  /// Performs `_increase` logic for this form component.
   void _increase() {
+    /// Performs `_replaceText` logic for this form component.
     _replaceText((text) {
       var value = double.tryParse(text);
       if (value == null) {
@@ -53,6 +61,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     });
   }
 
+  /// Performs `_newText` logic for this form component.
   String _newText(double value) {
     String newText = value.toString();
     if (newText.contains('.')) {
@@ -66,7 +75,9 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     return newText;
   }
 
+  /// Performs `_decrease` logic for this form component.
   void _decrease() {
+    /// Performs `_replaceText` logic for this form component.
     _replaceText((text) {
       var value = double.tryParse(text);
       if (value == null) {
@@ -79,6 +90,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     });
   }
 
+  /// Performs `_wrapGesture` logic for this form component.
   Widget _wrapGesture(Widget child) {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
@@ -92,6 +104,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     );
   }
 
+  /// Performs `_buildButtons` logic for this form component.
   Widget _buildButtons() {
     return Builder(
       builder: (context) {

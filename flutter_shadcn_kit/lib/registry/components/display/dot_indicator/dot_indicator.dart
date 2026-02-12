@@ -25,6 +25,7 @@ class DotIndicator extends StatelessWidget {
     return active ? const ActiveDotItem() : const InactiveDotItem();
   }
 
+  /// Creates `DotIndicator` for configuring or rendering dot indicator.
   const DotIndicator({
     super.key,
     required this.index,
@@ -36,18 +37,33 @@ class DotIndicator extends StatelessWidget {
     this.dotBuilder,
   });
 
+  /// Positional/count metadata used by `DotIndicator` rendering logic.
   final int index;
+
+  /// Positional/count metadata used by `DotIndicator` rendering logic.
   final int length;
+
+  /// Callback invoked by dot indicator when `onChanged` is triggered.
   final ValueChanged<int>? onChanged;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? spacing;
+
+  /// Input parameter used by `DotIndicator` during rendering and behavior handling.
   final Axis direction;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Input parameter used by `DotIndicator` during rendering and behavior handling.
   final DotBuilder? dotBuilder;
 
+  /// Builds the widget tree for dot indicator.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final directionality = Directionality.of(context);
+
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<DotIndicatorTheme>(context);
     final resolvedSpacing = styleValue(

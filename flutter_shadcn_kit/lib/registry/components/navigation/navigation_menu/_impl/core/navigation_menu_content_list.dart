@@ -1,5 +1,6 @@
 part of '../../navigation_menu.dart';
 
+/// NavigationMenuContentList defines a reusable type for this registry module.
 class NavigationMenuContentList extends StatelessWidget {
   /// The list of widgets to arrange in the grid layout.
   ///
@@ -62,17 +63,23 @@ class NavigationMenuContentList extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
+/// Stores `columns` state/configuration for this implementation.
     List<Widget> columns = [];
+/// Stores `rows` state/configuration for this implementation.
     List<Widget> rows = [];
     var spacing = this.spacing ?? (theme.density.baseGap * scaling * 1.5);
     var runSpacing = this.runSpacing ?? (12 * scaling);
     for (final child in children) {
       columns.add(Expanded(child: child));
       if (columns.length == crossAxisCount) {
+/// Creates a `rows.add` instance.
         rows.add(
+/// Creates a `IntrinsicWidth` instance.
           IntrinsicWidth(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,7 +92,9 @@ class NavigationMenuContentList extends StatelessWidget {
       }
     }
     if (columns.isNotEmpty) {
+/// Creates a `rows.add` instance.
       rows.add(
+/// Creates a `IntrinsicWidth` instance.
         IntrinsicWidth(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -101,6 +110,7 @@ class NavigationMenuContentList extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: (reverse ? rows.reversed.toList() : rows).joinSeparator(
+/// Creates a `SizedBox` instance.
             SizedBox(width: spacing),
           ),
         ),

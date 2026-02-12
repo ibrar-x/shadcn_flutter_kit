@@ -63,8 +63,11 @@ class SharpCornerChatBubbleType extends ChatBubbleType {
     ChatBubble chat,
   ) {
     final theme = Theme.of(context);
+
     final compTheme = ComponentTheme.maybeOf<ChatTheme>(context);
+
     final compTailTheme = ComponentTheme.maybeOf<ChatTailTheme>(context);
+
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final padding = styleValue(
       widgetValue: this.padding,

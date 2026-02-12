@@ -9,9 +9,11 @@ import '../../overlay/popover/popover.dart';
 
 part '_impl/state/_color_picker_preview_state.dart';
 
+/// ColorPickerPreview represents a form-related type in the registry.
 class ColorPickerPreview extends StatefulWidget {
   const ColorPickerPreview({super.key});
 
+  /// Creates the `State` object for this widget.
   @override
   State<ColorPickerPreview> createState() => _ColorPickerPreviewState();
 }

@@ -45,6 +45,7 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
   const CompareWith.lessOrEqual(this.key, {this.message})
     : type = CompareType.lessOrEqual;
 
+  /// Performs `_compare` logic for this form component.
   int _compare(T? a, T? b) {
     if (a == null && b == null) {
       return 0;
@@ -115,11 +116,13 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
     return null;
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     return source == key;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is CompareWith &&

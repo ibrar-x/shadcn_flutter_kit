@@ -43,6 +43,7 @@ class FocusOutline extends StatelessWidget {
     double align,
     BorderRadiusGeometry? borderRadius,
   ) {
+/// Stores `rawRadius` state/configuration for this implementation.
     final rawRadius = borderRadius;
     if (rawRadius == null) return BorderRadius.zero;
     final resolved = rawRadius.resolve(textDirection);
@@ -56,6 +57,7 @@ class FocusOutline extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<FocusOutlineTheme>(context);
     final theme = Theme.of(context);
@@ -69,6 +71,7 @@ class FocusOutline extends StatelessWidget {
       widgetValue: borderRadius,
       defaultValue: null,
     );
+/// Stores `ringColor` state/configuration for this implementation.
     final ringColor = theme.colorScheme.ring;
     final halfAlpha = ((ringColor.a * 255 * 0.5).round()).clamp(0, 255);
     final visibleRingColor = ringColor.withAlpha(halfAlpha);
@@ -78,6 +81,7 @@ class FocusOutline extends StatelessWidget {
       widgetValue: border,
     );
 
+/// Stores `offset` state/configuration for this implementation.
     final offset = -effectiveAlign;
     final textDirection = Directionality.of(context);
 
@@ -86,6 +90,7 @@ class FocusOutline extends StatelessWidget {
       fit: StackFit.passthrough,
       children: [
         child,
+/// Creates a `AnimatedValueBuilder` instance.
         AnimatedValueBuilder(
           value: focused ? 1.0 : 0.0,
           duration: kDefaultDuration,

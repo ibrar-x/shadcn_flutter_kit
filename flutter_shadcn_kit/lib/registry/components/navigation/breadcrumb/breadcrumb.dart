@@ -39,6 +39,7 @@ class BreadcrumbTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is BreadcrumbTheme &&

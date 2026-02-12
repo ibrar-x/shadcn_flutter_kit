@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "color_picker",
   "name": "Color Picker",
@@ -34,7 +33,7 @@
       "`onModeChanged`",
       "`enableEyeDropper`, `onEyeDropperRequested`",
       "`orientation`, `spacing`, `controlSpacing`, `sliderSize`",
-      "`ColorPickerMode` — `rgb`, `hsl`, `hsv`, `hex`."
+      "`ColorPickerMode` \u2014 `rgb`, `hsl`, `hsv`, `hex`."
     ],
     "callbacks": [
       "`onChanged`, `onChanging`, `onModeChanged`, `onEyeDropperRequested`"

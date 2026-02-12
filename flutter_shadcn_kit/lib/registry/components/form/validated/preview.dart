@@ -4,9 +4,11 @@ import '../form/form.dart';
 import '../text_field/text_field.dart';
 import '../validated/validated.dart';
 
+/// ValidatedPreview represents a form-related type in the registry.
 class ValidatedPreview extends StatelessWidget {
   const ValidatedPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "fade_scroll",
   "name": "Fade Scroll",
@@ -23,7 +22,7 @@
       "`FadeScroll`",
       "`startOffset`, `endOffset`",
       "`gradient` (`List<Color>?`)",
-      "`FadeScrollTheme` — theme defaults."
+      "`FadeScrollTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

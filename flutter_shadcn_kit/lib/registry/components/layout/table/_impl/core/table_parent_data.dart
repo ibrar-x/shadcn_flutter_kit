@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableParentData defines a reusable type for this registry module.
 class TableParentData extends ContainerBoxParentData<RenderBox> {
   /// Column index of this cell.
   int? column;

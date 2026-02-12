@@ -29,9 +29,13 @@ part of '../../form.dart';
 /// final emailValue = controller.getValue(emailKey);
 /// ```
 class FormController extends ChangeNotifier {
+  /// Field storing `_attachedInputs` for this form implementation.
   final Map<FormKey, FormValueState> _attachedInputs = {};
+
+  /// Field storing `_validity` for this form implementation.
   final Map<FormKey, _ValidatorResultStash> _validity = {};
 
+  /// Field storing `_disposed` for this form implementation.
   bool _disposed = false;
 
   /// A map of all current form field values keyed by their [FormKey].
@@ -48,6 +52,7 @@ class FormController extends ChangeNotifier {
     };
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _disposed = true;
@@ -213,6 +218,7 @@ class FormController extends ChangeNotifier {
     bool forceRevalidate = false,
   ]) {
     final key = handle.formKey;
+
     final oldState = _attachedInputs[key];
     var state = FormValueState(value: value, validator: validator);
     if (oldState == state && !forceRevalidate) {
@@ -245,6 +251,7 @@ class FormController extends ChangeNotifier {
     Map<FormKey, FutureOr<ValidationResult?>> revalidate = {};
     for (var entry in _attachedInputs.entries) {
       var k = entry.key;
+
       var value = entry.value;
       if (key == k) {
         continue;
@@ -260,7 +267,9 @@ class FormController extends ChangeNotifier {
     }
     for (var entry in revalidate.entries) {
       var k = entry.key;
+
       var future = entry.value;
+
       var attachedInput = _attachedInputs[k]!;
       attachedInput = FormValueState(
         value: attachedInput.value,

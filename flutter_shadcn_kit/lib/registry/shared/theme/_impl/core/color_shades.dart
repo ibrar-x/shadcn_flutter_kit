@@ -1,6 +1,8 @@
 part of '../../color_scheme.dart';
 
+/// ColorShades defines a reusable type for this registry module.
 class ColorShades implements Color, ColorSwatch {
+/// Stores `_step` state/configuration for this implementation.
   static const int _step = 100;
 
   /// Standard shade values used in color palettes.
@@ -20,6 +22,7 @@ class ColorShades implements Color, ColorSwatch {
     900,
     950
   ];
+/// Stores `_colors` state/configuration for this implementation.
   final Map<int, Color> _colors;
 
   ColorShades._() : _colors = {};
@@ -33,6 +36,7 @@ class ColorShades implements Color, ColorSwatch {
   /// The list must contain exactly 11 colors corresponding to shades
   /// 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, and 950.
   factory ColorShades.sorted(List<Color> colors) {
+/// Creates a `assert` instance.
     assert(colors.length == shadeValues.length,
         'ColorShades.sorted: Invalid number of colors');
     final slate = ColorShades._();
@@ -55,6 +59,7 @@ class ColorShades implements Color, ColorSwatch {
       int saturationStepUp = 0,
       int lightnessStepDown = 8,
       int lightnessStepUp = 9}) {
+/// Creates a `assert` instance.
     assert(shadeValues.contains(base),
         'ColorShades.fromAccent: Invalid base value');
     final hsl = HSLColor.fromColor(accent);
@@ -77,6 +82,7 @@ class ColorShades implements Color, ColorSwatch {
       int saturationStepUp = 0,
       int lightnessStepDown = 8,
       int lightnessStepUp = 9}) {
+/// Creates a `assert` instance.
     assert(shadeValues.contains(base),
         'ColorShades.fromAccent: Invalid base value');
     final slate = ColorShades._();
@@ -90,6 +96,7 @@ class ColorShades implements Color, ColorSwatch {
       final h = (accent.hue + hueDelta) % 360;
       final s = (accent.saturation * 100 - saturationDelta).clamp(0, 100) / 100;
       final l = (accent.lightness * 100 - lightnessDelta).clamp(0, 100) / 100;
+/// Stores `a` state/configuration for this implementation.
       final a = accent.alpha;
       slate._colors[key] = _fromAHSL(a, h, s, l);
     }
@@ -109,6 +116,7 @@ class ColorShades implements Color, ColorSwatch {
     int lightnessStepUp = 9,
     int lightnessStepDown = 8,
   }) {
+/// Creates a `assert` instance.
     assert(shadeValues.contains(base),
         'ColorShades.fromAccent: Invalid base value');
     double delta = (targetBase - base) / _step;
@@ -120,6 +128,7 @@ class ColorShades implements Color, ColorSwatch {
     final h = (hsv.hue + hueDelta) % 360;
     final s = (hsv.saturation * 100 - saturationDelta).clamp(0, 100) / 100;
     final l = (hsv.lightness * 100 - lightnessDelta).clamp(0, 100) / 100;
+/// Stores `a` state/configuration for this implementation.
     final a = hsv.alpha;
     return HSLColor.fromAHSL(a, h, s, l);
   }
@@ -130,6 +139,7 @@ class ColorShades implements Color, ColorSwatch {
   factory ColorShades.fromMap(Map<int, Color> colors) {
     final slate = ColorShades._();
     for (final key in shadeValues) {
+/// Creates a `assert` instance.
       assert(colors.containsKey(key),
           'ColorShades.fromMap: Missing value for $key');
       slate._colors[key] = colors[key]!;
@@ -178,6 +188,7 @@ class ColorShades implements Color, ColorSwatch {
   /// Gets the darkest shade (950).
   Color get shade950 => _colors[950]!;
 
+/// Stores `_primary` state/configuration for this implementation.
   Color get _primary => _colors[500]!;
 
   @override
@@ -187,6 +198,7 @@ class ColorShades implements Color, ColorSwatch {
   int get blue => (_primary.b * 255).round() & 0xFF;
 
   @override
+/// Executes `computeLuminance` behavior for this component/composite.
   double computeLuminance() {
     return _primary.computeLuminance();
   }
@@ -195,6 +207,7 @@ class ColorShades implements Color, ColorSwatch {
   int get green => (_primary.g * 255).round() & 0xFF;
 
   @override
+/// Stores `opacity` state/configuration for this implementation.
   double get opacity => _primary.a;
 
   @override
@@ -202,10 +215,13 @@ class ColorShades implements Color, ColorSwatch {
 
   @override
   @Deprecated('Use toARGB32() instead')
+/// Stores `value` state/configuration for this implementation.
   int get value => _primary.value;
 
   @override
+/// Executes `withAlpha` behavior for this component/composite.
   ColorShades withAlpha(int a) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     for (final key in shadeValues) {
       colors[key] = _colors[key]!.withAlpha(a);
@@ -214,9 +230,12 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `withBlue` behavior for this component/composite.
   ColorShades withBlue(int b) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     // calculate the difference between the current blue value and the new value
+/// Stores `delta` state/configuration for this implementation.
     int delta = b - blue;
     for (final key in shadeValues) {
       int safe =
@@ -227,9 +246,12 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `withGreen` behavior for this component/composite.
   Color withGreen(int g) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     // calculate the difference between the current green value and the new value
+/// Stores `delta` state/configuration for this implementation.
     int delta = g - green;
     for (final key in shadeValues) {
       int safe =
@@ -240,7 +262,9 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `withOpacity` behavior for this component/composite.
   Color withOpacity(double opacity) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     for (final key in shadeValues) {
       colors[key] = _colors[key]!.scaleAlpha(opacity);
@@ -249,9 +273,12 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `withRed` behavior for this component/composite.
   Color withRed(int r) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     // calculate the difference between the current red value and the new value
+/// Stores `delta` state/configuration for this implementation.
     int delta = r - red;
     for (final key in shadeValues) {
       int safe =
@@ -262,28 +289,36 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `operator []` behavior for this component/composite.
   Color operator [](index) {
+/// Stores `color` state/configuration for this implementation.
     var color = _colors[index];
     assert(color != null, 'ColorShades: Missing color for $index');
     return color!;
   }
 
   @override
+/// Stores `a` state/configuration for this implementation.
   double get a => _primary.a;
 
   @override
+/// Stores `b` state/configuration for this implementation.
   double get b => _primary.b;
 
   @override
+/// Stores `colorSpace` state/configuration for this implementation.
   ColorSpace get colorSpace => _primary.colorSpace;
 
   @override
+/// Stores `g` state/configuration for this implementation.
   double get g => _primary.g;
 
   @override
+/// Stores `keys` state/configuration for this implementation.
   Iterable get keys => _colors.keys;
 
   @override
+/// Stores `r` state/configuration for this implementation.
   double get r => _primary.r;
 
   @override
@@ -293,6 +328,7 @@ class ColorShades implements Color, ColorSwatch {
       double? green,
       double? blue,
       ColorSpace? colorSpace}) {
+/// Stores `colors` state/configuration for this implementation.
     Map<int, Color> colors = {};
     for (final key in shadeValues) {
       colors[key] = _colors[key]!.withValues(
@@ -307,14 +343,17 @@ class ColorShades implements Color, ColorSwatch {
   }
 
   @override
+/// Executes `toARGB32` behavior for this component/composite.
   int toARGB32() {
     return _primary.toARGB32();
   }
 
   @override
+/// Stores `hashCode` state/configuration for this implementation.
   int get hashCode => _primary.hashCode;
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is ColorShades && mapEquals(other._colors, _colors);

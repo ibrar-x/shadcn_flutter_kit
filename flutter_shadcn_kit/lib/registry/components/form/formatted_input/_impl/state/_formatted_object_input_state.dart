@@ -1,13 +1,18 @@
 part of '../../formatted_input.dart';
 
+/// _FormattedObjectInputState stores and manages mutable widget state.
 class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
+  /// Controller used to coordinate `_formattedController` behavior.
   late FormattedInputController _formattedController;
+
+  /// Controller used to coordinate `_controller` behavior.
   late ComponentController<T?> _controller;
 
   final _popoverController = PopoverController();
 
   bool _updating = false; // to prevent circular updates
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -36,6 +41,7 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     _controller.addListener(_onControllerUpdate);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant FormattedObjectInput<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -75,6 +81,7 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     }
   }
 
+  /// Performs `_onFormattedControllerUpdate` logic for this form component.
   void _onFormattedControllerUpdate() {
     if (_updating) return;
     _updating = true;
@@ -92,6 +99,7 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     }
   }
 
+  /// Performs `_onControllerUpdate` logic for this form component.
   void _onControllerUpdate() {
     if (_updating) return;
     _updating = true;
@@ -129,6 +137,7 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     }
   }
 
+  /// Performs `_openPopover` logic for this form component.
   void _openPopover() {
     var popupBuilder = widget.popupBuilder;
     if (popupBuilder == null) {
@@ -147,12 +156,14 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
     );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _formattedController.dispose();
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     var popoverIcon = widget.popoverIcon;

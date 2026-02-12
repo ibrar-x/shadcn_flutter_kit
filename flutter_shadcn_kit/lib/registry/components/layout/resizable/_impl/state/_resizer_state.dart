@@ -1,8 +1,11 @@
 part of '../../resizable.dart';
 
+/// _ResizerState defines a reusable type for this registry module.
 class _ResizerState extends State<_Resizer> {
+/// Stores `_dragSession` state/configuration for this implementation.
   Resizer? _dragSession;
 
+/// Executes `_onDragStart` behavior for this component/composite.
   void _onDragStart(DragStartDetails details) {
     _dragSession = Resizer(widget.panelState.computeDraggers());
 
@@ -11,6 +14,7 @@ class _ResizerState extends State<_Resizer> {
     widget.onResizeStart?.call();
   }
 
+/// Executes `_onDragUpdate` behavior for this component/composite.
   void _onDragUpdate(DragUpdateDetails details) {
     _dragSession!.dragDivider(widget.index + 1, details.primaryDelta!);
     widget.panelState.updateDraggers(_dragSession!.items);
@@ -19,6 +23,7 @@ class _ResizerState extends State<_Resizer> {
     _callSizeChangeCallbacks();
   }
 
+/// Executes `_onDragEnd` behavior for this component/composite.
   void _onDragEnd(DragEndDetails details) {
     // Call onSizeChangeEnd callbacks for affected panes
     _callSizeChangeEndCallbacks();
@@ -26,6 +31,7 @@ class _ResizerState extends State<_Resizer> {
     widget.onResizeEnd?.call();
   }
 
+/// Executes `_onDragCancel` behavior for this component/composite.
   void _onDragCancel() {
     _dragSession!.reset();
     widget.panelState.updateDraggers(_dragSession!.items);
@@ -36,15 +42,18 @@ class _ResizerState extends State<_Resizer> {
     widget.onResizeEnd?.call();
   }
 
+/// Executes `_callSizeChangeStartCallbacks` behavior for this component/composite.
   void _callSizeChangeStartCallbacks() {
     if (_dragSession == null) return;
 
     // Call callbacks for the two panes adjacent to this divider
+/// Creates a `_callStartCallbackForPane` instance.
     _callStartCallbackForPane(
       widget.index,
       _dragSession!.items[widget.index].value,
     );
     if (widget.index + 1 < _dragSession!.items.length) {
+/// Creates a `_callStartCallbackForPane` instance.
       _callStartCallbackForPane(
         widget.index + 1,
         _dragSession!.items[widget.index + 1].value,
@@ -52,15 +61,18 @@ class _ResizerState extends State<_Resizer> {
     }
   }
 
+/// Executes `_callSizeChangeCallbacks` behavior for this component/composite.
   void _callSizeChangeCallbacks() {
     if (_dragSession == null) return;
 
     // Call callbacks for the two panes adjacent to this divider
+/// Creates a `_callChangeCallbackForPane` instance.
     _callChangeCallbackForPane(
       widget.index,
       _dragSession!.items[widget.index].newValue,
     );
     if (widget.index + 1 < _dragSession!.items.length) {
+/// Creates a `_callChangeCallbackForPane` instance.
       _callChangeCallbackForPane(
         widget.index + 1,
         _dragSession!.items[widget.index + 1].newValue,
@@ -68,15 +80,18 @@ class _ResizerState extends State<_Resizer> {
     }
   }
 
+/// Executes `_callSizeChangeEndCallbacks` behavior for this component/composite.
   void _callSizeChangeEndCallbacks() {
     if (_dragSession == null) return;
 
     // Call callbacks for the two panes adjacent to this divider
+/// Creates a `_callEndCallbackForPane` instance.
     _callEndCallbackForPane(
       widget.index,
       _dragSession!.items[widget.index].newValue,
     );
     if (widget.index + 1 < _dragSession!.items.length) {
+/// Creates a `_callEndCallbackForPane` instance.
       _callEndCallbackForPane(
         widget.index + 1,
         _dragSession!.items[widget.index + 1].newValue,
@@ -84,15 +99,18 @@ class _ResizerState extends State<_Resizer> {
     }
   }
 
+/// Executes `_callSizeChangeCancelCallbacks` behavior for this component/composite.
   void _callSizeChangeCancelCallbacks() {
     if (_dragSession == null) return;
 
     // Call callbacks for the two panes adjacent to this divider
+/// Creates a `_callCancelCallbackForPane` instance.
     _callCancelCallbackForPane(
       widget.index,
       _dragSession!.items[widget.index].newValue,
     );
     if (widget.index + 1 < _dragSession!.items.length) {
+/// Creates a `_callCancelCallbackForPane` instance.
       _callCancelCallbackForPane(
         widget.index + 1,
         _dragSession!.items[widget.index + 1].newValue,
@@ -100,6 +118,7 @@ class _ResizerState extends State<_Resizer> {
     }
   }
 
+/// Executes `_getControllerAtIndex` behavior for this component/composite.
   ResizablePaneController? _getControllerAtIndex(int paneIndex) {
     if (paneIndex < 0 ||
         paneIndex >= widget.panelState.widget.children.length) {
@@ -107,8 +126,10 @@ class _ResizerState extends State<_Resizer> {
     }
 
     // Find controller by matching the widget at the given index
+/// Stores `targetWidget` state/configuration for this implementation.
     final targetWidget = widget.panelState.widget.children[paneIndex];
     for (final controller in widget.panelState._controllers) {
+/// Stores `paneState` state/configuration for this implementation.
       final paneState = controller._paneState;
       if (paneState?.widget == targetWidget) {
         return controller;
@@ -117,31 +138,40 @@ class _ResizerState extends State<_Resizer> {
     return null;
   }
 
+/// Executes `_callStartCallbackForPane` behavior for this component/composite.
   void _callStartCallbackForPane(int paneIndex, double size) {
     final controller = _getControllerAtIndex(paneIndex);
+/// Stores `callback` state/configuration for this implementation.
     final callback = controller?._paneState?.widget.onSizeChangeStart;
     callback?.call(size);
   }
 
+/// Executes `_callChangeCallbackForPane` behavior for this component/composite.
   void _callChangeCallbackForPane(int paneIndex, double size) {
     final controller = _getControllerAtIndex(paneIndex);
+/// Stores `callback` state/configuration for this implementation.
     final callback = controller?._paneState?.widget.onSizeChange;
     callback?.call(size);
   }
 
+/// Executes `_callEndCallbackForPane` behavior for this component/composite.
   void _callEndCallbackForPane(int paneIndex, double size) {
     final controller = _getControllerAtIndex(paneIndex);
+/// Stores `callback` state/configuration for this implementation.
     final callback = controller?._paneState?.widget.onSizeChangeEnd;
     callback?.call(size);
   }
 
+/// Executes `_callCancelCallbackForPane` behavior for this component/composite.
   void _callCancelCallbackForPane(int paneIndex, double size) {
     final controller = _getControllerAtIndex(paneIndex);
+/// Stores `callback` state/configuration for this implementation.
     final callback = controller?._paneState?.widget.onSizeChangeCancel;
     callback?.call(size);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.direction == Axis.horizontal ? widget.thickness : null,

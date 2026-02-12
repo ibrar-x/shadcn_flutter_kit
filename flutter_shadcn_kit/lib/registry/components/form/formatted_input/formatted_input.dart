@@ -132,6 +132,7 @@ class FormattedInput extends StatefulWidget
     this.controller,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormattedInput> createState() => _FormattedInputState();
 }

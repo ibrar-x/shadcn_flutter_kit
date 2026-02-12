@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// DrawerWrapper defines a reusable type for this registry module.
 class DrawerWrapper extends StatefulWidget {
   /// Position of the drawer on screen.
   final OverlayPosition position;
@@ -83,5 +84,6 @@ class DrawerWrapper extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<DrawerWrapper> createState() => _DrawerWrapperState();
 }

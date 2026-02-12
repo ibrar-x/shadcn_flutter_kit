@@ -127,6 +127,7 @@ class ControlledTimePicker extends StatelessWidget
     this.dialogTitle,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledComponentAdapter(

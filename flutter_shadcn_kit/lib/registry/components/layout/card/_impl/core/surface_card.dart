@@ -1,5 +1,6 @@
 part of '../../card.dart';
 
+/// SurfaceCard defines a reusable type for this registry module.
 class SurfaceCard extends StatelessWidget {
   /// The child widget to display within the card.
   final Widget child;
@@ -55,6 +56,7 @@ class SurfaceCard extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<CardTheme>(context);

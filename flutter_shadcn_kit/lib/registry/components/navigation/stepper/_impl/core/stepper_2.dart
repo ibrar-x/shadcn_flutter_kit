@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// Stepper defines a reusable type for this registry module.
 class Stepper extends StatelessWidget {
   /// Controller for managing stepper state and navigation.
   final StepperController controller;
@@ -54,10 +55,14 @@ class Stepper extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<StepperTheme>(context);
+/// Stores `dir` state/configuration for this implementation.
     final dir = direction ?? compTheme?.direction ?? Axis.horizontal;
+/// Stores `sz` state/configuration for this implementation.
     final sz = size ?? compTheme?.size ?? StepSize.medium;
+/// Stores `varnt` state/configuration for this implementation.
     final varnt = variant ?? compTheme?.variant ?? StepVariant.circle;
     var stepProperties = StepProperties(
       size: sz,

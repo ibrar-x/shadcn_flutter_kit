@@ -63,11 +63,14 @@ part '_impl/utils/shadcn_localizations_delegate.dart';
 /// be consistent with the languages listed in the ShadcnLocalizations.supportedLocales
 /// property.
 abstract class ShadcnLocalizations {
+/// Creates a `ShadcnLocalizations` instance.
   ShadcnLocalizations(String locale)
     : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
+/// Stores `localeName` state/configuration for this implementation.
   final String localeName;
 
+/// Executes `of` behavior for this component/composite.
   static ShadcnLocalizations of(BuildContext context) {
     return Localizations.of<ShadcnLocalizations>(context, ShadcnLocalizations) ??
         ShadcnLocalizationsEn();
@@ -728,6 +731,7 @@ abstract class ShadcnLocalizations {
   String get durationSecond;
 }
 
+/// Executes `lookupShadcnLocalizations` behavior for this component/composite.
 ShadcnLocalizations lookupShadcnLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {

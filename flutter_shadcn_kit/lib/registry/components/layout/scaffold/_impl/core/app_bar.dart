@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// AppBar defines a reusable type for this registry module.
 class AppBar extends StatefulWidget {
   /// List of widgets to display in the trailing (right) area of the app bar.
   ///
@@ -156,5 +157,6 @@ class AppBar extends StatefulWidget {
        );
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AppBar> createState() => _AppBarState();
 }

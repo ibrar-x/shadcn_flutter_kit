@@ -102,6 +102,7 @@ class CharacterInputOTPChild extends InputOTPChild {
     return true;
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, InputOTPChildData data) {
     return _OTPCharacterInput(

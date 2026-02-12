@@ -27,6 +27,7 @@ class CodeSnippet extends StatefulWidget {
     required this.code,
   });
 
+  /// Creates the State object used by this code snippet widget.
   @override
   State<CodeSnippet> createState() => _CodeSnippetState();
 }

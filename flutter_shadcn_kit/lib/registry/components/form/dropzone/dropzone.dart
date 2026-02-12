@@ -14,6 +14,7 @@ enum DropzoneState { idle, dragging, uploading, success, error, disabled }
 
 /// A stylized dropzone surface for file uploads.
 class FileDropzone extends StatelessWidget {
+  /// Constructs `FileDropzone` with the provided parameters.
   const FileDropzone({
     super.key,
     this.hotDropEnabled = false,
@@ -78,6 +79,7 @@ class FileDropzone extends StatelessWidget {
   /// Whether to keep the default dropzone content alongside [content].
   final bool showDefaultContent;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -187,6 +189,7 @@ class FileDropzone extends StatelessWidget {
     );
   }
 
+  /// Performs `_resolveBorderColor` logic for this form component.
   Color? _resolveBorderColor(ThemeData theme) {
     if (!enabled) return null;
     if (hotDropping) return theme.colorScheme.primary;
@@ -206,6 +209,7 @@ class FileDropzone extends StatelessWidget {
     }
   }
 
+  /// Performs `_resolveStatusLabel` logic for this form component.
   String _resolveStatusLabel() {
     if (!enabled) return 'File uploads disabled';
     if (hotDropping || state == DropzoneState.dragging) {

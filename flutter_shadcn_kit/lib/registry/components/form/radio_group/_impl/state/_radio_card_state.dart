@@ -1,16 +1,24 @@
 part of '../../radio_group.dart';
 
+/// _RadioCardState stores and manages mutable widget state.
 class _RadioCardState<T> extends State<RadioCard<T>> {
+  /// Focus node/reference used by `_focusNode` interactions.
   late FocusNode _focusNode;
+
+  /// Focus node/reference used by `_focusing` interactions.
   bool _focusing = false;
+
+  /// Field storing `_hovering` for this form implementation.
   bool _hovering = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _focusNode = widget.focusNode ?? FocusNode();
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant RadioCard<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -20,6 +28,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -70,6 +79,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
             group?._setSelected(widget.value);
           }
           if (value != _focusing) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusing = value;
             });
@@ -77,6 +87,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
         },
         onShowHoverHighlight: (value) {
           if (value != _hovering) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _hovering = value;
             });

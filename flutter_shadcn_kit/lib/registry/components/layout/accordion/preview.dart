@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../accordion/accordion.dart';
 
+/// AccordionPreview defines a reusable type for this registry module.
 class AccordionPreview extends StatelessWidget {
   const AccordionPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -15,18 +17,21 @@ class AccordionPreview extends StatelessWidget {
               width: 600,
               child: const Accordion(
                 items: [
+/// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it accessible?')),
                     content: Text(
                       'Yes. It adheres to the WAI-ARIA design pattern.',
                     ),
                   ),
+/// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it styled?')),
                     content: Text(
                       'Yes. It comes with default styles that you can customize.',
                     ),
                   ),
+/// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it animated?')),
                     content: Text(

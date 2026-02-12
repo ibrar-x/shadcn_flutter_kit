@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableTheme defines a reusable type for this registry module.
 class TableTheme extends ComponentThemeData {
   /// Border configuration for the entire table.
   ///
@@ -56,6 +57,7 @@ class TableTheme extends ComponentThemeData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

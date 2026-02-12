@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "tab_list",
   "name": "Tab List",
@@ -24,7 +23,7 @@
       "`index` (`int?`)",
       "`onChanged` (`ValueChanged<int>?`)",
       "`children` (`List<TabChild>`)",
-      "`TabListTheme` — border and indicator styling."
+      "`TabListTheme` \u2014 border and indicator styling."
     ],
     "callbacks": []
   },

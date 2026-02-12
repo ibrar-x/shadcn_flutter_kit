@@ -20,6 +20,7 @@ class ScrollableClientViewport extends TwoDimensionalViewport {
   });
 
   @override
+/// Executes `createRenderObject` behavior for this component/composite.
   RenderTwoDimensionalViewport createRenderObject(BuildContext context) {
     return RenderScrollableClientViewport(
       horizontalOffset: horizontalOffset,

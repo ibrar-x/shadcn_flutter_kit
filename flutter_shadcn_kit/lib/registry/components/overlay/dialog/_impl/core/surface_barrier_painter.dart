@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// SurfaceBarrierPainter defines a reusable type for this registry module.
 class SurfaceBarrierPainter extends CustomPainter {
   /// Large size constant for creating screen-filling effects.
   static const double bigSize = 1000000;
@@ -62,6 +63,7 @@ class SurfaceBarrierPainter extends CustomPainter {
   }
 
   @override
+/// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = barrierColor
@@ -73,6 +75,7 @@ class SurfaceBarrierPainter extends CustomPainter {
       Path path = Path()
         ..addRect(bigOffset & bigScreen)
         ..addRRect(
+/// Creates a `RRect.fromRectAndCorners` instance.
           RRect.fromRectAndCorners(
             rect,
             topLeft: borderRadius.topLeft,
@@ -88,6 +91,7 @@ class SurfaceBarrierPainter extends CustomPainter {
   }
 
   @override
+/// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant SurfaceBarrierPainter oldDelegate) {
     return oldDelegate.borderRadius != borderRadius ||
         oldDelegate.barrierColor != barrierColor ||

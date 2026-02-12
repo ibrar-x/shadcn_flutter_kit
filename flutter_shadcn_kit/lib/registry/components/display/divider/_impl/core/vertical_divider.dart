@@ -2,6 +2,7 @@ part of '../../divider.dart';
 
 /// Vertical line that divides horizontal layouts.
 class VerticalDivider extends StatelessWidget implements PreferredSizeWidget {
+  /// Creates `VerticalDivider` for configuring or rendering divider.
   const VerticalDivider({
     super.key,
     this.color,
@@ -14,18 +15,34 @@ class VerticalDivider extends StatelessWidget implements PreferredSizeWidget {
     this.childAlignment,
   });
 
+  /// Color value used by divider painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects divider rendering.
   final double? width;
+
+  /// Input parameter used by `VerticalDivider` during rendering and behavior handling.
   final double? thickness;
+
+  /// Input parameter used by `VerticalDivider` during rendering and behavior handling.
   final double? indent;
+
+  /// Input parameter used by `VerticalDivider` during rendering and behavior handling.
   final double? endIndent;
+
+  /// Child content displayed inside the divider widget.
   final Widget? child;
+
+  /// Layout/size setting that affects divider rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Child content displayed inside the divider widget.
   final AxisAlignmentGeometry? childAlignment;
 
   @override
   Size get preferredSize => Size(width ?? 1, 0);
 
+  /// Builds the widget tree for divider.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -38,6 +55,7 @@ class VerticalDivider extends StatelessWidget implements PreferredSizeWidget {
         1.0,
       );
       final topRatio = (clampedAlignmentValue + 1) / 2;
+
       final bottomRatio = 1 - topRatio;
       final topFlex = (topRatio * 1000).round();
       final bottomFlex = (bottomRatio * 1000).round();

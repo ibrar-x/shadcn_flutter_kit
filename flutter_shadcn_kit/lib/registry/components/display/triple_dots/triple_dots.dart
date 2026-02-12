@@ -2,13 +2,25 @@ import 'package:flutter/widgets.dart';
 
 /// Renders a configurable row or column of dots.
 class MoreDots extends StatelessWidget {
+  /// Input parameter used by `MoreDots` during rendering and behavior handling.
   final Axis direction;
+
+  /// Positional/count metadata used by `MoreDots` rendering logic.
   final int count;
+
+  /// Layout/size setting that affects triple dots rendering.
   final double? size;
+
+  /// Color value used by triple dots painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects triple dots rendering.
   final double spacing;
+
+  /// Layout/size setting that affects triple dots rendering.
   final EdgeInsetsGeometry? padding;
 
+  /// Creates `MoreDots` for configuring or rendering triple dots.
   const MoreDots({
     super.key,
     this.direction = Axis.horizontal,
@@ -19,11 +31,14 @@ class MoreDots extends StatelessWidget {
     this.padding,
   });
 
+  /// Builds the widget tree for triple dots.
   @override
   Widget build(BuildContext context) {
     TextStyle style = DefaultTextStyle.of(context).style;
+
     Color resolvedColor = color ?? style.color!;
     double resolvedSize = size ?? (style.fontSize ?? 12) * 0.2;
+
     List<Widget> children = [];
     for (int i = 0; i < count; i++) {
       children.add(

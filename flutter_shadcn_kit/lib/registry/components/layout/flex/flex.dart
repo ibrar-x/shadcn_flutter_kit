@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart' as rendering;
 import 'package:flutter/widgets.dart' as widgets;
 
 export 'package:flutter/widgets.dart'
+/// Stores `Positioned` state/configuration for this implementation.
     hide Flexible, Expanded, Row, Column, Flex, Stack, Positioned;
 
 export 'package:flutter/rendering.dart'

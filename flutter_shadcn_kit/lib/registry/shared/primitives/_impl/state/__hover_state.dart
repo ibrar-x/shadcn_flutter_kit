@@ -1,18 +1,24 @@
 part of '../../hover.dart';
 
 
+/// _HoverState defines a reusable type for this registry module.
 class _HoverState extends State<Hover> {
+/// Stores `_hovered` state/configuration for this implementation.
   bool _hovered = false;
+/// Stores `_showed` state/configuration for this implementation.
   bool _showed = false;
+/// Stores `_timer` state/configuration for this implementation.
   Timer? _timer;
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _timer?.cancel();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
     final waitDuration = styleValue(

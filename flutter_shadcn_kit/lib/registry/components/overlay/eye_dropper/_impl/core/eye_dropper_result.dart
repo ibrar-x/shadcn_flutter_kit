@@ -1,5 +1,6 @@
 part of '../../eye_dropper.dart';
 
+/// EyeDropperResult defines a reusable type for this registry module.
 class EyeDropperResult {
   /// The size of the captured area.
   final Size size;

@@ -1,13 +1,20 @@
 part of '../../table.dart';
 
+/// _CellResizerState defines a reusable type for this registry module.
 class _CellResizerState extends State<_CellResizer> {
+/// Stores `_resizer` state/configuration for this implementation.
   Resizer? _resizer;
+/// Stores `_resizeRow` state/configuration for this implementation.
   bool? _resizeRow;
 
+/// Executes `_onDragStartRow` behavior for this component/composite.
   void _onDragStartRow(DragStartDetails details) {
+/// Stores `items` state/configuration for this implementation.
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxRow; i++) {
+/// Creates a `items.add` instance.
       items.add(
+/// Creates a `ResizableItem` instance.
         ResizableItem(
           value: widget.controller.getRowHeight(i),
           min: widget.controller.getRowMinHeight(i) ?? 0,
@@ -20,10 +27,14 @@ class _CellResizerState extends State<_CellResizer> {
     widget.onDrag(true, -1, Axis.horizontal);
   }
 
+/// Executes `_onDragStartColumn` behavior for this component/composite.
   void _onDragStartColumn(DragStartDetails details) {
+/// Stores `items` state/configuration for this implementation.
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxColumn; i++) {
+/// Creates a `items.add` instance.
       items.add(
+/// Creates a `ResizableItem` instance.
         ResizableItem(
           value: widget.controller.getColumnWidth(i),
           min: widget.controller.getColumnMinWidth(i) ?? 0,
@@ -36,6 +47,7 @@ class _CellResizerState extends State<_CellResizer> {
     widget.onDrag(true, -1, Axis.vertical);
   }
 
+/// Executes `_onDragUpdate` behavior for this component/composite.
   void _onDragUpdate(int start, int end, DragUpdateDetails details) {
     // _resizer!.resize(start, end, _delta!);
     _resizer!.dragDivider(end, details.primaryDelta!);
@@ -49,6 +61,7 @@ class _CellResizerState extends State<_CellResizer> {
     }
   }
 
+/// Executes `_onDragEnd` behavior for this component/composite.
   void _onDragEnd(DragEndDetails details) {
     widget.onDrag(false, -1, Axis.horizontal);
     // _delta = null;
@@ -56,6 +69,7 @@ class _CellResizerState extends State<_CellResizer> {
     _resizeRow = null;
   }
 
+/// Executes `_onDragCancel` behavior for this component/composite.
   void _onDragCancel() {
     if (_resizer == null) {
       return;
@@ -74,21 +88,30 @@ class _CellResizerState extends State<_CellResizer> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `thickness` state/configuration for this implementation.
     double thickness = widget.theme?.resizerThickness ?? 4;
     final flattenedData = Data.of<_FlattenedTableCell>(context);
+/// Stores `row` state/configuration for this implementation.
     final row = flattenedData.row;
+/// Stores `column` state/configuration for this implementation.
     final column = flattenedData.column;
+/// Stores `rowSpan` state/configuration for this implementation.
     final rowSpan = flattenedData.rowSpan;
+/// Stores `columnSpan` state/configuration for this implementation.
     final columnSpan = flattenedData.columnSpan;
     final tableData = Data.of<_ResizableTableData>(context);
+/// Stores `widthMode` state/configuration for this implementation.
     final widthMode = tableData.cellWidthResizeMode;
+/// Stores `heightMode` state/configuration for this implementation.
     final heightMode = tableData.cellHeightResizeMode;
     final theme = Theme.of(context);
     return Stack(
       children: [
         // top
         if (row > 0 && heightMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             top: -thickness / 2,
             left: 0,
@@ -126,7 +149,9 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
@@ -150,6 +175,7 @@ class _CellResizerState extends State<_CellResizer> {
         if ((row + rowSpan <= tableData.maxRow ||
                 heightMode == TableCellResizeMode.expand) &&
             heightMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             bottom: -thickness / 2,
             left: 0,
@@ -186,7 +212,9 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
@@ -208,6 +236,7 @@ class _CellResizerState extends State<_CellResizer> {
           ),
         // left
         if (column > 0 && widthMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             left: -thickness / 2,
             top: 0,
@@ -244,7 +273,9 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
@@ -268,6 +299,7 @@ class _CellResizerState extends State<_CellResizer> {
         if ((column + columnSpan <= tableData.maxColumn ||
                 widthMode == TableCellResizeMode.expand) &&
             widthMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             right: -thickness / 2,
             top: 0,
@@ -287,6 +319,7 @@ class _CellResizerState extends State<_CellResizer> {
                 onHorizontalDragStart: _onDragStartColumn,
                 onHorizontalDragUpdate: (details) {
                   if (widthMode == TableCellResizeMode.reallocate) {
+/// Creates a `_onDragUpdate` instance.
                     _onDragUpdate(
                       column + columnSpan - 1,
                       column + columnSpan,
@@ -310,7 +343,9 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;

@@ -4,12 +4,15 @@ import 'package:flutter/widgets.dart';
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/primitives/text.dart';
 
+/// CommandKeyboardDisplay defines a reusable type for this registry module.
 class CommandKeyboardDisplay extends StatelessWidget {
   const CommandKeyboardDisplay({super.key, required this.keys});
 
+/// Factory constructor that creates `CommandKeyboardDisplay.fromActivator` instances.
   factory CommandKeyboardDisplay.fromActivator({
     required SingleActivator activator,
   }) {
+/// Stores `keys` state/configuration for this implementation.
     final keys = <LogicalKeyboardKey>[];
     if (activator.control) keys.add(LogicalKeyboardKey.control);
     if (activator.shift) keys.add(LogicalKeyboardKey.shift);
@@ -22,9 +25,11 @@ class CommandKeyboardDisplay extends StatelessWidget {
     );
   }
 
+/// Stores `keys` state/configuration for this implementation.
   final List<LogicalKeyboardKey> keys;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (keys.isEmpty) {
       return const SizedBox.shrink();

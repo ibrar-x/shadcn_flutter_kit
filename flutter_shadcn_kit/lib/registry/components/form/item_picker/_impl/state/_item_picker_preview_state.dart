@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _ItemPickerPreviewState stores and manages mutable widget state.
 class _ItemPickerPreviewState extends State<ItemPickerPreview> {
+  /// Current value stored for `_value`.
   String? _value;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +25,7 @@ class _ItemPickerPreviewState extends State<ItemPickerPreview> {
             );
           },
           onChanged: (value) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _value = value;
             });

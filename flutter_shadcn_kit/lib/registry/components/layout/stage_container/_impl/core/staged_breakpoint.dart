@@ -1,5 +1,6 @@
 part of '../../stage_container.dart';
 
+/// StagedBreakpoint defines a reusable type for this registry module.
 class StagedBreakpoint implements StageBreakpoint {
   /// Default breakpoints matching common responsive design values.
   static const List<double> _defaultBreakpoints = [576, 768, 992, 1200, 1400];
@@ -17,6 +18,7 @@ class StagedBreakpoint implements StageBreakpoint {
     : breakpoints = _defaultBreakpoints;
 
   @override
+/// Executes `getMinWidth` behavior for this component/composite.
   double getMinWidth(double width) {
     for (int i = 1; i < breakpoints.length; i++) {
       if (width < breakpoints[i]) {
@@ -27,6 +29,7 @@ class StagedBreakpoint implements StageBreakpoint {
   }
 
   @override
+/// Executes `getMaxWidth` behavior for this component/composite.
   double getMaxWidth(double width) {
     for (var breakpoint in breakpoints) {
       if (width < breakpoint) {
@@ -37,8 +40,10 @@ class StagedBreakpoint implements StageBreakpoint {
   }
 
   @override
+/// Stores `minSize` state/configuration for this implementation.
   double get minSize => breakpoints.first;
 
   @override
+/// Stores `maxSize` state/configuration for this implementation.
   double get maxSize => breakpoints.last;
 }

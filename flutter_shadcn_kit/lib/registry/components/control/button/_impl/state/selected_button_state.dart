@@ -9,6 +9,7 @@ import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
 import '../variants/selected_button_widget.dart';
 
+/// SelectedButtonState defines a reusable type for this registry module.
 class SelectedButtonState extends State<SelectedButton> {
   /// The controller managing widget states (selected, hovered, focused, etc.).
   ///
@@ -17,6 +18,7 @@ class SelectedButtonState extends State<SelectedButton> {
   /// states and updates them based on user interactions and the selection value.
   late WidgetStatesController statesController;
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     statesController = widget.statesController ?? WidgetStatesController();
@@ -24,6 +26,7 @@ class SelectedButtonState extends State<SelectedButton> {
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(SelectedButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.statesController != widget.statesController) {
@@ -36,6 +39,7 @@ class SelectedButtonState extends State<SelectedButton> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       statesController: statesController,

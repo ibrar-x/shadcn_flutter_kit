@@ -29,6 +29,7 @@ class ButtonStylePropertyAll<T> {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -41,5 +42,6 @@ class ButtonStylePropertyAll<T> {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() => 'ButtonStylePropertyAll(value: $value)';
 }

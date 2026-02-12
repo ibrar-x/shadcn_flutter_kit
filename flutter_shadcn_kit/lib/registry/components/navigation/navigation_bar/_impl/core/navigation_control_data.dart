@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationControlData defines a reusable type for this registry module.
 class NavigationControlData {
   /// Type of navigation container (bar, rail, etc.).
   final NavigationContainerType containerType;
@@ -83,6 +84,7 @@ class NavigationControlData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

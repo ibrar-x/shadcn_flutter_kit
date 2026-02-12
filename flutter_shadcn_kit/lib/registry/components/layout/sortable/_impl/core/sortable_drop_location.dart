@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// _SortableDropLocation enumerates fixed values used by this implementation.
 enum _SortableDropLocation { top, left, right, bottom }
 
 _SortableDropLocation? _getPosition(
@@ -10,9 +11,13 @@ _SortableDropLocation? _getPosition(
   bool acceptRight = false,
   bool acceptBottom = false,
 }) {
+/// Stores `dx` state/configuration for this implementation.
   double dx = position.dx;
+/// Stores `dy` state/configuration for this implementation.
   double dy = position.dy;
+/// Stores `width` state/configuration for this implementation.
   double width = size.width;
+/// Stores `height` state/configuration for this implementation.
   double height = size.height;
   if (acceptTop && !acceptBottom) {
     return _SortableDropLocation.top;

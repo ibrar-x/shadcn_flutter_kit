@@ -1,12 +1,26 @@
 part of '../../chat.dart';
 
+/// Custom painter responsible for drawing chat-specific visuals.
 class _TailPainter extends CustomPainter {
+  /// Color value used by chat painting or state styling.
   final Color color;
+
+  /// Layout/size setting that affects chat rendering.
   final BorderRadius radius;
+
+  /// Layout/size setting that affects chat rendering.
   final Size tailSize;
+
+  /// Input parameter used by `_TailPainter` during rendering and behavior handling.
   final AxisDirection position;
+
+  /// Controls how chat content is aligned within available space.
   final AxisAlignment tailAlignment;
+
+  /// Layout/size setting that affects chat rendering.
   final double tailRadius;
+
+  /// Creates `_TailPainter` for configuring or rendering chat.
   const _TailPainter({
     required this.color,
     required this.radius,
@@ -16,6 +30,7 @@ class _TailPainter extends CustomPainter {
     required this.tailRadius,
   });
 
+  /// Implements `paint` behavior for chat.
   @override
   void paint(Canvas canvas, Size size) {
     final path = Path();
@@ -79,8 +94,11 @@ class _TailPainter extends CustomPainter {
 
     // Extend base points along the tail-to-base vectors by cornerRadius
     Offset v1 = initialBase1 - tip;
+
     Offset v2 = initialBase2 - tip;
+
     double d1 = v1.distance;
+
     double d2 = v2.distance;
 
     // Move base1 and base2 outward along their respective vectors
@@ -108,6 +126,7 @@ class _TailPainter extends CustomPainter {
     canvas.drawPath(path, Paint()..color = color);
   }
 
+  /// Implements `shouldRepaint` behavior for chat.
   @override
   bool shouldRepaint(covariant _TailPainter oldDelegate) {
     return oldDelegate.color != color ||

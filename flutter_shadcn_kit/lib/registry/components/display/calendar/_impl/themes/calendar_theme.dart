@@ -28,6 +28,7 @@ class CalendarTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

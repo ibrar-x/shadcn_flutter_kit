@@ -1,16 +1,21 @@
 part of '../../hover_card.dart';
 
+/// _HoverCardState defines a reusable type for this registry module.
 class _HoverCardState extends State<HoverCard> {
+/// Stores `_controller` state/configuration for this implementation.
   late PopoverController _controller;
+/// Stores `_hoverCount` state/configuration for this implementation.
   int _hoverCount = 0;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _controller = widget.controller ?? PopoverController();
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant HoverCard oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
@@ -19,12 +24,14 @@ class _HoverCardState extends State<HoverCard> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.disposePopovers();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HoverCardTheme>(context);
     final debounce = styleValue(
@@ -61,11 +68,14 @@ class _HoverCardState extends State<HoverCard> {
     return MouseRegion(
       hitTestBehavior: behavior,
       onEnter: (_) {
+/// Stores `count` state/configuration for this implementation.
         int count = ++_hoverCount;
+/// Creates a `Future.delayed` instance.
         Future.delayed(wait, () {
           if (count == _hoverCount &&
               !_controller.hasOpenPopover &&
               context.mounted) {
+/// Creates a `_showPopover` instance.
             _showPopover(
               context,
               alignment: popoverAlignment,
@@ -77,7 +87,9 @@ class _HoverCardState extends State<HoverCard> {
         });
       },
       onExit: (_) {
+/// Stores `count` state/configuration for this implementation.
         int count = ++_hoverCount;
+/// Creates a `Future.delayed` instance.
         Future.delayed(debounce, () {
           if (count == _hoverCount) {
             _controller.close();
@@ -86,6 +98,7 @@ class _HoverCardState extends State<HoverCard> {
       },
       child: GestureDetector(
         onLongPress: () {
+/// Creates a `_showPopover` instance.
           _showPopover(
             context,
             alignment: popoverAlignment,
@@ -106,6 +119,7 @@ class _HoverCardState extends State<HoverCard> {
     required Offset offset,
     required Duration debounce,
   }) {
+/// Stores `handler` state/configuration for this implementation.
     OverlayHandler? handler = widget.handler;
     if (handler == null) {
       final overlayManager = OverlayManager.of(context);
@@ -113,6 +127,7 @@ class _HoverCardState extends State<HoverCard> {
         overlayManager: overlayManager,
       );
     }
+/// Creates a `_controller.show` instance.
     _controller.show(
       context: context,
       builder: (context) {
@@ -121,7 +136,9 @@ class _HoverCardState extends State<HoverCard> {
             _hoverCount++;
           },
           onExit: (_) {
+/// Stores `count` state/configuration for this implementation.
             int count = ++_hoverCount;
+/// Creates a `Future.delayed` instance.
             Future.delayed(debounce, () {
               if (count == _hoverCount) {
                 _controller.close();

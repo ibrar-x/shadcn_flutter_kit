@@ -1,5 +1,6 @@
 part of '../../refresh_trigger.dart';
 
+/// RefreshTriggerTheme defines a reusable type for this registry module.
 class RefreshTriggerTheme extends ComponentThemeData {
   /// Minimum pull extent required to trigger refresh.
   final double? minExtent;
@@ -50,6 +51,7 @@ class RefreshTriggerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is RefreshTriggerTheme &&
@@ -70,6 +72,7 @@ class RefreshTriggerTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'RefreshTriggerTheme('
         'minExtent: $minExtent, '

@@ -1,38 +1,101 @@
 import 'package:flutter/material.dart';
 
+/// Core class used by the feature carousel component.
 class FeatureCarouselThemeData {
+  /// Color value used by feature carousel painting or state styling.
   final Color backgroundColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color vignetteOuterColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color vignetteInnerColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color cardFillColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color cardBorderColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color ghostFillColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color ghostBorderColor;
+
+  /// Input parameter used by `FeatureCarouselThemeData` during rendering and behavior handling.
   final Color arrowBackground;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color arrowIconColor;
+
+  /// Input parameter used by `FeatureCarouselThemeData` during rendering and behavior handling.
   final Color ctaBackground;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color ctaBorderColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color ctaTextColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color titleColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color descriptionColor;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color accentColor;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double cardWidth;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double cardHeight;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double carouselWidth;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double carouselHeight;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double arrowSize;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double arrowRadius;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double cardRadius;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double ghostRadius;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double ctaHeight;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double ctaMinWidth;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double ctaHorizontalPadding;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double titleFontSize;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double descriptionFontSize;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double descriptionLineHeight;
+
+  /// Animation/progress setting used by feature carousel transitions.
   final Duration transitionDuration;
+
+  /// Animation/progress setting used by feature carousel transitions.
   final Curve transitionCurve;
 
+  /// Creates `FeatureCarouselThemeData` for configuring or rendering feature carousel.
   const FeatureCarouselThemeData({
     required this.backgroundColor,
     required this.vignetteInnerColor,
@@ -67,6 +130,7 @@ class FeatureCarouselThemeData {
     required this.transitionCurve,
   });
 
+  /// Factory constructor that derives a `FeatureCarouselThemeData.defaults` configuration for feature carousel.
   factory FeatureCarouselThemeData.defaults() {
     return const FeatureCarouselThemeData(
       backgroundColor: Color(0xFF121212),

@@ -1,9 +1,11 @@
 part of '../../form_field.dart';
 
+/// _ObjectFormFieldDialogState stores and manages mutable widget state.
 class _ObjectFormFieldDialogState<T> extends State<_ObjectFormFieldDialog<T>>
     implements ObjectFormHandler<T> {
   late T? _value;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -13,9 +15,11 @@ class _ObjectFormFieldDialogState<T> extends State<_ObjectFormFieldDialog<T>>
   @override
   T? get value => _value;
 
+  /// Performs `value` logic for this form component.
   @override
   set value(T? value) {
     if (mounted) {
+      /// Triggers a rebuild after mutating local state.
       setState(() {
         _value = value;
       });
@@ -25,11 +29,13 @@ class _ObjectFormFieldDialogState<T> extends State<_ObjectFormFieldDialog<T>>
     widget.onChanged(value);
   }
 
+  /// Performs `prompt` logic for this form component.
   @override
   void prompt([T? value]) {
     widget.prompt.call(value);
   }
 
+  /// Performs `close` logic for this form component.
   @override
   Future<void> close() {
     final modalRoute = ModalRoute.of(context);
@@ -37,6 +43,7 @@ class _ObjectFormFieldDialogState<T> extends State<_ObjectFormFieldDialog<T>>
     return modalRoute?.completed ?? Future.value();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     if (!widget.decorate) {

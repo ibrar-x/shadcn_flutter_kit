@@ -20,6 +20,7 @@ class SelectLabel extends StatelessWidget {
   /// - [child] (`Widget`, required): Label content.
   const SelectLabel({super.key, required this.child});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

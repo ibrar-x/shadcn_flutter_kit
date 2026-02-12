@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// Extension helpers for form-related types.
 extension TextFieldCopyExtension on TextField {
   /// All parameters are optional and allow selective property replacement.
   TextField copyWith({

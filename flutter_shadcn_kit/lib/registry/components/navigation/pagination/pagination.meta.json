@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "pagination",
   "name": "Pagination",
@@ -25,7 +24,7 @@
       "`total` (`int`, required)",
       "`onChanged` (`ValueChanged<int>?`)",
       "`showLabel`, `gap`, `siblingCount`, `boundaryCount`",
-      "`PaginationTheme` — spacing and label visibility."
+      "`PaginationTheme` \u2014 spacing and label visibility."
     ],
     "callbacks": []
   },

@@ -1,10 +1,15 @@
 part of '../../focus_outline.dart';
 
+/// FocusOutlineTheme defines a reusable type for this registry module.
 class FocusOutlineTheme extends ComponentThemeData {
+/// Stores `align` state/configuration for this implementation.
   final double? align;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
+/// Stores `border` state/configuration for this implementation.
   final Border? border;
 
+/// Creates a `FocusOutlineTheme` instance.
   const FocusOutlineTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -14,6 +19,7 @@ class FocusOutlineTheme extends ComponentThemeData {
     this.borderRadius,
   });
 
+/// Creates a `FocusOutlineTheme` instance.
   FocusOutlineTheme copyWith({
     ValueGetter<Border?>? border,
     ValueGetter<double?>? align,
@@ -27,6 +33,7 @@ class FocusOutlineTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FocusOutlineTheme &&

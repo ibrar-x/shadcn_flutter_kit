@@ -1,146 +1,284 @@
 part of '../../text_field.dart';
 
+/// TextInputStatefulWidget renders form UI and wires input behavior.
 abstract class TextInputStatefulWidget extends StatefulWidget with TextInput {
+  /// Field storing `groupId` for this form implementation.
   @override
   final Object groupId;
+
+  /// Controller used to coordinate `controller` behavior.
   @override
   final TextEditingController? controller;
+
+  /// Focus node/reference used by `focusNode` interactions.
   @override
   final FocusNode? focusNode;
+
+  /// Field storing `decoration` for this form implementation.
   @override
   final BoxDecoration? decoration;
+
+  /// Field storing `padding` for this form implementation.
   @override
   final EdgeInsetsGeometry? padding;
+
+  /// Field storing `placeholder` for this form implementation.
   @override
   final Widget? placeholder;
+
+  /// Field storing `crossAxisAlignment` for this form implementation.
   @override
   final CrossAxisAlignment crossAxisAlignment;
+
+  /// Field storing `clearButtonSemanticLabel` for this form implementation.
   @override
   final String? clearButtonSemanticLabel;
+
+  /// Field storing `keyboardType` for this form implementation.
   @override
   final TextInputType? keyboardType;
+
+  /// Field storing `textInputAction` for this form implementation.
   @override
   final TextInputAction? textInputAction;
+
+  /// Field storing `textCapitalization` for this form implementation.
   @override
   final TextCapitalization textCapitalization;
+
+  /// Field storing `style` for this form implementation.
   @override
   final TextStyle? style;
+
+  /// Field storing `strutStyle` for this form implementation.
   @override
   final StrutStyle? strutStyle;
+
+  /// Field storing `textAlign` for this form implementation.
   @override
   final TextAlign textAlign;
+
+  /// Field storing `textAlignVertical` for this form implementation.
   @override
   final TextAlignVertical? textAlignVertical;
+
+  /// Field storing `textDirection` for this form implementation.
   @override
   final TextDirection? textDirection;
+
+  /// Field storing `readOnly` for this form implementation.
   @override
   final bool readOnly;
+
+  /// Field storing `showCursor` for this form implementation.
   @override
   final bool? showCursor;
+
+  /// Focus node/reference used by `autofocus` interactions.
   @override
   final bool autofocus;
+
+  /// Field storing `obscuringCharacter` for this form implementation.
   @override
   final String obscuringCharacter;
+
+  /// Field storing `obscureText` for this form implementation.
   @override
   final bool obscureText;
+
+  /// Field storing `autocorrect` for this form implementation.
   @override
   final bool autocorrect;
+
+  /// Field storing `smartDashesType` for this form implementation.
   @override
   final SmartDashesType smartDashesType;
+
+  /// Field storing `smartQuotesType` for this form implementation.
   @override
   final SmartQuotesType smartQuotesType;
+
+  /// Field storing `enableSuggestions` for this form implementation.
   @override
   final bool enableSuggestions;
+
+  /// Field storing `maxLines` for this form implementation.
   @override
   final int? maxLines;
+
+  /// Field storing `minLines` for this form implementation.
   @override
   final int? minLines;
+
+  /// Field storing `expands` for this form implementation.
   @override
   final bool expands;
+
+  /// Field storing `maxLength` for this form implementation.
   @override
   final int? maxLength;
+
+  /// Field storing `maxLengthEnforcement` for this form implementation.
   @override
   final MaxLengthEnforcement? maxLengthEnforcement;
+
+  /// Callback invoked for `onChanged` events.
   @override
   final ValueChanged<String>? onChanged;
+
+  /// Callback invoked for `onEditingComplete` events.
   @override
   final VoidCallback? onEditingComplete;
+
+  /// Callback invoked for `onSubmitted` events.
   @override
   final ValueChanged<String>? onSubmitted;
+
+  /// Callback invoked for `onTapOutside` events.
   @override
   final TapRegionCallback? onTapOutside;
+
+  /// Callback invoked for `onTapUpOutside` events.
   @override
   final TapRegionCallback? onTapUpOutside;
+
+  /// Field storing `inputFormatters` for this form implementation.
   @override
   final List<TextInputFormatter>? inputFormatters;
+
+  /// Field storing `enabled` for this form implementation.
   @override
   final bool enabled;
+
+  /// Field storing `cursorWidth` for this form implementation.
   @override
   final double cursorWidth;
+
+  /// Field storing `cursorHeight` for this form implementation.
   @override
   final double? cursorHeight;
+
+  /// Field storing `cursorRadius` for this form implementation.
   @override
   final Radius cursorRadius;
+
+  /// Field storing `cursorOpacityAnimates` for this form implementation.
   @override
   final bool cursorOpacityAnimates;
+
+  /// Field storing `cursorColor` for this form implementation.
   @override
   final Color? cursorColor;
   @override
   final ui.BoxHeightStyle selectionHeightStyle;
   @override
   final ui.BoxWidthStyle selectionWidthStyle;
+
+  /// Field storing `keyboardAppearance` for this form implementation.
   @override
   final Brightness? keyboardAppearance;
+
+  /// Field storing `scrollPadding` for this form implementation.
   @override
   final EdgeInsets scrollPadding;
+
+  /// Field storing `enableInteractiveSelection` for this form implementation.
   @override
   final bool enableInteractiveSelection;
+
+  /// Field storing `selectionControls` for this form implementation.
   @override
   final TextSelectionControls? selectionControls;
+
+  /// Field storing `dragStartBehavior` for this form implementation.
   @override
   final DragStartBehavior dragStartBehavior;
+
+  /// Controller used to coordinate `scrollController` behavior.
   @override
   final ScrollController? scrollController;
+
+  /// Field storing `scrollPhysics` for this form implementation.
   @override
   final ScrollPhysics? scrollPhysics;
+
+  /// Callback invoked for `onTap` events.
   @override
   final GestureTapCallback? onTap;
+
+  /// Field storing `autofillHints` for this form implementation.
   @override
   final Iterable<String>? autofillHints;
+
+  /// Field storing `clipBehavior` for this form implementation.
   @override
   final Clip clipBehavior;
+
+  /// Field storing `restorationId` for this form implementation.
   @override
   final String? restorationId;
+
+  /// Field storing `stylusHandwritingEnabled` for this form implementation.
   @override
   final bool stylusHandwritingEnabled;
+
+  /// Field storing `enableIMEPersonalizedLearning` for this form implementation.
   @override
   final bool enableIMEPersonalizedLearning;
+
+  /// Field storing `contentInsertionConfiguration` for this form implementation.
   @override
   final ContentInsertionConfiguration? contentInsertionConfiguration;
+
+  /// Field storing `contextMenuBuilder` for this form implementation.
   @override
   final EditableTextContextMenuBuilder? contextMenuBuilder;
+
+  /// Current value stored for `initialValue`.
   @override
   final String? initialValue;
+
+  /// Field storing `hintText` for this form implementation.
   @override
   final String? hintText;
+
+  /// Field storing `border` for this form implementation.
   @override
   final Border? border;
+
+  /// Field storing `borderRadius` for this form implementation.
   @override
   final BorderRadiusGeometry? borderRadius;
+
+  /// Field storing `filled` for this form implementation.
   @override
   final bool? filled;
+
+  /// Controller used to coordinate `statesController` behavior.
   @override
   final WidgetStatesController? statesController;
+
+  /// Field storing `magnifierConfiguration` for this form implementation.
   @override
   final TextMagnifierConfiguration? magnifierConfiguration;
+
+  /// Field storing `spellCheckConfiguration` for this form implementation.
   @override
   final SpellCheckConfiguration? spellCheckConfiguration;
+
+  /// Controller used to coordinate `undoController` behavior.
   @override
   final UndoHistoryController? undoController;
+
+  /// Field storing `features` for this form implementation.
   @override
   final List<InputFeature> features;
+
+  /// Field storing `submitFormatters` for this form implementation.
   @override
   final List<TextInputFormatter>? submitFormatters;
+
+  /// Focus node/reference used by `skipInputFeatureFocusTraversal` interactions.
   @override
   final bool skipInputFeatureFocusTraversal;
 

@@ -73,6 +73,7 @@ enum NavigationBarAlignment {
   const NavigationBarAlignment(this.mainAxisAlignment);
 }
 
+/// NavigationRailAlignment enumerates fixed values used by this implementation.
 enum NavigationRailAlignment {
   /// Align items to the start (top) of the rail.
   start,
@@ -174,6 +175,7 @@ enum NavigationContainerType {
 /// )
 /// ```
 
+/// Executes `_startPadding` behavior for this component/composite.
 double _startPadding(EdgeInsets padding, Axis direction) {
   if (direction == Axis.vertical) {
     return padding.top;
@@ -181,6 +183,7 @@ double _startPadding(EdgeInsets padding, Axis direction) {
   return padding.left;
 }
 
+/// Executes `_endPadding` behavior for this component/composite.
 double _endPadding(EdgeInsets padding, Axis direction) {
   if (direction == Axis.vertical) {
     return padding.bottom;

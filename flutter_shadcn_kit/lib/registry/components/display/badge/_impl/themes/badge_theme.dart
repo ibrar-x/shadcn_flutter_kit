@@ -44,6 +44,7 @@ class BadgeTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two badge values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

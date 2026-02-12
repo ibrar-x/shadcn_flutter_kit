@@ -4,6 +4,7 @@ import '../../control/button/button.dart';
 import '../../layout/card/card.dart';
 import '../dialog/dialog.dart' as shadcn;
 
+/// DialogPreview defines a reusable type for this registry module.
 class DialogPreview extends m.StatelessWidget {
   const DialogPreview({super.key});
 
@@ -22,6 +23,7 @@ class DialogPreview extends m.StatelessWidget {
                     mainAxisSize: m.MainAxisSize.min,
                     crossAxisAlignment: m.CrossAxisAlignment.start,
                     children: [
+/// Creates a `m.Text` instance.
                       const m.Text(
                         'Dialog title',
                         style: m.TextStyle(
@@ -29,12 +31,18 @@ class DialogPreview extends m.StatelessWidget {
                           fontWeight: m.FontWeight.w600,
                         ),
                       ),
+/// Creates a `m.SizedBox` instance.
                       const m.SizedBox(height: 12),
+/// Creates a `m.Text` instance.
                       const m.Text('Use dialogs for important confirmations.'),
+/// Creates a `m.SizedBox` instance.
                       const m.SizedBox(height: 20),
+/// Creates a `m.Row` instance.
                       m.Row(
                         children: [
+/// Creates a `m.Spacer` instance.
                           const m.Spacer(),
+/// Creates a `OutlineButton` instance.
                           OutlineButton(
                             onPressed: () => m.Navigator.of(context).pop(),
                             child: const m.Text('Close'),

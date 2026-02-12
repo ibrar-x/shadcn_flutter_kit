@@ -31,6 +31,7 @@ class FormEntryInterceptor<T> extends StatefulWidget {
     this.onValueReported,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormEntryInterceptor<T>> createState() =>
       _FormEntryInterceptorState<T>();

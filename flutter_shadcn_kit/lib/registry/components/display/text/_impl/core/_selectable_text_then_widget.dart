@@ -1,14 +1,20 @@
 part of '../../text.dart';
 
+/// Internal helper class used by the text component implementation.
 class _SelectableTextThenWidget extends StatelessWidget {
+  /// Data consumed by `_SelectableTextThenWidget` to render text content.
   final SelectableText text;
+
+  /// Input parameter used by `_SelectableTextThenWidget` during rendering and behavior handling.
   final List<InlineSpan> then;
 
   const _SelectableTextThenWidget({required this.text, required this.then});
 
+  /// Builds the widget tree for text.
   @override
   Widget build(BuildContext context) {
     String? stringData = text.data;
+
     TextSpan? textData = text.textSpan;
     return SelectableText.rich(
       TextSpan(

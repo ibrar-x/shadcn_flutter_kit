@@ -1,5 +1,6 @@
 part of '../../stage_container.dart';
 
+/// StageContainer defines a reusable type for this registry module.
 class StageContainer extends StatelessWidget {
   /// The breakpoint strategy for determining container width.
   ///
@@ -25,9 +26,11 @@ class StageContainer extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<StageContainerTheme>(context);
+/// Stores `breakpoint` state/configuration for this implementation.
     final StageBreakpoint breakpoint = compTheme?.breakpoint ?? this.breakpoint;
     final EdgeInsets padding = styleValue(
       widgetValue: this.padding,
@@ -38,10 +41,15 @@ class StageContainer extends StatelessWidget {
     );
     return LayoutBuilder(
       builder: (context, constraints) {
+/// Stores `size` state/configuration for this implementation.
         var size = constraints.maxWidth;
+/// Stores `topPadding` state/configuration for this implementation.
         double topPadding = padding.top;
+/// Stores `bottomPadding` state/configuration for this implementation.
         double bottomPadding = padding.bottom;
+/// Stores `leftPadding` state/configuration for this implementation.
         double leftPadding = padding.left;
+/// Stores `rightPadding` state/configuration for this implementation.
         double rightPadding = padding.right;
         if (size < breakpoint.minSize) {
           return builder(context, padding.copyWith(left: 0, right: 0));
@@ -53,6 +61,7 @@ class StageContainer extends StatelessWidget {
           rightPadding = max(0, rightPadding);
           return builder(
             context,
+/// Creates a `EdgeInsets.only` instance.
             EdgeInsets.only(
               top: topPadding,
               bottom: bottomPadding,
@@ -63,6 +72,7 @@ class StageContainer extends StatelessWidget {
         }
         double minWidth = breakpoint.getMinWidth(size);
         double maxWidth = breakpoint.getMaxWidth(size);
+/// Creates a `assert` instance.
         assert(
           minWidth <= maxWidth,
           'minWidth must be less than or equal to maxWidth ($minWidth > $maxWidth)',
@@ -74,6 +84,7 @@ class StageContainer extends StatelessWidget {
         rightPadding = max(0, rightPadding);
         return builder(
           context,
+/// Creates a `EdgeInsets.only` instance.
           EdgeInsets.only(
             top: topPadding,
             bottom: bottomPadding,

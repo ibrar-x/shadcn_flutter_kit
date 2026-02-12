@@ -50,6 +50,7 @@ class IgnoreForm<T> extends StatelessWidget {
   /// ```
   const IgnoreForm({super.key, this.ignoring = true, required this.child});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return MultiData(

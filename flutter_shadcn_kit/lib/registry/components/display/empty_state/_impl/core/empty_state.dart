@@ -10,7 +10,9 @@ import '../variants/empty_state_variant.dart';
 import '../themes/empty_state_theme.dart';
 import 'empty_state_action.dart';
 
+/// EmptyState holds mutable state for the empty state implementation.
 class EmptyState extends StatelessWidget {
+  /// Creates `EmptyState` for configuring or rendering empty state.
   const EmptyState({
     super.key,
     this.variant = EmptyStateVariant.empty,
@@ -25,20 +27,41 @@ class EmptyState extends StatelessWidget {
     this.showIconContainer = true,
   });
 
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final EmptyStateVariant variant;
+
+  /// Layout/size setting that affects empty state rendering.
   final EmptyStateSize size;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final Widget? icon;
+
+  /// Text/content element used by `EmptyState` when composing its visual layout.
   final Widget? title;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final Widget? description;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final EmptyStateAction? primaryAction;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final EmptyStateAction? secondaryAction;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final EmptyStateAction? footerAction;
+
+  /// Layout/size setting that affects empty state rendering.
   final double? maxWidth;
+
+  /// Input parameter used by `EmptyState` during rendering and behavior handling.
   final bool showIconContainer;
 
+  /// Builds the widget tree for empty state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<EmptyStateTheme>(context);
     final resolvedTitle = title ?? Text(defaultEmptyStateTitle(variant));
@@ -69,7 +92,9 @@ class EmptyState extends StatelessWidget {
     final actionSize = size == EmptyStateSize.compact
         ? ButtonSize.small
         : ButtonSize.normal;
+
     final hasMainActions = primaryAction != null || secondaryAction != null;
+
     final hasFooterAction = footerAction != null;
     final content = Column(
       mainAxisSize: MainAxisSize.min,
@@ -96,13 +121,17 @@ class EmptyState extends StatelessWidget {
                 ),
               )
             : resolvedIcon,
+
         DensityGap(size == EmptyStateSize.compact ? gapLg : gap2xl),
+
         DefaultTextStyle.merge(
           style: titleStyle,
           textAlign: TextAlign.center,
           child: resolvedTitle,
         ),
+
         DensityGap(size == EmptyStateSize.compact ? 0.9 : gapMd),
+
         DefaultTextStyle.merge(
           style: descriptionStyle,
           textAlign: TextAlign.center,
@@ -172,6 +201,7 @@ class EmptyState extends StatelessWidget {
     return Center(child: constrained);
   }
 
+  /// Implements `_buildAction` behavior for empty state.
   Widget _buildAction(EmptyStateAction action, {required ButtonSize size}) {
     final child = Text(action.label);
 

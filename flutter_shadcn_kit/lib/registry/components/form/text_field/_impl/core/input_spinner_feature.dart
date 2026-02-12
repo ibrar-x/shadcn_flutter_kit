@@ -43,6 +43,7 @@ class InputSpinnerFeature extends InputFeature {
     this.invalidValue = 0.0,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputSpinnerFeatureState();
 }

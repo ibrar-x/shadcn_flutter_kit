@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import 'app_error.dart';
 
+/// AppErrorHub defines a reusable type for this registry module.
 class AppErrorHub {
   AppErrorHub._();
 
@@ -17,11 +18,16 @@ class AppErrorHub {
 
   /// Predefined app-level channels.
   static const String sessionExpired = 'app.sessionExpired';
+/// Stores `maintenanceMode` state/configuration for this implementation.
   static const String maintenanceMode = 'app.maintenanceMode';
+/// Stores `networkUnavailable` state/configuration for this implementation.
   static const String networkUnavailable = 'app.networkUnavailable';
+/// Stores `criticalUpdate` state/configuration for this implementation.
   static const String criticalUpdate = 'app.criticalUpdate';
+/// Stores `permissionDenied` state/configuration for this implementation.
   static const String permissionDenied = 'app.permissionDenied';
 
+/// Stores `_appScopes` state/configuration for this implementation.
   final Map<String, ValueNotifier<AppError?>> _appScopes = {};
 
   /// Returns a persistent app-level channel.
@@ -29,8 +35,10 @@ class AppErrorHub {
     return _appScopes.putIfAbsent(key, () => ValueNotifier<AppError?>(null));
   }
 
+/// Executes `clearApp` behavior for this component/composite.
   void clearApp(String key) => _appScopes[key]?.value = null;
 
+/// Executes `clearAllApp` behavior for this component/composite.
   void clearAllApp() {
     for (final notifier in _appScopes.values) {
       notifier.value = null;
@@ -48,6 +56,7 @@ class AppErrorHub {
   // Screen-level (scoped) scopes
   // ----------------------------
 
+/// Stores `_screenScopes` state/configuration for this implementation.
   final Map<String, ValueNotifier<AppError?>> _screenScopes = {};
 
   /// Returns a screen-level channel.
@@ -57,19 +66,23 @@ class AppErrorHub {
     return _screenScopes.putIfAbsent(key, () => ValueNotifier<AppError?>(null));
   }
 
+/// Executes `clearScreen` behavior for this component/composite.
   void clearScreen(String key) => _screenScopes[key]?.value = null;
 
+/// Executes `clearAllScreens` behavior for this component/composite.
   void clearAllScreens() {
     for (final notifier in _screenScopes.values) {
       notifier.value = null;
     }
   }
 
+/// Executes `disposeScreen` behavior for this component/composite.
   void disposeScreen(String key) {
     _screenScopes[key]?.dispose();
     _screenScopes.remove(key);
   }
 
+/// Executes `disposeAllScreens` behavior for this component/composite.
   void disposeAllScreens() {
     for (final notifier in _screenScopes.values) {
       notifier.dispose();

@@ -32,11 +32,13 @@ class NonNullValidator<T> extends Validator<T> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is NonNullValidator && other.message == message;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => message.hashCode;
 }

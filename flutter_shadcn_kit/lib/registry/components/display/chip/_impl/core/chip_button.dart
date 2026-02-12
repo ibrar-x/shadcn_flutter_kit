@@ -4,9 +4,13 @@ part of '../../chip.dart';
 class ChipButton extends StatelessWidget {
   const ChipButton({super.key, required this.child, this.onPressed});
 
+  /// Child content displayed inside the chip widget.
   final Widget child;
+
+  /// Callback invoked by chip when `onPressed` is triggered.
   final VoidCallback? onPressed;
 
+  /// Builds the widget tree for chip.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

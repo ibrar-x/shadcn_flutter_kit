@@ -75,6 +75,7 @@ class HoverTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is HoverTheme &&
         other.debounceDuration == debounceDuration &&

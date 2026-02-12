@@ -69,6 +69,7 @@ class TabListTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabListTheme &&
@@ -116,15 +117,19 @@ class TabListTheme extends ComponentThemeData {
 /// )
 /// ```
 
+/// Extension helpers used by this registry module.
 extension _TabListTextStyles on Widget {
+/// Executes `muted` behavior for this component/composite.
   Widget muted() {
     return _TabListTextStyle(
       child: this,
       styleBuilder: (theme) =>
+/// Creates a `TextStyle` instance.
           TextStyle(color: theme.colorScheme.mutedForeground),
     );
   }
 
+/// Executes `foreground` behavior for this component/composite.
   Widget foreground() {
     return _TabListTextStyle(
       child: this,

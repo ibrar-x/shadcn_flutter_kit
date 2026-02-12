@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabContainerTheme defines a reusable type for this registry module.
 class TabContainerTheme extends ComponentThemeData {
   /// Default builder for laying out tab children.
   final TabBuilder? builder;
@@ -31,6 +32,7 @@ class TabContainerTheme extends ComponentThemeData {
   int get hashCode => Object.hash(builder, childBuilder);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabContainerTheme &&
@@ -39,6 +41,7 @@ class TabContainerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'TabContainerTheme(builder: $builder, childBuilder: $childBuilder)';
   }

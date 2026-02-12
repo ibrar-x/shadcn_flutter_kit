@@ -1,9 +1,12 @@
 part of '../../preview.dart';
 
+/// _SwitcherPreviewState defines a reusable type for this registry module.
 class _SwitcherPreviewState extends State<SwitcherPreview> {
+/// Stores `_index` state/configuration for this implementation.
   int _index = 0;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -15,16 +18,19 @@ class _SwitcherPreviewState extends State<SwitcherPreview> {
             direction: AxisDirection.left,
             onIndexChanged: (value) => setState(() => _index = value),
             children: [
+/// Creates a `Container` instance.
               Container(
                 color: Colors.blue.shade100,
                 alignment: Alignment.center,
                 child: const Text('Page 1'),
               ),
+/// Creates a `Container` instance.
               Container(
                 color: Colors.green.shade100,
                 alignment: Alignment.center,
                 child: const Text('Page 2'),
               ),
+/// Creates a `Container` instance.
               Container(
                 color: Colors.orange.shade100,
                 alignment: Alignment.center,

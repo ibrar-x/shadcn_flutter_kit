@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// _SortableLayerState defines a reusable type for this registry module.
 class _SortableLayerState extends State<SortableLayer>
     with SingleTickerProviderStateMixin {
   final MutableNotifier<List<_SortableDraggingSession>> _sessions =
@@ -12,24 +13,29 @@ class _SortableLayerState extends State<SortableLayer>
     null,
   );
 
+/// Stores `_ticker` state/configuration for this implementation.
   late Ticker _ticker;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _ticker = createTicker(_tick);
   }
 
+/// Executes `ensureAndDismissDrop` behavior for this component/composite.
   void ensureAndDismissDrop(Object data) {
     if (_pendingDrop.value != null && data == _pendingDrop.value!.data) {
       _pendingDrop.value = null;
     }
   }
 
+/// Executes `dismissDrop` behavior for this component/composite.
   void dismissDrop() {
     _pendingDrop.value = null;
   }
 
+/// Executes `_canClaimDrop` behavior for this component/composite.
   bool _canClaimDrop(_SortableState item, Object? data) {
     return _pendingDrop.value != null && data == _pendingDrop.value!.data;
   }
@@ -50,6 +56,7 @@ class _SortableLayerState extends State<SortableLayer>
         child: _pendingDrop.value!.child,
         state: item,
       );
+/// Creates a `_activeDrops.mutate` instance.
       _activeDrops.mutate((value) {
         value.add(dropTransform);
       });
@@ -63,7 +70,9 @@ class _SortableLayerState extends State<SortableLayer>
     return null;
   }
 
+/// Executes `_tick` behavior for this component/composite.
   void _tick(Duration elapsed) {
+/// Stores `toRemove` state/configuration for this implementation.
     List<_DropTransform> toRemove = [];
     for (final drop in _activeDrops.value) {
       drop.start ??= elapsed;
@@ -79,6 +88,7 @@ class _SortableLayerState extends State<SortableLayer>
         drop.progress.value = progress;
       }
     }
+/// Creates a `_activeDrops.mutate` instance.
     _activeDrops.mutate((value) {
       value.removeWhere((element) => toRemove.contains(element));
     });
@@ -88,6 +98,7 @@ class _SortableLayerState extends State<SortableLayer>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _ticker.dispose();
     super.dispose();
@@ -97,17 +108,21 @@ class _SortableLayerState extends State<SortableLayer>
     return Matrix4Tween(begin: from, end: to).transform(progress);
   }
 
+/// Executes `pushDraggingSession` behavior for this component/composite.
   void pushDraggingSession(_SortableDraggingSession session) {
+/// Creates a `_sessions.mutate` instance.
     _sessions.mutate((value) {
       value.add(session);
     });
   }
 
+/// Executes `removeDraggingSession` behavior for this component/composite.
   void removeDraggingSession(_SortableDraggingSession session) {
     if (!mounted) {
       return;
     }
     if (_sessions.value.contains(session)) {
+/// Creates a `_sessions.mutate` instance.
       _sessions.mutate((value) {
         value.remove(session);
       });
@@ -127,6 +142,7 @@ class _SortableLayerState extends State<SortableLayer>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return MetaData(
       metaData: this,
@@ -139,6 +155,7 @@ class _SortableLayerState extends State<SortableLayer>
               widget.clipBehavior ?? (widget.lock ? Clip.hardEdge : Clip.none),
           children: [
             widget.child,
+/// Creates a `ListenableBuilder` instance.
             ListenableBuilder(
               listenable: _sessions,
               builder: (context, child) {
@@ -153,6 +170,7 @@ class _SortableLayerState extends State<SortableLayer>
                       clipBehavior: Clip.none,
                       children: [
                         for (final session in _sessions.value)
+/// Creates a `ListenableBuilder` instance.
                           ListenableBuilder(
                             listenable: session.offset,
                             builder: (context, child) {
@@ -178,6 +196,7 @@ class _SortableLayerState extends State<SortableLayer>
                 );
               },
             ),
+/// Creates a `ListenableBuilder` instance.
             ListenableBuilder(
               listenable: _activeDrops,
               builder: (context, child) {
@@ -186,6 +205,7 @@ class _SortableLayerState extends State<SortableLayer>
                     clipBehavior: Clip.none,
                     children: [
                       for (final drop in _activeDrops.value)
+/// Creates a `ListenableBuilder` instance.
                         ListenableBuilder(
                           listenable: drop.progress,
                           builder: (context, child) {

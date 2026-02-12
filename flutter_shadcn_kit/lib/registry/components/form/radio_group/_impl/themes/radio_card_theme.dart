@@ -49,6 +49,7 @@ class RadioCardTheme extends ComponentThemeData {
     this.selectedBorderColor,
   });
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'RadioCardTheme(enabledCursor: $enabledCursor, disabledCursor: $disabledCursor, hoverColor: $hoverColor, color: $color, borderWidth: $borderWidth, selectedBorderWidth: $selectedBorderWidth, borderRadius: $borderRadius, padding: $padding, borderColor: $borderColor, selectedBorderColor: $selectedBorderColor)';
@@ -89,6 +90,7 @@ class RadioCardTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

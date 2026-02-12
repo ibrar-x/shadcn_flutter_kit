@@ -51,6 +51,7 @@ class Hidden extends StatelessWidget {
   final bool? keepMainAxisSize;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HiddenTheme>(context);
     final directionValue = styleValue(

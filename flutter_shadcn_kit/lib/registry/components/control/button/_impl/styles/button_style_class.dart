@@ -307,6 +307,7 @@ class ButtonStyle implements AbstractButtonStyle {
     return _resolveTextStyle;
   }
 
+/// Executes `_resolveTextStyle` behavior for this component/composite.
   TextStyle _resolveTextStyle(BuildContext context, Set<WidgetState> states) {
     var fontSize = variance.textStyle(context, states).fontSize;
     if (fontSize == null) {

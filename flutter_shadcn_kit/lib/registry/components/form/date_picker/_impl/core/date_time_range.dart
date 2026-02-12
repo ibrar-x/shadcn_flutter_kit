@@ -26,15 +26,18 @@ class DateTimeRange {
   /// - [end] (`DateTime`, required): The end of the range.
   const DateTimeRange(this.start, this.end);
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is DateTimeRange && other.start == start && other.end == end;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => start.hashCode ^ end.hashCode;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'DateTimeRange{start: $start, end: $end}';

@@ -85,6 +85,7 @@ class ControlledComponentAdapter<T> extends StatefulWidget
          'Either controller or initialValue must be provided',
        );
 
+  /// Creates the `State` object for this widget.
   @override
   State<ControlledComponentAdapter<T>> createState() =>
       _ControlledComponentAdapterState<T>();

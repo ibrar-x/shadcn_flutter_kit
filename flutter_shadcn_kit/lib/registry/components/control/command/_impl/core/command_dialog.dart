@@ -30,12 +30,14 @@ Future<T?> showCommandDialog<T>({
     context: context,
     builder: (context) {
       final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
       final scaling = theme.scaling;
       surfaceOpacity ??= theme.surfaceOpacity;
       surfaceBlur ??= theme.surfaceBlur;
       return ConstrainedBox(
         constraints:
             constraints ??
+/// Creates a `BoxConstraints.tightFor` instance.
             const BoxConstraints.tightFor(width: 510, height: 349) * scaling,
         child: shadcn_dialog.ModalBackdrop(
           borderRadius: subtractByBorder(theme.borderRadiusXxl, 1 * scaling),

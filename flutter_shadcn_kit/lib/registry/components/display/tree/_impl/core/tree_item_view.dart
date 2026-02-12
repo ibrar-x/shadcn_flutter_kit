@@ -126,6 +126,7 @@ class TreeItemView extends StatefulWidget {
     this.focusNode,
   });
 
+  /// Creates the State object used by this tree widget.
   @override
   State<TreeItemView> createState() => _TreeItemViewState();
 }

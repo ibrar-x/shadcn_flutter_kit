@@ -2,13 +2,25 @@ part of '../../switch.dart';
 
 /// Theme configuration for switch styling.
 class SwitchTheme extends ComponentThemeData {
+  /// Field storing `activeColor` for this form implementation.
   final Color? activeColor;
+
+  /// Field storing `inactiveColor` for this form implementation.
   final Color? inactiveColor;
+
+  /// Field storing `activeThumbColor` for this form implementation.
   final Color? activeThumbColor;
+
+  /// Field storing `inactiveThumbColor` for this form implementation.
   final Color? inactiveThumbColor;
+
+  /// Field storing `gap` for this form implementation.
   final double? gap;
+
+  /// Field storing `borderRadius` for this form implementation.
   final BorderRadiusGeometry? borderRadius;
 
+  /// Constructs `SwitchTheme` with the provided parameters.
   const SwitchTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -45,6 +57,7 @@ class SwitchTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

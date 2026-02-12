@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuPopup defines a reusable type for this registry module.
 class MenuPopup extends StatelessWidget {
   /// Opacity of the surface blur effect.
   ///
@@ -59,6 +60,7 @@ class MenuPopup extends StatelessWidget {
     required this.children,
   });
 
+/// Executes `_buildIntrinsicContainer` behavior for this component/composite.
   Widget _buildIntrinsicContainer(Widget child, Axis direction, bool wrap) {
     if (!wrap) {
       return child;
@@ -70,6 +72,7 @@ class MenuPopup extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<MenuGroupData>(context);
     final theme = Theme.of(context);
@@ -118,6 +121,7 @@ class MenuPopup extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: data?.direction ?? Axis.vertical,
         child: _buildIntrinsicContainer(
+/// Creates a `Flex` instance.
           Flex(
             direction: data?.direction ?? Axis.vertical,
             mainAxisSize: MainAxisSize.min,

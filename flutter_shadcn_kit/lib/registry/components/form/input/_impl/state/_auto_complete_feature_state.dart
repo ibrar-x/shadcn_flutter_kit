@@ -1,5 +1,6 @@
 part of '../../input.dart';
 
+/// _AutoCompleteFeatureState stores and manages mutable widget state.
 class _AutoCompleteFeatureState
     extends InputFeatureState<InputAutoCompleteFeature> {
   final GlobalKey _key = GlobalKey();
@@ -7,11 +8,13 @@ class _AutoCompleteFeatureState
     null,
   );
 
+  /// Performs `onTextChanged` logic for this form component.
   @override
   void onTextChanged(String text) {
     _suggestions.value = feature.querySuggestions(text);
   }
 
+  /// Performs `wrap` logic for this form component.
   @override
   Widget wrap(Widget child) {
     return ListenableBuilder(

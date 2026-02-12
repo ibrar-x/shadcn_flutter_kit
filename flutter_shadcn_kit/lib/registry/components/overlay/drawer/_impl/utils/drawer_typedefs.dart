@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// Type alias for `BackdropBuilder` used by public or internal APIs.
 typedef BackdropBuilder =
     Widget Function(
       BuildContext context,

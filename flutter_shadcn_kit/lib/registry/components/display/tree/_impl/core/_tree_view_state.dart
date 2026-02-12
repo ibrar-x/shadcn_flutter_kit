@@ -1,10 +1,17 @@
 part of '../../tree.dart';
 
+/// _TreeViewState holds mutable state for the tree implementation.
 class _TreeViewState<T> extends State<TreeView<T>> {
+  /// Input parameter used by `_TreeViewState` during rendering and behavior handling.
   bool _multiSelect = false;
+
+  /// Input parameter used by `_TreeViewState` during rendering and behavior handling.
   bool _rangeMultiSelect = false;
 
+  /// Input parameter used by `_TreeViewState` during rendering and behavior handling.
   int? _currentFocusedIndex;
+
+  /// Input parameter used by `_TreeViewState` during rendering and behavior handling.
   int? _startFocusedIndex;
 
   void _walkFlattened(
@@ -19,6 +26,7 @@ class _TreeViewState<T> extends State<TreeView<T>> {
         List<TreeNodeDepth> newDepth = List.from(depth);
         newDepth.add(TreeNodeDepth(i, nodes.length));
         walker(parentExpanded, node, newDepth);
+
         _walkFlattened(
           walker,
           node.children,
@@ -31,6 +39,7 @@ class _TreeViewState<T> extends State<TreeView<T>> {
     }
   }
 
+  /// Implements `_walkNodes` behavior for tree.
   void _walkNodes(_NodeWalker<T> walker, List<TreeNode<T>> nodes) {
     for (int i = 0; i < nodes.length; i++) {
       final node = nodes[i];
@@ -54,9 +63,11 @@ class _TreeViewState<T> extends State<TreeView<T>> {
       start = end;
       end = temp;
     }
+
     final selectedItems = <TreeNode<T>>[];
     for (int i = start; i <= end; i++) {
       if (recursive) {
+        /// Implements `_walkNodes` behavior for tree.
         _walkNodes((node) {
           selectedItems.add(node);
         }, [children[i].node]);
@@ -67,24 +78,33 @@ class _TreeViewState<T> extends State<TreeView<T>> {
     widget.onSelectionChanged?.call(selectedItems, false, true);
   }
 
+  /// Builds the widget tree for tree.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TreeTheme>(context);
     final branchLine =
         widget.branchLine ?? compTheme?.branchLine ?? BranchLine.path;
+
     final expandIcon = widget.expandIcon ?? compTheme?.expandIcon ?? true;
     final allowMultiSelect =
         widget.allowMultiSelect ?? compTheme?.allowMultiSelect ?? true;
     final recursiveSelection =
         widget.recursiveSelection ?? compTheme?.recursiveSelection ?? true;
+
     final padding = widget.padding ?? compTheme?.padding;
+
     List<TreeNodeData<T>> children = [];
+
     int index = 0;
+
     _walkFlattened(
       (expanded, node, depth) {
         if (node is! TreeItem<T>) return;
+
         final int currentIndex = index++;
+
         children.add(
+          /// Implements `TreeNodeData` behavior for tree.
           TreeNodeData(depth, node, branchLine, expanded, expandIcon, (reason) {
             if (reason == FocusChangeReason.focusScope) {
               _startFocusedIndex = currentIndex;
@@ -94,12 +114,15 @@ class _TreeViewState<T> extends State<TreeView<T>> {
             _currentFocusedIndex = currentIndex;
             if (_rangeMultiSelect && _startFocusedIndex != null) {
               var start = _startFocusedIndex!;
+
               var end = _currentFocusedIndex!;
               _onChangeSelectionRange(children, start, end, recursiveSelection);
             } else {
               _startFocusedIndex = currentIndex;
               if (recursiveSelection) {
                 final selectedItems = <TreeNode<T>>[];
+
+                /// Implements `_walkNodes` behavior for tree.
                 _walkNodes((node) {
                   selectedItems.add(node);
                 }, [node]);
@@ -123,6 +146,7 @@ class _TreeViewState<T> extends State<TreeView<T>> {
       true,
       [],
     );
+
     int selectedCount = 0;
     for (int i = 0; i < children.length; i++) {
       final child = children[i];
@@ -167,26 +191,31 @@ class _TreeViewState<T> extends State<TreeView<T>> {
           // range select
           LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowUp):
               const DirectionalSelectTreeNodeIntent(false),
+
           LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowDown):
               const DirectionalSelectTreeNodeIntent(true),
+
           LogicalKeySet(
             LogicalKeyboardKey.shiftLeft,
             LogicalKeyboardKey.arrowUp,
           ): const DirectionalSelectTreeNodeIntent(
             false,
           ),
+
           LogicalKeySet(
             LogicalKeyboardKey.shiftLeft,
             LogicalKeyboardKey.arrowDown,
           ): const DirectionalSelectTreeNodeIntent(
             true,
           ),
+
           LogicalKeySet(
             LogicalKeyboardKey.shiftRight,
             LogicalKeyboardKey.arrowUp,
           ): const DirectionalSelectTreeNodeIntent(
             false,
           ),
+
           LogicalKeySet(
             LogicalKeyboardKey.shiftRight,
             LogicalKeyboardKey.arrowDown,
@@ -197,10 +226,12 @@ class _TreeViewState<T> extends State<TreeView<T>> {
           // multi select
           LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.space):
               const SelectTreeNodeIntent(),
+
           LogicalKeySet(
             LogicalKeyboardKey.controlLeft,
             LogicalKeyboardKey.space,
           ): const SelectTreeNodeIntent(),
+
           LogicalKeySet(
             LogicalKeyboardKey.controlRight,
             LogicalKeyboardKey.space,
@@ -215,6 +246,8 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                 final selectedNode = children[_currentFocusedIndex!];
                 if (recursiveSelection) {
                   final selectedItems = <TreeNode<T>>[];
+
+                  /// Implements `_walkNodes` behavior for tree.
                   _walkNodes((node) {
                     selectedItems.add(node);
                   }, [selectedNode.node]);
@@ -237,9 +270,12 @@ class _TreeViewState<T> extends State<TreeView<T>> {
           DirectionalSelectTreeNodeIntent: CallbackAction(
             onInvoke: (e) {
               final bool down = (e as DirectionalSelectTreeNodeIntent).forward;
+
               var currentIndex = _currentFocusedIndex ?? 0;
               _startFocusedIndex ??= _currentFocusedIndex;
+
               var reverseSelection = currentIndex < _startFocusedIndex!;
+
               var equalSelection = currentIndex == _startFocusedIndex!;
               if (down) {
                 for (int i = currentIndex + 1; i < children.length; i++) {
@@ -268,6 +304,7 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                   }
                 }
               }
+
               _onChangeSelectionRange(
                 children,
                 _startFocusedIndex!,

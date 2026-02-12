@@ -37,11 +37,13 @@ class EmailValidator extends Validator<String> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is EmailValidator && other.message == message;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => message.hashCode;
 }

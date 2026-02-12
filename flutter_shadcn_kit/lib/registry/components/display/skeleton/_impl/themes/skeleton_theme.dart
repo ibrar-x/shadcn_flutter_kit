@@ -2,11 +2,19 @@ part of '../../skeleton.dart';
 
 /// Theme configuration for skeleton loading effects.
 class SkeletonTheme extends ComponentThemeData {
+  /// Animation/progress setting used by skeleton transitions.
   final Duration? duration;
+
+  /// Color value used by skeleton painting or state styling.
   final Color? fromColor;
+
+  /// Color value used by skeleton painting or state styling.
   final Color? toColor;
+
+  /// Animation/progress setting used by skeleton transitions.
   final bool? enableSwitchAnimation;
 
+  /// Creates `SkeletonTheme` for configuring or rendering skeleton.
   const SkeletonTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -33,6 +41,7 @@ class SkeletonTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two skeleton values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

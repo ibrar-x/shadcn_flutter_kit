@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "dropzone",
   "name": "Dropzone",
@@ -27,7 +26,7 @@
       "`hint`, `icon`, `actionLabel`, `onPressed`",
       "`backgroundColor`, `borderRadius`, `padding`, `minHeight`",
       "`content`, `showDefaultContent`",
-      "`DropzoneState` — `idle`, `dragging`, `uploading`, `success`, `error`, `disabled`"
+      "`DropzoneState` \u2014 `idle`, `dragging`, `uploading`, `success`, `error`, `disabled`"
     ],
     "callbacks": []
   },
@@ -41,7 +40,7 @@
     "Reflect upload status via `state`."
   ],
   "dont": [
-    "Hide the browse action if drag-and-drop isn’t available."
+    "Hide the browse action if drag-and-drop isn\u2019t available."
   ],
   "related": [
     "file_picker",

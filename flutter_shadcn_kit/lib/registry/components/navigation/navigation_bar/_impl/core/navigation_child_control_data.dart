@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationChildControlData defines a reusable type for this registry module.
 class NavigationChildControlData {
   /// Logical index for selection (null if not selectable).
   final int? index;
@@ -15,6 +16,7 @@ class NavigationChildControlData {
   NavigationChildControlData({this.index, required this.actualIndex});
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

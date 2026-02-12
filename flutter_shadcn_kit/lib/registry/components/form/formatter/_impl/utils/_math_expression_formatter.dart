@@ -1,6 +1,8 @@
 part of '../../formatter.dart';
 
+/// _MathExpressionFormatter represents a form-related type in the registry.
 class _MathExpressionFormatter extends TextInputFormatter {
+  /// Field storing `context` for this form implementation.
   final Map<String, dynamic>? context;
   const _MathExpressionFormatter({this.context});
   @override
@@ -9,6 +11,7 @@ class _MathExpressionFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     String newText = newValue.text;
+
     Object? result;
     try {
       Expression expression = Expression.parse(newText);

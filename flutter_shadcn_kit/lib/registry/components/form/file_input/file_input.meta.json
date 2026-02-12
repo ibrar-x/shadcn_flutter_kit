@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "file_input",
   "name": "File Input",
@@ -23,7 +22,7 @@
       "`FileIconProvider`",
       "`FileIconProvider.builder(builder: ..., child: ...)`",
       "`FileIconProvider(icons: ..., child: ...)`",
-      "`FileIconBuilder` — `Widget Function(String extension)`"
+      "`FileIconBuilder` \u2014 `Widget Function(String extension)`"
     ],
     "callbacks": []
   },

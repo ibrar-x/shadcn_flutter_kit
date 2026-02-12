@@ -10,6 +10,7 @@
 ///
 /// Returns: `double` — wrapped value within [min, max).
 double wrapDouble(double value, double min, double max) {
+/// Stores `range` state/configuration for this implementation.
   final range = max - min;
   if (range == 0) {
     return min;

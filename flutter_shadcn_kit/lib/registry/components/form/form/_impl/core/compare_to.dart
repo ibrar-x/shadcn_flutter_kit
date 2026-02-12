@@ -45,6 +45,7 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
   const CompareTo.lessOrEqual(this.value, {this.message})
     : type = CompareType.lessOrEqual;
 
+  /// Performs `_compare` logic for this form component.
   int _compare(T? a, T? b) {
     if (a == null && b == null) {
       return 0;
@@ -111,6 +112,7 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is CompareTo &&

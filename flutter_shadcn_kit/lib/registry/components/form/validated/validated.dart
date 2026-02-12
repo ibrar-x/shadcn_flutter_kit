@@ -65,6 +65,7 @@ class Validated<T> extends StatefulWidget {
     this.child,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<Validated> createState() => _ValidatedState();
 }

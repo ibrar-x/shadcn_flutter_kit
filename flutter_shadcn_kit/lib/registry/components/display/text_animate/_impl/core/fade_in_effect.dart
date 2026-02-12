@@ -10,6 +10,7 @@ class FadeInEffect extends StreamingTextEffectAdapter
   });
 
   final Duration duration;
+
   final Curve curve;
 
   @override
@@ -53,6 +54,7 @@ class FadeInEffect extends StreamingTextEffectAdapter
     );
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

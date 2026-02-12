@@ -1,11 +1,13 @@
 part of '../../select.dart';
 
+/// _SelectPopupState stores and manages mutable widget state.
 class _SelectPopupState<T> extends State<SelectPopup<T>>
     with SelectPopupHandle {
   late TextEditingController _searchController;
   late ScrollController _scrollController;
   SelectData? _selectData;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -14,10 +16,13 @@ class _SelectPopupState<T> extends State<SelectPopup<T>>
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // because the controller did not get notified when a scroll position is attached
       if (!mounted) return;
+
+      /// Triggers a rebuild after mutating local state.
       setState(() {});
     });
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant SelectPopup<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -29,6 +34,7 @@ class _SelectPopupState<T> extends State<SelectPopup<T>>
     }
   }
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -38,11 +44,13 @@ class _SelectPopupState<T> extends State<SelectPopup<T>>
   @override
   bool get hasSelection => _selectData?.hasSelection ?? false;
 
+  /// Performs `isSelected` logic for this form component.
   @override
   bool isSelected(Object? value) {
     return _selectData?.isSelected(value) ?? false;
   }
 
+  /// Performs `selectItem` logic for this form component.
   @override
   void selectItem(Object? value, bool selected) {
     _selectData?.onChanged(value, selected);
@@ -51,6 +59,7 @@ class _SelectPopupState<T> extends State<SelectPopup<T>>
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

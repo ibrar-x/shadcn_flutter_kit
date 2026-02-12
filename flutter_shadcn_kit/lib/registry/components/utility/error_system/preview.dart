@@ -10,12 +10,15 @@ import '../../../shared/theme/theme.dart';
 import 'error_system.dart';
 import '../../../shared/icons/radix_icons.dart';
 
+/// ErrorSystemPreview defines a reusable type for this registry module.
 class ErrorSystemPreview extends StatelessWidget {
   const ErrorSystemPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final globalScope = HubAppScope('global');
     final sampleError = AppError(
@@ -31,6 +34,7 @@ class ErrorSystemPreview extends StatelessWidget {
       message:
           'Reconnect to continue. We will restore your screen automatically.',
       actions: [
+/// Creates a `ErrorAction.retry` instance.
         ErrorAction.retry(() {
           globalScope.clear();
         }),
@@ -48,48 +52,61 @@ class ErrorSystemPreview extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.all(24 * scaling),
                 children: [
+/// Creates a `AppErrorBanner` instance.
                   AppErrorBanner(),
+/// Creates a `DensityGap` instance.
                   DensityGap(gapLg),
+/// Creates a `Wrap` instance.
                   Wrap(
                     spacing: 12 * scaling,
                     runSpacing: 8 * scaling,
                     children: [
+/// Creates a `SecondaryButton` instance.
                       SecondaryButton(
                         onPressed: () {
                           AppErrorHub.I
                               .app(AppErrorHub.networkUnavailable)
                               .value = sampleError.copyWithActions([
+/// Creates a `ErrorAction.retry` instance.
                             ErrorAction.retry(() {}),
                           ]);
                         },
                         child: const Text('Trigger App Error'),
                       ),
+/// Creates a `GhostButton` instance.
                       GhostButton(
                         onPressed: () => AppErrorHub.I.clearAllApp(),
                         child: const Text('Clear App Errors'),
                       ),
+/// Creates a `SecondaryButton` instance.
                       SecondaryButton(
                         onPressed: () => globalScope.notifier.value = gateError,
                         child: const Text('Show App Gate'),
                       ),
+/// Creates a `GhostButton` instance.
                       GhostButton(
                         onPressed: globalScope.clear,
                         child: const Text('Clear App Gate'),
                       ),
                     ],
                   ),
+/// Creates a `DensityGap` instance.
                   DensityGap(gap2xl),
+/// Creates a `ErrorState` instance.
                   ErrorState(
                     error: sampleError,
                     illustration: Column(
                       children: [
+/// Creates a `Text` instance.
                         Text(
                           'Error',
                           style: theme.typography.x4Large.copyWith(
                             color: theme.colorScheme.secondaryForeground,
                           ),
                         ),
+/// Creates a `DensityGap` instance.
                         DensityGap(gapSm),
+/// Creates a `Container` instance.
                         Container(
                           width: 220 * scaling,
                           height: 160 * scaling,
@@ -107,7 +124,9 @@ class ErrorSystemPreview extends StatelessWidget {
                       ],
                     ),
                   ),
+/// Creates a `DensityGap` instance.
                   DensityGap(gap2xl),
+/// Creates a `ErrorSlot.scope` instance.
                   ErrorSlot.scope(
                     scope: scope.scope,
                     empty: const InlineError(message: 'No screen-level error.'),
@@ -116,16 +135,21 @@ class ErrorSystemPreview extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+/// Creates a `InlineError` instance.
                           InlineError(message: error.message),
+/// Creates a `DensityGap` instance.
                           DensityGap(gapSm),
+/// Creates a `Wrap` instance.
                           Wrap(
                             spacing: 12 * scaling,
                             runSpacing: 8 * scaling,
                             children: [
+/// Creates a `GhostButton` instance.
                               GhostButton(
                                 onPressed: scope.clear,
                                 child: const Text('Dismiss'),
                               ),
+/// Creates a `SecondaryButton` instance.
                               SecondaryButton(
                                 onPressed: () => ErrorDialog.show(
                                   context: context,
@@ -133,6 +157,7 @@ class ErrorSystemPreview extends StatelessWidget {
                                 ),
                                 child: const Text('Dialog'),
                               ),
+/// Creates a `SecondaryButton` instance.
                               SecondaryButton(
                                 onPressed: () => ErrorSnackbar.show(
                                   context: context,
@@ -146,19 +171,24 @@ class ErrorSystemPreview extends StatelessWidget {
                       );
                     },
                   ),
+/// Creates a `DensityGap` instance.
                   DensityGap(gap2xl),
+/// Creates a `Wrap` instance.
                   Wrap(
                     spacing: 12 * scaling,
                     runSpacing: 8 * scaling,
                     children: [
+/// Creates a `SecondaryButton` instance.
                       SecondaryButton(
                         onPressed: () async {
                           await scope.run<void>(() async {
+/// Stores `sampleError` state/configuration for this implementation.
                             throw sampleError;
                           });
                         },
                         child: const Text('run() -> Screen Error'),
                       ),
+/// Creates a `PrimaryButton` instance.
                       PrimaryButton(
                         onPressed: () => ErrorDialog.show(
                           context: context,
@@ -166,6 +196,7 @@ class ErrorSystemPreview extends StatelessWidget {
                         ),
                         child: const Text('Show Error Dialog'),
                       ),
+/// Creates a `SecondaryButton` instance.
                       SecondaryButton(
                         onPressed: () => ErrorSnackbar.show(
                           context: context,

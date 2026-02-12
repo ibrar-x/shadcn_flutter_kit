@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/layout/filter_bar/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';
+import 'package:flutter_shadcn_kit/registry/composites/control/toggle/preview.dart';
 
 import 'package:flutter_shadcn_kit/registry/composites/layout/app/app.dart';
+import 'package:flutter_shadcn_kit/registry/composites/navigation/expandable_sidebar/preview.dart';
 import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
 
 void main() {
@@ -20,7 +22,7 @@ class _RegistryApp extends StatelessWidget {
       localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
       supportedLocales: ShadcnLocalizations.supportedLocales,
       locale: const Locale('en'),
-      home: const FilterBarPreview(),
+      home: const ExpandableSidebarPreview(),
     );
   }
 }

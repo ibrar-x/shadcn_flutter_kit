@@ -1,5 +1,6 @@
 part of '../../dropdown_menu.dart';
 
+/// DropdownMenuTheme defines a reusable type for this registry module.
 class DropdownMenuTheme extends ComponentThemeData {
   /// Surface opacity for the popup container.
   final double? surfaceOpacity;
@@ -30,6 +31,7 @@ class DropdownMenuTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is DropdownMenuTheme &&

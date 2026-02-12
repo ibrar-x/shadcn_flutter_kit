@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// ScaffoldBarData defines a reusable type for this registry module.
 class ScaffoldBarData {
   /// Whether this bar is in the header section (vs footer).
   final bool isHeader;

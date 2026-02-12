@@ -18,6 +18,7 @@ class CalendarGrid extends StatelessWidget {
     required this.itemBuilder,
   });
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -40,9 +41,11 @@ class CalendarGrid extends StatelessWidget {
     // );
     // do not use GridView because it doesn't support IntrinsicWidth
     List<Widget> rows = [];
+
     List<Widget> weekDays = [];
     for (int i = 0; i < 7; i++) {
       int weekday = ((i - 1) % 7) + 1;
+
       weekDays.add(
         Container(
           width: theme.scaling * 32,

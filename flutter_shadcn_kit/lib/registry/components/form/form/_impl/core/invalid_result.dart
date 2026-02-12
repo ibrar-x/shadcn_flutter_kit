@@ -9,6 +9,7 @@ class InvalidResult extends ValidationResult {
   /// The error message describing the validation failure.
   final String message;
 
+  /// Field storing `_key` for this form implementation.
   final FormKey? _key;
 
   /// Creates an [InvalidResult] with the specified error message.
@@ -27,6 +28,7 @@ class InvalidResult extends ValidationResult {
     return _key!;
   }
 
+  /// Performs `attach` logic for this form component.
   @override
   InvalidResult attach(FormKey key) {
     return InvalidResult.attached(message, key: key, state: state);

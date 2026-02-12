@@ -4,9 +4,11 @@ import '../../control/button/button.dart';
 import '../form/form.dart';
 import '../text_field/text_field.dart';
 
+/// FormPreview represents a form-related type in the registry.
 class FormPreview extends StatelessWidget {
   const FormPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

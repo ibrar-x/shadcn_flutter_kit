@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// _HoveredInputFeatureVisibility renders form UI and wires input behavior.
 class _HoveredInputFeatureVisibility extends InputFeatureVisibility {
   const _HoveredInputFeatureVisibility();
   @override
@@ -7,6 +8,7 @@ class _HoveredInputFeatureVisibility extends InputFeatureVisibility {
     yield state._statesController;
   }
 
+  /// Performs `canShow` logic for this form component.
   @override
   bool canShow(TextFieldState state) {
     return state._statesController.value.hovered;

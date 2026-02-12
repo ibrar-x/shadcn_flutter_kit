@@ -275,6 +275,7 @@ extension TextExtension on Widget {
 
   /// Applies heading 1 style.
   TextModifier get h1 =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(style: (context, theme) => theme.typography.h1, child: this);
 
   /// Applies heading 2 style with bottom border.
@@ -300,10 +301,12 @@ extension TextExtension on Widget {
 
   /// Applies heading 3 style.
   TextModifier get h3 =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(style: (context, theme) => theme.typography.h3, child: this);
 
   /// Applies heading 4 style.
   TextModifier get h4 =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(style: (context, theme) => theme.typography.h4, child: this);
 
   /// Applies paragraph style with top spacing.
@@ -322,6 +325,7 @@ extension TextExtension on Widget {
 
   /// Applies paragraph style for the first paragraph (no top spacing).
   TextModifier get firstP =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(style: (context, theme) => theme.typography.p, child: this);
 
   /// Applies block quote style with left border.
@@ -350,6 +354,7 @@ extension TextExtension on Widget {
   TextModifier get li => WrappedText(
     wrapper: (context, child) {
       UnorderedListData? data = Data.maybeOf(context);
+
       int depth = data?.depth ?? 0;
       TextStyle style = DefaultTextStyle.of(context).style;
       double size = (style.fontSize ?? 12) / 16 * 6;
@@ -361,7 +366,9 @@ extension TextExtension on Widget {
               height: ((style.fontSize ?? 12) * (style.height ?? 1)) * 1.2,
               child: getBullet(context, depth, size),
             ),
+
             SizedBox(width: Theme.of(context).density.baseGap),
+
             Expanded(
               child: Data.inherit(
                 data: UnorderedListData(depth: depth + 1),
@@ -380,7 +387,9 @@ extension TextExtension on Widget {
     style: (context, theme) => theme.typography.inlineCode,
     wrapper: (context, child) {
       final style = DefaultTextStyle.of(context).style;
+
       final double paddingVertical = style.fontSize! * 0.2;
+
       final double paddingHorizontal = style.fontSize! * 0.3;
       final ThemeData themeData = Theme.of(context);
       return Container(
@@ -437,14 +446,17 @@ extension TextExtension on Widget {
 
   /// Centers text horizontally.
   TextModifier get textCenter =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(textAlign: (context, theme) => TextAlign.center, child: this);
 
   /// Right-aligns text.
   TextModifier get textRight =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(textAlign: (context, theme) => TextAlign.right, child: this);
 
   /// Left-aligns text.
   TextModifier get textLeft =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(textAlign: (context, theme) => TextAlign.left, child: this);
 
   /// Justifies text alignment.
@@ -455,10 +467,12 @@ extension TextExtension on Widget {
 
   /// Aligns text to the start (left in LTR, right in RTL).
   TextModifier get textStart =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(textAlign: (context, theme) => TextAlign.start, child: this);
 
   /// Aligns text to the end (right in LTR, left in RTL).
   TextModifier get textEnd =>
+      /// Implements `WrappedText` behavior for text.
       WrappedText(textAlign: (context, theme) => TextAlign.end, child: this);
 
   /// Applies primary foreground color modifier.

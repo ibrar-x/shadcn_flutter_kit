@@ -75,6 +75,7 @@ class ControlledColorInput extends StatelessWidget
     this.onChanging,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledComponentAdapter<ColorDerivative>(

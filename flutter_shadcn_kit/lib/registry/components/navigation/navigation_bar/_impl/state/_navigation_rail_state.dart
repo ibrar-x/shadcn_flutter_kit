@@ -1,31 +1,41 @@
 part of '../../navigation_bar.dart';
 
+/// _NavigationRailState defines a reusable type for this registry module.
 class _NavigationRailState extends State<NavigationRail>
     with NavigationContainerMixin {
   AlignmentGeometry get _alignment {
     switch ((widget.alignment, widget.direction)) {
+/// Creates a `case` instance.
       case (NavigationRailAlignment.start, Axis.horizontal):
         return AlignmentDirectional.centerStart;
+/// Creates a `case` instance.
       case (NavigationRailAlignment.center, Axis.horizontal):
         return AlignmentDirectional.topCenter;
+/// Creates a `case` instance.
       case (NavigationRailAlignment.end, Axis.horizontal):
         return AlignmentDirectional.centerEnd;
+/// Creates a `case` instance.
       case (NavigationRailAlignment.start, Axis.vertical):
         return AlignmentDirectional.topCenter;
+/// Creates a `case` instance.
       case (NavigationRailAlignment.center, Axis.vertical):
         return AlignmentDirectional.center;
+/// Creates a `case` instance.
       case (NavigationRailAlignment.end, Axis.vertical):
         return AlignmentDirectional.bottomCenter;
     }
   }
 
+/// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     var parentPadding =
         widget.padding ??
@@ -65,6 +75,7 @@ class _NavigationRailState extends State<NavigationRail>
               scrollDirection: widget.direction,
               padding: resolvedPadding,
               child: _wrapIntrinsic(
+/// Creates a `Flex` instance.
                 Flex(
                   direction: widget.direction,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,6 +89,7 @@ class _NavigationRailState extends State<NavigationRail>
     );
   }
 
+/// Executes `_wrapIntrinsic` behavior for this component/composite.
   Widget _wrapIntrinsic(Widget child) {
     if (widget.direction == Axis.horizontal) {
       return IntrinsicHeight(child: child);

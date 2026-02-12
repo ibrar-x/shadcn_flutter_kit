@@ -39,14 +39,20 @@ class _InputStepperButtonFeatureState
   }
 
   Widget _buildButton() {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: IconButton.outline(
-        icon: feature.icon ?? const Icon(LucideIcons.plus),
-        onPressed: _increase,
-        density: ButtonDensity.compact,
-        size: ButtonSize.small,
-      ),
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        final theme = Theme.of(context);
+        return SizedBox.square(
+          dimension: 32 * theme.scaling,
+          child: IconButton.outline(
+            icon: feature.icon ?? const Icon(LucideIcons.plus),
+            onPressed: _increase,
+            density: ButtonDensity.compact,
+            size: ButtonSize.small,
+          ),
+        );
+      },
     );
   }
 

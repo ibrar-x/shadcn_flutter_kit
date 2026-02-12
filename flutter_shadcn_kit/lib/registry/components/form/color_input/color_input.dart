@@ -115,6 +115,7 @@ class ColorInput extends StatefulWidget {
     this.showHistory = true,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ColorInput> createState() => _ColorInputState();
 }

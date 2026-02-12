@@ -1,13 +1,26 @@
 part of '../core/hsv_color_slider.dart';
 
+/// _HSVColorSliderState stores and manages mutable widget state.
 class _HSVColorSliderState extends State<HSVColorSlider> {
+  /// Field storing `_currentHorizontal` for this form implementation.
   late double _currentHorizontal;
+
+  /// Field storing `_currentVertical` for this form implementation.
   late double _currentVertical;
+
+  /// Field storing `_hue` for this form implementation.
   late double _hue;
+
+  /// Field storing `_saturation` for this form implementation.
   late double _saturation;
+
+  /// Current value stored for `_value`.
   late double _value;
+
+  /// Field storing `_alpha` for this form implementation.
   late double _alpha;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -20,6 +33,7 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
     _alpha = hsv.alpha;
   }
 
+  /// Performs `_updateColor` logic for this form component.
   void _updateColor(Offset localPosition, Size size) {
     _currentHorizontal =
         ((localPosition.dx - widget.padding.left) /
@@ -107,6 +121,7 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
     );
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant HSVColorSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -128,6 +143,7 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
         widget.sliderType == HSVColorSliderType.alpha;
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -146,6 +162,7 @@ class _HSVColorSliderState extends State<HSVColorSlider> {
         );
       },
       onPanUpdate: (details) {
+        /// Triggers a rebuild after mutating local state.
         setState(() {
           _updateColor(details.localPosition, context.size!);
         });

@@ -1,6 +1,8 @@
 part of '../../text_field.dart';
 
+/// _AutoCompleteItemState stores and manages mutable widget state.
 class _AutoCompleteItemState extends State<_AutoCompleteItem> {
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return SelectedButton(
@@ -13,6 +15,7 @@ class _AutoCompleteItemState extends State<_AutoCompleteItem> {
     );
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant _AutoCompleteItem oldWidget) {
     super.didUpdateWidget(oldWidget);

@@ -1,20 +1,24 @@
 part of '../../tooltip.dart';
 
+/// _InstantTooltipState defines a reusable type for this registry module.
 class _InstantTooltipState extends State<InstantTooltip> {
   final PopoverController _controller = PopoverController();
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final overlayManager = OverlayManager.of(context);
     return MouseRegion(
       onEnter: (event) {
         _controller.close(true);
+/// Creates a `_controller.show` instance.
         _controller.show(
           context: context,
           modal: false,

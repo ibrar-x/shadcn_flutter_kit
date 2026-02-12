@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// Type alias for `TabBuilder` used by public or internal APIs.
 typedef TabBuilder =
     Widget Function(BuildContext context, List<Widget> children);
 

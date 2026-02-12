@@ -7,16 +7,33 @@ part of '../../file_picker.dart';
 class _FileUploadState extends State<_FileUpload> {
   final FilePickerAdapter _adapter = createFilePickerAdapter();
   final PopoverController _compactPickerPopoverController = PopoverController();
+
+  /// Field storing `_items` for this form implementation.
   final List<FileUploadItem> _items = [];
+
+  /// Field storing `_errors` for this form implementation.
   final List<FileUploadError> _errors = [];
+
+  /// Field storing `_uploadSubscriptions` for this form implementation.
   final Map<String, StreamSubscription<double>> _uploadSubscriptions = {};
   final ListQueue<FileLike> _uploadQueue = ListQueue<FileLike>();
 
+  /// Field storing `_dragActive` for this form implementation.
   bool _dragActive = false;
+
+  /// Focus node/reference used by `_focused` interactions.
   bool _focused = false;
+
+  /// Field storing `_completedOnce` for this form implementation.
   bool _completedOnce = false;
+
+  /// Controller used to coordinate `_controllerListenerAttached` behavior.
   bool _controllerListenerAttached = false;
+
+  /// Field storing `_activeUploads` for this form implementation.
   int _activeUploads = 0;
+
+  /// Field storing `_dragDebounce` for this form implementation.
   Timer? _dragDebounce;
 
   /// Safe state mutation entrypoint for extension methods.
@@ -52,6 +69,7 @@ class _FileUploadState extends State<_FileUpload> {
 
   /// Replaces current error list and triggers error callback notifications.
   void _setErrors(List<FileUploadError> errors) {
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       if (errors.isNotEmpty) {
         _completedOnce = false;
@@ -78,6 +96,8 @@ class _FileUploadState extends State<_FileUpload> {
   /// Pulls controller state into local presentation state.
   void _onControllerChanged() {
     if (!mounted) return;
+
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       _errors
         ..clear()
@@ -88,6 +108,7 @@ class _FileUploadState extends State<_FileUpload> {
     });
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant _FileUpload oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -107,6 +128,7 @@ class _FileUploadState extends State<_FileUpload> {
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _dragDebounce?.cancel();
@@ -126,6 +148,7 @@ class _FileUploadState extends State<_FileUpload> {
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

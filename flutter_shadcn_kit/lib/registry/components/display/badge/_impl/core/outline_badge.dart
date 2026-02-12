@@ -27,6 +27,7 @@ class OutlineBadge extends StatelessWidget {
     this.style,
   });
 
+  /// Builds the widget tree for badge.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);

@@ -90,9 +90,11 @@ class TreeView<T> extends StatefulWidget {
     TreeNodeUnaryOperator<K> operator,
   ) {
     List<TreeNode<K>> newNodes = List.from(nodes);
+
     bool changed = false;
     for (int i = 0; i < newNodes.length; i++) {
       final node = newNodes[i];
+
       var newNode = operator(node);
       List<TreeNode<K>>? newChildren = _replaceNodes(
         (newNode ?? node).children,
@@ -115,9 +117,11 @@ class TreeView<T> extends StatefulWidget {
     TreeNodeUnaryOperatorWithParent<K> operator,
   ) {
     List<TreeNode<K>> newNodes = List.from(nodes);
+
     bool changed = false;
     for (int i = 0; i < newNodes.length; i++) {
       final node = newNodes[i];
+
       var newNode = operator(parent, node);
       List<TreeNode<K>>? newChildren = _replaceNodesWithParent(
         newNode ?? node,
@@ -733,6 +737,7 @@ class TreeView<T> extends StatefulWidget {
     this.recursiveSelection,
   });
 
+  /// Creates the State object used by this tree widget.
   @override
   State<TreeView<T>> createState() => _TreeViewState<T>();
 }

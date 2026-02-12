@@ -36,9 +36,13 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
                     type: BorderGradientType.sweep,
                     colors: [
                       m.Color(0x00000000),
+
                       m.Color(0xFF3B82F6),
+
                       m.Color(0xFF22C55E),
+
                       m.Color(0xFFF59E0B),
+
                       m.Color(0x00000000),
                     ],
                     gap: 0.24,
@@ -63,7 +67,9 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
                     type: BorderGradientType.sweep,
                     colors: [
                       m.Color(0x00000000),
+
                       m.Color(0xFF3B82F6),
+
                       m.Color(0x00000000),
                     ],
                     gap: 0.30,
@@ -114,12 +120,15 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
                         child: m.Text('${(_uploadProgress * 100).round()}%'),
                       ),
                     ),
+
                     const m.SizedBox(height: 12),
+
                     m.SizedBox(
                       width: 170,
                       child: m.Slider(
                         value: _uploadProgress,
                         onChanged: (value) {
+                          /// Implements `setState` behavior for border loading.
                           setState(() => _uploadProgress = value);
                         },
                       ),
@@ -152,7 +161,9 @@ m.Widget _demoTile({required String title, required m.Widget child}) {
           title,
           style: const m.TextStyle(fontSize: 13, fontWeight: m.FontWeight.w600),
         ),
+
         const m.SizedBox(height: 12),
+
         m.Center(child: child),
       ],
     ),

@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabPaneData defines a reusable type for this registry module.
 class TabPaneData<T> extends SortableData<T> {
   /// Creates a [TabPaneData] wrapper for tab content.
   ///

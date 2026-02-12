@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "object_input",
   "name": "Object Input",
@@ -30,7 +29,7 @@
       "`use24HourFormat`, `showSeconds`",
       "`DurationInput`",
       "`initialValue`, `onChanged`, `controller`, `enabled`",
-      "`NullableDate`, `NullableTimeOfDay` — wrappers for optional values."
+      "`NullableDate`, `NullableTimeOfDay` \u2014 wrappers for optional values."
     ],
     "callbacks": []
   },

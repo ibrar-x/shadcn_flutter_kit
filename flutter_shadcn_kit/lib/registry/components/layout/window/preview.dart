@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../window/window.dart';
 
+/// WindowPreview defines a reusable type for this registry module.
 class WindowPreview extends StatelessWidget {
   const WindowPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final window = Window(
       title: const Text('Notes'),

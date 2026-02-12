@@ -21,6 +21,7 @@ class WidgetInputOTPChild extends InputOTPChild {
   /// - [child] (`Widget`, required): The widget to display.
   const WidgetInputOTPChild(this.child);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, InputOTPChildData data) {
     final theme = Theme.of(context);
@@ -31,6 +32,7 @@ class WidgetInputOTPChild extends InputOTPChild {
     );
   }
 
+  /// Flag indicating whether `hasValue` is enabled/active.
   @override
   bool get hasValue => false;
 }

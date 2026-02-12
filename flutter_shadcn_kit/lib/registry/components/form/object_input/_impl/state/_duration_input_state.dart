@@ -1,8 +1,11 @@
 part of '../../object_input.dart';
 
+/// _DurationInputState stores and manages mutable widget state.
 class _DurationInputState extends State<DurationInput> {
+  /// Controller used to coordinate `_controller` behavior.
   late ComponentController<NullableTimeOfDay> _controller;
 
+  /// Performs `_convertToDuration` logic for this form component.
   NullableTimeOfDay _convertToDuration(List<String?> values) {
     int? hours = values[0] == null || values[0]!.isEmpty
         ? null
@@ -18,6 +21,7 @@ class _DurationInputState extends State<DurationInput> {
     return NullableTimeOfDay(hour: hours, minute: minutes, second: seconds);
   }
 
+  /// Performs `_convertFromDuration` logic for this form component.
   List<String?> _convertFromDuration(NullableTimeOfDay? value) {
     if (value == null) {
       return [null, null, if (widget.showSeconds) null];
@@ -37,19 +41,23 @@ class _DurationInputState extends State<DurationInput> {
     ];
   }
 
+  /// Performs `_getWidth` logic for this form component.
   double _getWidth(TimePart part) {
     return 40;
   }
 
+  /// Performs `_getPlaceholder` logic for this form component.
   Widget _getPlaceholder(TimePart part) {
     var localizations = ShadcnLocalizations.of(context);
     return Text(localizations.getTimePartAbbreviation(part));
   }
 
+  /// Performs `_getLength` logic for this form component.
   int _getLength(TimePart part) {
     return 2;
   }
 
+  /// Performs `_convertToNullableTimeOfDay` logic for this form component.
   NullableTimeOfDay _convertToNullableTimeOfDay(Duration? value) {
     if (value == null) {
       return NullableTimeOfDay();
@@ -61,6 +69,7 @@ class _DurationInputState extends State<DurationInput> {
     );
   }
 
+  /// Performs `_convertFromNullableTimeOfDay` logic for this form component.
   Duration? _convertFromNullableTimeOfDay(NullableTimeOfDay value) {
     if (value.hour == null ||
         value.minute == null ||
@@ -74,6 +83,7 @@ class _DurationInputState extends State<DurationInput> {
     );
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -90,6 +100,7 @@ class _DurationInputState extends State<DurationInput> {
           );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     if (widget.controller == null) {
@@ -98,6 +109,7 @@ class _DurationInputState extends State<DurationInput> {
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return FormattedObjectInput<NullableTimeOfDay>(

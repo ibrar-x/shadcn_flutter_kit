@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// DialogRoute defines a reusable type for this registry module.
 class DialogRoute<T> extends RawDialogRoute<T> {
   /// Captured data from the launching context.
   final CapturedData? data;
@@ -52,6 +53,7 @@ class DialogRoute<T> extends RawDialogRoute<T> {
                final Widget pageChild = Builder(
                  builder: (context) {
                    final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
                    final scaling = theme.scaling;
                    return Padding(
                      padding: fullScreen
@@ -69,6 +71,12 @@ class DialogRoute<T> extends RawDialogRoute<T> {
                }
                if (useSafeArea) {
                  dialog = SafeArea(child: dialog);
+               }
+               if (!fullScreen) {
+                 dialog = Align(
+                   alignment: alignment,
+                   child: dialog,
+                 );
                }
                return dialog;
              },

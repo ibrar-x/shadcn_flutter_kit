@@ -1,16 +1,19 @@
 part of '../../star_rating.dart';
 
+/// _StarRatingState stores and manages mutable widget state.
 class _StarRatingState extends State<StarRating>
     with FormValueSupplier<double, StarRating> {
   double? _changingValue;
   bool _focused = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant StarRating oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -19,11 +22,13 @@ class _StarRatingState extends State<StarRating>
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(double value) {
     widget.onChanged?.call(value);
   }
 
+  /// Performs `_buildStar` logic for this form component.
   Widget _buildStar(BuildContext context, [bool focusBorder = false]) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
@@ -65,6 +70,7 @@ class _StarRatingState extends State<StarRating>
 
   bool get _enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     double roundedValue =
@@ -104,12 +110,14 @@ class _StarRatingState extends State<StarRating>
               ? SystemMouseCursors.click
               : SystemMouseCursors.forbidden,
           onShowFocusHighlight: (showFocus) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focused = showFocus;
             });
           },
           onShowHoverHighlight: (showHover) {
             if (!showHover) {
+              /// Triggers a rebuild after mutating local state.
               setState(() {
                 _changingValue = null;
               });
@@ -152,6 +160,8 @@ class _StarRatingState extends State<StarRating>
               double size = context.size!.width;
               double progress = (event.localPosition.dx / size).clamp(0.0, 1.0);
               double newValue = (progress * widget.max).clamp(0.0, widget.max);
+
+              /// Triggers a rebuild after mutating local state.
               setState(() {
                 _changingValue = newValue;
               });
@@ -188,6 +198,8 @@ class _StarRatingState extends State<StarRating>
                   0.0,
                   widget.max,
                 );
+
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _changingValue = newValue;
                 });
@@ -196,6 +208,8 @@ class _StarRatingState extends State<StarRating>
                 if (!_enabled) return;
                 if (widget.onChanged == null) return;
                 widget.onChanged!(_changingValue ?? roundedValue);
+
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _changingValue = null;
                 });
@@ -204,6 +218,8 @@ class _StarRatingState extends State<StarRating>
                 if (!_enabled) return;
                 if (widget.onChanged == null) return;
                 widget.onChanged!(_changingValue ?? roundedValue);
+
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _changingValue = null;
                 });

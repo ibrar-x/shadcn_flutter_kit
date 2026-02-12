@@ -4,9 +4,11 @@ import '../skeleton/skeleton.dart';
 import '../../../shared/primitives/basic.dart';
 import '../../../shared/theme/theme.dart';
 
+/// Core class used by the skeleton component.
 class SkeletonPreview extends StatelessWidget {
   const SkeletonPreview({super.key});
 
+  /// Builds the widget tree for skeleton.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,9 @@ class SkeletonPreview extends StatelessWidget {
               leading: Avatar(initials: ''),
               trailing: Icon(Icons.arrow_forward),
             ),
+
             const DensityGap(gap2xl),
+
             Basic(
               title: const Text('Skeleton Example 1'),
               content: const Text(

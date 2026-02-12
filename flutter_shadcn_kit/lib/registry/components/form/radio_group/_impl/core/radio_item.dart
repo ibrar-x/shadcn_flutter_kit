@@ -29,6 +29,7 @@ class RadioItem<T> extends StatefulWidget {
     this.focusNode,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<RadioItem<T>> createState() => _RadioItemState<T>();
 }

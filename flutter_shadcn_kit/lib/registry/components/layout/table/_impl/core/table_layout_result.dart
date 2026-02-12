@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableLayoutResult defines a reusable type for this registry module.
 class TableLayoutResult {
   /// Computed widths for each column.
   final List<double> columnWidths;

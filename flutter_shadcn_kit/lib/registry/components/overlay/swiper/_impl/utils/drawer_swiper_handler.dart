@@ -1,5 +1,6 @@
 part of '../../swiper.dart';
 
+/// DrawerSwiperHandler defines a reusable type for this registry module.
 class DrawerSwiperHandler extends SwiperHandler {
   /// Creates a drawer-style swiper handler.
   const DrawerSwiperHandler();

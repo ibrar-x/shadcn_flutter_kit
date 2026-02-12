@@ -1,13 +1,19 @@
 part of '../../eye_dropper.dart';
 
+/// _EyeDropperLayerState defines a reusable type for this registry module.
 class _EyeDropperLayerState extends State<EyeDropperLayer>
     implements EyeDropperLayerScope {
   final GlobalKey _repaintKey = GlobalKey();
+/// Stores `_currentPicking` state/configuration for this implementation.
   _ScreenshotResult? _currentPicking;
+/// Stores `_preview` state/configuration for this implementation.
   EyeDropperResult? _preview;
+/// Stores `_currentPosition` state/configuration for this implementation.
   Offset? _currentPosition;
+/// Stores `_session` state/configuration for this implementation.
   _EyeDropperCompleter? _session;
 
+/// Executes `_buildPreviewLabel` behavior for this component/composite.
   Widget _buildPreviewLabel(BuildContext context, Color color) {
     if (widget.previewLabelBuilder != null) {
       return widget.previewLabelBuilder!(context, color);
@@ -34,6 +40,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
     }
     final completer = Completer<Color?>();
     final screenshot = await _screenshotWidget();
+/// Creates a `setState` instance.
     setState(() {
       _session = _EyeDropperCompleter(
         completer,
@@ -41,6 +48,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
       );
       _currentPicking = screenshot;
     });
+/// Stores `result` state/configuration for this implementation.
     final result = await completer.future;
     if (historyStorage != null && result != null) {
       historyStorage.addHistory(result);
@@ -49,12 +57,14 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
   }
 
   Future<_ScreenshotResult?> _screenshotWidget() async {
+/// Stores `currentContext` state/configuration for this implementation.
     final currentContext = _repaintKey.currentContext;
     if (currentContext == null) return null;
     final boundary = currentContext.findRenderObject() as RenderRepaintBoundary;
     final image = await boundary.toImage(pixelRatio: 1);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
     if (byteData == null) return null;
+/// Stores `colors` state/configuration for this implementation.
     final colors = <Color>[];
     for (int i = 0; i < byteData.lengthInBytes; i += 4) {
       final r = byteData.getUint8(i);
@@ -71,19 +81,25 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
     );
     return _ScreenshotResult(
       colors,
+/// Creates a `Size` instance.
       Size(image.width.toDouble(), image.height.toDouble()),
       img,
     );
   }
 
+/// Executes `_getPreview` behavior for this component/composite.
   EyeDropperResult? _getPreview(Offset globalPosition, Size size) {
+/// Stores `image` state/configuration for this implementation.
     final image = _currentPicking;
     if (image == null) return null;
+/// Stores `colors` state/configuration for this implementation.
     final colors = <Color>[];
     for (int y = -size.height ~/ 2; y < size.height ~/ 2; y++) {
       for (int x = -size.width ~/ 2; x < size.width ~/ 2; x++) {
         final localPosition = globalPosition.translate(
+/// Creates a `x.toDouble` instance.
           x.toDouble(),
+/// Creates a `y.toDouble` instance.
           y.toDouble(),
         );
         if (localPosition.dx < 0 ||
@@ -99,11 +115,13 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
     final globalIndex =
         globalPosition.dy.floor() * image.size.width.floor() +
         globalPosition.dx.floor();
+/// Stores `pickedColor` state/configuration for this implementation.
     final pickedColor = image.colors[globalIndex];
     return EyeDropperResult(colors, size, pickedColor);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final previewSize =
@@ -118,6 +136,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
               ? (details) async {
                   _session!.completer.complete(_preview!.pickedColor);
                   if (mounted) {
+/// Creates a `setState` instance.
                     setState(() {
                       _session = null;
                       _preview = null;
@@ -131,6 +150,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
             hitTestBehavior: HitTestBehavior.translucent,
             onHover: _session != null
                 ? (details) {
+/// Creates a `setState` instance.
                     setState(() {
                       _preview = _getPreview(
                         details.localPosition,
@@ -145,8 +165,10 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
               child: Stack(
                 fit: StackFit.passthrough,
                 children: [
+/// Creates a `RepaintBoundary` instance.
                   RepaintBoundary(key: _repaintKey, child: widget.child),
                   if (_currentPicking != null)
+/// Creates a `Positioned.fill` instance.
                     Positioned.fill(
                       child: Image(
                         image: _currentPicking!.image!,
@@ -156,6 +178,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                   if (widget.showPreview &&
                       _preview != null &&
                       widget.previewAlignment != null)
+/// Creates a `Positioned` instance.
                     Positioned(
                       top: 0,
                       left: 0,
@@ -174,6 +197,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                             alignment: Alignment.bottomCenter,
                             fit: StackFit.passthrough,
                             children: [
+/// Creates a `SizedBox` instance.
                               SizedBox(
                                 width: previewSize.width,
                                 height: previewSize.height,
@@ -189,6 +213,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                                   ),
                                 ),
                               ),
+/// Creates a `Positioned` instance.
                               Positioned(
                                 bottom: -18 * theme.scaling,
                                 child: _buildPreviewLabel(
@@ -204,6 +229,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                   if (widget.showPreview &&
                       _preview != null &&
                       widget.previewAlignment == null)
+/// Creates a `Positioned` instance.
                     Positioned(
                       top: _currentPosition!.dy,
                       left: _currentPosition!.dx,
@@ -212,6 +238,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                         alignment: Alignment.bottomCenter,
                         fit: StackFit.passthrough,
                         children: [
+/// Creates a `SizedBox` instance.
                           SizedBox(
                             width: previewSize.width,
                             height: previewSize.height,
@@ -227,6 +254,7 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
                               ),
                             ),
                           ),
+/// Creates a `Positioned` instance.
                           Positioned(
                             bottom: -18 * theme.scaling,
                             child: _buildPreviewLabel(

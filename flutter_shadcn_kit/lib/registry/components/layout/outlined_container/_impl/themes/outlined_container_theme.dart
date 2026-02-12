@@ -2,16 +2,26 @@ part of '../../outlined_container.dart';
 
 /// Theme data for [OutlinedContainer].
 class OutlinedContainerTheme extends ComponentThemeData {
+/// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
+/// Stores `borderColor` state/configuration for this implementation.
   final Color? borderColor;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
+/// Stores `borderStyle` state/configuration for this implementation.
   final BorderStyle? borderStyle;
+/// Stores `borderWidth` state/configuration for this implementation.
   final double? borderWidth;
+/// Stores `boxShadow` state/configuration for this implementation.
   final List<BoxShadow>? boxShadow;
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
+/// Stores `surfaceOpacity` state/configuration for this implementation.
   final double? surfaceOpacity;
+/// Stores `surfaceBlur` state/configuration for this implementation.
   final double? surfaceBlur;
 
+/// Creates a `OutlinedContainerTheme` instance.
   const OutlinedContainerTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -27,6 +37,7 @@ class OutlinedContainerTheme extends ComponentThemeData {
     this.surfaceBlur,
   });
 
+/// Creates a `OutlinedContainerTheme` instance.
   OutlinedContainerTheme copyWith({
     ValueGetter<Color?>? backgroundColor,
     ValueGetter<Color?>? borderColor,
@@ -56,6 +67,7 @@ class OutlinedContainerTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is OutlinedContainerTheme &&
         other.backgroundColor == backgroundColor &&

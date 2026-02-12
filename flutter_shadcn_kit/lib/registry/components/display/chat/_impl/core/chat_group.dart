@@ -83,6 +83,7 @@ class ChatGroup extends StatelessWidget {
     this.avatarSpacing,
   });
 
+  /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -135,6 +136,7 @@ class ChatGroup extends StatelessWidget {
           children: [
             if (avatarPrefix != null)
               Align(alignment: avatarAlignment, child: avatarPrefix!),
+
             Flexible(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

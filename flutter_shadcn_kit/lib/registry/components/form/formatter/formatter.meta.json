@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "formatter",
   "name": "Formatter",
@@ -28,7 +27,7 @@
       "`time(length)`",
       "`mathExpression(context)`",
       "`hex(hashPrefix)`",
-      "`contraintToNewText` — helper for selection bounds."
+      "`contraintToNewText` \u2014 helper for selection bounds."
     ],
     "callbacks": []
   },
@@ -36,7 +35,7 @@
     "No theme dependencies."
   ],
   "accessibility": [
-    "Ensure formatting doesn’t block screen-reader edits."
+    "Ensure formatting doesn\u2019t block screen-reader edits."
   ],
   "do": [
     "Combine formatters with validation for strict inputs."

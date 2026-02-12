@@ -27,15 +27,15 @@ class NavigationDivider extends StatelessWidget implements NavigationBarItem {
     Widget child;
     if (direction == Axis.vertical) {
       child = Divider(
-        indent: -parentPadding.left,
-        endIndent: -parentPadding.right,
+        indent: parentPadding.left,
+        endIndent: parentPadding.right,
         thickness: thickness ?? (1 * scaling),
         color: color ?? theme.colorScheme.muted,
       );
     } else {
       child = VerticalDivider(
-        indent: -parentPadding.top,
-        endIndent: -parentPadding.bottom,
+        indent: parentPadding.top,
+        endIndent: parentPadding.bottom,
         thickness: thickness ?? (1 * scaling),
         color: color ?? theme.colorScheme.muted,
       );

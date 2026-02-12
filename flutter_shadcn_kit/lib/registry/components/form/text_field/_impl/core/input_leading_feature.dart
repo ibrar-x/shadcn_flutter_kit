@@ -31,6 +31,7 @@ class InputLeadingFeature extends InputFeature {
     super.skipFocusTraversal,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputLeadingFeatureState();
 }

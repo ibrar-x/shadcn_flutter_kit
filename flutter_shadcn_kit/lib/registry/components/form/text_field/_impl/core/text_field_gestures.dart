@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// _TextFieldSelectionGestureDetectorBuilder represents a form-related type in the registry.
 class _TextFieldSelectionGestureDetectorBuilder
     extends TextSelectionGestureDetectorBuilder {
   _TextFieldSelectionGestureDetectorBuilder({required TextFieldState state})
@@ -8,6 +9,7 @@ class _TextFieldSelectionGestureDetectorBuilder
 
   final TextFieldState _state;
 
+  /// Performs `onSingleTapUp` logic for this form component.
   @override
   void onSingleTapUp(TapDragUpDetails details) {
     // Because TextSelectionGestureDetector listens to taps that happen on
@@ -29,6 +31,7 @@ class _TextFieldSelectionGestureDetectorBuilder
     _state.widget.onTap?.call();
   }
 
+  /// Performs `onDragSelectionEnd` logic for this form component.
   @override
   void onDragSelectionEnd(TapDragEndDetails details) {
     _state._requestKeyboard();

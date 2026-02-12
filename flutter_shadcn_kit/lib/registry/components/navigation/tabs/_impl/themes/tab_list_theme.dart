@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabListTheme defines a reusable type for this registry module.
 class TabListTheme extends ComponentThemeData {
   /// Color of the bottom border line separating tabs from content.
   ///
@@ -82,6 +83,7 @@ class TabListTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabListTheme &&

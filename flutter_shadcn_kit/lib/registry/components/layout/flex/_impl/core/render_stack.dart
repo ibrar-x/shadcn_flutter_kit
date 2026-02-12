@@ -2,6 +2,7 @@ part of '../../flex.dart';
 
 /// Patched stack render object with paint-order sorting support.
 class RenderStack extends rendering.RenderStack with PaintOrderMixin {
+/// Creates a `RenderStack` instance.
   RenderStack({
     super.children,
     super.alignment,
@@ -14,9 +15,11 @@ class RenderStack extends rendering.RenderStack with PaintOrderMixin {
   rendering.RenderBox? get paintOrderFirstChild => firstChild;
 
   @override
+/// Stores `optionalClipBehavior` state/configuration for this implementation.
   Clip? get optionalClipBehavior => clipBehavior;
 
   @override
+/// Executes `setupParentData` behavior for this component/composite.
   void setupParentData(rendering.RenderBox child) {
     if (child.parentData is! StackParentData) {
       child.parentData = StackParentData();
@@ -24,12 +27,14 @@ class RenderStack extends rendering.RenderStack with PaintOrderMixin {
   }
 
   @override
+/// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
     super.performLayout();
     buildSortedLinkedList();
   }
 
   @override
+/// Executes `paintStack` behavior for this component/composite.
   void paintStack(rendering.PaintingContext context, Offset offset) {
     paintSorted(context, offset);
   }

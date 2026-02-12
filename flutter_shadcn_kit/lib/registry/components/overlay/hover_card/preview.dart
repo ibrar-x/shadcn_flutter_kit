@@ -5,10 +5,12 @@ import '../../control/button/button.dart';
 import '../../layout/card/card.dart';
 import '../hover_card/hover_card.dart';
 
+/// HoverCardPreview defines a reusable type for this registry module.
 class HoverCardPreview extends StatelessWidget {
   const HoverCardPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

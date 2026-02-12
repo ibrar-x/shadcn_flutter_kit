@@ -15,14 +15,17 @@ part of '../../form.dart';
 /// - [Form], the widget that uses this state
 /// - [FormController], the controller managed by this state
 class FormState extends State<Form> {
+  /// Controller used to coordinate `_controller` behavior.
   late FormController _controller;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? FormController();
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant Form oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -31,6 +34,7 @@ class FormState extends State<Form> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Data.inherit(

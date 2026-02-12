@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "breadcrumb",
   "name": "Breadcrumb",
@@ -11,7 +10,7 @@
       "you need a path indicator for hierarchical navigation."
     ],
     "avoid": [
-      "users don’t need to navigate back to parent levels."
+      "users don\u2019t need to navigate back to parent levels."
     ]
   },
   "examples": {
@@ -24,7 +23,7 @@
       "`children` (`List<Widget>`, required)",
       "`separator` (`Widget?`)",
       "`padding` (`EdgeInsetsGeometry?`)",
-      "`BreadcrumbTheme` — separator/padding defaults."
+      "`BreadcrumbTheme` \u2014 separator/padding defaults."
     ],
     "callbacks": []
   },

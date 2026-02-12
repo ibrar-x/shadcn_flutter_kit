@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// NextMenuFocusIntent defines a reusable type for this registry module.
 class NextMenuFocusIntent extends Intent {
   /// Whether to move focus forward (true) or backward (false).
   final bool forward;

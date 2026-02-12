@@ -1,5 +1,6 @@
 part of '../../breadcrumb.dart';
 
+/// Breadcrumb defines a reusable type for this registry module.
 class Breadcrumb extends StatelessWidget {
   /// Arrow separator (>).
   static const Widget arrowSeparator = _ArrowSeparator();
@@ -25,8 +26,10 @@ class Breadcrumb extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BreadcrumbTheme>(context);
+/// Stores `sep` state/configuration for this implementation.
     final sep = separator ?? compTheme?.separator ?? Breadcrumb.arrowSeparator;
     final pad = styleValue(
       widgetValue: padding,
@@ -49,6 +52,7 @@ class Breadcrumb extends StatelessWidget {
                   if (i == children.length - 1)
                     children[i].medium().foreground()
                   else
+/// Creates a `Row` instance.
                     Row(children: [children[i].medium(), sep]),
             ],
           ).small().muted(),

@@ -1,8 +1,11 @@
 part of '../../window.dart';
 
+/// _WindowNavigatorState defines a reusable type for this registry module.
 class _WindowNavigatorState extends State<WindowNavigator>
     with WindowNavigatorHandle {
+/// Stores `_windows` state/configuration for this implementation.
   late List<Window> _windows;
+/// Stores `_topWindows` state/configuration for this implementation.
   late List<Window> _topWindows;
   int _focusLayer = 0; // 0: background, 1: foreground, 2: foremost
 
@@ -13,11 +16,13 @@ class _WindowNavigatorState extends State<WindowNavigator>
     null,
   );
 
+/// Executes `_startDraggingWindow` behavior for this component/composite.
   void _startDraggingWindow(Window draggingWindow, Offset cursorPosition) {
     if (_draggingWindow.value != null) return;
     _draggingWindow.value = _DraggingWindow(draggingWindow, cursorPosition);
   }
 
+/// Executes `_updateDraggingWindow` behavior for this component/composite.
   void _updateDraggingWindow(Window handle, Offset cursorPosition) {
     if (_draggingWindow.value == null ||
         _draggingWindow.value!.window != handle) {
@@ -29,11 +34,13 @@ class _WindowNavigatorState extends State<WindowNavigator>
     );
   }
 
+/// Executes `_stopDraggingWindow` behavior for this component/composite.
   void _stopDraggingWindow(Window handle) {
     if (_draggingWindow.value == null ||
         _draggingWindow.value!.window != handle) {
       return;
     }
+/// Stores `snapping` state/configuration for this implementation.
     var snapping = _snappingStrategy.value;
     if (snapping != null && handle.mounted) {
       handle.handle.maximized = snapping.relativeBounds;
@@ -47,6 +54,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   List<Window> get windows => UnmodifiableListView(_windows + _topWindows);
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _windows = [];
@@ -61,6 +69,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `isFocused` behavior for this component/composite.
   bool isFocused(Window window) {
     if (_focusLayer == 0) return false;
     if (window.alwaysOnTop ?? window.controller?.value.alwaysOnTop ?? false) {
@@ -75,6 +84,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<WindowTheme>(context);
@@ -87,10 +97,12 @@ class _WindowNavigatorState extends State<WindowNavigator>
             return ClipRect(
               child: GroupWidget(
                 children: [
+/// Creates a `Listener` instance.
                   Listener(
                     behavior: HitTestBehavior.translucent,
                     onPointerDown: (_) {
                       if (_focusLayer != 0) {
+/// Creates a `setState` instance.
                         setState(() {
                           _focusLayer = 0;
                         });
@@ -98,6 +110,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
                     },
                     child: widget.child,
                   ),
+/// Creates a `_WindowLayerGroup` instance.
                   _WindowLayerGroup(
                     constraints: constraints,
                     windows: _windows,
@@ -105,6 +118,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
                     alwaysOnTop: false,
                     showTopSnapBar: widget.showTopSnapBar,
                   ),
+/// Creates a `_WindowLayerGroup` instance.
                   _WindowLayerGroup(
                     constraints: constraints,
                     windows: _topWindows,
@@ -112,36 +126,42 @@ class _WindowNavigatorState extends State<WindowNavigator>
                     alwaysOnTop: true,
                     showTopSnapBar: widget.showTopSnapBar,
                   ),
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     left: 0,
                     right: 0,
                     height: titleBarHeight,
                     child: _createBorderSnapStrategy(
+/// Creates a `WindowSnapStrategy` instance.
                       const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0, 0, 1, 1),
                         shouldMinifyWindow: false,
                       ),
                     ),
                   ),
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: titleBarHeight,
                     bottom: 0,
                     left: 0,
                     width: titleBarHeight,
                     child: _createBorderSnapStrategy(
+/// Creates a `WindowSnapStrategy` instance.
                       const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0, 0, 0.5, 1),
                         shouldMinifyWindow: false,
                       ),
                     ),
                   ),
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: titleBarHeight,
                     bottom: 0,
                     right: 0,
                     width: titleBarHeight,
                     child: _createBorderSnapStrategy(
+/// Creates a `WindowSnapStrategy` instance.
                       const WindowSnapStrategy(
                         relativeBounds: Rect.fromLTWH(0.5, 0, 0.5, 1),
                         shouldMinifyWindow: false,
@@ -157,6 +177,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
     );
   }
 
+/// Executes `_createBorderSnapStrategy` behavior for this component/composite.
   Widget _createBorderSnapStrategy(WindowSnapStrategy snapStrategy) {
     return MouseRegion(
       opaque: false,
@@ -186,10 +207,15 @@ class _WindowNavigatorState extends State<WindowNavigator>
     bool allTop = false,
     bool allBottom = false,
   }) {
+/// Stores `gap` state/configuration for this implementation.
     const double gap = 2;
+/// Stores `left` state/configuration for this implementation.
     var left = snapStrategy.relativeBounds.left * size.width;
+/// Stores `top` state/configuration for this implementation.
     var top = snapStrategy.relativeBounds.top * size.height;
+/// Stores `width` state/configuration for this implementation.
     var width = snapStrategy.relativeBounds.width * size.width;
+/// Stores `height` state/configuration for this implementation.
     var height = snapStrategy.relativeBounds.height * size.height;
     if (topLeft && topRight) {
       top += gap;
@@ -261,6 +287,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `focusWindow` behavior for this component/composite.
   void focusWindow(Window window) {
     if (window.alwaysOnTop ?? window.controller?.value.alwaysOnTop ?? false) {
       _topWindows.remove(window);
@@ -271,11 +298,14 @@ class _WindowNavigatorState extends State<WindowNavigator>
       _windows.insert(0, window);
       _focusLayer = 1;
     }
+/// Executes `setState` behavior for this component/composite.
     setState(() {});
   }
 
   @override
+/// Executes `pushWindow` behavior for this component/composite.
   void pushWindow(Window window) {
+/// Creates a `setState` instance.
     setState(() {
       if (window.alwaysOnTop ?? window.controller?.value.alwaysOnTop ?? false) {
         _topWindows.insert(0, window);
@@ -286,7 +316,9 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `removeWindow` behavior for this component/composite.
   void removeWindow(Window window) {
+/// Creates a `setState` instance.
     setState(() {
       _windows.remove(window);
       _topWindows.remove(window);
@@ -294,6 +326,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `setAlwaysOnTop` behavior for this component/composite.
   void setAlwaysOnTop(Window window, bool value) {
     if (value && _windows.contains(window)) {
       _windows.remove(window);
@@ -305,6 +338,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   }
 
   @override
+/// Executes `unfocusWindow` behavior for this component/composite.
   void unfocusWindow(Window window) {
     _focusLayer = 0;
   }

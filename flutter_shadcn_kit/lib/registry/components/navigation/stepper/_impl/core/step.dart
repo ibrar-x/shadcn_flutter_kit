@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// Step defines a reusable type for this registry module.
 class Step {
   /// The title widget displayed for this step.
   final Widget title;

@@ -1,6 +1,8 @@
 part of '../../avatar.dart';
 
+/// _AvatarState holds mutable state for the avatar implementation.
 class _AvatarState extends State<Avatar> {
+  /// Implements `_build` behavior for avatar.
   Widget _build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<AvatarTheme>(context);
@@ -37,6 +39,7 @@ class _AvatarState extends State<Avatar> {
     );
   }
 
+  /// Implements `_buildInitials` behavior for avatar.
   Widget _buildInitials(BuildContext context, double borderRadius) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<AvatarTheme>(context);
@@ -70,6 +73,7 @@ class _AvatarState extends State<Avatar> {
     );
   }
 
+  /// Builds the widget tree for avatar.
   @override
   Widget build(BuildContext context) {
     if (widget.badge == null) {
@@ -87,7 +91,9 @@ class _AvatarState extends State<Avatar> {
       themeValue: compTheme?.borderRadius,
       defaultValue: theme.radius * size,
     );
+
     final badgeSize = widget.badge!.size ?? theme.scaling * 12;
+
     var offset = size / 2 - badgeSize / 2;
     offset = offset / size;
     final alignment = styleValue(
@@ -109,6 +115,7 @@ class _AvatarState extends State<Avatar> {
           borderRadius: widget.badge!.borderRadius,
           child: widget.badge!,
         ),
+
         _AvatarWidget(
           size: size,
           borderRadius: borderRadius,

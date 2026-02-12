@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowActions defines a reusable type for this registry module.
 class WindowActions extends StatelessWidget {
   /// Creates a default window actions widget.
   ///
@@ -8,12 +9,14 @@ class WindowActions extends StatelessWidget {
   const WindowActions({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     WindowHandle? handle = Data.maybeOf<WindowHandle>(context);
     WindowViewport? viewport = Data.maybeOf<WindowViewport>(context);
     return Row(
       children: [
         if (handle?.minimizable ?? true)
+/// Creates a `IconButton.ghost` instance.
           IconButton.ghost(
             icon: const Icon(Icons.minimize),
             size: ButtonSize.small,
@@ -22,6 +25,7 @@ class WindowActions extends StatelessWidget {
             },
           ),
         if (handle?.maximizable ?? true)
+/// Creates a `IconButton.ghost` instance.
           IconButton.ghost(
             icon: const Icon(Icons.crop_square),
             size: ButtonSize.small,
@@ -43,6 +47,7 @@ class WindowActions extends StatelessWidget {
             },
           ),
         if (handle?.closable ?? true)
+/// Creates a `IconButton.ghost` instance.
           IconButton.ghost(
             icon: const Icon(Icons.close),
             size: ButtonSize.small,

@@ -65,6 +65,7 @@ class RadioTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

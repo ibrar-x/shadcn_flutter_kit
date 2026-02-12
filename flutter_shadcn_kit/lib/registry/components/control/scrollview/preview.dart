@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../scrollview/scrollview.dart';
 
+/// ScrollviewPreview defines a reusable type for this registry module.
 class ScrollviewPreview extends StatelessWidget {
   const ScrollviewPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

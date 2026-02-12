@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// Type alias for `TableSizeSupplier` used by public or internal APIs.
 typedef TableSizeSupplier = TableSize Function(int index);
 
 /// Custom render object for laying out table cells with advanced features.

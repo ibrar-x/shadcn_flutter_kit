@@ -11,6 +11,7 @@ part '_impl/themes/skeleton_theme.dart';
 
 /// Applies Skeletonizer configuration using shadcn theming.
 class ShadcnSkeletonizerConfigLayer extends StatelessWidget {
+  /// Creates `ShadcnSkeletonizerConfigLayer` for configuring or rendering skeleton.
   const ShadcnSkeletonizerConfigLayer({
     super.key,
     required this.theme,
@@ -22,12 +23,23 @@ class ShadcnSkeletonizerConfigLayer extends StatelessWidget {
   });
 
   final material.ThemeData theme;
+
+  /// Child content displayed inside the skeleton widget.
   final Widget child;
+
+  /// Animation/progress setting used by skeleton transitions.
   final Duration? duration;
+
+  /// Color value used by skeleton painting or state styling.
   final Color? fromColor;
+
+  /// Color value used by skeleton painting or state styling.
   final Color? toColor;
+
+  /// Animation/progress setting used by skeleton transitions.
   final bool? enableSwitchAnimation;
 
+  /// Builds the widget tree for skeleton.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<SkeletonTheme>(context);
@@ -68,6 +80,7 @@ class ShadcnSkeletonizerConfigLayer extends StatelessWidget {
 
 /// Convenient skeleton extension helpers.
 extension SkeletonExtension on Widget {
+  /// Implements `asSkeletonSliver` behavior for skeleton.
   Widget asSkeletonSliver({bool enabled = true}) {
     return Skeletonizer(enabled: enabled, ignoreContainers: false, child: this);
   }
@@ -97,10 +110,12 @@ extension SkeletonExtension on Widget {
     return Skeletonizer(enabled: enabled, child: this);
   }
 
+  /// Implements `ignoreSkeleton` behavior for skeleton.
   Widget ignoreSkeleton() {
     return Skeleton.ignore(child: this);
   }
 
+  /// Implements `excludeSkeleton` behavior for skeleton.
   Widget excludeSkeleton({bool exclude = true}) {
     return Skeleton.keep(keep: exclude, child: this);
   }

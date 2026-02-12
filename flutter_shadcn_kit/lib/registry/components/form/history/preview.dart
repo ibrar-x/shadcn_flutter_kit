@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../history/history.dart';
 
+/// HistoryPreview represents a form-related type in the registry.
 class HistoryPreview extends StatelessWidget {
   const HistoryPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

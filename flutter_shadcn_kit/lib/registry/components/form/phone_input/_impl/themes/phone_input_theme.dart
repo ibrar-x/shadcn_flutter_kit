@@ -72,6 +72,7 @@ class PhoneInputTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -101,6 +102,7 @@ class PhoneInputTheme extends ComponentThemeData {
     flagShape,
   );
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'PhoneInputTheme(padding: $padding, borderRadius: $borderRadius, popupConstraints: $popupConstraints, maxWidth: $maxWidth, flagHeight: $flagHeight, flagWidth: $flagWidth, flagGap: $flagGap, countryGap: $countryGap, flagShape: $flagShape)';

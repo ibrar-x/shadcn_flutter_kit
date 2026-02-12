@@ -91,6 +91,7 @@ class TreeItem<T> extends TreeNode<T> {
     this.selected = false,
   });
 
+  /// Implements `updateState` behavior for tree.
   @override
   TreeItem<T> updateState({bool? expanded, bool? selected}) {
     return TreeItem(
@@ -101,6 +102,7 @@ class TreeItem<T> extends TreeNode<T> {
     );
   }
 
+  /// Implements `updateChildren` behavior for tree.
   @override
   TreeItem<T> updateChildren(List<TreeNode<T>> children) {
     return TreeItem(
@@ -111,6 +113,7 @@ class TreeItem<T> extends TreeNode<T> {
     );
   }
 
+  /// Compares two tree values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -127,6 +130,7 @@ class TreeItem<T> extends TreeNode<T> {
     return Object.hash(data, children, expanded, selected);
   }
 
+  /// Returns a debug string for this tree value.
   @override
   String toString() {
     return 'TreeItem(data: $data, children: $children, expanded: $expanded, selected: $selected)';

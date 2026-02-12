@@ -19,52 +19,80 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   final ValueChanged<Iterable<T>?>? onChanged; // if null, then it's a disabled combobox
   @override
   final Widget? placeholder; // placeholder when value is null
+  /// Field storing `filled` for this form implementation.
   @override
   final bool filled;
+
+  /// Focus node/reference used by `focusNode` interactions.
   @override
   final FocusNode? focusNode;
+
+  /// Field storing `constraints` for this form implementation.
   @override
   final BoxConstraints? constraints;
+
+  /// Field storing `popupConstraints` for this form implementation.
   @override
   final BoxConstraints? popupConstraints;
+
+  /// Field storing `popupWidthConstraint` for this form implementation.
   @override
   final PopoverConstraint popupWidthConstraint;
 
   /// The currently selected values.
   final Iterable<T>? value;
 
+  /// Field storing `borderRadius` for this form implementation.
   @override
   final BorderRadiusGeometry? borderRadius;
+
+  /// Field storing `padding` for this form implementation.
   @override
   final EdgeInsetsGeometry? padding;
+
+  /// Field storing `popoverAlignment` for this form implementation.
   @override
   final AlignmentGeometry popoverAlignment;
+
+  /// Field storing `popoverAnchorAlignment` for this form implementation.
   @override
   final AlignmentGeometry? popoverAnchorAlignment;
+
+  /// Field storing `disableHoverEffect` for this form implementation.
   @override
   final bool disableHoverEffect;
+
+  /// Field storing `canUnselect` for this form implementation.
   @override
   final bool canUnselect;
+
+  /// Field storing `autoClosePopover` for this form implementation.
   @override
   final bool? autoClosePopover;
 
   /// Whether the multi-select is enabled for user interaction.
   final bool? enabled;
 
+  /// Field storing `popup` for this form implementation.
   @override
   final SelectPopupBuilder popup;
   @override
   SelectValueBuilder<Iterable<T>> get itemBuilder => (context, value) {
     return _buildItem(multiItemBuilder, context, value);
   };
+
+  /// Current value stored for `valueSelectionHandler`.
   @override
   final SelectValueSelectionHandler<Iterable<T>>? valueSelectionHandler;
+
+  /// Current value stored for `valueSelectionPredicate`.
   @override
   final SelectValueSelectionPredicate<Iterable<T>>? valueSelectionPredicate;
 
   /// Builder for rendering individual items in the chip display.
   final SelectValueBuilder<T> multiItemBuilder;
 
+  /// Current value stored for `showValuePredicate`.
   @override
   final Predicate<Iterable<T>>? showValuePredicate;
 
@@ -127,6 +155,7 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
     Iterable<T> value,
   ) {
     final theme = Theme.of(context);
+
     final scaling = theme.scaling;
     return Wrap(
       spacing: theme.density.baseGap * scaling * 0.5,
@@ -136,6 +165,7 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Select<Iterable<T>>(

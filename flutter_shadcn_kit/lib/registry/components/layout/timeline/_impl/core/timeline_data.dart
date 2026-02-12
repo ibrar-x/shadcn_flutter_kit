@@ -1,5 +1,6 @@
 part of '../../timeline.dart';
 
+/// TimelineData defines a reusable type for this registry module.
 class TimelineData {
   /// Widget displaying the time or timestamp for this timeline entry.
   ///

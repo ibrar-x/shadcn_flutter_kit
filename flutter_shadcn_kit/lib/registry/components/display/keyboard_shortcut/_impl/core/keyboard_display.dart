@@ -34,6 +34,7 @@ class KeyboardDisplay extends StatelessWidget {
   }) : _keys = null,
        _activator = activator;
 
+  /// Builds the widget tree for keyboard shortcut.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

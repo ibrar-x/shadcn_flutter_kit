@@ -1,5 +1,6 @@
 part of '../../basic.dart';
 
+/// BasicLayout defines a reusable type for this registry module.
 class BasicLayout extends StatelessWidget {
   /// Leading widget, typically an icon or avatar.
   final Widget? leading;
@@ -59,8 +60,10 @@ class BasicLayout extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<BasicTheme>(context);
     final contentSpacing = styleValue(
@@ -102,11 +105,14 @@ class BasicLayout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (leading != null)
+/// Creates a `Align` instance.
           Align(alignment: leadingAlignment, child: leading!),
         if (leading != null &&
             (title != null || content != null || subtitle != null))
+/// Creates a `SizedBox` instance.
           SizedBox(width: contentSpacing),
         if (title != null || content != null || subtitle != null)
+/// Creates a `Expanded` instance.
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,14 +120,19 @@ class BasicLayout extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (title != null)
+/// Creates a `Align` instance.
                   Align(alignment: titleAlignment, child: title!),
                 if (title != null && subtitle != null)
+/// Creates a `SizedBox` instance.
                   SizedBox(height: theme.density.baseGap * scaling * 0.25),
                 if (subtitle != null)
+/// Creates a `Align` instance.
                   Align(alignment: subtitleAlignment, child: subtitle!),
                 if ((title != null || subtitle != null) && content != null)
+/// Creates a `SizedBox` instance.
                   SizedBox(height: titleSpacing),
                 if (content != null)
+/// Creates a `Align` instance.
                   Align(alignment: contentAlignment, child: content!),
               ],
             ),
@@ -131,8 +142,10 @@ class BasicLayout extends StatelessWidget {
                 content != null ||
                 leading != null ||
                 subtitle != null))
+/// Creates a `SizedBox` instance.
           SizedBox(width: contentSpacing),
         if (trailing != null)
+/// Creates a `Align` instance.
           Align(alignment: trailingAlignment, child: trailing!),
       ],
     );

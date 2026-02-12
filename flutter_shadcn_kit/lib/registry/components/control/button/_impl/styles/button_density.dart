@@ -52,37 +52,47 @@ class ButtonDensity {
   static const ButtonDensity compact = ButtonDensity(_densityCompact);
 }
 
+/// Executes `_densityNormal` behavior for this component/composite.
 EdgeInsets _densityNormal(EdgeInsets padding) {
   return padding;
 }
 
+/// Executes `_densityDense` behavior for this component/composite.
 EdgeInsets _densityDense(EdgeInsets padding) {
   return padding * 0.5;
 }
 
+/// Executes `_densityCompact` behavior for this component/composite.
 EdgeInsets _densityCompact(EdgeInsets padding) {
   return EdgeInsets.zero;
 }
 
+/// Executes `_densityIcon` behavior for this component/composite.
 EdgeInsets _densityIcon(EdgeInsets padding) {
   return EdgeInsets.all(
+/// Creates a `min` instance.
     min(padding.top, min(padding.bottom, min(padding.left, padding.right))),
   );
 }
 
+/// Executes `_densityIconComfortable` behavior for this component/composite.
 EdgeInsets _densityIconComfortable(EdgeInsets padding) {
   return EdgeInsets.all(
+/// Creates a `max` instance.
     max(padding.top, max(padding.bottom, max(padding.left, padding.right))),
   );
 }
 
+/// Executes `_densityIconDense` behavior for this component/composite.
 EdgeInsets _densityIconDense(EdgeInsets padding) {
   return EdgeInsets.all(
+/// Creates a `min` instance.
     min(padding.top, min(padding.bottom, min(padding.left, padding.right))) *
         0.5,
   );
 }
 
+/// Executes `_densityComfortable` behavior for this component/composite.
 EdgeInsets _densityComfortable(EdgeInsets padding) {
   return padding * 2;
 }

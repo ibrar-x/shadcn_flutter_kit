@@ -48,5 +48,6 @@ class AlertDialog extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AlertDialog> createState() => _AlertDialogState();
 }

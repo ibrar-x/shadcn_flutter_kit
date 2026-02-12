@@ -1,8 +1,11 @@
 part of '../../navigation_bar.dart';
 
+/// _NavigationSidebarState defines a reusable type for this registry module.
 class _NavigationSidebarState extends State<NavigationSidebar>
     with NavigationContainerMixin {
+/// Executes `getDefaultConstraints` behavior for this component/composite.
   BoxConstraints getDefaultConstraints(BuildContext context, ThemeData theme) {
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return BoxConstraints(
       minWidth: (200 * scaling).toDouble(),
@@ -10,6 +13,7 @@ class _NavigationSidebarState extends State<NavigationSidebar>
     );
   }
 
+/// Executes `_childPadding` behavior for this component/composite.
   EdgeInsets _childPadding(EdgeInsets padding, Axis direction) {
     if (direction == Axis.vertical) {
       return EdgeInsets.only(left: padding.left, right: padding.right);
@@ -17,13 +21,16 @@ class _NavigationSidebarState extends State<NavigationSidebar>
     return EdgeInsets.only(top: padding.top, bottom: padding.bottom);
   }
 
+/// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     List<Widget> children = wrapChildren(context, widget.children);
     var parentPadding =
@@ -34,6 +41,7 @@ class _NavigationSidebarState extends State<NavigationSidebar>
         ));
     var directionality = Directionality.of(context);
     var resolvedPadding = parentPadding.resolve(directionality);
+/// Stores `direction` state/configuration for this implementation.
     const direction = Axis.vertical;
     return Data.inherit(
       data: NavigationControlData(
@@ -65,6 +73,7 @@ class _NavigationSidebarState extends State<NavigationSidebar>
                   shrinkWrap: true,
                   scrollDirection: direction,
                   slivers: [
+/// Creates a `SliverGap` instance.
                     SliverGap(_startPadding(resolvedPadding, direction)),
                     ...children
                         .map((e) {
@@ -75,10 +84,12 @@ class _NavigationSidebarState extends State<NavigationSidebar>
                                 ),
                                 sliver: e,
                               )
+/// Stores `Widget` state/configuration for this implementation.
                               as Widget;
                         })
                         .toList()
                         .joinSeparator(SliverGap(widget.spacing ?? 0)),
+/// Creates a `SliverGap` instance.
                     SliverGap(_endPadding(resolvedPadding, direction)),
                   ],
                 ),

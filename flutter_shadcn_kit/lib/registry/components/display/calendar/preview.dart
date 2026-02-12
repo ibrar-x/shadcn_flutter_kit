@@ -9,9 +9,11 @@ import '../../layout/card/card.dart' as shadcn;
 
 part '_calendar_preview_state.dart';
 
+/// Core class used by the calendar component.
 class CalendarPreview extends StatefulWidget {
   const CalendarPreview({super.key});
 
+  /// Creates the State object used by this calendar widget.
   @override
   State<CalendarPreview> createState() => _CalendarPreviewState();
 }

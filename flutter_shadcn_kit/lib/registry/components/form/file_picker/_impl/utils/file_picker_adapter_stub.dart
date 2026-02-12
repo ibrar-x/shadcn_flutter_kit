@@ -3,11 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'file_like.dart';
 import 'file_picker_adapter.dart';
 
+/// Performs `createAdapter` logic for this form component.
 FilePickerAdapter createAdapter() => const _StubFilePickerAdapter();
 
+/// _StubFilePickerAdapter represents a form-related type in the registry.
 class _StubFilePickerAdapter implements FilePickerAdapter {
   const _StubFilePickerAdapter();
 
+  /// Field storing `supportsDragDrop` for this form implementation.
   @override
   bool get supportsDragDrop => false;
 

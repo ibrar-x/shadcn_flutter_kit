@@ -1,5 +1,6 @@
 part of '../../context_menu.dart';
 
+/// ContextMenuTheme defines a reusable type for this registry module.
 class ContextMenuTheme extends ComponentThemeData {
   /// Surface opacity for the popup container.
   final double? surfaceOpacity;
@@ -30,6 +31,7 @@ class ContextMenuTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is ContextMenuTheme &&

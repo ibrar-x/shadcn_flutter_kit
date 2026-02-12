@@ -22,6 +22,7 @@ class ItemPickerData {
   /// - [layout] (`ItemPickerLayout`, required): Layout strategy.
   const ItemPickerData({this.value, this.onChanged, required this.layout});
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

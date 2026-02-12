@@ -1,5 +1,6 @@
 part of '../../context_menu.dart';
 
+/// ContextMenuPopup defines a reusable type for this registry module.
 class ContextMenuPopup extends StatelessWidget {
   /// Build context for anchoring the popup.
   final BuildContext anchorContext;
@@ -44,6 +45,7 @@ class ContextMenuPopup extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return AnimatedValueBuilder<double>(
       value: 1.0,

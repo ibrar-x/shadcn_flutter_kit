@@ -6,6 +6,7 @@ import '../styles/button_state_property.dart';
 import '../styles/button_state_property_delegate.dart';
 import 'button_theme_base.dart';
 
+/// GhostButtonTheme defines a reusable type for this registry module.
 class GhostButtonTheme extends ButtonTheme {
   /// Creates a [GhostButtonTheme] with optional style property delegates.
   const GhostButtonTheme({

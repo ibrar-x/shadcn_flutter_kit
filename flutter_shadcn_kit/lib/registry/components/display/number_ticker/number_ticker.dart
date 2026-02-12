@@ -15,6 +15,7 @@ typedef NumberTickerFormatted = String Function(double value);
 
 /// Smooth number animation component with text or custom builder variants.
 class NumberTicker extends StatelessWidget {
+  /// Creates `NumberTicker.builder` for configuring or rendering number ticker.
   const NumberTicker.builder({
     super.key,
     this.initialNumber,
@@ -26,6 +27,7 @@ class NumberTicker extends StatelessWidget {
   }) : formatter = null,
        style = null;
 
+  /// Creates `NumberTicker` for configuring or rendering number ticker.
   const NumberTicker({
     super.key,
     this.initialNumber,
@@ -37,15 +39,31 @@ class NumberTicker extends StatelessWidget {
   }) : builder = null,
        child = null;
 
+  /// Input parameter used by `NumberTicker` during rendering and behavior handling.
   final num? initialNumber;
+
+  /// Input parameter used by `NumberTicker` during rendering and behavior handling.
   final num number;
+
+  /// Input parameter used by `NumberTicker` during rendering and behavior handling.
   final NumberTickerBuilder? builder;
+
+  /// Child content displayed inside the number ticker widget.
   final Widget? child;
+
+  /// Input parameter used by `NumberTicker` during rendering and behavior handling.
   final NumberTickerFormatted? formatter;
+
+  /// Animation/progress setting used by number ticker transitions.
   final Duration? duration;
+
+  /// Animation/progress setting used by number ticker transitions.
   final Curve? curve;
+
+  /// Style/theme override that customizes `NumberTicker` appearance.
   final TextStyle? style;
 
+  /// Builds the widget tree for number ticker.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<NumberTickerTheme>(context);

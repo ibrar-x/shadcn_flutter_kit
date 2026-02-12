@@ -1,14 +1,20 @@
 part of '../../animated_value_builder.dart';
 
 
+/// _AnimatedValueBuilderState defines a reusable type for this registry module.
 class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     with SingleTickerProviderStateMixin {
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+/// Stores `_animation` state/configuration for this implementation.
   late Animation<double> _animation;
+/// Stores `_from` state/configuration for this implementation.
   T? _from;
+/// Stores `_to` state/configuration for this implementation.
   T? _to;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _from = widget.initialValue ?? widget.value;
@@ -26,6 +32,7 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant AnimatedValueBuilder<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.duration != oldWidget.duration) {
@@ -51,17 +58,20 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+/// Executes `_lerpValue` behavior for this component/composite.
   T _lerpValue(T? a, T? b, double t) {
     if (widget.lerp != null) {
       final value = widget.lerp!(a, b, t);
       if (value != null) {
         return value;
       }
+/// Stores `fallback` state/configuration for this implementation.
       final fallback = b ?? a ?? widget.value ?? widget.initialValue;
       if (fallback != null) {
         return fallback;
@@ -74,16 +84,21 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
         'AnimatedValueBuilder received a null lerp result but both values are null.',
       );
     }
+/// Stores `start` state/configuration for this implementation.
     final start = a ?? b;
+/// Stores `end` state/configuration for this implementation.
     final end = b ?? a ?? start;
     if (start == null || end == null) {
+/// Stores `fallback` state/configuration for this implementation.
       final fallback = b ?? a ?? widget.value ?? widget.initialValue;
       if (fallback != null) {
         return fallback;
       }
       // Both values are null and no fallback - this is an error condition
       throw FlutterError.fromParts(<DiagnosticsNode>[
+/// Creates a `ErrorSummary` instance.
         ErrorSummary('AnimatedValueBuilder requires a non-null value'),
+/// Creates a `ErrorDescription` instance.
         ErrorDescription(
           'Provide a non-null value or initialValue when lerping between nulls.',
         ),
@@ -124,6 +139,7 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,

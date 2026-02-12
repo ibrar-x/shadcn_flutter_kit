@@ -1,10 +1,13 @@
 part of '../../text_area.dart';
 
+/// _TextAreaDragHandlePainter represents a form-related type in the registry.
 class _TextAreaDragHandlePainter extends CustomPainter {
+  /// Field storing `color` for this form implementation.
   final Color color;
 
   _TextAreaDragHandlePainter(this.color);
 
+  /// Performs `paint` logic for this form component.
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -19,6 +22,7 @@ class _TextAreaDragHandlePainter extends CustomPainter {
     canvas.drawLine(start2, end2, paint);
   }
 
+  /// Performs `shouldRepaint` logic for this form component.
   @override
   bool shouldRepaint(covariant _TextAreaDragHandlePainter oldDelegate) {
     return color != oldDelegate.color;

@@ -88,6 +88,7 @@ class SafePasswordValidator extends Validator<String> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is SafePasswordValidator &&

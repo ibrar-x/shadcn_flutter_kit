@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "color_input",
   "name": "Color Input",
@@ -35,8 +34,8 @@
       "`promptMode` (`PromptMode?`)",
       "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`dialogTitle`, `placeholder`, `orientation`, `enabled`, `showHistory`",
-      "`ControlledColorInput` — controller-backed input.",
-      "`ColorInputController` — `ValueNotifier<ColorDerivative>` controller."
+      "`ControlledColorInput` \u2014 controller-backed input.",
+      "`ColorInputController` \u2014 `ValueNotifier<ColorDerivative>` controller."
     ],
     "callbacks": [
       "`onChanging`, `onChanged`"

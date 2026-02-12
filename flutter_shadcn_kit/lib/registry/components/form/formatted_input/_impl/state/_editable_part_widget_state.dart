@@ -1,8 +1,11 @@
 part of '../../formatted_input.dart';
 
+/// _EditablePartWidgetState stores and manages mutable widget state.
 class _EditablePartWidgetState extends State<_EditablePartWidget> {
+  /// Controller used to coordinate `_controller` behavior.
   late TextEditingController _controller;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -17,6 +20,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Performs `_onTextChanged` logic for this form component.
   void _onTextChanged() {
     if (_updating) return;
     _updating = true;
@@ -41,7 +45,10 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Field storing `_updating` for this form implementation.
   bool _updating = false;
+
+  /// Performs `_onFormattedInputControllerChange` logic for this form component.
   void _onFormattedInputControllerChange() {
     if (_updating) {
       return;
@@ -61,6 +68,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant _EditablePartWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -89,6 +97,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     if (widget.data.controller != null) {
@@ -97,8 +106,10 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     super.dispose();
   }
 
+  /// Field storing `data` for this form implementation.
   FormattedInputData get data => widget.data;
 
+  /// Performs `_onChanged` logic for this form component.
   void _onChanged(String value) {
     int length = value.length;
     if (length >= widget.length) {
@@ -106,6 +117,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Performs `_onKeyEvent` logic for this form component.
   KeyEventResult _onKeyEvent(FocusNode node, KeyEvent event) {
     if (event is KeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.backspace) {
@@ -133,6 +145,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     return KeyEventResult.ignored;
   }
 
+  /// Performs `_nextFocus` logic for this form component.
   void _nextFocus() {
     int nextIndex = data.partIndex + 1;
     if (nextIndex < data.focusNodes.length) {
@@ -141,6 +154,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Performs `_previousFocus` logic for this form component.
   void _previousFocus() {
     int nextIndex = data.partIndex - 1;
     if (nextIndex >= 0) {
@@ -149,6 +163,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

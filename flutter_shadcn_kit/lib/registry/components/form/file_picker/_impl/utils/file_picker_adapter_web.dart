@@ -10,9 +10,12 @@ import 'package:web/web.dart' as web;
 import 'file_like.dart';
 import 'file_picker_adapter.dart';
 
+/// Performs `createAdapter` logic for this form component.
 FilePickerAdapter createAdapter() => _WebFilePickerAdapter();
 
+/// _WebFilePickerAdapter represents a form-related type in the registry.
 class _WebFilePickerAdapter implements FilePickerAdapter {
+  /// Field storing `supportsDragDrop` for this form implementation.
   @override
   bool get supportsDragDrop => true;
 
@@ -82,6 +85,7 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
     );
   }
 
+  /// Performs `_extensionFromName` logic for this form component.
   String? _extensionFromName(String name) {
     final parts = name.split('.');
     if (parts.length <= 1) return null;
@@ -89,7 +93,9 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
   }
 }
 
+/// _WebDropTargetView represents a form-related type in the registry.
 class _WebDropTargetView extends StatefulWidget {
+  /// Constructs `_WebDropTargetView` with the provided parameters.
   const _WebDropTargetView({
     required this.child,
     required this.withData,
@@ -99,10 +105,19 @@ class _WebDropTargetView extends StatefulWidget {
     required this.handleDrop,
   });
 
+  /// Field storing `child` for this form implementation.
   final Widget child;
+
+  /// Field storing `withData` for this form implementation.
   final bool withData;
+
+  /// Callback invoked for `onDragActive` events.
   final ValueChanged<bool> onDragActive;
+
+  /// Callback invoked for `onDrop` events.
   final ValueChanged<List<FileLike>> onDrop;
+
+  /// Callback invoked for `onTap` events.
   final VoidCallback? onTap;
   final Future<void> Function(
     web.FileList files,
@@ -111,23 +126,34 @@ class _WebDropTargetView extends StatefulWidget {
   )
   handleDrop;
 
+  /// Creates the `State` object for this widget.
   @override
   State<_WebDropTargetView> createState() => _WebDropTargetViewState();
 }
 
+/// _WebDropTargetViewState stores and manages mutable widget state.
 class _WebDropTargetViewState extends State<_WebDropTargetView> {
+  /// Field storing `_counter` for this form implementation.
   static int _counter = 0;
+
+  /// Field storing `_viewType` for this form implementation.
   late final String _viewType;
   late final web.HTMLDivElement _div;
+
+  /// Field storing `_dragDepth` for this form implementation.
   var _dragDepth = 0;
+
+  /// Field storing `_isActive` for this form implementation.
   var _isActive = false;
 
+  /// Performs `_setActive` logic for this form component.
   void _setActive(bool value) {
     if (_isActive == value) return;
     _isActive = value;
     widget.onDragActive(value);
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -181,6 +207,7 @@ class _WebDropTargetViewState extends State<_WebDropTargetView> {
     });
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Stack(

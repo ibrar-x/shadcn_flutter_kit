@@ -61,6 +61,7 @@ class ScrollableClientTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) =>
       other is ScrollableClientTheme &&
       other.diagonalDragBehavior == diagonalDragBehavior &&
@@ -81,6 +82,7 @@ class ScrollableClientTheme extends ComponentThemeData {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() =>
       'ScrollableClientTheme(diagonalDragBehavior: $diagonalDragBehavior, dragStartBehavior: $dragStartBehavior, keyboardDismissBehavior: $keyboardDismissBehavior, clipBehavior: $clipBehavior, hitTestBehavior: $hitTestBehavior, overscroll: $overscroll)';
 }

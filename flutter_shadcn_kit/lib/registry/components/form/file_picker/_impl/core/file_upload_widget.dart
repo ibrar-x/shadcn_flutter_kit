@@ -86,6 +86,7 @@ class FileUpload extends _FileUpload {
          compactOptions: _compactOptionsFromOptions(options),
        );
 
+  /// Performs `_surfaceFromOptions` logic for this form component.
   static _FileUploadSurface _surfaceFromOptions(FileUploadOptions options) {
     return switch (options.variant) {
       FileUploadVariant.dragDrop => _FileUploadSurface.dragDrop,
@@ -94,6 +95,7 @@ class FileUpload extends _FileUpload {
     };
   }
 
+  /// Performs `_enableDragDropFromOptions` logic for this form component.
   static bool _enableDragDropFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.enableDragDrop;
@@ -101,6 +103,7 @@ class FileUpload extends _FileUpload {
     return false;
   }
 
+  /// Performs `_enableDropzoneClickFromOptions` logic for this form component.
   static bool _enableDropzoneClickFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.enableDropzoneClick;
@@ -117,6 +120,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_actionLabelFromOptions` logic for this form component.
   static String? _actionLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadTileOptions) {
       return options.actionLabel;
@@ -124,6 +128,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_surfaceSubtitleFromOptions` logic for this form component.
   static Widget? _surfaceSubtitleFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.subtitle;
@@ -134,6 +139,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_surfaceHintFromOptions` logic for this form component.
   static Widget? _surfaceHintFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.hint;
@@ -144,6 +150,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_iconFromOptions` logic for this form component.
   static Widget? _iconFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.icon;
@@ -184,6 +191,7 @@ class FileUpload extends _FileUpload {
     return const FileUploadItemLoadingOptions();
   }
 
+  /// Performs `_compactIconFromOptions` logic for this form component.
   static Widget? _compactIconFromOptions(FileUploadOptions options) {
     if (options is FileUploadMobileOptions) {
       return options.icon;
@@ -209,6 +217,7 @@ class FileUpload extends _FileUpload {
     return FileUploadCompactTrigger.icon;
   }
 
+  /// Performs `_compactButtonLabelFromOptions` logic for this form component.
   static String? _compactButtonLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadMobileOptions) {
       return options.buttonLabel;
@@ -225,6 +234,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropIdleLabelFromOptions` logic for this form component.
   static String? _dragDropIdleLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.idleLabel;
@@ -241,6 +251,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropDraggingLabelFromOptions` logic for this form component.
   static String? _dragDropDraggingLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.draggingLabel;
@@ -248,6 +259,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropUploadingLabelFromOptions` logic for this form component.
   static String? _dragDropUploadingLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.uploadingLabel;
@@ -255,6 +267,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropSuccessLabelFromOptions` logic for this form component.
   static String? _dragDropSuccessLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.successLabel;
@@ -262,6 +275,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropErrorLabelFromOptions` logic for this form component.
   static String? _dragDropErrorLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.errorLabel;
@@ -269,6 +283,7 @@ class FileUpload extends _FileUpload {
     return null;
   }
 
+  /// Performs `_dragDropDisabledLabelFromOptions` logic for this form component.
   static String? _dragDropDisabledLabelFromOptions(FileUploadOptions options) {
     if (options is FileUploadDragDropOptions) {
       return options.disabledLabel;
@@ -279,6 +294,7 @@ class FileUpload extends _FileUpload {
 
 /// Internal shared widget used by [FileUpload] after option mapping.
 class _FileUpload extends StatefulWidget {
+  /// Constructs `_FileUpload` using the `_internal` named constructor.
   const _FileUpload._internal({
     super.key,
     required this.surface,
@@ -342,75 +358,181 @@ class _FileUpload extends StatefulWidget {
     this.compactOptions,
   });
 
+  /// Field storing `surface` for this form implementation.
   final _FileUploadSurface surface;
+
+  /// Field storing `loading` for this form implementation.
   final FileUploadLoadingOptions loading;
+
+  /// Field storing `itemLoading` for this form implementation.
   final FileUploadItemLoadingOptions itemLoading;
+
+  /// Field storing `title` for this form implementation.
   final Widget? title;
+
+  /// Field storing `subtitle` for this form implementation.
   final Widget? subtitle;
+
+  /// Field storing `hint` for this form implementation.
   final Widget? hint;
+
+  /// Field storing `surfaceSubtitle` for this form implementation.
   final Widget? surfaceSubtitle;
+
+  /// Field storing `surfaceHint` for this form implementation.
   final Widget? surfaceHint;
+
+  /// Field storing `icon` for this form implementation.
   final Widget? icon;
+
+  /// Field storing `actionLabel` for this form implementation.
   final String? actionLabel;
 
+  /// Field storing `enableDragDrop` for this form implementation.
   final bool enableDragDrop;
+
+  /// Field storing `enableDropzoneClick` for this form implementation.
   final bool enableDropzoneClick;
+
+  /// Field storing `dragDropIdleLabel` for this form implementation.
   final String? dragDropIdleLabel;
+
+  /// Field storing `dragDropClickToPickLabel` for this form implementation.
   final String? dragDropClickToPickLabel;
+
+  /// Field storing `dragDropDraggingLabel` for this form implementation.
   final String? dragDropDraggingLabel;
+
+  /// Field storing `dragDropUploadingLabel` for this form implementation.
   final String? dragDropUploadingLabel;
+
+  /// Field storing `dragDropSuccessLabel` for this form implementation.
   final String? dragDropSuccessLabel;
+
+  /// Field storing `dragDropErrorLabel` for this form implementation.
   final String? dragDropErrorLabel;
+
+  /// Field storing `dragDropDisabledLabel` for this form implementation.
   final String? dragDropDisabledLabel;
+
+  /// Field storing `enabled` for this form implementation.
   final bool enabled;
+
+  /// Field storing `allowMultiple` for this form implementation.
   final bool allowMultiple;
+
+  /// Field storing `withData` for this form implementation.
   final bool withData;
 
+  /// Field storing `maxFiles` for this form implementation.
   final int? maxFiles;
+
+  /// Field storing `maxFileSizeBytes` for this form implementation.
   final int? maxFileSizeBytes;
+
+  /// Field storing `allowedExtensions` for this form implementation.
   final List<String>? allowedExtensions;
+
+  /// Field storing `allowedMimeTypes` for this form implementation.
   final List<String>? allowedMimeTypes;
 
+  /// Field storing `files` for this form implementation.
   final List<FileLike>? files;
+
+  /// Controller used to coordinate `controller` behavior.
   final FileUploadController? controller;
 
+  /// Callback invoked for `onFilesSelected` events.
   final ValueChanged<List<FileLike>>? onFilesSelected;
+
+  /// Callback invoked for `onFilesChanged` events.
   final ValueChanged<List<FileLike>>? onFilesChanged;
+
+  /// Callback invoked for `onUploadStart` events.
   final VoidCallback? onUploadStart;
   final void Function(FileLike file, double progress)? onProgress;
+
+  /// Callback invoked for `onComplete` events.
   final ValueChanged<List<FileLike>>? onComplete;
+
+  /// Callback invoked for `onError` events.
   final ValueChanged<FileUploadError>? onError;
+
+  /// Field storing `uploadFn` for this form implementation.
   final UploadFn? uploadFn;
+
+  /// Field storing `pickFiles` for this form implementation.
   final FileUploadPickFiles? pickFiles;
 
+  /// Field storing `dropTargetBuilder` for this form implementation.
   final FileUploadDropTargetBuilder? dropTargetBuilder;
 
   final Widget Function(BuildContext context, FileUploadItem item)? itemBuilder;
+
+  /// Field storing `showFileList` for this form implementation.
   final bool showFileList;
+
+  /// Field storing `groupListByStatus` for this form implementation.
   final bool groupListByStatus;
+
+  /// Field storing `itemsLayout` for this form implementation.
   final FileUploadItemsLayout itemsLayout;
+
+  /// Field storing `itemsGridColumns` for this form implementation.
   final int itemsGridColumns;
+
+  /// Field storing `itemsMaxHeight` for this form implementation.
   final double? itemsMaxHeight;
+
+  /// Field storing `maxConcurrentUploads` for this form implementation.
   final int maxConcurrentUploads;
 
+  /// Field storing `backgroundColor` for this form implementation.
   final Color? backgroundColor;
+
+  /// Field storing `borderRadius` for this form implementation.
   final BorderRadiusGeometry? borderRadius;
+
+  /// Field storing `padding` for this form implementation.
   final EdgeInsetsGeometry? padding;
+
+  /// Field storing `minHeight` for this form implementation.
   final double? minHeight;
 
+  /// Field storing `statusLabels` for this form implementation.
   final FileUploadStatusLabels statusLabels;
+
+  /// Field storing `tileEmptySelectionLabel` for this form implementation.
   final String tileEmptySelectionLabel;
+
+  /// Field storing `tileSelectionTextBuilder` for this form implementation.
   final FileUploadTileSelectionTextBuilder? tileSelectionTextBuilder;
+
+  /// Field storing `showHelpfulInfo` for this form implementation.
   final bool showHelpfulInfo;
+
+  /// Field storing `helpfulInfoPlacement` for this form implementation.
   final FileUploadHelpfulInfoPlacement helpfulInfoPlacement;
+
+  /// Field storing `helpfulInfoBuilder` for this form implementation.
   final FileUploadHelpfulInfoBuilder? helpfulInfoBuilder;
 
+  /// Field storing `mobileMode` for this form implementation.
   final _FileUploadMobileMode mobileMode;
+
+  /// Field storing `compactIcon` for this form implementation.
   final Widget? compactIcon;
+
+  /// Field storing `compactTrigger` for this form implementation.
   final FileUploadCompactTrigger compactTrigger;
+
+  /// Field storing `compactButtonLabel` for this form implementation.
   final String? compactButtonLabel;
+
+  /// Field storing `compactOptions` for this form implementation.
   final List<FileUploadPickOption>? compactOptions;
 
+  /// Creates the `State` object for this widget.
   @override
   State<_FileUpload> createState() => _FileUploadState();
 }

@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// RawCell defines a reusable type for this registry module.
 class RawCell extends ParentDataWidget<TableParentData> {
   /// Column index for this cell.
   final int column;
@@ -28,8 +29,11 @@ class RawCell extends ParentDataWidget<TableParentData> {
   });
 
   @override
+/// Executes `applyParentData` behavior for this component/composite.
   void applyParentData(RenderObject renderObject) {
+/// Stores `parentData` state/configuration for this implementation.
     final parentData = renderObject.parentData as TableParentData;
+/// Stores `needsLayout` state/configuration for this implementation.
     bool needsLayout = false;
     if (parentData.column != column) {
       parentData.column = column;
@@ -52,12 +56,14 @@ class RawCell extends ParentDataWidget<TableParentData> {
       needsLayout = true;
     }
     if (needsLayout) {
+/// Stores `table` state/configuration for this implementation.
       final table = renderObject.parent as RenderTableLayout;
       table.markNeedsLayout();
     }
   }
 
   @override
+/// Stores `debugTypicalAncestorWidgetClass` state/configuration for this implementation.
   Type get debugTypicalAncestorWidgetClass => RawTableLayout;
 }
 

@@ -66,6 +66,7 @@ class InputAutoCompleteFeature extends InputFeature {
     this.mode = AutoCompleteMode.replaceWord,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _AutoCompleteFeatureState();
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "tabs",
   "name": "Tabs",
@@ -25,9 +24,9 @@
       "`children` (`List<TabChild>`, required)",
       "`index` (`int?`)",
       "`onChanged` (`ValueChanged<int>?`)",
-      "`TabList`, `TabPane`, `TabContainer` — tab primitives.",
-      "`TabItem` / `KeyedTabItem`, `TabChildWidget` — tab elements.",
-      "`TabsTheme` — overall styling."
+      "`TabList`, `TabPane`, `TabContainer` \u2014 tab primitives.",
+      "`TabItem` / `KeyedTabItem`, `TabChildWidget` \u2014 tab elements.",
+      "`TabsTheme` \u2014 overall styling."
     ],
     "callbacks": []
   },

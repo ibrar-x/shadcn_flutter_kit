@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepContainer defines a reusable type for this registry module.
 class StepContainer extends StatefulWidget {
   /// The main content widget for the step.
   final Widget child;
@@ -29,5 +30,6 @@ class StepContainer extends StatefulWidget {
   const StepContainer({super.key, required this.child, required this.actions});
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<StepContainer> createState() => _StepContainerState();
 }

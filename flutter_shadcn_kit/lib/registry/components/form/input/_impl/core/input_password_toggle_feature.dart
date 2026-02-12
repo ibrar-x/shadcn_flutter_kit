@@ -49,6 +49,7 @@ class InputPasswordToggleFeature extends InputFeature {
     super.skipFocusTraversal,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputPasswordToggleFeatureState();
 }

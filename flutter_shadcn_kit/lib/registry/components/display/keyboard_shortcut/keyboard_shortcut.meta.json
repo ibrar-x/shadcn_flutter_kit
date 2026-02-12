@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "keyboard_shortcut",
   "name": "Keyboard Shortcut",
@@ -29,8 +28,8 @@
       "`KeyboardDisplay`",
       "`KeyboardDisplay(keys: ...)`",
       "`KeyboardDisplay.fromActivator(activator: ...)`",
-      "`KeyboardKeyDisplay` — single keycap.",
-      "`KeyboardShortcutDisplayMapper` — custom key rendering."
+      "`KeyboardKeyDisplay` \u2014 single keycap.",
+      "`KeyboardShortcutDisplayMapper` \u2014 custom key rendering."
     ],
     "callbacks": []
   },

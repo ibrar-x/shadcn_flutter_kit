@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _RadioGroupPreviewState stores and manages mutable widget state.
 class _RadioGroupPreviewState extends State<RadioGroupPreview> {
+  /// Current value stored for `_value`.
   String? _value = 'starter';
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "accordion",
   "name": "Accordion",
@@ -20,10 +19,10 @@
   "patterns": [],
   "api": {
     "constructors": [
-      "`Accordion` — takes `items` list.",
-      "`AccordionItem` — section with `title`, `content`.",
-      "`AccordionTrigger` — interactive header widget.",
-      "`AccordionTheme` — theme for spacing and styles."
+      "`Accordion` \u2014 takes `items` list.",
+      "`AccordionItem` \u2014 section with `title`, `content`.",
+      "`AccordionTrigger` \u2014 interactive header widget.",
+      "`AccordionTheme` \u2014 theme for spacing and styles."
     ],
     "callbacks": []
   },

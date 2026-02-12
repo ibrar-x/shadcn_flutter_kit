@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabPane defines a reusable type for this registry module.
 class TabPane<T> extends StatefulWidget {
   /// List of tab data items to display in the tab pane.
   ///
@@ -131,5 +132,6 @@ class TabPane<T> extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<TabPane<T>> createState() => TabPaneState<T>();
 }

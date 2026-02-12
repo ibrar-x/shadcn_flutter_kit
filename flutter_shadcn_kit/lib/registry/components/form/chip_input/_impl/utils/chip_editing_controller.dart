@@ -18,13 +18,16 @@ part of '../../chip_input.dart';
 class ChipEditingController<T> extends TextEditingController {
   static const int _chipStart = 0xE000; // Private Use Area start
   static const int _chipEnd = 0xF8FF; // Private Use Area end
+  /// Field storing `_maxChips` for this form implementation.
   static const int _maxChips = _chipEnd - _chipStart + 1;
   // these codepoints are reserved for chips, so that they don't conflict with normal text
   // there are 6400 codepoints available for chips
 
   // final List<T> _chips = [];
+  /// Field storing `_chipMap` for this form implementation.
   final Map<int, T> _chipMap = {};
 
+  /// Field storing `_nextChipIndex` for this form implementation.
   int _nextChipIndex = 0;
 
   int get _nextAvailableChipIndex {
@@ -59,18 +62,21 @@ class ChipEditingController<T> extends TextEditingController {
 
   ChipEditingController._internal(String text) : super(text: text);
 
+  /// Performs `text` logic for this form component.
   @override
   set text(String newText) {
     super.text = newText;
     _updateText(newText);
   }
 
+  /// Performs `value` logic for this form component.
   @override
   set value(TextEditingValue newValue) {
     super.value = newValue;
     _updateText(newValue.text);
   }
 
+  /// Performs `_updateText` logic for this form component.
   void _updateText(String newText) {
     for (final entry in _chipMap.entries.toList()) {
       int chipIndex = entry.key;
@@ -277,6 +283,7 @@ class ChipEditingController<T> extends TextEditingController {
   /// Returns the plain text without chip characters.
   String get plainText {
     StringBuffer buffer = StringBuffer();
+
     String text = value.text;
     for (int i = 0; i < text.length; i++) {
       int codeUnit = text.codeUnitAt(i);
@@ -378,6 +385,7 @@ class ChipEditingController<T> extends TextEditingController {
     _chipMap[chipIndex] = chip;
   }
 
+  /// Performs `_replaceAsChip` logic for this form component.
   void _replaceAsChip(int start, int end, int index) {
     String text = value.text;
     StringBuffer buffer = StringBuffer();

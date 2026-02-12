@@ -11,11 +11,13 @@ class GroupWidget extends MultiChildRenderObjectWidget {
   const GroupWidget({super.key, super.children});
 
   @override
+/// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return RenderGroup();
   }
 
   @override
+/// Executes `updateRenderObject` behavior for this component/composite.
   void updateRenderObject(BuildContext context, RenderGroup renderObject) {}
 }
 

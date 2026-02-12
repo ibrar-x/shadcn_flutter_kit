@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuLabel defines a reusable type for this registry module.
 class MenuLabel extends StatelessWidget implements MenuItem {
   /// Content widget displayed in the label.
   final Widget child;
@@ -24,19 +25,24 @@ class MenuLabel extends StatelessWidget implements MenuItem {
   });
 
   @override
+/// Stores `hasLeading` state/configuration for this implementation.
   bool get hasLeading => leading != null;
 
   @override
+/// Stores `popoverController` state/configuration for this implementation.
   PopoverController? get popoverController => null;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final menuGroupData = Data.maybeOf<MenuGroupData>(context);
     assert(menuGroupData != null, 'MenuLabel must be a child of MenuGroup');
     return Padding(
       padding:
+/// Creates a `EdgeInsets.only` instance.
           EdgeInsets.only(
                 left: theme.density.baseGap,
                 top: theme.density.baseGap * 0.75,

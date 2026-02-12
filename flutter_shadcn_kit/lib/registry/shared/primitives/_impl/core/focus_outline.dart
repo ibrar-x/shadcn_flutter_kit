@@ -1,14 +1,22 @@
 part of '../../focus_outline.dart';
 
 
+/// FocusOutline defines a reusable type for this registry module.
 class FocusOutline extends StatelessWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `focused` state/configuration for this implementation.
   final bool focused;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
+/// Stores `align` state/configuration for this implementation.
   final double? align;
+/// Stores `border` state/configuration for this implementation.
   final Border? border;
+/// Stores `shape` state/configuration for this implementation.
   final BoxShape? shape;
 
+/// Creates a `FocusOutline` instance.
   const FocusOutline({
     super.key,
     required this.child,
@@ -24,6 +32,7 @@ class FocusOutline extends StatelessWidget {
     double align,
     BorderRadiusGeometry? borderRadius,
   ) {
+/// Stores `rawRadius` state/configuration for this implementation.
     final rawRadius = borderRadius;
     if (rawRadius == null) return BorderRadius.zero;
     final resolved = rawRadius.resolve(textDirection);
@@ -36,6 +45,7 @@ class FocusOutline extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<FocusOutlineTheme>(context);
     final double align = styleValue(
@@ -48,6 +58,7 @@ class FocusOutline extends StatelessWidget {
       widgetValue: borderRadius,
       defaultValue: null,
     );
+/// Stores `offset` state/configuration for this implementation.
     final double offset = -align;
     final textDirection = Directionality.of(context);
     return Stack(
@@ -55,6 +66,7 @@ class FocusOutline extends StatelessWidget {
       fit: StackFit.passthrough,
       children: [
         child,
+/// Creates a `AnimatedValueBuilder` instance.
         AnimatedValueBuilder(
           value: focused ? 1.0 : 0.0,
           duration: kDefaultDuration,

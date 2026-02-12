@@ -13,10 +13,13 @@ import '../themes/error_system_theme.dart';
 import 'app_error.dart';
 import 'error_action.dart';
 
+/// ErrorDialog defines a reusable type for this registry module.
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog({super.key, required this.error, this.icon});
 
+/// Stores `error` state/configuration for this implementation.
   final AppError error;
+/// Stores `icon` state/configuration for this implementation.
   final Widget? icon;
 
   static Future<T?> show<T>({
@@ -35,12 +38,15 @@ class ErrorDialog extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
     final resolvedIcon =
         icon ??
+/// Creates a `Icon` instance.
         Icon(
           RadixIcons.exclamationTriangle,
           size: compTheme?.iconSize ?? 24 * scaling,
@@ -54,6 +60,7 @@ class ErrorDialog extends StatelessWidget {
         theme.typography.small.copyWith(
           color: theme.colorScheme.mutedForeground,
         );
+/// Stores `dialogPadding` state/configuration for this implementation.
     final dialogPadding = compTheme?.dialogPadding;
 
     return AlertDialog(
@@ -72,6 +79,7 @@ class ErrorDialog extends StatelessWidget {
       barrierColor: compTheme?.dialogBarrierColor,
       actions: error.actions.isEmpty
           ? [
+/// Creates a `SecondaryButton` instance.
               SecondaryButton(
                 onPressed: () => Navigator.of(context).maybePop(),
                 child: const Text('Dismiss'),
@@ -81,15 +89,20 @@ class ErrorDialog extends StatelessWidget {
     );
   }
 
+/// Executes `_buildAction` behavior for this component/composite.
   Widget _buildAction(BuildContext context, ErrorAction action) {
+/// Stores `icon` state/configuration for this implementation.
     final icon = action.icon;
     final child = icon == null
         ? Text(action.label)
         : Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+/// Creates a `Icon` instance.
               Icon(icon, size: 16 * Theme.of(context).scaling),
+/// Creates a `DensityGap` instance.
               DensityGap(gapSm),
+/// Creates a `Text` instance.
               Text(action.label),
             ],
           );

@@ -1,9 +1,12 @@
 part of '../../preview.dart';
 
+/// _TabListPreviewState defines a reusable type for this registry module.
 class _TabListPreviewState extends State<TabListPreview> {
+/// Stores `_index` state/configuration for this implementation.
   int _index = 0;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -12,16 +15,22 @@ class _TabListPreviewState extends State<TabListPreview> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+/// Creates a `TabList` instance.
               TabList(
                 index: _index,
                 onChanged: (value) => setState(() => _index = value),
                 children: const [
+/// Creates a `TabChildWidget` instance.
                   TabChildWidget(indexed: true, child: Text('General')),
+/// Creates a `TabChildWidget` instance.
                   TabChildWidget(indexed: true, child: Text('Billing')),
+/// Creates a `TabChildWidget` instance.
                   TabChildWidget(indexed: true, child: Text('Security')),
                 ],
               ),
+/// Creates a `SizedBox` instance.
               const SizedBox(height: 16),
+/// Creates a `Text` instance.
               Text('Active tab: ${_index + 1}'),
             ],
           ),

@@ -11,6 +11,7 @@ import '../state/button_state.dart';
 import '../styles/button_style.dart';
 import '../variants/button_variance.dart';
 
+/// Button defines a reusable type for this registry module.
 class Button extends StatefulWidget {
   /// Whether the button is interactive.
   ///
@@ -690,6 +691,7 @@ class Button extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   ButtonState createState() => ButtonState();
 }
 

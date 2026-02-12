@@ -81,8 +81,11 @@ class TailChatBubbleType extends ChatBubbleType {
     ChatBubble chat,
   ) {
     final theme = Theme.of(context);
+
     final compTheme = ComponentTheme.maybeOf<ChatTailTheme>(context);
+
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
+
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final tailBehavior = styleValue(
       widgetValue: this.tailBehavior,
@@ -109,8 +112,11 @@ class TailChatBubbleType extends ChatBubbleType {
     );
 
     double leftPadding;
+
     double rightPadding;
+
     double topPadding;
+
     double bottomPadding;
     final size = styleValue(
       widgetValue: this.size,
@@ -122,6 +128,7 @@ class TailChatBubbleType extends ChatBubbleType {
       themeValue: compTheme?.position,
       defaultValue: AxisDirectional.end,
     ).resolve(textDirection);
+
     bool wrapWithTail = tailBehavior.wrapWithTail(data);
     switch ((position, wrapWithTail)) {
       case (AxisDirection.left, _):
@@ -130,24 +137,28 @@ class TailChatBubbleType extends ChatBubbleType {
         rightPadding = 0;
         bottomPadding = 0;
         break;
+
       case (AxisDirection.right, _):
         topPadding = 0;
         leftPadding = 0;
         rightPadding = size.width;
         bottomPadding = 0;
         break;
+
       case (AxisDirection.up, true):
         topPadding = size.height;
         leftPadding = 0;
         rightPadding = 0;
         bottomPadding = 0;
         break;
+
       case (AxisDirection.down, true):
         topPadding = 0;
         leftPadding = 0;
         rightPadding = 0;
         bottomPadding = size.height;
         break;
+
       case (_, _):
         topPadding = 0;
         leftPadding = 0;

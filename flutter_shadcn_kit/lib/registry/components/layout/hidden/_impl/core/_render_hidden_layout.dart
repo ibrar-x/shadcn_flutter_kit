@@ -1,14 +1,22 @@
 part of '../../hidden.dart';
 
+/// _RenderHiddenLayout defines a reusable type for this registry module.
 class _RenderHiddenLayout extends RenderBox
     with RenderObjectWithChildMixin<RenderBox> {
+/// Stores `textDirection` state/configuration for this implementation.
   TextDirection textDirection;
+/// Stores `direction` state/configuration for this implementation.
   Axis direction;
+/// Stores `reverse` state/configuration for this implementation.
   bool reverse;
+/// Stores `progress` state/configuration for this implementation.
   double progress;
+/// Stores `keepCrossAxisSize` state/configuration for this implementation.
   bool keepCrossAxisSize;
+/// Stores `keepMainAxisSize` state/configuration for this implementation.
   bool keepMainAxisSize;
 
+/// Creates a `_RenderHiddenLayout` instance.
   _RenderHiddenLayout({
     required this.textDirection,
     required this.direction,
@@ -19,6 +27,7 @@ class _RenderHiddenLayout extends RenderBox
   });
 
   @override
+/// Executes `computeMaxIntrinsicHeight` behavior for this component/composite.
   double computeMaxIntrinsicHeight(double width) {
     return _computeIntrinsicHeight(
       (RenderBox child, double width) => child.getMaxIntrinsicHeight(width),
@@ -27,6 +36,7 @@ class _RenderHiddenLayout extends RenderBox
   }
 
   @override
+/// Executes `computeMaxIntrinsicWidth` behavior for this component/composite.
   double computeMaxIntrinsicWidth(double height) {
     return _computeIntrinsicWidth(
       (RenderBox child, double height) => child.getMaxIntrinsicWidth(height),
@@ -35,6 +45,7 @@ class _RenderHiddenLayout extends RenderBox
   }
 
   @override
+/// Executes `computeMinIntrinsicHeight` behavior for this component/composite.
   double computeMinIntrinsicHeight(double width) {
     return _computeIntrinsicHeight(
       (RenderBox child, double width) => child.getMinIntrinsicHeight(width),
@@ -43,6 +54,7 @@ class _RenderHiddenLayout extends RenderBox
   }
 
   @override
+/// Executes `computeMinIntrinsicWidth` behavior for this component/composite.
   double computeMinIntrinsicWidth(double height) {
     return _computeIntrinsicWidth(
       (RenderBox child, double height) => child.getMinIntrinsicWidth(height),
@@ -54,6 +66,7 @@ class _RenderHiddenLayout extends RenderBox
     double Function(RenderBox child, double height) childWidth,
     double height,
   ) {
+/// Stores `child` state/configuration for this implementation.
     final child = this.child;
     if (child == null) {
       return 0;
@@ -70,6 +83,7 @@ class _RenderHiddenLayout extends RenderBox
     double Function(RenderBox child, double width) childHeight,
     double width,
   ) {
+/// Stores `child` state/configuration for this implementation.
     final child = this.child;
     if (child == null) {
       return 0;
@@ -83,23 +97,30 @@ class _RenderHiddenLayout extends RenderBox
   }
 
   @override
+/// Executes `paint` behavior for this component/composite.
   void paint(PaintingContext context, Offset offset) {
+/// Stores `child` state/configuration for this implementation.
     final child = this.child;
     if (child != null) {
+/// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as BoxParentData;
       context.paintChild(child, offset + parentData.offset);
     }
   }
 
   @override
+/// Executes `hitTest` behavior for this component/composite.
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     return hitTestChildren(result, position: position);
   }
 
   @override
+/// Executes `hitTestChildren` behavior for this component/composite.
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+/// Stores `child` state/configuration for this implementation.
     final child = this.child;
     if (child == null) return false;
+/// Stores `parentData` state/configuration for this implementation.
     final parentData = child.parentData as BoxParentData;
     return result.addWithPaintOffset(
       offset: parentData.offset,
@@ -111,7 +132,9 @@ class _RenderHiddenLayout extends RenderBox
   }
 
   @override
+/// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
+/// Stores `child` state/configuration for this implementation.
     final child = this.child;
     if (child == null) {
       size = constraints.biggest;
@@ -119,7 +142,9 @@ class _RenderHiddenLayout extends RenderBox
     }
     child.layout(constraints, parentUsesSize: true);
     final childSize = constraints.constrain(child.size);
+/// Stores `width` state/configuration for this implementation.
     double width = childSize.width;
+/// Stores `height` state/configuration for this implementation.
     double height = childSize.height;
 
     if (!keepMainAxisSize) {

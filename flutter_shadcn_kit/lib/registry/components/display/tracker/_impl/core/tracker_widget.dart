@@ -2,10 +2,12 @@ part of '../../tracker.dart';
 
 /// Visual tracker display.
 class Tracker extends StatelessWidget {
+  /// Data consumed by `Tracker` to render tracker content.
   final List<TrackerData> data;
 
   const Tracker({super.key, required this.data});
 
+  /// Builds the widget tree for tracker.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

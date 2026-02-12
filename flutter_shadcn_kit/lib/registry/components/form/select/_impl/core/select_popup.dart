@@ -111,6 +111,7 @@ class SelectPopup<T> extends StatefulWidget {
     return this;
   }
 
+  /// Creates the `State` object for this widget.
   @override
   State<SelectPopup<T>> createState() => _SelectPopupState<T>();
 }

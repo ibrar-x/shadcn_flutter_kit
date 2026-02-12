@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// Core class used by the calendar component.
 class MonthCalendar extends StatelessWidget {
   /// The current calendar view (year to display).
   final CalendarView value;
@@ -26,22 +27,27 @@ class MonthCalendar extends StatelessWidget {
     this.stateBuilder,
   });
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     // same as Calendar, but instead of showing date
     // it shows month in a 4x3 grid
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
+
     List<Widget> rows = [];
+
     List<Widget> months = [];
     for (int i = 1; i <= 12; i++) {
       DateTime date = DateTime(value.year, i);
+
       CalendarItemType type = CalendarItemType.none;
       if (calendarValue != null) {
         final lookup = calendarValue!.lookup(date.year, date.month);
         switch (lookup) {
           case CalendarValueLookup.none:
             if (now != null &&
+                /// Implements `DateTime` behavior for calendar.
                 DateTime(now!.year, now!.month).isAtSameMomentAs(date)) {
               type = CalendarItemType.today;
             }
@@ -61,10 +67,12 @@ class MonthCalendar extends StatelessWidget {
         }
       } else {
         if (now != null &&
+            /// Implements `DateTime` behavior for calendar.
             DateTime(now!.year, now!.month).isAtSameMomentAs(date)) {
           type = CalendarItemType.today;
         }
       }
+
       months.add(
         CalendarItem(
           key: ValueKey(date),
@@ -72,6 +80,7 @@ class MonthCalendar extends StatelessWidget {
           indexAtRow: (i - 1) % 4,
           rowCount: 4,
           onTap: () {
+            /// Implements `onChanged` behavior for calendar.
             onChanged(value.copyWith(month: () => i));
           },
           width: theme.scaling * 56,

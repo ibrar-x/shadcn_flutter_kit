@@ -23,14 +23,17 @@ class WidgetStatesData {
   const WidgetStatesData(this.states);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is WidgetStatesData && setEquals(states, other.states);
   }
 
   @override
+/// Stores `hashCode` state/configuration for this implementation.
   int get hashCode => states.hashCode;
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() => 'WidgetStatesData(states: $states)';
 }

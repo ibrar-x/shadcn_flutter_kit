@@ -2,10 +2,16 @@ part of '../../number_ticker.dart';
 
 /// Theme data for [NumberTicker].
 class NumberTickerTheme extends ComponentThemeData {
+  /// Animation/progress setting used by number ticker transitions.
   final Duration? duration;
+
+  /// Animation/progress setting used by number ticker transitions.
   final Curve? curve;
+
+  /// Style/theme override that customizes `NumberTickerTheme` appearance.
   final TextStyle? style;
 
+  /// Creates `NumberTickerTheme` for configuring or rendering number ticker.
   const NumberTickerTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -27,6 +33,7 @@ class NumberTickerTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two number ticker values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -36,6 +43,7 @@ class NumberTickerTheme extends ComponentThemeData {
         other.style == style;
   }
 
+  /// State flag that toggles specific number ticker behavior.
   @override
   int get hashCode => Object.hash(duration, curve, style);
 }

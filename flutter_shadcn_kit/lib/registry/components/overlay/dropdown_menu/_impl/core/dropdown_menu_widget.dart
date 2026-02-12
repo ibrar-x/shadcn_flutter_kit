@@ -1,5 +1,6 @@
 part of '../../dropdown_menu.dart';
 
+/// DropdownMenu defines a reusable type for this registry module.
 class DropdownMenu extends StatefulWidget {
   /// Opacity of the surface blur effect.
   ///
@@ -30,5 +31,6 @@ class DropdownMenu extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<DropdownMenu> createState() => _DropdownMenuState();
 }

@@ -1,13 +1,26 @@
 part of '../../calendar.dart';
 
+/// _DatePickerDialogState holds mutable state for the calendar implementation.
 class _DatePickerDialogState extends State<DatePickerDialog> {
+  /// Input parameter used by `_DatePickerDialogState` during rendering and behavior handling.
   late CalendarView _view;
+
+  /// Input parameter used by `_DatePickerDialogState` during rendering and behavior handling.
   late CalendarView _alternateView;
+
+  /// Data consumed by `_DatePickerDialogState` to render calendar content.
   late CalendarValue? _value;
+
+  /// Input parameter used by `_DatePickerDialogState` during rendering and behavior handling.
   late CalendarViewType _viewType;
+
+  /// Input parameter used by `_DatePickerDialogState` during rendering and behavior handling.
   late int _yearSelectStart;
+
+  /// Input parameter used by `_DatePickerDialogState` during rendering and behavior handling.
   bool _alternate = false;
 
+  /// Initializes controllers and listeners required by calendar.
   @override
   void initState() {
     super.initState();
@@ -20,6 +33,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     _yearSelectStart = (_view.year ~/ 16) * 16;
   }
 
+  /// Updates internal state when calendar configuration changes.
   @override
   void didUpdateWidget(covariant DatePickerDialog oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -52,6 +66,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     return localizations.datePickerSelectYear;
   }
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
@@ -61,6 +76,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
       themeValue: compTheme?.arrowIconColor,
       defaultValue: null,
     );
+
     final viewMode = widget.viewMode ?? widget.selectionMode;
     if (widget.selectionMode == CalendarSelectionMode.range) {
       return IntrinsicWidth(
@@ -78,6 +94,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                       OutlineButton(
                         density: ButtonDensity.icon,
                         onPressed: () {
+                          /// Implements `setState` behavior for calendar.
                           setState(() {
                             switch (_viewType) {
                               case CalendarViewType.date:
@@ -98,7 +115,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                           color: arrowColor,
                         ).iconXSmall(),
                       ),
+
                       SizedBox(width: theme.scaling * 16),
+
                       Expanded(
                         child: SizedBox(
                           height: theme.scaling * 32,
@@ -108,11 +127,15 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               _alternate = false;
                               switch (_viewType) {
                                 case CalendarViewType.date:
+
+                                  /// Implements `setState` behavior for calendar.
                                   setState(() {
                                     _viewType = CalendarViewType.month;
                                   });
                                   break;
                                 case CalendarViewType.month:
+
+                                  /// Implements `setState` behavior for calendar.
                                   setState(() {
                                     _viewType = CalendarViewType.year;
                                   });
@@ -132,12 +155,14 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                       if (_viewType == CalendarViewType.date &&
                           viewMode == CalendarSelectionMode.range)
                         SizedBox(width: theme.scaling * 32),
+
                       SizedBox(width: theme.scaling * 16),
                       if (_viewType != CalendarViewType.date ||
                           viewMode != CalendarSelectionMode.range)
                         OutlineButton(
                           density: ButtonDensity.icon,
                           onPressed: () {
+                            /// Implements `setState` behavior for calendar.
                             setState(() {
                               switch (_viewType) {
                                 case CalendarViewType.date:
@@ -172,6 +197,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(width: theme.scaling * (32 + 16)),
+
                         Expanded(
                           child: SizedBox(
                             height: theme.scaling * 32,
@@ -180,11 +206,15 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                                 _alternate = true;
                                 switch (_viewType) {
                                   case CalendarViewType.date:
+
+                                    /// Implements `setState` behavior for calendar.
                                     setState(() {
                                       _viewType = CalendarViewType.month;
                                     });
                                     break;
                                   case CalendarViewType.month:
+
+                                    /// Implements `setState` behavior for calendar.
                                     setState(() {
                                       _viewType = CalendarViewType.year;
                                     });
@@ -205,10 +235,13 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                             ),
                           ),
                         ),
+
                         SizedBox(width: theme.scaling * 16),
+
                         OutlineButton(
                           density: ButtonDensity.icon,
                           onPressed: () {
+                            /// Implements `setState` behavior for calendar.
                             setState(() {
                               switch (_viewType) {
                                 case CalendarViewType.date:
@@ -234,7 +267,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   ),
               ],
             ),
+
             SizedBox(height: theme.density.baseGap * theme.scaling * gapLg),
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: viewMode == CalendarSelectionMode.range
@@ -248,6 +283,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   _viewType,
                   widget.selectionMode,
                   (value) {
+                    /// Implements `setState` behavior for calendar.
                     setState(() {
                       if (!_alternate) {
                         _view = value;
@@ -300,6 +336,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
               OutlineButton(
                 density: ButtonDensity.icon,
                 onPressed: () {
+                  /// Implements `setState` behavior for calendar.
                   setState(() {
                     switch (_viewType) {
                       case CalendarViewType.date:
@@ -319,7 +356,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   color: arrowColor,
                 ).iconXSmall(),
               ),
+
               SizedBox(width: theme.scaling * 16),
+
               Expanded(
                 child: SizedBox(
                   height: theme.scaling * 32,
@@ -328,11 +367,15 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                     onPressed: () {
                       switch (_viewType) {
                         case CalendarViewType.date:
+
+                          /// Implements `setState` behavior for calendar.
                           setState(() {
                             _viewType = CalendarViewType.month;
                           });
                           break;
                         case CalendarViewType.month:
+
+                          /// Implements `setState` behavior for calendar.
                           setState(() {
                             _viewType = CalendarViewType.year;
                           });
@@ -349,10 +392,13 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   ),
                 ),
               ),
+
               SizedBox(width: theme.scaling * 16),
+
               OutlineButton(
                 density: ButtonDensity.icon,
                 onPressed: () {
+                  /// Implements `setState` behavior for calendar.
                   setState(() {
                     switch (_viewType) {
                       case CalendarViewType.date:
@@ -374,7 +420,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
               ),
             ],
           ),
+
           SizedBox(height: theme.density.baseGap * theme.scaling * gapLg),
+
           buildView(
             context,
             _yearSelectStart,
@@ -382,6 +430,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
             _viewType,
             widget.selectionMode,
             (value) {
+              /// Implements `setState` behavior for calendar.
               setState(() {
                 _view = value;
                 switch (_viewType) {
@@ -417,7 +466,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
         calendarValue: _value,
         stateBuilder: widget.stateBuilder,
         onChanged: (value) {
+          /// Implements `setState` behavior for calendar.
           setState(() {
+            /// Implements `onViewChanged` behavior for calendar.
             onViewChanged(view.copyWith(year: () => value));
           });
         },
@@ -436,6 +487,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
       view: view,
       stateBuilder: widget.stateBuilder,
       onChanged: (value) {
+        /// Implements `setState` behavior for calendar.
         setState(() {
           _value = value;
           widget.onChanged?.call(value);

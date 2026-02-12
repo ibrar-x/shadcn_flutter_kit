@@ -1,5 +1,6 @@
 part of '../../refresh_trigger.dart';
 
+/// RefreshTrigger defines a reusable type for this registry module.
 class RefreshTrigger extends StatefulWidget {
   /// Default indicator builder that creates a spinning progress indicator.
   ///
@@ -103,6 +104,7 @@ class RefreshTrigger extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<RefreshTrigger> createState() => RefreshTriggerState();
 }
 

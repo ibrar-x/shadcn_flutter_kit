@@ -1,5 +1,6 @@
 part of '../../theme.dart';
 
+/// ComponentTheme defines a reusable type for this registry module.
 class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
   /// The component theme data to provide to descendants.
   final T data;
@@ -16,6 +17,7 @@ class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
   });
 
   @override
+/// Executes `wrap` behavior for this component/composite.
   Widget wrap(BuildContext context, Widget child) {
     ComponentTheme<T>? ancestorTheme =
         context.findAncestorWidgetOfExactType<ComponentTheme<T>>();
@@ -55,6 +57,7 @@ class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
   }
 
   @override
+/// Executes `updateShouldNotify` behavior for this component/composite.
   bool updateShouldNotify(covariant ComponentTheme<T> oldWidget) {
     return oldWidget.data != data ||
         oldWidget.data.themeDensity != data.themeDensity ||

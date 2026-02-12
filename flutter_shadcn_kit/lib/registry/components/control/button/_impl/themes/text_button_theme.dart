@@ -6,6 +6,7 @@ import '../styles/button_state_property.dart';
 import '../styles/button_state_property_delegate.dart';
 import 'button_theme_base.dart';
 
+/// TextButtonTheme defines a reusable type for this registry module.
 class TextButtonTheme extends ButtonTheme {
   /// Creates a [TextButtonTheme] with optional style property delegates.
   const TextButtonTheme({

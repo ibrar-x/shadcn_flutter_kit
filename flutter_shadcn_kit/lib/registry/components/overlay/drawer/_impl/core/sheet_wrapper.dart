@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// SheetWrapper defines a reusable type for this registry module.
 class SheetWrapper extends DrawerWrapper {
   /// Creates a [SheetWrapper].
   const SheetWrapper({
@@ -22,5 +23,6 @@ class SheetWrapper extends DrawerWrapper {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<DrawerWrapper> createState() => _SheetWrapperState();
 }

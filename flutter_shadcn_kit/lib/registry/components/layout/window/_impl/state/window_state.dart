@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowState defines a reusable type for this registry module.
 class WindowState {
   /// Current position and size of the window.
   ///
@@ -96,6 +97,7 @@ class WindowState {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! WindowState) return false;
@@ -128,6 +130,7 @@ class WindowState {
   );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'WindowState(bounds: $bounds, maximized: $maximized, minimized: $minimized, alwaysOnTop: $alwaysOnTop, closable: $closable, resizable: $resizable, draggable: $draggable, maximizable: $maximizable, minimizable: $minimizable, enableSnapping: $enableSnapping, constraints: $constraints)';
   }

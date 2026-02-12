@@ -1,5 +1,6 @@
 part of '../../preview.dart';
 
+/// _AutocompletePreviewState stores and manages mutable widget state.
 class _AutocompletePreviewState extends State<AutocompletePreview> {
   final List<String> suggestions = [
     'Apple',
@@ -18,9 +19,11 @@ class _AutocompletePreviewState extends State<AutocompletePreview> {
     'Watermelon',
   ];
 
+  /// Field storing `_currentSuggestions` for this form implementation.
   List<String> _currentSuggestions = [];
   final TextEditingController _controller = TextEditingController();
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +40,8 @@ class _AutocompletePreviewState extends State<AutocompletePreview> {
                   placeholder: const Text('Type to search...'),
                   onChanged: (value) {
                     final query = value.trim().toLowerCase();
+
+                    /// Triggers a rebuild after mutating local state.
                     setState(() {
                       if (query.isEmpty) {
                         _currentSuggestions = [];
@@ -56,6 +61,7 @@ class _AutocompletePreviewState extends State<AutocompletePreview> {
     );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.dispose();

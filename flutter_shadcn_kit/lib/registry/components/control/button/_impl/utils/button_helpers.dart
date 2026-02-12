@@ -7,16 +7,19 @@ import '../../../../../shared/theme/generated_colors.dart';
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/color_extensions.dart';
 
+/// Executes `buttonZeroMargin` behavior for this component/composite.
 EdgeInsets buttonZeroMargin(BuildContext context, Set<WidgetState> states) {
   return EdgeInsets.zero;
 }
 
+/// Executes `buttonMouseCursor` behavior for this component/composite.
 MouseCursor buttonMouseCursor(BuildContext context, Set<WidgetState> states) {
   return states.contains(WidgetState.disabled)
       ? SystemMouseCursors.basic
       : SystemMouseCursors.click;
 }
 
+/// Executes `buttonPadding` behavior for this component/composite.
 EdgeInsets buttonPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
   return EdgeInsets.symmetric(
@@ -26,6 +29,7 @@ EdgeInsets buttonPadding(BuildContext context, Set<WidgetState> states) {
 }
 
 // CARD
+/// Executes `buttonCardTextStyle` behavior for this component/composite.
 TextStyle buttonCardTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small.copyWith(
@@ -41,6 +45,7 @@ IconThemeData buttonCardIconTheme(
   return IconThemeData(color: themeData.colorScheme.cardForeground);
 }
 
+/// Executes `buttonCardDecoration` behavior for this component/composite.
 Decoration buttonCardDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
@@ -51,6 +56,7 @@ Decoration buttonCardDecoration(BuildContext context, Set<WidgetState> states) {
     );
   }
   if (states.contains(WidgetState.hovered) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.border,
@@ -65,6 +71,7 @@ Decoration buttonCardDecoration(BuildContext context, Set<WidgetState> states) {
   );
 }
 
+/// Executes `buttonCardPadding` behavior for this component/composite.
 EdgeInsets buttonCardPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
   return EdgeInsets.all(
@@ -73,13 +80,16 @@ EdgeInsets buttonCardPadding(BuildContext context, Set<WidgetState> states) {
 }
 
 // MENUBUTTON
+/// Executes `buttonMenuDecoration` behavior for this component/composite.
 Decoration buttonMenuDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return const BoxDecoration();
   }
   if (states.contains(WidgetState.focused) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.hovered) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.accent,
@@ -89,6 +99,7 @@ Decoration buttonMenuDecoration(BuildContext context, Set<WidgetState> states) {
   return const BoxDecoration();
 }
 
+/// Executes `buttonMenuTextStyle` behavior for this component/composite.
 TextStyle buttonMenuTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
@@ -101,8 +112,10 @@ TextStyle buttonMenuTextStyle(BuildContext context, Set<WidgetState> states) {
   );
 }
 
+/// Executes `buttonMenuPadding` behavior for this component/composite.
 EdgeInsets buttonMenuPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   final menuGroupData = Data.maybeOf<MenuGroupData>(context);
   if (menuGroupData != null && menuGroupData.direction == Axis.horizontal) {
@@ -119,8 +132,10 @@ EdgeInsets buttonMenuPadding(BuildContext context, Set<WidgetState> states) {
   );
 }
 
+/// Executes `buttonMenubarPadding` behavior for this component/composite.
 EdgeInsets buttonMenubarPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   return EdgeInsets.symmetric(
     horizontal: theme.density.baseContentPadding * scaling * 0.75,
@@ -303,6 +318,7 @@ Decoration buttonGhostDecoration(
   );
 }
 
+/// Executes `buttonGhostTextStyle` behavior for this component/composite.
 TextStyle buttonGhostTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small
@@ -326,6 +342,7 @@ IconThemeData buttonGhostIconTheme(
   );
 }
 
+/// Executes `buttonMutedTextStyle` behavior for this component/composite.
 TextStyle buttonMutedTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small
@@ -341,11 +358,13 @@ IconThemeData buttonMutedIconTheme(
   return IconThemeData(color: themeData.colorScheme.mutedForeground);
 }
 
+/// Executes `buttonLinkDecoration` behavior for this component/composite.
 Decoration buttonLinkDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return BoxDecoration(borderRadius: BorderRadius.circular(themeData.radiusMd));
 }
 
+/// Executes `buttonLinkTextStyle` behavior for this component/composite.
 TextStyle buttonLinkTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small
@@ -372,11 +391,13 @@ IconThemeData buttonLinkIconTheme(
   );
 }
 
+/// Executes `buttonTextDecoration` behavior for this component/composite.
 Decoration buttonTextDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return BoxDecoration(borderRadius: BorderRadius.circular(themeData.radiusMd));
 }
 
+/// Executes `buttonTextTextStyle` behavior for this component/composite.
 TextStyle buttonTextTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small
@@ -451,6 +472,7 @@ IconThemeData buttonDestructiveIconTheme(
 }
 
 // STATIC BUTTON
+/// Executes `buttonStaticTextStyle` behavior for this component/composite.
 TextStyle buttonStaticTextStyle(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
   return theme.typography.small

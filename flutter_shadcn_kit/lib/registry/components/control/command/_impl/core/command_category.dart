@@ -16,6 +16,7 @@ class CommandCategory extends StatelessWidget {
   final Widget? title;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Column(

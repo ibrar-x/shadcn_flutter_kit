@@ -5,15 +5,23 @@ import '../../../../../shared/utils/style_value.dart';
 import '../themes/hover_theme.dart';
 import '../core/hover_widget.dart';
 
+/// HoverState defines a reusable type for this registry module.
 class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+/// Stores `_enterTime` state/configuration for this implementation.
   int? _enterTime;
+/// Stores `_waitDur` state/configuration for this implementation.
   late Duration _waitDur;
+/// Stores `_minDur` state/configuration for this implementation.
   late Duration _minDur;
+/// Stores `_showDur` state/configuration for this implementation.
   late Duration _showDur;
+/// Stores `_behavior` state/configuration for this implementation.
   late HitTestBehavior _behavior;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _waitDur = widget.waitDuration ?? const Duration(milliseconds: 500);
@@ -23,13 +31,17 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
     _controller.addStatusListener(_onStatusChanged);
   }
 
+/// Executes `_onEnter` behavior for this component/composite.
   void _onEnter() {
     _enterTime = DateTime.now().millisecondsSinceEpoch;
     _controller.forward();
   }
 
+/// Executes `_onExit` behavior for this component/composite.
   void _onExit(bool cursorOut) {
+/// Stores `minDuration` state/configuration for this implementation.
     int minDuration = _minDur.inMilliseconds;
+/// Stores `enterTime` state/configuration for this implementation.
     int? enterTime = _enterTime;
     if (enterTime != null) {
       int duration = DateTime.now().millisecondsSinceEpoch - enterTime;
@@ -41,6 +53,7 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
     _enterTime = null;
   }
 
+/// Executes `_onStatusChanged` behavior for this component/composite.
   void _onStatusChanged(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
       widget.onHover(true);
@@ -50,12 +63,14 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);

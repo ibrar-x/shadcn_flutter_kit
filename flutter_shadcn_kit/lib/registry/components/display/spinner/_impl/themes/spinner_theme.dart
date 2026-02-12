@@ -2,9 +2,13 @@ part of '../../spinner.dart';
 
 /// Theme data for [Spinner].
 class SpinnerTheme extends ComponentThemeData {
+  /// Color value used by spinner painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects spinner rendering.
   final double? size;
 
+  /// Creates `SpinnerTheme` for configuring or rendering spinner.
   const SpinnerTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -23,12 +27,14 @@ class SpinnerTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two spinner values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is SpinnerTheme && other.color == color && other.size == size;
   }
 
+  /// State flag that toggles specific spinner behavior.
   @override
   int get hashCode => Object.hash(color, size);
 }

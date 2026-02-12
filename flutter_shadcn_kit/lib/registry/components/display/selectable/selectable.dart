@@ -116,6 +116,7 @@ class SelectableTextTheme extends ComponentThemeData {
     enableInteractiveSelection,
   );
 
+  /// Compares two selectable values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -129,6 +130,7 @@ class SelectableTextTheme extends ComponentThemeData {
         other.enableInteractiveSelection == enableInteractiveSelection;
   }
 
+  /// Returns a debug string for this selectable value.
   @override
   String toString() {
     return 'SelectableTextTheme(cursorWidth: $cursorWidth, cursorHeight: $cursorHeight, cursorRadius: $cursorRadius, cursorColor: $cursorColor, selectionHeightStyle: $selectionHeightStyle, selectionWidthStyle: $selectionWidthStyle, enableInteractiveSelection: $enableInteractiveSelection)';

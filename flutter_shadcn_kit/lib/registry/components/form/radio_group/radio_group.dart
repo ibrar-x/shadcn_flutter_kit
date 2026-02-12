@@ -50,6 +50,7 @@ class RadioGroup<T> extends StatefulWidget {
     this.enabled,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   RadioGroupState<T> createState() => RadioGroupState<T>();
 }

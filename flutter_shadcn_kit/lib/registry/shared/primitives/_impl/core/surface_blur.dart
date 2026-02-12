@@ -1,5 +1,6 @@
 part of '../../outlined_container.dart';
 
+/// SurfaceBlur defines a reusable type for this registry module.
 class SurfaceBlur extends StatefulWidget {
   /// The child widget to display with blurred background.
   final Widget child;
@@ -10,6 +11,7 @@ class SurfaceBlur extends StatefulWidget {
   /// Border radius for clipping the blur effect.
   final BorderRadiusGeometry? borderRadius;
 
+/// Creates a `SurfaceBlur` instance.
   const SurfaceBlur({
     super.key,
     required this.child,
@@ -18,5 +20,6 @@ class SurfaceBlur extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SurfaceBlur> createState() => _SurfaceBlurState();
 }

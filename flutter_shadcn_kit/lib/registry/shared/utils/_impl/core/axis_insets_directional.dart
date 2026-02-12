@@ -19,6 +19,7 @@ class AxisInsetsDirectional extends AxisInsetsGeometry {
   const AxisInsetsDirectional({required this.start, required this.end});
 
   @override
+/// Executes `resolve` behavior for this component/composite.
   AxisInsets resolve(TextDirection textDirection) {
     return AxisInsets._(start, end, textDirection);
   }

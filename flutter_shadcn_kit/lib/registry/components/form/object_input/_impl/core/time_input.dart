@@ -40,12 +40,19 @@ part of '../../object_input.dart';
 /// )
 /// ```
 class TimeInput extends StatefulWidget with ControlledComponent<TimeOfDay?> {
+  /// Current value stored for `initialValue`.
   @override
   final TimeOfDay? initialValue;
+
+  /// Callback invoked for `onChanged` events.
   @override
   final ValueChanged<TimeOfDay?>? onChanged;
+
+  /// Field storing `enabled` for this form implementation.
   @override
   final bool enabled;
+
+  /// Controller used to coordinate `controller` behavior.
   @override
   final ComponentController<TimeOfDay?>? controller;
 
@@ -102,6 +109,7 @@ class TimeInput extends StatefulWidget with ControlledComponent<TimeOfDay?> {
     this.placeholders,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<TimeInput> createState() => _TimeInputState();
 }

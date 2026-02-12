@@ -1,14 +1,22 @@
 part of '../../preview.dart';
 
+/// _NavigationBarPreviewState defines a reusable type for this registry module.
 class _NavigationBarPreviewState extends State<NavigationBarPreview> {
+/// Stores `selected` state/configuration for this implementation.
   int selected = 0;
 
+/// Stores `alignment` state/configuration for this implementation.
   NavigationBarAlignment alignment = NavigationBarAlignment.spaceAround;
+/// Stores `expands` state/configuration for this implementation.
   bool expands = true;
+/// Stores `labelType` state/configuration for this implementation.
   NavigationLabelType labelType = NavigationLabelType.none;
+/// Stores `customButtonStyle` state/configuration for this implementation.
   bool customButtonStyle = true;
+/// Stores `expanded` state/configuration for this implementation.
   bool expanded = true;
 
+/// Executes `buildButton` behavior for this component/composite.
   NavigationItem buildButton(String label, IconData icon) {
     return NavigationItem(
       style: customButtonStyle
@@ -27,29 +35,38 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return OutlinedContainer(
       width: 500,
       height: 400,
       child: shadcn_scaffold.Scaffold(
         footers: [
+/// Creates a `Divider` instance.
           const Divider(),
+/// Creates a `NavigationBar` instance.
           NavigationBar(
             alignment: alignment,
             labelType: labelType,
             expanded: expanded,
             expands: expands,
             onSelected: (index) {
+/// Creates a `setState` instance.
               setState(() {
                 selected = index;
               });
             },
             index: selected,
             children: [
+/// Creates a `buildButton` instance.
               buildButton('Home', Icons.home_outlined),
+/// Creates a `buildButton` instance.
               buildButton('Explore', Icons.explore_outlined),
+/// Creates a `buildButton` instance.
               buildButton('Library', Icons.library_music_outlined),
+/// Creates a `buildButton` instance.
               buildButton('Profile', Icons.person_outline),
+/// Creates a `buildButton` instance.
               buildButton('App', Icons.apps_outlined),
             ],
           ),
@@ -74,6 +91,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
+/// Creates a `setState` instance.
                       setState(() {
                         alignment = value;
                       });
@@ -83,6 +101,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     items: SelectItemList(
                       children: [
                         for (var value in NavigationBarAlignment.values)
+/// Creates a `SelectItemButton` instance.
                           SelectItemButton(
                             value: value,
                             child: Text(value.name),
@@ -100,6 +119,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                   popupWidthConstraint: PopoverConstraint.anchorFixedSize,
                   onChanged: (value) {
                     if (value != null) {
+/// Creates a `setState` instance.
                       setState(() {
                         labelType = value;
                       });
@@ -109,6 +129,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     items: SelectItemList(
                       children: [
                         for (var value in NavigationLabelType.values)
+/// Creates a `SelectItemButton` instance.
                           SelectItemButton(
                             value: value,
                             child: Text(value.name),
@@ -117,33 +138,39 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     ),
                   ).call,
                 ),
+/// Creates a `Checkbox` instance.
                 Checkbox(
                   state: expands
                       ? CheckboxState.checked
                       : CheckboxState.unchecked,
                   onChanged: (value) {
+/// Creates a `setState` instance.
                     setState(() {
                       expands = value == CheckboxState.checked;
                     });
                   },
                   trailing: const Text('Expands'),
                 ),
+/// Creates a `Checkbox` instance.
                 Checkbox(
                   state: customButtonStyle
                       ? CheckboxState.checked
                       : CheckboxState.unchecked,
                   onChanged: (value) {
+/// Creates a `setState` instance.
                     setState(() {
                       customButtonStyle = value == CheckboxState.checked;
                     });
                   },
                   trailing: const Text('Custom Button Style'),
                 ),
+/// Creates a `Checkbox` instance.
                 Checkbox(
                   state: expanded
                       ? CheckboxState.checked
                       : CheckboxState.unchecked,
                   onChanged: (value) {
+/// Creates a `setState` instance.
                     setState(() {
                       expanded = value == CheckboxState.checked;
                     });

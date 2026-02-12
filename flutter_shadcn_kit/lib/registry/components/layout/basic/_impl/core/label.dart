@@ -1,5 +1,6 @@
 part of '../../basic.dart';
 
+/// Label defines a reusable type for this registry module.
 class Label extends StatelessWidget {
   /// Optional leading widget displayed before the label.
   final Widget? leading;
@@ -19,8 +20,10 @@ class Label extends StatelessWidget {
   const Label({super.key, this.leading, required this.child, this.trailing});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return IntrinsicWidth(
       child: Row(
@@ -30,8 +33,10 @@ class Label extends StatelessWidget {
         children: [
           if (leading != null) leading!,
           if (leading != null) SizedBox(width: theme.density.baseGap * scaling),
+/// Creates a `Expanded` instance.
           Expanded(child: child),
           if (trailing != null)
+/// Creates a `SizedBox` instance.
             SizedBox(width: theme.density.baseGap * scaling),
           if (trailing != null) trailing!,
         ],

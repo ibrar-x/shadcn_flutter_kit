@@ -55,11 +55,13 @@ class ConditionalValidator<T> extends Validator<T> {
     return null;
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     return dependencies.contains(source);
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is ConditionalValidator &&

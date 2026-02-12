@@ -93,6 +93,7 @@ class Radio extends StatelessWidget {
     this.backgroundColor,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

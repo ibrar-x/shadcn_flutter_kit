@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "item_picker",
   "name": "Item Picker",
@@ -27,8 +26,8 @@
       "`value`, `onChanged`",
       "`layout` (`ItemPickerLayout?`)",
       "`mode` (`PromptMode?`), `title`, `constraints`, `placeholder`",
-      "`ItemList<T>` / `ItemBuilder<T>` — delegates for item sources.",
-      "`ItemPickerLayout` — `grid` or `list`."
+      "`ItemList<T>` / `ItemBuilder<T>` \u2014 delegates for item sources.",
+      "`ItemPickerLayout` \u2014 `grid` or `list`."
     ],
     "callbacks": []
   },

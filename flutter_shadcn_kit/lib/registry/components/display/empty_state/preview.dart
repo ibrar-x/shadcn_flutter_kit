@@ -5,9 +5,11 @@ import '../../../shared/icons/radix_icons.dart';
 import '../../../shared/theme/theme.dart';
 import 'empty_state.dart';
 
+/// Core class used by the empty state component.
 class EmptyStatePreview extends StatelessWidget {
   const EmptyStatePreview({super.key});
 
+  /// Builds the widget tree for empty state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +17,7 @@ class EmptyStatePreview extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final theme = Theme.of(context);
+
           final scaling = theme.scaling;
           final sectionStyle = theme.typography.medium.merge(
             theme.typography.semiBold,
@@ -23,15 +26,21 @@ class EmptyStatePreview extends StatelessWidget {
             padding: EdgeInsets.all(24 * scaling),
             children: [
               Text('Simple (No Actions)', style: sectionStyle),
+
               const DensityGap(gapMd),
+
               const EmptyState(
                 icon: Icon(RadixIcons.archive),
                 title: Text('Nothing Here Yet'),
                 description: Text('Create your first item to get started.'),
               ),
+
               const DensityGap(gap2xl),
+
               Text('Compact Card', style: sectionStyle),
+
               const DensityGap(gapMd),
+
               const EmptyState(
                 size: EmptyStateSize.compact,
                 icon: Icon(RadixIcons.magnifyingGlass),
@@ -41,9 +50,13 @@ class EmptyStatePreview extends StatelessWidget {
                 ),
                 showIconContainer: false,
               ),
+
               const DensityGap(gap2xl),
+
               Text('Single Action', style: sectionStyle),
+
               const DensityGap(gapMd),
+
               const EmptyState(
                 variant: EmptyStateVariant.errorFallback,
                 title: Text('Something Went Wrong'),
@@ -52,9 +65,13 @@ class EmptyStatePreview extends StatelessWidget {
                 ),
                 primaryAction: EmptyStateAction(label: 'Retry'),
               ),
+
               const DensityGap(gap2xl),
+
               Text('Two Actions', style: sectionStyle),
+
               const DensityGap(gapMd),
+
               const EmptyState(
                 icon: Icon(RadixIcons.upload),
                 title: Text('No Files Uploaded'),
@@ -67,9 +84,13 @@ class EmptyStatePreview extends StatelessWidget {
                   style: EmptyStateActionStyle.secondary,
                 ),
               ),
+
               const DensityGap(gap2xl),
+
               Text('Complex / Product Empty Screen', style: sectionStyle),
+
               const DensityGap(gapMd),
+
               const EmptyState(
                 icon: Icon(RadixIcons.filePlus),
                 title: Text('No Projects Yet'),

@@ -71,6 +71,7 @@ class MultipleChoice<T> extends StatefulWidget {
     this.allowUnselect,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<MultipleChoice<T>> createState() => _MultipleChoiceState<T>();
 }

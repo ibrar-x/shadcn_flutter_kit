@@ -8,6 +8,7 @@ import '../styles/button_style_class.dart';
 import '../variants/button_variance_class.dart';
 import 'button_widget.dart';
 
+/// IconButton defines a reusable type for this registry module.
 class IconButton extends StatelessWidget {
   /// The icon widget to display in the button.
   final Widget icon;
@@ -380,6 +381,7 @@ class IconButton extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       onPressed: onPressed,

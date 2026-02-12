@@ -8,19 +8,25 @@ import '../../../../../shared/icons/radix_icons.dart';
 import '../../../../../shared/theme/theme.dart';
 import '../themes/error_system_theme.dart';
 
+/// InlineError defines a reusable type for this registry module.
 class InlineError extends StatelessWidget {
   const InlineError({super.key, required this.message, this.icon});
 
+/// Stores `message` state/configuration for this implementation.
   final String message;
+/// Stores `icon` state/configuration for this implementation.
   final Widget? icon;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
     final resolvedIcon =
         icon ??
+/// Creates a `Icon` instance.
         Icon(
           RadixIcons.infoCircled,
           size: compTheme?.iconSize ?? 16 * scaling,
@@ -34,7 +40,9 @@ class InlineError extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         resolvedIcon,
+/// Creates a `DensityGap` instance.
         DensityGap(gapSm),
+/// Creates a `Expanded` instance.
         Expanded(
           child: DefaultTextStyle.merge(
             style: messageStyle,

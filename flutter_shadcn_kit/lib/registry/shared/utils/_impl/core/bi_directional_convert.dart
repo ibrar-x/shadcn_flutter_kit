@@ -3,6 +3,7 @@ part of '../../util.dart';
 /// Function type for converting from type [F] to type [T].
 typedef Convert<F, T> = T Function(F value);
 
+/// BiDirectionalConvert defines a reusable type for this registry module.
 class BiDirectionalConvert<A, B> {
   /// Converts from A to B.
   final Convert<A, B> aToB;
@@ -20,11 +21,13 @@ class BiDirectionalConvert<A, B> {
   A convertB(B value) => bToA(value);
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'BiDirectionalConvert($aToB, $bToA)';
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is BiDirectionalConvert<A, B> &&

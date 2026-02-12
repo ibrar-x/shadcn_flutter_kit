@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationItem defines a reusable type for this registry module.
 class NavigationItem extends AbstractNavigationButton {
   /// Custom style when item is selected.
   final AbstractButtonStyle? selectedStyle;
@@ -52,5 +53,6 @@ class NavigationItem extends AbstractNavigationButton {
   }
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AbstractNavigationButton> createState() => _NavigationItemState();
 }

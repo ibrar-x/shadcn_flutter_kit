@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// OverlayBarrier defines a reusable type for this registry module.
 class OverlayBarrier {
   /// Padding around the barrier.
   final EdgeInsetsGeometry padding;

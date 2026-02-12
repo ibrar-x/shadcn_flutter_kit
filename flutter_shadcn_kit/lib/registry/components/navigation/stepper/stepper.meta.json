@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "stepper",
   "name": "Stepper",
@@ -24,11 +23,11 @@
       "`steps` (`List<Step>`, required)",
       "`controller` (`StepperController?`)",
       "`direction`, `variant`, `size`",
-      "`Step` — step definition with title and optional content.",
-      "`StepperController` — controls current step.",
-      "`StepVariant` — visual variants.",
-      "`StepSize` — size presets.",
-      "`StepState` — e.g. `failed`."
+      "`Step` \u2014 step definition with title and optional content.",
+      "`StepperController` \u2014 controls current step.",
+      "`StepVariant` \u2014 visual variants.",
+      "`StepSize` \u2014 size presets.",
+      "`StepState` \u2014 e.g. `failed`."
     ],
     "callbacks": []
   },

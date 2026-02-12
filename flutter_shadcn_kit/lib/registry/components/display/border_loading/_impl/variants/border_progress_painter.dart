@@ -122,6 +122,7 @@ class _BorderProgressPainter extends CustomPainter {
     var remaining = length;
     for (final metric in metrics) {
       if (remaining <= 0) break;
+
       final slice = math.min(metric.length, remaining);
       if (slice > 0) {
         path.addPath(metric.extractPath(0, slice), Offset.zero);

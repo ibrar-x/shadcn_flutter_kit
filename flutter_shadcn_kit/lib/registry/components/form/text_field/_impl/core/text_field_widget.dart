@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// TextField represents a form-related type in the registry.
 class TextField extends TextInputStatefulWidget {
   /// Returns a native platform context menu builder.
   ///
@@ -204,9 +205,11 @@ class TextField extends TextInputStatefulWidget {
     );
   }
 
+  /// Creates the `State` object for this widget.
   @override
   State<TextField> createState() => TextFieldState();
 
+  /// Performs `debugFillProperties` logic for this form component.
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);

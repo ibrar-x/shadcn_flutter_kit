@@ -1,11 +1,16 @@
 part of '../../text.dart';
 
+/// Internal helper class used by the text component implementation.
 class _RichTextThenWidget extends StatelessWidget {
+  /// Data consumed by `_RichTextThenWidget` to render text content.
   final RichText text;
+
+  /// Input parameter used by `_RichTextThenWidget` during rendering and behavior handling.
   final List<InlineSpan> then;
 
   const _RichTextThenWidget({required this.text, required this.then});
 
+  /// Builds the widget tree for text.
   @override
   Widget build(BuildContext context) {
     return RichText(

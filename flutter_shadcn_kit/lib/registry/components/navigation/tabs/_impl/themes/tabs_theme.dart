@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabsTheme defines a reusable type for this registry module.
 class TabsTheme extends ComponentThemeData {
   /// Padding around the entire tabs container.
   ///
@@ -69,6 +70,7 @@ class TabsTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is TabsTheme &&

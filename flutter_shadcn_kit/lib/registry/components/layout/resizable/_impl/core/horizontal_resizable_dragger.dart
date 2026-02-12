@@ -1,12 +1,15 @@
 part of '../../resizable.dart';
 
+/// HorizontalResizableDragger defines a reusable type for this registry module.
 class HorizontalResizableDragger extends StatelessWidget {
   /// Creates a [HorizontalResizableDragger].
   const HorizontalResizableDragger({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ResizableDraggerTheme>(context);
     final color = styleValue(

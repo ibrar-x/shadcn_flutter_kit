@@ -6,6 +6,7 @@ import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
 
+/// CardButton defines a reusable type for this registry module.
 class CardButton extends StatelessWidget {
   /// The primary content displayed within the card button.
   ///
@@ -196,6 +197,7 @@ class CardButton extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       onPressed: onPressed,

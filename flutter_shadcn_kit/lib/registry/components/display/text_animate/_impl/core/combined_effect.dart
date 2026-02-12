@@ -77,6 +77,7 @@ class CombinedEffect extends StreamingTextEffectAdapter
     return current;
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

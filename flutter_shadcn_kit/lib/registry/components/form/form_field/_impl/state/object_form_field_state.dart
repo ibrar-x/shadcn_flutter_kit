@@ -9,6 +9,7 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     with FormValueSupplier<T, ObjectFormField<T>> {
   final PopoverController _popoverController = PopoverController();
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -29,11 +30,13 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     formValue = value;
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(T value) {
     widget.onChanged?.call(value);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant ObjectFormField<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -47,12 +50,14 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
   /// Returns true if explicitly enabled or if an `onChanged` callback exists.
   bool get enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _popoverController.dispose();
     super.dispose();
   }
 
+  /// Performs `_showDialog` logic for this form component.
   void _showDialog([T? value]) {
     value ??= formValue;
     showDialog(
@@ -85,6 +90,7 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     });
   }
 
+  /// Performs `_showPopover` logic for this form component.
   void _showPopover([T? value]) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
@@ -146,6 +152,7 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     }
   }
 
+  /// Performs `_decorateIcon` logic for this form component.
   Widget? _decorateIcon(Widget? icon) {
     if (icon == null) {
       return null;
@@ -157,6 +164,7 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final size = widget.size ?? ButtonSize.normal;

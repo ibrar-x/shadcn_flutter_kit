@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "patch",
   "name": "Click Detector",
@@ -33,7 +32,7 @@
       "`threshold` (`Duration`, default: `300ms`)"
     ],
     "callbacks": [
-      "`onClick` — receives `ClickDetails` with `clickCount`."
+      "`onClick` \u2014 receives `ClickDetails` with `clickCount`."
     ]
   },
   "theming": [

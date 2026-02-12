@@ -143,6 +143,7 @@ class Slider extends StatefulWidget {
     this.enabled = true,
   }) : assert(min <= max);
 
+  /// Creates the `State` object for this widget.
   @override
   State<Slider> createState() => _SliderState();
 }

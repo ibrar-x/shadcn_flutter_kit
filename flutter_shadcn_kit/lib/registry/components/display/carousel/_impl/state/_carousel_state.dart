@@ -1,20 +1,27 @@
 part of '../../carousel.dart';
 
+/// _CarouselState holds mutable state for the carousel implementation.
 class _CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   late CarouselController _controller;
+
   Duration? _startTime;
+
   late Ticker _ticker;
+
   bool hovered = false;
+
   bool dragging = false;
 
   late double _lastDragValue;
+
   double _dragVelocity = 0;
 
   late int _currentIndex;
 
   CarouselTheme? _theme;
 
+  /// Recomputes derived values when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -79,6 +86,7 @@ class _CarouselState extends State<Carousel>
     return duration;
   }
 
+  /// Initializes controllers and listeners required by carousel.
   @override
   void initState() {
     super.initState();
@@ -89,6 +97,7 @@ class _CarouselState extends State<Carousel>
     _dispatchControllerChange();
   }
 
+  /// Implements `_check` behavior for carousel.
   void _check() {
     bool shouldStart = false;
     if (_controller.shouldAnimate) {
@@ -122,11 +131,15 @@ class _CarouselState extends State<Carousel>
   }
 
   Duration? _lastTime;
+
+  /// Implements `_tick` behavior for carousel.
   void _tick(Duration elapsed) {
     Duration delta = _lastTime == null ? Duration.zero : elapsed - _lastTime!;
     _lastTime = elapsed;
+
     int deltaMillis = delta.inMilliseconds;
     _controller.tick(delta);
+
     bool shouldAutoPlay = false;
     if (_currentSlideDuration != null) {
       if (_startTime == null) {
@@ -186,6 +199,7 @@ class _CarouselState extends State<Carousel>
     _check();
   }
 
+  /// Updates internal state when carousel configuration changes.
   @override
   void didUpdateWidget(covariant Carousel oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -197,7 +211,9 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Implements `_onControllerChange` behavior for carousel.
   void _onControllerChange() {
+    /// Implements `setState` behavior for carousel.
     setState(() {});
     if (!_wrap && widget.itemCount != null) {
       if (_controller.value < 0) {
@@ -209,6 +225,7 @@ class _CarouselState extends State<Carousel>
     _dispatchControllerChange();
   }
 
+  /// Implements `_dispatchControllerChange` behavior for carousel.
   void _dispatchControllerChange() {
     _check();
     int index = _controller.getCurrentIndex(widget.itemCount).round();
@@ -218,6 +235,7 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Disposes resources allocated by this carousel state.
   @override
   void dispose() {
     _controller.removeListener(_onControllerChange);
@@ -225,6 +243,7 @@ class _CarouselState extends State<Carousel>
     super.dispose();
   }
 
+  /// Builds the widget tree for carousel.
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -285,6 +304,7 @@ class _CarouselState extends State<Carousel>
       },
       onHorizontalDragUpdate: (details) {
         if (_draggable) {
+          /// Implements `setState` behavior for carousel.
           setState(() {
             var increment = -details.primaryDelta! / size;
             _controller.jumpTo(progressedValue + increment);
@@ -329,6 +349,7 @@ class _CarouselState extends State<Carousel>
       },
       onVerticalDragUpdate: (details) {
         if (_draggable) {
+          /// Implements `setState` behavior for carousel.
           setState(() {
             var increment = -details.primaryDelta! / size;
             _controller.jumpTo(progressedValue + increment);
@@ -356,6 +377,7 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Implements `buildCarousel` behavior for carousel.
   Widget buildCarousel(BuildContext context, BoxConstraints constraints) {
     return Stack(
       children: widget.transition.layout(

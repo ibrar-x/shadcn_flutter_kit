@@ -12,8 +12,8 @@ part of '../../item_picker.dart';
 /// )
 /// ```
 class ItemBuilder<T> extends ItemChildDelegate<T> {
-  @override
   /// The total number of items, or null if infinite.
+  @override
   final int? itemCount;
 
   /// Builder function that returns an item for the given index.
@@ -26,6 +26,7 @@ class ItemBuilder<T> extends ItemChildDelegate<T> {
   /// - [itemBuilder] (`T? Function(int)`, required): Function to build items.
   const ItemBuilder({this.itemCount, required this.itemBuilder});
 
+  /// Performs `operator []` logic for this form component.
   @override
   T? operator [](int index) => itemBuilder(index);
 }

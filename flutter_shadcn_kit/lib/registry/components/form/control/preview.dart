@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../control/control.dart';
 
+/// ControlPreview represents a form-related type in the registry.
 class ControlPreview extends StatelessWidget {
   const ControlPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

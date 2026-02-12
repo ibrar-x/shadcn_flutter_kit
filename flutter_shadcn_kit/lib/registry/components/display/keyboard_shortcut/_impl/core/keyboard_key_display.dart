@@ -19,6 +19,7 @@ class KeyboardKeyDisplay extends StatelessWidget {
     this.boxShadow,
   });
 
+  /// Builds the widget tree for keyboard shortcut.
   @override
   Widget build(BuildContext context) {
     final displayMapper = Data.of<KeyboardShortcutDisplayHandle>(context);

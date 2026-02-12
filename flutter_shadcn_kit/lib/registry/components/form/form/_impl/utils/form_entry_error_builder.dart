@@ -26,6 +26,7 @@ class FormEntryErrorBuilder extends StatelessWidget {
     this.modes,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final formController = Data.maybeOf<FormFieldHandle>(context);

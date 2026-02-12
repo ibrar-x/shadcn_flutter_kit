@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// ModalBackdropTheme defines a reusable type for this registry module.
 class ModalBackdropTheme extends ComponentThemeData {
   /// Border radius applied to the modal surface.
   final BorderRadiusGeometry? borderRadius;
@@ -78,6 +79,7 @@ class ModalBackdropTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is ModalBackdropTheme &&
         other.borderRadius == borderRadius &&

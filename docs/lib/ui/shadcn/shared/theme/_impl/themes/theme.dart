@@ -20,7 +20,39 @@ class Theme extends InheritedTheme {
   /// Returns: `ThemeData` — the theme data.
   static ThemeData of(BuildContext context) {
     final theme = context.dependOnInheritedWidgetOfExactType<Theme>();
-    return theme?.data ?? const ThemeData();
+    final data = theme?.data ?? const ThemeData();
+    return _ensureReadableDarkTheme(data);
+  }
+
+  static ThemeData _ensureReadableDarkTheme(ThemeData data) {
+    final scheme = data.colorScheme;
+    if (scheme.brightness != Brightness.dark) {
+      return data;
+    }
+    if (scheme.background.computeLuminance() >= 0.5) {
+      return data;
+    }
+
+    const defaults = ColorSchemes.darkDefaultColor;
+    Color readable(Color color, Color fallback, double minLuminance) {
+      return color.computeLuminance() < minLuminance ? fallback : color;
+    }
+
+    final normalized = scheme.copyWith(
+      foreground: () => readable(scheme.foreground, defaults.foreground, 0.5),
+      mutedForeground: () =>
+          readable(scheme.mutedForeground, defaults.mutedForeground, 0.35),
+      cardForeground: () =>
+          readable(scheme.cardForeground, defaults.cardForeground, 0.45),
+      popoverForeground: () =>
+          readable(scheme.popoverForeground, defaults.popoverForeground, 0.45),
+      sidebarForeground: () =>
+          readable(scheme.sidebarForeground, defaults.sidebarForeground, 0.45),
+    );
+    if (normalized == scheme) {
+      return data;
+    }
+    return data.copyWith(colorScheme: () => normalized);
   }
 
   @override

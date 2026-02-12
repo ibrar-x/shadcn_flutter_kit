@@ -1,15 +1,25 @@
 part of '../../hidden.dart';
 
+/// Hidden defines a reusable type for this registry module.
 class Hidden extends StatelessWidget {
+/// Stores `hidden` state/configuration for this implementation.
   final bool hidden;
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `direction` state/configuration for this implementation.
   final Axis? direction;
+/// Stores `reverse` state/configuration for this implementation.
   final bool? reverse;
+/// Stores `duration` state/configuration for this implementation.
   final Duration? duration;
+/// Stores `curve` state/configuration for this implementation.
   final Curve? curve;
+/// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool? keepCrossAxisSize;
+/// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool? keepMainAxisSize;
 
+/// Creates a `Hidden` instance.
   const Hidden({
     super.key,
     required this.hidden,
@@ -23,6 +33,7 @@ class Hidden extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final textDirection = Directionality.of(context);
     final compTheme = ComponentTheme.maybeOf<HiddenTheme>(context);

@@ -12,9 +12,11 @@ import '../file_input/file_input.dart';
 
 part '_impl/state/_file_picker_preview_state.dart';
 
+/// FilePickerPreview represents a form-related type in the registry.
 class FilePickerPreview extends StatefulWidget {
   const FilePickerPreview({super.key});
 
+  /// Creates the `State` object for this widget.
   @override
   State<FilePickerPreview> createState() => _FilePickerPreviewState();
 }

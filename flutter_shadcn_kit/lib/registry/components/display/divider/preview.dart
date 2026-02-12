@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart' hide Divider;
 import '../divider/divider.dart';
 
+/// Core class used by the divider component.
 class DividerPreview extends StatelessWidget {
   const DividerPreview({super.key});
 
+  /// Builds the widget tree for divider.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +16,13 @@ class DividerPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text('Item 1'),
+
               const Divider(),
+
               const Text('Item 2'),
+
               const Divider(),
+
               const Text('Item 3'),
             ],
           ),

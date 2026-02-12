@@ -2,15 +2,24 @@ part of '../../tooltip.dart';
 
 /// Tooltip that appears after a hover delay.
 
+/// Tooltip defines a reusable type for this registry module.
 class Tooltip extends StatefulWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `tooltip` state/configuration for this implementation.
   final WidgetBuilder tooltip;
+/// Stores `alignment` state/configuration for this implementation.
   final AlignmentGeometry alignment;
+/// Stores `anchorAlignment` state/configuration for this implementation.
   final AlignmentGeometry anchorAlignment;
+/// Stores `waitDuration` state/configuration for this implementation.
   final Duration waitDuration;
+/// Stores `showDuration` state/configuration for this implementation.
   final Duration showDuration;
+/// Stores `minDuration` state/configuration for this implementation.
   final Duration minDuration;
 
+/// Creates a `Tooltip` instance.
   const Tooltip({
     super.key,
     required this.child,
@@ -23,5 +32,6 @@ class Tooltip extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Tooltip> createState() => _TooltipState();
 }

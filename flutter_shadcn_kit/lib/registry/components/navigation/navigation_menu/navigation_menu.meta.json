@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "navigation_menu",
   "name": "Navigation Menu",
@@ -23,10 +22,10 @@
       "`NavigationMenu`",
       "`children` (`List<Widget>`, required)",
       "`surfaceOpacity`, `surfaceBlur`, `margin`, `offset`",
-      "`NavigationMenuItem` — item with optional `content`.",
-      "`NavigationMenuContent` — content entry.",
-      "`NavigationMenuContentList` — grid/list of contents.",
-      "`NavigationMenuTheme` — surface styling."
+      "`NavigationMenuItem` \u2014 item with optional `content`.",
+      "`NavigationMenuContent` \u2014 content entry.",
+      "`NavigationMenuContentList` \u2014 grid/list of contents.",
+      "`NavigationMenuTheme` \u2014 surface styling."
     ],
     "callbacks": []
   },

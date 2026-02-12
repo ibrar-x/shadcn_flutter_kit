@@ -165,6 +165,7 @@ class StarRating extends StatefulWidget {
     this.enabled,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<StarRating> createState() => _StarRatingState();
 }

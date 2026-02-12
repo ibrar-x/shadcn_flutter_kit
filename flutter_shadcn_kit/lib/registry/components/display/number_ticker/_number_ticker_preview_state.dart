@@ -1,16 +1,24 @@
 part of 'preview.dart';
 
+/// _NumberTickerPreviewState holds mutable state for the number ticker implementation.
 class _NumberTickerPreviewState extends State<NumberTickerPreview> {
+  /// Input parameter used by `_NumberTickerPreviewState` during rendering and behavior handling.
   int _number = 0;
+
+  /// Input parameter used by `_NumberTickerPreviewState` during rendering and behavior handling.
   int _currentNumber = 100;
+
+  /// Controller dependency used to coordinate number ticker behavior.
   final TextEditingController _controller = TextEditingController();
 
+  /// Disposes resources allocated by this number ticker state.
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  /// Builds the widget tree for number ticker.
   @override
   Widget build(BuildContext context) {
     final random = Random();
@@ -24,7 +32,9 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
               'Example 1',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
+
             const DensityGap(gapSm),
+
             NumberTicker(
               initialNumber: 0,
               number: _number,
@@ -33,27 +43,36 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
                 return NumberFormat.compact().format(number);
               },
             ),
+
             const DensityGap(gap2xl),
+
             TextField(
               initialValue: _number.toString(),
               controller: _controller,
               onEditingComplete: () {
                 final number = int.tryParse(_controller.text);
                 if (number != null) {
+                  /// Implements `setState` behavior for number ticker.
                   setState(() {
                     _number = number;
                   });
                 }
               },
             ),
+
             const DensityGap(gap2xl),
+
             const Divider(),
+
             const DensityGap(gap2xl),
+
             const Text(
               'Example 2',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
+
             const DensityGap(gapSm),
+
             NumberTicker(
               initialNumber: 100,
               number: _currentNumber,
@@ -64,9 +83,12 @@ class _NumberTickerPreviewState extends State<NumberTickerPreview> {
               ),
               formatter: (value) => value.toInt().toString(),
             ),
+
             const DensityGap(gapLg),
+
             ElevatedButton(
               onPressed: () {
+                /// Implements `setState` behavior for number ticker.
                 setState(() {
                   _currentNumber = random.nextInt(9000) + 1000;
                 });

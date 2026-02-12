@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// DialogOverlayHandler defines a reusable type for this registry module.
 class DialogOverlayHandler extends OverlayHandler {
   /// Checks if the current context is within a dialog overlay.
   ///
@@ -58,6 +59,7 @@ class DialogOverlayHandler extends OverlayHandler {
       context: context,
       builder: (context) {
         final theme = Theme.of(context);
+/// Stores `surfaceOpacity` state/configuration for this implementation.
         final surfaceOpacity = theme.surfaceOpacity;
         var child = _DialogOverlayWrapper(
           route: ModalRoute.of(context) as DialogRoute<T>,
@@ -77,6 +79,7 @@ class DialogOverlayHandler extends OverlayHandler {
               padding: overlayBarrier.padding,
               barrierColor:
                   overlayBarrier.barrierColor ??
+/// Creates a `Color.fromRGBO` instance.
                   const Color.fromRGBO(0, 0, 0, 0.8),
               child: child,
             ),

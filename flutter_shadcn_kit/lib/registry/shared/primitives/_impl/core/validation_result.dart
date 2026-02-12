@@ -1,5 +1,6 @@
 part of '../../form_value_supplier.dart';
 
+/// ValidationResult defines a reusable type for this registry module.
 abstract class ValidationResult {
   /// The form validation mode that triggered this result.
   final FormValidationMode state;

@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "slider",
   "name": "Slider",
@@ -26,8 +25,8 @@
       "`onChanged`, `onChangeStart`, `onChangeEnd`",
       "`min`, `max`, `divisions`, `hintValue`",
       "`increaseStep`, `decreaseStep`, `enabled`",
-      "`ControlledSlider` — controller-backed slider.",
-      "`SliderController` — controller for `SliderValue`."
+      "`ControlledSlider` \u2014 controller-backed slider.",
+      "`SliderController` \u2014 controller for `SliderValue`."
     ],
     "callbacks": [
       "`onChanged`, `onChangeStart`, `onChangeEnd`"

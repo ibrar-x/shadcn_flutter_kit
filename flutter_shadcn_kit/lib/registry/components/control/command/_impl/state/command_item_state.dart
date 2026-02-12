@@ -8,8 +8,10 @@ import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/primitives/text.dart';
 import '../core/command_item_widget.dart';
 
+/// CommandItemState defines a reusable type for this registry module.
 class CommandItemState extends State<CommandItem> {
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Actions(
@@ -61,6 +63,7 @@ class CommandItemState extends State<CommandItem> {
                     children: [
                       if (widget.leading != null) widget.leading!,
                       if (widget.leading != null) DensityGap(gapSm),
+/// Creates a `Expanded` instance.
                       Expanded(child: widget.title),
                       if (widget.trailing != null) DensityGap(gapSm),
                       if (widget.trailing != null)

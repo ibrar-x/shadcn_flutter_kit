@@ -178,6 +178,7 @@ class Checkbox extends StatefulWidget {
     this.borderRadius,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<Checkbox> createState() => _CheckboxState();
 }

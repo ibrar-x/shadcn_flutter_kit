@@ -30,11 +30,13 @@ class ChatBubbleData {
     );
   }
 
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatBubbleData(index: $index, length: $length)';
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

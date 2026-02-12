@@ -1,16 +1,21 @@
 part of '../../radio_group.dart';
 
+/// _RadioItemState stores and manages mutable widget state.
 class _RadioItemState<T> extends State<RadioItem<T>> {
+  /// Focus node/reference used by `_focusNode` interactions.
   late FocusNode _focusNode;
 
+  /// Focus node/reference used by `_focusing` interactions.
   bool _focusing = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _focusNode = widget.focusNode ?? FocusNode();
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant RadioItem<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -20,6 +25,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -45,6 +51,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
             group?._setSelected(widget.value);
           }
           if (value != _focusing) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusing = value;
             });

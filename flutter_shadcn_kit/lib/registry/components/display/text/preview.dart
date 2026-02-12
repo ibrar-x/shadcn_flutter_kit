@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../text/text.dart';
 
+/// Core class used by the text component.
 class TextPreview extends StatelessWidget {
   const TextPreview({super.key});
 
+  /// Builds the widget tree for text.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,9 @@ class TextPreview extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Headline').large().semiBold(),
+
             const SizedBox(height: 8),
+
             Text('Supporting copy goes here.').muted().small(),
           ],
         ),

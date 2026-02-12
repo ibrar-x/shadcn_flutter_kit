@@ -1,8 +1,11 @@
 part of '../../file_picker.dart';
 
+/// FileUploadItemsLayout enumerates fixed values used by this implementation.
 enum FileUploadItemsLayout { list, grid }
 
+/// FileUploadItemsView represents a form-related type in the registry.
 class FileUploadItemsView extends StatelessWidget {
+  /// Constructs `FileUploadItemsView` with the provided parameters.
   const FileUploadItemsView({
     super.key,
     required this.items,
@@ -18,18 +21,38 @@ class FileUploadItemsView extends StatelessWidget {
     this.itemBuilder,
   });
 
+  /// Field storing `items` for this form implementation.
   final List<FileUploadItem> items;
+
+  /// Field storing `layout` for this form implementation.
   final FileUploadItemsLayout layout;
+
+  /// Field storing `groupByStatus` for this form implementation.
   final bool groupByStatus;
+
+  /// Field storing `statusLabels` for this form implementation.
   final FileUploadStatusLabels statusLabels;
+
+  /// Field storing `itemLoading` for this form implementation.
   final FileUploadItemLoadingOptions itemLoading;
+
+  /// Field storing `columns` for this form implementation.
   final int columns;
+
+  /// Field storing `gap` for this form implementation.
   final double? gap;
+
+  /// Field storing `padding` for this form implementation.
   final EdgeInsetsGeometry? padding;
+
+  /// Field storing `showContainer` for this form implementation.
   final bool showContainer;
+
+  /// Field storing `maxHeight` for this form implementation.
   final double? maxHeight;
   final Widget Function(BuildContext context, FileUploadItem item)? itemBuilder;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
@@ -67,6 +90,7 @@ class FileUploadItemsView extends StatelessWidget {
     );
   }
 
+  /// Performs `_buildList` logic for this form component.
   Widget _buildList(BuildContext context, double spacing) {
     return Column(
       children: [
@@ -97,6 +121,8 @@ class FileUploadItemsView extends StatelessWidget {
         .toList();
 
     final sections = <Widget>[];
+
+    /// Performs `addSection` logic for this form component.
     void addSection(String label, List<FileUploadItem> group) {
       if (group.isEmpty) return;
       sections.add(
@@ -132,6 +158,7 @@ class FileUploadItemsView extends StatelessWidget {
     );
   }
 
+  /// Performs `_buildGrid` logic for this form component.
   Widget _buildGrid(BuildContext context, double spacing) {
     final columnCount = columns < 1 ? 1 : columns;
     return LayoutBuilder(
@@ -150,6 +177,7 @@ class FileUploadItemsView extends StatelessWidget {
     );
   }
 
+  /// Performs `_buildItem` logic for this form component.
   Widget _buildItem(BuildContext context, FileUploadItem item) {
     return itemBuilder?.call(context, item) ??
         FileItem(

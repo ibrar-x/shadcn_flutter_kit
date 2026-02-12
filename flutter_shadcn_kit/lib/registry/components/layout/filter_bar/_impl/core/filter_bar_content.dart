@@ -1,6 +1,8 @@
 part of '../../filter_bar.dart';
 
+/// _FilterBarContent defines a reusable type for this registry module.
 class _FilterBarContent extends StatelessWidget {
+/// Creates a `_FilterBarContent` instance.
   const _FilterBarContent({
     required this.state,
     required this.searchController,
@@ -26,33 +28,57 @@ class _FilterBarContent extends StatelessWidget {
     required this.onStateChanged,
   });
 
+/// Stores `state` state/configuration for this implementation.
   final FilterState state;
+/// Stores `searchController` state/configuration for this implementation.
   final TextEditingController searchController;
+/// Stores `sortOptions` state/configuration for this implementation.
   final List<FilterSortOption> sortOptions;
+/// Stores `enableDateRange` state/configuration for this implementation.
   final bool enableDateRange;
+/// Stores `resultsCount` state/configuration for this implementation.
   final int? resultsCount;
+/// Stores `searchPlaceholder` state/configuration for this implementation.
   final String searchPlaceholder;
+/// Stores `searchLabel` state/configuration for this implementation.
   final String searchLabel;
+/// Stores `trailingFilters` state/configuration for this implementation.
   final List<Widget> trailingFilters;
+/// Stores `customFilters` state/configuration for this implementation.
   final List<FilterCustomFilter> customFilters;
+/// Stores `style` state/configuration for this implementation.
   final FilterBarStyle style;
+/// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
   final bool showClearAllWhenEmpty;
+/// Stores `activeFilterCountLabel` state/configuration for this implementation.
   final String? activeFilterCountLabel;
+/// Stores `clearAllLabel` state/configuration for this implementation.
   final String clearAllLabel;
+/// Stores `sortLabel` state/configuration for this implementation.
   final String sortLabel;
+/// Stores `dateRangeLabel` state/configuration for this implementation.
   final String dateRangeLabel;
+/// Stores `onSearchChanged` state/configuration for this implementation.
   final ValueChanged<String> onSearchChanged;
+/// Stores `onSortChanged` state/configuration for this implementation.
   final ValueChanged<String?> onSortChanged;
+/// Stores `onRemoveChip` state/configuration for this implementation.
   final ValueChanged<FilterChipData> onRemoveChip;
+/// Stores `onDateRangeChanged` state/configuration for this implementation.
   final ValueChanged<DateTimeRange?> onDateRangeChanged;
+/// Stores `onClearDateRange` state/configuration for this implementation.
   final VoidCallback onClearDateRange;
+/// Stores `onClearAll` state/configuration for this implementation.
   final VoidCallback onClearAll;
+/// Stores `onStateChanged` state/configuration for this implementation.
   final FilterStateChanged onStateChanged;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final resolvedTheme = _FilterBarResolvedTheme.resolve(context, style);
     final countLabel = _resolveCountLabel();
+/// Stores `showClearAll` state/configuration for this implementation.
     final showClearAll = showClearAllWhenEmpty || state.hasActiveFilters;
 
     return LayoutBuilder(
@@ -77,11 +103,13 @@ class _FilterBarContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+/// Creates a `Wrap` instance.
                 Wrap(
                   spacing: style.spacing,
                   runSpacing: style.runSpacing,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
+/// Creates a `ConstrainedBox` instance.
                     ConstrainedBox(
                       constraints: BoxConstraints(
                         minWidth: style.minSearchWidth,
@@ -95,21 +123,26 @@ class _FilterBarContent extends StatelessWidget {
                           onChanged: onSearchChanged,
                           placeholder: Text(searchPlaceholder),
                           features: const [
+/// Creates a `InputFeature.leading` instance.
                             InputFeature.leading(Icon(LucideIcons.search)),
+/// Creates a `InputFeature.clear` instance.
                             InputFeature.clear(),
                           ],
                         ),
                       ),
                     ),
                     if (sortOptions.isNotEmpty)
+/// Creates a `_buildSortControl` instance.
                       _buildSortControl(layout.sortWidth),
                     if (enableDateRange) _buildDateRangeControl(context),
                     ...customFilters.map(
                       (customFilter) =>
+/// Creates a `customFilter.builder` instance.
                           customFilter.builder(context, state, onStateChanged),
                     ),
                     ...trailingFilters,
                     if (countLabel != null)
+/// Creates a `Padding` instance.
                       Padding(
                         padding: EdgeInsets.only(
                           top: layout.isSingleRow ? 0 : 4,
@@ -120,6 +153,7 @@ class _FilterBarContent extends StatelessWidget {
                         ),
                       ),
                     if (showClearAll)
+/// Creates a `GhostButton` instance.
                       GhostButton(
                         size: style.dense
                             ? ButtonSize.small
@@ -130,7 +164,9 @@ class _FilterBarContent extends StatelessWidget {
                   ],
                 ),
                 if (state.chips.isNotEmpty) ...[
+/// Creates a `SizedBox` instance.
                   SizedBox(height: style.runSpacing),
+/// Creates a `Wrap` instance.
                   Wrap(
                     spacing: style.spacing,
                     runSpacing: style.runSpacing,
@@ -155,6 +191,7 @@ class _FilterBarContent extends StatelessWidget {
     );
   }
 
+/// Executes `_resolveCountLabel` behavior for this component/composite.
   String? _resolveCountLabel() {
     if (resultsCount != null) {
       return _formatResultsCount(resultsCount!);
@@ -163,6 +200,7 @@ class _FilterBarContent extends StatelessWidget {
         activeFilterCountLabel!.trim().isNotEmpty) {
       return activeFilterCountLabel;
     }
+/// Stores `activeCount` state/configuration for this implementation.
     final activeCount = state.activeFilterCount;
     if (activeCount > 0) {
       return _formatActiveFilterCount(activeCount);
@@ -170,7 +208,9 @@ class _FilterBarContent extends StatelessWidget {
     return null;
   }
 
+/// Executes `_resolveSortValue` behavior for this component/composite.
   String? _resolveSortValue() {
+/// Stores `sortId` state/configuration for this implementation.
     final sortId = state.sortId;
     if (sortId == null) {
       return null;
@@ -179,6 +219,7 @@ class _FilterBarContent extends StatelessWidget {
     return exists ? sortId : null;
   }
 
+/// Executes `_buildSortControl` behavior for this component/composite.
   Widget _buildSortControl(double width) {
     return SizedBox(
       width: width,
@@ -209,13 +250,16 @@ class _FilterBarContent extends StatelessWidget {
     );
   }
 
+/// Executes `_buildDateRangeControl` behavior for this component/composite.
   Widget _buildDateRangeControl(BuildContext context) {
+/// Stores `hasDateRange` state/configuration for this implementation.
     final hasDateRange = state.dateRange != null;
     final localizations = ShadcnLocalizations.of(context);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+/// Creates a `SizedBox` instance.
         SizedBox(
           width: style.minSortWidth,
           child: ObjectFormField<DateTimeRange>(
@@ -226,12 +270,14 @@ class _FilterBarContent extends StatelessWidget {
             trailing: const Icon(LucideIcons.calendarRange),
             builder: (context, value) {
               return Text(
+/// Creates a `_formatCompactDateRangeLabel` instance.
                 _formatCompactDateRangeLabel(localizations, value),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               );
             },
             editorBuilder: (context, handler) {
+/// Stores `value` state/configuration for this implementation.
               DateTimeRange? value = handler.value;
               return LayoutBuilder(
                 builder: (context, constraints) {
@@ -259,6 +305,7 @@ class _FilterBarContent extends StatelessWidget {
           ),
         ),
         if (hasDateRange)
+/// Creates a `GhostButton` instance.
           GhostButton(
             onPressed: onClearDateRange,
             size: ButtonSize.small,

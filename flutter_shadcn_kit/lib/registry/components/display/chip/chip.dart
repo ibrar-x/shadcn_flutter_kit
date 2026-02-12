@@ -9,6 +9,7 @@ part '_impl/themes/chip_theme.dart';
 
 /// Compact interactive chip with optional leading/trailing widgets.
 class Chip extends StatelessWidget {
+  /// Creates `Chip` for configuring or rendering chip.
   const Chip({
     super.key,
     required this.child,
@@ -18,12 +19,22 @@ class Chip extends StatelessWidget {
     this.style,
   });
 
+  /// Child content displayed inside the chip widget.
   final Widget child;
+
+  /// Text/content element used by `Chip` when composing its visual layout.
   final Widget? leading;
+
+  /// Text/content element used by `Chip` when composing its visual layout.
   final Widget? trailing;
+
+  /// Callback invoked by chip when `onPressed` is triggered.
   final VoidCallback? onPressed;
+
+  /// Style/theme override that customizes `Chip` appearance.
   final AbstractButtonStyle? style;
 
+  /// Builds the widget tree for chip.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

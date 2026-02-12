@@ -1,10 +1,12 @@
 part of '../../table.dart';
 
+/// TableFooter defines a reusable type for this registry module.
 class TableFooter extends TableRow {
   /// Creates a [TableFooter].
   const TableFooter({required super.cells, super.cellTheme});
 
   @override
+/// Executes `buildDefaultTheme` behavior for this component/composite.
   TableCellTheme buildDefaultTheme(BuildContext context) {
     if (cellTheme != null) {
       return cellTheme!;

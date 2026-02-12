@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// TextFieldState stores and manages mutable widget state.
 class TextFieldState extends State<TextField>
     with
         RestorationMixin,
@@ -38,6 +39,7 @@ class TextFieldState extends State<TextField>
   late _TextFieldSelectionGestureDetectorBuilder
   _selectionGestureDetectorBuilder;
 
+  /// Performs `_setStateFeature` logic for this form component.
   void _setStateFeature(VoidCallback fn) {
     setState(fn);
   }
@@ -55,6 +57,7 @@ class TextFieldState extends State<TextField>
       widget.enableInteractiveSelection && widget.enabled;
   // End of API for TextSelectionGestureDetectorBuilderDelegate.
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -83,6 +86,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -91,6 +95,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(TextField oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -155,6 +160,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `restoreState` logic for this form component.
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     if (_controller != null) {
@@ -162,6 +168,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `_registerController` logic for this form component.
   void _registerController() {
     assert(_controller != null);
     registerForRestoration(_controller!, 'controller');
@@ -169,6 +176,7 @@ class TextFieldState extends State<TextField>
     _controller!.value.addListener(_handleControllerChanged);
   }
 
+  /// Performs `_handleControllerChanged` logic for this form component.
   void _handleControllerChanged() {
     _effectiveText.value = effectiveController.text;
     _effectiveSelection.value = effectiveController.selection;
@@ -177,6 +185,7 @@ class TextFieldState extends State<TextField>
         : effectiveController.text;
   }
 
+  /// Performs `_createLocalController` logic for this form component.
   void _createLocalController([TextEditingValue? value]) {
     assert(_controller == null);
     _controller = value == null
@@ -194,6 +203,7 @@ class TextFieldState extends State<TextField>
   @override
   String? get restorationId => widget.restorationId;
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     for (final attached in _attachedFeatures) {
@@ -207,11 +217,14 @@ class TextFieldState extends State<TextField>
 
   EditableTextState get _editableText => editableTextKey.currentState!;
 
+  /// Performs `_requestKeyboard` logic for this form component.
   void _requestKeyboard() {
     _editableText.requestKeyboard();
   }
 
+  /// Performs `_handleFocusChanged` logic for this form component.
   void _handleFocusChanged() {
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       // Rebuild the widget on focus change to show/hide the text selection
       // highlight.
@@ -222,6 +235,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `_formatSubmit` logic for this form component.
   void _formatSubmit() {
     if (widget.submitFormatters != null) {
       TextEditingValue value = effectiveController.value;
@@ -235,6 +249,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `_shouldShowSelectionHandles` logic for this form component.
   bool _shouldShowSelectionHandles(SelectionChangedCause? cause) {
     // When the text field is activated by something that doesn't trigger the
     // selection overlay, we shouldn't show the handles either.
@@ -269,6 +284,7 @@ class TextFieldState extends State<TextField>
     _effectiveSelection.value = selection;
     final bool willShowSelectionHandles = _shouldShowSelectionHandles(cause);
     if (willShowSelectionHandles != _showSelectionHandles) {
+      /// Triggers a rebuild after mutating local state.
       setState(() {
         _showSelectionHandles = willShowSelectionHandles;
       });
@@ -466,6 +482,7 @@ class TextFieldState extends State<TextField>
   @override
   String get autofillId => _editableText.autofillId;
 
+  /// Performs `autofill` logic for this form component.
   @override
   void autofill(TextEditingValue newEditingValue) =>
       _editableText.autofill(newEditingValue);
@@ -491,6 +508,7 @@ class TextFieldState extends State<TextField>
   }
   // AutofillClient implementation end.
 
+  /// Performs `_onChanged` logic for this form component.
   void _onChanged(String value) {
     var widget = this.widget;
     if (widget.onChanged != null) {
@@ -504,14 +522,17 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `_onEnter` logic for this form component.
   void _onEnter(PointerEnterEvent event) {
     _statesController.update(WidgetState.hovered, true);
   }
 
+  /// Performs `_onExit` logic for this form component.
   void _onExit(PointerExitEvent event) {
     _statesController.update(WidgetState.hovered, false);
   }
 
+  /// Performs `_wrapActions` logic for this form component.
   Widget _wrapActions({required Widget child}) {
     Map<Type, Action<Intent>> featureActions = {};
     Map<ShortcutActivator, Intent> featureShortcuts = {};
@@ -611,6 +632,7 @@ class TextFieldState extends State<TextField>
     );
   }
 
+  /// Performs `_appendText` logic for this form component.
   void _appendText(String text) {
     final newText = effectiveController.text + text;
     effectiveController.value = TextEditingValue(
@@ -619,6 +641,7 @@ class TextFieldState extends State<TextField>
     );
   }
 
+  /// Performs `_replaceCurrentWord` logic for this form component.
   void _replaceCurrentWord(String text) {
     final replacement = text;
     final value = effectiveController.value;
@@ -642,6 +665,7 @@ class TextFieldState extends State<TextField>
     }
   }
 
+  /// Performs `_setText` logic for this form component.
   void _setText(String text) {
     effectiveController.value = TextEditingValue(
       text: text,
@@ -649,6 +673,7 @@ class TextFieldState extends State<TextField>
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     var widget = this.widget;
@@ -995,6 +1020,7 @@ class TextFieldState extends State<TextField>
     );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(String value) {
     effectiveController.text = value;

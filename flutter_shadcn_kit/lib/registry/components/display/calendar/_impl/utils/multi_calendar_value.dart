@@ -12,6 +12,7 @@ class MultiCalendarValue extends CalendarValue {
   /// Creates a multi calendar value with the specified list of dates.
   MultiCalendarValue(this.dates);
 
+  /// Implements `lookup` behavior for calendar.
   @override
   CalendarValueLookup lookup(int year, [int? month, int? day]) {
     DateTime current = DateTime(year, month ?? 1, day ?? 1);
@@ -32,11 +33,13 @@ class MultiCalendarValue extends CalendarValue {
   CalendarView get view =>
       dates.firstOrNull?.toCalendarView() ?? CalendarView.now();
 
+  /// Returns a debug string for this calendar value.
   @override
   String toString() {
     return 'MultiCalendarValue($dates)';
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -47,11 +50,13 @@ class MultiCalendarValue extends CalendarValue {
   @override
   int get hashCode => dates.hashCode;
 
+  /// Implements `toSingle` behavior for calendar.
   @override
   SingleCalendarValue toSingle() {
     return CalendarValue.single(dates.first);
   }
 
+  /// Implements `toRange` behavior for calendar.
   @override
   RangeCalendarValue toRange() {
     assert(dates.isNotEmpty, 'Cannot convert empty list to range');
@@ -64,6 +69,7 @@ class MultiCalendarValue extends CalendarValue {
     return CalendarValue.range(min, max);
   }
 
+  /// Implements `toMulti` behavior for calendar.
   @override
   MultiCalendarValue toMulti() {
     return this;

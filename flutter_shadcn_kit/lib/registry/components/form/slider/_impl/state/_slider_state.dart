@@ -1,5 +1,6 @@
 part of '../../slider.dart';
 
+/// _SliderState stores and manages mutable widget state.
 class _SliderState extends State<Slider>
     with FormValueSupplier<SliderValue, Slider> {
   late SliderValue
@@ -13,6 +14,7 @@ class _SliderState extends State<Slider>
 
   bool get enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,7 @@ class _SliderState extends State<Slider>
     formValue = _currentValue;
   }
 
+  /// Performs `_dispatchValueChangeStart` logic for this form component.
   void _dispatchValueChangeStart(SliderValue value) {
     if (!enabled) return;
     if (widget.divisions != null) {
@@ -37,6 +40,7 @@ class _SliderState extends State<Slider>
     widget.onChangeStart?.call(value);
   }
 
+  /// Performs `_dispatchValueChange` logic for this form component.
   void _dispatchValueChange(SliderValue value) {
     if (!enabled) return;
     if (widget.divisions != null) {
@@ -47,6 +51,7 @@ class _SliderState extends State<Slider>
     }
   }
 
+  /// Performs `_dispatchValueChangeEnd` logic for this form component.
   void _dispatchValueChangeEnd(SliderValue value) {
     if (!enabled) return;
     if (widget.divisions != null) {
@@ -57,6 +62,7 @@ class _SliderState extends State<Slider>
     }
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant Slider oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -77,12 +83,14 @@ class _SliderState extends State<Slider>
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(SliderValue value) {
     widget.onChanged?.call(value);
     widget.onChangeEnd?.call(value);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -138,6 +146,8 @@ class _SliderState extends State<Slider>
                         _dispatchValueChangeStart(newSliderValue);
                         _dispatchValueChange(newSliderValue);
                         _dispatchValueChangeEnd(newSliderValue);
+
+                        /// Triggers a rebuild after mutating local state.
                         setState(() {
                           _currentValue = SliderValue.ranged(newValue, end);
                         });
@@ -159,6 +169,8 @@ class _SliderState extends State<Slider>
                         _dispatchValueChangeStart(newSliderValue);
                         _dispatchValueChange(newSliderValue);
                         _dispatchValueChangeEnd(newSliderValue);
+
+                        /// Triggers a rebuild after mutating local state.
                         setState(() {
                           _currentValue = SliderValue.ranged(start, newValue);
                         });
@@ -187,6 +199,8 @@ class _SliderState extends State<Slider>
                       _dispatchValueChangeStart(newSliderValue);
                       _dispatchValueChange(newSliderValue);
                       _dispatchValueChangeEnd(newSliderValue);
+
+                      /// Triggers a rebuild after mutating local state.
                       setState(() {
                         _currentValue = SliderValue.single(newValue);
                       });
@@ -275,6 +289,8 @@ class _SliderState extends State<Slider>
                           max(startSliderValue, endSliderValue),
                         );
                         _dispatchValueChange(newSliderValue);
+
+                        /// Triggers a rebuild after mutating local state.
                         setState(() {
                           _currentValue = SliderValue.ranged(newStart, newEnd);
                         });
@@ -310,6 +326,8 @@ class _SliderState extends State<Slider>
                           max(startSliderValue, endSliderValue),
                         );
                         _dispatchValueChange(newSliderValue);
+
+                        /// Triggers a rebuild after mutating local state.
                         setState(() {
                           _currentValue = SliderValue.ranged(newStart, newEnd);
                         });
@@ -330,6 +348,8 @@ class _SliderState extends State<Slider>
                         sliderValue * (widget.max - widget.min) + widget.min,
                       );
                       _dispatchValueChange(newSliderValue);
+
+                      /// Triggers a rebuild after mutating local state.
                       setState(() {
                         _currentValue = SliderValue.single(newValue);
                       });
@@ -357,6 +377,8 @@ class _SliderState extends State<Slider>
                           ),
                         );
                       }
+
+                      /// Triggers a rebuild after mutating local state.
                       setState(() {});
                     },
               child: MouseRegion(
@@ -396,6 +418,7 @@ class _SliderState extends State<Slider>
           _currentValue.value,
           _focusing,
           (focusing) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusing = focusing;
             });
@@ -420,6 +443,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.single(value);
             });
@@ -442,6 +467,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.single(value);
             });
@@ -692,6 +719,7 @@ class _SliderState extends State<Slider>
           min(_currentValue.start, _currentValue.end),
           _focusing,
           (focusing) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusing = focusing;
             });
@@ -715,6 +743,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.ranged(value, _currentValue.end);
             });
@@ -738,6 +768,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.ranged(value, _currentValue.end);
             });
@@ -750,6 +782,7 @@ class _SliderState extends State<Slider>
           max(_currentValue.start, _currentValue.end),
           _focusingEnd,
           (focusing) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _focusingEnd = focusing;
             });
@@ -773,6 +806,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.ranged(_currentValue.start, value);
             });
@@ -796,6 +831,8 @@ class _SliderState extends State<Slider>
             _dispatchValueChangeStart(newSliderValue);
             _dispatchValueChange(newSliderValue);
             _dispatchValueChangeEnd(newSliderValue);
+
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _currentValue = SliderValue.ranged(_currentValue.start, value);
             });

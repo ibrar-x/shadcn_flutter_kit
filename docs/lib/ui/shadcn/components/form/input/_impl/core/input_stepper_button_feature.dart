@@ -24,6 +24,7 @@ class InputStepperButtonFeature extends InputFeature {
     this.icon = const Icon(LucideIcons.plus),
   });
 
+
   /// Creates a decrement button feature for numeric inputs.
   const InputStepperButtonFeature.decrement({
     super.visibility,

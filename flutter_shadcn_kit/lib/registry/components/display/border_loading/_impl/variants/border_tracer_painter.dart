@@ -138,6 +138,7 @@ class _BorderTracerPainter extends CustomPainter {
 
     // Consume chunk by chunk until requested length is satisfied.
     var remaining = length;
+
     var cursor = startOffset % totalLength;
 
     while (remaining > 0) {
@@ -169,6 +170,7 @@ class _BorderTracerPainter extends CustomPainter {
 
     // Locate the contour that contains the start offset.
     var traversed = 0.0;
+
     var startMetricIndex = 0;
     for (var i = 0; i < metrics.length; i++) {
       final metricLength = metrics[i].length;
@@ -181,12 +183,15 @@ class _BorderTracerPainter extends CustomPainter {
 
     // Convert global offset to local contour offset.
     var consumed = 0.0;
+
     var localStart = startOffset - traversed;
 
     // Append across contours until chunk capacity is consumed.
     for (var step = 0; step < metrics.length && consumed < maxLength; step++) {
       final metric = metrics[(startMetricIndex + step) % metrics.length];
+
       final start = step == 0 ? localStart : 0.0;
+
       final available = metric.length - start;
       if (available <= 0) {
         localStart = 0;

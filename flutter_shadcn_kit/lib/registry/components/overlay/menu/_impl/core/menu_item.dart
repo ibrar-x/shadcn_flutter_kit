@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuItem defines a reusable type for this registry module.
 abstract class MenuItem extends Widget {
   /// Creates a menu item.
   const MenuItem({super.key});

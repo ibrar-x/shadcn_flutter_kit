@@ -2,6 +2,7 @@ part of '../../dot_indicator.dart';
 
 /// Common base for dots.
 class DotItem extends StatelessWidget {
+  /// Creates `DotItem` for configuring or rendering dot indicator.
   const DotItem({
     super.key,
     this.size,
@@ -11,12 +12,22 @@ class DotItem extends StatelessWidget {
     this.borderWidth,
   });
 
+  /// Layout/size setting that affects dot indicator rendering.
   final double? size;
+
+  /// Color value used by dot indicator painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? borderRadius;
+
+  /// Color value used by dot indicator painting or state styling.
   final Color? borderColor;
+
+  /// Layout/size setting that affects dot indicator rendering.
   final double? borderWidth;
 
+  /// Builds the widget tree for dot indicator.
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(

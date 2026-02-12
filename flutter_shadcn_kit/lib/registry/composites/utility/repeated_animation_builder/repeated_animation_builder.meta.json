@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "repeated_animation_builder",
   "name": "Repeated Animation Builder",
@@ -9,7 +8,7 @@
   "whenToUse": {
     "use": [
       "you need a repeating animation loop for a widget.",
-      "you want a simple builder that exposes a 0–1 value."
+      "you want a simple builder that exposes a 0\u20131 value."
     ],
     "avoid": [
       "a one-off `AnimationController` is enough."

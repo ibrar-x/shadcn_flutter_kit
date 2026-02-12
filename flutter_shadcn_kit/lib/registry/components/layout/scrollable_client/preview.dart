@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../scrollable_client/scrollable_client.dart';
 
+/// ScrollableClientPreview defines a reusable type for this registry module.
 class ScrollableClientPreview extends StatelessWidget {
   const ScrollableClientPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

@@ -27,6 +27,7 @@ class SelectItem extends StatelessWidget {
   /// - [builder] (`WidgetBuilder`, required): Content builder.
   const SelectItem({super.key, required this.value, required this.builder});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final data = Data.maybeOf<SelectData>(context);

@@ -18,11 +18,13 @@ class FormValueState<T> {
   /// - [validator] (`Validator<T>?`, optional): Validation function.
   FormValueState({this.value, this.validator});
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'FormValueState($value, $validator)';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is FormValueState &&

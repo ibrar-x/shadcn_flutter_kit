@@ -13,6 +13,7 @@ class FormPendingBuilder extends StatelessWidget {
   /// Creates a form pending builder.
   const FormPendingBuilder({super.key, required this.builder, this.child});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final controller = Data.maybeOf<FormController>(context);

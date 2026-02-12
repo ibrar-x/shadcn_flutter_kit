@@ -2,9 +2,13 @@ part of '../../chip.dart';
 
 /// Theme config for chips that share padding/style defaults.
 class ChipTheme extends ComponentThemeData {
+  /// Layout/size setting that affects chip rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Style/theme override that customizes `ChipTheme` appearance.
   final AbstractButtonStyle? style;
 
+  /// Creates `ChipTheme` for configuring or rendering chip.
   const ChipTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -23,6 +27,7 @@ class ChipTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two chip values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -31,6 +36,7 @@ class ChipTheme extends ComponentThemeData {
         other.style == style;
   }
 
+  /// State flag that toggles specific chip behavior.
   @override
   int get hashCode => Object.hash(padding, style);
 }

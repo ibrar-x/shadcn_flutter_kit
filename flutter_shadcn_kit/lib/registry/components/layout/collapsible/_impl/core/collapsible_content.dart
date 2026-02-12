@@ -16,6 +16,7 @@ class CollapsibleContent extends StatelessWidget {
   final Widget child;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final state = Data.of<CollapsibleStateData>(context);
     return Offstage(offstage: collapsible && !state.isExpanded, child: child);

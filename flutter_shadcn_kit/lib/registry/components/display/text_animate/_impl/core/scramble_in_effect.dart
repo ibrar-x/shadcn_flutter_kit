@@ -17,9 +17,13 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
        );
 
   final Duration duration;
+
   final double scrambleUntil;
+
   final bool fadeIn;
+
   final Curve curve;
+
   final String characters;
 
   @override
@@ -73,6 +77,7 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
         clipBehavior: Clip.none,
         children: [
           current,
+
           Opacity(
             opacity: scrambleOpacity,
             child: Text(displayedChar, style: baseStyle),
@@ -99,7 +104,9 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
 
     final glyphs = characters.runes.toList(growable: false);
     final frameStepMs = math.max(1, duration.inMilliseconds ~/ 14);
+
     final frame = age.inMilliseconds ~/ frameStepMs;
+
     final code = char.runes.isEmpty ? 0 : char.runes.first;
 
     var seed = index * 73856093;
@@ -110,6 +117,7 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
     return String.fromCharCode(glyphs[value]);
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

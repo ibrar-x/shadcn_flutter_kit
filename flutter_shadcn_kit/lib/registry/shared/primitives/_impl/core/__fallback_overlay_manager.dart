@@ -1,6 +1,7 @@
 part of '../../overlay.dart';
 
 
+/// _FallbackOverlayManager defines a reusable type for this registry module.
 class _FallbackOverlayManager implements OverlayManager {
   const _FallbackOverlayManager();
 

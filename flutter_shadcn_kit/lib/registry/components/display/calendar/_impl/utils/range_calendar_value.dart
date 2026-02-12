@@ -21,6 +21,7 @@ class RangeCalendarValue extends CalendarValue {
     : start = start.isBefore(end) ? start : end,
       end = start.isBefore(end) ? end : start;
 
+  /// Implements `lookup` behavior for calendar.
   @override
   CalendarValueLookup lookup(int year, [int? month, int? day]) {
     DateTime start = _convertNecessarry(this.start, year, month, day);
@@ -44,11 +45,13 @@ class RangeCalendarValue extends CalendarValue {
   @override
   CalendarView get view => start.toCalendarView();
 
+  /// Returns a debug string for this calendar value.
   @override
   String toString() {
     return 'RangedCalendarValue($start, $end)';
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -61,16 +64,19 @@ class RangeCalendarValue extends CalendarValue {
   @override
   int get hashCode => start.hashCode ^ end.hashCode;
 
+  /// Implements `toSingle` behavior for calendar.
   @override
   SingleCalendarValue toSingle() {
     return CalendarValue.single(start);
   }
 
+  /// Implements `toRange` behavior for calendar.
   @override
   RangeCalendarValue toRange() {
     return this;
   }
 
+  /// Implements `toMulti` behavior for calendar.
   @override
   MultiCalendarValue toMulti() {
     List<DateTime> dates = [];

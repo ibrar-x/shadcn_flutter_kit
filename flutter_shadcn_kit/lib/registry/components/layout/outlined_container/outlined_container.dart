@@ -19,7 +19,9 @@ part '_impl/state/_outlined_container_state.dart';
 part '_impl/core/outlined_container_2.dart';
 part '_impl/core/dashed_painter.dart';
 
+/// SurfaceBlur defines a reusable type for this registry module.
 class SurfaceBlur extends StatelessWidget {
+/// Creates a `SurfaceBlur` instance.
   const SurfaceBlur({
     super.key,
     required this.child,
@@ -27,11 +29,15 @@ class SurfaceBlur extends StatelessWidget {
     this.borderRadius,
   });
 
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `surfaceBlur` state/configuration for this implementation.
   final double surfaceBlur;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (surfaceBlur <= 0) {
       return child;

@@ -41,6 +41,7 @@ class ButtonStyleOverrideData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
@@ -66,6 +67,7 @@ class ButtonStyleOverrideData {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'ButtonStyleOverrideData(decoration: $decoration, mouseCursor: $mouseCursor, padding: $padding, textStyle: $textStyle, iconTheme: $iconTheme, margin: $margin)';
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 
+/// DesktopPointerScrollEvent defines a reusable type for this registry module.
 class DesktopPointerScrollEvent extends PointerScrollEvent {
+/// Creates a `DesktopPointerScrollEvent` instance.
   const DesktopPointerScrollEvent({
     required super.position,
     required super.device,

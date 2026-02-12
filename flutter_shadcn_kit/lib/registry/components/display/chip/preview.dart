@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' as m;
 import '../../control/button/button.dart' as shadcn_button;
 import '../chip/chip.dart' as shadcn_chip;
 
+/// Core class used by the chip component.
 class ChipPreview extends m.StatelessWidget {
   const ChipPreview({super.key});
 
@@ -22,6 +23,7 @@ class ChipPreview extends m.StatelessWidget {
               ),
               child: const m.Text('Apple'),
             ),
+
             shadcn_chip.Chip(
               trailing: shadcn_chip.ChipButton(
                 onPressed: () {},

@@ -1,10 +1,12 @@
 part of '../../table.dart';
 
+/// TableHeader defines a reusable type for this registry module.
 class TableHeader extends TableRow {
   /// Creates a [TableHeader].
   const TableHeader({required super.cells, super.cellTheme});
 
   @override
+/// Executes `buildDefaultTheme` behavior for this component/composite.
   TableCellTheme buildDefaultTheme(BuildContext context) {
     if (cellTheme != null) {
       return cellTheme!;
@@ -23,6 +25,7 @@ class TableHeader extends TableRow {
       }),
       textStyle: WidgetStateProperty.resolveWith((states) {
         return theme.typography.semiBold.merge(
+/// Creates a `TextStyle` instance.
           TextStyle(
             color: states.contains(WidgetState.disabled)
                 ? theme.colorScheme.muted

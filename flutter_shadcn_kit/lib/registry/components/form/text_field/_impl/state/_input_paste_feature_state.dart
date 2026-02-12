@@ -1,6 +1,8 @@
 part of '../../text_field.dart';
 
+/// _InputPasteFeatureState stores and manages mutable widget state.
 class _InputPasteFeatureState extends InputFeatureState<InputPasteFeature> {
+  /// Performs `_paste` logic for this form component.
   void _paste() {
     var clipboardData = Clipboard.getData('text/plain');
     clipboardData.then((value) {

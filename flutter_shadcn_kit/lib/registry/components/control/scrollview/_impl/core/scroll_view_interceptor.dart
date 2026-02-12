@@ -4,9 +4,12 @@ import '../state/scroll_view_interceptor_state.dart';
 
 /// Widget that intercepts scroll events to simulate middle-button drag scrolling.
 class ScrollViewInterceptor extends StatefulWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `enabled` state/configuration for this implementation.
   final bool enabled;
 
+/// Creates a `ScrollViewInterceptor` instance.
   const ScrollViewInterceptor({
     super.key,
     required this.child,
@@ -14,5 +17,6 @@ class ScrollViewInterceptor extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ScrollViewInterceptor> createState() => ScrollViewInterceptorState();
 }

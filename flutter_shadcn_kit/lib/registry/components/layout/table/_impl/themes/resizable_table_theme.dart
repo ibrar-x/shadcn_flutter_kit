@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// ResizableTableTheme defines a reusable type for this registry module.
 class ResizableTableTheme extends ComponentThemeData {
   /// Base theme configuration for the table.
   final TableTheme? tableTheme;
@@ -21,6 +22,7 @@ class ResizableTableTheme extends ComponentThemeData {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

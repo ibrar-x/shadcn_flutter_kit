@@ -25,6 +25,7 @@ class SelectItemButton<T> extends StatelessWidget {
     this.style = const ButtonStyle.ghost(),
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

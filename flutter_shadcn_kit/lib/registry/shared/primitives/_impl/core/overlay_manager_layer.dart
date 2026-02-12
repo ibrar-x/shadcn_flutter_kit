@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// OverlayManagerLayer defines a reusable type for this registry module.
 class OverlayManagerLayer extends StatefulWidget {
   /// Handler for popover overlays.
   final OverlayHandler popoverHandler;
@@ -29,5 +30,6 @@ class OverlayManagerLayer extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<OverlayManagerLayer> createState() => _OverlayManagerLayerState();
 }

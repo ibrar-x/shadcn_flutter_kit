@@ -86,36 +86,42 @@ class _AlertDialogState extends State<AlertDialog> {
       surfaceClip: ModalBackdrop.shouldClipSurface(
         widget.surfaceOpacity ?? theme.surfaceOpacity,
       ),
-      child: ModalContainer(
-        fillColor: theme.colorScheme.popover,
-        filled: true,
-        borderRadius: theme.borderRadiusXxl,
-        borderWidth: 1 * scaling,
-        borderColor: theme.colorScheme.muted,
-        padding: widget.padding ?? EdgeInsets.all(24 * scaling),
-        surfaceBlur: widget.surfaceBlur ?? theme.surfaceBlur,
-        surfaceOpacity: widget.surfaceOpacity ?? theme.surfaceOpacity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (header.isNotEmpty)
-              Flexible(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: header,
-                ),
-              ),
-            if (header.isNotEmpty && actionRow.isNotEmpty)
-              SizedBox(height: 16 * scaling),
-            if (actionRow.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: actionRow,
-              ),
-          ],
+      child: Align(
+        alignment: Alignment.center,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 560 * scaling),
+          child: ModalContainer(
+            fillColor: theme.colorScheme.popover,
+            filled: true,
+            borderRadius: theme.borderRadiusXxl,
+            borderWidth: 1 * scaling,
+            borderColor: theme.colorScheme.muted,
+            padding: widget.padding ?? EdgeInsets.all(24 * scaling),
+            surfaceBlur: widget.surfaceBlur ?? theme.surfaceBlur,
+            surfaceOpacity: widget.surfaceOpacity ?? theme.surfaceOpacity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (header.isNotEmpty)
+                  Flexible(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: header,
+                    ),
+                  ),
+                if (header.isNotEmpty && actionRow.isNotEmpty)
+                  SizedBox(height: 16 * scaling),
+                if (actionRow.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: actionRow,
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

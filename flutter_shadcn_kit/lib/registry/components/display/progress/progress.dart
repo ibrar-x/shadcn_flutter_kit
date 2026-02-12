@@ -7,6 +7,7 @@ part '_impl/themes/progress_theme.dart';
 
 /// Normalized progress indicator that respects theme defaults.
 class Progress extends StatelessWidget {
+  /// Creates `Progress` for configuring or rendering progress.
   const Progress({
     super.key,
     this.progress,
@@ -19,10 +20,19 @@ class Progress extends StatelessWidget {
          'Progress must be between min and max',
        );
 
+  /// Animation/progress setting used by progress transitions.
   final double? progress;
+
+  /// Input parameter used by `Progress` during rendering and behavior handling.
   final double min;
+
+  /// Input parameter used by `Progress` during rendering and behavior handling.
   final double max;
+
+  /// Color value used by progress painting or state styling.
   final Color? color;
+
+  /// Color value used by progress painting or state styling.
   final Color? backgroundColor;
 
   double? get normalizedValue {
@@ -30,6 +40,7 @@ class Progress extends StatelessWidget {
     return (progress! - min) / (max - min);
   }
 
+  /// Builds the widget tree for progress.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

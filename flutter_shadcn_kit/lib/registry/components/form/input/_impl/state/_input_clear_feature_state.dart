@@ -1,6 +1,8 @@
 part of '../../input.dart';
 
+/// _InputClearFeatureState stores and manages mutable widget state.
 class _InputClearFeatureState extends InputFeatureState<InputClearFeature> {
+  /// Performs `_clear` logic for this form component.
   void _clear() {
     controller.text = '';
   }

@@ -6,6 +6,7 @@ import 'button_state_property.dart';
 import 'button_state_property_delegate.dart';
 import '../themes/button_theme_base.dart';
 
+/// ComponentThemeButtonStyle defines a reusable type for this registry module.
 class ComponentThemeButtonStyle<T extends ButtonTheme>
     implements AbstractButtonStyle {
   /// The fallback style used when no theme override is found.
@@ -25,8 +26,10 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `decoration` state/configuration for this implementation.
   ButtonStateProperty<Decoration> get decoration => _resolveDecoration;
 
+/// Executes `_resolveDecoration` behavior for this component/composite.
   Decoration _resolveDecoration(BuildContext context, Set<WidgetState> states) {
     var resolved = fallback.decoration(context, states);
     return find(context)?.decoration?.call(context, states, resolved) ??
@@ -34,6 +37,7 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `iconTheme` state/configuration for this implementation.
   ButtonStateProperty<IconThemeData> get iconTheme => _resolveIconTheme;
 
   IconThemeData _resolveIconTheme(
@@ -46,6 +50,7 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `margin` state/configuration for this implementation.
   ButtonStateProperty<EdgeInsetsGeometry> get margin => _resolveMargin;
 
   EdgeInsetsGeometry _resolveMargin(
@@ -57,6 +62,7 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `mouseCursor` state/configuration for this implementation.
   ButtonStateProperty<MouseCursor> get mouseCursor => _resolveMouseCursor;
 
   MouseCursor _resolveMouseCursor(
@@ -69,6 +75,7 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `padding` state/configuration for this implementation.
   ButtonStateProperty<EdgeInsetsGeometry> get padding => _resolvePadding;
 
   EdgeInsetsGeometry _resolvePadding(
@@ -80,8 +87,10 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
   }
 
   @override
+/// Stores `textStyle` state/configuration for this implementation.
   ButtonStateProperty<TextStyle> get textStyle => _resolveTextStyle;
 
+/// Executes `_resolveTextStyle` behavior for this component/composite.
   TextStyle _resolveTextStyle(BuildContext context, Set<WidgetState> states) {
     var resolved = fallback.textStyle(context, states);
     return find(context)?.textStyle?.call(context, states, resolved) ??

@@ -325,6 +325,7 @@ class Form extends StatefulWidget {
   /// ```
   const Form({super.key, required this.child, this.onSubmit, this.controller});
 
+  /// Creates the `State` object for this widget.
   @override
   State<Form> createState() => FormState();
 }

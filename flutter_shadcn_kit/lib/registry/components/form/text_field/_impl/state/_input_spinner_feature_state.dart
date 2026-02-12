@@ -1,6 +1,8 @@
 part of '../../text_field.dart';
 
+/// _InputSpinnerFeatureState stores and manages mutable widget state.
 class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
+  /// Performs `_replaceText` logic for this form component.
   void _replaceText(UnaryOperator<String> replacer) {
     var controller = this.controller;
     var text = controller.text;
@@ -11,7 +13,9 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     }
   }
 
+  /// Performs `_increase` logic for this form component.
   void _increase() {
+    /// Performs `_replaceText` logic for this form component.
     _replaceText((text) {
       var value = double.tryParse(text);
       if (value == null) {
@@ -24,6 +28,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     });
   }
 
+  /// Performs `_newText` logic for this form component.
   String _newText(double value) {
     String newText = value.toString();
     if (newText.contains('.')) {
@@ -37,7 +42,9 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     return newText;
   }
 
+  /// Performs `_decrease` logic for this form component.
   void _decrease() {
+    /// Performs `_replaceText` logic for this form component.
     _replaceText((text) {
       var value = double.tryParse(text);
       if (value == null) {
@@ -50,6 +57,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     });
   }
 
+  /// Performs `_wrapGesture` logic for this form component.
   Widget _wrapGesture(Widget child) {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
@@ -63,6 +71,7 @@ class _InputSpinnerFeatureState extends InputFeatureState<InputSpinnerFeature> {
     );
   }
 
+  /// Performs `_buildButtons` logic for this form component.
   Widget _buildButtons() {
     return Builder(
       builder: (context) {

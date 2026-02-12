@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// CalendarItemType enumerates fixed values used by this implementation.
 enum CalendarItemType {
   /// Normal unselected date.
   none,

@@ -25,7 +25,9 @@ List<ErrorRule> apiRules({
         message: e.message ?? _messageForStatus(e.statusCode),
         actions: [
           if (e.statusCode >= 500) ErrorAction.retry(onRetry),
+/// Creates a `ErrorAction.back` instance.
           ErrorAction.back(onBack),
+/// Creates a `ErrorAction.report` instance.
           ErrorAction.report(onReport),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
@@ -46,6 +48,7 @@ List<ErrorRule> apiRules({
   ];
 }
 
+/// Executes `_mapStatusToCode` behavior for this component/composite.
 AppErrorCode _mapStatusToCode(int statusCode) {
   if (statusCode == 400) return AppErrorCode.badRequest;
   if (statusCode == 401) return AppErrorCode.unauthorized;
@@ -58,6 +61,7 @@ AppErrorCode _mapStatusToCode(int statusCode) {
   return AppErrorCode.unknown;
 }
 
+/// Executes `_titleForStatus` behavior for this component/composite.
 String _titleForStatus(int statusCode) {
   switch (statusCode) {
     case 400:
@@ -80,6 +84,7 @@ String _titleForStatus(int statusCode) {
   }
 }
 
+/// Executes `_messageForStatus` behavior for this component/composite.
 String _messageForStatus(int statusCode) {
   switch (statusCode) {
     case 400:

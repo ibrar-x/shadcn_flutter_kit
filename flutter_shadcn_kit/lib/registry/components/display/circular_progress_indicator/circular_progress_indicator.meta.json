@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "circular_progress_indicator",
   "name": "Circular Progress Indicator",
@@ -27,7 +26,7 @@
   "api": {
     "constructors": [
       "`CircularProgressIndicator`",
-      "`value` (`double?`) — null for indeterminate.",
+      "`value` (`double?`) \u2014 null for indeterminate.",
       "`size` (`double?`)",
       "`color`, `backgroundColor` (`Color?`)",
       "`strokeWidth` (`double?`)",

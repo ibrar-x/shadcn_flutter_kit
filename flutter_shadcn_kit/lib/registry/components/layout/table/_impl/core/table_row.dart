@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableRow defines a reusable type for this registry module.
 class TableRow {
   /// The cells contained in this row.
   final List<TableCell> cells;
@@ -55,10 +56,12 @@ class TableRow {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is TableRow &&
+/// Creates a `listEquals` instance.
         listEquals(other.cells, cells) &&
         other.cellTheme == cellTheme &&
         other.selected == selected;

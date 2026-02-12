@@ -1,5 +1,4 @@
 {
-  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "text",
   "name": "Text",
@@ -30,8 +29,8 @@
   ],
   "api": {
     "constructors": [
-      "`TextModifier` — base class for chainable modifiers.",
-      "`TextExtension` — fluent getters like:",
+      "`TextModifier` \u2014 base class for chainable modifiers.",
+      "`TextExtension` \u2014 fluent getters like:",
       "font: `sans`, `mono`",
       "size: `small`, `large`, `xSmall`, `xLarge`",
       "weight: `light`, `medium`, `bold`, `extraBold`",

@@ -1,6 +1,7 @@
 part of '../../color_scheme.dart';
 
 
+/// ColorSchemes defines a reusable type for this registry module.
 class ColorSchemes {
   ColorSchemes._();
 

@@ -59,6 +59,7 @@ class MaxValidator<T extends num> extends Validator<T> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is MaxValidator &&

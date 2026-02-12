@@ -34,6 +34,7 @@ class KeyboardShortcutTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two keyboard shortcut values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -43,6 +44,7 @@ class KeyboardShortcutTheme extends ComponentThemeData {
         listEquals(other.keyShadow, keyShadow);
   }
 
+  /// State flag that toggles specific keyboard shortcut behavior.
   @override
   int get hashCode => Object.hash(spacing, keyPadding, keyShadow);
 }

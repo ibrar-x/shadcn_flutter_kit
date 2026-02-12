@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// DrawerEntryWidget defines a reusable type for this registry module.
 class DrawerEntryWidget<T> extends StatefulWidget {
   /// Builder function for the drawer content.
   final DrawerBuilder builder;
@@ -63,6 +64,7 @@ class DrawerEntryWidget<T> extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<DrawerEntryWidget<T>> createState() => DrawerEntryWidgetState<T>();
 }
 

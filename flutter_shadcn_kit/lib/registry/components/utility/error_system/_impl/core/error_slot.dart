@@ -8,7 +8,9 @@ import 'app_error.dart';
 import 'error_scope.dart';
 import 'error_state.dart';
 
+/// ErrorSlot defines a reusable type for this registry module.
 class ErrorSlot extends StatelessWidget {
+/// Creates a `ErrorSlot._` instance.
   const ErrorSlot._({
     super.key,
     required this.notifier,
@@ -25,6 +27,7 @@ class ErrorSlot extends StatelessWidget {
   /// Widget to render when there is no error.
   final Widget empty;
 
+/// Factory constructor that creates `ErrorSlot.scope` instances.
   factory ErrorSlot.scope({
     Key? key,
     required ErrorScope scope,
@@ -40,6 +43,7 @@ class ErrorSlot extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AppError?>(
       valueListenable: notifier,

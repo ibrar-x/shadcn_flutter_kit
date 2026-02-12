@@ -112,6 +112,7 @@ class ColorPicker extends StatefulWidget {
     this.initialShowHistory = false,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ColorPicker> createState() => _ColorPickerState();
 }

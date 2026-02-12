@@ -1,6 +1,8 @@
 part of '../../text_animate.dart';
 
+/// Internal helper class used by the text animate component implementation.
 class _StreamingTextSnapshot {
+  /// Creates `_StreamingTextSnapshot` for configuring or rendering text animate.
   const _StreamingTextSnapshot({
     required this.fullText,
     required this.stablePrefixChars,
@@ -9,6 +11,7 @@ class _StreamingTextSnapshot {
     required this.revision,
   });
 
+  /// Factory constructor that derives a `_StreamingTextSnapshot.initial` configuration for text animate.
   factory _StreamingTextSnapshot.initial(String text) {
     return _StreamingTextSnapshot(
       fullText: text,
@@ -19,10 +22,19 @@ class _StreamingTextSnapshot {
     );
   }
 
+  /// Data consumed by `_StreamingTextSnapshot` to render text animate content.
   final String fullText;
+
+  /// Input parameter used by `_StreamingTextSnapshot` during rendering and behavior handling.
   final List<String> stablePrefixChars;
+
+  /// Input parameter used by `_StreamingTextSnapshot` during rendering and behavior handling.
   final List<String> animatedChars;
+
+  /// Input parameter used by `_StreamingTextSnapshot` during rendering and behavior handling.
   final Duration changedAt;
+
+  /// Input parameter used by `_StreamingTextSnapshot` during rendering and behavior handling.
   final int revision;
 
   _StreamingTextSnapshot update({
@@ -30,9 +42,11 @@ class _StreamingTextSnapshot {
     required Duration now,
   }) {
     final previousChars = _splitToCharacters(fullText);
+
     final nextChars = _splitToCharacters(nextText);
 
     final minLength = math.min(previousChars.length, nextChars.length);
+
     var prefixLength = 0;
     while (prefixLength < minLength &&
         previousChars[prefixLength] == nextChars[prefixLength]) {
@@ -51,6 +65,7 @@ class _StreamingTextSnapshot {
   }
 }
 
+/// Implements `_splitToCharacters` behavior for text animate.
 List<String> _splitToCharacters(String value) {
   if (value.isEmpty) return const <String>[];
   return List<String>.unmodifiable(
@@ -58,6 +73,7 @@ List<String> _splitToCharacters(String value) {
   );
 }
 
+/// Implements `_splitToWordUnits` behavior for text animate.
 List<String> _splitToWordUnits(String value) {
   if (value.isEmpty) return const <String>[];
   final matches = RegExp(r'\S+\s*|\s+').allMatches(value);

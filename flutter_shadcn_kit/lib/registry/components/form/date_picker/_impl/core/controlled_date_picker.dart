@@ -26,20 +26,20 @@ part of '../../date_picker.dart';
 /// ```
 class ControlledDatePicker extends StatelessWidget
     with ControlledComponent<DateTime?> {
-  @override
   /// The initial date value.
+  @override
   final DateTime? initialValue;
 
-  @override
   /// Called when the selected date changes.
+  @override
   final ValueChanged<DateTime?>? onChanged;
 
-  @override
   /// Whether the date picker is enabled.
+  @override
   final bool enabled;
 
-  @override
   /// Optional controller for programmatic access.
+  @override
   final DatePickerController? controller;
 
   /// Widget displayed when no date is selected.
@@ -87,6 +87,7 @@ class ControlledDatePicker extends StatelessWidget
     this.stateBuilder,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledComponentAdapter(

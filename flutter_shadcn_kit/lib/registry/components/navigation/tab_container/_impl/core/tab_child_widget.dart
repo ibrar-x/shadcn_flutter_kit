@@ -1,5 +1,6 @@
 part of '../../tab_container.dart';
 
+/// TabChildWidget defines a reusable type for this registry module.
 class TabChildWidget extends StatelessWidget with TabChild {
   /// The child widget to display.
   final Widget child;
@@ -18,6 +19,7 @@ class TabChildWidget extends StatelessWidget with TabChild {
   const TabChildWidget({super.key, required this.child, this.indexed = false});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return child;
   }

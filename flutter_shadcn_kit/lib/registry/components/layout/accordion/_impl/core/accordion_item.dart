@@ -20,5 +20,6 @@ class AccordionItem extends StatefulWidget {
   final bool expanded;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AccordionItem> createState() => _AccordionItemState();
 }

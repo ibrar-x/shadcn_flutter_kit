@@ -41,12 +41,19 @@ part of '../../object_input.dart';
 /// )
 /// ```
 class DurationInput extends StatefulWidget with ControlledComponent<Duration?> {
+  /// Current value stored for `initialValue`.
   @override
   final Duration? initialValue;
+
+  /// Callback invoked for `onChanged` events.
   @override
   final ValueChanged<Duration?>? onChanged;
+
+  /// Field storing `enabled` for this form implementation.
   @override
   final bool enabled;
+
+  /// Controller used to coordinate `controller` behavior.
   @override
   final ComponentController<Duration?>? controller;
 
@@ -103,6 +110,7 @@ class DurationInput extends StatefulWidget with ControlledComponent<Duration?> {
     this.placeholders,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<DurationInput> createState() => _DurationInputState();
 }

@@ -1,5 +1,6 @@
 part of '../../resizable.dart';
 
+/// ResizablePane defines a reusable type for this registry module.
 class ResizablePane extends StatefulWidget {
   /// Optional external controller for managing this pane's size.
   final ResizablePaneController? controller;
@@ -86,5 +87,6 @@ class ResizablePane extends StatefulWidget {
        initialCollapsed = null;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ResizablePane> createState() => _ResizablePaneState();
 }

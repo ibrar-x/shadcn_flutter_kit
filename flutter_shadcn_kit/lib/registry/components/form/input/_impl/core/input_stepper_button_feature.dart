@@ -44,6 +44,7 @@ class InputStepperButtonFeature extends InputFeature {
     this.icon = const Icon(LucideIcons.minus),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputStepperButtonFeatureState();
 }

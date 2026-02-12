@@ -2,6 +2,7 @@ part of '../../text_animate.dart';
 
 /// Theme data for [StreamingText].
 class TextAnimateTheme extends ComponentThemeData {
+  /// Creates `TextAnimateTheme` for configuring or rendering text animate.
   const TextAnimateTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -12,9 +13,16 @@ class TextAnimateTheme extends ComponentThemeData {
     this.cursor,
   });
 
+  /// Style/theme override that customizes `TextAnimateTheme` appearance.
   final TextStyle? style;
+
+  /// Input parameter used by `TextAnimateTheme` during rendering and behavior handling.
   final TypewriterEffect? typewriter;
+
+  /// Input parameter used by `TextAnimateTheme` during rendering and behavior handling.
   final StreamingTextEffectAdapter? effect;
+
+  /// Input parameter used by `TextAnimateTheme` during rendering and behavior handling.
   final StreamingCursor? cursor;
 
   TextAnimateTheme copyWith({
@@ -31,6 +39,7 @@ class TextAnimateTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -41,6 +50,7 @@ class TextAnimateTheme extends ComponentThemeData {
         other.cursor == cursor;
   }
 
+  /// State flag that toggles specific text animate behavior.
   @override
   int get hashCode => Object.hash(style, typewriter, effect, cursor);
 }

@@ -1,5 +1,6 @@
 part of 'preview.dart';
 
+/// _CarouselPreviewState holds mutable state for the carousel implementation.
 class _CarouselPreviewState extends m.State<CarouselPreview> {
   final shadcn.CarouselController controller = shadcn.CarouselController();
 
@@ -25,7 +26,9 @@ class _CarouselPreviewState extends m.State<CarouselPreview> {
                         },
                         child: const m.Icon(m.Icons.arrow_back),
                       ),
+
                       const m.SizedBox(width: 24),
+
                       m.Expanded(
                         child: m.SizedBox(
                           height: 200,
@@ -62,7 +65,9 @@ class _CarouselPreviewState extends m.State<CarouselPreview> {
                           ),
                         ),
                       ),
+
                       const m.SizedBox(width: 24),
+
                       OutlineButton(
                         shape: ButtonShape.circle,
                         onPressed: () {
