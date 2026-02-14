@@ -346,6 +346,14 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                           GhostButton(
                             size: ButtonSize.small,
                             onPressed: () {
+                              closeSheet(context);
+                              _openEditFilterComposer(rule);
+                            },
+                            child: const Icon(LucideIcons.pencil),
+                          ),
+                          GhostButton(
+                            size: ButtonSize.small,
+                            onPressed: () {
                               final nextRules = rules
                                   .where((item) => item.id != rule.id)
                                   .toList(growable: false);
@@ -368,6 +376,34 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                 ],
               ),
             );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _openEditFilterComposer(_FilterRule rule) async {
+    final state = _controller.value;
+    await openSheet<void>(
+      context: context,
+      position: OverlayPosition.bottom,
+      draggable: true,
+      builder: (context) {
+        return _RuleComposerSheet(
+          title: 'Edit filter',
+          initialRule: rule,
+          allowBatch: false,
+          applyLabel: 'Save Filter',
+          onApply: (rulesToApply) {
+            if (rulesToApply.isEmpty) {
+              return;
+            }
+            final edited = rulesToApply.first.copyWith(id: rule.id);
+            final nextRules = _rulesFromState(state)
+                .map((item) => item.id == rule.id ? edited : item)
+                .toList(growable: false);
+            _controller.setState(_withRules(state, nextRules));
+            closeSheet(context);
           },
         );
       },
@@ -543,10 +579,19 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
 }
 
 class _RuleComposerSheet extends StatefulWidget {
-  const _RuleComposerSheet({required this.title, required this.onApply});
+  const _RuleComposerSheet({
+    required this.title,
+    required this.onApply,
+    this.initialRule,
+    this.allowBatch = true,
+    this.applyLabel = 'Apply Filters',
+  });
 
   final String title;
   final ValueChanged<List<_FilterRule>> onApply;
+  final _FilterRule? initialRule;
+  final bool allowBatch;
+  final String applyLabel;
 
   @override
   State<_RuleComposerSheet> createState() => _RuleComposerSheetState();
@@ -589,6 +634,18 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
   final _secondaryController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    final rule = widget.initialRule;
+    if (rule != null) {
+      _field = rule.field;
+      _operatorId = rule.operatorId;
+      _valueController.text = rule.value;
+      _secondaryController.text = rule.secondaryValue ?? '';
+    }
+  }
+
+  @override
   void dispose() {
     _valueController.dispose();
     _secondaryController.dispose();
@@ -608,7 +665,7 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_queuedRules.isNotEmpty) ...[
+          if (widget.allowBatch && _queuedRules.isNotEmpty) ...[
             ..._queuedRules.map(
               (rule) => Container(
                 margin: const EdgeInsets.only(bottom: 8),
@@ -715,13 +772,14 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
       ),
       footer: Row(
         children: [
-          Expanded(
-            child: GhostButton(
-              onPressed: _canQueueCurrent() ? _addCurrentToQueue : null,
-              child: const Text('Add another'),
+          if (widget.allowBatch)
+            Expanded(
+              child: GhostButton(
+                onPressed: _canQueueCurrent() ? _addCurrentToQueue : null,
+                child: const Text('Add another'),
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
+          if (widget.allowBatch) const SizedBox(width: 8),
           Expanded(
             child: GhostButton(
               onPressed: () => closeSheet(context),
@@ -735,7 +793,11 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
                   ? _apply
                   : null,
               child: Text(
-                _queuedRules.isEmpty ? 'Apply Filter' : 'Apply Filters',
+                widget.allowBatch
+                    ? (_queuedRules.isEmpty
+                          ? 'Apply Filter'
+                          : widget.applyLabel)
+                    : widget.applyLabel,
               ),
             ),
           ),
