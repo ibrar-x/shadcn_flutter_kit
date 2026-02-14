@@ -220,7 +220,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
             child: Row(
               children: [
                 const SizedBox(
-                  width: 24,
+                  width: 32,
                   child: Checkbox(
                     state: CheckboxState.unchecked,
                     onChanged: null,
@@ -254,7 +254,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
               child: Row(
                 children: [
                   const SizedBox(
-                    width: 24,
+                    width: 32,
                     child: Checkbox(
                       state: CheckboxState.unchecked,
                       onChanged: null,
