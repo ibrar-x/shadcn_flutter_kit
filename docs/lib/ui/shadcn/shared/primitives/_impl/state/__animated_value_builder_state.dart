@@ -1,18 +1,20 @@
 part of '../../animated_value_builder.dart';
 
-
 class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   T? _from;
   T? _to;
+  T? _lastNonNullValue;
 
   @override
   void initState() {
     super.initState();
     _from = widget.initialValue ?? widget.value;
     _to = widget.value;
+    _cacheIfNonNull(_from);
+    _cacheIfNonNull(_to);
     _controller = AnimationController(
       vsync: this,
       duration: widget.duration,
@@ -36,7 +38,9 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     }
     if (widget.value != _to || widget.initialValue != oldWidget.initialValue) {
       _from = _currentValue;
+      _cacheIfNonNull(_from);
       _to = widget.value;
+      _cacheIfNonNull(_to);
       if (widget.duration == Duration.zero) {
         _controller.value = 1;
         widget.onEnd?.call(_to);
@@ -60,18 +64,23 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     if (widget.lerp != null) {
       final value = widget.lerp!(a, b, t);
       if (value != null) {
+        _cacheIfNonNull(value);
         return value;
       }
       final fallback = b ?? a ?? widget.value ?? widget.initialValue;
       if (fallback != null) {
+        _cacheIfNonNull(fallback);
         return fallback;
       }
       // If we have at least one value, prefer the 'to' value
       if (a != null || b != null) {
-        return (t < 0.5 ? a : b) as T;
+        final resolved = (t < 0.5 ? a : b) as T;
+        _cacheIfNonNull(resolved);
+        return resolved;
       }
-      throw FlutterError(
-        'AnimatedValueBuilder received a null lerp result but both values are null.',
+      return _resolveValueOrFallback(
+        reason:
+            'AnimatedValueBuilder custom lerp returned null with null endpoints.',
       );
     }
     final start = a ?? b;
@@ -79,48 +88,130 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     if (start == null || end == null) {
       final fallback = b ?? a ?? widget.value ?? widget.initialValue;
       if (fallback != null) {
+        _cacheIfNonNull(fallback);
         return fallback;
       }
-      // Both values are null and no fallback - this is an error condition
-      throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('AnimatedValueBuilder requires a non-null value'),
-        ErrorDescription(
-          'Provide a non-null value or initialValue when lerping between nulls.',
-        ),
-      ]);
+      return _resolveValueOrFallback(
+        reason: 'AnimatedValueBuilder requires a value while animating.',
+      );
     }
     if (start is num && end is num) {
-      return (start + (end - start) * t) as T;
+      final value = (start + (end - start) * t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is Color && end is Color) {
-      return Color.lerp(start, end, t) as T;
+      final value = Color.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is Offset && end is Offset) {
-      return Offset.lerp(start, end, t) as T;
+      final value = Offset.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is Size && end is Size) {
-      return Size.lerp(start, end, t) as T;
+      final value = Size.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is Rect && end is Rect) {
-      return Rect.lerp(start, end, t) as T;
+      final value = Rect.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is EdgeInsets && end is EdgeInsets) {
-      return EdgeInsets.lerp(start, end, t) as T;
+      final value = EdgeInsets.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is BorderRadius && end is BorderRadius) {
-      return BorderRadius.lerp(start, end, t) as T;
+      final value = BorderRadius.lerp(start, end, t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
     if (start is Matrix4 && end is Matrix4) {
-      return Matrix4Tween(begin: start, end: end).lerp(t) as T;
+      final value = Matrix4Tween(begin: start, end: end).lerp(t) as T;
+      _cacheIfNonNull(value);
+      return value;
     }
-    return t < 1.0 ? start : end;
+    final value = t < 1.0 ? start : end;
+    _cacheIfNonNull(value);
+    return value;
   }
 
   T get _currentValue {
     if (_controller.isCompleted || widget.duration == Duration.zero) {
-      return _to as T;
+      return _resolveValueOrFallback(
+        reason: 'AnimatedValueBuilder has no value to build with.',
+      );
     }
     return _lerpValue(_from, _to, _animation.value);
+  }
+
+  T _resolveValueOrFallback({required String reason}) {
+    final resolved = _to ??
+        _from ??
+        widget.value ??
+        widget.initialValue ??
+        _lastNonNullValue;
+    if (resolved != null) {
+      _cacheIfNonNull(resolved);
+      return resolved;
+    }
+    if (_isNullableType) {
+      return null as dynamic;
+    }
+    final defaultValue = _defaultValueForType();
+    if (defaultValue != null) {
+      _cacheIfNonNull(defaultValue);
+      return defaultValue;
+    }
+    throw FlutterError.fromParts(<DiagnosticsNode>[
+      ErrorSummary(reason),
+      ErrorDescription(
+        'T is non-nullable and no fallback/default value is available.',
+      ),
+    ]);
+  }
+
+  bool get _isNullableType => null is T;
+
+  void _cacheIfNonNull(T? value) {
+    if (value != null) {
+      _lastNonNullValue = value;
+    }
+  }
+
+  T? _defaultValueForType() {
+    if (T == int) {
+      return 0 as T;
+    }
+    if (T == double || T == num) {
+      return 0.0 as T;
+    }
+    if (T == Color) {
+      return const Color(0x00000000) as T;
+    }
+    if (T == Offset) {
+      return Offset.zero as T;
+    }
+    if (T == Size) {
+      return Size.zero as T;
+    }
+    if (T == Rect) {
+      return Rect.zero as T;
+    }
+    if (T == EdgeInsets) {
+      return EdgeInsets.zero as T;
+    }
+    if (T == BorderRadius) {
+      return BorderRadius.zero as T;
+    }
+    if (T == Matrix4) {
+      return Matrix4.identity() as T;
+    }
+    return null;
   }
 
   @override

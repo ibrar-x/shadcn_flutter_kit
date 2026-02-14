@@ -116,18 +116,38 @@ class _NavigationBarState extends State<NavigationBar>
                   widget.surfaceOpacity ?? 1,
                 ),
             padding: resolvedPadding,
-            child: _wrapIntrinsic(
-              Flex(
-                direction: direction,
-                mainAxisAlignment: alignment.mainAxisAlignment,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return _wrapIntrinsic(
+                  Flex(
+                    direction: direction,
+                    mainAxisAlignment: alignment.mainAxisAlignment,
+                    crossAxisAlignment: _crossAxisAlignment(
+                      constraints,
+                      direction,
+                    ),
+                    children: children,
+                  ),
+                );
+              },
             ),
           ),
         ),
       ),
     );
+  }
+
+  CrossAxisAlignment _crossAxisAlignment(
+    BoxConstraints constraints,
+    Axis direction,
+  ) {
+    final canStretch = direction == Axis.horizontal
+        ? constraints.hasBoundedHeight
+        : constraints.hasBoundedWidth;
+    if (!canStretch) {
+      return CrossAxisAlignment.center;
+    }
+    return CrossAxisAlignment.stretch;
   }
 
   Widget _wrapIntrinsic(Widget child) {

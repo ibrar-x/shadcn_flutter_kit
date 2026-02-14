@@ -3,22 +3,23 @@ part of '../../navigation_bar.dart';
 /// _NavigationBarState defines a reusable type for this registry module.
 class _NavigationBarState extends State<NavigationBar>
     with NavigationContainerMixin {
-/// Executes `_onSelected` behavior for this component/composite.
+  /// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant NavigationBar oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<NavigationBarTheme>(context);
     final alignment = styleValue(
@@ -64,14 +65,17 @@ class _NavigationBarState extends State<NavigationBar>
       themeValue: compTheme?.backgroundColor,
       defaultValue: null,
     );
-/// Stores `expands` state/configuration for this implementation.
+
+    /// Stores `expands` state/configuration for this implementation.
     final expands = widget.expands ?? true;
-/// Stores `expanded` state/configuration for this implementation.
+
+    /// Stores `expanded` state/configuration for this implementation.
     final expanded = widget.expanded ?? true;
     var directionality = Directionality.of(context);
     var resolvedPadding = parentPadding.resolve(directionality);
     List<Widget> rawChildren = wrapChildren(context, widget.children);
-/// Stores `children` state/configuration for this implementation.
+
+    /// Stores `children` state/configuration for this implementation.
     List<Widget> children = [];
     if (!expands) {
       children = List.of(rawChildren);
@@ -127,14 +131,21 @@ class _NavigationBarState extends State<NavigationBar>
                   widget.surfaceOpacity ?? 1,
                 ),
             padding: resolvedPadding,
-            child: _wrapIntrinsic(
-/// Creates a `Flex` instance.
-              Flex(
-                direction: direction,
-                mainAxisAlignment: alignment.mainAxisAlignment,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return _wrapIntrinsic(
+                  /// Creates a `Flex` instance.
+                  Flex(
+                    direction: direction,
+                    mainAxisAlignment: alignment.mainAxisAlignment,
+                    crossAxisAlignment: _crossAxisAlignment(
+                      constraints,
+                      direction,
+                    ),
+                    children: children,
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -142,7 +153,21 @@ class _NavigationBarState extends State<NavigationBar>
     );
   }
 
-/// Executes `_wrapIntrinsic` behavior for this component/composite.
+  /// Executes `_crossAxisAlignment` behavior for this component/composite.
+  CrossAxisAlignment _crossAxisAlignment(
+    BoxConstraints constraints,
+    Axis direction,
+  ) {
+    final canStretch = direction == Axis.horizontal
+        ? constraints.hasBoundedHeight
+        : constraints.hasBoundedWidth;
+    if (!canStretch) {
+      return CrossAxisAlignment.center;
+    }
+    return CrossAxisAlignment.stretch;
+  }
+
+  /// Executes `_wrapIntrinsic` behavior for this component/composite.
   Widget _wrapIntrinsic(Widget child) {
     if (widget.direction == Axis.horizontal) {
       return IntrinsicHeight(child: child);

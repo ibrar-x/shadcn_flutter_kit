@@ -59,18 +59,38 @@ class _NavigationRailState extends State<NavigationRail>
             child: SingleChildScrollView(
               scrollDirection: widget.direction,
               padding: resolvedPadding,
-              child: _wrapIntrinsic(
-                Flex(
-                  direction: widget.direction,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: wrapChildren(context, widget.children),
-                ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return _wrapIntrinsic(
+                    Flex(
+                      direction: widget.direction,
+                      crossAxisAlignment: _crossAxisAlignment(
+                        constraints,
+                        widget.direction,
+                      ),
+                      children: wrapChildren(context, widget.children),
+                    ),
+                  );
+                },
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  CrossAxisAlignment _crossAxisAlignment(
+    BoxConstraints constraints,
+    Axis direction,
+  ) {
+    final canStretch = direction == Axis.horizontal
+        ? constraints.hasBoundedHeight
+        : constraints.hasBoundedWidth;
+    if (!canStretch) {
+      return CrossAxisAlignment.center;
+    }
+    return CrossAxisAlignment.stretch;
   }
 
   Widget _wrapIntrinsic(Widget child) {
