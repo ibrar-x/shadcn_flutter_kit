@@ -15491,6 +15491,7 @@
         "button",
         "chip",
         "calendar",
+        "checkbox",
         "text_field",
         "select",
         "date_picker",

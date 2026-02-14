@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../control/button/button.dart';
+import '../../form/checkbox/checkbox.dart';
 import '../../form/select/select.dart';
 import '../scaffold/scaffold.dart' as shadcn_scaffold;
 import 'filter_bar.dart';
@@ -57,6 +58,11 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
     id: 'urgency',
     label: 'Urgency',
     matcher: FilterMatchers.exact(),
+  );
+  static final _priorityMultiField = FilterField<Set<String>>(
+    id: 'priority_multi',
+    label: 'Priority (multi)',
+    matcher: FilterMatchers.inSet<String>(),
   );
 
   final List<_PreviewOrder> _orders = List.generate(
@@ -115,6 +121,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
 
                 /// Creates a `_buildUrgencyButtons` instance.
                 _buildUrgencyButtons(),
+                _buildPriorityCheckboxFilter(scaling),
               ],
               onStateChanged: (next) {
                 /// Creates a `setState` instance.
@@ -186,6 +193,9 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
             return false;
           }
           if (!_state.matchesValue(_priorityField, order.priority)) {
+            return false;
+          }
+          if (!_state.matchesValue(_priorityMultiField, order.priority)) {
             return false;
           }
           if (!_state.matchesValue(_assigneeContainsField, order.assignee)) {
@@ -343,6 +353,59 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
               ),
             ).call,
             onChanged: onChanged,
+          ),
+        );
+      },
+    );
+  }
+
+  FilterCustomFilter _buildPriorityCheckboxFilter(double scaling) {
+    return FilterCustomFilter.typed<Set<String>>(
+      field: _priorityMultiField,
+      builder: (context, selectedValues, onChanged) {
+        final selected = selectedValues ?? <String>{};
+        return SizedBox(
+          width: 220 * scaling,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10 * scaling,
+              vertical: 8 * scaling,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Theme.of(context).colorScheme.border),
+              borderRadius: Theme.of(context).borderRadiusMd,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Priority (multiple)',
+                  style: Theme.of(context).typography.small,
+                ),
+                SizedBox(height: 6 * scaling),
+                ..._priorities.map((priority) {
+                  final isSelected = selected.contains(priority);
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 2 * scaling),
+                    child: Checkbox(
+                      state: isSelected
+                          ? CheckboxState.checked
+                          : CheckboxState.unchecked,
+                      onChanged: (nextState) {
+                        final next = <String>{...selected};
+                        if (nextState == CheckboxState.checked) {
+                          next.add(priority);
+                        } else {
+                          next.remove(priority);
+                        }
+                        onChanged(next.isEmpty ? null : next);
+                      },
+                      trailing: Text(_titleCase(priority)),
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
         );
       },

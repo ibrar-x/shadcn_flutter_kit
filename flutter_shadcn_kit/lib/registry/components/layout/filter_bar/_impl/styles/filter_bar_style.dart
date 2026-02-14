@@ -103,6 +103,13 @@ abstract final class FilterMatchers {
     });
   }
 
+  /// Executes `inSet` behavior for this component/composite.
+  static FilterMatcher<Set<T>> inSet<T>() {
+    return FilterMatcher<Set<T>>((selected, candidate) {
+      return selected.contains(candidate);
+    });
+  }
+
   /// Executes `greaterThan` behavior for this component/composite.
   static FilterMatcher<T> greaterThan<T extends Comparable<Object>>() {
     return FilterMatcher<T>((selected, candidate) {

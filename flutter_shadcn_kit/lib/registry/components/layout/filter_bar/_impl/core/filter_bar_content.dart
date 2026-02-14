@@ -342,69 +342,78 @@ class _FilterBarContent extends StatelessWidget {
     final hasDateRange = state.dateRange != null;
     final localizations = ShadcnLocalizations.of(context);
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        /// Creates a `SizedBox` instance.
-        SizedBox(
-          width: width,
-          child: ObjectFormField<DateTimeRange>(
-            mode: PromptMode.popover,
-            value: state.dateRange?.toDateTimeRange(),
-            onChanged: (value) {
-              onStateChanged(
-                state.copyWith(
-                  dateRange: value == null
-                      ? null
-                      : FilterDateRange.fromDateTimeRange(value),
-                ),
-              );
-            },
-            placeholder: Text(dateRangeLabel),
-            trailing: const Icon(LucideIcons.calendarRange),
-            builder: (context, value) {
-              return Text(
-                /// Creates a `_formatCompactDateRangeLabel` instance.
-                _formatCompactDateRangeLabel(localizations, value),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              );
-            },
-            editorBuilder: (context, handler) {
-              /// Stores `value` state/configuration for this implementation.
-              DateTimeRange? value = handler.value;
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  return DatePickerDialog(
-                    selectionMode: CalendarSelectionMode.range,
-                    viewMode: constraints.biggest.width < 500
-                        ? CalendarSelectionMode.single
-                        : CalendarSelectionMode.range,
-                    initialViewType: CalendarViewType.date,
-                    initialValue: value == null
-                        ? null
-                        : CalendarValue.range(value.start, value.end),
-                    onChanged: (value) {
-                      if (value == null) {
-                        handler.value = null;
-                      } else {
-                        final range = value.toRange();
-                        handler.value = DateTimeRange(range.start, range.end);
-                      }
-                    },
-                  );
-                },
-              );
-            },
+    final field = ObjectFormField<DateTimeRange>(
+      mode: PromptMode.popover,
+      value: state.dateRange?.toDateTimeRange(),
+      onChanged: (value) {
+        onStateChanged(
+          state.copyWith(
+            dateRange: value == null
+                ? null
+                : FilterDateRange.fromDateTimeRange(value),
           ),
-        ),
-        if (hasDateRange)
-          /// Creates a `GhostButton` instance.
-          GhostButton(
+        );
+      },
+      placeholder: Text(dateRangeLabel),
+      trailing: const Icon(LucideIcons.calendarRange),
+      builder: (context, value) {
+        return Text(
+          /// Creates a `_formatCompactDateRangeLabel` instance.
+          _formatCompactDateRangeLabel(localizations, value),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        );
+      },
+      editorBuilder: (context, handler) {
+        /// Stores `value` state/configuration for this implementation.
+        DateTimeRange? value = handler.value;
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return DatePickerDialog(
+              selectionMode: CalendarSelectionMode.range,
+              viewMode: constraints.biggest.width < 500
+                  ? CalendarSelectionMode.single
+                  : CalendarSelectionMode.range,
+              initialViewType: CalendarViewType.date,
+              initialValue: value == null
+                  ? null
+                  : CalendarValue.range(value.start, value.end),
+              onChanged: (value) {
+                if (value == null) {
+                  handler.value = null;
+                } else {
+                  final range = value.toRange();
+                  handler.value = DateTimeRange(range.start, range.end);
+                }
+              },
+            );
+          },
+        );
+      },
+    );
+
+    final clearButton = hasDateRange
+        ? GhostButton(
             onPressed: () => onStateChanged(state.copyWith(dateRange: null)),
             size: ButtonSize.small,
             child: const Icon(LucideIcons.x),
-          ),
+          )
+        : null;
+
+    if (width.isFinite) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(width: width, child: field),
+          if (clearButton != null) clearButton,
+        ],
+      );
+    }
+
+    return Row(
+      children: [
+        Expanded(child: field),
+        if (clearButton != null) clearButton,
       ],
     );
   }
@@ -562,55 +571,83 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
 
     return SafeArea(
       top: false,
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.colorScheme.card,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(16 * scaling),
-          ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          12 * scaling,
+          8 * scaling,
+          12 * scaling,
+          12 * scaling,
         ),
-        padding: EdgeInsets.all(16 * scaling),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(widget.title, style: theme.typography.large),
-                ),
-                GhostButton(
-                  onPressed: () => closeSheet(context),
-                  size: ButtonSize.small,
-                  child: const Icon(LucideIcons.x),
-                ),
-              ],
-            ),
-            SizedBox(height: 12 * scaling),
-            if (widget.sortOptions.isNotEmpty)
-              widget.buildSortControl(_state, _updateState),
-            if (widget.sortOptions.isNotEmpty && widget.enableDateRange)
-              SizedBox(height: 8 * scaling),
-            if (widget.enableDateRange)
-              widget.buildDateRangeControl(_state, _updateState),
-            if (customWidgets.isNotEmpty) SizedBox(height: 8 * scaling),
-            ...customWidgets,
-            if (widget.trailingFilters.isNotEmpty)
-              SizedBox(height: 8 * scaling),
-            ...widget.trailingFilters,
-            if (showClearAll) ...[
-              SizedBox(height: 12 * scaling),
-              GhostButton(
-                onPressed: _state.hasActiveFilters
-                    ? () {
-                        widget.onClearAll();
-                        closeSheet(context);
-                      }
-                    : null,
-                child: Text(widget.clearAllLabel),
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.card,
+            border: Border.all(color: theme.colorScheme.border),
+            borderRadius: BorderRadius.circular(16 * scaling),
+            boxShadow: [
+              BoxShadow(
+                color: theme.colorScheme.foreground.withOpacity(0.08),
+                blurRadius: 24 * scaling,
+                offset: Offset(0, 10 * scaling),
               ),
             ],
-          ],
+          ),
+          padding: EdgeInsets.all(16 * scaling),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 560 * scaling),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(widget.title, style: theme.typography.large),
+                    ),
+                    GhostButton(
+                      onPressed: () => closeSheet(context),
+                      size: ButtonSize.small,
+                      child: const Icon(LucideIcons.x),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12 * scaling),
+                Flexible(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (widget.sortOptions.isNotEmpty)
+                          widget.buildSortControl(_state, _updateState),
+                        if (widget.sortOptions.isNotEmpty &&
+                            widget.enableDateRange)
+                          SizedBox(height: 8 * scaling),
+                        if (widget.enableDateRange)
+                          widget.buildDateRangeControl(_state, _updateState),
+                        if (customWidgets.isNotEmpty)
+                          SizedBox(height: 8 * scaling),
+                        ...customWidgets,
+                        if (widget.trailingFilters.isNotEmpty)
+                          SizedBox(height: 8 * scaling),
+                        ...widget.trailingFilters,
+                      ],
+                    ),
+                  ),
+                ),
+                if (showClearAll) ...[
+                  SizedBox(height: 12 * scaling),
+                  GhostButton(
+                    onPressed: _state.hasActiveFilters
+                        ? () {
+                            widget.onClearAll();
+                            closeSheet(context);
+                          }
+                        : null,
+                    child: Text(widget.clearAllLabel),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );
