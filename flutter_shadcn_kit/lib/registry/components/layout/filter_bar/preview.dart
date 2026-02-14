@@ -297,11 +297,11 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
       builder: (context) {
         return _RuleComposerSheet(
           title: 'Add filter',
-          onApply: (rule) {
+          onApply: (rulesToAdd) {
             final rules = _rulesFromState(state);
             final nextRules = <_FilterRule>[
               ...rules,
-              rule.copyWith(id: _nextRuleId++),
+              ...rulesToAdd.map((rule) => rule.copyWith(id: _nextRuleId++)),
             ];
             _controller.setState(_withRules(state, nextRules));
             closeSheet(context);
@@ -546,7 +546,7 @@ class _RuleComposerSheet extends StatefulWidget {
   const _RuleComposerSheet({required this.title, required this.onApply});
 
   final String title;
-  final ValueChanged<_FilterRule> onApply;
+  final ValueChanged<List<_FilterRule>> onApply;
 
   @override
   State<_RuleComposerSheet> createState() => _RuleComposerSheetState();
@@ -584,6 +584,7 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
 
   _FilterFieldId _field = _FilterFieldId.orderNumber;
   String _operatorId = 'gt';
+  final List<_FilterRule> _queuedRules = [];
   final _valueController = TextEditingController();
   final _secondaryController = TextEditingController();
 
@@ -607,6 +608,38 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (_queuedRules.isNotEmpty) ...[
+            ..._queuedRules.map(
+              (rule) => Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.border,
+                  ),
+                  borderRadius: Theme.of(context).borderRadiusMd,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(child: Text(_ruleLabel(rule))),
+                    GhostButton(
+                      size: ButtonSize.small,
+                      onPressed: () {
+                        setState(() {
+                          _queuedRules.remove(rule);
+                        });
+                      },
+                      child: const Icon(LucideIcons.x),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
           Select<_FilterFieldId>(
             value: _field,
             itemBuilder: (context, value) {
@@ -684,6 +717,13 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
         children: [
           Expanded(
             child: GhostButton(
+              onPressed: _canQueueCurrent() ? _addCurrentToQueue : null,
+              child: const Text('Add another'),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: GhostButton(
               onPressed: () => closeSheet(context),
               child: const Text('Cancel'),
             ),
@@ -691,8 +731,12 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
           const SizedBox(width: 8),
           Expanded(
             child: PrimaryButton(
-              onPressed: _canApply() ? _apply : null,
-              child: const Text('Apply Filter'),
+              onPressed: (_queuedRules.isNotEmpty || _canQueueCurrent())
+                  ? _apply
+                  : null,
+              child: Text(
+                _queuedRules.isEmpty ? 'Apply Filter' : 'Apply Filters',
+              ),
             ),
           ),
         ],
@@ -700,7 +744,7 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
     );
   }
 
-  bool _canApply() {
+  bool _canQueueCurrent() {
     if (_operatorId == 'has_any') {
       return true;
     }
@@ -713,18 +757,55 @@ class _RuleComposerSheetState extends State<_RuleComposerSheet> {
     return true;
   }
 
-  void _apply() {
-    widget.onApply(
-      _FilterRule(
-        id: -1,
-        field: _field,
-        operatorId: _operatorId,
-        value: _valueController.text.trim(),
-        secondaryValue: _secondaryController.text.trim().isEmpty
-            ? null
-            : _secondaryController.text.trim(),
-      ),
+  _FilterRule _buildCurrentRule() {
+    return _FilterRule(
+      id: -1,
+      field: _field,
+      operatorId: _operatorId,
+      value: _valueController.text.trim(),
+      secondaryValue: _secondaryController.text.trim().isEmpty
+          ? null
+          : _secondaryController.text.trim(),
     );
+  }
+
+  void _addCurrentToQueue() {
+    if (!_canQueueCurrent()) {
+      return;
+    }
+    setState(() {
+      _queuedRules.add(_buildCurrentRule());
+      _valueController.clear();
+      _secondaryController.clear();
+    });
+  }
+
+  String _ruleLabel(_FilterRule rule) {
+    if (rule.field == _FilterFieldId.revenue && rule.operatorId == 'between') {
+      return 'Revenue is between \$${rule.value} and \$${rule.secondaryValue ?? ''}';
+    }
+    if (rule.field == _FilterFieldId.email && rule.operatorId == 'has_any') {
+      return 'Email has any value';
+    }
+    final fieldName = switch (rule.field) {
+      _FilterFieldId.orderNumber => 'Order #',
+      _FilterFieldId.email => 'Email',
+      _FilterFieldId.revenue => 'Revenue',
+      _FilterFieldId.purchased => 'Purchased',
+      _FilterFieldId.status => 'Status',
+    };
+    return '$fieldName ${rule.operatorId} ${rule.value}'.trim();
+  }
+
+  void _apply() {
+    final all = <_FilterRule>[..._queuedRules];
+    if (_canQueueCurrent()) {
+      all.add(_buildCurrentRule());
+    }
+    if (all.isEmpty) {
+      return;
+    }
+    widget.onApply(all);
   }
 
   String _valuePlaceholder() {
