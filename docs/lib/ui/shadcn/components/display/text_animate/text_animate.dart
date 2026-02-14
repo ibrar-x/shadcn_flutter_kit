@@ -30,6 +30,7 @@ typedef StreamingTextSettled = void Function(String text);
 
 /// Stream-aware text renderer for incremental text updates.
 class StreamingText extends StatefulWidget {
+  /// Creates `StreamingText` for configuring or rendering text animate.
   const StreamingText({
     super.key,
     required this.text,
@@ -46,6 +47,9 @@ class StreamingText extends StatefulWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.locale,
+    this.smoothLayout = true,
+    this.layoutAnimationDuration = const Duration(milliseconds: 180),
+    this.layoutAnimationCurve = Curves.easeOutCubic,
     this.onSettled,
   });
 
@@ -68,18 +72,43 @@ class StreamingText extends StatefulWidget {
   /// Cursor behavior.
   final StreamingCursor? cursor;
 
+  /// Data consumed by `StreamingText` to render text animate content.
   final TextAlign? textAlign;
+
+  /// Data consumed by `StreamingText` to render text animate content.
   final TextDirection? textDirection;
+
+  /// Input parameter used by `StreamingText` during rendering and behavior handling.
   final bool? softWrap;
+
+  /// Input parameter used by `StreamingText` during rendering and behavior handling.
   final TextOverflow? overflow;
+
+  /// Input parameter used by `StreamingText` during rendering and behavior handling.
   final int? maxLines;
+
+  /// Layout/size setting that affects text animate rendering.
   final TextWidthBasis? textWidthBasis;
+
+  /// Layout/size setting that affects text animate rendering.
   final TextHeightBehavior? textHeightBehavior;
+
+  /// Input parameter used by `StreamingText` during rendering and behavior handling.
   final Locale? locale;
+
+  /// Smoothly animates widget height when line wrapping/new lines change layout.
+  final bool smoothLayout;
+
+  /// Duration used for the smooth layout height transition.
+  final Duration layoutAnimationDuration;
+
+  /// Curve used for the smooth layout height transition.
+  final Curve layoutAnimationCurve;
 
   /// Invoked once each time a new text revision has completely settled.
   final StreamingTextSettled? onSettled;
 
+  /// Creates the State object used by this text animate widget.
   @override
   State<StreamingText> createState() => _StreamingTextState();
 }

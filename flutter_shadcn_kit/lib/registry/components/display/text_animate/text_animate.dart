@@ -47,6 +47,9 @@ class StreamingText extends StatefulWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.locale,
+    this.smoothLayout = true,
+    this.layoutAnimationDuration = const Duration(milliseconds: 180),
+    this.layoutAnimationCurve = Curves.easeOutCubic,
     this.onSettled,
   });
 
@@ -92,6 +95,15 @@ class StreamingText extends StatefulWidget {
 
   /// Input parameter used by `StreamingText` during rendering and behavior handling.
   final Locale? locale;
+
+  /// Smoothly animates widget height when line wrapping/new lines change layout.
+  final bool smoothLayout;
+
+  /// Duration used for the smooth layout height transition.
+  final Duration layoutAnimationDuration;
+
+  /// Curve used for the smooth layout height transition.
+  final Curve layoutAnimationCurve;
 
   /// Invoked once each time a new text revision has completely settled.
   final StreamingTextSettled? onSettled;
