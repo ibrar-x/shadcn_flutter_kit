@@ -147,10 +147,10 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
             enableDateRange: true,
             searchDebounce: const Duration(milliseconds: 200),
             resultsCount: results.length,
-            mobileVariant: FilterBarMobileVariant.autoSheet,
-            mobileBreakpoint: 980,
-            mobileSheetTitle: 'Filter',
-            mobileFiltersLabel: 'Filter',
+            presentation: FilterBarPresentation.autoSheet,
+            sheetBreakpoint: 980,
+            sheetTitle: 'Filter',
+            sheetTriggerLabel: 'Filter',
             customFilters: [
               _buildCategoryFilter(),
               _buildBrandFilter(),
@@ -159,18 +159,18 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
               _buildRetailerFilter(),
               _buildMatcherFilter(),
             ],
-            mobileGroups: const [
-              FilterMobileGroup(
+            groups: const [
+              FilterGroup(
                 id: 'catalog',
                 title: 'Catalog',
                 filterIds: ['category', 'brand', 'sale'],
               ),
-              FilterMobileGroup(
+              FilterGroup(
                 id: 'price_and_rating',
                 title: 'Pricing',
                 filterIds: ['price'],
               ),
-              FilterMobileGroup(
+              FilterGroup(
                 id: 'source',
                 title: 'Source',
                 filterIds: ['retailer', 'brand_query'],

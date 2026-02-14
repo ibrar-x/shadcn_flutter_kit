@@ -29,8 +29,11 @@ typedef FilterSheetItemBuilder =
 /// Type alias for `FilterMatcherCallback` used by public or internal APIs.
 typedef FilterMatcherCallback<T> = bool Function(T selected, Object? candidate);
 
-/// FilterBarMobileVariant defines a reusable type for this registry module.
-enum FilterBarMobileVariant { autoSheet, inline, sheet }
+/// FilterBarPresentation defines a reusable type for this registry module.
+enum FilterBarPresentation { autoSheet, inline, sheet }
+
+/// Backward compatibility alias.
+typedef FilterBarMobileVariant = FilterBarPresentation;
 
 @immutable
 /// FilterMatcher defines a reusable type for this registry module.
@@ -234,8 +237,8 @@ class FilterCustomFilter {
 }
 
 @immutable
-/// FilterMobileGroup defines a reusable type for this registry module.
-class FilterMobileGroup {
+/// FilterGroup defines a reusable type for this registry module.
+class FilterGroup {
   /// Stores `id` state/configuration for this implementation.
   final String id;
 
@@ -248,14 +251,17 @@ class FilterMobileGroup {
   /// Stores `itemBuilder` state/configuration for this implementation.
   final FilterSheetItemBuilder? itemBuilder;
 
-  /// Creates a `FilterMobileGroup` instance.
-  const FilterMobileGroup({
+  /// Creates a `FilterGroup` instance.
+  const FilterGroup({
     required this.id,
     required this.title,
     this.filterIds = const [],
     this.itemBuilder,
   });
 }
+
+/// Backward compatibility alias.
+typedef FilterMobileGroup = FilterGroup;
 
 /// FilterBarSheetScaffold defines a reusable type for this registry module.
 class FilterBarSheetScaffold extends StatelessWidget {

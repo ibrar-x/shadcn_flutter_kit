@@ -125,16 +125,16 @@ final next = state
 ```dart
 FilterBar(
   controller: controller,
-  mobileVariant: FilterBarMobileVariant.autoSheet,
-  mobileBreakpoint: 720,
-  mobileSheetTitle: 'Filters',
-  mobileGroups: const [
-    FilterMobileGroup(
+  presentation: FilterBarPresentation.autoSheet,
+  sheetBreakpoint: 720,
+  sheetTitle: 'Filters',
+  groups: const [
+    FilterGroup(
       id: 'catalog',
       title: 'Catalog',
       filterIds: ['category', 'brand'],
     ),
-    FilterMobileGroup(
+    FilterGroup(
       id: 'price',
       title: 'Pricing',
       filterIds: ['price', 'rating'],
@@ -189,11 +189,11 @@ FilterBar(
 - `clearPolicy` (`FilterClearPolicy`, optional)
 - `onClearAll` (`FilterState Function(FilterState current)?`, optional)
 - `showClearAllWhenEmpty` (`bool`, optional)
-- `mobileVariant` (`FilterBarMobileVariant`, optional, default: `autoSheet`)
-- `mobileBreakpoint` (`double`, optional, default: `720`)
-- `mobileFiltersLabel` (`String`, optional)
-- `mobileSheetTitle` (`String`, optional)
-- `mobileGroups` (`List<FilterMobileGroup>`, optional)
+- `presentation` (`FilterBarPresentation`, optional, default: `autoSheet`)
+- `sheetBreakpoint` (`double`, optional, default: `720`)
+- `sheetTriggerLabel` (`String`, optional)
+- `sheetTitle` (`String`, optional)
+- `groups` (`List<FilterGroup>`, optional)
 - `clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)
 
 ### Callbacks

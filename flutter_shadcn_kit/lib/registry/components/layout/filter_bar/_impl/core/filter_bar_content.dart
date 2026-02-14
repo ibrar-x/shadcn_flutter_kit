@@ -19,11 +19,11 @@ class _FilterBarContent extends StatelessWidget {
     required this.clearAllLabel,
     required this.sortLabel,
     required this.dateRangeLabel,
-    required this.mobileVariant,
-    required this.mobileBreakpoint,
-    required this.mobileFiltersLabel,
-    required this.mobileSheetTitle,
-    required this.mobileGroups,
+    required this.presentation,
+    required this.sheetBreakpoint,
+    required this.sheetTriggerLabel,
+    required this.sheetTitle,
+    required this.groups,
     required this.onSearchChanged,
     required this.onSortChanged,
     required this.onRemoveChip,
@@ -78,20 +78,20 @@ class _FilterBarContent extends StatelessWidget {
   /// Stores `dateRangeLabel` state/configuration for this implementation.
   final String dateRangeLabel;
 
-  /// Stores `mobileVariant` state/configuration for this implementation.
-  final FilterBarMobileVariant mobileVariant;
+  /// Stores `presentation` state/configuration for this implementation.
+  final FilterBarPresentation presentation;
 
-  /// Stores `mobileBreakpoint` state/configuration for this implementation.
-  final double mobileBreakpoint;
+  /// Stores `sheetBreakpoint` state/configuration for this implementation.
+  final double sheetBreakpoint;
 
-  /// Stores `mobileFiltersLabel` state/configuration for this implementation.
-  final String mobileFiltersLabel;
+  /// Stores `sheetTriggerLabel` state/configuration for this implementation.
+  final String sheetTriggerLabel;
 
-  /// Stores `mobileSheetTitle` state/configuration for this implementation.
-  final String mobileSheetTitle;
+  /// Stores `sheetTitle` state/configuration for this implementation.
+  final String sheetTitle;
 
-  /// Stores `mobileGroups` state/configuration for this implementation.
-  final List<FilterMobileGroup> mobileGroups;
+  /// Stores `groups` state/configuration for this implementation.
+  final List<FilterGroup> groups;
 
   /// Stores `onSearchChanged` state/configuration for this implementation.
   final ValueChanged<String> onSearchChanged;
@@ -134,7 +134,8 @@ class _FilterBarContent extends StatelessWidget {
           hasCounterText: countLabel != null,
           hasClearAction: showClearAll,
         );
-        final useMobileSheet = _shouldUseMobileSheet(constraints.maxWidth);
+        final useSheet = _shouldUseSheet(constraints.maxWidth);
+        final showInlineGrouped = !useSheet && groups.isNotEmpty;
 
         return DecoratedBox(
           decoration: BoxDecoration(
@@ -175,21 +176,21 @@ class _FilterBarContent extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (sortOptions.isNotEmpty && !useMobileSheet)
+                    if (sortOptions.isNotEmpty && !useSheet)
                       /// Creates a `_buildSortControl` instance.
                       _buildSortControl(
                         layout.sortWidth,
                         state: state,
                         onStateChanged: onStateChanged,
                       ),
-                    if (enableDateRange && !useMobileSheet)
+                    if (enableDateRange && !useSheet)
                       _buildDateRangeControl(
                         context,
                         state: state,
                         onStateChanged: onStateChanged,
                         width: style.minSortWidth,
                       ),
-                    if (useMobileSheet)
+                    if (useSheet)
                       SecondaryButton(
                         size: style.dense
                             ? ButtonSize.small
@@ -202,23 +203,24 @@ class _FilterBarContent extends StatelessWidget {
                             SizedBox(width: 6 * Theme.of(context).scaling),
                             Text(
                               state.activeFilterCount > 0
-                                  ? '$mobileFiltersLabel (${state.activeFilterCount})'
-                                  : mobileFiltersLabel,
+                                  ? '$sheetTriggerLabel (${state.activeFilterCount})'
+                                  : sheetTriggerLabel,
                             ),
                           ],
                         ),
                       )
                     else ...[
-                      ...customFilters.map(
-                        (customFilter) =>
-                            /// Creates a `customFilter.builder` instance.
-                            customFilter.builder(
-                              context,
-                              state,
-                              onStateChanged,
-                            ),
-                      ),
-                      ...trailingFilters,
+                      if (!showInlineGrouped)
+                        ...customFilters.map(
+                          (customFilter) =>
+                              /// Creates a `customFilter.builder` instance.
+                              customFilter.builder(
+                                context,
+                                state,
+                                onStateChanged,
+                              ),
+                        ),
+                      if (!showInlineGrouped) ...trailingFilters,
                     ],
                     if (countLabel != null)
                       /// Creates a `Padding` instance.
@@ -242,6 +244,10 @@ class _FilterBarContent extends StatelessWidget {
                       ),
                   ],
                 ),
+                if (showInlineGrouped) ...[
+                  SizedBox(height: style.runSpacing),
+                  ..._buildGroupedInlineContent(context),
+                ],
                 if (state.chips.isNotEmpty) ...[
                   /// Creates a `SizedBox` instance.
                   SizedBox(height: style.runSpacing),
@@ -422,14 +428,86 @@ class _FilterBarContent extends StatelessWidget {
     );
   }
 
-  bool _shouldUseMobileSheet(double maxWidth) {
-    switch (mobileVariant) {
-      case FilterBarMobileVariant.inline:
+  List<Widget> _buildGroupedInlineContent(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final filterMap = <String, FilterCustomFilter>{
+      for (final filter in customFilters) filter.id: filter,
+    };
+    final children = <Widget>[];
+    final usedFilterIds = <String>{};
+    for (final group in groups) {
+      final groupItems = <Widget>[];
+      for (final id in group.filterIds) {
+        usedFilterIds.add(id);
+        final filter = filterMap[id];
+        if (filter != null) {
+          groupItems.add(filter.builder(context, state, onStateChanged));
+        }
+      }
+      if (group.itemBuilder != null) {
+        groupItems.add(group.itemBuilder!(context, state, onStateChanged));
+      }
+      if (groupItems.isEmpty) {
+        continue;
+      }
+      children.add(
+        Container(
+          margin: EdgeInsets.only(bottom: 8 * scaling),
+          padding: EdgeInsets.all(12 * scaling),
+          decoration: BoxDecoration(
+            border: Border.all(color: theme.colorScheme.border),
+            borderRadius: theme.borderRadiusMd,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(group.title, style: theme.typography.medium),
+              SizedBox(height: 8 * scaling),
+              Wrap(
+                spacing: style.spacing,
+                runSpacing: style.runSpacing,
+                children: groupItems,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    final ungrouped = customFilters
+        .where((filter) => !usedFilterIds.contains(filter.id))
+        .map((filter) => filter.builder(context, state, onStateChanged))
+        .toList(growable: false);
+    if (ungrouped.isNotEmpty) {
+      children.add(
+        Wrap(
+          spacing: style.spacing,
+          runSpacing: style.runSpacing,
+          children: ungrouped,
+        ),
+      );
+    }
+    if (trailingFilters.isNotEmpty) {
+      children.add(SizedBox(height: 8 * scaling));
+      children.add(
+        Wrap(
+          spacing: style.spacing,
+          runSpacing: style.runSpacing,
+          children: trailingFilters,
+        ),
+      );
+    }
+    return children;
+  }
+
+  bool _shouldUseSheet(double maxWidth) {
+    switch (presentation) {
+      case FilterBarPresentation.inline:
         return false;
-      case FilterBarMobileVariant.sheet:
+      case FilterBarPresentation.sheet:
         return true;
-      case FilterBarMobileVariant.autoSheet:
-        return maxWidth <= mobileBreakpoint;
+      case FilterBarPresentation.autoSheet:
+        return maxWidth <= sheetBreakpoint;
     }
   }
 
@@ -452,15 +530,15 @@ class _FilterBarContent extends StatelessWidget {
       builder: (context) {
         return _FilterBarMobileSheet(
           initialState: state,
-          mobileVariant: mobileVariant,
-          mobileBreakpoint: mobileBreakpoint,
+          presentation: presentation,
+          sheetBreakpoint: sheetBreakpoint,
           sortOptions: sortOptions,
           enableDateRange: enableDateRange,
           customFilters: customFilters,
-          mobileGroups: mobileGroups,
+          groups: groups,
           trailingFilters: trailingFilters,
           clearAllLabel: clearAllLabel,
-          title: mobileSheetTitle,
+          title: sheetTitle,
           showClearAllWhenEmpty: showClearAllWhenEmpty,
           onStateChanged: onStateChanged,
           buildSortControl: (sheetState, onChanged) => _buildSortControl(
@@ -491,12 +569,12 @@ class _FilterBarMobileSheet extends StatefulWidget {
   /// Creates a `_FilterBarMobileSheet` instance.
   const _FilterBarMobileSheet({
     required this.initialState,
-    required this.mobileVariant,
-    required this.mobileBreakpoint,
+    required this.presentation,
+    required this.sheetBreakpoint,
     required this.sortOptions,
     required this.enableDateRange,
     required this.customFilters,
-    required this.mobileGroups,
+    required this.groups,
     required this.trailingFilters,
     required this.clearAllLabel,
     required this.title,
@@ -510,11 +588,11 @@ class _FilterBarMobileSheet extends StatefulWidget {
   /// Stores `initialState` state/configuration for this implementation.
   final FilterState initialState;
 
-  /// Stores `mobileVariant` state/configuration for this implementation.
-  final FilterBarMobileVariant mobileVariant;
+  /// Stores `presentation` state/configuration for this implementation.
+  final FilterBarPresentation presentation;
 
-  /// Stores `mobileBreakpoint` state/configuration for this implementation.
-  final double mobileBreakpoint;
+  /// Stores `sheetBreakpoint` state/configuration for this implementation.
+  final double sheetBreakpoint;
 
   /// Stores `sortOptions` state/configuration for this implementation.
   final List<FilterSortOption> sortOptions;
@@ -525,8 +603,8 @@ class _FilterBarMobileSheet extends StatefulWidget {
   /// Stores `customFilters` state/configuration for this implementation.
   final List<FilterCustomFilter> customFilters;
 
-  /// Stores `mobileGroups` state/configuration for this implementation.
-  final List<FilterMobileGroup> mobileGroups;
+  /// Stores `groups` state/configuration for this implementation.
+  final List<FilterGroup> groups;
 
   /// Stores `trailingFilters` state/configuration for this implementation.
   final List<Widget> trailingFilters;
@@ -583,9 +661,9 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final shouldCloseForDesktop =
-        widget.mobileVariant == FilterBarMobileVariant.inline ||
-        (widget.mobileVariant == FilterBarMobileVariant.autoSheet &&
-            width > widget.mobileBreakpoint);
+        widget.presentation == FilterBarPresentation.inline ||
+        (widget.presentation == FilterBarPresentation.autoSheet &&
+            width > widget.sheetBreakpoint);
     if (shouldCloseForDesktop) {
       if (!_closeScheduled) {
         _closeScheduled = true;
@@ -609,7 +687,7 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
       title: widget.title,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: widget.mobileGroups.isEmpty
+        children: widget.groups.isEmpty
             ? _buildDefaultMobileContent(customWidgets)
             : _buildGroupedMobileContent(context),
       ),
@@ -658,7 +736,7 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
         widget.buildDateRangeControl(_state, _updateState),
     ];
 
-    for (final group in widget.mobileGroups) {
+    for (final group in widget.groups) {
       final groupItems = <Widget>[];
       for (final id in group.filterIds) {
         final filter = filterMap[id];

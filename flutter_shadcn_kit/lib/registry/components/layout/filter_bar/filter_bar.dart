@@ -47,10 +47,15 @@ class FilterBar extends StatefulWidget {
     this.clearAllLabel = 'Clear all',
     this.sortLabel = 'Sort',
     this.dateRangeLabel = 'Date range',
-    this.mobileVariant = FilterBarMobileVariant.autoSheet,
-    this.mobileBreakpoint = 720,
-    this.mobileFiltersLabel = 'Filters',
-    this.mobileSheetTitle = 'Filters',
+    this.presentation = FilterBarPresentation.autoSheet,
+    this.sheetBreakpoint = 720,
+    this.sheetTriggerLabel = 'Filters',
+    this.sheetTitle = 'Filters',
+    @Deprecated('Use presentation') this.mobileVariant,
+    @Deprecated('Use sheetBreakpoint') this.mobileBreakpoint,
+    @Deprecated('Use sheetTriggerLabel') this.mobileFiltersLabel,
+    @Deprecated('Use sheetTitle') this.mobileSheetTitle,
+    this.groups = const [],
     this.mobileGroups = const [],
   }) : assert(
          controller != null || (state != null && onStateChanged != null),
@@ -114,20 +119,44 @@ class FilterBar extends StatefulWidget {
   /// Stores `dateRangeLabel` state/configuration for this implementation.
   final String dateRangeLabel;
 
-  /// Stores `mobileVariant` state/configuration for this implementation.
-  final FilterBarMobileVariant mobileVariant;
+  /// Stores `presentation` state/configuration for this implementation.
+  final FilterBarPresentation presentation;
 
-  /// Stores `mobileBreakpoint` state/configuration for this implementation.
-  final double mobileBreakpoint;
+  /// Stores `sheetBreakpoint` state/configuration for this implementation.
+  final double sheetBreakpoint;
 
-  /// Stores `mobileFiltersLabel` state/configuration for this implementation.
-  final String mobileFiltersLabel;
+  /// Stores `sheetTriggerLabel` state/configuration for this implementation.
+  final String sheetTriggerLabel;
 
-  /// Stores `mobileSheetTitle` state/configuration for this implementation.
-  final String mobileSheetTitle;
+  /// Stores `sheetTitle` state/configuration for this implementation.
+  final String sheetTitle;
 
-  /// Stores `mobileGroups` state/configuration for this implementation.
+  /// Backward compatibility option.
+  final FilterBarMobileVariant? mobileVariant;
+
+  /// Backward compatibility option.
+  final double? mobileBreakpoint;
+
+  /// Backward compatibility option.
+  final String? mobileFiltersLabel;
+
+  /// Backward compatibility option.
+  final String? mobileSheetTitle;
+
+  /// Stores `groups` state/configuration for this implementation.
+  final List<FilterGroup> groups;
+
+  /// Backward compatibility option.
   final List<FilterMobileGroup> mobileGroups;
+
+  FilterBarPresentation get effectivePresentation =>
+      mobileVariant ?? presentation;
+  double get effectiveSheetBreakpoint => mobileBreakpoint ?? sheetBreakpoint;
+  String get effectiveSheetTriggerLabel =>
+      mobileFiltersLabel ?? sheetTriggerLabel;
+  String get effectiveSheetTitle => mobileSheetTitle ?? sheetTitle;
+  List<FilterGroup> get effectiveGroups =>
+      groups.isNotEmpty ? groups : mobileGroups;
 
   @override
   /// Executes `createState` behavior for this component/composite.
@@ -292,11 +321,11 @@ class _FilterBarState extends State<FilterBar> {
       clearAllLabel: widget.clearAllLabel,
       sortLabel: widget.sortLabel,
       dateRangeLabel: widget.dateRangeLabel,
-      mobileVariant: widget.mobileVariant,
-      mobileBreakpoint: widget.mobileBreakpoint,
-      mobileFiltersLabel: widget.mobileFiltersLabel,
-      mobileSheetTitle: widget.mobileSheetTitle,
-      mobileGroups: widget.mobileGroups,
+      presentation: widget.effectivePresentation,
+      sheetBreakpoint: widget.effectiveSheetBreakpoint,
+      sheetTriggerLabel: widget.effectiveSheetTriggerLabel,
+      sheetTitle: widget.effectiveSheetTitle,
+      groups: widget.effectiveGroups,
       onSearchChanged: _onSearchChanged,
       onSortChanged: _onSortChanged,
       onRemoveChip: _onRemoveChip,

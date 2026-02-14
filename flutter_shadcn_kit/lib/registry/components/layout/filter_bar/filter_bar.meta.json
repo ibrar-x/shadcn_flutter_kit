@@ -25,7 +25,7 @@
     },
     {
       "title": "Mobile sheet variant",
-      "code": "FilterBar(\n  controller: controller,\n  mobileVariant: FilterBarMobileVariant.autoSheet,\n  mobileBreakpoint: 720,\n  mobileSheetTitle: 'Filters',\n  mobileGroups: const [\n    FilterMobileGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n  ],\n)"
+      "code": "FilterBar(\n  controller: controller,\n  presentation: FilterBarPresentation.autoSheet,\n  sheetBreakpoint: 720,\n  sheetTitle: 'Filters',\n  groups: const [\n    FilterGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n  ],\n)"
     },
     {
       "title": "Multi matcher + custom matcher",
@@ -53,11 +53,11 @@
       "`clearPolicy` (`FilterClearPolicy`, optional)",
       "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
       "`showClearAllWhenEmpty` (`bool`, optional)",
-      "`mobileVariant` (`FilterBarMobileVariant`, optional, default: `autoSheet`)",
-      "`mobileBreakpoint` (`double`, optional, default: `720`)",
-      "`mobileFiltersLabel` (`String`, optional)",
-      "`mobileSheetTitle` (`String`, optional)",
-      "`mobileGroups` (`List<FilterMobileGroup>`, optional)",
+      "`presentation` (`FilterBarPresentation`, optional, default: `autoSheet`)",
+      "`sheetBreakpoint` (`double`, optional, default: `720`)",
+      "`sheetTriggerLabel` (`String`, optional)",
+      "`sheetTitle` (`String`, optional)",
+      "`groups` (`List<FilterGroup>`, optional)",
       "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
     ],
     "callbacks": [
