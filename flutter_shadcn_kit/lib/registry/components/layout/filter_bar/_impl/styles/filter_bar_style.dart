@@ -18,6 +18,14 @@ typedef FilterCustomFilterBuilder =
 typedef FilterTypedCustomFilterBuilder<T> =
     Widget Function(BuildContext context, T? value, ValueChanged<T?> onChanged);
 
+/// Type alias for `FilterSheetItemBuilder` used by public or internal APIs.
+typedef FilterSheetItemBuilder =
+    Widget Function(
+      BuildContext context,
+      FilterState state,
+      FilterStateChanged onStateChanged,
+    );
+
 /// Type alias for `FilterMatcherCallback` used by public or internal APIs.
 typedef FilterMatcherCallback<T> = bool Function(T selected, Object? candidate);
 
@@ -221,6 +229,115 @@ class FilterCustomFilter {
           onStateChanged(state.setValue<T>(field, next));
         });
       },
+    );
+  }
+}
+
+@immutable
+/// FilterMobileGroup defines a reusable type for this registry module.
+class FilterMobileGroup {
+  /// Stores `id` state/configuration for this implementation.
+  final String id;
+
+  /// Stores `title` state/configuration for this implementation.
+  final String title;
+
+  /// Stores `filterIds` state/configuration for this implementation.
+  final List<String> filterIds;
+
+  /// Stores `itemBuilder` state/configuration for this implementation.
+  final FilterSheetItemBuilder? itemBuilder;
+
+  /// Creates a `FilterMobileGroup` instance.
+  const FilterMobileGroup({
+    required this.id,
+    required this.title,
+    this.filterIds = const [],
+    this.itemBuilder,
+  });
+}
+
+/// FilterBarSheetScaffold defines a reusable type for this registry module.
+class FilterBarSheetScaffold extends StatelessWidget {
+  /// Creates a `FilterBarSheetScaffold` instance.
+  const FilterBarSheetScaffold({
+    super.key,
+    required this.title,
+    required this.child,
+    this.onClose,
+    this.footer,
+    this.maxHeight = 560,
+    this.margin = const EdgeInsets.fromLTRB(12, 8, 12, 12),
+  });
+
+  /// Stores `title` state/configuration for this implementation.
+  final String title;
+
+  /// Stores `child` state/configuration for this implementation.
+  final Widget child;
+
+  /// Stores `onClose` state/configuration for this implementation.
+  final VoidCallback? onClose;
+
+  /// Stores `footer` state/configuration for this implementation.
+  final Widget? footer;
+
+  /// Stores `maxHeight` state/configuration for this implementation.
+  final double maxHeight;
+
+  /// Stores `margin` state/configuration for this implementation.
+  final EdgeInsetsGeometry margin;
+
+  @override
+  /// Executes `build` behavior for this component/composite.
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: margin,
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.card,
+            border: Border.all(color: theme.colorScheme.border),
+            borderRadius: BorderRadius.circular(16 * scaling),
+            boxShadow: [
+              BoxShadow(
+                color: theme.colorScheme.foreground.withOpacity(0.08),
+                blurRadius: 24 * scaling,
+                offset: Offset(0, 10 * scaling),
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(16 * scaling),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: maxHeight * scaling),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Text(title, style: theme.typography.large)),
+                    GhostButton(
+                      onPressed: onClose ?? () => closeSheet(context),
+                      size: ButtonSize.small,
+                      child: const Icon(LucideIcons.x),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12 * scaling),
+                Flexible(child: SingleChildScrollView(child: child)),
+                if (footer != null) ...[
+                  SizedBox(height: 12 * scaling),
+                  footer!,
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

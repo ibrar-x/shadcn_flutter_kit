@@ -15423,6 +15423,10 @@
           "destination": "{installPath}/components/layout/filter_bar/_impl/extensions/filter_state_extensions.dart"
         },
         {
+          "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_controller.dart",
+          "destination": "{installPath}/components/layout/filter_bar/_impl/state/filter_bar_controller.dart"
+        },
+        {
           "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_state.dart",
           "destination": "{installPath}/components/layout/filter_bar/_impl/state/filter_bar_state.dart"
         },
@@ -15454,6 +15458,9 @@
             },
             {
               "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_state.dart"
+            },
+            {
+              "source": "registry/components/layout/filter_bar/_impl/state/filter_bar_controller.dart"
             },
             {
               "source": "registry/components/layout/filter_bar/_impl/styles/filter_bar_style.dart"

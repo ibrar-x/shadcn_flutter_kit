@@ -23,6 +23,7 @@ class _FilterBarContent extends StatelessWidget {
     required this.mobileBreakpoint,
     required this.mobileFiltersLabel,
     required this.mobileSheetTitle,
+    required this.mobileGroups,
     required this.onSearchChanged,
     required this.onSortChanged,
     required this.onRemoveChip,
@@ -88,6 +89,9 @@ class _FilterBarContent extends StatelessWidget {
 
   /// Stores `mobileSheetTitle` state/configuration for this implementation.
   final String mobileSheetTitle;
+
+  /// Stores `mobileGroups` state/configuration for this implementation.
+  final List<FilterMobileGroup> mobileGroups;
 
   /// Stores `onSearchChanged` state/configuration for this implementation.
   final ValueChanged<String> onSearchChanged;
@@ -453,6 +457,7 @@ class _FilterBarContent extends StatelessWidget {
           sortOptions: sortOptions,
           enableDateRange: enableDateRange,
           customFilters: customFilters,
+          mobileGroups: mobileGroups,
           trailingFilters: trailingFilters,
           clearAllLabel: clearAllLabel,
           title: mobileSheetTitle,
@@ -491,6 +496,7 @@ class _FilterBarMobileSheet extends StatefulWidget {
     required this.sortOptions,
     required this.enableDateRange,
     required this.customFilters,
+    required this.mobileGroups,
     required this.trailingFilters,
     required this.clearAllLabel,
     required this.title,
@@ -518,6 +524,9 @@ class _FilterBarMobileSheet extends StatefulWidget {
 
   /// Stores `customFilters` state/configuration for this implementation.
   final List<FilterCustomFilter> customFilters;
+
+  /// Stores `mobileGroups` state/configuration for this implementation.
+  final List<FilterMobileGroup> mobileGroups;
 
   /// Stores `trailingFilters` state/configuration for this implementation.
   final List<Widget> trailingFilters;
@@ -572,8 +581,6 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
     final width = MediaQuery.sizeOf(context).width;
     final shouldCloseForDesktop =
         widget.mobileVariant == FilterBarMobileVariant.inline ||
@@ -598,87 +605,98 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
         .map((filter) => filter.builder(context, _state, _updateState))
         .toList(growable: false);
 
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          12 * scaling,
-          8 * scaling,
-          12 * scaling,
-          12 * scaling,
-        ),
-        child: Container(
+    return FilterBarSheetScaffold(
+      title: widget.title,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: widget.mobileGroups.isEmpty
+            ? _buildDefaultMobileContent(customWidgets)
+            : _buildGroupedMobileContent(context),
+      ),
+      footer: showClearAll
+          ? GhostButton(
+              onPressed: _state.hasActiveFilters
+                  ? () {
+                      widget.onClearAll();
+                      closeSheet(context);
+                    }
+                  : null,
+              child: Text(widget.clearAllLabel),
+            )
+          : null,
+    );
+  }
+
+  List<Widget> _buildDefaultMobileContent(List<Widget> customWidgets) {
+    return [
+      if (widget.sortOptions.isNotEmpty)
+        widget.buildSortControl(_state, _updateState),
+      if (widget.sortOptions.isNotEmpty && widget.enableDateRange)
+        const SizedBox(height: 8),
+      if (widget.enableDateRange)
+        widget.buildDateRangeControl(_state, _updateState),
+      if (customWidgets.isNotEmpty) const SizedBox(height: 8),
+      ...customWidgets,
+      if (widget.trailingFilters.isNotEmpty) const SizedBox(height: 8),
+      ...widget.trailingFilters,
+    ];
+  }
+
+  List<Widget> _buildGroupedMobileContent(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final filterMap = <String, FilterCustomFilter>{
+      for (final filter in widget.customFilters) filter.id: filter,
+    };
+
+    final children = <Widget>[
+      if (widget.sortOptions.isNotEmpty)
+        widget.buildSortControl(_state, _updateState),
+      if (widget.sortOptions.isNotEmpty && widget.enableDateRange)
+        const SizedBox(height: 8),
+      if (widget.enableDateRange)
+        widget.buildDateRangeControl(_state, _updateState),
+    ];
+
+    for (final group in widget.mobileGroups) {
+      final groupItems = <Widget>[];
+      for (final id in group.filterIds) {
+        final filter = filterMap[id];
+        if (filter != null) {
+          groupItems.add(filter.builder(context, _state, _updateState));
+        }
+      }
+      if (group.itemBuilder != null) {
+        groupItems.add(group.itemBuilder!(context, _state, _updateState));
+      }
+      if (groupItems.isEmpty) {
+        continue;
+      }
+
+      children.add(SizedBox(height: 8 * scaling));
+      children.add(
+        Container(
+          padding: EdgeInsets.all(12 * scaling),
           decoration: BoxDecoration(
-            color: theme.colorScheme.card,
             border: Border.all(color: theme.colorScheme.border),
-            borderRadius: BorderRadius.circular(16 * scaling),
-            boxShadow: [
-              BoxShadow(
-                color: theme.colorScheme.foreground.withOpacity(0.08),
-                blurRadius: 24 * scaling,
-                offset: Offset(0, 10 * scaling),
-              ),
+            borderRadius: theme.borderRadiusMd,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(group.title, style: theme.typography.medium),
+              SizedBox(height: 8 * scaling),
+              ...groupItems,
             ],
           ),
-          padding: EdgeInsets.all(16 * scaling),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 560 * scaling),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(widget.title, style: theme.typography.large),
-                    ),
-                    GhostButton(
-                      onPressed: () => closeSheet(context),
-                      size: ButtonSize.small,
-                      child: const Icon(LucideIcons.x),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12 * scaling),
-                Flexible(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (widget.sortOptions.isNotEmpty)
-                          widget.buildSortControl(_state, _updateState),
-                        if (widget.sortOptions.isNotEmpty &&
-                            widget.enableDateRange)
-                          SizedBox(height: 8 * scaling),
-                        if (widget.enableDateRange)
-                          widget.buildDateRangeControl(_state, _updateState),
-                        if (customWidgets.isNotEmpty)
-                          SizedBox(height: 8 * scaling),
-                        ...customWidgets,
-                        if (widget.trailingFilters.isNotEmpty)
-                          SizedBox(height: 8 * scaling),
-                        ...widget.trailingFilters,
-                      ],
-                    ),
-                  ),
-                ),
-                if (showClearAll) ...[
-                  SizedBox(height: 12 * scaling),
-                  GhostButton(
-                    onPressed: _state.hasActiveFilters
-                        ? () {
-                            widget.onClearAll();
-                            closeSheet(context);
-                          }
-                        : null,
-                    child: Text(widget.clearAllLabel),
-                  ),
-                ],
-              ],
-            ),
-          ),
         ),
-      ),
-    );
+      );
+    }
+
+    if (widget.trailingFilters.isNotEmpty) {
+      children.add(SizedBox(height: 8 * scaling));
+      children.addAll(widget.trailingFilters);
+    }
+    return children;
   }
 }

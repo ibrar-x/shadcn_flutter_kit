@@ -34,20 +34,17 @@ import 'package:<your_app>/ui/shadcn/layout/filter_bar/filter_bar.dart';
 ## Minimal example
 
 ```dart
-FilterState state = const FilterState(
-  sortId: 'newest',
+final controller = FilterBarController(
+  const FilterState(sortId: 'newest'),
 );
 
 FilterBar(
-  state: state,
+  controller: controller,
   sortOptions: const [
     FilterSortOption(id: 'newest', label: 'Newest'),
     FilterSortOption(id: 'oldest', label: 'Oldest'),
   ],
   resultsCount: 42,
-  onStateChanged: (next) {
-    setState(() => state = next);
-  },
 )
 ```
 
@@ -127,11 +124,22 @@ final next = state
 
 ```dart
 FilterBar(
-  state: state,
+  controller: controller,
   mobileVariant: FilterBarMobileVariant.autoSheet,
   mobileBreakpoint: 720,
   mobileSheetTitle: 'Filters',
-  onStateChanged: (next) => setState(() => state = next),
+  mobileGroups: const [
+    FilterMobileGroup(
+      id: 'catalog',
+      title: 'Catalog',
+      filterIds: ['category', 'brand'],
+    ),
+    FilterMobileGroup(
+      id: 'price',
+      title: 'Pricing',
+      filterIds: ['price', 'rating'],
+    ),
+  ],
 )
 ```
 
@@ -167,8 +175,9 @@ FilterBar(
 ### Constructor
 
 - `FilterBar`
-- `state` (`FilterState`, required)
-- `onStateChanged` (`ValueChanged<FilterState>`, required)
+- `state` (`FilterState?`, required when `controller` is not provided)
+- `onStateChanged` (`ValueChanged<FilterState>?`, required when `controller` is not provided)
+- `controller` (`FilterBarController?`, optional)
 - `sortOptions` (`List<FilterSortOption>`, optional)
 - `enableDateRange` (`bool`, optional)
 - `resultsCount` (`int?`, optional)
@@ -184,6 +193,7 @@ FilterBar(
 - `mobileBreakpoint` (`double`, optional, default: `720`)
 - `mobileFiltersLabel` (`String`, optional)
 - `mobileSheetTitle` (`String`, optional)
+- `mobileGroups` (`List<FilterMobileGroup>`, optional)
 - `clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)
 
 ### Callbacks

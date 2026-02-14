@@ -16,7 +16,7 @@
     ]
   },
   "examples": {
-    "minimal": "FilterState state = const FilterState(\n  sortId: 'newest',\n);\n\nFilterBar(\n  state: state,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n  onStateChanged: (next) {\n    setState(() => state = next);\n  },\n)"
+    "minimal": "final controller = FilterBarController(\n  const FilterState(sortId: 'newest'),\n);\n\nFilterBar(\n  controller: controller,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n)"
   },
   "patterns": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "title": "Mobile sheet variant",
-      "code": "FilterBar(\n  state: state,\n  mobileVariant: FilterBarMobileVariant.autoSheet,\n  mobileBreakpoint: 720,\n  mobileSheetTitle: 'Filters',\n  onStateChanged: (next) => setState(() => state = next),\n)"
+      "code": "FilterBar(\n  controller: controller,\n  mobileVariant: FilterBarMobileVariant.autoSheet,\n  mobileBreakpoint: 720,\n  mobileSheetTitle: 'Filters',\n  mobileGroups: const [\n    FilterMobileGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n  ],\n)"
     },
     {
       "title": "Multi matcher + custom matcher",
@@ -39,8 +39,9 @@
   "api": {
     "constructors": [
       "`FilterBar`",
-      "`state` (`FilterState`, required)",
-      "`onStateChanged` (`ValueChanged<FilterState>`, required)",
+      "`state` (`FilterState?`, required if `controller` is null)",
+      "`onStateChanged` (`ValueChanged<FilterState>?`, required if `controller` is null)",
+      "`controller` (`FilterBarController?`, optional)",
       "`sortOptions` (`List<FilterSortOption>`, optional)",
       "`enableDateRange` (`bool`, optional)",
       "`resultsCount` (`int?`, optional)",
@@ -56,6 +57,7 @@
       "`mobileBreakpoint` (`double`, optional, default: `720`)",
       "`mobileFiltersLabel` (`String`, optional)",
       "`mobileSheetTitle` (`String`, optional)",
+      "`mobileGroups` (`List<FilterMobileGroup>`, optional)",
       "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
     ],
     "callbacks": [
