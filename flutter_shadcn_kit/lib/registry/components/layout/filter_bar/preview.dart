@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../control/button/button.dart';
 import '../../form/checkbox/checkbox.dart';
 import '../../form/select/select.dart';
+import '../../form/text_field/text_field.dart';
 import '../../overlay/drawer/drawer.dart';
 import '../scaffold/scaffold.dart' as shadcn_scaffold;
 import 'filter_bar.dart';
@@ -17,111 +18,106 @@ class FilterBarPreview extends StatefulWidget {
   State<FilterBarPreview> createState() => _FilterBarPreviewState();
 }
 
-enum _PreviewDesktopPlacement { inline, sidebarLeft, sidebarRight }
-
-/// _FilterBarPreviewState defines a reusable type for this registry module.
 class _FilterBarPreviewState extends State<FilterBarPreview> {
-  static const _sortOptions = [
-    FilterSortOption(id: 'newest', label: 'Newest'),
-    FilterSortOption(id: 'oldest', label: 'Oldest'),
-  ];
-
-  static const _categories = ['electronics', 'office', 'networking'];
-  static const _retailers = ['direct', 'marketplace', 'reseller'];
-
-  static final _categoryField = FilterField<String>(
-    id: 'category',
-    matcher: FilterMatchers.exact(),
-  );
-  static final _brandField = FilterField<Set<String>>(
-    id: 'brand',
-    matcher: FilterMatchers.inSet<String>(),
-  );
-  static final _saleField = FilterField<bool>(
-    id: 'sale',
-    matcher: FilterMatchers.exact<bool>(),
-  );
-  static final _priceField = FilterField<String>(
-    id: 'price',
-    matcher: FilterMatchers.exact<String>(),
-  );
-  static final _retailerField = FilterField<Set<String>>(
-    id: 'retailer',
-    matcher: FilterMatchers.inSet<String>(),
-  );
-  static final _brandMatcherField = FilterField<String>(
-    id: 'brand_query',
-    defaultMatcherId: 'contains',
-    matchers: [
-      FilterMatcherOption(
-        id: 'contains',
-        label: 'Contains',
-        matcher: FilterMatchers.contains(),
-      ),
-      FilterMatcherOption(
-        id: 'starts_with',
-        label: 'Starts with',
-        matcher: FilterMatchers.startsWith(),
-      ),
-      FilterMatcherOption(
-        id: 'like',
-        label: 'Like',
-        matcher: FilterMatchers.like(),
-      ),
-      FilterMatcherOption(
-        id: 'custom',
-        label: 'Custom (consonants)',
-        matcher: FilterMatcher<String>((selected, candidate) {
-          if (candidate is! String) {
-            return false;
-          }
-          final lhs = _stripVowels(candidate.toLowerCase());
-          final rhs = _stripVowels(selected.toLowerCase());
-          if (rhs.isEmpty) {
-            return true;
-          }
-          return lhs.contains(rhs);
-        }),
-      ),
-    ],
-  );
-
   final _controller = FilterBarController(
-    const FilterState(
-      sortId: 'newest',
+    FilterState(
+      chips: const [
+        FilterChipData(key: 'rule:1', label: 'Order # is greater than 1000'),
+        FilterChipData(key: 'rule:2', label: 'Email contains gmail'),
+        FilterChipData(
+          key: 'rule:3',
+          label: 'Revenue is between \$9 and \$199',
+        ),
+        FilterChipData(key: 'rule:4', label: 'Purchased is Splashify 2.0'),
+        FilterChipData(key: 'rule:5', label: 'Status is Paid'),
+      ],
       customFilters: {
-        'category': 'electronics',
-        'price': 'all',
-        'sale': false,
-        'brand_query': '',
+        'rules': [
+          _FilterRule(
+            id: 1,
+            field: _FilterFieldId.orderNumber,
+            operatorId: 'gt',
+            value: '1000',
+          ),
+          _FilterRule(
+            id: 2,
+            field: _FilterFieldId.email,
+            operatorId: 'contains',
+            value: 'gmail',
+          ),
+          _FilterRule(
+            id: 3,
+            field: _FilterFieldId.revenue,
+            operatorId: 'between',
+            value: '9',
+            secondaryValue: '199',
+          ),
+          _FilterRule(
+            id: 4,
+            field: _FilterFieldId.purchased,
+            operatorId: 'is',
+            value: 'Splashify 2.0',
+          ),
+          _FilterRule(
+            id: 5,
+            field: _FilterFieldId.status,
+            operatorId: 'is',
+            value: 'Paid',
+          ),
+        ],
       },
     ),
   );
 
-  final List<_PreviewProduct> _products = List.generate(40, (index) {
-    const brands = [
-      'Apple',
-      'EKWB',
-      'SuperMicro',
-      'Crucial',
-      'TP-Link',
-      'HPE',
-      'Netgear',
-      'Thermaltake',
-    ];
-    final brand = brands[index % brands.length];
-    return _PreviewProduct(
-      id: '${1000 + index}',
-      brand: brand,
-      category: _categories[index % _categories.length],
-      retailer: _retailers[index % _retailers.length],
-      onSale: index % 3 == 0,
-      price: 80 + ((index * 35) % 880),
-      stock: 420 + ((index * 21) % 150),
-    );
-  });
+  int _nextRuleId = 6;
 
-  _PreviewDesktopPlacement _desktopPlacement = _PreviewDesktopPlacement.inline;
+  final List<_OrderRecord> _orders = const [
+    _OrderRecord(
+      orderNo: 1019,
+      date: '1 Oct, 11:00',
+      customer: 'Samantha',
+      email: 'samantha@gmail.com',
+      purchased: 'Splashify 2.0',
+      revenue: 49,
+      status: 'Paid',
+    ),
+    _OrderRecord(
+      orderNo: 1018,
+      date: '30 Sep, 09:20',
+      customer: 'Jason Schuller',
+      email: 'jason@outlook.com',
+      purchased: 'Splashify 2.0',
+      revenue: 49,
+      status: 'Paid',
+    ),
+    _OrderRecord(
+      orderNo: 1016,
+      date: '29 Sep, 04:20',
+      customer: 'Maria Chen',
+      email: 'maria@company.io',
+      purchased: 'Flowboard Pro',
+      revenue: 129,
+      status: 'Pending',
+    ),
+    _OrderRecord(
+      orderNo: 1015,
+      date: '28 Sep, 07:11',
+      customer: 'Alex Park',
+      email: 'alex@gmail.com',
+      purchased: 'Splashify 2.0',
+      revenue: 169,
+      status: 'Paid',
+    ),
+    _OrderRecord(
+      orderNo: 1014,
+      date: '27 Sep, 16:30',
+      customer: 'Nina Roy',
+      email: 'nina@startup.dev',
+      purchased: 'Flowboard Pro',
+      revenue: 320,
+      status: 'Refunded',
+    ),
+  ];
 
   @override
   void dispose() {
@@ -133,156 +129,75 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final isMobile = MediaQuery.sizeOf(context).width <= 980;
 
     return shadcn_scaffold.Scaffold(
       headers: const [shadcn_scaffold.AppBar(title: Text('FilterBar Preview'))],
       child: ValueListenableBuilder<FilterState>(
         valueListenable: _controller,
         builder: (context, state, _) {
-          final results = _filteredProducts(state);
-          final filterBar = FilterBar(
-            controller: _controller,
-            sortOptions: _sortOptions,
-            enableDateRange: true,
-            searchDebounce: const Duration(milliseconds: 200),
-            resultsCount: results.length,
-            presentation: FilterBarPresentation.autoSheet,
-            sheetBreakpoint: 980,
-            sheetTitle: 'Filter',
-            sheetTriggerLabel: 'Filter',
-            customFilters: [
-              _buildCategoryFilter(),
-              _buildBrandFilter(),
-              _buildSaleFilter(),
-              _buildPriceFilter(),
-              _buildRetailerFilter(),
-              _buildMatcherFilter(),
-            ],
-            groups: const [
-              FilterGroup(
-                id: 'catalog',
-                title: 'Catalog',
-                filterIds: ['category', 'brand', 'sale'],
-              ),
-              FilterGroup(
-                id: 'price_and_rating',
-                title: 'Pricing',
-                filterIds: ['price'],
-              ),
-              FilterGroup(
-                id: 'source',
-                title: 'Source',
-                filterIds: ['retailer', 'brand_query'],
-              ),
-            ],
-            trailingFilters: [
-              PrimaryButton(
-                onPressed: () {},
-                child: Text('Show ${results.length}'),
-              ),
-            ],
-            onStateChanged: (_) {},
-          );
-
-          Widget content;
-          if (isMobile ||
-              _desktopPlacement == _PreviewDesktopPlacement.inline) {
-            content = Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                filterBar,
-                SizedBox(height: 12 * scaling),
-                _buildPlacementControl(isMobile: isMobile),
-                SizedBox(height: 12 * scaling),
-                _buildResultList(results),
-              ],
-            );
-          } else {
-            final sidebar = SizedBox(width: 400 * scaling, child: filterBar);
-            final list = Expanded(child: _buildResultList(results));
-            content = Column(
-              children: [
-                _buildPlacementControl(isMobile: isMobile),
-                SizedBox(height: 12 * scaling),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                      _desktopPlacement == _PreviewDesktopPlacement.sidebarLeft
-                      ? [sidebar, SizedBox(width: 12 * scaling), list]
-                      : [list, SizedBox(width: 12 * scaling), sidebar],
-                ),
-              ],
-            );
-          }
-
+          final filtered = _filterOrders(state);
           return SingleChildScrollView(
             padding: EdgeInsets.all(16 * scaling),
-            child: content,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FilterBar(
+                  controller: _controller,
+                  searchPlaceholder: 'Search by order #, name or email...',
+                  searchDebounce: const Duration(milliseconds: 150),
+                  resultsCount: filtered.length,
+                  presentation: FilterBarPresentation.autoSheet,
+                  sheetBreakpoint: 980,
+                  sheetTitle: 'Filters',
+                  sheetTriggerLabel: 'Filters',
+                  groups: const [FilterGroup(id: 'rules', title: 'Rules')],
+                  trailingFilters: [
+                    GhostButton(
+                      size: ButtonSize.small,
+                      onPressed: _openAddFilterComposer,
+                      child: const Icon(LucideIcons.plus),
+                    ),
+                    SecondaryButton(
+                      size: ButtonSize.small,
+                      onPressed: _openManageFiltersSheet,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text('Filters'),
+                          SizedBox(width: 6),
+                          Icon(LucideIcons.chevronUp),
+                        ],
+                      ),
+                    ),
+                    GhostButton(
+                      size: ButtonSize.small,
+                      onPressed: () {},
+                      child: const Icon(LucideIcons.ellipsis),
+                    ),
+                  ],
+                  onStateChanged: _handleFilterStateChanged,
+                ),
+                SizedBox(height: 12 * scaling),
+                _buildTable(filtered),
+              ],
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildPlacementControl({required bool isMobile}) {
-    if (isMobile) {
-      return const SizedBox.shrink();
-    }
-
-    return Row(
-      children: [
-        Text('Desktop placement', style: Theme.of(context).typography.small),
-        const SizedBox(width: 8),
-        _placementButton(
-          label: 'Inline',
-          selected: _desktopPlacement == _PreviewDesktopPlacement.inline,
-          onTap: () => setState(() {
-            _desktopPlacement = _PreviewDesktopPlacement.inline;
-          }),
-        ),
-        const SizedBox(width: 6),
-        _placementButton(
-          label: 'Sidebar Left',
-          selected: _desktopPlacement == _PreviewDesktopPlacement.sidebarLeft,
-          onTap: () => setState(() {
-            _desktopPlacement = _PreviewDesktopPlacement.sidebarLeft;
-          }),
-        ),
-        const SizedBox(width: 6),
-        _placementButton(
-          label: 'Sidebar Right',
-          selected: _desktopPlacement == _PreviewDesktopPlacement.sidebarRight,
-          onTap: () => setState(() {
-            _desktopPlacement = _PreviewDesktopPlacement.sidebarRight;
-          }),
-        ),
-      ],
-    );
-  }
-
-  Widget _placementButton({
-    required String label,
-    required bool selected,
-    required VoidCallback onTap,
-  }) {
-    if (selected) {
-      return SecondaryButton(
-        size: ButtonSize.small,
-        onPressed: onTap,
-        child: Text(label),
-      );
-    }
-    return GhostButton(
-      size: ButtonSize.small,
-      onPressed: onTap,
-      child: Text(label),
-    );
-  }
-
-  Widget _buildResultList(List<_PreviewProduct> products) {
+  Widget _buildTable(List<_OrderRecord> rows) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+
+    Widget headerCell(String text, {double? width, bool expanded = false}) {
+      final child = Text(text, style: theme.typography.small);
+      if (expanded) {
+        return Expanded(child: child);
+      }
+      return SizedBox(width: width, child: child);
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -291,13 +206,45 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
       ),
       child: Column(
         children: [
-          for (var i = 0; i < products.length; i++)
-            Container(
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12 * scaling,
+              vertical: 10 * scaling,
+            ),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.muted,
+              border: Border(
+                bottom: BorderSide(color: theme.colorScheme.border),
+              ),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 24,
+                  child: Checkbox(
+                    state: CheckboxState.unchecked,
+                    onChanged: null,
+                  ),
+                ),
+                SizedBox(width: 10 * scaling),
+                headerCell('#', width: 72),
+                headerCell('Date', width: 130),
+                headerCell('Customer', expanded: true),
+                headerCell('Purchased', width: 170),
+                headerCell('Revenue', width: 110),
+                const SizedBox(width: 30),
+              ],
+            ),
+          ),
+          ...rows.asMap().entries.map((entry) {
+            final index = entry.key;
+            final row = entry.value;
+            return Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 12 * scaling,
                 vertical: 10 * scaling,
               ),
-              decoration: i == products.length - 1
+              decoration: index == rows.length - 1
                   ? null
                   : BoxDecoration(
                       border: Border(
@@ -306,593 +253,551 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                     ),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      '${products[i].brand} • Item ${products[i].id}',
+                  const SizedBox(
+                    width: 24,
+                    child: Checkbox(
+                      state: CheckboxState.unchecked,
+                      onChanged: null,
                     ),
                   ),
-                  Text(
-                    '\$${products[i].price.toStringAsFixed(0)} • ${_titleCase(products[i].retailer)}',
-                    style: theme.typography.textMuted,
+                  SizedBox(width: 10 * scaling),
+                  SizedBox(width: 72, child: Text('#${row.orderNo}')),
+                  SizedBox(width: 130, child: Text(row.date)),
+                  Expanded(child: Text('${row.customer} • ${row.status}')),
+                  SizedBox(width: 170, child: Text(row.purchased)),
+                  SizedBox(
+                    width: 110,
+                    child: Text('\$${row.revenue.toStringAsFixed(2)}'),
+                  ),
+                  SizedBox(
+                    width: 30,
+                    child: GhostButton(
+                      size: ButtonSize.small,
+                      onPressed: () {},
+                      child: const Icon(LucideIcons.ellipsis),
+                    ),
                   ),
                 ],
               ),
-            ),
+            );
+          }),
         ],
       ),
     );
   }
 
-  List<_PreviewProduct> _filteredProducts(FilterState state) {
-    final query = state.search.trim().toLowerCase();
-    final saleOnly = state.valueOf<bool>(_saleField) ?? false;
-    final price = state.valueOf<String>(_priceField) ?? 'all';
-
-    final filtered = _products
-        .where((item) {
-          if (query.isNotEmpty &&
-              !item.brand.toLowerCase().contains(query) &&
-              !item.id.toLowerCase().contains(query)) {
-            return false;
-          }
-          if (!state.matchesValue(_categoryField, item.category)) {
-            return false;
-          }
-          if (!state.matchesValue(_brandField, item.brand)) {
-            return false;
-          }
-          if (!state.matchesValue(_retailerField, item.retailer)) {
-            return false;
-          }
-          if (!state.matchesValue(
-            _brandMatcherField,
-            item.brand.toLowerCase(),
-          )) {
-            return false;
-          }
-          if (saleOnly && !item.onSale) {
-            return false;
-          }
-          if (!_matchesPrice(price, item.price)) {
-            return false;
-          }
-          return true;
-        })
-        .toList(growable: false);
-
-    if (state.sortId == 'oldest') {
-      return filtered;
-    }
-    return filtered.reversed.toList(growable: false);
-  }
-
-  FilterCustomFilter _buildCategoryFilter() {
-    return FilterCustomFilter.typed<String>(
-      field: _categoryField,
-      builder: (context, value, onChanged) {
-        final isMobile = MediaQuery.sizeOf(context).width <= 980;
-        if (isMobile) {
-          return _mobileTile(
-            title: 'Category',
-            trailing: SizedBox(
-              width: 150,
-              child: _categorySelect(value: value, onChanged: onChanged),
-            ),
-          );
-        }
-        return SizedBox(
-          width: 220,
-          child: _categorySelect(value: value, onChanged: onChanged),
-        );
-      },
-    );
-  }
-
-  Widget _categorySelect({
-    required String? value,
-    required ValueChanged<String?> onChanged,
-  }) {
-    return Select<String>(
-      value: value,
-      canUnselect: true,
-      placeholder: const Text('All'),
-      itemBuilder: (context, value) => Text(_titleCase(value)),
-      popup: SelectPopup<String>(
-        items: SelectItemList(
-          children: _categories
-              .map(
-                (category) => SelectItemButton<String>(
-                  value: category,
-                  child: Text(_titleCase(category)),
-                ),
-              )
-              .toList(growable: false),
-        ),
-      ).call,
-      onChanged: onChanged,
-    );
-  }
-
-  FilterCustomFilter _buildBrandFilter() {
-    return FilterCustomFilter(
-      id: _brandField.id,
-      builder: (context, state, onStateChanged) {
-        final selected = state.valueOf<Set<String>>(_brandField) ?? <String>{};
-        final isMobile = MediaQuery.sizeOf(context).width <= 980;
-        final trigger = GhostButton(
-          size: ButtonSize.small,
-          onPressed: () => _openBrandSheet(
-            context,
-            state: state,
-            onStateChanged: onStateChanged,
-            itemBuilder: (context, brand, count, checked, toggle) {
-              return Row(
-                children: [
-                  Expanded(child: Text('$brand ($count)')),
-                  Checkbox(
-                    state: checked
-                        ? CheckboxState.checked
-                        : CheckboxState.unchecked,
-                    onChanged: (_) => toggle(),
-                  ),
-                ],
-              );
-            },
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(selected.isEmpty ? 'Any' : '${selected.length} selected'),
-              const SizedBox(width: 4),
-              const Icon(LucideIcons.chevronRight),
-            ],
-          ),
-        );
-
-        if (isMobile) {
-          return _mobileTile(title: 'Brand', trailing: trigger);
-        }
-        return trigger;
-      },
-    );
-  }
-
-  FilterCustomFilter _buildSaleFilter() {
-    return FilterCustomFilter.typed<bool>(
-      field: _saleField,
-      builder: (context, value, onChanged) {
-        final selected = value ?? false;
-        final row = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _pill(
-              selected: !selected,
-              label: 'All',
-              onTap: () => onChanged(false),
-            ),
-            const SizedBox(width: 6),
-            _pill(
-              selected: selected,
-              label: 'Sale only',
-              onTap: () => onChanged(true),
-            ),
-          ],
-        );
-
-        if (MediaQuery.sizeOf(context).width <= 980) {
-          return _mobileTile(title: 'Sale', trailing: row);
-        }
-        return row;
-      },
-    );
-  }
-
-  FilterCustomFilter _buildPriceFilter() {
-    return FilterCustomFilter.typed<String>(
-      field: _priceField,
-      builder: (context, value, onChanged) {
-        final selected = value ?? 'all';
-        final wrap = Wrap(
-          spacing: 6,
-          children: [
-            _pill(
-              selected: selected == 'all',
-              label: 'All',
-              onTap: () => onChanged('all'),
-            ),
-            _pill(
-              selected: selected == 'low',
-              label: '< 200',
-              onTap: () => onChanged('low'),
-            ),
-            _pill(
-              selected: selected == 'mid',
-              label: '200-600',
-              onTap: () => onChanged('mid'),
-            ),
-            _pill(
-              selected: selected == 'high',
-              label: '> 600',
-              onTap: () => onChanged('high'),
-            ),
-          ],
-        );
-
-        if (MediaQuery.sizeOf(context).width <= 980) {
-          return _mobileTile(title: 'Price', trailing: wrap);
-        }
-        return wrap;
-      },
-    );
-  }
-
-  FilterCustomFilter _buildRetailerFilter() {
-    return FilterCustomFilter.typed<Set<String>>(
-      field: _retailerField,
-      builder: (context, value, onChanged) {
-        final selected = value ?? <String>{};
-        final body = Wrap(
-          spacing: 10,
-          children: _retailers
-              .map((retailer) {
-                final checked = selected.contains(retailer);
-                return Checkbox(
-                  state: checked
-                      ? CheckboxState.checked
-                      : CheckboxState.unchecked,
-                  onChanged: (next) {
-                    final copy = <String>{...selected};
-                    if (next == CheckboxState.checked) {
-                      copy.add(retailer);
-                    } else {
-                      copy.remove(retailer);
-                    }
-                    onChanged(copy.isEmpty ? null : copy);
-                  },
-                  trailing: Text(_titleCase(retailer)),
-                );
-              })
-              .toList(growable: false),
-        );
-
-        if (MediaQuery.sizeOf(context).width <= 980) {
-          return _mobileTile(title: 'Retailer', trailing: body);
-        }
-        return body;
-      },
-    );
-  }
-
-  FilterCustomFilter _buildMatcherFilter() {
-    return FilterCustomFilter(
-      id: _brandMatcherField.id,
-      builder: (context, state, onStateChanged) {
-        final query = state.valueOf<String>(_brandMatcherField) ?? '';
-        final matcherId = state.matcherIdOf(_brandMatcherField) ?? 'contains';
-        final matcherSelect = SizedBox(
-          width: 180,
-          child: Select<String>(
-            value: matcherId,
-            itemBuilder: (context, value) {
-              final item = _brandMatcherField.matchers.firstWhere(
-                (m) => m.id == value,
-              );
-              return Text(item.label);
-            },
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: _brandMatcherField.matchers
-                    .map(
-                      (item) => SelectItemButton<String>(
-                        value: item.id,
-                        child: Text(item.label),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: (next) {
-              if (next == null) return;
-              onStateChanged(state.setMatcherIdOf(_brandMatcherField, next));
-            },
-          ),
-        );
-
-        final querySelect = SizedBox(
-          width: 150,
-          child: Select<String>(
-            value: query.isEmpty ? null : query,
-            canUnselect: true,
-            placeholder: const Text('Query'),
-            itemBuilder: (context, value) => Text(value),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: const ['app', 'net', 'tp', '%ro%', 'sm']
-                    .map(
-                      (value) => SelectItemButton<String>(
-                        value: value,
-                        child: Text(value),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: (next) {
-              onStateChanged(state.setValue(_brandMatcherField, next));
-            },
-          ),
-        );
-
-        final row = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [matcherSelect, const SizedBox(width: 8), querySelect],
-        );
-        if (MediaQuery.sizeOf(context).width <= 980) {
-          return _mobileTile(title: 'Brand matcher', trailing: row);
-        }
-        return row;
-      },
-    );
-  }
-
-  Widget _pill({
-    required bool selected,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    if (selected) {
-      return SecondaryButton(
-        size: ButtonSize.small,
-        onPressed: onTap,
-        child: Text(label),
-      );
-    }
-    return GhostButton(
-      size: ButtonSize.small,
-      onPressed: onTap,
-      child: Text(label),
-    );
-  }
-
-  Widget _mobileTile({required String title, required Widget trailing}) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
-    return Container(
-      margin: EdgeInsets.only(bottom: 8 * scaling),
-      padding: EdgeInsets.symmetric(
-        horizontal: 12 * scaling,
-        vertical: 10 * scaling,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: theme.colorScheme.border),
-        borderRadius: theme.borderRadiusMd,
-      ),
-      child: Row(
-        children: [
-          Expanded(child: Text(title, style: theme.typography.medium)),
-          trailing,
-        ],
-      ),
-    );
-  }
-
-  Future<void> _openBrandSheet(
-    BuildContext context, {
-    required FilterState state,
-    required FilterStateChanged onStateChanged,
-    required _BrandItemBuilder itemBuilder,
-  }) async {
+  Future<void> _openAddFilterComposer() async {
+    final state = _controller.value;
     await openSheet<void>(
       context: context,
       position: OverlayPosition.bottom,
       draggable: true,
-      builder: (context) => _BrandPickerSheet(
-        products: _products,
-        field: _brandField,
-        initialState: state,
-        onStateChanged: onStateChanged,
-        itemBuilder: itemBuilder,
-      ),
+      builder: (context) {
+        return _RuleComposerSheet(
+          title: 'Add filter',
+          onApply: (rule) {
+            final rules = _rulesFromState(state);
+            final nextRules = <_FilterRule>[
+              ...rules,
+              rule.copyWith(id: _nextRuleId++),
+            ];
+            _controller.setState(_withRules(state, nextRules));
+            closeSheet(context);
+          },
+        );
+      },
     );
   }
 
-  static bool _matchesPrice(String bucket, double price) {
-    switch (bucket) {
-      case 'low':
-        return price < 200;
-      case 'mid':
-        return price >= 200 && price <= 600;
-      case 'high':
-        return price > 600;
-      case 'all':
-      default:
-        return true;
+  Future<void> _openManageFiltersSheet() async {
+    final state = _controller.value;
+    await openSheet<void>(
+      context: context,
+      position: OverlayPosition.bottom,
+      draggable: true,
+      builder: (context) {
+        final rules = _rulesFromState(state);
+        return FilterBarSheetScaffold(
+          title: 'Filters',
+          maxHeight: 680,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final rule in rules)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.border,
+                    ),
+                    borderRadius: Theme.of(context).borderRadiusMd,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text(_chipLabel(rule))),
+                      GhostButton(
+                        size: ButtonSize.small,
+                        onPressed: () {
+                          final nextRules = rules
+                              .where((item) => item.id != rule.id)
+                              .toList(growable: false);
+                          _controller.setState(_withRules(state, nextRules));
+                        },
+                        child: const Icon(LucideIcons.x),
+                      ),
+                    ],
+                  ),
+                ),
+              SecondaryButton(
+                onPressed: () {
+                  closeSheet(context);
+                  _openAddFilterComposer();
+                },
+                child: const Text('Add filter'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _handleFilterStateChanged(FilterState next) {
+    final rules = _rulesFromState(next);
+    final visibleRuleIds = next.chips
+        .where((chip) => chip.key.startsWith('rule:'))
+        .map((chip) => _ruleIdFromChipKey(chip.key))
+        .whereType<int>()
+        .toSet();
+    final normalizedRules = rules
+        .where((rule) => visibleRuleIds.contains(rule.id))
+        .toList(growable: false);
+
+    if (normalizedRules.length != rules.length) {
+      _controller.setState(_withRules(next, normalizedRules));
+      return;
+    }
+    _controller.setState(next);
+  }
+
+  List<_OrderRecord> _filterOrders(FilterState state) {
+    final query = state.search.trim().toLowerCase();
+    final rules = _rulesFromState(state);
+
+    return _orders
+        .where((order) {
+          if (query.isNotEmpty) {
+            final haystack = '${order.orderNo} ${order.customer} ${order.email}'
+                .toLowerCase();
+            if (!haystack.contains(query)) {
+              return false;
+            }
+          }
+          for (final rule in rules) {
+            if (!_matchesRule(order, rule)) {
+              return false;
+            }
+          }
+          return true;
+        })
+        .toList(growable: false);
+  }
+
+  bool _matchesRule(_OrderRecord order, _FilterRule rule) {
+    switch (rule.field) {
+      case _FilterFieldId.orderNumber:
+        final value = int.tryParse(rule.value) ?? 0;
+        switch (rule.operatorId) {
+          case 'gt':
+            return order.orderNo > value;
+          case 'lt':
+            return order.orderNo < value;
+          case 'is':
+            return order.orderNo == value;
+          default:
+            return true;
+        }
+      case _FilterFieldId.email:
+        final email = order.email.toLowerCase();
+        final value = rule.value.toLowerCase();
+        switch (rule.operatorId) {
+          case 'is':
+            return email == value;
+          case 'is_not':
+            return email != value;
+          case 'contains':
+            return email.contains(value);
+          case 'has_any':
+            return email.trim().isNotEmpty;
+          default:
+            return true;
+        }
+      case _FilterFieldId.revenue:
+        final revenue = order.revenue;
+        switch (rule.operatorId) {
+          case 'between':
+            final low = double.tryParse(rule.value) ?? double.negativeInfinity;
+            final high =
+                double.tryParse(rule.secondaryValue ?? '') ?? double.infinity;
+            return revenue >= low && revenue <= high;
+          case 'gt':
+            return revenue > (double.tryParse(rule.value) ?? 0);
+          case 'lt':
+            return revenue < (double.tryParse(rule.value) ?? 0);
+          default:
+            return true;
+        }
+      case _FilterFieldId.purchased:
+        return order.purchased.toLowerCase() == rule.value.toLowerCase();
+      case _FilterFieldId.status:
+        return order.status.toLowerCase() == rule.value.toLowerCase();
     }
   }
 
-  static String _titleCase(String value) {
-    return value
-        .split('_')
-        .map(
-          (part) =>
-              part.isEmpty ? part : part[0].toUpperCase() + part.substring(1),
-        )
-        .join(' ');
+  List<_FilterRule> _rulesFromState(FilterState state) {
+    final value = state.customFilters['rules'];
+    if (value is List<_FilterRule>) {
+      return value;
+    }
+    return const [];
   }
 
-  static String _stripVowels(String value) {
-    return value.replaceAll(RegExp('[aeiou]'), '');
-  }
-}
-
-typedef _BrandItemBuilder =
-    Widget Function(
-      BuildContext context,
-      String brand,
-      int count,
-      bool checked,
-      VoidCallback toggle,
+  FilterState _withRules(FilterState source, List<_FilterRule> rules) {
+    final nextCustom = Map<String, Object?>.of(source.customFilters);
+    if (rules.isEmpty) {
+      nextCustom.remove('rules');
+    } else {
+      nextCustom['rules'] = rules;
+    }
+    return source.copyWith(
+      customFilters: nextCustom,
+      chips: rules
+          .map(
+            (rule) =>
+                FilterChipData(key: 'rule:${rule.id}', label: _chipLabel(rule)),
+          )
+          .toList(growable: false),
     );
+  }
 
-class _BrandPickerSheet extends StatefulWidget {
-  const _BrandPickerSheet({
-    required this.products,
-    required this.field,
-    required this.initialState,
-    required this.onStateChanged,
-    required this.itemBuilder,
-  });
+  int? _ruleIdFromChipKey(String key) {
+    if (!key.startsWith('rule:')) {
+      return null;
+    }
+    return int.tryParse(key.substring(5));
+  }
 
-  final List<_PreviewProduct> products;
-  final FilterField<Set<String>> field;
-  final FilterState initialState;
-  final FilterStateChanged onStateChanged;
-  final _BrandItemBuilder itemBuilder;
+  String _chipLabel(_FilterRule rule) {
+    switch (rule.field) {
+      case _FilterFieldId.orderNumber:
+        return 'Order # is ${_operatorText(rule.operatorId)} ${rule.value}';
+      case _FilterFieldId.email:
+        if (rule.operatorId == 'has_any') {
+          return 'Email has any value';
+        }
+        return 'Email ${_operatorText(rule.operatorId)} ${rule.value}';
+      case _FilterFieldId.revenue:
+        if (rule.operatorId == 'between') {
+          return 'Revenue is between \$${rule.value} and \$${rule.secondaryValue ?? ''}';
+        }
+        return 'Revenue is ${_operatorText(rule.operatorId)} \$${rule.value}';
+      case _FilterFieldId.purchased:
+        return 'Purchased is ${rule.value}';
+      case _FilterFieldId.status:
+        return 'Status is ${rule.value}';
+    }
+  }
 
-  @override
-  State<_BrandPickerSheet> createState() => _BrandPickerSheetState();
+  String _operatorText(String id) {
+    switch (id) {
+      case 'gt':
+        return 'greater than';
+      case 'lt':
+        return 'less than';
+      case 'is':
+        return 'is';
+      case 'is_not':
+        return 'is not';
+      case 'contains':
+        return 'contains';
+      case 'has_any':
+        return 'has any value';
+      case 'between':
+        return 'between';
+      default:
+        return id;
+    }
+  }
 }
 
-class _BrandPickerSheetState extends State<_BrandPickerSheet> {
-  late FilterState _state;
-  String _query = '';
+class _RuleComposerSheet extends StatefulWidget {
+  const _RuleComposerSheet({required this.title, required this.onApply});
+
+  final String title;
+  final ValueChanged<_FilterRule> onApply;
 
   @override
-  void initState() {
-    super.initState();
-    _state = widget.initialState;
+  State<_RuleComposerSheet> createState() => _RuleComposerSheetState();
+}
+
+class _RuleComposerSheetState extends State<_RuleComposerSheet> {
+  static const _fieldOptions = [
+    _SelectOption(value: _FilterFieldId.orderNumber, label: 'Order #'),
+    _SelectOption(value: _FilterFieldId.email, label: 'Email'),
+    _SelectOption(value: _FilterFieldId.revenue, label: 'Revenue'),
+    _SelectOption(value: _FilterFieldId.purchased, label: 'Purchased'),
+    _SelectOption(value: _FilterFieldId.status, label: 'Status'),
+  ];
+
+  static const _operatorOptionsByField = {
+    _FilterFieldId.orderNumber: [
+      _SelectOption(value: 'gt', label: 'is greater than'),
+      _SelectOption(value: 'lt', label: 'is less than'),
+      _SelectOption(value: 'is', label: 'is'),
+    ],
+    _FilterFieldId.email: [
+      _SelectOption(value: 'is', label: 'is'),
+      _SelectOption(value: 'is_not', label: 'is not'),
+      _SelectOption(value: 'contains', label: 'contains'),
+      _SelectOption(value: 'has_any', label: 'has any value'),
+    ],
+    _FilterFieldId.revenue: [
+      _SelectOption(value: 'between', label: 'is between'),
+      _SelectOption(value: 'gt', label: 'is greater than'),
+      _SelectOption(value: 'lt', label: 'is less than'),
+    ],
+    _FilterFieldId.purchased: [_SelectOption(value: 'is', label: 'is')],
+    _FilterFieldId.status: [_SelectOption(value: 'is', label: 'is')],
+  };
+
+  _FilterFieldId _field = _FilterFieldId.orderNumber;
+  String _operatorId = 'gt';
+  final _valueController = TextEditingController();
+  final _secondaryController = TextEditingController();
+
+  @override
+  void dispose() {
+    _valueController.dispose();
+    _secondaryController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final selected = _state.valueOf<Set<String>>(widget.field) ?? <String>{};
-    final counts = <String, int>{};
-    for (final item in widget.products) {
-      counts.update(item.brand, (value) => value + 1, ifAbsent: () => 1);
+    final operators = _operatorOptionsByField[_field]!;
+    if (!operators.any((option) => option.value == _operatorId)) {
+      _operatorId = operators.first.value;
     }
 
-    final brands =
-        counts.keys
-            .where(
-              (brand) => brand.toLowerCase().contains(_query.toLowerCase()),
-            )
-            .toList(growable: false)
-          ..sort();
-
-    final filteredCount = selected.isEmpty
-        ? widget.products.length
-        : widget.products.where((item) => selected.contains(item.brand)).length;
-
     return FilterBarSheetScaffold(
-      title: 'Brand',
+      title: widget.title,
       maxHeight: 720,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Select<String>(
-            value: _query.isEmpty ? null : _query,
-            canUnselect: true,
-            placeholder: const Text('Search brand'),
-            itemBuilder: (context, value) => Text(value),
-            popup: SelectPopup<String>(
+          Select<_FilterFieldId>(
+            value: _field,
+            itemBuilder: (context, value) {
+              final option = _fieldOptions
+                  .where((item) => item.value == value)
+                  .first;
+              return Text(option.label);
+            },
+            popup: SelectPopup<_FilterFieldId>(
               items: SelectItemList(
-                children: counts.keys
+                children: _fieldOptions
                     .map(
-                      (brand) => SelectItemButton<String>(
-                        value: brand,
-                        child: Text(brand),
+                      (option) => SelectItemButton<_FilterFieldId>(
+                        value: option.value,
+                        child: Text(option.label),
                       ),
                     )
                     .toList(growable: false),
               ),
             ).call,
             onChanged: (next) {
+              if (next == null) {
+                return;
+              }
               setState(() {
-                _query = next ?? '';
+                _field = next;
               });
             },
           ),
-          const SizedBox(height: 10),
-          ...brands.map((brand) {
-            final checked = selected.contains(brand);
-            return Container(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Theme.of(context).colorScheme.border,
-                  ),
-                ),
+          const SizedBox(height: 8),
+          Select<String>(
+            value: _operatorId,
+            itemBuilder: (context, value) {
+              final option = operators
+                  .where((item) => item.value == value)
+                  .first;
+              return Text(option.label);
+            },
+            popup: SelectPopup<String>(
+              items: SelectItemList(
+                children: operators
+                    .map(
+                      (option) => SelectItemButton<String>(
+                        value: option.value,
+                        child: Text(option.label),
+                      ),
+                    )
+                    .toList(growable: false),
               ),
-              child: widget.itemBuilder(
-                context,
-                brand,
-                counts[brand]!,
-                checked,
-                () {
-                  final copy = <String>{...selected};
-                  if (checked) {
-                    copy.remove(brand);
-                  } else {
-                    copy.add(brand);
-                  }
-                  final next = _state.setValue(
-                    widget.field,
-                    copy.isEmpty ? null : copy,
-                  );
-                  setState(() {
-                    _state = next;
-                  });
-                  widget.onStateChanged(next);
-                },
-              ),
-            );
-          }),
+            ).call,
+            onChanged: (next) {
+              if (next == null) {
+                return;
+              }
+              setState(() {
+                _operatorId = next;
+              });
+            },
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _valueController,
+            placeholder: Text(_valuePlaceholder()),
+          ),
+          if (_operatorId == 'between') ...[
+            const SizedBox(height: 8),
+            TextField(
+              controller: _secondaryController,
+              placeholder: const Text('Maximum value'),
+            ),
+          ],
         ],
       ),
       footer: Row(
         children: [
           Expanded(
             child: GhostButton(
-              onPressed: () {
-                final next = _state.setValue(widget.field, null);
-                setState(() {
-                  _state = next;
-                });
-                widget.onStateChanged(next);
-              },
-              child: const Text('Clear filter'),
+              onPressed: () => closeSheet(context),
+              child: const Text('Cancel'),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: PrimaryButton(
-              onPressed: () => closeSheet(context),
-              child: Text('Show $filteredCount'),
+              onPressed: _canApply() ? _apply : null,
+              child: const Text('Apply Filter'),
             ),
           ),
         ],
       ),
     );
   }
+
+  bool _canApply() {
+    if (_operatorId == 'has_any') {
+      return true;
+    }
+    if (_valueController.text.trim().isEmpty) {
+      return false;
+    }
+    if (_operatorId == 'between' && _secondaryController.text.trim().isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  void _apply() {
+    widget.onApply(
+      _FilterRule(
+        id: -1,
+        field: _field,
+        operatorId: _operatorId,
+        value: _valueController.text.trim(),
+        secondaryValue: _secondaryController.text.trim().isEmpty
+            ? null
+            : _secondaryController.text.trim(),
+      ),
+    );
+  }
+
+  String _valuePlaceholder() {
+    switch (_field) {
+      case _FilterFieldId.orderNumber:
+        return 'Order number';
+      case _FilterFieldId.email:
+        return 'Email text';
+      case _FilterFieldId.revenue:
+        return 'Amount';
+      case _FilterFieldId.purchased:
+        return 'Product name';
+      case _FilterFieldId.status:
+        return 'Status (Paid, Pending...)';
+    }
+  }
 }
 
-class _PreviewProduct {
-  const _PreviewProduct({
+@immutable
+class _FilterRule {
+  final int id;
+  final _FilterFieldId field;
+  final String operatorId;
+  final String value;
+  final String? secondaryValue;
+
+  const _FilterRule({
     required this.id,
-    required this.brand,
-    required this.category,
-    required this.retailer,
-    required this.onSale,
-    required this.price,
-    required this.stock,
+    required this.field,
+    required this.operatorId,
+    required this.value,
+    this.secondaryValue,
   });
 
-  final String id;
-  final String brand;
-  final String category;
-  final String retailer;
-  final bool onSale;
-  final double price;
-  final int stock;
+  _FilterRule copyWith({
+    int? id,
+    _FilterFieldId? field,
+    String? operatorId,
+    String? value,
+    Object? secondaryValue = _sentinel,
+  }) {
+    return _FilterRule(
+      id: id ?? this.id,
+      field: field ?? this.field,
+      operatorId: operatorId ?? this.operatorId,
+      value: value ?? this.value,
+      secondaryValue: identical(secondaryValue, _sentinel)
+          ? this.secondaryValue
+          : secondaryValue as String?,
+    );
+  }
+
+  static const Object _sentinel = Object();
+}
+
+enum _FilterFieldId { orderNumber, email, revenue, purchased, status }
+
+@immutable
+class _SelectOption<T> {
+  final T value;
+  final String label;
+
+  const _SelectOption({required this.value, required this.label});
+}
+
+class _OrderRecord {
+  final int orderNo;
+  final String date;
+  final String customer;
+  final String email;
+  final String purchased;
+  final double revenue;
+  final String status;
+
+  const _OrderRecord({
+    required this.orderNo,
+    required this.date,
+    required this.customer,
+    required this.email,
+    required this.purchased,
+    required this.revenue,
+    required this.status,
+  });
 }
