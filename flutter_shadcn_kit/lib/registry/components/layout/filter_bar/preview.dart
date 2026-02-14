@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import '../../control/button/button.dart';
 import '../../form/checkbox/checkbox.dart';
 import '../../form/select/select.dart';
+import '../../overlay/drawer/drawer.dart';
 import '../scaffold/scaffold.dart' as shadcn_scaffold;
 import 'filter_bar.dart';
+import '../../../shared/icons/lucide_icons.dart';
 import '../../../shared/theme/theme.dart';
 
 /// FilterBarPreview defines a reusable type for this registry module.
@@ -12,88 +14,123 @@ class FilterBarPreview extends StatefulWidget {
   const FilterBarPreview({super.key});
 
   @override
-  /// Executes `createState` behavior for this component/composite.
   State<FilterBarPreview> createState() => _FilterBarPreviewState();
 }
 
 /// _FilterBarPreviewState defines a reusable type for this registry module.
 class _FilterBarPreviewState extends State<FilterBarPreview> {
   static const _sortOptions = [
-    /// Creates a `FilterSortOption` instance.
     FilterSortOption(id: 'newest', label: 'Newest'),
-
-    /// Creates a `FilterSortOption` instance.
     FilterSortOption(id: 'oldest', label: 'Oldest'),
   ];
 
-  /// Stores `_statuses` state/configuration for this implementation.
-  static const _statuses = ['open', 'in_progress', 'closed'];
+  static const _categories = ['electronics', 'office', 'networking'];
+  static const _retailers = ['direct', 'marketplace', 'reseller'];
 
-  /// Stores `_priorities` state/configuration for this implementation.
-  static const _priorities = ['low', 'medium', 'high'];
-
-  /// Stores `_assignees` state/configuration for this implementation.
-  static const _assignees = ['alex', 'sam', 'morgan', 'riley'];
-  static final _statusField = FilterField<String>(
-    id: 'status',
-    label: 'Status',
+  static final _categoryField = FilterField<String>(
+    id: 'category',
+    label: 'Category',
     matcher: FilterMatchers.exact(),
   );
-  static final _priorityField = FilterField<String>(
-    id: 'priority',
-    label: 'Priority',
-    matcher: FilterMatchers.exact(),
-  );
-  static final _assigneeContainsField = FilterField<String>(
-    id: 'assignee_query',
-    label: 'Assignee contains',
-    matcher: FilterMatchers.contains(),
-  );
-  static final _orderLikeField = FilterField<String>(
-    id: 'order_like',
-    label: 'Order like',
-    matcher: FilterMatchers.like(),
-  );
-  static final _urgencyField = FilterField<String>(
-    id: 'urgency',
-    label: 'Urgency',
-    matcher: FilterMatchers.exact(),
-  );
-  static final _priorityMultiField = FilterField<Set<String>>(
-    id: 'priority_multi',
-    label: 'Priority (multi)',
+  static final _brandField = FilterField<Set<String>>(
+    id: 'brands',
+    label: 'Brand',
     matcher: FilterMatchers.inSet<String>(),
   );
-
-  final List<_PreviewOrder> _orders = List.generate(
-    42,
-    (index) => _PreviewOrder(
-      label: 'Order #${1000 + index}',
-      status: _statuses[index % _statuses.length],
-      priority: _priorities[index % _priorities.length],
-      assignee: _assignees[index % _assignees.length],
-      urgent: index % 3 == 0,
-    ),
+  static final _saleField = FilterField<bool>(
+    id: 'sale_only',
+    label: 'Sale',
+    matcher: FilterMatchers.exact<bool>(),
   );
+  static final _priceBucketField = FilterField<String>(
+    id: 'price_bucket',
+    label: 'Price',
+    matcher: FilterMatchers.exact<String>(),
+  );
+  static final _retailerField = FilterField<Set<String>>(
+    id: 'retailer',
+    label: 'Retailer',
+    matcher: FilterMatchers.inSet<String>(),
+  );
+  static final _brandQueryField = FilterField<String>(
+    id: 'brand_query',
+    label: 'Brand query',
+    defaultMatcherId: 'contains',
+    matchers: [
+      FilterMatcherOption<String>(
+        id: 'contains',
+        label: 'Contains',
+        matcher: FilterMatchers.contains(),
+      ),
+      FilterMatcherOption<String>(
+        id: 'starts_with',
+        label: 'Starts with',
+        matcher: FilterMatchers.startsWith(),
+      ),
+      FilterMatcherOption<String>(
+        id: 'like',
+        label: 'Like',
+        matcher: FilterMatchers.like(),
+      ),
+      FilterMatcherOption<String>(
+        id: 'consonant',
+        label: 'Custom consonant',
+        matcher: FilterMatcher<String>((selected, candidate) {
+          if (candidate is! String) {
+            return false;
+          }
+          final query = _stripVowels(selected);
+          final value = _stripVowels(candidate);
+          if (query.isEmpty) {
+            return true;
+          }
+          return value.contains(query);
+        }),
+      ),
+    ],
+  );
+
+  final List<_PreviewProduct> _products = List.generate(32, (index) {
+    const brands = [
+      'Apple',
+      'EKWB',
+      'SuperMicro',
+      'Netgear',
+      'Crucial',
+      'TP-Link',
+      'Thermaltake',
+      'HPE',
+    ];
+    const retailers = ['direct', 'marketplace', 'reseller'];
+    const categories = ['electronics', 'office', 'networking'];
+    final brand = brands[index % brands.length];
+    return _PreviewProduct(
+      name: 'Item ${1000 + index}',
+      brand: brand,
+      category: categories[index % categories.length],
+      retailer: retailers[index % retailers.length],
+      onSale: index % 3 == 0,
+      price: 90 + ((index * 37) % 880),
+      stock: 420 + ((index * 23) % 120),
+    );
+  });
 
   FilterState _state = const FilterState(
     sortId: 'newest',
-    chips: [FilterChipData(key: 'tag:vip', label: 'Tag: VIP')],
     customFilters: {
-      'status': 'open',
-      'urgency': 'urgent_only',
-      'order_like': '%1%',
+      'category': 'electronics',
+      'sale_only': false,
+      'price_bucket': 'all',
+      'brand_query': '',
     },
   );
 
   @override
-  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final visibleOrders = _filteredOrders();
+    final visibleProducts = _filteredProducts();
+
     return shadcn_scaffold.Scaffold(
       headers: const [shadcn_scaffold.AppBar(title: Text('FilterBar Preview'))],
       child: SingleChildScrollView(
@@ -101,40 +138,36 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Creates a `FilterBar` instance.
             FilterBar(
               state: _state,
               sortOptions: _sortOptions,
-              enableDateRange: true,
-              searchDebounce: const Duration(milliseconds: 250),
-              resultsCount: visibleOrders.length,
+              resultsCount: visibleProducts.length,
+              searchDebounce: const Duration(milliseconds: 200),
+              mobileVariant: FilterBarMobileVariant.autoSheet,
+              mobileBreakpoint: 980,
+              mobileSheetTitle: 'Filter',
+              mobileFiltersLabel: 'Filter',
               customFilters: [
-                /// Creates a `_buildStatusFilter` instance.
-                _buildStatusFilter(scaling),
-
-                /// Creates a `_buildPriorityFilter` instance.
-                _buildPriorityFilter(scaling),
-
-                /// Creates a `_buildAssigneeFilter` instance.
-                _buildAssigneeFilter(scaling),
-                _buildOrderLikeFilter(scaling),
-
-                /// Creates a `_buildUrgencyButtons` instance.
-                _buildUrgencyButtons(),
-                _buildPriorityCheckboxFilter(scaling),
+                _buildCategoryFilter(),
+                _buildBrandPickerFilter(),
+                _buildSaleFilter(),
+                _buildPriceBucketFilter(),
+                _buildRetailerFilter(),
+                _buildMatcherDemoFilter(),
+              ],
+              trailingFilters: [
+                PrimaryButton(
+                  onPressed: () {},
+                  child: Text('Show ${visibleProducts.length}'),
+                ),
               ],
               onStateChanged: (next) {
-                /// Creates a `setState` instance.
                 setState(() {
                   _state = next;
                 });
               },
             ),
-
-            /// Creates a `SizedBox` instance.
             SizedBox(height: 16 * scaling),
-
-            /// Creates a `Container` instance.
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: theme.colorScheme.border),
@@ -142,14 +175,13 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
               ),
               child: Column(
                 children: [
-                  for (var i = 0; i < visibleOrders.length; i++)
-                    /// Creates a `Container` instance.
+                  for (var i = 0; i < visibleProducts.length; i++)
                     Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 12 * scaling,
                         vertical: 10 * scaling,
                       ),
-                      decoration: i == visibleOrders.length - 1
+                      decoration: i == visibleProducts.length - 1
                           ? null
                           : BoxDecoration(
                               border: Border(
@@ -160,12 +192,13 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                             ),
                       child: Row(
                         children: [
-                          /// Creates a `Expanded` instance.
-                          Expanded(child: Text(visibleOrders[i].label)),
-
-                          /// Creates a `Text` instance.
+                          Expanded(
+                            child: Text(
+                              '${visibleProducts[i].brand} • ${visibleProducts[i].name}',
+                            ),
+                          ),
                           Text(
-                            '${_statusLabel(visibleOrders[i].status)} • ${_titleCase(visibleOrders[i].priority)} • ${_titleCase(visibleOrders[i].assignee)}${visibleOrders[i].urgent ? ' • Urgent' : ''}',
+                            '\$${visibleProducts[i].price.toStringAsFixed(0)} • ${_titleCase(visibleProducts[i].retailer)}',
                             style: theme.typography.textMuted,
                           ),
                         ],
@@ -180,37 +213,37 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
     );
   }
 
-  /// Executes `_filteredOrders` behavior for this component/composite.
-  List<_PreviewOrder> _filteredOrders() {
+  List<_PreviewProduct> _filteredProducts() {
     final query = _state.search.trim().toLowerCase();
-    final urgency = _state.valueOf<String>(_urgencyField);
-    final results = _orders
-        .where((order) {
-          if (query.isNotEmpty && !order.label.toLowerCase().contains(query)) {
+    final saleOnly = _state.valueOf<bool>(_saleField) ?? false;
+    final priceBucket = _state.valueOf<String>(_priceBucketField) ?? 'all';
+
+    final results = _products
+        .where((product) {
+          if (query.isNotEmpty &&
+              !product.name.toLowerCase().contains(query) &&
+              !product.brand.toLowerCase().contains(query)) {
             return false;
           }
-          if (!_state.matchesValue(_statusField, order.status)) {
+          if (!_state.matchesValue(_categoryField, product.category)) {
             return false;
           }
-          if (!_state.matchesValue(_priorityField, order.priority)) {
+          if (!_state.matchesValue(_brandField, product.brand)) {
             return false;
           }
-          if (!_state.matchesValue(_priorityMultiField, order.priority)) {
-            return false;
-          }
-          if (!_state.matchesValue(_assigneeContainsField, order.assignee)) {
+          if (!_state.matchesValue(_retailerField, product.retailer)) {
             return false;
           }
           if (!_state.matchesValue(
-            _orderLikeField,
-            order.label.toLowerCase(),
+            _brandQueryField,
+            product.brand.toLowerCase(),
           )) {
             return false;
           }
-          if (urgency == 'urgent_only' && !order.urgent) {
+          if (saleOnly && !product.onSale) {
             return false;
           }
-          if (urgency == 'normal_only' && order.urgent) {
+          if (!_matchesPriceBucket(priceBucket, product.price)) {
             return false;
           }
           return true;
@@ -223,188 +256,32 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
     return results.reversed.toList(growable: false);
   }
 
-  /// Executes `_statusLabel` behavior for this component/composite.
-  String _statusLabel(String value) {
-    return _titleCase(value);
-  }
-
-  /// Executes `_titleCase` behavior for this component/composite.
-  String _titleCase(String value) {
-    return value
-        .split('_')
-        .map((part) => part[0].toUpperCase() + part.substring(1))
-        .join(' ');
-  }
-
-  /// Executes `_buildStatusFilter` behavior for this component/composite.
-  FilterCustomFilter _buildStatusFilter(double scaling) {
+  FilterCustomFilter _buildCategoryFilter() {
     return FilterCustomFilter.typed<String>(
-      field: _statusField,
+      field: _categoryField,
       builder: (context, value, onChanged) {
-        return SizedBox(
-          width: 180 * scaling,
-          child: Select<String>(
-            value: value,
-            canUnselect: true,
-            placeholder: const Text('Status'),
-            itemBuilder: (context, value) => Text(_statusLabel(value)),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: _statuses
-                    .map(
-                      (status) => SelectItemButton<String>(
-                        value: status,
-                        child: Text(_statusLabel(status)),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: onChanged,
-          ),
-        );
-      },
-    );
-  }
-
-  /// Executes `_buildPriorityFilter` behavior for this component/composite.
-  FilterCustomFilter _buildPriorityFilter(double scaling) {
-    return FilterCustomFilter.typed<String>(
-      field: _priorityField,
-      builder: (context, value, onChanged) {
-        return SizedBox(
-          width: 180 * scaling,
-          child: Select<String>(
-            value: value,
-            canUnselect: true,
-            placeholder: const Text('Priority'),
-            itemBuilder: (context, value) => Text(_titleCase(value)),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: _priorities
-                    .map(
-                      (priority) => SelectItemButton<String>(
-                        value: priority,
-                        child: Text(_titleCase(priority)),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: onChanged,
-          ),
-        );
-      },
-    );
-  }
-
-  /// Executes `_buildAssigneeFilter` behavior for this component/composite.
-  FilterCustomFilter _buildAssigneeFilter(double scaling) {
-    return FilterCustomFilter.typed<String>(
-      field: _assigneeContainsField,
-      builder: (context, value, onChanged) {
-        return SizedBox(
-          width: 180 * scaling,
-          child: Select<String>(
-            value: value,
-            canUnselect: true,
-            placeholder: const Text('Assignee contains'),
-            itemBuilder: (context, value) => Text(_titleCase(value)),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: const ['al', 'sa', 'or', 'ri']
-                    .map(
-                      (query) => SelectItemButton<String>(
-                        value: query,
-                        child: Text(query),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: onChanged,
-          ),
-        );
-      },
-    );
-  }
-
-  FilterCustomFilter _buildOrderLikeFilter(double scaling) {
-    return FilterCustomFilter.typed<String>(
-      field: _orderLikeField,
-      builder: (context, value, onChanged) {
-        return SizedBox(
-          width: 180 * scaling,
-          child: Select<String>(
-            value: value,
-            canUnselect: true,
-            placeholder: const Text('Order like'),
-            itemBuilder: (context, value) => Text(value),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: const ['%1%', '%2%', '%4%']
-                    .map(
-                      (query) => SelectItemButton<String>(
-                        value: query,
-                        child: Text(query),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ).call,
-            onChanged: onChanged,
-          ),
-        );
-      },
-    );
-  }
-
-  FilterCustomFilter _buildPriorityCheckboxFilter(double scaling) {
-    return FilterCustomFilter.typed<Set<String>>(
-      field: _priorityMultiField,
-      builder: (context, selectedValues, onChanged) {
-        final selected = selectedValues ?? <String>{};
-        return SizedBox(
-          width: 220 * scaling,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10 * scaling,
-              vertical: 8 * scaling,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).colorScheme.border),
-              borderRadius: Theme.of(context).borderRadiusMd,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Priority (multiple)',
-                  style: Theme.of(context).typography.small,
+        return _FilterPanelTile(
+          title: 'Category',
+          trailing: SizedBox(
+            width: 170,
+            child: Select<String>(
+              value: value,
+              canUnselect: true,
+              placeholder: const Text('All'),
+              itemBuilder: (context, value) => Text(_titleCase(value)),
+              popup: SelectPopup<String>(
+                items: SelectItemList(
+                  children: _categories
+                      .map(
+                        (category) => SelectItemButton<String>(
+                          value: category,
+                          child: Text(_titleCase(category)),
+                        ),
+                      )
+                      .toList(growable: false),
                 ),
-                SizedBox(height: 6 * scaling),
-                ..._priorities.map((priority) {
-                  final isSelected = selected.contains(priority);
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 2 * scaling),
-                    child: Checkbox(
-                      state: isSelected
-                          ? CheckboxState.checked
-                          : CheckboxState.unchecked,
-                      onChanged: (nextState) {
-                        final next = <String>{...selected};
-                        if (nextState == CheckboxState.checked) {
-                          next.add(priority);
-                        } else {
-                          next.remove(priority);
-                        }
-                        onChanged(next.isEmpty ? null : next);
-                      },
-                      trailing: Text(_titleCase(priority)),
-                    ),
-                  );
-                }),
-              ],
+              ).call,
+              onChanged: onChanged,
             ),
           ),
         );
@@ -412,89 +289,522 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
     );
   }
 
-  /// Executes `_buildUrgencyButtons` behavior for this component/composite.
-  FilterCustomFilter _buildUrgencyButtons() {
-    return FilterCustomFilter.typed<String>(
-      field: _urgencyField,
-      builder: (context, urgency, onChanged) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            /// Creates a `_urgencyButton` instance.
-            _urgencyButton(
-              label: 'All',
-              isSelected: urgency == null,
-              onPressed: () => onChanged(null),
-            ),
-
-            /// Creates a `SizedBox` instance.
-            const SizedBox(width: 6),
-
-            /// Creates a `_urgencyButton` instance.
-            _urgencyButton(
-              label: 'Urgent',
-              isSelected: urgency == 'urgent_only',
-              onPressed: () => onChanged('urgent_only'),
-            ),
-
-            /// Creates a `SizedBox` instance.
-            const SizedBox(width: 6),
-
-            /// Creates a `_urgencyButton` instance.
-            _urgencyButton(
-              label: 'Normal',
-              isSelected: urgency == 'normal_only',
-              onPressed: () => onChanged('normal_only'),
-            ),
-          ],
+  FilterCustomFilter _buildBrandPickerFilter() {
+    return FilterCustomFilter(
+      id: _brandField.id,
+      builder: (context, state, onStateChanged) {
+        final selectedBrands =
+            state.valueOf<Set<String>>(_brandField) ?? <String>{};
+        return _FilterPanelTile(
+          title: 'Brand',
+          subtitle: selectedBrands.isEmpty
+              ? 'Any'
+              : '${selectedBrands.length} selected',
+          onTap: () => _openBrandPickerSheet(
+            context,
+            state: state,
+            onStateChanged: onStateChanged,
+          ),
         );
       },
     );
   }
 
-  Widget _urgencyButton({
+  FilterCustomFilter _buildSaleFilter() {
+    return FilterCustomFilter.typed<bool>(
+      field: _saleField,
+      builder: (context, value, onChanged) {
+        final selected = value ?? false;
+        return _FilterPanelTile(
+          title: 'Sale',
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GhostButton(
+                size: ButtonSize.small,
+                onPressed: () => onChanged(false),
+                child: const Text('All'),
+              ),
+              const SizedBox(width: 6),
+              selected
+                  ? SecondaryButton(
+                      size: ButtonSize.small,
+                      onPressed: () => onChanged(true),
+                      child: const Text('Sale only'),
+                    )
+                  : GhostButton(
+                      size: ButtonSize.small,
+                      onPressed: () => onChanged(true),
+                      child: const Text('Sale only'),
+                    ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  FilterCustomFilter _buildPriceBucketFilter() {
+    return FilterCustomFilter.typed<String>(
+      field: _priceBucketField,
+      builder: (context, value, onChanged) {
+        final selected = value ?? 'all';
+        return _FilterPanelTile(
+          title: 'Price',
+          trailing: Wrap(
+            spacing: 6,
+            children: [
+              _priceButton(
+                selected: selected == 'all',
+                label: 'All',
+                onTap: () => onChanged('all'),
+              ),
+              _priceButton(
+                selected: selected == 'low',
+                label: '< 200',
+                onTap: () => onChanged('low'),
+              ),
+              _priceButton(
+                selected: selected == 'mid',
+                label: '200-600',
+                onTap: () => onChanged('mid'),
+              ),
+              _priceButton(
+                selected: selected == 'high',
+                label: '> 600',
+                onTap: () => onChanged('high'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _priceButton({
+    required bool selected,
     required String label,
-    required bool isSelected,
-    required VoidCallback onPressed,
+    required VoidCallback onTap,
   }) {
-    if (isSelected) {
+    if (selected) {
       return SecondaryButton(
         size: ButtonSize.small,
-        onPressed: onPressed,
+        onPressed: onTap,
         child: Text(label),
       );
     }
     return GhostButton(
       size: ButtonSize.small,
-      onPressed: onPressed,
+      onPressed: onTap,
       child: Text(label),
+    );
+  }
+
+  FilterCustomFilter _buildRetailerFilter() {
+    return FilterCustomFilter.typed<Set<String>>(
+      field: _retailerField,
+      builder: (context, value, onChanged) {
+        final selected = value ?? <String>{};
+        return _FilterPanelTile(
+          title: 'Retailer',
+          trailing: Wrap(
+            spacing: 8,
+            children: _retailers
+                .map((retailer) {
+                  final checked = selected.contains(retailer);
+                  return Checkbox(
+                    state: checked
+                        ? CheckboxState.checked
+                        : CheckboxState.unchecked,
+                    onChanged: (next) {
+                      final copy = <String>{...selected};
+                      if (next == CheckboxState.checked) {
+                        copy.add(retailer);
+                      } else {
+                        copy.remove(retailer);
+                      }
+                      onChanged(copy.isEmpty ? null : copy);
+                    },
+                    trailing: Text(_titleCase(retailer)),
+                  );
+                })
+                .toList(growable: false),
+          ),
+        );
+      },
+    );
+  }
+
+  FilterCustomFilter _buildMatcherDemoFilter() {
+    return FilterCustomFilter(
+      id: _brandQueryField.id,
+      builder: (context, state, onStateChanged) {
+        final matcherId =
+            state.matcherIdOf(_brandQueryField) ??
+            _brandQueryField.defaultMatcherId ??
+            _brandQueryField.matchers.first.id;
+        final queryValue = state.valueOf<String>(_brandQueryField) ?? '';
+        return _FilterPanelTile(
+          title: 'Brand matcher',
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 180,
+                child: Select<String>(
+                  value: matcherId,
+                  itemBuilder: (context, value) {
+                    final item = _brandQueryField.matchers.firstWhere(
+                      (m) => m.id == value,
+                    );
+                    return Text(item.label);
+                  },
+                  popup: SelectPopup<String>(
+                    items: SelectItemList(
+                      children: _brandQueryField.matchers
+                          .map(
+                            (matcherOption) => SelectItemButton<String>(
+                              value: matcherOption.id,
+                              child: Text(matcherOption.label),
+                            ),
+                          )
+                          .toList(growable: false),
+                    ),
+                  ).call,
+                  onChanged: (next) {
+                    if (next == null) {
+                      return;
+                    }
+                    onStateChanged(
+                      state.setMatcherIdOf(_brandQueryField, next),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 160,
+                child: Select<String>(
+                  value: queryValue.isEmpty ? null : queryValue,
+                  canUnselect: true,
+                  placeholder: const Text('Query'),
+                  itemBuilder: (context, value) => Text(value),
+                  popup: SelectPopup<String>(
+                    items: SelectItemList(
+                      children: const ['app', 'su', 'net', '%ro%', 'tpl']
+                          .map(
+                            (value) => SelectItemButton<String>(
+                              value: value,
+                              child: Text(value),
+                            ),
+                          )
+                          .toList(growable: false),
+                    ),
+                  ).call,
+                  onChanged: (next) {
+                    onStateChanged(state.setValue(_brandQueryField, next));
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _openBrandPickerSheet(
+    BuildContext context, {
+    required FilterState state,
+    required FilterStateChanged onStateChanged,
+  }) async {
+    await openSheet<void>(
+      context: context,
+      position: OverlayPosition.right,
+      draggable: true,
+      builder: (context) {
+        return _BrandPickerSheet(
+          state: state,
+          products: _products,
+          field: _brandField,
+          onStateChanged: onStateChanged,
+        );
+      },
+    );
+  }
+
+  static String _stripVowels(String value) {
+    return value.toLowerCase().replaceAll(RegExp('[aeiou]'), '');
+  }
+
+  static String _titleCase(String value) {
+    return value
+        .split('_')
+        .map(
+          (part) =>
+              part.isEmpty ? part : part[0].toUpperCase() + part.substring(1),
+        )
+        .join(' ');
+  }
+
+  bool _matchesPriceBucket(String bucket, double price) {
+    switch (bucket) {
+      case 'low':
+        return price < 200;
+      case 'mid':
+        return price >= 200 && price <= 600;
+      case 'high':
+        return price > 600;
+      case 'all':
+      default:
+        return true;
+    }
+  }
+}
+
+class _FilterPanelTile extends StatelessWidget {
+  const _FilterPanelTile({
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    this.onTap,
+  });
+
+  final String title;
+  final String? subtitle;
+  final Widget? trailing;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 8 * scaling),
+      padding: EdgeInsets.symmetric(
+        horizontal: 12 * scaling,
+        vertical: 10 * scaling,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: theme.colorScheme.border),
+        borderRadius: theme.borderRadiusMd,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: theme.typography.medium),
+                if (subtitle != null)
+                  Text(subtitle!, style: theme.typography.textMuted),
+              ],
+            ),
+          ),
+          if (trailing != null) trailing!,
+          if (onTap != null)
+            GhostButton(
+              onPressed: onTap,
+              size: ButtonSize.small,
+              child: const Icon(LucideIcons.chevronRight),
+            ),
+        ],
+      ),
     );
   }
 }
 
-/// _PreviewOrder defines a reusable type for this registry module.
-class _PreviewOrder {
-  /// Stores `label` state/configuration for this implementation.
-  final String label;
-
-  /// Stores `status` state/configuration for this implementation.
-  final String status;
-
-  /// Stores `priority` state/configuration for this implementation.
-  final String priority;
-
-  /// Stores `assignee` state/configuration for this implementation.
-  final String assignee;
-
-  /// Stores `urgent` state/configuration for this implementation.
-  final bool urgent;
-
-  /// Creates a `_PreviewOrder` instance.
-  const _PreviewOrder({
-    required this.label,
-    required this.status,
-    required this.priority,
-    required this.assignee,
-    required this.urgent,
+class _BrandPickerSheet extends StatefulWidget {
+  const _BrandPickerSheet({
+    required this.state,
+    required this.products,
+    required this.field,
+    required this.onStateChanged,
   });
+
+  final FilterState state;
+  final List<_PreviewProduct> products;
+  final FilterField<Set<String>> field;
+  final FilterStateChanged onStateChanged;
+
+  @override
+  State<_BrandPickerSheet> createState() => _BrandPickerSheetState();
+}
+
+class _BrandPickerSheetState extends State<_BrandPickerSheet> {
+  String _query = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final selected =
+        widget.state.valueOf<Set<String>>(widget.field) ?? <String>{};
+    final brandCount = <String, int>{};
+    for (final product in widget.products) {
+      brandCount.update(product.brand, (value) => value + 1, ifAbsent: () => 1);
+    }
+    final brands =
+        brandCount.keys
+            .where(
+              (brand) => brand.toLowerCase().contains(_query.toLowerCase()),
+            )
+            .toList(growable: false)
+          ..sort();
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.all(12 * scaling),
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.card,
+            border: Border.all(color: theme.colorScheme.border),
+            borderRadius: BorderRadius.circular(16 * scaling),
+          ),
+          padding: EdgeInsets.all(14 * scaling),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Expanded(child: Text('Brand', style: theme.typography.large)),
+                  GhostButton(
+                    size: ButtonSize.small,
+                    onPressed: () => closeSheet(context),
+                    child: const Icon(LucideIcons.x),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8 * scaling),
+              SizedBox(
+                width: double.infinity,
+                child: Select<String>(
+                  value: _query.isEmpty ? null : _query,
+                  canUnselect: true,
+                  placeholder: const Text('Search brand'),
+                  itemBuilder: (context, value) => Text(value),
+                  popup: SelectPopup<String>(
+                    items: SelectItemList(
+                      children: brandCount.keys
+                          .map(
+                            (brand) => SelectItemButton<String>(
+                              value: brand,
+                              child: Text(brand),
+                            ),
+                          )
+                          .toList(growable: false),
+                    ),
+                  ).call,
+                  onChanged: (next) {
+                    setState(() {
+                      _query = next ?? '';
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: 8 * scaling),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: brands
+                        .map((brand) {
+                          final checked = selected.contains(brand);
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6 * scaling,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: theme.colorScheme.border,
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '$brand (${brandCount[brand]})',
+                                    style: theme.typography.medium,
+                                  ),
+                                ),
+                                Checkbox(
+                                  state: checked
+                                      ? CheckboxState.checked
+                                      : CheckboxState.unchecked,
+                                  onChanged: (next) {
+                                    final copy = <String>{...selected};
+                                    if (next == CheckboxState.checked) {
+                                      copy.add(brand);
+                                    } else {
+                                      copy.remove(brand);
+                                    }
+                                    widget.onStateChanged(
+                                      widget.state.setValue(
+                                        widget.field,
+                                        copy.isEmpty ? null : copy,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        })
+                        .toList(growable: false),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10 * scaling),
+              Row(
+                children: [
+                  Expanded(
+                    child: GhostButton(
+                      onPressed: () {
+                        widget.onStateChanged(
+                          widget.state.setValue(widget.field, null),
+                        );
+                      },
+                      child: const Text('Clear filter'),
+                    ),
+                  ),
+                  SizedBox(width: 8 * scaling),
+                  Expanded(
+                    child: PrimaryButton(
+                      onPressed: () => closeSheet(context),
+                      child: Text(
+                        'Show ${selected.isEmpty ? widget.products.length : widget.products.where((p) => selected.contains(p.brand)).length}',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PreviewProduct {
+  const _PreviewProduct({
+    required this.name,
+    required this.brand,
+    required this.category,
+    required this.retailer,
+    required this.onSale,
+    required this.price,
+    required this.stock,
+  });
+
+  final String name;
+  final String brand;
+  final String category;
+  final String retailer;
+  final bool onSale;
+  final double price;
+  final int stock;
 }

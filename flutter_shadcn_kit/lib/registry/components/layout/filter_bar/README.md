@@ -91,6 +91,38 @@ FilterBar(
 )
 ```
 
+### Pattern: Multiple and custom matcher modes
+
+```dart
+final brandField = FilterField<String>(
+  id: 'brand_query',
+  defaultMatcherId: 'contains',
+  matchers: [
+    FilterMatcherOption(
+      id: 'contains',
+      label: 'Contains',
+      matcher: FilterMatchers.contains(),
+    ),
+    FilterMatcherOption(
+      id: 'starts_with',
+      label: 'Starts with',
+      matcher: FilterMatchers.startsWith(),
+    ),
+    FilterMatcherOption(
+      id: 'custom',
+      label: 'Custom',
+      matcher: FilterMatcher<String>((selected, candidate) {
+        return candidate is String && candidate.endsWith(selected);
+      }),
+    ),
+  ],
+);
+
+final next = state
+    .setValue(brandField, 'app')
+    .setMatcherIdOf(brandField, 'starts_with');
+```
+
 ### Pattern: Mobile sheet variant
 
 ```dart

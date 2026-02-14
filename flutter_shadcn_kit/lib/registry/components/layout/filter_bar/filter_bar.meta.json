@@ -28,6 +28,10 @@
       "code": "FilterBar(\n  state: state,\n  mobileVariant: FilterBarMobileVariant.autoSheet,\n  mobileBreakpoint: 720,\n  mobileSheetTitle: 'Filters',\n  onStateChanged: (next) => setState(() => state = next),\n)"
     },
     {
+      "title": "Multi matcher + custom matcher",
+      "code": "final brandField = FilterField<String>(\n  id: 'brand_query',\n  defaultMatcherId: 'contains',\n  matchers: [\n    FilterMatcherOption(\n      id: 'contains',\n      label: 'Contains',\n      matcher: FilterMatchers.contains(),\n    ),\n    FilterMatcherOption(\n      id: 'starts_with',\n      label: 'Starts with',\n      matcher: FilterMatchers.startsWith(),\n    ),\n    FilterMatcherOption(\n      id: 'custom',\n      label: 'Custom',\n      matcher: FilterMatcher<String>((selected, candidate) {\n        return candidate is String && candidate.endsWith(selected);\n      }),\n    ),\n  ],\n);\n\nstate = state\n    .setValue(brandField, 'app')\n    .setMatcherIdOf(brandField, 'starts_with');"
+    },
+    {
       "title": "Trailing page-specific widgets",
       "code": "FilterBar(\n  state: state,\n  trailingFilters: [\n    StatusSelect(\n      value: selectedStatus,\n      onChanged: (status) {\n        final chips = [\n          ...state.chips.where((c) => !c.key.startsWith('status:')),\n          if (status != null)\n            FilterChipData(\n              key: 'status:$status',\n              label: 'Status: ${status.label}',\n            ),\n        ];\n        onStateChanged(state.copyWith(chips: chips));\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
     }

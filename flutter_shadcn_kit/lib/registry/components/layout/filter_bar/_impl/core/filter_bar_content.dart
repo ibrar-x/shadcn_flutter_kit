@@ -448,6 +448,8 @@ class _FilterBarContent extends StatelessWidget {
       builder: (context) {
         return _FilterBarMobileSheet(
           initialState: state,
+          mobileVariant: mobileVariant,
+          mobileBreakpoint: mobileBreakpoint,
           sortOptions: sortOptions,
           enableDateRange: enableDateRange,
           customFilters: customFilters,
@@ -484,6 +486,8 @@ class _FilterBarMobileSheet extends StatefulWidget {
   /// Creates a `_FilterBarMobileSheet` instance.
   const _FilterBarMobileSheet({
     required this.initialState,
+    required this.mobileVariant,
+    required this.mobileBreakpoint,
     required this.sortOptions,
     required this.enableDateRange,
     required this.customFilters,
@@ -499,6 +503,12 @@ class _FilterBarMobileSheet extends StatefulWidget {
 
   /// Stores `initialState` state/configuration for this implementation.
   final FilterState initialState;
+
+  /// Stores `mobileVariant` state/configuration for this implementation.
+  final FilterBarMobileVariant mobileVariant;
+
+  /// Stores `mobileBreakpoint` state/configuration for this implementation.
+  final double mobileBreakpoint;
 
   /// Stores `sortOptions` state/configuration for this implementation.
   final List<FilterSortOption> sortOptions;
@@ -542,6 +552,7 @@ class _FilterBarMobileSheet extends StatefulWidget {
 class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
   /// Stores `_state` state/configuration for this implementation.
   late FilterState _state;
+  bool _closeScheduled = false;
 
   @override
   /// Executes `initState` behavior for this component/composite.
@@ -563,6 +574,24 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+    final width = MediaQuery.sizeOf(context).width;
+    final shouldCloseForDesktop =
+        widget.mobileVariant == FilterBarMobileVariant.inline ||
+        (widget.mobileVariant == FilterBarMobileVariant.autoSheet &&
+            width > widget.mobileBreakpoint);
+    if (shouldCloseForDesktop) {
+      if (!_closeScheduled) {
+        _closeScheduled = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) {
+            return;
+          }
+          closeSheet(context);
+        });
+      }
+      return const SizedBox.shrink();
+    }
+    _closeScheduled = false;
     final showClearAll =
         widget.showClearAllWhenEmpty || _state.hasActiveFilters;
     final customWidgets = widget.customFilters

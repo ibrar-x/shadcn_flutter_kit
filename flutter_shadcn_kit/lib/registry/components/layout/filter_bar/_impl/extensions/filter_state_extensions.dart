@@ -8,7 +8,11 @@ extension FilterStateExtensions on FilterState {
       sortId != null ||
       dateRange != null ||
       chips.isNotEmpty ||
-      customFilters.values.any(_isCustomFilterActive);
+      customFilters.entries.any(
+        (entry) =>
+            !_isMatcherStateKey(entry.key) &&
+            _isCustomFilterActive(entry.value),
+      );
 
   int get activeFilterCount {
     /// Stores `count` state/configuration for this implementation.
@@ -17,7 +21,13 @@ extension FilterStateExtensions on FilterState {
     if (sortId != null) count += 1;
     if (dateRange != null) count += 1;
     count += chips.length;
-    count += customFilters.values.where(_isCustomFilterActive).length;
+    count += customFilters.entries
+        .where(
+          (entry) =>
+              !_isMatcherStateKey(entry.key) &&
+              _isCustomFilterActive(entry.value),
+        )
+        .length;
     return count;
   }
 
@@ -70,12 +80,63 @@ extension FilterStateExtensions on FilterState {
     return setCustomValue(field.id, value);
   }
 
+  String? matcherIdOf<T>(FilterField<T> field) {
+    if (field.matchers.isEmpty) {
+      return null;
+    }
+    final stored = customFilters[_matcherStateKey(field.id)];
+    if (stored is String &&
+        field.matchers.any((matcherOption) => matcherOption.id == stored)) {
+      return stored;
+    }
+    return field.defaultMatcherId ?? field.matchers.first.id;
+  }
+
+  FilterState setMatcherIdOf<T>(FilterField<T> field, String? matcherId) {
+    if (field.matchers.isEmpty) {
+      return this;
+    }
+    final next = Map<String, Object?>.of(customFilters);
+    final key = _matcherStateKey(field.id);
+    if (matcherId == null) {
+      next.remove(key);
+      return copyWith(customFilters: next);
+    }
+    final exists = field.matchers.any(
+      (matcherOption) => matcherOption.id == matcherId,
+    );
+    if (exists) {
+      next[key] = matcherId;
+    }
+    return copyWith(customFilters: next);
+  }
+
+  FilterMatcherOption<T>? matcherOptionOf<T>(FilterField<T> field) {
+    if (field.matchers.isEmpty) {
+      return null;
+    }
+    final matcherId = matcherIdOf(field);
+    if (matcherId == null) {
+      return field.matchers.first;
+    }
+    for (final option in field.matchers) {
+      if (option.id == matcherId) {
+        return option;
+      }
+    }
+    return field.matchers.first;
+  }
+
+  FilterMatcher<T>? matcherOf<T>(FilterField<T> field) {
+    return matcherOptionOf(field)?.matcher ?? field.matcher;
+  }
+
   bool matchesValue<T>(FilterField<T> field, Object? candidate) {
     final selected = valueOf(field);
     if (!_isCustomFilterActive(selected)) {
       return true;
     }
-    final matcher = field.matcher ?? FilterMatchers.exact<T>();
+    final matcher = matcherOf(field) ?? FilterMatchers.exact<T>();
     return matcher.matches(selected as T, candidate);
   }
 }
@@ -89,3 +150,7 @@ bool _isCustomFilterActive(Object? value) {
   if (value is Map) return value.isNotEmpty;
   return true;
 }
+
+String _matcherStateKey(String fieldId) => '__matcher:$fieldId';
+
+bool _isMatcherStateKey(String key) => key.startsWith('__matcher:');

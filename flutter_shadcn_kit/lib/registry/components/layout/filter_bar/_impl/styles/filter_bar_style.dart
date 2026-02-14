@@ -151,6 +151,26 @@ abstract final class FilterMatchers {
 }
 
 @immutable
+/// FilterMatcherOption defines a reusable type for this registry module.
+class FilterMatcherOption<T> {
+  /// Stores `id` state/configuration for this implementation.
+  final String id;
+
+  /// Stores `label` state/configuration for this implementation.
+  final String label;
+
+  /// Stores `matcher` state/configuration for this implementation.
+  final FilterMatcher<T> matcher;
+
+  /// Creates a `FilterMatcherOption` instance.
+  const FilterMatcherOption({
+    required this.id,
+    required this.label,
+    required this.matcher,
+  });
+}
+
+@immutable
 /// FilterField defines a reusable type for this registry module.
 class FilterField<T> {
   /// Stores `id` state/configuration for this implementation.
@@ -162,8 +182,20 @@ class FilterField<T> {
   /// Stores `matcher` state/configuration for this implementation.
   final FilterMatcher<T>? matcher;
 
+  /// Stores `matchers` state/configuration for this implementation.
+  final List<FilterMatcherOption<T>> matchers;
+
+  /// Stores `defaultMatcherId` state/configuration for this implementation.
+  final String? defaultMatcherId;
+
   /// Creates a `FilterField` instance.
-  const FilterField({required this.id, this.label, this.matcher});
+  const FilterField({
+    required this.id,
+    this.label,
+    this.matcher,
+    this.matchers = const [],
+    this.defaultMatcherId,
+  });
 }
 
 @immutable
