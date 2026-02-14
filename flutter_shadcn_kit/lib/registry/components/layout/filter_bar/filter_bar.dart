@@ -9,6 +9,7 @@ import '../../form/date_picker/date_picker.dart';
 import '../../form/form_field/form_field.dart';
 import '../../form/select/select.dart';
 import '../../form/text_field/text_field.dart';
+import '../../overlay/drawer/drawer.dart';
 import '../../../shared/icons/lucide_icons.dart';
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/theme/theme.dart';
@@ -23,7 +24,7 @@ part '_impl/variants/filter_bar_layout.dart';
 
 /// FilterBar defines a reusable type for this registry module.
 class FilterBar extends StatefulWidget {
-/// Creates a `FilterBar` instance.
+  /// Creates a `FilterBar` instance.
   const FilterBar({
     super.key,
     required this.state,
@@ -44,59 +45,93 @@ class FilterBar extends StatefulWidget {
     this.clearAllLabel = 'Clear all',
     this.sortLabel = 'Sort',
     this.dateRangeLabel = 'Date range',
+    this.mobileVariant = FilterBarMobileVariant.autoSheet,
+    this.mobileBreakpoint = 720,
+    this.mobileFiltersLabel = 'Filters',
+    this.mobileSheetTitle = 'Filters',
   });
 
-/// Stores `state` state/configuration for this implementation.
+  /// Stores `state` state/configuration for this implementation.
   final FilterState state;
-/// Stores `onStateChanged` state/configuration for this implementation.
+
+  /// Stores `onStateChanged` state/configuration for this implementation.
   final ValueChanged<FilterState> onStateChanged;
-/// Stores `sortOptions` state/configuration for this implementation.
+
+  /// Stores `sortOptions` state/configuration for this implementation.
   final List<FilterSortOption> sortOptions;
-/// Stores `enableDateRange` state/configuration for this implementation.
+
+  /// Stores `enableDateRange` state/configuration for this implementation.
   final bool enableDateRange;
-/// Stores `resultsCount` state/configuration for this implementation.
+
+  /// Stores `resultsCount` state/configuration for this implementation.
   final int? resultsCount;
-/// Stores `searchPlaceholder` state/configuration for this implementation.
+
+  /// Stores `searchPlaceholder` state/configuration for this implementation.
   final String searchPlaceholder;
-/// Stores `searchLabel` state/configuration for this implementation.
+
+  /// Stores `searchLabel` state/configuration for this implementation.
   final String searchLabel;
-/// Stores `searchDebounce` state/configuration for this implementation.
+
+  /// Stores `searchDebounce` state/configuration for this implementation.
   final Duration? searchDebounce;
-/// Stores `trailingFilters` state/configuration for this implementation.
+
+  /// Stores `trailingFilters` state/configuration for this implementation.
   final List<Widget> trailingFilters;
-/// Stores `customFilters` state/configuration for this implementation.
+
+  /// Stores `customFilters` state/configuration for this implementation.
   final List<FilterCustomFilter> customFilters;
-/// Stores `style` state/configuration for this implementation.
+
+  /// Stores `style` state/configuration for this implementation.
   final FilterBarStyle? style;
-/// Stores `clearPolicy` state/configuration for this implementation.
+
+  /// Stores `clearPolicy` state/configuration for this implementation.
   final FilterClearPolicy clearPolicy;
-/// Stores `onClearAll` state/configuration for this implementation.
+
+  /// Stores `onClearAll` state/configuration for this implementation.
   final FilterBarClearResolver? onClearAll;
-/// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
+
+  /// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
   final bool showClearAllWhenEmpty;
-/// Stores `activeFilterCountLabel` state/configuration for this implementation.
+
+  /// Stores `activeFilterCountLabel` state/configuration for this implementation.
   final String? activeFilterCountLabel;
-/// Stores `clearAllLabel` state/configuration for this implementation.
+
+  /// Stores `clearAllLabel` state/configuration for this implementation.
   final String clearAllLabel;
-/// Stores `sortLabel` state/configuration for this implementation.
+
+  /// Stores `sortLabel` state/configuration for this implementation.
   final String sortLabel;
-/// Stores `dateRangeLabel` state/configuration for this implementation.
+
+  /// Stores `dateRangeLabel` state/configuration for this implementation.
   final String dateRangeLabel;
 
+  /// Stores `mobileVariant` state/configuration for this implementation.
+  final FilterBarMobileVariant mobileVariant;
+
+  /// Stores `mobileBreakpoint` state/configuration for this implementation.
+  final double mobileBreakpoint;
+
+  /// Stores `mobileFiltersLabel` state/configuration for this implementation.
+  final String mobileFiltersLabel;
+
+  /// Stores `mobileSheetTitle` state/configuration for this implementation.
+  final String mobileSheetTitle;
+
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<FilterBar> createState() => _FilterBarState();
 }
 
 /// _FilterBarState defines a reusable type for this registry module.
 class _FilterBarState extends State<FilterBar> {
-/// Stores `_searchController` state/configuration for this implementation.
+  /// Stores `_searchController` state/configuration for this implementation.
   late final TextEditingController _searchController;
-/// Stores `_searchDebouncer` state/configuration for this implementation.
+
+  /// Stores `_searchDebouncer` state/configuration for this implementation.
   _Debouncer? _searchDebouncer;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _searchController = TextEditingController(text: widget.state.search);
@@ -104,7 +139,7 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant FilterBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (_searchController.text != widget.state.search) {
@@ -119,16 +154,16 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _searchDebouncer?.dispose();
     _searchController.dispose();
     super.dispose();
   }
 
-/// Executes `_syncDebouncer` behavior for this component/composite.
+  /// Executes `_syncDebouncer` behavior for this component/composite.
   void _syncDebouncer() {
-/// Stores `debounce` state/configuration for this implementation.
+    /// Stores `debounce` state/configuration for this implementation.
     final debounce = widget.searchDebounce;
     if (debounce == null || debounce <= Duration.zero) {
       _searchDebouncer?.dispose();
@@ -139,7 +174,7 @@ class _FilterBarState extends State<FilterBar> {
     _searchDebouncer!.duration = debounce;
   }
 
-/// Executes `_emit` behavior for this component/composite.
+  /// Executes `_emit` behavior for this component/composite.
   void _emit(FilterState next) {
     if (next == widget.state) {
       return;
@@ -147,7 +182,7 @@ class _FilterBarState extends State<FilterBar> {
     widget.onStateChanged(next);
   }
 
-/// Executes `_onSearchChanged` behavior for this component/composite.
+  /// Executes `_onSearchChanged` behavior for this component/composite.
   void _onSearchChanged(String value) {
     if (_searchDebouncer == null) {
       _emit(widget.state.copyWith(search: value));
@@ -161,19 +196,19 @@ class _FilterBarState extends State<FilterBar> {
     });
   }
 
-/// Executes `_onSortChanged` behavior for this component/composite.
+  /// Executes `_onSortChanged` behavior for this component/composite.
   void _onSortChanged(String? sortId) {
     _emit(widget.state.copyWith(sortId: sortId));
   }
 
-/// Executes `_onRemoveChip` behavior for this component/composite.
+  /// Executes `_onRemoveChip` behavior for this component/composite.
   void _onRemoveChip(FilterChipData chip) {
     _emit(widget.state.withoutChip(chip.key));
   }
 
-/// Executes `_onDateRangeChanged` behavior for this component/composite.
+  /// Executes `_onDateRangeChanged` behavior for this component/composite.
   void _onDateRangeChanged(DateTimeRange? range) {
-/// Creates a `_emit` instance.
+    /// Creates a `_emit` instance.
     _emit(
       widget.state.copyWith(
         dateRange: range == null
@@ -183,14 +218,14 @@ class _FilterBarState extends State<FilterBar> {
     );
   }
 
-/// Executes `_onClearDateRange` behavior for this component/composite.
+  /// Executes `_onClearDateRange` behavior for this component/composite.
   void _onClearDateRange() {
     _emit(widget.state.copyWith(dateRange: null));
   }
 
-/// Executes `_onClearAll` behavior for this component/composite.
+  /// Executes `_onClearAll` behavior for this component/composite.
   void _onClearAll() {
-/// Stores `clearResolver` state/configuration for this implementation.
+    /// Stores `clearResolver` state/configuration for this implementation.
     final clearResolver = widget.onClearAll;
     final next = clearResolver != null
         ? clearResolver(widget.state)
@@ -199,7 +234,7 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return _FilterBarContent(
       state: widget.state,
@@ -217,6 +252,10 @@ class _FilterBarState extends State<FilterBar> {
       clearAllLabel: widget.clearAllLabel,
       sortLabel: widget.sortLabel,
       dateRangeLabel: widget.dateRangeLabel,
+      mobileVariant: widget.mobileVariant,
+      mobileBreakpoint: widget.mobileBreakpoint,
+      mobileFiltersLabel: widget.mobileFiltersLabel,
+      mobileSheetTitle: widget.mobileSheetTitle,
       onSearchChanged: _onSearchChanged,
       onSortChanged: _onSortChanged,
       onRemoveChip: _onRemoveChip,

@@ -55,22 +55,25 @@ FilterBar(
 
 ## Common patterns
 
-### Pattern: Generic custom filters
+### Pattern: Typed custom filters with matchers
 
 ```dart
+final statusField = FilterField<String>(
+  id: 'status',
+  matcher: FilterMatchers.exact(),
+);
+
 FilterBar(
   state: state,
   customFilters: [
-    FilterCustomFilter(
-      id: 'status',
-      builder: (context, state, onStateChanged) {
+    FilterCustomFilter.typed<String>(
+      field: statusField,
+      builder: (context, value, onChanged) {
         return Select<String>(
-          value: state.customValue<String>('status'),
+          value: value,
           canUnselect: true,
           placeholder: const Text('Status'),
-          onChanged: (next) {
-            onStateChanged(state.setCustomValue('status', next));
-          },
+          onChanged: onChanged,
           itemBuilder: (context, value) => Text(value),
           popup: SelectPopup<String>(
             items: SelectItemList(
@@ -84,6 +87,18 @@ FilterBar(
       },
     ),
   ],
+  onStateChanged: (next) => setState(() => state = next),
+)
+```
+
+### Pattern: Mobile sheet variant
+
+```dart
+FilterBar(
+  state: state,
+  mobileVariant: FilterBarMobileVariant.autoSheet,
+  mobileBreakpoint: 720,
+  mobileSheetTitle: 'Filters',
   onStateChanged: (next) => setState(() => state = next),
 )
 ```
@@ -133,6 +148,10 @@ FilterBar(
 - `clearPolicy` (`FilterClearPolicy`, optional)
 - `onClearAll` (`FilterState Function(FilterState current)?`, optional)
 - `showClearAllWhenEmpty` (`bool`, optional)
+- `mobileVariant` (`FilterBarMobileVariant`, optional, default: `autoSheet`)
+- `mobileBreakpoint` (`double`, optional, default: `720`)
+- `mobileFiltersLabel` (`String`, optional)
+- `mobileSheetTitle` (`String`, optional)
 - `clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)
 
 ### Callbacks

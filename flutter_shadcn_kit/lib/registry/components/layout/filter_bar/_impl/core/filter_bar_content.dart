@@ -2,7 +2,7 @@ part of '../../filter_bar.dart';
 
 /// _FilterBarContent defines a reusable type for this registry module.
 class _FilterBarContent extends StatelessWidget {
-/// Creates a `_FilterBarContent` instance.
+  /// Creates a `_FilterBarContent` instance.
   const _FilterBarContent({
     required this.state,
     required this.searchController,
@@ -19,6 +19,10 @@ class _FilterBarContent extends StatelessWidget {
     required this.clearAllLabel,
     required this.sortLabel,
     required this.dateRangeLabel,
+    required this.mobileVariant,
+    required this.mobileBreakpoint,
+    required this.mobileFiltersLabel,
+    required this.mobileSheetTitle,
     required this.onSearchChanged,
     required this.onSortChanged,
     required this.onRemoveChip,
@@ -28,57 +32,91 @@ class _FilterBarContent extends StatelessWidget {
     required this.onStateChanged,
   });
 
-/// Stores `state` state/configuration for this implementation.
+  /// Stores `state` state/configuration for this implementation.
   final FilterState state;
-/// Stores `searchController` state/configuration for this implementation.
+
+  /// Stores `searchController` state/configuration for this implementation.
   final TextEditingController searchController;
-/// Stores `sortOptions` state/configuration for this implementation.
+
+  /// Stores `sortOptions` state/configuration for this implementation.
   final List<FilterSortOption> sortOptions;
-/// Stores `enableDateRange` state/configuration for this implementation.
+
+  /// Stores `enableDateRange` state/configuration for this implementation.
   final bool enableDateRange;
-/// Stores `resultsCount` state/configuration for this implementation.
+
+  /// Stores `resultsCount` state/configuration for this implementation.
   final int? resultsCount;
-/// Stores `searchPlaceholder` state/configuration for this implementation.
+
+  /// Stores `searchPlaceholder` state/configuration for this implementation.
   final String searchPlaceholder;
-/// Stores `searchLabel` state/configuration for this implementation.
+
+  /// Stores `searchLabel` state/configuration for this implementation.
   final String searchLabel;
-/// Stores `trailingFilters` state/configuration for this implementation.
+
+  /// Stores `trailingFilters` state/configuration for this implementation.
   final List<Widget> trailingFilters;
-/// Stores `customFilters` state/configuration for this implementation.
+
+  /// Stores `customFilters` state/configuration for this implementation.
   final List<FilterCustomFilter> customFilters;
-/// Stores `style` state/configuration for this implementation.
+
+  /// Stores `style` state/configuration for this implementation.
   final FilterBarStyle style;
-/// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
+
+  /// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
   final bool showClearAllWhenEmpty;
-/// Stores `activeFilterCountLabel` state/configuration for this implementation.
+
+  /// Stores `activeFilterCountLabel` state/configuration for this implementation.
   final String? activeFilterCountLabel;
-/// Stores `clearAllLabel` state/configuration for this implementation.
+
+  /// Stores `clearAllLabel` state/configuration for this implementation.
   final String clearAllLabel;
-/// Stores `sortLabel` state/configuration for this implementation.
+
+  /// Stores `sortLabel` state/configuration for this implementation.
   final String sortLabel;
-/// Stores `dateRangeLabel` state/configuration for this implementation.
+
+  /// Stores `dateRangeLabel` state/configuration for this implementation.
   final String dateRangeLabel;
-/// Stores `onSearchChanged` state/configuration for this implementation.
+
+  /// Stores `mobileVariant` state/configuration for this implementation.
+  final FilterBarMobileVariant mobileVariant;
+
+  /// Stores `mobileBreakpoint` state/configuration for this implementation.
+  final double mobileBreakpoint;
+
+  /// Stores `mobileFiltersLabel` state/configuration for this implementation.
+  final String mobileFiltersLabel;
+
+  /// Stores `mobileSheetTitle` state/configuration for this implementation.
+  final String mobileSheetTitle;
+
+  /// Stores `onSearchChanged` state/configuration for this implementation.
   final ValueChanged<String> onSearchChanged;
-/// Stores `onSortChanged` state/configuration for this implementation.
+
+  /// Stores `onSortChanged` state/configuration for this implementation.
   final ValueChanged<String?> onSortChanged;
-/// Stores `onRemoveChip` state/configuration for this implementation.
+
+  /// Stores `onRemoveChip` state/configuration for this implementation.
   final ValueChanged<FilterChipData> onRemoveChip;
-/// Stores `onDateRangeChanged` state/configuration for this implementation.
+
+  /// Stores `onDateRangeChanged` state/configuration for this implementation.
   final ValueChanged<DateTimeRange?> onDateRangeChanged;
-/// Stores `onClearDateRange` state/configuration for this implementation.
+
+  /// Stores `onClearDateRange` state/configuration for this implementation.
   final VoidCallback onClearDateRange;
-/// Stores `onClearAll` state/configuration for this implementation.
+
+  /// Stores `onClearAll` state/configuration for this implementation.
   final VoidCallback onClearAll;
-/// Stores `onStateChanged` state/configuration for this implementation.
+
+  /// Stores `onStateChanged` state/configuration for this implementation.
   final FilterStateChanged onStateChanged;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final resolvedTheme = _FilterBarResolvedTheme.resolve(context, style);
     final countLabel = _resolveCountLabel();
-/// Stores `showClearAll` state/configuration for this implementation.
+
+    /// Stores `showClearAll` state/configuration for this implementation.
     final showClearAll = showClearAllWhenEmpty || state.hasActiveFilters;
 
     return LayoutBuilder(
@@ -92,6 +130,7 @@ class _FilterBarContent extends StatelessWidget {
           hasCounterText: countLabel != null,
           hasClearAction: showClearAll,
         );
+        final useMobileSheet = _shouldUseMobileSheet(constraints.maxWidth);
 
         return DecoratedBox(
           decoration: BoxDecoration(
@@ -103,13 +142,13 @@ class _FilterBarContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-/// Creates a `Wrap` instance.
+                /// Creates a `Wrap` instance.
                 Wrap(
                   spacing: style.spacing,
                   runSpacing: style.runSpacing,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-/// Creates a `ConstrainedBox` instance.
+                    /// Creates a `ConstrainedBox` instance.
                     ConstrainedBox(
                       constraints: BoxConstraints(
                         minWidth: style.minSearchWidth,
@@ -123,26 +162,62 @@ class _FilterBarContent extends StatelessWidget {
                           onChanged: onSearchChanged,
                           placeholder: Text(searchPlaceholder),
                           features: const [
-/// Creates a `InputFeature.leading` instance.
+                            /// Creates a `InputFeature.leading` instance.
                             InputFeature.leading(Icon(LucideIcons.search)),
-/// Creates a `InputFeature.clear` instance.
+
+                            /// Creates a `InputFeature.clear` instance.
                             InputFeature.clear(),
                           ],
                         ),
                       ),
                     ),
-                    if (sortOptions.isNotEmpty)
-/// Creates a `_buildSortControl` instance.
-                      _buildSortControl(layout.sortWidth),
-                    if (enableDateRange) _buildDateRangeControl(context),
-                    ...customFilters.map(
-                      (customFilter) =>
-/// Creates a `customFilter.builder` instance.
-                          customFilter.builder(context, state, onStateChanged),
-                    ),
-                    ...trailingFilters,
+                    if (sortOptions.isNotEmpty && !useMobileSheet)
+                      /// Creates a `_buildSortControl` instance.
+                      _buildSortControl(
+                        layout.sortWidth,
+                        state: state,
+                        onStateChanged: onStateChanged,
+                      ),
+                    if (enableDateRange && !useMobileSheet)
+                      _buildDateRangeControl(
+                        context,
+                        state: state,
+                        onStateChanged: onStateChanged,
+                        width: style.minSortWidth,
+                      ),
+                    if (useMobileSheet)
+                      SecondaryButton(
+                        size: style.dense
+                            ? ButtonSize.small
+                            : ButtonSize.normal,
+                        onPressed: () => _openMobileSheet(context),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(LucideIcons.slidersHorizontal),
+                            SizedBox(width: 6 * Theme.of(context).scaling),
+                            Text(
+                              state.activeFilterCount > 0
+                                  ? '$mobileFiltersLabel (${state.activeFilterCount})'
+                                  : mobileFiltersLabel,
+                            ),
+                          ],
+                        ),
+                      )
+                    else ...[
+                      ...customFilters.map(
+                        (customFilter) =>
+                            /// Creates a `customFilter.builder` instance.
+                            customFilter.builder(
+                              context,
+                              state,
+                              onStateChanged,
+                            ),
+                      ),
+                      ...trailingFilters,
+                    ],
                     if (countLabel != null)
-/// Creates a `Padding` instance.
+                      /// Creates a `Padding` instance.
                       Padding(
                         padding: EdgeInsets.only(
                           top: layout.isSingleRow ? 0 : 4,
@@ -153,7 +228,7 @@ class _FilterBarContent extends StatelessWidget {
                         ),
                       ),
                     if (showClearAll)
-/// Creates a `GhostButton` instance.
+                      /// Creates a `GhostButton` instance.
                       GhostButton(
                         size: style.dense
                             ? ButtonSize.small
@@ -164,9 +239,10 @@ class _FilterBarContent extends StatelessWidget {
                   ],
                 ),
                 if (state.chips.isNotEmpty) ...[
-/// Creates a `SizedBox` instance.
+                  /// Creates a `SizedBox` instance.
                   SizedBox(height: style.runSpacing),
-/// Creates a `Wrap` instance.
+
+                  /// Creates a `Wrap` instance.
                   Wrap(
                     spacing: style.spacing,
                     runSpacing: style.runSpacing,
@@ -191,7 +267,7 @@ class _FilterBarContent extends StatelessWidget {
     );
   }
 
-/// Executes `_resolveCountLabel` behavior for this component/composite.
+  /// Executes `_resolveCountLabel` behavior for this component/composite.
   String? _resolveCountLabel() {
     if (resultsCount != null) {
       return _formatResultsCount(resultsCount!);
@@ -200,7 +276,8 @@ class _FilterBarContent extends StatelessWidget {
         activeFilterCountLabel!.trim().isNotEmpty) {
       return activeFilterCountLabel;
     }
-/// Stores `activeCount` state/configuration for this implementation.
+
+    /// Stores `activeCount` state/configuration for this implementation.
     final activeCount = state.activeFilterCount;
     if (activeCount > 0) {
       return _formatActiveFilterCount(activeCount);
@@ -208,9 +285,9 @@ class _FilterBarContent extends StatelessWidget {
     return null;
   }
 
-/// Executes `_resolveSortValue` behavior for this component/composite.
-  String? _resolveSortValue() {
-/// Stores `sortId` state/configuration for this implementation.
+  /// Executes `_resolveSortValue` behavior for this component/composite.
+  String? _resolveSortValue(FilterState state) {
+    /// Stores `sortId` state/configuration for this implementation.
     final sortId = state.sortId;
     if (sortId == null) {
       return null;
@@ -219,13 +296,17 @@ class _FilterBarContent extends StatelessWidget {
     return exists ? sortId : null;
   }
 
-/// Executes `_buildSortControl` behavior for this component/composite.
-  Widget _buildSortControl(double width) {
+  /// Executes `_buildSortControl` behavior for this component/composite.
+  Widget _buildSortControl(
+    double width, {
+    required FilterState state,
+    required FilterStateChanged onStateChanged,
+  }) {
     return SizedBox(
       width: width,
       child: Select<String>(
-        value: _resolveSortValue(),
-        onChanged: onSortChanged,
+        value: _resolveSortValue(state),
+        onChanged: (next) => onStateChanged(state.copyWith(sortId: next)),
         placeholder: Text(sortLabel),
         itemBuilder: (context, value) {
           final option = sortOptions.firstWhere(
@@ -250,34 +331,47 @@ class _FilterBarContent extends StatelessWidget {
     );
   }
 
-/// Executes `_buildDateRangeControl` behavior for this component/composite.
-  Widget _buildDateRangeControl(BuildContext context) {
-/// Stores `hasDateRange` state/configuration for this implementation.
+  /// Executes `_buildDateRangeControl` behavior for this component/composite.
+  Widget _buildDateRangeControl(
+    BuildContext context, {
+    required FilterState state,
+    required FilterStateChanged onStateChanged,
+    required double width,
+  }) {
+    /// Stores `hasDateRange` state/configuration for this implementation.
     final hasDateRange = state.dateRange != null;
     final localizations = ShadcnLocalizations.of(context);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-/// Creates a `SizedBox` instance.
+        /// Creates a `SizedBox` instance.
         SizedBox(
-          width: style.minSortWidth,
+          width: width,
           child: ObjectFormField<DateTimeRange>(
             mode: PromptMode.popover,
             value: state.dateRange?.toDateTimeRange(),
-            onChanged: onDateRangeChanged,
+            onChanged: (value) {
+              onStateChanged(
+                state.copyWith(
+                  dateRange: value == null
+                      ? null
+                      : FilterDateRange.fromDateTimeRange(value),
+                ),
+              );
+            },
             placeholder: Text(dateRangeLabel),
             trailing: const Icon(LucideIcons.calendarRange),
             builder: (context, value) {
               return Text(
-/// Creates a `_formatCompactDateRangeLabel` instance.
+                /// Creates a `_formatCompactDateRangeLabel` instance.
                 _formatCompactDateRangeLabel(localizations, value),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               );
             },
             editorBuilder: (context, handler) {
-/// Stores `value` state/configuration for this implementation.
+              /// Stores `value` state/configuration for this implementation.
               DateTimeRange? value = handler.value;
               return LayoutBuilder(
                 builder: (context, constraints) {
@@ -305,13 +399,220 @@ class _FilterBarContent extends StatelessWidget {
           ),
         ),
         if (hasDateRange)
-/// Creates a `GhostButton` instance.
+          /// Creates a `GhostButton` instance.
           GhostButton(
-            onPressed: onClearDateRange,
+            onPressed: () => onStateChanged(state.copyWith(dateRange: null)),
             size: ButtonSize.small,
             child: const Icon(LucideIcons.x),
           ),
       ],
+    );
+  }
+
+  bool _shouldUseMobileSheet(double maxWidth) {
+    switch (mobileVariant) {
+      case FilterBarMobileVariant.inline:
+        return false;
+      case FilterBarMobileVariant.sheet:
+        return true;
+      case FilterBarMobileVariant.autoSheet:
+        return maxWidth <= mobileBreakpoint;
+    }
+  }
+
+  Future<void> _openMobileSheet(BuildContext context) async {
+    final hasControls =
+        sortOptions.isNotEmpty ||
+        enableDateRange ||
+        customFilters.isNotEmpty ||
+        trailingFilters.isNotEmpty ||
+        showClearAllWhenEmpty ||
+        state.hasActiveFilters;
+    if (!hasControls) {
+      return;
+    }
+
+    await openSheet<void>(
+      context: context,
+      position: OverlayPosition.bottom,
+      draggable: true,
+      builder: (context) {
+        return _FilterBarMobileSheet(
+          initialState: state,
+          sortOptions: sortOptions,
+          enableDateRange: enableDateRange,
+          customFilters: customFilters,
+          trailingFilters: trailingFilters,
+          clearAllLabel: clearAllLabel,
+          title: mobileSheetTitle,
+          showClearAllWhenEmpty: showClearAllWhenEmpty,
+          onStateChanged: onStateChanged,
+          buildSortControl: (sheetState, onChanged) => _buildSortControl(
+            double.infinity,
+            state: sheetState,
+            onStateChanged: onChanged,
+          ),
+          buildDateRangeControl: (sheetState, onChanged) =>
+              _buildDateRangeControl(
+                context,
+                state: sheetState,
+                onStateChanged: onChanged,
+                width: double.infinity,
+              ),
+          onClearAll: onClearAll,
+        );
+      },
+    );
+  }
+}
+
+/// _FilterBarMobileSheetBuilder defines a reusable type for this registry module.
+typedef _FilterBarMobileSheetBuilder =
+    Widget Function(FilterState state, FilterStateChanged onStateChanged);
+
+/// _FilterBarMobileSheet defines a reusable type for this registry module.
+class _FilterBarMobileSheet extends StatefulWidget {
+  /// Creates a `_FilterBarMobileSheet` instance.
+  const _FilterBarMobileSheet({
+    required this.initialState,
+    required this.sortOptions,
+    required this.enableDateRange,
+    required this.customFilters,
+    required this.trailingFilters,
+    required this.clearAllLabel,
+    required this.title,
+    required this.showClearAllWhenEmpty,
+    required this.onStateChanged,
+    required this.buildSortControl,
+    required this.buildDateRangeControl,
+    required this.onClearAll,
+  });
+
+  /// Stores `initialState` state/configuration for this implementation.
+  final FilterState initialState;
+
+  /// Stores `sortOptions` state/configuration for this implementation.
+  final List<FilterSortOption> sortOptions;
+
+  /// Stores `enableDateRange` state/configuration for this implementation.
+  final bool enableDateRange;
+
+  /// Stores `customFilters` state/configuration for this implementation.
+  final List<FilterCustomFilter> customFilters;
+
+  /// Stores `trailingFilters` state/configuration for this implementation.
+  final List<Widget> trailingFilters;
+
+  /// Stores `clearAllLabel` state/configuration for this implementation.
+  final String clearAllLabel;
+
+  /// Stores `title` state/configuration for this implementation.
+  final String title;
+
+  /// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
+  final bool showClearAllWhenEmpty;
+
+  /// Stores `onStateChanged` state/configuration for this implementation.
+  final FilterStateChanged onStateChanged;
+
+  /// Stores `buildSortControl` state/configuration for this implementation.
+  final _FilterBarMobileSheetBuilder buildSortControl;
+
+  /// Stores `buildDateRangeControl` state/configuration for this implementation.
+  final _FilterBarMobileSheetBuilder buildDateRangeControl;
+
+  /// Stores `onClearAll` state/configuration for this implementation.
+  final VoidCallback onClearAll;
+
+  @override
+  /// Executes `createState` behavior for this component/composite.
+  State<_FilterBarMobileSheet> createState() => _FilterBarMobileSheetState();
+}
+
+/// _FilterBarMobileSheetState defines a reusable type for this registry module.
+class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
+  /// Stores `_state` state/configuration for this implementation.
+  late FilterState _state;
+
+  @override
+  /// Executes `initState` behavior for this component/composite.
+  void initState() {
+    super.initState();
+    _state = widget.initialState;
+  }
+
+  /// Executes `_updateState` behavior for this component/composite.
+  void _updateState(FilterState next) {
+    setState(() {
+      _state = next;
+    });
+    widget.onStateChanged(next);
+  }
+
+  @override
+  /// Executes `build` behavior for this component/composite.
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final showClearAll =
+        widget.showClearAllWhenEmpty || _state.hasActiveFilters;
+    final customWidgets = widget.customFilters
+        .map((filter) => filter.builder(context, _state, _updateState))
+        .toList(growable: false);
+
+    return SafeArea(
+      top: false,
+      child: Container(
+        decoration: BoxDecoration(
+          color: theme.colorScheme.card,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(16 * scaling),
+          ),
+        ),
+        padding: EdgeInsets.all(16 * scaling),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(widget.title, style: theme.typography.large),
+                ),
+                GhostButton(
+                  onPressed: () => closeSheet(context),
+                  size: ButtonSize.small,
+                  child: const Icon(LucideIcons.x),
+                ),
+              ],
+            ),
+            SizedBox(height: 12 * scaling),
+            if (widget.sortOptions.isNotEmpty)
+              widget.buildSortControl(_state, _updateState),
+            if (widget.sortOptions.isNotEmpty && widget.enableDateRange)
+              SizedBox(height: 8 * scaling),
+            if (widget.enableDateRange)
+              widget.buildDateRangeControl(_state, _updateState),
+            if (customWidgets.isNotEmpty) SizedBox(height: 8 * scaling),
+            ...customWidgets,
+            if (widget.trailingFilters.isNotEmpty)
+              SizedBox(height: 8 * scaling),
+            ...widget.trailingFilters,
+            if (showClearAll) ...[
+              SizedBox(height: 12 * scaling),
+              GhostButton(
+                onPressed: _state.hasActiveFilters
+                    ? () {
+                        widget.onClearAll();
+                        closeSheet(context);
+                      }
+                    : null,
+                child: Text(widget.clearAllLabel),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

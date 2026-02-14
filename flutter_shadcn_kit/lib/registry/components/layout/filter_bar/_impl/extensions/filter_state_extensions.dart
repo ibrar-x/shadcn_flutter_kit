@@ -3,7 +3,7 @@ part of '../../filter_bar.dart';
 /// Extension helpers used by this registry module.
 extension FilterStateExtensions on FilterState {
   bool get hasActiveFilters =>
-/// Creates a `search.trim` instance.
+      /// Creates a `search.trim` instance.
       search.trim().isNotEmpty ||
       sortId != null ||
       dateRange != null ||
@@ -11,7 +11,7 @@ extension FilterStateExtensions on FilterState {
       customFilters.values.any(_isCustomFilterActive);
 
   int get activeFilterCount {
-/// Stores `count` state/configuration for this implementation.
+    /// Stores `count` state/configuration for this implementation.
     var count = 0;
     if (search.trim().isNotEmpty) count += 1;
     if (sortId != null) count += 1;
@@ -21,7 +21,7 @@ extension FilterStateExtensions on FilterState {
     return count;
   }
 
-/// Executes `withoutChip` behavior for this component/composite.
+  /// Executes `withoutChip` behavior for this component/composite.
   FilterState withoutChip(String chipKey) {
     final next = chips
         .where((chip) => chip.key != chipKey)
@@ -29,7 +29,7 @@ extension FilterStateExtensions on FilterState {
     return copyWith(chips: next);
   }
 
-/// Executes `cleared` behavior for this component/composite.
+  /// Executes `cleared` behavior for this component/composite.
   FilterState cleared({FilterClearPolicy policy = const FilterClearPolicy()}) {
     return copyWith(
       search: policy.clearSearch ? '' : search,
@@ -43,7 +43,7 @@ extension FilterStateExtensions on FilterState {
   }
 
   T? customValue<T>(String key) {
-/// Stores `value` state/configuration for this implementation.
+    /// Stores `value` state/configuration for this implementation.
     final value = customFilters[key];
     if (value is T) {
       return value;
@@ -51,7 +51,7 @@ extension FilterStateExtensions on FilterState {
     return null;
   }
 
-/// Executes `setCustomValue` behavior for this component/composite.
+  /// Executes `setCustomValue` behavior for this component/composite.
   FilterState setCustomValue(String key, Object? value) {
     final next = Map<String, Object?>.of(customFilters);
     if (_isCustomFilterActive(value)) {
@@ -60,6 +60,23 @@ extension FilterStateExtensions on FilterState {
       next.remove(key);
     }
     return copyWith(customFilters: next);
+  }
+
+  T? valueOf<T>(FilterField<T> field) {
+    return customValue<T>(field.id);
+  }
+
+  FilterState setValue<T>(FilterField<T> field, T? value) {
+    return setCustomValue(field.id, value);
+  }
+
+  bool matchesValue<T>(FilterField<T> field, Object? candidate) {
+    final selected = valueOf(field);
+    if (!_isCustomFilterActive(selected)) {
+      return true;
+    }
+    final matcher = field.matcher ?? FilterMatchers.exact<T>();
+    return matcher.matches(selected as T, candidate);
   }
 }
 

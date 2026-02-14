@@ -20,8 +20,12 @@
   },
   "patterns": [
     {
-      "title": "Generic custom filters",
-      "code": "FilterBar(\n  state: state,\n  customFilters: [\n    FilterCustomFilter(\n      id: 'status',\n      builder: (context, state, onStateChanged) {\n        return Select<String>(\n          value: state.customValue<String>('status'),\n          canUnselect: true,\n          placeholder: const Text('Status'),\n          onChanged: (next) {\n            onStateChanged(state.setCustomValue('status', next));\n          },\n          itemBuilder: (context, value) => Text(value),\n          popup: SelectPopup<String>(\n            items: SelectItemList(\n              children: const [\n                SelectItemButton<String>(value: 'open', child: Text('Open')),\n                SelectItemButton<String>(value: 'closed', child: Text('Closed')),\n              ],\n            ),\n          ).call,\n        );\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
+      "title": "Typed custom filters",
+      "code": "final statusField = FilterField<String>(\n  id: 'status',\n  matcher: FilterMatchers.exact(),\n);\n\nFilterBar(\n  state: state,\n  customFilters: [\n    FilterCustomFilter.typed<String>(\n      field: statusField,\n      builder: (context, value, onChanged) {\n        return Select<String>(\n          value: value,\n          canUnselect: true,\n          placeholder: const Text('Status'),\n          onChanged: onChanged,\n          itemBuilder: (context, value) => Text(value),\n          popup: SelectPopup<String>(\n            items: SelectItemList(\n              children: const [\n                SelectItemButton<String>(value: 'open', child: Text('Open')),\n                SelectItemButton<String>(value: 'closed', child: Text('Closed')),\n              ],\n            ),\n          ).call,\n        );\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
+    },
+    {
+      "title": "Mobile sheet variant",
+      "code": "FilterBar(\n  state: state,\n  mobileVariant: FilterBarMobileVariant.autoSheet,\n  mobileBreakpoint: 720,\n  mobileSheetTitle: 'Filters',\n  onStateChanged: (next) => setState(() => state = next),\n)"
     },
     {
       "title": "Trailing page-specific widgets",
@@ -44,6 +48,10 @@
       "`clearPolicy` (`FilterClearPolicy`, optional)",
       "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
       "`showClearAllWhenEmpty` (`bool`, optional)",
+      "`mobileVariant` (`FilterBarMobileVariant`, optional, default: `autoSheet`)",
+      "`mobileBreakpoint` (`double`, optional, default: `720`)",
+      "`mobileFiltersLabel` (`String`, optional)",
+      "`mobileSheetTitle` (`String`, optional)",
       "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
     ],
     "callbacks": [

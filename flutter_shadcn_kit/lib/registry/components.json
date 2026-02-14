@@ -15495,6 +15495,7 @@
         "select",
         "date_picker",
         "form_field",
+        "drawer",
         "scaffold"
       ],
       "pubspec": {
