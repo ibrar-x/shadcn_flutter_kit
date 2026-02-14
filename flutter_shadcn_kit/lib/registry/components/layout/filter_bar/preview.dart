@@ -136,6 +136,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
         valueListenable: _controller,
         builder: (context, state, _) {
           final filtered = _filterOrders(state);
+          final activeRules = _rulesFromState(state);
           return SingleChildScrollView(
             padding: EdgeInsets.all(16 * scaling),
             child: Column(
@@ -157,18 +158,19 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                       onPressed: _openAddFilterComposer,
                       child: const Icon(LucideIcons.plus),
                     ),
-                    SecondaryButton(
-                      size: ButtonSize.small,
-                      onPressed: _openManageFiltersSheet,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text('Filters'),
-                          SizedBox(width: 6),
-                          Icon(LucideIcons.chevronUp),
-                        ],
+                    if (activeRules.isNotEmpty)
+                      SecondaryButton(
+                        size: ButtonSize.small,
+                        onPressed: _openManageFiltersSheet,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('Filters'),
+                            SizedBox(width: 6),
+                            Icon(LucideIcons.chevronUp),
+                          ],
+                        ),
                       ),
-                    ),
                     GhostButton(
                       size: ButtonSize.small,
                       onPressed: () {},
@@ -310,57 +312,63 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
   }
 
   Future<void> _openManageFiltersSheet() async {
-    final state = _controller.value;
     await openSheet<void>(
       context: context,
       position: OverlayPosition.bottom,
       draggable: true,
       builder: (context) {
-        final rules = _rulesFromState(state);
-        return FilterBarSheetScaffold(
-          title: 'Filters',
-          maxHeight: 680,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              for (final rule in rules)
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.border,
-                    ),
-                    borderRadius: Theme.of(context).borderRadiusMd,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(child: Text(_chipLabel(rule))),
-                      GhostButton(
-                        size: ButtonSize.small,
-                        onPressed: () {
-                          final nextRules = rules
-                              .where((item) => item.id != rule.id)
-                              .toList(growable: false);
-                          _controller.setState(_withRules(state, nextRules));
-                        },
-                        child: const Icon(LucideIcons.x),
+        return ValueListenableBuilder<FilterState>(
+          valueListenable: _controller,
+          builder: (context, state, _) {
+            final rules = _rulesFromState(state);
+            return FilterBarSheetScaffold(
+              title: 'Filters',
+              maxHeight: 680,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final rule in rules)
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
                       ),
-                    ],
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.border,
+                        ),
+                        borderRadius: Theme.of(context).borderRadiusMd,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(child: Text(_chipLabel(rule))),
+                          GhostButton(
+                            size: ButtonSize.small,
+                            onPressed: () {
+                              final nextRules = rules
+                                  .where((item) => item.id != rule.id)
+                                  .toList(growable: false);
+                              _controller.setState(
+                                _withRules(state, nextRules),
+                              );
+                            },
+                            child: const Icon(LucideIcons.x),
+                          ),
+                        ],
+                      ),
+                    ),
+                  SecondaryButton(
+                    onPressed: () {
+                      closeSheet(context);
+                      _openAddFilterComposer();
+                    },
+                    child: const Text('Add filter'),
                   ),
-                ),
-              SecondaryButton(
-                onPressed: () {
-                  closeSheet(context);
-                  _openAddFilterComposer();
-                },
-                child: const Text('Add filter'),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
