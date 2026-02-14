@@ -130,7 +130,7 @@ class _StreamingTextState extends State<StreamingText> {
     );
     _notifyOnSettledIfNeeded(settled);
 
-    return RichText(
+    Widget current = RichText(
       text: TextSpan(style: resolvedStyle, children: spans),
       textAlign: widget.textAlign ?? TextAlign.start,
       textDirection: widget.textDirection,
@@ -141,6 +141,19 @@ class _StreamingTextState extends State<StreamingText> {
       textHeightBehavior: widget.textHeightBehavior,
       locale: widget.locale,
     );
+
+    if (widget.smoothLayout) {
+      current = ClipRect(
+        child: AnimatedSize(
+          alignment: Alignment.topLeft,
+          duration: widget.layoutAnimationDuration,
+          curve: widget.layoutAnimationCurve,
+          child: current,
+        ),
+      );
+    }
+
+    return current;
   }
 
   bool _isSettled({

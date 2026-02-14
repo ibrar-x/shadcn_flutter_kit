@@ -1,13 +1,23 @@
 part of '../../text_animate.dart';
 
+/// _StreamingTextState holds mutable state for the text animate implementation.
 class _StreamingTextState extends State<StreamingText> {
+  /// Input parameter used by `_StreamingTextState` during rendering and behavior handling.
   static const Duration _frameInterval = Duration(milliseconds: 16);
 
+  /// Input parameter used by `_StreamingTextState` during rendering and behavior handling.
   late final Stopwatch _clock;
+
+  /// Input parameter used by `_StreamingTextState` during rendering and behavior handling.
   late _StreamingTextSnapshot _snapshot;
+
+  /// Input parameter used by `_StreamingTextState` during rendering and behavior handling.
   Timer? _ticker;
+
+  /// Input parameter used by `_StreamingTextState` during rendering and behavior handling.
   int _lastSettledRevision = -1;
 
+  /// Initializes controllers and listeners required by text animate.
   @override
   void initState() {
     super.initState();
@@ -15,6 +25,7 @@ class _StreamingTextState extends State<StreamingText> {
     _snapshot = _StreamingTextSnapshot.initial(widget.text);
   }
 
+  /// Updates internal state when text animate configuration changes.
   @override
   void didUpdateWidget(covariant StreamingText oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -23,6 +34,7 @@ class _StreamingTextState extends State<StreamingText> {
     }
   }
 
+  /// Disposes resources allocated by this text animate state.
   @override
   void dispose() {
     _ticker?.cancel();
@@ -30,6 +42,7 @@ class _StreamingTextState extends State<StreamingText> {
     super.dispose();
   }
 
+  /// Builds the widget tree for text animate.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TextAnimateTheme>(context);
@@ -60,6 +73,7 @@ class _StreamingTextState extends State<StreamingText> {
     final animatedUnits = widget.animateByWord
         ? _splitToWordUnits(_snapshot.animatedChars.join())
         : _snapshot.animatedChars;
+
     final totalAnimated = animatedUnits.length;
     final visibleAnimated = _visibleUnitCount(
       total: totalAnimated,
@@ -80,7 +94,9 @@ class _StreamingTextState extends State<StreamingText> {
     for (var i = 0; i < visibleAnimated; i++) {
       final char = animatedUnits[i];
       final revealDelay = _revealDelayForUnitIndex(i, resolvedTypewriter);
+
       final age = elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
+
       spans.add(
         resolvedEffect.buildSpan(
           char: char,
@@ -114,7 +130,7 @@ class _StreamingTextState extends State<StreamingText> {
     );
     _notifyOnSettledIfNeeded(settled);
 
-    return RichText(
+    Widget current = RichText(
       text: TextSpan(style: resolvedStyle, children: spans),
       textAlign: widget.textAlign ?? TextAlign.start,
       textDirection: widget.textDirection,
@@ -125,6 +141,19 @@ class _StreamingTextState extends State<StreamingText> {
       textHeightBehavior: widget.textHeightBehavior,
       locale: widget.locale,
     );
+
+    if (widget.smoothLayout) {
+      current = ClipRect(
+        child: AnimatedSize(
+          alignment: Alignment.topLeft,
+          duration: widget.layoutAnimationDuration,
+          curve: widget.layoutAnimationCurve,
+          child: current,
+        ),
+      );
+    }
+
+    return current;
   }
 
   bool _isSettled({
@@ -139,6 +168,7 @@ class _StreamingTextState extends State<StreamingText> {
     if (effect.settleDuration <= Duration.zero) return true;
 
     final revealDelay = _revealDelayForUnitIndex(totalAnimated - 1, typewriter);
+
     final age = elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
     return age >= effect.settleDuration;
   }
@@ -153,6 +183,7 @@ class _StreamingTextState extends State<StreamingText> {
 
     final periodMicros = cursor.blinkPeriod.inMicroseconds;
     if (periodMicros <= 0) return true;
+
     final phase = _clock.elapsed.inMicroseconds % periodMicros;
     return phase < (periodMicros ~/ 2);
   }
@@ -179,6 +210,8 @@ class _StreamingTextState extends State<StreamingText> {
           _ticker = null;
           return;
         }
+
+        /// Implements `setState` behavior for text animate.
         setState(() {});
       });
       return;
@@ -188,6 +221,7 @@ class _StreamingTextState extends State<StreamingText> {
     _ticker = null;
   }
 
+  /// Implements `_notifyOnSettledIfNeeded` behavior for text animate.
   void _notifyOnSettledIfNeeded(bool settled) {
     final callback = widget.onSettled;
     if (!settled || callback == null) return;
