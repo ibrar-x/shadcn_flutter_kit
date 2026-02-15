@@ -5,6 +5,7 @@ import '../../../../../shared/theme/theme.dart';
 
 import '../core/shad_slider_models.dart';
 
+/// Default builders used by slider presets.
 class ShadSliderDefaults {
   ShadSliderDefaults({
     required this.trackBuilder,
@@ -20,132 +21,151 @@ class ShadSliderDefaults {
   final ShadTicksBuilder ticksBuilder;
   final ShadOverlayBuilder overlayBuilder;
 
-  /// Clean, flat modern defaults (Stripe/Linear-ish).
+  /// Resolves default builders from current app theme tokens.
+  ///
+  /// Defaults are intentionally low-contrast and token-driven.
   static ShadSliderDefaults of(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
     return ShadSliderDefaults(
       trackBuilder: (context, s) {
-        final r = BorderRadius.circular(s.trackRadius);
-
-        // Flatter + lighter track like Linear/Stripe
-        final bg = cs.background.withOpacity(s.enabled ? 0.92 : 0.80);
-        final border = cs.foreground.withOpacity(s.enabled ? 0.06 : 0.05);
-
-        return ClipRRect(
-          borderRadius: r,
-          child: Container(
+        final theme = Theme.of(context);
+        final guideHeight = (theme.density.baseGap * theme.scaling * 0.25)
+            .clamp(1.0, 3.0)
+            .toDouble();
+        return Positioned.fromRect(
+          rect: s.trackRect,
+          child: SizedBox(
             width: s.trackRect.width,
             height: s.trackRect.height,
-            decoration: BoxDecoration(
-              color: bg,
-              borderRadius: r,
-              border: Border.all(color: border, width: 1),
+            child: Center(
+              child: Container(
+                height: guideHeight,
+                width: s.trackRect.width,
+                decoration: BoxDecoration(
+                  color: cs.foreground.withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
             ),
           ),
         );
       },
       fillBuilder: (context, s) {
         final cs = Theme.of(context).colorScheme;
-        final active = cs.primary.withOpacity(s.enabled ? 0.92 : 0.35);
-
-        // Epsilon avoids 99.999% not being treated as max.
-        bool near(double a, double b) => (a - b).abs() < 0.0001;
+        final fillColor = cs.primary.withOpacity(s.enabled ? 0.92 : 0.35);
+        final remColor = cs.muted.withOpacity(0.78);
+        final capRadius = math.min(s.trackRadius, s.trackRect.height / 2);
 
         if (!s.isRange) {
-          final rect = s.activeRect ?? Rect.zero;
-          final v = s.value ?? s.min;
-          final atMin = near(v, s.min);
-          final atMax = near(v, s.max);
+          final fill = s.activeRect ?? Rect.zero;
+          final rem = s.remainingRect ?? Rect.zero;
+          final r = capRadius;
 
-          // Keep a flatter cap while dragging, but preserve full radius at max.
-          final trailing = atMax
-              ? s.trackRadius
-              : (s.trackRadius * 0.45).clamp(2.0, s.trackRadius).toDouble();
+          return Stack(
+            children: [
+              if (fill.width > 0.5)
+                Positioned.fromRect(
+                  rect: fill,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(r),
+                    child: Container(color: fillColor),
+                  ),
+                ),
 
-          final fillRadius = BorderRadius.only(
-            topLeft: Radius.circular(s.trackRadius),
-            bottomLeft: Radius.circular(s.trackRadius),
-            topRight: Radius.circular(trailing),
-            bottomRight: Radius.circular(trailing),
-          );
-
-          // If at min, width might be ~0; keep it 0.
-          final w = atMin ? 0.0 : rect.width;
-
-          return Align(
-            alignment: Alignment.centerLeft,
-            child: ClipRRect(
-              borderRadius: fillRadius,
-              child: Container(
-                width: w,
-                height: s.trackRect.height,
-                color: active,
-              ),
-            ),
+              if (rem.width > 0.5)
+                Positioned.fromRect(
+                  rect: rem,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(r),
+                    child: Container(color: remColor),
+                  ),
+                ),
+            ],
           );
         } else {
-          final rect = s.rangeRect ?? Rect.zero;
+          final sel = s.rangeRect ?? Rect.zero;
+          final leftRem = s.leftRemainingRect ?? Rect.zero;
+          final rightRem = s.rightRemainingRect ?? Rect.zero;
+          final r = capRadius;
 
-          bool near(double a, double b) => (a - b).abs() < 0.0001;
-          final touchesMin = near(s.rangeValue!.start, s.min);
-          final touchesMax = near(s.rangeValue!.end, s.max);
-
-          // Flatter middle-range caps; full radius only when touching edges.
-          final endR = (s.trackRadius * 0.45)
-              .clamp(2.0, s.trackRadius)
-              .toDouble();
-
-          final br = BorderRadius.only(
-            topLeft: Radius.circular(touchesMin ? s.trackRadius : endR),
-            bottomLeft: Radius.circular(touchesMin ? s.trackRadius : endR),
-            topRight: Radius.circular(touchesMax ? s.trackRadius : endR),
-            bottomRight: Radius.circular(touchesMax ? s.trackRadius : endR),
-          );
-
-          return Positioned.fromRect(
-            rect: rect,
-            child: ClipRRect(
-              borderRadius: br,
-              child: Container(color: active),
-            ),
+          return Stack(
+            children: [
+              if (leftRem.width > 0.5)
+                Positioned.fromRect(
+                  rect: leftRem,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(r),
+                    child: Container(color: remColor),
+                  ),
+                ),
+              if (rightRem.width > 0.5)
+                Positioned.fromRect(
+                  rect: rightRem,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(r),
+                    child: Container(color: remColor),
+                  ),
+                ),
+              if (sel.width > 0.5)
+                Positioned.fromRect(
+                  rect: sel,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(r),
+                    child: Container(color: fillColor),
+                  ),
+                ),
+            ],
           );
         }
       },
-      thumbBuilder: (context, t) {
-        // Default thumb: thin vertical bar (brightness).
-        final h = t.size.height;
-        final barH = math.max(0.0, h - 12);
-        const w = 6.0;
-
-        final cs = Theme.of(context).colorScheme;
-
-        return IgnorePointer(
-          ignoring: true,
-          child: Container(
-            width: w,
-            height: barH,
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            decoration: BoxDecoration(
-              color: cs.background.withOpacity(t.enabled ? 1 : 0.7),
-              borderRadius: BorderRadius.circular(2),
-              border: Border.all(
-                color: cs.foreground.withOpacity(0.10),
-                width: 1,
-              ),
-            ),
-          ),
-        );
-      },
+      thumbBuilder: barThumb(),
       ticksBuilder: (context, s) => const SizedBox.shrink(),
       overlayBuilder: (context, s) => const SizedBox.shrink(),
     );
   }
 
+  /// Default bar thumb builder with optional radius override.
+  ///
+  /// The returned builder respects [ShadThumbStateView.size] for layout.
+  static ShadThumbBuilder barThumb({double? radius}) {
+    return (context, t) {
+      final theme = Theme.of(context);
+      final baseGap = theme.density.baseGap * theme.scaling;
+      final barH = (t.size.height - baseGap * 0.25).clamp(2.0, 200.0);
+      final w = (t.size.width - baseGap * 0.25).clamp(2.0, 400.0);
+      final barRadius =
+          radius ?? (math.min(w, barH) / 2).clamp(1.0, 999.0).toDouble();
+      final cs = theme.colorScheme;
+
+      return IgnorePointer(
+        ignoring: true,
+        child: SizedBox(
+          width: t.size.width,
+          height: t.size.height,
+          child: Center(
+            child: Container(
+              width: w,
+              height: barH,
+              decoration: BoxDecoration(
+                color: cs.background.withOpacity(t.enabled ? 1 : 0.7),
+                borderRadius: BorderRadius.circular(barRadius),
+                border: Border.all(
+                  color: cs.foreground.withOpacity(0.10),
+                  width: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    };
+  }
+
   // ---- Convenience builders for presets ----
 
-  /// Clean "ring" thumb: subtle border + small inner dot.
+  /// Ring thumb with subtle border and small center dot.
   static Widget circleThumb(BuildContext context, ShadThumbStateView t) {
     final cs = Theme.of(context).colorScheme;
     final border = cs.foreground.withOpacity(0.18);
@@ -185,7 +205,8 @@ class ShadSliderDefaults {
   }
 
   static Widget squareThumb(BuildContext context, ShadThumbStateView t) {
-    final cs = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
     final border = cs.foreground.withOpacity(0.12);
     final w = t.size.width;
     final h = t.size.height * 0.85;
@@ -202,7 +223,7 @@ class ShadSliderDefaults {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: cs.background,
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(theme.radiusSm),
                 border: Border.all(color: border, width: 1),
               ),
             ),

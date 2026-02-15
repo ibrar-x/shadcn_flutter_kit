@@ -24,21 +24,30 @@
     "constructors": [
       "`Slider`",
       "`Slider.single`",
-      "`Slider.range`"
+      "`Slider.range`",
+      "`WaveSlider`",
+      "`SliderTheme`",
+      "`BrightnessSlider`",
+      "`RangeSoftSlider`",
+      "`StepsDotsSlider`",
+      "`WaveformSlider`"
     ],
     "callbacks": [
       "`onChanged`"
     ]
   },
   "theming": [
-    "Override `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, and `overlayBuilder` for custom visuals."
+    "Use `ComponentTheme<SliderTheme>` for global slider defaults.",
+    "Override `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, and `overlayBuilder` per-instance for custom visuals."
   ],
   "accessibility": [
     "Semantics include slider role and enabled state."
   ],
   "do": [
     "Use presets (`brightness`, `rangeSoft`, `stepsDots`, `waveform`) for quick visual styles.",
-    "Use `snap` for precise stepped interactions."
+    "Use `WaveSlider` when you need a waveform-only scrubber with no linear track.",
+    "Use `snap` for precise stepped interactions.",
+    "Use preset variant wrappers (`BrightnessSlider`, `RangeSoftSlider`, `StepsDotsSlider`, `WaveformSlider`) for clearer intent."
   ],
   "dont": [
     "Do not hide value context when precision matters."

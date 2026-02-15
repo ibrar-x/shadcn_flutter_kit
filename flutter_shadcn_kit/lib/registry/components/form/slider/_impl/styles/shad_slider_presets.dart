@@ -7,6 +7,7 @@ import 'shad_slider_defaults.dart';
 
 enum ShadSliderPreset { brightness, rangeSoft, stepsDots, waveform }
 
+/// Resolved preset output: builders + tuned layout values.
 class ShadPresetResolved {
   const ShadPresetResolved({
     required this.trackBuilder,
@@ -42,6 +43,7 @@ ShadPresetResolved resolveShadSliderPreset(
   ShadTicksBuilder? ticksBuilder,
   ShadOverlayBuilder? overlayBuilder,
 }) {
+  // Presets only fill missing inputs; explicit widget/theme inputs win.
   final defaults = ShadSliderDefaults.of(context);
 
   ShadTrackBuilder tb = trackBuilder ?? defaults.trackBuilder;
@@ -58,12 +60,12 @@ ShadPresetResolved resolveShadSliderPreset(
     case ShadSliderPreset.brightness:
       break;
     case ShadSliderPreset.rangeSoft:
-      h = trackHeight == 28 ? 30 : trackHeight;
+      h = trackHeight + 2;
       thb = thumbBuilder ?? ShadSliderDefaults.circleThumb;
       bias = 0;
       break;
     case ShadSliderPreset.stepsDots:
-      h = trackHeight == 28 ? 26 : trackHeight;
+      h = (trackHeight - 2).clamp(16.0, 9999.0);
       thb = thumbBuilder ?? ShadSliderDefaults.circleThumb;
       tix = ticksBuilder ?? ShadSliderDefaults.dotsTicks;
       bias = 0;

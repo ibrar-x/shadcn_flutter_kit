@@ -4,7 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'shad_slider_models.dart';
 
+/// Geometry and interaction logic for the registry slider.
 class ShadSliderLogic {
+  /// Builds a render-state snapshot from configuration and current value.
+  ///
+  /// [thumbEdgeOffsetPx] controls horizontal thumb placement:
+  /// - `0`: fully inside-track mapping
+  /// - positive: pushes thumbs toward/outside edges
+  /// - negative: pulls thumbs further inward
+  ///
+  /// [thumbVerticalOffsetPx] controls vertical thumb center offset:
+  /// - positive: down
+  /// - negative: up
   ShadSliderStateView buildView({
     required double min,
     required double max,
@@ -17,17 +28,29 @@ class ShadSliderLogic {
     required int? activeThumb,
     required bool fillStopsAtThumbCenter,
     required double fillEdgeBiasPx,
+    required double joinGapPx,
+    required double thumbEdgeOffsetPx,
+    required double thumbVerticalOffsetPx,
     required TextDirection textDirection,
     required double? value,
     required ShadRangeValue? rangeValue,
     required Size thumbSize,
   }) {
     final isRange = rangeValue != null;
-    final usableW = math.max(0.0, trackRect.width - thumbInset * 2);
+    final baseInsideInset = math.max(thumbInset, thumbSize.width / 2);
+    final centerInset = (baseInsideInset - thumbEdgeOffsetPx).clamp(
+      0.0,
+      trackRect.width / 2,
+    );
+    final minCenterX = trackRect.left + centerInset;
+    final maxCenterX = trackRect.right - centerInset;
+    final usableW = math.max(0.0, maxCenterX - minCenterX);
 
     double dxForT(double t) {
-      final x = thumbInset + usableW * t;
-      return textDirection == TextDirection.rtl ? (trackRect.width - x) : x;
+      if (textDirection == TextDirection.rtl) {
+        return maxCenterX - usableW * t;
+      }
+      return minCenterX + usableW * t;
     }
 
     double tForValue(double v) {
@@ -36,25 +59,14 @@ class ShadSliderLogic {
       return ((v - min) / range).clamp(0.0, 1.0);
     }
 
-    Rect rectFromX(double rightX) {
-      final w = (rightX - trackRect.left).clamp(0.0, trackRect.width);
-      return Rect.fromLTWH(trackRect.left, trackRect.top, w, trackRect.height);
-    }
-
-    Rect rectBetweenX(double x0, double x1) {
-      final l = math.min(x0, x1).clamp(0.0, trackRect.width);
-      final r = math.max(x0, x1).clamp(0.0, trackRect.width);
-      return Rect.fromLTWH(
-        l,
-        trackRect.top,
-        (r - l).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-    }
-
     List<ShadThumbStateView> thumbs = [];
     Rect? activeRect;
+    Rect? remainingRect;
     Rect? rangeRect;
+    Rect? leftGapRect;
+    Rect? rightGapRect;
+    Rect? leftRemainingRect;
+    Rect? rightRemainingRect;
     double? tSingle;
     double? t0;
     double? t1;
@@ -66,9 +78,17 @@ class ShadSliderLogic {
       final v = vSingle ?? min;
       final t = tForValue(v);
       tSingle = t;
+      const eps = 0.005;
+      final nearMin = t <= eps;
+      final nearMax = t >= 1.0 - eps;
 
-      final cx = dxForT(t);
-      final center = Offset(cx, trackRect.center.dy);
+      final rawCx = dxForT(t);
+      final cx = nearMin
+          ? minCenterX
+          : nearMax
+          ? maxCenterX
+          : rawCx;
+      final center = Offset(cx, trackRect.center.dy + thumbVerticalOffsetPx);
 
       thumbs = [
         ShadThumbStateView(
@@ -82,36 +102,71 @@ class ShadSliderLogic {
         ),
       ];
 
-      // If we're effectively at the ends, snap the fill to the track edge.
-      // This removes the "ghost tail" at 100% and 0%.
-      const eps = 0.0001;
-      final atMin = t <= eps;
-      final atMax = t >= 1.0 - eps;
+      // Gap disappears at outer edges to avoid visual tails at min/max.
+      final effectiveGap = (nearMin || nearMax) ? 0.0 : joinGapPx;
 
-      final edge = atMin
+      final gapHalf = effectiveGap / 2.0;
+      final gapL = nearMin
           ? trackRect.left
-          : atMax
+          : nearMax
           ? trackRect.right
-          : (fillStopsAtThumbCenter
-                ? (cx - fillEdgeBiasPx)
-                : (cx - thumbSize.width / 2 - fillEdgeBiasPx));
-      activeRect = rectFromX(edge);
+          : (cx - gapHalf).clamp(trackRect.left, trackRect.right);
+      final gapR = nearMin
+          ? trackRect.left
+          : nearMax
+          ? trackRect.right
+          : (cx + gapHalf).clamp(trackRect.left, trackRect.right);
+
+      final filledR = gapL;
+      final remainingL = gapR;
+
+      activeRect = Rect.fromLTWH(
+        trackRect.left,
+        trackRect.top,
+        (filledR - trackRect.left).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+      final remainingW = (trackRect.right - remainingL).clamp(
+        0.0,
+        trackRect.width,
+      );
+      remainingRect = Rect.fromLTWH(
+        remainingL,
+        trackRect.top,
+        remainingW,
+        trackRect.height,
+      );
+
+      leftGapRect = Rect.fromLTWH(
+        gapL,
+        trackRect.top,
+        (gapR - gapL).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+
+      leftRemainingRect = null;
+      rightRemainingRect = null;
     } else {
       rv = _normalizeRange(rv!, min, max);
       final tStart = tForValue(rv.start);
       final tEnd = tForValue(rv.end);
       t0 = tStart;
       t1 = tEnd;
+      const eps = 0.005;
+      final leftAtMin = tStart <= eps;
+      final rightAtMax = tEnd >= 1.0 - eps;
 
-      final cx0 = dxForT(tStart);
-      final cx1 = dxForT(tEnd);
+      final rawCx0 = dxForT(tStart);
+      final rawCx1 = dxForT(tEnd);
+      final cx0 = leftAtMin ? minCenterX : rawCx0;
+      final cx1 = rightAtMax ? maxCenterX : rawCx1;
 
       thumbs = [
         ShadThumbStateView(
           index: 0,
           value: rv.start,
           t: tStart,
-          center: Offset(cx0, trackRect.center.dy),
+          center: Offset(cx0, trackRect.center.dy + thumbVerticalOffsetPx),
           size: thumbSize,
           active: activeThumb == 0 && dragging,
           enabled: enabled,
@@ -120,29 +175,70 @@ class ShadSliderLogic {
           index: 1,
           value: rv.end,
           t: tEnd,
-          center: Offset(cx1, trackRect.center.dy),
+          center: Offset(cx1, trackRect.center.dy + thumbVerticalOffsetPx),
           size: thumbSize,
           active: activeThumb == 1 && dragging,
           enabled: enabled,
         ),
       ];
 
-      const eps = 0.0001;
-      final touchesMin = tStart <= eps;
-      final touchesMax = tEnd >= 1.0 - eps;
+      // Disable outer-end gaps when thumbs touch component edges.
+      final gap0 = leftAtMin ? 0.0 : joinGapPx;
+      final gap1 = rightAtMax ? 0.0 : joinGapPx;
 
-      final leftEdge = touchesMin
+      final g0Half = gap0 / 2.0;
+      final g1Half = gap1 / 2.0;
+
+      final g0L = leftAtMin
           ? trackRect.left
-          : (fillStopsAtThumbCenter
-                ? (cx0 + fillEdgeBiasPx)
-                : (cx0 + thumbSize.width / 2 + fillEdgeBiasPx));
-      final rightEdge = touchesMax
-          ? trackRect.right
-          : (fillStopsAtThumbCenter
-                ? (cx1 - fillEdgeBiasPx)
-                : (cx1 - thumbSize.width / 2 - fillEdgeBiasPx));
+          : (cx0 - g0Half).clamp(trackRect.left, trackRect.right);
+      final g0R = leftAtMin
+          ? trackRect.left
+          : (cx0 + g0Half).clamp(trackRect.left, trackRect.right);
 
-      rangeRect = rectBetweenX(leftEdge, rightEdge);
+      final g1L = rightAtMax
+          ? trackRect.right
+          : (cx1 - g1Half).clamp(trackRect.left, trackRect.right);
+      final g1R = rightAtMax
+          ? trackRect.right
+          : (cx1 + g1Half).clamp(trackRect.left, trackRect.right);
+
+      final rangeL = g0R;
+      final rangeR = g1L;
+
+      rangeRect = Rect.fromLTWH(
+        rangeL,
+        trackRect.top,
+        (rangeR - rangeL).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+
+      leftGapRect = Rect.fromLTWH(
+        g0L,
+        trackRect.top,
+        (g0R - g0L).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+      rightGapRect = Rect.fromLTWH(
+        g1L,
+        trackRect.top,
+        (g1R - g1L).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+
+      leftRemainingRect = Rect.fromLTWH(
+        trackRect.left,
+        trackRect.top,
+        (g0L - trackRect.left).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
+
+      rightRemainingRect = Rect.fromLTWH(
+        g1R,
+        trackRect.top,
+        (trackRect.right - g1R).clamp(0.0, trackRect.width),
+        trackRect.height,
+      );
     }
 
     final marks = _defaultMarks(
@@ -150,7 +246,7 @@ class ShadSliderLogic {
       max: max,
       snap: snap,
       trackRect: trackRect,
-      thumbInset: thumbInset,
+      thumbInset: centerInset,
       textDirection: textDirection,
     );
 
@@ -171,7 +267,12 @@ class ShadSliderLogic {
       t0: t0,
       t1: t1,
       activeRect: activeRect,
+      remainingRect: remainingRect,
       rangeRect: rangeRect,
+      leftGapRect: leftGapRect,
+      rightGapRect: rightGapRect,
+      leftRemainingRect: leftRemainingRect,
+      rightRemainingRect: rightRemainingRect,
       thumbs: thumbs,
       marks: marks,
     );
@@ -194,6 +295,7 @@ class ShadSliderLogic {
     return d0 <= d1 ? 0 : 1;
   }
 
+  /// Computes updated value/range for a pointer x-position.
   ShadUpdateResult updateFromDx({
     required ShadSliderStateView view,
     required ShadSnap snap,

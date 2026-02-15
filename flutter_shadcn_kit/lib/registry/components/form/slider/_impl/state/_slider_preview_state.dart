@@ -40,47 +40,53 @@ class _SliderPreviewState extends State<SliderPreview> {
           _PreviewCard(
             title: 'Adjust brightness',
             trailing: '${(_brightness * 100).round()}%',
-            child: Slider(
+            child: BrightnessSlider(
               min: 0,
               max: 1,
               value: _brightness,
               onChanged: (value) => setState(() => _brightness = value),
-              preset: 'brightness',
             ),
           ),
           _PreviewCard(
             title: 'Range selector (ring thumb)',
-            child: Slider.range(
+            child: RangeSoftSlider(
               min: 0,
               max: 10,
               rangeValue: _range,
               onChanged: (value) => setState(() => _range = value),
-              preset: 'rangeSoft',
               thumbBuilder: ShadSliderDefaults.circleThumb,
             ),
           ),
           _PreviewCard(
             title: 'Steps + dots',
-            child: Slider.single(
+            child: StepsDotsSlider(
               min: 0,
               max: 10,
               value: _stepped,
-              snap: const ShadSnap.steps(10),
+              steps: 10,
               onChanged: (value) => setState(() => _stepped = value),
-              preset: 'stepsDots',
             ),
           ),
           _PreviewCard(
-            title: 'Waveform',
-            child: Slider.single(
+            title: 'Waveform preset',
+            child: WaveformSlider(
               min: 0,
               max: 1,
               value: _wave,
               onChanged: (value) => setState(() => _wave = value),
-              preset: 'waveform',
               ticksBuilder: (context, state) =>
                   _waveformTicks(context, state, _amps),
               thumbBuilder: ShadSliderDefaults.circleThumb,
+            ),
+          ),
+          _PreviewCard(
+            title: 'Wave slider variant',
+            trailing: '${(_wave * 100).round()}%',
+            child: WaveSlider(
+              value: _wave,
+              onChanged: (value) => setState(() => _wave = value),
+              samples: _amps,
+              showThumb: true,
             ),
           ),
         ],

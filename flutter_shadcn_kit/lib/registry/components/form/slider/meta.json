@@ -29,6 +29,13 @@
     "_impl/state/_slider_preview_state.dart",
     "_impl/styles/shad_slider_defaults.dart",
     "_impl/styles/shad_slider_presets.dart",
+    "_impl/themes/slider_theme.dart",
+    "_impl/variants/base_slider_variant.dart",
+    "_impl/variants/brightness_slider.dart",
+    "_impl/variants/range_soft_slider.dart",
+    "_impl/variants/steps_dots_slider.dart",
+    "_impl/variants/wave_slider.dart",
+    "_impl/variants/waveform_slider.dart",
     "meta.json",
     "preview.dart",
     "slider.dart",
@@ -38,7 +45,13 @@
     "constructors": [
       "`Slider`",
       "`Slider.single`",
-      "`Slider.range`"
+      "`Slider.range`",
+      "`WaveSlider`",
+      "`SliderTheme`",
+      "`BrightnessSlider`",
+      "`RangeSoftSlider`",
+      "`StepsDotsSlider`",
+      "`WaveformSlider`"
     ],
     "callbacks": [
       "`onChanged`"
