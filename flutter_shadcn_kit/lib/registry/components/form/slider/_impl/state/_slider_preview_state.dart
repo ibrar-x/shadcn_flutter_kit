@@ -2,7 +2,6 @@ part of '../../preview.dart';
 
 /// _SliderPreviewState stores and manages mutable widget state.
 class _SliderPreviewState extends State<SliderPreview> {
-  SliderValue _brightness = const SliderValue.single(62);
   double _shadBrightness = 0.64;
   double _shadStepped = 5;
   ShadSliderRangeValue _shadRange = const ShadSliderRangeValue(3, 8);
@@ -18,178 +17,77 @@ class _SliderPreviewState extends State<SliderPreview> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
+    final width = MediaQuery.of(context).size.width;
+    final columns = width >= 1500
+        ? 4
+        : width >= 1100
+        ? 3
+        : width >= 760
+        ? 2
+        : 1;
 
     return Scaffold(
       backgroundColor: const Color(0xFFDCDCDC),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+      body: GridView.count(
         padding: EdgeInsets.all(24 * scaling),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _PreviewCard(
-              width: 540,
-              height: 180,
-              child: ShadSlider.single(
-                min: 0,
-                max: 1,
-                value: _shadBrightness,
-                onChanged: (value) => setState(() => _shadBrightness = value),
-              ),
+        crossAxisCount: columns,
+        crossAxisSpacing: 24 * scaling,
+        mainAxisSpacing: 24 * scaling,
+        childAspectRatio: 2.2,
+        children: [
+          _PreviewCard(
+            child: ShadSlider.single(
+              min: 0,
+              max: 1,
+              value: _shadBrightness,
+              onChanged: (value) => setState(() => _shadBrightness = value),
             ),
-            SizedBox(width: 24 * scaling),
-            _PreviewCard(
-              width: 460,
-              height: 180,
-              child: ShadSlider.range(
-                min: 0,
-                max: 10,
-                rangeValue: _shadRange,
-                onChanged: (value) => setState(() => _shadRange = value),
-                thumbBuilder: _shadHollowThumb,
-              ),
+          ),
+          _PreviewCard(
+            child: ShadSlider.range(
+              min: 0,
+              max: 10,
+              rangeValue: _shadRange,
+              onChanged: (value) => setState(() => _shadRange = value),
+              thumbBuilder: _shadHollowThumb,
             ),
-            SizedBox(width: 24 * scaling),
-            _PreviewCard(
-              width: 460,
-              height: 180,
-              child: ShadSlider.single(
-                min: 0,
-                max: 10,
-                value: _shadStepped,
-                snap: const ShadSliderSnap.steps(10),
-                onChanged: (value) => setState(() => _shadStepped = value),
-                ticksBuilder: _shadDotTicks,
-                thumbBuilder: _shadCircleThumb,
-              ),
+          ),
+          _PreviewCard(
+            child: ShadSlider.single(
+              min: 0,
+              max: 10,
+              value: _shadStepped,
+              snap: const ShadSliderSnap.steps(10),
+              onChanged: (value) => setState(() => _shadStepped = value),
+              ticksBuilder: _shadDotTicks,
+              thumbBuilder: _shadCircleThumb,
             ),
-            SizedBox(width: 24 * scaling),
-            _PreviewCard(
-              width: 540,
-              height: 180,
-              child: ShadSlider.single(
-                min: 0,
-                max: 1,
-                value: _shadBrightness,
-                onChanged: (value) => setState(() => _shadBrightness = value),
-                ticksBuilder: (context, state) =>
-                    _shadWaveformTicks(context, state, _amps),
-                thumbBuilder: _shadCircleThumb,
-              ),
+          ),
+          _PreviewCard(
+            child: ShadSlider.single(
+              min: 0,
+              max: 1,
+              value: _shadBrightness,
+              onChanged: (value) => setState(() => _shadBrightness = value),
+              ticksBuilder: (context, state) =>
+                  _shadWaveformTicks(context, state, _amps),
+              thumbBuilder: _shadCircleThumb,
             ),
-            SizedBox(width: 24 * scaling),
-            _PreviewCard(
-              width: 540,
-              height: 180,
-              child: Slider(
-                value: _brightness,
-                min: 0,
-                max: 100,
-                onChanged: (value) => setState(() => _brightness = value),
-                trackHeight: 88,
-                trackRadius: BorderRadius.circular(999),
-                trackColor: const Color(0x422D2D33),
-                valueColor: const Color(0x6A3D444C),
-                thumbSize: 36,
-                fillEndBias: 1,
-                thumbBuilder: (context, state) => Container(
-                  width: 12 * scaling,
-                  height: 56 * scaling,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(999),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x4A000000),
-                        blurRadius: 14,
-                        offset: Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 540,
-              height: 180,
-              child: MediaControlSliderVariant(
-                style: MediaControlSliderStyle.glass,
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 540,
-              height: 180,
-              child: MediaControlSliderVariant(
-                style: MediaControlSliderStyle.compact,
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 460,
-              height: 300,
-              child: RangeSelectorSliderVariant(
-                thumbStyle: RangeSelectorThumbStyle.line,
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 460,
-              height: 300,
-              child: RangeSelectorSliderVariant(
-                thumbStyle: RangeSelectorThumbStyle.ring,
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 460,
-              height: 300,
-              child: RangeSelectorSliderVariant(
-                thumbStyle: RangeSelectorThumbStyle.square,
-              ),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 420,
-              height: 180,
-              child: HybridTickSliderVariant(),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 420,
-              height: 180,
-              child: StripedSliderVariant(),
-            ),
-            SizedBox(width: 24 * scaling),
-            const _PreviewCard(
-              width: 460,
-              height: 220,
-              child: WaveRangeSliderVariant(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _PreviewCard extends StatelessWidget {
-  const _PreviewCard({
-    required this.child,
-    this.width = 450,
-    this.height = 210,
-  });
+  const _PreviewCard({required this.child});
 
   final Widget child;
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F4F4),
