@@ -19,62 +19,42 @@ class ShadSliderDefaults {
   final ShadTicksBuilder ticksBuilder;
   final ShadOverlayBuilder overlayBuilder;
 
+  /// Clean, flat modern defaults (Stripe/Linear-ish).
   static ShadSliderDefaults of(BuildContext context) {
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
 
     return ShadSliderDefaults(
       trackBuilder: (context, s) {
         final r = BorderRadius.circular(s.trackRadius);
-        final surface = theme.colorScheme.surfaceContainerHighest.withOpacity(
+
+        final bg = cs.surfaceContainerHighest.withOpacity(
           s.enabled ? 0.55 : 0.35,
         );
+        final border = cs.onSurface.withOpacity(s.enabled ? 0.08 : 0.06);
 
-        return Container(
-          width: s.trackRect.width,
-          height: s.trackRect.height,
-          decoration: BoxDecoration(
-            color: surface,
-            borderRadius: r,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                offset: const Offset(0, 6),
-                color: Colors.black.withOpacity(0.08),
-              ),
-              BoxShadow(
-                blurRadius: 1,
-                offset: const Offset(0, 1),
-                color: Colors.black.withOpacity(0.08),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: r,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white.withOpacity(0.45),
-                    Colors.white.withOpacity(0.00),
-                    Colors.black.withOpacity(0.03),
-                  ],
-                ),
-              ),
+        return ClipRRect(
+          borderRadius: r,
+          child: Container(
+            width: s.trackRect.width,
+            height: s.trackRect.height,
+            decoration: BoxDecoration(
+              color: bg,
+              borderRadius: r,
+              border: Border.all(color: border, width: 1),
             ),
           ),
         );
       },
       fillBuilder: (context, s) {
-        final active = theme.colorScheme.primary.withOpacity(
-          s.enabled ? 0.95 : 0.35,
-        );
+        final cs = Theme.of(context).colorScheme;
+        final active = cs.primary.withOpacity(s.enabled ? 0.92 : 0.35);
 
         if (!s.isRange) {
           final rect = s.activeRect ?? Rect.zero;
           final atMax = ((s.value ?? s.min) - s.max).abs() < 1e-9;
 
+          // Flat trailing edge unless max.
           final br = BorderRadius.only(
             topLeft: Radius.circular(s.trackRadius),
             bottomLeft: Radius.circular(s.trackRadius),
@@ -89,16 +69,7 @@ class ShadSliderDefaults {
               child: Container(
                 width: rect.width,
                 height: s.trackRect.height,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      active.withOpacity(0.96),
-                      active.withOpacity(0.90),
-                    ],
-                  ),
-                ),
+                color: active,
               ),
             ),
           );
@@ -118,44 +89,32 @@ class ShadSliderDefaults {
             rect: rect,
             child: ClipRRect(
               borderRadius: br,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      active.withOpacity(0.55),
-                      active.withOpacity(0.95),
-                    ],
-                  ),
-                ),
-              ),
+              child: Container(color: active),
             ),
           );
         }
       },
       thumbBuilder: (context, t) {
+        // Default thumb: thin vertical bar (brightness).
         final h = t.size.height;
         final barH = math.max(0.0, h - 12);
         const w = 6.0;
+
         return IgnorePointer(
           ignoring: true,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 120),
-            curve: Curves.easeOut,
+          child: Container(
             width: w,
             height: barH,
             margin: const EdgeInsets.symmetric(vertical: 6),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(t.enabled ? 1 : 0.6),
               borderRadius: BorderRadius.circular(2),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: t.active ? 14 : 10,
-                  offset: const Offset(0, 6),
-                  color: Colors.black.withOpacity(0.14),
-                ),
-              ],
+              border: Border.all(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.10),
+                width: 1,
+              ),
             ),
           ),
         );
@@ -165,8 +124,13 @@ class ShadSliderDefaults {
     );
   }
 
+  // ---- Convenience builders for presets ----
+
   static Widget circleThumb(BuildContext context, ShadThumbStateView t) {
-    final c = Theme.of(context).colorScheme.primary;
+    final cs = Theme.of(context).colorScheme;
+    final border = cs.onSurface.withOpacity(0.14);
+    final ring = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
+
     return IgnorePointer(
       ignoring: true,
       child: AnimatedContainer(
@@ -176,68 +140,58 @@ class ShadSliderDefaults {
         height: 22,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
-          border: Border.all(color: c, width: 3),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: t.active ? 18 : 14,
-              offset: const Offset(0, 8),
-              color: Colors.black.withOpacity(0.16),
-            ),
-          ],
+          color: cs.surface,
+          border: Border.all(color: border, width: 1),
+        ),
+        child: Center(
+          child: Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: ring),
+          ),
         ),
       ),
     );
   }
 
   static Widget squareThumb(BuildContext context, ShadThumbStateView t) {
-    final c = Theme.of(context).colorScheme.primary;
+    final cs = Theme.of(context).colorScheme;
+    final border = cs.onSurface.withOpacity(0.14);
     return IgnorePointer(
       ignoring: true,
       child: Container(
         width: 18,
-        height: 26,
+        height: 24,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: cs.surface,
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: c, width: 2),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 16,
-              offset: const Offset(0, 8),
-              color: Colors.black.withOpacity(0.14),
-            ),
-          ],
+          border: Border.all(color: border, width: 1),
         ),
       ),
     );
   }
 
   static Widget pinThumb(BuildContext context, ShadThumbStateView t) {
-    final c = Theme.of(context).colorScheme.primary;
+    final cs = Theme.of(context).colorScheme;
+    final border = cs.onSurface.withOpacity(0.14);
+    final dot = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
+
     return IgnorePointer(
       ignoring: true,
       child: SizedBox(
         width: 22,
-        height: 34,
+        height: 30,
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
             Positioned(
               top: 10,
               child: Container(
-                width: 3,
-                height: 22,
+                width: 2,
+                height: 18,
                 decoration: BoxDecoration(
-                  color: c,
+                  color: border,
                   borderRadius: BorderRadius.circular(99),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      offset: const Offset(0, 6),
-                      color: Colors.black.withOpacity(0.10),
-                    ),
-                  ],
                 ),
               ),
             ),
@@ -245,15 +199,16 @@ class ShadSliderDefaults {
               width: 14,
               height: 14,
               decoration: BoxDecoration(
-                color: c,
+                color: cs.surface,
                 shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 16,
-                    offset: const Offset(0, 8),
-                    color: Colors.black.withOpacity(0.14),
-                  ),
-                ],
+                border: Border.all(color: border, width: 1),
+              ),
+              child: Center(
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
+                ),
               ),
             ),
           ],
@@ -263,11 +218,11 @@ class ShadSliderDefaults {
   }
 
   static Widget dotsTicks(BuildContext context, ShadSliderStateView s) {
+    final cs = Theme.of(context).colorScheme;
     final activeT = s.t ?? 0;
-    final activeColor = Theme.of(context).colorScheme.primary;
-    final inactiveColor = Theme.of(
-      context,
-    ).colorScheme.onSurface.withOpacity(0.18);
+    final active = cs.primary.withOpacity(0.95);
+    final inactive = cs.onSurface.withOpacity(0.18);
+
     return IgnorePointer(
       child: Stack(
         children: [
@@ -280,7 +235,7 @@ class ShadSliderDefaults {
                 height: 6,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: (m.t <= activeT) ? activeColor : inactiveColor,
+                  color: (m.t <= activeT) ? active : inactive,
                 ),
               ),
             ),
@@ -290,17 +245,18 @@ class ShadSliderDefaults {
   }
 
   static Widget subtleBarsTicks(BuildContext context, ShadSliderStateView s) {
+    final cs = Theme.of(context).colorScheme;
     final w = s.trackRect.width;
     final h = s.trackRect.height;
-    const bars = 48;
+    const bars = 56;
     final barW = w / bars;
     final maxBarH = h * 0.75;
+
     final activeT = s.t ?? 0;
     final activeX = w * activeT;
-    final activeColor = Theme.of(context).colorScheme.primary;
-    final inactiveColor = Theme.of(
-      context,
-    ).colorScheme.onSurface.withOpacity(0.16);
+
+    final active = cs.primary.withOpacity(0.95);
+    final inactive = cs.onSurface.withOpacity(0.18);
 
     return IgnorePointer(
       child: ClipRRect(
@@ -310,15 +266,13 @@ class ShadSliderDefaults {
             for (int i = 0; i < bars; i++)
               Positioned(
                 left: i * barW,
-                top: (h - (maxBarH * (0.25 + 0.75 * (i % 9) / 9))) / 2,
+                top: (h - (maxBarH * (0.30 + 0.70 * ((i % 13) / 13)))) / 2,
                 child: Container(
                   width: math.max(1, barW * 0.55),
-                  height: maxBarH * (0.25 + 0.75 * (i % 9) / 9),
+                  height: maxBarH * (0.30 + 0.70 * ((i % 13) / 13)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(999),
-                    color: ((i * barW) <= activeX)
-                        ? activeColor
-                        : inactiveColor,
+                    color: ((i * barW) <= activeX) ? active : inactive,
                   ),
                 ),
               ),
