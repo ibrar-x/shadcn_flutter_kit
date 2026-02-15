@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
+import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarBasicExample extends StatefulWidget {
   const FilterBarBasicExample({super.key});
@@ -31,23 +32,27 @@ class _FilterBarBasicExampleState extends State<FilterBarBasicExample> {
   @override
   Widget build(BuildContext context) {
     final visible = _filteredOrders();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FilterBar(
-          state: _state,
-          sortOptions: _sortOptions,
-          searchDebounce: const Duration(milliseconds: 250),
-          resultsCount: visible.length,
-          onStateChanged: (next) {
-            setState(() {
-              _state = next;
-            });
-          },
-        ),
-        const SizedBox(height: 12),
-        Text('Visible orders: ${visible.join(', ')}'),
-      ],
+    return OutlinedContainer(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FilterBar(
+            state: _state,
+            sortOptions: _sortOptions,
+            enableDateRange: true,
+            searchDebounce: const Duration(milliseconds: 250),
+            resultsCount: visible.length,
+            onStateChanged: (next) {
+              setState(() {
+                _state = next;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
+          Text('Visible orders: ${visible.join(', ')}'),
+        ],
+      ),
     );
   }
 

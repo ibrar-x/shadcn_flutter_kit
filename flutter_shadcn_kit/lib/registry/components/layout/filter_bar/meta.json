@@ -21,10 +21,12 @@
       "button",
       "chip",
       "calendar",
+      "checkbox",
       "text_field",
       "select",
       "date_picker",
       "form_field",
+      "drawer",
       "scaffold"
     ],
     "pubspec": {}
@@ -34,6 +36,7 @@
     "README.md",
     "_impl/core/filter_bar_content.dart",
     "_impl/extensions/filter_state_extensions.dart",
+    "_impl/state/filter_bar_controller.dart",
     "_impl/state/filter_bar_state.dart",
     "_impl/styles/filter_bar_style.dart",
     "_impl/themes/filter_bar_theme.dart",
@@ -41,6 +44,7 @@
     "_impl/variants/filter_bar_layout.dart",
     "filter_bar.dart",
     "filter_bar.meta.json",
+    "filter_bar_logic.dart",
     "meta.json",
     "preview.dart"
   ]

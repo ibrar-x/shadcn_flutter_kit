@@ -197,15 +197,8 @@
       "tags": [
         "layout",
         "app",
-        "composite"
-      ]
-    },
-    "app_bar": {
-      "version": "1.0.0",
-      "tags": [
-        "layout",
-        "navigation",
-        "composite"
+        "theming",
+        "overlay"
       ]
     },
     "async": {
@@ -230,15 +223,6 @@
         "display",
         "profile",
         "user"
-      ]
-    },
-    "avatar_group": {
-      "version": "1.0.0",
-      "tags": [
-        "display",
-        "avatar",
-        "group",
-        "composite"
       ]
     },
     "badge": {
@@ -345,14 +329,6 @@
         "input",
         "chips",
         "tokens"
-      ]
-    },
-    "choices": {
-      "version": "1.0.0",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
       ]
     },
     "circular_progress_indicator": {
@@ -517,14 +493,6 @@
         "handling",
         "repository",
         "ui"
-      ]
-    },
-    "expandable_sidebar": {
-      "version": "1.0.0",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
       ]
     },
     "eye_dropper": {
@@ -747,14 +715,6 @@
         "formatting"
       ]
     },
-    "material": {
-      "version": "1.0.0",
-      "tags": [
-        "layout",
-        "composite",
-        "material"
-      ]
-    },
     "media_query": {
       "version": "1.0.0",
       "tags": [
@@ -786,14 +746,6 @@
         "selection"
       ]
     },
-    "multiselect": {
-      "version": "1.0.0",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ]
-    },
     "navigation_bar": {
       "version": "1.0.0",
       "tags": [
@@ -808,30 +760,6 @@
         "navigation",
         "menu",
         "overlay"
-      ]
-    },
-    "navigation_rail": {
-      "version": "1.0.0",
-      "tags": [
-        "navigation",
-        "rail",
-        "composite"
-      ]
-    },
-    "navigation_sidebar": {
-      "version": "1.0.0",
-      "tags": [
-        "navigation",
-        "sidebar",
-        "composite"
-      ]
-    },
-    "number_input": {
-      "version": "1.0.0",
-      "tags": [
-        "form",
-        "input",
-        "composite"
       ]
     },
     "number_ticker": {
@@ -921,14 +849,6 @@
         "indicator"
       ]
     },
-    "radio_card": {
-      "version": "1.0.0",
-      "tags": [
-        "form",
-        "selection",
-        "composite"
-      ]
-    },
     "radio_group": {
       "version": "1.0.0",
       "tags": [
@@ -950,7 +870,7 @@
       "tags": [
         "animation",
         "utility",
-        "composite"
+        "builder"
       ]
     },
     "resizable": {
@@ -1027,14 +947,6 @@
         "localization",
         "formatting",
         "i18n"
-      ]
-    },
-    "sheet": {
-      "version": "1.0.0",
-      "tags": [
-        "overlay",
-        "form",
-        "composite"
       ]
     },
     "skeleton": {
@@ -1227,7 +1139,7 @@
       "tags": [
         "animation",
         "timeline",
-        "composite"
+        "keyframes"
       ]
     },
     "toast": {
@@ -1235,14 +1147,6 @@
       "tags": [
         "overlay",
         "notification"
-      ]
-    },
-    "toggle": {
-      "version": "1.0.0",
-      "tags": [
-        "control",
-        "toggle",
-        "composite"
       ]
     },
     "tooltip": {
@@ -1298,5 +1202,5 @@
       ]
     }
   },
-  "updatedAt": "2026-02-09T13:15:21.248303Z"
+  "updatedAt": "2026-02-15T00:35:30.225006Z"
 }
