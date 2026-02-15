@@ -4,21 +4,29 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../shared/primitives/animated_value_builder.dart';
 import '../../../shared/primitives/form_control.dart';
 import '../../../shared/primitives/form_value_supplier.dart';
 import '../../../shared/primitives/slider_value.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
-import '../../../shared/utils/constants.dart';
 
 part '_impl/utils/slider_controller.dart';
+part '_impl/styles/slider_style.dart';
+part '_impl/extensions/slider_value_extensions.dart';
 
 part '_impl/state/_slider_state.dart';
+part '_impl/core/slider_engine_models.dart';
 part '_impl/core/controlled_slider.dart';
 part '_impl/core/decrease_slider_value.dart';
 part '_impl/core/increase_slider_value.dart';
 part '_impl/themes/slider_theme.dart';
+part '_impl/variants/hybrid_tick_slider_variant.dart';
+part '_impl/variants/labeled_slider_variant.dart';
+part '_impl/variants/media_control_slider_variant.dart';
+part '_impl/variants/range_selector_slider_variant.dart';
+part '_impl/variants/ranged_scale_slider_variant.dart';
+part '_impl/variants/striped_slider_variant.dart';
+part '_impl/variants/wave_range_slider_variant.dart';
 
 /// A Material Design slider widget for selecting values or ranges.
 ///
@@ -81,6 +89,11 @@ class Slider extends StatefulWidget {
   /// discrete values.
   final int? divisions;
 
+  /// Snap behavior for the slider value.
+  ///
+  /// If not provided, [divisions] is used for quantization when available.
+  final SliderSnap snap;
+
   /// An optional hint value displayed on the slider track.
   ///
   /// Renders as a visual marker showing a target or reference position.
@@ -103,6 +116,51 @@ class Slider extends StatefulWidget {
   /// When `false` or `null` with no [onChanged] callback, the slider is
   /// displayed in a disabled state and does not respond to user input.
   final bool? enabled;
+
+  /// Optional per-instance layout override values.
+  final double? minWidth;
+  final double? minHeight;
+  final double? maxHeight;
+  final double? horizontalPadding;
+
+  /// Optional per-instance track style overrides.
+  final double? trackHeight;
+  final BorderRadiusGeometry? trackRadius;
+  final Color? trackColor;
+  final Color? valueColor;
+  final Color? disabledTrackColor;
+  final Color? disabledValueColor;
+
+  /// Optional per-instance hint style overrides.
+  final double? hintHeight;
+  final BorderRadiusGeometry? hintRadius;
+  final Color? hintColor;
+
+  /// Optional per-instance thumb style overrides.
+  final double? thumbSize;
+  final double? thumbInset;
+  final double? fillEndBias;
+  final Color? thumbColor;
+  final Color? disabledThumbColor;
+  final Color? thumbBorderColor;
+  final Color? thumbFocusedBorderColor;
+  final Color? disabledThumbBorderColor;
+  final double? thumbBorderWidth;
+  final double? thumbFocusedBorderWidth;
+
+  /// Optional per-instance animation overrides.
+  final Duration? animationDuration;
+  final Curve? animationCurve;
+
+  /// Optional advanced render hooks.
+  final SliderTrackBuilder? trackBuilder;
+  final SliderFillBuilder? fillBuilder;
+  final SliderThumbBuilder? thumbBuilder;
+  final SliderTicksBuilder? ticksBuilder;
+  final SliderOverlayBuilder? overlayBuilder;
+
+  /// Whether range thumbs can swap when crossing.
+  final bool allowThumbSwap;
 
   /// Creates a [Slider].
   ///
@@ -137,10 +195,42 @@ class Slider extends StatefulWidget {
     this.min = 0,
     this.max = 1,
     this.divisions,
+    this.snap = const SliderSnap.none(),
     this.hintValue,
     this.increaseStep,
     this.decreaseStep,
     this.enabled = true,
+    this.minWidth,
+    this.minHeight,
+    this.maxHeight,
+    this.horizontalPadding,
+    this.trackHeight,
+    this.trackRadius,
+    this.trackColor,
+    this.valueColor,
+    this.disabledTrackColor,
+    this.disabledValueColor,
+    this.hintHeight,
+    this.hintRadius,
+    this.hintColor,
+    this.thumbSize,
+    this.thumbInset,
+    this.fillEndBias,
+    this.thumbColor,
+    this.disabledThumbColor,
+    this.thumbBorderColor,
+    this.thumbFocusedBorderColor,
+    this.disabledThumbBorderColor,
+    this.thumbBorderWidth,
+    this.thumbFocusedBorderWidth,
+    this.animationDuration,
+    this.animationCurve,
+    this.trackBuilder,
+    this.fillBuilder,
+    this.thumbBuilder,
+    this.ticksBuilder,
+    this.overlayBuilder,
+    this.allowThumbSwap = false,
   }) : assert(min <= max);
 
   /// Creates the `State` object for this widget.

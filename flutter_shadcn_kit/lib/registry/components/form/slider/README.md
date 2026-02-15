@@ -1,18 +1,6 @@
 # Slider (`slider`)
 
-Single-value and range sliders with keyboard navigation.
-
----
-
-## When to use
-
-- Use this when:
-  - you need continuous or discrete slider input.
-  - you need range selection with `SliderValue`.
-- Avoid when:
-  - a text input is more precise.
-
----
+General-purpose slider engine with controlled value input, snapping, and pluggable render builders.
 
 ## Install
 
@@ -20,74 +8,94 @@ Single-value and range sliders with keyboard navigation.
 flutter_shadcn add slider
 ```
 
----
-
 ## Import
 
 ```dart
 import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';
 ```
 
----
+## Quick Start
 
-## Minimal example
+### Brightness slider (thin bar thumb)
 
 ```dart
 Slider(
-  value: SliderValue.single(0.5),
-  onChanged: (value) {},
+  value: SliderValue.single(62),
+  min: 0,
+  max: 100,
+  onChanged: (value) => setState(() => sliderValue = value),
+  trackHeight: 88,
+  trackRadius: BorderRadius.circular(999),
+  fillEndBias: 1,
+  thumbBuilder: (context, state) {
+    return Container(
+      width: 10,
+      height: 56,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(999),
+      ),
+    );
+  },
 )
 ```
 
----
+### Range slider
 
-## API
+```dart
+Slider(
+  value: SliderValue.ranged(2, 8),
+  min: 1,
+  max: 10,
+  snap: const SliderSnap.steps(9),
+  onChanged: (value) => setState(() => range = value),
+)
+```
 
-### Constructor
+### Stepped slider
 
-- `Slider`
-  - `value` (`SliderValue`, required)
-  - `onChanged`, `onChangeStart`, `onChangeEnd`
-  - `min`, `max`, `divisions`, `hintValue`
-  - `increaseStep`, `decreaseStep`, `enabled`
-- `ControlledSlider` — controller-backed slider.
-- `SliderController` — controller for `SliderValue`.
+```dart
+Slider(
+  value: SliderValue.single(4),
+  min: 0,
+  max: 10,
+  snap: const SliderSnap.steps(10),
+  onChanged: (value) => setState(() => sliderValue = value),
+)
+```
 
-### Callbacks
+## Recipes
 
-- `onChanged`, `onChangeStart`, `onChangeEnd`
+### Custom thumb
+Use `thumbBuilder` with `SliderThumbStateView`.
 
----
+### Tick marks
+Use `ticksBuilder` and the geometry from `SliderStateView.trackRect`.
 
-## Theming
+### Waveform renderer
+Use `overlayBuilder` or `ticksBuilder` to paint bars from waveform samples and style selected bars from `tStart/tEnd`.
 
-- `SliderTheme` controls track/handle size and colors.
+## API highlights
 
----
+- Required: `value`, `onChanged`
+- Core: `min`, `max`, `enabled`
+- Snap: `snap` (`none`, `steps`, `values`)
+- Legacy compatibility: `divisions` still supported
+- Styling: `trackHeight`, `trackRadius`, `thumbSize`, `thumbInset`, `fillEndBias`, colors
+- Builders: `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, `overlayBuilder`
+- Range behavior: `allowThumbSwap`
 
-## Accessibility
+## Included variants
 
-- Provide labels or values adjacent to the slider.
-
----
-
-## Do / Don’t
-
-**Do**
-- ✅ Use `divisions` for discrete steps.
-
-**Don’t**
-- ❌ Hide current value when precision matters.
-
----
-
-## Related components
-
-- `progress`
-
----
+- `RangeSelectorSliderVariant` (`line`, `ring`, `square` thumb styles)
+- `HybridTickSliderVariant`
+- `StripedSliderVariant`
+- `WaveRangeSliderVariant`
+- `MediaControlSliderVariant`
+- `LabeledSliderVariant`
+- `RangedScaleSliderVariant`
 
 ## Registry rules
 
-- One public class per file
-- Helpers under `_impl/`
+- One public class in `slider.dart`
+- Internal helpers under `_impl/`

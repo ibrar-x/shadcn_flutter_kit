@@ -79,6 +79,7 @@ class ControlledSlider extends StatelessWidget
   /// If `null`, the slider is continuous. If non-null, the slider will snap to
   /// discrete values in the range `[min, max]`.
   final int? divisions;
+  final SliderSnap snap;
 
   /// An optional hint value displayed on the slider track.
   ///
@@ -97,6 +98,47 @@ class ControlledSlider extends StatelessWidget
   /// When the user presses the decrease key, the slider value will decrease by
   /// this amount. If `null`, a default decrement is used.
   final double? decreaseStep;
+
+  /// Optional per-instance layout override values.
+  final double? minWidth;
+  final double? minHeight;
+  final double? maxHeight;
+  final double? horizontalPadding;
+
+  /// Optional per-instance track style overrides.
+  final double? trackHeight;
+  final BorderRadiusGeometry? trackRadius;
+  final Color? trackColor;
+  final Color? valueColor;
+  final Color? disabledTrackColor;
+  final Color? disabledValueColor;
+
+  /// Optional per-instance hint style overrides.
+  final double? hintHeight;
+  final BorderRadiusGeometry? hintRadius;
+  final Color? hintColor;
+
+  /// Optional per-instance thumb style overrides.
+  final double? thumbSize;
+  final double? thumbInset;
+  final double? fillEndBias;
+  final Color? thumbColor;
+  final Color? disabledThumbColor;
+  final Color? thumbBorderColor;
+  final Color? thumbFocusedBorderColor;
+  final Color? disabledThumbBorderColor;
+  final double? thumbBorderWidth;
+  final double? thumbFocusedBorderWidth;
+
+  /// Optional per-instance animation overrides.
+  final Duration? animationDuration;
+  final Curve? animationCurve;
+  final SliderTrackBuilder? trackBuilder;
+  final SliderFillBuilder? fillBuilder;
+  final SliderThumbBuilder? thumbBuilder;
+  final SliderTicksBuilder? ticksBuilder;
+  final SliderOverlayBuilder? overlayBuilder;
+  final bool allowThumbSwap;
 
   /// Creates a [ControlledSlider].
   ///
@@ -146,10 +188,42 @@ class ControlledSlider extends StatelessWidget
     this.min = 0,
     this.max = 1,
     this.divisions,
+    this.snap = const SliderSnap.none(),
     this.hintValue,
     this.increaseStep,
     this.decreaseStep,
     this.enabled = true,
+    this.minWidth,
+    this.minHeight,
+    this.maxHeight,
+    this.horizontalPadding,
+    this.trackHeight,
+    this.trackRadius,
+    this.trackColor,
+    this.valueColor,
+    this.disabledTrackColor,
+    this.disabledValueColor,
+    this.hintHeight,
+    this.hintRadius,
+    this.hintColor,
+    this.thumbSize,
+    this.thumbInset,
+    this.fillEndBias,
+    this.thumbColor,
+    this.disabledThumbColor,
+    this.thumbBorderColor,
+    this.thumbFocusedBorderColor,
+    this.disabledThumbBorderColor,
+    this.thumbBorderWidth,
+    this.thumbFocusedBorderWidth,
+    this.animationDuration,
+    this.animationCurve,
+    this.trackBuilder,
+    this.fillBuilder,
+    this.thumbBuilder,
+    this.ticksBuilder,
+    this.overlayBuilder,
+    this.allowThumbSwap = false,
   });
 
   /// Builds the widget tree for this component state.
@@ -168,10 +242,42 @@ class ControlledSlider extends StatelessWidget
           min: min,
           max: max,
           divisions: divisions,
+          snap: snap,
           hintValue: hintValue,
           increaseStep: increaseStep,
           decreaseStep: decreaseStep,
           enabled: data.enabled,
+          minWidth: minWidth,
+          minHeight: minHeight,
+          maxHeight: maxHeight,
+          horizontalPadding: horizontalPadding,
+          trackHeight: trackHeight,
+          trackRadius: trackRadius,
+          trackColor: trackColor,
+          valueColor: valueColor,
+          disabledTrackColor: disabledTrackColor,
+          disabledValueColor: disabledValueColor,
+          hintHeight: hintHeight,
+          hintRadius: hintRadius,
+          hintColor: hintColor,
+          thumbSize: thumbSize,
+          thumbInset: thumbInset,
+          fillEndBias: fillEndBias,
+          thumbColor: thumbColor,
+          disabledThumbColor: disabledThumbColor,
+          thumbBorderColor: thumbBorderColor,
+          thumbFocusedBorderColor: thumbFocusedBorderColor,
+          disabledThumbBorderColor: disabledThumbBorderColor,
+          thumbBorderWidth: thumbBorderWidth,
+          thumbFocusedBorderWidth: thumbFocusedBorderWidth,
+          animationDuration: animationDuration,
+          animationCurve: animationCurve,
+          trackBuilder: trackBuilder,
+          fillBuilder: fillBuilder,
+          thumbBuilder: thumbBuilder,
+          ticksBuilder: ticksBuilder,
+          overlayBuilder: overlayBuilder,
+          allowThumbSwap: allowThumbSwap,
         );
       },
     );

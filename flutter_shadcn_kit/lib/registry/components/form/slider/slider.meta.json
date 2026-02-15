@@ -2,47 +2,48 @@
   "schemaVersion": 1,
   "id": "slider",
   "name": "Slider",
-  "description": "Single-value and range sliders with keyboard navigation.",
+  "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
   "install": "flutter_shadcn add slider",
   "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
   "whenToUse": {
     "use": [
-      "you need continuous or discrete slider input.",
-      "you need range selection with `SliderValue`."
+      "you need continuous or snapped slider input.",
+      "you need single-thumb or range-thumb slider behavior.",
+      "you need custom slider track, fill, thumb, ticks, or overlays."
     ],
     "avoid": [
-      "a text input is more precise."
+      "a text input is required for exact numeric entry."
     ]
   },
   "examples": {
-    "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)"
+    "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)",
+    "snap": "Slider(\n  value: SliderValue.single(30),\n  min: 0,\n  max: 100,\n  snap: const SliderSnap.steps(10),\n  onChanged: (value) {},\n)",
+    "range": "Slider(\n  value: SliderValue.ranged(20, 80),\n  min: 0,\n  max: 100,\n  allowThumbSwap: true,\n  onChanged: (value) {},\n)"
   },
   "patterns": [],
   "api": {
     "constructors": [
       "`Slider`",
-      "`value` (`SliderValue`, required)",
-      "`onChanged`, `onChangeStart`, `onChangeEnd`",
-      "`min`, `max`, `divisions`, `hintValue`",
-      "`increaseStep`, `decreaseStep`, `enabled`",
-      "`ControlledSlider` \u2014 controller-backed slider.",
-      "`SliderController` \u2014 controller for `SliderValue`."
+      "`ControlledSlider`",
+      "`SliderController`"
     ],
     "callbacks": [
       "`onChanged`, `onChangeStart`, `onChangeEnd`"
     ]
   },
   "theming": [
-    "`SliderTheme` controls track/handle size and colors."
+    "`SliderTheme` controls dimensions, colors, and motion defaults."
   ],
   "accessibility": [
-    "Provide labels or values adjacent to the slider."
+    "Keyboard arrows increase/decrease value.",
+    "Semantics include current slider value or range."
   ],
   "do": [
-    "Use `divisions` for discrete steps."
+    "Use `snap` for precise step/value snapping.",
+    "Use `thumbBuilder` for thin-bar, ring, square, or pin thumb designs."
   ],
   "dont": [
-    "Hide current value when precision matters."
+    "Do not hide value context when precision matters."
   ],
   "related": [
     "progress"
