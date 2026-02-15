@@ -40,7 +40,7 @@ class _SliderPreviewState extends State<SliderPreview> {
           _PreviewCard(
             title: 'Adjust brightness',
             trailing: '${(_brightness * 100).round()}%',
-            child: ShadSlider.single(
+            child: Slider(
               min: 0,
               max: 1,
               value: _brightness,
@@ -50,7 +50,7 @@ class _SliderPreviewState extends State<SliderPreview> {
           ),
           _PreviewCard(
             title: 'Range selector (ring thumb)',
-            child: ShadSlider.range(
+            child: Slider.range(
               min: 0,
               max: 10,
               rangeValue: _range,
@@ -61,7 +61,7 @@ class _SliderPreviewState extends State<SliderPreview> {
           ),
           _PreviewCard(
             title: 'Steps + dots',
-            child: ShadSlider.single(
+            child: Slider.single(
               min: 0,
               max: 10,
               value: _stepped,
@@ -72,7 +72,7 @@ class _SliderPreviewState extends State<SliderPreview> {
           ),
           _PreviewCard(
             title: 'Waveform',
-            child: ShadSlider.single(
+            child: Slider.single(
               min: 0,
               max: 1,
               value: _wave,

@@ -58,15 +58,18 @@ ShadPresetResolved resolveShadSliderPreset(
     case ShadSliderPreset.rangeSoft:
       h = trackHeight == 28 ? 30 : trackHeight;
       thb = thumbBuilder ?? ShadSliderDefaults.circleThumb;
+      bias = 0;
       break;
     case ShadSliderPreset.stepsDots:
       h = trackHeight == 28 ? 26 : trackHeight;
       thb = thumbBuilder ?? ShadSliderDefaults.circleThumb;
       tix = ticksBuilder ?? ShadSliderDefaults.dotsTicks;
+      bias = 0;
       break;
     case ShadSliderPreset.waveform:
       thb = thumbBuilder ?? ShadSliderDefaults.circleThumb;
       tix = ticksBuilder ?? ShadSliderDefaults.subtleBarsTicks;
+      bias = 0;
       break;
   }
 

@@ -82,9 +82,19 @@ class ShadSliderLogic {
         ),
       ];
 
-      final edge = fillStopsAtThumbCenter
-          ? (cx - fillEdgeBiasPx)
-          : (cx - thumbSize.width / 2 - fillEdgeBiasPx);
+      // If we're effectively at the ends, snap the fill to the track edge.
+      // This removes the "ghost tail" at 100% and 0%.
+      const eps = 0.0001;
+      final atMin = t <= eps;
+      final atMax = t >= 1.0 - eps;
+
+      final edge = atMin
+          ? trackRect.left
+          : atMax
+          ? trackRect.right
+          : (fillStopsAtThumbCenter
+                ? (cx - fillEdgeBiasPx)
+                : (cx - thumbSize.width / 2 - fillEdgeBiasPx));
       activeRect = rectFromX(edge);
     } else {
       rv = _normalizeRange(rv!, min, max);
@@ -117,12 +127,20 @@ class ShadSliderLogic {
         ),
       ];
 
-      final leftEdge = fillStopsAtThumbCenter
-          ? (cx0 + fillEdgeBiasPx)
-          : (cx0 + thumbSize.width / 2 + fillEdgeBiasPx);
-      final rightEdge = fillStopsAtThumbCenter
-          ? (cx1 - fillEdgeBiasPx)
-          : (cx1 - thumbSize.width / 2 - fillEdgeBiasPx);
+      const eps = 0.0001;
+      final touchesMin = tStart <= eps;
+      final touchesMax = tEnd >= 1.0 - eps;
+
+      final leftEdge = touchesMin
+          ? trackRect.left
+          : (fillStopsAtThumbCenter
+                ? (cx0 + fillEdgeBiasPx)
+                : (cx0 + thumbSize.width / 2 + fillEdgeBiasPx));
+      final rightEdge = touchesMax
+          ? trackRect.right
+          : (fillStopsAtThumbCenter
+                ? (cx1 - fillEdgeBiasPx)
+                : (cx1 - thumbSize.width / 2 - fillEdgeBiasPx));
 
       rangeRect = rectBetweenX(leftEdge, rightEdge);
     }

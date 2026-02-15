@@ -7,8 +7,8 @@
   "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
   "whenToUse": {
     "use": [
-      "you need continuous or snapped slider input.",
-      "you need single-thumb or range-thumb slider behavior.",
+      "you need a configurable single-value slider.",
+      "you need a configurable range slider.",
       "you need custom slider track, fill, thumb, ticks, or overlays."
     ],
     "avoid": [
@@ -16,32 +16,29 @@
     ]
   },
   "examples": {
-    "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)",
-    "snap": "Slider(\n  value: SliderValue.single(30),\n  min: 0,\n  max: 100,\n  snap: const SliderSnap.steps(10),\n  onChanged: (value) {},\n)",
-    "range": "Slider(\n  value: SliderValue.ranged(20, 80),\n  min: 0,\n  max: 100,\n  allowThumbSwap: true,\n  onChanged: (value) {},\n)"
+    "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)",
+    "single": "Slider.single(\n  value: 0.5,\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)",
+    "range": "Slider.range(\n  rangeValue: const ShadRangeValue(0.2, 0.8),\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
   },
-  "patterns": [],
   "api": {
     "constructors": [
       "`Slider`",
-      "`ShadSlider` (experimental)",
-      "`ControlledSlider`",
-      "`SliderController`"
+      "`Slider.single`",
+      "`Slider.range`"
     ],
     "callbacks": [
-      "`onChanged`, `onChangeStart`, `onChangeEnd`"
+      "`onChanged`"
     ]
   },
   "theming": [
-    "`SliderTheme` controls dimensions, colors, and motion defaults."
+    "Override `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, and `overlayBuilder` for custom visuals."
   ],
   "accessibility": [
-    "Keyboard arrows increase/decrease value.",
-    "Semantics include current slider value or range."
+    "Semantics include slider role and enabled state."
   ],
   "do": [
-    "Use `snap` for precise step/value snapping.",
-    "Use `thumbBuilder` for thin-bar, ring, square, or pin thumb designs."
+    "Use presets (`brightness`, `rangeSoft`, `stepsDots`, `waveform`) for quick visual styles.",
+    "Use `snap` for precise stepped interactions."
   ],
   "dont": [
     "Do not hide value context when precision matters."
