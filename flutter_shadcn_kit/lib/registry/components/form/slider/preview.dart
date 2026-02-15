@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart' hide Slider, SliderTheme, Theme;
 
 import '../../../shared/primitives/slider_value.dart';
 import '../../../shared/theme/theme.dart';
+import '../slider/_impl/core/shad_slider_models.dart';
+import '../slider/shad_slider.dart';
 import '../slider/slider.dart';
 
 part '_impl/state/_slider_preview_state.dart';
