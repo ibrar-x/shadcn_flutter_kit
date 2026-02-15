@@ -1,101 +1,62 @@
-# Slider (`slider`)
+# Slider (refined v2 presets)
 
-General-purpose slider engine with controlled value input, snapping, and pluggable render builders.
+This slider is a **general-purpose engine** with **design-grade presets**.
 
-## Install
+## Presets
+- `brightness` (default for single)
+- `rangeSoft` (default for range)
+- `stepsDots`
+- `waveform`
 
-```bash
-flutter_shadcn add slider
+## Thumb variants (builders)
+For range selector visuals, you can swap:
+- `ShadSliderDefaults.circleThumb`
+- `ShadSliderDefaults.squareThumb`
+- `ShadSliderDefaults.pinThumb`
+
+(These helpers live in `_impl/defaults.dart`, but you can still reference them from `preview.dart` and local builders in your app.)
+
+## Examples
+
+### Brightness
+```dart
+ShadSlider.single(
+  value: brightness,
+  onChanged: (v) => setState(() => brightness = v),
+  preset: 'brightness',
+);
 ```
 
-## Import
-
+### Range
 ```dart
-import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';
-```
-
-## Quick Start
-
-### Brightness slider (thin bar thumb)
-
-```dart
-Slider(
-  value: SliderValue.single(62),
-  min: 0,
-  max: 100,
-  onChanged: (value) => setState(() => sliderValue = value),
-  trackHeight: 88,
-  trackRadius: BorderRadius.circular(999),
-  fillEndBias: 1,
-  thumbBuilder: (context, state) {
-    return Container(
-      width: 10,
-      height: 56,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(999),
-      ),
-    );
-  },
-)
-```
-
-### Range slider
-
-```dart
-Slider(
-  value: SliderValue.ranged(2, 8),
-  min: 1,
-  max: 10,
-  snap: const SliderSnap.steps(9),
-  onChanged: (value) => setState(() => range = value),
-)
-```
-
-### Stepped slider
-
-```dart
-Slider(
-  value: SliderValue.single(4),
+ShadSlider.range(
   min: 0,
   max: 10,
-  snap: const SliderSnap.steps(10),
-  onChanged: (value) => setState(() => sliderValue = value),
-)
+  rangeValue: range,
+  onChanged: (v) => setState(() => range = v),
+  preset: 'rangeSoft',
+);
 ```
 
-## Recipes
+### Steps + dots
+```dart
+ShadSlider.single(
+  min: 0,
+  max: 10,
+  snap: const ShadSnap.steps(10),
+  value: v,
+  onChanged: (x) => setState(() => v = x),
+  preset: 'stepsDots',
+);
+```
 
-### Custom thumb
-Use `thumbBuilder` with `SliderThumbStateView`.
-
-### Tick marks
-Use `ticksBuilder` and the geometry from `SliderStateView.trackRect`.
-
-### Waveform renderer
-Use `overlayBuilder` or `ticksBuilder` to paint bars from waveform samples and style selected bars from `tStart/tEnd`.
-
-## API highlights
-
-- Required: `value`, `onChanged`
-- Core: `min`, `max`, `enabled`
-- Snap: `snap` (`none`, `steps`, `values`)
-- Legacy compatibility: `divisions` still supported
-- Styling: `trackHeight`, `trackRadius`, `thumbSize`, `thumbInset`, `fillEndBias`, colors
-- Builders: `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, `overlayBuilder`
-- Range behavior: `allowThumbSwap`
-
-## Included variants
-
-- `RangeSelectorSliderVariant` (`line`, `ring`, `square` thumb styles)
-- `HybridTickSliderVariant`
-- `StripedSliderVariant`
-- `WaveRangeSliderVariant`
-- `MediaControlSliderVariant`
-- `LabeledSliderVariant`
-- `RangedScaleSliderVariant`
-
-## Registry rules
-
-- One public class in `slider.dart`
-- Internal helpers under `_impl/`
+### Waveform
+Provide a custom ticksBuilder that draws your waveform bars:
+```dart
+ShadSlider.single(
+  value: v,
+  onChanged: (x) => setState(() => v = x),
+  preset: 'waveform',
+  ticksBuilder: (ctx, s) => myWaveformTicks(ctx, s, amps),
+);
+```
