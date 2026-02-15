@@ -394,8 +394,10 @@ class _WaveSliderState extends State<WaveSlider> {
 
     return LayoutBuilder(
       builder: (context, c) {
-        final left = resolvedPadding.left;
-        final right = c.maxWidth - resolvedPadding.right;
+        final rawLeft = resolvedPadding.left;
+        final rawRight = c.maxWidth - resolvedPadding.right;
+        final left = math.min(rawLeft, rawRight);
+        final right = math.max(rawLeft, rawRight);
         final contentW = math.max(1.0, right - left);
         final thumbX = (left + contentW * normalizedValue).clamp(left, right);
         final contentTop = resolvedPadding.top;
@@ -483,8 +485,10 @@ class _WaveSliderGestureLayer extends StatelessWidget {
   final ValueChanged<bool> onDragStateChanged;
 
   double _posToValue(BoxConstraints c, Offset localPos) {
-    final left = padding.left;
-    final right = c.maxWidth - padding.right;
+    final rawLeft = padding.left;
+    final rawRight = c.maxWidth - padding.right;
+    final left = math.min(rawLeft, rawRight);
+    final right = math.max(rawLeft, rawRight);
     final x = localPos.dx.clamp(left, right);
     final w = math.max(1.0, right - left);
     return (x - left) / w;
@@ -566,8 +570,10 @@ class _WaveSliderPainter extends CustomPainter {
     final paintActive = Paint()..color = activeColor;
     final paintInactive = Paint()..color = inactiveColor;
 
-    final contentLeft = padding.left;
-    final contentRight = size.width - padding.right;
+    final rawLeft = padding.left;
+    final rawRight = size.width - padding.right;
+    final contentLeft = math.min(rawLeft, rawRight);
+    final contentRight = math.max(rawLeft, rawRight);
     final contentTop = padding.top;
     final contentBottom = size.height - padding.bottom;
 
@@ -575,7 +581,7 @@ class _WaveSliderPainter extends CustomPainter {
     final contentH = math.max(1.0, contentBottom - contentTop);
 
     final step = barWidth + barGap;
-    final maxBars = (contentW / step).floor().clamp(1, 10000);
+    final maxBars = (contentW / step).floor().clamp(1, 10000).toInt();
     final amps = _resampleTo(samples, maxBars);
 
     final centerY = contentTop + contentH / 2;
