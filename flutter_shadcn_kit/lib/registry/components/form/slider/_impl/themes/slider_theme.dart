@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/theme/theme.dart';
+import '../core/shad_slider_renderers.dart';
 import '../core/shad_slider_models.dart';
 
 /// Theme data for [Slider] and [WaveSlider].
@@ -59,6 +60,39 @@ class SliderTheme extends ComponentThemeData {
 
   /// Optional custom overlay builder.
   final ShadOverlayBuilder? overlayBuilder;
+
+  /// Optional segment geometry strategy.
+  final ShadSegmentLayout? segmentLayout;
+
+  /// Optional unified track renderer.
+  final ShadTrackRenderer? trackRenderer;
+
+  /// Guide line color used by default track builder.
+  final Color? guideColor;
+
+  /// Active fill color used by default fill builder.
+  final Color? fillActiveColor;
+
+  /// Remaining fill color used by default fill builder.
+  final Color? fillInactiveColor;
+
+  /// Default thumb fill color (applies to bar/square/circle helpers).
+  final Color? thumbFillColor;
+
+  /// Default thumb border color (applies to bar/square/circle helpers).
+  final Color? thumbBorderColor;
+
+  /// Active color for default dots ticks.
+  final Color? dotsActiveColor;
+
+  /// Inactive color for default dots ticks.
+  final Color? dotsInactiveColor;
+
+  /// Active inner-bar color for default waveform ticks.
+  final Color? waveformTicksActiveColor;
+
+  /// Inactive inner-bar color for default waveform ticks.
+  final Color? waveformTicksInactiveColor;
 
   /// Wave variant height in logical pixels.
   final double? waveHeight;
@@ -132,6 +166,17 @@ class SliderTheme extends ComponentThemeData {
     this.thumbBuilder,
     this.ticksBuilder,
     this.overlayBuilder,
+    this.segmentLayout,
+    this.trackRenderer,
+    this.guideColor,
+    this.fillActiveColor,
+    this.fillInactiveColor,
+    this.thumbFillColor,
+    this.thumbBorderColor,
+    this.dotsActiveColor,
+    this.dotsInactiveColor,
+    this.waveformTicksActiveColor,
+    this.waveformTicksInactiveColor,
     this.waveHeight,
     this.wavePadding,
     this.waveBarWidth,
@@ -169,6 +214,17 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<ShadThumbBuilder?>? thumbBuilder,
     ValueGetter<ShadTicksBuilder?>? ticksBuilder,
     ValueGetter<ShadOverlayBuilder?>? overlayBuilder,
+    ValueGetter<ShadSegmentLayout?>? segmentLayout,
+    ValueGetter<ShadTrackRenderer?>? trackRenderer,
+    ValueGetter<Color?>? guideColor,
+    ValueGetter<Color?>? fillActiveColor,
+    ValueGetter<Color?>? fillInactiveColor,
+    ValueGetter<Color?>? thumbFillColor,
+    ValueGetter<Color?>? thumbBorderColor,
+    ValueGetter<Color?>? dotsActiveColor,
+    ValueGetter<Color?>? dotsInactiveColor,
+    ValueGetter<Color?>? waveformTicksActiveColor,
+    ValueGetter<Color?>? waveformTicksInactiveColor,
     ValueGetter<double?>? waveHeight,
     ValueGetter<EdgeInsets?>? wavePadding,
     ValueGetter<double?>? waveBarWidth,
@@ -214,6 +270,37 @@ class SliderTheme extends ComponentThemeData {
       overlayBuilder: overlayBuilder == null
           ? this.overlayBuilder
           : overlayBuilder(),
+      segmentLayout: segmentLayout == null
+          ? this.segmentLayout
+          : segmentLayout(),
+      trackRenderer: trackRenderer == null
+          ? this.trackRenderer
+          : trackRenderer(),
+      guideColor: guideColor == null ? this.guideColor : guideColor(),
+      fillActiveColor: fillActiveColor == null
+          ? this.fillActiveColor
+          : fillActiveColor(),
+      fillInactiveColor: fillInactiveColor == null
+          ? this.fillInactiveColor
+          : fillInactiveColor(),
+      thumbFillColor: thumbFillColor == null
+          ? this.thumbFillColor
+          : thumbFillColor(),
+      thumbBorderColor: thumbBorderColor == null
+          ? this.thumbBorderColor
+          : thumbBorderColor(),
+      dotsActiveColor: dotsActiveColor == null
+          ? this.dotsActiveColor
+          : dotsActiveColor(),
+      dotsInactiveColor: dotsInactiveColor == null
+          ? this.dotsInactiveColor
+          : dotsInactiveColor(),
+      waveformTicksActiveColor: waveformTicksActiveColor == null
+          ? this.waveformTicksActiveColor
+          : waveformTicksActiveColor(),
+      waveformTicksInactiveColor: waveformTicksInactiveColor == null
+          ? this.waveformTicksInactiveColor
+          : waveformTicksInactiveColor(),
       waveHeight: waveHeight == null ? this.waveHeight : waveHeight(),
       wavePadding: wavePadding == null ? this.wavePadding : wavePadding(),
       waveBarWidth: waveBarWidth == null ? this.waveBarWidth : waveBarWidth(),
@@ -275,6 +362,17 @@ class SliderTheme extends ComponentThemeData {
         other.thumbBuilder == thumbBuilder &&
         other.ticksBuilder == ticksBuilder &&
         other.overlayBuilder == overlayBuilder &&
+        other.segmentLayout == segmentLayout &&
+        other.trackRenderer == trackRenderer &&
+        other.guideColor == guideColor &&
+        other.fillActiveColor == fillActiveColor &&
+        other.fillInactiveColor == fillInactiveColor &&
+        other.thumbFillColor == thumbFillColor &&
+        other.thumbBorderColor == thumbBorderColor &&
+        other.dotsActiveColor == dotsActiveColor &&
+        other.dotsInactiveColor == dotsInactiveColor &&
+        other.waveformTicksActiveColor == waveformTicksActiveColor &&
+        other.waveformTicksInactiveColor == waveformTicksInactiveColor &&
         other.waveHeight == waveHeight &&
         other.wavePadding == wavePadding &&
         other.waveBarWidth == waveBarWidth &&
@@ -312,6 +410,17 @@ class SliderTheme extends ComponentThemeData {
     thumbBuilder,
     ticksBuilder,
     overlayBuilder,
+    segmentLayout,
+    trackRenderer,
+    guideColor,
+    fillActiveColor,
+    fillInactiveColor,
+    thumbFillColor,
+    thumbBorderColor,
+    dotsActiveColor,
+    dotsInactiveColor,
+    waveformTicksActiveColor,
+    waveformTicksInactiveColor,
     waveHeight,
     wavePadding,
     waveBarWidth,

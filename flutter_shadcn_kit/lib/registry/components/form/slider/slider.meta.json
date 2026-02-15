@@ -16,9 +16,7 @@
     ]
   },
   "examples": {
-    "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)",
-    "single": "Slider.single(\n  value: 0.5,\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)",
-    "range": "Slider.range(\n  rangeValue: const ShadRangeValue(0.2, 0.8),\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
+    "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)"
   },
   "api": {
     "constructors": [
@@ -30,7 +28,12 @@
       "`BrightnessSlider`",
       "`RangeSoftSlider`",
       "`StepsDotsSlider`",
-      "`WaveformSlider`"
+      "`WaveformSlider`",
+      "`ShadJoinGapLayout`",
+      "`ShadContinuousLayout`",
+      "`ShadSegmentedCapsuleRenderer`",
+      "`ShadWaveformRenderer`",
+      "`ShadStepDotsRenderer`"
     ],
     "callbacks": [
       "`onChanged`"
@@ -58,5 +61,15 @@
   "registryRules": [
     "One public class per file",
     "Helpers under `_impl/`"
+  ],
+  "patterns": [
+    {
+      "title": "Single slider",
+      "code": "Slider.single(\n  value: 0.5,\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
+    },
+    {
+      "title": "Range slider",
+      "code": "Slider.range(\n  rangeValue: const ShadRangeValue(0.2, 0.8),\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
+    }
   ]
 }

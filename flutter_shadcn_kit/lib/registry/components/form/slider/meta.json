@@ -26,6 +26,7 @@
     "README.md",
     "_impl/core/shad_slider_logic.dart",
     "_impl/core/shad_slider_models.dart",
+    "_impl/core/shad_slider_renderers.dart",
     "_impl/state/_slider_preview_state.dart",
     "_impl/styles/shad_slider_defaults.dart",
     "_impl/styles/shad_slider_presets.dart",

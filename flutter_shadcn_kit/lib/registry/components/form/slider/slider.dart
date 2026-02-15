@@ -7,10 +7,12 @@ import '../../../shared/utils/style_value.dart';
 
 import '_impl/core/shad_slider_logic.dart';
 import '_impl/core/shad_slider_models.dart';
+import '_impl/core/shad_slider_renderers.dart';
 import '_impl/styles/shad_slider_defaults.dart';
 import '_impl/styles/shad_slider_presets.dart';
 import '_impl/themes/slider_theme.dart';
 
+export '_impl/core/shad_slider_renderers.dart';
 export '_impl/variants/base_slider_variant.dart';
 export '_impl/variants/brightness_slider.dart';
 export '_impl/variants/range_soft_slider.dart';
@@ -52,6 +54,8 @@ class Slider extends StatefulWidget {
     required this.thumbBuilder,
     required this.ticksBuilder,
     required this.overlayBuilder,
+    required this.segmentLayout,
+    required this.trackRenderer,
     required this.semanticLabel,
   });
 
@@ -82,6 +86,8 @@ class Slider extends StatefulWidget {
     ShadThumbBuilder? thumbBuilder,
     ShadTicksBuilder? ticksBuilder,
     ShadOverlayBuilder? overlayBuilder,
+    ShadSegmentLayout? segmentLayout,
+    ShadTrackRenderer? trackRenderer,
     String? semanticLabel,
   }) {
     return Slider.single(
@@ -108,6 +114,8 @@ class Slider extends StatefulWidget {
       thumbBuilder: thumbBuilder,
       ticksBuilder: ticksBuilder,
       overlayBuilder: overlayBuilder,
+      segmentLayout: segmentLayout,
+      trackRenderer: trackRenderer,
       semanticLabel: semanticLabel,
     );
   }
@@ -217,6 +225,12 @@ class Slider extends StatefulWidget {
     /// Custom overlay builder above track/fill/thumbs.
     ShadOverlayBuilder? overlayBuilder,
 
+    /// Segment geometry strategy.
+    ShadSegmentLayout? segmentLayout,
+
+    /// Unified track renderer.
+    ShadTrackRenderer? trackRenderer,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -246,6 +260,8 @@ class Slider extends StatefulWidget {
       thumbBuilder: thumbBuilder,
       ticksBuilder: ticksBuilder,
       overlayBuilder: overlayBuilder,
+      segmentLayout: segmentLayout,
+      trackRenderer: trackRenderer,
       semanticLabel: semanticLabel,
     );
   }
@@ -340,6 +356,12 @@ class Slider extends StatefulWidget {
     /// Custom overlay builder above track/fill/thumbs.
     ShadOverlayBuilder? overlayBuilder,
 
+    /// Segment geometry strategy.
+    ShadSegmentLayout? segmentLayout,
+
+    /// Unified track renderer.
+    ShadTrackRenderer? trackRenderer,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -370,6 +392,8 @@ class Slider extends StatefulWidget {
       thumbBuilder: thumbBuilder,
       ticksBuilder: ticksBuilder,
       overlayBuilder: overlayBuilder,
+      segmentLayout: segmentLayout,
+      trackRenderer: trackRenderer,
       semanticLabel: semanticLabel,
     );
   }
@@ -487,6 +511,12 @@ class Slider extends StatefulWidget {
 
   /// Custom overlay renderer above track/fill/thumbs.
   final ShadOverlayBuilder? overlayBuilder;
+
+  /// Segment geometry strategy.
+  final ShadSegmentLayout? segmentLayout;
+
+  /// Unified track renderer.
+  final ShadTrackRenderer? trackRenderer;
 
   /// Optional accessibility label.
   final String? semanticLabel;
@@ -621,6 +651,16 @@ class _SliderState extends State<Slider> {
       themeValue: compTheme?.overlayBuilder,
       defaultValue: null,
     );
+    final resolvedSegmentLayout = styleValue<ShadSegmentLayout?>(
+      widgetValue: widget.segmentLayout,
+      themeValue: compTheme?.segmentLayout,
+      defaultValue: null,
+    );
+    final resolvedTrackRenderer = styleValue<ShadTrackRenderer?>(
+      widgetValue: widget.trackRenderer,
+      themeValue: compTheme?.trackRenderer,
+      defaultValue: null,
+    );
 
     final preset = _parsePreset(resolvedPresetName, isRange: widget.isRange);
     final resolved = resolveShadSliderPreset(
@@ -654,6 +694,20 @@ class _SliderState extends State<Slider> {
     final resolvedThumbEdgeOffsetPx =
         resolvedThumbEdgeOffsetOverride ??
         (isCircleThumb ? resolvedThumbSize.width / 2 : 0.0);
+    final effectiveSegmentLayout =
+        resolvedSegmentLayout ??
+        ShadJoinGapLayout(
+          gapPx: resolvedJoinGapForThumb,
+          endsPolicy: ShadGapEndsPolicy.noneAtMinMax,
+          segmentRadius: ShadSegmentRadiusPolicy.fullPills,
+        );
+    final effectiveTrackRenderer =
+        resolvedTrackRenderer ??
+        ShadLegacyBuildersRenderer(
+          trackBuilder: resolved.trackBuilder,
+          fillBuilder: resolved.fillBuilder,
+          ticksBuilder: resolved.ticksBuilder,
+        );
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -680,6 +734,7 @@ class _SliderState extends State<Slider> {
           joinGapPx: resolvedJoinGapForThumb,
           thumbEdgeOffsetPx: resolvedThumbEdgeOffsetPx,
           thumbVerticalOffsetPx: resolvedThumbVerticalOffsetPx,
+          segmentLayout: effectiveSegmentLayout,
           textDirection: dir,
           value: widget.value,
           rangeValue: widget.rangeValue,
@@ -691,9 +746,7 @@ class _SliderState extends State<Slider> {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              resolved.trackBuilder(context, view),
-              resolved.fillBuilder(context, view),
-              resolved.ticksBuilder(context, view),
+              effectiveTrackRenderer.build(context, view),
               for (final t in view.thumbs)
                 Positioned(
                   left: t.center.dx - t.size.width / 2,

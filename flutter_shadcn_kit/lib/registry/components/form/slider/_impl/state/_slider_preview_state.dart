@@ -73,6 +73,7 @@ class _SliderPreviewState extends State<SliderPreview> {
               min: 0,
               max: 1,
               value: _wave,
+              
               onChanged: (value) => setState(() => _wave = value),
               ticksBuilder: (context, state) =>
                   _waveformTicks(context, state, _amps),
@@ -84,6 +85,7 @@ class _SliderPreviewState extends State<SliderPreview> {
             trailing: '${(_wave * 100).round()}%',
             child: WaveSlider(
               value: _wave,
+              activeColor: Colors.amber,
               onChanged: (value) => setState(() => _wave = value),
               samples: _amps,
               showThumb: true,

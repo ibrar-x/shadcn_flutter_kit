@@ -123,6 +123,23 @@ Slider.single(
 );
 ```
 
+### Segment Layout + Track Renderer (new)
+```dart
+Slider.single(
+  value: value,
+  onChanged: onChanged,
+  segmentLayout: const ShadJoinGapLayout(
+    gapPx: 6,
+    endsPolicy: ShadGapEndsPolicy.noneAtMinMax,
+    segmentRadius: ShadSegmentRadiusPolicy.fullPills,
+  ),
+  trackRenderer: const ShadSegmentedCapsuleRenderer(),
+);
+```
+
+Use `ShadContinuousLayout` for no-gap geometry, and
+`ShadWaveformRenderer` / `ShadStepDotsRenderer` for specialized rendering.
+
 
 ### Preset wrappers
 ```dart
@@ -138,3 +155,224 @@ WaveformSlider(value: v, onChanged: onChanged)
 `waveMaxBarHeight`, `waveCornerRadius`, `waveActiveColor`, `waveInactiveColor`,
 `waveDisabledOpacity`, `waveShowThumb`, `waveThumbRadius`, `waveThumbColor`,
 `waveThumbBorderColor`, `waveThumbBorderWidth`, `waveHitSlop`, `waveEnabled`.
+
+## Theme Color Examples
+
+### Define once, apply to all slider variants
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    // shared slider palette (no custom fillBuilder needed)
+    guideColor: const Color(0xFFE2E8F0),
+    fillActiveColor: const Color(0xFF0F172A),
+    fillInactiveColor: const Color(0xFFEDF2F7),
+    thumbFillColor: const Color(0xFFFFFFFF),
+    thumbBorderColor: const Color(0xFFCBD5E1),
+    dotsActiveColor: const Color(0xFF334155),
+    dotsInactiveColor: const Color(0xFFCBD5E1),
+    waveformTicksActiveColor: const Color(0x99FFFFFF),
+    waveformTicksInactiveColor: const Color(0x660F172A),
+  ),
+  child: Column(
+    children: [
+      BrightnessSlider(value: a, onChanged: onA),
+      RangeSoftSlider(rangeValue: r, onChanged: onR),
+      StepsDotsSlider(value: b, onChanged: onB),
+      WaveformSlider(value: c, onChanged: onC),
+    ],
+  ),
+);
+```
+
+### 1) Default color theme for all `Slider` instances
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    trackBuilder: (context, s) => Container(
+      width: s.trackRect.width,
+      height: s.trackRect.height,
+      decoration: BoxDecoration(
+        color: const Color(0xFFE8ECF3),
+        borderRadius: BorderRadius.circular(s.trackRadius),
+      ),
+    ),
+    fillBuilder: (context, s) {
+      final active = const Color(0xFF1E293B);
+      final rem = const Color(0xFFCBD5E1);
+      if (!s.isRange) {
+        return Stack(
+          children: [
+            if ((s.activeRect?.width ?? 0) > 0)
+              Positioned.fromRect(
+                rect: s.activeRect!,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: active,
+                    borderRadius: BorderRadius.circular(s.trackRadius),
+                  ),
+                ),
+              ),
+            if ((s.remainingRect?.width ?? 0) > 0)
+              Positioned.fromRect(
+                rect: s.remainingRect!,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: rem,
+                    borderRadius: BorderRadius.circular(s.trackRadius),
+                  ),
+                ),
+              ),
+          ],
+        );
+      }
+      return const SizedBox.shrink();
+    },
+  ),
+  child: Slider.single(value: v, onChanged: onChanged),
+);
+```
+
+### 2) Brightness-specific colors
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    preset: 'brightness',
+    fillBuilder: (context, s) {
+      final fill = const Color(0xFF111827);
+      final rem = const Color(0xFFE5E7EB);
+      return Stack(
+        children: [
+          if ((s.activeRect?.width ?? 0) > 0)
+            Positioned.fromRect(
+              rect: s.activeRect!,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: fill,
+                  borderRadius: BorderRadius.circular(s.trackRadius),
+                ),
+              ),
+            ),
+          if ((s.remainingRect?.width ?? 0) > 0)
+            Positioned.fromRect(
+              rect: s.remainingRect!,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: rem,
+                  borderRadius: BorderRadius.circular(s.trackRadius),
+                ),
+              ),
+            ),
+        ],
+      );
+    },
+  ),
+  child: BrightnessSlider(value: v, onChanged: onChanged),
+);
+```
+
+### 3) RangeSoft-specific colors
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    preset: 'rangeSoft',
+    fillBuilder: (context, s) {
+      final selected = const Color(0xFF0F172A);
+      final rem = const Color(0xFFE2E8F0);
+      return Stack(
+        children: [
+          if ((s.leftRemainingRect?.width ?? 0) > 0)
+            Positioned.fromRect(rect: s.leftRemainingRect!, child: ColoredBox(color: rem)),
+          if ((s.rightRemainingRect?.width ?? 0) > 0)
+            Positioned.fromRect(rect: s.rightRemainingRect!, child: ColoredBox(color: rem)),
+          if ((s.rangeRect?.width ?? 0) > 0)
+            Positioned.fromRect(rect: s.rangeRect!, child: ColoredBox(color: selected)),
+        ],
+      );
+    },
+  ),
+  child: RangeSoftSlider(rangeValue: rv, onChanged: onRangeChanged),
+);
+```
+
+### 4) StepsDots-specific colors
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    preset: 'stepsDots',
+    ticksBuilder: (context, s) {
+      final active = const Color(0xFF1D4ED8);
+      final inactive = const Color(0xFFBFDBFE);
+      final t = s.t ?? 0;
+      return Stack(
+        children: [
+          for (final m in s.marks)
+            Positioned(
+              left: m.x - 3,
+              top: s.trackRect.center.dy - 3,
+              child: Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: m.t <= t ? active : inactive,
+                ),
+              ),
+            ),
+        ],
+      );
+    },
+  ),
+  child: StepsDotsSlider(value: v, steps: 10, onChanged: onChanged),
+);
+```
+
+### 5) WaveformSlider-specific inner-bar colors
+```dart
+WaveformSlider(
+  value: v,
+  onChanged: onChanged,
+  ticksBuilder: (context, s) {
+    final w = s.trackRect.width;
+    final h = s.trackRect.height;
+    final activeX = w * (s.t ?? 0);
+    const bars = 64;
+    final barW = w / bars;
+    final activeInner = const Color(0x99FFFFFF); // inner color on dark segment
+    final inactiveInner = const Color(0x660F172A); // inner color on light segment
+    return Stack(
+      children: [
+        for (int i = 0; i < bars; i++)
+          Positioned(
+            left: i * barW,
+            top: h * 0.2,
+            child: Container(
+              width: (barW * 0.55).clamp(1.0, 8.0),
+              height: h * 0.6,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(999),
+                color: (i * barW) <= activeX ? activeInner : inactiveInner,
+              ),
+            ),
+          ),
+      ],
+    );
+  },
+);
+```
+
+### 6) WaveSlider-specific colors (built-in fields)
+```dart
+ComponentTheme(
+  data: SliderTheme(
+    waveActiveColor: const Color(0xFF0F172A),
+    waveInactiveColor: const Color(0xFFE2E8F0),
+    waveThumbColor: const Color(0xFFFFFFFF),
+    waveThumbBorderColor: const Color(0xFF0F172A),
+  ),
+  child: WaveSlider(
+    value: progress,
+    onChanged: onChanged,
+    samples: amplitudes,
+  ),
+);
+```

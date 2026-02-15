@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../core/shad_slider_renderers.dart';
 import '../core/shad_slider_models.dart';
 import '../../slider.dart';
 
@@ -28,6 +29,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
     this.thumbBuilder,
     this.ticksBuilder,
     this.overlayBuilder,
+    this.segmentLayout,
+    this.trackRenderer,
     this.semanticLabel,
   });
 
@@ -56,6 +59,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
   final ShadThumbBuilder? thumbBuilder;
   final ShadTicksBuilder? ticksBuilder;
   final ShadOverlayBuilder? overlayBuilder;
+  final ShadSegmentLayout? segmentLayout;
+  final ShadTrackRenderer? trackRenderer;
 
   final String? semanticLabel;
 
@@ -88,6 +93,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
       thumbBuilder: thumbBuilder,
       ticksBuilder: ticksBuilder,
       overlayBuilder: overlayBuilder,
+      segmentLayout: segmentLayout,
+      trackRenderer: trackRenderer,
       semanticLabel: semanticLabel,
     );
   }
@@ -120,6 +127,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
     this.thumbBuilder,
     this.ticksBuilder,
     this.overlayBuilder,
+    this.segmentLayout,
+    this.trackRenderer,
     this.semanticLabel,
   });
 
@@ -150,6 +159,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
   final ShadThumbBuilder? thumbBuilder;
   final ShadTicksBuilder? ticksBuilder;
   final ShadOverlayBuilder? overlayBuilder;
+  final ShadSegmentLayout? segmentLayout;
+  final ShadTrackRenderer? trackRenderer;
 
   final String? semanticLabel;
 
@@ -184,6 +195,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
       thumbBuilder: thumbBuilder,
       ticksBuilder: ticksBuilder,
       overlayBuilder: overlayBuilder,
+      segmentLayout: segmentLayout,
+      trackRenderer: trackRenderer,
       semanticLabel: semanticLabel,
     );
   }

@@ -31,6 +31,7 @@ class ShadSliderLogic {
     required double joinGapPx,
     required double thumbEdgeOffsetPx,
     required double thumbVerticalOffsetPx,
+    required ShadSegmentLayout segmentLayout,
     required TextDirection textDirection,
     required double? value,
     required ShadRangeValue? rangeValue,
@@ -60,18 +61,10 @@ class ShadSliderLogic {
     }
 
     List<ShadThumbStateView> thumbs = [];
-    Rect? activeRect;
-    Rect? remainingRect;
-    Rect? rangeRect;
-    Rect? leftGapRect;
-    Rect? rightGapRect;
-    Rect? leftRemainingRect;
-    Rect? rightRemainingRect;
     double? tSingle;
     double? t0;
     double? t1;
     double? vSingle = value?.clamp(min, max);
-
     ShadRangeValue? rv = rangeValue;
 
     if (!isRange) {
@@ -101,51 +94,6 @@ class ShadSliderLogic {
           enabled: enabled,
         ),
       ];
-
-      // Gap disappears at outer edges to avoid visual tails at min/max.
-      final effectiveGap = (nearMin || nearMax) ? 0.0 : joinGapPx;
-
-      final gapHalf = effectiveGap / 2.0;
-      final gapL = nearMin
-          ? trackRect.left
-          : nearMax
-          ? trackRect.right
-          : (cx - gapHalf).clamp(trackRect.left, trackRect.right);
-      final gapR = nearMin
-          ? trackRect.left
-          : nearMax
-          ? trackRect.right
-          : (cx + gapHalf).clamp(trackRect.left, trackRect.right);
-
-      final filledR = gapL;
-      final remainingL = gapR;
-
-      activeRect = Rect.fromLTWH(
-        trackRect.left,
-        trackRect.top,
-        (filledR - trackRect.left).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-      final remainingW = (trackRect.right - remainingL).clamp(
-        0.0,
-        trackRect.width,
-      );
-      remainingRect = Rect.fromLTWH(
-        remainingL,
-        trackRect.top,
-        remainingW,
-        trackRect.height,
-      );
-
-      leftGapRect = Rect.fromLTWH(
-        gapL,
-        trackRect.top,
-        (gapR - gapL).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-
-      leftRemainingRect = null;
-      rightRemainingRect = null;
     } else {
       rv = _normalizeRange(rv!, min, max);
       final tStart = tForValue(rv.start);
@@ -181,65 +129,48 @@ class ShadSliderLogic {
           enabled: enabled,
         ),
       ];
-
-      // Disable outer-end gaps when thumbs touch component edges.
-      final gap0 = leftAtMin ? 0.0 : joinGapPx;
-      final gap1 = rightAtMax ? 0.0 : joinGapPx;
-
-      final g0Half = gap0 / 2.0;
-      final g1Half = gap1 / 2.0;
-
-      final g0L = leftAtMin
-          ? trackRect.left
-          : (cx0 - g0Half).clamp(trackRect.left, trackRect.right);
-      final g0R = leftAtMin
-          ? trackRect.left
-          : (cx0 + g0Half).clamp(trackRect.left, trackRect.right);
-
-      final g1L = rightAtMax
-          ? trackRect.right
-          : (cx1 - g1Half).clamp(trackRect.left, trackRect.right);
-      final g1R = rightAtMax
-          ? trackRect.right
-          : (cx1 + g1Half).clamp(trackRect.left, trackRect.right);
-
-      final rangeL = g0R;
-      final rangeR = g1L;
-
-      rangeRect = Rect.fromLTWH(
-        rangeL,
-        trackRect.top,
-        (rangeR - rangeL).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-
-      leftGapRect = Rect.fromLTWH(
-        g0L,
-        trackRect.top,
-        (g0R - g0L).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-      rightGapRect = Rect.fromLTWH(
-        g1L,
-        trackRect.top,
-        (g1R - g1L).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-
-      leftRemainingRect = Rect.fromLTWH(
-        trackRect.left,
-        trackRect.top,
-        (g0L - trackRect.left).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
-
-      rightRemainingRect = Rect.fromLTWH(
-        g1R,
-        trackRect.top,
-        (trackRect.right - g1R).clamp(0.0, trackRect.width),
-        trackRect.height,
-      );
     }
+
+    final segments = segmentLayout.buildSegments(
+      trackRect: trackRect,
+      trackRadius: trackRadius,
+      textDirection: textDirection,
+      isRange: isRange,
+      min: min,
+      max: max,
+      value: vSingle,
+      rangeValue: rv,
+      thumbs: thumbs,
+    );
+
+    Rect? firstOf(ShadSegmentKind kind) {
+      for (final segment in segments) {
+        if (segment.kind == kind) return segment.rect;
+      }
+      return null;
+    }
+
+    Rect? nthOf(ShadSegmentKind kind, int index) {
+      var found = 0;
+      for (final segment in segments) {
+        if (segment.kind != kind) continue;
+        if (found == index) return segment.rect;
+        found++;
+      }
+      return null;
+    }
+
+    final activeRect = firstOf(ShadSegmentKind.fill);
+    final remainingRect = isRange ? null : firstOf(ShadSegmentKind.remaining);
+    final rangeRect = isRange ? firstOf(ShadSegmentKind.fill) : null;
+    final leftGapRect = firstOf(ShadSegmentKind.gap);
+    final rightGapRect = nthOf(ShadSegmentKind.gap, 1);
+    final leftRemainingRect = isRange
+        ? firstOf(ShadSegmentKind.remaining)
+        : null;
+    final rightRemainingRect = isRange
+        ? nthOf(ShadSegmentKind.remaining, 1)
+        : null;
 
     final marks = _defaultMarks(
       min: min,
@@ -259,7 +190,7 @@ class ShadSliderLogic {
       textDirection: textDirection,
       trackRect: trackRect,
       trackRadius: trackRadius,
-      thumbInset: thumbInset,
+      thumbInset: centerInset,
       isRange: isRange,
       value: vSingle,
       rangeValue: rv,
@@ -273,6 +204,7 @@ class ShadSliderLogic {
       rightGapRect: rightGapRect,
       leftRemainingRect: leftRemainingRect,
       rightRemainingRect: rightRemainingRect,
+      segments: segments,
       thumbs: thumbs,
       marks: marks,
     );
