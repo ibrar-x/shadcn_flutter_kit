@@ -363,6 +363,7 @@ class _WaveSliderState extends State<WaveSlider> {
             _dragging);
 
     Widget body = SizedBox(
+      width: double.infinity,
       height: resolvedHeight,
       child: CustomPaint(
         painter: _WaveSliderPainter(
