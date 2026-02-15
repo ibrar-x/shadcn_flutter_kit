@@ -7,7 +7,7 @@
   "import": "import 'package:<your_app>/ui/shadcn/layout/filter_bar/filter_bar.dart';",
   "whenToUse": {
     "use": [
-      "you need a consistent filter toolbar for list or table pages.",
+      "you need a consistent filter toolbar for any user-defined content surface.",
       "filtering state is owned by the page and passed down as a single object."
     ],
     "avoid": [
@@ -24,8 +24,12 @@
       "code": "final statusField = FilterField<String>(\n  id: 'status',\n  matcher: FilterMatchers.exact(),\n);\n\nFilterBar(\n  state: state,\n  customFilters: [\n    FilterCustomFilter.typed<String>(\n      field: statusField,\n      builder: (context, value, onChanged) {\n        return Select<String>(\n          value: value,\n          canUnselect: true,\n          placeholder: const Text('Status'),\n          onChanged: onChanged,\n          itemBuilder: (context, value) => Text(value),\n          popup: SelectPopup<String>(\n            items: SelectItemList(\n              children: const [\n                SelectItemButton<String>(value: 'open', child: Text('Open')),\n                SelectItemButton<String>(value: 'closed', child: Text('Closed')),\n              ],\n            ),\n          ).call,\n        );\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
     },
     {
-      "title": "Mobile sheet variant",
+      "title": "Sheet presentation with groups",
       "code": "FilterBar(\n  controller: controller,\n  presentation: FilterBarPresentation.autoSheet,\n  sheetBreakpoint: 720,\n  sheetTitle: 'Filters',\n  groups: const [\n    FilterGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n  ],\n)"
+    },
+    {
+      "title": "Explicit model bindings",
+      "code": "final bindings = <FilterBinding<Order>>[\n  TypedFilterBinding<Order, String>(\n    field: emailField,\n    selector: (order) => order.email,\n  ),\n  TypedFilterBinding<Order, double>(\n    field: revenueField,\n    selector: (order) => order.revenue,\n  ),\n];\n\nfinal filteredOrders = state.whereMatches(orders, bindings).toList();"
     },
     {
       "title": "Multi matcher + custom matcher",
@@ -46,6 +50,7 @@
       "`enableDateRange` (`bool`, optional)",
       "`resultsCount` (`int?`, optional)",
       "`searchPlaceholder` (`String`, optional)",
+      "`searchLabel` (`String`, optional)",
       "`searchDebounce` (`Duration?`, optional)",
       "`trailingFilters` (`List<Widget>`, optional)",
       "`customFilters` (`List<FilterCustomFilter>`, optional)",
@@ -57,6 +62,7 @@
       "`sheetBreakpoint` (`double`, optional, default: `720`)",
       "`sheetTriggerLabel` (`String`, optional)",
       "`sheetTitle` (`String`, optional)",
+      "`sheetPosition` (`OverlayPosition`, optional, default: `OverlayPosition.bottom`)",
       "`groups` (`List<FilterGroup>`, optional)",
       "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
     ],
@@ -82,11 +88,7 @@
     "Fetch data directly inside `FilterBar`.",
     "Mutate chip labels/keys in place without emitting a new `FilterState`."
   ],
-  "related": [
-    "table",
-    "chip_input",
-    "date_picker"
-  ],
+  "related": [],
   "registryRules": [
     "One public class in `filter_bar.dart`",
     "Helpers under `_impl/`"

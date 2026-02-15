@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:docs/ui/shadcn/components/form/select/select.dart';
+import 'package:docs/ui/shadcn/components/form/text_field/text_field.dart';
 import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
+import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarCustomSelectsExample extends StatefulWidget {
   const FilterBarCustomSelectsExample({super.key});
@@ -17,69 +19,92 @@ class _FilterBarCustomSelectsExampleState
     FilterSortOption(id: 'oldest', label: 'Oldest'),
   ];
 
-  static const List<String> _statuses = ['open', 'in_progress', 'closed'];
-  static const List<String> _priorities = ['low', 'medium', 'high'];
+  static final _statusField = FilterField<String>(
+    id: 'status',
+    matcher: FilterMatchers.exact<String>(),
+  );
+  static final _assigneeField = FilterField<String>(
+    id: 'assignee_query',
+    defaultMatcherId: 'contains',
+    matchers: [
+      FilterMatcherOption(
+        id: 'contains',
+        label: 'Contains',
+        matcher: FilterMatchers.contains(),
+      ),
+      FilterMatcherOption(
+        id: 'is',
+        label: 'Is',
+        matcher: FilterMatchers.exact<String>(),
+      ),
+      FilterMatcherOption(
+        id: 'starts_with',
+        label: 'Starts with',
+        matcher: FilterMatchers.startsWith(),
+      ),
+    ],
+  );
 
   final List<_Issue> _issues = List.generate(
     18,
     (index) => _Issue(
       title: 'Issue #${index + 1}',
-      status: _statuses[index % _statuses.length],
-      priority: _priorities[index % _priorities.length],
+      status: ['open', 'in_progress', 'closed'][index % 3],
+      priority: ['low', 'medium', 'high'][index % 3],
       createdAt: DateTime(2026, 1, 1).add(Duration(days: index)),
+      assignee: ['alex', 'sam', 'morgan', 'riley'][index % 4],
     ),
   );
 
   FilterState _state = const FilterState(
     sortId: 'newest',
-    customFilters: {
-      'status': 'open',
-    },
   );
 
   @override
   Widget build(BuildContext context) {
     final visible = _filteredIssues();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FilterBar(
-          state: _state,
-          sortOptions: _sortOptions,
-          enableDateRange: true,
-          resultsCount: visible.length,
-          customFilters: [
-            _statusFilter(),
-            _priorityFilter(),
-          ],
-          onStateChanged: (next) {
-            setState(() {
-              _state = next;
-            });
-          },
-        ),
-        const SizedBox(height: 12),
-        Text(
-          'First visible: ${visible.take(4).map((item) => item.title).join(', ')}',
-        ),
-      ],
+    return OutlinedContainer(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FilterBar(
+            state: _state,
+            sortOptions: _sortOptions,
+            resultsCount: visible.length,
+            customFilters: [
+              _statusFilter(),
+              _assigneeMatcherFilter(),
+            ],
+            onStateChanged: (next) {
+              setState(() {
+                _state = next;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'First visible: ${visible.take(4).map((item) => item.title).join(', ')}',
+          ),
+        ],
+      ),
     );
   }
 
   FilterCustomFilter _statusFilter() {
-    return FilterCustomFilter(
-      id: 'status',
-      builder: (context, state, onStateChanged) {
+    return FilterCustomFilter.typed<String>(
+      field: _statusField,
+      builder: (context, value, onChanged) {
         return SizedBox(
-          width: 190,
+          width: 180,
           child: Select<String>(
-            value: state.customValue<String>('status'),
+            value: value,
             canUnselect: true,
             placeholder: const Text('Status'),
             itemBuilder: (context, value) => Text(_label(value)),
             popup: SelectPopup<String>(
               items: SelectItemList(
-                children: _statuses
+                children: ['open', 'in_progress', 'closed']
                     .map(
                       (status) => SelectItemButton<String>(
                         value: status,
@@ -89,41 +114,63 @@ class _FilterBarCustomSelectsExampleState
                     .toList(growable: false),
               ),
             ).call,
-            onChanged: (next) {
-              onStateChanged(state.setCustomValue('status', next));
-            },
+            onChanged: onChanged,
           ),
         );
       },
     );
   }
 
-  FilterCustomFilter _priorityFilter() {
+  FilterCustomFilter _assigneeMatcherFilter() {
     return FilterCustomFilter(
-      id: 'priority',
+      id: _assigneeField.id,
       builder: (context, state, onStateChanged) {
         return SizedBox(
-          width: 190,
-          child: Select<String>(
-            value: state.customValue<String>('priority'),
-            canUnselect: true,
-            placeholder: const Text('Priority'),
-            itemBuilder: (context, value) => Text(_label(value)),
-            popup: SelectPopup<String>(
-              items: SelectItemList(
-                children: _priorities
-                    .map(
-                      (priority) => SelectItemButton<String>(
-                        value: priority,
-                        child: Text(_label(priority)),
-                      ),
-                    )
-                    .toList(growable: false),
+          width: 320,
+          child: Row(
+            children: [
+              Expanded(
+                child: Select<String>(
+                  value: state.matcherIdOf(_assigneeField),
+                  itemBuilder: (context, value) {
+                    final option = _assigneeField.matchers
+                        .where((item) => item.id == value)
+                        .first;
+                    return Text(option.label);
+                  },
+                  popup: SelectPopup<String>(
+                    items: SelectItemList(
+                      children: _assigneeField.matchers
+                          .map(
+                            (option) => SelectItemButton<String>(
+                              value: option.id,
+                              child: Text(option.label),
+                            ),
+                          )
+                          .toList(growable: false),
+                    ),
+                  ).call,
+                  onChanged: (next) {
+                    onStateChanged(state.setMatcherIdOf(_assigneeField, next));
+                  },
+                ),
               ),
-            ).call,
-            onChanged: (next) {
-              onStateChanged(state.setCustomValue('priority', next));
-            },
+              const SizedBox(width: 8),
+              Expanded(
+                child: TextField(
+                  placeholder: const Text('Assignee'),
+                  initialValue: state.valueOf(_assigneeField),
+                  onChanged: (value) {
+                    onStateChanged(
+                      state.setValue(
+                        _assigneeField,
+                        value.trim().isEmpty ? null : value,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -132,9 +179,8 @@ class _FilterBarCustomSelectsExampleState
 
   List<_Issue> _filteredIssues() {
     final query = _state.search.trim().toLowerCase();
-    final selectedStatus = _state.customValue<String>('status');
-    final selectedPriority = _state.customValue<String>('priority');
-    final range = _state.dateRange?.toDateTimeRange();
+    final selectedStatus = _state.valueOf(_statusField);
+    final range = _state.dateRange;
 
     var filtered = _issues.where((issue) {
       if (query.isNotEmpty && !issue.title.toLowerCase().contains(query)) {
@@ -143,12 +189,12 @@ class _FilterBarCustomSelectsExampleState
       if (selectedStatus != null && issue.status != selectedStatus) {
         return false;
       }
-      if (selectedPriority != null && issue.priority != selectedPriority) {
+      if (!_state.matchesValue(_assigneeField, issue.assignee)) {
         return false;
       }
-      if (range != null) {
+      if (range != null && range.start != null && range.end != null) {
         final date = issue.createdAt;
-        if (date.isBefore(range.start) || date.isAfter(range.end)) {
+        if (date.isBefore(range.start!) || date.isAfter(range.end!)) {
           return false;
         }
       }
@@ -174,11 +220,13 @@ class _Issue {
   final String status;
   final String priority;
   final DateTime createdAt;
+  final String assignee;
 
   const _Issue({
     required this.title,
     required this.status,
     required this.priority,
     required this.createdAt,
+    required this.assignee,
   });
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:docs/ui/shadcn/components/control/button/button.dart';
+import 'package:docs/ui/shadcn/components/form/checkbox/checkbox.dart';
 import 'package:docs/ui/shadcn/components/form/select/select.dart';
 import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
+import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarCustomButtonsExample extends StatefulWidget {
   const FilterBarCustomButtonsExample({super.key});
@@ -21,6 +23,7 @@ class _FilterBarCustomButtonsExampleState
       title: 'Task #${index + 1}',
       urgent: index.isEven,
       assignee: _assignees[index % _assignees.length],
+      channel: ['email', 'chat', 'call'][index % 3],
     ),
   );
 
@@ -33,26 +36,49 @@ class _FilterBarCustomButtonsExampleState
   @override
   Widget build(BuildContext context) {
     final visible = _filteredTasks();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FilterBar(
-          state: _state,
-          resultsCount: visible.length,
-          customFilters: [
-            _urgencyButtons(),
-            _assigneeFilter(),
-          ],
-          onStateChanged: (next) {
-            setState(() {
-              _state = next;
-            });
-          },
-        ),
-        const SizedBox(height: 12),
-        Text(
-            'Visible tasks: ${visible.take(6).map((task) => task.title).join(', ')}'),
-      ],
+    return OutlinedContainer(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FilterBar(
+            state: _state,
+            presentation: FilterBarPresentation.autoSheet,
+            sheetBreakpoint: 980,
+            sheetTitle: 'Advanced filters',
+            groups: const [
+              FilterGroup(
+                id: 'quick',
+                title: 'Quick',
+                filterIds: ['urgency', 'assignee'],
+              ),
+              FilterGroup(
+                id: 'channels',
+                title: 'Channels',
+                filterIds: ['channels'],
+              ),
+            ],
+            resultsCount: visible.length,
+            customFilters: [
+              _urgencyButtons(),
+              _assigneeFilter(),
+              _channelsFilter(),
+            ],
+            trailingFilters: [
+              PrimaryButton(onPressed: () {}, child: Text('Show ${visible.length}')),
+            ],
+            onStateChanged: (next) {
+              setState(() {
+                _state = next;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Visible tasks: ${visible.take(6).map((task) => task.title).join(', ')}',
+          ),
+        ],
+      ),
     );
   }
 
@@ -149,10 +175,61 @@ class _FilterBarCustomButtonsExampleState
     );
   }
 
+  FilterCustomFilter _channelsFilter() {
+    return FilterCustomFilter(
+      id: 'channels',
+      builder: (context, state, onStateChanged) {
+        final selected = (state.customValue<List<String>>('channels') ?? const <String>[])
+            .toSet();
+
+        Widget channel(String id, String label) {
+          final checked = selected.contains(id);
+          return GhostButton(
+            alignment: Alignment.centerLeft,
+            onPressed: () {
+              final next = <String>{...selected};
+              if (next.contains(id)) {
+                next.remove(id);
+              } else {
+                next.add(id);
+              }
+              onStateChanged(
+                state.setCustomValue('channels', next.isEmpty ? null : next.toList()),
+              );
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Checkbox(
+                  state: checked ? CheckboxState.checked : CheckboxState.unchecked,
+                  onChanged: (_) {},
+                ),
+                const SizedBox(width: 6),
+                Text(label),
+              ],
+            ),
+          );
+        }
+
+        return Row(
+          children: [
+            channel('email', 'Email'),
+            const SizedBox(width: 8),
+            channel('chat', 'Chat'),
+            const SizedBox(width: 8),
+            channel('call', 'Call'),
+          ],
+        );
+      },
+    );
+  }
+
   List<_Task> _filteredTasks() {
     final query = _state.search.trim().toLowerCase();
     final urgency = _state.customValue<String>('urgency');
     final assignee = _state.customValue<String>('assignee');
+    final channels = (_state.customValue<List<String>>('channels') ?? const <String>[])
+        .toSet();
 
     return _tasks.where((task) {
       if (query.isNotEmpty && !task.title.toLowerCase().contains(query)) {
@@ -165,6 +242,9 @@ class _FilterBarCustomButtonsExampleState
         return false;
       }
       if (assignee != null && task.assignee != assignee) {
+        return false;
+      }
+      if (channels.isNotEmpty && !channels.contains(task.channel)) {
         return false;
       }
       return true;
@@ -183,10 +263,12 @@ class _Task {
   final String title;
   final bool urgent;
   final String assignee;
+  final String channel;
 
   const _Task({
     required this.title,
     required this.urgent,
     required this.assignee,
+    required this.channel,
   });
 }

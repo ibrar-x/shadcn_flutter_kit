@@ -9,15 +9,16 @@ import '../../form/date_picker/date_picker.dart';
 import '../../form/form_field/form_field.dart';
 import '../../form/select/select.dart';
 import '../../form/text_field/text_field.dart';
+import '../stage_container/stage_container.dart';
 import '../../overlay/drawer/drawer.dart';
 import '../../../shared/icons/lucide_icons.dart';
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/theme/theme.dart';
+import 'filter_bar_logic.dart';
+
+export 'filter_bar_logic.dart';
 
 part '_impl/core/filter_bar_content.dart';
-part '_impl/extensions/filter_state_extensions.dart';
-part '_impl/state/filter_bar_controller.dart';
-part '_impl/state/filter_bar_state.dart';
 part '_impl/styles/filter_bar_style.dart';
 part '_impl/themes/filter_bar_theme.dart';
 part '_impl/utils/filter_bar_utils.dart';
@@ -51,12 +52,8 @@ class FilterBar extends StatefulWidget {
     this.sheetBreakpoint = 720,
     this.sheetTriggerLabel = 'Filters',
     this.sheetTitle = 'Filters',
-    @Deprecated('Use presentation') this.mobileVariant,
-    @Deprecated('Use sheetBreakpoint') this.mobileBreakpoint,
-    @Deprecated('Use sheetTriggerLabel') this.mobileFiltersLabel,
-    @Deprecated('Use sheetTitle') this.mobileSheetTitle,
+    this.sheetPosition = OverlayPosition.bottom,
     this.groups = const [],
-    this.mobileGroups = const [],
   }) : assert(
          controller != null || (state != null && onStateChanged != null),
          'Provide either controller or both state and onStateChanged.',
@@ -131,32 +128,11 @@ class FilterBar extends StatefulWidget {
   /// Stores `sheetTitle` state/configuration for this implementation.
   final String sheetTitle;
 
-  /// Backward compatibility option.
-  final FilterBarMobileVariant? mobileVariant;
-
-  /// Backward compatibility option.
-  final double? mobileBreakpoint;
-
-  /// Backward compatibility option.
-  final String? mobileFiltersLabel;
-
-  /// Backward compatibility option.
-  final String? mobileSheetTitle;
+  /// Stores `sheetPosition` state/configuration for this implementation.
+  final OverlayPosition sheetPosition;
 
   /// Stores `groups` state/configuration for this implementation.
   final List<FilterGroup> groups;
-
-  /// Backward compatibility option.
-  final List<FilterMobileGroup> mobileGroups;
-
-  FilterBarPresentation get effectivePresentation =>
-      mobileVariant ?? presentation;
-  double get effectiveSheetBreakpoint => mobileBreakpoint ?? sheetBreakpoint;
-  String get effectiveSheetTriggerLabel =>
-      mobileFiltersLabel ?? sheetTriggerLabel;
-  String get effectiveSheetTitle => mobileSheetTitle ?? sheetTitle;
-  List<FilterGroup> get effectiveGroups =>
-      groups.isNotEmpty ? groups : mobileGroups;
 
   @override
   /// Executes `createState` behavior for this component/composite.
@@ -282,7 +258,7 @@ class _FilterBarState extends State<FilterBar> {
       _effectiveState.copyWith(
         dateRange: range == null
             ? null
-            : FilterDateRange.fromDateTimeRange(range),
+            : FilterDateRange(start: range.start, end: range.end),
       ),
     );
   }
@@ -321,11 +297,12 @@ class _FilterBarState extends State<FilterBar> {
       clearAllLabel: widget.clearAllLabel,
       sortLabel: widget.sortLabel,
       dateRangeLabel: widget.dateRangeLabel,
-      presentation: widget.effectivePresentation,
-      sheetBreakpoint: widget.effectiveSheetBreakpoint,
-      sheetTriggerLabel: widget.effectiveSheetTriggerLabel,
-      sheetTitle: widget.effectiveSheetTitle,
-      groups: widget.effectiveGroups,
+      presentation: widget.presentation,
+      sheetBreakpoint: widget.sheetBreakpoint,
+      sheetTriggerLabel: widget.sheetTriggerLabel,
+      sheetTitle: widget.sheetTitle,
+      sheetPosition: widget.sheetPosition,
+      groups: widget.groups,
       onSearchChanged: _onSearchChanged,
       onSortChanged: _onSortChanged,
       onRemoveChip: _onRemoveChip,

@@ -44,6 +44,7 @@
     "_impl/variants/filter_bar_layout.dart",
     "filter_bar.dart",
     "filter_bar.meta.json",
+    "filter_bar_logic.dart",
     "meta.json",
     "preview.dart"
   ]

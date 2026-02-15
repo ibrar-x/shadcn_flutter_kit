@@ -7,10 +7,11 @@ import 'filter_bar_custom_buttons_example.dart';
 import 'filter_bar_custom_selects_example.dart';
 
 const ComponentExample filterBarBasicExample = ComponentExample(
-  title: 'Basic Search, Sort, and Chips',
+  title: 'Simple',
   builder: _buildFilterBarBasicExample,
   code:
       r'''import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
+import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarBasicExample extends StatefulWidget {
   const FilterBarBasicExample({super.key});
@@ -27,14 +28,18 @@ class _FilterBarBasicExampleState extends State<FilterBarBasicExample> {
 
   @override
   Widget build(BuildContext context) {
-    return FilterBar(
-      state: state,
-      sortOptions: const [
-        FilterSortOption(id: 'newest', label: 'Newest'),
-        FilterSortOption(id: 'oldest', label: 'Oldest'),
-      ],
-      searchDebounce: const Duration(milliseconds: 250),
-      onStateChanged: (next) => setState(() => state = next),
+    return OutlinedContainer(
+      padding: const EdgeInsets.all(12),
+      child: FilterBar(
+        state: state,
+        sortOptions: const [
+          FilterSortOption(id: 'newest', label: 'Newest'),
+          FilterSortOption(id: 'oldest', label: 'Oldest'),
+        ],
+        enableDateRange: true,
+        searchDebounce: const Duration(milliseconds: 250),
+        onStateChanged: (next) => setState(() => state = next),
+      ),
     );
   }
 }
@@ -46,22 +51,41 @@ Widget _buildFilterBarBasicExample(BuildContext context) {
 }
 
 const ComponentExample filterBarCustomSelectsExample = ComponentExample(
-  title: 'Custom Filters with Select Controls',
+  title: 'Intermediate',
   builder: _buildFilterBarCustomSelectsExample,
-  code: r'''FilterBar(
+  code: r'''final statusField = FilterField<String>(
+  id: 'status',
+  matcher: FilterMatchers.exact<String>(),
+);
+
+final assigneeField = FilterField<String>(
+  id: 'assignee_query',
+  defaultMatcherId: 'contains',
+  matchers: [
+    FilterMatcherOption(
+      id: 'contains',
+      label: 'Contains',
+      matcher: FilterMatchers.contains(),
+    ),
+    FilterMatcherOption(
+      id: 'starts_with',
+      label: 'Starts with',
+      matcher: FilterMatchers.startsWith(),
+    ),
+  ],
+);
+
+FilterBar(
   state: state,
-  enableDateRange: true,
   customFilters: [
-    FilterCustomFilter(
-      id: 'status',
-      builder: (context, state, onStateChanged) {
+    FilterCustomFilter.typed<String>(
+      field: statusField,
+      builder: (context, value, onChanged) {
         return Select<String>(
-          value: state.customValue<String>('status'),
+          value: value,
           canUnselect: true,
           placeholder: const Text('Status'),
-          onChanged: (next) {
-            onStateChanged(state.setCustomValue('status', next));
-          },
+          onChanged: onChanged,
           itemBuilder: (context, value) => Text(value),
           popup: SelectPopup<String>(
             items: SelectItemList(
@@ -85,30 +109,28 @@ Widget _buildFilterBarCustomSelectsExample(BuildContext context) {
 }
 
 const ComponentExample filterBarCustomButtonsExample = ComponentExample(
-  title: 'Custom Filter with Button Group',
+  title: 'Advanced',
   builder: _buildFilterBarCustomButtonsExample,
-  code: r'''FilterCustomFilter(
-  id: 'urgency',
-  builder: (context, state, onStateChanged) {
-    final urgency = state.customValue<String>('urgency');
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GhostButton(
-          size: ButtonSize.small,
-          onPressed: () => onStateChanged(state.setCustomValue('urgency', null)),
-          child: const Text('All'),
-        ),
-        SecondaryButton(
-          size: ButtonSize.small,
-          onPressed: () => onStateChanged(
-            state.setCustomValue('urgency', 'urgent_only'),
-          ),
-          child: const Text('Urgent'),
-        ),
-      ],
-    );
-  },
+  code: r'''FilterBar(
+  state: state,
+  presentation: FilterBarPresentation.autoSheet,
+  sheetBreakpoint: 980,
+  groups: const [
+    FilterGroup(
+      id: 'quick',
+      title: 'Quick',
+      filterIds: ['urgency', 'assignee'],
+    ),
+    FilterGroup(
+      id: 'channels',
+      title: 'Channels',
+      filterIds: ['channels'],
+    ),
+  ],
+  customFilters: [
+    // button group + select + checkbox-multi custom widgets
+  ],
+  onStateChanged: (next) => setState(() => state = next),
 )
 ''',
 );
@@ -118,19 +140,17 @@ Widget _buildFilterBarCustomButtonsExample(BuildContext context) {
 }
 
 const ComponentExample filterBarClearPolicyExample = ComponentExample(
-  title: 'Clear Policy Preserving Custom Filters',
+  title: 'Mobile-only Sheet',
   builder: _buildFilterBarClearPolicyExample,
   code: r'''FilterBar(
   state: state,
-  clearPolicy: const FilterClearPolicy(
-    clearSearch: true,
-    clearSort: true,
-    clearDateRange: true,
-    clearChips: true,
-    clearCustomFilters: false,
-  ),
+  presentation: FilterBarPresentation.sheet,
+  sheetPosition: OverlayPosition.right, // or OverlayPosition.bottom
+  sheetTitle: 'Mobile Filters',
+  sheetTriggerLabel: 'Open Filters',
+  enableDateRange: true,
   customFilters: [
-    // status/team filters here
+    // filters shown in sheet
   ],
   onStateChanged: (next) => setState(() => state = next),
 )

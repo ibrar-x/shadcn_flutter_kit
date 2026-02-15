@@ -23,6 +23,7 @@ class _FilterBarContent extends StatelessWidget {
     required this.sheetBreakpoint,
     required this.sheetTriggerLabel,
     required this.sheetTitle,
+    required this.sheetPosition,
     required this.groups,
     required this.onSearchChanged,
     required this.onSortChanged,
@@ -89,6 +90,9 @@ class _FilterBarContent extends StatelessWidget {
 
   /// Stores `sheetTitle` state/configuration for this implementation.
   final String sheetTitle;
+
+  /// Stores `sheetPosition` state/configuration for this implementation.
+  final OverlayPosition sheetPosition;
 
   /// Stores `groups` state/configuration for this implementation.
   final List<FilterGroup> groups;
@@ -354,13 +358,13 @@ class _FilterBarContent extends StatelessWidget {
 
     final field = ObjectFormField<DateTimeRange>(
       mode: PromptMode.popover,
-      value: state.dateRange?.toDateTimeRange(),
+      value: _toDateTimeRange(state.dateRange),
       onChanged: (value) {
         onStateChanged(
           state.copyWith(
             dateRange: value == null
                 ? null
-                : FilterDateRange.fromDateTimeRange(value),
+                : FilterDateRange(start: value.start, end: value.end),
           ),
         );
       },
@@ -507,7 +511,7 @@ class _FilterBarContent extends StatelessWidget {
       case FilterBarPresentation.sheet:
         return true;
       case FilterBarPresentation.autoSheet:
-        return maxWidth <= sheetBreakpoint;
+        return _useSheetForStagedWidth(maxWidth, sheetBreakpoint);
     }
   }
 
@@ -525,7 +529,7 @@ class _FilterBarContent extends StatelessWidget {
 
     await openSheet<void>(
       context: context,
-      position: OverlayPosition.bottom,
+      position: sheetPosition,
       draggable: true,
       builder: (context) {
         return _FilterBarMobileSheet(
@@ -659,49 +663,53 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final shouldCloseForDesktop =
-        widget.presentation == FilterBarPresentation.inline ||
-        (widget.presentation == FilterBarPresentation.autoSheet &&
-            width > widget.sheetBreakpoint);
-    if (shouldCloseForDesktop) {
-      if (!_closeScheduled) {
-        _closeScheduled = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (!mounted) {
-            return;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final shouldCloseForDesktop =
+            widget.presentation == FilterBarPresentation.inline ||
+            (widget.presentation == FilterBarPresentation.autoSheet &&
+                !_useSheetForStagedWidth(width, widget.sheetBreakpoint));
+        if (shouldCloseForDesktop) {
+          if (!_closeScheduled) {
+            _closeScheduled = true;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) {
+                return;
+              }
+              closeSheet(context);
+            });
           }
-          closeSheet(context);
-        });
-      }
-      return const SizedBox.shrink();
-    }
-    _closeScheduled = false;
-    final showClearAll =
-        widget.showClearAllWhenEmpty || _state.hasActiveFilters;
-    final customWidgets = widget.customFilters
-        .map((filter) => filter.builder(context, _state, _updateState))
-        .toList(growable: false);
+          return const SizedBox.shrink();
+        }
+        _closeScheduled = false;
+        final showClearAll =
+            widget.showClearAllWhenEmpty || _state.hasActiveFilters;
+        final customWidgets = widget.customFilters
+            .map((filter) => filter.builder(context, _state, _updateState))
+            .toList(growable: false);
 
-    return FilterBarSheetScaffold(
-      title: widget.title,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: widget.groups.isEmpty
-            ? _buildDefaultMobileContent(customWidgets)
-            : _buildGroupedMobileContent(context),
-      ),
-      footer: showClearAll
-          ? GhostButton(
-              onPressed: _state.hasActiveFilters
-                  ? () {
-                      widget.onClearAll();
-                      closeSheet(context);
-                    }
-                  : null,
-              child: Text(widget.clearAllLabel),
-            )
-          : null,
+        return FilterBarSheetScaffold(
+          title: widget.title,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: widget.groups.isEmpty
+                ? _buildDefaultMobileContent(customWidgets)
+                : _buildGroupedMobileContent(context),
+          ),
+          footer: showClearAll
+              ? GhostButton(
+                  onPressed: _state.hasActiveFilters
+                      ? () {
+                          widget.onClearAll();
+                          closeSheet(context);
+                        }
+                      : null,
+                  child: Text(widget.clearAllLabel),
+                )
+              : null,
+        );
+      },
     );
   }
 
@@ -777,4 +785,19 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
     }
     return children;
   }
+}
+
+bool _useSheetForStagedWidth(double width, double sheetBreakpoint) {
+  if (!width.isFinite || width <= 0) {
+    return true;
+  }
+  final stagedWidth = StageBreakpoint.defaultBreakpoints.getMinWidth(width);
+  return stagedWidth <= sheetBreakpoint;
+}
+
+DateTimeRange? _toDateTimeRange(FilterDateRange? value) {
+  if (value == null || value.start == null || value.end == null) {
+    return null;
+  }
+  return DateTimeRange(value.start!, value.end!);
 }
