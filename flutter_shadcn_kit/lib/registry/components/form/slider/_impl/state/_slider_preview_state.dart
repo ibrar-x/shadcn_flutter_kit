@@ -256,9 +256,20 @@ class _PreviewCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: SizedBox(width: 420, child: child),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: SizedBox(width: 420, child: child),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
