@@ -18,9 +18,8 @@ Single-value and range sliders with keyboard navigation.
 ### `core/`
 Core rendering/building blocks that implement the main behavior.
 
-- `controlled_slider.dart`: Core implementation part of the widget/composite.
-- `decrease_slider_value.dart`: Core implementation part of the widget/composite.
-- `increase_slider_value.dart`: Core implementation part of the widget/composite.
+- `shad_slider_logic.dart`: Geometry, mapping, snapping, and interaction logic.
+- `shad_slider_models.dart`: Shared view/state models and builder typedefs.
 
 ### `extensions/`
 Extension methods used by this widget.
@@ -31,12 +30,12 @@ Extension methods used by this widget.
 State objects, controllers, and mutable interaction logic.
 
 - `_slider_preview_state.dart`: Private state class for widget lifecycle and interaction behavior.
-- `_slider_state.dart`: Private state class for widget lifecycle and interaction behavior.
 
 ### `styles/`
 Style classes and style-resolution helpers.
 
-- (empty)
+- `shad_slider_defaults.dart`: Token-driven default builders and thumb helpers.
+- `shad_slider_presets.dart`: Preset resolver for `brightness/rangeSoft/stepsDots/waveform`.
 
 ### `themes/`
 Theme data and ThemeExtension integration.
@@ -46,12 +45,17 @@ Theme data and ThemeExtension integration.
 ### `utils/`
 Small reusable helper functions/models.
 
-- `slider_controller.dart`: Utility helpers used by this widget implementation.
+- (empty)
 
 ### `variants/`
 Alternative visual or behavior variants.
 
-- (empty)
+- `base_slider_variant.dart`: Shared base classes for single/range preset wrappers.
+- `brightness_slider.dart`: Preset wrapper for `brightness`.
+- `range_soft_slider.dart`: Preset wrapper for `rangeSoft`.
+- `steps_dots_slider.dart`: Preset wrapper for `stepsDots`.
+- `waveform_slider.dart`: Preset wrapper for `waveform`.
+- `wave_slider.dart`: Waveform-only slider variant with custom painter + scrub gestures.
 
 ## Suggested Reading Order
 
@@ -63,6 +67,4 @@ Alternative visual or behavior variants.
 6. `_impl/state/`
 7. `_impl/styles/`
 8. `_impl/themes/`
-9. `_impl/variants/`
-10. `_impl/utils/`
-11. `_impl/extensions/`
+9. `_impl/state/`

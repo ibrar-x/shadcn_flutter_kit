@@ -2,47 +2,58 @@
   "schemaVersion": 1,
   "id": "slider",
   "name": "Slider",
-  "description": "Single-value and range sliders with keyboard navigation.",
+  "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
   "install": "flutter_shadcn add slider",
   "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
   "whenToUse": {
     "use": [
-      "you need continuous or discrete slider input.",
-      "you need range selection with `SliderValue`."
+      "you need a configurable single-value slider.",
+      "you need a configurable range slider.",
+      "you need custom slider track, fill, thumb, ticks, or overlays."
     ],
     "avoid": [
-      "a text input is more precise."
+      "a text input is required for exact numeric entry."
     ]
   },
   "examples": {
-    "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)"
+    "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)"
   },
-  "patterns": [],
   "api": {
     "constructors": [
       "`Slider`",
-      "`value` (`SliderValue`, required)",
-      "`onChanged`, `onChangeStart`, `onChangeEnd`",
-      "`min`, `max`, `divisions`, `hintValue`",
-      "`increaseStep`, `decreaseStep`, `enabled`",
-      "`ControlledSlider` \u2014 controller-backed slider.",
-      "`SliderController` \u2014 controller for `SliderValue`."
+      "`Slider.single`",
+      "`Slider.range`",
+      "`WaveSlider`",
+      "`SliderTheme`",
+      "`BrightnessSlider`",
+      "`RangeSoftSlider`",
+      "`StepsDotsSlider`",
+      "`WaveformSlider`",
+      "`ShadJoinGapLayout`",
+      "`ShadContinuousLayout`",
+      "`ShadSegmentedCapsuleRenderer`",
+      "`ShadWaveformRenderer`",
+      "`ShadStepDotsRenderer`"
     ],
     "callbacks": [
-      "`onChanged`, `onChangeStart`, `onChangeEnd`"
+      "`onChanged`"
     ]
   },
   "theming": [
-    "`SliderTheme` controls track/handle size and colors."
+    "Use `ComponentTheme<SliderTheme>` for global slider defaults.",
+    "Override `trackBuilder`, `fillBuilder`, `thumbBuilder`, `ticksBuilder`, and `overlayBuilder` per-instance for custom visuals."
   ],
   "accessibility": [
-    "Provide labels or values adjacent to the slider."
+    "Semantics include slider role and enabled state."
   ],
   "do": [
-    "Use `divisions` for discrete steps."
+    "Use presets (`brightness`, `rangeSoft`, `stepsDots`, `waveform`) for quick visual styles.",
+    "Use `WaveSlider` when you need a waveform-only scrubber with no linear track.",
+    "Use `snap` for precise stepped interactions.",
+    "Use preset variant wrappers (`BrightnessSlider`, `RangeSoftSlider`, `StepsDotsSlider`, `WaveformSlider`) for clearer intent."
   ],
   "dont": [
-    "Hide current value when precision matters."
+    "Do not hide value context when precision matters."
   ],
   "related": [
     "progress"
@@ -50,5 +61,15 @@
   "registryRules": [
     "One public class per file",
     "Helpers under `_impl/`"
+  ],
+  "patterns": [
+    {
+      "title": "Single slider",
+      "code": "Slider.single(\n  value: 0.5,\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
+    },
+    {
+      "title": "Range slider",
+      "code": "Slider.range(\n  rangeValue: const ShadRangeValue(0.2, 0.8),\n  min: 0,\n  max: 1,\n  onChanged: (value) {},\n)"
+    }
   ]
 }

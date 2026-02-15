@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart' hide Slider;
+import 'dart:math';
 
-import '../../../shared/primitives/slider_value.dart';
+import 'package:flutter/material.dart' hide Slider, SliderTheme, Theme;
+
+import '../../../shared/theme/theme.dart';
+import '../slider/_impl/core/shad_slider_models.dart';
+import '../slider/_impl/styles/shad_slider_defaults.dart';
 import '../slider/slider.dart';
 
 part '_impl/state/_slider_preview_state.dart';
