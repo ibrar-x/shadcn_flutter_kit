@@ -19,34 +19,176 @@ import '../themes/slider_theme.dart';
 /// - All visual parameters resolve through [SliderTheme] when not provided.
 class WaveSlider extends StatefulWidget {
   const WaveSlider({
+    /// Passes identity through the widget tree.
+    ///
+    /// Keep it stable if you want gesture/animation state to survive moves.
     super.key,
+
+    /// Current slider value.
+    ///
+    /// In normalized mode, values are clamped to `[0..1]`.
+    /// In domain mode, values are clamped to `[min..max]`.
     required this.value,
+
+    /// Fires for tap/drag updates after normalization/domain conversion.
+    ///
+    /// Emits normalized `[0..1]` when [valueIsNormalized] is true.
+    /// Emits domain `[min..max]` when [valueIsNormalized] is false.
     required this.onChanged,
+
+    /// Histogram amplitudes used for bar heights.
+    ///
+    /// Values are expected in `[0..1]`; out-of-range entries are clamped.
+    /// Empty input falls back to a low default waveform.
     required this.samples,
+
+    /// Domain lower bound used when [valueIsNormalized] is false.
+    ///
+    /// `0` means the domain starts at zero.
+    /// Negative values allow negative-domain sliders.
     this.min = 0,
+
+    /// Domain upper bound used when [valueIsNormalized] is false.
+    ///
+    /// Must be strictly greater than [min] (asserted).
+    /// Values above this are clamped.
     this.max = 1,
+
+    /// Controls interpretation of [value] and [onChanged].
+    ///
+    /// `true`: normalized `[0..1]`; `false`: domain `[min..max]`.
+    /// Toggle to false for pricing ranges like `97`, `120`, etc.
     this.valueIsNormalized = true,
+
+    /// Overall painted height.
+    ///
+    /// If null, resolves from [SliderTheme.waveHeight].
+    /// `0` collapses bars; positive values increase available waveform space.
     this.height,
+
+    /// Horizontal/vertical insets around bars and thumb.
+    ///
+    /// If null, resolves from [SliderTheme.wavePadding].
+    /// Larger padding reduces drawable width/height for bars.
     this.padding,
+
+    /// Width of each waveform bar in pixels.
+    ///
+    /// `0` produces no visible bars. Positive values widen bars.
+    /// If null, resolves from [SliderTheme.waveBarWidth].
     this.barWidth,
+
+    /// Gap between waveform bars in pixels.
+    ///
+    /// `0` makes bars touch. Positive values increase separation.
+    /// If null, resolves from [SliderTheme.waveBarGap].
     this.barGap,
+
+    /// Minimum per-bar height.
+    ///
+    /// `0` allows very flat bars for low amplitudes.
+    /// If null, resolves from [SliderTheme.waveMinBarHeight].
     this.minBarHeight,
+
+    /// Maximum per-bar height.
+    ///
+    /// Capped by available content height at runtime.
+    /// If null, resolves from [SliderTheme.waveMaxBarHeight].
     this.maxBarHeight,
+
+    /// Bar corner radius.
+    ///
+    /// `0` makes rectangular bars; positive values round corners.
+    /// If null, resolves from [SliderTheme.waveCornerRadius].
     this.cornerRadius,
+
+    /// Color for progressed bars (left side of current value).
+    ///
+    /// If null, resolves from [SliderTheme.waveActiveColor].
+    /// Set to null to clear override and use theme/default.
     this.activeColor,
+
+    /// Color for remaining bars (right side of current value).
+    ///
+    /// If null, resolves from [SliderTheme.waveInactiveColor].
+    /// Set to null to clear override and use theme/default.
     this.inactiveColor,
+
+    /// Opacity when interaction is disabled.
+    ///
+    /// `0` is fully transparent, `1` fully opaque.
+    /// If null, resolves from [SliderTheme.waveDisabledOpacity].
     this.disabledOpacity,
+
+    /// Whether the circular thumb is painted.
+    ///
+    /// If null, resolves from [SliderTheme.waveShowThumb].
+    /// Disabling only hides thumb visuals; interaction still works.
     this.showThumb,
+
+    /// Thumb radius in pixels.
+    ///
+    /// `0` hides thumb circle; positive values enlarge it.
+    /// If null, resolves from [SliderTheme.waveThumbRadius].
     this.thumbRadius,
+
+    /// Thumb fill color.
+    ///
+    /// If null, resolves from [SliderTheme.waveThumbColor].
+    /// Set null to clear local override.
     this.thumbColor,
+
+    /// Thumb border color.
+    ///
+    /// If null, resolves from [SliderTheme.waveThumbBorderColor].
+    /// Set null to clear local override.
     this.thumbBorderColor,
+
+    /// Thumb border width in pixels.
+    ///
+    /// `0` removes border; positive values increase stroke thickness.
+    /// If null, resolves from [SliderTheme.waveThumbBorderWidth].
     this.thumbBorderWidth,
+
+    /// Extra vertical hit padding.
+    ///
+    /// `0` uses exact visual height; positive values make dragging easier.
+    /// If null, resolves from [SliderTheme.waveHitSlop].
     this.hitSlop,
+
+    /// Enables tap/drag interaction.
+    ///
+    /// If false, callbacks stop and disabled opacity is applied.
+    /// If null, resolves from [SliderTheme.waveEnabled].
     this.enabled,
+
+    /// Popover builder used for value labels.
+    ///
+    /// Invoked when visibility policy allows; receives [ShadPopoverData].
+    /// If null, resolves from theme/default helpers.
     this.popoverBuilder,
+
+    /// Popover position offset from thumb anchor.
+    ///
+    /// `Offset.zero` keeps default anchor. Positive `dx` moves right.
+    /// Negative `dy` moves upward.
     this.popoverOffset,
+
+    /// Controls popover visibility lifecycle.
+    ///
+    /// `whileDragging` shows only during gestures.
+    /// `always` keeps popover visible when idle.
     this.popoverVisibility,
+
+    /// Formats denormalized value for default popover + semantics text.
+    ///
+    /// If null, defaults to percentage text from normalized value.
+    /// Use for currency formatting, e.g. `\$99`.
     this.valueFormatter,
+
+    /// Semantic label announced by accessibility services.
+    ///
+    /// If null, falls back to `'Wave slider'`.
     this.semanticsLabel,
   }) : assert(max > min);
 
@@ -56,33 +198,143 @@ class WaveSlider extends StatefulWidget {
   /// `97`, `99`, `120`). Gesture updates and [onChanged] emit values in
   /// `[min, max]`.
   factory WaveSlider.domain({
+    /// Passes identity through the widget tree.
     Key? key,
+
+    /// Current domain value.
+    ///
+    /// Clamped to `[min..max]` before painting.
     required double value,
+
+    /// Fires for tap/drag updates in domain units.
+    ///
+    /// Callback receives values already denormalized into `[min..max]`.
     required ValueChanged<double> onChanged,
+
+    /// Histogram amplitudes used for bar heights.
+    ///
+    /// Values are clamped into `[0..1]` per bar.
     required List<double> samples,
+
+    /// Domain lower bound.
+    ///
+    /// `0` means price starts at zero.
+    /// Negative values are supported.
     double min = 0,
+
+    /// Domain upper bound.
+    ///
+    /// Must be greater than [min].
+    /// Callback outputs never exceed this bound.
     double max = 1,
+
+    /// Overall painted height.
+    ///
+    /// `0` collapses bars; positive values increase wave area.
     double? height,
+
+    /// Insets around drawable content.
+    ///
+    /// Larger values reduce bar drawing width and thumb travel area.
     EdgeInsets? padding,
+
+    /// Width of each waveform bar.
+    ///
+    /// `0` produces no visible bar thickness.
     double? barWidth,
+
+    /// Gap between bars.
+    ///
+    /// `0` makes bars contiguous.
     double? barGap,
+
+    /// Minimum bar height.
+    ///
+    /// `0` allows flat bars for quiet samples.
     double? minBarHeight,
+
+    /// Maximum bar height.
+    ///
+    /// Final value is capped by available widget height.
     double? maxBarHeight,
+
+    /// Corner radius for waveform bars.
+    ///
+    /// `0` renders sharp corners.
     double? cornerRadius,
+
+    /// Color for progressed bars.
+    ///
+    /// Null defers to theme/default.
     Color? activeColor,
+
+    /// Color for remaining bars.
+    ///
+    /// Null defers to theme/default.
     Color? inactiveColor,
+
+    /// Opacity applied when disabled.
+    ///
+    /// `0` fully transparent; `1` no dimming.
     double? disabledOpacity,
+
+    /// Whether to paint thumb.
+    ///
+    /// `false` keeps interactions but hides thumb visuals.
     bool? showThumb,
+
+    /// Thumb radius.
+    ///
+    /// `0` hides the thumb circle.
     double? thumbRadius,
+
+    /// Thumb fill color override.
+    ///
+    /// Null defers to theme/default.
     Color? thumbColor,
+
+    /// Thumb border color override.
+    ///
+    /// Null defers to theme/default.
     Color? thumbBorderColor,
+
+    /// Thumb border width.
+    ///
+    /// `0` disables the border stroke.
     double? thumbBorderWidth,
+
+    /// Extra vertical gesture hit area.
+    ///
+    /// Positive values improve drag ergonomics.
     double? hitSlop,
+
+    /// Enables interactions.
+    ///
+    /// `false` disables gestures and callback updates.
     bool? enabled,
+
+    /// Popover builder for domain value labels.
+    ///
+    /// Receives [ShadPopoverData] with denormalized `value`.
     ShadPopoverBuilder? popoverBuilder,
+
+    /// Popover anchor offset.
+    ///
+    /// Positive `dx` shifts right, negative shifts left.
+    /// Positive `dy` moves down, negative moves up.
     Offset? popoverOffset,
+
+    /// Popover visibility policy.
+    ///
+    /// Use `always` for persistent pricing labels.
     ShadPopoverVisibility? popoverVisibility,
+
+    /// Formatter for denormalized value text.
+    ///
+    /// Useful for currency/locale output.
     String Function(double value)? valueFormatter,
+
+    /// Accessibility label for screen readers.
     String? semanticsLabel,
   }) {
     return WaveSlider(

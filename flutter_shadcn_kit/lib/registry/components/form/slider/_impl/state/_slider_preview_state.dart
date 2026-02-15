@@ -38,87 +38,110 @@ class _SliderPreviewState extends State<SliderPreview> {
         : width >= 760
         ? 2
         : 1;
+    final spacing = 24 * scaling;
+    final horizontalPadding = 24 * scaling;
+    final cardWidth =
+        (width - horizontalPadding * 2 - spacing * (columns - 1)) / columns;
 
     return Scaffold(
       backgroundColor: const Color(0xFFEFEFEF),
-      body: GridView.count(
-        padding: EdgeInsets.all(24 * scaling),
-        crossAxisCount: columns,
-        crossAxisSpacing: 24 * scaling,
-        mainAxisSpacing: 24 * scaling,
-        childAspectRatio: 1.9,
-        children: [
-          _PreviewCard(
-            title: 'Adjust brightness',
-            trailing: '${(_brightness * 100).round()}%',
-            child: BrightnessSlider(
-              min: 0,
-              max: 1,
-              value: _brightness,
-              onChanged: (value) => setState(() => _brightness = value),
-            ),
-          ),
-          _PreviewCard(
-            title: 'Range selector (ring thumb)',
-            child: RangeSoftSlider(
-              min: 0,
-              max: 10,
-              rangeValue: _range,
-              onChanged: (value) => setState(() => _range = value),
-              thumbBuilder: ShadSliderDefaults.circleThumb,
-            ),
-          ),
-          _PreviewCard(
-            title: 'Steps + dots',
-            child: StepsDotsSlider(
-              min: 0,
-              max: 10,
-              value: _stepped,
-              steps: 10,
-              dragPopoverBuilder: ShadSliderDefaults.valuePopover(
-                formatter: (value) => '\$${(value).toStringAsFixed(2)}',
-              ),
-              onChanged: (value) => setState(() => _stepped = value),
-            ),
-          ),
-          _PreviewCard(
-            title: 'Waveform preset',
-            child: WaveformSlider(
-              min: 0,
-              max: 1,
-              value: _wave,
-              onChanged: (value) => setState(() => _wave = value),
-              ticksBuilder: (context, state) =>
-                  _waveformTicks(context, state, _amps),
-              thumbBuilder: ShadSliderDefaults.circleThumb,
-              dragPopoverBuilder: ShadSliderDefaults.valuePopover(
-                formatter: (value) => '\$${(value * 120).toStringAsFixed(2)}',
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(horizontalPadding),
+        child: Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Adjust brightness',
+                trailing: '${(_brightness * 100).round()}%',
+                child: BrightnessSlider(
+                  min: 0,
+                  max: 1,
+                  value: _brightness,
+                  onChanged: (value) => setState(() => _brightness = value),
+                ),
               ),
             ),
-          ),
-          _PreviewCard(
-            title: 'Wave slider variant',
-            trailing: '\$${_price.toStringAsFixed(0)}',
-            child: WaveSlider.domain(
-              min: 90,
-              max: 120,
-              value: _price,
-              onChanged: (value) => setState(() => _price = value),
-              samples: _amps,
-              popoverVisibility: ShadPopoverVisibility.always,
-              popoverBuilder: ShadSliderDefaults.valuePopover(
-                formatter: (value) => '\$${value.toStringAsFixed(0)}',
-                shape: ShadPopoverShape.pill,
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Range selector (ring thumb)',
+                child: RangeSoftSlider(
+                  min: 0,
+                  max: 10,
+                  rangeValue: _range,
+                  onChanged: (value) => setState(() => _range = value),
+                  thumbBuilder: ShadSliderDefaults.circleThumb,
+                ),
               ),
             ),
-          ),
-          _PreviewCard(
-            title: 'Airbnb-style price range',
-            trailing:
-                '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
-            child: _airbnbPriceRangeExample(context),
-          ),
-        ],
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Steps + dots',
+                child: StepsDotsSlider(
+                  min: 0,
+                  max: 10,
+                  value: _stepped,
+                  steps: 10,
+                  dragPopoverBuilder: ShadSliderDefaults.valuePopover(
+                    formatter: (value) => 'Step - ${value.toStringAsFixed(2)}',
+                  ),
+                  onChanged: (value) => setState(() => _stepped = value),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Waveform preset',
+                child: WaveformSlider(
+                  min: 0,
+                  max: 1,
+                  value: _wave,
+                  onChanged: (value) => setState(() => _wave = value),
+                  ticksBuilder: (context, state) =>
+                      _waveformTicks(context, state, _amps),
+                  thumbBuilder: ShadSliderDefaults.circleThumb,
+                  dragPopoverBuilder: ShadSliderDefaults.valuePopover(
+                    formatter: (value) =>
+                        '\$${(value * 120).toStringAsFixed(2)}',
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Wave slider variant',
+                trailing: '\$${_price.toStringAsFixed(0)}',
+                child: WaveSlider.domain(
+                  min: 90,
+                  max: 120,
+                  value: _price,
+                  onChanged: (value) => setState(() => _price = value),
+                  samples: _amps,
+                  popoverVisibility: ShadPopoverVisibility.always,
+                  popoverBuilder: ShadSliderDefaults.valuePopover(
+                    formatter: (value) => '\$${value.toStringAsFixed(0)}',
+                    shape: ShadPopoverShape.pill,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: cardWidth,
+              child: _PreviewCard(
+                title: 'Airbnb-style price range',
+                trailing:
+                    '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+                child: _airbnbPriceRangeExample(context),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -139,7 +162,7 @@ class _SliderPreviewState extends State<SliderPreview> {
           max: 1600,
           rangeValue: _priceRange,
           onChanged: (value) => setState(() => _priceRange = value),
-          trackHeight: 3,
+          trackHeight: 1,
           trackRadius: 999,
           joinGapPx: 0,
           thumbSize: const Size(34, 34),
@@ -255,22 +278,9 @@ class _PreviewCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: SizedBox(width: 420, child: child),
-                    ),
-                  ),
-                );
-              },
-            ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(width: 420, child: child),
           ),
         ],
       ),
