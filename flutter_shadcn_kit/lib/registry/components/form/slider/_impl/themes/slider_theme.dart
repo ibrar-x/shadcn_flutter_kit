@@ -174,118 +174,334 @@ class SliderTheme extends ComponentThemeData {
 
   /// Creates theme overrides for [Slider] and [WaveSlider].
   const SliderTheme({
+    /// Density token override for this component scope.
     super.themeDensity,
+
+    /// Spacing token override for this component scope.
     super.themeSpacing,
+
+    /// Shadow token override for this component scope.
     super.themeShadows,
+
+    /// See [trackHeight].
     this.trackHeight,
+
+    /// See [trackRadius].
     this.trackRadius,
+
+    /// See [thumbInset].
     this.thumbInset,
+
+    /// See [thumbSize].
     this.thumbSize,
+
+    /// See [thumbRadius].
     this.thumbRadius,
+
+    /// See [thumbEdgeOffsetPx].
     this.thumbEdgeOffsetPx,
+
+    /// See [thumbVerticalOffsetPx].
     this.thumbVerticalOffsetPx,
+
+    /// See [joinGapPx].
     this.joinGapPx,
+
+    /// See [fillStopsAtThumbCenter].
     this.fillStopsAtThumbCenter,
+
+    /// See [fillEdgeBiasPx].
     this.fillEdgeBiasPx,
+
+    /// See [preset].
     this.preset,
+
+    /// See [trackBuilder].
     this.trackBuilder,
+
+    /// See [fillBuilder].
     this.fillBuilder,
+
+    /// See [thumbBuilder].
     this.thumbBuilder,
+
+    /// See [ticksBuilder].
     this.ticksBuilder,
+
+    /// See [overlayBuilder].
     this.overlayBuilder,
+
+    /// See [segmentLayout].
     this.segmentLayout,
+
+    /// See [trackRenderer].
     this.trackRenderer,
+
+    /// See [dragPopoverBuilder].
     this.dragPopoverBuilder,
+
+    /// See [dragPopoverOffset].
     this.dragPopoverOffset,
+
+    /// See [dragPopoverVisibility].
     this.dragPopoverVisibility,
+
+    /// See [popoverShape].
     this.popoverShape,
+
+    /// See [popoverBackgroundColor].
     this.popoverBackgroundColor,
+
+    /// See [popoverForegroundColor].
     this.popoverForegroundColor,
+
+    /// See [guideColor].
     this.guideColor,
+
+    /// See [fillActiveColor].
     this.fillActiveColor,
+
+    /// See [fillInactiveColor].
     this.fillInactiveColor,
+
+    /// See [thumbFillColor].
     this.thumbFillColor,
+
+    /// See [thumbBorderColor].
     this.thumbBorderColor,
+
+    /// See [dotsActiveColor].
     this.dotsActiveColor,
+
+    /// See [dotsInactiveColor].
     this.dotsInactiveColor,
+
+    /// See [waveformTicksActiveColor].
     this.waveformTicksActiveColor,
+
+    /// See [waveformTicksInactiveColor].
     this.waveformTicksInactiveColor,
+
+    /// See [waveHeight].
     this.waveHeight,
+
+    /// See [wavePadding].
     this.wavePadding,
+
+    /// See [waveBarWidth].
     this.waveBarWidth,
+
+    /// See [waveBarGap].
     this.waveBarGap,
+
+    /// See [waveMinBarHeight].
     this.waveMinBarHeight,
+
+    /// See [waveMaxBarHeight].
     this.waveMaxBarHeight,
+
+    /// See [waveCornerRadius].
     this.waveCornerRadius,
+
+    /// See [waveActiveColor].
     this.waveActiveColor,
+
+    /// See [waveInactiveColor].
     this.waveInactiveColor,
+
+    /// See [waveDisabledOpacity].
     this.waveDisabledOpacity,
+
+    /// See [waveShowThumb].
     this.waveShowThumb,
+
+    /// See [waveThumbRadius].
     this.waveThumbRadius,
+
+    /// See [waveThumbColor].
     this.waveThumbColor,
+
+    /// See [waveThumbBorderColor].
     this.waveThumbBorderColor,
+
+    /// See [waveThumbBorderWidth].
     this.waveThumbBorderWidth,
+
+    /// See [waveHitSlop].
     this.waveHitSlop,
+
+    /// See [waveEnabled].
     this.waveEnabled,
+
+    /// See [wavePopoverBuilder].
     this.wavePopoverBuilder,
+
+    /// See [wavePopoverOffset].
     this.wavePopoverOffset,
+
+    /// See [wavePopoverVisibility].
     this.wavePopoverVisibility,
   });
 
   /// Returns a copy with selected fields replaced.
   SliderTheme copyWith({
+    /// Replacement for [trackHeight].
     ValueGetter<double?>? trackHeight,
+
+    /// Replacement for [trackRadius].
     ValueGetter<double?>? trackRadius,
+
+    /// Replacement for [thumbInset].
     ValueGetter<double?>? thumbInset,
+
+    /// Replacement for [thumbSize].
     ValueGetter<Size?>? thumbSize,
+
+    /// Replacement for [thumbRadius].
     ValueGetter<double?>? thumbRadius,
+
+    /// Replacement for [thumbEdgeOffsetPx].
     ValueGetter<double?>? thumbEdgeOffsetPx,
+
+    /// Replacement for [thumbVerticalOffsetPx].
     ValueGetter<double?>? thumbVerticalOffsetPx,
+
+    /// Replacement for [joinGapPx].
     ValueGetter<double?>? joinGapPx,
+
+    /// Replacement for [fillStopsAtThumbCenter].
     ValueGetter<bool?>? fillStopsAtThumbCenter,
+
+    /// Replacement for [fillEdgeBiasPx].
     ValueGetter<double?>? fillEdgeBiasPx,
+
+    /// Replacement for [preset].
     ValueGetter<String?>? preset,
+
+    /// Replacement for [trackBuilder].
     ValueGetter<ShadTrackBuilder?>? trackBuilder,
+
+    /// Replacement for [fillBuilder].
     ValueGetter<ShadFillBuilder?>? fillBuilder,
+
+    /// Replacement for [thumbBuilder].
     ValueGetter<ShadThumbBuilder?>? thumbBuilder,
+
+    /// Replacement for [ticksBuilder].
     ValueGetter<ShadTicksBuilder?>? ticksBuilder,
+
+    /// Replacement for [overlayBuilder].
     ValueGetter<ShadOverlayBuilder?>? overlayBuilder,
+
+    /// Replacement for [segmentLayout].
     ValueGetter<ShadSegmentLayout?>? segmentLayout,
+
+    /// Replacement for [trackRenderer].
     ValueGetter<ShadTrackRenderer?>? trackRenderer,
+
+    /// Replacement for [dragPopoverBuilder].
     ValueGetter<ShadPopoverBuilder?>? dragPopoverBuilder,
+
+    /// Replacement for [dragPopoverOffset].
     ValueGetter<Offset?>? dragPopoverOffset,
+
+    /// Replacement for [dragPopoverVisibility].
     ValueGetter<ShadPopoverVisibility?>? dragPopoverVisibility,
+
+    /// Replacement for [popoverShape].
     ValueGetter<ShadPopoverShape?>? popoverShape,
+
+    /// Replacement for [popoverBackgroundColor].
     ValueGetter<Color?>? popoverBackgroundColor,
+
+    /// Replacement for [popoverForegroundColor].
     ValueGetter<Color?>? popoverForegroundColor,
+
+    /// Replacement for [guideColor].
     ValueGetter<Color?>? guideColor,
+
+    /// Replacement for [fillActiveColor].
     ValueGetter<Color?>? fillActiveColor,
+
+    /// Replacement for [fillInactiveColor].
     ValueGetter<Color?>? fillInactiveColor,
+
+    /// Replacement for [thumbFillColor].
     ValueGetter<Color?>? thumbFillColor,
+
+    /// Replacement for [thumbBorderColor].
     ValueGetter<Color?>? thumbBorderColor,
+
+    /// Replacement for [dotsActiveColor].
     ValueGetter<Color?>? dotsActiveColor,
+
+    /// Replacement for [dotsInactiveColor].
     ValueGetter<Color?>? dotsInactiveColor,
+
+    /// Replacement for [waveformTicksActiveColor].
     ValueGetter<Color?>? waveformTicksActiveColor,
+
+    /// Replacement for [waveformTicksInactiveColor].
     ValueGetter<Color?>? waveformTicksInactiveColor,
+
+    /// Replacement for [waveHeight].
     ValueGetter<double?>? waveHeight,
+
+    /// Replacement for [wavePadding].
     ValueGetter<EdgeInsets?>? wavePadding,
+
+    /// Replacement for [waveBarWidth].
     ValueGetter<double?>? waveBarWidth,
+
+    /// Replacement for [waveBarGap].
     ValueGetter<double?>? waveBarGap,
+
+    /// Replacement for [waveMinBarHeight].
     ValueGetter<double?>? waveMinBarHeight,
+
+    /// Replacement for [waveMaxBarHeight].
     ValueGetter<double?>? waveMaxBarHeight,
+
+    /// Replacement for [waveCornerRadius].
     ValueGetter<double?>? waveCornerRadius,
+
+    /// Replacement for [waveActiveColor].
     ValueGetter<Color?>? waveActiveColor,
+
+    /// Replacement for [waveInactiveColor].
     ValueGetter<Color?>? waveInactiveColor,
+
+    /// Replacement for [waveDisabledOpacity].
     ValueGetter<double?>? waveDisabledOpacity,
+
+    /// Replacement for [waveShowThumb].
     ValueGetter<bool?>? waveShowThumb,
+
+    /// Replacement for [waveThumbRadius].
     ValueGetter<double?>? waveThumbRadius,
+
+    /// Replacement for [waveThumbColor].
     ValueGetter<Color?>? waveThumbColor,
+
+    /// Replacement for [waveThumbBorderColor].
     ValueGetter<Color?>? waveThumbBorderColor,
+
+    /// Replacement for [waveThumbBorderWidth].
     ValueGetter<double?>? waveThumbBorderWidth,
+
+    /// Replacement for [waveHitSlop].
     ValueGetter<double?>? waveHitSlop,
+
+    /// Replacement for [waveEnabled].
     ValueGetter<bool?>? waveEnabled,
+
+    /// Replacement for [wavePopoverBuilder].
     ValueGetter<ShadPopoverBuilder?>? wavePopoverBuilder,
+
+    /// Replacement for [wavePopoverOffset].
     ValueGetter<Offset?>? wavePopoverOffset,
+
+    /// Replacement for [wavePopoverVisibility].
     ValueGetter<ShadPopoverVisibility?>? wavePopoverVisibility,
   }) {
     return SliderTheme(

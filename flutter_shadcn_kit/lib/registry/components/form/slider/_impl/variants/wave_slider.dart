@@ -197,6 +197,7 @@ class WaveSlider extends StatefulWidget {
   /// Use this when your app value is not normalized (for example prices such as
   /// `97`, `99`, `120`). Gesture updates and [onChanged] emit values in
   /// `[min, max]`.
+  ///
   factory WaveSlider.domain({
     /// Passes identity through the widget tree.
     Key? key,

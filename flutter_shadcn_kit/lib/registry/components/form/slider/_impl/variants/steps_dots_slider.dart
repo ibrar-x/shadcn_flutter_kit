@@ -4,36 +4,94 @@ import 'base_slider_variant.dart';
 /// Preset wrapper for `stepsDots` single slider.
 class StepsDotsSlider extends SingleSliderVariantBase {
   const StepsDotsSlider({
+    /// Passes identity through the widget tree.
     super.key,
+
+    /// Current single value.
     required super.value,
+
+    /// Fired after snap/clamp resolution.
     required super.onChanged,
+
+    /// Number of discrete snap intervals.
+    ///
+    /// Must be greater than `0` (asserted).
     this.steps = 10,
+
+    /// Lower bound.
     super.min,
+
+    /// Upper bound.
     super.max,
+
+    /// Enables/disables gestures.
     super.enabled,
+
+    /// Track height override.
     super.trackHeight,
+
+    /// Track radius override.
     super.trackRadius,
+
+    /// Thumb inset override.
     super.thumbInset,
+
+    /// Thumb size override.
     super.thumbSize,
+
+    /// Thumb radius override.
     super.thumbRadius,
+
+    /// Horizontal thumb offset override.
     super.thumbEdgeOffsetPx,
+
+    /// Vertical thumb offset override.
     super.thumbVerticalOffsetPx,
+
+    /// Segment join gap override.
     super.joinGapPx,
+
+    /// Fill alignment override.
     super.fillStopsAtThumbCenter,
+
+    /// Fill edge bias override.
     super.fillEdgeBiasPx,
+
+    /// Custom track builder override.
     super.trackBuilder,
+
+    /// Custom fill builder override.
     super.fillBuilder,
+
+    /// Custom thumb builder override.
     super.thumbBuilder,
+
+    /// Custom ticks builder override.
     super.ticksBuilder,
+
+    /// Custom overlay builder override.
     super.overlayBuilder,
+
+    /// Segment layout override.
     super.segmentLayout,
+
+    /// Unified renderer override.
     super.trackRenderer,
+
+    /// Popover builder override.
     super.dragPopoverBuilder,
+
+    /// Popover offset override.
     super.dragPopoverOffset,
+
+    /// Popover visibility override.
     super.dragPopoverVisibility,
+
+    /// Accessibility label override.
     super.semanticLabel,
   }) : assert(steps > 0);
 
+  /// Discrete step count used by [resolvedSnap].
   final int steps;
 
   @override

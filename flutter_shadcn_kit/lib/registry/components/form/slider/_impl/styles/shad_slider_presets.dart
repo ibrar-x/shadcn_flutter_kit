@@ -10,37 +10,87 @@ enum ShadSliderPreset { brightness, rangeSoft, stepsDots, waveform }
 /// Resolved preset output: builders + tuned layout values.
 class ShadPresetResolved {
   const ShadPresetResolved({
+    /// Resolved base track builder.
     required this.trackBuilder,
+
+    /// Resolved fill builder.
     required this.fillBuilder,
+
+    /// Resolved thumb builder.
     required this.thumbBuilder,
+
+    /// Resolved ticks builder.
     required this.ticksBuilder,
+
+    /// Resolved overlay builder.
     required this.overlayBuilder,
+
+    /// Resolved track height.
     required this.trackHeight,
+
+    /// Resolved thumb inset.
     required this.thumbInset,
+
+    /// Resolved fill edge bias.
     required this.fillEdgeBiasPx,
   });
 
+  /// Base track builder selected after preset + overrides.
   final ShadTrackBuilder trackBuilder;
+
+  /// Fill builder selected after preset + overrides.
   final ShadFillBuilder fillBuilder;
+
+  /// Thumb builder selected after preset + overrides.
   final ShadThumbBuilder thumbBuilder;
+
+  /// Ticks builder selected after preset + overrides.
   final ShadTicksBuilder ticksBuilder;
+
+  /// Overlay builder selected after preset + overrides.
   final ShadOverlayBuilder overlayBuilder;
 
+  /// Track height selected by preset.
   final double trackHeight;
+
+  /// Thumb inset selected by preset.
   final double thumbInset;
+
+  /// Fill edge bias selected by preset.
   final double fillEdgeBiasPx;
 }
 
+/// Resolves final builder/layout values for a given [preset].
+///
+/// Explicit widget/theme overrides win first; preset fills only missing pieces.
 ShadPresetResolved resolveShadSliderPreset(
   BuildContext context, {
+
+  /// Preset identity to resolve.
   required ShadSliderPreset preset,
+
+  /// Base track height before preset adjustments.
   required double trackHeight,
+
+  /// Base thumb inset before preset adjustments.
   required double thumbInset,
+
+  /// Base fill bias before preset adjustments.
   required double fillEdgeBiasPx,
+
+  /// Optional track builder override.
   ShadTrackBuilder? trackBuilder,
+
+  /// Optional fill builder override.
   ShadFillBuilder? fillBuilder,
+
+  /// Optional thumb builder override.
   ShadThumbBuilder? thumbBuilder,
+
+  /// Optional ticks builder override.
   ShadTicksBuilder? ticksBuilder,
+
+  /// Optional overlay builder override.
   ShadOverlayBuilder? overlayBuilder,
 }) {
   // Presets only fill missing inputs; explicit widget/theme inputs win.

@@ -6,21 +6,34 @@ import '../../../../../shared/theme/theme.dart';
 import '../themes/slider_theme.dart';
 import 'shad_slider_models.dart';
 
+/// Unified rendering contract for slider track layers.
 abstract class ShadTrackRenderer {
   const ShadTrackRenderer();
 
+  /// Builds visual layers for the provided computed slider [view].
   Widget build(BuildContext context, ShadSliderStateView view);
 }
 
+/// Adapter that renders legacy `track/fill/ticks` builders in order.
 class ShadLegacyBuildersRenderer extends ShadTrackRenderer {
   const ShadLegacyBuildersRenderer({
+    /// Base track layer builder.
     required this.trackBuilder,
+
+    /// Active/remaining fill layer builder.
     required this.fillBuilder,
+
+    /// Tick/mark layer builder.
     required this.ticksBuilder,
   });
 
+  /// Base track layer builder.
   final ShadTrackBuilder trackBuilder;
+
+  /// Fill layer builder.
   final ShadFillBuilder fillBuilder;
+
+  /// Tick layer builder.
   final ShadTicksBuilder ticksBuilder;
 
   @override
@@ -36,9 +49,16 @@ class ShadLegacyBuildersRenderer extends ShadTrackRenderer {
   }
 }
 
+/// Default segmented renderer that draws each [ShadSegment] as a capsule.
 class ShadSegmentedCapsuleRenderer extends ShadTrackRenderer {
-  const ShadSegmentedCapsuleRenderer({this.styleResolver});
+  const ShadSegmentedCapsuleRenderer({
+    /// Optional per-segment style resolver.
+    ///
+    /// If null, renderer uses theme-aware defaults by segment kind.
+    this.styleResolver,
+  });
 
+  /// Optional style resolver for custom segment colors/borders/radii.
   final ShadSegmentStyleResolver? styleResolver;
 
   @override
@@ -105,11 +125,16 @@ class ShadSegmentedCapsuleRenderer extends ShadTrackRenderer {
   }
 }
 
+/// Renderer that adds step dots on top of a base segmented track.
 class ShadStepDotsRenderer extends ShadTrackRenderer {
   const ShadStepDotsRenderer({
+    /// Base renderer used before dots are painted.
+    ///
+    /// Use this to swap the underlying segment style.
     this.base = const ShadSegmentedCapsuleRenderer(),
   });
 
+  /// Base renderer for non-dot layers.
   final ShadTrackRenderer base;
 
   @override
@@ -144,13 +169,22 @@ class ShadStepDotsRenderer extends ShadTrackRenderer {
   }
 }
 
+/// Renderer that paints waveform-like bars over a base segmented track.
 class ShadWaveformRenderer extends ShadTrackRenderer {
   const ShadWaveformRenderer({
+    /// Base renderer used before waveform bars are painted.
     this.base = const ShadSegmentedCapsuleRenderer(),
+
+    /// Number of generated bars across track width.
+    ///
+    /// `0` is invalid. Higher values increase detail and paint cost.
     this.bars = 64,
   });
 
+  /// Base renderer for non-wave layers.
   final ShadTrackRenderer base;
+
+  /// Number of waveform bars to render.
   final int bars;
 
   @override

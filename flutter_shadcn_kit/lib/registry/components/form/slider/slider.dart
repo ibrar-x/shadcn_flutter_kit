@@ -66,34 +66,108 @@ class Slider extends StatefulWidget {
   ///
   /// Alias of [Slider.single].
   factory Slider({
+    /// Widget identity key.
     Key? key,
+
+    /// Current single value.
+    ///
+    /// Clamped to `[min, max]` before rendering.
     required double value,
+
+    /// Fired after drag/tap updates resolve.
+    ///
+    /// Receives clamped/snapped value.
     required ValueChanged<double> onChanged,
+
+    /// Lower bound of slider domain.
+    ///
+    /// `0` starts at zero; negative values are allowed.
     double min = 0,
+
+    /// Upper bound of slider domain.
+    ///
+    /// Must be greater than [min].
     double max = 1,
+
+    /// Enables/disables interactions.
     bool enabled = true,
+
+    /// Snapping mode for tap/drag output values.
     ShadSnap snap = const ShadSnap.none(),
+
+    /// Track height override.
     double? trackHeight,
+
+    /// Track radius override.
     double? trackRadius,
+
+    /// Horizontal thumb inset override.
     double? thumbInset,
+
+    /// Thumb size override.
     Size? thumbSize,
+
+    /// Default thumb radius override.
     double? thumbRadius,
+
+    /// Horizontal thumb offset override.
+    ///
+    /// `0` keeps baseline position; positive pushes outward.
+    /// Negative pulls inward.
     double? thumbEdgeOffsetPx,
+
+    /// Vertical thumb offset override.
+    ///
+    /// `0` centers; positive down; negative up.
     double? thumbVerticalOffsetPx,
+
+    /// Segment gap around thumb centers.
+    ///
+    /// `0` joins segments directly.
     double? joinGapPx,
+
+    /// Fill alignment mode relative to thumb center.
     bool? fillStopsAtThumbCenter,
+
+    /// Fill edge bias override.
+    ///
+    /// `0` no bias; positive trims/offsets edge.
     double? fillEdgeBiasPx,
+
+    /// Preset identifier (`brightness`, `rangeSoft`, `stepsDots`, `waveform`).
     String? preset,
+
+    /// Custom track builder override.
     ShadTrackBuilder? trackBuilder,
+
+    /// Custom fill builder override.
     ShadFillBuilder? fillBuilder,
+
+    /// Custom thumb builder override.
     ShadThumbBuilder? thumbBuilder,
+
+    /// Custom ticks builder override.
     ShadTicksBuilder? ticksBuilder,
+
+    /// Custom overlay builder override.
     ShadOverlayBuilder? overlayBuilder,
+
+    /// Segment layout override.
     ShadSegmentLayout? segmentLayout,
+
+    /// Unified renderer override.
     ShadTrackRenderer? trackRenderer,
+
+    /// Popover builder override.
     ShadPopoverBuilder? dragPopoverBuilder,
+
+    /// Popover anchor offset override.
     Offset? dragPopoverOffset,
+
+    /// Popover visibility override.
     ShadPopoverVisibility? dragPopoverVisibility,
+
+    /// Accessibility label override.
     String? semanticLabel,
   }) {
     return Slider.single(
