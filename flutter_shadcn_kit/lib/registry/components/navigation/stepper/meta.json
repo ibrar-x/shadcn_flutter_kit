@@ -25,6 +25,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/step.dart",
     "_impl/core/step_container.dart",

@@ -25,6 +25,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_clip_rect_with_adjustment.dart",
     "_impl/core/_tab_ghost_data.dart",

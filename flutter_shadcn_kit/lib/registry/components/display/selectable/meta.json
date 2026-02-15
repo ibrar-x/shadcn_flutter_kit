@@ -15,6 +15,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/selectable_text.dart",
     "meta.json",

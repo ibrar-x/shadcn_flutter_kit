@@ -22,6 +22,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/collapsible_content.dart",
     "_impl/core/collapsible_trigger.dart",

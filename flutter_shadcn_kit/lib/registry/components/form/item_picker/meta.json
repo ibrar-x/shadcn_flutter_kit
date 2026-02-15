@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_internal_item_picker.dart",
     "_impl/core/grid_item_picker_layout.dart",

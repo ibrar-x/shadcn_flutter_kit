@@ -307,7 +307,7 @@ class _TextAnimatePreviewState extends m.State<TextAnimatePreview> {
               borderRadius: m.BorderRadius.circular(10),
             ),
             child: StreamingText(
-              text: _streamByMode[mode] ?? '',
+              text: (_streamByMode[mode] ?? ''),
               style: const m.TextStyle(fontSize: 16, height: 1.45),
               typewriter: const TypewriterEffect(enabled: false),
               effect: _effectFor(animation),

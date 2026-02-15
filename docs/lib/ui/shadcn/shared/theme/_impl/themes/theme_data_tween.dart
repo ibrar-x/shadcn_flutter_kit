@@ -1,5 +1,6 @@
 part of '../../theme.dart';
 
+/// ThemeDataTween defines a reusable type for this registry module.
 class ThemeDataTween extends Tween<ThemeData> {
   /// Creates a [ThemeDataTween].
   ///
@@ -9,6 +10,7 @@ class ThemeDataTween extends Tween<ThemeData> {
   ThemeDataTween({required ThemeData super.begin, required super.end});
 
   @override
+/// Executes `lerp` behavior for this component/composite.
   ThemeData lerp(double t) {
     if (end == null) {
       return begin!;

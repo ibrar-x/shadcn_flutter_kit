@@ -21,6 +21,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/auto_complete.dart",
     "_impl/core/auto_complete_mode.dart",

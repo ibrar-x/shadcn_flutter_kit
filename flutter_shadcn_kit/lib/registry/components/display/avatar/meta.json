@@ -18,6 +18,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_avatar_state.dart",
     "_impl/core/_avatar_widget.dart",

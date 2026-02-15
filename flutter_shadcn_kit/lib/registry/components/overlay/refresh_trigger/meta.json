@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/default_refresh_indicator.dart",
     "_impl/core/refresh_trigger_stage.dart",

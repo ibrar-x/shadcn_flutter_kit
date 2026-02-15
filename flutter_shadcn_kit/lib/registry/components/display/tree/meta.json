@@ -23,6 +23,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_path_painter.dart",
     "_impl/core/_tree_item_view_state.dart",

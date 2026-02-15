@@ -16,6 +16,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/media_query_visibility.dart",
     "media_query.dart",

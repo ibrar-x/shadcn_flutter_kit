@@ -16,8 +16,8 @@
     "pubspec": {}
   },
   "files": [
-    "README.md",
     "GETTING_STARTED.md",
+    "README.md",
     "meta.json",
     "repeated_animation_builder.dart",
     "repeated_animation_builder.meta.json"

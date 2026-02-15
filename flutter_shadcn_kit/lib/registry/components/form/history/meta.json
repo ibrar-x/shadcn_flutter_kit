@@ -22,6 +22,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/color_history_storage.dart",
     "_impl/core/recent_colors_scope.dart",

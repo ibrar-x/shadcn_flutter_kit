@@ -1,5 +1,6 @@
 part of '../../util.dart';
 
+/// CachedValueWidget defines a reusable type for this registry module.
 class CachedValueWidget<T> extends StatefulWidget {
   /// The value to cache and pass to builder.
   final T value;
@@ -15,5 +16,6 @@ class CachedValueWidget<T> extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<StatefulWidget> createState() => _CachedValueWidgetState<T>();
 }

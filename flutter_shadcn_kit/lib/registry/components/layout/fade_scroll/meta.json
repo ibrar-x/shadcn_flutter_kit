@@ -17,6 +17,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_scale_gradient.dart",
     "_impl/core/fade_scroll_2.dart",

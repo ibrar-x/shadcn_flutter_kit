@@ -31,6 +31,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_always_visible_input_feature_visibility.dart",
     "_impl/core/_attached_input_feature.dart",

@@ -28,6 +28,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_blur_container.dart",
     "_impl/core/_dragging_window.dart",

@@ -20,6 +20,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/state/_code_snippet_state.dart",
     "_impl/themes/code_snippet_theme.dart",

@@ -20,6 +20,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_rich_text_then_widget.dart",
     "_impl/core/_selectable_text_then_widget.dart",

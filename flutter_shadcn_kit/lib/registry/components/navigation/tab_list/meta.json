@@ -20,6 +20,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/tab_list.dart",
     "_impl/core/tab_list_2.dart",

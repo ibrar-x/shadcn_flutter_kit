@@ -16,6 +16,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/scrollbar_widget.dart",
     "_impl/core/shadcn_scrollbar.dart",

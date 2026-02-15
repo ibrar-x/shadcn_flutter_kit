@@ -24,6 +24,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/controlled_date_picker.dart",
     "_impl/core/date_range_picker.dart",

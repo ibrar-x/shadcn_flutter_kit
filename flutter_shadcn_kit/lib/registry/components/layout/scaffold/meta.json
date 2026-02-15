@@ -24,6 +24,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_render_scaffold_padding.dart",
     "_impl/core/_scaffold_flex.dart",

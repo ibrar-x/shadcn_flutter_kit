@@ -30,6 +30,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/menu_button.dart",
     "_impl/core/menu_checkbox.dart",

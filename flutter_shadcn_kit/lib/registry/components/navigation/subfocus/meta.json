@@ -16,6 +16,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/sub_focus.dart",
     "_impl/state/_sub_focus_scope_state.dart",

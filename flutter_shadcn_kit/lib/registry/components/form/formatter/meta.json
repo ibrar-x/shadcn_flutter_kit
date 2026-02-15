@@ -21,6 +21,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/utils/_double_only_formatter.dart",
     "_impl/utils/_hex_text_formatter.dart",

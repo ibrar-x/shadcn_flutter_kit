@@ -21,6 +21,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/dashed_container.dart",
     "_impl/core/dashed_container_properties.dart",

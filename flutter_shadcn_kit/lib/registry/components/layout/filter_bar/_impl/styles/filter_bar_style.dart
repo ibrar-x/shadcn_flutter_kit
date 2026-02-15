@@ -90,6 +90,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
     this.onClose,
     this.footer,
     this.maxHeight = 560,
+    this.contentPadding,
   });
 
   /// Stores `title` state/configuration for this implementation.
@@ -106,6 +107,9 @@ class FilterBarSheetScaffold extends StatelessWidget {
 
   /// Stores `maxHeight` state/configuration for this implementation.
   final double maxHeight;
+
+  /// Stores `contentPadding` state/configuration for this implementation.
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   /// Executes `build` behavior for this component/composite.
@@ -127,7 +131,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
             ),
           ],
         ),
-        padding: EdgeInsets.all(16 * scaling),
+        padding: contentPadding ?? EdgeInsets.all(16 * scaling),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: maxHeight * scaling),
           child: Column(

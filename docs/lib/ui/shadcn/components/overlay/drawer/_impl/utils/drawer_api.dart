@@ -104,6 +104,7 @@ DrawerOverlayCompleter<T?> openSheetOverlay<T>({
   required BuildContext context,
   required WidgetBuilder builder,
   required OverlayPosition position,
+  bool useRootDrawerOverlay = true,
   bool barrierDismissible = true,
   bool transformBackdrop = false,
   WidgetBuilder? backdropBuilder,
@@ -118,6 +119,7 @@ DrawerOverlayCompleter<T?> openSheetOverlay<T>({
   barrierColor ??= theme?.barrierColor;
   return openRawDrawer<T>(
     context: context,
+    useRootDrawerOverlay: useRootDrawerOverlay,
     transformBackdrop: transformBackdrop,
     barrierDismissible: barrierDismissible,
     useSafeArea: false, // handled by the sheet itself
@@ -223,6 +225,7 @@ Future<T?> openSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
   required OverlayPosition position,
+  bool useRootDrawerOverlay = true,
   bool barrierDismissible = true,
   bool transformBackdrop = false,
   Color? barrierColor,
@@ -236,6 +239,7 @@ Future<T?> openSheet<T>({
     context: context,
     builder: builder,
     position: position,
+    useRootDrawerOverlay: useRootDrawerOverlay,
     barrierDismissible: barrierDismissible,
     transformBackdrop: transformBackdrop,
     barrierColor: barrierColor,

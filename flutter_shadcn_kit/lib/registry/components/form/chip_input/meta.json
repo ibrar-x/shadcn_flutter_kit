@@ -27,6 +27,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/state/_chip_input_preview_state.dart",
     "_impl/state/chip_input_state.dart",

@@ -30,6 +30,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_color_value_input.dart",
     "_impl/core/color_controls.dart",

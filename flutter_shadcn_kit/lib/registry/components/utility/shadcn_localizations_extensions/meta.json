@@ -20,6 +20,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "meta.json",
     "preview.dart",

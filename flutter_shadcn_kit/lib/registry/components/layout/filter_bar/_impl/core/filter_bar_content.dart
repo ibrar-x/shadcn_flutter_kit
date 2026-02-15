@@ -24,6 +24,9 @@ class _FilterBarContent extends StatelessWidget {
     required this.sheetTriggerLabel,
     required this.sheetTitle,
     required this.sheetPosition,
+    required this.useRootSheetOverlay,
+    required this.sheetConstraints,
+    required this.sheetContentPadding,
     required this.groups,
     required this.onSearchChanged,
     required this.onSortChanged,
@@ -93,6 +96,15 @@ class _FilterBarContent extends StatelessWidget {
 
   /// Stores `sheetPosition` state/configuration for this implementation.
   final OverlayPosition sheetPosition;
+
+  /// Stores `useRootSheetOverlay` state/configuration for this implementation.
+  final bool useRootSheetOverlay;
+
+  /// Stores `sheetConstraints` state/configuration for this implementation.
+  final BoxConstraints? sheetConstraints;
+
+  /// Stores `sheetContentPadding` state/configuration for this implementation.
+  final EdgeInsetsGeometry? sheetContentPadding;
 
   /// Stores `groups` state/configuration for this implementation.
   final List<FilterGroup> groups;
@@ -530,7 +542,9 @@ class _FilterBarContent extends StatelessWidget {
     await openSheet<void>(
       context: context,
       position: sheetPosition,
+      useRootDrawerOverlay: useRootSheetOverlay,
       draggable: true,
+      constraints: sheetConstraints,
       builder: (context) {
         return _FilterBarMobileSheet(
           initialState: state,
@@ -544,6 +558,7 @@ class _FilterBarContent extends StatelessWidget {
           clearAllLabel: clearAllLabel,
           title: sheetTitle,
           showClearAllWhenEmpty: showClearAllWhenEmpty,
+          sheetContentPadding: sheetContentPadding,
           onStateChanged: onStateChanged,
           buildSortControl: (sheetState, onChanged) => _buildSortControl(
             double.infinity,
@@ -583,6 +598,7 @@ class _FilterBarMobileSheet extends StatefulWidget {
     required this.clearAllLabel,
     required this.title,
     required this.showClearAllWhenEmpty,
+    required this.sheetContentPadding,
     required this.onStateChanged,
     required this.buildSortControl,
     required this.buildDateRangeControl,
@@ -621,6 +637,9 @@ class _FilterBarMobileSheet extends StatefulWidget {
 
   /// Stores `showClearAllWhenEmpty` state/configuration for this implementation.
   final bool showClearAllWhenEmpty;
+
+  /// Stores `sheetContentPadding` state/configuration for this implementation.
+  final EdgeInsetsGeometry? sheetContentPadding;
 
   /// Stores `onStateChanged` state/configuration for this implementation.
   final FilterStateChanged onStateChanged;
@@ -691,6 +710,7 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
 
         return FilterBarSheetScaffold(
           title: widget.title,
+          contentPadding: widget.sheetContentPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: widget.groups.isEmpty

@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_calendar_preview_state.dart",
     "_impl/core/_calendar_state.dart",

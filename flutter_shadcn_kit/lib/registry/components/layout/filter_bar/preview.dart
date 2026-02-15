@@ -57,15 +57,19 @@ class _ExampleSection extends StatelessWidget {
 
     return OutlinedContainer(
       padding: EdgeInsets.all(12 * scaling),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: theme.typography.large),
-          SizedBox(height: 6 * scaling),
-          Text(description, style: theme.typography.small),
-          SizedBox(height: 10 * scaling),
-          child,
-        ],
+      child: ClipRect(
+        child: DrawerOverlay(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: theme.typography.large),
+              SizedBox(height: 6 * scaling),
+              Text(description, style: theme.typography.small),
+              SizedBox(height: 10 * scaling),
+              child,
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -110,6 +114,7 @@ class _SimpleExampleState extends State<_SimpleExample> {
         children: [
           FilterBar(
             state: _state,
+            presentation: FilterBarPresentation.inline,
             sortOptions: _sortOptions,
             enableDateRange: true,
             resultsCount: filtered.length,
@@ -200,6 +205,7 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
         children: [
           FilterBar(
             state: _state,
+            presentation: FilterBarPresentation.inline,
             resultsCount: visible.length,
             sortOptions: const [
               FilterSortOption(id: 'priority_desc', label: 'Priority ↓'),
@@ -373,8 +379,7 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
         children: [
           FilterBar(
             state: _state,
-            presentation: FilterBarPresentation.autoSheet,
-            sheetBreakpoint: 980,
+            presentation: FilterBarPresentation.inline,
             sheetTitle: 'Product filters',
             sheetTriggerLabel: 'Filters',
             groups: const [
@@ -477,12 +482,12 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                     );
                   }
 
-                  return Row(
+                  return Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: [
                       checkboxTile('direct', 'Direct'),
-                      const SizedBox(width: 8),
                       checkboxTile('marketplace', 'Marketplace'),
-                      const SizedBox(width: 8),
                       checkboxTile('reseller', 'Reseller'),
                     ],
                   );
@@ -515,93 +520,70 @@ class _MobileOnlySheetExample extends StatefulWidget {
 
 class _MobileOnlySheetExampleState extends State<_MobileOnlySheetExample> {
   FilterState _state = const FilterState();
-  OverlayPosition _sheetPosition = OverlayPosition.bottom;
 
   @override
   Widget build(BuildContext context) {
-    final labels = {
-      OverlayPosition.bottom: 'Bottom Sheet',
-      OverlayPosition.right: 'Right Sheet',
-    };
-
     return _ExampleSection(
       title: 'Mobile-only Sheet (Scoped)',
       description:
-          'Forces sheet mode and lets users choose sheet position. State and behavior are scoped to this outlined container.',
+          'Forces sheet mode with a bottom sheet scoped to this outlined container.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            width: 220,
-            child: Select<OverlayPosition>(
-              value: _sheetPosition,
-              itemBuilder: (context, value) => Text(labels[value] ?? 'Sheet'),
-              popup: SelectPopup<OverlayPosition>(
-                items: SelectItemList(
-                  children: const [
-                    SelectItemButton<OverlayPosition>(
-                      value: OverlayPosition.bottom,
-                      child: Text('Bottom Sheet'),
-                    ),
-                    SelectItemButton<OverlayPosition>(
-                      value: OverlayPosition.right,
-                      child: Text('Right Sheet'),
-                    ),
-                  ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final maxHeight = constraints.maxHeight;
+              return FilterBar(
+                state: _state,
+                presentation: FilterBarPresentation.sheet,
+                useRootSheetOverlay: false,
+                sheetTitle: 'Mobile Filters',
+                sheetTriggerLabel: 'Open Filters',
+                sheetPosition: OverlayPosition.bottom,
+                sheetConstraints: BoxConstraints(
+                  maxWidth: constraints.maxWidth,
+                  maxHeight: maxHeight > 300 ? 300 : maxHeight,
                 ),
-              ).call,
-              onChanged: (next) {
-                if (next == null) {
-                  return;
-                }
-                setState(() => _sheetPosition = next);
-              },
-            ),
-          ),
-          const SizedBox(height: 8),
-          FilterBar(
-            state: _state,
-            presentation: FilterBarPresentation.sheet,
-            sheetTitle: 'Mobile Filters',
-            sheetTriggerLabel: 'Open Filters',
-            sheetPosition: _sheetPosition,
-            sortOptions: const [
-              FilterSortOption(id: 'newest', label: 'Newest'),
-              FilterSortOption(id: 'oldest', label: 'Oldest'),
-            ],
-            enableDateRange: true,
-            customFilters: [
-              FilterCustomFilter(
-                id: 'quick_status',
-                builder: (context, state, onStateChanged) {
-                  final status = state.customValue<String>('quick_status');
-                  return Select<String>(
-                    value: status,
-                    canUnselect: true,
-                    placeholder: const Text('Quick status'),
-                    itemBuilder: (context, value) => Text(value),
-                    popup: SelectPopup<String>(
-                      items: SelectItemList(
-                        children: const [
-                          SelectItemButton<String>(
-                            value: 'open',
-                            child: Text('Open'),
+                sheetContentPadding: const EdgeInsets.all(12),
+                sortOptions: const [
+                  FilterSortOption(id: 'newest', label: 'Newest'),
+                  FilterSortOption(id: 'oldest', label: 'Oldest'),
+                ],
+                enableDateRange: true,
+                customFilters: [
+                  FilterCustomFilter(
+                    id: 'quick_status',
+                    builder: (context, state, onStateChanged) {
+                      final status = state.customValue<String>('quick_status');
+                      return Select<String>(
+                        value: status,
+                        canUnselect: true,
+                        placeholder: const Text('Quick status'),
+                        itemBuilder: (context, value) => Text(value),
+                        popup: SelectPopup<String>(
+                          items: SelectItemList(
+                            children: const [
+                              SelectItemButton<String>(
+                                value: 'open',
+                                child: Text('Open'),
+                              ),
+                              SelectItemButton<String>(
+                                value: 'closed',
+                                child: Text('Closed'),
+                              ),
+                            ],
                           ),
-                          SelectItemButton<String>(
-                            value: 'closed',
-                            child: Text('Closed'),
-                          ),
-                        ],
-                      ),
-                    ).call,
-                    onChanged: (next) {
-                      onStateChanged(state.setCustomValue('quick_status', next));
+                        ).call,
+                        onChanged: (next) {
+                          onStateChanged(state.setCustomValue('quick_status', next));
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-            ],
-            onStateChanged: (next) => setState(() => _state = next),
+                  ),
+                ],
+                onStateChanged: (next) => setState(() => _state = next),
+              );
+            },
           ),
         ],
       ),

@@ -20,6 +20,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/themes/circular_progress_indicator_theme.dart",
     "circular_progress_indicator.dart",
