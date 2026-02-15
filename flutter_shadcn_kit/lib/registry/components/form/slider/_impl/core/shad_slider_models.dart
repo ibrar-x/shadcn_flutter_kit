@@ -22,21 +22,43 @@ typedef ShadTicksBuilder =
 typedef ShadOverlayBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
 
-/// Builds a drag popover anchored to the active thumb.
-typedef ShadDragPopoverBuilder =
-    Widget Function(
-      BuildContext context,
-      ShadSliderStateView state,
-      ShadThumbStateView thumb,
-    );
+/// Data payload for generic slider popover builders.
+class ShadPopoverData {
+  const ShadPopoverData({
+    required this.value,
+    required this.normalizedValue,
+    this.isDragging = false,
+    this.thumbIndex,
+    this.state,
+    this.thumb,
+    this.meta = const <String, Object?>{},
+  });
 
-/// Builds a popover for [WaveSlider].
-typedef ShadWavePopoverBuilder =
-    Widget Function(
-      BuildContext context,
-      double normalizedValue,
-      double denormalizedValue,
-    );
+  /// Denormalized value in the active slider domain.
+  final double value;
+
+  /// Normalized progress value in `[0..1]`.
+  final double normalizedValue;
+
+  /// Whether pointer drag is currently active.
+  final bool isDragging;
+
+  /// Active thumb index for range sliders.
+  final int? thumbIndex;
+
+  /// Full slider state when available (track/range sliders).
+  final ShadSliderStateView? state;
+
+  /// Active thumb state when available (track/range sliders).
+  final ShadThumbStateView? thumb;
+
+  /// Free-form extension map for future/custom slider metadata.
+  final Map<String, Object?> meta;
+}
+
+/// Builds a popover for any slider variant.
+typedef ShadPopoverBuilder =
+    Widget Function(BuildContext context, ShadPopoverData data);
 
 /// Controls when slider popovers are visible.
 enum ShadPopoverVisibility {

@@ -64,7 +64,7 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
   final ShadOverlayBuilder? overlayBuilder;
   final ShadSegmentLayout? segmentLayout;
   final ShadTrackRenderer? trackRenderer;
-  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final ShadPopoverBuilder? dragPopoverBuilder;
   final Offset? dragPopoverOffset;
   final ShadPopoverVisibility? dragPopoverVisibility;
 
@@ -173,7 +173,7 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
   final ShadOverlayBuilder? overlayBuilder;
   final ShadSegmentLayout? segmentLayout;
   final ShadTrackRenderer? trackRenderer;
-  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final ShadPopoverBuilder? dragPopoverBuilder;
   final Offset? dragPopoverOffset;
   final ShadPopoverVisibility? dragPopoverVisibility;
 

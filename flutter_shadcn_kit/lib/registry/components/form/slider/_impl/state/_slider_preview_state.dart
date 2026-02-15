@@ -93,7 +93,7 @@ class _SliderPreviewState extends State<SliderPreview> {
               onChanged: (value) => setState(() => _price = value),
               samples: _amps,
               popoverVisibility: ShadPopoverVisibility.always,
-              popoverBuilder: ShadSliderDefaults.waveValuePopover(
+              popoverBuilder: ShadSliderDefaults.valuePopover(
                 formatter: (value) => '\$${value.toStringAsFixed(0)}',
                 shape: ShadPopoverShape.pill,
               ),

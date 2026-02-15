@@ -91,7 +91,7 @@ class Slider extends StatefulWidget {
     ShadOverlayBuilder? overlayBuilder,
     ShadSegmentLayout? segmentLayout,
     ShadTrackRenderer? trackRenderer,
-    ShadDragPopoverBuilder? dragPopoverBuilder,
+    ShadPopoverBuilder? dragPopoverBuilder,
     Offset? dragPopoverOffset,
     ShadPopoverVisibility? dragPopoverVisibility,
     String? semanticLabel,
@@ -241,7 +241,7 @@ class Slider extends StatefulWidget {
     ShadTrackRenderer? trackRenderer,
 
     /// Custom popover shown while dragging.
-    ShadDragPopoverBuilder? dragPopoverBuilder,
+    ShadPopoverBuilder? dragPopoverBuilder,
 
     /// Popover offset from thumb anchor.
     Offset? dragPopoverOffset,
@@ -384,7 +384,7 @@ class Slider extends StatefulWidget {
     ShadTrackRenderer? trackRenderer,
 
     /// Custom popover shown while dragging.
-    ShadDragPopoverBuilder? dragPopoverBuilder,
+    ShadPopoverBuilder? dragPopoverBuilder,
 
     /// Popover offset from thumb anchor.
     Offset? dragPopoverOffset,
@@ -552,7 +552,7 @@ class Slider extends StatefulWidget {
   final ShadTrackRenderer? trackRenderer;
 
   /// Custom popover shown while dragging.
-  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final ShadPopoverBuilder? dragPopoverBuilder;
 
   /// Popover offset from thumb anchor.
   final Offset? dragPopoverOffset;
@@ -703,7 +703,7 @@ class _SliderState extends State<Slider> {
       themeValue: compTheme?.trackRenderer,
       defaultValue: null,
     );
-    final resolvedDragPopoverBuilder = styleValue<ShadDragPopoverBuilder?>(
+    final resolvedDragPopoverBuilder = styleValue<ShadPopoverBuilder?>(
       widgetValue: widget.dragPopoverBuilder,
       themeValue: compTheme?.dragPopoverBuilder,
       defaultValue: null,
@@ -835,8 +835,19 @@ class _SliderState extends State<Slider> {
                         child: IgnorePointer(
                           child: resolvedDragPopoverBuilder(
                             context,
-                            view,
-                            active,
+                            ShadPopoverData(
+                              value: active.value,
+                              normalizedValue: active.t,
+                              isDragging: _dragging,
+                              thumbIndex: idx,
+                              state: view,
+                              thumb: active,
+                              meta: <String, Object?>{
+                                'isRange': widget.isRange,
+                                'min': widget.min,
+                                'max': widget.max,
+                              },
+                            ),
                           ),
                         ),
                       ),

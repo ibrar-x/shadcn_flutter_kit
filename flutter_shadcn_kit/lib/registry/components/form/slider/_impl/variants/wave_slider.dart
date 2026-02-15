@@ -79,7 +79,7 @@ class WaveSlider extends StatefulWidget {
     double? thumbBorderWidth,
     double? hitSlop,
     bool? enabled,
-    ShadWavePopoverBuilder? popoverBuilder,
+    ShadPopoverBuilder? popoverBuilder,
     Offset? popoverOffset,
     ShadPopoverVisibility? popoverVisibility,
     String Function(double value)? valueFormatter,
@@ -195,7 +195,7 @@ class WaveSlider extends StatefulWidget {
   final bool? enabled;
 
   /// Optional popover shown above the thumb.
-  final ShadWavePopoverBuilder? popoverBuilder;
+  final ShadPopoverBuilder? popoverBuilder;
 
   /// Popover anchor offset from thumb center.
   final Offset? popoverOffset;
@@ -329,7 +329,7 @@ class _WaveSliderState extends State<WaveSlider> {
       themeValue: compTheme?.waveHitSlop,
       defaultValue: baseGap,
     );
-    final resolvedPopoverBuilder = styleValue<ShadWavePopoverBuilder?>(
+    final resolvedPopoverBuilder = styleValue<ShadPopoverBuilder?>(
       widgetValue: widget.popoverBuilder,
       themeValue: compTheme?.wavePopoverBuilder,
       defaultValue: null,
@@ -351,7 +351,7 @@ class _WaveSliderState extends State<WaveSlider> {
         widget.valueFormatter?.call(denormalizedValue) ??
         '${(normalizedValue * 100).round()}%';
 
-    final defaultWavePopover = ShadSliderDefaults.waveValuePopover(
+    final defaultWavePopover = ShadSliderDefaults.valuePopover(
       formatter: widget.valueFormatter,
       shape: compTheme?.popoverShape,
     );
@@ -418,8 +418,17 @@ class _WaveSliderState extends State<WaveSlider> {
                   child: IgnorePointer(
                     child: effectivePopoverBuilder(
                       context,
-                      normalizedValue,
-                      denormalizedValue,
+                      ShadPopoverData(
+                        value: denormalizedValue,
+                        normalizedValue: normalizedValue,
+                        isDragging: _dragging,
+                        meta: <String, Object?>{
+                          'min': widget.min,
+                          'max': widget.max,
+                          'valueIsNormalized': widget.valueIsNormalized,
+                          'samplesCount': widget.samples.length,
+                        },
+                      ),
                     ),
                   ),
                 ),

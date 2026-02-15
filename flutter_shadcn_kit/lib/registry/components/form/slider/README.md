@@ -145,8 +145,8 @@ Use `ShadContinuousLayout` for no-gap geometry, and
 WaveformSlider(
   value: v,
   onChanged: onChanged,
-  dragPopoverBuilder: (context, state, thumb) {
-    final price = (thumb.value * 120).toStringAsFixed(2);
+  dragPopoverBuilder: (context, data) {
+    final price = (data.value * 120).toStringAsFixed(2);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
@@ -182,7 +182,7 @@ WaveSlider.domain(
   samples: amplitudes,
   valueFormatter: (v) => '\$${v.toStringAsFixed(0)}',
   popoverVisibility: ShadPopoverVisibility.always,
-  popoverBuilder: ShadSliderDefaults.waveValuePopoverPill(
+  popoverBuilder: ShadSliderDefaults.valuePopoverPill(
     formatter: (v) => '\$${v.toStringAsFixed(0)}',
   ),
 );

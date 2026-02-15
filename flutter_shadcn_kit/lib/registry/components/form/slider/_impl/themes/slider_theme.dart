@@ -68,7 +68,7 @@ class SliderTheme extends ComponentThemeData {
   final ShadTrackRenderer? trackRenderer;
 
   /// Optional drag popover builder shown for active thumb while dragging.
-  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final ShadPopoverBuilder? dragPopoverBuilder;
 
   /// Popover anchor offset in logical pixels.
   final Offset? dragPopoverOffset;
@@ -164,7 +164,7 @@ class SliderTheme extends ComponentThemeData {
   final bool? waveEnabled;
 
   /// Optional popover builder for [WaveSlider].
-  final ShadWavePopoverBuilder? wavePopoverBuilder;
+  final ShadPopoverBuilder? wavePopoverBuilder;
 
   /// Wave popover anchor offset.
   final Offset? wavePopoverOffset;
@@ -252,7 +252,7 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<ShadOverlayBuilder?>? overlayBuilder,
     ValueGetter<ShadSegmentLayout?>? segmentLayout,
     ValueGetter<ShadTrackRenderer?>? trackRenderer,
-    ValueGetter<ShadDragPopoverBuilder?>? dragPopoverBuilder,
+    ValueGetter<ShadPopoverBuilder?>? dragPopoverBuilder,
     ValueGetter<Offset?>? dragPopoverOffset,
     ValueGetter<ShadPopoverVisibility?>? dragPopoverVisibility,
     ValueGetter<ShadPopoverShape?>? popoverShape,
@@ -284,7 +284,7 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<double?>? waveThumbBorderWidth,
     ValueGetter<double?>? waveHitSlop,
     ValueGetter<bool?>? waveEnabled,
-    ValueGetter<ShadWavePopoverBuilder?>? wavePopoverBuilder,
+    ValueGetter<ShadPopoverBuilder?>? wavePopoverBuilder,
     ValueGetter<Offset?>? wavePopoverOffset,
     ValueGetter<ShadPopoverVisibility?>? wavePopoverVisibility,
   }) {
