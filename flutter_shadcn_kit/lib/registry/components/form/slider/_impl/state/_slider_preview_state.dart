@@ -7,6 +7,7 @@ class _SliderPreviewState extends State<SliderPreview> {
   double _wave = 0.35;
   double _price = 97;
   ShadRangeValue _range = const ShadRangeValue(3, 8, minRange: 0);
+  ShadRangeValue _priceRange = const ShadRangeValue(220, 1250, minRange: 80);
 
   late final List<double> _amps = List.generate(80, (index) {
     final t = index / 79.0;
@@ -14,6 +15,15 @@ class _SliderPreviewState extends State<SliderPreview> {
       0.05,
       1.0,
     );
+  });
+
+  late final List<double> _priceBars = List.generate(44, (index) {
+    final t = index / 43.0;
+    final center = exp(-pow((t - 0.52) / 0.22, 2));
+    final ripple = 0.25 * sin(t * pi * 8).abs();
+    final edgeMask = (1 - (t - 0.5).abs() * 2).clamp(0.0, 1.0);
+    final value = (center * 0.78 + ripple * 0.22) * pow(edgeMask, 0.34);
+    return value.clamp(0.03, 1.0).toDouble();
   });
 
   @override
@@ -65,6 +75,9 @@ class _SliderPreviewState extends State<SliderPreview> {
               max: 10,
               value: _stepped,
               steps: 10,
+              dragPopoverBuilder: ShadSliderDefaults.valuePopover(
+                formatter: (value) => '\$${(value).toStringAsFixed(2)}',
+              ),
               onChanged: (value) => setState(() => _stepped = value),
             ),
           ),
@@ -99,8 +112,113 @@ class _SliderPreviewState extends State<SliderPreview> {
               ),
             ),
           ),
+          _PreviewCard(
+            title: 'Airbnb-style price range',
+            trailing:
+                '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+            child: _airbnbPriceRangeExample(context),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _airbnbPriceRangeExample(BuildContext context) {
+    final accent = const Color(0xFFD9366E);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Trip price, includes all fees',
+          style: TextStyle(color: Colors.black.withOpacity(0.68), fontSize: 13),
+        ),
+        const SizedBox(height: 14),
+        RangeSoftSlider(
+          min: 40,
+          max: 1600,
+          rangeValue: _priceRange,
+          onChanged: (value) => setState(() => _priceRange = value),
+          trackHeight: 3,
+          trackRadius: 999,
+          joinGapPx: 0,
+          thumbSize: const Size(34, 34),
+          trackBuilder: (context, state) {
+            return Positioned(
+              left: 0,
+              right: 0,
+              top: state.trackRect.top,
+              child: Container(
+                height: state.trackRect.height,
+                decoration: BoxDecoration(
+                  color: accent.withOpacity(0.26),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+            );
+          },
+          fillBuilder: (context, state) {
+            final selected = state.rangeRect ?? Rect.zero;
+            return Stack(
+              children: [
+                Positioned.fromRect(
+                  rect: selected,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: accent,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          ticksBuilder: (context, state) =>
+              _priceHistogramTicks(context, state, _priceBars, accent),
+          thumbBuilder: _priceRangeThumb,
+          dragPopoverBuilder: ShadSliderDefaults.valuePopoverPill(
+            formatter: (value) => '\$${value.round()}',
+          ),
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Expanded(
+              child: _priceChip(label: 'Minimum', value: _priceRange.start),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _priceChip(label: 'Maximum', value: _priceRange.end),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _priceChip({required String label, required double value}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(color: Colors.black.withOpacity(0.58), fontSize: 12),
+        ),
+        const SizedBox(height: 6),
+        Container(
+          height: 36,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: const Color(0xFFD9D9D9)),
+          ),
+          child: Text(
+            '\$${value.round()}',
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -188,6 +306,73 @@ Widget _waveformTicks(
             ),
         ],
       ),
+    ),
+  );
+}
+
+Widget _priceRangeThumb(BuildContext context, ShadThumbStateView t) {
+  return IgnorePointer(
+    ignoring: true,
+    child: Container(
+      width: t.size.width,
+      height: t.size.height,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFD6D6D6), width: 1),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x22000000),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _priceHistogramTicks(
+  BuildContext context,
+  ShadSliderStateView state,
+  List<double> bars,
+  Color accent,
+) {
+  final width = state.trackRect.width;
+  final lineTop = state.trackRect.top;
+  final maxHeight = 34.0;
+  final count = bars.length;
+  final step = width / count;
+  final barW = max(2.0, step * 0.72);
+  final range = state.rangeValue;
+  final min = state.min;
+  final maxV = state.max;
+  final inv = (maxV - min).abs() < 0.0001 ? 1.0 : (maxV - min);
+  final tStart = ((range?.start ?? min) - min) / inv;
+  final tEnd = ((range?.end ?? min) - min) / inv;
+
+  return IgnorePointer(
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        for (int i = 0; i < count; i++)
+          Positioned(
+            left: i * step + (step - barW) / 2,
+            top: lineTop - (maxHeight * bars[i]) - 4,
+            child: Container(
+              width: barW,
+              height: maxHeight * bars[i],
+              decoration: BoxDecoration(
+                color: (() {
+                  final t = i / (count - 1);
+                  final selected = t >= tStart && t <= tEnd;
+                  return selected ? accent : accent.withOpacity(0.32);
+                })(),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+      ],
     ),
   );
 }
