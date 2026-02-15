@@ -1,5 +1,7 @@
 import 'dart:math' as math;
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Theme;
+
+import '../../../../../shared/theme/theme.dart';
 
 import '../core/shad_slider_models.dart';
 
@@ -28,8 +30,8 @@ class ShadSliderDefaults {
         final r = BorderRadius.circular(s.trackRadius);
 
         // Flatter + lighter track like Linear/Stripe
-        final bg = cs.surface.withOpacity(s.enabled ? 0.92 : 0.80);
-        final border = cs.onSurface.withOpacity(s.enabled ? 0.06 : 0.05);
+        final bg = cs.background.withOpacity(s.enabled ? 0.92 : 0.80);
+        final border = cs.foreground.withOpacity(s.enabled ? 0.06 : 0.05);
 
         return ClipRRect(
           borderRadius: r,
@@ -126,10 +128,10 @@ class ShadSliderDefaults {
             height: barH,
             margin: const EdgeInsets.symmetric(vertical: 6),
             decoration: BoxDecoration(
-              color: cs.surface.withOpacity(t.enabled ? 1 : 0.7),
+              color: cs.background.withOpacity(t.enabled ? 1 : 0.7),
               borderRadius: BorderRadius.circular(2),
               border: Border.all(
-                color: cs.onSurface.withOpacity(0.10),
+                color: cs.foreground.withOpacity(0.10),
                 width: 1,
               ),
             ),
@@ -146,7 +148,7 @@ class ShadSliderDefaults {
   /// Clean "ring" thumb: subtle border + small inner dot.
   static Widget circleThumb(BuildContext context, ShadThumbStateView t) {
     final cs = Theme.of(context).colorScheme;
-    final border = cs.onSurface.withOpacity(0.18);
+    final border = cs.foreground.withOpacity(0.18);
     final ring = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
     final d = t.size.width;
 
@@ -184,7 +186,7 @@ class ShadSliderDefaults {
 
   static Widget squareThumb(BuildContext context, ShadThumbStateView t) {
     final cs = Theme.of(context).colorScheme;
-    final border = cs.onSurface.withOpacity(0.12);
+    final border = cs.foreground.withOpacity(0.12);
     final w = t.size.width;
     final h = t.size.height * 0.85;
 
@@ -199,7 +201,7 @@ class ShadSliderDefaults {
             height: h,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: cs.surface,
+                color: cs.background,
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(color: border, width: 1),
               ),
@@ -212,7 +214,7 @@ class ShadSliderDefaults {
 
   static Widget pinThumb(BuildContext context, ShadThumbStateView t) {
     final cs = Theme.of(context).colorScheme;
-    final border = cs.onSurface.withOpacity(0.12);
+    final border = cs.foreground.withOpacity(0.12);
     final dot = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
 
     return IgnorePointer(
@@ -238,7 +240,7 @@ class ShadSliderDefaults {
               width: 14,
               height: 14,
               decoration: BoxDecoration(
-                color: cs.surface,
+                color: cs.background,
                 shape: BoxShape.circle,
                 border: Border.all(color: border, width: 1),
               ),
@@ -260,8 +262,8 @@ class ShadSliderDefaults {
   static Widget dotsTicks(BuildContext context, ShadSliderStateView s) {
     final cs = Theme.of(context).colorScheme;
     final activeT = s.t ?? 0;
-    final active = cs.onSurface.withOpacity(0.18);
-    final inactive = cs.onSurface.withOpacity(0.08);
+    final active = cs.foreground.withOpacity(0.18);
+    final inactive = cs.foreground.withOpacity(0.08);
 
     return IgnorePointer(
       child: Stack(
@@ -298,7 +300,7 @@ class ShadSliderDefaults {
     final activeX = w * activeT;
 
     final active = cs.primary.withOpacity(0.95);
-    final inactive = cs.onSurface.withOpacity(0.12);
+    final inactive = cs.foreground.withOpacity(0.12);
 
     return IgnorePointer(
       child: ClipRRect(

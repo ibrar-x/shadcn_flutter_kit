@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Slider, Theme;
+
+import '../../../shared/theme/theme.dart';
 
 import '_impl/core/shad_slider_logic.dart';
 import '_impl/core/shad_slider_models.dart';
