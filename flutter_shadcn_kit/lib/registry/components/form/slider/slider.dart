@@ -56,6 +56,8 @@ class Slider extends StatefulWidget {
     required this.overlayBuilder,
     required this.segmentLayout,
     required this.trackRenderer,
+    required this.dragPopoverBuilder,
+    required this.dragPopoverOffset,
     required this.semanticLabel,
   });
 
@@ -88,6 +90,8 @@ class Slider extends StatefulWidget {
     ShadOverlayBuilder? overlayBuilder,
     ShadSegmentLayout? segmentLayout,
     ShadTrackRenderer? trackRenderer,
+    ShadDragPopoverBuilder? dragPopoverBuilder,
+    Offset? dragPopoverOffset,
     String? semanticLabel,
   }) {
     return Slider.single(
@@ -116,6 +120,8 @@ class Slider extends StatefulWidget {
       overlayBuilder: overlayBuilder,
       segmentLayout: segmentLayout,
       trackRenderer: trackRenderer,
+      dragPopoverBuilder: dragPopoverBuilder,
+      dragPopoverOffset: dragPopoverOffset,
       semanticLabel: semanticLabel,
     );
   }
@@ -231,6 +237,12 @@ class Slider extends StatefulWidget {
     /// Unified track renderer.
     ShadTrackRenderer? trackRenderer,
 
+    /// Custom popover shown while dragging.
+    ShadDragPopoverBuilder? dragPopoverBuilder,
+
+    /// Popover offset from thumb anchor.
+    Offset? dragPopoverOffset,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -262,6 +274,8 @@ class Slider extends StatefulWidget {
       overlayBuilder: overlayBuilder,
       segmentLayout: segmentLayout,
       trackRenderer: trackRenderer,
+      dragPopoverBuilder: dragPopoverBuilder,
+      dragPopoverOffset: dragPopoverOffset,
       semanticLabel: semanticLabel,
     );
   }
@@ -362,6 +376,12 @@ class Slider extends StatefulWidget {
     /// Unified track renderer.
     ShadTrackRenderer? trackRenderer,
 
+    /// Custom popover shown while dragging.
+    ShadDragPopoverBuilder? dragPopoverBuilder,
+
+    /// Popover offset from thumb anchor.
+    Offset? dragPopoverOffset,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -394,6 +414,8 @@ class Slider extends StatefulWidget {
       overlayBuilder: overlayBuilder,
       segmentLayout: segmentLayout,
       trackRenderer: trackRenderer,
+      dragPopoverBuilder: dragPopoverBuilder,
+      dragPopoverOffset: dragPopoverOffset,
       semanticLabel: semanticLabel,
     );
   }
@@ -517,6 +539,12 @@ class Slider extends StatefulWidget {
 
   /// Unified track renderer.
   final ShadTrackRenderer? trackRenderer;
+
+  /// Custom popover shown while dragging.
+  final ShadDragPopoverBuilder? dragPopoverBuilder;
+
+  /// Popover offset from thumb anchor.
+  final Offset? dragPopoverOffset;
 
   /// Optional accessibility label.
   final String? semanticLabel;
@@ -661,6 +689,16 @@ class _SliderState extends State<Slider> {
       themeValue: compTheme?.trackRenderer,
       defaultValue: null,
     );
+    final resolvedDragPopoverBuilder = styleValue<ShadDragPopoverBuilder?>(
+      widgetValue: widget.dragPopoverBuilder,
+      themeValue: compTheme?.dragPopoverBuilder,
+      defaultValue: null,
+    );
+    final resolvedDragPopoverOffset = styleValue<Offset>(
+      widgetValue: widget.dragPopoverOffset,
+      themeValue: compTheme?.dragPopoverOffset,
+      defaultValue: const Offset(0, -12),
+    );
 
     final preset = _parsePreset(resolvedPresetName, isRange: widget.isRange);
     final resolved = resolveShadSliderPreset(
@@ -752,6 +790,35 @@ class _SliderState extends State<Slider> {
                   left: t.center.dx - t.size.width / 2,
                   top: t.center.dy - t.size.height / 2,
                   child: effectiveThumbBuilder(context, t),
+                ),
+              if (_dragging &&
+                  resolvedDragPopoverBuilder != null &&
+                  view.thumbs.isNotEmpty)
+                Builder(
+                  builder: (context) {
+                    final idx = (_activeThumb ?? 0).clamp(
+                      0,
+                      view.thumbs.length - 1,
+                    );
+                    final active = view.thumbs[idx];
+                    return Positioned(
+                      left: active.center.dx + resolvedDragPopoverOffset.dx,
+                      top:
+                          active.center.dy -
+                          active.size.height / 2 +
+                          resolvedDragPopoverOffset.dy,
+                      child: FractionalTranslation(
+                        translation: const Offset(-0.5, -1.0),
+                        child: IgnorePointer(
+                          child: resolvedDragPopoverBuilder(
+                            context,
+                            view,
+                            active,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               resolved.overlayBuilder(context, view),
             ],

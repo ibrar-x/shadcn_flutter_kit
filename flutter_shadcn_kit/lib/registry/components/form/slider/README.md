@@ -140,6 +140,37 @@ Slider.single(
 Use `ShadContinuousLayout` for no-gap geometry, and
 `ShadWaveformRenderer` / `ShadStepDotsRenderer` for specialized rendering.
 
+### Drag popover (custom, e.g. price)
+```dart
+WaveformSlider(
+  value: v,
+  onChanged: onChanged,
+  dragPopoverBuilder: (context, state, thumb) {
+    final price = (thumb.value * 120).toStringAsFixed(2);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0F172A),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text('\$$price', style: const TextStyle(color: Colors.white)),
+    );
+  },
+  dragPopoverOffset: const Offset(0, -12),
+);
+```
+
+### Drag popover (built-in helper)
+```dart
+Slider.single(
+  value: value,
+  onChanged: onChanged,
+  dragPopoverBuilder: ShadSliderDefaults.valuePopover(
+    formatter: (v) => '${(v * 100).round()}%',
+  ),
+);
+```
+
 
 ### Preset wrappers
 ```dart

@@ -22,6 +22,14 @@ typedef ShadTicksBuilder =
 typedef ShadOverlayBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
 
+/// Builds a drag popover anchored to the active thumb.
+typedef ShadDragPopoverBuilder =
+    Widget Function(
+      BuildContext context,
+      ShadSliderStateView state,
+      ShadThumbStateView thumb,
+    );
+
 /// Resolves per-segment style during segmented rendering.
 typedef ShadSegmentStyleResolver =
     ShadSegmentStyle Function(

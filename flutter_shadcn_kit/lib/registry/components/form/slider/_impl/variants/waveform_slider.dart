@@ -25,6 +25,10 @@ class WaveformSlider extends SingleSliderVariantBase {
     super.thumbBuilder,
     super.ticksBuilder,
     super.overlayBuilder,
+    super.segmentLayout,
+    super.trackRenderer,
+    super.dragPopoverBuilder,
+    super.dragPopoverOffset,
     super.semanticLabel,
   });
 

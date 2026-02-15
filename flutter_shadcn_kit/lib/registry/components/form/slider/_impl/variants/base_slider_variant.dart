@@ -31,6 +31,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
     this.overlayBuilder,
     this.segmentLayout,
     this.trackRenderer,
+    this.dragPopoverBuilder,
+    this.dragPopoverOffset,
     this.semanticLabel,
   });
 
@@ -61,6 +63,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
   final ShadOverlayBuilder? overlayBuilder;
   final ShadSegmentLayout? segmentLayout;
   final ShadTrackRenderer? trackRenderer;
+  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final Offset? dragPopoverOffset;
 
   final String? semanticLabel;
 
@@ -95,6 +99,8 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
       overlayBuilder: overlayBuilder,
       segmentLayout: segmentLayout,
       trackRenderer: trackRenderer,
+      dragPopoverBuilder: dragPopoverBuilder,
+      dragPopoverOffset: dragPopoverOffset,
       semanticLabel: semanticLabel,
     );
   }
@@ -129,6 +135,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
     this.overlayBuilder,
     this.segmentLayout,
     this.trackRenderer,
+    this.dragPopoverBuilder,
+    this.dragPopoverOffset,
     this.semanticLabel,
   });
 
@@ -161,6 +169,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
   final ShadOverlayBuilder? overlayBuilder;
   final ShadSegmentLayout? segmentLayout;
   final ShadTrackRenderer? trackRenderer;
+  final ShadDragPopoverBuilder? dragPopoverBuilder;
+  final Offset? dragPopoverOffset;
 
   final String? semanticLabel;
 
@@ -197,6 +207,8 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
       overlayBuilder: overlayBuilder,
       segmentLayout: segmentLayout,
       trackRenderer: trackRenderer,
+      dragPopoverBuilder: dragPopoverBuilder,
+      dragPopoverOffset: dragPopoverOffset,
       semanticLabel: semanticLabel,
     );
   }

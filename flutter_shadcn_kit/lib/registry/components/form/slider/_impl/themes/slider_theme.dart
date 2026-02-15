@@ -67,6 +67,12 @@ class SliderTheme extends ComponentThemeData {
   /// Optional unified track renderer.
   final ShadTrackRenderer? trackRenderer;
 
+  /// Optional drag popover builder shown for active thumb while dragging.
+  final ShadDragPopoverBuilder? dragPopoverBuilder;
+
+  /// Popover anchor offset in logical pixels.
+  final Offset? dragPopoverOffset;
+
   /// Guide line color used by default track builder.
   final Color? guideColor;
 
@@ -168,6 +174,8 @@ class SliderTheme extends ComponentThemeData {
     this.overlayBuilder,
     this.segmentLayout,
     this.trackRenderer,
+    this.dragPopoverBuilder,
+    this.dragPopoverOffset,
     this.guideColor,
     this.fillActiveColor,
     this.fillInactiveColor,
@@ -216,6 +224,8 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<ShadOverlayBuilder?>? overlayBuilder,
     ValueGetter<ShadSegmentLayout?>? segmentLayout,
     ValueGetter<ShadTrackRenderer?>? trackRenderer,
+    ValueGetter<ShadDragPopoverBuilder?>? dragPopoverBuilder,
+    ValueGetter<Offset?>? dragPopoverOffset,
     ValueGetter<Color?>? guideColor,
     ValueGetter<Color?>? fillActiveColor,
     ValueGetter<Color?>? fillInactiveColor,
@@ -276,6 +286,12 @@ class SliderTheme extends ComponentThemeData {
       trackRenderer: trackRenderer == null
           ? this.trackRenderer
           : trackRenderer(),
+      dragPopoverBuilder: dragPopoverBuilder == null
+          ? this.dragPopoverBuilder
+          : dragPopoverBuilder(),
+      dragPopoverOffset: dragPopoverOffset == null
+          ? this.dragPopoverOffset
+          : dragPopoverOffset(),
       guideColor: guideColor == null ? this.guideColor : guideColor(),
       fillActiveColor: fillActiveColor == null
           ? this.fillActiveColor
@@ -364,6 +380,8 @@ class SliderTheme extends ComponentThemeData {
         other.overlayBuilder == overlayBuilder &&
         other.segmentLayout == segmentLayout &&
         other.trackRenderer == trackRenderer &&
+        other.dragPopoverBuilder == dragPopoverBuilder &&
+        other.dragPopoverOffset == dragPopoverOffset &&
         other.guideColor == guideColor &&
         other.fillActiveColor == fillActiveColor &&
         other.fillInactiveColor == fillInactiveColor &&
@@ -412,6 +430,8 @@ class SliderTheme extends ComponentThemeData {
     overlayBuilder,
     segmentLayout,
     trackRenderer,
+    dragPopoverBuilder,
+    dragPopoverOffset,
     guideColor,
     fillActiveColor,
     fillInactiveColor,

@@ -140,6 +140,43 @@ class ShadSliderDefaults {
     };
   }
 
+  /// Default drag popover for showing current value.
+  static ShadDragPopoverBuilder valuePopover({
+    String Function(double value)? formatter,
+  }) {
+    return (context, state, thumb) {
+      final theme = Theme.of(context);
+      final cs = theme.colorScheme;
+      final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
+      final valueText =
+          formatter?.call(thumb.value) ?? thumb.value.toStringAsFixed(2);
+      final bg = compTheme?.fillActiveColor ?? cs.primary;
+      final fg = compTheme?.thumbFillColor ?? cs.background;
+
+      return Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(theme.radiusMd),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x22000000),
+                blurRadius: 8,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Text(
+            valueText,
+            style: TextStyle(color: fg, fontWeight: FontWeight.w600),
+          ),
+        ),
+      );
+    };
+  }
+
   // ---- Convenience builders for presets ----
 
   /// Ring thumb with subtle border and small center dot.
