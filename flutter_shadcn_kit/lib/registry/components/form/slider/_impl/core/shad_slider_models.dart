@@ -174,6 +174,10 @@ enum ShadSegmentRadiusPolicy { fullPills, flatJoin, custom }
 abstract class ShadSegmentLayout {
   const ShadSegmentLayout();
 
+  /// Computes canonical segments for current slider geometry/state.
+  ///
+  /// Called during build after thumb centers are resolved. Implementations
+  /// should return stable ordering via [ShadSegment.paintOrder].
   List<ShadSegment> buildSegments({
     required Rect trackRect,
     required double trackRadius,

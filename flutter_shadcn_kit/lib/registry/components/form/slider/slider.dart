@@ -203,6 +203,10 @@ class Slider extends StatefulWidget {
     );
   }
 
+  /// Configures single-thumb slider behavior and visual overrides.
+  ///
+  /// Resolution order for nullable overrides is:
+  /// explicit parameter -> [SliderTheme] -> preset/default values.
   factory Slider.single({
     /// Widget key.
     Key? key,
@@ -369,6 +373,10 @@ class Slider extends StatefulWidget {
   ///
   ///
 
+  /// Configures two-thumb range slider behavior and visual overrides.
+  ///
+  /// Resolution order for nullable overrides is:
+  /// explicit parameter -> [SliderTheme] -> preset/default values.
   factory Slider.range({
     /// Widget key.
     Key? key,
@@ -637,8 +645,13 @@ class Slider extends StatefulWidget {
   /// Optional accessibility label.
   final String? semanticLabel;
 
+  /// Whether this widget is currently operating in range mode.
+  ///
+  /// Returns `true` when [rangeValue] is non-null and single-value callbacks
+  /// are ignored. Returns `false` for single mode.
   bool get isRange => rangeValue != null;
 
+  /// Creates state that handles gesture updates and resolved rendering.
   @override
   State<Slider> createState() => _SliderState();
 }

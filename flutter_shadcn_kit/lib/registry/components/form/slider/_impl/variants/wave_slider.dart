@@ -462,6 +462,7 @@ class WaveSlider extends StatefulWidget {
   /// Optional semantics label.
   final String? semanticsLabel;
 
+  /// Creates state that handles gesture mapping, popovers, and painting.
   @override
   State<WaveSlider> createState() => _WaveSliderState();
 }

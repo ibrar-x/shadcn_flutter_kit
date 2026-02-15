@@ -94,6 +94,7 @@ class RangeSoftSlider extends RangeSliderVariantBase {
     super.semanticLabel,
   });
 
+  /// Preset key resolved by [resolveShadSliderPreset].
   @override
   String get presetName => 'rangeSoft';
 }

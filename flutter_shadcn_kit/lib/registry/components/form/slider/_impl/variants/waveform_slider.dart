@@ -88,6 +88,7 @@ class WaveformSlider extends SingleSliderVariantBase {
     super.semanticLabel,
   });
 
+  /// Preset key resolved by [resolveShadSliderPreset].
   @override
   String get presetName => 'waveform';
 }

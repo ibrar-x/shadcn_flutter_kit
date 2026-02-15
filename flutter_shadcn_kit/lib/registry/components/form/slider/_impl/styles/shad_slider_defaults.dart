@@ -9,17 +9,35 @@ import '../themes/slider_theme.dart';
 /// Default builders used by slider presets.
 class ShadSliderDefaults {
   ShadSliderDefaults({
+    /// Base track layer builder.
     required this.trackBuilder,
+
+    /// Active/remaining fill layer builder.
     required this.fillBuilder,
+
+    /// Thumb builder used for each resolved thumb state.
     required this.thumbBuilder,
+
+    /// Marks/ticks layer builder.
     required this.ticksBuilder,
+
+    /// Optional overlay layer builder.
     required this.overlayBuilder,
   });
 
+  /// Base track layer builder.
   final ShadTrackBuilder trackBuilder;
+
+  /// Fill layer builder for active/remaining segments.
   final ShadFillBuilder fillBuilder;
+
+  /// Thumb widget builder.
   final ShadThumbBuilder thumbBuilder;
+
+  /// Tick/mark layer builder.
   final ShadTicksBuilder ticksBuilder;
+
+  /// Overlay layer builder painted above other layers.
   final ShadOverlayBuilder overlayBuilder;
 
   /// Resolves default builders from current app theme tokens.
@@ -105,7 +123,13 @@ class ShadSliderDefaults {
   /// Default bar thumb builder with optional radius override.
   ///
   /// The returned builder respects [ShadThumbStateView.size] for layout.
-  static ShadThumbBuilder barThumb({double? radius}) {
+  static ShadThumbBuilder barThumb({
+    /// Corner radius override for bar thumb body.
+    ///
+    /// `0` creates square corners; positive values round corners.
+    /// Null computes pill radius from resolved thumb width/height.
+    double? radius,
+  }) {
     return (context, t) {
       final theme = Theme.of(context);
       final baseGap = theme.density.baseGap * theme.scaling;
@@ -141,8 +165,18 @@ class ShadSliderDefaults {
   }
 
   /// Default drag popover for showing current value.
+  ///
+  /// Uses [ShadPopoverData.value] and applies shape/color from explicit
+  /// arguments first, then [SliderTheme], then component defaults.
   static ShadPopoverBuilder valuePopover({
+    /// Value-to-string formatter.
+    ///
+    /// If null, formats with `toStringAsFixed(2)`.
     String Function(double value)? formatter,
+
+    /// Popover shape override.
+    ///
+    /// Null defers to theme/default shape.
     ShadPopoverShape? shape,
   }) {
     return (context, data) {
@@ -200,6 +234,9 @@ class ShadSliderDefaults {
 
   /// Returns preconfigured popover helper with a pill shape.
   static ShadPopoverBuilder valuePopoverPill({
+    /// Value-to-string formatter.
+    ///
+    /// If null, formats with `toStringAsFixed(2)`.
     String Function(double value)? formatter,
   }) {
     return valuePopover(formatter: formatter, shape: ShadPopoverShape.pill);
@@ -207,6 +244,9 @@ class ShadSliderDefaults {
 
   /// Returns preconfigured popover helper with a rounded-rect shape.
   static ShadPopoverBuilder valuePopoverRounded({
+    /// Value-to-string formatter.
+    ///
+    /// If null, formats with `toStringAsFixed(2)`.
     String Function(double value)? formatter,
   }) {
     return valuePopover(formatter: formatter, shape: ShadPopoverShape.rounded);
@@ -214,6 +254,9 @@ class ShadSliderDefaults {
 
   /// Returns preconfigured popover helper with a square-like shape.
   static ShadPopoverBuilder valuePopoverSquare({
+    /// Value-to-string formatter.
+    ///
+    /// If null, formats with `toStringAsFixed(2)`.
     String Function(double value)? formatter,
   }) {
     return valuePopover(formatter: formatter, shape: ShadPopoverShape.square);
@@ -262,6 +305,7 @@ class ShadSliderDefaults {
     );
   }
 
+  /// Square-ish thumb helper that still honors theme colors and thumb size.
   static Widget squareThumb(BuildContext context, ShadThumbStateView t) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -294,6 +338,7 @@ class ShadSliderDefaults {
     );
   }
 
+  /// Pin-style thumb helper with stem and circular head.
   static Widget pinThumb(BuildContext context, ShadThumbStateView t) {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -344,6 +389,7 @@ class ShadSliderDefaults {
   }
 
   /// Softer dots (Stripe/Linear low-contrast).
+  /// Dot ticks helper that colors marks by progress position.
   static Widget dotsTicks(BuildContext context, ShadSliderStateView s) {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
@@ -375,6 +421,7 @@ class ShadSliderDefaults {
   }
 
   /// Smooth, natural waveform-like bars (no patterned modulo).
+  /// Subtle bar ticks helper with waveform-like amplitude envelope.
   static Widget subtleBarsTicks(BuildContext context, ShadSliderStateView s) {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);

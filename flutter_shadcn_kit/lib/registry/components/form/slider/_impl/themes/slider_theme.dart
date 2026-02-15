@@ -344,6 +344,9 @@ class SliderTheme extends ComponentThemeData {
   });
 
   /// Returns a copy with selected fields replaced.
+  ///
+  /// Only non-null getters are evaluated; omitted entries keep prior values.
+  /// To clear an override, pass a getter that returns `null`.
   SliderTheme copyWith({
     /// Replacement for [trackHeight].
     ValueGetter<double?>? trackHeight,

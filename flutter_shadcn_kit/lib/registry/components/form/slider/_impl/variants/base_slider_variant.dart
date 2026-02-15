@@ -220,6 +220,7 @@ abstract class SingleSliderVariantBase extends StatelessWidget {
   /// Snap strategy used by this variant.
   ShadSnap get resolvedSnap => snap;
 
+  /// Builds [Slider.single] with this variant's preset and overrides.
   @override
   Widget build(BuildContext context) {
     return Slider.single(
@@ -444,6 +445,7 @@ abstract class RangeSliderVariantBase extends StatelessWidget {
   /// Snap strategy used by this variant.
   ShadSnap get resolvedSnap => snap;
 
+  /// Builds [Slider.range] with this variant's preset and overrides.
   @override
   Widget build(BuildContext context) {
     return Slider.range(

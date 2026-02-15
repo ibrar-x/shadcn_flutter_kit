@@ -36,6 +36,7 @@ class ShadLegacyBuildersRenderer extends ShadTrackRenderer {
   /// Tick layer builder.
   final ShadTicksBuilder ticksBuilder;
 
+  /// Builds layers in legacy order: track, fill, then ticks.
   @override
   Widget build(BuildContext context, ShadSliderStateView view) {
     return Stack(
@@ -61,6 +62,7 @@ class ShadSegmentedCapsuleRenderer extends ShadTrackRenderer {
   /// Optional style resolver for custom segment colors/borders/radii.
   final ShadSegmentStyleResolver? styleResolver;
 
+  /// Builds styled segments using resolver or theme defaults.
   @override
   Widget build(BuildContext context, ShadSliderStateView view) {
     final cs = Theme.of(context).colorScheme;
@@ -137,6 +139,7 @@ class ShadStepDotsRenderer extends ShadTrackRenderer {
   /// Base renderer for non-dot layers.
   final ShadTrackRenderer base;
 
+  /// Builds base layers first, then paints progress-aware dots.
   @override
   Widget build(BuildContext context, ShadSliderStateView view) {
     final cs = Theme.of(context).colorScheme;
@@ -187,6 +190,7 @@ class ShadWaveformRenderer extends ShadTrackRenderer {
   /// Number of waveform bars to render.
   final int bars;
 
+  /// Builds base layers first, then paints waveform bars over the track.
   @override
   Widget build(BuildContext context, ShadSliderStateView view) {
     final cs = Theme.of(context).colorScheme;

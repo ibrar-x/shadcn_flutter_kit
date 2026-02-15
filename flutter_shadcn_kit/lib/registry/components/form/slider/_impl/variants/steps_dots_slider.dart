@@ -94,9 +94,11 @@ class StepsDotsSlider extends SingleSliderVariantBase {
   /// Discrete step count used by [resolvedSnap].
   final int steps;
 
+  /// Preset key resolved by [resolveShadSliderPreset].
   @override
   String get presetName => 'stepsDots';
 
+  /// Converts [steps] to a `ShadSnap.steps` strategy.
   @override
   ShadSnap get resolvedSnap => ShadSnap.steps(steps);
 }
