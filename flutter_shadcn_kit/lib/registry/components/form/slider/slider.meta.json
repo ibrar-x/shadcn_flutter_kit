@@ -24,6 +24,7 @@
   "api": {
     "constructors": [
       "`Slider`",
+      "`ShadSlider` (experimental)",
       "`ControlledSlider`",
       "`SliderController`"
     ],

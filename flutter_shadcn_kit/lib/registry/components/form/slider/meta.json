@@ -27,11 +27,14 @@
     "_impl/core/controlled_slider.dart",
     "_impl/core/decrease_slider_value.dart",
     "_impl/core/increase_slider_value.dart",
+    "_impl/core/shad_slider_logic.dart",
+    "_impl/core/shad_slider_models.dart",
     "_impl/core/slider_engine_models.dart",
     "_impl/extensions/slider_value_extensions.dart",
     "_impl/state/_slider_preview_state.dart",
     "_impl/state/_slider_state.dart",
     "_impl/styles/slider_style.dart",
+    "_impl/styles/shad_slider_defaults.dart",
     "_impl/themes/slider_theme.dart",
     "_impl/utils/slider_controller.dart",
     "_impl/variants/hybrid_tick_slider_variant.dart",
@@ -44,12 +47,14 @@
     "create_slider_readme.md",
     "meta.json",
     "preview.dart",
+    "shad_slider.dart",
     "slider.dart",
     "slider.meta.json"
   ],
   "api": {
     "constructors": [
       "`Slider`",
+      "`ShadSlider` (experimental)",
       "`ControlledSlider`",
       "`SliderController`"
     ],
