@@ -4,7 +4,7 @@ part of '../../preview.dart';
 class _SliderPreviewState extends State<SliderPreview> {
   double _shadBrightness = 0.64;
   double _shadStepped = 5;
-  ShadSliderRangeValue _shadRange = const ShadSliderRangeValue(3, 8);
+  ShadRangeValue _shadRange = const ShadRangeValue(3, 8);
   late final List<double> _amps = List.generate(64, (index) {
     final t = index / 63.0;
     return (sin(t * pi) * (0.35 + 0.65 * sin(t * pi * 3).abs())).clamp(
@@ -57,7 +57,7 @@ class _SliderPreviewState extends State<SliderPreview> {
               min: 0,
               max: 10,
               value: _shadStepped,
-              snap: const ShadSliderSnap.steps(10),
+              snap: const ShadSnap.steps(10),
               onChanged: (value) => setState(() => _shadStepped = value),
               ticksBuilder: _shadDotTicks,
               thumbBuilder: _shadCircleThumb,
@@ -106,7 +106,7 @@ class _PreviewCard extends StatelessWidget {
   }
 }
 
-Widget _shadCircleThumb(BuildContext context, ShadSliderThumbStateView thumb) {
+Widget _shadCircleThumb(BuildContext context, ShadThumbStateView thumb) {
   final color = Theme.of(context).colorScheme.primary;
   return IgnorePointer(
     child: Container(
@@ -128,7 +128,7 @@ Widget _shadCircleThumb(BuildContext context, ShadSliderThumbStateView thumb) {
   );
 }
 
-Widget _shadHollowThumb(BuildContext context, ShadSliderThumbStateView thumb) {
+Widget _shadHollowThumb(BuildContext context, ShadThumbStateView thumb) {
   final color = Theme.of(context).colorScheme.primary;
   return IgnorePointer(
     child: Container(

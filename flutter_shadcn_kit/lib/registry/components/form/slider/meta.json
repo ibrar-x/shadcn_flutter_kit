@@ -35,6 +35,7 @@
     "_impl/state/_slider_state.dart",
     "_impl/styles/slider_style.dart",
     "_impl/styles/shad_slider_defaults.dart",
+    "_impl/styles/shad_slider_presets.dart",
     "_impl/themes/slider_theme.dart",
     "_impl/utils/slider_controller.dart",
     "_impl/variants/hybrid_tick_slider_variant.dart",

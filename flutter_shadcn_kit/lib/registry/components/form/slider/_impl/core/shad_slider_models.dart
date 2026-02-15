@@ -1,40 +1,39 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-typedef ShadSliderTrackBuilder =
+typedef ShadTrackBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
-typedef ShadSliderFillBuilder =
+typedef ShadFillBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
-typedef ShadSliderThumbBuilder =
-    Widget Function(BuildContext context, ShadSliderThumbStateView thumb);
-typedef ShadSliderTicksBuilder =
+typedef ShadThumbBuilder =
+    Widget Function(BuildContext context, ShadThumbStateView thumb);
+typedef ShadTicksBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
-typedef ShadSliderOverlayBuilder =
+typedef ShadOverlayBuilder =
     Widget Function(BuildContext context, ShadSliderStateView state);
 
-sealed class ShadSliderSnap {
-  const ShadSliderSnap();
-  const factory ShadSliderSnap.none() = ShadSliderSnapNone;
-  const factory ShadSliderSnap.steps(int steps) = ShadSliderSnapSteps;
-  const factory ShadSliderSnap.values(List<double> values) =
-      ShadSliderSnapValues;
+sealed class ShadSnap {
+  const ShadSnap();
+  const factory ShadSnap.none() = ShadSnapNone;
+  const factory ShadSnap.steps(int steps) = ShadSnapSteps;
+  const factory ShadSnap.values(List<double> values) = ShadSnapValues;
 }
 
-class ShadSliderSnapNone extends ShadSliderSnap {
-  const ShadSliderSnapNone();
+class ShadSnapNone extends ShadSnap {
+  const ShadSnapNone();
 }
 
-class ShadSliderSnapSteps extends ShadSliderSnap {
-  const ShadSliderSnapSteps(this.steps) : assert(steps > 0);
+class ShadSnapSteps extends ShadSnap {
+  const ShadSnapSteps(this.steps) : assert(steps > 0);
   final int steps;
 }
 
-class ShadSliderSnapValues extends ShadSliderSnap {
-  const ShadSliderSnapValues(this.values);
+class ShadSnapValues extends ShadSnap {
+  const ShadSnapValues(this.values);
   final List<double> values;
 }
 
-class ShadSliderRangeValue {
-  const ShadSliderRangeValue(
+class ShadRangeValue {
+  const ShadRangeValue(
     this.start,
     this.end, {
     this.minRange = 0,
@@ -46,13 +45,13 @@ class ShadSliderRangeValue {
   final double minRange;
   final bool allowSwap;
 
-  ShadSliderRangeValue copyWith({
+  ShadRangeValue copyWith({
     double? start,
     double? end,
     double? minRange,
     bool? allowSwap,
   }) {
-    return ShadSliderRangeValue(
+    return ShadRangeValue(
       start ?? this.start,
       end ?? this.end,
       minRange: minRange ?? this.minRange,
@@ -76,8 +75,8 @@ class ShadSliderStateView {
     required this.value,
     required this.rangeValue,
     required this.t,
-    required this.tStart,
-    required this.tEnd,
+    required this.t0,
+    required this.t1,
     required this.activeRect,
     required this.rangeRect,
     required this.thumbs,
@@ -97,21 +96,21 @@ class ShadSliderStateView {
 
   final bool isRange;
   final double? value;
-  final ShadSliderRangeValue? rangeValue;
+  final ShadRangeValue? rangeValue;
 
   final double? t;
-  final double? tStart;
-  final double? tEnd;
+  final double? t0;
+  final double? t1;
 
   final Rect? activeRect;
   final Rect? rangeRect;
 
-  final List<ShadSliderThumbStateView> thumbs;
-  final List<ShadSliderMarkLayout> marks;
+  final List<ShadThumbStateView> thumbs;
+  final List<ShadMarkLayout> marks;
 }
 
-class ShadSliderThumbStateView {
-  const ShadSliderThumbStateView({
+class ShadThumbStateView {
+  const ShadThumbStateView({
     required this.index,
     required this.value,
     required this.t,
@@ -130,8 +129,8 @@ class ShadSliderThumbStateView {
   final bool enabled;
 }
 
-class ShadSliderMarkLayout {
-  const ShadSliderMarkLayout({
+class ShadMarkLayout {
+  const ShadMarkLayout({
     required this.value,
     required this.t,
     required this.x,
@@ -146,20 +145,13 @@ class ShadSliderMarkLayout {
   final bool isMajor;
 }
 
-class ShadSliderUpdateResult {
-  const ShadSliderUpdateResult({
-    this.singleValue,
-    this.rangeValue,
-    this.activeThumb,
-  });
-
+class ShadUpdateResult {
+  const ShadUpdateResult({this.singleValue, this.rangeValue});
   final double? singleValue;
-  final ShadSliderRangeValue? rangeValue;
-  final int? activeThumb;
+  final ShadRangeValue? rangeValue;
 }
 
-class ShadSliderHitResult {
-  const ShadSliderHitResult({required this.activeThumb});
-
-  final int activeThumb;
+class ShadHitResult {
+  const ShadHitResult({required this.activeThumb});
+  final int? activeThumb;
 }

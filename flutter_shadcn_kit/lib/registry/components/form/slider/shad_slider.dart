@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart' hide Slider;
+import 'package:flutter/material.dart';
 
 import '_impl/core/shad_slider_logic.dart';
 import '_impl/core/shad_slider_models.dart';
-import '_impl/styles/shad_slider_defaults.dart';
+import '_impl/styles/shad_slider_presets.dart';
 
-/// New experimental slider engine implementation.
 class ShadSlider extends StatefulWidget {
   const ShadSlider._({
     super.key,
@@ -15,8 +14,10 @@ class ShadSlider extends StatefulWidget {
     required this.trackHeight,
     required this.trackRadius,
     required this.thumbInset,
+    required this.thumbSize,
     required this.fillStopsAtThumbCenter,
     required this.fillEdgeBiasPx,
+    required this.preset,
     required this.value,
     required this.onChanged,
     required this.rangeValue,
@@ -36,17 +37,19 @@ class ShadSlider extends StatefulWidget {
     double min = 0,
     double max = 1,
     bool enabled = true,
-    ShadSliderSnap snap = const ShadSliderSnap.none(),
+    ShadSnap snap = const ShadSnap.none(),
     double trackHeight = 28,
     double? trackRadius,
-    double thumbInset = 8,
+    double thumbInset = 10,
+    Size thumbSize = const Size(22, 28),
     bool fillStopsAtThumbCenter = true,
     double fillEdgeBiasPx = 1,
-    ShadSliderTrackBuilder? trackBuilder,
-    ShadSliderFillBuilder? fillBuilder,
-    ShadSliderThumbBuilder? thumbBuilder,
-    ShadSliderTicksBuilder? ticksBuilder,
-    ShadSliderOverlayBuilder? overlayBuilder,
+    String preset = 'brightness',
+    ShadTrackBuilder? trackBuilder,
+    ShadFillBuilder? fillBuilder,
+    ShadThumbBuilder? thumbBuilder,
+    ShadTicksBuilder? ticksBuilder,
+    ShadOverlayBuilder? overlayBuilder,
     String? semanticLabel,
   }) {
     return ShadSlider._(
@@ -58,8 +61,10 @@ class ShadSlider extends StatefulWidget {
       trackHeight: trackHeight,
       trackRadius: trackRadius,
       thumbInset: thumbInset,
+      thumbSize: thumbSize,
       fillStopsAtThumbCenter: fillStopsAtThumbCenter,
       fillEdgeBiasPx: fillEdgeBiasPx,
+      preset: preset,
       value: value,
       onChanged: onChanged,
       rangeValue: null,
@@ -75,31 +80,29 @@ class ShadSlider extends StatefulWidget {
 
   factory ShadSlider.range({
     Key? key,
-    required ShadSliderRangeValue rangeValue,
-    required ValueChanged<ShadSliderRangeValue> onChanged,
+    required ShadRangeValue rangeValue,
+    required ValueChanged<ShadRangeValue> onChanged,
     double min = 0,
     double max = 1,
     bool enabled = true,
-    ShadSliderSnap snap = const ShadSliderSnap.none(),
+    ShadSnap snap = const ShadSnap.none(),
     double trackHeight = 28,
     double? trackRadius,
-    double thumbInset = 8,
+    double thumbInset = 10,
+    Size thumbSize = const Size(22, 28),
     double minRange = 0,
     bool allowSwap = false,
     bool fillStopsAtThumbCenter = true,
     double fillEdgeBiasPx = 1,
-    ShadSliderTrackBuilder? trackBuilder,
-    ShadSliderFillBuilder? fillBuilder,
-    ShadSliderThumbBuilder? thumbBuilder,
-    ShadSliderTicksBuilder? ticksBuilder,
-    ShadSliderOverlayBuilder? overlayBuilder,
+    String preset = 'rangeSoft',
+    ShadTrackBuilder? trackBuilder,
+    ShadFillBuilder? fillBuilder,
+    ShadThumbBuilder? thumbBuilder,
+    ShadTicksBuilder? ticksBuilder,
+    ShadOverlayBuilder? overlayBuilder,
     String? semanticLabel,
   }) {
-    final configured = rangeValue.copyWith(
-      minRange: minRange,
-      allowSwap: allowSwap,
-    );
-
+    final rv = rangeValue.copyWith(minRange: minRange, allowSwap: allowSwap);
     return ShadSlider._(
       key: key,
       min: min,
@@ -109,11 +112,13 @@ class ShadSlider extends StatefulWidget {
       trackHeight: trackHeight,
       trackRadius: trackRadius,
       thumbInset: thumbInset,
+      thumbSize: thumbSize,
       fillStopsAtThumbCenter: fillStopsAtThumbCenter,
       fillEdgeBiasPx: fillEdgeBiasPx,
+      preset: preset,
       value: null,
       onChanged: null,
-      rangeValue: configured,
+      rangeValue: rv,
       onRangeChanged: onChanged,
       trackBuilder: trackBuilder,
       fillBuilder: fillBuilder,
@@ -127,26 +132,29 @@ class ShadSlider extends StatefulWidget {
   final double min;
   final double max;
   final bool enabled;
-  final ShadSliderSnap snap;
+  final ShadSnap snap;
 
   final double trackHeight;
   final double? trackRadius;
   final double thumbInset;
+  final Size thumbSize;
 
   final bool fillStopsAtThumbCenter;
   final double fillEdgeBiasPx;
 
+  final String preset;
+
   final double? value;
   final ValueChanged<double>? onChanged;
 
-  final ShadSliderRangeValue? rangeValue;
-  final ValueChanged<ShadSliderRangeValue>? onRangeChanged;
+  final ShadRangeValue? rangeValue;
+  final ValueChanged<ShadRangeValue>? onRangeChanged;
 
-  final ShadSliderTrackBuilder? trackBuilder;
-  final ShadSliderFillBuilder? fillBuilder;
-  final ShadSliderThumbBuilder? thumbBuilder;
-  final ShadSliderTicksBuilder? ticksBuilder;
-  final ShadSliderOverlayBuilder? overlayBuilder;
+  final ShadTrackBuilder? trackBuilder;
+  final ShadFillBuilder? fillBuilder;
+  final ShadThumbBuilder? thumbBuilder;
+  final ShadTicksBuilder? ticksBuilder;
+  final ShadOverlayBuilder? overlayBuilder;
 
   final String? semanticLabel;
 
@@ -167,42 +175,57 @@ class _ShadSliderState extends State<ShadSlider> {
     _logic = ShadSliderLogic();
   }
 
-  @override
-  void didUpdateWidget(covariant ShadSlider oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.isRange != widget.isRange) {
-      _activeThumb = null;
-      _dragging = false;
+  void _emitSingle(double v) {
+    if (!widget.enabled) return;
+    widget.onChanged?.call(v);
+  }
+
+  void _emitRange(ShadRangeValue rv) {
+    if (!widget.enabled) return;
+    widget.onRangeChanged?.call(rv);
+  }
+
+  ShadSliderPreset _parsePreset(String name, {required bool isRange}) {
+    switch (name) {
+      case 'stepsDots':
+        return ShadSliderPreset.stepsDots;
+      case 'waveform':
+        return ShadSliderPreset.waveform;
+      case 'rangeSoft':
+        return ShadSliderPreset.rangeSoft;
+      case 'brightness':
+      default:
+        return isRange
+            ? ShadSliderPreset.rangeSoft
+            : ShadSliderPreset.brightness;
     }
-  }
-
-  void _emitSingle(double nextValue) {
-    if (!widget.enabled) return;
-    widget.onChanged?.call(nextValue);
-  }
-
-  void _emitRange(ShadSliderRangeValue nextValue) {
-    if (!widget.enabled) return;
-    widget.onRangeChanged?.call(nextValue);
   }
 
   @override
   Widget build(BuildContext context) {
     assert(widget.max > widget.min);
 
-    final defaults = ShadSliderDefaults.of(context);
-    final trackBuilder = widget.trackBuilder ?? defaults.trackBuilder;
-    final fillBuilder = widget.fillBuilder ?? defaults.fillBuilder;
-    final thumbBuilder = widget.thumbBuilder ?? defaults.thumbBuilder;
-    final ticksBuilder = widget.ticksBuilder ?? defaults.ticksBuilder;
-    final overlayBuilder = widget.overlayBuilder ?? defaults.overlayBuilder;
+    final preset = _parsePreset(widget.preset, isRange: widget.isRange);
+    final resolved = resolveShadSliderPreset(
+      context,
+      preset: preset,
+      trackHeight: widget.trackHeight,
+      thumbInset: widget.thumbInset,
+      fillEdgeBiasPx: widget.fillEdgeBiasPx,
+      trackBuilder: widget.trackBuilder,
+      fillBuilder: widget.fillBuilder,
+      thumbBuilder: widget.thumbBuilder,
+      ticksBuilder: widget.ticksBuilder,
+      overlayBuilder: widget.overlayBuilder,
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        final height = widget.trackHeight;
-        final radius = widget.trackRadius ?? (height / 2);
-        final trackRect = Rect.fromLTWH(0, 0, width, height);
+        final w = constraints.maxWidth;
+        final h = resolved.trackHeight;
+        final radius = widget.trackRadius ?? h / 2;
+        final dir = Directionality.of(context);
+        final trackRect = Rect.fromLTWH(0, 0, w, h);
 
         final view = _logic.buildView(
           min: widget.min,
@@ -211,31 +234,32 @@ class _ShadSliderState extends State<ShadSlider> {
           enabled: widget.enabled,
           trackRect: trackRect,
           trackRadius: radius,
-          thumbInset: widget.thumbInset,
+          thumbInset: resolved.thumbInset,
           dragging: _dragging,
           activeThumb: _activeThumb,
           fillStopsAtThumbCenter: widget.fillStopsAtThumbCenter,
-          fillEdgeBiasPx: widget.fillEdgeBiasPx,
-          textDirection: Directionality.of(context),
+          fillEdgeBiasPx: resolved.fillEdgeBiasPx,
+          textDirection: dir,
           value: widget.value,
           rangeValue: widget.rangeValue,
+          thumbSize: Size(widget.thumbSize.width, h),
         );
 
         Widget content = SizedBox(
-          height: height,
+          height: h,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              trackBuilder(context, view),
-              fillBuilder(context, view),
-              ticksBuilder(context, view),
-              for (final thumb in view.thumbs)
+              resolved.trackBuilder(context, view),
+              resolved.fillBuilder(context, view),
+              resolved.ticksBuilder(context, view),
+              for (final t in view.thumbs)
                 Positioned(
-                  left: thumb.center.dx - (thumb.size.width / 2),
-                  top: thumb.center.dy - (thumb.size.height / 2),
-                  child: thumbBuilder(context, thumb),
+                  left: t.center.dx - t.size.width / 2,
+                  top: t.center.dy - t.size.height / 2,
+                  child: resolved.thumbBuilder(context, t),
                 ),
-              overlayBuilder(context, view),
+              resolved.overlayBuilder(context, view),
             ],
           ),
         );
@@ -243,59 +267,41 @@ class _ShadSliderState extends State<ShadSlider> {
         content = GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTapDown: widget.enabled
-              ? (details) {
+              ? (d) {
                   final hit = _logic.hitTest(
                     view: view,
-                    localPosition: details.localPosition,
+                    localPosition: d.localPosition,
                   );
-
+                  _activeThumb = hit.activeThumb;
                   final next = _logic.updateFromDx(
                     view: view,
-                    dx: details.localPosition.dx,
-                    thumbIndex: hit.activeThumb,
                     snap: widget.snap,
+                    dx: d.localPosition.dx,
+                    thumbIndex: _activeThumb ?? 0,
                   );
-
-                  if (next.singleValue != null) {
-                    _emitSingle(next.singleValue!);
-                  }
-                  if (next.rangeValue != null) {
-                    _emitRange(next.rangeValue!);
-                  }
-
-                  _activeThumb = next.activeThumb;
+                  if (next.singleValue != null) _emitSingle(next.singleValue!);
+                  if (next.rangeValue != null) _emitRange(next.rangeValue!);
                 }
               : null,
           onHorizontalDragStart: widget.enabled
-              ? (details) {
-                  setState(() {
-                    _dragging = true;
-                    _activeThumb = _logic.pickActiveThumb(
-                      view: view,
-                      dx: details.localPosition.dx,
-                    );
-                  });
-                }
+              ? (d) => setState(() {
+                  _dragging = true;
+                  _activeThumb = _logic.pickActiveThumb(
+                    view: view,
+                    dx: d.localPosition.dx,
+                  );
+                })
               : null,
           onHorizontalDragUpdate: widget.enabled
-              ? (details) {
+              ? (d) {
                   final next = _logic.updateFromDx(
                     view: view,
-                    dx: details.localPosition.dx,
-                    thumbIndex: _activeThumb ?? 0,
                     snap: widget.snap,
+                    dx: d.localPosition.dx,
+                    thumbIndex: _activeThumb ?? 0,
                   );
-
-                  if (next.singleValue != null) {
-                    _emitSingle(next.singleValue!);
-                  }
-                  if (next.rangeValue != null) {
-                    _emitRange(next.rangeValue!);
-                  }
-
-                  if (next.activeThumb != _activeThumb) {
-                    setState(() => _activeThumb = next.activeThumb);
-                  }
+                  if (next.singleValue != null) _emitSingle(next.singleValue!);
+                  if (next.rangeValue != null) _emitRange(next.rangeValue!);
                 }
               : null,
           onHorizontalDragEnd: widget.enabled
