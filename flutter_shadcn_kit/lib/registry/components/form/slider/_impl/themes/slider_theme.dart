@@ -73,6 +73,18 @@ class SliderTheme extends ComponentThemeData {
   /// Popover anchor offset in logical pixels.
   final Offset? dragPopoverOffset;
 
+  /// Visibility behavior for slider popovers.
+  final ShadPopoverVisibility? dragPopoverVisibility;
+
+  /// Popover shape used by built-in popover helpers.
+  final ShadPopoverShape? popoverShape;
+
+  /// Popover background color used by built-in popover helpers.
+  final Color? popoverBackgroundColor;
+
+  /// Popover foreground color used by built-in popover helpers.
+  final Color? popoverForegroundColor;
+
   /// Guide line color used by default track builder.
   final Color? guideColor;
 
@@ -151,6 +163,15 @@ class SliderTheme extends ComponentThemeData {
   /// Enables wave interaction.
   final bool? waveEnabled;
 
+  /// Optional popover builder for [WaveSlider].
+  final ShadWavePopoverBuilder? wavePopoverBuilder;
+
+  /// Wave popover anchor offset.
+  final Offset? wavePopoverOffset;
+
+  /// Visibility behavior for [WaveSlider] popover.
+  final ShadPopoverVisibility? wavePopoverVisibility;
+
   /// Creates theme overrides for [Slider] and [WaveSlider].
   const SliderTheme({
     super.themeDensity,
@@ -176,6 +197,10 @@ class SliderTheme extends ComponentThemeData {
     this.trackRenderer,
     this.dragPopoverBuilder,
     this.dragPopoverOffset,
+    this.dragPopoverVisibility,
+    this.popoverShape,
+    this.popoverBackgroundColor,
+    this.popoverForegroundColor,
     this.guideColor,
     this.fillActiveColor,
     this.fillInactiveColor,
@@ -202,6 +227,9 @@ class SliderTheme extends ComponentThemeData {
     this.waveThumbBorderWidth,
     this.waveHitSlop,
     this.waveEnabled,
+    this.wavePopoverBuilder,
+    this.wavePopoverOffset,
+    this.wavePopoverVisibility,
   });
 
   /// Returns a copy with selected fields replaced.
@@ -226,6 +254,10 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<ShadTrackRenderer?>? trackRenderer,
     ValueGetter<ShadDragPopoverBuilder?>? dragPopoverBuilder,
     ValueGetter<Offset?>? dragPopoverOffset,
+    ValueGetter<ShadPopoverVisibility?>? dragPopoverVisibility,
+    ValueGetter<ShadPopoverShape?>? popoverShape,
+    ValueGetter<Color?>? popoverBackgroundColor,
+    ValueGetter<Color?>? popoverForegroundColor,
     ValueGetter<Color?>? guideColor,
     ValueGetter<Color?>? fillActiveColor,
     ValueGetter<Color?>? fillInactiveColor,
@@ -252,6 +284,9 @@ class SliderTheme extends ComponentThemeData {
     ValueGetter<double?>? waveThumbBorderWidth,
     ValueGetter<double?>? waveHitSlop,
     ValueGetter<bool?>? waveEnabled,
+    ValueGetter<ShadWavePopoverBuilder?>? wavePopoverBuilder,
+    ValueGetter<Offset?>? wavePopoverOffset,
+    ValueGetter<ShadPopoverVisibility?>? wavePopoverVisibility,
   }) {
     return SliderTheme(
       trackHeight: trackHeight == null ? this.trackHeight : trackHeight(),
@@ -292,6 +327,16 @@ class SliderTheme extends ComponentThemeData {
       dragPopoverOffset: dragPopoverOffset == null
           ? this.dragPopoverOffset
           : dragPopoverOffset(),
+      dragPopoverVisibility: dragPopoverVisibility == null
+          ? this.dragPopoverVisibility
+          : dragPopoverVisibility(),
+      popoverShape: popoverShape == null ? this.popoverShape : popoverShape(),
+      popoverBackgroundColor: popoverBackgroundColor == null
+          ? this.popoverBackgroundColor
+          : popoverBackgroundColor(),
+      popoverForegroundColor: popoverForegroundColor == null
+          ? this.popoverForegroundColor
+          : popoverForegroundColor(),
       guideColor: guideColor == null ? this.guideColor : guideColor(),
       fillActiveColor: fillActiveColor == null
           ? this.fillActiveColor
@@ -356,6 +401,15 @@ class SliderTheme extends ComponentThemeData {
           : waveThumbBorderWidth(),
       waveHitSlop: waveHitSlop == null ? this.waveHitSlop : waveHitSlop(),
       waveEnabled: waveEnabled == null ? this.waveEnabled : waveEnabled(),
+      wavePopoverBuilder: wavePopoverBuilder == null
+          ? this.wavePopoverBuilder
+          : wavePopoverBuilder(),
+      wavePopoverOffset: wavePopoverOffset == null
+          ? this.wavePopoverOffset
+          : wavePopoverOffset(),
+      wavePopoverVisibility: wavePopoverVisibility == null
+          ? this.wavePopoverVisibility
+          : wavePopoverVisibility(),
     );
   }
 
@@ -382,6 +436,10 @@ class SliderTheme extends ComponentThemeData {
         other.trackRenderer == trackRenderer &&
         other.dragPopoverBuilder == dragPopoverBuilder &&
         other.dragPopoverOffset == dragPopoverOffset &&
+        other.dragPopoverVisibility == dragPopoverVisibility &&
+        other.popoverShape == popoverShape &&
+        other.popoverBackgroundColor == popoverBackgroundColor &&
+        other.popoverForegroundColor == popoverForegroundColor &&
         other.guideColor == guideColor &&
         other.fillActiveColor == fillActiveColor &&
         other.fillInactiveColor == fillInactiveColor &&
@@ -407,7 +465,10 @@ class SliderTheme extends ComponentThemeData {
         other.waveThumbBorderColor == waveThumbBorderColor &&
         other.waveThumbBorderWidth == waveThumbBorderWidth &&
         other.waveHitSlop == waveHitSlop &&
-        other.waveEnabled == waveEnabled;
+        other.waveEnabled == waveEnabled &&
+        other.wavePopoverBuilder == wavePopoverBuilder &&
+        other.wavePopoverOffset == wavePopoverOffset &&
+        other.wavePopoverVisibility == wavePopoverVisibility;
   }
 
   @override
@@ -432,6 +493,10 @@ class SliderTheme extends ComponentThemeData {
     trackRenderer,
     dragPopoverBuilder,
     dragPopoverOffset,
+    dragPopoverVisibility,
+    popoverShape,
+    popoverBackgroundColor,
+    popoverForegroundColor,
     guideColor,
     fillActiveColor,
     fillInactiveColor,
@@ -458,5 +523,8 @@ class SliderTheme extends ComponentThemeData {
     waveThumbBorderWidth,
     waveHitSlop,
     waveEnabled,
+    wavePopoverBuilder,
+    wavePopoverOffset,
+    wavePopoverVisibility,
   ]);
 }

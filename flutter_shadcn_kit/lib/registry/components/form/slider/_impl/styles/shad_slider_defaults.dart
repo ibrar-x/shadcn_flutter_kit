@@ -143,38 +143,106 @@ class ShadSliderDefaults {
   /// Default drag popover for showing current value.
   static ShadDragPopoverBuilder valuePopover({
     String Function(double value)? formatter,
+    ShadPopoverShape? shape,
   }) {
     return (context, state, thumb) {
-      final theme = Theme.of(context);
-      final cs = theme.colorScheme;
       final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
       final valueText =
           formatter?.call(thumb.value) ?? thumb.value.toStringAsFixed(2);
-      final bg = compTheme?.fillActiveColor ?? cs.primary;
-      final fg = compTheme?.thumbFillColor ?? cs.background;
-
-      return Material(
-        color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(theme.radiusMd),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x22000000),
-                blurRadius: 8,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Text(
-            valueText,
-            style: TextStyle(color: fg, fontWeight: FontWeight.w600),
-          ),
-        ),
+      final resolvedShape =
+          shape ?? compTheme?.popoverShape ?? ShadPopoverShape.rounded;
+      return _buildValuePopover(
+        context,
+        valueText: valueText,
+        shape: resolvedShape,
       );
     };
+  }
+
+  /// Default [WaveSlider] popover for showing denormalized value.
+  static ShadWavePopoverBuilder waveValuePopover({
+    String Function(double value)? formatter,
+    ShadPopoverShape? shape,
+  }) {
+    return (context, normalized, denormalized) {
+      final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
+      final resolvedShape =
+          shape ?? compTheme?.popoverShape ?? ShadPopoverShape.rounded;
+      final valueText =
+          formatter?.call(denormalized) ?? denormalized.toStringAsFixed(2);
+      return _buildValuePopover(
+        context,
+        valueText: valueText,
+        shape: resolvedShape,
+      );
+    };
+  }
+
+  static Widget _buildValuePopover(
+    BuildContext context, {
+    required String valueText,
+    required ShadPopoverShape shape,
+  }) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
+    final bg = compTheme?.popoverBackgroundColor ?? cs.primary;
+    final fg = compTheme?.popoverForegroundColor ?? cs.background;
+    final radius = switch (shape) {
+      ShadPopoverShape.pill => BorderRadius.circular(999),
+      ShadPopoverShape.rounded => BorderRadius.circular(theme.radiusMd),
+      ShadPopoverShape.square => BorderRadius.circular(theme.radiusSm),
+    };
+
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: radius,
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x22000000),
+              blurRadius: 8,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Text(
+          valueText,
+          style: TextStyle(color: fg, fontWeight: FontWeight.w600),
+        ),
+      ),
+    );
+  }
+
+  /// Returns preconfigured popover helper with a pill shape.
+  static ShadDragPopoverBuilder valuePopoverPill({
+    String Function(double value)? formatter,
+  }) {
+    return valuePopover(formatter: formatter, shape: ShadPopoverShape.pill);
+  }
+
+  /// Returns preconfigured popover helper with a rounded-rect shape.
+  static ShadDragPopoverBuilder valuePopoverRounded({
+    String Function(double value)? formatter,
+  }) {
+    return valuePopover(formatter: formatter, shape: ShadPopoverShape.rounded);
+  }
+
+  /// Returns preconfigured popover helper with a square-like shape.
+  static ShadDragPopoverBuilder valuePopoverSquare({
+    String Function(double value)? formatter,
+  }) {
+    return valuePopover(formatter: formatter, shape: ShadPopoverShape.square);
+  }
+
+  /// Wave popover helper with a pill shape.
+  static ShadWavePopoverBuilder waveValuePopoverPill({
+    String Function(double value)? formatter,
+  }) {
+    return waveValuePopover(formatter: formatter, shape: ShadPopoverShape.pill);
   }
 
   // ---- Convenience builders for presets ----

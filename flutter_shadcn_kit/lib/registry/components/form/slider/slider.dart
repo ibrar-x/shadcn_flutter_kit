@@ -58,6 +58,7 @@ class Slider extends StatefulWidget {
     required this.trackRenderer,
     required this.dragPopoverBuilder,
     required this.dragPopoverOffset,
+    required this.dragPopoverVisibility,
     required this.semanticLabel,
   });
 
@@ -92,6 +93,7 @@ class Slider extends StatefulWidget {
     ShadTrackRenderer? trackRenderer,
     ShadDragPopoverBuilder? dragPopoverBuilder,
     Offset? dragPopoverOffset,
+    ShadPopoverVisibility? dragPopoverVisibility,
     String? semanticLabel,
   }) {
     return Slider.single(
@@ -122,6 +124,7 @@ class Slider extends StatefulWidget {
       trackRenderer: trackRenderer,
       dragPopoverBuilder: dragPopoverBuilder,
       dragPopoverOffset: dragPopoverOffset,
+      dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
     );
   }
@@ -243,6 +246,9 @@ class Slider extends StatefulWidget {
     /// Popover offset from thumb anchor.
     Offset? dragPopoverOffset,
 
+    /// Controls when popover is visible.
+    ShadPopoverVisibility? dragPopoverVisibility,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -276,6 +282,7 @@ class Slider extends StatefulWidget {
       trackRenderer: trackRenderer,
       dragPopoverBuilder: dragPopoverBuilder,
       dragPopoverOffset: dragPopoverOffset,
+      dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
     );
   }
@@ -382,6 +389,9 @@ class Slider extends StatefulWidget {
     /// Popover offset from thumb anchor.
     Offset? dragPopoverOffset,
 
+    /// Controls when popover is visible.
+    ShadPopoverVisibility? dragPopoverVisibility,
+
     /// Accessibility label used by semantics.
     String? semanticLabel,
   }) {
@@ -416,6 +426,7 @@ class Slider extends StatefulWidget {
       trackRenderer: trackRenderer,
       dragPopoverBuilder: dragPopoverBuilder,
       dragPopoverOffset: dragPopoverOffset,
+      dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
     );
   }
@@ -545,6 +556,9 @@ class Slider extends StatefulWidget {
 
   /// Popover offset from thumb anchor.
   final Offset? dragPopoverOffset;
+
+  /// Controls when popover is visible.
+  final ShadPopoverVisibility? dragPopoverVisibility;
 
   /// Optional accessibility label.
   final String? semanticLabel;
@@ -699,6 +713,11 @@ class _SliderState extends State<Slider> {
       themeValue: compTheme?.dragPopoverOffset,
       defaultValue: const Offset(0, -12),
     );
+    final resolvedDragPopoverVisibility = styleValue<ShadPopoverVisibility>(
+      widgetValue: widget.dragPopoverVisibility,
+      themeValue: compTheme?.dragPopoverVisibility,
+      defaultValue: ShadPopoverVisibility.whileDragging,
+    );
 
     final preset = _parsePreset(resolvedPresetName, isRange: widget.isRange);
     final resolved = resolveShadSliderPreset(
@@ -791,9 +810,13 @@ class _SliderState extends State<Slider> {
                   top: t.center.dy - t.size.height / 2,
                   child: effectiveThumbBuilder(context, t),
                 ),
-              if (_dragging &&
-                  resolvedDragPopoverBuilder != null &&
-                  view.thumbs.isNotEmpty)
+              if (resolvedDragPopoverBuilder != null &&
+                  view.thumbs.isNotEmpty &&
+                  resolvedDragPopoverVisibility !=
+                      ShadPopoverVisibility.never &&
+                  (resolvedDragPopoverVisibility ==
+                          ShadPopoverVisibility.always ||
+                      _dragging))
                 Builder(
                   builder: (context) {
                     final idx = (_activeThumb ?? 0).clamp(

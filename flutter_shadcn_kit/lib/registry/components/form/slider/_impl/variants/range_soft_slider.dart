@@ -31,6 +31,7 @@ class RangeSoftSlider extends RangeSliderVariantBase {
     super.trackRenderer,
     super.dragPopoverBuilder,
     super.dragPopoverOffset,
+    super.dragPopoverVisibility,
     super.semanticLabel,
   });
 

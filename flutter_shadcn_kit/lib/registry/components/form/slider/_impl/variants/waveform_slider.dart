@@ -29,6 +29,7 @@ class WaveformSlider extends SingleSliderVariantBase {
     super.trackRenderer,
     super.dragPopoverBuilder,
     super.dragPopoverOffset,
+    super.dragPopoverVisibility,
     super.semanticLabel,
   });
 

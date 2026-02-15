@@ -5,6 +5,7 @@ class _SliderPreviewState extends State<SliderPreview> {
   double _brightness = 0.64;
   double _stepped = 5;
   double _wave = 0.35;
+  double _price = 97;
   ShadRangeValue _range = const ShadRangeValue(3, 8, minRange: 0);
 
   late final List<double> _amps = List.generate(80, (index) {
@@ -84,12 +85,18 @@ class _SliderPreviewState extends State<SliderPreview> {
           ),
           _PreviewCard(
             title: 'Wave slider variant',
-            trailing: '${(_wave * 100).round()}%',
-            child: WaveSlider(
-              value: _wave,
-              onChanged: (value) => setState(() => _wave = value),
+            trailing: '\$${_price.toStringAsFixed(0)}',
+            child: WaveSlider.domain(
+              min: 90,
+              max: 120,
+              value: _price,
+              onChanged: (value) => setState(() => _price = value),
               samples: _amps,
-              showThumb: true,
+              popoverVisibility: ShadPopoverVisibility.always,
+              popoverBuilder: ShadSliderDefaults.waveValuePopover(
+                formatter: (value) => '\$${value.toStringAsFixed(0)}',
+                shape: ShadPopoverShape.pill,
+              ),
             ),
           ),
         ],

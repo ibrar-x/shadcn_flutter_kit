@@ -168,9 +168,32 @@ Slider.single(
   dragPopoverBuilder: ShadSliderDefaults.valuePopover(
     formatter: (v) => '${(v * 100).round()}%',
   ),
+  dragPopoverVisibility: ShadPopoverVisibility.always,
 );
 ```
 
+### Wave slider (domain values like price)
+```dart
+WaveSlider.domain(
+  min: 90,
+  max: 120,
+  value: 97,
+  onChanged: (price) => setState(() => currentPrice = price),
+  samples: amplitudes,
+  valueFormatter: (v) => '\$${v.toStringAsFixed(0)}',
+  popoverVisibility: ShadPopoverVisibility.always,
+  popoverBuilder: ShadSliderDefaults.waveValuePopoverPill(
+    formatter: (v) => '\$${v.toStringAsFixed(0)}',
+  ),
+);
+```
+
+### Popover shapes
+```dart
+ShadSliderDefaults.valuePopoverPill()
+ShadSliderDefaults.valuePopoverRounded()
+ShadSliderDefaults.valuePopoverSquare()
+```
 
 ### Preset wrappers
 ```dart
@@ -185,7 +208,12 @@ WaveformSlider(value: v, onChanged: onChanged)
 `waveHeight`, `wavePadding`, `waveBarWidth`, `waveBarGap`, `waveMinBarHeight`,
 `waveMaxBarHeight`, `waveCornerRadius`, `waveActiveColor`, `waveInactiveColor`,
 `waveDisabledOpacity`, `waveShowThumb`, `waveThumbRadius`, `waveThumbColor`,
-`waveThumbBorderColor`, `waveThumbBorderWidth`, `waveHitSlop`, `waveEnabled`.
+`waveThumbBorderColor`, `waveThumbBorderWidth`, `waveHitSlop`, `waveEnabled`,
+`wavePopoverBuilder`, `wavePopoverOffset`, `wavePopoverVisibility`.
+
+Shared popover theme fields for all slider types:
+`dragPopoverBuilder`, `dragPopoverOffset`, `dragPopoverVisibility`,
+`popoverShape`, `popoverBackgroundColor`, `popoverForegroundColor`.
 
 ## Theme Color Examples
 

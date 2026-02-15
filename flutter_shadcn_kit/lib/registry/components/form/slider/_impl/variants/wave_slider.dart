@@ -6,20 +6,26 @@ import 'package:flutter/material.dart' hide SliderTheme, Theme;
 
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/style_value.dart';
+import '../core/shad_slider_models.dart';
+import '../styles/shad_slider_defaults.dart';
 import '../themes/slider_theme.dart';
 
 /// A waveform-based slider (no linear track).
 ///
 /// - Renders vertical wave bars as the slider body.
-/// - [value] is normalized in `[0..1]`.
-/// - [samples] are normalized amplitudes in `[0..1]`.
+/// - Supports two modes:
+///   - normalized mode (`value` in `[0..1]`, default)
+///   - domain mode via [WaveSlider.domain] (`value` in `[min..max]`)
 /// - All visual parameters resolve through [SliderTheme] when not provided.
-class WaveSlider extends StatelessWidget {
+class WaveSlider extends StatefulWidget {
   const WaveSlider({
     super.key,
     required this.value,
     required this.onChanged,
     required this.samples,
+    this.min = 0,
+    this.max = 1,
+    this.valueIsNormalized = true,
     this.height,
     this.padding,
     this.barWidth,
@@ -37,17 +43,105 @@ class WaveSlider extends StatelessWidget {
     this.thumbBorderWidth,
     this.hitSlop,
     this.enabled,
+    this.popoverBuilder,
+    this.popoverOffset,
+    this.popoverVisibility,
+    this.valueFormatter,
     this.semanticsLabel,
-  });
+  }) : assert(max > min);
 
-  /// Normalized slider value in `[0..1]`.
+  /// Creates a domain-value waveform slider.
+  ///
+  /// Use this when your app value is not normalized (for example prices such as
+  /// `97`, `99`, `120`). Gesture updates and [onChanged] emit values in
+  /// `[min, max]`.
+  factory WaveSlider.domain({
+    Key? key,
+    required double value,
+    required ValueChanged<double> onChanged,
+    required List<double> samples,
+    double min = 0,
+    double max = 1,
+    double? height,
+    EdgeInsets? padding,
+    double? barWidth,
+    double? barGap,
+    double? minBarHeight,
+    double? maxBarHeight,
+    double? cornerRadius,
+    Color? activeColor,
+    Color? inactiveColor,
+    double? disabledOpacity,
+    bool? showThumb,
+    double? thumbRadius,
+    Color? thumbColor,
+    Color? thumbBorderColor,
+    double? thumbBorderWidth,
+    double? hitSlop,
+    bool? enabled,
+    ShadWavePopoverBuilder? popoverBuilder,
+    Offset? popoverOffset,
+    ShadPopoverVisibility? popoverVisibility,
+    String Function(double value)? valueFormatter,
+    String? semanticsLabel,
+  }) {
+    return WaveSlider(
+      key: key,
+      value: value,
+      onChanged: onChanged,
+      samples: samples,
+      min: min,
+      max: max,
+      valueIsNormalized: false,
+      height: height,
+      padding: padding,
+      barWidth: barWidth,
+      barGap: barGap,
+      minBarHeight: minBarHeight,
+      maxBarHeight: maxBarHeight,
+      cornerRadius: cornerRadius,
+      activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      disabledOpacity: disabledOpacity,
+      showThumb: showThumb,
+      thumbRadius: thumbRadius,
+      thumbColor: thumbColor,
+      thumbBorderColor: thumbBorderColor,
+      thumbBorderWidth: thumbBorderWidth,
+      hitSlop: hitSlop,
+      enabled: enabled,
+      popoverBuilder: popoverBuilder,
+      popoverOffset: popoverOffset,
+      popoverVisibility: popoverVisibility,
+      valueFormatter: valueFormatter,
+      semanticsLabel: semanticsLabel,
+    );
+  }
+
+  /// Current value.
+  ///
+  /// - If [valueIsNormalized] is true: expected in `[0..1]`.
+  /// - If [valueIsNormalized] is false: expected in `[min..max]`.
   final double value;
 
   /// Called when user scrubs via tap/drag.
+  ///
+  /// The emitted value matches the configured mode:
+  /// - normalized mode => emits `[0..1]`
+  /// - domain mode => emits `[min..max]`
   final ValueChanged<double> onChanged;
 
   /// Wave amplitudes in `[0..1]`.
   final List<double> samples;
+
+  /// Lower bound for domain mode.
+  final double min;
+
+  /// Upper bound for domain mode.
+  final double max;
+
+  /// Whether [value] / [onChanged] use normalized values.
+  final bool valueIsNormalized;
 
   /// Total widget height.
   final double? height;
@@ -100,8 +194,48 @@ class WaveSlider extends StatelessWidget {
   /// Whether user interaction is enabled.
   final bool? enabled;
 
+  /// Optional popover shown above the thumb.
+  final ShadWavePopoverBuilder? popoverBuilder;
+
+  /// Popover anchor offset from thumb center.
+  final Offset? popoverOffset;
+
+  /// Controls when popover is visible.
+  final ShadPopoverVisibility? popoverVisibility;
+
+  /// Optional value formatter used by default popover and semantics.
+  final String Function(double value)? valueFormatter;
+
   /// Optional semantics label.
   final String? semanticsLabel;
+
+  @override
+  State<WaveSlider> createState() => _WaveSliderState();
+}
+
+class _WaveSliderState extends State<WaveSlider> {
+  bool _dragging = false;
+
+  double _normalize(double v) {
+    if (widget.valueIsNormalized) {
+      return v.clamp(0.0, 1.0).toDouble();
+    }
+    final range = widget.max - widget.min;
+    if (range == 0) return 0.0;
+    return ((v - widget.min) / range).clamp(0.0, 1.0).toDouble();
+  }
+
+  double _denormalize(double t) {
+    final clamped = t.clamp(0.0, 1.0).toDouble();
+    return widget.min + (widget.max - widget.min) * clamped;
+  }
+
+  void _emitFromNormalized(double t) {
+    final clamped = t.clamp(0.0, 1.0).toDouble();
+    widget.onChanged(
+      widget.valueIsNormalized ? clamped : _denormalize(clamped),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,99 +245,129 @@ class WaveSlider extends StatelessWidget {
     final baseGap = theme.density.baseGap * theme.scaling;
 
     final resolvedEnabled = styleValue(
-      widgetValue: enabled,
+      widgetValue: widget.enabled,
       themeValue: compTheme?.waveEnabled,
       defaultValue: true,
     );
     final resolvedHeight = styleValue(
-      widgetValue: height,
+      widgetValue: widget.height,
       themeValue: compTheme?.waveHeight,
       defaultValue: baseGap * 5.5,
     );
     final resolvedPadding = styleValue(
-      widgetValue: padding,
+      widgetValue: widget.padding,
       themeValue: compTheme?.wavePadding,
       defaultValue: EdgeInsets.symmetric(horizontal: baseGap),
     );
     final resolvedBarWidth = styleValue(
-      widgetValue: barWidth,
+      widgetValue: widget.barWidth,
       themeValue: compTheme?.waveBarWidth,
       defaultValue: (baseGap * 0.5).clamp(2.0, 6.0).toDouble(),
     );
     final resolvedBarGap = styleValue(
-      widgetValue: barGap,
+      widgetValue: widget.barGap,
       themeValue: compTheme?.waveBarGap,
       defaultValue: (baseGap * 0.25).clamp(1.0, 4.0).toDouble(),
     );
     final resolvedMinBarHeight = styleValue(
-      widgetValue: minBarHeight,
+      widgetValue: widget.minBarHeight,
       themeValue: compTheme?.waveMinBarHeight,
       defaultValue: (baseGap * 0.75).clamp(2.0, 12.0).toDouble(),
     );
     final resolvedMaxBarHeight = styleValue(
-      widgetValue: maxBarHeight,
+      widgetValue: widget.maxBarHeight,
       themeValue: compTheme?.waveMaxBarHeight,
       defaultValue: (baseGap * 5.0).clamp(10.0, 80.0).toDouble(),
     );
     final resolvedCornerRadius = styleValue(
-      widgetValue: cornerRadius,
+      widgetValue: widget.cornerRadius,
       themeValue: compTheme?.waveCornerRadius,
       defaultValue: theme.radiusLg,
     );
     final resolvedActive = styleValue(
-      widgetValue: activeColor,
+      widgetValue: widget.activeColor,
       themeValue: compTheme?.waveActiveColor,
       defaultValue: cs.primary,
     );
     final resolvedInactive = styleValue(
-      widgetValue: inactiveColor,
+      widgetValue: widget.inactiveColor,
       themeValue: compTheme?.waveInactiveColor,
       defaultValue: cs.muted.withOpacity(0.75),
     );
     final resolvedDisabledOpacity = styleValue(
-      widgetValue: disabledOpacity,
+      widgetValue: widget.disabledOpacity,
       themeValue: compTheme?.waveDisabledOpacity,
       defaultValue: 0.45,
     );
     final resolvedShowThumb = styleValue(
-      widgetValue: showThumb,
+      widgetValue: widget.showThumb,
       themeValue: compTheme?.waveShowThumb,
       defaultValue: true,
     );
     final resolvedThumbRadius = styleValue(
-      widgetValue: thumbRadius,
+      widgetValue: widget.thumbRadius,
       themeValue: compTheme?.waveThumbRadius,
       defaultValue: (baseGap * 1.25).clamp(6.0, 14.0).toDouble(),
     );
     final resolvedThumbColor = styleValue(
-      widgetValue: thumbColor,
+      widgetValue: widget.thumbColor,
       themeValue: compTheme?.waveThumbColor,
       defaultValue: cs.background,
     );
     final resolvedThumbBorderColor = styleValue(
-      widgetValue: thumbBorderColor,
+      widgetValue: widget.thumbBorderColor,
       themeValue: compTheme?.waveThumbBorderColor,
       defaultValue: cs.foreground.withOpacity(0.18),
     );
     final resolvedThumbBorderWidth = styleValue(
-      widgetValue: thumbBorderWidth,
+      widgetValue: widget.thumbBorderWidth,
       themeValue: compTheme?.waveThumbBorderWidth,
       defaultValue: 2.0,
     );
     final resolvedHitSlop = styleValue(
-      widgetValue: hitSlop,
+      widgetValue: widget.hitSlop,
       themeValue: compTheme?.waveHitSlop,
       defaultValue: baseGap,
     );
+    final resolvedPopoverBuilder = styleValue<ShadWavePopoverBuilder?>(
+      widgetValue: widget.popoverBuilder,
+      themeValue: compTheme?.wavePopoverBuilder,
+      defaultValue: null,
+    );
+    final resolvedPopoverOffset = styleValue<Offset>(
+      widgetValue: widget.popoverOffset,
+      themeValue: compTheme?.wavePopoverOffset,
+      defaultValue: const Offset(0, -12),
+    );
+    final resolvedPopoverVisibility = styleValue<ShadPopoverVisibility>(
+      widgetValue: widget.popoverVisibility,
+      themeValue: compTheme?.wavePopoverVisibility,
+      defaultValue: ShadPopoverVisibility.whileDragging,
+    );
 
-    final clamped = value.clamp(0.0, 1.0);
+    final normalizedValue = _normalize(widget.value);
+    final denormalizedValue = _denormalize(normalizedValue);
+    final semanticsText =
+        widget.valueFormatter?.call(denormalizedValue) ??
+        '${(normalizedValue * 100).round()}%';
+
+    final defaultWavePopover = ShadSliderDefaults.waveValuePopover(
+      formatter: widget.valueFormatter,
+      shape: compTheme?.popoverShape,
+    );
+    final effectivePopoverBuilder =
+        resolvedPopoverBuilder ?? defaultWavePopover;
+    final showPopover =
+        resolvedPopoverVisibility != ShadPopoverVisibility.never &&
+        (resolvedPopoverVisibility == ShadPopoverVisibility.always ||
+            _dragging);
 
     Widget body = SizedBox(
       height: resolvedHeight,
       child: CustomPaint(
         painter: _WaveSliderPainter(
-          value: clamped,
-          samples: samples,
+          value: normalizedValue,
+          samples: widget.samples,
           padding: resolvedPadding,
           barWidth: resolvedBarWidth,
           barGap: resolvedBarGap,
@@ -224,26 +388,70 @@ class WaveSlider extends StatelessWidget {
       ),
     );
 
-    if (resolvedEnabled) {
-      body = _WaveSliderGestureLayer(
-        height: resolvedHeight,
-        padding: resolvedPadding,
-        hitSlop: resolvedHitSlop,
-        onValue: (v) => onChanged(v.clamp(0.0, 1.0)),
-        child: body,
-      );
-    } else {
+    if (!resolvedEnabled) {
       body = Opacity(opacity: resolvedDisabledOpacity, child: body);
     }
 
-    return Semantics(
-      label: semanticsLabel ?? 'Wave slider',
-      value: '${(clamped * 100).round()}%',
-      increasedValue: 'Increase',
-      decreasedValue: 'Decrease',
-      slider: true,
-      enabled: resolvedEnabled,
-      child: body,
+    return LayoutBuilder(
+      builder: (context, c) {
+        final left = resolvedPadding.left;
+        final right = c.maxWidth - resolvedPadding.right;
+        final contentW = math.max(1.0, right - left);
+        final thumbX = (left + contentW * normalizedValue).clamp(left, right);
+        final contentTop = resolvedPadding.top;
+        final contentBottom = resolvedHeight - resolvedPadding.bottom;
+        final thumbY = contentTop + (contentBottom - contentTop) / 2;
+
+        Widget interactive = Stack(
+          clipBehavior: Clip.none,
+          children: [
+            body,
+            if (showPopover)
+              Positioned(
+                left: thumbX + resolvedPopoverOffset.dx,
+                top:
+                    thumbY -
+                    (resolvedShowThumb ? resolvedThumbRadius : 0) +
+                    resolvedPopoverOffset.dy,
+                child: FractionalTranslation(
+                  translation: const Offset(-0.5, -1.0),
+                  child: IgnorePointer(
+                    child: effectivePopoverBuilder(
+                      context,
+                      normalizedValue,
+                      denormalizedValue,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+
+        if (resolvedEnabled) {
+          interactive = _WaveSliderGestureLayer(
+            height: resolvedHeight,
+            padding: resolvedPadding,
+            hitSlop: resolvedHitSlop,
+            onValue: _emitFromNormalized,
+            onDragStateChanged: (dragging) {
+              if (_dragging != dragging && mounted) {
+                setState(() => _dragging = dragging);
+              }
+            },
+            child: interactive,
+          );
+        }
+
+        return Semantics(
+          label: widget.semanticsLabel ?? 'Wave slider',
+          value: semanticsText,
+          increasedValue: 'Increase',
+          decreasedValue: 'Decrease',
+          slider: true,
+          enabled: resolvedEnabled,
+          child: interactive,
+        );
+      },
     );
   }
 }
@@ -255,6 +463,7 @@ class _WaveSliderGestureLayer extends StatelessWidget {
     required this.padding,
     required this.hitSlop,
     required this.onValue,
+    required this.onDragStateChanged,
   });
 
   final Widget child;
@@ -262,6 +471,7 @@ class _WaveSliderGestureLayer extends StatelessWidget {
   final EdgeInsets padding;
   final double hitSlop;
   final ValueChanged<double> onValue;
+  final ValueChanged<bool> onDragStateChanged;
 
   double _posToValue(BoxConstraints c, Offset localPos) {
     final left = padding.left;
@@ -277,11 +487,20 @@ class _WaveSliderGestureLayer extends StatelessWidget {
       builder: (context, c) {
         return GestureDetector(
           behavior: HitTestBehavior.translucent,
-          onTapDown: (d) => onValue(_posToValue(c, d.localPosition)),
-          onHorizontalDragStart: (d) =>
-              onValue(_posToValue(c, d.localPosition)),
+          onTapDown: (d) {
+            onDragStateChanged(true);
+            onValue(_posToValue(c, d.localPosition));
+          },
+          onTapUp: (_) => onDragStateChanged(false),
+          onTapCancel: () => onDragStateChanged(false),
+          onHorizontalDragStart: (d) {
+            onDragStateChanged(true);
+            onValue(_posToValue(c, d.localPosition));
+          },
           onHorizontalDragUpdate: (d) =>
               onValue(_posToValue(c, d.localPosition)),
+          onHorizontalDragEnd: (_) => onDragStateChanged(false),
+          onHorizontalDragCancel: () => onDragStateChanged(false),
           child: SizedBox(
             height: height + hitSlop * 2,
             child: Padding(

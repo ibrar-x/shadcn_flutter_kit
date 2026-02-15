@@ -30,6 +30,38 @@ typedef ShadDragPopoverBuilder =
       ShadThumbStateView thumb,
     );
 
+/// Builds a popover for [WaveSlider].
+typedef ShadWavePopoverBuilder =
+    Widget Function(
+      BuildContext context,
+      double normalizedValue,
+      double denormalizedValue,
+    );
+
+/// Controls when slider popovers are visible.
+enum ShadPopoverVisibility {
+  /// Never show popover.
+  never,
+
+  /// Show popover only while dragging/tapping.
+  whileDragging,
+
+  /// Keep popover visible even when idle.
+  always,
+}
+
+/// Built-in popover shape options used by default helper builders.
+enum ShadPopoverShape {
+  /// Capsule-like rounded ends.
+  pill,
+
+  /// Medium rounded rectangle.
+  rounded,
+
+  /// Square rectangle with subtle corners.
+  square,
+}
+
 /// Resolves per-segment style during segmented rendering.
 typedef ShadSegmentStyleResolver =
     ShadSegmentStyle Function(
