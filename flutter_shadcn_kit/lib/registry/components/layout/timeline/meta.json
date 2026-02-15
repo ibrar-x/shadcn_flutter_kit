@@ -21,6 +21,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/timeline_2.dart",
     "_impl/core/timeline_data.dart",

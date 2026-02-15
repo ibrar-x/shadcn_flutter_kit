@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "dropzone.dart",
     "dropzone.meta.json",

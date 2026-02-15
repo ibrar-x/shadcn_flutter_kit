@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:docs/ui/shadcn/components/display/chip/chip.dart';
 import 'package:docs/ui/shadcn/components/form/select/select.dart';
 import 'package:docs/ui/shadcn/components/form/text_field/text_field.dart';
 import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
-import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarCustomSelectsExample extends StatefulWidget {
   const FilterBarCustomSelectsExample({super.key});
@@ -63,31 +63,34 @@ class _FilterBarCustomSelectsExampleState
   @override
   Widget build(BuildContext context) {
     final visible = _filteredIssues();
-    return OutlinedContainer(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FilterBar(
-            state: _state,
-            sortOptions: _sortOptions,
-            resultsCount: visible.length,
-            customFilters: [
-              _statusFilter(),
-              _assigneeMatcherFilter(),
-            ],
-            onStateChanged: (next) {
-              setState(() {
-                _state = next;
-              });
-            },
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'First visible: ${visible.take(4).map((item) => item.title).join(', ')}',
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FilterBar(
+          state: _state,
+          presentation: FilterBarPresentation.inline,
+          sortOptions: _sortOptions,
+          resultsCount: visible.length,
+          customFilters: [
+            _statusFilter(),
+            _assigneeMatcherFilter(),
+          ],
+          onStateChanged: (next) {
+            setState(() {
+              _state = next;
+            });
+          },
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: visible
+              .take(6)
+              .map((issue) => Chip(child: Text(issue.title)))
+              .toList(growable: false),
+        ),
+      ],
     );
   }
 

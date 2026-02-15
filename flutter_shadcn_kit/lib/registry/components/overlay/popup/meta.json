@@ -23,6 +23,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/menu_popup_widget.dart",
     "_impl/themes/menu_popup_theme.dart",

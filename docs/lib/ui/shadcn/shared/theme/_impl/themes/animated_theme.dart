@@ -1,5 +1,6 @@
 part of '../../theme.dart';
 
+/// AnimatedTheme defines a reusable type for this registry module.
 class AnimatedTheme extends ImplicitlyAnimatedWidget {
   /// The target theme data to animate to.
   final ThemeData data;
@@ -23,5 +24,6 @@ class AnimatedTheme extends ImplicitlyAnimatedWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   AnimatedWidgetBaseState<AnimatedTheme> createState() => _AnimatedThemeState();
 }

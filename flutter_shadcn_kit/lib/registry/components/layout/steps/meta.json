@@ -21,6 +21,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/step_item.dart",
     "_impl/core/steps_2.dart",

@@ -18,6 +18,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_arrow_separator.dart",
     "_impl/core/_slash_separator.dart",

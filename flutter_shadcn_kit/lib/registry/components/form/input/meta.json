@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/input_above_below_feature.dart",
     "_impl/core/input_auto_complete_feature.dart",

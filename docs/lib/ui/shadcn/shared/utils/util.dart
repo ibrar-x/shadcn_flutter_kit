@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
@@ -22,12 +23,19 @@ part '_impl/state/__repeated_animation_builder_state.dart';
 part '_impl/state/__separated_flex_state.dart';
 part '_impl/utils/converted_controller.dart';
 
+/// Type alias for `Predicate` used by public or internal APIs.
 typedef Predicate<T> = bool Function(T value);
+/// Type alias for `UnaryOperator` used by public or internal APIs.
 typedef UnaryOperator<T> = T Function(T value);
+/// Type alias for `BinaryOperator` used by public or internal APIs.
 typedef BinaryOperator<T> = T Function(T a, T b);
+/// Type alias for `ContextedCallback` used by public or internal APIs.
 typedef ContextedCallback = void Function(BuildContext context);
+/// Type alias for `ContextedValueChanged` used by public or internal APIs.
 typedef ContextedValueChanged<T> = void Function(BuildContext context, T value);
+/// Type alias for `SearchPredicate` used by public or internal APIs.
 typedef SearchPredicate<T> = double Function(T value, String query);
+/// Type alias for `NeverWidgetBuilder` used by public or internal APIs.
 typedef NeverWidgetBuilder = Widget Function(
     [dynamic,
     dynamic,
@@ -55,6 +63,7 @@ class SafeLerp<T> {
   final T? Function(T? a, T? b, double t) nullableLerp;
   const SafeLerp(this.nullableLerp);
 
+/// Executes `lerp` behavior for this component/composite.
   T lerp(T a, T b, double t) {
     T? result = nullableLerp(a, b, t);
     assert(result != null, 'Unsafe lerp');
@@ -69,6 +78,7 @@ double unlerpDouble(double value, double min, double max) {
 
 /// Extension on nullable lerp functions.
 extension SafeLerpExtension<T> on T? Function(T? a, T? b, double t) {
+/// Executes `nonNull` behavior for this component/composite.
   T nonNull(T a, T b, double t) {
     T? result = this(a, b, t);
     assert(result != null);
@@ -78,26 +88,31 @@ extension SafeLerpExtension<T> on T? Function(T? a, T? b, double t) {
 
 /// Extension methods for List operations.
 extension ListExtension<T> on List<T> {
+/// Executes `indexOfOrNull` behavior for this component/composite.
   int? indexOfOrNull(T obj, [int start = 0]) {
     int index = indexOf(obj, start);
     return index == -1 ? null : index;
   }
 
+/// Executes `lastIndexOfOrNull` behavior for this component/composite.
   int? lastIndexOfOrNull(T obj, [int? start]) {
     int index = lastIndexOf(obj, start);
     return index == -1 ? null : index;
   }
 
+/// Executes `indexWhereOrNull` behavior for this component/composite.
   int? indexWhereOrNull(Predicate<T> test, [int start = 0]) {
     int index = indexWhere(test, start);
     return index == -1 ? null : index;
   }
 
+/// Executes `lastIndexWhereOrNull` behavior for this component/composite.
   int? lastIndexWhereOrNull(Predicate<T> test, [int? start]) {
     int index = lastIndexWhere(test, start);
     return index == -1 ? null : index;
   }
 
+/// Executes `swapItem` behavior for this component/composite.
   bool swapItem(T element, int targetIndex) {
     int currentIndex = indexOf(element);
     if (currentIndex == -1) {
@@ -121,15 +136,18 @@ extension ListExtension<T> on List<T> {
     return true;
   }
 
+/// Executes `swapItemWhere` behavior for this component/composite.
   bool swapItemWhere(Predicate<T> test, int targetIndex) {
     int currentIndex = indexWhere(test);
     if (currentIndex == -1) {
       return false;
     }
+/// Stores `element` state/configuration for this implementation.
     T element = this[currentIndex];
     return swapItem(element, targetIndex);
   }
 
+/// Executes `optGet` behavior for this component/composite.
   T? optGet(int index) {
     if (index < 0 || index >= length) {
       return null;
@@ -170,7 +188,9 @@ extension FutureOrExtension<T> on FutureOr<T> {
   }
 }
 
+/// Executes `wrapDouble` behavior for this component/composite.
 double wrapDouble(double value, double min, double max) {
+/// Stores `range` state/configuration for this implementation.
   final range = max - min;
   if (range == 0) {
     return min;
@@ -180,9 +200,11 @@ double wrapDouble(double value, double min, double max) {
 
 /// Widget tree change detector
 class WidgetTreeChangeDetector extends StatefulWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
   final void Function() onWidgetTreeChange;
 
+/// Creates a `WidgetTreeChangeDetector` instance.
   const WidgetTreeChangeDetector({
     super.key,
     required this.child,
@@ -190,23 +212,28 @@ class WidgetTreeChangeDetector extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   WidgetTreeChangeDetectorState createState() =>
       WidgetTreeChangeDetectorState();
 }
 
+/// WidgetTreeChangeDetectorState defines a reusable type for this registry module.
 class WidgetTreeChangeDetectorState extends State<WidgetTreeChangeDetector> {
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     widget.onWidgetTreeChange();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return widget.child;
   }
 }
 
+/// Executes `gap` behavior for this component/composite.
 Widget gap(double gap, {double? crossGap}) {
   return Gap(
     gap,
@@ -216,7 +243,9 @@ Widget gap(double gap, {double? crossGap}) {
 
 /// Extension for joining lists of widgets.
 extension Joinable<T extends Widget> on List<T> {
+/// Executes `joinSeparator` behavior for this component/composite.
   List<T> joinSeparator(T separator) {
+/// Stores `result` state/configuration for this implementation.
     List<T> result = [];
     for (int i = 0; i < length; i++) {
       if (i > 0) {
@@ -229,11 +258,15 @@ extension Joinable<T extends Widget> on List<T> {
 }
 
 extension IterableExtension<T> on Iterable<T> {
+/// Executes `joinSeparator` behavior for this component/composite.
   Iterable<T> joinSeparator(T separator) {
+/// Executes `map` behavior for this component/composite.
     return map((e) => [separator, e]).expand((element) => element).skip(1);
   }
 
+/// Executes `buildSeparator` behavior for this component/composite.
   Iterable<T> buildSeparator(ValueGetter<T> separator) {
+/// Executes `map` behavior for this component/composite.
     return map((e) => [separator(), e]).expand((element) => element).skip(1);
   }
 }
@@ -245,7 +278,9 @@ Iterable<Widget> join(Iterable<Widget> widgets, Widget separator) {
 
 /// Iterable that lazily inserts separators between widgets.
 class SeparatedIterable extends Iterable<Widget> {
+/// Stores `_widgets` state/configuration for this implementation.
   final Iterable<Widget> _widgets;
+/// Stores `_separator` state/configuration for this implementation.
   final Widget _separator;
 
   SeparatedIterable(this._widgets, this._separator);
@@ -254,21 +289,30 @@ class SeparatedIterable extends Iterable<Widget> {
   Iterator<Widget> get iterator => _SeparatedIterator(_widgets.iterator, _separator);
 }
 
+/// _SeparatedIterator defines a reusable type for this registry module.
 class _SeparatedIterator implements Iterator<Widget> {
+/// Stores `_iterator` state/configuration for this implementation.
   final Iterator<Widget> _iterator;
+/// Stores `_separator` state/configuration for this implementation.
   final Widget _separator;
+/// Stores `_isOnSeparator` state/configuration for this implementation.
   bool _isOnSeparator = false;
+/// Stores `_hasNext` state/configuration for this implementation.
   bool _hasNext = true;
+/// Stores `_current` state/configuration for this implementation.
   Widget? _current;
 
+/// Creates a `_SeparatedIterator` instance.
   _SeparatedIterator(this._iterator, this._separator) {
     _hasNext = _iterator.moveNext();
   }
 
   @override
+/// Stores `current` state/configuration for this implementation.
   Widget get current => _current!;
 
   @override
+/// Executes `moveNext` behavior for this component/composite.
   bool moveNext() {
     if (!_hasNext) {
       return false;
@@ -295,6 +339,7 @@ class _SeparatedIterator implements Iterator<Widget> {
 
 /// Mutates a separated list in place when the source list changes.
 void mutateSeparated(List<Widget> source, List<Widget> separated, Widget separator) {
+/// Stores `expectedLength` state/configuration for this implementation.
   final expectedLength = source.isEmpty ? 0 : source.length * 2 - 1;
   
   if (separated.length != expectedLength) {
@@ -304,6 +349,7 @@ void mutateSeparated(List<Widget> source, List<Widget> separated, Widget separat
   }
 
   for (var i = 0; i < source.length; i++) {
+/// Stores `separatedIndex` state/configuration for this implementation.
     final separatedIndex = i * 2;
     if (separated[separatedIndex] != source[i]) {
       separated[separatedIndex] = source[i];

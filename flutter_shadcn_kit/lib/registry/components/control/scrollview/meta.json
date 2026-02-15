@@ -13,6 +13,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/scroll_view_interceptor.dart",
     "_impl/state/scroll_view_interceptor_state.dart",

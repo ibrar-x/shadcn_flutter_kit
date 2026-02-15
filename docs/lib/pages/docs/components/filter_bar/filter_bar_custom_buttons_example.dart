@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:docs/ui/shadcn/components/control/button/button.dart';
+import 'package:docs/ui/shadcn/components/display/chip/chip.dart';
 import 'package:docs/ui/shadcn/components/form/checkbox/checkbox.dart';
 import 'package:docs/ui/shadcn/components/form/select/select.dart';
 import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
-import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarCustomButtonsExample extends StatefulWidget {
   const FilterBarCustomButtonsExample({super.key});
@@ -36,49 +36,50 @@ class _FilterBarCustomButtonsExampleState
   @override
   Widget build(BuildContext context) {
     final visible = _filteredTasks();
-    return OutlinedContainer(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FilterBar(
-            state: _state,
-            presentation: FilterBarPresentation.autoSheet,
-            sheetBreakpoint: 980,
-            sheetTitle: 'Advanced filters',
-            groups: const [
-              FilterGroup(
-                id: 'quick',
-                title: 'Quick',
-                filterIds: ['urgency', 'assignee'],
-              ),
-              FilterGroup(
-                id: 'channels',
-                title: 'Channels',
-                filterIds: ['channels'],
-              ),
-            ],
-            resultsCount: visible.length,
-            customFilters: [
-              _urgencyButtons(),
-              _assigneeFilter(),
-              _channelsFilter(),
-            ],
-            trailingFilters: [
-              PrimaryButton(onPressed: () {}, child: Text('Show ${visible.length}')),
-            ],
-            onStateChanged: (next) {
-              setState(() {
-                _state = next;
-              });
-            },
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'Visible tasks: ${visible.take(6).map((task) => task.title).join(', ')}',
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FilterBar(
+          state: _state,
+          presentation: FilterBarPresentation.inline,
+          sheetTitle: 'Advanced filters',
+          groups: const [
+            FilterGroup(
+              id: 'quick',
+              title: 'Quick',
+              filterIds: ['urgency', 'assignee'],
+            ),
+            FilterGroup(
+              id: 'channels',
+              title: 'Channels',
+              filterIds: ['channels'],
+            ),
+          ],
+          resultsCount: visible.length,
+          customFilters: [
+            _urgencyButtons(),
+            _assigneeFilter(),
+            _channelsFilter(),
+          ],
+          trailingFilters: [
+            PrimaryButton(onPressed: () {}, child: Text('Show ${visible.length}')),
+          ],
+          onStateChanged: (next) {
+            setState(() {
+              _state = next;
+            });
+          },
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: visible
+              .take(8)
+              .map((task) => Chip(child: Text(task.title)))
+              .toList(growable: false),
+        ),
+      ],
     );
   }
 
@@ -107,8 +108,9 @@ class _FilterBarCustomButtonsExampleState
           );
         }
 
-        return Row(
-          mainAxisSize: MainAxisSize.min,
+        return Wrap(
+          spacing: 6,
+          runSpacing: 6,
           children: [
             buildButton(
               label: 'All',
@@ -211,12 +213,12 @@ class _FilterBarCustomButtonsExampleState
           );
         }
 
-        return Row(
+        return Wrap(
+          spacing: 8,
+          runSpacing: 8,
           children: [
             channel('email', 'Email'),
-            const SizedBox(width: 8),
             channel('chat', 'Chat'),
-            const SizedBox(width: 8),
             channel('call', 'Call'),
           ],
         );

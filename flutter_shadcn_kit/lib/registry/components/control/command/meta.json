@@ -36,6 +36,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/command_category.dart",
     "_impl/core/command_dialog.dart",

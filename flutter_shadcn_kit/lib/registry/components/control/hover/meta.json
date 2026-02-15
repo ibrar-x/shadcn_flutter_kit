@@ -17,6 +17,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/hover_activity.dart",
     "_impl/core/hover_preview.dart",

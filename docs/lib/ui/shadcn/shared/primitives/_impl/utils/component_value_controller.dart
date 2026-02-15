@@ -1,5 +1,6 @@
 part of '../../form_control.dart';
 
+/// ComponentValueController defines a reusable type for this registry module.
 class ComponentValueController<T> extends ValueNotifier<T>
     implements ComponentController<T> {
   /// Creates a [ComponentValueController] with the given initial [value].

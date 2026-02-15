@@ -23,6 +23,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/keyboard_display.dart",
     "_impl/core/keyboard_key_display.dart",

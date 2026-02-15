@@ -19,6 +19,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/utils/shadcn_localizations_delegate.dart",
     "meta.json",

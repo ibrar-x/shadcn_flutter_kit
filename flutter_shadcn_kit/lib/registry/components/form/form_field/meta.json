@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_object_form_field_dialog.dart",
     "_impl/core/_object_form_field_popup.dart",

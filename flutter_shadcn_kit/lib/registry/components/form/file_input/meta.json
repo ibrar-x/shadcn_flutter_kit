@@ -17,6 +17,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/utils/file_icon_provider_data.dart",
     "file_input.dart",

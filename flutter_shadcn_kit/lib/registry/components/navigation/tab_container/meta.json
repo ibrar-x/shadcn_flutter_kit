@@ -18,6 +18,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/keyed_tab_child_widget.dart",
     "_impl/core/keyed_tab_item.dart",

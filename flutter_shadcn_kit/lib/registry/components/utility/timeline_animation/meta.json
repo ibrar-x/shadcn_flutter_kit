@@ -14,8 +14,8 @@
     "pubspec": {}
   },
   "files": [
-    "README.md",
     "GETTING_STARTED.md",
+    "README.md",
     "_impl/core/absolute_keyframe.dart",
     "_impl/core/keyframe.dart",
     "_impl/core/relative_keyframe.dart",

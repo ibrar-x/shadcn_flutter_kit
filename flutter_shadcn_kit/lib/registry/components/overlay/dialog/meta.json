@@ -25,6 +25,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_dialog_overlay_wrapper.dart",
     "_impl/core/dialog_route.dart",

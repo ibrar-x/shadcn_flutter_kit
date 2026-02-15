@@ -126,7 +126,7 @@ class _SliderPreviewState extends State<SliderPreview> {
                   popoverVisibility: ShadPopoverVisibility.always,
                   popoverBuilder: ShadSliderDefaults.valuePopover(
                     formatter: (value) => '\$${value.toStringAsFixed(0)}',
-                    shape: ShadPopoverShape.pill,
+                    shape: ShadPopoverShape.rounded,
                   ),
                 ),
               ),

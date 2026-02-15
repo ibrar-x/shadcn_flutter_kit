@@ -22,6 +22,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/themes/skeleton_theme.dart",
     "meta.json",

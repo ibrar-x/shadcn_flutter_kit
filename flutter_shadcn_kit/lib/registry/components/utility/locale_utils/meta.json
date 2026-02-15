@@ -16,6 +16,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/date_part.dart",
     "_impl/core/duration_part.dart",

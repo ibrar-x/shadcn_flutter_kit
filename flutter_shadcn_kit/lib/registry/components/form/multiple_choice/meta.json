@@ -20,6 +20,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/choice.dart",
     "_impl/core/controlled_multiple_answer.dart",

@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_chat_tail_behavior.dart",
     "_impl/core/_tail_painter.dart",

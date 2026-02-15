@@ -11,7 +11,6 @@ const ComponentExample filterBarBasicExample = ComponentExample(
   builder: _buildFilterBarBasicExample,
   code:
       r'''import 'package:docs/ui/shadcn/components/layout/filter_bar/filter_bar.dart';
-import 'package:docs/ui/shadcn/components/layout/outlined_container/outlined_container.dart';
 
 class FilterBarBasicExample extends StatefulWidget {
   const FilterBarBasicExample({super.key});
@@ -28,18 +27,16 @@ class _FilterBarBasicExampleState extends State<FilterBarBasicExample> {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedContainer(
-      padding: const EdgeInsets.all(12),
-      child: FilterBar(
-        state: state,
-        sortOptions: const [
-          FilterSortOption(id: 'newest', label: 'Newest'),
-          FilterSortOption(id: 'oldest', label: 'Oldest'),
-        ],
-        enableDateRange: true,
-        searchDebounce: const Duration(milliseconds: 250),
-        onStateChanged: (next) => setState(() => state = next),
-      ),
+    return FilterBar(
+      state: state,
+      presentation: FilterBarPresentation.inline,
+      sortOptions: const [
+        FilterSortOption(id: 'newest', label: 'Newest'),
+        FilterSortOption(id: 'oldest', label: 'Oldest'),
+      ],
+      enableDateRange: true,
+      searchDebounce: const Duration(milliseconds: 250),
+      onStateChanged: (next) => setState(() => state = next),
     );
   }
 }
@@ -77,6 +74,7 @@ final assigneeField = FilterField<String>(
 
 FilterBar(
   state: state,
+  presentation: FilterBarPresentation.inline,
   customFilters: [
     FilterCustomFilter.typed<String>(
       field: statusField,
@@ -113,8 +111,7 @@ const ComponentExample filterBarCustomButtonsExample = ComponentExample(
   builder: _buildFilterBarCustomButtonsExample,
   code: r'''FilterBar(
   state: state,
-  presentation: FilterBarPresentation.autoSheet,
-  sheetBreakpoint: 980,
+  presentation: FilterBarPresentation.inline,
   groups: const [
     FilterGroup(
       id: 'quick',
@@ -145,9 +142,11 @@ const ComponentExample filterBarClearPolicyExample = ComponentExample(
   code: r'''FilterBar(
   state: state,
   presentation: FilterBarPresentation.sheet,
-  sheetPosition: OverlayPosition.right, // or OverlayPosition.bottom
+  sheetPosition: OverlayPosition.bottom,
   sheetTitle: 'Mobile Filters',
   sheetTriggerLabel: 'Open Filters',
+  sheetConstraints: BoxConstraints(maxHeight: 300),
+  sheetContentPadding: EdgeInsets.all(12),
   enableDateRange: true,
   customFilters: [
     // filters shown in sheet

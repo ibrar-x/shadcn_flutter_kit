@@ -1,9 +1,11 @@
 part of '../../util.dart';
 
 
+/// _CapturedWrapperState defines a reusable type for this registry module.
 class _CapturedWrapperState extends State<CapturedWrapper> {
   final GlobalKey _key = GlobalKey();
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     Widget child = KeyedSubtree(
       key: _key,
@@ -21,10 +23,12 @@ class _CapturedWrapperState extends State<CapturedWrapper> {
 
 (bool enabled, Object? invokeResult) invokeActionOnFocusedWidget(
     Intent intent) {
+/// Stores `context` state/configuration for this implementation.
   final context = primaryFocus?.context;
   if (context != null) {
     final action = Actions.maybeFind<Intent>(context, intent: intent);
     if (action != null) {
+/// Creates a `final` instance.
       final (bool enabled, Object? invokeResult) =
           Actions.of(context).invokeActionIfEnabled(action, intent);
       return (enabled, invokeResult);
@@ -58,6 +62,7 @@ extension WidgetPaddingExtension on Widget {
     double? all,
     EdgeInsetsGeometry? padding,
   }) {
+/// Creates a `assert` instance.
     assert(() {
       if (all != null) {
         if (top != null ||
@@ -101,6 +106,7 @@ extension WidgetPaddingExtension on Widget {
 
   /// Wraps this widget with intrinsic sizing on both axes.
   Widget intrinsic({bool width = true, bool height = true}) {
+/// Stores `current` state/configuration for this implementation.
     Widget current = this;
     if (height) {
       current = IntrinsicHeight(child: current);

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-12T00:20:02.903332Z",
+  "generatedAt": "2026-02-15T00:21:19.892572Z",
   "components": [
     {
       "id": "accordion",
@@ -2115,12 +2115,14 @@
       "api": {
         "constructors": [
           "`FilterBar`",
-          "`state` (`FilterState`, required)",
-          "`onStateChanged` (`ValueChanged<FilterState>`, required)",
+          "`state` (`FilterState?`, required if `controller` is null)",
+          "`onStateChanged` (`ValueChanged<FilterState>?`, required if `controller` is null)",
+          "`controller` (`FilterBarController?`, optional)",
           "`sortOptions` (`List<FilterSortOption>`, optional)",
           "`enableDateRange` (`bool`, optional)",
           "`resultsCount` (`int?`, optional)",
           "`searchPlaceholder` (`String`, optional)",
+          "`searchLabel` (`String`, optional)",
           "`searchDebounce` (`Duration?`, optional)",
           "`trailingFilters` (`List<Widget>`, optional)",
           "`customFilters` (`List<FilterCustomFilter>`, optional)",
@@ -2128,6 +2130,11 @@
           "`clearPolicy` (`FilterClearPolicy`, optional)",
           "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
           "`showClearAllWhenEmpty` (`bool`, optional)",
+          "`presentation` (`FilterBarPresentation`, optional, default: `autoSheet`)",
+          "`sheetBreakpoint` (`double`, optional, default: `720`)",
+          "`sheetTriggerLabel` (`String`, optional)",
+          "`sheetTitle` (`String`, optional)",
+          "`groups` (`List<FilterGroup>`, optional)",
           "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
         ],
         "callbacks": [
@@ -2136,7 +2143,7 @@
         ]
       },
       "examples": {
-        "minimal": "FilterState state = const FilterState(\n  sortId: 'newest',\n);\n\nFilterBar(\n  state: state,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n  onStateChanged: (next) {\n    setState(() => state = next);\n  },\n)"
+        "minimal": "final controller = FilterBarController(\n  const FilterState(sortId: 'newest'),\n);\n\nFilterBar(\n  controller: controller,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n)"
       },
       "dependencies": {
         "pubspec": {},
@@ -2146,11 +2153,7 @@
           "localizations"
         ]
       },
-      "related": [
-        "table",
-        "chip_input",
-        "date_picker"
-      ]
+      "related": []
     },
     {
       "id": "flex",

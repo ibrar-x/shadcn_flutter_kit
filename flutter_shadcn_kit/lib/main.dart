@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_shadcn_kit/registry/components/display/text_animate/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/form/slider/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/layout/filter_bar/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/layout/app/app.dart';
 import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';
@@ -19,7 +21,7 @@ class _RegistryApp extends StatelessWidget {
       localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
       supportedLocales: ShadcnLocalizations.supportedLocales,
       locale: const Locale('en'),
-      home: const FilterBarPreview(),
+      home: const SliderPreview(),
     );
   }
 }

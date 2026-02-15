@@ -20,6 +20,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/cell_predicate.dart",
     "_impl/core/cell_resizer.dart",

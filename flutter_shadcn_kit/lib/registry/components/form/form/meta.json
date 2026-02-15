@@ -25,6 +25,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_form_entry_cached_value.dart",
     "_impl/core/_form_entry_handle_interceptor.dart",

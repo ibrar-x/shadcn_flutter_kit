@@ -1,5 +1,6 @@
 part of '../../theme.dart';
 
+/// AdaptiveScaling defines a reusable type for this registry module.
 class AdaptiveScaling {
   /// Default scaling for desktop layouts (1.0).
   static const AdaptiveScaling desktop = AdaptiveScaling();

@@ -26,6 +26,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/controlled_radio_group.dart",
     "_impl/core/radio.dart",

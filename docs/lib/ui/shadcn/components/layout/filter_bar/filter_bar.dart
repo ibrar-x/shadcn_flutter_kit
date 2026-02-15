@@ -53,6 +53,9 @@ class FilterBar extends StatefulWidget {
     this.sheetTriggerLabel = 'Filters',
     this.sheetTitle = 'Filters',
     this.sheetPosition = OverlayPosition.bottom,
+    this.useRootSheetOverlay = false,
+    this.sheetConstraints,
+    this.sheetContentPadding,
     this.groups = const [],
   }) : assert(
          controller != null || (state != null && onStateChanged != null),
@@ -130,6 +133,15 @@ class FilterBar extends StatefulWidget {
 
   /// Stores `sheetPosition` state/configuration for this implementation.
   final OverlayPosition sheetPosition;
+
+  /// Stores `useRootSheetOverlay` state/configuration for this implementation.
+  final bool useRootSheetOverlay;
+
+  /// Stores `sheetConstraints` state/configuration for this implementation.
+  final BoxConstraints? sheetConstraints;
+
+  /// Stores `sheetContentPadding` state/configuration for this implementation.
+  final EdgeInsetsGeometry? sheetContentPadding;
 
   /// Stores `groups` state/configuration for this implementation.
   final List<FilterGroup> groups;
@@ -302,6 +314,9 @@ class _FilterBarState extends State<FilterBar> {
       sheetTriggerLabel: widget.sheetTriggerLabel,
       sheetTitle: widget.sheetTitle,
       sheetPosition: widget.sheetPosition,
+      useRootSheetOverlay: widget.useRootSheetOverlay,
+      sheetConstraints: widget.sheetConstraints,
+      sheetContentPadding: widget.sheetContentPadding,
       groups: widget.groups,
       onSearchChanged: _onSearchChanged,
       onSortChanged: _onSortChanged,

@@ -19,6 +19,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/themes/focus_outline_theme.dart",
     "focus_outline.dart",

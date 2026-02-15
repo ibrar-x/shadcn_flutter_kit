@@ -22,6 +22,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/eye_dropper_layer.dart",
     "_impl/core/eye_dropper_layer_scope.dart",

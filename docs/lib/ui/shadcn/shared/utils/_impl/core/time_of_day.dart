@@ -1,6 +1,7 @@
 part of '../../util.dart';
 /// Represents a time of day with hour, minute, and second.
 
+/// TimeOfDay defines a reusable type for this registry module.
 class TimeOfDay {
   /// Hour component (0-23).
   final int hour;
@@ -102,6 +103,7 @@ class TimeOfDay {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is TimeOfDay &&
         other.hour == hour &&
@@ -113,6 +115,7 @@ class TimeOfDay {
   int get hashCode => Object.hash(hour, minute, second);
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'TimeOfDay{hour: $hour, minute: $minute, second: $second}';
   }

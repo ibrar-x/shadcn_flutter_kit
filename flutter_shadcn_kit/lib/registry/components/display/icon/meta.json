@@ -15,6 +15,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "icon.dart",
     "icon.meta.json",

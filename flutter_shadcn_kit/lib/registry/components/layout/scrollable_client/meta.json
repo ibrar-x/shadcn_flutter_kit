@@ -15,6 +15,7 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_scrollable_client_child_vicinity.dart",
     "_impl/core/render_scrollable_client_viewport.dart",

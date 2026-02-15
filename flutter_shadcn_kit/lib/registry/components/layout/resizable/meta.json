@@ -22,6 +22,7 @@
     }
   },
   "files": [
+    "GETTING_STARTED.md",
     "README.md",
     "_impl/core/_render_resizable_layout.dart",
     "_impl/core/_resizable_item.dart",
