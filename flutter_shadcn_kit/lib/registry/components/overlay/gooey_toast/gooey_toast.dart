@@ -247,7 +247,7 @@ class GooeyToastController {
         gooeyTheme?.overlapStackWhenMultiple ??
         true;
     final resolvedOverlapStackOffset =
-        overlapStackOffset ?? gooeyTheme?.overlapStackOffset ?? 11.0;
+        overlapStackOffset ?? gooeyTheme?.overlapStackOffset ?? 8.0;
     final resolvedPauseAutoDismissWhenMultiple =
         pauseAutoDismissWhenMultiple ??
         gooeyTheme?.pauseAutoDismissWhenMultiple ??

@@ -58,7 +58,7 @@ class ToastController {
             toastTheme?.overlapStackWhenMultiple ??
             false;
         final resolvedOverlapStackOffset =
-            overlapStackOffset ?? toastTheme?.overlapStackOffset ?? 12.0;
+            overlapStackOffset ?? toastTheme?.overlapStackOffset ?? 8.0;
         final resolvedPauseAutoDismissWhenMultiple =
             pauseAutoDismissWhenMultiple ??
             toastTheme?.pauseAutoDismissWhenMultiple ??
@@ -146,6 +146,9 @@ class ToastController {
             animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
             pauseOnHover: resolvedPauseOnHover,
             autoDismiss: autoDismissEnabled,
+            onInteractionStart: resolvedOverlapStackWhenMultiple
+                ? () => _bringToFront(stackItem, overlay)
+                : null,
             dismissDirections: resolvedDismissDirections,
             dismissDragThreshold: resolvedDismissDragThreshold,
             onDismissed: () {
@@ -233,6 +236,15 @@ class ToastController {
     if (!hasMultiple || !overlapStackWhenMultiple) return 1;
     final layersBehind = (_entries.length - 1 - index).clamp(0, 4);
     return 1 - (layersBehind * 0.025);
+  }
+
+  void _bringToFront(_ToastStackItem item, OverlayState overlay) {
+    if (_entries.isEmpty || identical(_entries.last, item)) return;
+    _entries.remove(item);
+    _entries.add(item);
+    item.entry.remove();
+    overlay.insert(item.entry);
+    _markAllNeedsBuild();
   }
 
   void _markAllNeedsBuild() {
