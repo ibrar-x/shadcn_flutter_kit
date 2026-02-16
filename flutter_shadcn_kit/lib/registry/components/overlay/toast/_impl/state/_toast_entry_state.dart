@@ -286,18 +286,24 @@ class _ToastEntryState extends State<ToastEntry>
     }
     return Listener(
       onPointerDown: (_) {
-        _beginInteraction();
+        if (!_mouseInside) {
+          _beginInteraction();
+        }
         _pointerDown = true;
         _pauseDismiss();
       },
       onPointerUp: (_) {
         _pointerDown = false;
-        _endInteraction();
+        if (!_mouseInside) {
+          _endInteraction();
+        }
         _resumeIfIdle();
       },
       onPointerCancel: (_) {
         _pointerDown = false;
-        _endInteraction();
+        if (!_mouseInside) {
+          _endInteraction();
+        }
         _resumeIfIdle();
       },
       child: MouseRegion(

@@ -220,6 +220,11 @@ class ToastController {
                   visibleCount: visibleEntries.length,
                   isPrimary: visibleIndex == visibleEntries.length - 1,
                   toggleExpanded: () => _toggleGroupExpanded(groupKey),
+                  setExpanded: (expanded) => _setGroupExpanded(
+                    groupKey,
+                    expanded,
+                    clearInteractions: !expanded,
+                  ),
                   dismissAll: () => _dismissGroupAnimated(groupKey),
                 ),
                 child: DefaultTextStyle.merge(
@@ -361,6 +366,9 @@ class ToastController {
     final previousExpanded = state.expanded;
     if (active) {
       state.activeInteractions++;
+      // Keep the whole stack expanded after first hover/tap until explicitly
+      // collapsed by control.
+      state.pinnedExpanded = true;
     } else {
       state.activeInteractions = (state.activeInteractions - 1).clamp(0, 999);
     }
@@ -373,6 +381,20 @@ class ToastController {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
     state.pinnedExpanded = !state.pinnedExpanded;
+    _markGroupNeedsBuild(groupKey);
+  }
+
+  void _setGroupExpanded(
+    String groupKey,
+    bool expanded, {
+    bool clearInteractions = false,
+  }) {
+    final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
+    if (state.dismissing) return;
+    state.pinnedExpanded = expanded;
+    if (clearInteractions) {
+      state.activeInteractions = 0;
+    }
     _markGroupNeedsBuild(groupKey);
   }
 

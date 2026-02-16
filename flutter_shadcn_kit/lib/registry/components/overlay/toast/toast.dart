@@ -21,6 +21,7 @@ class ToastStackContext {
     required this.visibleCount,
     required this.isPrimary,
     required this.toggleExpanded,
+    required this.setExpanded,
     required this.dismissAll,
   });
 
@@ -29,6 +30,7 @@ class ToastStackContext {
   final int visibleCount;
   final bool isPrimary;
   final VoidCallback toggleExpanded;
+  final ValueChanged<bool> setExpanded;
   final VoidCallback dismissAll;
 }
 

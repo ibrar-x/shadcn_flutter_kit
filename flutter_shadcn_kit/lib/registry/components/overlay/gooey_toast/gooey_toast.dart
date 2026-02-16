@@ -580,13 +580,14 @@ class _GooeyToastState extends State<GooeyToast>
       toastWidth,
       descriptionStyle,
     );
-    final showClearAllChip =
-        stack != null && stack.expanded && stack.hasMultiple && stack.isPrimary;
-    final clearAllExtraHeight = showClearAllChip ? 40.0 : 0.0;
+    final showStackControls =
+        stack != null && stack.hasMultiple && stack.isPrimary;
+    final showExpandedControls = showStackControls && stack.expanded;
+    final controlsExtraHeight = showExpandedControls ? 40.0 : 0.0;
 
     final minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
-        ? (contentHeight + clearAllExtraHeight + _kToastHeight).clamp(
+        ? (contentHeight + controlsExtraHeight + _kToastHeight).clamp(
             minExpanded,
             1000.0,
           )
@@ -809,7 +810,11 @@ class _GooeyToastState extends State<GooeyToast>
                                         child: _buildExpandedContent(
                                           descriptionStyle: descriptionStyle,
                                           tone: tone,
-                                          showClearAllChip: showClearAllChip,
+                                          showExpandedControls:
+                                              showExpandedControls,
+                                          stackExpanded:
+                                              stack?.expanded ?? false,
+                                          onSetExpanded: stack?.setExpanded,
                                           onClearAll: stack?.dismissAll,
                                         ),
                                       ),
@@ -834,7 +839,9 @@ class _GooeyToastState extends State<GooeyToast>
   Widget _buildExpandedContent({
     required TextStyle? descriptionStyle,
     required Color tone,
-    required bool showClearAllChip,
+    required bool showExpandedControls,
+    required bool stackExpanded,
+    required ValueChanged<bool>? onSetExpanded,
     required VoidCallback? onClearAll,
   }) {
     final baseContent =
@@ -869,7 +876,7 @@ class _GooeyToastState extends State<GooeyToast>
           ],
         );
 
-    if (!showClearAllChip || onClearAll == null) {
+    if (!showExpandedControls) {
       return baseContent;
     }
 
@@ -877,26 +884,48 @@ class _GooeyToastState extends State<GooeyToast>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        baseContent,
-        const SizedBox(height: 12),
         Align(
           alignment: Alignment.centerRight,
-          child: ActionChip(
-            onPressed: onClearAll,
-            backgroundColor: tone.withValues(alpha: 0.14),
-            side: BorderSide(color: tone.withValues(alpha: 0.26)),
-            shape: const StadiumBorder(),
-            labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-            label: Text(
-              'Clear all',
-              style: TextStyle(
-                color: tone,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+          child: Wrap(
+            spacing: 8,
+            children: [
+              if (stackExpanded && onSetExpanded != null)
+                ActionChip(
+                  onPressed: () => onSetExpanded(false),
+                  backgroundColor: tone.withValues(alpha: 0.14),
+                  side: BorderSide(color: tone.withValues(alpha: 0.26)),
+                  shape: const StadiumBorder(),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                  label: Text(
+                    'Collapse',
+                    style: TextStyle(
+                      color: tone,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              if (stackExpanded && onClearAll != null)
+                ActionChip(
+                  onPressed: onClearAll,
+                  backgroundColor: tone.withValues(alpha: 0.14),
+                  side: BorderSide(color: tone.withValues(alpha: 0.26)),
+                  shape: const StadiumBorder(),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                  label: Text(
+                    'Clear all',
+                    style: TextStyle(
+                      color: tone,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
+        const SizedBox(height: 12),
+        baseContent,
       ],
     );
   }
