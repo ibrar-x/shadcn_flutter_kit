@@ -530,6 +530,7 @@ class _GooeyToastState extends State<GooeyToast>
             animation: _openCurve,
             builder: (context, _) {
               final openProgress = _openCurve.value;
+              final normalizedOpen = openProgress.clamp(0.0, 1.0).toDouble();
               final visualHeight =
                   lerpDouble(
                     _kToastHeight,
@@ -545,7 +546,7 @@ class _GooeyToastState extends State<GooeyToast>
               final pillScaleY =
                   lerpDouble(_kToastHeight / pillHeight, 1.0, openProgress) ??
                   1.0;
-              final bodyScaleY = Curves.easeInOut.transform(openProgress);
+              final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
               final translateY =
                   (widget.expandDirection == GooeyToastExpandDirection.bottom
                       ? 3.0
