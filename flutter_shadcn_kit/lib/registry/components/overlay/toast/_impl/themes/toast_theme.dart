@@ -53,6 +53,9 @@ class ToastTheme extends ComponentThemeData {
   /// Stores `maxVisibleCount` state/configuration for this implementation.
   final int? maxVisibleCount;
 
+  /// Stores `dismissWholeStackWhenMultiple` state/configuration for this implementation.
+  final bool? dismissWholeStackWhenMultiple;
+
   /// Creates a `ToastTheme` instance.
   const ToastTheme({
     super.themeDensity,
@@ -75,6 +78,7 @@ class ToastTheme extends ComponentThemeData {
     this.stackAnimationDuration,
     this.stackAnimationCurve,
     this.maxVisibleCount,
+    this.dismissWholeStackWhenMultiple,
   });
 
   /// Creates a `ToastTheme` instance.
@@ -96,6 +100,7 @@ class ToastTheme extends ComponentThemeData {
     ValueGetter<Duration?>? stackAnimationDuration,
     ValueGetter<Curve?>? stackAnimationCurve,
     ValueGetter<int?>? maxVisibleCount,
+    ValueGetter<bool?>? dismissWholeStackWhenMultiple,
   }) {
     return ToastTheme(
       padding: padding == null ? this.padding : padding(),
@@ -137,6 +142,9 @@ class ToastTheme extends ComponentThemeData {
       maxVisibleCount: maxVisibleCount == null
           ? this.maxVisibleCount
           : maxVisibleCount(),
+      dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple == null
+          ? this.dismissWholeStackWhenMultiple
+          : dismissWholeStackWhenMultiple(),
     );
   }
 }

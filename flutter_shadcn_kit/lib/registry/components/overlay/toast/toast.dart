@@ -12,3 +12,38 @@ part '_impl/state/_toast_entry_state.dart';
 
 /// Allowed gesture directions for swipe-to-dismiss toast behavior.
 enum ToastSwipeDirection { up, down, left, right }
+
+/// Shared stack context for grouped toast overlays.
+class ToastStackContext {
+  const ToastStackContext({
+    required this.expanded,
+    required this.hasMultiple,
+    required this.visibleCount,
+    required this.toggleExpanded,
+    required this.dismissAll,
+  });
+
+  final bool expanded;
+  final bool hasMultiple;
+  final int visibleCount;
+  final VoidCallback toggleExpanded;
+  final VoidCallback dismissAll;
+}
+
+/// Inherited scope that exposes stack interaction state to toast content.
+class ToastStackScope extends InheritedWidget {
+  const ToastStackScope({super.key, required this.data, required super.child});
+
+  final ToastStackContext data;
+
+  static ToastStackContext? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ToastStackScope>()?.data;
+  }
+
+  @override
+  bool updateShouldNotify(covariant ToastStackScope oldWidget) {
+    return oldWidget.data.expanded != data.expanded ||
+        oldWidget.data.hasMultiple != data.hasMultiple ||
+        oldWidget.data.visibleCount != data.visibleCount;
+  }
+}

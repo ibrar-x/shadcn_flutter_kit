@@ -12,6 +12,7 @@ class _ToastEntryState extends State<ToastEntry>
   bool _mouseInside = false;
   bool _pointerDown = false;
   bool _dragging = false;
+  bool _interactionActive = false;
   Offset _dragOffset = Offset.zero;
 
   bool get _swipeEnabled => widget.dismissDirections.isNotEmpty;
@@ -92,6 +93,7 @@ class _ToastEntryState extends State<ToastEntry>
 
   void _onPanStart(DragStartDetails details) {
     if (!_swipeEnabled || _dismissing) return;
+    _beginInteraction();
     _dragging = true;
     _pauseDismiss();
   }
@@ -111,6 +113,7 @@ class _ToastEntryState extends State<ToastEntry>
     }
     setState(() => _dragOffset = Offset.zero);
     _dragging = false;
+    _endInteraction();
     _resumeIfIdle();
   }
 
@@ -133,6 +136,7 @@ class _ToastEntryState extends State<ToastEntry>
         (distance >= widget.dismissDragThreshold || velocity >= 850);
 
     _dragging = false;
+    _endInteraction();
 
     if (shouldDismiss) {
       setState(() => _dragOffset = _dismissOffset(direction));
@@ -148,6 +152,18 @@ class _ToastEntryState extends State<ToastEntry>
   void _resumeIfIdle() {
     if (_mouseInside || _pointerDown || _dragging || _dismissing) return;
     _resumeDismiss();
+  }
+
+  void _beginInteraction() {
+    if (_interactionActive) return;
+    _interactionActive = true;
+    widget.onInteractionStart?.call();
+  }
+
+  void _endInteraction() {
+    if (!_interactionActive) return;
+    _interactionActive = false;
+    widget.onInteractionEnd?.call();
   }
 
   Offset _constrainOffset(Offset offset) {
@@ -212,6 +228,7 @@ class _ToastEntryState extends State<ToastEntry>
   @override
   /// Executes `dispose` behavior for this component/composite.
   void dispose() {
+    _endInteraction();
     _dismissTimer?.cancel();
     _watch.stop();
     _controller.dispose();
@@ -237,10 +254,18 @@ class _ToastEntryState extends State<ToastEntry>
       );
       child = GestureDetector(
         behavior: HitTestBehavior.translucent,
+        onTap: widget.onTap,
         onPanStart: _onPanStart,
         onPanUpdate: _onPanUpdate,
         onPanEnd: _onPanEnd,
         onPanCancel: _onPanCancel,
+        child: child,
+      );
+    }
+    if (!_swipeEnabled && widget.onTap != null) {
+      child = GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: widget.onTap,
         child: child,
       );
     }
@@ -249,24 +274,29 @@ class _ToastEntryState extends State<ToastEntry>
     }
     return Listener(
       onPointerDown: (_) {
+        _beginInteraction();
         _pointerDown = true;
         _pauseDismiss();
       },
       onPointerUp: (_) {
         _pointerDown = false;
+        _endInteraction();
         _resumeIfIdle();
       },
       onPointerCancel: (_) {
         _pointerDown = false;
+        _endInteraction();
         _resumeIfIdle();
       },
       child: MouseRegion(
         onEnter: (_) {
+          _beginInteraction();
           _mouseInside = true;
           _pauseDismiss();
         },
         onExit: (_) {
           _mouseInside = false;
+          _endInteraction();
           _resumeIfIdle();
         },
         child: child,

@@ -64,6 +64,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     this.stackAnimationDuration,
     this.stackAnimationCurve,
     this.maxVisibleCount,
+    this.dismissWholeStackWhenMultiple,
     this.animationStyle,
     this.shapeStyle,
     this.successTone,
@@ -90,6 +91,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   final Duration? stackAnimationDuration;
   final Curve? stackAnimationCurve;
   final int? maxVisibleCount;
+  final bool? dismissWholeStackWhenMultiple;
   final GooeyToastAnimationStyle? animationStyle;
   final GooeyToastShapeStyle? shapeStyle;
   final Color? successTone;
@@ -116,6 +118,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     ValueGetter<Duration?>? stackAnimationDuration,
     ValueGetter<Curve?>? stackAnimationCurve,
     ValueGetter<int?>? maxVisibleCount,
+    ValueGetter<bool?>? dismissWholeStackWhenMultiple,
     ValueGetter<GooeyToastAnimationStyle?>? animationStyle,
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
     ValueGetter<Color?>? successTone,
@@ -162,6 +165,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
       maxVisibleCount: maxVisibleCount == null
           ? this.maxVisibleCount
           : maxVisibleCount(),
+      dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple == null
+          ? this.dismissWholeStackWhenMultiple
+          : dismissWholeStackWhenMultiple(),
       animationStyle: animationStyle == null
           ? this.animationStyle
           : animationStyle(),
@@ -216,6 +222,7 @@ class GooeyToastController {
     Duration? stackAnimationDuration,
     Curve? stackAnimationCurve,
     int? maxVisibleCount,
+    bool? dismissWholeStackWhenMultiple,
     GooeyToastAction? action,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
@@ -269,6 +276,10 @@ class GooeyToastController {
         Curves.easeInOutCubic;
     final resolvedMaxVisibleCount =
         maxVisibleCount ?? gooeyTheme?.maxVisibleCount ?? 4;
+    final resolvedDismissWholeStackWhenMultiple =
+        dismissWholeStackWhenMultiple ??
+        gooeyTheme?.dismissWholeStackWhenMultiple ??
+        true;
     const edgeInset = 16.0;
     final media = MediaQuery.maybeOf(context);
     final screenWidth = media?.size.width ?? resolvedWidth;
@@ -300,6 +311,7 @@ class GooeyToastController {
       stackAnimationDuration: resolvedStackAnimationDuration,
       stackAnimationCurve: resolvedStackAnimationCurve,
       maxVisibleCount: resolvedMaxVisibleCount,
+      dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
@@ -409,6 +421,8 @@ class _GooeyToastState extends State<GooeyToast>
     with SingleTickerProviderStateMixin {
   bool _ready = false;
   bool _expanded = false;
+  bool _stackControlled = false;
+  bool _stackExpanded = false;
   Timer? _expandTimer;
   Timer? _collapseTimer;
   late final AnimationController _openController;
@@ -420,7 +434,10 @@ class _GooeyToastState extends State<GooeyToast>
       widget.description != null ||
       widget.action != null ||
       widget.expandedChild != null;
-  bool get _targetOpen => _hasContent && _expanded && !_isLoading;
+  bool get _targetOpen {
+    final expanded = _stackControlled ? _stackExpanded : _expanded;
+    return _hasContent && expanded && !_isLoading;
+  }
 
   @override
   void initState() {
@@ -489,6 +506,7 @@ class _GooeyToastState extends State<GooeyToast>
   void _scheduleAutopilot() {
     _expandTimer?.cancel();
     _collapseTimer?.cancel();
+    if (_stackControlled) return;
 
     final autopilot = widget.autopilot;
     if (autopilot == null || !_hasContent || _isLoading) {
@@ -518,6 +536,7 @@ class _GooeyToastState extends State<GooeyToast>
 
   @override
   Widget build(BuildContext context) {
+    _syncFromStackScope(context);
     final theme = Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedShapeStyle =
@@ -566,7 +585,8 @@ class _GooeyToastState extends State<GooeyToast>
         ? (contentHeight + _kToastHeight).clamp(minExpanded, 1000.0)
         : minExpanded;
 
-    if (_targetOpen) {
+    final targetOpen = _targetOpen;
+    if (targetOpen) {
       _frozenExpandedHeight = rawExpanded;
     }
 
@@ -578,19 +598,21 @@ class _GooeyToastState extends State<GooeyToast>
       GooeyToastPosition.center => (toastWidth - pillWidth) / 2.0,
       GooeyToastPosition.left => 0.0,
     };
-    final targetExpandedHeight = _targetOpen
+    final targetExpandedHeight = targetOpen
         ? rawExpanded
         : _frozenExpandedHeight;
 
     return MouseRegion(
       cursor: _isLoading ? SystemMouseCursors.basic : SystemMouseCursors.click,
       onEnter: (_) {
+        if (_stackControlled) return;
         if (_hasContent && !_isLoading) {
           _collapseTimer?.cancel();
           _setExpanded(true);
         }
       },
       onExit: (_) {
+        if (_stackControlled) return;
         if (_hasContent && !_isLoading) {
           _setExpanded(false);
         }
@@ -598,6 +620,7 @@ class _GooeyToastState extends State<GooeyToast>
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
+          if (_stackControlled) return;
           if (!_hasContent || _isLoading) return;
           _collapseTimer?.cancel();
           _setExpanded(!_expanded);
@@ -844,6 +867,22 @@ class _GooeyToastState extends State<GooeyToast>
         ),
       ),
     );
+  }
+
+  void _syncFromStackScope(BuildContext context) {
+    final stack = ToastStackScope.maybeOf(context);
+    final nextControlled = stack?.hasMultiple ?? false;
+    final nextExpanded = stack?.expanded ?? false;
+    if (_stackControlled == nextControlled && _stackExpanded == nextExpanded) {
+      return;
+    }
+    _stackControlled = nextControlled;
+    _stackExpanded = nextExpanded;
+    if (_stackControlled) {
+      _expandTimer?.cancel();
+      _collapseTimer?.cancel();
+    }
+    _syncOpenAnimation();
   }
 
   double _measurePillWidth(
