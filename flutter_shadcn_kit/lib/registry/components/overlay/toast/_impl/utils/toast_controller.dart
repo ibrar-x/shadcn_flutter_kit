@@ -131,7 +131,7 @@ class ToastController {
         late final double targetScale;
         if (groupExpanded) {
           visibleEntries = _orderedEntries(groupEntries);
-          visibleIndex = groupEntries.indexOf(stackItem);
+          visibleIndex = visibleEntries.indexOf(stackItem);
           if (visibleIndex == -1) {
             return const SizedBox.shrink();
           }
@@ -155,6 +155,9 @@ class ToastController {
               .clamp(0.0, 100000.0)
               .toDouble();
           groupState.maxScroll = maxScroll;
+          if (groupState.scrollTargetOffset > maxScroll) {
+            groupState.scrollTargetOffset = maxScroll;
+          }
           if (groupState.scrollOffset > maxScroll) {
             groupState.scrollOffset = maxScroll;
           }
@@ -189,6 +192,7 @@ class ToastController {
           }
           groupState
             ..scrollOffset = 0
+            ..scrollTargetOffset = 0
             ..maxScroll = 0;
         }
         if (!isVisible) {
@@ -348,6 +352,7 @@ class ToastController {
       ..dismissing = true
       ..pinnedExpanded = false
       ..activeInteractions = 0;
+    _stopScrollAnimation(state);
     _removeBackdrop(state);
 
     final items = List<_ToastStackItem>.from(_groupEntries(groupKey));
@@ -360,6 +365,7 @@ class ToastController {
       for (final item in items) {
         _removeItem(item);
       }
+      _stopScrollAnimation(state);
       _groups.remove(groupKey);
       _markAllNeedsBuild();
       return;
@@ -463,8 +469,10 @@ class ToastController {
     if (state.dismissing) return;
     state.pinnedExpanded = !state.pinnedExpanded;
     if (!state.pinnedExpanded) {
+      _stopScrollAnimation(state);
       state
         ..scrollOffset = 0
+        ..scrollTargetOffset = 0
         ..maxScroll = 0
         ..interactionCooldownUntil = DateTime.now().add(
           _kCollapseHoverCooldown,
@@ -485,8 +493,10 @@ class ToastController {
       state.activeInteractions = 0;
     }
     if (!expanded) {
+      _stopScrollAnimation(state);
       state
         ..scrollOffset = 0
+        ..scrollTargetOffset = 0
         ..maxScroll = 0
         ..interactionCooldownUntil = DateTime.now().add(
           _kCollapseHoverCooldown,
@@ -499,12 +509,43 @@ class ToastController {
     final state = _groups[groupKey];
     if (state == null || !state.expanded || state.dismissing) return;
     if (state.maxScroll <= 0) return;
-    final next = (state.scrollOffset + delta)
+    final next = (state.scrollTargetOffset + delta)
         .clamp(0.0, state.maxScroll)
         .toDouble();
-    if ((next - state.scrollOffset).abs() < 0.5) return;
-    state.scrollOffset = next;
-    _markGroupNeedsBuild(groupKey);
+    if ((next - state.scrollTargetOffset).abs() < 0.5) return;
+    state.scrollTargetOffset = next;
+    _ensureScrollAnimation(groupKey, state);
+  }
+
+  void _ensureScrollAnimation(String groupKey, _ToastGroupState state) {
+    if (state.scrollTimer != null) return;
+    state.scrollTimer = Timer.periodic(const Duration(milliseconds: 16), (
+      timer,
+    ) {
+      final current = _groups[groupKey];
+      if (current == null || !current.expanded || current.dismissing) {
+        timer.cancel();
+        if (current != null) {
+          current.scrollTimer = null;
+        }
+        return;
+      }
+      final delta = current.scrollTargetOffset - current.scrollOffset;
+      if (delta.abs() < 0.35) {
+        current.scrollOffset = current.scrollTargetOffset;
+        timer.cancel();
+        current.scrollTimer = null;
+        _markGroupNeedsBuild(groupKey);
+        return;
+      }
+      current.scrollOffset += delta * 0.24;
+      _markGroupNeedsBuild(groupKey);
+    });
+  }
+
+  void _stopScrollAnimation(_ToastGroupState state) {
+    state.scrollTimer?.cancel();
+    state.scrollTimer = null;
   }
 
   void _syncGroupBackdrop(
@@ -535,11 +576,22 @@ class ToastController {
       final entry = OverlayEntry(
         builder: (context) {
           return Positioned.fill(
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () =>
-                  _setGroupExpanded(groupKey, false, clearInteractions: true),
-              child: const SizedBox.expand(),
+            child: Stack(
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 7.5, sigmaY: 7.5),
+                  child: Container(color: const Color(0x0D000000)),
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => _setGroupExpanded(
+                    groupKey,
+                    false,
+                    clearInteractions: true,
+                  ),
+                  child: const SizedBox.expand(),
+                ),
+              ],
             ),
           );
         },
@@ -567,6 +619,7 @@ class ToastController {
     if (_groupEntries(groupKey).isEmpty) {
       final state = _groups[groupKey];
       if (state != null) {
+        _stopScrollAnimation(state);
         _removeBackdrop(state);
       }
       _groups.remove(groupKey);
@@ -632,7 +685,9 @@ class _ToastGroupState {
   int activeInteractions = 0;
   bool dismissing = false;
   double scrollOffset = 0;
+  double scrollTargetOffset = 0;
   double maxScroll = 0;
+  Timer? scrollTimer;
   OverlayEntry? backdropEntry;
   bool desiredBackdropVisible = false;
   bool backdropMutationScheduled = false;
