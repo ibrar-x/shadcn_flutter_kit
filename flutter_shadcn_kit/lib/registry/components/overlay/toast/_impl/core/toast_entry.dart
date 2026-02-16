@@ -26,6 +26,9 @@ class ToastEntry extends StatefulWidget {
   /// Stores `dismissDragThreshold` state/configuration for this implementation.
   final double dismissDragThreshold;
 
+  /// Stores `autoDismiss` state/configuration for this implementation.
+  final bool autoDismiss;
+
   /// Creates a `ToastEntry` instance.
   const ToastEntry({
     super.key,
@@ -37,6 +40,7 @@ class ToastEntry extends StatefulWidget {
     this.pauseOnHover = false,
     this.dismissDirections = const {},
     this.dismissDragThreshold = 72,
+    this.autoDismiss = true,
   });
 
   @override

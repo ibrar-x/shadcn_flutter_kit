@@ -22,6 +22,11 @@ class ToastController {
     required WidgetBuilder builder,
     Duration? duration,
     double? spacing,
+    bool? overlapStackWhenMultiple,
+    double? overlapStackOffset,
+    bool? pauseAutoDismissWhenMultiple,
+    Duration? stackAnimationDuration,
+    Curve? stackAnimationCurve,
     bool? pauseOnHover,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
@@ -48,6 +53,24 @@ class ToastController {
 
         /// Stores `resolvedSpacing` state/configuration for this implementation.
         final resolvedSpacing = spacing ?? toastTheme?.margin ?? 8.0;
+        final resolvedOverlapStackWhenMultiple =
+            overlapStackWhenMultiple ??
+            toastTheme?.overlapStackWhenMultiple ??
+            false;
+        final resolvedOverlapStackOffset =
+            overlapStackOffset ?? toastTheme?.overlapStackOffset ?? 12.0;
+        final resolvedPauseAutoDismissWhenMultiple =
+            pauseAutoDismissWhenMultiple ??
+            toastTheme?.pauseAutoDismissWhenMultiple ??
+            false;
+        final resolvedStackAnimationDuration =
+            stackAnimationDuration ??
+            toastTheme?.stackAnimationDuration ??
+            const Duration(milliseconds: 240);
+        final resolvedStackAnimationCurve =
+            stackAnimationCurve ??
+            toastTheme?.stackAnimationCurve ??
+            Curves.easeOutCubic;
         final resolvedPauseOnHover =
             pauseOnHover ?? toastTheme?.pauseOnHover ?? false;
         final resolvedDismissDirections =
@@ -63,17 +86,91 @@ class ToastController {
             dismissDragThreshold ?? toastTheme?.dismissDragThreshold ?? 72.0;
 
         final itemIndex = _entries.indexOf(stackItem);
-        final totalOffset = _stackOffsetFor(itemIndex, resolvedSpacing);
+        final hasMultiple = _entries.length > 1;
+        if (resolvedPauseAutoDismissWhenMultiple && hasMultiple) {
+          for (final item in _entries) {
+            item.lockAutoDismiss = true;
+          }
+        }
+        final totalOffset = _stackOffsetFor(
+          itemIndex,
+          resolvedSpacing,
+          hasMultiple: hasMultiple,
+          overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+          overlapStackOffset: resolvedOverlapStackOffset,
+        );
 
         /// Stores `foregroundColor` state/configuration for this implementation.
         final foregroundColor = theme.colorScheme.foreground;
         final isBottomStack = bottom != null;
-        final resolvedTop = top != null
-            ? top + totalOffset
-            : (isBottomStack ? null : 32 + totalOffset);
-        final resolvedBottom = bottom != null ? bottom + totalOffset : null;
+        final targetShift = isBottomStack ? -totalOffset : totalOffset;
+        final targetScale = _stackScaleFor(
+          itemIndex,
+          hasMultiple: hasMultiple,
+          overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+        );
+        final previousShift = stackItem.shift;
+        final previousScale = stackItem.scale;
+        if ((previousShift - targetShift).abs() > 0.1 ||
+            (previousScale - targetScale).abs() > 0.001) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!_entries.contains(stackItem)) return;
+            stackItem
+              ..shift = targetShift
+              ..scale = targetScale;
+          });
+        }
+        final resolvedTop = top ?? (isBottomStack ? null : 32);
+        final resolvedBottom = bottom;
         final resolvedLeft = left;
         final resolvedRight = right ?? (left == null ? 24 : null);
+        final autoDismissEnabled =
+            !(resolvedPauseAutoDismissWhenMultiple &&
+                (hasMultiple || stackItem.lockAutoDismiss));
+        final child = TweenAnimationBuilder<double>(
+          tween: Tween(begin: previousScale, end: targetScale),
+          duration: resolvedStackAnimationDuration,
+          curve: resolvedStackAnimationCurve,
+          builder: (context, scale, child) {
+            return Transform.scale(
+              alignment: isBottomStack
+                  ? Alignment.bottomCenter
+                  : Alignment.topCenter,
+              scale: scale,
+              child: child,
+            );
+          },
+          child: ToastEntry(
+            duration: resolvedDuration,
+            animationDuration: animationDuration,
+            animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
+            pauseOnHover: resolvedPauseOnHover,
+            autoDismiss: autoDismissEnabled,
+            dismissDirections: resolvedDismissDirections,
+            dismissDragThreshold: resolvedDismissDragThreshold,
+            onDismissed: () {
+              entry.remove();
+              _entries.remove(stackItem);
+              _markAllNeedsBuild();
+            },
+            child: _ToastSizeObserver(
+              onSizeChanged: (size) {
+                _onItemHeightChanged(stackItem, size.height);
+              },
+              child: DefaultTextStyle.merge(
+                style: TextStyle(color: foregroundColor),
+                child: IconTheme.merge(
+                  data: IconThemeData(color: foregroundColor),
+                  child: Container(
+                    padding: padding,
+                    width: toastTheme?.width,
+                    child: builder(overlayContext),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
         return Positioned(
           top: resolvedTop,
           right: resolvedRight,
@@ -81,34 +178,17 @@ class ToastController {
           left: resolvedLeft,
           child: Padding(
             padding: EdgeInsets.zero,
-            child: ToastEntry(
-              duration: resolvedDuration,
-              animationDuration: animationDuration,
-              animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
-              pauseOnHover: resolvedPauseOnHover,
-              dismissDirections: resolvedDismissDirections,
-              dismissDragThreshold: resolvedDismissDragThreshold,
-              onDismissed: () {
-                entry.remove();
-                _entries.remove(stackItem);
-                _markAllNeedsBuild();
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: previousShift, end: targetShift),
+              duration: resolvedStackAnimationDuration,
+              curve: resolvedStackAnimationCurve,
+              builder: (context, animatedShift, child) {
+                return Transform.translate(
+                  offset: Offset(0, animatedShift),
+                  child: child,
+                );
               },
-              child: _ToastSizeObserver(
-                onSizeChanged: (size) {
-                  _onItemHeightChanged(stackItem, size.height);
-                },
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: foregroundColor),
-                  child: IconTheme.merge(
-                    data: IconThemeData(color: foregroundColor),
-                    child: Container(
-                      padding: padding,
-                      width: toastTheme?.width,
-                      child: builder(overlayContext),
-                    ),
-                  ),
-                ),
-              ),
+              child: child,
             ),
           ),
         );
@@ -120,8 +200,17 @@ class ToastController {
     overlay.insert(entry);
   }
 
-  double _stackOffsetFor(int index, double spacing) {
+  double _stackOffsetFor(
+    int index,
+    double spacing, {
+    required bool hasMultiple,
+    required bool overlapStackWhenMultiple,
+    required double overlapStackOffset,
+  }) {
     if (index <= 0) return 0;
+    if (hasMultiple && overlapStackWhenMultiple) {
+      return index * overlapStackOffset;
+    }
     var offset = 0.0;
     for (var i = 0; i < index; i++) {
       offset += _entries[i].height + spacing;
@@ -134,6 +223,16 @@ class ToastController {
     if ((item.height - nextHeight).abs() < 0.5) return;
     item.height = nextHeight;
     _markAllNeedsBuild();
+  }
+
+  double _stackScaleFor(
+    int index, {
+    required bool hasMultiple,
+    required bool overlapStackWhenMultiple,
+  }) {
+    if (!hasMultiple || !overlapStackWhenMultiple) return 1;
+    final layersBehind = (_entries.length - 1 - index).clamp(0, 4);
+    return 1 - (layersBehind * 0.025);
   }
 
   void _markAllNeedsBuild() {
@@ -172,6 +271,9 @@ class _ToastStackItem {
 
   final OverlayEntry entry;
   double height = 56;
+  double shift = 0;
+  double scale = 1;
+  bool lockAutoDismiss = false;
 }
 
 class _ToastSizeObserver extends SingleChildRenderObjectWidget {

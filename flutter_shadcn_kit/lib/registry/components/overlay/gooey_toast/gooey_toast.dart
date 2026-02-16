@@ -57,6 +57,12 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     this.swipeToDismiss,
     this.dismissDirections,
     this.dismissDragThreshold,
+    this.spacing,
+    this.overlapStackWhenMultiple,
+    this.overlapStackOffset,
+    this.pauseAutoDismissWhenMultiple,
+    this.stackAnimationDuration,
+    this.stackAnimationCurve,
     this.animationStyle,
     this.shapeStyle,
     this.successTone,
@@ -76,6 +82,12 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   final bool? swipeToDismiss;
   final Set<ToastSwipeDirection>? dismissDirections;
   final double? dismissDragThreshold;
+  final double? spacing;
+  final bool? overlapStackWhenMultiple;
+  final double? overlapStackOffset;
+  final bool? pauseAutoDismissWhenMultiple;
+  final Duration? stackAnimationDuration;
+  final Curve? stackAnimationCurve;
   final GooeyToastAnimationStyle? animationStyle;
   final GooeyToastShapeStyle? shapeStyle;
   final Color? successTone;
@@ -95,6 +107,12 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     ValueGetter<bool?>? swipeToDismiss,
     ValueGetter<Set<ToastSwipeDirection>?>? dismissDirections,
     ValueGetter<double?>? dismissDragThreshold,
+    ValueGetter<double?>? spacing,
+    ValueGetter<bool?>? overlapStackWhenMultiple,
+    ValueGetter<double?>? overlapStackOffset,
+    ValueGetter<bool?>? pauseAutoDismissWhenMultiple,
+    ValueGetter<Duration?>? stackAnimationDuration,
+    ValueGetter<Curve?>? stackAnimationCurve,
     ValueGetter<GooeyToastAnimationStyle?>? animationStyle,
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
     ValueGetter<Color?>? successTone,
@@ -122,6 +140,22 @@ class GooeyToastTheme extends shad.ComponentThemeData {
       dismissDragThreshold: dismissDragThreshold == null
           ? this.dismissDragThreshold
           : dismissDragThreshold(),
+      spacing: spacing == null ? this.spacing : spacing(),
+      overlapStackWhenMultiple: overlapStackWhenMultiple == null
+          ? this.overlapStackWhenMultiple
+          : overlapStackWhenMultiple(),
+      overlapStackOffset: overlapStackOffset == null
+          ? this.overlapStackOffset
+          : overlapStackOffset(),
+      pauseAutoDismissWhenMultiple: pauseAutoDismissWhenMultiple == null
+          ? this.pauseAutoDismissWhenMultiple
+          : pauseAutoDismissWhenMultiple(),
+      stackAnimationDuration: stackAnimationDuration == null
+          ? this.stackAnimationDuration
+          : stackAnimationDuration(),
+      stackAnimationCurve: stackAnimationCurve == null
+          ? this.stackAnimationCurve
+          : stackAnimationCurve(),
       animationStyle: animationStyle == null
           ? this.animationStyle
           : animationStyle(),
@@ -169,6 +203,12 @@ class GooeyToastController {
     bool? swipeToDismiss,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
+    double? spacing,
+    bool? overlapStackWhenMultiple,
+    double? overlapStackOffset,
+    bool? pauseAutoDismissWhenMultiple,
+    Duration? stackAnimationDuration,
+    Curve? stackAnimationCurve,
     GooeyToastAction? action,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
@@ -201,6 +241,25 @@ class GooeyToastController {
             : const <ToastSwipeDirection>{});
     final resolvedDismissDragThreshold =
         dismissDragThreshold ?? gooeyTheme?.dismissDragThreshold ?? 72.0;
+    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 6.0;
+    final resolvedOverlapStackWhenMultiple =
+        overlapStackWhenMultiple ??
+        gooeyTheme?.overlapStackWhenMultiple ??
+        true;
+    final resolvedOverlapStackOffset =
+        overlapStackOffset ?? gooeyTheme?.overlapStackOffset ?? 11.0;
+    final resolvedPauseAutoDismissWhenMultiple =
+        pauseAutoDismissWhenMultiple ??
+        gooeyTheme?.pauseAutoDismissWhenMultiple ??
+        true;
+    final resolvedStackAnimationDuration =
+        stackAnimationDuration ??
+        gooeyTheme?.stackAnimationDuration ??
+        const Duration(milliseconds: 260);
+    final resolvedStackAnimationCurve =
+        stackAnimationCurve ??
+        gooeyTheme?.stackAnimationCurve ??
+        Curves.easeOutCubic;
     const edgeInset = 16.0;
     final media = MediaQuery.maybeOf(context);
     final screenWidth = media?.size.width ?? resolvedWidth;
@@ -225,7 +284,12 @@ class GooeyToastController {
     _toastController.show(
       context: context,
       duration: resolvedDuration,
-      spacing: 12,
+      spacing: resolvedSpacing,
+      overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+      overlapStackOffset: resolvedOverlapStackOffset,
+      pauseAutoDismissWhenMultiple: resolvedPauseAutoDismissWhenMultiple,
+      stackAnimationDuration: resolvedStackAnimationDuration,
+      stackAnimationCurve: resolvedStackAnimationCurve,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
@@ -521,228 +585,239 @@ class _GooeyToastState extends State<GooeyToast>
           _setExpanded(false);
         }
       },
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOut,
-        opacity: _ready ? 1 : 0,
-        child: AnimatedScale(
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          if (!_hasContent || _isLoading) return;
+          _collapseTimer?.cancel();
+          _setExpanded(!_expanded);
+        },
+        child: AnimatedOpacity(
           duration: const Duration(milliseconds: 400),
-          curve: Curves.easeOutCubic,
-          scale: _ready ? 1 : 0.95,
-          child: AnimatedBuilder(
-            animation: _openCurve,
-            builder: (context, _) {
-              final openProgress = _openCurve.value;
-              final normalizedOpen = openProgress.clamp(0.0, 1.0).toDouble();
-              final visualHeight =
-                  lerpDouble(
-                    _kToastHeight,
-                    targetExpandedHeight,
-                    openProgress,
-                  ) ??
-                  _kToastHeight;
-              final canvasHeight = _hasContent ? visualHeight : _kToastHeight;
-              final expandedContentHeight =
-                  (targetExpandedHeight - _kToastHeight)
-                      .clamp(0.0, 1000.0)
-                      .toDouble();
-              final pillScaleY =
-                  lerpDouble(_kToastHeight / pillHeight, 1.0, openProgress) ??
-                  1.0;
-              final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
-              final translateY =
-                  (widget.expandDirection == GooeyToastExpandDirection.bottom
-                      ? 3.0
-                      : -3.0) *
-                  openProgress;
-              final headerScale = lerpDouble(1.0, 0.9, openProgress) ?? 1.0;
-              final contentProgress = ((openProgress - 0.35) / 0.65).clamp(
-                0.0,
-                1.0,
-              );
-              final contentOpacity = Curves.easeOutCubic.transform(
-                contentProgress,
-              );
-              final contentHeightFactor = contentProgress;
-              final contentAlignment =
-                  widget.expandDirection == GooeyToastExpandDirection.bottom
-                  ? Alignment.topCenter
-                  : Alignment.bottomCenter;
-              final contentSlide =
-                  (1 - contentOpacity) *
-                  (widget.expandDirection == GooeyToastExpandDirection.bottom
-                      ? -6.0
-                      : 6.0);
+          curve: Curves.easeOut,
+          opacity: _ready ? 1 : 0,
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
+            scale: _ready ? 1 : 0.95,
+            child: AnimatedBuilder(
+              animation: _openCurve,
+              builder: (context, _) {
+                final openProgress = _openCurve.value;
+                final normalizedOpen = openProgress.clamp(0.0, 1.0).toDouble();
+                final visualHeight =
+                    lerpDouble(
+                      _kToastHeight,
+                      targetExpandedHeight,
+                      openProgress,
+                    ) ??
+                    _kToastHeight;
+                final canvasHeight = _hasContent ? visualHeight : _kToastHeight;
+                final expandedContentHeight =
+                    (targetExpandedHeight - _kToastHeight)
+                        .clamp(0.0, 1000.0)
+                        .toDouble();
+                final pillScaleY =
+                    lerpDouble(_kToastHeight / pillHeight, 1.0, openProgress) ??
+                    1.0;
+                final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
+                final translateY =
+                    (widget.expandDirection == GooeyToastExpandDirection.bottom
+                        ? 3.0
+                        : -3.0) *
+                    openProgress;
+                final headerScale = lerpDouble(1.0, 0.9, openProgress) ?? 1.0;
+                final contentProgress = ((openProgress - 0.35) / 0.65).clamp(
+                  0.0,
+                  1.0,
+                );
+                final contentOpacity = Curves.easeOutCubic.transform(
+                  contentProgress,
+                );
+                final contentHeightFactor = contentProgress;
+                final contentAlignment =
+                    widget.expandDirection == GooeyToastExpandDirection.bottom
+                    ? Alignment.topCenter
+                    : Alignment.bottomCenter;
+                final contentSlide =
+                    (1 - contentOpacity) *
+                    (widget.expandDirection == GooeyToastExpandDirection.bottom
+                        ? -6.0
+                        : 6.0);
 
-              final headerTransform = Matrix4.identity()
-                ..translate(0.0, translateY)
-                ..scale(headerScale, headerScale);
+                final headerTransform = Matrix4.identity()
+                  ..translate(0.0, translateY)
+                  ..scale(headerScale, headerScale);
 
-              return SizedBox(
-                width: toastWidth,
-                height: visualHeight,
-                child: Stack(
-                  clipBehavior: Clip.hardEdge,
-                  children: [
-                    Positioned(
-                      top:
-                          widget.expandDirection ==
-                              GooeyToastExpandDirection.bottom
-                          ? 0
-                          : null,
-                      bottom:
-                          widget.expandDirection ==
-                              GooeyToastExpandDirection.top
-                          ? 0
-                          : null,
-                      child: Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.diagonal3Values(
-                          1,
-                          widget.expandDirection ==
-                                  GooeyToastExpandDirection.top
-                              ? -1
-                              : 1,
-                          1,
-                        ),
-                        child: _GooeyLayer(
-                          width: toastWidth,
-                          height: canvasHeight,
-                          color: fillColor,
-                          blur: blur,
-                          roundness: resolvedRoundness,
-                          pillX: pillX,
-                          pillWidth: pillWidth,
-                          pillHeight: pillHeight,
-                          pillScaleY: pillScaleY,
-                          bodyHeight: expandedContentHeight,
-                          bodyScaleY: bodyScaleY,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: pillX,
-                      top:
-                          widget.expandDirection ==
-                              GooeyToastExpandDirection.bottom
-                          ? 0
-                          : null,
-                      bottom:
-                          widget.expandDirection ==
-                              GooeyToastExpandDirection.top
-                          ? 0
-                          : null,
-                      child: Container(
-                        transform: headerTransform,
-                        transformAlignment: Alignment.center,
-                        width: pillWidth,
-                        height: _kToastHeight,
-                        padding: const EdgeInsets.all(8),
-                        child:
-                            widget.compactChild ??
-                            Row(
-                              children: [
-                                Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                    color: tone.withValues(alpha: 0.2),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: IconTheme(
-                                    data: IconThemeData(color: tone, size: 16),
-                                    child:
-                                        widget.icon ??
-                                        _defaultIcon(widget.state, tone),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    widget.title,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: titleStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                      ),
-                    ),
-                    if (_hasContent)
+                return SizedBox(
+                  width: toastWidth,
+                  height: visualHeight,
+                  child: Stack(
+                    clipBehavior: Clip.hardEdge,
+                    children: [
                       Positioned(
-                        left: 0,
                         top:
                             widget.expandDirection ==
                                 GooeyToastExpandDirection.bottom
-                            ? _kToastHeight
-                            : 0,
-                        child: IgnorePointer(
-                          ignoring: contentOpacity < 0.99,
-                          child: ClipRect(
-                            child: Align(
-                              alignment: contentAlignment,
-                              heightFactor: contentHeightFactor,
-                              child: Opacity(
-                                opacity: contentOpacity,
-                                child: Transform.translate(
-                                  offset: Offset(0, contentSlide),
-                                  child: SizedBox(
-                                    width: toastWidth,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
+                            ? 0
+                            : null,
+                        bottom:
+                            widget.expandDirection ==
+                                GooeyToastExpandDirection.top
+                            ? 0
+                            : null,
+                        child: Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.diagonal3Values(
+                            1,
+                            widget.expandDirection ==
+                                    GooeyToastExpandDirection.top
+                                ? -1
+                                : 1,
+                            1,
+                          ),
+                          child: _GooeyLayer(
+                            width: toastWidth,
+                            height: canvasHeight,
+                            color: fillColor,
+                            blur: blur,
+                            roundness: resolvedRoundness,
+                            pillX: pillX,
+                            pillWidth: pillWidth,
+                            pillHeight: pillHeight,
+                            pillScaleY: pillScaleY,
+                            bodyHeight: expandedContentHeight,
+                            bodyScaleY: bodyScaleY,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: pillX,
+                        top:
+                            widget.expandDirection ==
+                                GooeyToastExpandDirection.bottom
+                            ? 0
+                            : null,
+                        bottom:
+                            widget.expandDirection ==
+                                GooeyToastExpandDirection.top
+                            ? 0
+                            : null,
+                        child: Container(
+                          transform: headerTransform,
+                          transformAlignment: Alignment.center,
+                          width: pillWidth,
+                          height: _kToastHeight,
+                          padding: const EdgeInsets.all(8),
+                          child:
+                              widget.compactChild ??
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 24,
+                                    width: 24,
+                                    decoration: BoxDecoration(
+                                      color: tone.withValues(alpha: 0.2),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: IconTheme(
+                                      data: IconThemeData(
+                                        color: tone,
+                                        size: 16,
+                                      ),
                                       child:
-                                          widget.expandedChild ??
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (widget.description != null)
-                                                Text(
-                                                  widget.description!,
-                                                  style: descriptionStyle,
-                                                ),
-                                              if (widget.action != null)
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                        top: 12,
+                                          widget.icon ??
+                                          _defaultIcon(widget.state, tone),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      widget.title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: titleStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                        ),
+                      ),
+                      if (_hasContent)
+                        Positioned(
+                          left: 0,
+                          top:
+                              widget.expandDirection ==
+                                  GooeyToastExpandDirection.bottom
+                              ? _kToastHeight
+                              : 0,
+                          child: IgnorePointer(
+                            ignoring: contentOpacity < 0.99,
+                            child: ClipRect(
+                              child: Align(
+                                alignment: contentAlignment,
+                                heightFactor: contentHeightFactor,
+                                child: Opacity(
+                                  opacity: contentOpacity,
+                                  child: Transform.translate(
+                                    offset: Offset(0, contentSlide),
+                                    child: SizedBox(
+                                      width: toastWidth,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child:
+                                            widget.expandedChild ??
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                if (widget.description != null)
+                                                  Text(
+                                                    widget.description!,
+                                                    style: descriptionStyle,
+                                                  ),
+                                                if (widget.action != null)
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                          top: 12,
+                                                        ),
+                                                    child: TextButton(
+                                                      onPressed: widget
+                                                          .action!
+                                                          .onPressed,
+                                                      style: TextButton.styleFrom(
+                                                        minimumSize: const Size(
+                                                          0,
+                                                          28,
+                                                        ),
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                              horizontal: 10,
+                                                            ),
+                                                        shape:
+                                                            const StadiumBorder(),
+                                                        foregroundColor: tone,
+                                                        backgroundColor: tone
+                                                            .withValues(
+                                                              alpha: 0.15,
+                                                            ),
                                                       ),
-                                                  child: TextButton(
-                                                    onPressed: widget
-                                                        .action!
-                                                        .onPressed,
-                                                    style: TextButton.styleFrom(
-                                                      minimumSize: const Size(
-                                                        0,
-                                                        28,
-                                                      ),
-                                                      padding:
-                                                          const EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                          ),
-                                                      shape:
-                                                          const StadiumBorder(),
-                                                      foregroundColor: tone,
-                                                      backgroundColor: tone
-                                                          .withValues(
-                                                            alpha: 0.15,
-                                                          ),
-                                                    ),
-                                                    child: Text(
-                                                      widget.action!.label,
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                      child: Text(
+                                                        widget.action!.label,
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                            ],
-                                          ),
+                                              ],
+                                            ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -750,11 +825,11 @@ class _GooeyToastState extends State<GooeyToast>
                             ),
                           ),
                         ),
-                      ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

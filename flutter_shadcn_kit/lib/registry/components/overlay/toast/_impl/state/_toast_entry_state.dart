@@ -26,12 +26,34 @@ class _ToastEntryState extends State<ToastEntry>
     );
     _controller.forward();
     _remaining = widget.duration;
-    _scheduleDismiss();
+    if (widget.autoDismiss) {
+      _scheduleDismiss();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ToastEntry oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.duration != widget.duration &&
+        widget.duration < _remaining &&
+        !_dismissing) {
+      _remaining = widget.duration;
+      if (widget.autoDismiss) {
+        _scheduleDismiss();
+      }
+    }
+    if (oldWidget.autoDismiss == widget.autoDismiss || _dismissing) return;
+    if (widget.autoDismiss) {
+      _resumeIfIdle();
+    } else {
+      _pauseDismiss();
+    }
   }
 
   void _scheduleDismiss() {
     _dismissTimer?.cancel();
     _dismissTimer = null;
+    if (!widget.autoDismiss) return;
     if (_remaining <= Duration.zero || _dismissing) {
       _dismiss();
       return;
@@ -55,7 +77,7 @@ class _ToastEntryState extends State<ToastEntry>
   }
 
   void _resumeDismiss() {
-    if (_dismissing || _dismissTimer != null) return;
+    if (_dismissing || _dismissTimer != null || !widget.autoDismiss) return;
     _scheduleDismiss();
   }
 
@@ -114,7 +136,7 @@ class _ToastEntryState extends State<ToastEntry>
 
     if (shouldDismiss) {
       setState(() => _dragOffset = _dismissOffset(direction));
-      Future.delayed(const Duration(milliseconds: 110), () {
+      Future.delayed(const Duration(milliseconds: 190), () {
         if (mounted) _dismiss();
       });
       return;
@@ -178,7 +200,7 @@ class _ToastEntryState extends State<ToastEntry>
   }
 
   Offset _dismissOffset(ToastSwipeDirection direction) {
-    const amount = 180.0;
+    const amount = 260.0;
     return switch (direction) {
       ToastSwipeDirection.left => const Offset(-amount, 0),
       ToastSwipeDirection.right => const Offset(amount, 0),
@@ -208,7 +230,7 @@ class _ToastEntryState extends State<ToastEntry>
     );
     if (_swipeEnabled) {
       child = AnimatedSlide(
-        duration: _dragging ? Duration.zero : const Duration(milliseconds: 180),
+        duration: _dragging ? Duration.zero : const Duration(milliseconds: 220),
         curve: Curves.easeOutCubic,
         offset: Offset(_dragOffset.dx / 280, _dragOffset.dy / 120),
         child: child,

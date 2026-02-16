@@ -35,6 +35,21 @@ class ToastTheme extends ComponentThemeData {
   /// Stores `dismissDragThreshold` state/configuration for this implementation.
   final double? dismissDragThreshold;
 
+  /// Stores `overlapStackWhenMultiple` state/configuration for this implementation.
+  final bool? overlapStackWhenMultiple;
+
+  /// Stores `overlapStackOffset` state/configuration for this implementation.
+  final double? overlapStackOffset;
+
+  /// Stores `pauseAutoDismissWhenMultiple` state/configuration for this implementation.
+  final bool? pauseAutoDismissWhenMultiple;
+
+  /// Stores `stackAnimationDuration` state/configuration for this implementation.
+  final Duration? stackAnimationDuration;
+
+  /// Stores `stackAnimationCurve` state/configuration for this implementation.
+  final Curve? stackAnimationCurve;
+
   /// Creates a `ToastTheme` instance.
   const ToastTheme({
     super.themeDensity,
@@ -51,6 +66,11 @@ class ToastTheme extends ComponentThemeData {
     this.pauseOnHover,
     this.dismissDirections,
     this.dismissDragThreshold,
+    this.overlapStackWhenMultiple,
+    this.overlapStackOffset,
+    this.pauseAutoDismissWhenMultiple,
+    this.stackAnimationDuration,
+    this.stackAnimationCurve,
   });
 
   /// Creates a `ToastTheme` instance.
@@ -66,6 +86,11 @@ class ToastTheme extends ComponentThemeData {
     ValueGetter<bool?>? pauseOnHover,
     ValueGetter<Set<ToastSwipeDirection>?>? dismissDirections,
     ValueGetter<double?>? dismissDragThreshold,
+    ValueGetter<bool?>? overlapStackWhenMultiple,
+    ValueGetter<double?>? overlapStackOffset,
+    ValueGetter<bool?>? pauseAutoDismissWhenMultiple,
+    ValueGetter<Duration?>? stackAnimationDuration,
+    ValueGetter<Curve?>? stackAnimationCurve,
   }) {
     return ToastTheme(
       padding: padding == null ? this.padding : padding(),
@@ -89,6 +114,21 @@ class ToastTheme extends ComponentThemeData {
       dismissDragThreshold: dismissDragThreshold == null
           ? this.dismissDragThreshold
           : dismissDragThreshold(),
+      overlapStackWhenMultiple: overlapStackWhenMultiple == null
+          ? this.overlapStackWhenMultiple
+          : overlapStackWhenMultiple(),
+      overlapStackOffset: overlapStackOffset == null
+          ? this.overlapStackOffset
+          : overlapStackOffset(),
+      pauseAutoDismissWhenMultiple: pauseAutoDismissWhenMultiple == null
+          ? this.pauseAutoDismissWhenMultiple
+          : pauseAutoDismissWhenMultiple(),
+      stackAnimationDuration: stackAnimationDuration == null
+          ? this.stackAnimationDuration
+          : stackAnimationDuration(),
+      stackAnimationCurve: stackAnimationCurve == null
+          ? this.stackAnimationCurve
+          : stackAnimationCurve(),
     );
   }
 }
