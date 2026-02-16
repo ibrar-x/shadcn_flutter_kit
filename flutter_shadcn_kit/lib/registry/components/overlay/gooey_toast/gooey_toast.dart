@@ -255,7 +255,7 @@ class GooeyToastController {
             : const <ToastSwipeDirection>{});
     final resolvedDismissDragThreshold =
         dismissDragThreshold ?? gooeyTheme?.dismissDragThreshold ?? 72.0;
-    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 2.0;
+    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 0.0;
     final resolvedOverlapStackWhenMultiple =
         overlapStackWhenMultiple ??
         gooeyTheme?.overlapStackWhenMultiple ??
