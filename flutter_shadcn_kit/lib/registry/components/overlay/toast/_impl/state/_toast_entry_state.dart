@@ -281,6 +281,14 @@ class _ToastEntryState extends State<ToastEntry>
         child: child,
       );
     }
+    child = Listener(
+      onPointerSignal: (event) {
+        if (event is PointerScrollEvent) {
+          widget.onPointerScroll?.call(event.scrollDelta.dy);
+        }
+      },
+      child: child,
+    );
     if (!widget.pauseOnHover) {
       return child;
     }

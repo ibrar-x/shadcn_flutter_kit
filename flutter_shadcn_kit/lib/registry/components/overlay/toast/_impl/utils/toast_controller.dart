@@ -99,6 +99,11 @@ class ToastController {
             );
         final resolvedDismissDragThreshold =
             dismissDragThreshold ?? toastTheme?.dismissDragThreshold ?? 72.0;
+        final isBottomStack = bottom != null;
+        final resolvedTop = top ?? (isBottomStack ? null : 32);
+        final resolvedBottom = bottom;
+        final resolvedLeft = left;
+        final resolvedRight = right ?? (left == null ? 24 : null);
 
         final groupState = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
         final groupEntries = _groupEntries(groupKey);
@@ -111,33 +116,86 @@ class ToastController {
             item.lockAutoDismiss = true;
           }
         }
+        _syncGroupBackdrop(
+          groupKey,
+          overlay,
+          groupExpanded && hasMultipleGroup,
+        );
 
-        final visibleEntries = groupExpanded
-            ? groupEntries
-            : _visibleEntries(groupEntries, resolvedMaxVisibleCount);
-        final visibleIndex = visibleEntries.indexOf(stackItem);
-        final isVisible = visibleIndex != -1;
+        late final List<_ToastStackItem> visibleEntries;
+        late final int visibleIndex;
+        late final bool isVisible;
+        late final double totalOffset;
+        late final double targetScale;
+        if (groupExpanded) {
+          visibleEntries = groupEntries;
+          visibleIndex = groupEntries.indexOf(stackItem);
+          if (visibleIndex == -1) {
+            return const SizedBox.shrink();
+          }
+          final viewportExtent = _expandedViewportExtent(
+            overlayContext,
+            top: resolvedTop,
+            bottom: resolvedBottom,
+          );
+          var logicalOffset = 0.0;
+          for (var i = 0; i < visibleIndex; i++) {
+            logicalOffset += visibleEntries[i].height + resolvedSpacing;
+          }
+          var totalContentHeight = 0.0;
+          for (var i = 0; i < visibleEntries.length; i++) {
+            totalContentHeight += visibleEntries[i].height;
+            if (i < visibleEntries.length - 1) {
+              totalContentHeight += resolvedSpacing;
+            }
+          }
+          final maxScroll = (totalContentHeight - viewportExtent)
+              .clamp(0.0, 100000.0)
+              .toDouble();
+          groupState.maxScroll = maxScroll;
+          if (groupState.scrollOffset > maxScroll) {
+            groupState.scrollOffset = maxScroll;
+          }
+          final visibleTop = logicalOffset - groupState.scrollOffset;
+          final visibleBottom = visibleTop + stackItem.height;
+          isVisible = visibleBottom >= -8 && visibleTop <= viewportExtent + 8;
+          totalOffset = visibleTop;
+          targetScale = 1;
+        } else {
+          visibleEntries = _visibleEntries(
+            groupEntries,
+            resolvedMaxVisibleCount,
+          );
+          visibleIndex = visibleEntries.indexOf(stackItem);
+          isVisible = visibleIndex != -1;
+          if (isVisible) {
+            totalOffset = _stackOffsetForVisible(
+              visibleEntries,
+              visibleIndex,
+              resolvedSpacing,
+              overlapStackWhenMultiple: overlapForLayout,
+              overlapStackOffset: resolvedOverlapStackOffset,
+            );
+            targetScale = _stackScaleFor(
+              visibleEntries,
+              visibleIndex,
+              overlapStackWhenMultiple: overlapForLayout,
+            );
+          } else {
+            totalOffset = 0;
+            targetScale = 1;
+          }
+          groupState
+            ..scrollOffset = 0
+            ..maxScroll = 0;
+        }
         if (!isVisible) {
           return const SizedBox.shrink();
         }
 
-        final totalOffset = _stackOffsetForVisible(
-          visibleEntries,
-          visibleIndex,
-          resolvedSpacing,
-          overlapStackWhenMultiple: overlapForLayout,
-          overlapStackOffset: resolvedOverlapStackOffset,
-        );
-
         /// Stores `foregroundColor` state/configuration for this implementation.
         final foregroundColor = theme.colorScheme.foreground;
-        final isBottomStack = bottom != null;
         final targetShift = isBottomStack ? -totalOffset : totalOffset;
-        final targetScale = _stackScaleFor(
-          visibleEntries,
-          visibleIndex,
-          overlapStackWhenMultiple: overlapForLayout,
-        );
         final previousShift = stackItem.shift;
         final previousScale = stackItem.scale;
         if ((previousShift - targetShift).abs() > 0.1 ||
@@ -149,11 +207,6 @@ class ToastController {
               ..scale = targetScale;
           });
         }
-        final resolvedTop = top ?? (isBottomStack ? null : 32);
-        final resolvedBottom = bottom;
-        final resolvedLeft = left;
-        final resolvedRight = right ?? (left == null ? 24 : null);
-
         final autoDismissEnabled =
             !(resolvedPauseAutoDismissWhenMultiple &&
                 (hasMultipleGroup || stackItem.lockAutoDismiss));
@@ -187,6 +240,9 @@ class ToastController {
                 ? () => _toggleGroupExpanded(groupKey)
                 : null,
             dismissSignal: stackItem.dismissSignal,
+            onPointerScroll: groupExpanded
+                ? (delta) => _scrollGroup(groupKey, delta)
+                : null,
             onDismissRequest: () {
               final shouldDismissWholeStack =
                   resolvedDismissWholeStackWhenMultiple &&
@@ -218,7 +274,7 @@ class ToastController {
                   expanded: groupExpanded,
                   hasMultiple: hasMultipleGroup,
                   visibleCount: visibleEntries.length,
-                  isPrimary: visibleIndex == visibleEntries.length - 1,
+                  isPrimary: visibleIndex == 0,
                   toggleExpanded: () => _toggleGroupExpanded(groupKey),
                   setExpanded: (expanded) => _setGroupExpanded(
                     groupKey,
@@ -287,6 +343,7 @@ class ToastController {
       ..dismissing = true
       ..pinnedExpanded = false
       ..activeInteractions = 0;
+    _removeBackdrop(state);
 
     final items = List<_ToastStackItem>.from(_groupEntries(groupKey));
     if (items.isEmpty) {
@@ -381,6 +438,11 @@ class ToastController {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
     state.pinnedExpanded = !state.pinnedExpanded;
+    if (!state.pinnedExpanded) {
+      state
+        ..scrollOffset = 0
+        ..maxScroll = 0;
+    }
     _markGroupNeedsBuild(groupKey);
   }
 
@@ -395,7 +457,58 @@ class ToastController {
     if (clearInteractions) {
       state.activeInteractions = 0;
     }
+    if (!expanded) {
+      state
+        ..scrollOffset = 0
+        ..maxScroll = 0;
+    }
     _markGroupNeedsBuild(groupKey);
+  }
+
+  void _scrollGroup(String groupKey, double delta) {
+    final state = _groups[groupKey];
+    if (state == null || !state.expanded || state.dismissing) return;
+    if (state.maxScroll <= 0) return;
+    final next = (state.scrollOffset + delta)
+        .clamp(0.0, state.maxScroll)
+        .toDouble();
+    if ((next - state.scrollOffset).abs() < 0.5) return;
+    state.scrollOffset = next;
+    _markGroupNeedsBuild(groupKey);
+  }
+
+  void _syncGroupBackdrop(
+    String groupKey,
+    OverlayState overlay,
+    bool shouldShow,
+  ) {
+    final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
+    if (!shouldShow) {
+      _removeBackdrop(state);
+      return;
+    }
+    if (state.backdropEntry != null) return;
+    final groupEntries = _groupEntries(groupKey);
+    if (groupEntries.isEmpty) return;
+    final entry = OverlayEntry(
+      builder: (context) {
+        return Positioned.fill(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () =>
+                _setGroupExpanded(groupKey, false, clearInteractions: true),
+            child: const SizedBox.expand(),
+          ),
+        );
+      },
+    );
+    state.backdropEntry = entry;
+    overlay.insert(entry, below: groupEntries.first.entry);
+  }
+
+  void _removeBackdrop(_ToastGroupState state) {
+    state.backdropEntry?.remove();
+    state.backdropEntry = null;
   }
 
   void _markGroupNeedsBuild(String groupKey) {
@@ -408,8 +521,24 @@ class ToastController {
 
   void _cleanupGroup(String groupKey) {
     if (_groupEntries(groupKey).isEmpty) {
+      final state = _groups[groupKey];
+      if (state != null) {
+        _removeBackdrop(state);
+      }
       _groups.remove(groupKey);
     }
+  }
+
+  double _expandedViewportExtent(
+    BuildContext context, {
+    required double? top,
+    required double? bottom,
+  }) {
+    final media = MediaQuery.maybeOf(context);
+    final height = media?.size.height ?? 900;
+    final edgeInset = 20.0;
+    final available = height - (top ?? 0) - (bottom ?? 0) - edgeInset;
+    return available.clamp(140.0, 1200.0).toDouble();
   }
 
   void _markAllNeedsBuild() {
@@ -458,6 +587,9 @@ class _ToastGroupState {
   bool pinnedExpanded = false;
   int activeInteractions = 0;
   bool dismissing = false;
+  double scrollOffset = 0;
+  double maxScroll = 0;
+  OverlayEntry? backdropEntry;
 
   bool get expanded => pinnedExpanded || activeInteractions > 0;
 }

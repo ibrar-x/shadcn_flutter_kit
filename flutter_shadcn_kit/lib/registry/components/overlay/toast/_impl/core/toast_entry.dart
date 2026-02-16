@@ -44,6 +44,9 @@ class ToastEntry extends StatefulWidget {
   /// Stores `onDismissRequest` state/configuration for this implementation.
   final bool Function()? onDismissRequest;
 
+  /// Stores `onPointerScroll` state/configuration for this implementation.
+  final ValueChanged<double>? onPointerScroll;
+
   /// Creates a `ToastEntry` instance.
   const ToastEntry({
     super.key,
@@ -61,6 +64,7 @@ class ToastEntry extends StatefulWidget {
     this.onTap,
     this.dismissSignal = 0,
     this.onDismissRequest,
+    this.onPointerScroll,
   });
 
   @override
