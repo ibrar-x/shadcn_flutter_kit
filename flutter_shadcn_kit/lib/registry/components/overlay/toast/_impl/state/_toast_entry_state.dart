@@ -12,6 +12,7 @@ class _ToastEntryState extends State<ToastEntry>
   bool _mouseInside = false;
   bool _pointerDown = false;
   bool _dragging = false;
+  bool _dragScrollMode = false;
   bool _interactionActive = false;
   Offset _dragOffset = Offset.zero;
 
@@ -101,11 +102,26 @@ class _ToastEntryState extends State<ToastEntry>
     if (!_swipeEnabled || _dismissing) return;
     _beginInteraction();
     _dragging = true;
+    _dragScrollMode = false;
     _pauseDismiss();
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
     if (!_swipeEnabled || _dismissing) return;
+    final canDragScroll = widget.onDragScroll != null;
+    final verticalDismissEnabled =
+        widget.dismissDirections.contains(ToastSwipeDirection.up) ||
+        widget.dismissDirections.contains(ToastSwipeDirection.down);
+    if (canDragScroll && !verticalDismissEnabled) {
+      if (!_dragScrollMode &&
+          details.delta.dy.abs() > details.delta.dx.abs() + 0.4) {
+        _dragScrollMode = true;
+      }
+      if (_dragScrollMode) {
+        widget.onDragScroll!.call(-details.delta.dy);
+        return;
+      }
+    }
     final constrained = _constrainOffset(_dragOffset + details.delta);
     if (constrained == _dragOffset) return;
     setState(() => _dragOffset = constrained);
@@ -114,11 +130,13 @@ class _ToastEntryState extends State<ToastEntry>
   void _onPanCancel() {
     if (!_swipeEnabled || _dismissing) {
       _dragging = false;
+      _dragScrollMode = false;
       _resumeIfIdle();
       return;
     }
     setState(() => _dragOffset = Offset.zero);
     _dragging = false;
+    _dragScrollMode = false;
     _endInteraction();
     _resumeIfIdle();
   }
@@ -126,6 +144,14 @@ class _ToastEntryState extends State<ToastEntry>
   void _onPanEnd(DragEndDetails details) {
     if (!_swipeEnabled || _dismissing) {
       _dragging = false;
+      _dragScrollMode = false;
+      _resumeIfIdle();
+      return;
+    }
+    if (_dragScrollMode) {
+      _dragging = false;
+      _dragScrollMode = false;
+      _endInteraction();
       _resumeIfIdle();
       return;
     }

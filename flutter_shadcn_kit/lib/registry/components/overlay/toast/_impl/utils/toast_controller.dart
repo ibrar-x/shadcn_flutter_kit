@@ -261,6 +261,9 @@ class ToastController {
             onPointerScroll: groupExpanded
                 ? (delta) => _scrollGroup(groupKey, delta)
                 : null,
+            onDragScroll: groupExpanded
+                ? (delta) => _scrollGroup(groupKey, delta)
+                : null,
             onDismissRequest: () {
               final shouldDismissWholeStack =
                   resolvedDismissWholeStackWhenMultiple &&
@@ -271,12 +274,7 @@ class ToastController {
               return true;
             },
             dismissDirections: groupExpanded
-                ? const {
-                    ToastSwipeDirection.up,
-                    ToastSwipeDirection.down,
-                    ToastSwipeDirection.left,
-                    ToastSwipeDirection.right,
-                  }
+                ? const {ToastSwipeDirection.left, ToastSwipeDirection.right}
                 : resolvedDismissDirections,
             dismissDragThreshold: resolvedDismissDragThreshold,
             onDismissed: () {
@@ -696,8 +694,8 @@ class ToastController {
     final right = state.anchorRight;
     final top = state.anchorTop;
     final bottom = state.anchorBottom;
-    final horizontalPad = 14.0;
-    final verticalPad = 12.0;
+    final horizontalPad = 0.0;
+    final verticalPad = 0.0;
     final panelHeight = state.viewportExtent + verticalPad * 2;
 
     return Positioned(
