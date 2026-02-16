@@ -128,7 +128,7 @@ class ToastController {
         late final double totalOffset;
         late final double targetScale;
         if (groupExpanded) {
-          visibleEntries = groupEntries;
+          visibleEntries = _orderedEntries(groupEntries);
           visibleIndex = groupEntries.indexOf(stackItem);
           if (visibleIndex == -1) {
             return const SizedBox.shrink();
@@ -376,10 +376,15 @@ class ToastController {
     List<_ToastStackItem> groupEntries,
     int maxVisibleCount,
   ) {
-    if (maxVisibleCount <= 0 || groupEntries.length <= maxVisibleCount) {
-      return groupEntries;
+    final ordered = _orderedEntries(groupEntries);
+    if (maxVisibleCount <= 0 || ordered.length <= maxVisibleCount) {
+      return ordered;
     }
-    return groupEntries.sublist(groupEntries.length - maxVisibleCount);
+    return ordered.take(maxVisibleCount).toList();
+  }
+
+  List<_ToastStackItem> _orderedEntries(List<_ToastStackItem> groupEntries) {
+    return groupEntries.reversed.toList();
   }
 
   double _stackOffsetForVisible(
@@ -413,7 +418,7 @@ class ToastController {
     required bool overlapStackWhenMultiple,
   }) {
     if (!overlapStackWhenMultiple || visibleEntries.length <= 1) return 1;
-    final layersBehind = (visibleEntries.length - 1 - visibleIndex).clamp(0, 4);
+    final layersBehind = visibleIndex.clamp(0, 4);
     return 1 - (layersBehind * 0.025);
   }
 
