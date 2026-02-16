@@ -623,12 +623,13 @@ class _GooeyToastState extends State<GooeyToast>
       },
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          if (_stackControlled) return;
-          if (!_hasContent || _isLoading) return;
-          _collapseTimer?.cancel();
-          _setExpanded(!_expanded);
-        },
+        onTap: _stackControlled
+            ? null
+            : () {
+                if (!_hasContent || _isLoading) return;
+                _collapseTimer?.cancel();
+                _setExpanded(!_expanded);
+              },
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeOut,
