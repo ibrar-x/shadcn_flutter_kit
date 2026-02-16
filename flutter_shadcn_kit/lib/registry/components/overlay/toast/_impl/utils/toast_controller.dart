@@ -3,7 +3,7 @@ part of '../../toast.dart';
 /// Controller that displays toast entries using Overlay.
 class ToastController {
   /// Stores `_entries` state/configuration for this implementation.
-  final List<OverlayEntry> _entries = [];
+  final List<_ToastStackItem> _entries = [];
 
   /// Stores `defaultDuration` state/configuration for this implementation.
   final Duration defaultDuration;
@@ -36,6 +36,7 @@ class ToastController {
     final resolvedDuration = duration ?? defaultDuration;
 
     /// Stores `entry` state/configuration for this implementation.
+    late final _ToastStackItem stackItem;
     late final OverlayEntry entry;
     entry = OverlayEntry(
       builder: (overlayContext) {
@@ -61,8 +62,8 @@ class ToastController {
         final resolvedDismissDragThreshold =
             dismissDragThreshold ?? toastTheme?.dismissDragThreshold ?? 72.0;
 
-        /// Stores `totalOffset` state/configuration for this implementation.
-        final totalOffset = _entries.length * resolvedSpacing;
+        final itemIndex = _entries.indexOf(stackItem);
+        final totalOffset = _stackOffsetFor(itemIndex, resolvedSpacing);
 
         /// Stores `foregroundColor` state/configuration for this implementation.
         final foregroundColor = theme.colorScheme.foreground;
@@ -89,16 +90,22 @@ class ToastController {
               dismissDragThreshold: resolvedDismissDragThreshold,
               onDismissed: () {
                 entry.remove();
-                _entries.remove(entry);
+                _entries.remove(stackItem);
+                _markAllNeedsBuild();
               },
-              child: DefaultTextStyle.merge(
-                style: TextStyle(color: foregroundColor),
-                child: IconTheme.merge(
-                  data: IconThemeData(color: foregroundColor),
-                  child: Container(
-                    padding: padding,
-                    width: toastTheme?.width,
-                    child: builder(overlayContext),
+              child: _ToastSizeObserver(
+                onSizeChanged: (size) {
+                  _onItemHeightChanged(stackItem, size.height);
+                },
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(color: foregroundColor),
+                  child: IconTheme.merge(
+                    data: IconThemeData(color: foregroundColor),
+                    child: Container(
+                      padding: padding,
+                      width: toastTheme?.width,
+                      child: builder(overlayContext),
+                    ),
                   ),
                 ),
               ),
@@ -107,8 +114,32 @@ class ToastController {
         );
       },
     );
-    _entries.add(entry);
+    stackItem = _ToastStackItem(entry: entry);
+    _entries.add(stackItem);
+    _markAllNeedsBuild();
     overlay.insert(entry);
+  }
+
+  double _stackOffsetFor(int index, double spacing) {
+    if (index <= 0) return 0;
+    var offset = 0.0;
+    for (var i = 0; i < index; i++) {
+      offset += _entries[i].height + spacing;
+    }
+    return offset;
+  }
+
+  void _onItemHeightChanged(_ToastStackItem item, double height) {
+    final nextHeight = (height.isFinite ? height : 0).clamp(0, 4000).toDouble();
+    if ((item.height - nextHeight).abs() < 0.5) return;
+    item.height = nextHeight;
+    _markAllNeedsBuild();
+  }
+
+  void _markAllNeedsBuild() {
+    for (final item in _entries) {
+      item.entry.markNeedsBuild();
+    }
   }
 
   Set<ToastSwipeDirection> _autoDismissDirections({
@@ -133,5 +164,49 @@ class ToastController {
       });
     }
     return directions;
+  }
+}
+
+class _ToastStackItem {
+  _ToastStackItem({required this.entry});
+
+  final OverlayEntry entry;
+  double height = 56;
+}
+
+class _ToastSizeObserver extends SingleChildRenderObjectWidget {
+  const _ToastSizeObserver({required this.onSizeChanged, required super.child});
+
+  final ValueChanged<Size> onSizeChanged;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _RenderToastSizeObserver(onSizeChanged);
+  }
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    covariant _RenderToastSizeObserver renderObject,
+  ) {
+    renderObject.onSizeChanged = onSizeChanged;
+  }
+}
+
+class _RenderToastSizeObserver extends RenderProxyBox {
+  _RenderToastSizeObserver(this.onSizeChanged);
+
+  ValueChanged<Size> onSizeChanged;
+  Size? _lastReportedSize;
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    final currentSize = child?.size ?? size;
+    if (_lastReportedSize == currentSize) return;
+    _lastReportedSize = currentSize;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onSizeChanged(currentSize);
+    });
   }
 }

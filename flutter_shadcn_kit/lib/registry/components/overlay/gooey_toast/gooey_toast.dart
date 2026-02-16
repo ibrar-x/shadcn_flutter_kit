@@ -342,7 +342,10 @@ class _GooeyToastState extends State<GooeyToast>
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
 
   bool get _isLoading => widget.state == GooeyToastState.loading;
-  bool get _hasContent => widget.description != null || widget.action != null;
+  bool get _hasContent =>
+      widget.description != null ||
+      widget.action != null ||
+      widget.expandedChild != null;
   bool get _targetOpen => _hasContent && _expanded && !_isLoading;
 
   @override
@@ -808,6 +811,12 @@ class _GooeyToastState extends State<GooeyToast>
 
     if (widget.action != null) {
       h += 12 + 28;
+    }
+
+    // Custom expanded child can be taller than text heuristics; reserve
+    // additional room to prevent clipping during expansion.
+    if (widget.expandedChild != null) {
+      h = h < 96 ? 96 : h;
     }
 
     return h + 32;
