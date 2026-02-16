@@ -423,6 +423,7 @@ class _GooeyToastState extends State<GooeyToast>
   bool _expanded = false;
   bool _stackControlled = false;
   bool _stackExpanded = false;
+  bool _stackItemExpanded = false;
   Timer? _expandTimer;
   Timer? _collapseTimer;
   late final AnimationController _openController;
@@ -435,7 +436,7 @@ class _GooeyToastState extends State<GooeyToast>
       widget.action != null ||
       widget.expandedChild != null;
   bool get _targetOpen {
-    final expanded = _stackControlled ? _stackExpanded : _expanded;
+    final expanded = _stackControlled ? _stackItemExpanded : _expanded;
     return _hasContent && expanded && !_isLoading;
   }
 
@@ -915,11 +916,15 @@ class _GooeyToastState extends State<GooeyToast>
     final stack = ToastStackScope.maybeOf(context);
     final nextControlled = stack?.hasMultiple ?? false;
     final nextExpanded = stack?.expanded ?? false;
-    if (_stackControlled == nextControlled && _stackExpanded == nextExpanded) {
+    final nextItemExpanded = stack?.itemExpanded ?? false;
+    if (_stackControlled == nextControlled &&
+        _stackExpanded == nextExpanded &&
+        _stackItemExpanded == nextItemExpanded) {
       return;
     }
     _stackControlled = nextControlled;
     _stackExpanded = nextExpanded;
+    _stackItemExpanded = nextItemExpanded;
     if (_stackControlled) {
       _expandTimer?.cancel();
       _collapseTimer?.cancel();

@@ -8,6 +8,7 @@ class ToastController {
   /// Stores `_entries` state/configuration for this implementation.
   final List<_ToastStackItem> _entries = [];
   final Map<String, _ToastGroupState> _groups = {};
+  int _nextItemId = 0;
 
   /// Stores `defaultDuration` state/configuration for this implementation.
   final Duration defaultDuration;
@@ -145,6 +146,8 @@ class ToastController {
         late final bool isVisible;
         late final double totalOffset;
         late final double targetScale;
+        final itemExpanded =
+            groupExpanded && groupState.expandedItemId == stackItem.id;
         if (groupExpanded) {
           _ensureGroupScrollController(groupKey, groupState);
           visibleEntries = _orderedEntries(groupEntries);
@@ -275,6 +278,8 @@ class ToastController {
                 : null,
             onTap: hasMultipleGroup && !groupExpanded
                 ? () => _toggleGroupExpanded(groupKey)
+                : hasMultipleGroup && groupExpanded
+                ? () => _toggleGroupItemExpanded(groupKey, stackItem.id)
                 : null,
             dismissSignal: stackItem.dismissSignal,
             onPointerScroll: groupExpanded
@@ -314,6 +319,7 @@ class ToastController {
               child: ToastStackScope(
                 data: ToastStackContext(
                   expanded: groupExpanded,
+                  itemExpanded: itemExpanded,
                   hasMultiple: hasMultipleGroup,
                   visibleCount: visibleEntries.length,
                   isPrimary: visibleIndex == 0,
@@ -366,7 +372,11 @@ class ToastController {
         );
       },
     );
-    stackItem = _ToastStackItem(entry: entry, groupKey: groupKey);
+    stackItem = _ToastStackItem(
+      entry: entry,
+      groupKey: groupKey,
+      id: _nextItemId++,
+    );
     _entries.add(stackItem);
     _markAllNeedsBuild();
     overlay.insert(entry);
@@ -375,6 +385,10 @@ class ToastController {
   void _removeItem(_ToastStackItem item) {
     if (_entries.remove(item)) {
       item.entry.remove();
+      final state = _groups[item.groupKey];
+      if (state != null && state.expandedItemId == item.id) {
+        state.expandedItemId = null;
+      }
     }
   }
 
@@ -569,6 +583,7 @@ class ToastController {
     if (!state.pinnedExpanded) {
       _stopScrollAnimation(state);
       state
+        ..expandedItemId = null
         ..scrollOffset = 0
         ..scrollTargetOffset = 0
         ..maxScroll = 0
@@ -597,6 +612,7 @@ class ToastController {
     if (!expanded) {
       _stopScrollAnimation(state);
       state
+        ..expandedItemId = null
         ..scrollOffset = 0
         ..scrollTargetOffset = 0
         ..maxScroll = 0
@@ -607,6 +623,13 @@ class ToastController {
         state.listController!.jumpTo(0);
       }
     }
+    _markGroupNeedsBuild(groupKey);
+  }
+
+  void _toggleGroupItemExpanded(String groupKey, int itemId) {
+    final state = _groups[groupKey];
+    if (state == null || !state.expanded || state.dismissing) return;
+    state.expandedItemId = state.expandedItemId == itemId ? null : itemId;
     _markGroupNeedsBuild(groupKey);
   }
 
@@ -906,6 +929,7 @@ class _ToastGroupState {
   double? anchorBottom;
   double? anchorLeft;
   double panelWidth = 0;
+  int? expandedItemId;
   ScrollController? listController;
   Timer? scrollTimer;
   OverlayEntry? backdropEntry;
@@ -917,10 +941,15 @@ class _ToastGroupState {
 }
 
 class _ToastStackItem {
-  _ToastStackItem({required this.entry, required this.groupKey});
+  _ToastStackItem({
+    required this.entry,
+    required this.groupKey,
+    required this.id,
+  });
 
   final OverlayEntry entry;
   final String groupKey;
+  final int id;
   double height = 56;
   double width = 0;
   double shift = 0;

@@ -19,6 +19,7 @@ enum ToastSwipeDirection { up, down, left, right }
 class ToastStackContext {
   const ToastStackContext({
     required this.expanded,
+    required this.itemExpanded,
     required this.hasMultiple,
     required this.visibleCount,
     required this.isPrimary,
@@ -28,6 +29,7 @@ class ToastStackContext {
   });
 
   final bool expanded;
+  final bool itemExpanded;
   final bool hasMultiple;
   final int visibleCount;
   final bool isPrimary;
@@ -49,6 +51,7 @@ class ToastStackScope extends InheritedWidget {
   @override
   bool updateShouldNotify(covariant ToastStackScope oldWidget) {
     return oldWidget.data.expanded != data.expanded ||
+        oldWidget.data.itemExpanded != data.itemExpanded ||
         oldWidget.data.hasMultiple != data.hasMultiple ||
         oldWidget.data.visibleCount != data.visibleCount ||
         oldWidget.data.isPrimary != data.isPrimary;
