@@ -537,6 +537,7 @@ class _GooeyToastState extends State<GooeyToast>
   @override
   Widget build(BuildContext context) {
     _syncFromStackScope(context);
+    final stack = ToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedShapeStyle =
@@ -579,10 +580,16 @@ class _GooeyToastState extends State<GooeyToast>
       toastWidth,
       descriptionStyle,
     );
+    final showClearAllChip =
+        stack != null && stack.expanded && stack.hasMultiple && stack.isPrimary;
+    final clearAllExtraHeight = showClearAllChip ? 40.0 : 0.0;
 
     final minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
-        ? (contentHeight + _kToastHeight).clamp(minExpanded, 1000.0)
+        ? (contentHeight + clearAllExtraHeight + _kToastHeight).clamp(
+            minExpanded,
+            1000.0,
+          )
         : minExpanded;
 
     final targetOpen = _targetOpen;
@@ -799,57 +806,12 @@ class _GooeyToastState extends State<GooeyToast>
                                       width: toastWidth,
                                       child: Padding(
                                         padding: const EdgeInsets.all(16),
-                                        child:
-                                            widget.expandedChild ??
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                if (widget.description != null)
-                                                  Text(
-                                                    widget.description!,
-                                                    style: descriptionStyle,
-                                                  ),
-                                                if (widget.action != null)
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                          top: 12,
-                                                        ),
-                                                    child: TextButton(
-                                                      onPressed: widget
-                                                          .action!
-                                                          .onPressed,
-                                                      style: TextButton.styleFrom(
-                                                        minimumSize: const Size(
-                                                          0,
-                                                          28,
-                                                        ),
-                                                        padding:
-                                                            const EdgeInsets.symmetric(
-                                                              horizontal: 10,
-                                                            ),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                        foregroundColor: tone,
-                                                        backgroundColor: tone
-                                                            .withValues(
-                                                              alpha: 0.15,
-                                                            ),
-                                                      ),
-                                                      child: Text(
-                                                        widget.action!.label,
-                                                        style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
+                                        child: _buildExpandedContent(
+                                          descriptionStyle: descriptionStyle,
+                                          tone: tone,
+                                          showClearAllChip: showClearAllChip,
+                                          onClearAll: stack?.dismissAll,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -866,6 +828,76 @@ class _GooeyToastState extends State<GooeyToast>
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildExpandedContent({
+    required TextStyle? descriptionStyle,
+    required Color tone,
+    required bool showClearAllChip,
+    required VoidCallback? onClearAll,
+  }) {
+    final baseContent =
+        widget.expandedChild ??
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.description != null)
+              Text(widget.description!, style: descriptionStyle),
+            if (widget.action != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: TextButton(
+                  onPressed: widget.action!.onPressed,
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(0, 28),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    shape: const StadiumBorder(),
+                    foregroundColor: tone,
+                    backgroundColor: tone.withValues(alpha: 0.15),
+                  ),
+                  child: Text(
+                    widget.action!.label,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+
+    if (!showClearAllChip || onClearAll == null) {
+      return baseContent;
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        baseContent,
+        const SizedBox(height: 12),
+        Align(
+          alignment: Alignment.centerRight,
+          child: ActionChip(
+            onPressed: onClearAll,
+            backgroundColor: tone.withValues(alpha: 0.14),
+            side: BorderSide(color: tone.withValues(alpha: 0.26)),
+            shape: const StadiumBorder(),
+            labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+            label: Text(
+              'Clear all',
+              style: TextStyle(
+                color: tone,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

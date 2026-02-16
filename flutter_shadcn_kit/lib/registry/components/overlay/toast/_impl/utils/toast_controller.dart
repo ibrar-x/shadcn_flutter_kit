@@ -100,18 +100,21 @@ class ToastController {
         final resolvedDismissDragThreshold =
             dismissDragThreshold ?? toastTheme?.dismissDragThreshold ?? 72.0;
 
+        final groupState = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
         final groupEntries = _groupEntries(groupKey);
         final hasMultipleGroup = groupEntries.length > 1;
+        final groupExpanded = hasMultipleGroup && groupState.expanded;
+        final overlapForLayout =
+            resolvedOverlapStackWhenMultiple && !groupExpanded;
         if (resolvedPauseAutoDismissWhenMultiple && hasMultipleGroup) {
           for (final item in groupEntries) {
             item.lockAutoDismiss = true;
           }
         }
 
-        final visibleEntries = _visibleEntries(
-          groupEntries,
-          resolvedMaxVisibleCount,
-        );
+        final visibleEntries = groupExpanded
+            ? groupEntries
+            : _visibleEntries(groupEntries, resolvedMaxVisibleCount);
         final visibleIndex = visibleEntries.indexOf(stackItem);
         final isVisible = visibleIndex != -1;
         if (!isVisible) {
@@ -122,7 +125,7 @@ class ToastController {
           visibleEntries,
           visibleIndex,
           resolvedSpacing,
-          overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+          overlapStackWhenMultiple: overlapForLayout,
           overlapStackOffset: resolvedOverlapStackOffset,
         );
 
@@ -133,7 +136,7 @@ class ToastController {
         final targetScale = _stackScaleFor(
           visibleEntries,
           visibleIndex,
-          overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+          overlapStackWhenMultiple: overlapForLayout,
         );
         final previousShift = stackItem.shift;
         final previousScale = stackItem.scale;
@@ -151,8 +154,6 @@ class ToastController {
         final resolvedLeft = left;
         final resolvedRight = right ?? (left == null ? 24 : null);
 
-        final groupState = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
-        final groupExpanded = hasMultipleGroup && groupState.expanded;
         final autoDismissEnabled =
             !(resolvedPauseAutoDismissWhenMultiple &&
                 (hasMultipleGroup || stackItem.lockAutoDismiss));
@@ -182,17 +183,31 @@ class ToastController {
             onInteractionEnd: hasMultipleGroup
                 ? () => _setGroupInteraction(groupKey, false)
                 : null,
-            onTap: hasMultipleGroup
+            onTap: hasMultipleGroup && !groupExpanded
                 ? () => _toggleGroupExpanded(groupKey)
                 : null,
+            dismissSignal: stackItem.dismissSignal,
+            onDismissRequest: () {
+              final shouldDismissWholeStack =
+                  resolvedDismissWholeStackWhenMultiple &&
+                  hasMultipleGroup &&
+                  !groupExpanded;
+              if (!shouldDismissWholeStack) return false;
+              _dismissGroupAnimated(groupKey, visibleEntries: visibleEntries);
+              return true;
+            },
             dismissDirections: resolvedDismissDirections,
             dismissDragThreshold: resolvedDismissDragThreshold,
             onDismissed: () {
-              _handleDismissed(
-                stackItem,
-                dismissWholeStackWhenMultiple:
-                    resolvedDismissWholeStackWhenMultiple,
-              );
+              if (stackItem.pendingGroupDismiss) {
+                _removeItem(stackItem);
+                _cleanupGroup(groupKey);
+                _markAllNeedsBuild();
+                return;
+              }
+              _removeItem(stackItem);
+              _cleanupGroup(groupKey);
+              _markAllNeedsBuild();
             },
             child: _ToastSizeObserver(
               onSizeChanged: (size) {
@@ -203,8 +218,9 @@ class ToastController {
                   expanded: groupExpanded,
                   hasMultiple: hasMultipleGroup,
                   visibleCount: visibleEntries.length,
+                  isPrimary: visibleIndex == visibleEntries.length - 1,
                   toggleExpanded: () => _toggleGroupExpanded(groupKey),
-                  dismissAll: () => _dismissGroup(groupKey),
+                  dismissAll: () => _dismissGroupAnimated(groupKey),
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: foregroundColor),
@@ -250,32 +266,44 @@ class ToastController {
     overlay.insert(entry);
   }
 
-  void _handleDismissed(
-    _ToastStackItem item, {
-    required bool dismissWholeStackWhenMultiple,
-  }) {
-    final groupEntries = _groupEntries(item.groupKey);
-    final hadMultiple = groupEntries.length > 1;
-    _removeItem(item);
-    if (dismissWholeStackWhenMultiple && hadMultiple) {
-      _dismissGroup(item.groupKey);
-    }
-    _cleanupGroup(item.groupKey);
-    _markAllNeedsBuild();
-  }
-
   void _removeItem(_ToastStackItem item) {
     if (_entries.remove(item)) {
       item.entry.remove();
     }
   }
 
-  void _dismissGroup(String groupKey) {
+  void _dismissGroupAnimated(
+    String groupKey, {
+    List<_ToastStackItem>? visibleEntries,
+  }) {
+    final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
+    if (state.dismissing) return;
+    state
+      ..dismissing = true
+      ..pinnedExpanded = false
+      ..activeInteractions = 0;
+
     final items = List<_ToastStackItem>.from(_groupEntries(groupKey));
-    for (final item in items) {
-      _removeItem(item);
+    if (items.isEmpty) {
+      _groups.remove(groupKey);
+      return;
     }
-    _groups.remove(groupKey);
+
+    final animatedItems = visibleEntries == null
+        ? items
+        : items.where((item) => visibleEntries.contains(item)).toList();
+    for (final item in items) {
+      if (animatedItems.contains(item)) {
+        if (item.pendingGroupDismiss) continue;
+        item.pendingGroupDismiss = true;
+        item.dismissSignal += 1;
+        item.entry.markNeedsBuild();
+      } else {
+        _removeItem(item);
+      }
+    }
+    _cleanupGroup(groupKey);
+    _markAllNeedsBuild();
   }
 
   List<_ToastStackItem> _groupEntries(String groupKey) {
@@ -329,6 +357,7 @@ class ToastController {
 
   void _setGroupInteraction(String groupKey, bool active) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
+    if (state.dismissing) return;
     final previousExpanded = state.expanded;
     if (active) {
       state.activeInteractions++;
@@ -342,6 +371,7 @@ class ToastController {
 
   void _toggleGroupExpanded(String groupKey) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
+    if (state.dismissing) return;
     state.pinnedExpanded = !state.pinnedExpanded;
     _markGroupNeedsBuild(groupKey);
   }
@@ -405,6 +435,7 @@ class ToastController {
 class _ToastGroupState {
   bool pinnedExpanded = false;
   int activeInteractions = 0;
+  bool dismissing = false;
 
   bool get expanded => pinnedExpanded || activeInteractions > 0;
 }
@@ -418,6 +449,8 @@ class _ToastStackItem {
   double shift = 0;
   double scale = 1;
   bool lockAutoDismiss = false;
+  int dismissSignal = 0;
+  bool pendingGroupDismiss = false;
 }
 
 class _ToastSizeObserver extends SingleChildRenderObjectWidget {

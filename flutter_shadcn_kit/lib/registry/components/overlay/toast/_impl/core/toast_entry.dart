@@ -38,6 +38,12 @@ class ToastEntry extends StatefulWidget {
   /// Stores `onTap` state/configuration for this implementation.
   final VoidCallback? onTap;
 
+  /// Stores `dismissSignal` state/configuration for this implementation.
+  final int dismissSignal;
+
+  /// Stores `onDismissRequest` state/configuration for this implementation.
+  final bool Function()? onDismissRequest;
+
   /// Creates a `ToastEntry` instance.
   const ToastEntry({
     super.key,
@@ -53,6 +59,8 @@ class ToastEntry extends StatefulWidget {
     this.onInteractionStart,
     this.onInteractionEnd,
     this.onTap,
+    this.dismissSignal = 0,
+    this.onDismissRequest,
   });
 
   @override

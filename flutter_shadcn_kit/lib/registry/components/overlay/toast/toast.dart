@@ -19,6 +19,7 @@ class ToastStackContext {
     required this.expanded,
     required this.hasMultiple,
     required this.visibleCount,
+    required this.isPrimary,
     required this.toggleExpanded,
     required this.dismissAll,
   });
@@ -26,6 +27,7 @@ class ToastStackContext {
   final bool expanded;
   final bool hasMultiple;
   final int visibleCount;
+  final bool isPrimary;
   final VoidCallback toggleExpanded;
   final VoidCallback dismissAll;
 }
@@ -44,6 +46,7 @@ class ToastStackScope extends InheritedWidget {
   bool updateShouldNotify(covariant ToastStackScope oldWidget) {
     return oldWidget.data.expanded != data.expanded ||
         oldWidget.data.hasMultiple != data.hasMultiple ||
-        oldWidget.data.visibleCount != data.visibleCount;
+        oldWidget.data.visibleCount != data.visibleCount ||
+        oldWidget.data.isPrimary != data.isPrimary;
   }
 }

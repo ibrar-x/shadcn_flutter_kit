@@ -35,6 +35,12 @@ class _ToastEntryState extends State<ToastEntry>
   @override
   void didUpdateWidget(covariant ToastEntry oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.dismissSignal != widget.dismissSignal &&
+        widget.dismissSignal > 0 &&
+        !_dismissing) {
+      _dismiss();
+      return;
+    }
     if (oldWidget.duration != widget.duration &&
         widget.duration < _remaining &&
         !_dismissing) {
@@ -139,6 +145,12 @@ class _ToastEntryState extends State<ToastEntry>
     _endInteraction();
 
     if (shouldDismiss) {
+      final handledExternally = widget.onDismissRequest?.call() ?? false;
+      if (handledExternally) {
+        setState(() => _dragOffset = Offset.zero);
+        _resumeIfIdle();
+        return;
+      }
       setState(() => _dragOffset = _dismissOffset(direction));
       Future.delayed(const Duration(milliseconds: 190), () {
         if (mounted) _dismiss();
