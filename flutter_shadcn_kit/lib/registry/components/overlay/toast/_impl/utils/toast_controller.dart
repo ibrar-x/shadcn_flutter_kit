@@ -1,6 +1,7 @@
 part of '../../toast.dart';
 
 const Duration _kCollapseHoverCooldown = Duration(milliseconds: 900);
+const double _kExpandedItemMinEstimate = 160.0;
 
 /// Controller that displays toast entries using Overlay.
 class ToastController {
@@ -161,11 +162,17 @@ class ToastController {
             ..itemSpacing = resolvedSpacing;
           var logicalOffset = 0.0;
           for (var i = 0; i < visibleIndex; i++) {
-            logicalOffset += visibleEntries[i].height + resolvedSpacing;
+            final h = visibleEntries[i].height < _kExpandedItemMinEstimate
+                ? _kExpandedItemMinEstimate
+                : visibleEntries[i].height;
+            logicalOffset += h + resolvedSpacing;
           }
           var totalContentHeight = 0.0;
           for (var i = 0; i < visibleEntries.length; i++) {
-            totalContentHeight += visibleEntries[i].height;
+            final h = visibleEntries[i].height < _kExpandedItemMinEstimate
+                ? _kExpandedItemMinEstimate
+                : visibleEntries[i].height;
+            totalContentHeight += h;
             if (i < visibleEntries.length - 1) {
               totalContentHeight += resolvedSpacing;
             }
@@ -182,7 +189,10 @@ class ToastController {
             groupState.scrollOffset = maxScroll;
           }
           final visibleTop = logicalOffset - groupState.scrollOffset;
-          final visibleBottom = visibleTop + stackItem.height;
+          final currentHeight = stackItem.height < _kExpandedItemMinEstimate
+              ? _kExpandedItemMinEstimate
+              : stackItem.height;
+          final visibleBottom = visibleTop + currentHeight;
           isVisible = visibleBottom >= -8 && visibleTop <= viewportExtent + 8;
           totalOffset = visibleTop;
           targetScale = 1;
@@ -461,12 +471,15 @@ class ToastController {
     final animated = <_ToastStackItem>[];
     var logicalOffset = 0.0;
     for (final item in ordered) {
+      final h = item.height < _kExpandedItemMinEstimate
+          ? _kExpandedItemMinEstimate
+          : item.height;
       final visibleTop = logicalOffset - scrollOffset;
-      final visibleBottom = visibleTop + item.height;
+      final visibleBottom = visibleTop + h;
       if (visibleBottom >= -8 && visibleTop <= viewportExtent + 8) {
         animated.add(item);
       }
-      logicalOffset += item.height + spacing;
+      logicalOffset += h + spacing;
     }
     return animated;
   }
@@ -707,8 +720,12 @@ class ToastController {
                       final spacing = index == ordered.length - 1
                           ? 0.0
                           : current.itemSpacing;
+                      final estimatedHeight =
+                          item.height < _kExpandedItemMinEstimate
+                          ? _kExpandedItemMinEstimate
+                          : item.height;
                       return SizedBox(
-                        height: item.height + spacing,
+                        height: estimatedHeight + spacing,
                         width: double.infinity,
                       );
                     },
