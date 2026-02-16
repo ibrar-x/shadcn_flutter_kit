@@ -116,7 +116,9 @@ class ToastController {
           ..anchorLeft = resolvedLeft
           ..panelWidth = _groupMaxWidth(groupEntries);
         final hasMultipleGroup = groupEntries.length > 1;
-        final groupExpanded = hasMultipleGroup && groupState.expanded;
+        final groupExpanded =
+            hasMultipleGroup &&
+            (groupState.expanded || groupState.holdExpandedDuringDismiss);
         final overlapForLayout =
             resolvedOverlapStackWhenMultiple && !groupExpanded;
         if (resolvedPauseAutoDismissWhenMultiple && hasMultipleGroup) {
@@ -365,12 +367,17 @@ class ToastController {
   }) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
+    final shouldHoldExpanded =
+        state.viewportExtent > 0 && visibleEntries != null;
     state
       ..dismissing = true
-      ..pinnedExpanded = false
+      ..pinnedExpanded = shouldHoldExpanded
+      ..holdExpandedDuringDismiss = shouldHoldExpanded
       ..activeInteractions = 0;
     _stopScrollAnimation(state);
-    _removeBackdrop(state);
+    if (!shouldHoldExpanded) {
+      _removeBackdrop(state);
+    }
 
     final items = List<_ToastStackItem>.from(_groupEntries(groupKey));
     if (items.isEmpty) {
@@ -383,6 +390,7 @@ class ToastController {
         _removeItem(item);
       }
       _stopScrollAnimation(state);
+      _removeBackdrop(state);
       _groups.remove(groupKey);
       _markAllNeedsBuild();
       return;
@@ -534,6 +542,7 @@ class ToastController {
   void _toggleGroupExpanded(String groupKey) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
+    state.holdExpandedDuringDismiss = false;
     state.pinnedExpanded = !state.pinnedExpanded;
     if (!state.pinnedExpanded) {
       _stopScrollAnimation(state);
@@ -555,6 +564,7 @@ class ToastController {
   }) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
+    state.holdExpandedDuringDismiss = false;
     state.pinnedExpanded = expanded;
     if (clearInteractions) {
       state.activeInteractions = 0;
@@ -690,29 +700,42 @@ class ToastController {
     final verticalPad = 12.0;
     final panelHeight = state.viewportExtent + verticalPad * 2;
 
-    return IgnorePointer(
-      child: Positioned(
-        top: top == null
-            ? null
-            : (top - verticalPad).clamp(0.0, 4000.0).toDouble(),
-        bottom: bottom == null
-            ? null
-            : (bottom - verticalPad).clamp(0.0, 4000.0).toDouble(),
-        left: left == null
-            ? null
-            : (left - horizontalPad).clamp(0.0, 4000.0).toDouble(),
-        right: right == null
-            ? null
-            : (right - horizontalPad).clamp(0.0, 4000.0).toDouble(),
-        width: (state.panelWidth + horizontalPad * 2)
-            .clamp(120.0, 3000.0)
-            .toDouble(),
-        height: panelHeight.clamp(120.0, 3000.0).toDouble(),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(22),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 7.5, sigmaY: 7.5),
-            child: ColoredBox(color: const Color(0x12000000)),
+    return Positioned(
+      top: top == null
+          ? null
+          : (top - verticalPad).clamp(0.0, 4000.0).toDouble(),
+      bottom: bottom == null
+          ? null
+          : (bottom - verticalPad).clamp(0.0, 4000.0).toDouble(),
+      left: left == null
+          ? null
+          : (left - horizontalPad).clamp(0.0, 4000.0).toDouble(),
+      right: right == null
+          ? null
+          : (right - horizontalPad).clamp(0.0, 4000.0).toDouble(),
+      width: (state.panelWidth + horizontalPad * 2)
+          .clamp(120.0, 3000.0)
+          .toDouble(),
+      height: panelHeight.clamp(120.0, 3000.0).toDouble(),
+      child: IgnorePointer(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(color: const Color(0x2AFFFFFF), width: 1),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x28000000),
+                blurRadius: 18,
+                offset: Offset(0, 8),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(22),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 7.5, sigmaY: 7.5),
+              child: ColoredBox(color: const Color(0x12000000)),
+            ),
           ),
         ),
       ),
@@ -794,6 +817,7 @@ class ToastController {
 
 class _ToastGroupState {
   bool pinnedExpanded = false;
+  bool holdExpandedDuringDismiss = false;
   int activeInteractions = 0;
   bool dismissing = false;
   double scrollOffset = 0;
