@@ -27,6 +27,7 @@ class ToastController {
     bool? pauseAutoDismissWhenMultiple,
     Duration? stackAnimationDuration,
     Curve? stackAnimationCurve,
+    int? maxVisibleCount,
     bool? pauseOnHover,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
@@ -36,6 +37,18 @@ class ToastController {
     double? left,
   }) {
     final overlay = Overlay.of(context);
+    final controllerTheme = ComponentTheme.maybeOf<ToastTheme>(context);
+    final resolvedMaxVisibleCount =
+        (maxVisibleCount ?? controllerTheme?.maxVisibleCount ?? 0).clamp(
+          0,
+          999,
+        );
+    if (resolvedMaxVisibleCount > 0) {
+      while (_entries.length >= resolvedMaxVisibleCount) {
+        final removed = _entries.removeAt(0);
+        removed.entry.remove();
+      }
+    }
 
     /// Stores `resolvedDuration` state/configuration for this implementation.
     final resolvedDuration = duration ?? defaultDuration;
@@ -146,9 +159,6 @@ class ToastController {
             animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
             pauseOnHover: resolvedPauseOnHover,
             autoDismiss: autoDismissEnabled,
-            onInteractionStart: resolvedOverlapStackWhenMultiple
-                ? () => _bringToFront(stackItem, overlay)
-                : null,
             dismissDirections: resolvedDismissDirections,
             dismissDragThreshold: resolvedDismissDragThreshold,
             onDismissed: () {
@@ -236,15 +246,6 @@ class ToastController {
     if (!hasMultiple || !overlapStackWhenMultiple) return 1;
     final layersBehind = (_entries.length - 1 - index).clamp(0, 4);
     return 1 - (layersBehind * 0.025);
-  }
-
-  void _bringToFront(_ToastStackItem item, OverlayState overlay) {
-    if (_entries.isEmpty || identical(_entries.last, item)) return;
-    _entries.remove(item);
-    _entries.add(item);
-    item.entry.remove();
-    overlay.insert(item.entry);
-    _markAllNeedsBuild();
   }
 
   void _markAllNeedsBuild() {

@@ -50,6 +50,9 @@ class ToastTheme extends ComponentThemeData {
   /// Stores `stackAnimationCurve` state/configuration for this implementation.
   final Curve? stackAnimationCurve;
 
+  /// Stores `maxVisibleCount` state/configuration for this implementation.
+  final int? maxVisibleCount;
+
   /// Creates a `ToastTheme` instance.
   const ToastTheme({
     super.themeDensity,
@@ -71,6 +74,7 @@ class ToastTheme extends ComponentThemeData {
     this.pauseAutoDismissWhenMultiple,
     this.stackAnimationDuration,
     this.stackAnimationCurve,
+    this.maxVisibleCount,
   });
 
   /// Creates a `ToastTheme` instance.
@@ -91,6 +95,7 @@ class ToastTheme extends ComponentThemeData {
     ValueGetter<bool?>? pauseAutoDismissWhenMultiple,
     ValueGetter<Duration?>? stackAnimationDuration,
     ValueGetter<Curve?>? stackAnimationCurve,
+    ValueGetter<int?>? maxVisibleCount,
   }) {
     return ToastTheme(
       padding: padding == null ? this.padding : padding(),
@@ -129,6 +134,9 @@ class ToastTheme extends ComponentThemeData {
       stackAnimationCurve: stackAnimationCurve == null
           ? this.stackAnimationCurve
           : stackAnimationCurve(),
+      maxVisibleCount: maxVisibleCount == null
+          ? this.maxVisibleCount
+          : maxVisibleCount(),
     );
   }
 }

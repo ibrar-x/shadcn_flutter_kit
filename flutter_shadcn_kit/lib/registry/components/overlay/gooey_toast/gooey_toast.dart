@@ -63,6 +63,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     this.pauseAutoDismissWhenMultiple,
     this.stackAnimationDuration,
     this.stackAnimationCurve,
+    this.maxVisibleCount,
     this.animationStyle,
     this.shapeStyle,
     this.successTone,
@@ -88,6 +89,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   final bool? pauseAutoDismissWhenMultiple;
   final Duration? stackAnimationDuration;
   final Curve? stackAnimationCurve;
+  final int? maxVisibleCount;
   final GooeyToastAnimationStyle? animationStyle;
   final GooeyToastShapeStyle? shapeStyle;
   final Color? successTone;
@@ -113,6 +115,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     ValueGetter<bool?>? pauseAutoDismissWhenMultiple,
     ValueGetter<Duration?>? stackAnimationDuration,
     ValueGetter<Curve?>? stackAnimationCurve,
+    ValueGetter<int?>? maxVisibleCount,
     ValueGetter<GooeyToastAnimationStyle?>? animationStyle,
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
     ValueGetter<Color?>? successTone,
@@ -156,6 +159,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
       stackAnimationCurve: stackAnimationCurve == null
           ? this.stackAnimationCurve
           : stackAnimationCurve(),
+      maxVisibleCount: maxVisibleCount == null
+          ? this.maxVisibleCount
+          : maxVisibleCount(),
       animationStyle: animationStyle == null
           ? this.animationStyle
           : animationStyle(),
@@ -209,6 +215,7 @@ class GooeyToastController {
     bool? pauseAutoDismissWhenMultiple,
     Duration? stackAnimationDuration,
     Curve? stackAnimationCurve,
+    int? maxVisibleCount,
     GooeyToastAction? action,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
@@ -241,11 +248,11 @@ class GooeyToastController {
             : const <ToastSwipeDirection>{});
     final resolvedDismissDragThreshold =
         dismissDragThreshold ?? gooeyTheme?.dismissDragThreshold ?? 72.0;
-    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 6.0;
+    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 4.0;
     final resolvedOverlapStackWhenMultiple =
         overlapStackWhenMultiple ??
         gooeyTheme?.overlapStackWhenMultiple ??
-        true;
+        false;
     final resolvedOverlapStackOffset =
         overlapStackOffset ?? gooeyTheme?.overlapStackOffset ?? 8.0;
     final resolvedPauseAutoDismissWhenMultiple =
@@ -255,11 +262,13 @@ class GooeyToastController {
     final resolvedStackAnimationDuration =
         stackAnimationDuration ??
         gooeyTheme?.stackAnimationDuration ??
-        const Duration(milliseconds: 260);
+        const Duration(milliseconds: 340);
     final resolvedStackAnimationCurve =
         stackAnimationCurve ??
         gooeyTheme?.stackAnimationCurve ??
-        Curves.easeOutCubic;
+        Curves.easeInOutCubic;
+    final resolvedMaxVisibleCount =
+        maxVisibleCount ?? gooeyTheme?.maxVisibleCount ?? 4;
     const edgeInset = 16.0;
     final media = MediaQuery.maybeOf(context);
     final screenWidth = media?.size.width ?? resolvedWidth;
@@ -290,6 +299,7 @@ class GooeyToastController {
       pauseAutoDismissWhenMultiple: resolvedPauseAutoDismissWhenMultiple,
       stackAnimationDuration: resolvedStackAnimationDuration,
       stackAnimationCurve: resolvedStackAnimationCurve,
+      maxVisibleCount: resolvedMaxVisibleCount,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,

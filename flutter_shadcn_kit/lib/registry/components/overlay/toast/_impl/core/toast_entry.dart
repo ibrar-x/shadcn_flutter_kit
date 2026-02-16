@@ -29,9 +29,6 @@ class ToastEntry extends StatefulWidget {
   /// Stores `autoDismiss` state/configuration for this implementation.
   final bool autoDismiss;
 
-  /// Stores `onInteractionStart` state/configuration for this implementation.
-  final VoidCallback? onInteractionStart;
-
   /// Creates a `ToastEntry` instance.
   const ToastEntry({
     super.key,
@@ -44,7 +41,6 @@ class ToastEntry extends StatefulWidget {
     this.dismissDirections = const {},
     this.dismissDragThreshold = 72,
     this.autoDismiss = true,
-    this.onInteractionStart,
   });
 
   @override

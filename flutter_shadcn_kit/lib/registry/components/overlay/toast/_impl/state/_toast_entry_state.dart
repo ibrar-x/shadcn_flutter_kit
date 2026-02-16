@@ -16,10 +16,6 @@ class _ToastEntryState extends State<ToastEntry>
 
   bool get _swipeEnabled => widget.dismissDirections.isNotEmpty;
 
-  void _notifyInteractionStart() {
-    widget.onInteractionStart?.call();
-  }
-
   @override
   /// Executes `initState` behavior for this component/composite.
   void initState() {
@@ -96,7 +92,6 @@ class _ToastEntryState extends State<ToastEntry>
 
   void _onPanStart(DragStartDetails details) {
     if (!_swipeEnabled || _dismissing) return;
-    _notifyInteractionStart();
     _dragging = true;
     _pauseDismiss();
   }
@@ -254,7 +249,6 @@ class _ToastEntryState extends State<ToastEntry>
     }
     return Listener(
       onPointerDown: (_) {
-        _notifyInteractionStart();
         _pointerDown = true;
         _pauseDismiss();
       },
@@ -268,7 +262,6 @@ class _ToastEntryState extends State<ToastEntry>
       },
       child: MouseRegion(
         onEnter: (_) {
-          _notifyInteractionStart();
           _mouseInside = true;
           _pauseDismiss();
         },
