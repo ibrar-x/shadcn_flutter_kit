@@ -823,24 +823,24 @@ class ToastController {
       height: panelHeight.clamp(120.0, 3000.0).toDouble(),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0x24FFFFFF), width: 1),
+          border: Border.all(color: const Color(0x12FFFFFF), width: 1),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x12000000),
-              blurRadius: 20,
-              offset: Offset(0, 8),
+              color: Color(0x08000000),
+              blurRadius: 14,
+              offset: Offset(0, 6),
             ),
           ],
         ),
         child: ClipRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
             child: DecoratedBox(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0x14FFFFFF), Color(0x06000000)],
+                  colors: [Color(0x06FFFFFF), Color(0x02000000)],
                 ),
               ),
               child: child,
