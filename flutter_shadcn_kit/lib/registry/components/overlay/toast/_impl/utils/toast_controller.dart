@@ -351,9 +351,18 @@ class ToastController {
       return;
     }
 
-    final animatedItems = visibleEntries == null
-        ? items
-        : items.where((item) => visibleEntries.contains(item)).toList();
+    if (visibleEntries == null) {
+      for (final item in items) {
+        _removeItem(item);
+      }
+      _groups.remove(groupKey);
+      _markAllNeedsBuild();
+      return;
+    }
+
+    final animatedItems = items
+        .where((item) => visibleEntries.contains(item))
+        .toList();
     for (final item in items) {
       if (animatedItems.contains(item)) {
         if (item.pendingGroupDismiss) continue;
@@ -425,6 +434,11 @@ class ToastController {
   void _setGroupInteraction(String groupKey, bool active) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
     if (state.dismissing) return;
+    if (active &&
+        state.interactionCooldownUntil != null &&
+        state.interactionCooldownUntil!.isAfter(DateTime.now())) {
+      return;
+    }
     final previousExpanded = state.expanded;
     if (active) {
       state.activeInteractions++;
@@ -446,7 +460,10 @@ class ToastController {
     if (!state.pinnedExpanded) {
       state
         ..scrollOffset = 0
-        ..maxScroll = 0;
+        ..maxScroll = 0
+        ..interactionCooldownUntil = DateTime.now().add(
+          const Duration(milliseconds: 420),
+        );
     }
     _markGroupNeedsBuild(groupKey);
   }
@@ -465,7 +482,10 @@ class ToastController {
     if (!expanded) {
       state
         ..scrollOffset = 0
-        ..maxScroll = 0;
+        ..maxScroll = 0
+        ..interactionCooldownUntil = DateTime.now().add(
+          const Duration(milliseconds: 420),
+        );
     }
     _markGroupNeedsBuild(groupKey);
   }
@@ -488,30 +508,44 @@ class ToastController {
     bool shouldShow,
   ) {
     final state = _groups.putIfAbsent(groupKey, _ToastGroupState.new);
-    if (!shouldShow) {
-      _removeBackdrop(state);
+    state.desiredBackdropVisible = shouldShow;
+    if (state.backdropMutationScheduled) {
       return;
     }
-    if (state.backdropEntry != null) return;
-    final groupEntries = _groupEntries(groupKey);
-    if (groupEntries.isEmpty) return;
-    final entry = OverlayEntry(
-      builder: (context) {
-        return Positioned.fill(
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () =>
-                _setGroupExpanded(groupKey, false, clearInteractions: true),
-            child: const SizedBox.expand(),
-          ),
-        );
-      },
-    );
-    state.backdropEntry = entry;
-    overlay.insert(entry, below: groupEntries.first.entry);
+    state.backdropMutationScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final current = _groups[groupKey];
+      if (current == null) {
+        _removeBackdrop(state);
+        return;
+      }
+      current.backdropMutationScheduled = false;
+      if (!current.desiredBackdropVisible) {
+        _removeBackdrop(current);
+        return;
+      }
+      if (current.backdropEntry != null) return;
+      final groupEntries = _groupEntries(groupKey);
+      if (groupEntries.isEmpty) return;
+      final entry = OverlayEntry(
+        builder: (context) {
+          return Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () =>
+                  _setGroupExpanded(groupKey, false, clearInteractions: true),
+              child: const SizedBox.expand(),
+            ),
+          );
+        },
+      );
+      current.backdropEntry = entry;
+      overlay.insert(entry, below: groupEntries.first.entry);
+    });
   }
 
   void _removeBackdrop(_ToastGroupState state) {
+    state.desiredBackdropVisible = false;
     state.backdropEntry?.remove();
     state.backdropEntry = null;
   }
@@ -595,6 +629,9 @@ class _ToastGroupState {
   double scrollOffset = 0;
   double maxScroll = 0;
   OverlayEntry? backdropEntry;
+  bool desiredBackdropVisible = false;
+  bool backdropMutationScheduled = false;
+  DateTime? interactionCooldownUntil;
 
   bool get expanded => pinnedExpanded || activeInteractions > 0;
 }
