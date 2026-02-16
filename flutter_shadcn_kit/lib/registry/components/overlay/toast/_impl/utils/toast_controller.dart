@@ -1,7 +1,7 @@
 part of '../../toast.dart';
 
 const Duration _kCollapseHoverCooldown = Duration(milliseconds: 900);
-const double _kExpandedItemMinEstimate = 160.0;
+const double _kExpandedItemMinEstimate = 132.0;
 const double _kCompactItemMinEstimate = 44.0;
 
 /// Controller that displays toast entries using Overlay.
