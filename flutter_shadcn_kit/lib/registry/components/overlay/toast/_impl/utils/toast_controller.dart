@@ -121,6 +121,13 @@ class ToastController {
             (groupState.expanded || groupState.holdExpandedDuringDismiss);
         final overlapForLayout =
             resolvedOverlapStackWhenMultiple && !groupExpanded;
+        final disableCompactReflowAnimation =
+            !groupExpanded &&
+            resolvedMaxVisibleCount > 0 &&
+            groupEntries.length > resolvedMaxVisibleCount;
+        final layerAnimationDuration = disableCompactReflowAnimation
+            ? Duration.zero
+            : resolvedStackAnimationDuration;
         if (resolvedPauseAutoDismissWhenMultiple && hasMultipleGroup) {
           for (final item in groupEntries) {
             item.lockAutoDismiss = true;
@@ -231,7 +238,7 @@ class ToastController {
 
         final child = TweenAnimationBuilder<double>(
           tween: Tween(begin: previousScale, end: targetScale),
-          duration: resolvedStackAnimationDuration,
+          duration: layerAnimationDuration,
           curve: resolvedStackAnimationCurve,
           builder: (context, scale, child) {
             return Transform.scale(
@@ -333,7 +340,7 @@ class ToastController {
             padding: EdgeInsets.zero,
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: previousShift, end: targetShift),
-              duration: resolvedStackAnimationDuration,
+              duration: layerAnimationDuration,
               curve: resolvedStackAnimationCurve,
               builder: (context, animatedShift, child) {
                 return Transform.translate(
