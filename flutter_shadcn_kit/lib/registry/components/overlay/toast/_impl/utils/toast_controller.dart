@@ -821,12 +821,12 @@ class ToastController {
       height: panelHeight.clamp(120.0, 3000.0).toDouble(),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0x3DFFFFFF), width: 1),
+          border: Border.all(color: const Color(0x24FFFFFF), width: 1),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x22000000),
-              blurRadius: 24,
-              offset: Offset(0, 10),
+              color: Color(0x12000000),
+              blurRadius: 20,
+              offset: Offset(0, 8),
             ),
           ],
         ),
@@ -838,7 +838,7 @@ class ToastController {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0x1AFFFFFF), Color(0x14000000)],
+                  colors: [Color(0x14FFFFFF), Color(0x06000000)],
                 ),
               ),
               child: child,
