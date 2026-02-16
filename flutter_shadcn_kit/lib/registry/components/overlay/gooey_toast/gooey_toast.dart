@@ -570,27 +570,22 @@ class _GooeyToastState extends State<GooeyToast>
           fontWeight: FontWeight.w400,
           color: const Color(0xFFC0C5CB),
         );
-    final pillWidth = _measurePillWidth(
-      theme.textTheme,
-      toastWidth,
-      titleStyle,
-    );
+    final showStackControls =
+        stack != null && stack.hasMultiple && stack.isPrimary;
+    final showExpandedControls = showStackControls && stack.expanded;
+    final pillWidth =
+        ((_measurePillWidth(theme.textTheme, toastWidth, titleStyle) +
+                    (showExpandedControls ? 112.0 : 0.0))
+                .clamp(_kToastHeight, toastWidth))
+            .toDouble();
     final contentHeight = _measureContentHeight(
       theme.textTheme,
       toastWidth,
       descriptionStyle,
     );
-    final showStackControls =
-        stack != null && stack.hasMultiple && stack.isPrimary;
-    final showExpandedControls = showStackControls && stack.expanded;
-    final controlsExtraHeight = showExpandedControls ? 40.0 : 0.0;
-
     final minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
-        ? (contentHeight + controlsExtraHeight + _kToastHeight).clamp(
-            minExpanded,
-            1000.0,
-          )
+        ? (contentHeight + _kToastHeight).clamp(minExpanded, 1000.0)
         : minExpanded;
 
     final targetOpen = _targetOpen;
@@ -781,6 +776,20 @@ class _GooeyToastState extends State<GooeyToast>
                                       style: titleStyle,
                                     ),
                                   ),
+                                  if (showExpandedControls) ...[
+                                    const SizedBox(width: 6),
+                                    _buildHeaderControlChip(
+                                      label: 'Collapse',
+                                      tone: tone,
+                                      onTap: () => stack.setExpanded(false),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    _buildHeaderControlChip(
+                                      label: 'Clear all',
+                                      tone: tone,
+                                      onTap: stack.dismissAll,
+                                    ),
+                                  ],
                                 ],
                               ),
                         ),
@@ -810,12 +819,6 @@ class _GooeyToastState extends State<GooeyToast>
                                         child: _buildExpandedContent(
                                           descriptionStyle: descriptionStyle,
                                           tone: tone,
-                                          showExpandedControls:
-                                              showExpandedControls,
-                                          stackExpanded:
-                                              stack?.expanded ?? false,
-                                          onSetExpanded: stack?.setExpanded,
-                                          onClearAll: stack?.dismissAll,
                                         ),
                                       ),
                                     ),
@@ -839,10 +842,6 @@ class _GooeyToastState extends State<GooeyToast>
   Widget _buildExpandedContent({
     required TextStyle? descriptionStyle,
     required Color tone,
-    required bool showExpandedControls,
-    required bool stackExpanded,
-    required ValueChanged<bool>? onSetExpanded,
-    required VoidCallback? onClearAll,
   }) {
     final baseContent =
         widget.expandedChild ??
@@ -876,57 +875,39 @@ class _GooeyToastState extends State<GooeyToast>
           ],
         );
 
-    if (!showExpandedControls) {
-      return baseContent;
-    }
+    return baseContent;
+  }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Wrap(
-            spacing: 8,
-            children: [
-              if (stackExpanded && onSetExpanded != null)
-                ActionChip(
-                  onPressed: () => onSetExpanded(false),
-                  backgroundColor: tone.withValues(alpha: 0.14),
-                  side: BorderSide(color: tone.withValues(alpha: 0.26)),
-                  shape: const StadiumBorder(),
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                  label: Text(
-                    'Collapse',
-                    style: TextStyle(
-                      color: tone,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              if (stackExpanded && onClearAll != null)
-                ActionChip(
-                  onPressed: onClearAll,
-                  backgroundColor: tone.withValues(alpha: 0.14),
-                  side: BorderSide(color: tone.withValues(alpha: 0.26)),
-                  shape: const StadiumBorder(),
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                  label: Text(
-                    'Clear all',
-                    style: TextStyle(
-                      color: tone,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-            ],
+  Widget _buildHeaderControlChip({
+    required String label,
+    required Color tone,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(999),
+        child: Container(
+          height: 22,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            color: tone.withValues(alpha: 0.14),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: tone.withValues(alpha: 0.26)),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: tone,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              height: 1,
+            ),
           ),
         ),
-        const SizedBox(height: 12),
-        baseContent,
-      ],
+      ),
     );
   }
 
