@@ -17,6 +17,9 @@ class _ToastEntryState extends State<ToastEntry>
   Offset _dragOffset = Offset.zero;
 
   bool get _swipeEnabled => widget.dismissDirections.isNotEmpty;
+  bool get _verticalDismissEnabled =>
+      widget.dismissDirections.contains(ToastSwipeDirection.up) ||
+      widget.dismissDirections.contains(ToastSwipeDirection.down);
 
   @override
   /// Executes `initState` behavior for this component/composite.
@@ -109,10 +112,7 @@ class _ToastEntryState extends State<ToastEntry>
   void _onPanUpdate(DragUpdateDetails details) {
     if (!_swipeEnabled || _dismissing) return;
     final canDragScroll = widget.onDragScroll != null;
-    final verticalDismissEnabled =
-        widget.dismissDirections.contains(ToastSwipeDirection.up) ||
-        widget.dismissDirections.contains(ToastSwipeDirection.down);
-    if (canDragScroll && !verticalDismissEnabled) {
+    if (canDragScroll && !_verticalDismissEnabled) {
       if (!_dragScrollMode &&
           details.delta.dy.abs() > details.delta.dx.abs() + 0.4) {
         _dragScrollMode = true;
@@ -263,6 +263,22 @@ class _ToastEntryState extends State<ToastEntry>
     };
   }
 
+  void _onHorizontalDragStart(DragStartDetails details) {
+    _onPanStart(details);
+  }
+
+  void _onHorizontalDragUpdate(DragUpdateDetails details) {
+    _onPanUpdate(details);
+  }
+
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    _onPanEnd(details);
+  }
+
+  void _onHorizontalDragCancel() {
+    _onPanCancel();
+  }
+
   @override
   /// Executes `dispose` behavior for this component/composite.
   void dispose() {
@@ -290,15 +306,27 @@ class _ToastEntryState extends State<ToastEntry>
         offset: Offset(_dragOffset.dx / 280, _dragOffset.dy / 120),
         child: child,
       );
-      child = GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: widget.onTap,
-        onPanStart: _onPanStart,
-        onPanUpdate: _onPanUpdate,
-        onPanEnd: _onPanEnd,
-        onPanCancel: _onPanCancel,
-        child: child,
-      );
+      if (_verticalDismissEnabled || widget.onDragScroll != null) {
+        child = GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: widget.onTap,
+          onPanStart: _onPanStart,
+          onPanUpdate: _onPanUpdate,
+          onPanEnd: _onPanEnd,
+          onPanCancel: _onPanCancel,
+          child: child,
+        );
+      } else {
+        child = GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: widget.onTap,
+          onHorizontalDragStart: _onHorizontalDragStart,
+          onHorizontalDragUpdate: _onHorizontalDragUpdate,
+          onHorizontalDragEnd: _onHorizontalDragEnd,
+          onHorizontalDragCancel: _onHorizontalDragCancel,
+          child: child,
+        );
+      }
     }
     if (!_swipeEnabled && widget.onTap != null) {
       child = GestureDetector(

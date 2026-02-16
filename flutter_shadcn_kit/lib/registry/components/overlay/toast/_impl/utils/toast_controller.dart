@@ -270,9 +270,6 @@ class ToastController {
             onPointerScroll: groupExpanded
                 ? (delta) => _scrollGroup(groupKey, delta)
                 : null,
-            onDragScroll: groupExpanded
-                ? (delta) => _scrollGroup(groupKey, delta)
-                : null,
             onDismissRequest: () {
               final shouldDismissWholeStack =
                   resolvedDismissWholeStackWhenMultiple &&
