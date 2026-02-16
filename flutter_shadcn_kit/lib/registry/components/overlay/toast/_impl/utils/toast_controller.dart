@@ -270,6 +270,9 @@ class ToastController {
             onPointerScroll: groupExpanded
                 ? (delta) => _scrollGroup(groupKey, delta)
                 : null,
+            onDragScroll: groupExpanded
+                ? (delta) => _scrollGroup(groupKey, delta)
+                : null,
             onDismissRequest: () {
               final shouldDismissWholeStack =
                   resolvedDismissWholeStackWhenMultiple &&
@@ -605,20 +608,13 @@ class ToastController {
     state.scrollTargetOffset = next;
     final controller = state.listController;
     if (controller != null && controller.hasClients) {
-      final current = controller.offset;
-      final distance = (next - current).abs();
-      final duration = Duration(
-        milliseconds: (90 + (distance * 0.6)).clamp(90, 220).round(),
-      );
-      state.scrollDrivenByController = true;
-      controller
-          .animateTo(next, duration: duration, curve: Curves.easeOutCubic)
-          .whenComplete(() {
-            state.scrollDrivenByController = false;
-          });
+      controller.jumpTo(next);
       return;
     }
-    _ensureScrollAnimation(groupKey, state);
+    state
+      ..scrollOffset = next
+      ..scrollTargetOffset = next;
+    _markGroupNeedsBuild(groupKey);
   }
 
   void _ensureGroupScrollController(String groupKey, _ToastGroupState state) {
@@ -630,11 +626,11 @@ class ToastController {
       final current = _groups[groupKey];
       if (current == null || current.dismissing) return;
       final offset = controller.offset.clamp(0.0, current.maxScroll).toDouble();
-      current.scrollOffset = offset;
-      current.scrollTargetOffset = offset;
-      if (!current.scrollDrivenByController) {
-        _markGroupNeedsBuild(groupKey);
-      }
+      if ((offset - current.scrollOffset).abs() < 0.25) return;
+      current
+        ..scrollOffset = offset
+        ..scrollTargetOffset = offset;
+      _markGroupNeedsBuild(groupKey);
     });
     state.listController = controller;
   }
@@ -646,32 +642,6 @@ class ToastController {
     if ((clamped - controller.offset).abs() > 0.5) {
       controller.jumpTo(clamped);
     }
-  }
-
-  void _ensureScrollAnimation(String groupKey, _ToastGroupState state) {
-    if (state.scrollTimer != null) return;
-    state.scrollTimer = Timer.periodic(const Duration(milliseconds: 16), (
-      timer,
-    ) {
-      final current = _groups[groupKey];
-      if (current == null || !current.expanded || current.dismissing) {
-        timer.cancel();
-        if (current != null) {
-          current.scrollTimer = null;
-        }
-        return;
-      }
-      final delta = current.scrollTargetOffset - current.scrollOffset;
-      if (delta.abs() < 0.35) {
-        current.scrollOffset = current.scrollTargetOffset;
-        timer.cancel();
-        current.scrollTimer = null;
-        _markGroupNeedsBuild(groupKey);
-        return;
-      }
-      current.scrollOffset += delta * 0.24;
-      _markGroupNeedsBuild(groupKey);
-    });
   }
 
   void _stopScrollAnimation(_ToastGroupState state) {
@@ -802,19 +772,28 @@ class ToastController {
       height: panelHeight.clamp(120.0, 3000.0).toDouble(),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0x2AFFFFFF), width: 1),
+          border: Border.all(color: const Color(0x3DFFFFFF), width: 1),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x28000000),
-              blurRadius: 18,
-              offset: Offset(0, 8),
+              color: Color(0x22000000),
+              blurRadius: 24,
+              offset: Offset(0, 10),
             ),
           ],
         ),
         child: ClipRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 7.5, sigmaY: 7.5),
-            child: ColoredBox(color: const Color(0x12000000), child: child),
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0x1AFFFFFF), Color(0x14000000)],
+                ),
+              ),
+              child: child,
+            ),
           ),
         ),
       ),
@@ -848,9 +827,9 @@ class ToastController {
   }) {
     final media = MediaQuery.maybeOf(context);
     final height = media?.size.height ?? 900;
-    final edgeInset = 20.0;
+    final edgeInset = 0.0;
     final available = height - (top ?? 0) - (bottom ?? 0) - edgeInset;
-    return available.clamp(220.0, 560.0).toDouble();
+    return available.clamp(220.0, 4000.0).toDouble();
   }
 
   void _markAllNeedsBuild() {
@@ -911,7 +890,6 @@ class _ToastGroupState {
   double? anchorLeft;
   double panelWidth = 0;
   ScrollController? listController;
-  bool scrollDrivenByController = false;
   Timer? scrollTimer;
   OverlayEntry? backdropEntry;
   bool desiredBackdropVisible = false;
