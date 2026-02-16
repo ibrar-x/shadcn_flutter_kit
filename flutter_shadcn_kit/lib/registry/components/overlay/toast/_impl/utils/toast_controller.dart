@@ -1,5 +1,7 @@
 part of '../../toast.dart';
 
+const Duration _kCollapseHoverCooldown = Duration(milliseconds: 900);
+
 /// Controller that displays toast entries using Overlay.
 class ToastController {
   /// Stores `_entries` state/configuration for this implementation.
@@ -281,7 +283,10 @@ class ToastController {
                     expanded,
                     clearInteractions: !expanded,
                   ),
-                  dismissAll: () => _dismissGroupAnimated(groupKey),
+                  dismissAll: () => _dismissGroupAnimated(
+                    groupKey,
+                    visibleEntries: visibleEntries,
+                  ),
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: foregroundColor),
@@ -462,7 +467,7 @@ class ToastController {
         ..scrollOffset = 0
         ..maxScroll = 0
         ..interactionCooldownUntil = DateTime.now().add(
-          const Duration(milliseconds: 420),
+          _kCollapseHoverCooldown,
         );
     }
     _markGroupNeedsBuild(groupKey);
@@ -484,7 +489,7 @@ class ToastController {
         ..scrollOffset = 0
         ..maxScroll = 0
         ..interactionCooldownUntil = DateTime.now().add(
-          const Duration(milliseconds: 420),
+          _kCollapseHoverCooldown,
         );
     }
     _markGroupNeedsBuild(groupKey);
