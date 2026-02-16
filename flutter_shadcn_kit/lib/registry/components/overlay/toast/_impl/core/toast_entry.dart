@@ -2,18 +2,31 @@ part of '../../toast.dart';
 
 /// ToastEntry defines a reusable type for this registry module.
 class ToastEntry extends StatefulWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `duration` state/configuration for this implementation.
+
+  /// Stores `duration` state/configuration for this implementation.
   final Duration duration;
-/// Stores `animationDuration` state/configuration for this implementation.
+
+  /// Stores `animationDuration` state/configuration for this implementation.
   final Duration animationDuration;
-/// Stores `animationCurve` state/configuration for this implementation.
+
+  /// Stores `animationCurve` state/configuration for this implementation.
   final Curve animationCurve;
-/// Stores `onDismissed` state/configuration for this implementation.
+
+  /// Stores `onDismissed` state/configuration for this implementation.
   final VoidCallback onDismissed;
 
-/// Creates a `ToastEntry` instance.
+  /// Stores `pauseOnHover` state/configuration for this implementation.
+  final bool pauseOnHover;
+
+  /// Stores `dismissDirections` state/configuration for this implementation.
+  final Set<ToastSwipeDirection> dismissDirections;
+
+  /// Stores `dismissDragThreshold` state/configuration for this implementation.
+  final double dismissDragThreshold;
+
+  /// Creates a `ToastEntry` instance.
   const ToastEntry({
     super.key,
     required this.child,
@@ -21,9 +34,12 @@ class ToastEntry extends StatefulWidget {
     required this.animationDuration,
     required this.animationCurve,
     required this.onDismissed,
+    this.pauseOnHover = false,
+    this.dismissDirections = const {},
+    this.dismissDragThreshold = 72,
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<ToastEntry> createState() => _ToastEntryState();
 }

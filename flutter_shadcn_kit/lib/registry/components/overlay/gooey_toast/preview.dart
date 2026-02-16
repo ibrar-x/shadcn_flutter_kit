@@ -1,0 +1,737 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../toast/toast.dart';
+import 'gooey_toast.dart';
+
+/// GooeyToastPreview defines a reusable type for this registry module.
+class GooeyToastPreview extends StatefulWidget {
+  const GooeyToastPreview({super.key});
+
+  @override
+  State<GooeyToastPreview> createState() => _GooeyToastPreviewState();
+}
+
+class _GooeyToastPreviewState extends State<GooeyToastPreview> {
+  final GooeyToastController _controller = GooeyToastController();
+  Timer? _promiseTimer;
+
+  int _selectedPresetIndex = 2;
+  _DemoAction? _selectedAction;
+  GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
+  GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
+  bool _autopilotEnabled = true;
+  bool _pauseOnHover = true;
+  _DismissBehavior _dismissBehavior = _DismissBehavior.auto;
+  final Set<ToastSwipeDirection> _customDismissDirections = {
+    ToastSwipeDirection.up,
+    ToastSwipeDirection.right,
+  };
+
+  static const List<_ViewportPreset> _presets = [
+    _ViewportPreset(
+      label: 'top-left',
+      position: GooeyToastPosition.left,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
+      label: 'top-center',
+      position: GooeyToastPosition.center,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
+      label: 'top-right',
+      position: GooeyToastPosition.right,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
+      label: 'bottom-left',
+      position: GooeyToastPosition.left,
+      expandDirection: GooeyToastExpandDirection.top,
+    ),
+    _ViewportPreset(
+      label: 'bottom-center',
+      position: GooeyToastPosition.center,
+      expandDirection: GooeyToastExpandDirection.top,
+    ),
+    _ViewportPreset(
+      label: 'bottom-right',
+      position: GooeyToastPosition.right,
+      expandDirection: GooeyToastExpandDirection.top,
+    ),
+  ];
+
+  static const List<_DemoAction> _actions = [
+    _DemoAction.success,
+    _DemoAction.error,
+    _DemoAction.warning,
+    _DemoAction.info,
+    _DemoAction.action,
+    _DemoAction.icon,
+    _DemoAction.promise,
+    _DemoAction.custom,
+  ];
+
+  @override
+  void dispose() {
+    _promiseTimer?.cancel();
+    super.dispose();
+  }
+
+  void _triggerDemo(_DemoAction action) {
+    setState(() => _selectedAction = action);
+    final preset = _presets[_selectedPresetIndex];
+    final swipeToDismiss = _dismissBehavior != _DismissBehavior.off;
+    final customDirections = _customDismissDirections.isEmpty
+        ? <ToastSwipeDirection>{ToastSwipeDirection.up}
+        : Set<ToastSwipeDirection>.from(_customDismissDirections);
+    final dismissDirections = switch (_dismissBehavior) {
+      _DismissBehavior.auto => null,
+      _DismissBehavior.off => <ToastSwipeDirection>{},
+      _DismissBehavior.custom => customDirections,
+    };
+
+    void show({
+      required String title,
+      String? description,
+      GooeyToastState state = GooeyToastState.success,
+      Widget? icon,
+      GooeyToastAction? action,
+      Widget? compactChild,
+      Widget? expandedChild,
+      Duration? duration,
+      GooeyAutopilot? autopilot,
+    }) {
+      _controller.show(
+        context: context,
+        title: title,
+        description: description,
+        state: state,
+        position: preset.position,
+        expandDirection: preset.expandDirection,
+        animationStyle: _animationStyle,
+        shapeStyle: _shapeStyle,
+        pauseOnHover: _pauseOnHover,
+        swipeToDismiss: swipeToDismiss,
+        dismissDirections: dismissDirections,
+        dismissDragThreshold: 68,
+        autopilot:
+            autopilot ?? (_autopilotEnabled ? const GooeyAutopilot() : null),
+        icon: icon,
+        action: action,
+        compactChild: compactChild,
+        expandedChild: expandedChild,
+        duration: duration,
+      );
+    }
+
+    switch (action) {
+      case _DemoAction.success:
+        show(
+          title: 'Changes Saved',
+          description:
+              'Changes saved successfully to the database.\nPlease refresh the page to see the changes.',
+          state: GooeyToastState.success,
+        );
+      case _DemoAction.error:
+        show(
+          title: 'Upload Failed',
+          description: 'Please check your connection and try again.',
+          state: GooeyToastState.error,
+        );
+      case _DemoAction.warning:
+        show(
+          title: 'Storage Warning',
+          description: 'You are running out of storage space.',
+          state: GooeyToastState.warning,
+        );
+      case _DemoAction.info:
+        show(
+          title: 'Heads up',
+          description: 'A new update is available for your workspace.',
+          state: GooeyToastState.info,
+        );
+      case _DemoAction.action:
+        show(
+          title: 'New Message',
+          description: 'Click reply to respond from this thread.',
+          state: GooeyToastState.action,
+          action: GooeyToastAction(label: 'Reply', onPressed: () {}),
+        );
+      case _DemoAction.icon:
+        show(
+          title: 'Custom Icon',
+          description: 'Toasts can render a custom leading icon widget.',
+          state: GooeyToastState.success,
+          icon: const Icon(Icons.auto_awesome_rounded),
+        );
+      case _DemoAction.promise:
+        _promiseTimer?.cancel();
+        show(
+          title: 'Saving Changes',
+          description: 'Waiting for server response...',
+          state: GooeyToastState.loading,
+          duration: const Duration(milliseconds: 2200),
+          autopilot: null,
+        );
+        _promiseTimer = Timer(const Duration(milliseconds: 1650), () {
+          if (!mounted) return;
+          show(
+            title: 'Changes Saved',
+            description:
+                'Operation completed successfully and synced to the database.',
+            state: GooeyToastState.success,
+          );
+        });
+      case _DemoAction.custom:
+        show(
+          title: 'Deployment',
+          description: 'Build #441 is now live in production.',
+          state: GooeyToastState.success,
+          compactChild: Row(
+            children: [
+              Container(
+                height: 24,
+                width: 24,
+                decoration: const BoxDecoration(
+                  color: Color(0x1A63C65E),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.rocket_launch_rounded,
+                  size: 14,
+                  color: Color(0xFF63C65E),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Deploy Complete',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF63C65E),
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          expandedChild: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Production / us-east-1',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF63C65E),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'All checks passed. Latency is within baseline and traffic is stable.',
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 1.4,
+                  color: Color(0xFFC0C5CB),
+                ),
+              ),
+            ],
+          ),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF3F3F3),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final width = constraints.maxWidth;
+            final compact = width < 1120;
+            final ultra = width < 760;
+            final chipHeight = ultra ? 34.0 : (compact ? 36.0 : 40.0);
+            final chipFont = ultra ? 12.5 : (compact ? 13.5 : 14.5);
+            final chipRadius = ultra ? 11.0 : 12.0;
+            final chipSpacing = ultra ? 6.0 : 8.0;
+            final sectionSpacing = ultra ? 12.0 : 14.0;
+            final panelWidth = ultra ? width : (compact ? 980.0 : 1120.0);
+
+            return Padding(
+              padding: EdgeInsets.fromLTRB(
+                ultra ? 12 : 18,
+                ultra ? 12 : 18,
+                ultra ? 12 : 18,
+                ultra ? 10 : 14,
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ultra ? 8 : 0,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _PlaygroundTitle(size: ultra ? 56 : 74),
+                            SizedBox(height: ultra ? 8 : 12),
+                            Text(
+                              'Pick a position, set options, click any type to fire it live.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: ultra ? 18 : 19,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFFA3A3A3),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: panelWidth,
+                      maxHeight: constraints.maxHeight * (ultra ? 0.64 : 0.56),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _ControlSection(
+                            title: 'Position',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (var i = 0; i < _presets.length; i++)
+                                  _PlaygroundChip(
+                                    label: _presets[i].label,
+                                    selected: i == _selectedPresetIndex,
+                                    onTap: () => setState(
+                                      () => _selectedPresetIndex = i,
+                                    ),
+                                    minWidth: ultra ? 92 : 112,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          const _PlaygroundDivider(),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Type',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (final action in _actions)
+                                  _PlaygroundChip(
+                                    label: action.label,
+                                    selected: _selectedAction == action,
+                                    onTap: () => _triggerDemo(action),
+                                    minWidth: ultra ? 82 : 94,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Animation',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (final style
+                                    in GooeyToastAnimationStyle.values)
+                                  _PlaygroundChip(
+                                    label: style.label,
+                                    selected: _animationStyle == style,
+                                    onTap: () =>
+                                        setState(() => _animationStyle = style),
+                                    minWidth: ultra ? 80 : 88,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Shape',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (final style in GooeyToastShapeStyle.values)
+                                  _PlaygroundChip(
+                                    label: style.label,
+                                    selected: _shapeStyle == style,
+                                    onTap: () =>
+                                        setState(() => _shapeStyle = style),
+                                    minWidth: ultra ? 82 : 96,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Behavior',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                _PlaygroundChip(
+                                  label: _autopilotEnabled
+                                      ? 'on · autopilot'
+                                      : 'off · autopilot',
+                                  selected: _autopilotEnabled,
+                                  onTap: () => setState(
+                                    () =>
+                                        _autopilotEnabled = !_autopilotEnabled,
+                                  ),
+                                  minWidth: ultra ? 130 : 154,
+                                  minHeight: chipHeight,
+                                  fontSize: chipFont,
+                                  radius: chipRadius,
+                                ),
+                                _PlaygroundChip(
+                                  label: _pauseOnHover
+                                      ? 'on · pause-on-hover'
+                                      : 'off · pause-on-hover',
+                                  selected: _pauseOnHover,
+                                  onTap: () => setState(
+                                    () => _pauseOnHover = !_pauseOnHover,
+                                  ),
+                                  minWidth: ultra ? 150 : 182,
+                                  minHeight: chipHeight,
+                                  fontSize: chipFont,
+                                  radius: chipRadius,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Dismiss',
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    for (final behavior
+                                        in _DismissBehavior.values)
+                                      _PlaygroundChip(
+                                        label: behavior.label,
+                                        selected: _dismissBehavior == behavior,
+                                        onTap: () => setState(
+                                          () => _dismissBehavior = behavior,
+                                        ),
+                                        minWidth: ultra ? 80 : 94,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont,
+                                        radius: chipRadius,
+                                      ),
+                                  ],
+                                ),
+                                if (_dismissBehavior == _DismissBehavior.custom)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Wrap(
+                                      alignment: WrapAlignment.center,
+                                      spacing: chipSpacing,
+                                      runSpacing: chipSpacing,
+                                      children: [
+                                        for (final direction
+                                            in ToastSwipeDirection.values)
+                                          _PlaygroundChip(
+                                            label: direction.label,
+                                            selected: _customDismissDirections
+                                                .contains(direction),
+                                            onTap: () => setState(() {
+                                              if (_customDismissDirections
+                                                  .contains(direction)) {
+                                                _customDismissDirections.remove(
+                                                  direction,
+                                                );
+                                              } else {
+                                                _customDismissDirections.add(
+                                                  direction,
+                                                );
+                                              }
+                                            }),
+                                            minWidth: ultra ? 66 : 74,
+                                            minHeight: chipHeight,
+                                            fontSize: chipFont,
+                                            radius: chipRadius,
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ControlSection extends StatelessWidget {
+  const _ControlSection({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF8F8F8F),
+            letterSpacing: 0.2,
+          ),
+        ),
+        const SizedBox(height: 7),
+        child,
+      ],
+    );
+  }
+}
+
+class _PlaygroundTitle extends StatelessWidget {
+  const _PlaygroundTitle({required this.size});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Playground',
+            style: TextStyle(
+              fontSize: size,
+              fontWeight: FontWeight.w700,
+              height: 1,
+              color: const Color(0xFF0A0A0A),
+            ),
+          ),
+          TextSpan(
+            text: '.',
+            style: TextStyle(
+              fontSize: size,
+              fontWeight: FontWeight.w700,
+              height: 1,
+              color: const Color(0xFFC9C9C9),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PlaygroundChip extends StatelessWidget {
+  const _PlaygroundChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    required this.minWidth,
+    required this.minHeight,
+    required this.fontSize,
+    required this.radius,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  final double minWidth;
+  final double minHeight;
+  final double fontSize;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(radius),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOutCubic,
+          constraints: BoxConstraints(minWidth: minWidth, minHeight: minHeight),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          decoration: BoxDecoration(
+            color: selected ? const Color(0xFF06080B) : const Color(0xFFE9E9E9),
+            borderRadius: BorderRadius.circular(radius),
+            border: Border.all(
+              color: selected
+                  ? const Color(0xFF06080B)
+                  : const Color(0xFFE3E3E3),
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: selected
+                  ? const Color(0xFFF2F2F2)
+                  : const Color(0xFFA1A1A1),
+              fontSize: fontSize,
+              fontWeight: FontWeight.w500,
+              height: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PlaygroundDivider extends StatelessWidget {
+  const _PlaygroundDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 1,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Color(0xFFDCDCDC),
+            width: 1,
+            style: BorderStyle.solid,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewportPreset {
+  const _ViewportPreset({
+    required this.label,
+    required this.position,
+    required this.expandDirection,
+  });
+
+  final String label;
+  final GooeyToastPosition position;
+  final GooeyToastExpandDirection expandDirection;
+}
+
+enum _DismissBehavior { auto, custom, off }
+
+extension on _DismissBehavior {
+  String get label {
+    return switch (this) {
+      _DismissBehavior.auto => 'auto',
+      _DismissBehavior.custom => 'custom',
+      _DismissBehavior.off => 'off',
+    };
+  }
+}
+
+enum _DemoAction {
+  success,
+  error,
+  warning,
+  info,
+  action,
+  icon,
+  promise,
+  custom,
+}
+
+extension on _DemoAction {
+  String get label {
+    return switch (this) {
+      _DemoAction.success => 'Success',
+      _DemoAction.error => 'Error',
+      _DemoAction.warning => 'Warning',
+      _DemoAction.info => 'Info',
+      _DemoAction.action => 'Action',
+      _DemoAction.icon => 'Icon',
+      _DemoAction.promise => 'Promise',
+      _DemoAction.custom => 'Custom',
+    };
+  }
+}
+
+extension on GooeyToastAnimationStyle {
+  String get label {
+    return switch (this) {
+      GooeyToastAnimationStyle.sileo => 'sileo',
+      GooeyToastAnimationStyle.smooth => 'smooth',
+      GooeyToastAnimationStyle.snappy => 'snappy',
+      GooeyToastAnimationStyle.bouncy => 'bouncy',
+    };
+  }
+}
+
+extension on GooeyToastShapeStyle {
+  String get label {
+    return switch (this) {
+      GooeyToastShapeStyle.defaultShape => 'default',
+      GooeyToastShapeStyle.soft => 'soft',
+      GooeyToastShapeStyle.sharp => 'sharp',
+      GooeyToastShapeStyle.capsule => 'capsule',
+    };
+  }
+}
+
+extension on ToastSwipeDirection {
+  String get label {
+    return switch (this) {
+      ToastSwipeDirection.up => 'up',
+      ToastSwipeDirection.down => 'down',
+      ToastSwipeDirection.left => 'left',
+      ToastSwipeDirection.right => 'right',
+    };
+  }
+}
