@@ -595,37 +595,29 @@ class _PlaygroundChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(radius),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          curve: Curves.easeOutCubic,
-          constraints: BoxConstraints(minWidth: minWidth, minHeight: minHeight),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-          decoration: BoxDecoration(
-            color: selected ? const Color(0xFF06080B) : const Color(0xFFE9E9E9),
-            borderRadius: BorderRadius.circular(radius),
-            border: Border.all(
-              color: selected
-                  ? const Color(0xFF06080B)
-                  : const Color(0xFFE3E3E3),
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            label,
-            style: TextStyle(
-              color: selected
-                  ? const Color(0xFFF2F2F2)
-                  : const Color(0xFFA1A1A1),
-              fontSize: fontSize,
-              fontWeight: FontWeight.w500,
-              height: 1,
-            ),
-          ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: minWidth, minHeight: minHeight),
+      child: ChoiceChip(
+        label: Text(label),
+        selected: selected,
+        onSelected: (_) => onTap(),
+        showCheckmark: false,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
+        side: BorderSide(
+          color: selected ? const Color(0xFF06080B) : const Color(0xFFE3E3E3),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+        ),
+        backgroundColor: const Color(0xFFE9E9E9),
+        selectedColor: const Color(0xFF06080B),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        labelStyle: TextStyle(
+          color: selected ? const Color(0xFFF2F2F2) : const Color(0xFFA1A1A1),
+          fontSize: fontSize,
+          fontWeight: FontWeight.w500,
+          height: 1,
         ),
       ),
     );
