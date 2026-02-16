@@ -720,7 +720,6 @@ class ToastController {
       child: IgnorePointer(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
             border: Border.all(color: const Color(0x2AFFFFFF), width: 1),
             boxShadow: const [
               BoxShadow(
@@ -730,8 +729,7 @@ class ToastController {
               ),
             ],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+          child: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 7.5, sigmaY: 7.5),
               child: ColoredBox(color: const Color(0x12000000)),
@@ -770,7 +768,7 @@ class ToastController {
     final height = media?.size.height ?? 900;
     final edgeInset = 20.0;
     final available = height - (top ?? 0) - (bottom ?? 0) - edgeInset;
-    return available.clamp(140.0, 1200.0).toDouble();
+    return available.clamp(220.0, 560.0).toDouble();
   }
 
   void _markAllNeedsBuild() {
