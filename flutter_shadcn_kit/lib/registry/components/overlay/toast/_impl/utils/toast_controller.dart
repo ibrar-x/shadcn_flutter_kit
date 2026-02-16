@@ -2,7 +2,7 @@ part of '../../toast.dart';
 
 const Duration _kCollapseHoverCooldown = Duration(milliseconds: 900);
 const double _kExpandedItemMinEstimate = 160.0;
-const double _kCompactItemMinEstimate = 52.0;
+const double _kCompactItemMinEstimate = 44.0;
 
 /// Controller that displays toast entries using Overlay.
 class ToastController {
@@ -556,10 +556,12 @@ class ToastController {
     int? expandedItemId,
     _ToastStackItem item,
   ) {
-    final min = expandedItemId == item.id
-        ? _kExpandedItemMinEstimate
-        : _kCompactItemMinEstimate;
-    return item.height < min ? min : item.height;
+    if (expandedItemId == item.id) {
+      return item.height < _kExpandedItemMinEstimate
+          ? _kExpandedItemMinEstimate
+          : item.height;
+    }
+    return _kCompactItemMinEstimate;
   }
 
   void _setGroupInteraction(String groupKey, bool active) {

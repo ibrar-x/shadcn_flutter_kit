@@ -641,7 +641,10 @@ class _GooeyToastState extends State<GooeyToast>
             child: AnimatedBuilder(
               animation: _openCurve,
               builder: (context, _) {
-                final openProgress = _openCurve.value;
+                final rawOpenProgress = _openCurve.value;
+                final openProgress = _stackControlled && !_stackItemExpanded
+                    ? 0.0
+                    : rawOpenProgress;
                 final normalizedOpen = openProgress.clamp(0.0, 1.0).toDouble();
                 final visualHeight =
                     lerpDouble(
