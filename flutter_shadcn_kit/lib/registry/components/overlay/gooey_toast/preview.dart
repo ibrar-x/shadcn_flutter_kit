@@ -46,6 +46,12 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   bool _customStepExpanded = true;
   bool _customStepPersistent = false;
   final List<_CustomStateStep> _customSteps = [];
+  int _customFlowCurrentIndex = -1;
+  String _customFlowActiveId = '';
+  int _compactMorphMs = 220;
+  double _compactMorphSlide = 0.12;
+  double _compactMorphScaleFrom = 0.95;
+  _MorphCurvePreset _morphCurvePreset = _MorphCurvePreset.easeOut;
 
   static const List<_ViewportPreset> _presets = [
     _ViewportPreset(
@@ -130,6 +136,12 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       _DismissBehavior.off => <ToastSwipeDirection>{},
       _DismissBehavior.custom => customDirections,
     };
+    final compactMorph = GooeyCompactMorph(
+      duration: Duration(milliseconds: _compactMorphMs.clamp(80, 1200)),
+      curve: _morphCurvePreset.curve,
+      slideOffset: Offset(0, _compactMorphSlide.clamp(0.0, 0.5)),
+      scaleFrom: _compactMorphScaleFrom.clamp(0.7, 1.0),
+    );
 
     void show({
       required String title,
@@ -172,6 +184,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         persistUntilDismissed: persistUntilDismissed ?? false,
         onExpansionPhaseChanged: onExpansionPhaseChanged,
         onExpansionProgressChanged: onExpansionProgressChanged,
+        compactMorph: compactMorph,
       );
     }
 
@@ -667,52 +680,57 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         final id = _customFlowIdController.text.trim().isEmpty
             ? 'custom-flow-demo'
             : _customFlowIdController.text.trim();
-        if (_customSteps.isEmpty) {
-          final step = _buildStepFromInputs();
-          transitionToState(
+        final steps = _customSteps.isEmpty
+            ? <_CustomStateStep>[_buildStepFromInputs()]
+            : List<_CustomStateStep>.from(_customSteps);
+        if (_customFlowActiveId != id) {
+          _customFlowCurrentIndex = -1;
+        }
+        final nextIndex = (_customFlowCurrentIndex + 1).clamp(
+          0,
+          steps.length - 1,
+        );
+        if (_customFlowCurrentIndex < 0) {
+          final step = steps[nextIndex];
+          show(
             id: id,
-            stateTag: 'custom:${DateTime.now().millisecondsSinceEpoch}',
+            stateTag: 'custom:$nextIndex:${step.state.name}:expanded',
             title: step.title,
             state: step.state,
             description: step.expanded ? step.description : null,
+            expandedChild: step.expanded ? null : null,
             duration: step.duration,
             persistUntilDismissed: step.persistUntilDismissed,
+            autopilot: step.expanded
+                ? const GooeyAutopilot(
+                    expandDelay: Duration.zero,
+                    collapseDelay: Duration(milliseconds: 2200),
+                  )
+                : null,
           );
-          return;
-        }
-        final steps = List<_CustomStateStep>.from(_customSteps);
-        var offsetMs = 0;
-        _flowTimers.add(
-          Timer(Duration(milliseconds: offsetMs), () {
-            if (!mounted) return;
-            transitionToState(
-              id: id,
-              stateTag: 'custom:0:${steps[0].state.name}',
-              title: steps[0].title,
-              state: steps[0].state,
-              description: steps[0].expanded ? steps[0].description : null,
-              duration: steps[0].duration,
-              persistUntilDismissed: steps[0].persistUntilDismissed,
-            );
-          }),
-        );
-        for (var i = 1; i < steps.length; i++) {
-          offsetMs += steps[i - 1].duration.inMilliseconds;
-          _flowTimers.add(
-            Timer(Duration(milliseconds: offsetMs), () {
-              if (!mounted) return;
-              transitionToState(
-                id: id,
-                stateTag: 'custom:$i:${steps[i].state.name}',
-                title: steps[i].title,
-                state: steps[i].state,
-                description: steps[i].expanded ? steps[i].description : null,
-                duration: steps[i].duration,
-                persistUntilDismissed: steps[i].persistUntilDismissed,
-              );
-            }),
+        } else {
+          final previous = steps[_customFlowCurrentIndex];
+          final next = steps[nextIndex];
+          transitionToState(
+            id: id,
+            stateTag: 'custom:$nextIndex:${next.state.name}',
+            title: next.title,
+            state: next.state,
+            description: next.expanded ? next.description : null,
+            duration: next.duration,
+            compactGap: Duration(
+              milliseconds: (previous.duration.inMilliseconds * 0.22)
+                  .round()
+                  .clamp(180, 600),
+            ),
+            nextCompactGap: const Duration(milliseconds: 120),
+            persistUntilDismissed: next.persistUntilDismissed,
           );
         }
+        setState(() {
+          _customFlowActiveId = id;
+          _customFlowCurrentIndex = nextIndex;
+        });
     }
   }
 
@@ -1065,7 +1083,14 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   }
 
   void _clearCustomSteps() {
-    setState(_customSteps.clear);
+    setState(() {
+      _customSteps.clear();
+      _customFlowCurrentIndex = -1;
+    });
+  }
+
+  void _resetCustomFlow() {
+    setState(() => _customFlowCurrentIndex = -1);
   }
 
   InputDecoration _fieldDecoration(String hint) {
@@ -1450,7 +1475,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       radius: chipRadius,
                                     ),
                                     _PlaygroundChip(
-                                      label: 'Run Flow',
+                                      label: 'Next State',
                                       selected:
                                           _selectedAction ==
                                           _DemoAction.customStateFlow,
@@ -1458,6 +1483,15 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                         _DemoAction.customStateFlow,
                                       ),
                                       minWidth: ultra ? 92 : 108,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: 'Reset Flow',
+                                      selected: false,
+                                      onTap: _resetCustomFlow,
+                                      minWidth: ultra ? 98 : 116,
                                       minHeight: chipHeight,
                                       fontSize: chipFont,
                                       radius: chipRadius,
@@ -1472,6 +1506,81 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       radius: chipRadius,
                                     ),
                                   ],
+                                ),
+                                const SizedBox(height: 8),
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    for (final preset
+                                        in _MorphCurvePreset.values)
+                                      _PlaygroundChip(
+                                        label: preset.label,
+                                        selected: _morphCurvePreset == preset,
+                                        onTap: () => setState(
+                                          () => _morphCurvePreset = preset,
+                                        ),
+                                        minWidth: ultra ? 86 : 104,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont,
+                                        radius: chipRadius,
+                                      ),
+                                    _PlaygroundChip(
+                                      label: 'morph ${_compactMorphMs}ms',
+                                      selected: false,
+                                      onTap: () => setState(
+                                        () => _compactMorphMs =
+                                            _compactMorphMs >= 420
+                                            ? 160
+                                            : _compactMorphMs + 40,
+                                      ),
+                                      minWidth: ultra ? 112 : 128,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label:
+                                          'slide ${_compactMorphSlide.toStringAsFixed(2)}',
+                                      selected: false,
+                                      onTap: () => setState(
+                                        () => _compactMorphSlide =
+                                            _compactMorphSlide >= 0.28
+                                            ? 0.06
+                                            : (_compactMorphSlide + 0.04),
+                                      ),
+                                      minWidth: ultra ? 112 : 126,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label:
+                                          'scale ${_compactMorphScaleFrom.toStringAsFixed(2)}',
+                                      selected: false,
+                                      onTap: () => setState(
+                                        () => _compactMorphScaleFrom =
+                                            _compactMorphScaleFrom <= 0.82
+                                            ? 0.96
+                                            : (_compactMorphScaleFrom - 0.04),
+                                      ),
+                                      minWidth: ultra ? 112 : 126,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  'Flow step: ${_customFlowCurrentIndex < 0 ? 'not started' : '${_customFlowCurrentIndex + 1}'}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF8F8F8F),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                                 if (_customSteps.isNotEmpty) ...[
                                   const SizedBox(height: 8),
@@ -1724,6 +1833,28 @@ extension on _DismissBehavior {
       _DismissBehavior.auto => 'auto',
       _DismissBehavior.custom => 'custom',
       _DismissBehavior.off => 'off',
+    };
+  }
+}
+
+enum _MorphCurvePreset { easeOut, emphasized, smooth, springy }
+
+extension on _MorphCurvePreset {
+  String get label {
+    return switch (this) {
+      _MorphCurvePreset.easeOut => 'curve · easeOut',
+      _MorphCurvePreset.emphasized => 'curve · emphasized',
+      _MorphCurvePreset.smooth => 'curve · smooth',
+      _MorphCurvePreset.springy => 'curve · spring',
+    };
+  }
+
+  Curve get curve {
+    return switch (this) {
+      _MorphCurvePreset.easeOut => Curves.easeOutCubic,
+      _MorphCurvePreset.emphasized => Curves.easeInOutCubicEmphasized,
+      _MorphCurvePreset.smooth => Curves.easeInOut,
+      _MorphCurvePreset.springy => Curves.elasticOut,
     };
   }
 }

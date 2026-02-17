@@ -38,6 +38,20 @@ enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
 enum GooeyToastExpansionPhase { closed, opening, open, closing }
 
+class GooeyCompactMorph {
+  const GooeyCompactMorph({
+    this.duration = const Duration(milliseconds: 210),
+    this.curve = Curves.easeOutCubic,
+    this.slideOffset = const Offset(0, 0.12),
+    this.scaleFrom = 0.95,
+  });
+
+  final Duration duration;
+  final Curve curve;
+  final Offset slideOffset;
+  final double scaleFrom;
+}
+
 class GooeyToastAction {
   const GooeyToastAction({required this.label, required this.onPressed});
 
@@ -283,6 +297,7 @@ class GooeyToastController extends ChangeNotifier {
     bool? dismissWholeStackWhenMultiple,
     bool persistUntilDismissed = false,
     ValueChanged<double>? onNextExpansionProgressChanged,
+    GooeyCompactMorph compactMorph = const GooeyCompactMorph(),
   }) async {
     final closeCompleter = Completer<void>();
     var resolved = false;
@@ -328,6 +343,7 @@ class GooeyToastController extends ChangeNotifier {
           resolveClosed();
         }
       },
+      compactMorph: compactMorph,
     );
 
     Timer(closeFallback, resolveClosed);
@@ -366,6 +382,7 @@ class GooeyToastController extends ChangeNotifier {
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
       persistUntilDismissed: persistUntilDismissed,
       onExpansionProgressChanged: onNextExpansionProgressChanged,
+      compactMorph: compactMorph,
     );
 
     if (nextDescription == null && nextExpandedChild == null) return;
@@ -405,6 +422,7 @@ class GooeyToastController extends ChangeNotifier {
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
       persistUntilDismissed: persistUntilDismissed,
       onExpansionProgressChanged: onNextExpansionProgressChanged,
+      compactMorph: compactMorph,
     );
   }
 
@@ -444,6 +462,7 @@ class GooeyToastController extends ChangeNotifier {
     bool persistUntilDismissed = false,
     ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
     ValueChanged<double>? onExpansionProgressChanged,
+    GooeyCompactMorph compactMorph = const GooeyCompactMorph(),
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
@@ -571,6 +590,7 @@ class GooeyToastController extends ChangeNotifier {
         action: action,
         onExpansionPhaseChanged: onExpansionPhaseChanged,
         onExpansionProgressChanged: onExpansionProgressChanged,
+        compactMorph: compactMorph,
       ),
     );
 
@@ -648,6 +668,7 @@ class GooeyToast extends StatefulWidget {
     this.action,
     this.onExpansionPhaseChanged,
     this.onExpansionProgressChanged,
+    this.compactMorph = const GooeyCompactMorph(),
   });
 
   final String title;
@@ -669,6 +690,7 @@ class GooeyToast extends StatefulWidget {
   final GooeyToastAction? action;
   final ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged;
   final ValueChanged<double>? onExpansionProgressChanged;
+  final GooeyCompactMorph compactMorph;
 
   @override
   State<GooeyToast> createState() => _GooeyToastState();
@@ -686,8 +708,14 @@ class _GooeyToastState extends State<GooeyToast>
   double _measuredExpandedChildHeight = 0;
   late final AnimationController _openController;
   late Animation<double> _openCurve;
+  late final AnimationController _compactMorphController;
+  late Animation<double> _compactMorphCurve;
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
   GooeyToastExpansionPhase _lastPhase = GooeyToastExpansionPhase.closed;
+  String? _previousTitle;
+  GooeyToastState? _previousState;
+  Widget? _previousIcon;
+  bool _showPreviousCompact = false;
 
   bool get _isLoading => widget.state == GooeyToastState.loading;
   bool get _hasContent =>
@@ -713,6 +741,19 @@ class _GooeyToastState extends State<GooeyToast>
     );
     _openController.addStatusListener(_handleOpenStatus);
     _openController.addListener(_handleOpenProgress);
+    _compactMorphController = AnimationController(
+      vsync: this,
+      duration: widget.compactMorph.duration,
+    );
+    _compactMorphCurve = CurvedAnimation(
+      parent: _compactMorphController,
+      curve: widget.compactMorph.curve,
+    );
+    _compactMorphController.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted) {
+        setState(() => _showPreviousCompact = false);
+      }
+    });
     _emitPhase(
       _targetOpen
           ? GooeyToastExpansionPhase.opening
@@ -746,6 +787,28 @@ class _GooeyToastState extends State<GooeyToast>
         curve: _curveForAnimationStyle(widget.animationStyle),
       );
     }
+    if (oldWidget.compactMorph.duration != widget.compactMorph.duration) {
+      _compactMorphController.duration = widget.compactMorph.duration;
+    }
+    if (oldWidget.compactMorph.curve != widget.compactMorph.curve) {
+      _compactMorphCurve = CurvedAnimation(
+        parent: _compactMorphController,
+        curve: widget.compactMorph.curve,
+      );
+    }
+    final defaultCompactTransition =
+        oldWidget.compactChild == null &&
+        widget.compactChild == null &&
+        (oldWidget.title != widget.title ||
+            oldWidget.state != widget.state ||
+            oldWidget.icon != widget.icon);
+    if (defaultCompactTransition) {
+      _previousTitle = oldWidget.title;
+      _previousState = oldWidget.state;
+      _previousIcon = oldWidget.icon;
+      _showPreviousCompact = true;
+      _compactMorphController.forward(from: 0);
+    }
   }
 
   @override
@@ -755,6 +818,7 @@ class _GooeyToastState extends State<GooeyToast>
     _openController.removeStatusListener(_handleOpenStatus);
     _openController.removeListener(_handleOpenProgress);
     _openController.dispose();
+    _compactMorphController.dispose();
     super.dispose();
   }
 
@@ -1075,34 +1139,18 @@ class _GooeyToastState extends State<GooeyToast>
                                     widget.compactChild ??
                                     Row(
                                       children: [
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          decoration: BoxDecoration(
-                                            color: tone.withValues(alpha: 0.2),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: IconTheme(
-                                            data: IconThemeData(
-                                              color: tone,
-                                              size: 16,
-                                            ),
-                                            child:
-                                                widget.icon ??
-                                                _defaultIcon(
-                                                  widget.state,
-                                                  tone,
-                                                ),
-                                          ),
+                                        _buildCompactIcon(
+                                          tone: tone,
+                                          icon: widget.icon,
+                                          state: widget.state,
+                                          gooeyTheme: gooeyTheme,
                                         ),
                                         const SizedBox(width: 8),
                                         Expanded(
-                                          child: Text(
-                                            widget.title,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: titleStyle,
+                                          child: _buildCompactTitle(
+                                            titleStyle: titleStyle,
+                                            currentTone: tone,
+                                            gooeyTheme: gooeyTheme,
                                           ),
                                         ),
                                         if (showExpandedControls) ...[
@@ -1216,6 +1264,146 @@ class _GooeyToastState extends State<GooeyToast>
         );
 
     return baseContent;
+  }
+
+  Widget _buildCompactIcon({
+    required Color tone,
+    required Widget? icon,
+    required GooeyToastState state,
+    required GooeyToastTheme? gooeyTheme,
+  }) {
+    return AnimatedBuilder(
+      animation: _compactMorphCurve,
+      builder: (context, _) {
+        final t = _showPreviousCompact ? _compactMorphCurve.value : 1.0;
+        final morph = widget.compactMorph;
+        final previousTone = _toneForState(_previousState ?? state, gooeyTheme);
+        final previousOpacity = _showPreviousCompact ? (1 - t) : 0.0;
+        final currentOpacity = _showPreviousCompact ? t : 1.0;
+        return SizedBox(
+          height: 24,
+          width: 24,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (_showPreviousCompact)
+                Opacity(
+                  opacity: previousOpacity,
+                  child: _compactIconSurface(
+                    tone: previousTone,
+                    icon: _previousIcon,
+                    state: _previousState ?? state,
+                    scale:
+                        morph.scaleFrom +
+                        (1 - morph.scaleFrom) * previousOpacity,
+                  ),
+                ),
+              Opacity(
+                opacity: currentOpacity,
+                child: _compactIconSurface(
+                  tone: tone,
+                  icon: icon,
+                  state: state,
+                  scale:
+                      morph.scaleFrom + (1 - morph.scaleFrom) * currentOpacity,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _compactIconSurface({
+    required Color tone,
+    required Widget? icon,
+    required GooeyToastState state,
+    required double scale,
+  }) {
+    return Transform.scale(
+      scale: scale,
+      child: Container(
+        height: 24,
+        width: 24,
+        decoration: BoxDecoration(
+          color: tone.withValues(alpha: 0.2),
+          shape: BoxShape.circle,
+        ),
+        alignment: Alignment.center,
+        child: IconTheme(
+          data: IconThemeData(color: tone, size: 16),
+          child: icon ?? _defaultIcon(state, tone),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCompactTitle({
+    required TextStyle? titleStyle,
+    required Color currentTone,
+    required GooeyToastTheme? gooeyTheme,
+  }) {
+    return AnimatedBuilder(
+      animation: _compactMorphCurve,
+      builder: (context, _) {
+        final morph = widget.compactMorph;
+        final t = _showPreviousCompact ? _compactMorphCurve.value : 1.0;
+        final previousOpacity = _showPreviousCompact ? (1 - t) : 0.0;
+        final currentOpacity = _showPreviousCompact ? t : 1.0;
+        final previousOffset = _showPreviousCompact
+            ? Offset(
+                -morph.slideOffset.dx * t,
+                -morph.slideOffset.dy * t * _kToastHeight,
+              )
+            : Offset.zero;
+        final currentOffset = _showPreviousCompact
+            ? Offset(
+                morph.slideOffset.dx * (1 - t),
+                morph.slideOffset.dy * (1 - t) * _kToastHeight,
+              )
+            : Offset.zero;
+        final previousTone = _toneForState(
+          _previousState ?? widget.state,
+          gooeyTheme,
+        );
+        final previousStyle = (titleStyle ?? const TextStyle()).copyWith(
+          color: previousTone,
+        );
+        final nextStyle = (titleStyle ?? const TextStyle()).copyWith(
+          color: currentTone,
+        );
+        return Stack(
+          children: [
+            if (_showPreviousCompact && _previousTitle != null)
+              Opacity(
+                opacity: previousOpacity,
+                child: Transform.translate(
+                  offset: previousOffset,
+                  child: Text(
+                    _previousTitle!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: previousStyle,
+                  ),
+                ),
+              ),
+            Opacity(
+              opacity: currentOpacity,
+              child: Transform.translate(
+                offset: currentOffset,
+                child: Text(
+                  widget.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: nextStyle,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildHeaderControlChip({
