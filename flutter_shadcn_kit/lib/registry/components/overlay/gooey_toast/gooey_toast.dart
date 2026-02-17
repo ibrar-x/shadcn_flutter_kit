@@ -696,8 +696,7 @@ class GooeyToast extends StatefulWidget {
   State<GooeyToast> createState() => _GooeyToastState();
 }
 
-class _GooeyToastState extends State<GooeyToast>
-    with SingleTickerProviderStateMixin {
+class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   bool _ready = false;
   bool _expanded = false;
   bool _stackControlled = false;
