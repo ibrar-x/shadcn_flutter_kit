@@ -529,7 +529,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                     width: toastWidth,
                     height: visualHeight,
                     child: Stack(
-                      clipBehavior: Clip.hardEdge,
+                      clipBehavior: Clip.none,
                       children: [
                         Positioned(
                           top:
@@ -1048,8 +1048,10 @@ class _GooeyLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget shapeLayer() {
-      return RepaintBoundary(
+    return SizedBox(
+      width: width,
+      height: height,
+      child: RepaintBoundary(
         child: CustomPaint(
           size: Size(width, height),
           painter: _GooeyPainter(
@@ -1062,50 +1064,10 @@ class _GooeyLayer extends StatelessWidget {
             bodyHeight: bodyHeight,
             bodyScaleY: bodyScaleY,
             renderStyle: renderStyle,
+            blur: blur,
           ),
         ),
-      );
-    }
-
-    return SizedBox(
-      width: width,
-      height: height,
-      child: renderStyle == GooeyRenderStyle.blurThreshold
-          ? Stack(
-              clipBehavior: Clip.none,
-              children: [
-                ColorFiltered(
-                  colorFilter: const ColorFilter.matrix(<double>[
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    20,
-                    -2550,
-                  ]),
-                  child: ImageFiltered(
-                    imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                    child: shapeLayer(),
-                  ),
-                ),
-                shapeLayer(),
-              ],
-            )
-          : shapeLayer(),
+      ),
     );
   }
 }
@@ -1121,6 +1083,7 @@ class _GooeyPainter extends CustomPainter {
     required this.bodyHeight,
     required this.bodyScaleY,
     required this.renderStyle,
+    required this.blur,
   });
 
   final Color color;
@@ -1132,37 +1095,34 @@ class _GooeyPainter extends CustomPainter {
   final double bodyHeight;
   final double bodyScaleY;
   final GooeyRenderStyle renderStyle;
+  final double blur;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..isAntiAlias = true;
-
-    final scaledPillHeight = pillHeight * pillScaleY;
-    final pillRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
-      Radius.circular(roundness),
-    );
     if (renderStyle == GooeyRenderStyle.pathMorph) {
+      final paint = Paint()
+        ..color = color
+        ..isAntiAlias = true;
+      final scaledPillHeight = pillHeight * pillScaleY;
+      final pillRect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
+        Radius.circular(roundness),
+      );
       _paintPathMorph(canvas, size, paint, pillRect);
       return;
     }
-    canvas.drawRRect(pillRect, paint);
-    _paintLegacyBody(canvas, size, paint);
+
+    _paintGooeyBlurThreshold(canvas, size);
   }
 
   void _paintLegacyBody(Canvas canvas, Size size, Paint paint) {
     if (bodyHeight <= 0 || bodyScaleY <= 0) return;
     const seamOverlap = 2.0;
-    final bodyAlpha = Curves.easeOut.transform(
-      (bodyScaleY * 1.35).clamp(0.0, 1.0),
-    );
     canvas.save();
     canvas.translate(0, _kToastHeight - seamOverlap);
     canvas.scale(1, bodyScaleY);
     final bodyPaint = Paint()
-      ..color = color.withValues(alpha: bodyAlpha)
+      ..color = color
       ..isAntiAlias = true;
     final bodyRect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
@@ -1170,6 +1130,89 @@ class _GooeyPainter extends CustomPainter {
     );
     canvas.drawRRect(bodyRect, bodyPaint);
     canvas.restore();
+  }
+
+  void _paintGooeyBlurThreshold(Canvas canvas, Size size) {
+    final bounds = Offset.zero & size;
+    final sigma = blur;
+    final layerBounds = bounds.inflate(sigma * 3.0);
+
+    final thresholdPaint = Paint()
+      ..colorFilter = const ColorFilter.matrix(<double>[
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        -2550,
+      ]);
+
+    // Build mask -> blur -> threshold in one stable painter pipeline.
+    canvas.saveLayer(layerBounds, thresholdPaint);
+    canvas.saveLayer(
+      layerBounds,
+      Paint()..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+    );
+    _drawMaskShapes(
+      canvas,
+      size,
+      Paint()
+        ..color = const Color(0xFFFFFFFF)
+        ..isAntiAlias = true,
+    );
+    canvas.restore();
+    canvas.restore();
+
+    // Colorize final alpha mask.
+    canvas.drawRect(
+      bounds,
+      Paint()
+        ..color = color
+        ..blendMode = BlendMode.srcIn,
+    );
+
+    // Keep a crisp pass on top to preserve edge sharpness.
+    _drawCrispShapes(
+      canvas,
+      size,
+      Paint()
+        ..color = color
+        ..isAntiAlias = true,
+    );
+  }
+
+  void _drawMaskShapes(Canvas canvas, Size size, Paint paint) {
+    final scaledPillHeight = pillHeight * pillScaleY;
+    final pillRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
+      Radius.circular(roundness),
+    );
+    canvas.drawRRect(pillRect, paint);
+    _paintLegacyBody(canvas, size, paint);
+  }
+
+  void _drawCrispShapes(Canvas canvas, Size size, Paint paint) {
+    final scaledPillHeight = pillHeight * pillScaleY;
+    final pillRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
+      Radius.circular(roundness),
+    );
+    canvas.drawRRect(pillRect, paint);
+    _paintLegacyBody(canvas, size, paint);
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
@@ -1256,7 +1299,8 @@ class _GooeyPainter extends CustomPainter {
         oldDelegate.pillScaleY != pillScaleY ||
         oldDelegate.bodyHeight != bodyHeight ||
         oldDelegate.bodyScaleY != bodyScaleY ||
-        oldDelegate.renderStyle != renderStyle;
+        oldDelegate.renderStyle != renderStyle ||
+        oldDelegate.blur != blur;
   }
 }
 
