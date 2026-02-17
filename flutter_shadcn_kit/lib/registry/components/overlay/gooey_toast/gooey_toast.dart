@@ -239,6 +239,172 @@ class GooeyToastController extends ChangeNotifier {
     }
   }
 
+  Future<void> transitionAfterClosed({
+    required BuildContext context,
+    required String id,
+    required String currentTitle,
+    required GooeyToastState currentState,
+    Widget? currentIcon,
+    Widget? currentCompactChild,
+    Duration? currentDuration,
+    required String nextTitle,
+    required GooeyToastState nextState,
+    Object? nextStateTag,
+    String? nextDescription,
+    Widget? nextIcon,
+    Widget? nextCompactChild,
+    Widget? nextExpandedChild,
+    Duration? nextDuration,
+    Duration closeFallback = const Duration(milliseconds: 420),
+    Duration nextCompactGap = const Duration(milliseconds: 120),
+    GooeyAutopilot nextExpandedAutopilot = const GooeyAutopilot(
+      expandDelay: Duration.zero,
+      collapseDelay: Duration(milliseconds: 2200),
+    ),
+    GooeyToastPosition position = GooeyToastPosition.left,
+    GooeyToastExpandDirection expandDirection =
+        GooeyToastExpandDirection.bottom,
+    double? width,
+    Color? fill,
+    double? roundness,
+    GooeyToastAnimationStyle? animationStyle,
+    GooeyToastShapeStyle? shapeStyle,
+    bool? pauseOnHover,
+    bool? swipeToDismiss,
+    Set<ToastSwipeDirection>? dismissDirections,
+    double? dismissDragThreshold,
+    double? spacing,
+    bool? overlapStackWhenMultiple,
+    double? overlapStackOffset,
+    bool? pauseAutoDismissWhenMultiple,
+    Duration? stackAnimationDuration,
+    Curve? stackAnimationCurve,
+    int? maxVisibleCount,
+    bool? dismissWholeStackWhenMultiple,
+    bool persistUntilDismissed = false,
+  }) async {
+    final closeCompleter = Completer<void>();
+    var resolved = false;
+    void resolveClosed() {
+      if (resolved) return;
+      resolved = true;
+      closeCompleter.complete();
+    }
+
+    show(
+      context: context,
+      id: id,
+      stateTag: '${nextStateTag ?? nextTitle}:close-current',
+      title: currentTitle,
+      state: currentState,
+      icon: currentIcon,
+      compactChild: currentCompactChild,
+      expandedChild: null,
+      duration: currentDuration ?? nextDuration,
+      autopilot: null,
+      position: position,
+      expandDirection: expandDirection,
+      width: width,
+      fill: fill,
+      roundness: roundness,
+      animationStyle: animationStyle,
+      shapeStyle: shapeStyle,
+      pauseOnHover: pauseOnHover,
+      swipeToDismiss: swipeToDismiss,
+      dismissDirections: dismissDirections,
+      dismissDragThreshold: dismissDragThreshold,
+      spacing: spacing,
+      overlapStackWhenMultiple: overlapStackWhenMultiple,
+      overlapStackOffset: overlapStackOffset,
+      pauseAutoDismissWhenMultiple: pauseAutoDismissWhenMultiple,
+      stackAnimationDuration: stackAnimationDuration,
+      stackAnimationCurve: stackAnimationCurve,
+      maxVisibleCount: maxVisibleCount,
+      dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      persistUntilDismissed: persistUntilDismissed,
+      onExpansionPhaseChanged: (phase) {
+        if (phase == GooeyToastExpansionPhase.closed) {
+          resolveClosed();
+        }
+      },
+    );
+
+    Timer(closeFallback, resolveClosed);
+    await closeCompleter.future;
+    if (!context.mounted) return;
+
+    show(
+      context: context,
+      id: id,
+      stateTag: '${nextStateTag ?? nextTitle}:compact',
+      title: nextTitle,
+      state: nextState,
+      icon: nextIcon,
+      compactChild: nextCompactChild,
+      expandedChild: null,
+      duration: nextDuration,
+      autopilot: null,
+      position: position,
+      expandDirection: expandDirection,
+      width: width,
+      fill: fill,
+      roundness: roundness,
+      animationStyle: animationStyle,
+      shapeStyle: shapeStyle,
+      pauseOnHover: pauseOnHover,
+      swipeToDismiss: swipeToDismiss,
+      dismissDirections: dismissDirections,
+      dismissDragThreshold: dismissDragThreshold,
+      spacing: spacing,
+      overlapStackWhenMultiple: overlapStackWhenMultiple,
+      overlapStackOffset: overlapStackOffset,
+      pauseAutoDismissWhenMultiple: pauseAutoDismissWhenMultiple,
+      stackAnimationDuration: stackAnimationDuration,
+      stackAnimationCurve: stackAnimationCurve,
+      maxVisibleCount: maxVisibleCount,
+      dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      persistUntilDismissed: persistUntilDismissed,
+    );
+
+    if (nextDescription == null && nextExpandedChild == null) return;
+    await Future<void>.delayed(nextCompactGap);
+    if (!context.mounted) return;
+
+    show(
+      context: context,
+      id: id,
+      stateTag: '${nextStateTag ?? nextTitle}:expanded',
+      title: nextTitle,
+      state: nextState,
+      description: nextDescription,
+      icon: nextIcon,
+      compactChild: nextCompactChild,
+      expandedChild: nextExpandedChild,
+      duration: nextDuration,
+      autopilot: nextExpandedAutopilot,
+      position: position,
+      expandDirection: expandDirection,
+      width: width,
+      fill: fill,
+      roundness: roundness,
+      animationStyle: animationStyle,
+      shapeStyle: shapeStyle,
+      pauseOnHover: pauseOnHover,
+      swipeToDismiss: swipeToDismiss,
+      dismissDirections: dismissDirections,
+      dismissDragThreshold: dismissDragThreshold,
+      spacing: spacing,
+      overlapStackWhenMultiple: overlapStackWhenMultiple,
+      overlapStackOffset: overlapStackOffset,
+      pauseAutoDismissWhenMultiple: pauseAutoDismissWhenMultiple,
+      stackAnimationDuration: stackAnimationDuration,
+      stackAnimationCurve: stackAnimationCurve,
+      maxVisibleCount: maxVisibleCount,
+      dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      persistUntilDismissed: persistUntilDismissed,
+    );
+  }
+
   void show({
     required BuildContext context,
     String? id,
