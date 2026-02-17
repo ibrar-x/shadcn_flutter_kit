@@ -32,6 +32,8 @@ enum GooeyToastAnimationStyle { sileo, smooth, snappy, bouncy }
 
 enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
+enum GooeyRenderStyle { blurThreshold, pathMorph }
+
 enum GooeyToastExpansionPhase { closed, opening, open, closing }
 
 class GooeyCompactMorph {

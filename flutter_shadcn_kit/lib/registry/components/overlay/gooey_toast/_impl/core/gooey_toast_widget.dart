@@ -64,10 +64,11 @@ class GooeyToast extends StatefulWidget {
     /// Shape profile applied to roundness.
     this.shapeStyle = GooeyToastShapeStyle.defaultShape,
 
-    /// Toggles the gooey blur compositing pass.
+    /// Surface render mode for gooey effect.
     ///
-    /// `true` keeps metaball-style blending. `false` renders crisp-only shape.
-    this.enableGooeyBlur = true,
+    /// [GooeyRenderStyle.blurThreshold] uses blur+threshold metaball compositing.
+    /// [GooeyRenderStyle.pathMorph] uses a single-pass merged path painter.
+    this.renderStyle = GooeyRenderStyle.blurThreshold,
 
     /// Optional action rendered in expanded default body.
     this.action,
@@ -130,8 +131,8 @@ class GooeyToast extends StatefulWidget {
   /// Shape style for corner behavior.
   final GooeyToastShapeStyle shapeStyle;
 
-  /// Whether gooey blur compositing is enabled.
-  final bool enableGooeyBlur;
+  /// Surface render mode used by the painter/compositor.
+  final GooeyRenderStyle renderStyle;
 
   /// Optional expanded action.
   final GooeyToastAction? action;
@@ -409,7 +410,9 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _frozenExpandedHeight = rawExpanded;
     }
 
-    final blur = widget.enableGooeyBlur ? resolvedRoundness * _kBlurRatio : 0.0;
+    final blur = widget.renderStyle == GooeyRenderStyle.blurThreshold
+        ? resolvedRoundness * _kBlurRatio
+        : 0.0;
     final pillHeight = _kToastHeight + blur * 3;
 
     final pillX = switch (widget.position) {
@@ -561,7 +564,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                               pillScaleY: pillScaleY,
                               bodyHeight: expandedContentHeight,
                               bodyScaleY: bodyScaleY,
-                              enableGooeyBlur: widget.enableGooeyBlur,
+                              renderStyle: widget.renderStyle,
                             ),
                           ),
                         ),
@@ -1027,7 +1030,7 @@ class _GooeyLayer extends StatelessWidget {
     required this.pillScaleY,
     required this.bodyHeight,
     required this.bodyScaleY,
-    required this.enableGooeyBlur,
+    required this.renderStyle,
   });
 
   final double width;
@@ -1041,7 +1044,7 @@ class _GooeyLayer extends StatelessWidget {
   final double pillScaleY;
   final double bodyHeight;
   final double bodyScaleY;
-  final bool enableGooeyBlur;
+  final GooeyRenderStyle renderStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -1058,6 +1061,7 @@ class _GooeyLayer extends StatelessWidget {
             pillScaleY: pillScaleY,
             bodyHeight: bodyHeight,
             bodyScaleY: bodyScaleY,
+            renderStyle: renderStyle,
           ),
         ),
       );
@@ -1066,7 +1070,7 @@ class _GooeyLayer extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: enableGooeyBlur
+      child: renderStyle == GooeyRenderStyle.blurThreshold
           ? Stack(
               clipBehavior: Clip.none,
               children: [
@@ -1116,6 +1120,7 @@ class _GooeyPainter extends CustomPainter {
     required this.pillScaleY,
     required this.bodyHeight,
     required this.bodyScaleY,
+    required this.renderStyle,
   });
 
   final Color color;
@@ -1126,6 +1131,7 @@ class _GooeyPainter extends CustomPainter {
   final double pillScaleY;
   final double bodyHeight;
   final double bodyScaleY;
+  final GooeyRenderStyle renderStyle;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1138,27 +1144,79 @@ class _GooeyPainter extends CustomPainter {
       Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
       Radius.circular(roundness),
     );
-    canvas.drawRRect(pillRect, paint);
-
-    if (bodyHeight > 0 && bodyScaleY > 0) {
-      const seamOverlap = 2.0;
-      final bodyAlpha = Curves.easeOut.transform(
-        (bodyScaleY * 1.35).clamp(0.0, 1.0),
-      );
-      canvas.save();
-      // Slight overlap keeps the stretched body visually fused to the compact pill.
-      canvas.translate(0, _kToastHeight - seamOverlap);
-      canvas.scale(1, bodyScaleY);
-      final bodyPaint = Paint()
-        ..color = color.withValues(alpha: bodyAlpha)
-        ..isAntiAlias = true;
-      final bodyRect = RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
-        Radius.circular(roundness),
-      );
-      canvas.drawRRect(bodyRect, bodyPaint);
-      canvas.restore();
+    if (renderStyle == GooeyRenderStyle.pathMorph) {
+      _paintPathMorph(canvas, size, paint, pillRect);
+      return;
     }
+    canvas.drawRRect(pillRect, paint);
+    _paintLegacyBody(canvas, size, paint);
+  }
+
+  void _paintLegacyBody(Canvas canvas, Size size, Paint paint) {
+    if (bodyHeight <= 0 || bodyScaleY <= 0) return;
+    const seamOverlap = 2.0;
+    final bodyAlpha = Curves.easeOut.transform(
+      (bodyScaleY * 1.35).clamp(0.0, 1.0),
+    );
+    canvas.save();
+    canvas.translate(0, _kToastHeight - seamOverlap);
+    canvas.scale(1, bodyScaleY);
+    final bodyPaint = Paint()
+      ..color = color.withValues(alpha: bodyAlpha)
+      ..isAntiAlias = true;
+    final bodyRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
+      Radius.circular(roundness),
+    );
+    canvas.drawRRect(bodyRect, bodyPaint);
+    canvas.restore();
+  }
+
+  void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
+    canvas.drawRRect(pillRect, paint);
+    if (bodyHeight <= 0 || bodyScaleY <= 0) return;
+
+    const seamOverlap = 2.0;
+    final progress = Curves.easeInOutCubic.transform(
+      bodyScaleY.clamp(0.0, 1.0),
+    );
+    final bodyTop = _kToastHeight - seamOverlap;
+    final currentBodyHeight = (bodyHeight + seamOverlap) * progress;
+    if (currentBodyHeight <= 0.5) return;
+
+    final bodyRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, bodyTop, size.width, currentBodyHeight),
+      Radius.circular(roundness),
+    );
+    canvas.drawRRect(bodyRect, paint);
+
+    final leftBridgeStart = pillX.clamp(0.0, size.width).toDouble();
+    final rightBridgeStart = (pillX + pillWidth)
+        .clamp(0.0, size.width)
+        .toDouble();
+    final bridgeTop = bodyTop;
+    final bridgeBottom = pillRect.bottom;
+    if (bridgeBottom <= bridgeTop) return;
+
+    final bridgeLift = lerpDouble(0.0, roundness * 0.9, progress) ?? 0.0;
+    final bridgeInset = lerpDouble(0.0, roundness * 0.8, progress) ?? 0.0;
+    final bridgePath = Path()
+      ..moveTo(leftBridgeStart, bridgeTop)
+      ..quadraticBezierTo(
+        leftBridgeStart + bridgeInset,
+        bridgeTop - bridgeLift,
+        leftBridgeStart + bridgeInset,
+        bridgeBottom,
+      )
+      ..lineTo(rightBridgeStart - bridgeInset, bridgeBottom)
+      ..quadraticBezierTo(
+        rightBridgeStart - bridgeInset,
+        bridgeTop - bridgeLift,
+        rightBridgeStart,
+        bridgeTop,
+      )
+      ..close();
+    canvas.drawPath(bridgePath, paint);
   }
 
   @override
@@ -1170,7 +1228,8 @@ class _GooeyPainter extends CustomPainter {
         oldDelegate.pillHeight != pillHeight ||
         oldDelegate.pillScaleY != pillScaleY ||
         oldDelegate.bodyHeight != bodyHeight ||
-        oldDelegate.bodyScaleY != bodyScaleY;
+        oldDelegate.bodyScaleY != bodyScaleY ||
+        oldDelegate.renderStyle != renderStyle;
   }
 }
 
