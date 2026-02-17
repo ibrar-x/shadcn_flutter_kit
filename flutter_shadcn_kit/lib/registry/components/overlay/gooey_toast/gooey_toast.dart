@@ -583,10 +583,7 @@ class _GooeyToastState extends State<GooeyToast>
     final basePillWidth =
         _measurePillWidth(theme.textTheme, toastWidth, titleStyle) +
         (showExpandedControls ? 112.0 : 0.0);
-    final compactWidthBump = widget.compactChild == null ? 0.0 : 26.0;
-    final pillWidth = (basePillWidth + compactWidthBump)
-        .clamp(_kToastHeight, toastWidth)
-        .toDouble();
+    final pillWidth = basePillWidth.clamp(_kToastHeight, toastWidth).toDouble();
     final contentHeight = _measureContentHeight(
       theme.textTheme,
       toastWidth,
