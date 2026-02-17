@@ -29,6 +29,23 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     ToastSwipeDirection.up,
     ToastSwipeDirection.right,
   };
+  final TextEditingController _customFlowIdController = TextEditingController(
+    text: 'custom-flow-demo',
+  );
+  final TextEditingController _customTitleController = TextEditingController(
+    text: 'Booking In Progress',
+  );
+  final TextEditingController _customDescriptionController =
+      TextEditingController(
+        text: 'Preparing your itinerary and verifying payment.',
+      );
+  final TextEditingController _customDurationController = TextEditingController(
+    text: '1800',
+  );
+  GooeyToastState _customState = GooeyToastState.loading;
+  bool _customStepExpanded = true;
+  bool _customStepPersistent = false;
+  final List<_CustomStateStep> _customSteps = [];
 
   static const List<_ViewportPreset> _presets = [
     _ViewportPreset(
@@ -77,6 +94,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.flightPath,
     _DemoAction.interactiveReply,
     _DemoAction.flightPromise,
+    _DemoAction.customStateFlow,
   ];
 
   @override
@@ -85,6 +103,11 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     for (final timer in _flowTimers) {
       timer.cancel();
     }
+    _customFlowIdController.dispose();
+    _customTitleController.dispose();
+    _customDescriptionController.dispose();
+    _customDurationController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -120,6 +143,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Widget? expandedChild,
       Duration? duration,
       GooeyAutopilot? autopilot,
+      bool? persistUntilDismissed,
     }) {
       _controller.show(
         context: context,
@@ -143,6 +167,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         compactChild: compactChild,
         expandedChild: expandedChild,
         duration: duration,
+        persistUntilDismissed: persistUntilDismissed ?? false,
       );
     }
 
@@ -160,6 +185,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandDelay: Duration.zero,
         collapseDelay: Duration(milliseconds: 2200),
       ),
+      bool persistUntilDismissed = false,
     }) {
       show(
         id: id,
@@ -171,6 +197,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandedChild: null,
         duration: duration,
         autopilot: null,
+        persistUntilDismissed: persistUntilDismissed,
       );
       if (description == null && expandedChild == null) {
         return;
@@ -188,6 +215,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             expandedChild: expandedChild,
             duration: duration,
             autopilot: expandedAutopilot,
+            persistUntilDismissed: persistUntilDismissed,
           );
         }),
       );
@@ -639,6 +667,56 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         showReplyComposer();
       case _DemoAction.flightPromise:
         _showFlightPromiseFlow(show);
+      case _DemoAction.customStateFlow:
+        final id = _customFlowIdController.text.trim().isEmpty
+            ? 'custom-flow-demo'
+            : _customFlowIdController.text.trim();
+        if (_customSteps.isEmpty) {
+          final step = _buildStepFromInputs();
+          transitionToState(
+            id: id,
+            stateTag: 'custom:${DateTime.now().millisecondsSinceEpoch}',
+            title: step.title,
+            state: step.state,
+            description: step.expanded ? step.description : null,
+            duration: step.duration,
+            persistUntilDismissed: step.persistUntilDismissed,
+          );
+          return;
+        }
+        final steps = List<_CustomStateStep>.from(_customSteps);
+        var offsetMs = 0;
+        _flowTimers.add(
+          Timer(Duration(milliseconds: offsetMs), () {
+            if (!mounted) return;
+            transitionToState(
+              id: id,
+              stateTag: 'custom:0:${steps[0].state.name}',
+              title: steps[0].title,
+              state: steps[0].state,
+              description: steps[0].expanded ? steps[0].description : null,
+              duration: steps[0].duration,
+              persistUntilDismissed: steps[0].persistUntilDismissed,
+            );
+          }),
+        );
+        for (var i = 1; i < steps.length; i++) {
+          offsetMs += steps[i - 1].duration.inMilliseconds;
+          _flowTimers.add(
+            Timer(Duration(milliseconds: offsetMs), () {
+              if (!mounted) return;
+              transitionToState(
+                id: id,
+                stateTag: 'custom:$i:${steps[i].state.name}',
+                title: steps[i].title,
+                state: steps[i].state,
+                description: steps[i].expanded ? steps[i].description : null,
+                duration: steps[i].duration,
+                persistUntilDismissed: steps[i].persistUntilDismissed,
+              );
+            }),
+          );
+        }
     }
   }
 
@@ -655,6 +733,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Widget? expandedChild,
       Duration? duration,
       GooeyAutopilot? autopilot,
+      bool? persistUntilDismissed,
     })
     show,
   ) {
@@ -1008,6 +1087,60 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     );
   }
 
+  _CustomStateStep _buildStepFromInputs() {
+    final title = _customTitleController.text.trim().isEmpty
+        ? 'Untitled State'
+        : _customTitleController.text.trim();
+    final description = _customDescriptionController.text.trim();
+    final rawMs = int.tryParse(_customDurationController.text.trim()) ?? 1800;
+    final durationMs = rawMs.clamp(250, 15000);
+    return _CustomStateStep(
+      title: title,
+      description: description,
+      state: _customState,
+      duration: Duration(milliseconds: durationMs),
+      expanded: _customStepExpanded && description.isNotEmpty,
+      persistUntilDismissed: _customStepPersistent,
+    );
+  }
+
+  void _addCustomStep() {
+    setState(() {
+      _customSteps.add(_buildStepFromInputs());
+    });
+  }
+
+  void _clearCustomSteps() {
+    setState(_customSteps.clear);
+  }
+
+  InputDecoration _fieldDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      isDense: true,
+      filled: true,
+      fillColor: const Color(0xFFE9E9E9),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(11),
+        borderSide: const BorderSide(color: Color(0xFFD8D8D8)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(11),
+        borderSide: const BorderSide(color: Color(0xFFD8D8D8)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(11),
+        borderSide: const BorderSide(color: Color(0xFFB5B5B5)),
+      ),
+      hintStyle: const TextStyle(
+        fontSize: 12.5,
+        color: Color(0xFF9A9A9A),
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1259,6 +1392,218 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                               ],
                             ),
                           ),
+                          SizedBox(height: sectionSpacing),
+                          const _PlaygroundDivider(),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Custom State Machine',
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    SizedBox(
+                                      width: ultra ? 176 : 220,
+                                      child: TextField(
+                                        controller: _customFlowIdController,
+                                        decoration: _fieldDecoration('flow id'),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: ultra ? 176 : 220,
+                                      child: TextField(
+                                        controller: _customTitleController,
+                                        decoration: _fieldDecoration('title'),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: ultra ? 176 : 280,
+                                      child: TextField(
+                                        controller:
+                                            _customDescriptionController,
+                                        decoration: _fieldDecoration(
+                                          'description',
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: ultra ? 128 : 150,
+                                      child: TextField(
+                                        controller: _customDurationController,
+                                        keyboardType: TextInputType.number,
+                                        decoration: _fieldDecoration('ms'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    for (final state in GooeyToastState.values)
+                                      _PlaygroundChip(
+                                        label: state.name,
+                                        selected: _customState == state,
+                                        onTap: () => setState(
+                                          () => _customState = state,
+                                        ),
+                                        minWidth: ultra ? 72 : 84,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont,
+                                        radius: chipRadius,
+                                      ),
+                                    _PlaygroundChip(
+                                      label: _customStepExpanded
+                                          ? 'expanded'
+                                          : 'compact',
+                                      selected: _customStepExpanded,
+                                      onTap: () => setState(
+                                        () => _customStepExpanded =
+                                            !_customStepExpanded,
+                                      ),
+                                      minWidth: ultra ? 88 : 108,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: _customStepPersistent
+                                          ? 'persist'
+                                          : 'auto dismiss',
+                                      selected: _customStepPersistent,
+                                      onTap: () => setState(
+                                        () => _customStepPersistent =
+                                            !_customStepPersistent,
+                                      ),
+                                      minWidth: ultra ? 108 : 132,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: 'Add Step',
+                                      selected: false,
+                                      onTap: _addCustomStep,
+                                      minWidth: ultra ? 92 : 108,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: 'Run Flow',
+                                      selected:
+                                          _selectedAction ==
+                                          _DemoAction.customStateFlow,
+                                      onTap: () => _triggerDemo(
+                                        _DemoAction.customStateFlow,
+                                      ),
+                                      minWidth: ultra ? 92 : 108,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: 'Clear Steps',
+                                      selected: false,
+                                      onTap: _clearCustomSteps,
+                                      minWidth: ultra ? 98 : 116,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                  ],
+                                ),
+                                if (_customSteps.isNotEmpty) ...[
+                                  const SizedBox(height: 8),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFEDEDED),
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: const Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        for (
+                                          var i = 0;
+                                          i < _customSteps.length;
+                                          i++
+                                        )
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom:
+                                                  i == _customSteps.length - 1
+                                                  ? 0
+                                                  : 6,
+                                            ),
+                                            child: Text(
+                                              '${i + 1}. ${_customSteps[i].state.name} · ${_customSteps[i].title} · ${_customSteps[i].duration.inMilliseconds}ms'
+                                              '${_customSteps[i].expanded ? ' · expanded' : ' · compact'}'
+                                              '${_customSteps[i].persistUntilDismissed ? ' · persist' : ''}',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF6F6F6F),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Active Toasts',
+                            child: AnimatedBuilder(
+                              animation: _controller,
+                              builder: (context, _) {
+                                final active = _controller.activeToasts;
+                                if (active.isEmpty) {
+                                  return const Text(
+                                    'No active toasts.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Color(0xFF9B9B9B),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  );
+                                }
+                                return Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    for (final toast in active)
+                                      _PlaygroundChip(
+                                        label:
+                                            '${toast.id} · ${toast.state.name}${toast.persistUntilDismissed ? ' · persist' : ''}',
+                                        selected: false,
+                                        onTap: () =>
+                                            _controller.dismiss(toast.id),
+                                        minWidth: ultra ? 180 : 240,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont - 1,
+                                        radius: chipRadius,
+                                      ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1443,6 +1788,7 @@ enum _DemoAction {
   flightPath,
   interactiveReply,
   flightPromise,
+  customStateFlow,
 }
 
 extension on _DemoAction {
@@ -1461,6 +1807,7 @@ extension on _DemoAction {
       _DemoAction.flightPath => 'Flight Path',
       _DemoAction.interactiveReply => 'Interactive Reply',
       _DemoAction.flightPromise => 'Flight Promise',
+      _DemoAction.customStateFlow => 'Custom States',
     };
   }
 }
@@ -1495,6 +1842,24 @@ class _FlightToastModel {
   final bool showExpanded;
   final Duration? duration;
   final GooeyAutopilot? autopilot;
+}
+
+class _CustomStateStep {
+  const _CustomStateStep({
+    required this.title,
+    required this.description,
+    required this.state,
+    required this.duration,
+    required this.expanded,
+    required this.persistUntilDismissed,
+  });
+
+  final String title;
+  final String description;
+  final GooeyToastState state;
+  final Duration duration;
+  final bool expanded;
+  final bool persistUntilDismissed;
 }
 
 class _InteractiveReplyExpanded extends StatefulWidget {

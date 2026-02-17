@@ -43,6 +43,32 @@ class GooeyToastAction {
   final VoidCallback onPressed;
 }
 
+class GooeyToastDetails {
+  const GooeyToastDetails({
+    required this.id,
+    required this.stateTag,
+    required this.title,
+    required this.description,
+    required this.state,
+    required this.position,
+    required this.expandDirection,
+    required this.duration,
+    required this.persistUntilDismissed,
+    required this.updatedAt,
+  });
+
+  final String id;
+  final Object? stateTag;
+  final String title;
+  final String? description;
+  final GooeyToastState state;
+  final GooeyToastPosition position;
+  final GooeyToastExpandDirection expandDirection;
+  final Duration duration;
+  final bool persistUntilDismissed;
+  final DateTime updatedAt;
+}
+
 /// Theme data for GooeyToast.
 class GooeyToastTheme extends shad.ComponentThemeData {
   const GooeyToastTheme({
@@ -183,7 +209,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   }
 }
 
-class GooeyToastController {
+class GooeyToastController extends ChangeNotifier {
   GooeyToastController({ToastController? toastController})
     : _toastController =
           toastController ??
@@ -193,6 +219,23 @@ class GooeyToastController {
           );
 
   final ToastController _toastController;
+  final Map<String, GooeyToastDetails> _activeById = {};
+
+  List<GooeyToastDetails> get activeToasts {
+    final items = _activeById.values.toList()
+      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    return List<GooeyToastDetails>.unmodifiable(items);
+  }
+
+  bool containsToast(String id) => _toastController.containsToast(id);
+
+  void dismiss(String id) {
+    _toastController.dismissById(id);
+    final removed = _activeById.remove(id);
+    if (removed != null) {
+      notifyListeners();
+    }
+  }
 
   void show({
     required BuildContext context,
@@ -227,6 +270,7 @@ class GooeyToastController {
     int? maxVisibleCount,
     bool? dismissWholeStackWhenMultiple,
     GooeyToastAction? action,
+    bool persistUntilDismissed = false,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
@@ -319,8 +363,17 @@ class GooeyToastController {
       singleToastPerGroup: true,
       toastId: id,
       pauseOnHover: resolvedPauseOnHover,
+      autoDismiss: !persistUntilDismissed,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
+      onDismissed: id == null
+          ? null
+          : () {
+              final removed = _activeById.remove(id);
+              if (removed != null) {
+                notifyListeners();
+              }
+            },
       top: resolvedTop,
       bottom: resolvedBottom,
       left: resolvedLeft,
@@ -345,6 +398,22 @@ class GooeyToastController {
         action: action,
       ),
     );
+
+    if (id != null) {
+      _activeById[id] = GooeyToastDetails(
+        id: id,
+        stateTag: stateTag,
+        title: title,
+        description: description,
+        state: state,
+        position: position,
+        expandDirection: expandDirection,
+        duration: resolvedDuration,
+        persistUntilDismissed: persistUntilDismissed,
+        updatedAt: DateTime.now(),
+      );
+      notifyListeners();
+    }
   }
 
   void success({

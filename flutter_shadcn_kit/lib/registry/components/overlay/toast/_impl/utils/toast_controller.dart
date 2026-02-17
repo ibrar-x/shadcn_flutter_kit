@@ -18,6 +18,16 @@ class ToastController {
     this.animationDuration = const Duration(milliseconds: 250),
   });
 
+  List<String> get activeToastIds => List<String>.unmodifiable(_idActive.keys);
+
+  bool containsToast(String id) => _idActive.containsKey(id);
+
+  void dismissById(String id) {
+    final item = _idActive[id];
+    if (item == null) return;
+    _removeItem(item);
+  }
+
   void show({
     required BuildContext context,
     required WidgetBuilder builder,
@@ -34,8 +44,10 @@ class ToastController {
     bool? singleToastPerGroup,
     String? toastId,
     bool? pauseOnHover,
+    bool autoDismiss = true,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
+    VoidCallback? onDismissed,
     double? top,
     double? right,
     double? bottom,
@@ -56,9 +68,11 @@ class ToastController {
         existing
           ..builder = builder
           ..duration = duration ?? defaultDuration
+          ..autoDismiss = autoDismiss
           ..pauseOnHover = pauseOnHover
           ..dismissDirections = dismissDirections
-          ..dismissDragThreshold = dismissDragThreshold;
+          ..dismissDragThreshold = dismissDragThreshold
+          ..onDismissed = onDismissed;
         existing.refreshSignal += 1;
         existing.entry.markNeedsBuild();
         return;
@@ -121,7 +135,7 @@ class ToastController {
               animationDuration: animationDuration,
               animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
               pauseOnHover: resolvedPauseOnHover,
-              autoDismiss: true,
+              autoDismiss: item.autoDismiss,
               onTap: null,
               dismissSignal: item.dismissSignal,
               refreshSignal: item.refreshSignal,
@@ -166,9 +180,11 @@ class ToastController {
       toastId: toastId,
       builder: builder,
       duration: resolvedDuration,
+      autoDismiss: autoDismiss,
       pauseOnHover: pauseOnHover,
       dismissDirections: dismissDirections,
       dismissDragThreshold: dismissDragThreshold,
+      onDismissed: onDismissed,
     );
 
     _entries.add(item);
@@ -200,6 +216,7 @@ class ToastController {
         _idActive.remove(id);
       }
     }
+    item.onDismissed?.call();
   }
 
   String _groupKey({
@@ -245,9 +262,11 @@ class _ToastItem {
     required this.toastId,
     required this.builder,
     required this.duration,
+    required this.autoDismiss,
     required this.pauseOnHover,
     required this.dismissDirections,
     required this.dismissDragThreshold,
+    required this.onDismissed,
   });
 
   final OverlayEntry entry;
@@ -255,9 +274,11 @@ class _ToastItem {
   final String? toastId;
   WidgetBuilder builder;
   Duration duration;
+  bool autoDismiss;
   bool? pauseOnHover;
   Set<ToastSwipeDirection>? dismissDirections;
   double? dismissDragThreshold;
+  VoidCallback? onDismissed;
   int dismissSignal = 0;
   int refreshSignal = 0;
 }
