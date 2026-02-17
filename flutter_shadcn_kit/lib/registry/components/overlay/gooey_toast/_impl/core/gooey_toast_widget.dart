@@ -1115,75 +1115,55 @@ class _GooeyPainter extends CustomPainter {
     _paintGooeyBlurThreshold(canvas, size);
   }
 
-  void _paintLegacyBody(Canvas canvas, Size size, Paint paint) {
-    if (bodyHeight <= 0 || bodyScaleY <= 0) return;
-    const seamOverlap = 2.0;
-    canvas.save();
-    canvas.translate(0, _kToastHeight - seamOverlap);
-    canvas.scale(1, bodyScaleY);
-    final bodyPaint = Paint()
-      ..color = color
-      ..isAntiAlias = true;
-    final bodyRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
-      Radius.circular(roundness),
-    );
-    canvas.drawRRect(bodyRect, bodyPaint);
-    canvas.restore();
-  }
-
   void _paintGooeyBlurThreshold(Canvas canvas, Size size) {
     final bounds = Offset.zero & size;
     final sigma = blur;
     final layerBounds = bounds.inflate(sigma * 3.0);
 
-    final thresholdPaint = Paint()
-      ..colorFilter = const ColorFilter.matrix(<double>[
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        20,
-        -2550,
-      ]);
+    const thresholdFilter = ColorFilter.matrix(<double>[
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      20,
+      -2550,
+    ]);
+    final blurPaint = Paint()
+      ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
 
-    // Build mask -> blur -> threshold in one stable painter pipeline.
-    canvas.saveLayer(layerBounds, thresholdPaint);
-    canvas.saveLayer(
-      layerBounds,
-      Paint()..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-    );
-    _drawMaskShapes(
-      canvas,
-      size,
-      Paint()
-        ..color = const Color(0xFFFFFFFF)
-        ..isAntiAlias = true,
-    );
-    canvas.restore();
-    canvas.restore();
+    final white = Paint()
+      ..color = const Color(0xFFFFFFFF)
+      ..isAntiAlias = true;
 
-    // Colorize final alpha mask.
+    // Final layer stores thresholded mask first, then srcIn color fill.
+    canvas.saveLayer(bounds, Paint());
+    canvas.saveLayer(layerBounds, Paint()..colorFilter = thresholdFilter);
+    canvas.saveLayer(layerBounds, blurPaint);
+    _drawMaskShapes(canvas, size, white);
+    canvas.restore(); // blur
+    canvas.restore(); // threshold
+
     canvas.drawRect(
       bounds,
       Paint()
         ..color = color
         ..blendMode = BlendMode.srcIn,
     );
+    canvas.restore(); // final result layer
 
     // Keep a crisp pass on top to preserve edge sharpness.
     _drawCrispShapes(
@@ -1202,7 +1182,7 @@ class _GooeyPainter extends CustomPainter {
       Radius.circular(roundness),
     );
     canvas.drawRRect(pillRect, paint);
-    _paintLegacyBody(canvas, size, paint);
+    _drawScaledBody(canvas, size, paint);
   }
 
   void _drawCrispShapes(Canvas canvas, Size size, Paint paint) {
@@ -1212,7 +1192,21 @@ class _GooeyPainter extends CustomPainter {
       Radius.circular(roundness),
     );
     canvas.drawRRect(pillRect, paint);
-    _paintLegacyBody(canvas, size, paint);
+    _drawScaledBody(canvas, size, paint);
+  }
+
+  void _drawScaledBody(Canvas canvas, Size size, Paint paint) {
+    if (bodyHeight <= 0 || bodyScaleY <= 0) return;
+    const seamOverlap = 2.0;
+    canvas.save();
+    canvas.translate(0, _kToastHeight - seamOverlap);
+    canvas.scale(1, bodyScaleY);
+    final bodyRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
+      Radius.circular(roundness),
+    );
+    canvas.drawRRect(bodyRect, paint);
+    canvas.restore();
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
