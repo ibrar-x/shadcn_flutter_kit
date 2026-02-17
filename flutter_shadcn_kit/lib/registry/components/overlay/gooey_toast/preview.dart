@@ -145,6 +145,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       GooeyAutopilot? autopilot,
       bool? persistUntilDismissed,
       ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
+      ValueChanged<double>? onExpansionProgressChanged,
     }) {
       _controller.show(
         context: context,
@@ -170,6 +171,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         duration: duration,
         persistUntilDismissed: persistUntilDismissed ?? false,
         onExpansionPhaseChanged: onExpansionPhaseChanged,
+        onExpansionProgressChanged: onExpansionProgressChanged,
       );
     }
 
@@ -187,6 +189,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       bool? persistUntilDismissed,
       Duration? nextCompactGap,
       ValueChanged<GooeyToastExpansionPhase>? onExpandedPhaseChanged,
+      ValueChanged<double>? onExpandedProgressChanged,
     }) async {
       final resolvedCompactGap =
           compactGap ?? const Duration(milliseconds: 260);
@@ -261,6 +264,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         autopilot: resolvedExpandedAutopilot,
         persistUntilDismissed: resolvedPersist,
         onExpansionPhaseChanged: onExpandedPhaseChanged,
+        onExpansionProgressChanged: onExpandedProgressChanged,
       );
     }
 
@@ -727,6 +731,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       GooeyAutopilot? autopilot,
       bool? persistUntilDismissed,
       ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
+      ValueChanged<double>? onExpansionProgressChanged,
     })
     show,
     Future<void> Function({
@@ -743,6 +748,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       bool? persistUntilDismissed,
       Duration? nextCompactGap,
       ValueChanged<GooeyToastExpansionPhase>? onExpandedPhaseChanged,
+      ValueChanged<double>? onExpandedProgressChanged,
     })
     transitionToState,
   ) {
@@ -1981,7 +1987,7 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   }
 }
 
-class _AnimatedCompactLabel extends StatelessWidget {
+class _AnimatedCompactLabel extends StatefulWidget {
   const _AnimatedCompactLabel({
     required this.title,
     required this.tone,
@@ -1993,63 +1999,154 @@ class _AnimatedCompactLabel extends StatelessWidget {
   final IconData icon;
 
   @override
+  State<_AnimatedCompactLabel> createState() => _AnimatedCompactLabelState();
+}
+
+class _AnimatedCompactLabelState extends State<_AnimatedCompactLabel>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _progress;
+  String? _prevTitle;
+  Color? _prevTone;
+  IconData? _prevIcon;
+  bool _hasPrev = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 190),
+    );
+    _progress = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed && mounted) {
+          setState(() => _hasPrev = false);
+        }
+      });
+    _controller.value = 1;
+  }
+
+  @override
+  void didUpdateWidget(covariant _AnimatedCompactLabel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final changed =
+        oldWidget.title != widget.title ||
+        oldWidget.tone != widget.tone ||
+        oldWidget.icon != widget.icon;
+    if (!changed) return;
+    _prevTitle = oldWidget.title;
+    _prevTone = oldWidget.tone;
+    _prevIcon = oldWidget.icon;
+    _hasPrev = true;
+    _controller.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _progress,
+      builder: (context, _) {
+        final t = _progress.value;
+        final previousOpacity = _hasPrev ? (1 - t) : 0.0;
+        final currentOpacity = _hasPrev ? t : 1.0;
+        final previousYOffset = _hasPrev ? (-2.0 * t) : 0.0;
+        final currentYOffset = _hasPrev ? (2.0 * (1 - t)) : 0.0;
+        return Row(
+          children: [
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (_hasPrev && _prevTone != null && _prevIcon != null)
+                    Opacity(
+                      opacity: previousOpacity,
+                      child: _compactIcon(
+                        tone: _prevTone!,
+                        icon: _prevIcon!,
+                        scale: 0.95 + 0.05 * previousOpacity,
+                      ),
+                    ),
+                  Opacity(
+                    opacity: currentOpacity,
+                    child: _compactIcon(
+                      tone: widget.tone,
+                      icon: widget.icon,
+                      scale: 0.95 + 0.05 * currentOpacity,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Stack(
+                children: [
+                  if (_hasPrev && _prevTitle != null && _prevTone != null)
+                    Opacity(
+                      opacity: previousOpacity,
+                      child: Transform.translate(
+                        offset: Offset(0, previousYOffset),
+                        child: _compactText(_prevTitle!, _prevTone!),
+                      ),
+                    ),
+                  Opacity(
+                    opacity: currentOpacity,
+                    child: Transform.translate(
+                      offset: Offset(0, currentYOffset),
+                      child: _compactText(widget.title, widget.tone),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _compactIcon({
+    required Color tone,
+    required IconData icon,
+    required double scale,
+  }) {
+    return Transform.scale(
+      scale: scale,
+      child: Container(
+        height: 24,
+        width: 24,
+        decoration: BoxDecoration(
+          color: tone.withValues(alpha: 0.2),
+          shape: BoxShape.circle,
+        ),
+        alignment: Alignment.center,
+        child: Icon(icon, size: 15, color: tone),
+      ),
+    );
+  }
+
+  Widget _compactText(String title, Color tone) {
     return Row(
       children: [
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 170),
-          switchInCurve: Curves.easeOutCubic,
-          switchOutCurve: Curves.easeInCubic,
-          transitionBuilder: (child, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: ScaleTransition(
-                scale: Tween<double>(begin: 0.92, end: 1).animate(animation),
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            key: ValueKey<String>('icon:${icon.codePoint}:${tone.value}'),
-            height: 24,
-            width: 24,
-            decoration: BoxDecoration(
-              color: tone.withValues(alpha: 0.2),
-              shape: BoxShape.circle,
-            ),
-            alignment: Alignment.center,
-            child: Icon(icon, size: 15, color: tone),
-          ),
-        ),
-        const SizedBox(width: 8),
         Expanded(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 190),
-            switchInCurve: Curves.easeOutCubic,
-            switchOutCurve: Curves.easeInCubic,
-            transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0, 0.12),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
-                ),
-              );
-            },
-            child: Text(
-              title,
-              key: ValueKey<String>('title:$title:${tone.value}'),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: tone,
-                height: 1,
-              ),
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: tone,
+              height: 1,
             ),
           ),
         ),

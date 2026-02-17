@@ -282,6 +282,7 @@ class GooeyToastController extends ChangeNotifier {
     int? maxVisibleCount,
     bool? dismissWholeStackWhenMultiple,
     bool persistUntilDismissed = false,
+    ValueChanged<double>? onNextExpansionProgressChanged,
   }) async {
     final closeCompleter = Completer<void>();
     var resolved = false;
@@ -364,6 +365,7 @@ class GooeyToastController extends ChangeNotifier {
       maxVisibleCount: maxVisibleCount,
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
       persistUntilDismissed: persistUntilDismissed,
+      onExpansionProgressChanged: onNextExpansionProgressChanged,
     );
 
     if (nextDescription == null && nextExpandedChild == null) return;
@@ -402,6 +404,7 @@ class GooeyToastController extends ChangeNotifier {
       maxVisibleCount: maxVisibleCount,
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
       persistUntilDismissed: persistUntilDismissed,
+      onExpansionProgressChanged: onNextExpansionProgressChanged,
     );
   }
 
@@ -440,6 +443,7 @@ class GooeyToastController extends ChangeNotifier {
     GooeyToastAction? action,
     bool persistUntilDismissed = false,
     ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
+    ValueChanged<double>? onExpansionProgressChanged,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
@@ -566,6 +570,7 @@ class GooeyToastController extends ChangeNotifier {
         shapeStyle: resolvedShapeStyle,
         action: action,
         onExpansionPhaseChanged: onExpansionPhaseChanged,
+        onExpansionProgressChanged: onExpansionProgressChanged,
       ),
     );
 
@@ -642,6 +647,7 @@ class GooeyToast extends StatefulWidget {
     this.shapeStyle = GooeyToastShapeStyle.defaultShape,
     this.action,
     this.onExpansionPhaseChanged,
+    this.onExpansionProgressChanged,
   });
 
   final String title;
@@ -662,6 +668,7 @@ class GooeyToast extends StatefulWidget {
   final GooeyToastShapeStyle shapeStyle;
   final GooeyToastAction? action;
   final ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged;
+  final ValueChanged<double>? onExpansionProgressChanged;
 
   @override
   State<GooeyToast> createState() => _GooeyToastState();
@@ -705,6 +712,7 @@ class _GooeyToastState extends State<GooeyToast>
       curve: _curveForAnimationStyle(widget.animationStyle),
     );
     _openController.addStatusListener(_handleOpenStatus);
+    _openController.addListener(_handleOpenProgress);
     _emitPhase(
       _targetOpen
           ? GooeyToastExpansionPhase.opening
@@ -745,6 +753,7 @@ class _GooeyToastState extends State<GooeyToast>
     _expandTimer?.cancel();
     _collapseTimer?.cancel();
     _openController.removeStatusListener(_handleOpenStatus);
+    _openController.removeListener(_handleOpenProgress);
     _openController.dispose();
     super.dispose();
   }
@@ -786,6 +795,12 @@ class _GooeyToastState extends State<GooeyToast>
     if (_lastPhase == phase) return;
     _lastPhase = phase;
     widget.onExpansionPhaseChanged?.call(phase);
+  }
+
+  void _handleOpenProgress() {
+    widget.onExpansionProgressChanged?.call(
+      _openController.value.clamp(0.0, 1.0).toDouble(),
+    );
   }
 
   void _scheduleAutopilot() {
@@ -1083,37 +1098,11 @@ class _GooeyToastState extends State<GooeyToast>
                                         ),
                                         const SizedBox(width: 8),
                                         Expanded(
-                                          child: AnimatedSwitcher(
-                                            duration: const Duration(
-                                              milliseconds: 170,
-                                            ),
-                                            switchInCurve: Curves.easeOutCubic,
-                                            switchOutCurve: Curves.easeInCubic,
-                                            transitionBuilder:
-                                                (child, animation) {
-                                                  return FadeTransition(
-                                                    opacity: animation,
-                                                    child: SlideTransition(
-                                                      position: Tween<Offset>(
-                                                        begin: const Offset(
-                                                          0,
-                                                          0.12,
-                                                        ),
-                                                        end: Offset.zero,
-                                                      ).animate(animation),
-                                                      child: child,
-                                                    ),
-                                                  );
-                                                },
-                                            child: Text(
-                                              widget.title,
-                                              key: ValueKey(
-                                                '${widget.state.name}|${widget.title}',
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: titleStyle,
-                                            ),
+                                          child: Text(
+                                            widget.title,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: titleStyle,
                                           ),
                                         ),
                                         if (showExpandedControls) ...[
