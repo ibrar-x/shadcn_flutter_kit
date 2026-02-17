@@ -935,7 +935,8 @@ class _GooeyToastState extends State<GooeyToast>
 
   void _syncFromStackScope(BuildContext context) {
     final stack = ToastStackScope.maybeOf(context);
-    final nextControlled = stack?.hasMultiple ?? false;
+    final nextControlled =
+        (stack?.hasMultiple ?? false) && (stack?.expanded ?? false);
     final nextExpanded = stack?.expanded ?? false;
     final nextItemExpanded = stack?.itemExpanded ?? false;
     if (_stackControlled == nextControlled &&
