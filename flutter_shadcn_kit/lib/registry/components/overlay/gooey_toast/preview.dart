@@ -464,43 +464,67 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           ),
         );
       case _DemoAction.interactiveReply:
-        show(
-          title: 'New Message',
-          state: GooeyToastState.action,
-          compactChild: Row(
-            children: [
-              Container(
-                height: 24,
-                width: 24,
-                decoration: const BoxDecoration(
-                  color: Color(0x1F6A7BFF),
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: const Icon(
-                  Icons.forum_rounded,
-                  size: 15,
-                  color: Color(0xFF8EA3FF),
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Expanded(
-                child: Text(
-                  'Thread Reply',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF8EA3FF),
-                    height: 1,
+        const toastId = 'interactive-reply-toast';
+        const idleTone = Color(0xFF8EA3FF);
+        const successTone = Color(0xFF63C65E);
+        const cancelTone = Color(0xFF9AA7BD);
+
+        void showReplyComposer() {
+          show(
+            id: toastId,
+            stateTag: 'reply:compose',
+            title: 'Thread Reply',
+            state: GooeyToastState.action,
+            compactChild: _replyCompact(
+              title: 'Thread Reply',
+              tone: idleTone,
+              icon: Icons.forum_rounded,
+            ),
+            expandedChild: _InteractiveReplyExpanded(
+              onSend: (message) {
+                show(
+                  id: toastId,
+                  stateTag: 'reply:sent:$message',
+                  title: 'Message Sent',
+                  state: GooeyToastState.success,
+                  duration: const Duration(milliseconds: 2600),
+                  compactChild: _replyCompact(
+                    title: 'Message Sent',
+                    tone: successTone,
+                    icon: Icons.check_rounded,
                   ),
-                ),
-              ),
-            ],
-          ),
-          expandedChild: const _InteractiveReplyExpanded(),
-        );
+                  expandedChild: _ReplyResultExpanded(
+                    title: 'Delivered to thread',
+                    body: 'Your reply was sent successfully.\n"$message"',
+                    tone: successTone,
+                  ),
+                );
+              },
+              onCancel: () {
+                show(
+                  id: toastId,
+                  stateTag: 'reply:cancelled',
+                  title: 'Reply Cancelled',
+                  state: GooeyToastState.info,
+                  duration: const Duration(milliseconds: 2000),
+                  compactChild: _replyCompact(
+                    title: 'Reply Cancelled',
+                    tone: cancelTone,
+                    icon: Icons.close_rounded,
+                  ),
+                  expandedChild: const _ReplyResultExpanded(
+                    title: 'Draft discarded',
+                    body:
+                        'No message was sent. You can open the composer again any time.',
+                    tone: cancelTone,
+                  ),
+                );
+              },
+            ),
+          );
+        }
+
+        showReplyComposer();
       case _DemoAction.flightPromise:
         _showFlightPromiseFlow(show);
     }
@@ -761,6 +785,41 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         size: 18,
         color: Color(0xFF42C853),
       ),
+    );
+  }
+
+  Widget _replyCompact({
+    required String title,
+    required Color tone,
+    required IconData icon,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: 24,
+          width: 24,
+          decoration: BoxDecoration(
+            color: tone.withValues(alpha: 0.2),
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+          child: Icon(icon, size: 15, color: tone),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: tone,
+              height: 1,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -1252,7 +1311,13 @@ class _FlightToastModel {
 }
 
 class _InteractiveReplyExpanded extends StatefulWidget {
-  const _InteractiveReplyExpanded();
+  const _InteractiveReplyExpanded({
+    required this.onSend,
+    required this.onCancel,
+  });
+
+  final ValueChanged<String> onSend;
+  final VoidCallback onCancel;
 
   @override
   State<_InteractiveReplyExpanded> createState() =>
@@ -1261,6 +1326,14 @@ class _InteractiveReplyExpanded extends StatefulWidget {
 
 class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   bool _composing = false;
+  final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1283,35 +1356,73 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                autofocus: true,
-                minLines: 2,
-                maxLines: 3,
-                style: const TextStyle(color: Color(0xFFE8ECFF), fontSize: 13),
-                decoration: InputDecoration(
-                  isDense: true,
-                  hintText: 'Type your reply...',
-                  hintStyle: TextStyle(
-                    color: tone.withValues(alpha: 0.55),
-                    fontSize: 12.5,
+              Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: _controller,
+                  autofocus: true,
+                  minLines: 2,
+                  maxLines: 3,
+                  style: const TextStyle(
+                    color: Color(0xFFE8ECFF),
+                    fontSize: 13,
                   ),
-                  filled: true,
-                  fillColor: const Color(0x26182446),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: tone.withValues(alpha: 0.35)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: tone.withValues(alpha: 0.26)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: tone.withValues(alpha: 0.6)),
+                  validator: (value) {
+                    final text = value?.trim() ?? '';
+                    if (text.isEmpty) {
+                      return 'Reply cannot be empty.';
+                    }
+                    if (text.length < 3) {
+                      return 'Reply must be at least 3 characters.';
+                    }
+                    if (text.length > 160) {
+                      return 'Reply must be 160 characters or less.';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: 'Type your reply...',
+                    hintStyle: TextStyle(
+                      color: tone.withValues(alpha: 0.55),
+                      fontSize: 12.5,
+                    ),
+                    errorStyle: TextStyle(
+                      color: const Color(0xFFFF8C8C).withValues(alpha: 0.95),
+                      fontSize: 11,
+                    ),
+                    filled: true,
+                    fillColor: const Color(0x26182446),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: tone.withValues(alpha: 0.35),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: tone.withValues(alpha: 0.26),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: tone.withValues(alpha: 0.6),
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF8C8C)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF8C8C)),
+                    ),
                   ),
                 ),
               ),
@@ -1319,7 +1430,11 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () => setState(() => _composing = false),
+                    onPressed: () {
+                      _controller.clear();
+                      setState(() => _composing = false);
+                      widget.onCancel();
+                    },
                     child: Text(
                       'Cancel',
                       style: TextStyle(color: tone.withValues(alpha: 0.9)),
@@ -1327,7 +1442,15 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
-                    onPressed: () => setState(() => _composing = false),
+                    onPressed: () {
+                      final isValid =
+                          _formKey.currentState?.validate() ?? false;
+                      if (!isValid) return;
+                      final message = _controller.text.trim();
+                      _controller.clear();
+                      setState(() => _composing = false);
+                      widget.onSend(message);
+                    },
                     style: FilledButton.styleFrom(
                       backgroundColor: tone.withValues(alpha: 0.28),
                       foregroundColor: tone,
@@ -1353,6 +1476,45 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
+      ],
+    );
+  }
+}
+
+class _ReplyResultExpanded extends StatelessWidget {
+  const _ReplyResultExpanded({
+    required this.title,
+    required this.body,
+    required this.tone,
+  });
+
+  final String title;
+  final String body;
+  final Color tone;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: tone,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 14,
+            height: 1.35,
+            color: Color(0xFFC0C5CB),
+          ),
+        ),
       ],
     );
   }
