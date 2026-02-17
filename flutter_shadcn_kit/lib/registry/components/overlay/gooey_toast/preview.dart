@@ -104,6 +104,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     void show({
       required String title,
       String? id,
+      Object? stateTag,
       String? description,
       GooeyToastState state = GooeyToastState.success,
       Widget? icon,
@@ -116,6 +117,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       _controller.show(
         context: context,
         id: id,
+        stateTag: stateTag,
         title: title,
         description: description,
         state: state,
@@ -508,6 +510,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     void Function({
       required String title,
       String? id,
+      Object? stateTag,
       String? description,
       GooeyToastState state,
       Widget? icon,
@@ -527,6 +530,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     void showState(_FlightToastModel model) {
       show(
         id: 'flight-booking-flow',
+        stateTag: model.stateTag,
         title: model.title,
         state: model.state,
         duration: model.duration,
@@ -542,6 +546,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
 
     final steps = <_FlightToastModel>[
       const _FlightToastModel(
+        stateTag: 'flight-booking-pending',
         title: 'Booking In Progress',
         subtitle: 'Reserving seat and confirming fare class...',
         state: GooeyToastState.loading,
@@ -555,6 +560,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         autopilot: null,
       ),
       const _FlightToastModel(
+        stateTag: 'flight-booking-confirmed',
         title: 'Booking Confirmed',
         subtitle: 'Your itinerary is issued and synced to your account.',
         state: GooeyToastState.success,
@@ -567,6 +573,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         duration: Duration(milliseconds: 3200),
       ),
       const _FlightToastModel(
+        stateTag: 'flight-gate-updated',
         title: 'Gate Updated',
         subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
         state: GooeyToastState.info,
@@ -1216,6 +1223,7 @@ extension on _DemoAction {
 
 class _FlightToastModel {
   const _FlightToastModel({
+    required this.stateTag,
     required this.title,
     required this.subtitle,
     required this.state,
@@ -1229,6 +1237,7 @@ class _FlightToastModel {
     this.autopilot = const GooeyAutopilot(),
   });
 
+  final Object stateTag;
   final String title;
   final String subtitle;
   final GooeyToastState state;

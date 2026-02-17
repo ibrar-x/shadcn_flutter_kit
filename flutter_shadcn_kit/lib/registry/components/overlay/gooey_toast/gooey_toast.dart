@@ -197,6 +197,7 @@ class GooeyToastController {
   void show({
     required BuildContext context,
     String? id,
+    Object? stateTag,
     required String title,
     String? description,
     GooeyToastState state = GooeyToastState.success,
@@ -326,6 +327,7 @@ class GooeyToastController {
       right: resolvedRight,
       builder: (_) => GooeyToast(
         title: title,
+        stateTag: stateTag,
         description: description,
         state: state,
         position: position,
@@ -384,6 +386,7 @@ class GooeyToast extends StatefulWidget {
   const GooeyToast({
     super.key,
     required this.title,
+    this.stateTag,
     this.description,
     this.state = GooeyToastState.success,
     this.position = GooeyToastPosition.left,
@@ -402,6 +405,7 @@ class GooeyToast extends StatefulWidget {
   });
 
   final String title;
+  final Object? stateTag;
   final String? description;
   final GooeyToastState state;
   final GooeyToastPosition position;
@@ -612,6 +616,9 @@ class _GooeyToastState extends State<GooeyToast>
         ? rawExpanded
         : _frozenExpandedHeight;
     final passThroughToStack = _stackControlled && (stack?.isPrimary == false);
+    final stateTag =
+        widget.stateTag ??
+        '${widget.state.name}|${widget.title}|${widget.description ?? ''}|${widget.action?.label ?? ''}|${widget.compactChild != null}|${widget.expandedChild != null}';
     final compactToggle = _stackControlled
         ? null
         : () {
@@ -778,57 +785,79 @@ class _GooeyToastState extends State<GooeyToast>
                                 width: pillWidth,
                                 height: _kToastHeight,
                                 padding: const EdgeInsets.all(8),
-                                child:
-                                    widget.compactChild ??
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          decoration: BoxDecoration(
-                                            color: tone.withValues(alpha: 0.2),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: IconTheme(
-                                            data: IconThemeData(
-                                              color: tone,
-                                              size: 16,
-                                            ),
-                                            child:
-                                                widget.icon ??
-                                                _defaultIcon(
-                                                  widget.state,
-                                                  tone,
+                                child: AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 260),
+                                  switchInCurve: Curves.easeOutCubic,
+                                  switchOutCurve: Curves.easeInCubic,
+                                  transitionBuilder: (child, animation) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: ScaleTransition(
+                                        scale: Tween<double>(
+                                          begin: 0.985,
+                                          end: 1,
+                                        ).animate(animation),
+                                        child: child,
+                                      ),
+                                    );
+                                  },
+                                  child: KeyedSubtree(
+                                    key: ValueKey('compact:$stateTag'),
+                                    child:
+                                        widget.compactChild ??
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 24,
+                                              width: 24,
+                                              decoration: BoxDecoration(
+                                                color: tone.withValues(
+                                                  alpha: 0.2,
                                                 ),
-                                          ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: IconTheme(
+                                                data: IconThemeData(
+                                                  color: tone,
+                                                  size: 16,
+                                                ),
+                                                child:
+                                                    widget.icon ??
+                                                    _defaultIcon(
+                                                      widget.state,
+                                                      tone,
+                                                    ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Expanded(
+                                              child: Text(
+                                                widget.title,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: titleStyle,
+                                              ),
+                                            ),
+                                            if (showExpandedControls) ...[
+                                              const SizedBox(width: 6),
+                                              _buildHeaderControlChip(
+                                                label: 'Collapse',
+                                                tone: tone,
+                                                onTap: () =>
+                                                    stack.setExpanded(false),
+                                              ),
+                                              const SizedBox(width: 6),
+                                              _buildHeaderControlChip(
+                                                label: 'Clear all',
+                                                tone: tone,
+                                                onTap: stack.dismissAll,
+                                              ),
+                                            ],
+                                          ],
                                         ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: Text(
-                                            widget.title,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: titleStyle,
-                                          ),
-                                        ),
-                                        if (showExpandedControls) ...[
-                                          const SizedBox(width: 6),
-                                          _buildHeaderControlChip(
-                                            label: 'Collapse',
-                                            tone: tone,
-                                            onTap: () =>
-                                                stack.setExpanded(false),
-                                          ),
-                                          const SizedBox(width: 6),
-                                          _buildHeaderControlChip(
-                                            label: 'Clear all',
-                                            tone: tone,
-                                            onTap: stack.dismissAll,
-                                          ),
-                                        ],
-                                      ],
-                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -859,10 +888,35 @@ class _GooeyToastState extends State<GooeyToast>
                                             onSizeChanged:
                                                 onVisibleExpandedSizeChanged ??
                                                 (_) {},
-                                            child: _buildExpandedContent(
-                                              descriptionStyle:
-                                                  descriptionStyle,
-                                              tone: tone,
+                                            child: AnimatedSwitcher(
+                                              duration: const Duration(
+                                                milliseconds: 280,
+                                              ),
+                                              switchInCurve:
+                                                  Curves.easeOutCubic,
+                                              switchOutCurve:
+                                                  Curves.easeInCubic,
+                                              transitionBuilder:
+                                                  (child, animation) {
+                                                    return FadeTransition(
+                                                      opacity: animation,
+                                                      child: SizeTransition(
+                                                        sizeFactor: animation,
+                                                        axisAlignment: -1,
+                                                        child: child,
+                                                      ),
+                                                    );
+                                                  },
+                                              child: KeyedSubtree(
+                                                key: ValueKey(
+                                                  'expanded:$stateTag',
+                                                ),
+                                                child: _buildExpandedContent(
+                                                  descriptionStyle:
+                                                      descriptionStyle,
+                                                  tone: tone,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
