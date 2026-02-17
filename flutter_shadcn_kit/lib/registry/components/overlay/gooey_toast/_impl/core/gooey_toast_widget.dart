@@ -1173,8 +1173,11 @@ class _GooeyPainter extends CustomPainter {
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
-    canvas.drawRRect(pillRect, paint);
-    if (bodyHeight <= 0 || bodyScaleY <= 0) return;
+    final merged = Path()..addRRect(pillRect);
+    if (bodyHeight <= 0 || bodyScaleY <= 0) {
+      canvas.drawPath(merged, paint);
+      return;
+    }
 
     const seamOverlap = 2.0;
     final progress = Curves.easeInOutCubic.transform(
@@ -1182,13 +1185,21 @@ class _GooeyPainter extends CustomPainter {
     );
     final bodyTop = _kToastHeight - seamOverlap;
     final currentBodyHeight = (bodyHeight + seamOverlap) * progress;
-    if (currentBodyHeight <= 0.5) return;
+    if (currentBodyHeight <= 0.5) {
+      canvas.drawPath(merged, paint);
+      return;
+    }
 
-    final bodyRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, bodyTop, size.width, currentBodyHeight),
-      Radius.circular(roundness),
-    );
-    canvas.drawRRect(bodyRect, paint);
+    final bodyPath = Path()
+      ..addRRect(
+        RRect.fromRectAndCorners(
+          Rect.fromLTWH(0, bodyTop, size.width, currentBodyHeight),
+          topLeft: Radius.zero,
+          topRight: Radius.zero,
+          bottomLeft: Radius.circular(roundness),
+          bottomRight: Radius.circular(roundness),
+        ),
+      );
 
     final leftBridgeStart = pillX.clamp(0.0, size.width).toDouble();
     final rightBridgeStart = (pillX + pillWidth)
@@ -1196,27 +1207,34 @@ class _GooeyPainter extends CustomPainter {
         .toDouble();
     final bridgeTop = bodyTop;
     final bridgeBottom = pillRect.bottom;
-    if (bridgeBottom <= bridgeTop) return;
+    final bridgeLift = lerpDouble(0.0, roundness * 0.92, progress) ?? 0.0;
+    final bridgeInset = lerpDouble(0.0, roundness * 0.84, progress) ?? 0.0;
 
-    final bridgeLift = lerpDouble(0.0, roundness * 0.9, progress) ?? 0.0;
-    final bridgeInset = lerpDouble(0.0, roundness * 0.8, progress) ?? 0.0;
-    final bridgePath = Path()
-      ..moveTo(leftBridgeStart, bridgeTop)
-      ..quadraticBezierTo(
-        leftBridgeStart + bridgeInset,
-        bridgeTop - bridgeLift,
-        leftBridgeStart + bridgeInset,
-        bridgeBottom,
-      )
-      ..lineTo(rightBridgeStart - bridgeInset, bridgeBottom)
-      ..quadraticBezierTo(
-        rightBridgeStart - bridgeInset,
-        bridgeTop - bridgeLift,
-        rightBridgeStart,
-        bridgeTop,
-      )
-      ..close();
-    canvas.drawPath(bridgePath, paint);
+    final bridgePath = Path();
+    if (bridgeBottom > bridgeTop) {
+      bridgePath
+        ..moveTo(leftBridgeStart, bridgeTop)
+        ..quadraticBezierTo(
+          leftBridgeStart + bridgeInset,
+          bridgeTop - bridgeLift,
+          leftBridgeStart + bridgeInset,
+          bridgeBottom,
+        )
+        ..lineTo(rightBridgeStart - bridgeInset, bridgeBottom)
+        ..quadraticBezierTo(
+          rightBridgeStart - bridgeInset,
+          bridgeTop - bridgeLift,
+          rightBridgeStart,
+          bridgeTop,
+        )
+        ..close();
+    }
+
+    final withBody = Path.combine(PathOperation.union, merged, bodyPath);
+    final finalPath = bridgePath.getBounds().isEmpty
+        ? withBody
+        : Path.combine(PathOperation.union, withBody, bridgePath);
+    canvas.drawPath(finalPath, paint);
   }
 
   @override
