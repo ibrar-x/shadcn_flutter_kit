@@ -48,6 +48,11 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   final List<_CustomStateStep> _customSteps = [];
   int _customFlowCurrentIndex = -1;
   String _customFlowActiveId = '';
+  bool _customFlowRunning = false;
+  int _customFlowRunToken = 0;
+  bool _customFlowStartRequested = false;
+  _FlowAdvanceMode _customFlowAdvanceMode = _FlowAdvanceMode.phaseClosed;
+  double _customFlowProgressTrigger = 0.9;
   int _compactMorphMs = 220;
   double _compactMorphSlide = 0.12;
   double _compactMorphScaleFrom = 0.95;
@@ -215,70 +220,79 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       final resolvedPersist = persistUntilDismissed ?? false;
       final resolvedNextCompactGap =
           nextCompactGap ?? const Duration(milliseconds: 120);
-      final closeCompleter = Completer<void>();
-      var closeResolved = false;
-      void resolveClose() {
-        if (closeResolved) return;
-        closeResolved = true;
-        closeCompleter.complete();
+      GooeyToastDetails? current;
+      for (final item in _controller.activeToasts) {
+        if (item.id == id) {
+          current = item;
+          break;
+        }
       }
 
-      show(
-        id: id,
-        stateTag: '$stateTag:compact',
-        title: title,
-        state: state,
-        description: null,
-        compactChild: compactChild,
-        expandedChild: null,
-        duration: duration,
-        autopilot: null,
-        persistUntilDismissed: resolvedPersist,
-        onExpansionPhaseChanged: (phase) {
-          if (phase == GooeyToastExpansionPhase.closed) {
-            resolveClose();
-          }
-        },
-      );
-      _flowTimers.add(
-        Timer(
-          Duration(milliseconds: resolvedCompactGap.inMilliseconds + 160),
-          resolveClose,
-        ),
-      );
-      await closeCompleter.future;
-      if (!mounted) return;
-      show(
-        id: id,
-        stateTag: '$stateTag:next-compact',
-        title: title,
-        state: state,
-        description: null,
-        compactChild: compactChild,
-        expandedChild: null,
-        duration: duration,
-        autopilot: null,
-        persistUntilDismissed: resolvedPersist,
-      );
-      if (description == null && expandedChild == null) {
+      if (current == null) {
+        show(
+          id: id,
+          stateTag: '$stateTag:next-compact',
+          title: title,
+          state: state,
+          description: null,
+          compactChild: compactChild,
+          expandedChild: null,
+          duration: duration,
+          autopilot: null,
+          persistUntilDismissed: resolvedPersist,
+        );
+        if (description == null && expandedChild == null) return;
+        await Future<void>.delayed(resolvedNextCompactGap);
+        if (!mounted) return;
+        show(
+          id: id,
+          stateTag: '$stateTag:expanded',
+          title: title,
+          state: state,
+          description: description,
+          compactChild: compactChild,
+          expandedChild: expandedChild,
+          duration: duration,
+          autopilot: resolvedExpandedAutopilot,
+          persistUntilDismissed: resolvedPersist,
+          onExpansionPhaseChanged: onExpandedPhaseChanged,
+          onExpansionProgressChanged: onExpandedProgressChanged,
+        );
         return;
       }
-      await Future<void>.delayed(resolvedNextCompactGap);
-      if (!mounted) return;
-      show(
+
+      await _controller.transitionAfterClosed(
+        context: context,
         id: id,
-        stateTag: '$stateTag:expanded',
-        title: title,
-        state: state,
-        description: description,
-        compactChild: compactChild,
-        expandedChild: expandedChild,
-        duration: duration,
-        autopilot: resolvedExpandedAutopilot,
+        currentTitle: current.title,
+        currentState: current.state,
+        nextTitle: title,
+        nextState: state,
+        nextStateTag: stateTag,
+        nextDescription: description,
+        nextCompactChild: compactChild,
+        nextExpandedChild: expandedChild,
+        nextDuration: duration,
+        closeFallback: Duration(
+          milliseconds: resolvedCompactGap.inMilliseconds + 160,
+        ),
+        nextCompactGap: resolvedNextCompactGap,
+        nextExpandedAutopilot: resolvedExpandedAutopilot,
+        position: preset.position,
+        expandDirection: preset.expandDirection,
+        animationStyle: _animationStyle,
+        shapeStyle: _shapeStyle,
+        pauseOnHover: _pauseOnHover,
+        swipeToDismiss: swipeToDismiss,
+        dismissDirections: dismissDirections,
+        dismissDragThreshold: 68,
         persistUntilDismissed: resolvedPersist,
-        onExpansionPhaseChanged: onExpandedPhaseChanged,
-        onExpansionProgressChanged: onExpandedProgressChanged,
+        compactMorph: compactMorph,
+        onNextExpansionProgressChanged: onExpandedProgressChanged,
       );
+      if (onExpandedPhaseChanged != null) {
+        onExpandedPhaseChanged(GooeyToastExpansionPhase.open);
+      }
     }
 
     switch (action) {
@@ -686,6 +700,103 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         if (_customFlowActiveId != id) {
           _customFlowCurrentIndex = -1;
         }
+        bool shouldAdvance({
+          GooeyToastExpansionPhase? phase,
+          double? progress,
+        }) {
+          switch (_customFlowAdvanceMode) {
+            case _FlowAdvanceMode.phaseClosed:
+              return phase == GooeyToastExpansionPhase.closed;
+            case _FlowAdvanceMode.progress:
+              return (progress ?? 0) >= _customFlowProgressTrigger;
+          }
+        }
+
+        void runFromIndex(int currentIndex, int token) {
+          if (!mounted || token != _customFlowRunToken) return;
+          if (currentIndex >= steps.length - 1) {
+            setState(() => _customFlowRunning = false);
+            return;
+          }
+          final previous = steps[currentIndex];
+          final nextIndex = currentIndex + 1;
+          final next = steps[nextIndex];
+          var advanced = false;
+          void advanceIfReady({
+            GooeyToastExpansionPhase? phase,
+            double? progress,
+          }) {
+            if (advanced || token != _customFlowRunToken || !mounted) return;
+            if (!shouldAdvance(phase: phase, progress: progress)) return;
+            advanced = true;
+            setState(() => _customFlowCurrentIndex = nextIndex);
+            runFromIndex(nextIndex, token);
+          }
+
+          transitionToState(
+            id: id,
+            stateTag: 'custom:$nextIndex:${next.state.name}',
+            title: next.title,
+            state: next.state,
+            description: next.expanded ? next.description : null,
+            duration: next.duration,
+            compactGap: Duration(
+              milliseconds: (previous.duration.inMilliseconds * 0.22)
+                  .round()
+                  .clamp(180, 600),
+            ),
+            nextCompactGap: const Duration(milliseconds: 120),
+            persistUntilDismissed: next.persistUntilDismissed,
+            onExpandedPhaseChanged: (phase) => advanceIfReady(phase: phase),
+            onExpandedProgressChanged: (progress) =>
+                advanceIfReady(progress: progress),
+          );
+        }
+
+        if (_customFlowStartRequested) {
+          _customFlowStartRequested = false;
+          final token = ++_customFlowRunToken;
+          setState(() {
+            _customFlowActiveId = id;
+            _customFlowCurrentIndex = 0;
+            _customFlowRunning = true;
+          });
+          final first = steps.first;
+          var advanced = false;
+          void advanceFromFirst({
+            GooeyToastExpansionPhase? phase,
+            double? progress,
+          }) {
+            if (advanced || token != _customFlowRunToken || !mounted) return;
+            if (!shouldAdvance(phase: phase, progress: progress)) return;
+            advanced = true;
+            runFromIndex(0, token);
+          }
+
+          show(
+            id: id,
+            stateTag: 'custom:0:${first.state.name}:expanded',
+            title: first.title,
+            state: first.state,
+            description: first.expanded ? first.description : null,
+            duration: first.duration,
+            persistUntilDismissed: first.persistUntilDismissed,
+            autopilot: first.expanded
+                ? const GooeyAutopilot(
+                    expandDelay: Duration.zero,
+                    collapseDelay: Duration(milliseconds: 2200),
+                  )
+                : null,
+            onExpansionPhaseChanged: (phase) => advanceFromFirst(phase: phase),
+            onExpansionProgressChanged: (progress) =>
+                advanceFromFirst(progress: progress),
+          );
+          if (!first.expanded) {
+            runFromIndex(0, token);
+          }
+          return;
+        }
+
         final nextIndex = (_customFlowCurrentIndex + 1).clamp(
           0,
           steps.length - 1,
@@ -698,7 +809,6 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             title: step.title,
             state: step.state,
             description: step.expanded ? step.description : null,
-            expandedChild: step.expanded ? null : null,
             duration: step.duration,
             persistUntilDismissed: step.persistUntilDismissed,
             autopilot: step.expanded
@@ -1083,14 +1193,20 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   }
 
   void _clearCustomSteps() {
+    _customFlowRunToken++;
     setState(() {
       _customSteps.clear();
       _customFlowCurrentIndex = -1;
+      _customFlowRunning = false;
     });
   }
 
   void _resetCustomFlow() {
-    setState(() => _customFlowCurrentIndex = -1);
+    _customFlowRunToken++;
+    setState(() {
+      _customFlowCurrentIndex = -1;
+      _customFlowRunning = false;
+    });
   }
 
   InputDecoration _fieldDecoration(String hint) {
@@ -1488,6 +1604,23 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       radius: chipRadius,
                                     ),
                                     _PlaygroundChip(
+                                      label: _customFlowRunning
+                                          ? 'Flow Running'
+                                          : 'Start Flow',
+                                      selected: _customFlowRunning,
+                                      onTap: () {
+                                        if (_customFlowRunning) return;
+                                        _customFlowStartRequested = true;
+                                        _triggerDemo(
+                                          _DemoAction.customStateFlow,
+                                        );
+                                      },
+                                      minWidth: ultra ? 94 : 116,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
                                       label: 'Reset Flow',
                                       selected: false,
                                       onTap: _resetCustomFlow,
@@ -1513,6 +1646,37 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                   spacing: chipSpacing,
                                   runSpacing: chipSpacing,
                                   children: [
+                                    for (final mode in _FlowAdvanceMode.values)
+                                      _PlaygroundChip(
+                                        label: mode.label,
+                                        selected:
+                                            _customFlowAdvanceMode == mode,
+                                        onTap: () => setState(
+                                          () => _customFlowAdvanceMode = mode,
+                                        ),
+                                        minWidth: ultra ? 100 : 122,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont,
+                                        radius: chipRadius,
+                                      ),
+                                    _PlaygroundChip(
+                                      label:
+                                          'trigger ${(_customFlowProgressTrigger * 100).round()}%',
+                                      selected:
+                                          _customFlowAdvanceMode ==
+                                          _FlowAdvanceMode.progress,
+                                      onTap: () => setState(
+                                        () => _customFlowProgressTrigger =
+                                            _customFlowProgressTrigger >= 0.95
+                                            ? 0.5
+                                            : (_customFlowProgressTrigger +
+                                                  0.1),
+                                      ),
+                                      minWidth: ultra ? 112 : 132,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
                                     for (final preset
                                         in _MorphCurvePreset.values)
                                       _PlaygroundChip(
@@ -1833,6 +1997,17 @@ extension on _DismissBehavior {
       _DismissBehavior.auto => 'auto',
       _DismissBehavior.custom => 'custom',
       _DismissBehavior.off => 'off',
+    };
+  }
+}
+
+enum _FlowAdvanceMode { phaseClosed, progress }
+
+extension on _FlowAdvanceMode {
+  String get label {
+    return switch (this) {
+      _FlowAdvanceMode.phaseClosed => 'advance · closed',
+      _FlowAdvanceMode.progress => 'advance · progress',
     };
   }
 }
