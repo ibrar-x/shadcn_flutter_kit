@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../../shared/theme/theme.dart' as shad;
 import '../toast/toast.dart';
@@ -430,6 +431,7 @@ class _GooeyToastState extends State<GooeyToast>
   bool _stackItemExpanded = false;
   Timer? _expandTimer;
   Timer? _collapseTimer;
+  double _measuredExpandedChildHeight = 0;
   late final AnimationController _openController;
   late Animation<double> _openCurve;
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
@@ -587,6 +589,7 @@ class _GooeyToastState extends State<GooeyToast>
       theme.textTheme,
       toastWidth,
       descriptionStyle,
+      measuredExpandedChildHeight: _measuredExpandedChildHeight,
     );
     final minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
@@ -611,7 +614,7 @@ class _GooeyToastState extends State<GooeyToast>
         : _frozenExpandedHeight;
     final passThroughToStack = _stackControlled && (stack?.isPrimary == false);
 
-    return IgnorePointer(
+    Widget body = IgnorePointer(
       ignoring: passThroughToStack,
       child: MouseRegion(
         cursor: _isLoading
@@ -862,6 +865,38 @@ class _GooeyToastState extends State<GooeyToast>
         ),
       ),
     );
+
+    if (widget.expandedChild == null) {
+      return body;
+    }
+
+    return Stack(
+      children: [
+        Offstage(
+          child: SizedBox(
+            width: toastWidth,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: _MeasureSize(
+                onSizeChanged: (size) {
+                  final next = size.height.clamp(0, 4000).toDouble();
+                  if ((next - _measuredExpandedChildHeight).abs() < 0.5 ||
+                      !mounted) {
+                    return;
+                  }
+                  setState(() => _measuredExpandedChildHeight = next);
+                },
+                child: _buildExpandedContent(
+                  descriptionStyle: descriptionStyle,
+                  tone: tone,
+                ),
+              ),
+            ),
+          ),
+        ),
+        body,
+      ],
+    );
   }
 
   Widget _buildExpandedContent({
@@ -983,9 +1018,14 @@ class _GooeyToastState extends State<GooeyToast>
   double _measureContentHeight(
     TextTheme textTheme,
     double toastWidth,
-    TextStyle? descriptionStyle,
-  ) {
+    TextStyle? descriptionStyle, {
+    double measuredExpandedChildHeight = 0,
+  }) {
     if (!_hasContent) return 0;
+
+    if (widget.expandedChild != null && measuredExpandedChildHeight > 0) {
+      return measuredExpandedChildHeight + 32;
+    }
 
     final textStyle =
         descriptionStyle ??
@@ -1009,10 +1049,9 @@ class _GooeyToastState extends State<GooeyToast>
       h += 12 + 28;
     }
 
-    // Custom expanded child can be taller than text heuristics; reserve
-    // additional room to prevent clipping during expansion.
+    // Before first measurement pass, reserve safe minimum for custom content.
     if (widget.expandedChild != null) {
-      h = h < 96 ? 96 : h;
+      h = h < 140 ? 140 : h;
     }
 
     return h + 32;
@@ -1224,6 +1263,40 @@ Curve _curveForAnimationStyle(GooeyToastAnimationStyle style) {
     GooeyToastAnimationStyle.snappy => Curves.easeOutCubic,
     GooeyToastAnimationStyle.bouncy => Curves.elasticOut,
   };
+}
+
+class _MeasureSize extends SingleChildRenderObjectWidget {
+  const _MeasureSize({required this.onSizeChanged, required super.child});
+
+  final ValueChanged<Size> onSizeChanged;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _RenderMeasureSize(onSizeChanged);
+  }
+
+  @override
+  void updateRenderObject(BuildContext context, RenderObject renderObject) {
+    (renderObject as _RenderMeasureSize).onSizeChanged = onSizeChanged;
+  }
+}
+
+class _RenderMeasureSize extends RenderProxyBox {
+  _RenderMeasureSize(this.onSizeChanged);
+
+  ValueChanged<Size> onSizeChanged;
+  Size? _lastSize;
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    final sizeNow = child?.size ?? size;
+    if (_lastSize == sizeNow) return;
+    _lastSize = sizeNow;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onSizeChanged(sizeNow);
+    });
+  }
 }
 
 Color _toneForState(GooeyToastState state, [GooeyToastTheme? theme]) {
