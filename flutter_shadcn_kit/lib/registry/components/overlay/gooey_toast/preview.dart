@@ -74,6 +74,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.customExpanded,
     _DemoAction.customBoth,
     _DemoAction.flightPath,
+    _DemoAction.interactiveReply,
   ];
 
   @override
@@ -452,6 +453,44 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
               ),
             ],
           ),
+        );
+      case _DemoAction.interactiveReply:
+        show(
+          title: 'New Message',
+          state: GooeyToastState.action,
+          compactChild: Row(
+            children: [
+              Container(
+                height: 24,
+                width: 24,
+                decoration: const BoxDecoration(
+                  color: Color(0x1F6A7BFF),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.forum_rounded,
+                  size: 15,
+                  color: Color(0xFF8EA3FF),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Thread Reply',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8EA3FF),
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          expandedChild: const _InteractiveReplyExpanded(),
         );
     }
   }
@@ -906,6 +945,7 @@ enum _DemoAction {
   customExpanded,
   customBoth,
   flightPath,
+  interactiveReply,
 }
 
 extension on _DemoAction {
@@ -922,7 +962,115 @@ extension on _DemoAction {
       _DemoAction.customExpanded => 'Custom Expanded',
       _DemoAction.customBoth => 'Custom Both',
       _DemoAction.flightPath => 'Flight Path',
+      _DemoAction.interactiveReply => 'Interactive Reply',
     };
+  }
+}
+
+class _InteractiveReplyExpanded extends StatefulWidget {
+  const _InteractiveReplyExpanded();
+
+  @override
+  State<_InteractiveReplyExpanded> createState() =>
+      _InteractiveReplyExpandedState();
+}
+
+class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
+  bool _composing = false;
+
+  @override
+  Widget build(BuildContext context) {
+    const bodyStyle = TextStyle(
+      fontSize: 14,
+      height: 1.35,
+      color: Color(0xFFC0C5CB),
+    );
+    final tone = const Color(0xFF8EA3FF);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Click reply to respond from this thread.',
+          style: bodyStyle,
+        ),
+        const SizedBox(height: 10),
+        if (_composing)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                autofocus: true,
+                minLines: 2,
+                maxLines: 3,
+                style: const TextStyle(color: Color(0xFFE8ECFF), fontSize: 13),
+                decoration: InputDecoration(
+                  isDense: true,
+                  hintText: 'Type your reply...',
+                  hintStyle: TextStyle(
+                    color: tone.withValues(alpha: 0.55),
+                    fontSize: 12.5,
+                  ),
+                  filled: true,
+                  fillColor: const Color(0x26182446),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: tone.withValues(alpha: 0.35)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: tone.withValues(alpha: 0.26)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: tone.withValues(alpha: 0.6)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () => setState(() => _composing = false),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(color: tone.withValues(alpha: 0.9)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilledButton(
+                    onPressed: () => setState(() => _composing = false),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: tone.withValues(alpha: 0.28),
+                      foregroundColor: tone,
+                    ),
+                    child: const Text('Send'),
+                  ),
+                ],
+              ),
+            ],
+          )
+        else
+          TextButton(
+            onPressed: () => setState(() => _composing = true),
+            style: TextButton.styleFrom(
+              minimumSize: const Size(0, 28),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              shape: const StadiumBorder(),
+              foregroundColor: tone,
+              backgroundColor: tone.withValues(alpha: 0.15),
+            ),
+            child: const Text(
+              'Reply',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            ),
+          ),
+      ],
+    );
   }
 }
 
