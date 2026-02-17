@@ -568,6 +568,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                               pillScaleY: pillScaleY,
                               bodyHeight: expandedContentHeight,
                               bodyScaleY: bodyScaleY,
+                              openProgress: openProgress,
                               renderStyle: widget.renderStyle,
                             ),
                           ),
@@ -1034,6 +1035,7 @@ class _GooeyLayer extends StatelessWidget {
     required this.pillScaleY,
     required this.bodyHeight,
     required this.bodyScaleY,
+    required this.openProgress,
     required this.renderStyle,
   });
 
@@ -1048,6 +1050,7 @@ class _GooeyLayer extends StatelessWidget {
   final double pillScaleY;
   final double bodyHeight;
   final double bodyScaleY;
+  final double openProgress;
   final GooeyRenderStyle renderStyle;
 
   @override
@@ -1067,6 +1070,7 @@ class _GooeyLayer extends StatelessWidget {
             pillScaleY: pillScaleY,
             bodyHeight: bodyHeight,
             bodyScaleY: bodyScaleY,
+            openProgress: openProgress,
             renderStyle: renderStyle,
             blur: blur,
           ),
@@ -1086,6 +1090,7 @@ class _GooeyPainter extends CustomPainter {
     required this.pillScaleY,
     required this.bodyHeight,
     required this.bodyScaleY,
+    required this.openProgress,
     required this.renderStyle,
     required this.blur,
   });
@@ -1098,6 +1103,7 @@ class _GooeyPainter extends CustomPainter {
   final double pillScaleY;
   final double bodyHeight;
   final double bodyScaleY;
+  final double openProgress;
   final GooeyRenderStyle renderStyle;
   final double blur;
 
@@ -1180,21 +1186,13 @@ class _GooeyPainter extends CustomPainter {
   }
 
   void _drawMaskShapes(Canvas canvas, Size size, Paint paint) {
-    final scaledPillHeight = pillHeight * pillScaleY;
-    final pillRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
-      Radius.circular(roundness),
-    );
+    final pillRect = _pillRectForMode();
     canvas.drawRRect(pillRect, paint);
     _drawScaledBody(canvas, size, paint);
   }
 
   void _drawCrispShapes(Canvas canvas, Size size, Paint paint) {
-    final scaledPillHeight = pillHeight * pillScaleY;
-    final pillRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
-      Radius.circular(roundness),
-    );
+    final pillRect = _pillRectForMode();
     canvas.drawRRect(pillRect, paint);
     _drawScaledBody(canvas, size, paint);
   }
@@ -1203,14 +1201,40 @@ class _GooeyPainter extends CustomPainter {
     if (bodyHeight <= 0 || bodyScaleY <= 0) return;
     const seamOverlap = 8.0;
     final seamY = _kToastHeight - seamOverlap;
-    final eased = Curves.easeInOutCubic.transform(bodyScaleY.clamp(0.0, 1.0));
-    final currentBodyHeight = (bodyHeight + seamOverlap) * eased;
+    final t =
+        (renderStyle == GooeyRenderStyle.blurThreshold
+                ? openProgress
+                : bodyScaleY)
+            .clamp(0.0, 1.0);
+    final hT = Curves.easeInOutCubic.transform(t);
+    final currentBodyHeight = (bodyHeight + seamOverlap) * hT;
     if (currentBodyHeight <= 0.5) return;
+
+    double bodyX = 0.0;
+    double bodyW = size.width;
+    if (renderStyle == GooeyRenderStyle.blurThreshold) {
+      final wT = Curves.easeOutCubic.transform(
+        ((t - 0.15) / 0.85).clamp(0.0, 1.0),
+      );
+      bodyX = lerpDouble(pillX, 0.0, wT) ?? 0.0;
+      bodyW = lerpDouble(pillWidth, size.width, wT) ?? size.width;
+    }
+
     final bodyRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, seamY, size.width, currentBodyHeight),
+      Rect.fromLTWH(bodyX, seamY, bodyW, currentBodyHeight),
       Radius.circular(roundness),
     );
     canvas.drawRRect(bodyRect, paint);
+  }
+
+  RRect _pillRectForMode() {
+    final visiblePillHeight = renderStyle == GooeyRenderStyle.blurThreshold
+        ? _kToastHeight
+        : (pillHeight * pillScaleY);
+    return RRect.fromRectAndRadius(
+      Rect.fromLTWH(pillX, 0, pillWidth, visiblePillHeight),
+      Radius.circular(roundness),
+    );
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
@@ -1297,6 +1321,7 @@ class _GooeyPainter extends CustomPainter {
         oldDelegate.pillScaleY != pillScaleY ||
         oldDelegate.bodyHeight != bodyHeight ||
         oldDelegate.bodyScaleY != bodyScaleY ||
+        oldDelegate.openProgress != openProgress ||
         oldDelegate.renderStyle != renderStyle ||
         oldDelegate.blur != blur;
   }
