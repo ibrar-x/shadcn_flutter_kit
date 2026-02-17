@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -580,11 +581,16 @@ class _GooeyToastState extends State<GooeyToast>
     final showStackControls =
         stack != null && stack.hasMultiple && stack.isPrimary;
     final showExpandedControls = showStackControls && stack.expanded;
-    final pillWidth =
-        ((_measurePillWidth(theme.textTheme, toastWidth, titleStyle) +
-                    (showExpandedControls ? 112.0 : 0.0))
-                .clamp(_kToastHeight, toastWidth))
-            .toDouble();
+    final basePillWidth =
+        _measurePillWidth(theme.textTheme, toastWidth, titleStyle) +
+        (showExpandedControls ? 112.0 : 0.0);
+    final customCompactMinWidth = widget.compactChild == null
+        ? _kToastHeight
+        : (toastWidth * 0.56).clamp(_kToastHeight, toastWidth).toDouble();
+    final pillWidth = math
+        .max(basePillWidth, customCompactMinWidth)
+        .clamp(_kToastHeight, toastWidth)
+        .toDouble();
     final contentHeight = _measureContentHeight(
       theme.textTheme,
       toastWidth,
