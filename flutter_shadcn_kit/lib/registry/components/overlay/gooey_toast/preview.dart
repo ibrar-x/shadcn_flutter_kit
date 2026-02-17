@@ -16,6 +16,7 @@ class GooeyToastPreview extends StatefulWidget {
 class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   final GooeyToastController _controller = GooeyToastController();
   Timer? _promiseTimer;
+  final List<Timer> _flowTimers = [];
 
   int _selectedPresetIndex = 2;
   _DemoAction? _selectedAction;
@@ -75,11 +76,15 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.customBoth,
     _DemoAction.flightPath,
     _DemoAction.interactiveReply,
+    _DemoAction.flightPromise,
   ];
 
   @override
   void dispose() {
     _promiseTimer?.cancel();
+    for (final timer in _flowTimers) {
+      timer.cancel();
+    }
     super.dispose();
   }
 
@@ -98,6 +103,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
 
     void show({
       required String title,
+      String? id,
       String? description,
       GooeyToastState state = GooeyToastState.success,
       Widget? icon,
@@ -109,6 +115,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     }) {
       _controller.show(
         context: context,
+        id: id,
         title: title,
         description: description,
         state: state,
@@ -492,7 +499,245 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           ),
           expandedChild: const _InteractiveReplyExpanded(),
         );
+      case _DemoAction.flightPromise:
+        _showFlightPromiseFlow(show);
     }
+  }
+
+  void _showFlightPromiseFlow(
+    void Function({
+      required String title,
+      String? id,
+      String? description,
+      GooeyToastState state,
+      Widget? icon,
+      GooeyToastAction? action,
+      Widget? compactChild,
+      Widget? expandedChild,
+      Duration? duration,
+      GooeyAutopilot? autopilot,
+    })
+    show,
+  ) {
+    for (final timer in _flowTimers) {
+      timer.cancel();
+    }
+    _flowTimers.clear();
+
+    void showState(_FlightToastModel model) {
+      show(
+        id: 'flight-booking-flow',
+        title: model.title,
+        state: model.state,
+        duration: model.duration,
+        autopilot: model.autopilot,
+        compactChild: _flightCompact(
+          title: model.title,
+          tone: model.tone,
+          icon: model.icon,
+        ),
+        expandedChild: _flightExpanded(model),
+      );
+    }
+
+    final steps = <_FlightToastModel>[
+      const _FlightToastModel(
+        title: 'Booking In Progress',
+        subtitle: 'Reserving seat and confirming fare class...',
+        state: GooeyToastState.loading,
+        icon: Icons.sync,
+        tone: Color(0xFF77A8FF),
+        fromCode: 'DEL',
+        toCode: 'SFO',
+        pnr: 'PNR -',
+        cta: 'Preparing',
+        duration: Duration(milliseconds: 2400),
+        autopilot: null,
+      ),
+      const _FlightToastModel(
+        title: 'Booking Confirmed',
+        subtitle: 'Your itinerary is issued and synced to your account.',
+        state: GooeyToastState.success,
+        icon: Icons.check,
+        tone: Color(0xFF42C853),
+        fromCode: 'DEL',
+        toCode: 'SFO',
+        pnr: 'PNR EC2QW4',
+        cta: 'View Details',
+        duration: Duration(milliseconds: 3200),
+      ),
+      const _FlightToastModel(
+        title: 'Gate Updated',
+        subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
+        state: GooeyToastState.info,
+        icon: Icons.info_outline,
+        tone: Color(0xFF8EA3FF),
+        fromCode: 'DEL',
+        toCode: 'SFO',
+        pnr: 'PNR EC2QW4',
+        cta: 'Open Pass',
+        duration: Duration(milliseconds: 3600),
+      ),
+    ];
+
+    showState(steps.first);
+    var offsetMs = 1100;
+    for (var i = 1; i < steps.length; i++) {
+      _flowTimers.add(
+        Timer(Duration(milliseconds: offsetMs), () {
+          if (!mounted) return;
+          showState(steps[i]);
+        }),
+      );
+      offsetMs += 1500;
+    }
+  }
+
+  Widget _flightCompact({
+    required String title,
+    required Color tone,
+    required IconData icon,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: 24,
+          width: 24,
+          decoration: BoxDecoration(
+            color: tone.withValues(alpha: 0.2),
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+          child: Icon(icon, size: 15, color: tone),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: tone,
+              height: 1,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _flightExpanded(_FlightToastModel model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            const Text(
+              'UNITED',
+              style: TextStyle(
+                fontSize: 11,
+                letterSpacing: 3.2,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFFE8E8E8),
+              ),
+            ),
+            const Spacer(),
+            Text(
+              model.pnr,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF8C8C8C),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 58,
+          child: Stack(
+            children: [
+              Positioned(
+                left: 8,
+                bottom: 0,
+                child: Text(
+                  model.fromCode,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFEDEDED),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 8,
+                bottom: 0,
+                child: Text(
+                  model.toCode,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFEDEDED),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                top: 1,
+                child: Text(
+                  '------------------------------',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: model.tone.withValues(alpha: 0.55),
+                    fontSize: 16,
+                    letterSpacing: 1.8,
+                    fontWeight: FontWeight.w700,
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          model.subtitle,
+          style: const TextStyle(
+            fontSize: 14,
+            height: 1.35,
+            color: Color(0xFFC0C5CB),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Container(
+          height: 38,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999),
+            gradient: LinearGradient(
+              colors: [
+                model.tone.withValues(alpha: 0.22),
+                model.tone.withValues(alpha: 0.34),
+              ],
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            model.cta,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: model.tone,
+              height: 1,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _flightDot() {
@@ -946,6 +1191,7 @@ enum _DemoAction {
   customBoth,
   flightPath,
   interactiveReply,
+  flightPromise,
 }
 
 extension on _DemoAction {
@@ -963,8 +1209,37 @@ extension on _DemoAction {
       _DemoAction.customBoth => 'Custom Both',
       _DemoAction.flightPath => 'Flight Path',
       _DemoAction.interactiveReply => 'Interactive Reply',
+      _DemoAction.flightPromise => 'Flight Promise',
     };
   }
+}
+
+class _FlightToastModel {
+  const _FlightToastModel({
+    required this.title,
+    required this.subtitle,
+    required this.state,
+    required this.icon,
+    required this.tone,
+    required this.fromCode,
+    required this.toCode,
+    required this.pnr,
+    required this.cta,
+    this.duration,
+    this.autopilot = const GooeyAutopilot(),
+  });
+
+  final String title;
+  final String subtitle;
+  final GooeyToastState state;
+  final IconData icon;
+  final Color tone;
+  final String fromCode;
+  final String toCode;
+  final String pnr;
+  final String cta;
+  final Duration? duration;
+  final GooeyAutopilot? autopilot;
 }
 
 class _InteractiveReplyExpanded extends StatefulWidget {
