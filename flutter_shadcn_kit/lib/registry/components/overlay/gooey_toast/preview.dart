@@ -186,6 +186,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       GooeyAutopilot? expandedAutopilot,
       bool? persistUntilDismissed,
       Duration? nextCompactGap,
+      ValueChanged<GooeyToastExpansionPhase>? onExpandedPhaseChanged,
     }) async {
       final resolvedCompactGap =
           compactGap ?? const Duration(milliseconds: 260);
@@ -259,6 +260,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         duration: duration,
         autopilot: resolvedExpandedAutopilot,
         persistUntilDismissed: resolvedPersist,
+        onExpansionPhaseChanged: onExpandedPhaseChanged,
       );
     }
 
@@ -740,6 +742,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       GooeyAutopilot? expandedAutopilot,
       bool? persistUntilDismissed,
       Duration? nextCompactGap,
+      ValueChanged<GooeyToastExpansionPhase>? onExpandedPhaseChanged,
     })
     transitionToState,
   ) {
@@ -814,6 +817,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       ),
       showExpanded: true,
     );
+    var didQueueGate = false;
 
     show(
       id: 'flight-booking-flow',
@@ -847,28 +851,28 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           ),
           expandedChild: _flightExpanded(successState),
           expandedAutopilot: successState.autopilot ?? const GooeyAutopilot(),
-        );
-      }),
-    );
-    _flowTimers.add(
-      Timer(const Duration(milliseconds: 3400), () {
-        if (!mounted) return;
-        transitionToState(
-          id: 'flight-booking-flow',
-          stateTag: 'flight-gate-updated',
-          title: gateExpandedState.title,
-          state: gateExpandedState.state,
-          duration: gateExpandedState.duration,
-          compactGap: const Duration(milliseconds: 240),
-          nextCompactGap: const Duration(milliseconds: 130),
-          compactChild: _flightCompact(
-            title: gateCompactState.title,
-            tone: gateCompactState.tone,
-            icon: gateCompactState.icon,
-          ),
-          expandedChild: _flightExpanded(gateExpandedState),
-          expandedAutopilot:
-              gateExpandedState.autopilot ?? const GooeyAutopilot(),
+          onExpandedPhaseChanged: (phase) {
+            if (!mounted || didQueueGate) return;
+            if (phase != GooeyToastExpansionPhase.closed) return;
+            didQueueGate = true;
+            transitionToState(
+              id: 'flight-booking-flow',
+              stateTag: 'flight-gate-updated',
+              title: gateExpandedState.title,
+              state: gateExpandedState.state,
+              duration: gateExpandedState.duration,
+              compactGap: const Duration(milliseconds: 240),
+              nextCompactGap: const Duration(milliseconds: 130),
+              compactChild: _flightCompact(
+                title: gateCompactState.title,
+                tone: gateCompactState.tone,
+                icon: gateCompactState.icon,
+              ),
+              expandedChild: _flightExpanded(gateExpandedState),
+              expandedAutopilot:
+                  gateExpandedState.autopilot ?? const GooeyAutopilot(),
+            );
+          },
         );
       }),
     );
