@@ -70,7 +70,9 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.action,
     _DemoAction.icon,
     _DemoAction.promise,
-    _DemoAction.custom,
+    _DemoAction.customCompact,
+    _DemoAction.customExpanded,
+    _DemoAction.customBoth,
   ];
 
   @override
@@ -184,7 +186,74 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             state: GooeyToastState.success,
           );
         });
-      case _DemoAction.custom:
+      case _DemoAction.customCompact:
+        show(
+          title: 'Deploy Complete',
+          description:
+              'Changes are live. Expanded body uses the default layout for this variant.',
+          state: GooeyToastState.success,
+          compactChild: Row(
+            children: [
+              Container(
+                height: 24,
+                width: 24,
+                decoration: const BoxDecoration(
+                  color: Color(0x1A63C65E),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.rocket_launch_rounded,
+                  size: 14,
+                  color: Color(0xFF63C65E),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Deploy Complete',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF63C65E),
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      case _DemoAction.customExpanded:
+        show(
+          title: 'Workspace Notice',
+          state: GooeyToastState.info,
+          expandedChild: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Release 4.12.0',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF77A8FF),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Project-level schema checks completed. All migrations applied and indexed successfully. No conflicts detected.',
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 1.4,
+                  color: Color(0xFFC0C5CB),
+                ),
+              ),
+            ],
+          ),
+        );
+      case _DemoAction.customBoth:
         show(
           title: 'Deployment',
           description: 'Build #441 is now live in production.',
@@ -677,7 +746,9 @@ enum _DemoAction {
   action,
   icon,
   promise,
-  custom,
+  customCompact,
+  customExpanded,
+  customBoth,
 }
 
 extension on _DemoAction {
@@ -690,7 +761,9 @@ extension on _DemoAction {
       _DemoAction.action => 'Action',
       _DemoAction.icon => 'Icon',
       _DemoAction.promise => 'Promise',
-      _DemoAction.custom => 'Custom',
+      _DemoAction.customCompact => 'Custom Compact',
+      _DemoAction.customExpanded => 'Custom Expanded',
+      _DemoAction.customBoth => 'Custom Both',
     };
   }
 }
