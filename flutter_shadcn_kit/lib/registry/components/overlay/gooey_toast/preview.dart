@@ -144,6 +144,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Duration? duration,
       GooeyAutopilot? autopilot,
       bool? persistUntilDismissed,
+      ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
     }) {
       _controller.show(
         context: context,
@@ -168,10 +169,11 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandedChild: expandedChild,
         duration: duration,
         persistUntilDismissed: persistUntilDismissed ?? false,
+        onExpansionPhaseChanged: onExpansionPhaseChanged,
       );
     }
 
-    void transitionToState({
+    Future<void> transitionToState({
       required String id,
       required Object stateTag,
       required String title,
@@ -180,13 +182,30 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Widget? compactChild,
       Widget? expandedChild,
       Duration? duration,
-      Duration compactGap = const Duration(milliseconds: 260),
-      GooeyAutopilot expandedAutopilot = const GooeyAutopilot(
-        expandDelay: Duration.zero,
-        collapseDelay: Duration(milliseconds: 2200),
-      ),
-      bool persistUntilDismissed = false,
-    }) {
+      Duration? compactGap,
+      GooeyAutopilot? expandedAutopilot,
+      bool? persistUntilDismissed,
+      Duration? nextCompactGap,
+    }) async {
+      final resolvedCompactGap =
+          compactGap ?? const Duration(milliseconds: 260);
+      final resolvedExpandedAutopilot =
+          expandedAutopilot ??
+          const GooeyAutopilot(
+            expandDelay: Duration.zero,
+            collapseDelay: Duration(milliseconds: 2200),
+          );
+      final resolvedPersist = persistUntilDismissed ?? false;
+      final resolvedNextCompactGap =
+          nextCompactGap ?? const Duration(milliseconds: 120);
+      final closeCompleter = Completer<void>();
+      var closeResolved = false;
+      void resolveClose() {
+        if (closeResolved) return;
+        closeResolved = true;
+        closeCompleter.complete();
+      }
+
       show(
         id: id,
         stateTag: '$stateTag:compact',
@@ -197,27 +216,49 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandedChild: null,
         duration: duration,
         autopilot: null,
-        persistUntilDismissed: persistUntilDismissed,
+        persistUntilDismissed: resolvedPersist,
+        onExpansionPhaseChanged: (phase) {
+          if (phase == GooeyToastExpansionPhase.closed) {
+            resolveClose();
+          }
+        },
+      );
+      _flowTimers.add(
+        Timer(
+          Duration(milliseconds: resolvedCompactGap.inMilliseconds + 160),
+          resolveClose,
+        ),
+      );
+      await closeCompleter.future;
+      if (!mounted) return;
+      show(
+        id: id,
+        stateTag: '$stateTag:next-compact',
+        title: title,
+        state: state,
+        description: null,
+        compactChild: compactChild,
+        expandedChild: null,
+        duration: duration,
+        autopilot: null,
+        persistUntilDismissed: resolvedPersist,
       );
       if (description == null && expandedChild == null) {
         return;
       }
-      _flowTimers.add(
-        Timer(compactGap, () {
-          if (!mounted) return;
-          show(
-            id: id,
-            stateTag: '$stateTag:expanded',
-            title: title,
-            state: state,
-            description: description,
-            compactChild: compactChild,
-            expandedChild: expandedChild,
-            duration: duration,
-            autopilot: expandedAutopilot,
-            persistUntilDismissed: persistUntilDismissed,
-          );
-        }),
+      await Future<void>.delayed(resolvedNextCompactGap);
+      if (!mounted) return;
+      show(
+        id: id,
+        stateTag: '$stateTag:expanded',
+        title: title,
+        state: state,
+        description: description,
+        compactChild: compactChild,
+        expandedChild: expandedChild,
+        duration: duration,
+        autopilot: resolvedExpandedAutopilot,
+        persistUntilDismissed: resolvedPersist,
       );
     }
 
@@ -276,29 +317,14 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         );
         _promiseTimer = Timer(const Duration(milliseconds: 1700), () {
           if (!mounted) return;
-          show(
+          transitionToState(
             id: defaultToastId,
-            stateTag: 'promise:loading:compact-before-next',
-            title: 'Saving Changes',
-            state: GooeyToastState.loading,
-            compactChild: null,
-            expandedChild: null,
-            autopilot: null,
+            stateTag: 'promise:success',
+            title: 'Changes Saved',
+            state: GooeyToastState.success,
+            description:
+                'Operation completed successfully and synced to the database.',
             duration: const Duration(milliseconds: 2800),
-          );
-          _flowTimers.add(
-            Timer(const Duration(milliseconds: 220), () {
-              if (!mounted) return;
-              transitionToState(
-                id: defaultToastId,
-                stateTag: 'promise:success',
-                title: 'Changes Saved',
-                state: GooeyToastState.success,
-                description:
-                    'Operation completed successfully and synced to the database.',
-                duration: const Duration(milliseconds: 2800),
-              );
-            }),
           );
         });
       case _DemoAction.customCompact:
@@ -586,78 +612,42 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             ),
             expandedChild: _InteractiveReplyExpanded(
               onSend: (message) {
-                show(
+                transitionToState(
                   id: toastId,
-                  stateTag: 'reply:compose:compact-before-sent',
-                  title: 'Thread Reply',
-                  state: GooeyToastState.action,
+                  stateTag: 'reply:sent:$message',
+                  title: 'Message Sent',
+                  state: GooeyToastState.success,
+                  duration: const Duration(milliseconds: 2600),
                   compactChild: _replyCompact(
-                    title: 'Thread Reply',
-                    tone: idleTone,
-                    icon: Icons.forum_rounded,
+                    title: 'Message Sent',
+                    tone: successTone,
+                    icon: Icons.check_rounded,
                   ),
-                  expandedChild: null,
-                  autopilot: null,
-                );
-                _flowTimers.add(
-                  Timer(const Duration(milliseconds: 220), () {
-                    if (!mounted) return;
-                    transitionToState(
-                      id: toastId,
-                      stateTag: 'reply:sent:$message',
-                      title: 'Message Sent',
-                      state: GooeyToastState.success,
-                      duration: const Duration(milliseconds: 2600),
-                      compactChild: _replyCompact(
-                        title: 'Message Sent',
-                        tone: successTone,
-                        icon: Icons.check_rounded,
-                      ),
-                      expandedChild: _ReplyResultExpanded(
-                        title: 'Delivered to thread',
-                        body: 'Your reply was sent successfully.\n"$message"',
-                        tone: successTone,
-                      ),
-                    );
-                  }),
+                  expandedChild: _ReplyResultExpanded(
+                    title: 'Delivered to thread',
+                    body: 'Your reply was sent successfully.\n"$message"',
+                    tone: successTone,
+                  ),
                 );
               },
               onCancel: () {
-                show(
+                transitionToState(
                   id: toastId,
-                  stateTag: 'reply:compose:compact-before-cancel',
-                  title: 'Thread Reply',
-                  state: GooeyToastState.action,
+                  stateTag: 'reply:cancelled',
+                  title: 'Reply Cancelled',
+                  state: GooeyToastState.info,
+                  duration: const Duration(milliseconds: 2000),
                   compactChild: _replyCompact(
-                    title: 'Thread Reply',
-                    tone: idleTone,
-                    icon: Icons.forum_rounded,
+                    title: 'Reply Cancelled',
+                    tone: cancelTone,
+                    icon: Icons.close_rounded,
                   ),
-                  expandedChild: null,
-                  autopilot: null,
-                );
-                _flowTimers.add(
-                  Timer(const Duration(milliseconds: 220), () {
-                    if (!mounted) return;
-                    transitionToState(
-                      id: toastId,
-                      stateTag: 'reply:cancelled',
-                      title: 'Reply Cancelled',
-                      state: GooeyToastState.info,
-                      duration: const Duration(milliseconds: 2000),
-                      compactChild: _replyCompact(
-                        title: 'Reply Cancelled',
-                        tone: cancelTone,
-                        icon: Icons.close_rounded,
-                      ),
-                      expandedChild: const _ReplyResultExpanded(
-                        title: 'Draft discarded',
-                        body:
-                            'No message was sent. You can open the composer again any time.',
-                        tone: cancelTone,
-                      ),
-                    );
-                  }),
+                  expandedChild: const _ReplyResultExpanded(
+                    title: 'Draft discarded',
+                    body:
+                        'No message was sent. You can open the composer again any time.',
+                    tone: cancelTone,
+                  ),
                 );
               },
             ),
@@ -666,7 +656,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
 
         showReplyComposer();
       case _DemoAction.flightPromise:
-        _showFlightPromiseFlow(show);
+        _showFlightPromiseFlow(show, transitionToState);
       case _DemoAction.customStateFlow:
         final id = _customFlowIdController.text.trim().isEmpty
             ? 'custom-flow-demo'
@@ -734,47 +724,29 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Duration? duration,
       GooeyAutopilot? autopilot,
       bool? persistUntilDismissed,
+      ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
     })
     show,
+    Future<void> Function({
+      required String id,
+      required Object stateTag,
+      required String title,
+      required GooeyToastState state,
+      String? description,
+      Widget? compactChild,
+      Widget? expandedChild,
+      Duration? duration,
+      Duration? compactGap,
+      GooeyAutopilot? expandedAutopilot,
+      bool? persistUntilDismissed,
+      Duration? nextCompactGap,
+    })
+    transitionToState,
   ) {
     for (final timer in _flowTimers) {
       timer.cancel();
     }
     _flowTimers.clear();
-
-    void showState(_FlightToastModel model) {
-      show(
-        id: 'flight-booking-flow',
-        stateTag: model.stateTag,
-        title: model.title,
-        state: model.state,
-        duration: model.duration,
-        autopilot: model.autopilot,
-        compactChild: _flightCompact(
-          title: model.title,
-          tone: model.tone,
-          icon: model.icon,
-        ),
-        expandedChild: model.showExpanded ? _flightExpanded(model) : null,
-      );
-    }
-
-    void showCompact(_FlightToastModel model, {required String stateTag}) {
-      show(
-        id: 'flight-booking-flow',
-        stateTag: stateTag,
-        title: model.title,
-        state: model.state,
-        duration: model.duration,
-        autopilot: null,
-        compactChild: _flightCompact(
-          title: model.title,
-          tone: model.tone,
-          icon: model.icon,
-        ),
-        expandedChild: null,
-      );
-    }
 
     const loadingState = _FlightToastModel(
       stateTag: 'flight-booking-pending',
@@ -843,47 +815,61 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       showExpanded: true,
     );
 
-    showCompact(loadingState, stateTag: 'flight-booking-pending:compact');
+    show(
+      id: 'flight-booking-flow',
+      stateTag: 'flight-booking-pending',
+      title: loadingState.title,
+      state: loadingState.state,
+      duration: loadingState.duration,
+      autopilot: null,
+      compactChild: _flightCompact(
+        title: loadingState.title,
+        tone: loadingState.tone,
+        icon: loadingState.icon,
+      ),
+      expandedChild: null,
+    );
     _flowTimers.add(
       Timer(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
-        showCompact(
-          loadingState,
-          stateTag: 'flight-booking-pending:compact-before-next',
+        transitionToState(
+          id: 'flight-booking-flow',
+          stateTag: 'flight-booking-confirmed',
+          title: successState.title,
+          state: successState.state,
+          duration: successState.duration,
+          compactGap: const Duration(milliseconds: 240),
+          nextCompactGap: const Duration(milliseconds: 130),
+          compactChild: _flightCompact(
+            title: successState.title,
+            tone: successState.tone,
+            icon: successState.icon,
+          ),
+          expandedChild: _flightExpanded(successState),
+          expandedAutopilot: successState.autopilot ?? const GooeyAutopilot(),
         );
       }),
     );
     _flowTimers.add(
-      Timer(const Duration(milliseconds: 1420), () {
+      Timer(const Duration(milliseconds: 3400), () {
         if (!mounted) return;
-        showCompact(successState, stateTag: 'flight-booking-confirmed:compact');
-      }),
-    );
-    _flowTimers.add(
-      Timer(const Duration(milliseconds: 1700), () {
-        if (!mounted) return;
-        showState(successState);
-      }),
-    );
-    _flowTimers.add(
-      Timer(const Duration(milliseconds: 3200), () {
-        if (!mounted) return;
-        showCompact(
-          successState,
-          stateTag: 'flight-booking-confirmed:compact-before-next',
+        transitionToState(
+          id: 'flight-booking-flow',
+          stateTag: 'flight-gate-updated',
+          title: gateExpandedState.title,
+          state: gateExpandedState.state,
+          duration: gateExpandedState.duration,
+          compactGap: const Duration(milliseconds: 240),
+          nextCompactGap: const Duration(milliseconds: 130),
+          compactChild: _flightCompact(
+            title: gateCompactState.title,
+            tone: gateCompactState.tone,
+            icon: gateCompactState.icon,
+          ),
+          expandedChild: _flightExpanded(gateExpandedState),
+          expandedAutopilot:
+              gateExpandedState.autopilot ?? const GooeyAutopilot(),
         );
-      }),
-    );
-    _flowTimers.add(
-      Timer(const Duration(milliseconds: 3420), () {
-        if (!mounted) return;
-        showCompact(gateCompactState, stateTag: 'flight-gate-updated:compact');
-      }),
-    );
-    _flowTimers.add(
-      Timer(const Duration(milliseconds: 3700), () {
-        if (!mounted) return;
-        showState(gateExpandedState);
       }),
     );
   }
@@ -895,29 +881,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   }) {
     return Row(
       children: [
-        Container(
-          height: 24,
-          width: 24,
-          decoration: BoxDecoration(
-            color: tone.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          alignment: Alignment.center,
-          child: Icon(icon, size: 15, color: tone),
-        ),
-        const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: tone,
-              height: 1,
-            ),
-          ),
+          child: _AnimatedCompactLabel(title: title, tone: tone, icon: icon),
         ),
       ],
     );
@@ -1059,29 +1024,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   }) {
     return Row(
       children: [
-        Container(
-          height: 24,
-          width: 24,
-          decoration: BoxDecoration(
-            color: tone.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          alignment: Alignment.center,
-          child: Icon(icon, size: 15, color: tone),
-        ),
-        const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: tone,
-              height: 1,
-            ),
-          ),
+          child: _AnimatedCompactLabel(title: title, tone: tone, icon: icon),
         ),
       ],
     );
@@ -2028,6 +1972,83 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
+      ],
+    );
+  }
+}
+
+class _AnimatedCompactLabel extends StatelessWidget {
+  const _AnimatedCompactLabel({
+    required this.title,
+    required this.tone,
+    required this.icon,
+  });
+
+  final String title;
+  final Color tone;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 170),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(begin: 0.92, end: 1).animate(animation),
+                child: child,
+              ),
+            );
+          },
+          child: Container(
+            key: ValueKey<String>('icon:${icon.codePoint}:${tone.value}'),
+            height: 24,
+            width: 24,
+            decoration: BoxDecoration(
+              color: tone.withValues(alpha: 0.2),
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: Icon(icon, size: 15, color: tone),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 190),
+            switchInCurve: Curves.easeOutCubic,
+            switchOutCurve: Curves.easeInCubic,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.12),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
+            child: Text(
+              title,
+              key: ValueKey<String>('title:$title:${tone.value}'),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: tone,
+                height: 1,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

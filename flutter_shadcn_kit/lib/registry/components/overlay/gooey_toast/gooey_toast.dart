@@ -36,6 +36,8 @@ enum GooeyToastAnimationStyle { sileo, smooth, snappy, bouncy }
 
 enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
+enum GooeyToastExpansionPhase { closed, opening, open, closing }
+
 class GooeyToastAction {
   const GooeyToastAction({required this.label, required this.onPressed});
 
@@ -271,6 +273,7 @@ class GooeyToastController extends ChangeNotifier {
     bool? dismissWholeStackWhenMultiple,
     GooeyToastAction? action,
     bool persistUntilDismissed = false,
+    ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
@@ -396,6 +399,7 @@ class GooeyToastController extends ChangeNotifier {
         animationStyle: resolvedAnimationStyle,
         shapeStyle: resolvedShapeStyle,
         action: action,
+        onExpansionPhaseChanged: onExpansionPhaseChanged,
       ),
     );
 
@@ -471,6 +475,7 @@ class GooeyToast extends StatefulWidget {
     this.animationStyle = GooeyToastAnimationStyle.sileo,
     this.shapeStyle = GooeyToastShapeStyle.defaultShape,
     this.action,
+    this.onExpansionPhaseChanged,
   });
 
   final String title;
@@ -490,6 +495,7 @@ class GooeyToast extends StatefulWidget {
   final GooeyToastAnimationStyle animationStyle;
   final GooeyToastShapeStyle shapeStyle;
   final GooeyToastAction? action;
+  final ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged;
 
   @override
   State<GooeyToast> createState() => _GooeyToastState();
@@ -508,6 +514,7 @@ class _GooeyToastState extends State<GooeyToast>
   late final AnimationController _openController;
   late Animation<double> _openCurve;
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
+  GooeyToastExpansionPhase _lastPhase = GooeyToastExpansionPhase.closed;
 
   bool get _isLoading => widget.state == GooeyToastState.loading;
   bool get _hasContent =>
@@ -530,6 +537,12 @@ class _GooeyToastState extends State<GooeyToast>
     _openCurve = CurvedAnimation(
       parent: _openController,
       curve: _curveForAnimationStyle(widget.animationStyle),
+    );
+    _openController.addStatusListener(_handleOpenStatus);
+    _emitPhase(
+      _targetOpen
+          ? GooeyToastExpansionPhase.opening
+          : GooeyToastExpansionPhase.closed,
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -565,6 +578,7 @@ class _GooeyToastState extends State<GooeyToast>
   void dispose() {
     _expandTimer?.cancel();
     _collapseTimer?.cancel();
+    _openController.removeStatusListener(_handleOpenStatus);
     _openController.dispose();
     super.dispose();
   }
@@ -577,10 +591,35 @@ class _GooeyToastState extends State<GooeyToast>
 
   void _syncOpenAnimation() {
     if (_targetOpen) {
+      _emitPhase(GooeyToastExpansionPhase.opening);
       _openController.forward();
     } else {
+      _emitPhase(GooeyToastExpansionPhase.closing);
       _openController.reverse();
     }
+  }
+
+  void _handleOpenStatus(AnimationStatus status) {
+    switch (status) {
+      case AnimationStatus.dismissed:
+        _emitPhase(GooeyToastExpansionPhase.closed);
+        break;
+      case AnimationStatus.forward:
+        _emitPhase(GooeyToastExpansionPhase.opening);
+        break;
+      case AnimationStatus.reverse:
+        _emitPhase(GooeyToastExpansionPhase.closing);
+        break;
+      case AnimationStatus.completed:
+        _emitPhase(GooeyToastExpansionPhase.open);
+        break;
+    }
+  }
+
+  void _emitPhase(GooeyToastExpansionPhase phase) {
+    if (_lastPhase == phase) return;
+    _lastPhase = phase;
+    widget.onExpansionPhaseChanged?.call(phase);
   }
 
   void _scheduleAutopilot() {
@@ -878,11 +917,37 @@ class _GooeyToastState extends State<GooeyToast>
                                         ),
                                         const SizedBox(width: 8),
                                         Expanded(
-                                          child: Text(
-                                            widget.title,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: titleStyle,
+                                          child: AnimatedSwitcher(
+                                            duration: const Duration(
+                                              milliseconds: 170,
+                                            ),
+                                            switchInCurve: Curves.easeOutCubic,
+                                            switchOutCurve: Curves.easeInCubic,
+                                            transitionBuilder:
+                                                (child, animation) {
+                                                  return FadeTransition(
+                                                    opacity: animation,
+                                                    child: SlideTransition(
+                                                      position: Tween<Offset>(
+                                                        begin: const Offset(
+                                                          0,
+                                                          0.12,
+                                                        ),
+                                                        end: Offset.zero,
+                                                      ).animate(animation),
+                                                      child: child,
+                                                    ),
+                                                  );
+                                                },
+                                            child: Text(
+                                              widget.title,
+                                              key: ValueKey(
+                                                '${widget.state.name}|${widget.title}',
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: titleStyle,
+                                            ),
                                           ),
                                         ),
                                         if (showExpandedControls) ...[
