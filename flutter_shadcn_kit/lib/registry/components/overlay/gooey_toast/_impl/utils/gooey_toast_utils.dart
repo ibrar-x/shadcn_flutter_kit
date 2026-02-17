@@ -50,9 +50,11 @@ Set<ToastSwipeDirection> _defaultDismissDirections({
   };
   switch (position) {
     case GooeyToastPosition.left:
+    case GooeyToastPosition.centerLeft:
       directions.add(ToastSwipeDirection.left);
       break;
     case GooeyToastPosition.right:
+    case GooeyToastPosition.centerRight:
       directions.add(ToastSwipeDirection.right);
       break;
     case GooeyToastPosition.center:

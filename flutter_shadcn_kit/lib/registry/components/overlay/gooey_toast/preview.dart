@@ -75,6 +75,21 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       expandDirection: GooeyToastExpandDirection.bottom,
     ),
     _ViewportPreset(
+      label: 'center-left',
+      position: GooeyToastPosition.centerLeft,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
+      label: 'center',
+      position: GooeyToastPosition.center,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
+      label: 'center-right',
+      position: GooeyToastPosition.centerRight,
+      expandDirection: GooeyToastExpandDirection.bottom,
+    ),
+    _ViewportPreset(
       label: 'bottom-left',
       position: GooeyToastPosition.left,
       expandDirection: GooeyToastExpandDirection.top,

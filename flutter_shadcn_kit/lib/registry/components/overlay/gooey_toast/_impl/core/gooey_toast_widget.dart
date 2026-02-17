@@ -21,7 +21,10 @@ class GooeyToast extends StatefulWidget {
     /// Semantic state used for default icon/tone.
     this.state = GooeyToastState.success,
 
-    /// Horizontal header alignment: left/center/right.
+    /// Compact header alignment preset.
+    ///
+    /// `centerLeft` maps to left alignment and `centerRight` maps to right
+    /// alignment inside the toast canvas.
     this.position = GooeyToastPosition.left,
 
     /// Direction that expanded body grows from compact header.
@@ -405,6 +408,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       GooeyToastPosition.right => toastWidth - pillWidth,
       GooeyToastPosition.center => (toastWidth - pillWidth) / 2.0,
       GooeyToastPosition.left => 0.0,
+      GooeyToastPosition.centerLeft => 0.0,
+      GooeyToastPosition.centerRight => toastWidth - pillWidth,
     };
     final targetExpandedHeight = targetOpen
         ? rawExpanded

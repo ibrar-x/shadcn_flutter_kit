@@ -24,7 +24,7 @@ class GooeyAutopilot {
 
 enum GooeyToastState { success, loading, error, warning, info, action }
 
-enum GooeyToastPosition { left, center, right }
+enum GooeyToastPosition { left, center, right, centerLeft, centerRight }
 
 enum GooeyToastExpandDirection { top, bottom }
 

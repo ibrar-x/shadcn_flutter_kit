@@ -112,7 +112,10 @@ class GooeyToastController extends ChangeNotifier {
       collapseDelay: Duration(milliseconds: 2200),
     ),
 
-    /// Horizontal anchor for all steps in the sequence.
+    /// Placement preset for all steps in the sequence.
+    ///
+    /// `left/right/center` anchor on top or bottom edge depending on
+    /// [expandDirection]. `centerLeft/centerRight` anchor on vertical center.
     GooeyToastPosition position = GooeyToastPosition.left,
 
     /// Vertical grow direction for all steps in the sequence.
@@ -330,7 +333,10 @@ class GooeyToastController extends ChangeNotifier {
     /// Semantic state controlling default tone/icon.
     GooeyToastState state = GooeyToastState.success,
 
-    /// Horizontal anchor: left/center/right.
+    /// Placement preset.
+    ///
+    /// `left/right/center` anchor on top or bottom edge depending on
+    /// [expandDirection]. `centerLeft/centerRight` anchor on vertical center.
     GooeyToastPosition position = GooeyToastPosition.left,
 
     /// Vertical grow direction when expanded.
@@ -476,23 +482,40 @@ class GooeyToastController extends ChangeNotifier {
     const edgeInset = 16.0;
     final media = MediaQuery.maybeOf(context);
     final screenWidth = media?.size.width ?? resolvedWidth;
+    final screenHeight =
+        media?.size.height ?? (_kToastHeight * _kMinExpandRatio);
     final leftCenter = ((screenWidth - resolvedWidth) / 2).clamp(
       edgeInset,
       screenWidth - resolvedWidth - edgeInset,
     );
+    final centerTop = ((screenHeight - _kToastHeight) / 2).clamp(
+      edgeInset,
+      screenHeight - (_kToastHeight * _kMinExpandRatio) - edgeInset,
+    );
+    final isCenterBandPosition =
+        position == GooeyToastPosition.centerLeft ||
+        position == GooeyToastPosition.centerRight;
     final resolvedLeft = switch (position) {
       GooeyToastPosition.left => edgeInset,
       GooeyToastPosition.center => leftCenter.toDouble(),
       GooeyToastPosition.right => null,
+      GooeyToastPosition.centerLeft => edgeInset,
+      GooeyToastPosition.centerRight => null,
     };
     final resolvedRight = switch (position) {
       GooeyToastPosition.left => null,
       GooeyToastPosition.center => null,
       GooeyToastPosition.right => edgeInset,
+      GooeyToastPosition.centerLeft => null,
+      GooeyToastPosition.centerRight => edgeInset,
     };
     final showTop = expandDirection == GooeyToastExpandDirection.bottom;
-    final resolvedTop = showTop ? edgeInset : null;
-    final resolvedBottom = showTop ? null : edgeInset;
+    final resolvedTop = isCenterBandPosition
+        ? centerTop.toDouble()
+        : (showTop ? edgeInset : null);
+    final resolvedBottom = isCenterBandPosition
+        ? null
+        : (showTop ? null : edgeInset);
 
     _toastController.show(
       context: context,
