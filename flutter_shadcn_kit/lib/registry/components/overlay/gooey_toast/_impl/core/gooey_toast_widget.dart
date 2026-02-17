@@ -1186,12 +1186,20 @@ class _GooeyPainter extends CustomPainter {
   }
 
   void _drawMaskShapes(Canvas canvas, Size size, Paint paint) {
+    if (renderStyle == GooeyRenderStyle.blurThreshold) {
+      canvas.drawPath(_buildStretchMask(size, openProgress), paint);
+      return;
+    }
     final pillRect = _pillRectForMode();
     canvas.drawRRect(pillRect, paint);
     _drawScaledBody(canvas, size, paint);
   }
 
   void _drawCrispShapes(Canvas canvas, Size size, Paint paint) {
+    if (renderStyle == GooeyRenderStyle.blurThreshold) {
+      canvas.drawPath(_buildStretchMask(size, openProgress), paint);
+      return;
+    }
     final pillRect = _pillRectForMode();
     canvas.drawRRect(pillRect, paint);
     _drawScaledBody(canvas, size, paint);
@@ -1235,6 +1243,65 @@ class _GooeyPainter extends CustomPainter {
       Rect.fromLTWH(pillX, 0, pillWidth, visiblePillHeight),
       Radius.circular(roundness),
     );
+  }
+
+  Path _buildStretchMask(Size size, double t) {
+    const seamOverlap = 10.0;
+    final seamY = _kToastHeight - seamOverlap;
+    final pill = RRect.fromRectAndRadius(
+      Rect.fromLTWH(pillX, 0, pillWidth, _kToastHeight),
+      Radius.circular(roundness),
+    );
+    final head = Path()..addRRect(pill);
+    if (bodyHeight <= 0) return head;
+
+    final clampedT = t.clamp(0.0, 1.0).toDouble();
+    if (clampedT <= 0.001) return head;
+
+    final hT = Curves.easeInOutCubic.transform(clampedT);
+    final currentBodyHeight = (bodyHeight + seamOverlap) * hT;
+    if (currentBodyHeight <= 0.5) return head;
+
+    final wT = Curves.easeOutCubic.transform(
+      ((clampedT - 0.10) / 0.90).clamp(0.0, 1.0).toDouble(),
+    );
+    final bodyX = lerpDouble(pillX, 0.0, wT) ?? 0.0;
+    final bodyW = lerpDouble(pillWidth, size.width, wT) ?? size.width;
+
+    final body = RRect.fromRectAndRadius(
+      Rect.fromLTWH(bodyX, seamY, bodyW, currentBodyHeight),
+      Radius.circular(roundness),
+    );
+    final bodyPath = Path()..addRRect(body);
+
+    final neckWiden =
+        lerpDouble(0.0, roundness * 1.2, Curves.easeOut.transform(clampedT)) ??
+        0.0;
+    final leftTop = pillX;
+    final rightTop = pillX + pillWidth;
+    var leftBottom = (bodyX - neckWiden).clamp(0.0, size.width).toDouble();
+    var rightBottom = (bodyX + bodyW + neckWiden)
+        .clamp(0.0, size.width)
+        .toDouble();
+    if (leftBottom > rightBottom) {
+      final mid = (leftBottom + rightBottom) / 2;
+      leftBottom = mid;
+      rightBottom = mid;
+    }
+
+    final topY = seamY;
+    final bottomY = _kToastHeight;
+    final ctrlY = lerpDouble(topY, bottomY, 0.65) ?? bottomY;
+
+    final neck = Path()
+      ..moveTo(leftTop, topY)
+      ..quadraticBezierTo(leftBottom, ctrlY, leftBottom, bottomY)
+      ..lineTo(rightBottom, bottomY)
+      ..quadraticBezierTo(rightBottom, ctrlY, rightTop, topY)
+      ..close();
+
+    final combined = Path.combine(PathOperation.union, head, bodyPath);
+    return Path.combine(PathOperation.union, combined, neck);
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
