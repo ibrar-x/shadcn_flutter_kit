@@ -73,6 +73,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.customCompact,
     _DemoAction.customExpanded,
     _DemoAction.customBoth,
+    _DemoAction.flightPath,
   ];
 
   @override
@@ -314,7 +315,162 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             ],
           ),
         );
+      case _DemoAction.flightPath:
+        show(
+          title: 'Booking Confirmed',
+          state: GooeyToastState.success,
+          compactChild: Row(
+            children: [
+              Container(
+                height: 24,
+                width: 24,
+                decoration: const BoxDecoration(
+                  color: Color(0x1A63C65E),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.check_rounded,
+                  size: 16,
+                  color: Color(0xFF42C853),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Booking Confirmed',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF42C853),
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          expandedChild: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: const [
+                  Text(
+                    'UNITED',
+                    style: TextStyle(
+                      fontSize: 11,
+                      letterSpacing: 3.2,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFFE8E8E8),
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    'PNR EC2QW4',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF8C8C8C),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              SizedBox(
+                height: 62,
+                child: Stack(
+                  children: [
+                    const Positioned(
+                      left: 8,
+                      bottom: 0,
+                      child: Text(
+                        'DEL',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFEDEDED),
+                        ),
+                      ),
+                    ),
+                    const Positioned(
+                      right: 8,
+                      bottom: 0,
+                      child: Text(
+                        'SFO',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFEDEDED),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 2,
+                      child: Text(
+                        '------------------------------',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: const Color(
+                            0xFF42C853,
+                          ).withValues(alpha: 0.55),
+                          fontSize: 16,
+                          letterSpacing: 1.8,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                    Positioned(left: 56, bottom: 6, child: _flightDot()),
+                    Positioned(right: 56, bottom: 6, child: _flightDot()),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                height: 40,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(999),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF123E1C), Color(0xFF1E5F29)],
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  'View Details',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF4DDE5D),
+                    height: 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
     }
+  }
+
+  Widget _flightDot() {
+    return Container(
+      height: 34,
+      width: 34,
+      decoration: const BoxDecoration(
+        color: Color(0x1F42C853),
+        shape: BoxShape.circle,
+      ),
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.arrow_outward_rounded,
+        size: 18,
+        color: Color(0xFF42C853),
+      ),
+    );
   }
 
   @override
@@ -749,6 +905,7 @@ enum _DemoAction {
   customCompact,
   customExpanded,
   customBoth,
+  flightPath,
 }
 
 extension on _DemoAction {
@@ -764,6 +921,7 @@ extension on _DemoAction {
       _DemoAction.customCompact => 'Custom Compact',
       _DemoAction.customExpanded => 'Custom Expanded',
       _DemoAction.customBoth => 'Custom Both',
+      _DemoAction.flightPath => 'Flight Path',
     };
   }
 }
