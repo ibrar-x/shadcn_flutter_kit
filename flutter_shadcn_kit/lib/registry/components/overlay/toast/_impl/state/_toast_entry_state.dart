@@ -39,6 +39,12 @@ class _ToastEntryState extends State<ToastEntry>
   @override
   void didUpdateWidget(covariant ToastEntry oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.refreshSignal != widget.refreshSignal && !_dismissing) {
+      _remaining = widget.duration;
+      if (widget.autoDismiss) {
+        _scheduleDismiss();
+      }
+    }
     if (oldWidget.dismissSignal != widget.dismissSignal &&
         widget.dismissSignal > 0 &&
         !_dismissing) {

@@ -195,6 +195,7 @@ class GooeyToastController {
 
   void show({
     required BuildContext context,
+    String? id,
     required String title,
     String? description,
     GooeyToastState state = GooeyToastState.success,
@@ -314,6 +315,7 @@ class GooeyToastController {
       dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
       enableStackExpandedMode: false,
       singleToastPerGroup: true,
+      toastId: id,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,

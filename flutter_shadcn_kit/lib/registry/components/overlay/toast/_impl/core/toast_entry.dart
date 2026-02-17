@@ -41,6 +41,9 @@ class ToastEntry extends StatefulWidget {
   /// Stores `dismissSignal` state/configuration for this implementation.
   final int dismissSignal;
 
+  /// Stores `refreshSignal` state/configuration for this implementation.
+  final int refreshSignal;
+
   /// Stores `onDismissRequest` state/configuration for this implementation.
   final bool Function()? onDismissRequest;
 
@@ -66,6 +69,7 @@ class ToastEntry extends StatefulWidget {
     this.onInteractionEnd,
     this.onTap,
     this.dismissSignal = 0,
+    this.refreshSignal = 0,
     this.onDismissRequest,
     this.onPointerScroll,
     this.onDragScroll,
