@@ -564,64 +564,96 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           tone: model.tone,
           icon: model.icon,
         ),
-        expandedChild: _flightExpanded(model),
+        expandedChild: model.showExpanded ? _flightExpanded(model) : null,
       );
     }
 
-    final steps = <_FlightToastModel>[
-      const _FlightToastModel(
-        stateTag: 'flight-booking-pending',
-        title: 'Booking In Progress',
-        subtitle: 'Reserving seat and confirming fare class...',
-        state: GooeyToastState.loading,
-        icon: Icons.sync,
-        tone: Color(0xFF77A8FF),
-        fromCode: 'DEL',
-        toCode: 'SFO',
-        pnr: 'PNR -',
-        cta: 'Preparing',
-        duration: Duration(milliseconds: 2400),
-        autopilot: null,
+    const loadingState = _FlightToastModel(
+      stateTag: 'flight-booking-pending',
+      title: 'Booking In Progress',
+      subtitle: 'Reserving seat and confirming fare class...',
+      state: GooeyToastState.loading,
+      icon: Icons.sync,
+      tone: Color(0xFF77A8FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR -',
+      cta: 'Preparing',
+      duration: Duration(milliseconds: 2800),
+      autopilot: null,
+      showExpanded: false,
+    );
+    const successState = _FlightToastModel(
+      stateTag: 'flight-booking-confirmed',
+      title: 'Booking Confirmed',
+      subtitle: 'Your itinerary is issued and synced to your account.',
+      state: GooeyToastState.success,
+      icon: Icons.check,
+      tone: Color(0xFF42C853),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'View Details',
+      duration: Duration(milliseconds: 3200),
+      autopilot: GooeyAutopilot(
+        expandDelay: Duration.zero,
+        collapseDelay: Duration(milliseconds: 2200),
       ),
-      const _FlightToastModel(
-        stateTag: 'flight-booking-confirmed',
-        title: 'Booking Confirmed',
-        subtitle: 'Your itinerary is issued and synced to your account.',
-        state: GooeyToastState.success,
-        icon: Icons.check,
-        tone: Color(0xFF42C853),
-        fromCode: 'DEL',
-        toCode: 'SFO',
-        pnr: 'PNR EC2QW4',
-        cta: 'View Details',
-        duration: Duration(milliseconds: 3200),
+      showExpanded: true,
+    );
+    const gateCompactState = _FlightToastModel(
+      stateTag: 'flight-gate-updated-compact',
+      title: 'Gate Updated',
+      subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
+      state: GooeyToastState.info,
+      icon: Icons.info_outline,
+      tone: Color(0xFF8EA3FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'Open Pass',
+      duration: Duration(milliseconds: 3600),
+      autopilot: null,
+      showExpanded: false,
+    );
+    const gateExpandedState = _FlightToastModel(
+      stateTag: 'flight-gate-updated-expanded',
+      title: 'Gate Updated',
+      subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
+      state: GooeyToastState.info,
+      icon: Icons.info_outline,
+      tone: Color(0xFF8EA3FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'Open Pass',
+      duration: Duration(milliseconds: 3600),
+      autopilot: GooeyAutopilot(
+        expandDelay: Duration.zero,
+        collapseDelay: Duration(milliseconds: 2600),
       ),
-      const _FlightToastModel(
-        stateTag: 'flight-gate-updated',
-        title: 'Gate Updated',
-        subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
-        state: GooeyToastState.info,
-        icon: Icons.info_outline,
-        tone: Color(0xFF8EA3FF),
-        fromCode: 'DEL',
-        toCode: 'SFO',
-        pnr: 'PNR EC2QW4',
-        cta: 'Open Pass',
-        duration: Duration(milliseconds: 3600),
-      ),
-    ];
+      showExpanded: true,
+    );
 
-    showState(steps.first);
-    var offsetMs = 1100;
-    for (var i = 1; i < steps.length; i++) {
-      _flowTimers.add(
-        Timer(Duration(milliseconds: offsetMs), () {
-          if (!mounted) return;
-          showState(steps[i]);
-        }),
-      );
-      offsetMs += 1500;
-    }
+    showState(loadingState);
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 1200), () {
+        if (!mounted) return;
+        showState(successState);
+      }),
+    );
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 3000), () {
+        if (!mounted) return;
+        showState(gateCompactState);
+      }),
+    );
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 3380), () {
+        if (!mounted) return;
+        showState(gateExpandedState);
+      }),
+    );
   }
 
   Widget _flightCompact({
@@ -1292,6 +1324,7 @@ class _FlightToastModel {
     required this.toCode,
     required this.pnr,
     required this.cta,
+    this.showExpanded = true,
     this.duration,
     this.autopilot = const GooeyAutopilot(),
   });
@@ -1306,6 +1339,7 @@ class _FlightToastModel {
   final String toCode;
   final String pnr;
   final String cta;
+  final bool showExpanded;
   final Duration? duration;
   final GooeyAutopilot? autopilot;
 }
