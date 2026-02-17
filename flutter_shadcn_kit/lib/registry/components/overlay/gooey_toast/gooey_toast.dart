@@ -1274,11 +1274,17 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: _compactMorphCurve,
       builder: (context, _) {
-        final t = _showPreviousCompact ? _compactMorphCurve.value : 1.0;
+        final t = _showPreviousCompact
+            ? _compactMorphCurve.value.clamp(0.0, 1.0).toDouble()
+            : 1.0;
         final morph = widget.compactMorph;
         final previousTone = _toneForState(_previousState ?? state, gooeyTheme);
-        final previousOpacity = _showPreviousCompact ? (1 - t) : 0.0;
-        final currentOpacity = _showPreviousCompact ? t : 1.0;
+        final previousOpacity = _showPreviousCompact
+            ? (1 - t).clamp(0.0, 1.0).toDouble()
+            : 0.0;
+        final currentOpacity = _showPreviousCompact
+            ? t.clamp(0.0, 1.0).toDouble()
+            : 1.0;
         return SizedBox(
           height: 24,
           width: 24,
@@ -1321,7 +1327,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     required double scale,
   }) {
     return Transform.scale(
-      scale: scale,
+      scale: scale.clamp(0.65, 1.15).toDouble(),
       child: Container(
         height: 24,
         width: 24,
@@ -1347,9 +1353,15 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       animation: _compactMorphCurve,
       builder: (context, _) {
         final morph = widget.compactMorph;
-        final t = _showPreviousCompact ? _compactMorphCurve.value : 1.0;
-        final previousOpacity = _showPreviousCompact ? (1 - t) : 0.0;
-        final currentOpacity = _showPreviousCompact ? t : 1.0;
+        final t = _showPreviousCompact
+            ? _compactMorphCurve.value.clamp(0.0, 1.0).toDouble()
+            : 1.0;
+        final previousOpacity = _showPreviousCompact
+            ? (1 - t).clamp(0.0, 1.0).toDouble()
+            : 0.0;
+        final currentOpacity = _showPreviousCompact
+            ? t.clamp(0.0, 1.0).toDouble()
+            : 1.0;
         final previousOffset = _showPreviousCompact
             ? Offset(
                 -morph.slideOffset.dx * t,
