@@ -489,9 +489,13 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                     (targetExpandedHeight - _kToastHeight)
                         .clamp(0.0, 1000.0)
                         .toDouble();
-                final pillScaleY =
+                final animatedPillScaleY =
                     lerpDouble(_kToastHeight / pillHeight, 1.0, openProgress) ??
                     1.0;
+                final pillScaleY =
+                    widget.renderStyle == GooeyRenderStyle.blurThreshold
+                    ? 1.0
+                    : animatedPillScaleY;
                 final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
                 final translateY =
                     (widget.expandDirection == GooeyToastExpandDirection.bottom
@@ -1197,16 +1201,16 @@ class _GooeyPainter extends CustomPainter {
 
   void _drawScaledBody(Canvas canvas, Size size, Paint paint) {
     if (bodyHeight <= 0 || bodyScaleY <= 0) return;
-    const seamOverlap = 2.0;
-    canvas.save();
-    canvas.translate(0, _kToastHeight - seamOverlap);
-    canvas.scale(1, bodyScaleY);
+    const seamOverlap = 8.0;
+    final seamY = _kToastHeight - seamOverlap;
+    final eased = Curves.easeInOutCubic.transform(bodyScaleY.clamp(0.0, 1.0));
+    final currentBodyHeight = (bodyHeight + seamOverlap) * eased;
+    if (currentBodyHeight <= 0.5) return;
     final bodyRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
+      Rect.fromLTWH(0, seamY, size.width, currentBodyHeight),
       Radius.circular(roundness),
     );
     canvas.drawRRect(bodyRect, paint);
-    canvas.restore();
   }
 
   void _paintPathMorph(Canvas canvas, Size size, Paint paint, RRect pillRect) {
