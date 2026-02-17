@@ -64,6 +64,11 @@ class GooeyToast extends StatefulWidget {
     /// Shape profile applied to roundness.
     this.shapeStyle = GooeyToastShapeStyle.defaultShape,
 
+    /// Toggles the gooey blur compositing pass.
+    ///
+    /// `true` keeps metaball-style blending. `false` renders crisp-only shape.
+    this.enableGooeyBlur = true,
+
     /// Optional action rendered in expanded default body.
     this.action,
 
@@ -124,6 +129,9 @@ class GooeyToast extends StatefulWidget {
 
   /// Shape style for corner behavior.
   final GooeyToastShapeStyle shapeStyle;
+
+  /// Whether gooey blur compositing is enabled.
+  final bool enableGooeyBlur;
 
   /// Optional expanded action.
   final GooeyToastAction? action;
@@ -401,7 +409,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _frozenExpandedHeight = rawExpanded;
     }
 
-    final blur = resolvedRoundness * _kBlurRatio;
+    final blur = widget.enableGooeyBlur ? resolvedRoundness * _kBlurRatio : 0.0;
     final pillHeight = _kToastHeight + blur * 3;
 
     final pillX = switch (widget.position) {
@@ -553,6 +561,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                               pillScaleY: pillScaleY,
                               bodyHeight: expandedContentHeight,
                               bodyScaleY: bodyScaleY,
+                              enableGooeyBlur: widget.enableGooeyBlur,
                             ),
                           ),
                         ),
@@ -1018,6 +1027,7 @@ class _GooeyLayer extends StatelessWidget {
     required this.pillScaleY,
     required this.bodyHeight,
     required this.bodyScaleY,
+    required this.enableGooeyBlur,
   });
 
   final double width;
@@ -1031,6 +1041,7 @@ class _GooeyLayer extends StatelessWidget {
   final double pillScaleY;
   final double bodyHeight;
   final double bodyScaleY;
+  final bool enableGooeyBlur;
 
   @override
   Widget build(BuildContext context) {
@@ -1055,40 +1066,42 @@ class _GooeyLayer extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          ColorFiltered(
-            colorFilter: const ColorFilter.matrix(<double>[
-              1,
-              0,
-              0,
-              0,
-              0,
-              0,
-              1,
-              0,
-              0,
-              0,
-              0,
-              0,
-              1,
-              0,
-              0,
-              0,
-              0,
-              0,
-              20,
-              -2550,
-            ]),
-            child: ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-              child: shapeLayer(),
-            ),
-          ),
-          shapeLayer(),
-        ],
-      ),
+      child: enableGooeyBlur
+          ? Stack(
+              clipBehavior: Clip.none,
+              children: [
+                ColorFiltered(
+                  colorFilter: const ColorFilter.matrix(<double>[
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    20,
+                    -2550,
+                  ]),
+                  child: ImageFiltered(
+                    imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                    child: shapeLayer(),
+                  ),
+                ),
+                shapeLayer(),
+              ],
+            )
+          : shapeLayer(),
     );
   }
 }

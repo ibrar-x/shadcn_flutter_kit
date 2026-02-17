@@ -22,6 +22,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   _DemoAction? _selectedAction;
   GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
   GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
+  bool _enableGooeyBlur = true;
   bool _autopilotEnabled = true;
   bool _pauseOnHover = true;
   _DismissBehavior _dismissBehavior = _DismissBehavior.auto;
@@ -178,6 +179,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       bool? persistUntilDismissed,
       ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
       ValueChanged<double>? onExpansionProgressChanged,
+      bool? enableGooeyBlur,
     }) {
       _controller.show(
         context: context,
@@ -190,6 +192,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
         shapeStyle: _shapeStyle,
+        enableGooeyBlur: enableGooeyBlur ?? _enableGooeyBlur,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
@@ -308,6 +311,47 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       if (onExpandedPhaseChanged != null) {
         onExpandedPhaseChanged(GooeyToastExpansionPhase.open);
       }
+    }
+
+    void showRenderVariantComparison() {
+      _controller.dismiss('variant-gooey');
+      _controller.dismiss('variant-flat');
+      _controller.show(
+        context: context,
+        id: 'variant-gooey',
+        stateTag: 'variant-gooey',
+        title: 'With Gooey Blur',
+        description: 'Metaball blur pass enabled.',
+        state: GooeyToastState.info,
+        position: GooeyToastPosition.centerLeft,
+        expandDirection: GooeyToastExpandDirection.bottom,
+        animationStyle: _animationStyle,
+        shapeStyle: _shapeStyle,
+        enableGooeyBlur: true,
+        pauseOnHover: _pauseOnHover,
+        swipeToDismiss: swipeToDismiss,
+        dismissDirections: dismissDirections,
+        dismissDragThreshold: 68,
+        autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
+      );
+      _controller.show(
+        context: context,
+        id: 'variant-flat',
+        stateTag: 'variant-flat',
+        title: 'Without Gooey Blur',
+        description: 'Crisp-only paint pass, no metaball blur.',
+        state: GooeyToastState.info,
+        position: GooeyToastPosition.centerRight,
+        expandDirection: GooeyToastExpandDirection.bottom,
+        animationStyle: _animationStyle,
+        shapeStyle: _shapeStyle,
+        enableGooeyBlur: false,
+        pauseOnHover: _pauseOnHover,
+        swipeToDismiss: swipeToDismiss,
+        dismissDirections: dismissDirections,
+        dismissDragThreshold: 68,
+        autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
+      );
     }
 
     switch (action) {
@@ -856,6 +900,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           _customFlowActiveId = id;
           _customFlowCurrentIndex = nextIndex;
         });
+      case _DemoAction.blurCompare:
+        showRenderVariantComparison();
     }
   }
 
@@ -1398,6 +1444,40 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                     fontSize: chipFont,
                                     radius: chipRadius,
                                   ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Render',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                _PlaygroundChip(
+                                  label: _enableGooeyBlur
+                                      ? 'gooey blur · on'
+                                      : 'gooey blur · off',
+                                  selected: _enableGooeyBlur,
+                                  onTap: () => setState(
+                                    () => _enableGooeyBlur = !_enableGooeyBlur,
+                                  ),
+                                  minWidth: ultra ? 126 : 158,
+                                  minHeight: chipHeight,
+                                  fontSize: chipFont,
+                                  radius: chipRadius,
+                                ),
+                                _PlaygroundChip(
+                                  label: 'show both variants',
+                                  selected: false,
+                                  onTap: () =>
+                                      _triggerDemo(_DemoAction.blurCompare),
+                                  minWidth: ultra ? 130 : 168,
+                                  minHeight: chipHeight,
+                                  fontSize: chipFont,
+                                  radius: chipRadius,
+                                ),
                               ],
                             ),
                           ),
@@ -2064,6 +2144,7 @@ enum _DemoAction {
   interactiveReply,
   flightPromise,
   customStateFlow,
+  blurCompare,
 }
 
 extension on _DemoAction {
@@ -2083,6 +2164,7 @@ extension on _DemoAction {
       _DemoAction.interactiveReply => 'Interactive Reply',
       _DemoAction.flightPromise => 'Flight Promise',
       _DemoAction.customStateFlow => 'Custom States',
+      _DemoAction.blurCompare => 'Blur Compare',
     };
   }
 }
