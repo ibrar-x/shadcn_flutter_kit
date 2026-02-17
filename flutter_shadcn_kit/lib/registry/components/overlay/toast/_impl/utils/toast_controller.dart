@@ -35,6 +35,7 @@ class ToastController {
     Curve? stackAnimationCurve,
     int? maxVisibleCount,
     bool? dismissWholeStackWhenMultiple,
+    bool? enableStackExpandedMode,
     bool? pauseOnHover,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
@@ -91,6 +92,7 @@ class ToastController {
             dismissWholeStackWhenMultiple ??
             toastTheme?.dismissWholeStackWhenMultiple ??
             false;
+        final resolvedEnableStackExpandedMode = enableStackExpandedMode ?? true;
         final resolvedPauseOnHover =
             pauseOnHover ?? toastTheme?.pauseOnHover ?? false;
         final resolvedDismissDirections =
@@ -120,6 +122,7 @@ class ToastController {
           ..panelWidth = _groupMaxWidth(groupEntries);
         final hasMultipleGroup = groupEntries.length > 1;
         final groupExpanded =
+            resolvedEnableStackExpandedMode &&
             hasMultipleGroup &&
             (groupState.expanded || groupState.holdExpandedDuringDismiss);
         final overlapForLayout =
@@ -139,7 +142,7 @@ class ToastController {
         _syncGroupBackdrop(
           groupKey,
           overlay,
-          groupExpanded && hasMultipleGroup,
+          resolvedEnableStackExpandedMode && groupExpanded && hasMultipleGroup,
         );
 
         late final List<_ToastStackItem> visibleEntries;
@@ -265,15 +268,22 @@ class ToastController {
             animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
             pauseOnHover: resolvedPauseOnHover,
             autoDismiss: autoDismissEnabled,
-            onInteractionStart: hasMultipleGroup
+            onInteractionStart:
+                resolvedEnableStackExpandedMode && hasMultipleGroup
                 ? () => _setGroupInteraction(groupKey, true)
                 : null,
-            onInteractionEnd: hasMultipleGroup
+            onInteractionEnd:
+                resolvedEnableStackExpandedMode && hasMultipleGroup
                 ? () => _setGroupInteraction(groupKey, false)
                 : null,
-            onTap: hasMultipleGroup && !groupExpanded
+            onTap:
+                resolvedEnableStackExpandedMode &&
+                    hasMultipleGroup &&
+                    !groupExpanded
                 ? () => _toggleGroupExpanded(groupKey)
-                : hasMultipleGroup && groupExpanded
+                : resolvedEnableStackExpandedMode &&
+                      hasMultipleGroup &&
+                      groupExpanded
                 ? () => _toggleGroupItemExpanded(groupKey, stackItem.id)
                 : null,
             dismissSignal: stackItem.dismissSignal,

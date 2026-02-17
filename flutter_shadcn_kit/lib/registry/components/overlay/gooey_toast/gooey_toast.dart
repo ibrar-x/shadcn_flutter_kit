@@ -265,7 +265,7 @@ class GooeyToastController {
     final resolvedPauseAutoDismissWhenMultiple =
         pauseAutoDismissWhenMultiple ??
         gooeyTheme?.pauseAutoDismissWhenMultiple ??
-        true;
+        false;
     final resolvedStackAnimationDuration =
         stackAnimationDuration ??
         gooeyTheme?.stackAnimationDuration ??
@@ -312,6 +312,7 @@ class GooeyToastController {
       stackAnimationCurve: resolvedStackAnimationCurve,
       maxVisibleCount: resolvedMaxVisibleCount,
       dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
+      enableStackExpandedMode: false,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
