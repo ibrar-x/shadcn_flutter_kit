@@ -90,7 +90,14 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
 
   void _triggerDemo(_DemoAction action) {
     setState(() => _selectedAction = action);
+    _promiseTimer?.cancel();
+    for (final timer in _flowTimers) {
+      timer.cancel();
+    }
+    _flowTimers.clear();
+
     final preset = _presets[_selectedPresetIndex];
+    final defaultToastId = 'demo-${action.name}';
     final swipeToDismiss = _dismissBehavior != _DismissBehavior.off;
     final customDirections = _customDismissDirections.isEmpty
         ? <ToastSwipeDirection>{ToastSwipeDirection.up}
@@ -116,7 +123,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     }) {
       _controller.show(
         context: context,
-        id: id,
+        id: id ?? defaultToastId,
         stateTag: stateTag,
         title: title,
         description: description,
@@ -136,6 +143,53 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         compactChild: compactChild,
         expandedChild: expandedChild,
         duration: duration,
+      );
+    }
+
+    void transitionToState({
+      required String id,
+      required Object stateTag,
+      required String title,
+      required GooeyToastState state,
+      String? description,
+      Widget? compactChild,
+      Widget? expandedChild,
+      Duration? duration,
+      Duration compactGap = const Duration(milliseconds: 260),
+      GooeyAutopilot expandedAutopilot = const GooeyAutopilot(
+        expandDelay: Duration.zero,
+        collapseDelay: Duration(milliseconds: 2200),
+      ),
+    }) {
+      show(
+        id: id,
+        stateTag: '$stateTag:compact',
+        title: title,
+        state: state,
+        description: null,
+        compactChild: compactChild,
+        expandedChild: null,
+        duration: duration,
+        autopilot: null,
+      );
+      if (description == null && expandedChild == null) {
+        return;
+      }
+      _flowTimers.add(
+        Timer(compactGap, () {
+          if (!mounted) return;
+          show(
+            id: id,
+            stateTag: '$stateTag:expanded',
+            title: title,
+            state: state,
+            description: description,
+            compactChild: compactChild,
+            expandedChild: expandedChild,
+            duration: duration,
+            autopilot: expandedAutopilot,
+          );
+        }),
       );
     }
 
@@ -180,21 +234,43 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           icon: const Icon(Icons.auto_awesome_rounded),
         );
       case _DemoAction.promise:
-        _promiseTimer?.cancel();
         show(
+          id: defaultToastId,
+          stateTag: 'promise:loading',
           title: 'Saving Changes',
           description: 'Waiting for server response...',
           state: GooeyToastState.loading,
-          duration: const Duration(milliseconds: 2200),
-          autopilot: null,
+          duration: const Duration(milliseconds: 2600),
+          autopilot: const GooeyAutopilot(
+            expandDelay: Duration.zero,
+            collapseDelay: Duration(milliseconds: 1400),
+          ),
         );
-        _promiseTimer = Timer(const Duration(milliseconds: 1650), () {
+        _promiseTimer = Timer(const Duration(milliseconds: 1700), () {
           if (!mounted) return;
           show(
-            title: 'Changes Saved',
-            description:
-                'Operation completed successfully and synced to the database.',
-            state: GooeyToastState.success,
+            id: defaultToastId,
+            stateTag: 'promise:loading:compact-before-next',
+            title: 'Saving Changes',
+            state: GooeyToastState.loading,
+            compactChild: null,
+            expandedChild: null,
+            autopilot: null,
+            duration: const Duration(milliseconds: 2800),
+          );
+          _flowTimers.add(
+            Timer(const Duration(milliseconds: 220), () {
+              if (!mounted) return;
+              transitionToState(
+                id: defaultToastId,
+                stateTag: 'promise:success',
+                title: 'Changes Saved',
+                state: GooeyToastState.success,
+                description:
+                    'Operation completed successfully and synced to the database.',
+                duration: const Duration(milliseconds: 2800),
+              );
+            }),
           );
         });
       case _DemoAction.customCompact:
@@ -484,40 +560,76 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
               onSend: (message) {
                 show(
                   id: toastId,
-                  stateTag: 'reply:sent:$message',
-                  title: 'Message Sent',
-                  state: GooeyToastState.success,
-                  duration: const Duration(milliseconds: 2600),
+                  stateTag: 'reply:compose:compact-before-sent',
+                  title: 'Thread Reply',
+                  state: GooeyToastState.action,
                   compactChild: _replyCompact(
-                    title: 'Message Sent',
-                    tone: successTone,
-                    icon: Icons.check_rounded,
+                    title: 'Thread Reply',
+                    tone: idleTone,
+                    icon: Icons.forum_rounded,
                   ),
-                  expandedChild: _ReplyResultExpanded(
-                    title: 'Delivered to thread',
-                    body: 'Your reply was sent successfully.\n"$message"',
-                    tone: successTone,
-                  ),
+                  expandedChild: null,
+                  autopilot: null,
+                );
+                _flowTimers.add(
+                  Timer(const Duration(milliseconds: 220), () {
+                    if (!mounted) return;
+                    transitionToState(
+                      id: toastId,
+                      stateTag: 'reply:sent:$message',
+                      title: 'Message Sent',
+                      state: GooeyToastState.success,
+                      duration: const Duration(milliseconds: 2600),
+                      compactChild: _replyCompact(
+                        title: 'Message Sent',
+                        tone: successTone,
+                        icon: Icons.check_rounded,
+                      ),
+                      expandedChild: _ReplyResultExpanded(
+                        title: 'Delivered to thread',
+                        body: 'Your reply was sent successfully.\n"$message"',
+                        tone: successTone,
+                      ),
+                    );
+                  }),
                 );
               },
               onCancel: () {
                 show(
                   id: toastId,
-                  stateTag: 'reply:cancelled',
-                  title: 'Reply Cancelled',
-                  state: GooeyToastState.info,
-                  duration: const Duration(milliseconds: 2000),
+                  stateTag: 'reply:compose:compact-before-cancel',
+                  title: 'Thread Reply',
+                  state: GooeyToastState.action,
                   compactChild: _replyCompact(
-                    title: 'Reply Cancelled',
-                    tone: cancelTone,
-                    icon: Icons.close_rounded,
+                    title: 'Thread Reply',
+                    tone: idleTone,
+                    icon: Icons.forum_rounded,
                   ),
-                  expandedChild: const _ReplyResultExpanded(
-                    title: 'Draft discarded',
-                    body:
-                        'No message was sent. You can open the composer again any time.',
-                    tone: cancelTone,
-                  ),
+                  expandedChild: null,
+                  autopilot: null,
+                );
+                _flowTimers.add(
+                  Timer(const Duration(milliseconds: 220), () {
+                    if (!mounted) return;
+                    transitionToState(
+                      id: toastId,
+                      stateTag: 'reply:cancelled',
+                      title: 'Reply Cancelled',
+                      state: GooeyToastState.info,
+                      duration: const Duration(milliseconds: 2000),
+                      compactChild: _replyCompact(
+                        title: 'Reply Cancelled',
+                        tone: cancelTone,
+                        icon: Icons.close_rounded,
+                      ),
+                      expandedChild: const _ReplyResultExpanded(
+                        title: 'Draft discarded',
+                        body:
+                            'No message was sent. You can open the composer again any time.',
+                        tone: cancelTone,
+                      ),
+                    );
+                  }),
                 );
               },
             ),
@@ -565,6 +677,23 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
           icon: model.icon,
         ),
         expandedChild: model.showExpanded ? _flightExpanded(model) : null,
+      );
+    }
+
+    void showCompact(_FlightToastModel model, {required String stateTag}) {
+      show(
+        id: 'flight-booking-flow',
+        stateTag: stateTag,
+        title: model.title,
+        state: model.state,
+        duration: model.duration,
+        autopilot: null,
+        compactChild: _flightCompact(
+          title: model.title,
+          tone: model.tone,
+          icon: model.icon,
+        ),
+        expandedChild: null,
       );
     }
 
@@ -635,21 +764,45 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       showExpanded: true,
     );
 
-    showState(loadingState);
+    showCompact(loadingState, stateTag: 'flight-booking-pending:compact');
     _flowTimers.add(
       Timer(const Duration(milliseconds: 1200), () {
+        if (!mounted) return;
+        showCompact(
+          loadingState,
+          stateTag: 'flight-booking-pending:compact-before-next',
+        );
+      }),
+    );
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 1420), () {
+        if (!mounted) return;
+        showCompact(successState, stateTag: 'flight-booking-confirmed:compact');
+      }),
+    );
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 1700), () {
         if (!mounted) return;
         showState(successState);
       }),
     );
     _flowTimers.add(
-      Timer(const Duration(milliseconds: 3000), () {
+      Timer(const Duration(milliseconds: 3200), () {
         if (!mounted) return;
-        showState(gateCompactState);
+        showCompact(
+          successState,
+          stateTag: 'flight-booking-confirmed:compact-before-next',
+        );
       }),
     );
     _flowTimers.add(
-      Timer(const Duration(milliseconds: 3380), () {
+      Timer(const Duration(milliseconds: 3420), () {
+        if (!mounted) return;
+        showCompact(gateCompactState, stateTag: 'flight-gate-updated:compact');
+      }),
+    );
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 3700), () {
         if (!mounted) return;
         showState(gateExpandedState);
       }),
