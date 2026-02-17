@@ -1207,7 +1207,6 @@ class _GooeyPainter extends CustomPainter {
         .toDouble();
     final bridgeTop = bodyTop;
     final bridgeBottom = pillRect.bottom;
-    final bridgeLift = lerpDouble(0.0, roundness * 0.92, progress) ?? 0.0;
     final bridgeOutset = lerpDouble(0.0, roundness * 0.92, progress) ?? 0.0;
     final leftBridgeBottom = (leftBridgeStart - bridgeOutset).clamp(
       0.0,
@@ -1220,18 +1219,20 @@ class _GooeyPainter extends CustomPainter {
 
     final bridgePath = Path();
     if (bridgeBottom > bridgeTop) {
+      final bridgeControlY =
+          lerpDouble(bridgeTop, bridgeBottom, 0.58) ?? bridgeBottom;
       bridgePath
         ..moveTo(leftBridgeStart, bridgeTop)
         ..quadraticBezierTo(
           leftBridgeBottom,
-          bridgeTop - bridgeLift,
+          bridgeControlY,
           leftBridgeBottom,
           bridgeBottom,
         )
         ..lineTo(rightBridgeBottom, bridgeBottom)
         ..quadraticBezierTo(
           rightBridgeBottom,
-          bridgeTop - bridgeLift,
+          bridgeControlY,
           rightBridgeStart,
           bridgeTop,
         )
