@@ -36,6 +36,7 @@ class ToastController {
     int? maxVisibleCount,
     bool? dismissWholeStackWhenMultiple,
     bool? enableStackExpandedMode,
+    bool? singleToastPerGroup,
     bool? pauseOnHover,
     Set<ToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
@@ -51,6 +52,9 @@ class ToastController {
       bottom: bottom,
       left: left,
     );
+    if (singleToastPerGroup ?? false) {
+      _dismissGroupImmediate(groupKey);
+    }
 
     /// Stores `resolvedDuration` state/configuration for this implementation.
     final resolvedDuration = duration ?? defaultDuration;
@@ -393,6 +397,20 @@ class ToastController {
         state.expandedItemId = null;
       }
     }
+  }
+
+  void _dismissGroupImmediate(String groupKey) {
+    final state = _groups[groupKey];
+    if (state != null) {
+      _stopScrollAnimation(state);
+      _disposeGroupScrollController(state);
+      _removeBackdrop(state);
+    }
+    final items = List<_ToastStackItem>.from(_groupEntries(groupKey));
+    for (final item in items) {
+      _removeItem(item);
+    }
+    _groups.remove(groupKey);
   }
 
   void _dismissGroupAnimated(

@@ -313,6 +313,7 @@ class GooeyToastController {
       maxVisibleCount: resolvedMaxVisibleCount,
       dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
       enableStackExpandedMode: false,
+      singleToastPerGroup: true,
       pauseOnHover: resolvedPauseOnHover,
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
