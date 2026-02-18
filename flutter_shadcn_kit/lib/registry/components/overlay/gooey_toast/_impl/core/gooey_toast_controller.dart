@@ -137,8 +137,8 @@ class GooeyToastController extends ChangeNotifier {
     /// Shape style override for all steps.
     GooeyToastShapeStyle? shapeStyle,
 
-    /// Render style override for all steps.
-    GooeyRenderStyle? renderStyle,
+    /// Gooey blur pass override for all steps.
+    bool? enableGooeyBlur,
 
     /// Hover-pause override for all steps.
     bool? pauseOnHover,
@@ -211,7 +211,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
-      renderStyle: renderStyle,
+      enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
       dismissDirections: dismissDirections,
@@ -255,7 +255,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
-      renderStyle: renderStyle,
+      enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
       dismissDirections: dismissDirections,
@@ -296,7 +296,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
-      renderStyle: renderStyle,
+      enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
       dismissDirections: dismissDirections,
@@ -379,11 +379,10 @@ class GooeyToastController extends ChangeNotifier {
     /// Shape variant for roundness transformation.
     GooeyToastShapeStyle? shapeStyle,
 
-    /// Gooey surface render style.
+    /// Enables/disables gooey blur compositing behind the crisp shape.
     ///
-    /// `null` falls back to [GooeyToastTheme.renderStyle] then
-    /// [GooeyRenderStyle.blurThreshold].
-    GooeyRenderStyle? renderStyle,
+    /// `null` falls back to [GooeyToastTheme.enableGooeyBlur] then `true`.
+    bool? enableGooeyBlur,
 
     /// Pauses toast timers while pointer hovers toast.
     bool? pauseOnHover,
@@ -451,10 +450,8 @@ class GooeyToastController extends ChangeNotifier {
         shapeStyle ??
         gooeyTheme?.shapeStyle ??
         GooeyToastShapeStyle.defaultShape;
-    final resolvedRenderStyle =
-        renderStyle ??
-        gooeyTheme?.renderStyle ??
-        GooeyRenderStyle.blurThreshold;
+    final resolvedEnableGooeyBlur =
+        enableGooeyBlur ?? gooeyTheme?.enableGooeyBlur ?? true;
     final resolvedPauseOnHover =
         pauseOnHover ?? gooeyTheme?.pauseOnHover ?? true;
     final resolvedSwipeToDismiss =
@@ -580,7 +577,7 @@ class GooeyToastController extends ChangeNotifier {
         autopilot: resolvedAutopilot,
         animationStyle: resolvedAnimationStyle,
         shapeStyle: resolvedShapeStyle,
-        renderStyle: resolvedRenderStyle,
+        enableGooeyBlur: resolvedEnableGooeyBlur,
         action: action,
         onExpansionPhaseChanged: onExpansionPhaseChanged,
         onExpansionProgressChanged: onExpansionProgressChanged,

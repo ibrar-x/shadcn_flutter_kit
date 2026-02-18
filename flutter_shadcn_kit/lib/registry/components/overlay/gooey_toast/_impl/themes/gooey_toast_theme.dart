@@ -87,11 +87,10 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     /// Default shape style variant for all `GooeyToast` instances.
     this.shapeStyle,
 
-    /// Render style for gooey surface drawing.
+    /// Enables the gooey blur compositing pass behind the crisp shape.
     ///
-    /// `null` falls back to widget/controller override then
-    /// [GooeyRenderStyle.blurThreshold].
-    this.renderStyle,
+    /// `null` falls back to widget/controller override then `true`.
+    this.enableGooeyBlur,
 
     /// Tone override for `success` state icon/title.
     this.successTone,
@@ -169,8 +168,8 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   /// Theme-level default shape style.
   final GooeyToastShapeStyle? shapeStyle;
 
-  /// Theme-level gooey render style override.
-  final GooeyRenderStyle? renderStyle;
+  /// Theme-level gooey blur pass toggle.
+  final bool? enableGooeyBlur;
 
   /// Theme-level success tone override.
   final Color? successTone;
@@ -252,8 +251,8 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     /// Resolves next `shapeStyle`; omit to keep existing value.
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
 
-    /// Resolves next `renderStyle`; omit to keep existing value.
-    ValueGetter<GooeyRenderStyle?>? renderStyle,
+    /// Resolves next `enableGooeyBlur`; omit to keep existing value.
+    ValueGetter<bool?>? enableGooeyBlur,
 
     /// Resolves next `successTone`; omit to keep existing value.
     ValueGetter<Color?>? successTone,
@@ -317,7 +316,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
           ? this.animationStyle
           : animationStyle(),
       shapeStyle: shapeStyle == null ? this.shapeStyle : shapeStyle(),
-      renderStyle: renderStyle == null ? this.renderStyle : renderStyle(),
+      enableGooeyBlur: enableGooeyBlur == null
+          ? this.enableGooeyBlur
+          : enableGooeyBlur(),
       successTone: successTone == null ? this.successTone : successTone(),
       loadingTone: loadingTone == null ? this.loadingTone : loadingTone(),
       errorTone: errorTone == null ? this.errorTone : errorTone(),

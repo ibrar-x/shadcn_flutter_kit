@@ -22,7 +22,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   _DemoAction? _selectedAction;
   GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
   GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
-  GooeyRenderStyle _renderStyle = GooeyRenderStyle.blurThreshold;
+  bool _enableGooeyBlur = true;
   bool _autopilotEnabled = true;
   bool _pauseOnHover = true;
   _DismissBehavior _dismissBehavior = _DismissBehavior.auto;
@@ -179,7 +179,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       bool? persistUntilDismissed,
       ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
       ValueChanged<double>? onExpansionProgressChanged,
-      GooeyRenderStyle? renderStyle,
+      bool? enableGooeyBlur,
     }) {
       _controller.show(
         context: context,
@@ -192,7 +192,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
         shapeStyle: _shapeStyle,
-        renderStyle: renderStyle ?? _renderStyle,
+        enableGooeyBlur: enableGooeyBlur ?? _enableGooeyBlur,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
@@ -327,7 +327,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
         shapeStyle: _shapeStyle,
-        renderStyle: GooeyRenderStyle.blurThreshold,
+        enableGooeyBlur: true,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
@@ -345,7 +345,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
         shapeStyle: _shapeStyle,
-        renderStyle: GooeyRenderStyle.pathMorph,
+        enableGooeyBlur: false,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
@@ -1456,18 +1456,12 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                               runSpacing: chipSpacing,
                               children: [
                                 _PlaygroundChip(
-                                  label:
-                                      _renderStyle ==
-                                          GooeyRenderStyle.blurThreshold
-                                      ? 'render · blur'
-                                      : 'render · path morph',
-                                  selected: true,
+                                  label: _enableGooeyBlur
+                                      ? 'gooey blur · on'
+                                      : 'gooey blur · off',
+                                  selected: _enableGooeyBlur,
                                   onTap: () => setState(
-                                    () => _renderStyle =
-                                        _renderStyle ==
-                                            GooeyRenderStyle.blurThreshold
-                                        ? GooeyRenderStyle.pathMorph
-                                        : GooeyRenderStyle.blurThreshold,
+                                    () => _enableGooeyBlur = !_enableGooeyBlur,
                                   ),
                                   minWidth: ultra ? 126 : 158,
                                   minHeight: chipHeight,
