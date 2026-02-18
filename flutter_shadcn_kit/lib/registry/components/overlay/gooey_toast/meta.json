@@ -1,0 +1,21 @@
+{
+  "id": "gooey_toast",
+  "name": "Gooey Toast",
+  "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
+  "category": "overlay",
+  "version": "1.0.0",
+  "tags": [
+    "overlay",
+    "toast",
+    "notification"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "toast"
+    ]
+  }
+}
