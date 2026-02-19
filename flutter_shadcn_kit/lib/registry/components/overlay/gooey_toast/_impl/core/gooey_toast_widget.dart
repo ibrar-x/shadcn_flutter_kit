@@ -69,6 +69,9 @@ class GooeyToast extends StatefulWidget {
     /// `true` keeps metaball-style blending. `false` renders crisp-only shape.
     this.enableGooeyBlur = true,
 
+    /// Whether pointer interaction should pause dismiss progression.
+    this.pauseOnHover = true,
+
     /// Optional action rendered in expanded default body.
     this.action,
 
@@ -77,6 +80,9 @@ class GooeyToast extends StatefulWidget {
 
     /// Emits normalized expansion progress (`0..1`) on animation ticks.
     this.onExpansionProgressChanged,
+
+    /// Emits whether this toast is currently interacted with.
+    this.onInteractionChanged,
 
     /// Compact label/icon morph config for in-place updates.
     this.compactMorph = const GooeyCompactMorph(),
@@ -133,6 +139,9 @@ class GooeyToast extends StatefulWidget {
   /// Whether gooey blur compositing is enabled.
   final bool enableGooeyBlur;
 
+  /// Whether pointer interaction should pause dismiss progression.
+  final bool pauseOnHover;
+
   /// Optional expanded action.
   final GooeyToastAction? action;
 
@@ -141,6 +150,9 @@ class GooeyToast extends StatefulWidget {
 
   /// Expansion progress callback.
   final ValueChanged<double>? onExpansionProgressChanged;
+
+  /// Interaction callback used by controller for dismiss pause/resume.
+  final ValueChanged<bool>? onInteractionChanged;
 
   /// Compact morph config.
   final GooeyCompactMorph compactMorph;
@@ -151,23 +163,71 @@ class GooeyToast extends StatefulWidget {
 }
 
 class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
+  /// Entrance fade/scale readiness.
   bool _ready = false;
+
+  /// Local expand/collapse state when not stack-controlled.
   bool _expanded = false;
+
+  /// Whether stack scope currently controls this toast item.
   bool _stackControlled = false;
+
+  /// Stack scope's per-item expanded flag.
   bool _stackItemExpanded = false;
+
+  /// Timer used for delayed auto-expand.
   Timer? _expandTimer;
+
+  /// Timer used for delayed auto-collapse.
   Timer? _collapseTimer;
+
+  /// Measured height for custom expanded child.
   double _measuredExpandedChildHeight = 0;
+
+  /// Main open/close animation controller.
   late final AnimationController _openController;
+
+  /// Curved open progress animation.
   late Animation<double> _openCurve;
+
+  /// Controller for compact icon/title morph.
   late final AnimationController _compactMorphController;
+
+  /// Curved compact morph animation.
   late Animation<double> _compactMorphCurve;
+
+  /// Last expanded height kept during closing interpolation.
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
+
+  /// Last emitted expansion phase.
   GooeyToastExpansionPhase _lastPhase = GooeyToastExpansionPhase.closed;
+
+  /// Previous title cached for compact morph transition.
   String? _previousTitle;
+
+  /// Previous state cached for compact morph transition.
   GooeyToastState? _previousState;
+
+  /// Previous icon cached for compact morph transition.
   Widget? _previousIcon;
+
+  /// Whether previous compact frame should render during morph.
   bool _showPreviousCompact = false;
+
+  /// Whether pointer is currently hovering toast bounds.
+  bool _toastHovered = false;
+
+  /// Whether pointer is currently pressed inside toast bounds.
+  bool _toastPressed = false;
+
+  /// Whether pointer is hovering expanded content region.
+  bool _expandedBodyHovered = false;
+
+  /// Whether pointer is pressed in expanded content region.
+  bool _expandedBodyPressed = false;
+
+  /// Last interaction state sent to controller callback.
+  bool _lastInteractingSent = false;
 
   bool get _isLoading => widget.state == GooeyToastState.loading;
   bool get _hasContent =>
@@ -177,6 +237,20 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   bool get _targetOpen {
     final expanded = _stackControlled ? _stackItemExpanded : _expanded;
     return _hasContent && expanded && !_isLoading;
+  }
+
+  bool get _isInteracting =>
+      _toastHovered ||
+      _toastPressed ||
+      _expandedBodyHovered ||
+      _expandedBodyPressed;
+
+  void _emitInteraction() {
+    if (!widget.pauseOnHover) return;
+    final interacting = _isInteracting;
+    if (interacting == _lastInteractingSent) return;
+    _lastInteractingSent = interacting;
+    widget.onInteractionChanged?.call(interacting);
   }
 
   @override
@@ -265,6 +339,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    widget.onInteractionChanged?.call(false);
     _expandTimer?.cancel();
     _collapseTimer?.cancel();
     _openController.removeStatusListener(_handleOpenStatus);
@@ -345,6 +420,9 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     if (collapseDelay > Duration.zero) {
       _collapseTimer = Timer(collapseDelay, () {
         if (!mounted) return;
+        if (_stackControlled) return;
+        if (!_hasContent || _isLoading) return;
+        if (_isInteracting) return;
         _setExpanded(false);
       });
     }
@@ -353,7 +431,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     _syncFromStackScope(context);
-    final stack = ToastStackScope.maybeOf(context);
+    final stack = GooeyToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedShapeStyle =
@@ -368,7 +446,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       resolvedShapeStyle,
     );
     final fillColor =
-        widget.fill ?? gooeyTheme?.fill ?? const Color(0xFF0D1117);
+        widget.fill ?? gooeyTheme?.fill ?? GooeyToastDefaults.fill;
     final tone = _toneForState(widget.state, gooeyTheme);
     final titleStyle =
         gooeyTheme?.titleStyle ??
@@ -447,6 +525,10 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
         cursor: SystemMouseCursors.basic,
         onEnter: (_) {
           if (_stackControlled) return;
+          if (!_toastHovered && mounted) {
+            setState(() => _toastHovered = true);
+            _emitInteraction();
+          }
           if (_hasContent && !_isLoading) {
             _collapseTimer?.cancel();
             _setExpanded(true);
@@ -454,211 +536,308 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
         },
         onExit: (_) {
           if (_stackControlled) return;
-          if (_hasContent && !_isLoading) {
+          if (_toastHovered && mounted) {
+            setState(() => _toastHovered = false);
+            _emitInteraction();
+          }
+          if (_hasContent &&
+              !_isLoading &&
+              !_expandedBodyHovered &&
+              !_expandedBodyPressed) {
             _setExpanded(false);
           }
         },
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeOut,
-          opacity: _ready ? 1 : 0,
-          child: AnimatedScale(
+        child: Listener(
+          onPointerDown: (_) {
+            if (_stackControlled) return;
+            if (!_toastPressed && mounted) {
+              setState(() => _toastPressed = true);
+              _emitInteraction();
+            }
+            _collapseTimer?.cancel();
+            if (_hasContent && !_isLoading) {
+              _setExpanded(true);
+            }
+          },
+          onPointerUp: (_) {
+            if (_toastPressed && mounted) {
+              setState(() => _toastPressed = false);
+              _emitInteraction();
+            }
+          },
+          onPointerCancel: (_) {
+            if (_toastPressed && mounted) {
+              setState(() => _toastPressed = false);
+              _emitInteraction();
+            }
+          },
+          child: AnimatedOpacity(
             duration: const Duration(milliseconds: 400),
-            curve: Curves.easeOutCubic,
-            scale: _ready ? 1 : 0.95,
-            child: AnimatedBuilder(
-              animation: _openCurve,
-              builder: (context, _) {
-                final rawOpenProgress = _openCurve.value;
-                final openProgress = _stackControlled && !_stackItemExpanded
-                    ? 0.0
-                    : rawOpenProgress;
-                final normalizedOpen = openProgress.clamp(0.0, 1.0).toDouble();
-                final visualHeight =
-                    lerpDouble(
-                      _kToastHeight,
-                      targetExpandedHeight,
-                      openProgress,
-                    ) ??
-                    _kToastHeight;
-                final canvasHeight = _hasContent ? visualHeight : _kToastHeight;
-                final expandedContentHeight =
-                    (targetExpandedHeight - _kToastHeight)
-                        .clamp(0.0, 1000.0)
-                        .toDouble();
-                final pillScaleY =
-                    lerpDouble(_kToastHeight / pillHeight, 1.0, openProgress) ??
-                    1.0;
-                final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
-                final translateY =
-                    (widget.expandDirection == GooeyToastExpandDirection.bottom
-                        ? 3.0
-                        : -3.0) *
-                    openProgress;
-                final headerScale = lerpDouble(1.0, 0.9, openProgress) ?? 1.0;
-                final contentProgress = ((openProgress - 0.35) / 0.65).clamp(
-                  0.0,
-                  1.0,
-                );
-                final contentOpacity = Curves.easeOutCubic.transform(
-                  contentProgress,
-                );
-                final contentHeightFactor = contentProgress;
-                final contentAlignment =
-                    widget.expandDirection == GooeyToastExpandDirection.bottom
-                    ? Alignment.topCenter
-                    : Alignment.bottomCenter;
-                final contentSlide =
-                    (1 - contentOpacity) *
-                    (widget.expandDirection == GooeyToastExpandDirection.bottom
-                        ? -6.0
-                        : 6.0);
+            curve: Curves.easeOut,
+            opacity: _ready ? 1 : 0,
+            child: AnimatedScale(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeOutCubic,
+              scale: _ready ? 1 : 0.95,
+              child: AnimatedBuilder(
+                animation: _openCurve,
+                builder: (context, _) {
+                  final rawOpenProgress = _openCurve.value;
+                  final openProgress = _stackControlled && !_stackItemExpanded
+                      ? 0.0
+                      : rawOpenProgress;
+                  final normalizedOpen = openProgress
+                      .clamp(0.0, 1.0)
+                      .toDouble();
+                  final visualHeight =
+                      lerpDouble(
+                        _kToastHeight,
+                        targetExpandedHeight,
+                        openProgress,
+                      ) ??
+                      _kToastHeight;
+                  final canvasHeight = _hasContent
+                      ? visualHeight
+                      : _kToastHeight;
+                  final expandedContentHeight =
+                      (targetExpandedHeight - _kToastHeight)
+                          .clamp(0.0, 1000.0)
+                          .toDouble();
+                  final pillScaleY =
+                      lerpDouble(
+                        _kToastHeight / pillHeight,
+                        1.0,
+                        openProgress,
+                      ) ??
+                      1.0;
+                  final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
+                  final translateY =
+                      (widget.expandDirection ==
+                              GooeyToastExpandDirection.bottom
+                          ? 3.0
+                          : -3.0) *
+                      openProgress;
+                  final headerScale = lerpDouble(1.0, 0.9, openProgress) ?? 1.0;
+                  final contentProgress = ((openProgress - 0.35) / 0.65).clamp(
+                    0.0,
+                    1.0,
+                  );
+                  final contentOpacity = Curves.easeOutCubic.transform(
+                    contentProgress,
+                  );
+                  final contentHeightFactor = contentProgress;
+                  final contentAlignment =
+                      widget.expandDirection == GooeyToastExpandDirection.bottom
+                      ? Alignment.topCenter
+                      : Alignment.bottomCenter;
+                  final contentSlide =
+                      (1 - contentOpacity) *
+                      (widget.expandDirection ==
+                              GooeyToastExpandDirection.bottom
+                          ? -6.0
+                          : 6.0);
 
-                final headerTransform = Matrix4.identity()
-                  ..translate(0.0, translateY)
-                  ..scale(headerScale, headerScale);
+                  final headerTransform = Matrix4.identity()
+                    ..translate(0.0, translateY)
+                    ..scale(headerScale, headerScale);
 
-                return AnimatedSize(
-                  duration: const Duration(milliseconds: 260),
-                  curve: Curves.easeInOutCubic,
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    width: toastWidth,
-                    height: visualHeight,
-                    child: Stack(
-                      clipBehavior: Clip.hardEdge,
-                      children: [
-                        Positioned(
-                          top:
-                              widget.expandDirection ==
-                                  GooeyToastExpandDirection.bottom
-                              ? 0
-                              : null,
-                          bottom:
-                              widget.expandDirection ==
-                                  GooeyToastExpandDirection.top
-                              ? 0
-                              : null,
-                          child: Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.diagonal3Values(
-                              1,
-                              widget.expandDirection ==
-                                      GooeyToastExpandDirection.top
-                                  ? -1
-                                  : 1,
-                              1,
-                            ),
-                            child: _GooeyLayer(
-                              width: toastWidth,
-                              height: canvasHeight,
-                              color: fillColor,
-                              blur: blur,
-                              roundness: resolvedRoundness,
-                              pillX: pillX,
-                              pillWidth: pillWidth,
-                              pillHeight: pillHeight,
-                              pillScaleY: pillScaleY,
-                              bodyHeight: expandedContentHeight,
-                              bodyScaleY: bodyScaleY,
-                              enableGooeyBlur: widget.enableGooeyBlur,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: pillX,
-                          top:
-                              widget.expandDirection ==
-                                  GooeyToastExpandDirection.bottom
-                              ? 0
-                              : null,
-                          bottom:
-                              widget.expandDirection ==
-                                  GooeyToastExpandDirection.top
-                              ? 0
-                              : null,
-                          child: MouseRegion(
-                            cursor: compactToggle == null
-                                ? SystemMouseCursors.basic
-                                : SystemMouseCursors.click,
-                            child: GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: compactToggle,
-                              child: Container(
-                                transform: headerTransform,
-                                transformAlignment: Alignment.center,
-                                width: pillWidth,
-                                height: _kToastHeight,
-                                padding: const EdgeInsets.all(8),
-                                child:
-                                    widget.compactChild ??
-                                    Row(
-                                      children: [
-                                        _buildCompactIcon(
-                                          tone: tone,
-                                          icon: widget.icon,
-                                          state: widget.state,
-                                          gooeyTheme: gooeyTheme,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: _buildCompactTitle(
-                                            titleStyle: titleStyle,
-                                            currentTone: tone,
-                                            gooeyTheme: gooeyTheme,
-                                          ),
-                                        ),
-                                        if (showExpandedControls) ...[
-                                          const SizedBox(width: 6),
-                                          _buildHeaderControlChip(
-                                            label: 'Collapse',
-                                            tone: tone,
-                                            onTap: () =>
-                                                stack.setExpanded(false),
-                                          ),
-                                          const SizedBox(width: 6),
-                                          _buildHeaderControlChip(
-                                            label: 'Clear all',
-                                            tone: tone,
-                                            onTap: stack.dismissAll,
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (_hasContent)
+                  return AnimatedSize(
+                    duration: const Duration(milliseconds: 260),
+                    curve: Curves.easeInOutCubic,
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                      width: toastWidth,
+                      height: visualHeight,
+                      child: Stack(
+                        clipBehavior: Clip.hardEdge,
+                        children: [
                           Positioned(
-                            left: 0,
                             top:
                                 widget.expandDirection ==
                                     GooeyToastExpandDirection.bottom
-                                ? _kToastHeight
-                                : 0,
-                            child: IgnorePointer(
-                              ignoring: contentOpacity < 0.99,
-                              child: ClipRect(
-                                child: Align(
-                                  alignment: contentAlignment,
-                                  heightFactor: contentHeightFactor,
-                                  child: Opacity(
-                                    opacity: contentOpacity,
-                                    child: Transform.translate(
-                                      offset: Offset(0, contentSlide),
-                                      child: SizedBox(
-                                        width: toastWidth,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: _MeasureSize(
-                                            onSizeChanged:
-                                                onVisibleExpandedSizeChanged ??
-                                                (_) {},
-                                            child: _buildExpandedContent(
-                                              descriptionStyle:
-                                                  descriptionStyle,
+                                ? 0
+                                : null,
+                            bottom:
+                                widget.expandDirection ==
+                                    GooeyToastExpandDirection.top
+                                ? 0
+                                : null,
+                            child: Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.diagonal3Values(
+                                1,
+                                widget.expandDirection ==
+                                        GooeyToastExpandDirection.top
+                                    ? -1
+                                    : 1,
+                                1,
+                              ),
+                              child: _GooeyLayer(
+                                width: toastWidth,
+                                height: canvasHeight,
+                                color: fillColor,
+                                blur: blur,
+                                roundness: resolvedRoundness,
+                                pillX: pillX,
+                                pillWidth: pillWidth,
+                                pillHeight: pillHeight,
+                                pillScaleY: pillScaleY,
+                                bodyHeight: expandedContentHeight,
+                                bodyScaleY: bodyScaleY,
+                                enableGooeyBlur: widget.enableGooeyBlur,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: pillX,
+                            top:
+                                widget.expandDirection ==
+                                    GooeyToastExpandDirection.bottom
+                                ? 0
+                                : null,
+                            bottom:
+                                widget.expandDirection ==
+                                    GooeyToastExpandDirection.top
+                                ? 0
+                                : null,
+                            child: MouseRegion(
+                              cursor: compactToggle == null
+                                  ? SystemMouseCursors.basic
+                                  : SystemMouseCursors.click,
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: compactToggle,
+                                child: Container(
+                                  transform: headerTransform,
+                                  transformAlignment: Alignment.center,
+                                  width: pillWidth,
+                                  height: _kToastHeight,
+                                  padding: const EdgeInsets.all(8),
+                                  child:
+                                      widget.compactChild ??
+                                      Row(
+                                        children: [
+                                          _buildCompactIcon(
+                                            tone: tone,
+                                            icon: widget.icon,
+                                            state: widget.state,
+                                            gooeyTheme: gooeyTheme,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: _buildCompactTitle(
+                                              titleStyle: titleStyle,
+                                              currentTone: tone,
+                                              gooeyTheme: gooeyTheme,
+                                            ),
+                                          ),
+                                          if (showExpandedControls) ...[
+                                            const SizedBox(width: 6),
+                                            _buildHeaderControlChip(
+                                              label: 'Collapse',
                                               tone: tone,
+                                              onTap: () =>
+                                                  stack.setExpanded(false),
+                                            ),
+                                            const SizedBox(width: 6),
+                                            _buildHeaderControlChip(
+                                              label: 'Clear all',
+                                              tone: tone,
+                                              onTap: stack.dismissAll,
+                                            ),
+                                          ],
+                                        ],
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          if (_hasContent)
+                            Positioned(
+                              left: 0,
+                              top:
+                                  widget.expandDirection ==
+                                      GooeyToastExpandDirection.bottom
+                                  ? _kToastHeight
+                                  : 0,
+                              child: MouseRegion(
+                                onEnter: (_) {
+                                  if (_stackControlled) return;
+                                  if (!_expandedBodyHovered && mounted) {
+                                    setState(() => _expandedBodyHovered = true);
+                                    _emitInteraction();
+                                  }
+                                  _collapseTimer?.cancel();
+                                  if (_hasContent && !_isLoading) {
+                                    _setExpanded(true);
+                                  }
+                                },
+                                onExit: (_) {
+                                  if (_stackControlled) return;
+                                  if (_expandedBodyHovered && mounted) {
+                                    setState(
+                                      () => _expandedBodyHovered = false,
+                                    );
+                                    _emitInteraction();
+                                  }
+                                },
+                                child: Listener(
+                                  onPointerDown: (_) {
+                                    if (_stackControlled) return;
+                                    if (!_expandedBodyPressed && mounted) {
+                                      setState(
+                                        () => _expandedBodyPressed = true,
+                                      );
+                                      _emitInteraction();
+                                    }
+                                    _collapseTimer?.cancel();
+                                    if (_hasContent && !_isLoading) {
+                                      _setExpanded(true);
+                                    }
+                                  },
+                                  onPointerUp: (_) {
+                                    if (_expandedBodyPressed && mounted) {
+                                      setState(
+                                        () => _expandedBodyPressed = false,
+                                      );
+                                      _emitInteraction();
+                                    }
+                                  },
+                                  onPointerCancel: (_) {
+                                    if (_expandedBodyPressed && mounted) {
+                                      setState(
+                                        () => _expandedBodyPressed = false,
+                                      );
+                                      _emitInteraction();
+                                    }
+                                  },
+                                  child: IgnorePointer(
+                                    ignoring: contentOpacity < 0.99,
+                                    child: ClipRect(
+                                      child: Align(
+                                        alignment: contentAlignment,
+                                        heightFactor: contentHeightFactor,
+                                        child: Opacity(
+                                          opacity: contentOpacity,
+                                          child: Transform.translate(
+                                            offset: Offset(0, contentSlide),
+                                            child: SizedBox(
+                                              width: toastWidth,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                  16,
+                                                ),
+                                                child: _MeasureSize(
+                                                  onSizeChanged:
+                                                      onVisibleExpandedSizeChanged ??
+                                                      (_) {},
+                                                  child: _buildExpandedContent(
+                                                    descriptionStyle:
+                                                        descriptionStyle,
+                                                    tone: tone,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -668,12 +847,12 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -907,7 +1086,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   }
 
   void _syncFromStackScope(BuildContext context) {
-    final stack = ToastStackScope.maybeOf(context);
+    final stack = GooeyToastStackScope.maybeOf(context);
     final nextControlled =
         (stack?.hasMultiple ?? false) && (stack?.expanded ?? false);
     final nextItemExpanded = stack?.itemExpanded ?? false;

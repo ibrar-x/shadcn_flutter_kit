@@ -133,7 +133,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
   final bool? swipeToDismiss;
 
   /// Theme-level dismiss direction override.
-  final Set<ToastSwipeDirection>? dismissDirections;
+  final Set<GooeyToastSwipeDirection>? dismissDirections;
 
   /// Theme-level swipe threshold in logical px.
   final double? dismissDragThreshold;
@@ -216,7 +216,7 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     ValueGetter<bool?>? swipeToDismiss,
 
     /// Resolves next `dismissDirections`; omit to keep existing value.
-    ValueGetter<Set<ToastSwipeDirection>?>? dismissDirections,
+    ValueGetter<Set<GooeyToastSwipeDirection>?>? dismissDirections,
 
     /// Resolves next `dismissDragThreshold`; omit to keep existing value.
     ValueGetter<double?>? dismissDragThreshold,

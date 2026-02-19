@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../toast/toast.dart';
 import 'gooey_toast.dart';
 
 /// GooeyToastPreview defines a reusable type for this registry module.
@@ -14,50 +13,114 @@ class GooeyToastPreview extends StatefulWidget {
 }
 
 class _GooeyToastPreviewState extends State<GooeyToastPreview> {
+  /// Controller used to show, update, and dismiss demo toasts.
   final GooeyToastController _controller = GooeyToastController();
+
+  /// Timer used by simple async/promise demo.
   Timer? _promiseTimer;
+
+  /// Timers used by multi-step scripted flows.
   final List<Timer> _flowTimers = [];
 
+  /// Selected viewport preset index.
   int _selectedPresetIndex = 2;
+
+  /// Last selected demo action chip.
   _DemoAction? _selectedAction;
+
+  /// Active animation style override.
   GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
+
+  /// Active shape style override.
   GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
+
+  /// Whether blur pass is enabled for newly triggered demos.
   bool _enableGooeyBlur = true;
+
+  /// Whether autopilot expand/collapse is enabled for demo toasts.
   bool _autopilotEnabled = true;
+
+  /// Whether interaction pauses dismiss countdown.
   bool _pauseOnHover = true;
+
+  /// Dismiss policy mode for swipe directions.
   _DismissBehavior _dismissBehavior = _DismissBehavior.auto;
-  final Set<ToastSwipeDirection> _customDismissDirections = {
-    ToastSwipeDirection.up,
-    ToastSwipeDirection.right,
+
+  /// Same-region insertion strategy for new toasts.
+  GooeyToastNewToastBehavior _newToastBehavior =
+      GooeyToastNewToastBehavior.stack;
+
+  /// Custom dismiss directions used when dismiss behavior is [custom].
+  final Set<GooeyToastSwipeDirection> _customDismissDirections = {
+    GooeyToastSwipeDirection.up,
+    GooeyToastSwipeDirection.right,
   };
+
+  /// Custom flow id input controller.
   final TextEditingController _customFlowIdController = TextEditingController(
     text: 'custom-flow-demo',
   );
+
+  /// Custom step title input controller.
   final TextEditingController _customTitleController = TextEditingController(
     text: 'Booking In Progress',
   );
+
+  /// Custom step description input controller.
   final TextEditingController _customDescriptionController =
       TextEditingController(
         text: 'Preparing your itinerary and verifying payment.',
       );
+
+  /// Custom step duration input controller in milliseconds.
   final TextEditingController _customDurationController = TextEditingController(
     text: '1800',
   );
+
+  /// Custom step state selection.
   GooeyToastState _customState = GooeyToastState.loading;
+
+  /// Whether current input step should open expanded.
   bool _customStepExpanded = true;
+
+  /// Whether current input step should persist until manual dismiss.
   bool _customStepPersistent = false;
+
+  /// Stored custom flow steps.
   final List<_CustomStateStep> _customSteps = [];
+
+  /// Current index within active flow.
   int _customFlowCurrentIndex = -1;
+
+  /// Current active flow id.
   String _customFlowActiveId = '';
+
+  /// Whether flow runner is currently in-progress.
   bool _customFlowRunning = false;
+
+  /// Monotonic token used to invalidate stale async flow callbacks.
   int _customFlowRunToken = 0;
+
+  /// Start trigger flag set by UI before flow runner executes.
   bool _customFlowStartRequested = false;
+
+  /// Selected flow-advance mode.
   _FlowAdvanceMode _customFlowAdvanceMode = _FlowAdvanceMode.phaseClosed;
+
+  /// Progress threshold used by progress-based flow advance mode.
   double _customFlowProgressTrigger = 0.9;
-  int _compactMorphMs = 220;
-  double _compactMorphSlide = 0.12;
-  double _compactMorphScaleFrom = 0.95;
-  _MorphCurvePreset _morphCurvePreset = _MorphCurvePreset.easeOut;
+
+  /// Compact morph duration control in milliseconds.
+  int _compactMorphMs = 400;
+
+  /// Compact morph slide amount.
+  double _compactMorphSlide = 0.10;
+
+  /// Compact morph start scale.
+  double _compactMorphScaleFrom = 0.80;
+
+  /// Selected compact morph curve preset.
+  _MorphCurvePreset _morphCurvePreset = _MorphCurvePreset.emphasized;
 
   static const List<_ViewportPreset> _presets = [
     _ViewportPreset(
@@ -122,6 +185,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     _DemoAction.interactiveReply,
     _DemoAction.flightPromise,
     _DemoAction.customStateFlow,
+    _DemoAction.tabsListView,
+    _DemoAction.positionTriggers,
   ];
 
   @override
@@ -150,11 +215,11 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     final defaultToastId = 'demo-${action.name}';
     final swipeToDismiss = _dismissBehavior != _DismissBehavior.off;
     final customDirections = _customDismissDirections.isEmpty
-        ? <ToastSwipeDirection>{ToastSwipeDirection.up}
-        : Set<ToastSwipeDirection>.from(_customDismissDirections);
+        ? <GooeyToastSwipeDirection>{GooeyToastSwipeDirection.up}
+        : Set<GooeyToastSwipeDirection>.from(_customDismissDirections);
     final dismissDirections = switch (_dismissBehavior) {
       _DismissBehavior.auto => null,
-      _DismissBehavior.off => <ToastSwipeDirection>{},
+      _DismissBehavior.off => <GooeyToastSwipeDirection>{},
       _DismissBehavior.custom => customDirections,
     };
     final compactMorph = GooeyCompactMorph(
@@ -208,6 +273,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         onExpansionPhaseChanged: onExpansionPhaseChanged,
         onExpansionProgressChanged: onExpansionProgressChanged,
         compactMorph: compactMorph,
+        newToastBehavior: _newToastBehavior,
       );
     }
 
@@ -304,6 +370,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
         dismissDragThreshold: 68,
+        newToastBehavior: _newToastBehavior,
         persistUntilDismissed: resolvedPersist,
         compactMorph: compactMorph,
         onNextExpansionProgressChanged: onExpandedProgressChanged,
@@ -332,6 +399,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
         dismissDragThreshold: 68,
+        newToastBehavior: _newToastBehavior,
         autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
       );
       _controller.show(
@@ -350,6 +418,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         swipeToDismiss: swipeToDismiss,
         dismissDirections: dismissDirections,
         dismissDragThreshold: 68,
+        newToastBehavior: _newToastBehavior,
         autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
       );
     }
@@ -902,6 +971,101 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         });
       case _DemoAction.blurCompare:
         showRenderVariantComparison();
+      case _DemoAction.tabsListView:
+        void spawnAt({
+          required GooeyToastPosition position,
+          required GooeyToastExpandDirection expandDirection,
+          required String title,
+        }) {
+          final id = 'spawn-${DateTime.now().microsecondsSinceEpoch}';
+          _controller.show(
+            context: context,
+            id: id,
+            title: title,
+            description: 'Triggered from tabs/list example.',
+            state: GooeyToastState.info,
+            position: position,
+            expandDirection: expandDirection,
+            animationStyle: _animationStyle,
+            shapeStyle: _shapeStyle,
+            enableGooeyBlur: _enableGooeyBlur,
+            pauseOnHover: _pauseOnHover,
+            swipeToDismiss: swipeToDismiss,
+            dismissDirections: dismissDirections,
+            dismissDragThreshold: 68,
+            newToastBehavior: _newToastBehavior,
+            autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
+          );
+        }
+
+        show(
+          title: 'Inbox Dashboard',
+          state: GooeyToastState.info,
+          expandedChild: _TabsListExpanded(
+            onTriggerTopRight: () => spawnAt(
+              position: GooeyToastPosition.right,
+              expandDirection: GooeyToastExpandDirection.bottom,
+              title: 'Top-right spawned',
+            ),
+            onTriggerBottomCenter: () => spawnAt(
+              position: GooeyToastPosition.center,
+              expandDirection: GooeyToastExpandDirection.top,
+              title: 'Bottom-center spawned',
+            ),
+          ),
+        );
+      case _DemoAction.positionTriggers:
+        void spawnToast({
+          required GooeyToastPosition position,
+          required GooeyToastExpandDirection expandDirection,
+          required String title,
+          required GooeyToastState state,
+        }) {
+          final id = 'trigger-${DateTime.now().microsecondsSinceEpoch}';
+          _controller.show(
+            context: context,
+            id: id,
+            title: title,
+            description: 'Position: ${position.name} / ${expandDirection.name}',
+            state: state,
+            position: position,
+            expandDirection: expandDirection,
+            animationStyle: _animationStyle,
+            shapeStyle: _shapeStyle,
+            enableGooeyBlur: _enableGooeyBlur,
+            pauseOnHover: _pauseOnHover,
+            swipeToDismiss: swipeToDismiss,
+            dismissDirections: dismissDirections,
+            dismissDragThreshold: 68,
+            newToastBehavior: _newToastBehavior,
+            autopilot: _autopilotEnabled ? const GooeyAutopilot() : null,
+          );
+        }
+
+        show(
+          title: 'Trigger Board',
+          state: GooeyToastState.action,
+          expandedChild: _PositionTriggerExpanded(
+            onTopLeft: () => spawnToast(
+              position: GooeyToastPosition.left,
+              expandDirection: GooeyToastExpandDirection.bottom,
+              title: 'New sync started',
+              state: GooeyToastState.success,
+            ),
+            onTopRight: () => spawnToast(
+              position: GooeyToastPosition.right,
+              expandDirection: GooeyToastExpandDirection.bottom,
+              title: 'Warning detected',
+              state: GooeyToastState.warning,
+            ),
+            onBottomCenter: () => spawnToast(
+              position: GooeyToastPosition.center,
+              expandDirection: GooeyToastExpandDirection.top,
+              title: 'Bottom queue ready',
+              state: GooeyToastState.info,
+            ),
+          ),
+        );
     }
   }
 
@@ -1484,37 +1648,63 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                           SizedBox(height: sectionSpacing),
                           _ControlSection(
                             title: 'Behavior',
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
-                              spacing: chipSpacing,
-                              runSpacing: chipSpacing,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                _PlaygroundChip(
-                                  label: _autopilotEnabled
-                                      ? 'on · autopilot'
-                                      : 'off · autopilot',
-                                  selected: _autopilotEnabled,
-                                  onTap: () => setState(
-                                    () =>
-                                        _autopilotEnabled = !_autopilotEnabled,
-                                  ),
-                                  minWidth: ultra ? 130 : 154,
-                                  minHeight: chipHeight,
-                                  fontSize: chipFont,
-                                  radius: chipRadius,
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    _PlaygroundChip(
+                                      label: _autopilotEnabled
+                                          ? 'on · autopilot'
+                                          : 'off · autopilot',
+                                      selected: _autopilotEnabled,
+                                      onTap: () => setState(
+                                        () => _autopilotEnabled =
+                                            !_autopilotEnabled,
+                                      ),
+                                      minWidth: ultra ? 130 : 154,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                    _PlaygroundChip(
+                                      label: _pauseOnHover
+                                          ? 'on · pause-on-hover'
+                                          : 'off · pause-on-hover',
+                                      selected: _pauseOnHover,
+                                      onTap: () => setState(
+                                        () => _pauseOnHover = !_pauseOnHover,
+                                      ),
+                                      minWidth: ultra ? 150 : 182,
+                                      minHeight: chipHeight,
+                                      fontSize: chipFont,
+                                      radius: chipRadius,
+                                    ),
+                                  ],
                                 ),
-                                _PlaygroundChip(
-                                  label: _pauseOnHover
-                                      ? 'on · pause-on-hover'
-                                      : 'off · pause-on-hover',
-                                  selected: _pauseOnHover,
-                                  onTap: () => setState(
-                                    () => _pauseOnHover = !_pauseOnHover,
-                                  ),
-                                  minWidth: ultra ? 150 : 182,
-                                  minHeight: chipHeight,
-                                  fontSize: chipFont,
-                                  radius: chipRadius,
+                                const SizedBox(height: 8),
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: chipSpacing,
+                                  runSpacing: chipSpacing,
+                                  children: [
+                                    for (final mode
+                                        in GooeyToastNewToastBehavior.values)
+                                      _PlaygroundChip(
+                                        label: mode.label,
+                                        selected: _newToastBehavior == mode,
+                                        onTap: () => setState(
+                                          () => _newToastBehavior = mode,
+                                        ),
+                                        minWidth: ultra ? 132 : 160,
+                                        minHeight: chipHeight,
+                                        fontSize: chipFont,
+                                        radius: chipRadius,
+                                      ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -1554,7 +1744,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       runSpacing: chipSpacing,
                                       children: [
                                         for (final direction
-                                            in ToastSwipeDirection.values)
+                                            in GooeyToastSwipeDirection.values)
                                           _PlaygroundChip(
                                             label: direction.label,
                                             selected: _customDismissDirections
@@ -1943,7 +2133,10 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
 class _ControlSection extends StatelessWidget {
   const _ControlSection({required this.title, required this.child});
 
+  /// Section heading label.
   final String title;
+
+  /// Section body content.
   final Widget child;
 
   @override
@@ -1970,6 +2163,7 @@ class _ControlSection extends StatelessWidget {
 class _PlaygroundTitle extends StatelessWidget {
   const _PlaygroundTitle({required this.size});
 
+  /// Base heading font size.
   final double size;
 
   @override
@@ -2012,12 +2206,25 @@ class _PlaygroundChip extends StatelessWidget {
     required this.radius,
   });
 
+  /// Visible chip label.
   final String label;
+
+  /// Whether chip is selected.
   final bool selected;
+
+  /// Tap callback.
   final VoidCallback onTap;
+
+  /// Minimum width.
   final double minWidth;
+
+  /// Minimum height.
   final double minHeight;
+
+  /// Label font size.
   final double fontSize;
+
+  /// Corner radius.
   final double radius;
 
   @override
@@ -2079,8 +2286,13 @@ class _ViewportPreset {
     required this.expandDirection,
   });
 
+  /// Preset label text.
   final String label;
+
+  /// Preset horizontal toast position.
   final GooeyToastPosition position;
+
+  /// Preset toast expansion direction.
   final GooeyToastExpandDirection expandDirection;
 }
 
@@ -2092,6 +2304,16 @@ extension on _DismissBehavior {
       _DismissBehavior.auto => 'auto',
       _DismissBehavior.custom => 'custom',
       _DismissBehavior.off => 'off',
+    };
+  }
+}
+
+extension on GooeyToastNewToastBehavior {
+  String get label {
+    return switch (this) {
+      GooeyToastNewToastBehavior.stack => 'new toast · stack',
+      GooeyToastNewToastBehavior.dismissPrevious =>
+        'new toast · dismiss previous',
     };
   }
 }
@@ -2145,6 +2367,8 @@ enum _DemoAction {
   flightPromise,
   customStateFlow,
   blurCompare,
+  tabsListView,
+  positionTriggers,
 }
 
 extension on _DemoAction {
@@ -2165,6 +2389,8 @@ extension on _DemoAction {
       _DemoAction.flightPromise => 'Flight Promise',
       _DemoAction.customStateFlow => 'Custom States',
       _DemoAction.blurCompare => 'Blur Compare',
+      _DemoAction.tabsListView => 'Tabs + ListView',
+      _DemoAction.positionTriggers => 'Position Triggers',
     };
   }
 }
@@ -2186,18 +2412,43 @@ class _FlightToastModel {
     this.autopilot = const GooeyAutopilot(),
   });
 
+  /// State tag used for compact morph updates.
   final Object stateTag;
+
+  /// Compact title text.
   final String title;
+
+  /// Expanded description text.
   final String subtitle;
+
+  /// Semantic toast state.
   final GooeyToastState state;
+
+  /// Leading compact icon.
   final IconData icon;
+
+  /// Accent tone.
   final Color tone;
+
+  /// Origin code.
   final String fromCode;
+
+  /// Destination code.
   final String toCode;
+
+  /// Booking reference.
   final String pnr;
+
+  /// CTA label.
   final String cta;
+
+  /// Whether to render expanded content.
   final bool showExpanded;
+
+  /// Optional override duration.
   final Duration? duration;
+
+  /// Optional autopilot policy.
   final GooeyAutopilot? autopilot;
 }
 
@@ -2211,11 +2462,22 @@ class _CustomStateStep {
     required this.persistUntilDismissed,
   });
 
+  /// Step title.
   final String title;
+
+  /// Step description text.
   final String description;
+
+  /// Step semantic state.
   final GooeyToastState state;
+
+  /// Step duration.
   final Duration duration;
+
+  /// Whether this step opens expanded.
   final bool expanded;
+
+  /// Whether this step persists until manual dismiss.
   final bool persistUntilDismissed;
 }
 
@@ -2225,7 +2487,10 @@ class _InteractiveReplyExpanded extends StatefulWidget {
     required this.onCancel,
   });
 
+  /// Callback fired when user taps send.
   final ValueChanged<String> onSend;
+
+  /// Callback fired when user cancels composing.
   final VoidCallback onCancel;
 
   @override
@@ -2235,7 +2500,11 @@ class _InteractiveReplyExpanded extends StatefulWidget {
 
 class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   bool _composing = false;
+
+  /// Form key used for reply validation.
   final _formKey = GlobalKey<FormState>();
+
+  /// Text controller for reply input.
   final _controller = TextEditingController();
 
   @override
@@ -2390,6 +2659,194 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   }
 }
 
+class _TabsListExpanded extends StatelessWidget {
+  const _TabsListExpanded({
+    required this.onTriggerTopRight,
+    required this.onTriggerBottomCenter,
+  });
+
+  /// Triggers top-right toast example.
+  final VoidCallback onTriggerTopRight;
+
+  /// Triggers bottom-center toast example.
+  final VoidCallback onTriggerBottomCenter;
+
+  @override
+  Widget build(BuildContext context) {
+    const tone = Color(0xFF8EA3FF);
+    return DefaultTabController(
+      length: 3,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Tabs + ListView example inside expanded toast',
+            style: TextStyle(fontSize: 12, color: Color(0xFF9FB0C6)),
+          ),
+          const SizedBox(height: 10),
+          TabBar(
+            isScrollable: true,
+            labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+            dividerColor: Colors.transparent,
+            tabAlignment: TabAlignment.start,
+            labelColor: tone,
+            unselectedLabelColor: const Color(0xFF8A93A3),
+            indicatorColor: tone,
+            tabs: const [
+              Tab(text: 'Tasks'),
+              Tab(text: 'Feeds'),
+              Tab(text: 'Actions'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 145,
+            child: TabBarView(
+              children: [
+                ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        'Task #${index + 1}',
+                        style: const TextStyle(
+                          color: Color(0xFFE4E8F0),
+                          fontSize: 13,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Ready for processing',
+                        style: TextStyle(
+                          color: Color(0xFF8D95A3),
+                          fontSize: 11,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.chevron_right_rounded,
+                        color: Color(0xFF8EA3FF),
+                        size: 18,
+                      ),
+                    );
+                  },
+                ),
+                ListView(
+                  children: const [
+                    _MiniFeedRow(
+                      icon: Icons.update_rounded,
+                      text: 'Build #902 finished',
+                    ),
+                    _MiniFeedRow(
+                      icon: Icons.bolt_rounded,
+                      text: 'Cache warmup completed',
+                    ),
+                    _MiniFeedRow(
+                      icon: Icons.shield_rounded,
+                      text: 'Security scan passed',
+                    ),
+                  ],
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    TextButton(
+                      onPressed: onTriggerTopRight,
+                      child: const Text('Trigger top-right'),
+                    ),
+                    TextButton(
+                      onPressed: onTriggerBottomCenter,
+                      child: const Text('Trigger bottom-center'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PositionTriggerExpanded extends StatelessWidget {
+  const _PositionTriggerExpanded({
+    required this.onTopLeft,
+    required this.onTopRight,
+    required this.onBottomCenter,
+  });
+
+  /// Top-left trigger callback.
+  final VoidCallback onTopLeft;
+
+  /// Top-right trigger callback.
+  final VoidCallback onTopRight;
+
+  /// Bottom-center trigger callback.
+  final VoidCallback onBottomCenter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Trigger another Gooey Toast at different positions:',
+          style: TextStyle(fontSize: 13, color: Color(0xFFC0C5CB)),
+        ),
+        const SizedBox(height: 10),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            OutlinedButton(onPressed: onTopLeft, child: const Text('Top-left')),
+            OutlinedButton(
+              onPressed: onTopRight,
+              child: const Text('Top-right'),
+            ),
+            OutlinedButton(
+              onPressed: onBottomCenter,
+              child: const Text('Bottom-center'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _MiniFeedRow extends StatelessWidget {
+  const _MiniFeedRow({required this.icon, required this.text});
+
+  /// Leading row icon.
+  final IconData icon;
+
+  /// Feed row text.
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Icon(icon, size: 14, color: const Color(0xFF8EA3FF)),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 12.5, color: Color(0xFFC0C5CB)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _AnimatedCompactLabel extends StatefulWidget {
   const _AnimatedCompactLabel({
     required this.title,
@@ -2397,8 +2854,13 @@ class _AnimatedCompactLabel extends StatefulWidget {
     required this.icon,
   });
 
+  /// Compact title.
   final String title;
+
+  /// Compact accent tone.
   final Color tone;
+
+  /// Compact leading icon.
   final IconData icon;
 
   @override
@@ -2407,11 +2869,22 @@ class _AnimatedCompactLabel extends StatefulWidget {
 
 class _AnimatedCompactLabelState extends State<_AnimatedCompactLabel>
     with SingleTickerProviderStateMixin {
+  /// Morph animation controller.
   late final AnimationController _controller;
+
+  /// Curved animation progress.
   late final Animation<double> _progress;
+
+  /// Previous title used for animated transition.
   String? _prevTitle;
+
+  /// Previous tone used for animated transition.
   Color? _prevTone;
+
+  /// Previous icon used for animated transition.
   IconData? _prevIcon;
+
+  /// Whether previous frame should be rendered.
   bool _hasPrev = false;
 
   @override
@@ -2565,8 +3038,13 @@ class _ReplyResultExpanded extends StatelessWidget {
     required this.tone,
   });
 
+  /// Result title.
   final String title;
+
+  /// Result body message.
   final String body;
+
+  /// Accent tone for title/chips.
   final Color tone;
 
   @override
@@ -2619,13 +3097,13 @@ extension on GooeyToastShapeStyle {
   }
 }
 
-extension on ToastSwipeDirection {
+extension on GooeyToastSwipeDirection {
   String get label {
     return switch (this) {
-      ToastSwipeDirection.up => 'up',
-      ToastSwipeDirection.down => 'down',
-      ToastSwipeDirection.left => 'left',
-      ToastSwipeDirection.right => 'right',
+      GooeyToastSwipeDirection.up => 'up',
+      GooeyToastSwipeDirection.down => 'down',
+      GooeyToastSwipeDirection.left => 'left',
+      GooeyToastSwipeDirection.right => 'right',
     };
   }
 }

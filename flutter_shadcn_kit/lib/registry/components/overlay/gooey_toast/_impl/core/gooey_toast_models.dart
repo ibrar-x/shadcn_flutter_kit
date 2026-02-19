@@ -32,6 +32,11 @@ enum GooeyToastAnimationStyle { sileo, smooth, snappy, bouncy }
 
 enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
+enum GooeyToastSwipeDirection { up, down, left, right }
+
+/// Strategy used when showing a new toast in a region that already has toasts.
+enum GooeyToastNewToastBehavior { stack, dismissPrevious }
+
 enum GooeyToastExpansionPhase { closed, opening, open, closing }
 
 class GooeyCompactMorph {
@@ -39,24 +44,24 @@ class GooeyCompactMorph {
     /// Duration of compact title/icon morph when `stateTag` or compact values
     /// change without replacing the toast.
     ///
-    /// Default is `210ms`. `Duration.zero` snaps instantly.
-    this.duration = const Duration(milliseconds: 210),
+    /// Default is `400ms`. `Duration.zero` snaps instantly.
+    this.duration = const Duration(milliseconds: 400),
 
     /// Curve used for compact morph interpolation from previous to next state.
     ///
-    /// Default is `Curves.easeOutCubic`.
-    this.curve = Curves.easeOutCubic,
+    /// Default is `Curves.easeInOutCubicEmphasized`.
+    this.curve = Curves.easeInOutCubicEmphasized,
 
     /// Slide delta applied during compact morph in normalized axis units.
     ///
     /// `Offset.dy` is multiplied by toast height. `Offset.zero` disables slide.
-    this.slideOffset = const Offset(0, 0.12),
+    this.slideOffset = const Offset(0, 0.10),
 
     /// Starting scale factor for compact icon/title during morph.
     ///
-    /// Default `0.95` shrinks before settling to `1.0`. Values `<= 0` are
+    /// Default `0.80` shrinks before settling to `1.0`. Values `<= 0` are
     /// clamped internally when painting.
-    this.scaleFrom = 0.95,
+    this.scaleFrom = 0.80,
   });
 
   /// Duration for compact title/icon transition.

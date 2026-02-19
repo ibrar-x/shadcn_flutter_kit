@@ -1,13 +1,31 @@
 part of '../../gooey_toast.dart';
 
-const double _kToastHeight = 40;
-const double _kToastWidth = 350;
-const double _kDefaultRoundness = 18;
-const double _kBlurRatio = 0.5;
-const double _kPillPadding = 10;
-const double _kMinExpandRatio = 2.25;
-const Duration _kMorphDuration = Duration(milliseconds: 600);
+/// Compact toast base height.
+const double _kToastHeight = GooeyToastDefaults.toastHeight;
 
-const Duration _kDefaultDuration = Duration(milliseconds: 6000);
-const Duration _kDefaultExpandDelay = Duration(milliseconds: 150);
-const Duration _kDefaultCollapseDelay = Duration(milliseconds: 4000);
+/// Default toast width.
+const double _kToastWidth = GooeyToastDefaults.toastWidth;
+
+/// Default toast roundness.
+const double _kDefaultRoundness = GooeyToastDefaults.roundness;
+
+/// Blur multiplier relative to roundness.
+const double _kBlurRatio = GooeyToastDefaults.blurRatio;
+
+/// Extra compact pill padding.
+const double _kPillPadding = GooeyToastDefaults.pillPadding;
+
+/// Minimum expand ratio from compact height.
+const double _kMinExpandRatio = GooeyToastDefaults.minExpandRatio;
+
+/// Base morph duration used by sileo style.
+const Duration _kMorphDuration = GooeyToastDefaults.morphDuration;
+
+/// Default lifetime before dismiss.
+const Duration _kDefaultDuration = GooeyToastDefaults.duration;
+
+/// Default delayed auto-expand.
+const Duration _kDefaultExpandDelay = GooeyToastDefaults.expandDelay;
+
+/// Default delayed auto-collapse.
+const Duration _kDefaultCollapseDelay = GooeyToastDefaults.collapseDelay;

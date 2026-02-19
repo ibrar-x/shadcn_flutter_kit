@@ -1,5 +1,6 @@
 part of '../../gooey_toast.dart';
 
+/// Resolves effective corner roundness based on selected [style].
 double _roundnessForShape(double roundness, GooeyToastShapeStyle style) {
   return switch (style) {
     GooeyToastShapeStyle.defaultShape => roundness,
@@ -9,6 +10,7 @@ double _roundnessForShape(double roundness, GooeyToastShapeStyle style) {
   };
 }
 
+/// Returns animation duration for each toast animation [style].
 Duration _durationForAnimationStyle(GooeyToastAnimationStyle style) {
   return switch (style) {
     GooeyToastAnimationStyle.sileo => _kMorphDuration,
@@ -18,6 +20,7 @@ Duration _durationForAnimationStyle(GooeyToastAnimationStyle style) {
   };
 }
 
+/// Returns animation curve for each toast animation [style].
 Curve _curveForAnimationStyle(GooeyToastAnimationStyle style) {
   return switch (style) {
     GooeyToastAnimationStyle.sileo => Curves.easeInOutCubic,
@@ -27,40 +30,46 @@ Curve _curveForAnimationStyle(GooeyToastAnimationStyle style) {
   };
 }
 
+/// Resolves tone color for a toast [state], optionally from [theme] overrides.
 Color _toneForState(GooeyToastState state, [GooeyToastTheme? theme]) {
   return switch (state) {
-    GooeyToastState.success => theme?.successTone ?? const Color(0xFF63C65E),
-    GooeyToastState.loading => theme?.loadingTone ?? const Color(0xFF8A8F98),
-    GooeyToastState.error => theme?.errorTone ?? const Color(0xFFEF5E5E),
-    GooeyToastState.warning => theme?.warningTone ?? const Color(0xFFEABB4B),
-    GooeyToastState.info => theme?.infoTone ?? const Color(0xFF6EA8FF),
-    GooeyToastState.action => theme?.actionTone ?? const Color(0xFF7A8DFF),
+    GooeyToastState.success =>
+      theme?.successTone ?? GooeyToastDefaults.successTone,
+    GooeyToastState.loading =>
+      theme?.loadingTone ?? GooeyToastDefaults.loadingTone,
+    GooeyToastState.error => theme?.errorTone ?? GooeyToastDefaults.errorTone,
+    GooeyToastState.warning =>
+      theme?.warningTone ?? GooeyToastDefaults.warningTone,
+    GooeyToastState.info => theme?.infoTone ?? GooeyToastDefaults.infoTone,
+    GooeyToastState.action =>
+      theme?.actionTone ?? GooeyToastDefaults.actionTone,
   };
 }
 
-Set<ToastSwipeDirection> _defaultDismissDirections({
+/// Computes default swipe dismiss directions for [position] and [expandDirection].
+Set<GooeyToastSwipeDirection> _defaultDismissDirections({
   required GooeyToastPosition position,
   required GooeyToastExpandDirection expandDirection,
 }) {
-  final directions = <ToastSwipeDirection>{
+  final directions = <GooeyToastSwipeDirection>{
     if (expandDirection == GooeyToastExpandDirection.bottom)
-      ToastSwipeDirection.up
+      GooeyToastSwipeDirection.up
     else
-      ToastSwipeDirection.down,
+      GooeyToastSwipeDirection.down,
   };
   switch (position) {
     case GooeyToastPosition.left:
     case GooeyToastPosition.centerLeft:
-      directions.add(ToastSwipeDirection.left);
+      directions.add(GooeyToastSwipeDirection.left);
       break;
     case GooeyToastPosition.right:
     case GooeyToastPosition.centerRight:
-      directions.add(ToastSwipeDirection.right);
+      directions.add(GooeyToastSwipeDirection.right);
       break;
     case GooeyToastPosition.center:
       directions.addAll(const {
-        ToastSwipeDirection.left,
-        ToastSwipeDirection.right,
+        GooeyToastSwipeDirection.left,
+        GooeyToastSwipeDirection.right,
       });
       break;
   }
