@@ -1,192 +1,134 @@
 part of '../../gooey_toast.dart';
 
 class GooeyToastController extends ChangeNotifier {
-  /// Uses the provided `toastController` or creates a local one.
-  ///
-  /// The internal default uses `6000ms` toast duration and `250ms` stack
-  /// animation. Controller notifies listeners whenever tracked active ids
-  /// change in this wrapper map.
-  GooeyToastController({ToastController? toastController})
-    : _toastController =
-          toastController ??
-          ToastController(
-            defaultDuration: _kDefaultDuration,
-            animationDuration: const Duration(milliseconds: 250),
-          );
+  GooeyToastController();
 
-  final ToastController _toastController;
-  final Map<String, GooeyToastDetails> _activeById = {};
+  /// Active toast records keyed by toast id.
+  final Map<String, _GooeyToastRecord> _records = {};
 
-  /// Snapshot of tracked active toasts sorted newest-first.
-  ///
-  /// Returns an unmodifiable list. Updates are emitted when `show`, `dismiss`,
-  /// or `onDismissed` mutates the internal id map.
+  /// Monotonic id seed used when caller does not provide an explicit id.
+  int _nonce = 0;
+
+  /// Returns active toasts sorted newest-first by last update.
   List<GooeyToastDetails> get activeToasts {
-    final items = _activeById.values.toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    final items =
+        _records.values
+            .map((r) => r.details)
+            .whereType<GooeyToastDetails>()
+            .toList()
+          ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     return List<GooeyToastDetails>.unmodifiable(items);
   }
 
-  /// Returns `true` when a toast with `id` currently exists in stack state.
-  ///
-  /// This queries the underlying `ToastController`. Empty or unknown ids return
-  /// `false`.
-  bool containsToast(String id) => _toastController.containsToast(id);
+  /// Returns whether a toast with [id] is currently active.
+  bool containsToast(String id) => _records.containsKey(id);
 
-  /// Dismisses the toast with `id` and removes controller metadata.
-  ///
-  /// No-op when `id` is missing. Notifies listeners only if a tracked item was
-  /// removed from `_activeById`.
+  /// Dismisses a toast by [id], if present.
   void dismiss(String id) {
-    _toastController.dismissById(id);
-    final removed = _activeById.remove(id);
-    if (removed != null) {
-      notifyListeners();
-    }
+    final record = _records.remove(id);
+    if (record == null) return;
+    record.dispose();
+    record.entry.remove();
+    _rebuildAllEntries();
+    notifyListeners();
   }
 
-  /// Runs a sequenced in-place transition for a stable toast `id`.
+  /// Pauses or resumes dismiss countdown for the toast [id].
   ///
-  /// Sequence: close current state -> wait for `closed` phase (or fallback) ->
-  /// show next compact -> optionally show next expanded content.
-  /// This avoids remove/add flicker when state changes rapidly.
+  /// When [value] is `true`, current countdown is paused and remaining time is
+  /// preserved. When `false`, countdown resumes from remaining duration.
+  void setInteracting(String id, bool value) {
+    final record = _records[id];
+    if (record == null) return;
+    if (record.interacting == value) return;
+    record.interacting = value;
+
+    final data = record.data.value;
+    if (data.persistUntilDismissed || data.duration <= Duration.zero) return;
+
+    if (value) {
+      final startedAt = record.dismissStartedAt;
+      if (startedAt != null) {
+        final elapsed = DateTime.now().difference(startedAt);
+        final base = record.remaining ?? data.duration;
+        var next = base - elapsed;
+        if (next.isNegative) next = Duration.zero;
+        record.remaining = next;
+      }
+      record.dismissTimer?.cancel();
+      record.dismissTimer = null;
+      record.dismissStartedAt = null;
+      return;
+    }
+
+    final remaining = record.remaining ?? data.duration;
+    if (remaining <= Duration.zero) {
+      dismiss(id);
+      return;
+    }
+    record.dismissTimer?.cancel();
+    record.dismissStartedAt = DateTime.now();
+    record.dismissTimer = Timer(remaining, () {
+      if (_records.containsKey(id)) dismiss(id);
+    });
+  }
+
   Future<void> transitionAfterClosed({
-    /// Build context used to show updated toast states.
     required BuildContext context,
-
-    /// Stable toast id that is updated across all transition steps.
     required String id,
-
-    /// Current compact title used while forcing close.
     required String currentTitle,
-
-    /// Current semantic state used while forcing close.
     required GooeyToastState currentState,
-
-    /// Optional current leading icon while forcing close.
     Widget? currentIcon,
-
-    /// Optional current compact widget while forcing close.
     Widget? currentCompactChild,
-
-    /// Optional duration for the intermediate closing state.
     Duration? currentDuration,
-
-    /// Title used for next state after close completes.
     required String nextTitle,
-
-    /// Semantic state used for next state after close completes.
     required GooeyToastState nextState,
-
-    /// Optional state discriminator for next compact/expanded updates.
     Object? nextStateTag,
-
-    /// Optional next expanded description text.
     String? nextDescription,
-
-    /// Optional next leading icon.
     Widget? nextIcon,
-
-    /// Optional next compact widget.
     Widget? nextCompactChild,
-
-    /// Optional next expanded widget.
     Widget? nextExpandedChild,
-
-    /// Optional next toast duration.
     Duration? nextDuration,
-
-    /// Safety timeout when `closed` callback is not emitted.
-    ///
-    /// Defaults to `420ms`. `Duration.zero` advances immediately.
     Duration closeFallback = const Duration(milliseconds: 420),
-
-    /// Delay between compact next-state render and expanded next-state render.
-    ///
-    /// Defaults to `120ms`. `Duration.zero` expands immediately.
     Duration nextCompactGap = const Duration(milliseconds: 120),
-
-    /// Autopilot used for the final expanded next state.
     GooeyAutopilot nextExpandedAutopilot = const GooeyAutopilot(
       expandDelay: Duration.zero,
       collapseDelay: Duration(milliseconds: 2200),
     ),
-
-    /// Placement preset for all steps in the sequence.
-    ///
-    /// `left/right/center` anchor on top or bottom edge depending on
-    /// [expandDirection]. `centerLeft/centerRight` anchor on vertical center.
     GooeyToastPosition position = GooeyToastPosition.left,
-
-    /// Vertical grow direction for all steps in the sequence.
     GooeyToastExpandDirection expandDirection =
         GooeyToastExpandDirection.bottom,
-
-    /// Width override in logical px for all steps.
     double? width,
-
-    /// Fill override for all steps.
     Color? fill,
-
-    /// Roundness override in logical px for all steps.
     double? roundness,
-
-    /// Animation style override for all steps.
     GooeyToastAnimationStyle? animationStyle,
-
-    /// Shape style override for all steps.
     GooeyToastShapeStyle? shapeStyle,
-
-    /// Gooey blur pass override for all steps.
     bool? enableGooeyBlur,
-
-    /// Hover-pause override for all steps.
     bool? pauseOnHover,
-
-    /// Swipe-to-dismiss override for all steps.
     bool? swipeToDismiss,
-
-    /// Dismiss direction override for all steps.
-    Set<ToastSwipeDirection>? dismissDirections,
-
-    /// Swipe threshold override in logical px for all steps.
+    Set<GooeyToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
-
-    /// Stack spacing override in logical px for all steps.
     double? spacing,
-
-    /// Overlap-stack override for all steps.
     bool? overlapStackWhenMultiple,
-
-    /// Overlap offset override in logical px for all steps.
     double? overlapStackOffset,
-
-    /// Multi-toast pause override for all steps.
     bool? pauseAutoDismissWhenMultiple,
-
-    /// Stack animation duration override for all steps.
     Duration? stackAnimationDuration,
-
-    /// Stack animation curve override for all steps.
     Curve? stackAnimationCurve,
-
-    /// Max visible stack override for all steps.
     int? maxVisibleCount,
-
-    /// Whole-stack dismiss override for all steps.
     bool? dismissWholeStackWhenMultiple,
 
-    /// Keeps next state alive until manual dismiss when `true`.
+    /// Strategy for handling another toast shown in the same region.
+    ///
+    /// `stack` keeps current behavior. `dismissPrevious` clears prior toasts in
+    /// the target region before inserting the next toast.
+    GooeyToastNewToastBehavior? newToastBehavior,
     bool persistUntilDismissed = false,
-
-    /// Receives normalized `0..1` expansion progress for the next state.
     ValueChanged<double>? onNextExpansionProgressChanged,
-
-    /// Compact morph config reused by each transition step.
     GooeyCompactMorph compactMorph = const GooeyCompactMorph(),
   }) async {
     final closeCompleter = Completer<void>();
     var resolved = false;
+
     void resolveClosed() {
       if (resolved) return;
       resolved = true;
@@ -224,11 +166,10 @@ class GooeyToastController extends ChangeNotifier {
       stackAnimationCurve: stackAnimationCurve,
       maxVisibleCount: maxVisibleCount,
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      newToastBehavior: newToastBehavior,
       persistUntilDismissed: persistUntilDismissed,
       onExpansionPhaseChanged: (phase) {
-        if (phase == GooeyToastExpansionPhase.closed) {
-          resolveClosed();
-        }
+        if (phase == GooeyToastExpansionPhase.closed) resolveClosed();
       },
       compactMorph: compactMorph,
     );
@@ -268,6 +209,7 @@ class GooeyToastController extends ChangeNotifier {
       stackAnimationCurve: stackAnimationCurve,
       maxVisibleCount: maxVisibleCount,
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      newToastBehavior: newToastBehavior,
       persistUntilDismissed: persistUntilDismissed,
       onExpansionProgressChanged: onNextExpansionProgressChanged,
       compactMorph: compactMorph,
@@ -309,153 +251,77 @@ class GooeyToastController extends ChangeNotifier {
       stackAnimationCurve: stackAnimationCurve,
       maxVisibleCount: maxVisibleCount,
       dismissWholeStackWhenMultiple: dismissWholeStackWhenMultiple,
+      newToastBehavior: newToastBehavior,
       persistUntilDismissed: persistUntilDismissed,
       onExpansionProgressChanged: onNextExpansionProgressChanged,
       compactMorph: compactMorph,
     );
   }
 
-  /// Shows or updates a gooey toast in-place.
-  ///
-  /// If `id` matches an existing toast in the underlying controller, the same
-  /// entry is updated instead of remove/add replacement. Fallback order for
-  /// nullable visual overrides is: call override -> `GooeyToastTheme` -> hard defaults.
   void show({
-    /// Build context used to resolve theme/media and insert overlay entry.
     required BuildContext context,
-
-    /// Stable id for dedupe/in-place updates; `null` creates an unmanaged toast.
     String? id,
-
-    /// Optional state discriminator for compact morph transitions.
     Object? stateTag,
-
-    /// Compact title text.
     required String title,
-
-    /// Expanded description text; ignored when `expandedChild` is supplied.
     String? description,
-
-    /// Semantic state controlling default tone/icon.
     GooeyToastState state = GooeyToastState.success,
-
-    /// Placement preset.
-    ///
-    /// `left/right/center` anchor on top or bottom edge depending on
-    /// [expandDirection]. `centerLeft/centerRight` anchor on vertical center.
     GooeyToastPosition position = GooeyToastPosition.left,
-
-    /// Vertical grow direction when expanded.
     GooeyToastExpandDirection expandDirection =
         GooeyToastExpandDirection.bottom,
-
-    /// Toast lifetime before auto-dismiss when `persistUntilDismissed` is false.
     Duration? duration,
-
-    /// Optional leading icon for default compact row.
     Widget? icon,
-
-    /// Optional custom compact content replacing default icon+title row.
     Widget? compactChild,
-
-    /// Optional custom expanded content replacing description/action block.
     Widget? expandedChild,
-
-    /// Width override in logical px.
     double? width,
-
-    /// Surface fill override.
     Color? fill,
-
-    /// Roundness override in logical px.
     double? roundness,
-
-    /// Autopilot expansion/collapse scheduling override.
     GooeyAutopilot? autopilot = const GooeyAutopilot(),
-
-    /// Morph animation profile for body expansion/contraction.
     GooeyToastAnimationStyle? animationStyle,
-
-    /// Shape variant for roundness transformation.
     GooeyToastShapeStyle? shapeStyle,
-
-    /// Enables/disables gooey blur compositing behind the crisp shape.
-    ///
-    /// `null` falls back to [GooeyToastTheme.enableGooeyBlur] then `true`.
     bool? enableGooeyBlur,
-
-    /// Pauses toast timers while pointer hovers toast.
     bool? pauseOnHover,
-
-    /// Enables swipe gestures when `true`.
     bool? swipeToDismiss,
-
-    /// Allowed swipe directions; defaults derived from position/direction.
-    Set<ToastSwipeDirection>? dismissDirections,
-
-    /// Swipe dismiss drag threshold in logical px.
+    Set<GooeyToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
-
-    /// Vertical stack spacing in logical px.
     double? spacing,
-
-    /// Overlap-stacking toggle in underlying stack.
     bool? overlapStackWhenMultiple,
-
-    /// Overlap offset in logical px per stacked toast.
     double? overlapStackOffset,
-
-    /// Pauses auto-dismiss when multiple toasts are visible.
     bool? pauseAutoDismissWhenMultiple,
-
-    /// Duration for stack reflow animation.
     Duration? stackAnimationDuration,
-
-    /// Curve for stack reflow animation.
     Curve? stackAnimationCurve,
-
-    /// Max number of stack entries rendered by underlying stack.
     int? maxVisibleCount,
-
-    /// Dismisses whole stack when swipe dismiss occurs in multi mode.
     bool? dismissWholeStackWhenMultiple,
-
-    /// Optional default expanded action chip config.
+    GooeyToastNewToastBehavior? newToastBehavior,
     GooeyToastAction? action,
-
-    /// Keeps toast visible until manual dismiss when `true`.
     bool persistUntilDismissed = false,
-
-    /// Emits expansion phase changes (`closed/opening/open/closing`).
     ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
-
-    /// Emits normalized expansion progress (`0..1`) on animation ticks.
     ValueChanged<double>? onExpansionProgressChanged,
-
-    /// Compact title/icon morph config for in-place state transitions.
     GooeyCompactMorph compactMorph = const GooeyCompactMorph(),
   }) {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
-    final resolvedAutopilot = autopilot;
     final resolvedWidth = width ?? gooeyTheme?.width ?? _kToastWidth;
-    final resolvedFill = fill ?? gooeyTheme?.fill ?? const Color(0xFF0D1117);
+    final resolvedFill = fill ?? gooeyTheme?.fill ?? GooeyToastDefaults.fill;
     final resolvedRoundness =
         roundness ?? gooeyTheme?.roundness ?? _kDefaultRoundness;
     final resolvedAnimationStyle =
         animationStyle ??
         gooeyTheme?.animationStyle ??
-        GooeyToastAnimationStyle.sileo;
+        GooeyToastDefaults.animationStyle;
     final resolvedShapeStyle =
-        shapeStyle ??
-        gooeyTheme?.shapeStyle ??
-        GooeyToastShapeStyle.defaultShape;
+        shapeStyle ?? gooeyTheme?.shapeStyle ?? GooeyToastDefaults.shapeStyle;
     final resolvedEnableGooeyBlur =
-        enableGooeyBlur ?? gooeyTheme?.enableGooeyBlur ?? true;
+        enableGooeyBlur ??
+        gooeyTheme?.enableGooeyBlur ??
+        GooeyToastDefaults.enableGooeyBlur;
     final resolvedPauseOnHover =
-        pauseOnHover ?? gooeyTheme?.pauseOnHover ?? true;
+        pauseOnHover ??
+        gooeyTheme?.pauseOnHover ??
+        GooeyToastDefaults.pauseOnHover;
     final resolvedSwipeToDismiss =
-        swipeToDismiss ?? gooeyTheme?.swipeToDismiss ?? true;
+        swipeToDismiss ??
+        gooeyTheme?.swipeToDismiss ??
+        GooeyToastDefaults.swipeToDismiss;
     final resolvedDismissDirections =
         dismissDirections ??
         gooeyTheme?.dismissDirections ??
@@ -464,42 +330,292 @@ class GooeyToastController extends ChangeNotifier {
                 position: position,
                 expandDirection: expandDirection,
               )
-            : const <ToastSwipeDirection>{});
+            : const <GooeyToastSwipeDirection>{});
     final resolvedDismissDragThreshold =
-        dismissDragThreshold ?? gooeyTheme?.dismissDragThreshold ?? 72.0;
-    final resolvedSpacing = spacing ?? gooeyTheme?.spacing ?? 0.0;
-    final resolvedOverlapStackWhenMultiple =
-        overlapStackWhenMultiple ??
-        gooeyTheme?.overlapStackWhenMultiple ??
-        true;
-    final resolvedOverlapStackOffset =
-        overlapStackOffset ?? gooeyTheme?.overlapStackOffset ?? 8.0;
-    final resolvedPauseAutoDismissWhenMultiple =
-        pauseAutoDismissWhenMultiple ??
-        gooeyTheme?.pauseAutoDismissWhenMultiple ??
-        false;
-    final resolvedStackAnimationDuration =
-        stackAnimationDuration ??
-        gooeyTheme?.stackAnimationDuration ??
-        const Duration(milliseconds: 340);
-    final resolvedStackAnimationCurve =
-        stackAnimationCurve ??
-        gooeyTheme?.stackAnimationCurve ??
-        Curves.easeInOutCubic;
-    final resolvedMaxVisibleCount =
-        maxVisibleCount ?? gooeyTheme?.maxVisibleCount ?? 4;
-    final resolvedDismissWholeStackWhenMultiple =
-        dismissWholeStackWhenMultiple ??
-        gooeyTheme?.dismissWholeStackWhenMultiple ??
-        true;
+        dismissDragThreshold ??
+        gooeyTheme?.dismissDragThreshold ??
+        GooeyToastDefaults.dismissDragThreshold;
+    final resolvedSpacing =
+        spacing ?? gooeyTheme?.spacing ?? GooeyToastDefaults.spacing;
+    final resolvedNewToastBehavior =
+        newToastBehavior ?? GooeyToastDefaults.newToastBehavior;
+
+    final resolvedPosition = position;
+    final resolvedExpandDirection = expandDirection;
+
+    final toastId = (id == null || id.isEmpty) ? 'gooey-${_nonce++}' : id;
+
+    final resolvedAnchors = _resolveAnchors(
+      context: context,
+      width: resolvedWidth,
+      position: resolvedPosition,
+      expandDirection: resolvedExpandDirection,
+    );
+
+    final data = _GooeyToastRenderData(
+      id: toastId,
+      stateTag: stateTag,
+      title: title,
+      description: description,
+      state: state,
+      position: resolvedPosition,
+      expandDirection: resolvedExpandDirection,
+      duration: resolvedDuration,
+      icon: icon,
+      compactChild: compactChild,
+      expandedChild: expandedChild,
+      width: resolvedWidth,
+      fill: resolvedFill,
+      roundness: resolvedRoundness,
+      autopilot: autopilot,
+      animationStyle: resolvedAnimationStyle,
+      shapeStyle: resolvedShapeStyle,
+      enableGooeyBlur: resolvedEnableGooeyBlur,
+      action: action,
+      onExpansionPhaseChanged: onExpansionPhaseChanged,
+      onExpansionProgressChanged: onExpansionProgressChanged,
+      compactMorph: compactMorph,
+      pauseOnHover: resolvedPauseOnHover,
+      swipeToDismiss: resolvedSwipeToDismiss,
+      dismissDirections: resolvedDismissDirections,
+      dismissDragThreshold: resolvedDismissDragThreshold,
+      spacing: resolvedSpacing,
+      persistUntilDismissed: persistUntilDismissed,
+      left: resolvedAnchors.$1,
+      right: resolvedAnchors.$2,
+      top: resolvedAnchors.$3,
+      bottom: resolvedAnchors.$4,
+    );
+
+    final overlay = Overlay.maybeOf(context, rootOverlay: true);
+    if (overlay == null) return;
+
+    final existing = _records[toastId];
+    if (existing != null) {
+      existing.data.value = data;
+      existing.updatedAt = DateTime.now();
+      _updateDetails(toastId, data);
+      _scheduleAutoDismiss(toastId, data);
+      _rebuildAllEntries();
+      notifyListeners();
+      return;
+    }
+
+    if (resolvedNewToastBehavior ==
+        GooeyToastNewToastBehavior.dismissPrevious) {
+      final previousIds =
+          _regionRecords(resolvedPosition, resolvedExpandDirection)
+              .map((record) => record.id)
+              .where((itemId) => itemId != toastId)
+              .toList();
+      for (final previousId in previousIds) {
+        dismiss(previousId);
+      }
+    }
+
+    final notifier = ValueNotifier<_GooeyToastRenderData>(data);
+    final entry = OverlayEntry(
+      builder: (entryContext) {
+        final record = _records[toastId];
+        if (record == null) return const SizedBox.shrink();
+        final stackList = _regionRecords(
+          record.data.value.position,
+          record.data.value.expandDirection,
+        );
+        final index = stackList.indexWhere((r) => r.id == toastId);
+        final offset = (index < 0 ? 0 : index) * record.data.value.spacing;
+        final top = record.data.value.top == null
+            ? null
+            : record.data.value.top! + offset;
+        final bottom = record.data.value.bottom == null
+            ? null
+            : record.data.value.bottom! + offset;
+        final hasMultiple = stackList.length > 1;
+        final isPrimary = index == 0;
+
+        return ValueListenableBuilder<_GooeyToastRenderData>(
+          valueListenable: record.data,
+          builder: (context, render, _) {
+            return Positioned(
+              top: top,
+              bottom: bottom,
+              left: render.left,
+              right: render.right,
+              child: GooeyToastStackScope(
+                hasMultiple: hasMultiple,
+                isPrimary: isPrimary,
+                expanded: false,
+                itemExpanded: false,
+                dismissAll: () =>
+                    _dismissRegion(render.position, render.expandDirection),
+                setExpanded: (_) {},
+                child: GooeyToast(
+                  title: render.title,
+                  stateTag: render.stateTag,
+                  description: render.description,
+                  state: render.state,
+                  position: render.position,
+                  expandDirection: render.expandDirection,
+                  duration: render.duration,
+                  icon: render.icon,
+                  compactChild: render.compactChild,
+                  expandedChild: render.expandedChild,
+                  width: render.width,
+                  fill: render.fill,
+                  roundness: render.roundness,
+                  autopilot: render.autopilot,
+                  animationStyle: render.animationStyle,
+                  shapeStyle: render.shapeStyle,
+                  enableGooeyBlur: render.enableGooeyBlur,
+                  pauseOnHover: render.pauseOnHover,
+                  action: render.action,
+                  onExpansionPhaseChanged: render.onExpansionPhaseChanged,
+                  onExpansionProgressChanged: render.onExpansionProgressChanged,
+                  onInteractionChanged: (isInteracting) {
+                    if (!render.pauseOnHover) return;
+                    setInteracting(render.id, isInteracting);
+                  },
+                  compactMorph: render.compactMorph,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+
+    _records[toastId] = _GooeyToastRecord(
+      id: toastId,
+      entry: entry,
+      data: notifier,
+      updatedAt: DateTime.now(),
+    );
+
+    _updateDetails(toastId, data);
+    overlay.insert(entry);
+    _scheduleAutoDismiss(toastId, data);
+    _rebuildAllEntries();
+    notifyListeners();
+  }
+
+  void success({
+    required BuildContext context,
+    required String title,
+    String? description,
+    Color? fill,
+    GooeyAutopilot? autopilot,
+  }) {
+    show(
+      context: context,
+      title: title,
+      description: description,
+      state: GooeyToastState.success,
+      fill: fill,
+      autopilot: autopilot,
+    );
+  }
+
+  void error({
+    required BuildContext context,
+    required String title,
+    String? description,
+    Color? fill,
+    GooeyAutopilot? autopilot,
+  }) {
+    show(
+      context: context,
+      title: title,
+      description: description,
+      state: GooeyToastState.error,
+      fill: fill,
+      autopilot: autopilot,
+    );
+  }
+
+  @override
+  void dispose() {
+    for (final id in _records.keys.toList()) {
+      dismiss(id);
+    }
+    super.dispose();
+  }
+
+  void _scheduleAutoDismiss(String id, _GooeyToastRenderData data) {
+    final record = _records[id];
+    if (record == null) return;
+
+    record.dismissTimer?.cancel();
+    record.dismissTimer = null;
+    record.dismissStartedAt = null;
+
+    if (data.persistUntilDismissed) return;
+    if (data.duration <= Duration.zero) return;
+
+    if (record.interacting) {
+      record.remaining = record.remaining ?? data.duration;
+      return;
+    }
+
+    record.remaining = data.duration;
+    record.dismissStartedAt = DateTime.now();
+    record.dismissTimer = Timer(data.duration, () {
+      if (_records.containsKey(id)) dismiss(id);
+    });
+  }
+
+  void _updateDetails(String id, _GooeyToastRenderData data) {
+    final record = _records[id];
+    if (record == null) return;
+    record.details = GooeyToastDetails(
+      id: id,
+      stateTag: data.stateTag,
+      title: data.title,
+      description: data.description,
+      state: data.state,
+      position: data.position,
+      expandDirection: data.expandDirection,
+      duration: data.duration,
+      persistUntilDismissed: data.persistUntilDismissed,
+      updatedAt: DateTime.now(),
+    );
+    record.updatedAt = DateTime.now();
+  }
+
+  List<_GooeyToastRecord> _regionRecords(
+    GooeyToastPosition position,
+    GooeyToastExpandDirection direction,
+  ) {
+    final items = _records.values.where((r) {
+      final d = r.data.value;
+      return d.position == position && d.expandDirection == direction;
+    }).toList()..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    return items;
+  }
+
+  void _dismissRegion(
+    GooeyToastPosition position,
+    GooeyToastExpandDirection direction,
+  ) {
+    final ids = _regionRecords(position, direction).map((e) => e.id).toList();
+    for (final id in ids) {
+      dismiss(id);
+    }
+  }
+
+  (double?, double?, double?, double?) _resolveAnchors({
+    required BuildContext context,
+    required double width,
+    required GooeyToastPosition position,
+    required GooeyToastExpandDirection expandDirection,
+  }) {
     const edgeInset = 16.0;
     final media = MediaQuery.maybeOf(context);
-    final screenWidth = media?.size.width ?? resolvedWidth;
+    final screenWidth = media?.size.width ?? width;
     final screenHeight =
         media?.size.height ?? (_kToastHeight * _kMinExpandRatio);
-    final leftCenter = ((screenWidth - resolvedWidth) / 2).clamp(
+    final leftCenter = ((screenWidth - width) / 2).clamp(
       edgeInset,
-      screenWidth - resolvedWidth - edgeInset,
+      screenWidth - width - edgeInset,
     );
     final centerTop = ((screenHeight - _kToastHeight) / 2).clamp(
       edgeInset,
@@ -508,6 +624,7 @@ class GooeyToastController extends ChangeNotifier {
     final isCenterBandPosition =
         position == GooeyToastPosition.centerLeft ||
         position == GooeyToastPosition.centerRight;
+
     final resolvedLeft = switch (position) {
       GooeyToastPosition.left => edgeInset,
       GooeyToastPosition.center => leftCenter.toDouble(),
@@ -530,133 +647,218 @@ class GooeyToastController extends ChangeNotifier {
         ? null
         : (showTop ? null : edgeInset);
 
-    _toastController.show(
-      context: context,
-      duration: resolvedDuration,
-      spacing: resolvedSpacing,
-      overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
-      overlapStackOffset: resolvedOverlapStackOffset,
-      pauseAutoDismissWhenMultiple: resolvedPauseAutoDismissWhenMultiple,
-      stackAnimationDuration: resolvedStackAnimationDuration,
-      stackAnimationCurve: resolvedStackAnimationCurve,
-      maxVisibleCount: resolvedMaxVisibleCount,
-      dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
-      enableStackExpandedMode: false,
-      singleToastPerGroup: true,
-      toastId: id,
-      pauseOnHover: resolvedPauseOnHover,
-      autoDismiss: !persistUntilDismissed,
-      dismissDirections: resolvedDismissDirections,
-      dismissDragThreshold: resolvedDismissDragThreshold,
-      onDismissed: id == null
-          ? null
-          : () {
-              final removed = _activeById.remove(id);
-              if (removed != null) {
-                notifyListeners();
-              }
-            },
-      top: resolvedTop,
-      bottom: resolvedBottom,
-      left: resolvedLeft,
-      right: resolvedRight,
-      builder: (_) => GooeyToast(
-        title: title,
-        stateTag: stateTag,
-        description: description,
-        state: state,
-        position: position,
-        expandDirection: expandDirection,
-        duration: resolvedDuration,
-        icon: icon,
-        compactChild: compactChild,
-        expandedChild: expandedChild,
-        width: resolvedWidth,
-        fill: resolvedFill,
-        roundness: resolvedRoundness,
-        autopilot: resolvedAutopilot,
-        animationStyle: resolvedAnimationStyle,
-        shapeStyle: resolvedShapeStyle,
-        enableGooeyBlur: resolvedEnableGooeyBlur,
-        action: action,
-        onExpansionPhaseChanged: onExpansionPhaseChanged,
-        onExpansionProgressChanged: onExpansionProgressChanged,
-        compactMorph: compactMorph,
-      ),
-    );
+    return (resolvedLeft, resolvedRight, resolvedTop, resolvedBottom);
+  }
 
-    if (id != null) {
-      _activeById[id] = GooeyToastDetails(
-        id: id,
-        stateTag: stateTag,
-        title: title,
-        description: description,
-        state: state,
-        position: position,
-        expandDirection: expandDirection,
-        duration: resolvedDuration,
-        persistUntilDismissed: persistUntilDismissed,
-        updatedAt: DateTime.now(),
-      );
-      notifyListeners();
+  void _rebuildAllEntries() {
+    for (final record in _records.values) {
+      record.entry.markNeedsBuild();
     }
   }
+}
 
-  /// Convenience wrapper for `show(... state: success ...)`.
-  ///
-  /// Other values follow the same fallback rules as `show`.
-  void success({
-    /// Build context used to show toast.
-    required BuildContext context,
+class _GooeyToastRecord {
+  _GooeyToastRecord({
+    required this.id,
+    required this.entry,
+    required this.data,
+    required this.updatedAt,
+  });
 
-    /// Compact title text.
-    required String title,
+  /// Stable toast id.
+  final String id;
 
-    /// Optional expanded description.
-    String? description,
+  /// Inserted overlay entry for this toast.
+  final OverlayEntry entry;
 
-    /// Optional fill override.
-    Color? fill,
+  /// Mutable render data driving overlay rebuilds.
+  final ValueNotifier<_GooeyToastRenderData> data;
 
-    /// Optional autopilot override.
-    GooeyAutopilot? autopilot,
-  }) {
-    show(
-      context: context,
-      title: title,
-      description: description,
-      state: GooeyToastState.success,
-      fill: fill,
-      autopilot: autopilot,
-    );
+  /// Last mutation timestamp for region ordering.
+  DateTime updatedAt;
+
+  /// Public-facing toast snapshot used by [activeToasts].
+  GooeyToastDetails? details;
+
+  /// Active dismiss timer, if currently counting down.
+  Timer? dismissTimer;
+
+  /// Remaining dismiss duration while paused due to interaction.
+  Duration? remaining;
+
+  /// Timestamp captured when dismiss timer started/resumed.
+  DateTime? dismissStartedAt;
+
+  /// Whether pointer interaction is currently active for this toast.
+  bool interacting = false;
+
+  void dispose() {
+    dismissTimer?.cancel();
+    data.dispose();
+  }
+}
+
+class _GooeyToastRenderData {
+  const _GooeyToastRenderData({
+    required this.id,
+    required this.stateTag,
+    required this.title,
+    required this.description,
+    required this.state,
+    required this.position,
+    required this.expandDirection,
+    required this.duration,
+    required this.icon,
+    required this.compactChild,
+    required this.expandedChild,
+    required this.width,
+    required this.fill,
+    required this.roundness,
+    required this.autopilot,
+    required this.animationStyle,
+    required this.shapeStyle,
+    required this.enableGooeyBlur,
+    required this.action,
+    required this.onExpansionPhaseChanged,
+    required this.onExpansionProgressChanged,
+    required this.compactMorph,
+    required this.pauseOnHover,
+    required this.swipeToDismiss,
+    required this.dismissDirections,
+    required this.dismissDragThreshold,
+    required this.spacing,
+    required this.persistUntilDismissed,
+    required this.left,
+    required this.right,
+    required this.top,
+    required this.bottom,
+  });
+
+  /// Stable id of this toast render payload.
+  final String id;
+
+  /// State tag for compact morph transitions.
+  final Object? stateTag;
+
+  /// Compact title text.
+  final String title;
+
+  /// Expanded description text.
+  final String? description;
+
+  /// Semantic visual state.
+  final GooeyToastState state;
+
+  /// Horizontal anchor.
+  final GooeyToastPosition position;
+
+  /// Vertical growth direction.
+  final GooeyToastExpandDirection expandDirection;
+
+  /// Auto-dismiss duration.
+  final Duration duration;
+
+  /// Optional compact icon override.
+  final Widget? icon;
+
+  /// Optional compact body override.
+  final Widget? compactChild;
+
+  /// Optional expanded body override.
+  final Widget? expandedChild;
+
+  /// Render width.
+  final double width;
+
+  /// Surface fill.
+  final Color? fill;
+
+  /// Base roundness.
+  final double roundness;
+
+  /// Expand/collapse autopilot policy.
+  final GooeyAutopilot? autopilot;
+
+  /// Expansion animation style.
+  final GooeyToastAnimationStyle animationStyle;
+
+  /// Shape style variant.
+  final GooeyToastShapeStyle shapeStyle;
+
+  /// Gooey blur toggle.
+  final bool enableGooeyBlur;
+
+  /// Optional expanded action.
+  final GooeyToastAction? action;
+
+  /// Expansion phase callback.
+  final ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged;
+
+  /// Expansion progress callback.
+  final ValueChanged<double>? onExpansionProgressChanged;
+
+  /// Compact morph configuration.
+  final GooeyCompactMorph compactMorph;
+
+  /// Pause-dismiss-on-hover behavior toggle.
+  final bool pauseOnHover;
+
+  /// Swipe dismiss behavior toggle.
+  final bool swipeToDismiss;
+
+  /// Allowed swipe dismiss directions.
+  final Set<GooeyToastSwipeDirection> dismissDirections;
+
+  /// Swipe threshold in px.
+  final double dismissDragThreshold;
+
+  /// Inter-toast spacing in stacked region.
+  final double spacing;
+
+  /// Whether manual dismiss is required.
+  final bool persistUntilDismissed;
+
+  /// Resolved left anchor.
+  final double? left;
+
+  /// Resolved right anchor.
+  final double? right;
+
+  /// Resolved top anchor.
+  final double? top;
+
+  /// Resolved bottom anchor.
+  final double? bottom;
+}
+
+class GooeyToastStackScope extends InheritedWidget {
+  const GooeyToastStackScope({
+    super.key,
+    required this.hasMultiple,
+    required this.isPrimary,
+    required this.expanded,
+    required this.itemExpanded,
+    required this.dismissAll,
+    required this.setExpanded,
+    required super.child,
+  });
+
+  final bool hasMultiple;
+  final bool isPrimary;
+  final bool expanded;
+  final bool itemExpanded;
+  final VoidCallback dismissAll;
+  final ValueChanged<bool> setExpanded;
+
+  static GooeyToastStackScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<GooeyToastStackScope>();
   }
 
-  /// Convenience wrapper for `show(... state: error ...)`.
-  ///
-  /// Other values follow the same fallback rules as `show`.
-  void error({
-    /// Build context used to show toast.
-    required BuildContext context,
-
-    /// Compact title text.
-    required String title,
-
-    /// Optional expanded description.
-    String? description,
-
-    /// Optional fill override.
-    Color? fill,
-
-    /// Optional autopilot override.
-    GooeyAutopilot? autopilot,
-  }) {
-    show(
-      context: context,
-      title: title,
-      description: description,
-      state: GooeyToastState.error,
-      fill: fill,
-      autopilot: autopilot,
-    );
+  @override
+  bool updateShouldNotify(covariant GooeyToastStackScope oldWidget) {
+    return hasMultiple != oldWidget.hasMultiple ||
+        isPrimary != oldWidget.isPrimary ||
+        expanded != oldWidget.expanded ||
+        itemExpanded != oldWidget.itemExpanded;
   }
 }
