@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the card component.
-class CardThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class CardThemeConfigGlobalDefaults {
   final Object? padding;
   final Object? filled;
   final Object? fillColor;
@@ -12,7 +14,7 @@ class CardThemeTokensConfigGlobalDefaults {
   final Object? surfaceBlur;
   final Object? duration;
 
-  const CardThemeTokensConfigGlobalDefaults({
+  const CardThemeConfigGlobalDefaults({
     this.padding,
     this.filled,
     this.fillColor,
@@ -41,20 +43,4 @@ class CardThemeTokensConfigGlobalDefaults {
   };
 }
 
-class CardThemeTokensConfigGlobalTokens {
-  const CardThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class CardThemeTokensConfig {
-  const CardThemeTokensConfig._();
-
-  /// Global component theme override for `CardTheme`.
-  static Object? global;
-  static const String globalType = 'CardTheme';
-  static const CardThemeTokensConfigGlobalDefaults globalDefaults =
-      CardThemeTokensConfigGlobalDefaults();
-  static const CardThemeTokensConfigGlobalTokens globalTokens =
-      CardThemeTokensConfigGlobalTokens();
-}
+const cardThemeTokensConfigGlobalDefaults = CardThemeConfigGlobalDefaults();

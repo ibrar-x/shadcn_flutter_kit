@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the outlined_container component.
-class OutlinedContainerThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class OutlinedContainerThemeConfigGlobalDefaults {
   final Object? backgroundColor;
   final Object? borderColor;
   final Object? borderRadius;
@@ -10,7 +12,7 @@ class OutlinedContainerThemeTokensConfigGlobalDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
 
-  const OutlinedContainerThemeTokensConfigGlobalDefaults({
+  const OutlinedContainerThemeConfigGlobalDefaults({
     this.backgroundColor = 'theme.colorScheme.background',
     this.borderColor = 'theme.colorScheme.muted',
     this.borderRadius = 'theme.borderRadiusXl',
@@ -35,20 +37,4 @@ class OutlinedContainerThemeTokensConfigGlobalDefaults {
   };
 }
 
-class OutlinedContainerThemeTokensConfigGlobalTokens {
-  const OutlinedContainerThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class OutlinedContainerThemeTokensConfig {
-  const OutlinedContainerThemeTokensConfig._();
-
-  /// Global component theme override for `OutlinedContainerTheme`.
-  static Object? global;
-  static const String globalType = 'OutlinedContainerTheme';
-  static const OutlinedContainerThemeTokensConfigGlobalDefaults globalDefaults =
-      OutlinedContainerThemeTokensConfigGlobalDefaults();
-  static const OutlinedContainerThemeTokensConfigGlobalTokens globalTokens =
-      OutlinedContainerThemeTokensConfigGlobalTokens();
-}
+const outlinedContainerThemeTokensConfigGlobalDefaults = OutlinedContainerThemeConfigGlobalDefaults();
