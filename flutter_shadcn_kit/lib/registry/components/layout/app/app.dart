@@ -4,6 +4,7 @@ export '../scaffold/scaffold.dart' show AppBar, Scaffold;
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
 
+import '../../component_theme_global_configs.dart';
 import '../../../shared/primitives/overlay.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
@@ -12,6 +13,8 @@ part '_impl/core/shadcn_ui.dart';
 
 /// Minimal app wrapper that wires up shadcn theme + overlay handling.
 class ShadcnApp extends StatelessWidget {
+  static bool _globalThemesRegistered = false;
+
   const ShadcnApp({
     super.key,
     this.navigatorKey,
@@ -184,6 +187,10 @@ class ShadcnApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!_globalThemesRegistered) {
+      registerComponentThemeGlobalConfigs();
+      _globalThemesRegistered = true;
+    }
     final resolvedTheme = _resolveTheme(context);
     Widget appBuilder(BuildContext context, Widget? child) {
       final built = builder != null ? builder!(context, child) : child;

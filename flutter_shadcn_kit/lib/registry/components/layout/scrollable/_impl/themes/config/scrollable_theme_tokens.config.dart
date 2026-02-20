@@ -1,4 +1,8 @@
 /// Global token override entrypoint for the scrollable component.
 class ScrollableThemeTokensConfig {
   const ScrollableThemeTokensConfig._();
+
+  /// Global component theme override.
+  static Object? global;
+  static const String globalType = 'ScrollableClientTheme';
 }

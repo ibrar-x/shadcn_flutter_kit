@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import 'color_scheme.dart';
+import 'component_theme_global_registry.dart';
 import 'typography.dart';
 export 'schema/component_schema.dart';
 
