@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../component_theme.schema.json",
+  "id": "shadcn_localizations_en",
+  "title": "Shadcn Localizations (EN) Theme",
+  "description": "English translation bundle for ShadcnLocalizations. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `utility/shadcn_localizations_en` theme classes.",
+      "fields": []
+    }
+  ]
+}

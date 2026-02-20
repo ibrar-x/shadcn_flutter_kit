@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../component_theme.schema.json",
+  "id": "object_input",
+  "title": "Object Input Theme",
+  "description": "Date, time, and duration inputs powered by formatted editors and pickers. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `form/object_input` theme classes.",
+      "fields": []
+    }
+  ]
+}

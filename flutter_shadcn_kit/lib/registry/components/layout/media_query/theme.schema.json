@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../component_theme.schema.json",
+  "id": "media_query",
+  "title": "Media Query Visibility Theme",
+  "description": "Responsive helper that shows primary or alternate content based on width constraints. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/media_query` theme classes.",
+      "fields": []
+    }
+  ]
+}

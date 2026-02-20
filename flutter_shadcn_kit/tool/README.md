@@ -27,6 +27,9 @@ One-shot sync for meta + components + shared entries.
 ### `registry_verify.dart`
 Validates `components.json` against disk and dependency references.
 
+### `component_theme_schema_generate.dart`
+Generates `theme.schema.json` for every component under `lib/registry/components` using discovered `ComponentThemeData` fields.
+
 ### `registry_index_generate.dart`
 Builds `index.json` from `components.json` + `meta.json` (optionally merges `<id>.meta.json`).
 

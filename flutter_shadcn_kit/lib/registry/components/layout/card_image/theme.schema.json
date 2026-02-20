@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../component_theme.schema.json",
+  "id": "card_image",
+  "title": "CardImage Theme",
+  "description": "Interactive card that pairs an image with title/subtitle content. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/card_image` theme classes.",
+      "fields": []
+    }
+  ]
+}

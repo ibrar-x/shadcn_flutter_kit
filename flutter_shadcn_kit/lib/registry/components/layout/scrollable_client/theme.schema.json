@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../component_theme.schema.json",
+  "id": "scrollable_client",
+  "title": "Scrollable Client Theme",
+  "description": "Two-dimensional scroll surface with builder callbacks for viewport-aware layouts. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/scrollable_client` theme classes.",
+      "fields": []
+    }
+  ]
+}
