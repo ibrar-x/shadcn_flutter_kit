@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "swiper",
   "title": "Swiper Theme",
   "description": "Swipe-triggered overlays for drawers and sheets. Theme tokens and editor schema.",
@@ -155,14 +154,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "number",
@@ -173,14 +170,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "boolean",
@@ -214,5 +209,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

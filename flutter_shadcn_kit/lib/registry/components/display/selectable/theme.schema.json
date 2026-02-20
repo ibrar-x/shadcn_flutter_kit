@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "selectable",
   "title": "Selectable Text Theme",
   "description": "Selectable text with themed cursor and selection behavior. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `display/selectable` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

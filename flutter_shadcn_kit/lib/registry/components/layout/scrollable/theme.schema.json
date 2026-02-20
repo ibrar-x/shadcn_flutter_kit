@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "scrollable",
   "title": "Scrollable Theme",
   "description": "Two-dimensional scrollable client and faded viewport utilities. Theme tokens and editor schema.",
@@ -103,5 +102,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

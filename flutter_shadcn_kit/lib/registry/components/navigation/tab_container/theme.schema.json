@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "tab_container",
   "title": "Tab Container Theme",
   "description": "Coordinated tab state manager with customizable builders. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `navigation/tab_container` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

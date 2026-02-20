@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "fade_scroll",
   "title": "Fade Scroll Theme",
   "description": "Edge fade overlays for scrollable content. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `layout/fade_scroll` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

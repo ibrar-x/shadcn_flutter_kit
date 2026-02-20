@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "formatter",
   "title": "Formatter Theme",
   "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, etc.) and helpers for selection clipping. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `form/formatter` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

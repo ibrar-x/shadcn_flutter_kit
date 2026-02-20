@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "resizable",
   "title": "Resizable Theme",
   "description": "Resizable panels with draggable dividers. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `layout/resizable` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

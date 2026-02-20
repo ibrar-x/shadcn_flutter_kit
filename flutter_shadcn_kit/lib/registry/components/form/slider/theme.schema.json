@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "slider",
   "title": "Slider Theme",
   "description": "General-purpose single and range slider engine with snapping and pluggable builders. Theme tokens and editor schema.",
@@ -125,14 +124,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "color",
@@ -188,14 +185,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -326,14 +321,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "color",
@@ -359,14 +352,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -377,14 +368,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -410,14 +399,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -458,14 +445,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -476,14 +461,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -524,14 +507,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -542,14 +523,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -560,14 +539,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -578,14 +555,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "boolean",
@@ -611,14 +586,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -629,14 +602,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "color",
@@ -662,14 +633,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "number",
@@ -680,14 +649,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -788,14 +755,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "color",
@@ -821,14 +786,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "color",
@@ -862,5 +825,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

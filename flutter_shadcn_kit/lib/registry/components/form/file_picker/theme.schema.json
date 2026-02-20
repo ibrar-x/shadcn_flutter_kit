@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "file_picker",
   "title": "File Upload Theme",
   "description": "UI-only drag-drop, tile, and mobile file picker surfaces with upload list management. Theme tokens and editor schema.",
@@ -65,14 +64,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.1.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.1.0"
         },
         {
           "type": "object",
@@ -91,5 +88,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

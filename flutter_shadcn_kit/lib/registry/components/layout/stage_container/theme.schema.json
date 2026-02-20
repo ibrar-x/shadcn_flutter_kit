@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "stage_container",
   "title": "Stage Container Theme",
   "description": "Responsive container that snaps to breakpoint widths. Theme tokens and editor schema.",
@@ -43,5 +42,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

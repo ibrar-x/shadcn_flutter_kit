@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "dialog",
   "title": "Dialog Theme",
   "description": "Modal dialog primitives with alert dialog and overlay handlers. Theme tokens and editor schema.",
@@ -88,5 +87,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

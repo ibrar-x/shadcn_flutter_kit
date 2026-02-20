@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "stepper",
   "title": "Stepper Theme",
   "description": "Multi-step progress with interactive step indicators. Theme tokens and editor schema.",
@@ -58,5 +57,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

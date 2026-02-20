@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "chat",
   "title": "Chat Theme",
   "description": "Chat bubbles, groups, and tail helpers for conversational layouts. Theme tokens and editor schema.",
@@ -50,14 +49,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "border",
@@ -158,14 +155,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "object",
@@ -191,14 +186,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "object",
@@ -224,16 +217,15 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

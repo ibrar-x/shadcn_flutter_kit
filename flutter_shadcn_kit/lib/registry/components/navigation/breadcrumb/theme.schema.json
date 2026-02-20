@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "breadcrumb",
   "title": "Breadcrumb Theme",
   "description": "Horizontal breadcrumb trail with arrow/slash separators and overflow handling. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `navigation/breadcrumb` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

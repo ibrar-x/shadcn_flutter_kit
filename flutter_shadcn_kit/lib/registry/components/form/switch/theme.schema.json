@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "switch",
   "title": "Switch Theme",
   "description": "Toggle control for boolean values with themed styling. Theme tokens and editor schema.",
@@ -65,14 +64,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "color",
@@ -106,5 +103,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

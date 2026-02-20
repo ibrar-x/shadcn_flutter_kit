@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "alert",
   "title": "Alert Theme",
   "description": "Flexible alert panels with destructive/resilient styling. Theme tokens and editor schema.",
@@ -58,5 +57,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

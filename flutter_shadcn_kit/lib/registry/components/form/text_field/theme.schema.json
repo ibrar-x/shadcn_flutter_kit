@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "text_field",
   "title": "Text Field Theme",
   "description": "Text input with rich features, autocomplete, and actions. Theme tokens and editor schema.",
@@ -73,5 +72,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

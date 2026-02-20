@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "button",
   "title": "Button Theme",
   "description": "Shadcn-style button system with variants, toggles, and groups. Theme tokens and editor schema.",
@@ -103,5 +102,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

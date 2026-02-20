@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "skeleton",
   "title": "Skeleton Theme",
   "description": "Skeletonizer helpers with theme-aware config and extensions. Theme tokens and editor schema.",
@@ -74,5 +73,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "date_picker",
   "title": "Date Picker Theme",
   "description": "Popover/dialog calendar for single-date and range selection. Theme tokens and editor schema.",
@@ -103,5 +102,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

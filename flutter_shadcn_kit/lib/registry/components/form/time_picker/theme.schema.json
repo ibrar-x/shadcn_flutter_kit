@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "time_picker",
   "title": "Time Picker Theme",
   "description": "Popover/dialog picker for time and duration values. Theme tokens and editor schema.",
@@ -118,5 +117,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

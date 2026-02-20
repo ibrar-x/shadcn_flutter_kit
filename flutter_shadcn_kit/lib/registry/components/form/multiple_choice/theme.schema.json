@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "multiple_choice",
   "title": "Multiple Choice Theme",
   "description": "Choice widgets with single or multiple selection and form integration. Theme tokens and editor schema.",
@@ -28,5 +27,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

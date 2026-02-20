@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "select",
   "title": "Select Theme",
   "description": "Dropdown/select control with popup menus, grouped items, and keyboard navigation. Theme tokens and editor schema.",
@@ -133,5 +132,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

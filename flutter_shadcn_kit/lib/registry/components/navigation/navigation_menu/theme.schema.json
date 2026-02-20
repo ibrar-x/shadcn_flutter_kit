@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "navigation_menu",
   "title": "Navigation Menu Theme",
   "description": "Dropdown-style navigation menu with popovers, groups, and keyboard navigation. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `navigation/navigation_menu` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

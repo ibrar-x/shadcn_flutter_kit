@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "table",
   "title": "Table Theme",
   "description": "Resizable table layout with headers, footers, and frozen cells. Theme tokens and editor schema.",
@@ -95,14 +94,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "object",
@@ -121,5 +118,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

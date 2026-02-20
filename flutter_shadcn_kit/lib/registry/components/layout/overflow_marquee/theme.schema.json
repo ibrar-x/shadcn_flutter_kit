@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "overflow_marquee",
   "title": "Overflow Marquee Theme",
   "description": "Smooth marquee for overflowing content with fade edges and looped timing controls. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `layout/overflow_marquee` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "border_loading",
   "title": "Border Loading Theme",
   "description": "Animated border loader wrapper (sweep/linear/radial gradients + tracer mode + circle/custom shapes). Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `display/border_loading` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

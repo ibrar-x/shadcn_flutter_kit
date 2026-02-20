@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "gooey_toast",
   "title": "Gooey Toast Theme",
   "description": "Animated gooey-style toast built on existing overlay toast infrastructure. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `overlay/gooey_toast` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

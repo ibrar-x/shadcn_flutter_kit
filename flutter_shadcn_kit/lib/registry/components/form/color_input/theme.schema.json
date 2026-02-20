@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "color_input",
   "title": "Color Input Theme",
   "description": "Popover/dialog color selector that integrates the picker, history, and eye-dropper tools. Theme tokens and editor schema.",
@@ -163,5 +162,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "menubar",
   "title": "Menubar Theme",
   "description": "Horizontal desktop-style menubar with dropdown menus and keyboard navigation. Theme tokens and editor schema.",
@@ -103,5 +102,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

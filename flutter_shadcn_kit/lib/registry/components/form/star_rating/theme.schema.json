@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "star_rating",
   "title": "Star Rating Theme",
   "description": "Interactive star rating input with theming support. Theme tokens and editor schema.",
@@ -50,14 +49,12 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         },
         {
           "type": "number",
@@ -68,16 +65,15 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
+          "validation": {},
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0",
-          "precision": 2
+          "precision": 2,
+          "since": "1.0.0"
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

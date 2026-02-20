@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "carousel",
   "title": "Carousel Theme",
   "description": "Interactive carousel with sliding/fading transitions and autoplay controls. Theme tokens and editor schema.",
@@ -135,5 +134,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

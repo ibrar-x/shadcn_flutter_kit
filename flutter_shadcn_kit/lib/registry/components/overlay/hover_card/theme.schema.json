@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "hover_card",
   "title": "Hover Card Theme",
   "description": "Hover or long-press triggered popovers for rich previews. Theme tokens and editor schema.",
@@ -105,5 +104,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

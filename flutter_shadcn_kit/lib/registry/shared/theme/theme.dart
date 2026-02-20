@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 
 import 'color_scheme.dart';
 import 'typography.dart';
+export 'schema/component_schema.dart';
 
 part '_impl/core/adaptive_scaler.dart';
 part '_impl/core/adaptive_scaling.dart';

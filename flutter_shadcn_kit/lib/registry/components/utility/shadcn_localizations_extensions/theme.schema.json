@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "shadcn_localizations_extensions",
   "title": "Shadcn Localizations Extensions Theme",
   "description": "Formatting helpers for localized dates, times, durations, and picker labels. Theme tokens and editor schema.",
@@ -12,5 +11,6 @@
       "description": "Generated fields discovered from `utility/shadcn_localizations_extensions` theme classes.",
       "fields": []
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

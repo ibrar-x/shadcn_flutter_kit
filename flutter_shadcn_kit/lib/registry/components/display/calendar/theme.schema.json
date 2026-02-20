@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "calendar",
   "title": "Calendar Theme",
   "description": "Date picker and calendar widgets for single, range, and multi selection. Theme tokens and editor schema.",
@@ -28,5 +27,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

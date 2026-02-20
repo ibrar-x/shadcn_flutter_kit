@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "hidden",
   "title": "Hidden Theme",
   "description": "Animated visibility helper with axis-aware size control. Theme tokens and editor schema.",
@@ -104,5 +103,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

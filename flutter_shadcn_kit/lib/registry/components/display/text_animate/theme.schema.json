@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "text_animate",
   "title": "Streaming Text Theme",
   "description": "Stream-aware animated text renderer for incremental updates. Theme tokens and editor schema.",
@@ -73,5 +72,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../component_theme.schema.json",
   "id": "number_ticker",
   "title": "Number Ticker Theme",
   "description": "Animated number display with formatter or custom builder. Theme tokens and editor schema.",
@@ -59,5 +58,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "../../../component_theme.schema.json"
 }

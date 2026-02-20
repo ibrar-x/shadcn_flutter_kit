@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
+
 typedef JsonMap = Map<String, dynamic>;
 
 final RegExp _classPattern = RegExp(
@@ -183,175 +185,108 @@ String _extractGeneric(String base) {
   return base.substring(start + 1, end).trim();
 }
 
-String _fieldTypeForDartType(String dartType) {
+FieldType _fieldTypeForDartType(String dartType) {
   final base = _baseType(dartType);
 
-  if (base == 'bool') return 'boolean';
-  if (base == 'int') return 'integer';
-  if (base == 'double' || base == 'num') return 'number';
-  if (base == 'String') return 'string';
-  if (base == 'Color') return 'color';
-  if (base == 'Duration') return 'duration';
-  if (base == 'TextStyle') return 'textStyle';
-  if (base == 'Curve') return 'curve';
+  if (base == 'bool') return FieldType.boolean;
+  if (base == 'int') return FieldType.integer;
+  if (base == 'double' || base == 'num') return FieldType.number;
+  if (base == 'String') return FieldType.string;
+  if (base == 'Color') return FieldType.color;
+  if (base == 'Duration') return FieldType.duration;
+  if (base == 'TextStyle') return FieldType.textStyle;
+  if (base == 'Curve') return FieldType.curve;
 
   if (base == 'Gradient' ||
       base == 'LinearGradient' ||
       base == 'RadialGradient' ||
       base == 'SweepGradient') {
-    return 'gradient';
+    return FieldType.gradient;
   }
 
   if (base == 'Border' ||
       base == 'BoxBorder' ||
       base == 'BorderSide' ||
       base == 'OutlinedBorder') {
-    return 'border';
+    return FieldType.border;
   }
 
   if (_isListType(base)) {
     final generic = _extractGeneric(base).replaceAll('?', '');
     if (generic == 'BoxShadow') {
-      return 'shadowList';
+      return FieldType.shadowList;
     }
-    return 'list';
+    return FieldType.list;
   }
 
-  return 'object';
+  return FieldType.object;
 }
 
 Object? _normalizeDefaultValue({
-  required String fieldType,
+  required FieldType fieldType,
   required Object? value,
-  required JsonMap validation,
+  required FieldValidation validation,
+  required String fieldName,
 }) {
-  if (value == null) return null;
-
-  if (fieldType == 'number' || fieldType == 'integer') {
-    if (value is! num) {
-      throw ArgumentError('Default value must be numeric for $fieldType');
-    }
-    final min = validation['min'];
-    final max = validation['max'];
-    final clampMode = validation['clamp'] as String? ?? 'reject';
-    var normalized = value;
-    if (min is num && normalized < min) {
-      if (clampMode == 'clamp') {
-        normalized = min;
-      } else {
-        throw RangeError('Default value $value is below min $min');
-      }
-    }
-    if (max is num && normalized > max) {
-      if (clampMode == 'clamp') {
-        normalized = max;
-      } else {
-        throw RangeError('Default value $value is above max $max');
-      }
-    }
-    if (fieldType == 'integer') {
-      return normalized.round();
-    }
-    return normalized;
-  }
-
-  if (fieldType == 'string') {
-    if (value is! String) {
-      throw ArgumentError('Default value must be string for $fieldType');
-    }
-    final pattern = validation['pattern'];
-    if (pattern is String && pattern.isNotEmpty) {
-      final regex = RegExp(pattern);
-      if (!regex.hasMatch(value)) {
-        throw ArgumentError(
-          'Default value "$value" does not match pattern $pattern',
-        );
-      }
-    }
-    return value;
-  }
-
-  if (fieldType == 'list' || fieldType == 'shadowList') {
-    if (value is! List) {
-      throw ArgumentError('Default value must be a list for $fieldType');
-    }
-    final minItems = validation['minItems'];
-    final maxItems = validation['maxItems'];
-    if (minItems is int && value.length < minItems) {
-      throw RangeError(
-        'Default list length ${value.length} < minItems $minItems',
-      );
-    }
-    if (maxItems is int && value.length > maxItems) {
-      throw RangeError(
-        'Default list length ${value.length} > maxItems $maxItems',
-      );
-    }
-    return value;
-  }
-
-  return value;
+  return validation.normalizeValue(
+    type: fieldType,
+    fieldName: fieldName,
+    value: value,
+  );
 }
 
-JsonMap _buildValidation(String fieldType) {
+FieldValidation _buildValidation(FieldType fieldType) {
   switch (fieldType) {
-    case 'number':
-    case 'integer':
-      return {'clamp': 'reject'};
-    case 'string':
-      return <String, dynamic>{};
-    case 'list':
-    case 'shadowList':
-      return {'minItems': 0};
+    case FieldType.number:
+    case FieldType.integer:
+      return const FieldValidation(clamp: ClampBehavior.reject);
+    case FieldType.list:
+    case FieldType.shadowList:
+      return const FieldValidation(minItems: 0);
     default:
-      return <String, dynamic>{};
+      return const FieldValidation();
   }
 }
 
-JsonMap _buildUiHints(String fieldType) {
+EditorHints _buildUiHints(FieldType fieldType) {
   switch (fieldType) {
-    case 'number':
-    case 'integer':
-      return {'control': 'input'};
-    case 'color':
-      return {'control': 'color'};
-    case 'duration':
-      return {'control': 'input', 'unit': 'ms'};
-    case 'enum':
-      return {'control': 'select'};
+    case FieldType.number:
+    case FieldType.integer:
+      return const EditorHints(control: UiControl.input);
+    case FieldType.color:
+      return const EditorHints(control: UiControl.color);
+    case FieldType.duration:
+      return const EditorHints(control: UiControl.input, unit: UiUnit.ms);
+    case FieldType.enumType:
+      return const EditorHints(control: UiControl.select);
     default:
-      return {'control': 'input'};
+      return const EditorHints(control: UiControl.input);
   }
 }
 
-JsonMap _buildFieldSpec(_ThemeField field, String since) {
+FieldSpec _buildFieldSpec(_ThemeField field, String since) {
   final fieldType = _fieldTypeForDartType(field.dartType);
   final validation = _buildValidation(fieldType);
   final defaultValue = _normalizeDefaultValue(
     fieldType: fieldType,
     value: null,
     validation: validation,
+    fieldName: field.name,
   );
 
-  final spec = <String, dynamic>{
-    'type': fieldType,
-    'name': field.name,
-    'label': _prettyLabel(field.name),
-    'description': 'Generated from Dart type `${field.dartType}`.',
-    'defaultValue': defaultValue,
-    'required': false,
-    'isAdvanced': false,
-    'visibleIf': <dynamic>[],
-    'validation': validation,
-    'ui': _buildUiHints(fieldType),
-    'since': since,
-  };
-
-  if (fieldType == 'number') {
-    spec['precision'] = 2;
-  }
-
-  return spec;
+  return FieldSpec(
+    type: fieldType,
+    name: field.name,
+    label: _prettyLabel(field.name),
+    description: 'Generated from Dart type `${field.dartType}`.',
+    defaultValue: defaultValue,
+    requiredField: false,
+    visibleIf: const <VisibleIf>[],
+    validation: validation,
+    ui: _buildUiHints(fieldType),
+    since: since,
+    precision: fieldType == FieldType.number ? 2 : null,
+  );
 }
 
 JsonMap _readMeta(File file) {
@@ -401,8 +336,9 @@ void main(List<String> args) {
     for (final component in category.listSync().whereType<Directory>()) {
       final name = component.path.split(Platform.pathSeparator).last;
       if (name.startsWith('.') || name.startsWith('_')) continue;
-      if (targetComponents.isNotEmpty && !targetComponents.contains(name))
+      if (targetComponents.isNotEmpty && !targetComponents.contains(name)) {
         continue;
+      }
       componentDirs.add(component);
     }
   }
@@ -442,23 +378,22 @@ void main(List<String> args) {
       componentDir,
     ).map((field) => _buildFieldSpec(field, since)).toList();
 
-    final schema = <String, dynamic>{
-      r'$schema': '../../../component_theme.schema.json',
-      'id': id,
-      'title': '$title Theme',
-      'description': description,
-      'schemaVersion': 1,
-      'since': since,
-      'migrations': <String, String>{},
-      'groups': [
-        {
-          'title': 'Theme',
-          'description':
+    final schema = ComponentSchema(
+      id: id,
+      title: '$title Theme',
+      description: description,
+      schemaVersion: 1,
+      since: since,
+      migrations: const <String, String>{},
+      groups: <SchemaGroup>[
+        SchemaGroup(
+          title: 'Theme',
+          description:
               'Generated fields discovered from `$category/$id` theme classes.',
-          'fields': fields,
-        },
+          fields: fields,
+        ),
       ],
-    };
+    );
 
     final outputFile = File(_joinPath(componentDir.path, 'theme.schema.json'));
     if (dryRun) {
@@ -466,7 +401,9 @@ void main(List<String> args) {
       continue;
     }
 
-    _writeJson(outputFile, schema);
+    final schemaJson = schema.toJson();
+    schemaJson[r'$schema'] = '../../../component_theme.schema.json';
+    _writeJson(outputFile, schemaJson);
     written++;
     stdout.writeln('Wrote ${outputFile.path} (${fields.length} fields)');
   }
