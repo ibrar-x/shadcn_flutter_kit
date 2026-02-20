@@ -13,80 +13,248 @@ import '../variants/secondary_button_theme.dart';
 import '../variants/text_button_theme.dart';
 
 /// Global token override entrypoint for the button component.
+class ButtonThemeTokensConfigPrimaryDefaults {
+  const ButtonThemeTokensConfigPrimaryDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigPrimaryTokens {
+  const ButtonThemeTokensConfigPrimaryTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigSecondaryDefaults {
+  const ButtonThemeTokensConfigSecondaryDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigSecondaryTokens {
+  const ButtonThemeTokensConfigSecondaryTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigOutlineDefaults {
+  const ButtonThemeTokensConfigOutlineDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigOutlineTokens {
+  const ButtonThemeTokensConfigOutlineTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigGhostDefaults {
+  const ButtonThemeTokensConfigGhostDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigGhostTokens {
+  const ButtonThemeTokensConfigGhostTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigLinkDefaults {
+  const ButtonThemeTokensConfigLinkDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigLinkTokens {
+  const ButtonThemeTokensConfigLinkTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigTextDefaults {
+  const ButtonThemeTokensConfigTextDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigTextTokens {
+  const ButtonThemeTokensConfigTextTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigDestructiveDefaults {
+  const ButtonThemeTokensConfigDestructiveDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigDestructiveTokens {
+  const ButtonThemeTokensConfigDestructiveTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigFixedDefaults {
+  const ButtonThemeTokensConfigFixedDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigFixedTokens {
+  const ButtonThemeTokensConfigFixedTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMenuDefaults {
+  const ButtonThemeTokensConfigMenuDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMenuTokens {
+  const ButtonThemeTokensConfigMenuTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMenubarDefaults {
+  const ButtonThemeTokensConfigMenubarDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMenubarTokens {
+  const ButtonThemeTokensConfigMenubarTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMutedDefaults {
+  const ButtonThemeTokensConfigMutedDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigMutedTokens {
+  const ButtonThemeTokensConfigMutedTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigCardDefaults {
+  const ButtonThemeTokensConfigCardDefaults();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
+class ButtonThemeTokensConfigCardTokens {
+  const ButtonThemeTokensConfigCardTokens();
+
+  Map<String, Object?> toMap() => const <String, Object?>{};
+}
+
 class ButtonThemeTokensConfig {
   const ButtonThemeTokensConfig._();
 
   /// Global component theme override for `PrimaryButtonTheme`.
   static const PrimaryButtonTheme? primary = null;
   static const String primaryType = 'PrimaryButtonTheme';
-  static const Map<String, Object?> primaryDefaults = <String, Object?>{};
-  static const Map<String, Object?> primaryTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigPrimaryDefaults primaryDefaults =
+      ButtonThemeTokensConfigPrimaryDefaults();
+  static const ButtonThemeTokensConfigPrimaryTokens primaryTokens =
+      ButtonThemeTokensConfigPrimaryTokens();
 
   /// Global component theme override for `SecondaryButtonTheme`.
   static const SecondaryButtonTheme? secondary = null;
   static const String secondaryType = 'SecondaryButtonTheme';
-  static const Map<String, Object?> secondaryDefaults = <String, Object?>{};
-  static const Map<String, Object?> secondaryTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigSecondaryDefaults secondaryDefaults =
+      ButtonThemeTokensConfigSecondaryDefaults();
+  static const ButtonThemeTokensConfigSecondaryTokens secondaryTokens =
+      ButtonThemeTokensConfigSecondaryTokens();
 
   /// Global component theme override for `OutlineButtonTheme`.
   static const OutlineButtonTheme? outline = null;
   static const String outlineType = 'OutlineButtonTheme';
-  static const Map<String, Object?> outlineDefaults = <String, Object?>{};
-  static const Map<String, Object?> outlineTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigOutlineDefaults outlineDefaults =
+      ButtonThemeTokensConfigOutlineDefaults();
+  static const ButtonThemeTokensConfigOutlineTokens outlineTokens =
+      ButtonThemeTokensConfigOutlineTokens();
 
   /// Global component theme override for `GhostButtonTheme`.
   static const GhostButtonTheme? ghost = null;
   static const String ghostType = 'GhostButtonTheme';
-  static const Map<String, Object?> ghostDefaults = <String, Object?>{};
-  static const Map<String, Object?> ghostTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigGhostDefaults ghostDefaults =
+      ButtonThemeTokensConfigGhostDefaults();
+  static const ButtonThemeTokensConfigGhostTokens ghostTokens =
+      ButtonThemeTokensConfigGhostTokens();
 
   /// Global component theme override for `LinkButtonTheme`.
   static const LinkButtonTheme? link = null;
   static const String linkType = 'LinkButtonTheme';
-  static const Map<String, Object?> linkDefaults = <String, Object?>{};
-  static const Map<String, Object?> linkTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigLinkDefaults linkDefaults =
+      ButtonThemeTokensConfigLinkDefaults();
+  static const ButtonThemeTokensConfigLinkTokens linkTokens =
+      ButtonThemeTokensConfigLinkTokens();
 
   /// Global component theme override for `TextButtonTheme`.
   static const TextButtonTheme? text = null;
   static const String textType = 'TextButtonTheme';
-  static const Map<String, Object?> textDefaults = <String, Object?>{};
-  static const Map<String, Object?> textTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigTextDefaults textDefaults =
+      ButtonThemeTokensConfigTextDefaults();
+  static const ButtonThemeTokensConfigTextTokens textTokens =
+      ButtonThemeTokensConfigTextTokens();
 
   /// Global component theme override for `DestructiveButtonTheme`.
   static const DestructiveButtonTheme? destructive = null;
   static const String destructiveType = 'DestructiveButtonTheme';
-  static const Map<String, Object?> destructiveDefaults = <String, Object?>{};
-  static const Map<String, Object?> destructiveTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigDestructiveDefaults destructiveDefaults =
+      ButtonThemeTokensConfigDestructiveDefaults();
+  static const ButtonThemeTokensConfigDestructiveTokens destructiveTokens =
+      ButtonThemeTokensConfigDestructiveTokens();
 
   /// Global component theme override for `FixedButtonTheme`.
   static const FixedButtonTheme? fixed = null;
   static const String fixedType = 'FixedButtonTheme';
-  static const Map<String, Object?> fixedDefaults = <String, Object?>{};
-  static const Map<String, Object?> fixedTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigFixedDefaults fixedDefaults =
+      ButtonThemeTokensConfigFixedDefaults();
+  static const ButtonThemeTokensConfigFixedTokens fixedTokens =
+      ButtonThemeTokensConfigFixedTokens();
 
   /// Global component theme override for `MenuButtonTheme`.
   static const MenuButtonTheme? menu = null;
   static const String menuType = 'MenuButtonTheme';
-  static const Map<String, Object?> menuDefaults = <String, Object?>{};
-  static const Map<String, Object?> menuTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigMenuDefaults menuDefaults =
+      ButtonThemeTokensConfigMenuDefaults();
+  static const ButtonThemeTokensConfigMenuTokens menuTokens =
+      ButtonThemeTokensConfigMenuTokens();
 
   /// Global component theme override for `MenubarButtonTheme`.
   static const MenubarButtonTheme? menubar = null;
   static const String menubarType = 'MenubarButtonTheme';
-  static const Map<String, Object?> menubarDefaults = <String, Object?>{};
-  static const Map<String, Object?> menubarTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigMenubarDefaults menubarDefaults =
+      ButtonThemeTokensConfigMenubarDefaults();
+  static const ButtonThemeTokensConfigMenubarTokens menubarTokens =
+      ButtonThemeTokensConfigMenubarTokens();
 
   /// Global component theme override for `MutedButtonTheme`.
   static const MutedButtonTheme? muted = null;
   static const String mutedType = 'MutedButtonTheme';
-  static const Map<String, Object?> mutedDefaults = <String, Object?>{};
-  static const Map<String, Object?> mutedTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigMutedDefaults mutedDefaults =
+      ButtonThemeTokensConfigMutedDefaults();
+  static const ButtonThemeTokensConfigMutedTokens mutedTokens =
+      ButtonThemeTokensConfigMutedTokens();
 
   /// Global component theme override for `CardButtonTheme`.
   static const CardButtonTheme? card = null;
   static const String cardType = 'CardButtonTheme';
-  static const Map<String, Object?> cardDefaults = <String, Object?>{};
-  static const Map<String, Object?> cardTokens = <String, Object?>{};
+  static const ButtonThemeTokensConfigCardDefaults cardDefaults =
+      ButtonThemeTokensConfigCardDefaults();
+  static const ButtonThemeTokensConfigCardTokens cardTokens =
+      ButtonThemeTokensConfigCardTokens();
 
   /// Resolves the configured global override for a button theme subtype.
   static T? resolve<T extends ButtonTheme>() {
