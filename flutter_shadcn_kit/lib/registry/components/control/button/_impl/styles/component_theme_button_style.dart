@@ -5,6 +5,7 @@ import 'abstract_button_style.dart';
 import 'button_state_property.dart';
 import 'button_state_property_delegate.dart';
 import '../themes/button_theme_base.dart';
+import '../themes/button_theme_tokens.config.dart';
 
 /// ComponentThemeButtonStyle defines a reusable type for this registry module.
 class ComponentThemeButtonStyle<T extends ButtonTheme>
@@ -25,19 +26,26 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
     return ComponentTheme.maybeOf<T>(context);
   }
 
-  @override
-/// Stores `decoration` state/configuration for this implementation.
-  ButtonStateProperty<Decoration> get decoration => _resolveDecoration;
-
-/// Executes `_resolveDecoration` behavior for this component/composite.
-  Decoration _resolveDecoration(BuildContext context, Set<WidgetState> states) {
-    var resolved = fallback.decoration(context, states);
-    return find(context)?.decoration?.call(context, states, resolved) ??
-        resolved;
+  T? findGlobal() {
+    return ButtonThemeTokensConfig.resolve<T>();
   }
 
   @override
-/// Stores `iconTheme` state/configuration for this implementation.
+  /// Stores `decoration` state/configuration for this implementation.
+  ButtonStateProperty<Decoration> get decoration => _resolveDecoration;
+
+  /// Executes `_resolveDecoration` behavior for this component/composite.
+  Decoration _resolveDecoration(BuildContext context, Set<WidgetState> states) {
+    var resolved = fallback.decoration(context, states);
+    resolved =
+        findGlobal()?.decoration?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.decoration?.call(context, states, resolved) ?? resolved;
+    return resolved;
+  }
+
+  @override
+  /// Stores `iconTheme` state/configuration for this implementation.
   ButtonStateProperty<IconThemeData> get iconTheme => _resolveIconTheme;
 
   IconThemeData _resolveIconTheme(
@@ -45,12 +53,15 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
     Set<WidgetState> states,
   ) {
     var resolved = fallback.iconTheme(context, states);
-    return find(context)?.iconTheme?.call(context, states, resolved) ??
-        resolved;
+    resolved =
+        findGlobal()?.iconTheme?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.iconTheme?.call(context, states, resolved) ?? resolved;
+    return resolved;
   }
 
   @override
-/// Stores `margin` state/configuration for this implementation.
+  /// Stores `margin` state/configuration for this implementation.
   ButtonStateProperty<EdgeInsetsGeometry> get margin => _resolveMargin;
 
   EdgeInsetsGeometry _resolveMargin(
@@ -58,11 +69,15 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
     Set<WidgetState> states,
   ) {
     var resolved = fallback.margin(context, states);
-    return find(context)?.margin?.call(context, states, resolved) ?? resolved;
+    resolved =
+        findGlobal()?.margin?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.margin?.call(context, states, resolved) ?? resolved;
+    return resolved;
   }
 
   @override
-/// Stores `mouseCursor` state/configuration for this implementation.
+  /// Stores `mouseCursor` state/configuration for this implementation.
   ButtonStateProperty<MouseCursor> get mouseCursor => _resolveMouseCursor;
 
   MouseCursor _resolveMouseCursor(
@@ -70,12 +85,15 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
     Set<WidgetState> states,
   ) {
     var resolved = fallback.mouseCursor(context, states);
-    return find(context)?.mouseCursor?.call(context, states, resolved) ??
-        resolved;
+    resolved =
+        findGlobal()?.mouseCursor?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.mouseCursor?.call(context, states, resolved) ?? resolved;
+    return resolved;
   }
 
   @override
-/// Stores `padding` state/configuration for this implementation.
+  /// Stores `padding` state/configuration for this implementation.
   ButtonStateProperty<EdgeInsetsGeometry> get padding => _resolvePadding;
 
   EdgeInsetsGeometry _resolvePadding(
@@ -83,17 +101,24 @@ class ComponentThemeButtonStyle<T extends ButtonTheme>
     Set<WidgetState> states,
   ) {
     var resolved = fallback.padding(context, states);
-    return find(context)?.padding?.call(context, states, resolved) ?? resolved;
+    resolved =
+        findGlobal()?.padding?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.padding?.call(context, states, resolved) ?? resolved;
+    return resolved;
   }
 
   @override
-/// Stores `textStyle` state/configuration for this implementation.
+  /// Stores `textStyle` state/configuration for this implementation.
   ButtonStateProperty<TextStyle> get textStyle => _resolveTextStyle;
 
-/// Executes `_resolveTextStyle` behavior for this component/composite.
+  /// Executes `_resolveTextStyle` behavior for this component/composite.
   TextStyle _resolveTextStyle(BuildContext context, Set<WidgetState> states) {
     var resolved = fallback.textStyle(context, states);
-    return find(context)?.textStyle?.call(context, states, resolved) ??
-        resolved;
+    resolved =
+        findGlobal()?.textStyle?.call(context, states, resolved) ?? resolved;
+    resolved =
+        find(context)?.textStyle?.call(context, states, resolved) ?? resolved;
+    return resolved;
   }
 }

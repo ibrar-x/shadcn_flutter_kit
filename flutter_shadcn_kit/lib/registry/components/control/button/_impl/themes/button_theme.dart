@@ -1,4 +1,5 @@
 export 'button_theme_base.dart';
+export 'button_theme_tokens.config.dart';
 export '../styles/component_theme_button_style.dart';
 export 'primary_button_theme.dart';
 export 'secondary_button_theme.dart';

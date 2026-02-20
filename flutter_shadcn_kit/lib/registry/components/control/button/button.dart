@@ -29,6 +29,7 @@ export '_impl/styles/component_theme_button_style.dart';
 export '_impl/styles/copy_with_button_style.dart';
 export '_impl/themes/button_theme.dart';
 export '_impl/themes/button_theme_base.dart';
+export '_impl/themes/button_theme_tokens.config.dart';
 export '_impl/themes/card_button_theme.dart';
 export '_impl/themes/destructive_button_theme.dart';
 export '_impl/themes/fixed_button_theme.dart';

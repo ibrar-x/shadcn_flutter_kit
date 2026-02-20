@@ -58,6 +58,7 @@
     "_impl/styles/copy_with_button_style.dart",
     "_impl/themes/button_theme.dart",
     "_impl/themes/button_theme_base.dart",
+    "_impl/themes/button_theme_tokens.config.dart",
     "_impl/themes/card_button_theme.dart",
     "_impl/themes/destructive_button_theme.dart",
     "_impl/themes/fixed_button_theme.dart",
