@@ -19,7 +19,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -34,7 +36,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "color"
           },
@@ -49,7 +53,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -65,7 +71,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -81,7 +89,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -97,7 +107,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -112,7 +124,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },

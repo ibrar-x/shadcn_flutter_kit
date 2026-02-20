@@ -175,10 +175,7 @@ class FieldValidation {
   }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (clamp != ClampBehavior.reject) {
-      map['clamp'] = clamp.value;
-    }
+    final map = <String, dynamic>{'clamp': clamp.value};
     if (pattern != null) {
       map['pattern'] = pattern;
     }

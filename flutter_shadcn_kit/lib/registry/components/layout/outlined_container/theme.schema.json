@@ -19,7 +19,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "color"
           },
@@ -34,7 +36,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "color"
           },
@@ -49,7 +53,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -64,7 +70,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -79,7 +87,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -96,6 +106,7 @@
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
+            "clamp": "reject",
             "minItems": 0
           },
           "ui": {
@@ -112,7 +123,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -127,7 +140,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -143,7 +158,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },

@@ -19,7 +19,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },

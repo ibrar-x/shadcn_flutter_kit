@@ -19,7 +19,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -34,7 +36,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input",
             "unit": "ms"
@@ -50,7 +54,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -65,7 +71,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -80,7 +88,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -95,7 +105,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
@@ -110,7 +122,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input",
             "unit": "ms"
@@ -126,7 +140,9 @@
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {},
+          "validation": {
+            "clamp": "reject"
+          },
           "ui": {
             "control": "input"
           },
