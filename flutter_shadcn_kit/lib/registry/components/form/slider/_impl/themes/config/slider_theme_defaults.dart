@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the slider component.
-class SliderThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class SliderThemeConfigGlobalDefaults {
   final Object? trackHeight;
   final Object? trackRadius;
   final Object? thumbInset;
@@ -54,7 +56,7 @@ class SliderThemeTokensConfigGlobalDefaults {
   final Object? wavePopoverOffset;
   final Object? wavePopoverVisibility;
 
-  const SliderThemeTokensConfigGlobalDefaults({
+  const SliderThemeConfigGlobalDefaults({
     this.trackHeight = 'baseGap * 3.5',
     this.trackRadius = 'theme.radiusLg',
     this.thumbInset = 'baseGap * 1.25',
@@ -167,20 +169,4 @@ class SliderThemeTokensConfigGlobalDefaults {
   };
 }
 
-class SliderThemeTokensConfigGlobalTokens {
-  const SliderThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class SliderThemeTokensConfig {
-  const SliderThemeTokensConfig._();
-
-  /// Global component theme override for `SliderTheme`.
-  static Object? global;
-  static const String globalType = 'SliderTheme';
-  static const SliderThemeTokensConfigGlobalDefaults globalDefaults =
-      SliderThemeTokensConfigGlobalDefaults();
-  static const SliderThemeTokensConfigGlobalTokens globalTokens =
-      SliderThemeTokensConfigGlobalTokens();
-}
+const sliderThemeTokensConfigGlobalDefaults = SliderThemeConfigGlobalDefaults();

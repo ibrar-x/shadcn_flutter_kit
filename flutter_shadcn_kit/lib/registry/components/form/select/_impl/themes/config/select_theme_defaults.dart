@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the select component.
-class SelectThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class SelectThemeConfigGlobalDefaults {
   final Object? popupConstraints;
   final Object? popoverAlignment;
   final Object? popoverAnchorAlignment;
@@ -9,7 +11,7 @@ class SelectThemeTokensConfigGlobalDefaults {
   final Object? canUnselect;
   final Object? autoClosePopover;
 
-  const SelectThemeTokensConfigGlobalDefaults({
+  const SelectThemeConfigGlobalDefaults({
     this.popupConstraints,
     this.popoverAlignment = 'Alignment.topCenter',
     this.popoverAnchorAlignment,
@@ -32,20 +34,4 @@ class SelectThemeTokensConfigGlobalDefaults {
   };
 }
 
-class SelectThemeTokensConfigGlobalTokens {
-  const SelectThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class SelectThemeTokensConfig {
-  const SelectThemeTokensConfig._();
-
-  /// Global component theme override for `SelectTheme`.
-  static Object? global;
-  static const String globalType = 'SelectTheme';
-  static const SelectThemeTokensConfigGlobalDefaults globalDefaults =
-      SelectThemeTokensConfigGlobalDefaults();
-  static const SelectThemeTokensConfigGlobalTokens globalTokens =
-      SelectThemeTokensConfigGlobalTokens();
-}
+const selectThemeTokensConfigGlobalDefaults = SelectThemeConfigGlobalDefaults();

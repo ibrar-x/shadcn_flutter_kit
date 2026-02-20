@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the switch component.
-class SwitchThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class SwitchThemeConfigGlobalDefaults {
   final Object? activeColor;
   final Object? inactiveColor;
   final Object? activeThumbColor;
@@ -7,7 +9,7 @@ class SwitchThemeTokensConfigGlobalDefaults {
   final Object? gap;
   final Object? borderRadius;
 
-  const SwitchThemeTokensConfigGlobalDefaults({
+  const SwitchThemeConfigGlobalDefaults({
     this.activeColor = 'theme.colorScheme.primary',
     this.inactiveColor = 'theme.colorScheme.input',
     this.activeThumbColor = 'theme.colorScheme.background',
@@ -26,20 +28,4 @@ class SwitchThemeTokensConfigGlobalDefaults {
   };
 }
 
-class SwitchThemeTokensConfigGlobalTokens {
-  const SwitchThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class SwitchThemeTokensConfig {
-  const SwitchThemeTokensConfig._();
-
-  /// Global component theme override for `SwitchTheme`.
-  static Object? global;
-  static const String globalType = 'SwitchTheme';
-  static const SwitchThemeTokensConfigGlobalDefaults globalDefaults =
-      SwitchThemeTokensConfigGlobalDefaults();
-  static const SwitchThemeTokensConfigGlobalTokens globalTokens =
-      SwitchThemeTokensConfigGlobalTokens();
-}
+const switchThemeTokensConfigGlobalDefaults = SwitchThemeConfigGlobalDefaults();

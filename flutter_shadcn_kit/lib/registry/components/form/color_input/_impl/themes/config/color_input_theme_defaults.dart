@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the color_input component.
-class ColorInputThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class ColorInputThemeConfigGlobalDefaults {
   final Object? showAlpha;
   final Object? popoverAlignment;
   final Object? popoverAnchorAlignment;
@@ -11,7 +13,7 @@ class ColorInputThemeTokensConfigGlobalDefaults {
   final Object? orientation;
   final Object? showHistory;
 
-  const ColorInputThemeTokensConfigGlobalDefaults({
+  const ColorInputThemeConfigGlobalDefaults({
     this.showAlpha = true,
     this.popoverAlignment = 'Alignment.topCenter',
     this.popoverAnchorAlignment = 'Alignment.bottomCenter',
@@ -38,20 +40,4 @@ class ColorInputThemeTokensConfigGlobalDefaults {
   };
 }
 
-class ColorInputThemeTokensConfigGlobalTokens {
-  const ColorInputThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class ColorInputThemeTokensConfig {
-  const ColorInputThemeTokensConfig._();
-
-  /// Global component theme override for `ColorInputTheme`.
-  static Object? global;
-  static const String globalType = 'ColorInputTheme';
-  static const ColorInputThemeTokensConfigGlobalDefaults globalDefaults =
-      ColorInputThemeTokensConfigGlobalDefaults();
-  static const ColorInputThemeTokensConfigGlobalTokens globalTokens =
-      ColorInputThemeTokensConfigGlobalTokens();
-}
+const colorInputThemeTokensConfigGlobalDefaults = ColorInputThemeConfigGlobalDefaults();
