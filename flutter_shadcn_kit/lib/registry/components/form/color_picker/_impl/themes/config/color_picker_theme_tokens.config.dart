@@ -6,11 +6,11 @@ class ColorPickerThemeTokensConfig {
   static Object? global;
   static const String globalType = 'ColorPickerTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'spacing': null,
-    'controlSpacing': null,
-    'orientation': null,
+    'spacing': 12.0,
+    'controlSpacing': 8.0,
+    'orientation': 'Axis.vertical',
     'enableEyeDropper': null,
-    'sliderSize': null,
+    'sliderSize': 24.0,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

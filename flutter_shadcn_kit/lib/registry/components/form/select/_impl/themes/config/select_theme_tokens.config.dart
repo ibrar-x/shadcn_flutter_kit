@@ -7,13 +7,13 @@ class SelectThemeTokensConfig {
   static const String globalType = 'SelectTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
     'popupConstraints': null,
-    'popoverAlignment': null,
+    'popoverAlignment': 'Alignment.topCenter',
     'popoverAnchorAlignment': null,
     'borderRadius': null,
     'padding': null,
-    'disableHoverEffect': null,
-    'canUnselect': null,
-    'autoClosePopover': null,
+    'disableHoverEffect': false,
+    'canUnselect': false,
+    'autoClosePopover': true,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

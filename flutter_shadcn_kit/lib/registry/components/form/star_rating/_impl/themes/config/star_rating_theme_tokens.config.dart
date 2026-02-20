@@ -6,10 +6,11 @@ class StarRatingThemeTokensConfig {
   static Object? global;
   static const String globalType = 'StarRatingTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'activeColor': null,
-    'backgroundColor': null,
-    'starSize': null,
-    'starSpacing': null,
+    'activeColor':
+        '_enabled ? theme.colorScheme.primary : theme.colorScheme.mutedForeground',
+    'backgroundColor': 'theme.colorScheme.muted',
+    'starSize': 24.0,
+    'starSpacing': '5.0 * scaling',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

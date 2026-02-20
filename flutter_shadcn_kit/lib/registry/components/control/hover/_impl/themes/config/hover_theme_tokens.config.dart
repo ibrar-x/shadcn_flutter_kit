@@ -6,11 +6,11 @@ class HoverThemeTokensConfig {
   static Object? global;
   static const String globalType = 'HoverTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'debounceDuration': null,
-    'hitTestBehavior': null,
-    'waitDuration': null,
-    'minDuration': null,
-    'showDuration': null,
+    'debounceDuration': 'const Duration(milliseconds: 100)',
+    'hitTestBehavior': 'HitTestBehavior.deferToChild',
+    'waitDuration': 'const Duration(milliseconds: 500)',
+    'minDuration': 'const Duration(milliseconds: 0)',
+    'showDuration': 'const Duration(milliseconds: 200)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

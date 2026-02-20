@@ -6,9 +6,9 @@ class ScrollbarThemeTokensConfig {
   static Object? global;
   static const String globalType = 'ScrollbarTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'color': null,
-    'thickness': null,
-    'radius': null,
+    'color': '_theme.colorScheme.border',
+    'thickness': '7.0 * _theme.scaling',
+    'radius': 'Radius.circular(_theme.radiusSm)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

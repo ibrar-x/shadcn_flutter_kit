@@ -6,7 +6,7 @@ class MenuThemeTokensConfig {
   static Object? global;
   static const String globalType = 'MenuTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'itemPadding': null,
+    'itemPadding': 'EdgeInsets.zero',
     'subMenuOffset': null,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};

@@ -7,7 +7,7 @@ class GooeyToastThemeTokensConfig {
   static const String globalType = 'GooeyToastTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
     'width': null,
-    'fill': null,
+    'fill': 'GooeyToastDefaults.fill',
     'roundness': null,
     'titleStyle': null,
     'descriptionStyle': null,

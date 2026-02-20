@@ -6,12 +6,12 @@ class CheckboxThemeTokensConfig {
   static Object? global;
   static const String globalType = 'CheckboxTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'backgroundColor': null,
-    'activeColor': null,
-    'borderColor': null,
-    'size': null,
-    'gap': null,
-    'borderRadius': null,
+    'backgroundColor': 'theme.colorScheme.input.scaleAlpha(0.3)',
+    'activeColor': 'theme.colorScheme.primary',
+    'borderColor': 'theme.colorScheme.border',
+    'size': '16 * scaling',
+    'gap': '8 * scaling',
+    'borderRadius': 'BorderRadius.circular(theme.radiusSm)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

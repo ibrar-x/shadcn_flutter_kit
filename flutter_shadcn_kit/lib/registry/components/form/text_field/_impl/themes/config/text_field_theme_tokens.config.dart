@@ -6,10 +6,11 @@ class TextFieldThemeTokensConfig {
   static Object? global;
   static const String globalType = 'TextFieldTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'border': null,
+    'border':
+        'Border.all( color: theme.colorScheme.border, strokeAlign: BorderSide.strokeAlignCenter, )',
     'borderRadius': null,
-    'filled': null,
-    'padding': null,
+    'filled': false,
+    'padding': 'EdgeInsets.symmetric(horizontal: densityContentPadding * 0.75)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

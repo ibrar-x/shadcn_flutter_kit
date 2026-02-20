@@ -6,16 +6,16 @@ class ColorInputThemeTokensConfig {
   static Object? global;
   static const String globalType = 'ColorInputTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'showAlpha': null,
-    'popoverAlignment': null,
-    'popoverAnchorAlignment': null,
+    'showAlpha': true,
+    'popoverAlignment': 'Alignment.topCenter',
+    'popoverAnchorAlignment': 'Alignment.bottomCenter',
     'popoverPadding': null,
     'mode': null,
     'pickerMode': null,
-    'enableEyeDropper': null,
-    'showLabel': null,
+    'enableEyeDropper': true,
+    'showLabel': false,
     'orientation': null,
-    'showHistory': null,
+    'showHistory': true,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

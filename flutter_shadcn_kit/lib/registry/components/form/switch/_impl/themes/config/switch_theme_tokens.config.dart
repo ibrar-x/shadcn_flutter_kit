@@ -6,12 +6,12 @@ class SwitchThemeTokensConfig {
   static Object? global;
   static const String globalType = 'SwitchTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'activeColor': null,
-    'inactiveColor': null,
-    'activeThumbColor': null,
-    'inactiveThumbColor': null,
-    'gap': null,
-    'borderRadius': null,
+    'activeColor': 'theme.colorScheme.primary',
+    'inactiveColor': 'theme.colorScheme.input',
+    'activeThumbColor': 'theme.colorScheme.background',
+    'inactiveThumbColor': 'theme.colorScheme.foreground',
+    'gap': '8 * scaling',
+    'borderRadius': 'BorderRadius.circular(theme.radiusXl)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

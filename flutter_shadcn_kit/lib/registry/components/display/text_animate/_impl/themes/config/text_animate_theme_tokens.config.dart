@@ -6,10 +6,10 @@ class TextAnimateThemeTokensConfig {
   static Object? global;
   static const String globalType = 'TextAnimateTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'style': null,
-    'typewriter': null,
-    'effect': null,
-    'cursor': null,
+    'style': 'const TextStyle()',
+    'typewriter': 'const TypewriterEffect()',
+    'effect': 'const NoEffect()',
+    'cursor': 'const StreamingCursor.none()',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

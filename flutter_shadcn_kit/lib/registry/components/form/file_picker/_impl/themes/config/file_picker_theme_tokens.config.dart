@@ -6,10 +6,10 @@ class FilePickerThemeTokensConfig {
   static Object? global;
   static const String globalType = 'FileUploadDropzoneTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'backgroundColor': null,
+    'backgroundColor': 'theme.colorScheme.background',
     'borderRadius': null,
     'padding': null,
-    'minHeight': null,
+    'minHeight': '220 * scaling',
     'icon': null,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};

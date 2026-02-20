@@ -6,7 +6,7 @@ class MultipleChoiceThemeTokensConfig {
   static Object? global;
   static const String globalType = 'MultipleChoiceTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'allowUnselect': null,
+    'allowUnselect': true,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

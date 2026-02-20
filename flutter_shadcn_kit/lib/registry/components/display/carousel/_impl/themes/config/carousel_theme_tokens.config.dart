@@ -6,14 +6,14 @@ class CarouselThemeTokensConfig {
   static Object? global;
   static const String globalType = 'CarouselTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'alignment': null,
-    'direction': null,
-    'wrap': null,
-    'pauseOnHover': null,
+    'alignment': 'CarouselAlignment.center',
+    'direction': 'Axis.horizontal',
+    'wrap': true,
+    'pauseOnHover': true,
     'autoplaySpeed': null,
-    'draggable': null,
-    'speed': null,
-    'curve': null,
+    'draggable': true,
+    'speed': 'const Duration(milliseconds: 200)',
+    'curve': 'Curves.easeInOut',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

@@ -6,11 +6,11 @@ class RefreshTriggerThemeTokensConfig {
   static Object? global;
   static const String globalType = 'RefreshTriggerTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'minExtent': null,
-    'maxExtent': null,
-    'indicatorBuilder': null,
-    'curve': null,
-    'completeDuration': null,
+    'minExtent': '75.0 * theme.scaling',
+    'maxExtent': '150.0 * theme.scaling',
+    'indicatorBuilder': 'RefreshTrigger.defaultIndicatorBuilder',
+    'curve': 'Curves.easeOutSine',
+    'completeDuration': 'const Duration(milliseconds: 500)',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

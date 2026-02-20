@@ -6,13 +6,13 @@ class OutlinedContainerThemeTokensConfig {
   static Object? global;
   static const String globalType = 'OutlinedContainerTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
-    'backgroundColor': null,
-    'borderColor': null,
-    'borderRadius': null,
-    'borderStyle': null,
-    'borderWidth': null,
+    'backgroundColor': 'theme.colorScheme.background',
+    'borderColor': 'theme.colorScheme.muted',
+    'borderRadius': 'theme.borderRadiusXl',
+    'borderStyle': 'BorderStyle.solid',
+    'borderWidth': '1.0 * theme.scaling',
     'boxShadow': null,
-    'padding': null,
+    'padding': 'EdgeInsets.zero',
     'surfaceOpacity': null,
     'surfaceBlur': null,
   };

@@ -18,7 +18,7 @@ class SwiperThemeTokensConfig {
     'surfaceOpacity': null,
     'surfaceBlur': null,
     'barrierColor': null,
-    'behavior': null,
+    'behavior': 'HitTestBehavior.translucent',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

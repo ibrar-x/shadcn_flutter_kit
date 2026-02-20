@@ -7,7 +7,7 @@ class ChipInputThemeTokensConfig {
   static const String globalType = 'ChipInputTheme';
   static const Map<String, Object?> globalDefaults = <String, Object?>{
     'spacing': null,
-    'useChips': null,
+    'useChips': true,
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

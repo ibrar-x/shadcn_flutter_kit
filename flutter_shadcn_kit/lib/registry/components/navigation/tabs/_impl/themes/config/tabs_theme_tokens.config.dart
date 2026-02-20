@@ -8,8 +8,8 @@ class TabsThemeTokensConfig {
   static const Map<String, Object?> globalDefaults = <String, Object?>{
     'containerPadding': null,
     'tabPadding': null,
-    'backgroundColor': null,
-    'borderRadius': null,
+    'backgroundColor': 'theme.colorScheme.card',
+    'borderRadius': 'theme.borderRadiusLg',
   };
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 
@@ -36,10 +36,10 @@ class TabsThemeTokensConfig {
   static Object? tabPaneTheme;
   static const String tabPaneThemeType = 'TabPaneTheme';
   static const Map<String, Object?> tabPaneThemeDefaults = <String, Object?>{
-    'borderRadius': null,
-    'backgroundColor': null,
+    'borderRadius': 'theme.borderRadiusLg',
+    'backgroundColor': 'theme.colorScheme.card',
     'border': null,
-    'barHeight': null,
+    'barHeight': '(32 * theme.scaling)',
   };
   static const Map<String, Object?> tabPaneThemeTokens = <String, Object?>{};
 }
