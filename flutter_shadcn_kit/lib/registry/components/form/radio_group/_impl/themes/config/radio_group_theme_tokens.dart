@@ -38,16 +38,16 @@ const radioCardThemeTokens = RadioCardThemeTokens();
 class RadioThemeTokens {
   final Object? activeColor;
   final Object? borderColor;
-  final Object? size;
   final Object? backgroundColor;
+  final Object? size;
   final bool? ignoreGlobalScaling;
   final bool? ignoreGlobalRadius;
 
   const RadioThemeTokens({
     this.activeColor,
     this.borderColor,
-    this.size,
     this.backgroundColor,
+    this.size,
     this.ignoreGlobalScaling,
     this.ignoreGlobalRadius,
   });

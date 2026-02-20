@@ -11,8 +11,10 @@ class DialogThemeConfig {
 
   static const Object? modalBackdropTheme = null;
   static const String modalBackdropThemeType = 'ModalBackdropTheme';
-  static const ModalBackdropThemeDefaults modalBackdropThemeDefaults = ModalBackdropThemeDefaults();
-  static const ModalBackdropThemeTokens modalBackdropThemeTokenConfig = modalBackdropThemeTokens;
+  static const ModalBackdropThemeDefaults modalBackdropThemeDefaults =
+      ModalBackdropThemeDefaults();
+  static const ModalBackdropThemeTokens modalBackdropThemeTokenConfig =
+      modalBackdropThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == modalBackdropThemeType) {

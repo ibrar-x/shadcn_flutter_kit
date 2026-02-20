@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class FocusOutlineThemeDefaults {
@@ -8,9 +9,5 @@ class FocusOutlineThemeDefaults {
   final Object? borderRadius;
   final Object? border;
 
-  const FocusOutlineThemeDefaults({
-    this.align,
-    this.borderRadius,
-    this.border,
-  });
+  const FocusOutlineThemeDefaults({this.align, this.borderRadius, this.border});
 }

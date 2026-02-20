@@ -11,8 +11,10 @@ class OutlinedContainerThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'OutlinedContainerTheme';
-  static const OutlinedContainerThemeDefaults defaults = OutlinedContainerThemeDefaults();
-  static const OutlinedContainerThemeTokens tokens = outlinedContainerThemeTokens;
+  static const OutlinedContainerThemeDefaults defaults =
+      OutlinedContainerThemeDefaults();
+  static const OutlinedContainerThemeTokens tokens =
+      outlinedContainerThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == globalType) {

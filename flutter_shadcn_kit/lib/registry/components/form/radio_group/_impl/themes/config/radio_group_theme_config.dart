@@ -11,8 +11,10 @@ class RadioGroupThemeConfig {
 
   static const Object? radioCardTheme = null;
   static const String radioCardThemeType = 'RadioCardTheme';
-  static const RadioCardThemeDefaults radioCardThemeDefaults = RadioCardThemeDefaults();
-  static const RadioCardThemeTokens radioCardThemeTokenConfig = radioCardThemeTokens;
+  static const RadioCardThemeDefaults radioCardThemeDefaults =
+      RadioCardThemeDefaults();
+  static const RadioCardThemeTokens radioCardThemeTokenConfig =
+      radioCardThemeTokens;
 
   static const Object? radioTheme = null;
   static const String radioThemeType = 'RadioTheme';

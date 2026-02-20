@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class TextAnimateThemeDefaults {
@@ -10,9 +11,9 @@ class TextAnimateThemeDefaults {
   final Object? cursor;
 
   const TextAnimateThemeDefaults({
-    this.style = 'const TextStyle()',
-    this.typewriter = 'const TypewriterEffect()',
-    this.effect = 'const NoEffect()',
-    this.cursor = 'const StreamingCursor.none()',
+    this.style,
+    this.typewriter,
+    this.effect,
+    this.cursor,
   });
 }

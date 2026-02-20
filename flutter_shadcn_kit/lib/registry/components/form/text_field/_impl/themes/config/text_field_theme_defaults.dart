@@ -1,18 +1,22 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class TextFieldThemeDefaults {
-  final Object? border;
+  /// Widget fallback: compTheme?.borderRadius
   final Object? borderRadius;
+
+  /// Widget fallback: compTheme?.filled ?? false
   final Object? filled;
   final Object? padding;
+  final Object? border;
 
   const TextFieldThemeDefaults({
-    this.border = 'Border.all( color: theme.colorScheme.border, strokeAlign: BorderSide.strokeAlignCenter, )',
     this.borderRadius,
-    this.filled = false,
-    this.padding = 'EdgeInsets.symmetric(horizontal: densityContentPadding * 0.75)',
+    this.filled,
+    this.padding,
+    this.border,
   });
 }

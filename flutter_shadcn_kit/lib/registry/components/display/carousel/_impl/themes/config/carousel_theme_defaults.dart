@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class CarouselThemeDefaults {
@@ -14,13 +15,13 @@ class CarouselThemeDefaults {
   final Object? curve;
 
   const CarouselThemeDefaults({
-    this.alignment = 'CarouselAlignment.center',
-    this.direction = 'Axis.horizontal',
-    this.wrap = true,
-    this.pauseOnHover = true,
+    this.alignment,
+    this.direction,
+    this.wrap,
+    this.pauseOnHover,
     this.autoplaySpeed,
-    this.draggable = true,
-    this.speed = 'const Duration(milliseconds: 200)',
-    this.curve = 'Curves.easeInOut',
+    this.draggable,
+    this.speed,
+    this.curve,
   });
 }

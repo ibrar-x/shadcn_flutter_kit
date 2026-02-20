@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class SwitchThemeDefaults {
@@ -12,11 +13,11 @@ class SwitchThemeDefaults {
   final Object? borderRadius;
 
   const SwitchThemeDefaults({
-    this.activeColor = 'theme.colorScheme.primary',
-    this.inactiveColor = 'theme.colorScheme.input',
-    this.activeThumbColor = 'theme.colorScheme.background',
-    this.inactiveThumbColor = 'theme.colorScheme.foreground',
-    this.gap = '8 * scaling',
-    this.borderRadius = 'BorderRadius.circular(theme.radiusXl)',
+    this.activeColor,
+    this.inactiveColor,
+    this.activeThumbColor,
+    this.inactiveThumbColor,
+    this.gap,
+    this.borderRadius,
   });
 }

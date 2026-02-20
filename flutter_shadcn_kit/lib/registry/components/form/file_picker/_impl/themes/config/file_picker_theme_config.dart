@@ -11,8 +11,10 @@ class FilePickerThemeConfig {
 
   static const Object? fileUploadDropzoneTheme = null;
   static const String fileUploadDropzoneThemeType = 'FileUploadDropzoneTheme';
-  static const FileUploadDropzoneThemeDefaults fileUploadDropzoneThemeDefaults = FileUploadDropzoneThemeDefaults();
-  static const FileUploadDropzoneThemeTokens fileUploadDropzoneThemeTokenConfig = fileUploadDropzoneThemeTokens;
+  static const FileUploadDropzoneThemeDefaults fileUploadDropzoneThemeDefaults =
+      FileUploadDropzoneThemeDefaults();
+  static const FileUploadDropzoneThemeTokens
+  fileUploadDropzoneThemeTokenConfig = fileUploadDropzoneThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == fileUploadDropzoneThemeType) {

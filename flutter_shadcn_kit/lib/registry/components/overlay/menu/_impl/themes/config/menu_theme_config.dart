@@ -16,12 +16,15 @@ class MenuThemeConfig {
 
   static const Object? menuPopupTheme = null;
   static const String menuPopupThemeType = 'MenuPopupTheme';
-  static const MenuPopupThemeDefaults menuPopupThemeDefaults = MenuPopupThemeDefaults();
-  static const MenuPopupThemeTokens menuPopupThemeTokenConfig = menuPopupThemeTokens;
+  static const MenuPopupThemeDefaults menuPopupThemeDefaults =
+      MenuPopupThemeDefaults();
+  static const MenuPopupThemeTokens menuPopupThemeTokenConfig =
+      menuPopupThemeTokens;
 
   static const Object? menubarTheme = null;
   static const String menubarThemeType = 'MenubarTheme';
-  static const MenubarThemeDefaults menubarThemeDefaults = MenubarThemeDefaults();
+  static const MenubarThemeDefaults menubarThemeDefaults =
+      MenubarThemeDefaults();
   static const MenubarThemeTokens menubarThemeTokenConfig = menubarThemeTokens;
 
   static T? resolve<T>() {

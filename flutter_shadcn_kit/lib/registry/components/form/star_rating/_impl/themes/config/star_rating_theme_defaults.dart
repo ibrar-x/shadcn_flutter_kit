@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class StarRatingThemeDefaults {
@@ -10,9 +11,9 @@ class StarRatingThemeDefaults {
   final Object? starSpacing;
 
   const StarRatingThemeDefaults({
-    this.activeColor = '_enabled ? theme.colorScheme.primary : theme.colorScheme.mutedForeground',
-    this.backgroundColor = 'theme.colorScheme.muted',
-    this.starSize = 24.0,
-    this.starSpacing = '5.0 * scaling',
+    this.activeColor,
+    this.backgroundColor,
+    this.starSize,
+    this.starSpacing,
   });
 }

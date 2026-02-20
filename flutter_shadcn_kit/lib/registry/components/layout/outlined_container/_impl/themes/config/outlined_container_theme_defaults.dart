@@ -1,11 +1,14 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class OutlinedContainerThemeDefaults {
   final Object? backgroundColor;
   final Object? borderColor;
+
+  /// Widget fallback: theme.borderRadiusLg
   final Object? borderRadius;
   final Object? borderStyle;
   final Object? borderWidth;
@@ -15,13 +18,13 @@ class OutlinedContainerThemeDefaults {
   final Object? surfaceBlur;
 
   const OutlinedContainerThemeDefaults({
-    this.backgroundColor = 'theme.colorScheme.background',
-    this.borderColor = 'theme.colorScheme.muted',
-    this.borderRadius = 'theme.borderRadiusXl',
-    this.borderStyle = 'BorderStyle.solid',
-    this.borderWidth = '1.0 * theme.scaling',
+    this.backgroundColor,
+    this.borderColor,
+    this.borderRadius,
+    this.borderStyle,
+    this.borderWidth,
     this.boxShadow,
-    this.padding = 'EdgeInsets.zero',
+    this.padding,
     this.surfaceOpacity,
     this.surfaceBlur,
   });

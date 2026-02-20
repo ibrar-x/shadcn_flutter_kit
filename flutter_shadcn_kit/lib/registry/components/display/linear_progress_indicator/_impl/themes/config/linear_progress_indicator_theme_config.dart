@@ -11,8 +11,10 @@ class LinearProgressIndicatorThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'LinearProgressIndicatorTheme';
-  static const LinearProgressIndicatorThemeDefaults defaults = LinearProgressIndicatorThemeDefaults();
-  static const LinearProgressIndicatorThemeTokens tokens = linearProgressIndicatorThemeTokens;
+  static const LinearProgressIndicatorThemeDefaults defaults =
+      LinearProgressIndicatorThemeDefaults();
+  static const LinearProgressIndicatorThemeTokens tokens =
+      linearProgressIndicatorThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == globalType) {

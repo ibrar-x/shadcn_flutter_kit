@@ -11,8 +11,10 @@ class ScrollableThemeConfig {
 
   static const Object? scrollableClientTheme = null;
   static const String scrollableClientThemeType = 'ScrollableClientTheme';
-  static const ScrollableClientThemeDefaults scrollableClientThemeDefaults = ScrollableClientThemeDefaults();
-  static const ScrollableClientThemeTokens scrollableClientThemeTokenConfig = scrollableClientThemeTokens;
+  static const ScrollableClientThemeDefaults scrollableClientThemeDefaults =
+      ScrollableClientThemeDefaults();
+  static const ScrollableClientThemeTokens scrollableClientThemeTokenConfig =
+      scrollableClientThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == scrollableClientThemeType) {

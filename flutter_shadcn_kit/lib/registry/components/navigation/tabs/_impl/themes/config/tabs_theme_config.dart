@@ -16,17 +16,21 @@ class TabsThemeConfig {
 
   static const Object? tabContainerTheme = null;
   static const String tabContainerThemeType = 'TabContainerTheme';
-  static const TabContainerThemeDefaults tabContainerThemeDefaults = TabContainerThemeDefaults();
-  static const TabContainerThemeTokens tabContainerThemeTokenConfig = tabContainerThemeTokens;
+  static const TabContainerThemeDefaults tabContainerThemeDefaults =
+      TabContainerThemeDefaults();
+  static const TabContainerThemeTokens tabContainerThemeTokenConfig =
+      tabContainerThemeTokens;
 
   static const Object? tabListTheme = null;
   static const String tabListThemeType = 'TabListTheme';
-  static const TabListThemeDefaults tabListThemeDefaults = TabListThemeDefaults();
+  static const TabListThemeDefaults tabListThemeDefaults =
+      TabListThemeDefaults();
   static const TabListThemeTokens tabListThemeTokenConfig = tabListThemeTokens;
 
   static const Object? tabPaneTheme = null;
   static const String tabPaneThemeType = 'TabPaneTheme';
-  static const TabPaneThemeDefaults tabPaneThemeDefaults = TabPaneThemeDefaults();
+  static const TabPaneThemeDefaults tabPaneThemeDefaults =
+      TabPaneThemeDefaults();
   static const TabPaneThemeTokens tabPaneThemeTokenConfig = tabPaneThemeTokens;
 
   static T? resolve<T>() {

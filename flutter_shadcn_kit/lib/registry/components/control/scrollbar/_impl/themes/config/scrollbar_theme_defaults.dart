@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class ScrollbarThemeDefaults {
@@ -8,9 +9,5 @@ class ScrollbarThemeDefaults {
   final Object? thickness;
   final Object? radius;
 
-  const ScrollbarThemeDefaults({
-    this.color = '_theme.colorScheme.border',
-    this.thickness = '7.0 * _theme.scaling',
-    this.radius = 'Radius.circular(_theme.radiusSm)',
-  });
+  const ScrollbarThemeDefaults({this.color, this.thickness, this.radius});
 }

@@ -4,14 +4,14 @@
 // ═══════════════════════════════════════════════════════════
 
 class ChipInputThemeTokens {
-  final Object? spacing;
   final Object? useChips;
+  final Object? spacing;
   final bool? ignoreGlobalScaling;
   final bool? ignoreGlobalRadius;
 
   const ChipInputThemeTokens({
-    this.spacing,
     this.useChips,
+    this.spacing,
     this.ignoreGlobalScaling,
     this.ignoreGlobalRadius,
   });

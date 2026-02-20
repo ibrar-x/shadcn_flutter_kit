@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class ColorInputThemeDefaults {
@@ -16,15 +17,15 @@ class ColorInputThemeDefaults {
   final Object? showHistory;
 
   const ColorInputThemeDefaults({
-    this.showAlpha = true,
-    this.popoverAlignment = 'Alignment.topCenter',
-    this.popoverAnchorAlignment = 'Alignment.bottomCenter',
+    this.showAlpha,
+    this.popoverAlignment,
+    this.popoverAnchorAlignment,
     this.popoverPadding,
     this.mode,
     this.pickerMode,
-    this.enableEyeDropper = true,
-    this.showLabel = false,
+    this.enableEyeDropper,
+    this.showLabel,
     this.orientation,
-    this.showHistory = true,
+    this.showHistory,
   });
 }

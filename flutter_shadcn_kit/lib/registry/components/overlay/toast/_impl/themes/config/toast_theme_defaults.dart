@@ -1,17 +1,24 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class ToastThemeDefaults {
   final Object? padding;
   final Object? margin;
+
+  /// Widget fallback: defaultDuration
   final Object? duration;
   final Object? animationDuration;
+
+  /// Widget fallback: Curves.easeOut
   final Object? animationCurve;
   final Object? width;
   final Object? borderRadius;
   final Object? backgroundColor;
+
+  /// Widget fallback: toastTheme?.pauseOnHover ?? false
   final Object? pauseOnHover;
   final Object? dismissDirections;
   final Object? dismissDragThreshold;

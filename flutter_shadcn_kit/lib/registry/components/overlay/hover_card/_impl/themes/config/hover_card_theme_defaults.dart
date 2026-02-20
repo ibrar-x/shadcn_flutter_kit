@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class HoverCardThemeDefaults {
@@ -12,11 +13,11 @@ class HoverCardThemeDefaults {
   final Object? behavior;
 
   const HoverCardThemeDefaults({
-    this.debounce = 'const Duration(milliseconds: 500)',
-    this.wait = 'const Duration(milliseconds: 500)',
-    this.popoverAlignment = 'Alignment.topCenter',
-    this.anchorAlignment = 'Alignment.bottomCenter',
-    this.popoverOffset = 'const Offset(0, 8)',
-    this.behavior = 'HitTestBehavior.deferToChild',
+    this.debounce,
+    this.wait,
+    this.popoverAlignment,
+    this.anchorAlignment,
+    this.popoverOffset,
+    this.behavior,
   });
 }

@@ -1,21 +1,31 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class ErrorSystemThemeDefaults {
+  /// Widget fallback: theme.colorScheme.destructive
   final Object? iconColor;
+
+  /// Widget fallback: 36 * scaling
   final Object? iconSize;
   final Object? titleStyle;
   final Object? messageStyle;
   final Object? cardPadding;
   final Object? cardBorderRadius;
   final Object? cardFillColor;
+
+  /// Widget fallback: theme.colorScheme.card
   final Object? bannerBackgroundColor;
+
+  /// Widget fallback: theme.borderRadiusLg
   final Object? bannerBorderRadius;
   final Object? bannerPadding;
   final Object? bannerTitleStyle;
   final Object? bannerMessageStyle;
+
+  /// Widget fallback: RadixIcons.exclamationTriangle
   final Object? bannerIcon;
   final Object? bannerBorderColor;
   final Object? snackbarBackgroundColor;

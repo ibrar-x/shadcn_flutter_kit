@@ -11,8 +11,10 @@ class PopupThemeConfig {
 
   static const Object? menuPopupTheme = null;
   static const String menuPopupThemeType = 'MenuPopupTheme';
-  static const MenuPopupThemeDefaults menuPopupThemeDefaults = MenuPopupThemeDefaults();
-  static const MenuPopupThemeTokens menuPopupThemeTokenConfig = menuPopupThemeTokens;
+  static const MenuPopupThemeDefaults menuPopupThemeDefaults =
+      MenuPopupThemeDefaults();
+  static const MenuPopupThemeTokens menuPopupThemeTokenConfig =
+      menuPopupThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == menuPopupThemeType) {

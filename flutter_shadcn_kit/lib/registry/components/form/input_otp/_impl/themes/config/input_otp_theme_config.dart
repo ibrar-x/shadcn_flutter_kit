@@ -11,8 +11,10 @@ class InputOtpThemeConfig {
 
   static const Object? inputOTPTheme = null;
   static const String inputOTPThemeType = 'InputOTPTheme';
-  static const InputOTPThemeDefaults inputOTPThemeDefaults = InputOTPThemeDefaults();
-  static const InputOTPThemeTokens inputOTPThemeTokenConfig = inputOTPThemeTokens;
+  static const InputOTPThemeDefaults inputOTPThemeDefaults =
+      InputOTPThemeDefaults();
+  static const InputOTPThemeTokens inputOTPThemeTokenConfig =
+      inputOTPThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == inputOTPThemeType) {

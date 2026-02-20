@@ -1,20 +1,27 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class HoverThemeDefaults {
   final Object? debounceDuration;
   final Object? hitTestBehavior;
+
+  /// Widget fallback: const Duration(milliseconds: 500
   final Object? waitDuration;
+
+  /// Widget fallback: const Duration(milliseconds: 0
   final Object? minDuration;
+
+  /// Widget fallback: const Duration(milliseconds: 200
   final Object? showDuration;
 
   const HoverThemeDefaults({
-    this.debounceDuration = 'const Duration(milliseconds: 100)',
-    this.hitTestBehavior = 'HitTestBehavior.deferToChild',
-    this.waitDuration = 'const Duration(milliseconds: 500)',
-    this.minDuration = 'const Duration(milliseconds: 0)',
-    this.showDuration = 'const Duration(milliseconds: 200)',
+    this.debounceDuration,
+    this.hitTestBehavior,
+    this.waitDuration,
+    this.minDuration,
+    this.showDuration,
   });
 }

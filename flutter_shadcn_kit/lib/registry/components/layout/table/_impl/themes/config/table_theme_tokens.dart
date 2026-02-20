@@ -5,16 +5,16 @@
 
 class TableThemeTokens {
   final Object? border;
-  final Object? backgroundColor;
   final Object? borderRadius;
+  final Object? backgroundColor;
   final Object? cellTheme;
   final bool? ignoreGlobalScaling;
   final bool? ignoreGlobalRadius;
 
   const TableThemeTokens({
     this.border,
-    this.backgroundColor,
     this.borderRadius,
+    this.backgroundColor,
     this.cellTheme,
     this.ignoreGlobalScaling,
     this.ignoreGlobalRadius,

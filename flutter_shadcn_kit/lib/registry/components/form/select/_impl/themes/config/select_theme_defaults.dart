@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class SelectThemeDefaults {
@@ -11,16 +12,18 @@ class SelectThemeDefaults {
   final Object? padding;
   final Object? disableHoverEffect;
   final Object? canUnselect;
+
+  /// Widget fallback: true
   final Object? autoClosePopover;
 
   const SelectThemeDefaults({
     this.popupConstraints,
-    this.popoverAlignment = 'Alignment.topCenter',
+    this.popoverAlignment,
     this.popoverAnchorAlignment,
     this.borderRadius,
     this.padding,
-    this.disableHoverEffect = false,
-    this.canUnselect = false,
+    this.disableHoverEffect,
+    this.canUnselect,
     this.autoClosePopover = true,
   });
 }

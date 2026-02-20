@@ -11,7 +11,8 @@ class KeyboardShortcutThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'KeyboardShortcutTheme';
-  static const KeyboardShortcutThemeDefaults defaults = KeyboardShortcutThemeDefaults();
+  static const KeyboardShortcutThemeDefaults defaults =
+      KeyboardShortcutThemeDefaults();
   static const KeyboardShortcutThemeTokens tokens = keyboardShortcutThemeTokens;
 
   static T? resolve<T>() {

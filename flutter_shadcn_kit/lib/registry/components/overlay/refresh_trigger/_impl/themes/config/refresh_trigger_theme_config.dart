@@ -11,7 +11,8 @@ class RefreshTriggerThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'RefreshTriggerTheme';
-  static const RefreshTriggerThemeDefaults defaults = RefreshTriggerThemeDefaults();
+  static const RefreshTriggerThemeDefaults defaults =
+      RefreshTriggerThemeDefaults();
   static const RefreshTriggerThemeTokens tokens = refreshTriggerThemeTokens;
 
   static T? resolve<T>() {

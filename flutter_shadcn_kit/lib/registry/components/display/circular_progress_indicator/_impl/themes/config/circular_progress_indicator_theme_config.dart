@@ -11,8 +11,10 @@ class CircularProgressIndicatorThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'CircularProgressIndicatorTheme';
-  static const CircularProgressIndicatorThemeDefaults defaults = CircularProgressIndicatorThemeDefaults();
-  static const CircularProgressIndicatorThemeTokens tokens = circularProgressIndicatorThemeTokens;
+  static const CircularProgressIndicatorThemeDefaults defaults =
+      CircularProgressIndicatorThemeDefaults();
+  static const CircularProgressIndicatorThemeTokens tokens =
+      circularProgressIndicatorThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == globalType) {

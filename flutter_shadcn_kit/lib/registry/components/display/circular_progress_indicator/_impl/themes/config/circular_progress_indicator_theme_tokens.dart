@@ -21,4 +21,5 @@ class CircularProgressIndicatorThemeTokens {
   });
 }
 
-const circularProgressIndicatorThemeTokens = CircularProgressIndicatorThemeTokens();
+const circularProgressIndicatorThemeTokens =
+    CircularProgressIndicatorThemeTokens();

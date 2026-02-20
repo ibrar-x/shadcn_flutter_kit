@@ -16,8 +16,10 @@ class TableThemeConfig {
 
   static const Object? resizableTableTheme = null;
   static const String resizableTableThemeType = 'ResizableTableTheme';
-  static const ResizableTableThemeDefaults resizableTableThemeDefaults = ResizableTableThemeDefaults();
-  static const ResizableTableThemeTokens resizableTableThemeTokenConfig = resizableTableThemeTokens;
+  static const ResizableTableThemeDefaults resizableTableThemeDefaults =
+      ResizableTableThemeDefaults();
+  static const ResizableTableThemeTokens resizableTableThemeTokenConfig =
+      resizableTableThemeTokens;
 
   static T? resolve<T>() {
     if (T.toString() == globalType) {

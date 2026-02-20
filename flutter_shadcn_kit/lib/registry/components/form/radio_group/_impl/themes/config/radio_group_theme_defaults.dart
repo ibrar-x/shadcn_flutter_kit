@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class RadioCardThemeDefaults {
@@ -32,13 +33,13 @@ class RadioCardThemeDefaults {
 class RadioThemeDefaults {
   final Object? activeColor;
   final Object? borderColor;
-  final Object? size;
   final Object? backgroundColor;
+  final Object? size;
 
   const RadioThemeDefaults({
     this.activeColor,
     this.borderColor,
-    this.size,
     this.backgroundColor,
+    this.size,
   });
 }

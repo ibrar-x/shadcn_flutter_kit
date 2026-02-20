@@ -11,7 +11,8 @@ class FormattedInputThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'FormattedInputTheme';
-  static const FormattedInputThemeDefaults defaults = FormattedInputThemeDefaults();
+  static const FormattedInputThemeDefaults defaults =
+      FormattedInputThemeDefaults();
   static const FormattedInputThemeTokens tokens = formattedInputThemeTokens;
 
   static T? resolve<T>() {

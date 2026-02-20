@@ -11,7 +11,8 @@ class FeatureCarouselThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'FeatureCarouselTheme';
-  static const FeatureCarouselThemeDefaults defaults = FeatureCarouselThemeDefaults();
+  static const FeatureCarouselThemeDefaults defaults =
+      FeatureCarouselThemeDefaults();
   static const FeatureCarouselThemeTokens tokens = featureCarouselThemeTokens;
 
   static T? resolve<T>() {

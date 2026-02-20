@@ -4,18 +4,18 @@
 // ═══════════════════════════════════════════════════════════
 
 class TextFieldThemeTokens {
-  final Object? border;
   final Object? borderRadius;
   final Object? filled;
   final Object? padding;
+  final Object? border;
   final bool? ignoreGlobalScaling;
   final bool? ignoreGlobalRadius;
 
   const TextFieldThemeTokens({
-    this.border,
     this.borderRadius,
     this.filled,
     this.padding,
+    this.border,
     this.ignoreGlobalScaling,
     this.ignoreGlobalRadius,
   });

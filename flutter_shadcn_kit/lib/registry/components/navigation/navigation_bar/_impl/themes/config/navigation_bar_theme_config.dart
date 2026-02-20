@@ -11,7 +11,8 @@ class NavigationBarThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'NavigationBarTheme';
-  static const NavigationBarThemeDefaults defaults = NavigationBarThemeDefaults();
+  static const NavigationBarThemeDefaults defaults =
+      NavigationBarThemeDefaults();
   static const NavigationBarThemeTokens tokens = navigationBarThemeTokens;
 
   static T? resolve<T>() {

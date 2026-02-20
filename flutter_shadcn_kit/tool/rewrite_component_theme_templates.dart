@@ -7,16 +7,18 @@ class Registration {
   final String typeName;
 }
 
-class DefaultsClassData {
-  DefaultsClassData({required this.fields, required this.defaults});
+class ThemeField {
+  ThemeField({required this.name, required this.type});
 
-  final List<String> fields;
-  final Map<String, String> defaults;
+  final String name;
+  final String type;
 }
 
-class ParseState {
-  final Map<String, DefaultsClassData> byClass = <String, DefaultsClassData>{};
-  final List<String> classOrder = <String>[];
+class ThemeClassData {
+  ThemeClassData({required this.name, required this.fields});
+
+  final String name;
+  final List<ThemeField> fields;
 }
 
 void main() {
@@ -51,38 +53,25 @@ void main() {
     }
 
     final configContent = configFile.readAsStringSync();
-    final className = _extractConfigClassName(configContent);
-    if (className == null) continue;
+    final configClassName = _extractConfigClassName(configContent);
+    if (configClassName == null) continue;
 
-    final regs = _extractRegistrations(configContent, className);
+    final regs = _extractRegistrations(configContent, configClassName);
     if (regs.isEmpty) continue;
 
-    final defaultsState = _parseDefaultsFile(defaultsFile.readAsStringSync());
+    final componentDir = configFile.parent.parent.parent;
+    final componentDartFiles = componentDir
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))
+        .toList();
 
-    final regDefaults = <String, DefaultsClassData>{};
-    final assignedClassNames = <String>{};
-    for (var i = 0; i < regs.length; i++) {
-      final reg = regs[i];
-      final classNameGuess = _findBestDefaultsClassName(
-        defaultsState,
-        reg.fieldName,
-        assignedClassNames,
-        i,
-      );
-      if (classNameGuess != null) {
-        assignedClassNames.add(classNameGuess);
-        regDefaults[reg.fieldName] = defaultsState.byClass[classNameGuess]!;
-      } else {
-        regDefaults[reg.fieldName] = DefaultsClassData(
-          fields: const <String>[],
-          defaults: const <String, String>{},
-        );
-      }
-    }
+    final themeClassMap = _collectThemeClasses(componentDartFiles);
+    final fallbackMap = _collectFallbackMap(componentDartFiles);
 
-    final defaultsOut = _buildDefaultsFile(regs, regDefaults);
-    final tokensOut = _buildTokensFile(regs, regDefaults);
-    final configOut = _buildConfigFile(className, regs);
+    final defaultsOut = _buildDefaultsFile(regs, themeClassMap, fallbackMap);
+    final tokensOut = _buildTokensFile(regs, themeClassMap);
+    final configOut = _buildConfigFile(configClassName, regs);
 
     defaultsFile.writeAsStringSync(defaultsOut);
     tokensFile.writeAsStringSync(tokensOut);
@@ -112,6 +101,7 @@ List<Registration> _extractRegistrations(
   );
   final regs = <Registration>[];
   final baseTypeName = configClassName.replaceAll('Config', '');
+
   for (final m in typeRe.allMatches(configContent)) {
     final typeName = m.group(2)!;
     final fieldName = typeName == baseTypeName
@@ -119,174 +109,134 @@ List<Registration> _extractRegistrations(
         : _lowerCamel(typeName);
     regs.add(Registration(fieldName: fieldName, typeName: typeName));
   }
+
   if (regs.isEmpty) {
     regs.add(Registration(fieldName: 'global', typeName: baseTypeName));
   }
+
   return regs;
 }
 
-ParseState _parseDefaultsFile(String defaultsContent) {
-  final state = ParseState();
-  final classRe = RegExp(r'class\s+(\w+)\s*\{([\s\S]*?)\n\}');
+Map<String, ThemeClassData> _collectThemeClasses(List<File> files) {
+  final out = <String, ThemeClassData>{};
+  final classRe = RegExp(r'class\s+(\w+)\s+extends\s+ComponentThemeData\s*\{');
 
-  for (final classMatch in classRe.allMatches(defaultsContent)) {
-    final className = classMatch.group(1)!;
-    final body = classMatch.group(2)!;
-
-    final fields = <String>[];
-    for (final fm in RegExp(r'final\s+[^;]+\s+(\w+)\s*;').allMatches(body)) {
-      fields.add(fm.group(1)!);
+  for (final file in files) {
+    if (file.path.contains(
+      '${Platform.pathSeparator}config${Platform.pathSeparator}',
+    )) {
+      continue;
     }
 
-    final defaults = <String, String>{};
-    final ctorMatch = RegExp(
-      'const\\s+$className\\s*\\(\\{([\\s\\S]*?)\\}\\);',
-    ).firstMatch(body);
-    if (ctorMatch != null) {
-      final paramsRaw = ctorMatch.group(1)!;
-      for (final param in _splitTopLevelComma(paramsRaw)) {
-        final p = param.trim();
-        if (!p.startsWith('this.')) continue;
-        final eq = p.indexOf('=');
-        if (eq == -1) continue;
-        final left = p.substring(5, eq).trim();
-        final right = p.substring(eq + 1).trim();
-        if (left.isNotEmpty && right.isNotEmpty) {
-          defaults[left] = right;
-        }
+    final content = file.readAsStringSync();
+    for (final m in classRe.allMatches(content)) {
+      final className = m.group(1)!;
+      final body = _extractClassBody(content, m.start);
+      if (body.isEmpty) continue;
+
+      final fields = <ThemeField>[];
+      final fieldRe = RegExp(r'final\s+([^;=]+?)\s+(\w+)\s*;');
+      for (final fm in fieldRe.allMatches(body)) {
+        final type = fm.group(1)!.replaceAll(RegExp(r'\s+'), ' ').trim();
+        final name = fm.group(2)!.trim();
+        fields.add(ThemeField(name: name, type: type));
       }
-    }
 
-    state.classOrder.add(className);
-    state.byClass[className] = DefaultsClassData(
-      fields: fields,
-      defaults: defaults,
-    );
+      out[className] = ThemeClassData(name: className, fields: fields);
+    }
   }
 
-  return state;
+  return out;
 }
 
-List<String> _splitTopLevelComma(String input) {
-  final parts = <String>[];
-  final sb = StringBuffer();
-  var depthRound = 0;
-  var depthSquare = 0;
-  var depthCurly = 0;
-  var inSingleQuote = false;
-  var inDoubleQuote = false;
-  var escaped = false;
+String _extractClassBody(String content, int classStart) {
+  final braceStart = content.indexOf('{', classStart);
+  if (braceStart == -1) return '';
 
-  for (var i = 0; i < input.length; i++) {
-    final ch = input[i];
-
-    if (escaped) {
-      sb.write(ch);
-      escaped = false;
-      continue;
-    }
-
-    if (ch == r'\\') {
-      sb.write(ch);
-      escaped = true;
-      continue;
-    }
-
-    if (!inDoubleQuote && ch == "'") {
-      inSingleQuote = !inSingleQuote;
-      sb.write(ch);
-      continue;
-    }
-
-    if (!inSingleQuote && ch == '"') {
-      inDoubleQuote = !inDoubleQuote;
-      sb.write(ch);
-      continue;
-    }
-
-    if (!inSingleQuote && !inDoubleQuote) {
-      if (ch == '(') depthRound++;
-      if (ch == ')') depthRound--;
-      if (ch == '[') depthSquare++;
-      if (ch == ']') depthSquare--;
-      if (ch == '{') depthCurly++;
-      if (ch == '}') depthCurly--;
-
-      if (ch == ',' && depthRound == 0 && depthSquare == 0 && depthCurly == 0) {
-        parts.add(sb.toString());
-        sb.clear();
-        continue;
+  var depth = 0;
+  for (var i = braceStart; i < content.length; i++) {
+    final ch = content[i];
+    if (ch == '{') depth++;
+    if (ch == '}') {
+      depth--;
+      if (depth == 0) {
+        return content.substring(braceStart + 1, i);
       }
     }
-
-    sb.write(ch);
   }
-
-  final tail = sb.toString();
-  if (tail.trim().isNotEmpty) {
-    parts.add(tail);
-  }
-  return parts;
+  return '';
 }
 
-String? _findBestDefaultsClassName(
-  ParseState state,
-  String fieldName,
-  Set<String> assigned,
-  int index,
-) {
-  final key = fieldName.toLowerCase();
+Map<String, String> _collectFallbackMap(List<File> files) {
+  final out = <String, String>{};
 
-  for (final className in state.classOrder) {
-    if (assigned.contains(className)) continue;
-    if (className.toLowerCase().contains(key)) return className;
+  for (final file in files) {
+    if (file.path.contains(
+      '${Platform.pathSeparator}config${Platform.pathSeparator}',
+    )) {
+      continue;
+    }
+
+    final lines = file.readAsLinesSync();
+    for (final line in lines) {
+      if (!line.contains('??')) continue;
+
+      final m = RegExp(
+        r'\.?([A-Za-z_]\w*)\s*\?\?\s*([^,);]+)',
+      ).firstMatch(line);
+      if (m == null) continue;
+
+      final field = m.group(1)!.trim();
+      final fallback = m.group(2)!.trim();
+      if (field.isEmpty || fallback.isEmpty) continue;
+      if (fallback == 'null') continue;
+
+      out.putIfAbsent(field, () => fallback);
+    }
   }
 
-  final unassigned = state.classOrder
-      .where((c) => !assigned.contains(c))
-      .toList();
-  if (index < unassigned.length) {
-    return unassigned[index];
-  }
-  return null;
+  return out;
 }
 
 String _buildDefaultsFile(
   List<Registration> regs,
-  Map<String, DefaultsClassData> regDefaults,
+  Map<String, ThemeClassData> themeClassMap,
+  Map<String, String> fallbackMap,
 ) {
   final out = StringBuffer()
     ..writeln('// ═══════════════════════════════════════════════════════════')
     ..writeln('// COMPONENT THEME DEFAULTS')
     ..writeln('// Built-in defaults (never changes)')
+    ..writeln('// Hard-coded widget/variant fallbacks are documented per field')
     ..writeln('// ═══════════════════════════════════════════════════════════')
     ..writeln();
 
   for (final reg in regs) {
-    final className = '${reg.typeName}Defaults';
-    final data =
-        regDefaults[reg.fieldName] ??
-        DefaultsClassData(
-          fields: const <String>[],
-          defaults: const <String, String>{},
-        );
+    final defaultsClass = '${reg.typeName}Defaults';
+    final themeClass = themeClassMap[reg.typeName];
+    final fields = themeClass?.fields ?? const <ThemeField>[];
 
-    out.writeln('class $className {');
-    for (final field in data.fields) {
-      out.writeln('  final Object? $field;');
+    out.writeln('class $defaultsClass {');
+    for (final f in fields) {
+      final fallback = fallbackMap[f.name];
+      if (fallback != null) {
+        out.writeln('  /// Widget fallback: $fallback');
+      }
+      out.writeln('  final Object? ${f.name};');
     }
-    if (data.fields.isNotEmpty) out.writeln();
+    if (fields.isNotEmpty) out.writeln();
 
-    if (data.fields.isEmpty) {
-      out.writeln('  const $className();');
+    if (fields.isEmpty) {
+      out.writeln('  const $defaultsClass();');
     } else {
-      out.writeln('  const $className({');
-      for (final field in data.fields) {
-        final def = data.defaults[field];
-        if (def != null) {
-          out.writeln('    this.$field = $def,');
+      out.writeln('  const $defaultsClass({');
+      for (final f in fields) {
+        final fallback = fallbackMap[f.name];
+        final literal = fallback == null ? null : _literalOrNull(fallback);
+        if (literal != null) {
+          out.writeln('    this.${f.name} = $literal,');
         } else {
-          out.writeln('    this.$field,');
+          out.writeln('    this.${f.name},');
         }
       }
       out.writeln('  });');
@@ -300,7 +250,7 @@ String _buildDefaultsFile(
 
 String _buildTokensFile(
   List<Registration> regs,
-  Map<String, DefaultsClassData> regDefaults,
+  Map<String, ThemeClassData> themeClassMap,
 ) {
   final out = StringBuffer()
     ..writeln('// ═══════════════════════════════════════════════════════════')
@@ -312,33 +262,29 @@ String _buildTokensFile(
     ..writeln();
 
   for (final reg in regs) {
-    final className = '${reg.typeName}Tokens';
-    final instanceName = '${_lowerCamel(reg.typeName)}Tokens';
-    final data =
-        regDefaults[reg.fieldName] ??
-        DefaultsClassData(
-          fields: const <String>[],
-          defaults: const <String, String>{},
-        );
+    final tokensClass = '${reg.typeName}Tokens';
+    final tokenInstance = '${_lowerCamel(reg.typeName)}Tokens';
+    final themeClass = themeClassMap[reg.typeName];
+    final fields = themeClass?.fields ?? const <ThemeField>[];
 
-    out.writeln('class $className {');
-    for (final field in data.fields) {
-      out.writeln('  final Object? $field;');
+    out.writeln('class $tokensClass {');
+    for (final f in fields) {
+      out.writeln('  final Object? ${f.name};');
     }
     out.writeln('  final bool? ignoreGlobalScaling;');
     out.writeln('  final bool? ignoreGlobalRadius;');
     out.writeln();
 
-    out.writeln('  const $className({');
-    for (final field in data.fields) {
-      out.writeln('    this.$field,');
+    out.writeln('  const $tokensClass({');
+    for (final f in fields) {
+      out.writeln('    this.${f.name},');
     }
     out.writeln('    this.ignoreGlobalScaling,');
     out.writeln('    this.ignoreGlobalRadius,');
     out.writeln('  });');
     out.writeln('}');
     out.writeln();
-    out.writeln('const $instanceName = $className();');
+    out.writeln('const $tokenInstance = $tokensClass();');
     out.writeln();
   }
 
@@ -346,16 +292,16 @@ String _buildTokensFile(
 }
 
 String _buildConfigFile(String configClassName, List<Registration> regs) {
+  final prefixSnake = _snakeFromConfigClass(configClassName);
+
   final out = StringBuffer()
     ..writeln('// ═══════════════════════════════════════════════════════════')
     ..writeln('// COMPONENT THEME CONFIG')
     ..writeln('// Registration wiring (do not edit manually)')
     ..writeln('// ═══════════════════════════════════════════════════════════')
     ..writeln()
-    ..writeln(
-      "import '${_snakeFromConfigClass(configClassName)}_defaults.dart';",
-    )
-    ..writeln("import '${_snakeFromConfigClass(configClassName)}_tokens.dart';")
+    ..writeln("import '${prefixSnake}_defaults.dart';")
+    ..writeln("import '${prefixSnake}_tokens.dart';")
     ..writeln()
     ..writeln('class $configClassName {')
     ..writeln('  const $configClassName._();')
@@ -396,6 +342,17 @@ String _buildConfigFile(String configClassName, List<Registration> regs) {
   out.writeln('}');
 
   return out.toString().trimRight() + '\n';
+}
+
+String? _literalOrNull(String expr) {
+  final e = expr.trim();
+
+  if (RegExp(r'^-?\d+(\.\d+)?$').hasMatch(e)) return e;
+  if (e == 'true' || e == 'false') return e;
+  if (RegExp(r"^'.*'$").hasMatch(e)) return e;
+  if (RegExp(r'^".*"$').hasMatch(e)) return e;
+
+  return null;
 }
 
 String _snakeFromConfigClass(String className) {

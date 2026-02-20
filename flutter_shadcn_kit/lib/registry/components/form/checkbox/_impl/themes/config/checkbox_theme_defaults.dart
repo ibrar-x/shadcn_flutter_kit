@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class CheckboxThemeDefaults {
@@ -12,11 +13,11 @@ class CheckboxThemeDefaults {
   final Object? borderRadius;
 
   const CheckboxThemeDefaults({
-    this.backgroundColor = 'theme.colorScheme.input.scaleAlpha(0.3)',
-    this.activeColor = 'theme.colorScheme.primary',
-    this.borderColor = 'theme.colorScheme.border',
-    this.size = '16 * scaling',
-    this.gap = '8 * scaling',
-    this.borderRadius = 'BorderRadius.circular(theme.radiusSm)',
+    this.backgroundColor,
+    this.activeColor,
+    this.borderColor,
+    this.size,
+    this.gap,
+    this.borderRadius,
   });
 }

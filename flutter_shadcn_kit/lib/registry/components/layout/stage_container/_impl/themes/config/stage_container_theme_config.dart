@@ -11,7 +11,8 @@ class StageContainerThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'StageContainerTheme';
-  static const StageContainerThemeDefaults defaults = StageContainerThemeDefaults();
+  static const StageContainerThemeDefaults defaults =
+      StageContainerThemeDefaults();
   static const StageContainerThemeTokens tokens = stageContainerThemeTokens;
 
   static T? resolve<T>() {

@@ -11,7 +11,8 @@ class MultipleChoiceThemeConfig {
 
   static const Object? global = null;
   static const String globalType = 'MultipleChoiceTheme';
-  static const MultipleChoiceThemeDefaults defaults = MultipleChoiceThemeDefaults();
+  static const MultipleChoiceThemeDefaults defaults =
+      MultipleChoiceThemeDefaults();
   static const MultipleChoiceThemeTokens tokens = multipleChoiceThemeTokens;
 
   static T? resolve<T>() {

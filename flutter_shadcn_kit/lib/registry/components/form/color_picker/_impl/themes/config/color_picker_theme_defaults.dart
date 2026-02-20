@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
+// Hard-coded widget/variant fallbacks are documented per field
 // ═══════════════════════════════════════════════════════════
 
 class ColorPickerThemeDefaults {
@@ -11,10 +12,10 @@ class ColorPickerThemeDefaults {
   final Object? sliderSize;
 
   const ColorPickerThemeDefaults({
-    this.spacing = 12.0,
-    this.controlSpacing = 8.0,
-    this.orientation = 'Axis.vertical',
+    this.spacing,
+    this.controlSpacing,
+    this.orientation,
     this.enableEyeDropper,
-    this.sliderSize = 24.0,
+    this.sliderSize,
   });
 }
