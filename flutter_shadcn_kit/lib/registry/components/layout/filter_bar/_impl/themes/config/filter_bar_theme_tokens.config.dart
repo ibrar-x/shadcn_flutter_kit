@@ -2,6 +2,9 @@
 class FilterBarThemeTokensConfig {
   const FilterBarThemeTokensConfig._();
 
-  /// Token overrides consumed by filter bar runtime.
+  /// Default token payload for this component config.
+  static const Map<String, Object?> globalDefaults = <String, Object?>{};
+
+  /// Override token payload for this component config.
   static const Map<String, Object?> globalTokens = <String, Object?>{};
 }
