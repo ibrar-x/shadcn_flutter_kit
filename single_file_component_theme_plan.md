@@ -47,11 +47,16 @@ Example shape:
 ```dart
 static const String globalType = 'CheckboxTheme';
 static const Map<String, Object?> globalDefaults = <String, Object?>{
-  'size': '16 * scaling',
-  'gap': '8 * scaling',
+  'size': 16.0,
+  'gap': 8.0,
 };
 static const Map<String, Object?> globalTokens = <String, Object?>{};
 ```
+
+Default policy:
+- Prefer literal values in config defaults (`16.0`, `8.0`, `12`, `true`, etc.).
+- Do not store runtime expressions in config defaults (`16 * scaling`, `theme.radiusSm`, etc.).
+- Any adaptive behavior (scaling/theme transforms) should happen in widget/theme resolution code, not in config default payload.
 
 ## 5) Runtime Resolution (Mandatory)
 For each component field `f`:
@@ -82,7 +87,7 @@ To complete migration safely:
 2. Trace fallback sources in widget/state/theme constructors.
 3. Move canonical fallback values into `...Defaults`.
 4. Remove duplicated fallback literals in widget/state for those fields.
-5. Keep unresolved dynamic expressions as explicit expression strings.
+5. Normalize defaults to concrete literals before writing config.
 
 ## 8) Batch Execution Plan
 
@@ -120,7 +125,7 @@ For every component:
 
 ## 10) Risks and Mitigations
 - Risk: dynamic defaults depend on runtime context (`theme`, `scaling`, density).
-  - Mitigation: store as expression strings and resolve centrally.
+  - Mitigation: convert to canonical literal defaults for config and keep dynamic transforms in runtime resolution logic.
 - Risk: variants drift from main component defaults.
   - Mitigation: one config file per component owns all variant entries.
 - Risk: generator output drift from runtime schema.
