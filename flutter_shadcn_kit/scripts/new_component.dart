@@ -123,8 +123,8 @@ _ParsedArgs _parseArgs(List<String> args) {
           remove = true;
           break;
       }
-    } else if (name == null) {
-      name = arg;
+    } else {
+      name ??= arg;
     }
   }
 

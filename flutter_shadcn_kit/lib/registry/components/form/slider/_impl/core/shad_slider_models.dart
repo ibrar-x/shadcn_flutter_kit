@@ -360,7 +360,9 @@ class ShadJoinGapLayout extends ShadSegmentLayout {
     required List<ShadThumbStateView> thumbs,
   }) {
     if (thumbs.isEmpty) return const <ShadSegment>[];
-    const eps = 0.0001;
+    // Use a practical epsilon so values that visually render as 100%/0%
+    // don't leave a tiny tail due to floating-point drift.
+    const eps = 0.005;
     final range = (max - min).abs() < eps ? 1.0 : (max - min);
     final segments = <ShadSegment>[];
 
@@ -412,10 +414,26 @@ class ShadJoinGapLayout extends ShadSegmentLayout {
       final atMin = t <= eps;
       final atMax = t >= 1.0 - eps;
       final cx = thumbs.first.center.dx.clamp(trackRect.left, trackRect.right);
+      final isRtl = textDirection == TextDirection.rtl;
       final gap = effectiveGap(atMin || atMax);
+
+      // At min/max, snap segment boundaries to track edges instead of thumb
+      // center so no residual tail/gap appears at ends.
+      final edgeX = isRtl
+          ? (atMin
+                ? trackRect.right
+                : atMax
+                ? trackRect.left
+                : cx)
+          : (atMin
+                ? trackRect.left
+                : atMax
+                ? trackRect.right
+                : cx);
+      final anchor = (atMin || atMax) ? edgeX : cx;
       final gapHalf = gap / 2;
-      final gapL = (cx - gapHalf).clamp(trackRect.left, trackRect.right);
-      final gapR = (cx + gapHalf).clamp(trackRect.left, trackRect.right);
+      final gapL = (anchor - gapHalf).clamp(trackRect.left, trackRect.right);
+      final gapR = (anchor + gapHalf).clamp(trackRect.left, trackRect.right);
 
       late final Rect fillRect;
       late final Rect remRect;
@@ -473,10 +491,29 @@ class ShadJoinGapLayout extends ShadSegmentLayout {
 
     final gapLeft = effectiveGap(leftAtMin);
     final gapRight = effectiveGap(rightAtMax);
-    final g0L = (leftCx - gapLeft / 2).clamp(trackRect.left, trackRect.right);
-    final g0R = (leftCx + gapLeft / 2).clamp(trackRect.left, trackRect.right);
-    final g1L = (rightCx - gapRight / 2).clamp(trackRect.left, trackRect.right);
-    final g1R = (rightCx + gapRight / 2).clamp(trackRect.left, trackRect.right);
+    final isRtl = textDirection == TextDirection.rtl;
+    final leftGapAnchor = (isRtl && rightAtMax) || (!isRtl && leftAtMin)
+        ? trackRect.left
+        : leftCx;
+    final rightGapAnchor = (isRtl && leftAtMin) || (!isRtl && rightAtMax)
+        ? trackRect.right
+        : rightCx;
+    final g0L = (leftGapAnchor - gapLeft / 2).clamp(
+      trackRect.left,
+      trackRect.right,
+    );
+    final g0R = (leftGapAnchor + gapLeft / 2).clamp(
+      trackRect.left,
+      trackRect.right,
+    );
+    final g1L = (rightGapAnchor - gapRight / 2).clamp(
+      trackRect.left,
+      trackRect.right,
+    );
+    final g1R = (rightGapAnchor + gapRight / 2).clamp(
+      trackRect.left,
+      trackRect.right,
+    );
 
     final leftRem = rectFromX(trackRect.left, g0L);
     final leftGap = rectFromX(g0L, g0R);

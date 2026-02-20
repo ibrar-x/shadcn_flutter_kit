@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show PathMetric;
 
-import 'package:flutter/painting.dart' show GradientRotation;
-import 'package:flutter/physics.dart' show Simulation;
 import 'package:flutter/widgets.dart';
 
 // State and animation timeline helpers.

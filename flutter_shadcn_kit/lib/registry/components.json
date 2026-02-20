@@ -8161,12 +8161,13 @@
     {
       "id": "slider",
       "name": "Slider",
-      "description": "Single-value and range sliders with keyboard navigation.",
+      "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
       "category": "form",
       "tags": [
         "form",
         "input",
-        "range"
+        "range",
+        "slider"
       ],
       "files": [
         {
@@ -8178,32 +8179,56 @@
           "destination": "{installPath}/components/form/slider/README.md"
         },
         {
-          "source": "registry/components/form/slider/_impl/core/controlled_slider.dart",
-          "destination": "{installPath}/components/form/slider/_impl/core/controlled_slider.dart"
+          "source": "registry/components/form/slider/_impl/core/shad_slider_logic.dart",
+          "destination": "{installPath}/components/form/slider/_impl/core/shad_slider_logic.dart"
         },
         {
-          "source": "registry/components/form/slider/_impl/core/decrease_slider_value.dart",
-          "destination": "{installPath}/components/form/slider/_impl/core/decrease_slider_value.dart"
+          "source": "registry/components/form/slider/_impl/core/shad_slider_models.dart",
+          "destination": "{installPath}/components/form/slider/_impl/core/shad_slider_models.dart"
         },
         {
-          "source": "registry/components/form/slider/_impl/core/increase_slider_value.dart",
-          "destination": "{installPath}/components/form/slider/_impl/core/increase_slider_value.dart"
+          "source": "registry/components/form/slider/_impl/core/shad_slider_renderers.dart",
+          "destination": "{installPath}/components/form/slider/_impl/core/shad_slider_renderers.dart"
         },
         {
           "source": "registry/components/form/slider/_impl/state/_slider_preview_state.dart",
           "destination": "{installPath}/components/form/slider/_impl/state/_slider_preview_state.dart"
         },
         {
-          "source": "registry/components/form/slider/_impl/state/_slider_state.dart",
-          "destination": "{installPath}/components/form/slider/_impl/state/_slider_state.dart"
+          "source": "registry/components/form/slider/_impl/styles/shad_slider_defaults.dart",
+          "destination": "{installPath}/components/form/slider/_impl/styles/shad_slider_defaults.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/styles/shad_slider_presets.dart",
+          "destination": "{installPath}/components/form/slider/_impl/styles/shad_slider_presets.dart"
         },
         {
           "source": "registry/components/form/slider/_impl/themes/slider_theme.dart",
           "destination": "{installPath}/components/form/slider/_impl/themes/slider_theme.dart"
         },
         {
-          "source": "registry/components/form/slider/_impl/utils/slider_controller.dart",
-          "destination": "{installPath}/components/form/slider/_impl/utils/slider_controller.dart"
+          "source": "registry/components/form/slider/_impl/variants/base_slider_variant.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/base_slider_variant.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/variants/brightness_slider.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/brightness_slider.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/variants/range_soft_slider.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/range_soft_slider.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/variants/steps_dots_slider.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/steps_dots_slider.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/variants/wave_slider.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/wave_slider.dart"
+        },
+        {
+          "source": "registry/components/form/slider/_impl/variants/waveform_slider.dart",
+          "destination": "{installPath}/components/form/slider/_impl/variants/waveform_slider.dart"
         },
         {
           "source": "registry/components/form/slider/meta.json",
@@ -8220,27 +8245,7 @@
         },
         {
           "source": "registry/components/form/slider/slider.dart",
-          "destination": "{installPath}/components/form/slider/slider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/slider/_impl/utils/slider_controller.dart"
-            },
-            {
-              "source": "registry/components/form/slider/_impl/state/_slider_state.dart"
-            },
-            {
-              "source": "registry/components/form/slider/_impl/core/controlled_slider.dart"
-            },
-            {
-              "source": "registry/components/form/slider/_impl/core/decrease_slider_value.dart"
-            },
-            {
-              "source": "registry/components/form/slider/_impl/core/increase_slider_value.dart"
-            },
-            {
-              "source": "registry/components/form/slider/_impl/themes/slider_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/slider/slider.dart"
         },
         {
           "source": "registry/components/form/slider/slider.meta.json",
@@ -8248,9 +8253,7 @@
         }
       ],
       "shared": [
-        "animated_value_builder",
         "color_extensions",
-        "constants",
         "form_control",
         "form_value_supplier",
         "slider_value",
@@ -8263,7 +8266,7 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "id": "multiple_choice",
@@ -15569,6 +15572,95 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0"
+    },
+    {
+      "id": "gooey_toast",
+      "name": "Gooey Toast",
+      "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "toast",
+        "notification"
+      ],
+      "version": "1.0.0",
+      "files": [
+        {
+          "source": "registry/components/overlay/gooey_toast/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/gooey_toast/GETTING_STARTED.md"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/README.md",
+          "destination": "{installPath}/components/overlay/gooey_toast/README.md"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_constants.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/core/gooey_toast_constants.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_controller.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/core/gooey_toast_controller.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_models.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/core/gooey_toast_models.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_widget.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/core/gooey_toast_widget.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/themes/gooey_toast_theme.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/themes/gooey_toast_theme.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/_impl/utils/gooey_toast_utils.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/_impl/utils/gooey_toast_utils.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/gooey_toast.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/gooey_toast.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_constants.dart"
+            },
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_models.dart"
+            },
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/themes/gooey_toast_theme.dart"
+            },
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_controller.dart"
+            },
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/utils/gooey_toast_utils.dart"
+            },
+            {
+              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_widget.dart"
+            }
+          ]
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/meta.json",
+          "destination": "{installPath}/components/overlay/gooey_toast/meta.json"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/preview.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [
+        "toast"
+      ],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": []
     }
   ],
   "manifestVersion": 1

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-15T00:21:19.892572Z",
+  "generatedAt": "2026-02-18T06:07:10.826839Z",
   "components": [
     {
       "id": "accordion",
@@ -2134,6 +2134,7 @@
           "`sheetBreakpoint` (`double`, optional, default: `720`)",
           "`sheetTriggerLabel` (`String`, optional)",
           "`sheetTitle` (`String`, optional)",
+          "`sheetPosition` (`OverlayPosition`, optional, default: `OverlayPosition.bottom`)",
           "`groups` (`List<FilterGroup>`, optional)",
           "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
         ],
@@ -2432,6 +2433,35 @@
         "text_field",
         "formatted_input"
       ]
+    },
+    {
+      "id": "gooey_toast",
+      "name": "Gooey Toast",
+      "category": "overlay",
+      "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
+      "tags": [
+        "overlay",
+        "toast",
+        "notification"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add gooey_toast",
+      "import": "",
+      "importPath": "",
+      "api": {
+        "constructors": [],
+        "callbacks": []
+      },
+      "examples": {
+        "minimal": ""
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": [
+          "theme"
+        ]
+      },
+      "related": []
     },
     {
       "id": "group",
@@ -4448,39 +4478,45 @@
       "id": "slider",
       "name": "Slider",
       "category": "form",
-      "description": "Single-value and range sliders with keyboard navigation.",
+      "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
       "tags": [
         "form",
         "input",
-        "range"
+        "range",
+        "slider"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "install": "flutter_shadcn add slider",
       "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
       "importPath": "ui/shadcn/form/slider/slider.dart",
       "api": {
         "constructors": [
           "`Slider`",
-          "`value` (`SliderValue`, required)",
-          "`onChanged`, `onChangeStart`, `onChangeEnd`",
-          "`min`, `max`, `divisions`, `hintValue`",
-          "`increaseStep`, `decreaseStep`, `enabled`",
-          "`ControlledSlider` — controller-backed slider.",
-          "`SliderController` — controller for `SliderValue`."
+          "`Slider.single`",
+          "`Slider.range`",
+          "`WaveSlider`",
+          "`SliderTheme`",
+          "`BrightnessSlider`",
+          "`RangeSoftSlider`",
+          "`StepsDotsSlider`",
+          "`WaveformSlider`",
+          "`ShadJoinGapLayout`",
+          "`ShadContinuousLayout`",
+          "`ShadSegmentedCapsuleRenderer`",
+          "`ShadWaveformRenderer`",
+          "`ShadStepDotsRenderer`"
         ],
         "callbacks": [
-          "`onChanged`, `onChangeStart`, `onChangeEnd`"
+          "`onChanged`"
         ]
       },
       "examples": {
-        "minimal": "Slider(\n  value: SliderValue.single(0.5),\n  onChanged: (value) {},\n)"
+        "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)"
       },
       "dependencies": {
         "pubspec": {},
         "shared": [
-          "animated_value_builder",
           "color_extensions",
-          "constants",
           "form_control",
           "form_value_supplier",
           "slider_value",

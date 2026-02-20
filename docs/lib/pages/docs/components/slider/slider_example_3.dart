@@ -8,27 +8,26 @@ class SliderExample3 extends StatefulWidget {
 }
 
 class _SliderExample3State extends State<SliderExample3> {
-  // Single-value slider with a custom range and discrete divisions.
-  SliderValue value = const SliderValue.single(0.5);
+  double value = 6;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Slider(
-          // Allow values from 0 to 2 with 10 discrete steps.
-          max: 2,
-          divisions: 10,
+        StepsDotsSlider(
+          min: 0,
+          max: 12,
+          steps: 12,
           value: value,
-          onChanged: (value) {
+          onChanged: (next) {
             setState(() {
-              this.value = value;
+              value = next;
             });
           },
         ),
         const Gap(16),
-        // Show the current numeric value.
-        Text('Value: ${value.value}'),
+        Text('Step: ${value.round()}'),
       ],
     );
   }

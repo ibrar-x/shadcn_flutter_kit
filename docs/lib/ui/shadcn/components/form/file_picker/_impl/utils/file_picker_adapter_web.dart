@@ -27,12 +27,12 @@ class _WebFilePickerAdapter implements FilePickerAdapter {
   }) {
     if (!enabled) return child;
     return _WebDropTargetView(
-      child: child,
       withData: withData,
       onDragActive: onDragActive,
       onDrop: onDrop,
       onTap: onTap,
       handleDrop: _handleDrop,
+      child: child,
     );
   }
 

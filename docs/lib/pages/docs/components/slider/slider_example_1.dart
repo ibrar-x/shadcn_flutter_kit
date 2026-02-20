@@ -8,17 +8,19 @@ class SliderExample1 extends StatefulWidget {
 }
 
 class _SliderExample1State extends State<SliderExample1> {
-  // A single-value slider in the 0–1 range (default).
-  SliderValue value = const SliderValue.single(0.5);
+  double value = 0.64;
+
   @override
   Widget build(BuildContext context) {
     return Slider(
       value: value,
-      onChanged: (value) {
-        setState(() {
-          // Update local state when the thumb is dragged.
-          this.value = value;
-        });
+      thumbEdgeOffsetPx: 10,
+      thumbSize: const Size(10, 25),
+      fillStopsAtThumbCenter: true,
+      // thumbInset:20,
+      trackHeight: 30,
+      onChanged: (next) {
+        setState(() => value = next);
       },
     );
   }

@@ -1,4 +1,6 @@
 import 'package:docs/shadcn_ui.dart';
+import 'package:docs/ui/shadcn/components/form/slider/_impl/core/shad_slider_models.dart'
+    show ShadRangeValue;
 
 import '../../theme/docs_theme.dart';
 import '../../theme/theme_controller.dart';
@@ -94,13 +96,14 @@ class _ThemePageState extends State<ThemePage> {
 
   bool _previewSwitch = true;
   CheckboxState _previewCheckbox = CheckboxState.checked;
-  SliderValue _priceRange = const SliderValue.ranged(320, 800);
+  ShadRangeValue _priceRange = const ShadRangeValue(320, 800);
 
   @override
   Widget build(BuildContext context) {
     final controller = context.docsThemeController;
     final data = controller.data;
-    final showInlineOptions = MediaQuery.of(context).size.width < breakpointWidth2;
+    final showInlineOptions =
+        MediaQuery.of(context).size.width < breakpointWidth2;
 
     return DocsPage(
       name: 'theme',
@@ -346,10 +349,10 @@ class _ThemePageState extends State<ThemePage> {
         const SizedBox(height: 6),
         const Text('Set your budget range (\$320 - \$800)').muted().small(),
         const SizedBox(height: 8),
-        Slider(
+        Slider.range(
           min: 0,
           max: 1000,
-          value: _priceRange,
+          rangeValue: _priceRange,
           onChanged: (value) {
             setState(() {
               _priceRange = value;
@@ -759,7 +762,8 @@ class _ThemePageState extends State<ThemePage> {
     return lines.join('\n');
   }
 
-  RegistryThemePresetTokens _activePresetTokens(DocsThemeController controller) {
+  RegistryThemePresetTokens _activePresetTokens(
+      DocsThemeController controller) {
     final preset = DocsThemeController.presets.firstWhere(
       (entry) => entry.id == controller.presetId,
       orElse: () => DocsThemeController.presets.first,

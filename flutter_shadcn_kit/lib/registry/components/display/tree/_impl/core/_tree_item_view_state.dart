@@ -68,14 +68,16 @@ class _TreeItemViewState extends State<TreeItemView> {
     assert(data != null, 'TreeItemView must be a descendant of TreeView');
 
     List<Widget> rowChildren = [];
-    if (data!.expandIcon)
+    if (data!.expandIcon) {
       rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
+    }
     for (int i = 0; i < data.depth.length; i++) {
       if (i == 0) {
         continue; // skip the first depth
       }
-      if (!data.expandIcon)
+      if (!data.expandIcon) {
         rowChildren.add(SizedBox(width: theme.density.baseGap * scaling));
+      }
 
       rowChildren.add(
         SizedBox(

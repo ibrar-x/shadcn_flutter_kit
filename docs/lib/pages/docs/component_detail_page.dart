@@ -9,8 +9,6 @@ import '../../ui/shadcn/components/control/button/button.dart'
 import '../../ui/shadcn/components/form/slider/slider.dart' as shadcn_slider;
 import '../../ui/shadcn/components/form/switch/switch.dart' as shadcn_switch;
 import '../../ui/shadcn/components/layout/outlined_container/outlined_container.dart';
-import '../../ui/shadcn/shared/primitives/slider_value.dart'
-    as shadcn_slider_value;
 import '../../ui/shadcn/shared/primitives/text.dart';
 import '../../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import 'widget_usage_example.dart';
@@ -290,13 +288,12 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
               children: [
                 Text('Lazy-load threshold: $thresholdLabel%').small(),
                 SizedBox(height: spacing.sm),
-                shadcn_slider.Slider(
-                  value: shadcn_slider_value.SliderValue.single(_lazyThreshold),
+                shadcn_slider.Slider.single(
+                  value: _lazyThreshold,
                   min: 0.05,
                   max: 0.75,
-                  divisions: 14,
                   onChanged: (value) => setState(() {
-                    _lazyThreshold = value.value;
+                    _lazyThreshold = value;
                   }),
                 ),
                 SizedBox(height: spacing.md),

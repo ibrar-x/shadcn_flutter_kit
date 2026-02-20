@@ -165,7 +165,7 @@ Future<void> _initComponent(Directory root) async {
   );
 
   await componentsJson.writeAsString(
-    const JsonEncoder.withIndent('  ').convert(json) + '\n',
+    '${const JsonEncoder.withIndent('  ').convert(json)}\n',
   );
 
   final overwriteMain = _promptYesNo(
@@ -189,7 +189,7 @@ Future<void> _syncRegistry(Directory root) async {
   _syncEntries(json, registryDir, _EntryType.composite);
 
   await componentsJson.writeAsString(
-    const JsonEncoder.withIndent('  ').convert(json) + '\n',
+    '${const JsonEncoder.withIndent('  ').convert(json)}\n',
   );
 
   stdout.writeln('Sync complete.');
@@ -664,7 +664,7 @@ String _metaStub({
     };
   }
 
-  return const JsonEncoder.withIndent('  ').convert(base) + '\n';
+  return '${const JsonEncoder.withIndent('  ').convert(base)}\n';
 }
 
 String _appMainStub(String category, String id, String className) {

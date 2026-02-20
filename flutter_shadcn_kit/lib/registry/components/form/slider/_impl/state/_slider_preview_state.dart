@@ -56,11 +56,20 @@ class _SliderPreviewState extends State<SliderPreview> {
               child: _PreviewCard(
                 title: 'Adjust brightness',
                 trailing: '${(_brightness * 100).round()}%',
-                child: BrightnessSlider(
+                child: Slider.single(
                   min: 0,
                   max: 1,
                   value: _brightness,
-                  onChanged: (value) => setState(() => _brightness = value),
+                  thumbSize: const Size(10, 25),
+                  trackHeight: 30,
+                  thumbEdgeOffsetPx: 0,
+                  joinGapPx: 2,
+                  fillEdgeBiasPx: 0,
+                  fillStopsAtThumbCenter: false,
+                  preset: 'brightness',
+                  thumbBuilder: ShadSliderDefaults.barThumb(insideOffsetPx: 8),
+                  onChanged: (v) =>
+                      setState(() => _brightness = v >= 0.999 ? 1.0 : v),
                 ),
               ),
             ),

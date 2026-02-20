@@ -192,7 +192,7 @@ class _FileUploadState extends State<_FileUpload> {
           onShowFocusHighlight: (value) => setState(() => _focused = value),
           child: surface,
         ),
-        if (showTileHint) DensityGap(gapSm),
+        if (showTileHint) const DensityGap(gapSm),
         if (showTileHint)
           DefaultTextStyle.merge(
             style: theme.typography.small.copyWith(
@@ -200,9 +200,9 @@ class _FileUploadState extends State<_FileUpload> {
             ),
             child: surfaceHint,
           ),
-        if (belowHelpfulInfo != null) DensityGap(gapSm),
+        if (belowHelpfulInfo != null) const DensityGap(gapSm),
         if (belowHelpfulInfo != null) belowHelpfulInfo,
-        if (_errors.isNotEmpty) DensityGap(gapMd),
+        if (_errors.isNotEmpty) const DensityGap(gapMd),
         if (_errors.isNotEmpty)
           Semantics(
             liveRegion: true,
@@ -226,7 +226,7 @@ class _FileUploadState extends State<_FileUpload> {
               ],
             ),
           ),
-        if (hasItems) DensityGap(gapLg),
+        if (hasItems) const DensityGap(gapLg),
         if (hasItems)
           FileUploadItemsView(
             items: listItems,

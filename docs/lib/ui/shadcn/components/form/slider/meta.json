@@ -1,7 +1,62 @@
 {
   "id": "slider",
   "name": "Slider",
-  "description": "Single-value and range sliders with keyboard navigation.",
+  "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
   "category": "form",
-  "tags": ["form", "input", "range"]
+  "tags": [
+    "form",
+    "input",
+    "range",
+    "slider"
+  ],
+  "dependencies": {
+    "shared": [
+      "color_extensions",
+      "form_control",
+      "form_value_supplier",
+      "slider_value",
+      "style_value",
+      "theme"
+    ],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "GETTING_STARTED.md",
+    "README.md",
+    "_impl/core/shad_slider_logic.dart",
+    "_impl/core/shad_slider_models.dart",
+    "_impl/core/shad_slider_renderers.dart",
+    "_impl/state/_slider_preview_state.dart",
+    "_impl/styles/shad_slider_defaults.dart",
+    "_impl/styles/shad_slider_presets.dart",
+    "_impl/themes/slider_theme.dart",
+    "_impl/variants/base_slider_variant.dart",
+    "_impl/variants/brightness_slider.dart",
+    "_impl/variants/range_soft_slider.dart",
+    "_impl/variants/steps_dots_slider.dart",
+    "_impl/variants/wave_slider.dart",
+    "_impl/variants/waveform_slider.dart",
+    "meta.json",
+    "preview.dart",
+    "slider.dart",
+    "slider.meta.json"
+  ],
+  "api": {
+    "constructors": [
+      "`Slider`",
+      "`Slider.single`",
+      "`Slider.range`",
+      "`WaveSlider`",
+      "`SliderTheme`",
+      "`BrightnessSlider`",
+      "`RangeSoftSlider`",
+      "`StepsDotsSlider`",
+      "`WaveformSlider`"
+    ],
+    "callbacks": [
+      "`onChanged`"
+    ]
+  },
+  "version": "1.1.0"
 }

@@ -1,0 +1,386 @@
+{
+  "$schema": "https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json",
+  "schemaVersion": 1,
+  "generatedAt": "2026-02-20T02:59:21.286065Z",
+  "defaultThemeId": "amber-minimal",
+  "themes": [
+    {
+      "id": "amber-minimal",
+      "name": "Amber Minimal",
+      "file": "themes_preset/amber-minimal.json",
+      "preview": {
+        "primary": "0xFFF59E0B",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "amethyst-haze",
+      "name": "Amethyst Haze",
+      "file": "themes_preset/amethyst-haze.json",
+      "preview": {
+        "primary": "0xFF8A79AB",
+        "background": "0xFFF8F7FA"
+      }
+    },
+    {
+      "id": "bold-tech",
+      "name": "Bold Tech",
+      "file": "themes_preset/bold-tech.json",
+      "preview": {
+        "primary": "0xFF8B5CF6",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "bubblegum",
+      "name": "Bubblegum",
+      "file": "themes_preset/bubblegum.json",
+      "preview": {
+        "primary": "0xFFD04F99",
+        "background": "0xFFF6E6EE"
+      }
+    },
+    {
+      "id": "caffeine",
+      "name": "Caffeine",
+      "file": "themes_preset/caffeine.json",
+      "preview": {
+        "primary": "0xFF644A40",
+        "background": "0xFFF9F9F9"
+      }
+    },
+    {
+      "id": "candyland",
+      "name": "Candyland",
+      "file": "themes_preset/candyland.json",
+      "preview": {
+        "primary": "0xFFFFC0CB",
+        "background": "0xFFF7F9FA"
+      }
+    },
+    {
+      "id": "catppuccin",
+      "name": "Catppuccin",
+      "file": "themes_preset/catppuccin.json",
+      "preview": {
+        "primary": "0xFF8839EF",
+        "background": "0xFFEFF1F5"
+      }
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "file": "themes_preset/claude.json",
+      "preview": {
+        "primary": "0xFFC96442",
+        "background": "0xFFFAF9F5"
+      }
+    },
+    {
+      "id": "claymorphism",
+      "name": "Claymorphism",
+      "file": "themes_preset/claymorphism.json",
+      "preview": {
+        "primary": "0xFF6366F1",
+        "background": "0xFFE7E5E4"
+      }
+    },
+    {
+      "id": "clean-slate",
+      "name": "Clean Slate",
+      "file": "themes_preset/clean-slate.json",
+      "preview": {
+        "primary": "0xFF6366F1",
+        "background": "0xFFF8FAFC"
+      }
+    },
+    {
+      "id": "cosmic-night",
+      "name": "Cosmic Night",
+      "file": "themes_preset/cosmic-night.json",
+      "preview": {
+        "primary": "0xFF6E56CF",
+        "background": "0xFFF5F5FF"
+      }
+    },
+    {
+      "id": "cyberpunk",
+      "name": "Cyberpunk",
+      "file": "themes_preset/cyberpunk.json",
+      "preview": {
+        "primary": "0xFFFF00C8",
+        "background": "0xFFF8F9FA"
+      }
+    },
+    {
+      "id": "darkmatter",
+      "name": "Darkmatter",
+      "file": "themes_preset/darkmatter.json",
+      "preview": {
+        "primary": "0xFFD87943",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "doom-64",
+      "name": "Doom 64",
+      "file": "themes_preset/doom-64.json",
+      "preview": {
+        "primary": "0xFFB71C1C",
+        "background": "0xFFCCCCCC"
+      }
+    },
+    {
+      "id": "elegant-luxury",
+      "name": "Elegant Luxury",
+      "file": "themes_preset/elegant-luxury.json",
+      "preview": {
+        "primary": "0xFF9B2C2C",
+        "background": "0xFFFAF7F5"
+      }
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "file": "themes_preset/graphite.json",
+      "preview": {
+        "primary": "0xFF606060",
+        "background": "0xFFF0F0F0"
+      }
+    },
+    {
+      "id": "kodama-grove",
+      "name": "Kodama Grove",
+      "file": "themes_preset/kodama-grove.json",
+      "preview": {
+        "primary": "0xFF8D9D4F",
+        "background": "0xFFE4D7B0"
+      }
+    },
+    {
+      "id": "midnight-bloom",
+      "name": "Midnight Bloom",
+      "file": "themes_preset/midnight-bloom.json",
+      "preview": {
+        "primary": "0xFF6C5CE7",
+        "background": "0xFFF9F9F9"
+      }
+    },
+    {
+      "id": "mocha-mousse",
+      "name": "Mocha Mousse",
+      "file": "themes_preset/mocha-mousse.json",
+      "preview": {
+        "primary": "0xFFA37764",
+        "background": "0xFFF1F0E5"
+      }
+    },
+    {
+      "id": "modern-minimal",
+      "name": "Modern Minimal",
+      "file": "themes_preset/modern-minimal.json",
+      "preview": {
+        "primary": "0xFF3B82F6",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "mono",
+      "name": "Mono",
+      "file": "themes_preset/mono.json",
+      "preview": {
+        "primary": "0xFF737373",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "file": "themes_preset/nature.json",
+      "preview": {
+        "primary": "0xFF2E7D32",
+        "background": "0xFFF8F5F0"
+      }
+    },
+    {
+      "id": "neo-brutalism",
+      "name": "Neo Brutalism",
+      "file": "themes_preset/neo-brutalism.json",
+      "preview": {
+        "primary": "0xFFFF3333",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "northern-lights",
+      "name": "Northern Lights",
+      "file": "themes_preset/northern-lights.json",
+      "preview": {
+        "primary": "0xFF34A85A",
+        "background": "0xFFF9F9FA"
+      }
+    },
+    {
+      "id": "notebook",
+      "name": "Notebook",
+      "file": "themes_preset/notebook.json",
+      "preview": {
+        "primary": "0xFF606060",
+        "background": "0xFFF9F9F9"
+      }
+    },
+    {
+      "id": "ocean-breeze",
+      "name": "Ocean Breeze",
+      "file": "themes_preset/ocean-breeze.json",
+      "preview": {
+        "primary": "0xFF22C55E",
+        "background": "0xFFF0F8FF"
+      }
+    },
+    {
+      "id": "pastel-dreams",
+      "name": "Pastel Dreams",
+      "file": "themes_preset/pastel-dreams.json",
+      "preview": {
+        "primary": "0xFFA78BFA",
+        "background": "0xFFF7F3F9"
+      }
+    },
+    {
+      "id": "perpetuity",
+      "name": "Perpetuity",
+      "file": "themes_preset/perpetuity.json",
+      "preview": {
+        "primary": "0xFF06858E",
+        "background": "0xFFE8F0F0"
+      }
+    },
+    {
+      "id": "quantum-rose",
+      "name": "Quantum Rose",
+      "file": "themes_preset/quantum-rose.json",
+      "preview": {
+        "primary": "0xFFE6067A",
+        "background": "0xFFFFF0F8"
+      }
+    },
+    {
+      "id": "retro-arcade",
+      "name": "Retro Arcade",
+      "file": "themes_preset/retro-arcade.json",
+      "preview": {
+        "primary": "0xFFD33682",
+        "background": "0xFFFDF6E3"
+      }
+    },
+    {
+      "id": "sage-garden",
+      "name": "Sage Garden",
+      "file": "themes_preset/sage-garden.json",
+      "preview": {
+        "primary": "0xFF7C9082",
+        "background": "0xFFF8F7F4"
+      }
+    },
+    {
+      "id": "soft-pop",
+      "name": "Soft Pop",
+      "file": "themes_preset/soft-pop.json",
+      "preview": {
+        "primary": "0xFF4F46E5",
+        "background": "0xFFF7F9F3"
+      }
+    },
+    {
+      "id": "solar-dusk",
+      "name": "Solar Dusk",
+      "file": "themes_preset/solar-dusk.json",
+      "preview": {
+        "primary": "0xFFB45309",
+        "background": "0xFFFDFBF7"
+      }
+    },
+    {
+      "id": "starry-night",
+      "name": "Starry Night",
+      "file": "themes_preset/starry-night.json",
+      "preview": {
+        "primary": "0xFF3A5BA0",
+        "background": "0xFFF5F7FA"
+      }
+    },
+    {
+      "id": "sunset-horizon",
+      "name": "Sunset Horizon",
+      "file": "themes_preset/sunset-horizon.json",
+      "preview": {
+        "primary": "0xFFFF7E5F",
+        "background": "0xFFFFF9F5"
+      }
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "file": "themes_preset/supabase.json",
+      "preview": {
+        "primary": "0xFF72E3AD",
+        "background": "0xFFFCFCFC"
+      }
+    },
+    {
+      "id": "t3-chat",
+      "name": "T3 Chat",
+      "file": "themes_preset/t3-chat.json",
+      "preview": {
+        "primary": "0xFFA84370",
+        "background": "0xFFFAF5FA"
+      }
+    },
+    {
+      "id": "tangerine",
+      "name": "Tangerine",
+      "file": "themes_preset/tangerine.json",
+      "preview": {
+        "primary": "0xFFE05D38",
+        "background": "0xFFE8EBED"
+      }
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "file": "themes_preset/twitter.json",
+      "preview": {
+        "primary": "0xFF1E9DF1",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "file": "themes_preset/vercel.json",
+      "preview": {
+        "primary": "0xFF000000",
+        "background": "0xFFFFFFFF"
+      }
+    },
+    {
+      "id": "vintage-paper",
+      "name": "Vintage Paper",
+      "file": "themes_preset/vintage-paper.json",
+      "preview": {
+        "primary": "0xFFA67C52",
+        "background": "0xFFF5F1E6"
+      }
+    },
+    {
+      "id": "violet-bloom",
+      "name": "Violet Bloom",
+      "file": "themes_preset/violet-bloom.json",
+      "preview": {
+        "primary": "0xFF7033FF",
+        "background": "0xFFFDFDFD"
+      }
+    }
+  ]
+}

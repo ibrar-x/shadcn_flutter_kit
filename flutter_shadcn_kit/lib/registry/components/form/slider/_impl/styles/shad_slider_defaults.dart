@@ -129,6 +129,13 @@ class ShadSliderDefaults {
     /// `0` creates square corners; positive values round corners.
     /// Null computes pill radius from resolved thumb width/height.
     double? radius,
+
+    /// Horizontal inset applied to the visual thumb body in logical pixels.
+    ///
+    /// `0` keeps the body centered on the thumb anchor.
+    /// Positive values pull the body inward (LTR: left, RTL: right) while
+    /// preserving edge alignment at min/max.
+    double insideOffsetPx = 0,
   }) {
     return (context, t) {
       final theme = Theme.of(context);
@@ -143,7 +150,7 @@ class ShadSliderDefaults {
       final thumbBorder =
           compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.10);
 
-      return IgnorePointer(
+      Widget body = IgnorePointer(
         ignoring: true,
         child: SizedBox(
           width: t.size.width,
@@ -161,6 +168,21 @@ class ShadSliderDefaults {
           ),
         ),
       );
+
+      if (insideOffsetPx != 0) {
+        const eps = 0.005;
+        final atEdge = t.t <= eps || t.t >= 1 - eps;
+        if (!atEdge) {
+          final dir = Directionality.of(context);
+          final sign = dir == TextDirection.rtl ? 1.0 : -1.0;
+          body = Transform.translate(
+            offset: Offset(sign * insideOffsetPx, 0),
+            child: body,
+          );
+        }
+      }
+
+      return body;
     };
   }
 

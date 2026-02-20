@@ -15505,6 +15505,50 @@
       },
       "assets": [],
       "postInstall": []
+    },
+    {
+      "id": "gooey_toast",
+      "name": "Gooey Toast",
+      "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "gooey_toast"
+      ],
+      "version": "1.0.0",
+      "files": [
+        {
+          "source": "registry/components/overlay/gooey_toast/GETTING_STARTED.md",
+          "destination": "{installPath}/components/overlay/gooey_toast/GETTING_STARTED.md"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/README.md",
+          "destination": "{installPath}/components/overlay/gooey_toast/README.md"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/gooey_toast.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/gooey_toast.dart"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/meta.json",
+          "destination": "{installPath}/components/overlay/gooey_toast/meta.json"
+        },
+        {
+          "source": "registry/components/overlay/gooey_toast/preview.dart",
+          "destination": "{installPath}/components/overlay/gooey_toast/preview.dart"
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [
+        "toast"
+      ],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": []
     }
   ],
   "manifestVersion": 1

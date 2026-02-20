@@ -23,8 +23,6 @@ import '../../ui/shadcn/components/layout/accordion/accordion.dart'
 import '../../ui/shadcn/components/layout/card/card.dart' as shadcn_card;
 import '../../ui/shadcn/shared/icons/lucide_icons.dart';
 import '../../ui/shadcn/shared/primitives/text.dart';
-import '../../ui/shadcn/shared/primitives/slider_value.dart'
-    as shadcn_slider_value;
 
 typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 
@@ -37,6 +35,7 @@ const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
   'file_picker': 'New',
   'filter_bar': 'New',
+  'slider': 'New',
   'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
@@ -190,8 +189,9 @@ Widget _inputPreview(BuildContext context) {
 Widget _sliderPreview(BuildContext context) {
   return SizedBox(
     width: 160,
-    child: shadcn_slider.Slider(
-      value: const shadcn_slider_value.SliderValue.single(0.6),
+    child: shadcn_slider.Slider.single(
+      value: 0.6,
+      enabled: false,
       onChanged: (_) {},
     ),
   );

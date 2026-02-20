@@ -91,7 +91,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       mainAxisSize: MainAxisSize.min,
       children: [
         icon,
-        DensityGap(gapMd),
+        const DensityGap(gapMd),
         DefaultTextStyle.merge(
           style: theme.typography.small.copyWith(
             color: widget.enabled
@@ -102,7 +102,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           child: Text(_dragDropLabel()),
         ),
         if (surfaceSubtitle != null) ...[
-          DensityGap(gapSm),
+          const DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
@@ -112,7 +112,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           ),
         ],
         if (surfaceHint != null) ...[
-          DensityGap(gapSm),
+          const DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
@@ -121,7 +121,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
             child: surfaceHint,
           ),
         ],
-        if (helpfulInfo != null) ...[DensityGap(gapSm), helpfulInfo],
+        if (helpfulInfo != null) ...[const DensityGap(gapSm), helpfulInfo],
       ],
     );
   }
@@ -276,7 +276,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                         child: Text(buttonLabel),
                       ),
                     ),
-                    DensityGap(0.75),
+                    const DensityGap(0.75),
                     Expanded(
                       child: hasSelection
                           ? DefaultTextStyle.merge(

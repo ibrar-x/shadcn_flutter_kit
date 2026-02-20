@@ -57,9 +57,9 @@ class _FilterBarClearPolicyExampleState
                               canUnselect: true,
                               placeholder: const Text('Status'),
                               itemBuilder: (context, value) => Text(value),
-                              popup: SelectPopup<String>(
+                              popup: const SelectPopup<String>(
                                 items: SelectItemList(
-                                  children: const [
+                                  children: [
                                     SelectItemButton<String>(
                                       value: 'open',
                                       child: Text('Open'),
