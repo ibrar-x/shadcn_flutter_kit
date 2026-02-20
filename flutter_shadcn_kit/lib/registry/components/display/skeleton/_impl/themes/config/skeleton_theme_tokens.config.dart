@@ -5,4 +5,5 @@ class SkeletonThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'SkeletonTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

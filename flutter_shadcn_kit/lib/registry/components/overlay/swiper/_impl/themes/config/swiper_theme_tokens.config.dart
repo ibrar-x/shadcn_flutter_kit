@@ -5,4 +5,5 @@ class SwiperThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'SwiperTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

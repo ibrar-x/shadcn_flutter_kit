@@ -5,4 +5,5 @@ class SwitchThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'SwitchTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

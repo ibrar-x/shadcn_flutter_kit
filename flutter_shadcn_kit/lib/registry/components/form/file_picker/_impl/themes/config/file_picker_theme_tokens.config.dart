@@ -5,4 +5,5 @@ class FilePickerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'FileUploadDropzoneTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

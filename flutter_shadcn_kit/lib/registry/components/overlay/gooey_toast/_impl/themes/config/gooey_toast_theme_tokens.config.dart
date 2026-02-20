@@ -5,4 +5,5 @@ class GooeyToastThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'GooeyToastTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

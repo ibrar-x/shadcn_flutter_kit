@@ -5,4 +5,5 @@ class StepperThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'StepperTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

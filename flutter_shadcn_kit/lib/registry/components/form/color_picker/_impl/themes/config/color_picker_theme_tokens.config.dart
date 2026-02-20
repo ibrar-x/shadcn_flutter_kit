@@ -5,4 +5,5 @@ class ColorPickerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'ColorPickerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

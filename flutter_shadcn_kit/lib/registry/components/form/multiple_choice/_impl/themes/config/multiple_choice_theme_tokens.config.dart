@@ -5,4 +5,5 @@ class MultipleChoiceThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'MultipleChoiceTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

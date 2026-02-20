@@ -5,4 +5,5 @@ class TooltipThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'TooltipTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

@@ -5,4 +5,5 @@ class TextAnimateThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'TextAnimateTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

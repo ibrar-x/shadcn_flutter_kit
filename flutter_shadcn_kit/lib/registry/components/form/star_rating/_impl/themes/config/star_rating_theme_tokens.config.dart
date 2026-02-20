@@ -5,4 +5,5 @@ class StarRatingThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'StarRatingTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

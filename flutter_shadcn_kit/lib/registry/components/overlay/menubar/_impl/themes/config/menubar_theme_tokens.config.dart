@@ -5,4 +5,5 @@ class MenubarThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'MenubarTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

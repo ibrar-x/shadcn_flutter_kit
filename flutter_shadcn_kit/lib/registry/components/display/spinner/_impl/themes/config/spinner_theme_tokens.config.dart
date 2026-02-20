@@ -5,4 +5,5 @@ class SpinnerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'SpinnerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

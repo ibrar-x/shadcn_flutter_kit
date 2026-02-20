@@ -5,4 +5,5 @@ class EmptyStateThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'EmptyStateTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

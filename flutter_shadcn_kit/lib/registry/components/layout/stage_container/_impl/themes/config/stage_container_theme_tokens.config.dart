@@ -5,4 +5,5 @@ class StageContainerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'StageContainerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

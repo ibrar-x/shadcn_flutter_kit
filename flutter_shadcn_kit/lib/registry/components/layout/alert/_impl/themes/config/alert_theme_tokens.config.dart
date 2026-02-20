@@ -5,4 +5,5 @@ class AlertThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'AlertTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

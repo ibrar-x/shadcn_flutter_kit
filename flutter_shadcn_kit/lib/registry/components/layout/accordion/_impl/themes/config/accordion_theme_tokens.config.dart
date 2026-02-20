@@ -5,4 +5,5 @@ class AccordionThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'AccordionTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

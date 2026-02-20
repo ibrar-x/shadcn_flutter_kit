@@ -5,4 +5,5 @@ class DatePickerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'DatePickerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

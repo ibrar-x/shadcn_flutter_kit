@@ -5,4 +5,5 @@ class DividerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'DividerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

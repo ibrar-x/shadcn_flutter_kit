@@ -5,4 +5,5 @@ class FocusOutlineThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'FocusOutlineTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

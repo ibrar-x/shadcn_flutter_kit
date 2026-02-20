@@ -5,4 +5,5 @@ class CodeSnippetThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'CodeSnippetTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

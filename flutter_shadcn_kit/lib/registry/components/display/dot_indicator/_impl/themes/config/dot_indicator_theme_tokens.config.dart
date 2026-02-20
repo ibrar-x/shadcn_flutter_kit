@@ -5,4 +5,5 @@ class DotIndicatorThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'DotIndicatorTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

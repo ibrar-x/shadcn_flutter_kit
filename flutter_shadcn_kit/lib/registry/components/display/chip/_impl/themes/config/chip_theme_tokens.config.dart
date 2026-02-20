@@ -5,4 +5,5 @@ class ChipThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'ChipTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

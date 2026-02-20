@@ -5,4 +5,5 @@ class FormattedInputThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'FormattedInputTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

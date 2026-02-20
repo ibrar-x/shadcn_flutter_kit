@@ -5,4 +5,5 @@ class LinearProgressIndicatorThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'LinearProgressIndicatorTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

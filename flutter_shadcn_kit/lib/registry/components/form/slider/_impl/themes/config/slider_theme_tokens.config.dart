@@ -5,4 +5,5 @@ class SliderThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'SliderTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

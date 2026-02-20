@@ -5,4 +5,5 @@ class RefreshTriggerThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'RefreshTriggerTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

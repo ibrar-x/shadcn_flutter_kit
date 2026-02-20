@@ -5,4 +5,5 @@ class CollapsibleThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'CollapsibleTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

@@ -5,4 +5,5 @@ class ColorInputThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'ColorInputTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }

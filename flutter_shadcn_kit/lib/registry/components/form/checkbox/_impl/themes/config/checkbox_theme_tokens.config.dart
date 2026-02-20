@@ -5,4 +5,5 @@ class CheckboxThemeTokensConfig {
   /// Global component theme override.
   static Object? global;
   static const String globalType = 'CheckboxTheme';
+  static const Map<String, Object?> globalTokens = <String, Object?>{};
 }
