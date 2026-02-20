@@ -12,57 +12,80 @@ import '../variants/primary_button_theme.dart';
 import '../variants/secondary_button_theme.dart';
 import '../variants/text_button_theme.dart';
 
-/// Global button theme token overrides.
-///
-/// Replace this file to configure component-level global button theming without
-/// changing shared global [ThemeData].
+/// Global token override entrypoint for the button component.
 class ButtonThemeTokensConfig {
+  const ButtonThemeTokensConfig._();
+
+  /// Global component theme override for `PrimaryButtonTheme`.
   static const PrimaryButtonTheme? primary = null;
   static const String primaryType = 'PrimaryButtonTheme';
+  static const Map<String, Object?> primaryDefaults = <String, Object?>{};
   static const Map<String, Object?> primaryTokens = <String, Object?>{};
 
+  /// Global component theme override for `SecondaryButtonTheme`.
   static const SecondaryButtonTheme? secondary = null;
   static const String secondaryType = 'SecondaryButtonTheme';
+  static const Map<String, Object?> secondaryDefaults = <String, Object?>{};
   static const Map<String, Object?> secondaryTokens = <String, Object?>{};
 
+  /// Global component theme override for `OutlineButtonTheme`.
   static const OutlineButtonTheme? outline = null;
   static const String outlineType = 'OutlineButtonTheme';
+  static const Map<String, Object?> outlineDefaults = <String, Object?>{};
   static const Map<String, Object?> outlineTokens = <String, Object?>{};
 
+  /// Global component theme override for `GhostButtonTheme`.
   static const GhostButtonTheme? ghost = null;
   static const String ghostType = 'GhostButtonTheme';
+  static const Map<String, Object?> ghostDefaults = <String, Object?>{};
   static const Map<String, Object?> ghostTokens = <String, Object?>{};
 
+  /// Global component theme override for `LinkButtonTheme`.
   static const LinkButtonTheme? link = null;
   static const String linkType = 'LinkButtonTheme';
+  static const Map<String, Object?> linkDefaults = <String, Object?>{};
   static const Map<String, Object?> linkTokens = <String, Object?>{};
 
+  /// Global component theme override for `TextButtonTheme`.
   static const TextButtonTheme? text = null;
   static const String textType = 'TextButtonTheme';
+  static const Map<String, Object?> textDefaults = <String, Object?>{};
   static const Map<String, Object?> textTokens = <String, Object?>{};
 
+  /// Global component theme override for `DestructiveButtonTheme`.
   static const DestructiveButtonTheme? destructive = null;
   static const String destructiveType = 'DestructiveButtonTheme';
+  static const Map<String, Object?> destructiveDefaults = <String, Object?>{};
   static const Map<String, Object?> destructiveTokens = <String, Object?>{};
 
+  /// Global component theme override for `FixedButtonTheme`.
   static const FixedButtonTheme? fixed = null;
   static const String fixedType = 'FixedButtonTheme';
+  static const Map<String, Object?> fixedDefaults = <String, Object?>{};
   static const Map<String, Object?> fixedTokens = <String, Object?>{};
 
+  /// Global component theme override for `MenuButtonTheme`.
   static const MenuButtonTheme? menu = null;
   static const String menuType = 'MenuButtonTheme';
+  static const Map<String, Object?> menuDefaults = <String, Object?>{};
   static const Map<String, Object?> menuTokens = <String, Object?>{};
 
+  /// Global component theme override for `MenubarButtonTheme`.
   static const MenubarButtonTheme? menubar = null;
   static const String menubarType = 'MenubarButtonTheme';
+  static const Map<String, Object?> menubarDefaults = <String, Object?>{};
   static const Map<String, Object?> menubarTokens = <String, Object?>{};
 
+  /// Global component theme override for `MutedButtonTheme`.
   static const MutedButtonTheme? muted = null;
   static const String mutedType = 'MutedButtonTheme';
+  static const Map<String, Object?> mutedDefaults = <String, Object?>{};
   static const Map<String, Object?> mutedTokens = <String, Object?>{};
 
+  /// Global component theme override for `CardButtonTheme`.
   static const CardButtonTheme? card = null;
   static const String cardType = 'CardButtonTheme';
+  static const Map<String, Object?> cardDefaults = <String, Object?>{};
   static const Map<String, Object?> cardTokens = <String, Object?>{};
 
   /// Resolves the configured global override for a button theme subtype.
