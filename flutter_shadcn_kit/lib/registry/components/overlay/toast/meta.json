@@ -21,7 +21,7 @@
     "_impl/core/toast_entry.dart",
     "_impl/state/_toast_entry_state.dart",
     "_impl/state/_toast_preview_state.dart",
-    "_impl/themes/toast_theme.dart",
+    "_impl/themes/base/toast_theme.dart",
     "_impl/utils/toast_controller.dart",
     "meta.json",
     "preview.dart",

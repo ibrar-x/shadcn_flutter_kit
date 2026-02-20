@@ -9,5 +9,5 @@ import '../dialog/dialog.dart';
 
 /// A theme for [MenuPopup].
 
-part '_impl/themes/menu_popup_theme.dart';
+part '_impl/themes/base/menu_popup_theme.dart';
 part '_impl/core/menu_popup_widget.dart';

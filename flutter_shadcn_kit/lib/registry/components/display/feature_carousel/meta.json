@@ -26,7 +26,7 @@
     "_impl/core/_nav_arrow.dart",
     "_impl/core/feature_card_carousel.dart",
     "_impl/state/feature_carousel_controller.dart",
-    "_impl/themes/feature_carousel_theme.dart",
+    "_impl/themes/base/feature_carousel_theme.dart",
     "_impl/utils/feature_carousel_animation_style.dart",
     "_impl/utils/feature_carousel_models.dart",
     "feature_carousel.dart",

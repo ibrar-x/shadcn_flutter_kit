@@ -24,7 +24,7 @@
     "GETTING_STARTED.md",
     "README.md",
     "_impl/core/vertical_divider.dart",
-    "_impl/themes/divider_theme.dart",
+    "_impl/themes/base/divider_theme.dart",
     "_impl/utils/divider_painter.dart",
     "_impl/utils/divider_painters.dart",
     "_impl/utils/vertical_divider_painter.dart",

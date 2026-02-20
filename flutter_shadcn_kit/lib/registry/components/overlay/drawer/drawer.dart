@@ -15,7 +15,7 @@ import '../../../shared/utils/controlled_animation.dart';
 import '../../../shared/utils/util.dart';
 
 part '_impl/utils/drawer_types.dart';
-part '_impl/themes/drawer_theme.dart';
+part '_impl/themes/base/drawer_theme.dart';
 part '_impl/utils/drawer_api.dart';
 part '_impl/core/drawer_wrapper.dart';
 part '_impl/state/drawer_wrapper_state_part1.dart';

@@ -31,7 +31,7 @@
     "_impl/core/dashed_painters.dart",
     "_impl/core/outlined_container_2.dart",
     "_impl/state/_outlined_container_state.dart",
-    "_impl/themes/outlined_container_theme.dart",
+    "_impl/themes/base/outlined_container_theme.dart",
     "meta.json",
     "outlined_container.dart",
     "outlined_container.meta.json",

@@ -24,7 +24,7 @@
     "_impl/core/_render_hidden_layout.dart",
     "_impl/core/hidden_layout.dart",
     "_impl/state/_hidden_preview_state.dart",
-    "_impl/themes/hidden_theme.dart",
+    "_impl/themes/base/hidden_theme.dart",
     "hidden.dart",
     "hidden.meta.json",
     "meta.json",

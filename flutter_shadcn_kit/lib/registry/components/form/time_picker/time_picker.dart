@@ -13,7 +13,7 @@ import '../form_field/form_field.dart';
 import '../../display/text/text.dart';
 import '../text_field/text_field.dart';
 
-part '_impl/themes/time_picker_theme.dart';
+part '_impl/themes/base/time_picker_theme.dart';
 
 part '_impl/state/_duration_picker_dialog_state.dart';
 part '_impl/utils/_time_formatter.dart';

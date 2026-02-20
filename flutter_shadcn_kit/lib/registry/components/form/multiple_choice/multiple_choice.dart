@@ -5,7 +5,7 @@ import '../../../shared/primitives/form_control.dart';
 import '../../../shared/primitives/form_value_supplier.dart';
 import '../../../shared/theme/theme.dart';
 
-part '_impl/themes/multiple_choice_theme.dart';
+part '_impl/themes/base/multiple_choice_theme.dart';
 
 part '_impl/state/_multiple_answer_state.dart';
 part '_impl/state/_multiple_choice_state.dart';

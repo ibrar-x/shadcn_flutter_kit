@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart' hide SliderTheme, Theme;
 
 import '../../../../../shared/theme/theme.dart';
-import '../themes/slider_theme.dart';
+import '../themes/base/slider_theme.dart';
 import 'shad_slider_models.dart';
 
 /// Unified rendering contract for slider track layers.

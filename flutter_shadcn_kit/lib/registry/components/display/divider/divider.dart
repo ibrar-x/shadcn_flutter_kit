@@ -14,7 +14,7 @@ part '_impl/utils/divider_painter.dart';
 part '_impl/utils/vertical_divider_painter.dart';
 part '_impl/core/vertical_divider.dart';
 
-part '_impl/themes/divider_theme.dart';
+part '_impl/themes/base/divider_theme.dart';
 part '_impl/utils/divider_painters.dart';
 
 /// Horizontal line separating content with optional label.

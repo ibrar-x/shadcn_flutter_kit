@@ -37,7 +37,7 @@
     "_impl/core/stepper_value.dart",
     "_impl/state/_step_container_state.dart",
     "_impl/state/_stepper_preview_state.dart",
-    "_impl/themes/stepper_theme.dart",
+    "_impl/themes/base/stepper_theme.dart",
     "_impl/utils/stepper_controller.dart",
     "_impl/variants/_step_variant_circle.dart",
     "_impl/variants/_step_variant_circle_alternative.dart",

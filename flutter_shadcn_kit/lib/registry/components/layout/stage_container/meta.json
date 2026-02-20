@@ -21,7 +21,7 @@
     "README.md",
     "_impl/core/stage_container_2.dart",
     "_impl/core/staged_breakpoint.dart",
-    "_impl/themes/stage_container_theme.dart",
+    "_impl/themes/base/stage_container_theme.dart",
     "meta.json",
     "preview.dart",
     "stage_container.dart",

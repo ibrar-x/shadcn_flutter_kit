@@ -27,7 +27,7 @@
     "_impl/core/switch_widget.dart",
     "_impl/state/_switch_preview_state.dart",
     "_impl/state/_switch_state.dart",
-    "_impl/themes/switch_theme.dart",
+    "_impl/themes/base/switch_theme.dart",
     "_impl/utils/switch_controller.dart",
     "meta.json",
     "preview.dart",

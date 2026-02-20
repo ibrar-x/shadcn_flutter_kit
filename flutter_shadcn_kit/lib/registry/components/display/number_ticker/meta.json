@@ -23,7 +23,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/number_ticker_theme.dart",
+    "_impl/themes/base/number_ticker_theme.dart",
     "_number_ticker_preview_state.dart",
     "meta.json",
     "number_ticker.dart",

@@ -46,7 +46,7 @@
     "_impl/state/_color_value_input_state.dart",
     "_impl/state/_hsl_color_slider_state.dart",
     "_impl/state/_hsv_color_slider_state.dart",
-    "_impl/themes/color_picker_theme.dart",
+    "_impl/themes/base/color_picker_theme.dart",
     "color_picker.dart",
     "color_picker.meta.json",
     "meta.json",

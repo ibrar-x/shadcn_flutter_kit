@@ -25,7 +25,7 @@
     "_impl/core/active_dot_item.dart",
     "_impl/core/dot_items.dart",
     "_impl/core/inactive_dot_item.dart",
-    "_impl/themes/dot_indicator_theme.dart",
+    "_impl/themes/base/dot_indicator_theme.dart",
     "dot_indicator.dart",
     "dot_indicator.meta.json",
     "meta.json",

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
-import '_impl/themes/file_upload_dropzone_theme.dart';
+import '_impl/themes/base/file_upload_dropzone_theme.dart';
 import '_impl/utils/file_like.dart';
 import '_impl/utils/file_picker_adapter.dart';
 import '_impl/utils/file_upload_controller.dart';
@@ -23,7 +23,7 @@ import '../../display/linear_progress_indicator/linear_progress_indicator.dart';
 import '../dropzone/dropzone.dart';
 import '../file_input/file_input.dart';
 
-export '_impl/themes/file_upload_dropzone_theme.dart';
+export '_impl/themes/base/file_upload_dropzone_theme.dart';
 export '_impl/utils/file_like.dart';
 export '_impl/utils/file_upload_controller.dart';
 export '_impl/utils/file_upload_models.dart';

@@ -25,7 +25,7 @@
     "_impl/state/hover_activity_state.dart",
     "_impl/state/hover_preview_state.dart",
     "_impl/state/hover_state.dart",
-    "_impl/themes/hover_theme.dart",
+    "_impl/themes/base/hover_theme.dart",
     "hover.dart",
     "hover.meta.json",
     "meta.json",

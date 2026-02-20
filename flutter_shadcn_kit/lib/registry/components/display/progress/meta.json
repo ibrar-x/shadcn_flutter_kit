@@ -19,7 +19,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/progress_theme.dart",
+    "_impl/themes/base/progress_theme.dart",
     "_progress_preview_state.dart",
     "meta.json",
     "preview.dart",

@@ -9,7 +9,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/geometry_extensions.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/outlined_container_theme.dart';
+part '_impl/themes/base/outlined_container_theme.dart';
 part '_impl/core/dashed_painters.dart';
 part '_impl/core/dashed_container_properties.dart';
 part '_impl/core/dashed_line_properties.dart';
@@ -21,7 +21,7 @@ part '_impl/core/dashed_painter.dart';
 
 /// SurfaceBlur defines a reusable type for this registry module.
 class SurfaceBlur extends StatelessWidget {
-/// Creates a `SurfaceBlur` instance.
+  /// Creates a `SurfaceBlur` instance.
   const SurfaceBlur({
     super.key,
     required this.child,
@@ -29,15 +29,17 @@ class SurfaceBlur extends StatelessWidget {
     this.borderRadius,
   });
 
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `surfaceBlur` state/configuration for this implementation.
+
+  /// Stores `surfaceBlur` state/configuration for this implementation.
   final double surfaceBlur;
-/// Stores `borderRadius` state/configuration for this implementation.
+
+  /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (surfaceBlur <= 0) {
       return child;

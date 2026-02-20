@@ -10,7 +10,7 @@ import '../autocomplete/autocomplete.dart';
 import '../../display/chip/chip.dart';
 import '../text_field/text_field.dart' hide AutoCompleteIntent;
 
-part '_impl/themes/chip_input_theme.dart';
+part '_impl/themes/base/chip_input_theme.dart';
 
 part '_impl/utils/_chip_provider.dart';
 part '_impl/utils/chip_editing_controller.dart';

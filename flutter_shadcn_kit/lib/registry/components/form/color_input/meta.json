@@ -37,7 +37,7 @@
     "_impl/core/controlled_color_input.dart",
     "_impl/state/_color_input_preview_state.dart",
     "_impl/state/_color_input_state.dart",
-    "_impl/themes/color_input_theme.dart",
+    "_impl/themes/base/color_input_theme.dart",
     "_impl/utils/color_input_controller.dart",
     "color_input.dart",
     "color_input.meta.json",

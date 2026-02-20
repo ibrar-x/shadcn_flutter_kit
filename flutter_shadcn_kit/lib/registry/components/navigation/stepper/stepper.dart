@@ -18,7 +18,7 @@ part '_impl/core/step_number.dart';
 part '_impl/core/step_number_data.dart';
 part '_impl/core/stepper_2.dart';
 part '_impl/utils/stepper_controller.dart';
-part '_impl/themes/stepper_theme.dart';
+part '_impl/themes/base/stepper_theme.dart';
 part '_impl/core/step_properties.dart';
 part '_impl/variants/step_variant.dart';
 part '_impl/variants/_step_variant_line.dart';

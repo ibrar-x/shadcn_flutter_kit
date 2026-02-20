@@ -30,7 +30,7 @@
     "_impl/core/date_range_picker.dart",
     "_impl/core/date_time_range.dart",
     "_impl/state/_date_picker_preview_state.dart",
-    "_impl/themes/date_picker_theme.dart",
+    "_impl/themes/base/date_picker_theme.dart",
     "_impl/utils/date_picker_controller.dart",
     "date_picker.dart",
     "date_picker.meta.json",

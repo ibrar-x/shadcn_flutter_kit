@@ -27,7 +27,7 @@
     "_impl/core/controlled_star_rating.dart",
     "_impl/state/_star_rating_preview_state.dart",
     "_impl/state/_star_rating_state.dart",
-    "_impl/themes/star_rating_theme.dart",
+    "_impl/themes/base/star_rating_theme.dart",
     "_impl/utils/decrease_star_intent.dart",
     "_impl/utils/increase_star_intent.dart",
     "_impl/utils/star_rating_controller.dart",

@@ -24,7 +24,7 @@
     "_impl/core/destructive_badge.dart",
     "_impl/core/outline_badge.dart",
     "_impl/core/secondary_badge.dart",
-    "_impl/themes/badge_theme.dart",
+    "_impl/themes/base/badge_theme.dart",
     "badge.dart",
     "badge.meta.json",
     "meta.json",

@@ -34,7 +34,7 @@
     "_impl/core/mobile_editable_text_context_menu.dart",
     "_impl/state/_context_menu_preview_state.dart",
     "_impl/state/_context_menu_state.dart",
-    "_impl/themes/context_menu_theme.dart",
+    "_impl/themes/base/context_menu_theme.dart",
     "context_menu.dart",
     "context_menu.meta.json",
     "meta.json",

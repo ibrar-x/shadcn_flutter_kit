@@ -39,7 +39,7 @@
     "_impl/state/filter_bar_controller.dart",
     "_impl/state/filter_bar_state.dart",
     "_impl/styles/filter_bar_style.dart",
-    "_impl/themes/filter_bar_theme.dart",
+    "_impl/themes/base/filter_bar_theme.dart",
     "_impl/utils/filter_bar_utils.dart",
     "_impl/variants/filter_bar_layout.dart",
     "filter_bar.dart",

@@ -35,7 +35,7 @@
     "_impl/core/sliding_carousel_transition.dart",
     "_impl/state/_carousel_state.dart",
     "_impl/state/carousel_controller.dart",
-    "_impl/themes/carousel_theme.dart",
+    "_impl/themes/base/carousel_theme.dart",
     "carousel.dart",
     "carousel.meta.json",
     "meta.json",

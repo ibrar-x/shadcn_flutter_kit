@@ -27,7 +27,7 @@
     "README.md",
     "_impl/core/menubar_widget.dart",
     "_impl/state/menubar_state.dart",
-    "_impl/themes/menubar_theme.dart",
+    "_impl/themes/base/menubar_theme.dart",
     "menubar.dart",
     "menubar.meta.json",
     "meta.json",

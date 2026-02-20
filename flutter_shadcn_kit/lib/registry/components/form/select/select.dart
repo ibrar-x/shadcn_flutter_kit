@@ -29,7 +29,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/themes/select_theme.dart';
+part '_impl/themes/base/select_theme.dart';
 
 part '_impl/state/_select_popup_state.dart';
 part '_impl/core/controlled_multi_select.dart';

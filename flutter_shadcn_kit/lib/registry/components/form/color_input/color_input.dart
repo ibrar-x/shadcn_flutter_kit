@@ -15,7 +15,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/icons/lucide_icons.dart';
 
-part '_impl/themes/color_input_theme.dart';
+part '_impl/themes/base/color_input_theme.dart';
 
 part '_impl/state/_color_input_state.dart';
 part '_impl/utils/color_input_controller.dart';

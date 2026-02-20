@@ -22,7 +22,7 @@
     "GETTING_STARTED.md",
     "README.md",
     "_impl/core/tracker_widget.dart",
-    "_impl/themes/tracker_theme.dart",
+    "_impl/themes/base/tracker_theme.dart",
     "_impl/utils/_simple_tracker_level.dart",
     "_impl/utils/tracker_data.dart",
     "_impl/utils/tracker_level.dart",

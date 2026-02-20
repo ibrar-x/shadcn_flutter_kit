@@ -20,7 +20,7 @@ part '_impl/core/navigation_widget.dart';
 part '_impl/core/_navigation_label_background_painter.dart';
 part '_impl/utils/_navigation_label_delegate.dart';
 part '_impl/core/_navigation_child_overflow_handle.dart';
-part '_impl/themes/navigation_bar_theme.dart';
+part '_impl/themes/base/navigation_bar_theme.dart';
 part '_impl/core/navigation_label.dart';
 part '_impl/core/navigation_padding.dart';
 part '_impl/core/_navigation_labeled.dart';

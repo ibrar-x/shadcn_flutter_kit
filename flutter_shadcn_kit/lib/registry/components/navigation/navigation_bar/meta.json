@@ -53,7 +53,7 @@
     "_impl/state/_navigation_item_state.dart",
     "_impl/state/_navigation_rail_state.dart",
     "_impl/state/_navigation_sidebar_state.dart",
-    "_impl/themes/navigation_bar_theme.dart",
+    "_impl/themes/base/navigation_bar_theme.dart",
     "_impl/utils/_navigation_label_delegate.dart",
     "meta.json",
     "navigation_bar.dart",

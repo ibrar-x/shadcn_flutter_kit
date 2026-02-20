@@ -58,7 +58,7 @@
     "_impl/state/_select_popup_state.dart",
     "_impl/state/_select_preview_state.dart",
     "_impl/state/select_state.dart",
-    "_impl/themes/select_theme.dart",
+    "_impl/themes/base/select_theme.dart",
     "_impl/utils/multi_select_controller.dart",
     "_impl/utils/select_controller.dart",
     "_impl/utils/select_item_builder.dart",

@@ -38,7 +38,7 @@
     "_impl/state/_input_otp_preview_state.dart",
     "_impl/state/_input_otp_state.dart",
     "_impl/state/_otp_character_input_state.dart",
-    "_impl/themes/input_otp_theme.dart",
+    "_impl/themes/base/input_otp_theme.dart",
     "input_otp.dart",
     "input_otp.meta.json",
     "meta.json",

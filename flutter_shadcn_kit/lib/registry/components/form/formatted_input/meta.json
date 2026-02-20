@@ -38,7 +38,7 @@
     "_impl/state/_formatted_input_state.dart",
     "_impl/state/_formatted_object_input_state.dart",
     "_impl/state/_static_part_widget_state.dart",
-    "_impl/themes/formatted_input_theme.dart",
+    "_impl/themes/base/formatted_input_theme.dart",
     "_impl/utils/_editable_part_controller.dart",
     "_impl/utils/_formatted_object_controller.dart",
     "_impl/utils/formatted_input_controller.dart",

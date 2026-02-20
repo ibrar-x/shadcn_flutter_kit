@@ -7,7 +7,7 @@ import '../utils/empty_state_defaults.dart';
 import '../variants/empty_state_action_style.dart';
 import '../variants/empty_state_size.dart';
 import '../variants/empty_state_variant.dart';
-import '../themes/empty_state_theme.dart';
+import '../themes/base/empty_state_theme.dart';
 import 'empty_state_action.dart';
 
 /// EmptyState holds mutable state for the empty state implementation.

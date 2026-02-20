@@ -21,7 +21,7 @@ part '_impl/core/sliding_carousel_transition.dart';
 part '_impl/state/carousel_controller.dart';
 part '_impl/core/carousel_dot_indicator.dart';
 part '_impl/core/carousel_layout.dart';
-part '_impl/themes/carousel_theme.dart';
+part '_impl/themes/base/carousel_theme.dart';
 
 /// Interactive carousel widget with automatic transitions and customizable layouts.
 class Carousel extends StatefulWidget {

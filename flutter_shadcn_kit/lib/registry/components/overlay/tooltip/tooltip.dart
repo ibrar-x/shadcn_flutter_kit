@@ -11,7 +11,7 @@ import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/tooltip_theme.dart';
+part '_impl/themes/base/tooltip_theme.dart';
 part '_impl/core/tooltip_container.dart';
 part '_impl/core/tooltip_widget.dart';
 part '_impl/utils/tooltip_overlay_handlers.dart';

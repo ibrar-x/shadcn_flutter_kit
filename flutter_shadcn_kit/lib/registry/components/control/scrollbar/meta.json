@@ -21,7 +21,7 @@
     "_impl/core/scrollbar_widget.dart",
     "_impl/core/shadcn_scrollbar.dart",
     "_impl/state/shadcn_scrollbar_state.dart",
-    "_impl/themes/scrollbar_theme.dart",
+    "_impl/themes/base/scrollbar_theme.dart",
     "meta.json",
     "preview.dart",
     "scrollbar.dart",

@@ -33,7 +33,7 @@
     "_impl/core/refresh_trigger_widget.dart",
     "_impl/state/_default_refresh_indicator_state.dart",
     "_impl/state/refresh_trigger_state.dart",
-    "_impl/themes/refresh_trigger_theme.dart",
+    "_impl/themes/base/refresh_trigger_theme.dart",
     "_impl/utils/_refresh_trigger_tween.dart",
     "_impl/utils/refresh_trigger_physics.dart",
     "meta.json",

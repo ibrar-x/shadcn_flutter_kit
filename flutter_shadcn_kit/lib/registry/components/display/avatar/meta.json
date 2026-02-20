@@ -27,7 +27,7 @@
     "_impl/core/avatar_group.dart",
     "_impl/core/avatar_group_clipper.dart",
     "_impl/core/avatar_widget.dart",
-    "_impl/themes/avatar_theme.dart",
+    "_impl/themes/base/avatar_theme.dart",
     "avatar.dart",
     "avatar.meta.json",
     "meta.json",

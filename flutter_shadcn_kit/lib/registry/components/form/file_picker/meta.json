@@ -41,7 +41,7 @@
     "_impl/state/file_upload_state_compact.dart",
     "_impl/state/file_upload_state_surfaces.dart",
     "_impl/state/file_upload_state_uploads.dart",
-    "_impl/themes/file_upload_dropzone_theme.dart",
+    "_impl/themes/base/file_upload_dropzone_theme.dart",
     "_impl/utils/file_like.dart",
     "_impl/utils/file_picker_adapter.dart",
     "_impl/utils/file_picker_adapter_io.dart",

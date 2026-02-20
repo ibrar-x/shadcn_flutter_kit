@@ -31,6 +31,6 @@ import '../../../shared/utils/constants.dart';
 /// ```
 /// Theme for [Menubar].
 
-part '_impl/themes/menubar_theme.dart';
+part '_impl/themes/base/menubar_theme.dart';
 part '_impl/core/menubar_widget.dart';
 part '_impl/state/menubar_state.dart';

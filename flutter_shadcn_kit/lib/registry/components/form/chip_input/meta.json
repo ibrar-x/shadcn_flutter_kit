@@ -31,7 +31,7 @@
     "README.md",
     "_impl/state/_chip_input_preview_state.dart",
     "_impl/state/chip_input_state.dart",
-    "_impl/themes/chip_input_theme.dart",
+    "_impl/themes/base/chip_input_theme.dart",
     "_impl/utils/_chip_provider.dart",
     "_impl/utils/chip_editing_controller.dart",
     "_impl/utils/chip_submit_intent.dart",

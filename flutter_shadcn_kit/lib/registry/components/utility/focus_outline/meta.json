@@ -21,7 +21,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/focus_outline_theme.dart",
+    "_impl/themes/base/focus_outline_theme.dart",
     "focus_outline.dart",
     "focus_outline.meta.json",
     "meta.json",

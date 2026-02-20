@@ -33,7 +33,7 @@
     "_impl/core/tooltip_widget.dart",
     "_impl/state/_instant_tooltip_state.dart",
     "_impl/state/_tooltip_state.dart",
-    "_impl/themes/tooltip_theme.dart",
+    "_impl/themes/base/tooltip_theme.dart",
     "_impl/utils/fixed_tooltip_overlay_handler.dart",
     "_impl/utils/tooltip_overlay_handlers.dart",
     "meta.json",

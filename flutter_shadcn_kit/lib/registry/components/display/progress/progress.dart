@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Theme;
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/progress_theme.dart';
+part '_impl/themes/base/progress_theme.dart';
 
 /// Normalized progress indicator that respects theme defaults.
 class Progress extends StatelessWidget {

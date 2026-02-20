@@ -25,7 +25,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/linear_progress_indicator_theme.dart",
+    "_impl/themes/base/linear_progress_indicator_theme.dart",
     "_impl/utils/_linear_progress_indicator_painter.dart",
     "_impl/utils/linear_progress_indicator_painter.dart",
     "_linear_progress_indicator_preview_state.dart",

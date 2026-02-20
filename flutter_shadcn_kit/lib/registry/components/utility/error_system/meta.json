@@ -53,7 +53,7 @@
     "_impl/extensions/context_error_extensions.dart",
     "_impl/extensions/future_error_extensions.dart",
     "_impl/state/screen_error_scope.dart",
-    "_impl/themes/error_system_theme.dart",
+    "_impl/themes/base/error_system_theme.dart",
     "_impl/utils/api_rules.dart",
     "_impl/utils/auth_rules.dart",
     "_impl/utils/env.dart",

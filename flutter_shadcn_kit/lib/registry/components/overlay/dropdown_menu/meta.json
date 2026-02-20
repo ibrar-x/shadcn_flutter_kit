@@ -26,7 +26,7 @@
     "README.md",
     "_impl/core/dropdown_menu_widget.dart",
     "_impl/state/_dropdown_menu_state.dart",
-    "_impl/themes/dropdown_menu_theme.dart",
+    "_impl/themes/base/dropdown_menu_theme.dart",
     "_impl/utils/dropdown_menu_api.dart",
     "dropdown_menu.dart",
     "dropdown_menu.meta.json",

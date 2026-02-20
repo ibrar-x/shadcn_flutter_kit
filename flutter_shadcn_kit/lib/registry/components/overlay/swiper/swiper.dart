@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../../shared/theme/theme.dart';
 import '../drawer/drawer.dart';
 
-part '_impl/themes/swiper_theme.dart';
+part '_impl/themes/base/swiper_theme.dart';
 part '_impl/utils/swiper_handler.dart';
 part '_impl/utils/drawer_swiper_handler.dart';
 part '_impl/utils/sheet_swiper_handler.dart';

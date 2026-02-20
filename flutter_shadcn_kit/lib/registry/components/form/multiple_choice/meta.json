@@ -29,7 +29,7 @@
     "_impl/state/_multiple_answer_state.dart",
     "_impl/state/_multiple_choice_preview_state.dart",
     "_impl/state/_multiple_choice_state.dart",
-    "_impl/themes/multiple_choice_theme.dart",
+    "_impl/themes/base/multiple_choice_theme.dart",
     "_impl/utils/multiple_answer_controller.dart",
     "_impl/utils/multiple_choice_controller.dart",
     "meta.json",

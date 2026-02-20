@@ -33,7 +33,7 @@
     "_impl/core/modal_container.dart",
     "_impl/core/surface_barrier_painter.dart",
     "_impl/state/_dialog_overlay_wrapper_state.dart",
-    "_impl/themes/modal_backdrop_theme.dart",
+    "_impl/themes/base/modal_backdrop_theme.dart",
     "_impl/utils/dialog_api.dart",
     "_impl/utils/dialog_overlay_completer.dart",
     "_impl/utils/dialog_overlay_full_screen_handler.dart",

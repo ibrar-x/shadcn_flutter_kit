@@ -24,7 +24,7 @@
     "README.md",
     "_impl/core/hover_card_widget.dart",
     "_impl/state/_hover_card_state.dart",
-    "_impl/themes/hover_card_theme.dart",
+    "_impl/themes/base/hover_card_theme.dart",
     "hover_card.dart",
     "hover_card.meta.json",
     "meta.json",

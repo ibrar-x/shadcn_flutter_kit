@@ -32,7 +32,7 @@
     "README.md",
     "_impl/core/phone_number.dart",
     "_impl/state/_phone_input_state.dart",
-    "_impl/themes/phone_input_theme.dart",
+    "_impl/themes/base/phone_input_theme.dart",
     "meta.json",
     "phone_input.dart",
     "phone_input.meta.json",

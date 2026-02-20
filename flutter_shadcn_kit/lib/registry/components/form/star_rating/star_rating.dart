@@ -9,7 +9,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/themes/star_rating_theme.dart';
+part '_impl/themes/base/star_rating_theme.dart';
 
 part '_impl/state/_star_rating_state.dart';
 part '_impl/core/controlled_star_rating.dart';

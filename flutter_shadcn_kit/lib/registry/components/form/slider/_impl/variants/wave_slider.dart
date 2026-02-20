@@ -8,7 +8,7 @@ import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/style_value.dart';
 import '../core/shad_slider_models.dart';
 import '../styles/shad_slider_defaults.dart';
-import '../themes/slider_theme.dart';
+import '../themes/base/slider_theme.dart';
 
 /// A waveform-based slider (no linear track).
 ///

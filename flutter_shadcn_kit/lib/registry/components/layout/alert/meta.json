@@ -21,7 +21,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/alert_theme.dart",
+    "_impl/themes/base/alert_theme.dart",
     "alert.dart",
     "alert.meta.json",
     "meta.json",

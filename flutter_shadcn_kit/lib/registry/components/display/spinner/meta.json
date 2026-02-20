@@ -19,7 +19,7 @@
   "files": [
     "GETTING_STARTED.md",
     "README.md",
-    "_impl/themes/spinner_theme.dart",
+    "_impl/themes/base/spinner_theme.dart",
     "circle_spinner.dart",
     "meta.json",
     "preview.dart",

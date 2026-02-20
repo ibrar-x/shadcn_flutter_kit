@@ -33,7 +33,7 @@
     "_impl/state/_checkbox_preview_state.dart",
     "_impl/state/_checkbox_state.dart",
     "_impl/state/checkbox_state.dart",
-    "_impl/themes/checkbox_theme.dart",
+    "_impl/themes/base/checkbox_theme.dart",
     "_impl/utils/checkbox_controller.dart",
     "checkbox.dart",
     "checkbox.meta.json",

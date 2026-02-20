@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' hide SliderTheme, Theme;
 import '../../../../../shared/theme/theme.dart';
 
 import '../core/shad_slider_models.dart';
-import '../themes/slider_theme.dart';
+import '../themes/base/slider_theme.dart';
 
 /// Default builders used by slider presets.
 class ShadSliderDefaults {

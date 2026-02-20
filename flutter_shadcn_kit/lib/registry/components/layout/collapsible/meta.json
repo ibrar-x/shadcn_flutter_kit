@@ -28,7 +28,7 @@
     "_impl/core/collapsible_trigger.dart",
     "_impl/state/collapsible_state.dart",
     "_impl/state/collapsible_state_data.dart",
-    "_impl/themes/collapsible_theme.dart",
+    "_impl/themes/base/collapsible_theme.dart",
     "collapsible.dart",
     "collapsible.meta.json",
     "meta.json",

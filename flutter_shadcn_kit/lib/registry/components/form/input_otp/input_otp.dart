@@ -10,7 +10,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/themes/input_otp_theme.dart';
+part '_impl/themes/base/input_otp_theme.dart';
 
 part '_impl/core/_input_otp_child.dart';
 part '_impl/core/_input_otp_spacing.dart';

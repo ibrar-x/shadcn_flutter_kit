@@ -21,7 +21,7 @@
     "_impl/core/scrollable_client.dart",
     "_impl/core/scrollable_client_child_vicinity.dart",
     "_impl/core/scrollable_client_viewport.dart",
-    "_impl/themes/scrollable_client_theme.dart",
+    "_impl/themes/base/scrollable_client_theme.dart",
     "meta.json",
     "preview.dart",
     "scrollable.dart",

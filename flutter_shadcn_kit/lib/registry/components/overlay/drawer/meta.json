@@ -48,7 +48,7 @@
     "_impl/state/drawer_entry_widget_state.dart",
     "_impl/state/drawer_overlay_state.dart",
     "_impl/state/drawer_wrapper_state_part1.dart",
-    "_impl/themes/drawer_theme.dart",
+    "_impl/themes/base/drawer_theme.dart",
     "_impl/utils/drawer_api.dart",
     "_impl/utils/drawer_overlay_completer.dart",
     "_impl/utils/drawer_raw_api.dart",

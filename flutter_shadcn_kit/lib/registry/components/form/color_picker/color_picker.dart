@@ -21,7 +21,7 @@ part '_impl/state/_color_picker_state.dart';
 part '_impl/core/_color_value_input.dart';
 part '_impl/state/_color_value_input_state.dart';
 part '_impl/core/color_controls.dart';
-part '_impl/themes/color_picker_theme.dart';
+part '_impl/themes/base/color_picker_theme.dart';
 
 /// A comprehensive color picker widget with multiple color mode support.
 ///

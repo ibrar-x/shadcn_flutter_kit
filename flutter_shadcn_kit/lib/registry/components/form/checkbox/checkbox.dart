@@ -12,7 +12,7 @@ import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/checkbox_theme.dart';
+part '_impl/themes/base/checkbox_theme.dart';
 
 part '_impl/state/_checkbox_state.dart';
 part '_impl/core/animated_check_painter.dart';

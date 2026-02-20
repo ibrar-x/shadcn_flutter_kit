@@ -22,7 +22,7 @@
     "README.md",
     "_impl/core/swiper_widget.dart",
     "_impl/state/_swiper_state.dart",
-    "_impl/themes/swiper_theme.dart",
+    "_impl/themes/base/swiper_theme.dart",
     "_impl/utils/drawer_swiper_handler.dart",
     "_impl/utils/sheet_swiper_handler.dart",
     "_impl/utils/swiper_handler.dart",

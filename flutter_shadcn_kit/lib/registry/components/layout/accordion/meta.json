@@ -27,7 +27,7 @@
     "_impl/state/_accordion_item_state.dart",
     "_impl/state/_accordion_trigger_state.dart",
     "_impl/state/accordion_state.dart",
-    "_impl/themes/accordion_theme.dart",
+    "_impl/themes/base/accordion_theme.dart",
     "accordion.dart",
     "accordion.meta.json",
     "meta.json",

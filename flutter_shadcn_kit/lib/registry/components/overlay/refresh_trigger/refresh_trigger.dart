@@ -14,7 +14,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/themes/refresh_trigger_theme.dart';
+part '_impl/themes/base/refresh_trigger_theme.dart';
 part '_impl/core/refresh_trigger_widget.dart';
 part '_impl/core/default_refresh_indicator.dart';
 part '_impl/state/_default_refresh_indicator_state.dart';

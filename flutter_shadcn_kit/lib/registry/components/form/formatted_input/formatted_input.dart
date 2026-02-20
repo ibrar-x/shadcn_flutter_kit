@@ -18,7 +18,7 @@ import '../form/form.dart';
 import '../../layout/outlined_container/outlined_container.dart';
 import '../text_field/text_field.dart';
 
-part '_impl/themes/formatted_input_theme.dart';
+part '_impl/themes/base/formatted_input_theme.dart';
 
 part '_impl/utils/_editable_part_controller.dart';
 part '_impl/core/_editable_part_widget.dart';

@@ -6,7 +6,7 @@ import '../../../shared/primitives/outlined_container.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/alert_theme.dart';
+part '_impl/themes/base/alert_theme.dart';
 
 /// Flexible alert box for status, warning, and info messages.
 class Alert extends StatelessWidget {
@@ -45,7 +45,7 @@ class Alert extends StatelessWidget {
   }) : destructive = true;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (destructive) {
       final destructiveColor = Theme.of(context).colorScheme.destructive;
@@ -60,7 +60,7 @@ class Alert extends StatelessWidget {
     return _build(context);
   }
 
-/// Executes `_build` behavior for this component/composite.
+  /// Executes `_build` behavior for this component/composite.
   Widget _build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<AlertTheme>(context);

@@ -31,7 +31,7 @@
     "_impl/state/_text_animate_preview_state.dart",
     "_impl/state/streaming_text_state.dart",
     "_impl/styles/character_span_factory.dart",
-    "_impl/themes/text_animate_theme.dart",
+    "_impl/themes/base/text_animate_theme.dart",
     "_impl/utils/text_diff.dart",
     "_impl/utils/time_math.dart",
     "meta.json",

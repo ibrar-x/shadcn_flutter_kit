@@ -27,7 +27,7 @@
     "README.md",
     "_impl/core/card_widgets.dart",
     "_impl/core/surface_card.dart",
-    "_impl/themes/card_theme.dart",
+    "_impl/themes/base/card_theme.dart",
     "card.dart",
     "card.meta.json",
     "meta.json",

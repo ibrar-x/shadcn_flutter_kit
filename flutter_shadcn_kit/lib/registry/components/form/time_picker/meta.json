@@ -38,7 +38,7 @@
     "_impl/state/_duration_picker_dialog_state.dart",
     "_impl/state/_time_picker_dialog_state.dart",
     "_impl/state/_time_picker_preview_state.dart",
-    "_impl/themes/time_picker_theme.dart",
+    "_impl/themes/base/time_picker_theme.dart",
     "_impl/utils/_time_formatter.dart",
     "_impl/utils/duration_picker_controller.dart",
     "_impl/utils/time_picker_controller.dart",

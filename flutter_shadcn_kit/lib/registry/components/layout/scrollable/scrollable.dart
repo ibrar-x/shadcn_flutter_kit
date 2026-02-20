@@ -12,7 +12,7 @@ part '_impl/core/render_scrollable_client_viewport.dart';
 part '_impl/core/scrollable_client.dart';
 part '_impl/core/scrollable_client_child_vicinity.dart';
 part '_impl/core/scrollable_client_viewport.dart';
-part '_impl/themes/scrollable_client_theme.dart';
+part '_impl/themes/base/scrollable_client_theme.dart';
 
 /// Builder function for creating scrollable content with viewport information.
 ///

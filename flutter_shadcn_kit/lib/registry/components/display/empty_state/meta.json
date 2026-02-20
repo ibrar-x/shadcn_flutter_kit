@@ -28,7 +28,7 @@
     "README.md",
     "_impl/core/empty_state.dart",
     "_impl/core/empty_state_action.dart",
-    "_impl/themes/empty_state_theme.dart",
+    "_impl/themes/base/empty_state_theme.dart",
     "_impl/utils/empty_state_defaults.dart",
     "_impl/variants/empty_state_action_style.dart",
     "_impl/variants/empty_state_size.dart",

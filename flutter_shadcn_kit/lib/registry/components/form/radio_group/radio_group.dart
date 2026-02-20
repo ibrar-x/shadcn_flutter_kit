@@ -10,7 +10,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../layout/card/card.dart';
 
-part '_impl/themes/radio_theme.dart';
+part '_impl/themes/variants/radio_theme.dart';
 
 part '_impl/state/_radio_card_state.dart';
 part '_impl/state/_radio_item_state.dart';
@@ -19,7 +19,7 @@ part '_impl/utils/next_item_intent.dart';
 part '_impl/utils/previous_item_intent.dart';
 part '_impl/core/radio.dart';
 part '_impl/core/radio_card.dart';
-part '_impl/themes/radio_card_theme.dart';
+part '_impl/themes/variants/radio_card_theme.dart';
 part '_impl/utils/radio_group_controller.dart';
 part '_impl/core/radio_group_data.dart';
 part '_impl/state/radio_group_state.dart';
