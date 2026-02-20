@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the swiper component.
-class SwiperThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class SwiperThemeConfigGlobalDefaults {
   final Object? expands;
   final Object? draggable;
   final Object? barrierDismissible;
@@ -14,7 +16,7 @@ class SwiperThemeTokensConfigGlobalDefaults {
   final Object? barrierColor;
   final Object? behavior;
 
-  const SwiperThemeTokensConfigGlobalDefaults({
+  const SwiperThemeConfigGlobalDefaults({
     this.expands,
     this.draggable,
     this.barrierDismissible,
@@ -47,20 +49,4 @@ class SwiperThemeTokensConfigGlobalDefaults {
   };
 }
 
-class SwiperThemeTokensConfigGlobalTokens {
-  const SwiperThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class SwiperThemeTokensConfig {
-  const SwiperThemeTokensConfig._();
-
-  /// Global component theme override for `SwiperTheme`.
-  static Object? global;
-  static const String globalType = 'SwiperTheme';
-  static const SwiperThemeTokensConfigGlobalDefaults globalDefaults =
-      SwiperThemeTokensConfigGlobalDefaults();
-  static const SwiperThemeTokensConfigGlobalTokens globalTokens =
-      SwiperThemeTokensConfigGlobalTokens();
-}
+const swiperThemeTokensConfigGlobalDefaults = SwiperThemeConfigGlobalDefaults();

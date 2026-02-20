@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the error_system component.
-class ErrorSystemThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class ErrorSystemThemeConfigGlobalDefaults {
   final Object? iconColor;
   final Object? iconSize;
   final Object? titleStyle;
@@ -22,7 +24,7 @@ class ErrorSystemThemeTokensConfigGlobalDefaults {
   final Object? dialogBarrierColor;
   final Object? dialogPadding;
 
-  const ErrorSystemThemeTokensConfigGlobalDefaults({
+  const ErrorSystemThemeConfigGlobalDefaults({
     this.iconColor,
     this.iconSize,
     this.titleStyle,
@@ -71,20 +73,4 @@ class ErrorSystemThemeTokensConfigGlobalDefaults {
   };
 }
 
-class ErrorSystemThemeTokensConfigGlobalTokens {
-  const ErrorSystemThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class ErrorSystemThemeTokensConfig {
-  const ErrorSystemThemeTokensConfig._();
-
-  /// Global component theme override for `ErrorSystemTheme`.
-  static Object? global;
-  static const String globalType = 'ErrorSystemTheme';
-  static const ErrorSystemThemeTokensConfigGlobalDefaults globalDefaults =
-      ErrorSystemThemeTokensConfigGlobalDefaults();
-  static const ErrorSystemThemeTokensConfigGlobalTokens globalTokens =
-      ErrorSystemThemeTokensConfigGlobalTokens();
-}
+const errorSystemThemeTokensConfigGlobalDefaults = ErrorSystemThemeConfigGlobalDefaults();

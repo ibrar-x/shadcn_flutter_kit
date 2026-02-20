@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the gooey_toast component.
-class GooeyToastThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class GooeyToastThemeConfigGlobalDefaults {
   final Object? width;
   final Object? fill;
   final Object? roundness;
@@ -27,7 +29,7 @@ class GooeyToastThemeTokensConfigGlobalDefaults {
   final Object? infoTone;
   final Object? actionTone;
 
-  const GooeyToastThemeTokensConfigGlobalDefaults({
+  const GooeyToastThemeConfigGlobalDefaults({
     this.width,
     this.fill = 'GooeyToastDefaults.fill',
     this.roundness,
@@ -86,20 +88,4 @@ class GooeyToastThemeTokensConfigGlobalDefaults {
   };
 }
 
-class GooeyToastThemeTokensConfigGlobalTokens {
-  const GooeyToastThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class GooeyToastThemeTokensConfig {
-  const GooeyToastThemeTokensConfig._();
-
-  /// Global component theme override for `GooeyToastTheme`.
-  static Object? global;
-  static const String globalType = 'GooeyToastTheme';
-  static const GooeyToastThemeTokensConfigGlobalDefaults globalDefaults =
-      GooeyToastThemeTokensConfigGlobalDefaults();
-  static const GooeyToastThemeTokensConfigGlobalTokens globalTokens =
-      GooeyToastThemeTokensConfigGlobalTokens();
-}
+const gooeyToastThemeTokensConfigGlobalDefaults = GooeyToastThemeConfigGlobalDefaults();

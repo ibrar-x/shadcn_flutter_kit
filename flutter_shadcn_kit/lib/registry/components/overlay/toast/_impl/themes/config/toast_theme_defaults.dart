@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the toast component.
-class ToastThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class ToastThemeConfigGlobalDefaults {
   final Object? padding;
   final Object? margin;
   final Object? duration;
@@ -19,7 +21,7 @@ class ToastThemeTokensConfigGlobalDefaults {
   final Object? maxVisibleCount;
   final Object? dismissWholeStackWhenMultiple;
 
-  const ToastThemeTokensConfigGlobalDefaults({
+  const ToastThemeConfigGlobalDefaults({
     this.padding,
     this.margin,
     this.duration,
@@ -62,20 +64,4 @@ class ToastThemeTokensConfigGlobalDefaults {
   };
 }
 
-class ToastThemeTokensConfigGlobalTokens {
-  const ToastThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class ToastThemeTokensConfig {
-  const ToastThemeTokensConfig._();
-
-  /// Global component theme override for `ToastTheme`.
-  static Object? global;
-  static const String globalType = 'ToastTheme';
-  static const ToastThemeTokensConfigGlobalDefaults globalDefaults =
-      ToastThemeTokensConfigGlobalDefaults();
-  static const ToastThemeTokensConfigGlobalTokens globalTokens =
-      ToastThemeTokensConfigGlobalTokens();
-}
+const toastThemeTokensConfigGlobalDefaults = ToastThemeConfigGlobalDefaults();

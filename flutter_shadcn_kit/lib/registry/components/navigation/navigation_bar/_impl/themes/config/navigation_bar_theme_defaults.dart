@@ -1,5 +1,7 @@
-/// Global token override entrypoint for the navigation_bar component.
-class NavigationBarThemeTokensConfigGlobalDefaults {
+// GENERATED: component theming architecture defaults file.
+// Built-in defaults - do not edit manually.
+
+class NavigationBarThemeConfigGlobalDefaults {
   final Object? backgroundColor;
   final Object? alignment;
   final Object? direction;
@@ -9,7 +11,7 @@ class NavigationBarThemeTokensConfigGlobalDefaults {
   final Object? labelSize;
   final Object? padding;
 
-  const NavigationBarThemeTokensConfigGlobalDefaults({
+  const NavigationBarThemeConfigGlobalDefaults({
     this.backgroundColor,
     this.alignment = 'NavigationBarAlignment.center',
     this.direction = 'Axis.horizontal',
@@ -33,20 +35,4 @@ class NavigationBarThemeTokensConfigGlobalDefaults {
   };
 }
 
-class NavigationBarThemeTokensConfigGlobalTokens {
-  const NavigationBarThemeTokensConfigGlobalTokens();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
-}
-
-class NavigationBarThemeTokensConfig {
-  const NavigationBarThemeTokensConfig._();
-
-  /// Global component theme override for `NavigationBarTheme`.
-  static Object? global;
-  static const String globalType = 'NavigationBarTheme';
-  static const NavigationBarThemeTokensConfigGlobalDefaults globalDefaults =
-      NavigationBarThemeTokensConfigGlobalDefaults();
-  static const NavigationBarThemeTokensConfigGlobalTokens globalTokens =
-      NavigationBarThemeTokensConfigGlobalTokens();
-}
+const navigationBarThemeTokensConfigGlobalDefaults = NavigationBarThemeConfigGlobalDefaults();
