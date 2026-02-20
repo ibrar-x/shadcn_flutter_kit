@@ -1,10 +1,38 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CardThemeConfigGlobalTokens {
-  const CardThemeConfigGlobalTokens();
+class CardThemeTokens {
+  final Object? padding;
+  final Object? filled;
+  final Object? fillColor;
+  final Object? borderRadius;
+  final Object? borderColor;
+  final Object? borderWidth;
+  final Object? clipBehavior;
+  final Object? boxShadow;
+  final Object? surfaceOpacity;
+  final Object? surfaceBlur;
+  final Object? duration;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CardThemeTokens({
+    this.padding,
+    this.filled,
+    this.fillColor,
+    this.borderRadius,
+    this.borderColor,
+    this.borderWidth,
+    this.clipBehavior,
+    this.boxShadow,
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.duration,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const cardThemeTokensConfigGlobalTokens = CardThemeConfigGlobalTokens();
+const cardThemeTokens = CardThemeTokens();

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'scrollbar_theme_defaults.dart';
 import 'scrollbar_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'scrollbar_theme_tokens.dart';
 class ScrollbarThemeConfig {
   const ScrollbarThemeConfig._();
 
-  /// Global component theme override for `ScrollbarTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'ScrollbarTheme';
-  static const ScrollbarThemeConfigGlobalDefaults globalDefaults =
-      ScrollbarThemeConfigGlobalDefaults();
-  static const ScrollbarThemeConfigGlobalTokens globalTokens =
-      ScrollbarThemeConfigGlobalTokens();
+  static const ScrollbarThemeDefaults defaults = ScrollbarThemeDefaults();
+  static const ScrollbarThemeTokens tokens = scrollbarThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

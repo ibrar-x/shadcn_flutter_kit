@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ScrollableThemeConfigGlobalDefaults {
+class ScrollableClientThemeDefaults {
   final Object? diagonalDragBehavior;
   final Object? dragStartBehavior;
   final Object? keyboardDismissBehavior;
@@ -9,7 +11,7 @@ class ScrollableThemeConfigGlobalDefaults {
   final Object? hitTestBehavior;
   final Object? overscroll;
 
-  const ScrollableThemeConfigGlobalDefaults({
+  const ScrollableClientThemeDefaults({
     this.diagonalDragBehavior,
     this.dragStartBehavior,
     this.keyboardDismissBehavior,
@@ -17,15 +19,4 @@ class ScrollableThemeConfigGlobalDefaults {
     this.hitTestBehavior,
     this.overscroll,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'diagonalDragBehavior': diagonalDragBehavior,
-    'dragStartBehavior': dragStartBehavior,
-    'keyboardDismissBehavior': keyboardDismissBehavior,
-    'clipBehavior': clipBehavior,
-    'hitTestBehavior': hitTestBehavior,
-    'overscroll': overscroll,
-  };
 }
-
-const scrollableThemeTokensConfigGlobalDefaults = ScrollableThemeConfigGlobalDefaults();

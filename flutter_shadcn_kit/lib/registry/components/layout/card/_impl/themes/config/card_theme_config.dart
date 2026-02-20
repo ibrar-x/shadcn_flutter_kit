@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'card_theme_defaults.dart';
 import 'card_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'card_theme_tokens.dart';
 class CardThemeConfig {
   const CardThemeConfig._();
 
-  /// Global component theme override for `CardTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'CardTheme';
-  static const CardThemeConfigGlobalDefaults globalDefaults =
-      CardThemeConfigGlobalDefaults();
-  static const CardThemeConfigGlobalTokens globalTokens =
-      CardThemeConfigGlobalTokens();
+  static const CardThemeDefaults defaults = CardThemeDefaults();
+  static const CardThemeTokens tokens = cardThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

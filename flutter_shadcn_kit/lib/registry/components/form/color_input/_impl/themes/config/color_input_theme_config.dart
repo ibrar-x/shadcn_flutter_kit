@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'color_input_theme_defaults.dart';
 import 'color_input_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'color_input_theme_tokens.dart';
 class ColorInputThemeConfig {
   const ColorInputThemeConfig._();
 
-  /// Global component theme override for `ColorInputTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'ColorInputTheme';
-  static const ColorInputThemeConfigGlobalDefaults globalDefaults =
-      ColorInputThemeConfigGlobalDefaults();
-  static const ColorInputThemeConfigGlobalTokens globalTokens =
-      ColorInputThemeConfigGlobalTokens();
+  static const ColorInputThemeDefaults defaults = ColorInputThemeDefaults();
+  static const ColorInputThemeTokens tokens = colorInputThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'keyboard_shortcut_theme_defaults.dart';
 import 'keyboard_shortcut_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'keyboard_shortcut_theme_tokens.dart';
 class KeyboardShortcutThemeConfig {
   const KeyboardShortcutThemeConfig._();
 
-  /// Global component theme override for `KeyboardShortcutTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'KeyboardShortcutTheme';
-  static const KeyboardShortcutThemeConfigGlobalDefaults globalDefaults =
-      KeyboardShortcutThemeConfigGlobalDefaults();
-  static const KeyboardShortcutThemeConfigGlobalTokens globalTokens =
-      KeyboardShortcutThemeConfigGlobalTokens();
+  static const KeyboardShortcutThemeDefaults defaults = KeyboardShortcutThemeDefaults();
+  static const KeyboardShortcutThemeTokens tokens = keyboardShortcutThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

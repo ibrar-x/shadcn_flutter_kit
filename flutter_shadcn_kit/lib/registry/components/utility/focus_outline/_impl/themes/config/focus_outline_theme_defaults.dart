@@ -1,22 +1,16 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class FocusOutlineThemeConfigGlobalDefaults {
+class FocusOutlineThemeDefaults {
   final Object? align;
   final Object? borderRadius;
   final Object? border;
 
-  const FocusOutlineThemeConfigGlobalDefaults({
+  const FocusOutlineThemeDefaults({
     this.align,
     this.borderRadius,
     this.border,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'align': align,
-    'borderRadius': borderRadius,
-    'border': border,
-  };
 }
-
-const focusOutlineThemeTokensConfigGlobalDefaults = FocusOutlineThemeConfigGlobalDefaults();

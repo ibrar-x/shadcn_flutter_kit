@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class PopupThemeConfigGlobalTokens {
-  const PopupThemeConfigGlobalTokens();
+class MenuPopupThemeTokens {
+  final Object? surfaceOpacity;
+  final Object? surfaceBlur;
+  final Object? padding;
+  final Object? fillColor;
+  final Object? borderColor;
+  final Object? borderRadius;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const MenuPopupThemeTokens({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.padding,
+    this.fillColor,
+    this.borderColor,
+    this.borderRadius,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const popupThemeTokensConfigGlobalTokens = PopupThemeConfigGlobalTokens();
+const menuPopupThemeTokens = MenuPopupThemeTokens();

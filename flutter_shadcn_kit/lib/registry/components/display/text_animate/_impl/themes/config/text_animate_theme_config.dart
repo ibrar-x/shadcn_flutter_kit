@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'text_animate_theme_defaults.dart';
 import 'text_animate_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'text_animate_theme_tokens.dart';
 class TextAnimateThemeConfig {
   const TextAnimateThemeConfig._();
 
-  /// Global component theme override for `TextAnimateTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TextAnimateTheme';
-  static const TextAnimateThemeConfigGlobalDefaults globalDefaults =
-      TextAnimateThemeConfigGlobalDefaults();
-  static const TextAnimateThemeConfigGlobalTokens globalTokens =
-      TextAnimateThemeConfigGlobalTokens();
+  static const TextAnimateThemeDefaults defaults = TextAnimateThemeDefaults();
+  static const TextAnimateThemeTokens tokens = textAnimateThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

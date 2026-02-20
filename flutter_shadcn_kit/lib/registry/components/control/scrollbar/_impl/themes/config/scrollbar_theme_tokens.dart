@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class ScrollbarThemeConfigGlobalTokens {
-  const ScrollbarThemeConfigGlobalTokens();
+class ScrollbarThemeTokens {
+  final Object? color;
+  final Object? thickness;
+  final Object? radius;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const ScrollbarThemeTokens({
+    this.color,
+    this.thickness,
+    this.radius,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const scrollbarThemeTokensConfigGlobalTokens = ScrollbarThemeConfigGlobalTokens();
+const scrollbarThemeTokens = ScrollbarThemeTokens();

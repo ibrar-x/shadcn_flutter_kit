@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ToastThemeConfigGlobalDefaults {
+class ToastThemeDefaults {
   final Object? padding;
   final Object? margin;
   final Object? duration;
@@ -21,7 +23,7 @@ class ToastThemeConfigGlobalDefaults {
   final Object? maxVisibleCount;
   final Object? dismissWholeStackWhenMultiple;
 
-  const ToastThemeConfigGlobalDefaults({
+  const ToastThemeDefaults({
     this.padding,
     this.margin,
     this.duration,
@@ -41,27 +43,4 @@ class ToastThemeConfigGlobalDefaults {
     this.maxVisibleCount,
     this.dismissWholeStackWhenMultiple,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'padding': padding,
-    'margin': margin,
-    'duration': duration,
-    'animationDuration': animationDuration,
-    'animationCurve': animationCurve,
-    'width': width,
-    'borderRadius': borderRadius,
-    'backgroundColor': backgroundColor,
-    'pauseOnHover': pauseOnHover,
-    'dismissDirections': dismissDirections,
-    'dismissDragThreshold': dismissDragThreshold,
-    'overlapStackWhenMultiple': overlapStackWhenMultiple,
-    'overlapStackOffset': overlapStackOffset,
-    'pauseAutoDismissWhenMultiple': pauseAutoDismissWhenMultiple,
-    'stackAnimationDuration': stackAnimationDuration,
-    'stackAnimationCurve': stackAnimationCurve,
-    'maxVisibleCount': maxVisibleCount,
-    'dismissWholeStackWhenMultiple': dismissWholeStackWhenMultiple,
-  };
 }
-
-const toastThemeTokensConfigGlobalDefaults = ToastThemeConfigGlobalDefaults();

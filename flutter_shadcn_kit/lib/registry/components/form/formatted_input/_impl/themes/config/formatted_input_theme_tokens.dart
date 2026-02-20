@@ -1,10 +1,20 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class FormattedInputThemeConfigGlobalTokens {
-  const FormattedInputThemeConfigGlobalTokens();
+class FormattedInputThemeTokens {
+  final Object? height;
+  final Object? padding;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const FormattedInputThemeTokens({
+    this.height,
+    this.padding,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const formattedInputThemeTokensConfigGlobalTokens = FormattedInputThemeConfigGlobalTokens();
+const formattedInputThemeTokens = FormattedInputThemeTokens();

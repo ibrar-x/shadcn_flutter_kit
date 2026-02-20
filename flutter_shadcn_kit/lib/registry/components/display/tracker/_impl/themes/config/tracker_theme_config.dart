@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'tracker_theme_defaults.dart';
 import 'tracker_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'tracker_theme_tokens.dart';
 class TrackerThemeConfig {
   const TrackerThemeConfig._();
 
-  /// Global component theme override for `TrackerTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TrackerTheme';
-  static const TrackerThemeConfigGlobalDefaults globalDefaults =
-      TrackerThemeConfigGlobalDefaults();
-  static const TrackerThemeConfigGlobalTokens globalTokens =
-      TrackerThemeConfigGlobalTokens();
+  static const TrackerThemeDefaults defaults = TrackerThemeDefaults();
+  static const TrackerThemeTokens tokens = trackerThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

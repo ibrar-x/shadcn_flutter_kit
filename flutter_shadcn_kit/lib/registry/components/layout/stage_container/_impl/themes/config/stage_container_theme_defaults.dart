@@ -1,19 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class StageContainerThemeConfigGlobalDefaults {
+class StageContainerThemeDefaults {
   final Object? breakpoint;
   final Object? padding;
 
-  const StageContainerThemeConfigGlobalDefaults({
+  const StageContainerThemeDefaults({
     this.breakpoint,
     this.padding,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'breakpoint': breakpoint,
-    'padding': padding,
-  };
 }
-
-const stageContainerThemeTokensConfigGlobalDefaults = StageContainerThemeConfigGlobalDefaults();

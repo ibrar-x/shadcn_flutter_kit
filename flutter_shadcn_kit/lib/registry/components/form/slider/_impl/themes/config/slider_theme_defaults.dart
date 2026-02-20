@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SliderThemeConfigGlobalDefaults {
+class SliderThemeDefaults {
   final Object? trackHeight;
   final Object? trackRadius;
   final Object? thumbInset;
@@ -56,7 +58,7 @@ class SliderThemeConfigGlobalDefaults {
   final Object? wavePopoverOffset;
   final Object? wavePopoverVisibility;
 
-  const SliderThemeConfigGlobalDefaults({
+  const SliderThemeDefaults({
     this.trackHeight = 'baseGap * 3.5',
     this.trackRadius = 'theme.radiusLg',
     this.thumbInset = 'baseGap * 1.25',
@@ -111,62 +113,4 @@ class SliderThemeConfigGlobalDefaults {
     this.wavePopoverOffset,
     this.wavePopoverVisibility,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'trackHeight': trackHeight,
-    'trackRadius': trackRadius,
-    'thumbInset': thumbInset,
-    'thumbSize': thumbSize,
-    'thumbRadius': thumbRadius,
-    'thumbEdgeOffsetPx': thumbEdgeOffsetPx,
-    'thumbVerticalOffsetPx': thumbVerticalOffsetPx,
-    'joinGapPx': joinGapPx,
-    'fillStopsAtThumbCenter': fillStopsAtThumbCenter,
-    'fillEdgeBiasPx': fillEdgeBiasPx,
-    'preset': preset,
-    'trackBuilder': trackBuilder,
-    'fillBuilder': fillBuilder,
-    'thumbBuilder': thumbBuilder,
-    'ticksBuilder': ticksBuilder,
-    'overlayBuilder': overlayBuilder,
-    'segmentLayout': segmentLayout,
-    'trackRenderer': trackRenderer,
-    'dragPopoverBuilder': dragPopoverBuilder,
-    'dragPopoverOffset': dragPopoverOffset,
-    'dragPopoverVisibility': dragPopoverVisibility,
-    'popoverShape': popoverShape,
-    'popoverBackgroundColor': popoverBackgroundColor,
-    'popoverForegroundColor': popoverForegroundColor,
-    'guideColor': guideColor,
-    'fillActiveColor': fillActiveColor,
-    'fillInactiveColor': fillInactiveColor,
-    'thumbFillColor': thumbFillColor,
-    'thumbBorderColor': thumbBorderColor,
-    'dotsActiveColor': dotsActiveColor,
-    'dotsInactiveColor': dotsInactiveColor,
-    'waveformTicksActiveColor': waveformTicksActiveColor,
-    'waveformTicksInactiveColor': waveformTicksInactiveColor,
-    'waveHeight': waveHeight,
-    'wavePadding': wavePadding,
-    'waveBarWidth': waveBarWidth,
-    'waveBarGap': waveBarGap,
-    'waveMinBarHeight': waveMinBarHeight,
-    'waveMaxBarHeight': waveMaxBarHeight,
-    'waveCornerRadius': waveCornerRadius,
-    'waveActiveColor': waveActiveColor,
-    'waveInactiveColor': waveInactiveColor,
-    'waveDisabledOpacity': waveDisabledOpacity,
-    'waveShowThumb': waveShowThumb,
-    'waveThumbRadius': waveThumbRadius,
-    'waveThumbColor': waveThumbColor,
-    'waveThumbBorderColor': waveThumbBorderColor,
-    'waveThumbBorderWidth': waveThumbBorderWidth,
-    'waveHitSlop': waveHitSlop,
-    'waveEnabled': waveEnabled,
-    'wavePopoverBuilder': wavePopoverBuilder,
-    'wavePopoverOffset': wavePopoverOffset,
-    'wavePopoverVisibility': wavePopoverVisibility,
-  };
 }
-
-const sliderThemeTokensConfigGlobalDefaults = SliderThemeConfigGlobalDefaults();

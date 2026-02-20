@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class PhoneInputThemeConfigGlobalDefaults {
+class PhoneInputThemeDefaults {
   final Object? padding;
   final Object? borderRadius;
   final Object? popupConstraints;
@@ -12,7 +14,7 @@ class PhoneInputThemeConfigGlobalDefaults {
   final Object? countryGap;
   final Object? flagShape;
 
-  const PhoneInputThemeConfigGlobalDefaults({
+  const PhoneInputThemeDefaults({
     this.padding,
     this.borderRadius,
     this.popupConstraints,
@@ -23,18 +25,4 @@ class PhoneInputThemeConfigGlobalDefaults {
     this.countryGap,
     this.flagShape,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'padding': padding,
-    'borderRadius': borderRadius,
-    'popupConstraints': popupConstraints,
-    'maxWidth': maxWidth,
-    'flagHeight': flagHeight,
-    'flagWidth': flagWidth,
-    'flagGap': flagGap,
-    'countryGap': countryGap,
-    'flagShape': flagShape,
-  };
 }
-
-const phoneInputThemeTokensConfigGlobalDefaults = PhoneInputThemeConfigGlobalDefaults();

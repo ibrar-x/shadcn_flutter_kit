@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'scrollable_theme_defaults.dart';
 import 'scrollable_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'scrollable_theme_tokens.dart';
 class ScrollableThemeConfig {
   const ScrollableThemeConfig._();
 
-  /// Global component theme override for `ScrollableClientTheme`.
-  static Object? global;
-  static const String globalType = 'ScrollableClientTheme';
-  static const ScrollableThemeConfigGlobalDefaults globalDefaults =
-      ScrollableThemeConfigGlobalDefaults();
-  static const ScrollableThemeConfigGlobalTokens globalTokens =
-      ScrollableThemeConfigGlobalTokens();
+  static const Object? scrollableClientTheme = null;
+  static const String scrollableClientThemeType = 'ScrollableClientTheme';
+  static const ScrollableClientThemeDefaults scrollableClientThemeDefaults = ScrollableClientThemeDefaults();
+  static const ScrollableClientThemeTokens scrollableClientThemeTokenConfig = scrollableClientThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == scrollableClientThemeType) {
+      return scrollableClientTheme as T?;
+    }
+    return null;
+  }
 }

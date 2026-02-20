@@ -1,85 +1,56 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class TabsThemeConfigGlobalDefaults {
+class TabsThemeDefaults {
   final Object? containerPadding;
   final Object? tabPadding;
   final Object? backgroundColor;
   final Object? borderRadius;
 
-  const TabsThemeConfigGlobalDefaults({
+  const TabsThemeDefaults({
     this.containerPadding,
     this.tabPadding,
     this.backgroundColor = 'theme.colorScheme.card',
     this.borderRadius = 'theme.borderRadiusLg',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'containerPadding': containerPadding,
-    'tabPadding': tabPadding,
-    'backgroundColor': backgroundColor,
-    'borderRadius': borderRadius,
-  };
 }
 
-class TabsThemeConfigTabContainerThemeDefaults {
+class TabContainerThemeDefaults {
   final Object? builder;
   final Object? childBuilder;
 
-  const TabsThemeConfigTabContainerThemeDefaults({
+  const TabContainerThemeDefaults({
     this.builder,
     this.childBuilder,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'builder': builder,
-    'childBuilder': childBuilder,
-  };
 }
 
-class TabsThemeConfigTabListThemeDefaults {
+class TabListThemeDefaults {
   final Object? borderColor;
   final Object? borderWidth;
   final Object? indicatorColor;
   final Object? indicatorHeight;
 
-  const TabsThemeConfigTabListThemeDefaults({
+  const TabListThemeDefaults({
     this.borderColor,
     this.borderWidth,
     this.indicatorColor,
     this.indicatorHeight,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'borderColor': borderColor,
-    'borderWidth': borderWidth,
-    'indicatorColor': indicatorColor,
-    'indicatorHeight': indicatorHeight,
-  };
 }
 
-class TabsThemeConfigTabPaneThemeDefaults {
+class TabPaneThemeDefaults {
   final Object? borderRadius;
   final Object? backgroundColor;
   final Object? border;
   final Object? barHeight;
 
-  const TabsThemeConfigTabPaneThemeDefaults({
+  const TabPaneThemeDefaults({
     this.borderRadius = 'theme.borderRadiusLg',
     this.backgroundColor = 'theme.colorScheme.card',
     this.border,
     this.barHeight = '(32 * theme.scaling)',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'borderRadius': borderRadius,
-    'backgroundColor': backgroundColor,
-    'border': border,
-    'barHeight': barHeight,
-  };
 }
-
-const tabsThemeTokensConfigGlobalDefaults = TabsThemeConfigGlobalDefaults();
-const tabsThemeTokensConfigTabContainerThemeDefaults = TabsThemeConfigTabContainerThemeDefaults();
-const tabsThemeTokensConfigTabListThemeDefaults = TabsThemeConfigTabListThemeDefaults();
-const tabsThemeTokensConfigTabPaneThemeDefaults = TabsThemeConfigTabPaneThemeDefaults();

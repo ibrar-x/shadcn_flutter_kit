@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'tooltip_theme_defaults.dart';
 import 'tooltip_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'tooltip_theme_tokens.dart';
 class TooltipThemeConfig {
   const TooltipThemeConfig._();
 
-  /// Global component theme override for `TooltipTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TooltipTheme';
-  static const TooltipThemeConfigGlobalDefaults globalDefaults =
-      TooltipThemeConfigGlobalDefaults();
-  static const TooltipThemeConfigGlobalTokens globalTokens =
-      TooltipThemeConfigGlobalTokens();
+  static const TooltipThemeDefaults defaults = TooltipThemeDefaults();
+  static const TooltipThemeTokens tokens = tooltipThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

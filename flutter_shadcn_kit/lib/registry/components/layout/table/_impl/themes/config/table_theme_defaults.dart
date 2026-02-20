@@ -1,44 +1,30 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class TableThemeConfigGlobalDefaults {
+class TableThemeDefaults {
   final Object? border;
   final Object? backgroundColor;
   final Object? borderRadius;
   final Object? cellTheme;
 
-  const TableThemeConfigGlobalDefaults({
+  const TableThemeDefaults({
     this.border,
     this.backgroundColor,
     this.borderRadius,
     this.cellTheme,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'border': border,
-    'backgroundColor': backgroundColor,
-    'borderRadius': borderRadius,
-    'cellTheme': cellTheme,
-  };
 }
 
-class TableThemeConfigResizableTableThemeDefaults {
+class ResizableTableThemeDefaults {
   final Object? tableTheme;
   final Object? resizerThickness;
   final Object? resizerColor;
 
-  const TableThemeConfigResizableTableThemeDefaults({
+  const ResizableTableThemeDefaults({
     this.tableTheme,
     this.resizerThickness,
     this.resizerColor,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'tableTheme': tableTheme,
-    'resizerThickness': resizerThickness,
-    'resizerColor': resizerColor,
-  };
 }
-
-const tableThemeTokensConfigGlobalDefaults = TableThemeConfigGlobalDefaults();
-const tableThemeTokensConfigResizableTableThemeDefaults = TableThemeConfigResizableTableThemeDefaults();

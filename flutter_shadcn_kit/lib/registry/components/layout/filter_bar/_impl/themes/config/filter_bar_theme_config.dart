@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'filter_bar_theme_defaults.dart';
 import 'filter_bar_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'filter_bar_theme_tokens.dart';
 class FilterBarThemeConfig {
   const FilterBarThemeConfig._();
 
-  /// Default token payload for this component config.
-  static const FilterBarThemeConfigGlobalDefaults globalDefaults =
-      FilterBarThemeConfigGlobalDefaults();
+  static const Object? global = null;
+  static const String globalType = 'FilterBarTheme';
+  static const FilterBarThemeDefaults defaults = FilterBarThemeDefaults();
+  static const FilterBarThemeTokens tokens = filterBarThemeTokens;
 
-  /// Override token payload for this component config.
-  static const FilterBarThemeConfigGlobalTokens globalTokens =
-      FilterBarThemeConfigGlobalTokens();
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

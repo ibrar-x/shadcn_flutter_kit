@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class ScrollableThemeConfigGlobalTokens {
-  const ScrollableThemeConfigGlobalTokens();
+class ScrollableClientThemeTokens {
+  final Object? diagonalDragBehavior;
+  final Object? dragStartBehavior;
+  final Object? keyboardDismissBehavior;
+  final Object? clipBehavior;
+  final Object? hitTestBehavior;
+  final Object? overscroll;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const ScrollableClientThemeTokens({
+    this.diagonalDragBehavior,
+    this.dragStartBehavior,
+    this.keyboardDismissBehavior,
+    this.clipBehavior,
+    this.hitTestBehavior,
+    this.overscroll,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const scrollableThemeTokensConfigGlobalTokens = ScrollableThemeConfigGlobalTokens();
+const scrollableClientThemeTokens = ScrollableClientThemeTokens();

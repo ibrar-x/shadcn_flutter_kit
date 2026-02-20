@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'linear_progress_indicator_theme_defaults.dart';
 import 'linear_progress_indicator_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'linear_progress_indicator_theme_tokens.dart';
 class LinearProgressIndicatorThemeConfig {
   const LinearProgressIndicatorThemeConfig._();
 
-  /// Global component theme override for `LinearProgressIndicatorTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'LinearProgressIndicatorTheme';
-  static const LinearProgressIndicatorThemeConfigGlobalDefaults
-  globalDefaults = LinearProgressIndicatorThemeConfigGlobalDefaults();
-  static const LinearProgressIndicatorThemeConfigGlobalTokens
-  globalTokens = LinearProgressIndicatorThemeConfigGlobalTokens();
+  static const LinearProgressIndicatorThemeDefaults defaults = LinearProgressIndicatorThemeDefaults();
+  static const LinearProgressIndicatorThemeTokens tokens = linearProgressIndicatorThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

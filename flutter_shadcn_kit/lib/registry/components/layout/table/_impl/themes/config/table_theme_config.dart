@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'table_theme_defaults.dart';
 import 'table_theme_tokens.dart';
@@ -7,20 +9,23 @@ import 'table_theme_tokens.dart';
 class TableThemeConfig {
   const TableThemeConfig._();
 
-  /// Global component theme override for `TableTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TableTheme';
-  static const TableThemeConfigGlobalDefaults globalDefaults =
-      TableThemeConfigGlobalDefaults();
-  static const TableThemeConfigGlobalTokens globalTokens =
-      TableThemeConfigGlobalTokens();
+  static const TableThemeDefaults defaults = TableThemeDefaults();
+  static const TableThemeTokens tokens = tableThemeTokens;
 
-  /// Global component theme override for `ResizableTableTheme`.
-  static Object? resizableTableTheme;
+  static const Object? resizableTableTheme = null;
   static const String resizableTableThemeType = 'ResizableTableTheme';
-  static const TableThemeConfigResizableTableThemeDefaults
-  resizableTableThemeDefaults =
-      TableThemeConfigResizableTableThemeDefaults();
-  static const TableThemeConfigResizableTableThemeTokens
-  resizableTableThemeTokens = TableThemeConfigResizableTableThemeTokens();
+  static const ResizableTableThemeDefaults resizableTableThemeDefaults = ResizableTableThemeDefaults();
+  static const ResizableTableThemeTokens resizableTableThemeTokenConfig = resizableTableThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    if (T.toString() == resizableTableThemeType) {
+      return resizableTableTheme as T?;
+    }
+    return null;
+  }
 }

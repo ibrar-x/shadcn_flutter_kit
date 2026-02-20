@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'drawer_theme_defaults.dart';
 import 'drawer_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'drawer_theme_tokens.dart';
 class DrawerThemeConfig {
   const DrawerThemeConfig._();
 
-  /// Global component theme override for `DrawerTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'DrawerTheme';
-  static const DrawerThemeConfigGlobalDefaults globalDefaults =
-      DrawerThemeConfigGlobalDefaults();
-  static const DrawerThemeConfigGlobalTokens globalTokens =
-      DrawerThemeConfigGlobalTokens();
+  static const DrawerThemeDefaults defaults = DrawerThemeDefaults();
+  static const DrawerThemeTokens tokens = drawerThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

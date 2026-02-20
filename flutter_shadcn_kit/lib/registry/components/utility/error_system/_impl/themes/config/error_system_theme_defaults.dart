@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ErrorSystemThemeConfigGlobalDefaults {
+class ErrorSystemThemeDefaults {
   final Object? iconColor;
   final Object? iconSize;
   final Object? titleStyle;
@@ -24,7 +26,7 @@ class ErrorSystemThemeConfigGlobalDefaults {
   final Object? dialogBarrierColor;
   final Object? dialogPadding;
 
-  const ErrorSystemThemeConfigGlobalDefaults({
+  const ErrorSystemThemeDefaults({
     this.iconColor,
     this.iconSize,
     this.titleStyle,
@@ -47,30 +49,4 @@ class ErrorSystemThemeConfigGlobalDefaults {
     this.dialogBarrierColor,
     this.dialogPadding,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'iconColor': iconColor,
-    'iconSize': iconSize,
-    'titleStyle': titleStyle,
-    'messageStyle': messageStyle,
-    'cardPadding': cardPadding,
-    'cardBorderRadius': cardBorderRadius,
-    'cardFillColor': cardFillColor,
-    'bannerBackgroundColor': bannerBackgroundColor,
-    'bannerBorderRadius': bannerBorderRadius,
-    'bannerPadding': bannerPadding,
-    'bannerTitleStyle': bannerTitleStyle,
-    'bannerMessageStyle': bannerMessageStyle,
-    'bannerIcon': bannerIcon,
-    'bannerBorderColor': bannerBorderColor,
-    'snackbarBackgroundColor': snackbarBackgroundColor,
-    'snackbarTextStyle': snackbarTextStyle,
-    'snackbarBorderRadius': snackbarBorderRadius,
-    'dialogSurfaceBlur': dialogSurfaceBlur,
-    'dialogSurfaceOpacity': dialogSurfaceOpacity,
-    'dialogBarrierColor': dialogBarrierColor,
-    'dialogPadding': dialogPadding,
-  };
 }
-
-const errorSystemThemeTokensConfigGlobalDefaults = ErrorSystemThemeConfigGlobalDefaults();

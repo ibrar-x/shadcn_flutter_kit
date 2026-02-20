@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ColorInputThemeConfigGlobalDefaults {
+class ColorInputThemeDefaults {
   final Object? showAlpha;
   final Object? popoverAlignment;
   final Object? popoverAnchorAlignment;
@@ -13,7 +15,7 @@ class ColorInputThemeConfigGlobalDefaults {
   final Object? orientation;
   final Object? showHistory;
 
-  const ColorInputThemeConfigGlobalDefaults({
+  const ColorInputThemeDefaults({
     this.showAlpha = true,
     this.popoverAlignment = 'Alignment.topCenter',
     this.popoverAnchorAlignment = 'Alignment.bottomCenter',
@@ -25,19 +27,4 @@ class ColorInputThemeConfigGlobalDefaults {
     this.orientation,
     this.showHistory = true,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'showAlpha': showAlpha,
-    'popoverAlignment': popoverAlignment,
-    'popoverAnchorAlignment': popoverAnchorAlignment,
-    'popoverPadding': popoverPadding,
-    'mode': mode,
-    'pickerMode': pickerMode,
-    'enableEyeDropper': enableEyeDropper,
-    'showLabel': showLabel,
-    'orientation': orientation,
-    'showHistory': showHistory,
-  };
 }
-
-const colorInputThemeTokensConfigGlobalDefaults = ColorInputThemeConfigGlobalDefaults();

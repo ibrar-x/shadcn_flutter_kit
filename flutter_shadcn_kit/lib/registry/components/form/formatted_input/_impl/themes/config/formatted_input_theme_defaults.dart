@@ -1,19 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class FormattedInputThemeConfigGlobalDefaults {
+class FormattedInputThemeDefaults {
   final Object? height;
   final Object? padding;
 
-  const FormattedInputThemeConfigGlobalDefaults({
+  const FormattedInputThemeDefaults({
     this.height,
     this.padding,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'height': height,
-    'padding': padding,
-  };
 }
-
-const formattedInputThemeTokensConfigGlobalDefaults = FormattedInputThemeConfigGlobalDefaults();

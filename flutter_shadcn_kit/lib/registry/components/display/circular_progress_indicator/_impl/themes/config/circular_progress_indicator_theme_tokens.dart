@@ -1,10 +1,24 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CircularProgressIndicatorThemeConfigGlobalTokens {
-  const CircularProgressIndicatorThemeConfigGlobalTokens();
+class CircularProgressIndicatorThemeTokens {
+  final Object? color;
+  final Object? backgroundColor;
+  final Object? size;
+  final Object? strokeWidth;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CircularProgressIndicatorThemeTokens({
+    this.color,
+    this.backgroundColor,
+    this.size,
+    this.strokeWidth,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const circularProgressIndicatorThemeTokensConfigGlobalTokens = CircularProgressIndicatorThemeConfigGlobalTokens();
+const circularProgressIndicatorThemeTokens = CircularProgressIndicatorThemeTokens();

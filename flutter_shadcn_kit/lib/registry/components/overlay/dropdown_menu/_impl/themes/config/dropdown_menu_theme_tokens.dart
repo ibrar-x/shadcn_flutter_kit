@@ -1,10 +1,20 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class DropdownMenuThemeConfigGlobalTokens {
-  const DropdownMenuThemeConfigGlobalTokens();
+class DropdownMenuThemeTokens {
+  final Object? surfaceOpacity;
+  final Object? surfaceBlur;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const DropdownMenuThemeTokens({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const dropdownMenuThemeTokensConfigGlobalTokens = DropdownMenuThemeConfigGlobalTokens();
+const dropdownMenuThemeTokens = DropdownMenuThemeTokens();

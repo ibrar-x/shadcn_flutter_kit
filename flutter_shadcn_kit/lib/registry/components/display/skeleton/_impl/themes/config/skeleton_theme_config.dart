@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'skeleton_theme_defaults.dart';
 import 'skeleton_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'skeleton_theme_tokens.dart';
 class SkeletonThemeConfig {
   const SkeletonThemeConfig._();
 
-  /// Global component theme override for `SkeletonTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'SkeletonTheme';
-  static const SkeletonThemeConfigGlobalDefaults globalDefaults =
-      SkeletonThemeConfigGlobalDefaults();
-  static const SkeletonThemeConfigGlobalTokens globalTokens =
-      SkeletonThemeConfigGlobalTokens();
+  static const SkeletonThemeDefaults defaults = SkeletonThemeDefaults();
+  static const SkeletonThemeTokens tokens = skeletonThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class DotIndicatorThemeConfigGlobalDefaults {
+class DotIndicatorThemeDefaults {
   final Object? spacing;
   final Object? padding;
   final Object? dotBuilder;
@@ -12,7 +14,7 @@ class DotIndicatorThemeConfigGlobalDefaults {
   final Object? inactiveBorderColor;
   final Object? inactiveBorderWidth;
 
-  const DotIndicatorThemeConfigGlobalDefaults({
+  const DotIndicatorThemeDefaults({
     this.spacing,
     this.padding,
     this.dotBuilder,
@@ -23,18 +25,4 @@ class DotIndicatorThemeConfigGlobalDefaults {
     this.inactiveBorderColor,
     this.inactiveBorderWidth,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'spacing': spacing,
-    'padding': padding,
-    'dotBuilder': dotBuilder,
-    'size': size,
-    'borderRadius': borderRadius,
-    'activeColor': activeColor,
-    'inactiveColor': inactiveColor,
-    'inactiveBorderColor': inactiveBorderColor,
-    'inactiveBorderWidth': inactiveBorderWidth,
-  };
 }
-
-const dotIndicatorThemeTokensConfigGlobalDefaults = DotIndicatorThemeConfigGlobalDefaults();

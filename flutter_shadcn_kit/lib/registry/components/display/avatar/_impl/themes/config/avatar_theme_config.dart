@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'avatar_theme_defaults.dart';
 import 'avatar_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'avatar_theme_tokens.dart';
 class AvatarThemeConfig {
   const AvatarThemeConfig._();
 
-  /// Global component theme override for `AvatarTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'AvatarTheme';
-  static const AvatarThemeConfigGlobalDefaults globalDefaults =
-      AvatarThemeConfigGlobalDefaults();
-  static const AvatarThemeConfigGlobalTokens globalTokens =
-      AvatarThemeConfigGlobalTokens();
+  static const AvatarThemeDefaults defaults = AvatarThemeDefaults();
+  static const AvatarThemeTokens tokens = avatarThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

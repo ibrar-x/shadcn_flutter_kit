@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class HiddenThemeConfigGlobalDefaults {
+class HiddenThemeDefaults {
   final Object? direction;
   final Object? duration;
   final Object? curve;
@@ -9,7 +11,7 @@ class HiddenThemeConfigGlobalDefaults {
   final Object? keepCrossAxisSize;
   final Object? keepMainAxisSize;
 
-  const HiddenThemeConfigGlobalDefaults({
+  const HiddenThemeDefaults({
     this.direction,
     this.duration,
     this.curve,
@@ -17,15 +19,4 @@ class HiddenThemeConfigGlobalDefaults {
     this.keepCrossAxisSize,
     this.keepMainAxisSize,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'direction': direction,
-    'duration': duration,
-    'curve': curve,
-    'reverse': reverse,
-    'keepCrossAxisSize': keepCrossAxisSize,
-    'keepMainAxisSize': keepMainAxisSize,
-  };
 }
-
-const hiddenThemeTokensConfigGlobalDefaults = HiddenThemeConfigGlobalDefaults();

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'number_ticker_theme_defaults.dart';
 import 'number_ticker_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'number_ticker_theme_tokens.dart';
 class NumberTickerThemeConfig {
   const NumberTickerThemeConfig._();
 
-  /// Global component theme override for `NumberTickerTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'NumberTickerTheme';
-  static const NumberTickerThemeConfigGlobalDefaults globalDefaults =
-      NumberTickerThemeConfigGlobalDefaults();
-  static const NumberTickerThemeConfigGlobalTokens globalTokens =
-      NumberTickerThemeConfigGlobalTokens();
+  static const NumberTickerThemeDefaults defaults = NumberTickerThemeDefaults();
+  static const NumberTickerThemeTokens tokens = numberTickerThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'menubar_theme_defaults.dart';
 import 'menubar_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'menubar_theme_tokens.dart';
 class MenubarThemeConfig {
   const MenubarThemeConfig._();
 
-  /// Global component theme override for `MenubarTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'MenubarTheme';
-  static const MenubarThemeConfigGlobalDefaults globalDefaults =
-      MenubarThemeConfigGlobalDefaults();
-  static const MenubarThemeConfigGlobalTokens globalTokens =
-      MenubarThemeConfigGlobalTokens();
+  static const MenubarThemeDefaults defaults = MenubarThemeDefaults();
+  static const MenubarThemeTokens tokens = menubarThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

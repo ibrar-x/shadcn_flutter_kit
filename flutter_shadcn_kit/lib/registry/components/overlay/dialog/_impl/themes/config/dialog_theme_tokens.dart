@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class DialogThemeConfigGlobalTokens {
-  const DialogThemeConfigGlobalTokens();
+class ModalBackdropThemeTokens {
+  final Object? borderRadius;
+  final Object? padding;
+  final Object? barrierColor;
+  final Object? modal;
+  final Object? surfaceClip;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const ModalBackdropThemeTokens({
+    this.borderRadius,
+    this.padding,
+    this.barrierColor,
+    this.modal,
+    this.surfaceClip,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const dialogThemeTokensConfigGlobalTokens = DialogThemeConfigGlobalTokens();
+const modalBackdropThemeTokens = ModalBackdropThemeTokens();

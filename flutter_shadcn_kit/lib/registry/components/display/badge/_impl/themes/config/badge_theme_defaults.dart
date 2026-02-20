@@ -1,25 +1,18 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class BadgeThemeConfigGlobalDefaults {
+class BadgeThemeDefaults {
   final Object? primaryStyle;
   final Object? secondaryStyle;
   final Object? outlineStyle;
   final Object? destructiveStyle;
 
-  const BadgeThemeConfigGlobalDefaults({
+  const BadgeThemeDefaults({
     this.primaryStyle,
     this.secondaryStyle,
     this.outlineStyle,
     this.destructiveStyle,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'primaryStyle': primaryStyle,
-    'secondaryStyle': secondaryStyle,
-    'outlineStyle': outlineStyle,
-    'destructiveStyle': destructiveStyle,
-  };
 }
-
-const badgeThemeTokensConfigGlobalDefaults = BadgeThemeConfigGlobalDefaults();

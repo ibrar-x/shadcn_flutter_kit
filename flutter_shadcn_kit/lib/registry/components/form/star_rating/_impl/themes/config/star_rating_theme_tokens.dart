@@ -1,10 +1,24 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class StarRatingThemeConfigGlobalTokens {
-  const StarRatingThemeConfigGlobalTokens();
+class StarRatingThemeTokens {
+  final Object? activeColor;
+  final Object? backgroundColor;
+  final Object? starSize;
+  final Object? starSpacing;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const StarRatingThemeTokens({
+    this.activeColor,
+    this.backgroundColor,
+    this.starSize,
+    this.starSpacing,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const starRatingThemeTokensConfigGlobalTokens = StarRatingThemeConfigGlobalTokens();
+const starRatingThemeTokens = StarRatingThemeTokens();

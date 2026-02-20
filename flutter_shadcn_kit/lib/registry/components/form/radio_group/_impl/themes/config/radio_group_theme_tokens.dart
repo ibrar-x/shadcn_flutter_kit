@@ -1,17 +1,56 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class RadioGroupThemeConfigGlobalTokens {
-  const RadioGroupThemeConfigGlobalTokens();
+class RadioCardThemeTokens {
+  final Object? enabledCursor;
+  final Object? disabledCursor;
+  final Object? hoverColor;
+  final Object? color;
+  final Object? borderWidth;
+  final Object? selectedBorderWidth;
+  final Object? borderRadius;
+  final Object? padding;
+  final Object? borderColor;
+  final Object? selectedBorderColor;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const RadioCardThemeTokens({
+    this.enabledCursor,
+    this.disabledCursor,
+    this.hoverColor,
+    this.color,
+    this.borderWidth,
+    this.selectedBorderWidth,
+    this.borderRadius,
+    this.padding,
+    this.borderColor,
+    this.selectedBorderColor,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class RadioGroupThemeConfigRadioThemeTokens {
-  const RadioGroupThemeConfigRadioThemeTokens();
+const radioCardThemeTokens = RadioCardThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class RadioThemeTokens {
+  final Object? activeColor;
+  final Object? borderColor;
+  final Object? size;
+  final Object? backgroundColor;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const RadioThemeTokens({
+    this.activeColor,
+    this.borderColor,
+    this.size,
+    this.backgroundColor,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const radioGroupThemeTokensConfigGlobalTokens = RadioGroupThemeConfigGlobalTokens();
-const radioGroupThemeTokensConfigRadioThemeTokens = RadioGroupThemeConfigRadioThemeTokens();
+const radioThemeTokens = RadioThemeTokens();

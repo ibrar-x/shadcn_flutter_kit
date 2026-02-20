@@ -1,25 +1,18 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SkeletonThemeConfigGlobalDefaults {
+class SkeletonThemeDefaults {
   final Object? duration;
   final Object? fromColor;
   final Object? toColor;
   final Object? enableSwitchAnimation;
 
-  const SkeletonThemeConfigGlobalDefaults({
+  const SkeletonThemeDefaults({
     this.duration,
     this.fromColor,
     this.toColor,
     this.enableSwitchAnimation,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'duration': duration,
-    'fromColor': fromColor,
-    'toColor': toColor,
-    'enableSwitchAnimation': enableSwitchAnimation,
-  };
 }
-
-const skeletonThemeTokensConfigGlobalDefaults = SkeletonThemeConfigGlobalDefaults();

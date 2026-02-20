@@ -1,10 +1,18 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class MultipleChoiceThemeConfigGlobalTokens {
-  const MultipleChoiceThemeConfigGlobalTokens();
+class MultipleChoiceThemeTokens {
+  final Object? allowUnselect;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const MultipleChoiceThemeTokens({
+    this.allowUnselect,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const multipleChoiceThemeTokensConfigGlobalTokens = MultipleChoiceThemeConfigGlobalTokens();
+const multipleChoiceThemeTokens = MultipleChoiceThemeTokens();

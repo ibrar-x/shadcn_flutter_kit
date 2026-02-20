@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class DatePickerThemeConfigGlobalDefaults {
+class DatePickerThemeDefaults {
   final Object? mode;
   final Object? initialView;
   final Object? initialViewType;
@@ -9,7 +11,7 @@ class DatePickerThemeConfigGlobalDefaults {
   final Object? popoverAnchorAlignment;
   final Object? popoverPadding;
 
-  const DatePickerThemeConfigGlobalDefaults({
+  const DatePickerThemeDefaults({
     this.mode,
     this.initialView,
     this.initialViewType,
@@ -17,15 +19,4 @@ class DatePickerThemeConfigGlobalDefaults {
     this.popoverAnchorAlignment,
     this.popoverPadding,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'mode': mode,
-    'initialView': initialView,
-    'initialViewType': initialViewType,
-    'popoverAlignment': popoverAlignment,
-    'popoverAnchorAlignment': popoverAnchorAlignment,
-    'popoverPadding': popoverPadding,
-  };
 }
-
-const datePickerThemeTokensConfigGlobalDefaults = DatePickerThemeConfigGlobalDefaults();

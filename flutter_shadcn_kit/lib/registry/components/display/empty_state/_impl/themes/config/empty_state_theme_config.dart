@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'empty_state_theme_defaults.dart';
 import 'empty_state_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'empty_state_theme_tokens.dart';
 class EmptyStateThemeConfig {
   const EmptyStateThemeConfig._();
 
-  /// Global component theme override for `EmptyStateTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'EmptyStateTheme';
-  static const EmptyStateThemeConfigGlobalDefaults globalDefaults =
-      EmptyStateThemeConfigGlobalDefaults();
-  static const EmptyStateThemeConfigGlobalTokens globalTokens =
-      EmptyStateThemeConfigGlobalTokens();
+  static const EmptyStateThemeDefaults defaults = EmptyStateThemeDefaults();
+  static const EmptyStateThemeTokens tokens = emptyStateThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

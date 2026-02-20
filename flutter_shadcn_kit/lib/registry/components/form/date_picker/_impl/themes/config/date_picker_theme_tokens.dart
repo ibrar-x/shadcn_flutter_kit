@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class DatePickerThemeConfigGlobalTokens {
-  const DatePickerThemeConfigGlobalTokens();
+class DatePickerThemeTokens {
+  final Object? mode;
+  final Object? initialView;
+  final Object? initialViewType;
+  final Object? popoverAlignment;
+  final Object? popoverAnchorAlignment;
+  final Object? popoverPadding;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const DatePickerThemeTokens({
+    this.mode,
+    this.initialView,
+    this.initialViewType,
+    this.popoverAlignment,
+    this.popoverAnchorAlignment,
+    this.popoverPadding,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const datePickerThemeTokensConfigGlobalTokens = DatePickerThemeConfigGlobalTokens();
+const datePickerThemeTokens = DatePickerThemeTokens();

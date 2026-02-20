@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class TimePickerThemeConfigGlobalDefaults {
+class TimePickerThemeDefaults {
   final Object? mode;
   final Object? popoverAlignment;
   final Object? popoverAnchorAlignment;
@@ -10,7 +12,7 @@ class TimePickerThemeConfigGlobalDefaults {
   final Object? showSeconds;
   final Object? dialogTitle;
 
-  const TimePickerThemeConfigGlobalDefaults({
+  const TimePickerThemeDefaults({
     this.mode,
     this.popoverAlignment,
     this.popoverAnchorAlignment,
@@ -19,16 +21,4 @@ class TimePickerThemeConfigGlobalDefaults {
     this.showSeconds,
     this.dialogTitle,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'mode': mode,
-    'popoverAlignment': popoverAlignment,
-    'popoverAnchorAlignment': popoverAnchorAlignment,
-    'popoverPadding': popoverPadding,
-    'use24HourFormat': use24HourFormat,
-    'showSeconds': showSeconds,
-    'dialogTitle': dialogTitle,
-  };
 }
-
-const timePickerThemeTokensConfigGlobalDefaults = TimePickerThemeConfigGlobalDefaults();

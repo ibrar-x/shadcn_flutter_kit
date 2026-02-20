@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class NumberTickerThemeConfigGlobalTokens {
-  const NumberTickerThemeConfigGlobalTokens();
+class NumberTickerThemeTokens {
+  final Object? duration;
+  final Object? curve;
+  final Object? style;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const NumberTickerThemeTokens({
+    this.duration,
+    this.curve,
+    this.style,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const numberTickerThemeTokensConfigGlobalTokens = NumberTickerThemeConfigGlobalTokens();
+const numberTickerThemeTokens = NumberTickerThemeTokens();

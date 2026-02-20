@@ -1,28 +1,20 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class TooltipThemeConfigGlobalDefaults {
+class TooltipThemeDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
   final Object? padding;
   final Object? backgroundColor;
   final Object? borderRadius;
 
-  const TooltipThemeConfigGlobalDefaults({
+  const TooltipThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
     this.padding,
     this.backgroundColor,
     this.borderRadius,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-    'padding': padding,
-    'backgroundColor': backgroundColor,
-    'borderRadius': borderRadius,
-  };
 }
-
-const tooltipThemeTokensConfigGlobalDefaults = TooltipThemeConfigGlobalDefaults();

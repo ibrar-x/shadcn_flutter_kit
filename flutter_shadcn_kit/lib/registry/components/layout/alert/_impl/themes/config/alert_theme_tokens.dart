@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class AlertThemeConfigGlobalTokens {
-  const AlertThemeConfigGlobalTokens();
+class AlertThemeTokens {
+  final Object? padding;
+  final Object? backgroundColor;
+  final Object? borderColor;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const AlertThemeTokens({
+    this.padding,
+    this.backgroundColor,
+    this.borderColor,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const alertThemeTokensConfigGlobalTokens = AlertThemeConfigGlobalTokens();
+const alertThemeTokens = AlertThemeTokens();

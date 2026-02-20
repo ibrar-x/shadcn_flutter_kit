@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'dot_indicator_theme_defaults.dart';
 import 'dot_indicator_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'dot_indicator_theme_tokens.dart';
 class DotIndicatorThemeConfig {
   const DotIndicatorThemeConfig._();
 
-  /// Global component theme override for `DotIndicatorTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'DotIndicatorTheme';
-  static const DotIndicatorThemeConfigGlobalDefaults globalDefaults =
-      DotIndicatorThemeConfigGlobalDefaults();
-  static const DotIndicatorThemeConfigGlobalTokens globalTokens =
-      DotIndicatorThemeConfigGlobalTokens();
+  static const DotIndicatorThemeDefaults defaults = DotIndicatorThemeDefaults();
+  static const DotIndicatorThemeTokens tokens = dotIndicatorThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class RadioGroupThemeConfigGlobalDefaults {
+class RadioCardThemeDefaults {
   final Object? enabledCursor;
   final Object? disabledCursor;
   final Object? hoverColor;
@@ -13,7 +15,7 @@ class RadioGroupThemeConfigGlobalDefaults {
   final Object? borderColor;
   final Object? selectedBorderColor;
 
-  const RadioGroupThemeConfigGlobalDefaults({
+  const RadioCardThemeDefaults({
     this.enabledCursor,
     this.disabledCursor,
     this.hoverColor,
@@ -25,41 +27,18 @@ class RadioGroupThemeConfigGlobalDefaults {
     this.borderColor,
     this.selectedBorderColor,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'enabledCursor': enabledCursor,
-    'disabledCursor': disabledCursor,
-    'hoverColor': hoverColor,
-    'color': color,
-    'borderWidth': borderWidth,
-    'selectedBorderWidth': selectedBorderWidth,
-    'borderRadius': borderRadius,
-    'padding': padding,
-    'borderColor': borderColor,
-    'selectedBorderColor': selectedBorderColor,
-  };
 }
 
-class RadioGroupThemeConfigRadioThemeDefaults {
+class RadioThemeDefaults {
   final Object? activeColor;
   final Object? borderColor;
   final Object? size;
   final Object? backgroundColor;
 
-  const RadioGroupThemeConfigRadioThemeDefaults({
+  const RadioThemeDefaults({
     this.activeColor,
     this.borderColor,
     this.size,
     this.backgroundColor,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'activeColor': activeColor,
-    'borderColor': borderColor,
-    'size': size,
-    'backgroundColor': backgroundColor,
-  };
 }
-
-const radioGroupThemeTokensConfigGlobalDefaults = RadioGroupThemeConfigGlobalDefaults();
-const radioGroupThemeTokensConfigRadioThemeDefaults = RadioGroupThemeConfigRadioThemeDefaults();

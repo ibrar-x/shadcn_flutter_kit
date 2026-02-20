@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'code_snippet_theme_defaults.dart';
 import 'code_snippet_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'code_snippet_theme_tokens.dart';
 class CodeSnippetThemeConfig {
   const CodeSnippetThemeConfig._();
 
-  /// Global component theme override for `CodeSnippetTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'CodeSnippetTheme';
-  static const CodeSnippetThemeConfigGlobalDefaults globalDefaults =
-      CodeSnippetThemeConfigGlobalDefaults();
-  static const CodeSnippetThemeConfigGlobalTokens globalTokens =
-      CodeSnippetThemeConfigGlobalTokens();
+  static const CodeSnippetThemeDefaults defaults = CodeSnippetThemeDefaults();
+  static const CodeSnippetThemeTokens tokens = codeSnippetThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'chip_theme_defaults.dart';
 import 'chip_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'chip_theme_tokens.dart';
 class ChipThemeConfig {
   const ChipThemeConfig._();
 
-  /// Global component theme override for `ChipTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'ChipTheme';
-  static const ChipThemeConfigGlobalDefaults globalDefaults =
-      ChipThemeConfigGlobalDefaults();
-  static const ChipThemeConfigGlobalTokens globalTokens =
-      ChipThemeConfigGlobalTokens();
+  static const ChipThemeDefaults defaults = ChipThemeDefaults();
+  static const ChipThemeTokens tokens = chipThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

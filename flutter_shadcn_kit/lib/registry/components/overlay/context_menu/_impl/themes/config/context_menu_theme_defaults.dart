@@ -1,19 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ContextMenuThemeConfigGlobalDefaults {
+class ContextMenuThemeDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
 
-  const ContextMenuThemeConfigGlobalDefaults({
+  const ContextMenuThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-  };
 }
-
-const contextMenuThemeTokensConfigGlobalDefaults = ContextMenuThemeConfigGlobalDefaults();

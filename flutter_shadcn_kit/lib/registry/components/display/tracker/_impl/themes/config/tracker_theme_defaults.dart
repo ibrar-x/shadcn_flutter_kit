@@ -1,22 +1,16 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class TrackerThemeConfigGlobalDefaults {
+class TrackerThemeDefaults {
   final Object? radius;
   final Object? gap;
   final Object? itemHeight;
 
-  const TrackerThemeConfigGlobalDefaults({
+  const TrackerThemeDefaults({
     this.radius,
     this.gap,
     this.itemHeight,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'radius': radius,
-    'gap': gap,
-    'itemHeight': itemHeight,
-  };
 }
-
-const trackerThemeTokensConfigGlobalDefaults = TrackerThemeConfigGlobalDefaults();

@@ -1,16 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class InputOtpThemeConfigGlobalDefaults {
+class InputOTPThemeDefaults {
   final Object? spacing;
   final Object? height;
 
-  const InputOtpThemeConfigGlobalDefaults({this.spacing, this.height});
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'spacing': spacing,
-    'height': height,
-  };
+  const InputOTPThemeDefaults({
+    this.spacing,
+    this.height,
+  });
 }
-
-const inputOtpThemeTokensConfigGlobalDefaults = InputOtpThemeConfigGlobalDefaults();

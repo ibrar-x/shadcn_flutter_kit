@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class AvatarThemeConfigGlobalTokens {
-  const AvatarThemeConfigGlobalTokens();
+class AvatarThemeTokens {
+  final Object? size;
+  final Object? borderRadius;
+  final Object? backgroundColor;
+  final Object? badgeAlignment;
+  final Object? badgeGap;
+  final Object? textStyle;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const AvatarThemeTokens({
+    this.size,
+    this.borderRadius,
+    this.backgroundColor,
+    this.badgeAlignment,
+    this.badgeGap,
+    this.textStyle,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const avatarThemeTokensConfigGlobalTokens = AvatarThemeConfigGlobalTokens();
+const avatarThemeTokens = AvatarThemeTokens();

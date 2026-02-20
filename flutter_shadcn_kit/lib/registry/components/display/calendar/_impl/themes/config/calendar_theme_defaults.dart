@@ -1,14 +1,12 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class CalendarThemeConfigGlobalDefaults {
+class CalendarThemeDefaults {
   final Object? arrowIconColor;
 
-  const CalendarThemeConfigGlobalDefaults({this.arrowIconColor});
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'arrowIconColor': arrowIconColor,
-  };
+  const CalendarThemeDefaults({
+    this.arrowIconColor,
+  });
 }
-
-const calendarThemeTokensConfigGlobalDefaults = CalendarThemeConfigGlobalDefaults();

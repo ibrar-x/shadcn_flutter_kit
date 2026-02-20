@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'carousel_theme_defaults.dart';
 import 'carousel_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'carousel_theme_tokens.dart';
 class CarouselThemeConfig {
   const CarouselThemeConfig._();
 
-  /// Global component theme override for `CarouselTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'CarouselTheme';
-  static const CarouselThemeConfigGlobalDefaults globalDefaults =
-      CarouselThemeConfigGlobalDefaults();
-  static const CarouselThemeConfigGlobalTokens globalTokens =
-      CarouselThemeConfigGlobalTokens();
+  static const CarouselThemeDefaults defaults = CarouselThemeDefaults();
+  static const CarouselThemeTokens tokens = carouselThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

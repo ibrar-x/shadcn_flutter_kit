@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class OutlinedContainerThemeConfigGlobalDefaults {
+class OutlinedContainerThemeDefaults {
   final Object? backgroundColor;
   final Object? borderColor;
   final Object? borderRadius;
@@ -12,7 +14,7 @@ class OutlinedContainerThemeConfigGlobalDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
 
-  const OutlinedContainerThemeConfigGlobalDefaults({
+  const OutlinedContainerThemeDefaults({
     this.backgroundColor = 'theme.colorScheme.background',
     this.borderColor = 'theme.colorScheme.muted',
     this.borderRadius = 'theme.borderRadiusXl',
@@ -23,18 +25,4 @@ class OutlinedContainerThemeConfigGlobalDefaults {
     this.surfaceOpacity,
     this.surfaceBlur,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'backgroundColor': backgroundColor,
-    'borderColor': borderColor,
-    'borderRadius': borderRadius,
-    'borderStyle': borderStyle,
-    'borderWidth': borderWidth,
-    'boxShadow': boxShadow,
-    'padding': padding,
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-  };
 }
-
-const outlinedContainerThemeTokensConfigGlobalDefaults = OutlinedContainerThemeConfigGlobalDefaults();

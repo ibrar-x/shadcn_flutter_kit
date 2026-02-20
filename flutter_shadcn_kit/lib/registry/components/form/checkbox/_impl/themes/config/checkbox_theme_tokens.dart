@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CheckboxThemeConfigGlobalTokens {
-  const CheckboxThemeConfigGlobalTokens();
+class CheckboxThemeTokens {
+  final Object? backgroundColor;
+  final Object? activeColor;
+  final Object? borderColor;
+  final Object? size;
+  final Object? gap;
+  final Object? borderRadius;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CheckboxThemeTokens({
+    this.backgroundColor,
+    this.activeColor,
+    this.borderColor,
+    this.size,
+    this.gap,
+    this.borderRadius,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const checkboxThemeTokensConfigGlobalTokens = CheckboxThemeConfigGlobalTokens();
+const checkboxThemeTokens = CheckboxThemeTokens();

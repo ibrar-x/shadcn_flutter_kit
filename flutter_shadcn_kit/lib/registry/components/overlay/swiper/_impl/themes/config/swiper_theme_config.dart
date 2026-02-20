@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'swiper_theme_defaults.dart';
 import 'swiper_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'swiper_theme_tokens.dart';
 class SwiperThemeConfig {
   const SwiperThemeConfig._();
 
-  /// Global component theme override for `SwiperTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'SwiperTheme';
-  static const SwiperThemeConfigGlobalDefaults globalDefaults =
-      SwiperThemeConfigGlobalDefaults();
-  static const SwiperThemeConfigGlobalTokens globalTokens =
-      SwiperThemeConfigGlobalTokens();
+  static const SwiperThemeDefaults defaults = SwiperThemeDefaults();
+  static const SwiperThemeTokens tokens = swiperThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

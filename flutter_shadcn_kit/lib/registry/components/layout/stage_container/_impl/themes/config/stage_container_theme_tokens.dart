@@ -1,10 +1,20 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class StageContainerThemeConfigGlobalTokens {
-  const StageContainerThemeConfigGlobalTokens();
+class StageContainerThemeTokens {
+  final Object? breakpoint;
+  final Object? padding;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const StageContainerThemeTokens({
+    this.breakpoint,
+    this.padding,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const stageContainerThemeTokensConfigGlobalTokens = StageContainerThemeConfigGlobalTokens();
+const stageContainerThemeTokens = StageContainerThemeTokens();

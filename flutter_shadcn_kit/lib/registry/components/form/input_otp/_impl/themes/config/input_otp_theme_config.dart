@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'input_otp_theme_defaults.dart';
 import 'input_otp_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'input_otp_theme_tokens.dart';
 class InputOtpThemeConfig {
   const InputOtpThemeConfig._();
 
-  /// Global component theme override for `InputOTPTheme`.
-  static Object? global;
-  static const String globalType = 'InputOTPTheme';
-  static const InputOtpThemeConfigGlobalDefaults globalDefaults =
-      InputOtpThemeConfigGlobalDefaults();
-  static const InputOtpThemeConfigGlobalTokens globalTokens =
-      InputOtpThemeConfigGlobalTokens();
+  static const Object? inputOTPTheme = null;
+  static const String inputOTPThemeType = 'InputOTPTheme';
+  static const InputOTPThemeDefaults inputOTPThemeDefaults = InputOTPThemeDefaults();
+  static const InputOTPThemeTokens inputOTPThemeTokenConfig = inputOTPThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == inputOTPThemeType) {
+      return inputOTPTheme as T?;
+    }
+    return null;
+  }
 }

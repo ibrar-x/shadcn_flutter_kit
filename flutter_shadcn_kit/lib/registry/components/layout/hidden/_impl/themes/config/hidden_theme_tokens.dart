@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class HiddenThemeConfigGlobalTokens {
-  const HiddenThemeConfigGlobalTokens();
+class HiddenThemeTokens {
+  final Object? direction;
+  final Object? duration;
+  final Object? curve;
+  final Object? reverse;
+  final Object? keepCrossAxisSize;
+  final Object? keepMainAxisSize;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const HiddenThemeTokens({
+    this.direction,
+    this.duration,
+    this.curve,
+    this.reverse,
+    this.keepCrossAxisSize,
+    this.keepMainAxisSize,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const hiddenThemeTokensConfigGlobalTokens = HiddenThemeConfigGlobalTokens();
+const hiddenThemeTokens = HiddenThemeTokens();

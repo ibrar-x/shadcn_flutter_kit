@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CodeSnippetThemeConfigGlobalTokens {
-  const CodeSnippetThemeConfigGlobalTokens();
+class CodeSnippetThemeTokens {
+  final Object? backgroundColor;
+  final Object? borderColor;
+  final Object? borderWidth;
+  final Object? borderRadius;
+  final Object? padding;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CodeSnippetThemeTokens({
+    this.backgroundColor,
+    this.borderColor,
+    this.borderWidth,
+    this.borderRadius,
+    this.padding,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const codeSnippetThemeTokensConfigGlobalTokens = CodeSnippetThemeConfigGlobalTokens();
+const codeSnippetThemeTokens = CodeSnippetThemeTokens();

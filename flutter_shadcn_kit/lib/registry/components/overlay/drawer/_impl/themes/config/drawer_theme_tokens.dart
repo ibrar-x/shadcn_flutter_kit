@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class DrawerThemeConfigGlobalTokens {
-  const DrawerThemeConfigGlobalTokens();
+class DrawerThemeTokens {
+  final Object? surfaceOpacity;
+  final Object? surfaceBlur;
+  final Object? barrierColor;
+  final Object? showDragHandle;
+  final Object? dragHandleSize;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const DrawerThemeTokens({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.barrierColor,
+    this.showDragHandle,
+    this.dragHandleSize,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const drawerThemeTokensConfigGlobalTokens = DrawerThemeConfigGlobalTokens();
+const drawerThemeTokens = DrawerThemeTokens();

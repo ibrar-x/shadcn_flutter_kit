@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class EmptyStateThemeConfigGlobalDefaults {
+class EmptyStateThemeDefaults {
   final Object? iconColor;
   final Object? iconSize;
   final Object? titleStyle;
@@ -15,7 +17,7 @@ class EmptyStateThemeConfigGlobalDefaults {
   final Object? iconContainerBorderRadius;
   final Object? iconContainerPadding;
 
-  const EmptyStateThemeConfigGlobalDefaults({
+  const EmptyStateThemeDefaults({
     this.iconColor,
     this.iconSize,
     this.titleStyle,
@@ -29,21 +31,4 @@ class EmptyStateThemeConfigGlobalDefaults {
     this.iconContainerBorderRadius,
     this.iconContainerPadding,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'iconColor': iconColor,
-    'iconSize': iconSize,
-    'titleStyle': titleStyle,
-    'descriptionStyle': descriptionStyle,
-    'padding': padding,
-    'maxWidth': maxWidth,
-    'cardBorderRadius': cardBorderRadius,
-    'cardFillColor': cardFillColor,
-    'iconContainerColor': iconContainerColor,
-    'iconContainerBorderColor': iconContainerBorderColor,
-    'iconContainerBorderRadius': iconContainerBorderRadius,
-    'iconContainerPadding': iconContainerPadding,
-  };
 }
-
-const emptyStateThemeTokensConfigGlobalDefaults = EmptyStateThemeConfigGlobalDefaults();

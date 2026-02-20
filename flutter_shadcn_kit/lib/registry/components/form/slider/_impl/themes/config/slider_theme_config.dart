@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'slider_theme_defaults.dart';
 import 'slider_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'slider_theme_tokens.dart';
 class SliderThemeConfig {
   const SliderThemeConfig._();
 
-  /// Global component theme override for `SliderTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'SliderTheme';
-  static const SliderThemeConfigGlobalDefaults globalDefaults =
-      SliderThemeConfigGlobalDefaults();
-  static const SliderThemeConfigGlobalTokens globalTokens =
-      SliderThemeConfigGlobalTokens();
+  static const SliderThemeDefaults defaults = SliderThemeDefaults();
+  static const SliderThemeTokens tokens = sliderThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'hover_card_theme_defaults.dart';
 import 'hover_card_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'hover_card_theme_tokens.dart';
 class HoverCardThemeConfig {
   const HoverCardThemeConfig._();
 
-  /// Global component theme override for `HoverCardTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'HoverCardTheme';
-  static const HoverCardThemeConfigGlobalDefaults globalDefaults =
-      HoverCardThemeConfigGlobalDefaults();
-  static const HoverCardThemeConfigGlobalTokens globalTokens =
-      HoverCardThemeConfigGlobalTokens();
+  static const HoverCardThemeDefaults defaults = HoverCardThemeDefaults();
+  static const HoverCardThemeTokens tokens = hoverCardThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

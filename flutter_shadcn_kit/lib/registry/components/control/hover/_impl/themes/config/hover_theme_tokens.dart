@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class HoverThemeConfigGlobalTokens {
-  const HoverThemeConfigGlobalTokens();
+class HoverThemeTokens {
+  final Object? debounceDuration;
+  final Object? hitTestBehavior;
+  final Object? waitDuration;
+  final Object? minDuration;
+  final Object? showDuration;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const HoverThemeTokens({
+    this.debounceDuration,
+    this.hitTestBehavior,
+    this.waitDuration,
+    this.minDuration,
+    this.showDuration,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const hoverThemeTokensConfigGlobalTokens = HoverThemeConfigGlobalTokens();
+const hoverThemeTokens = HoverThemeTokens();

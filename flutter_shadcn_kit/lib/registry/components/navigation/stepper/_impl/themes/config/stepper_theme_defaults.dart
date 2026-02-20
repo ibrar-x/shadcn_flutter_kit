@@ -1,22 +1,16 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class StepperThemeConfigGlobalDefaults {
+class StepperThemeDefaults {
   final Object? direction;
   final Object? size;
   final Object? variant;
 
-  const StepperThemeConfigGlobalDefaults({
+  const StepperThemeDefaults({
     this.direction,
     this.size,
     this.variant,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'direction': direction,
-    'size': size,
-    'variant': variant,
-  };
 }
-
-const stepperThemeTokensConfigGlobalDefaults = StepperThemeConfigGlobalDefaults();

@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class AvatarThemeConfigGlobalDefaults {
+class AvatarThemeDefaults {
   final Object? size;
   final Object? borderRadius;
   final Object? backgroundColor;
@@ -9,7 +11,7 @@ class AvatarThemeConfigGlobalDefaults {
   final Object? badgeGap;
   final Object? textStyle;
 
-  const AvatarThemeConfigGlobalDefaults({
+  const AvatarThemeDefaults({
     this.size = 'theme.scaling * 40',
     this.borderRadius = 'theme.radius * size',
     this.backgroundColor = 'theme.colorScheme.muted',
@@ -17,15 +19,4 @@ class AvatarThemeConfigGlobalDefaults {
     this.badgeGap = 'theme.density.baseGap * theme.scaling * gapXs',
     this.textStyle,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'size': size,
-    'borderRadius': borderRadius,
-    'backgroundColor': backgroundColor,
-    'badgeAlignment': badgeAlignment,
-    'badgeGap': badgeGap,
-    'textStyle': textStyle,
-  };
 }
-
-const avatarThemeTokensConfigGlobalDefaults = AvatarThemeConfigGlobalDefaults();

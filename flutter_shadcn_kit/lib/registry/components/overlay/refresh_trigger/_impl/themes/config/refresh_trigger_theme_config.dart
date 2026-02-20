@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'refresh_trigger_theme_defaults.dart';
 import 'refresh_trigger_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'refresh_trigger_theme_tokens.dart';
 class RefreshTriggerThemeConfig {
   const RefreshTriggerThemeConfig._();
 
-  /// Global component theme override for `RefreshTriggerTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'RefreshTriggerTheme';
-  static const RefreshTriggerThemeConfigGlobalDefaults globalDefaults =
-      RefreshTriggerThemeConfigGlobalDefaults();
-  static const RefreshTriggerThemeConfigGlobalTokens globalTokens =
-      RefreshTriggerThemeConfigGlobalTokens();
+  static const RefreshTriggerThemeDefaults defaults = RefreshTriggerThemeDefaults();
+  static const RefreshTriggerThemeTokens tokens = refreshTriggerThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

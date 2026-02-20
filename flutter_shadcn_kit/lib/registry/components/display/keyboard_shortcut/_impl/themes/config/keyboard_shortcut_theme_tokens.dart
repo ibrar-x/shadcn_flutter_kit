@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class KeyboardShortcutThemeConfigGlobalTokens {
-  const KeyboardShortcutThemeConfigGlobalTokens();
+class KeyboardShortcutThemeTokens {
+  final Object? spacing;
+  final Object? keyPadding;
+  final Object? keyShadow;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const KeyboardShortcutThemeTokens({
+    this.spacing,
+    this.keyPadding,
+    this.keyShadow,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const keyboardShortcutThemeTokensConfigGlobalTokens = KeyboardShortcutThemeConfigGlobalTokens();
+const keyboardShortcutThemeTokens = KeyboardShortcutThemeTokens();

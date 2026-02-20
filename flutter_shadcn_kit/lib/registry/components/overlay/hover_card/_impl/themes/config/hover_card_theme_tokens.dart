@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class HoverCardThemeConfigGlobalTokens {
-  const HoverCardThemeConfigGlobalTokens();
+class HoverCardThemeTokens {
+  final Object? debounce;
+  final Object? wait;
+  final Object? popoverAlignment;
+  final Object? anchorAlignment;
+  final Object? popoverOffset;
+  final Object? behavior;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const HoverCardThemeTokens({
+    this.debounce,
+    this.wait,
+    this.popoverAlignment,
+    this.anchorAlignment,
+    this.popoverOffset,
+    this.behavior,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const hoverCardThemeTokensConfigGlobalTokens = HoverCardThemeConfigGlobalTokens();
+const hoverCardThemeTokens = HoverCardThemeTokens();

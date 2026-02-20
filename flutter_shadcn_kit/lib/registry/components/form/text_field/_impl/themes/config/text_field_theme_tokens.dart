@@ -1,10 +1,24 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class TextFieldThemeConfigGlobalTokens {
-  const TextFieldThemeConfigGlobalTokens();
+class TextFieldThemeTokens {
+  final Object? border;
+  final Object? borderRadius;
+  final Object? filled;
+  final Object? padding;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const TextFieldThemeTokens({
+    this.border,
+    this.borderRadius,
+    this.filled,
+    this.padding,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const textFieldThemeTokensConfigGlobalTokens = TextFieldThemeConfigGlobalTokens();
+const textFieldThemeTokens = TextFieldThemeTokens();

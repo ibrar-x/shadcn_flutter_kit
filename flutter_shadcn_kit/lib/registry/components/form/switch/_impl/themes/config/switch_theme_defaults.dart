@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SwitchThemeConfigGlobalDefaults {
+class SwitchThemeDefaults {
   final Object? activeColor;
   final Object? inactiveColor;
   final Object? activeThumbColor;
@@ -9,7 +11,7 @@ class SwitchThemeConfigGlobalDefaults {
   final Object? gap;
   final Object? borderRadius;
 
-  const SwitchThemeConfigGlobalDefaults({
+  const SwitchThemeDefaults({
     this.activeColor = 'theme.colorScheme.primary',
     this.inactiveColor = 'theme.colorScheme.input',
     this.activeThumbColor = 'theme.colorScheme.background',
@@ -17,15 +19,4 @@ class SwitchThemeConfigGlobalDefaults {
     this.gap = '8 * scaling',
     this.borderRadius = 'BorderRadius.circular(theme.radiusXl)',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'activeColor': activeColor,
-    'inactiveColor': inactiveColor,
-    'activeThumbColor': activeThumbColor,
-    'inactiveThumbColor': inactiveThumbColor,
-    'gap': gap,
-    'borderRadius': borderRadius,
-  };
 }
-
-const switchThemeTokensConfigGlobalDefaults = SwitchThemeConfigGlobalDefaults();

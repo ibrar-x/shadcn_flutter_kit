@@ -1,22 +1,16 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class NumberTickerThemeConfigGlobalDefaults {
+class NumberTickerThemeDefaults {
   final Object? duration;
   final Object? curve;
   final Object? style;
 
-  const NumberTickerThemeConfigGlobalDefaults({
+  const NumberTickerThemeDefaults({
     this.duration,
     this.curve,
     this.style,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'duration': duration,
-    'curve': curve,
-    'style': style,
-  };
 }
-
-const numberTickerThemeTokensConfigGlobalDefaults = NumberTickerThemeConfigGlobalDefaults();

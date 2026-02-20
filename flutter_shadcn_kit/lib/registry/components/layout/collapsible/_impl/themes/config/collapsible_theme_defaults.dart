@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class CollapsibleThemeConfigGlobalDefaults {
+class CollapsibleThemeDefaults {
   final Object? padding;
   final Object? iconExpanded;
   final Object? iconCollapsed;
@@ -9,7 +11,7 @@ class CollapsibleThemeConfigGlobalDefaults {
   final Object? mainAxisAlignment;
   final Object? iconGap;
 
-  const CollapsibleThemeConfigGlobalDefaults({
+  const CollapsibleThemeDefaults({
     this.padding,
     this.iconExpanded,
     this.iconCollapsed,
@@ -17,15 +19,4 @@ class CollapsibleThemeConfigGlobalDefaults {
     this.mainAxisAlignment,
     this.iconGap,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'padding': padding,
-    'iconExpanded': iconExpanded,
-    'iconCollapsed': iconCollapsed,
-    'crossAxisAlignment': crossAxisAlignment,
-    'mainAxisAlignment': mainAxisAlignment,
-    'iconGap': iconGap,
-  };
 }
-
-const collapsibleThemeTokensConfigGlobalDefaults = CollapsibleThemeConfigGlobalDefaults();

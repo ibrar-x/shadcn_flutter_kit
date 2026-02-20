@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class RefreshTriggerThemeConfigGlobalTokens {
-  const RefreshTriggerThemeConfigGlobalTokens();
+class RefreshTriggerThemeTokens {
+  final Object? minExtent;
+  final Object? maxExtent;
+  final Object? indicatorBuilder;
+  final Object? curve;
+  final Object? completeDuration;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const RefreshTriggerThemeTokens({
+    this.minExtent,
+    this.maxExtent,
+    this.indicatorBuilder,
+    this.curve,
+    this.completeDuration,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const refreshTriggerThemeTokensConfigGlobalTokens = RefreshTriggerThemeConfigGlobalTokens();
+const refreshTriggerThemeTokens = RefreshTriggerThemeTokens();

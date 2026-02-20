@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'toast_theme_defaults.dart';
 import 'toast_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'toast_theme_tokens.dart';
 class ToastThemeConfig {
   const ToastThemeConfig._();
 
-  /// Global component theme override for `ToastTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'ToastTheme';
-  static const ToastThemeConfigGlobalDefaults globalDefaults =
-      ToastThemeConfigGlobalDefaults();
-  static const ToastThemeConfigGlobalTokens globalTokens =
-      ToastThemeConfigGlobalTokens();
+  static const ToastThemeDefaults defaults = ToastThemeDefaults();
+  static const ToastThemeTokens tokens = toastThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class LinearProgressIndicatorThemeConfigGlobalTokens {
-  const LinearProgressIndicatorThemeConfigGlobalTokens();
+class LinearProgressIndicatorThemeTokens {
+  final Object? color;
+  final Object? backgroundColor;
+  final Object? minHeight;
+  final Object? borderRadius;
+  final Object? showSparks;
+  final Object? disableAnimation;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const LinearProgressIndicatorThemeTokens({
+    this.color,
+    this.backgroundColor,
+    this.minHeight,
+    this.borderRadius,
+    this.showSparks,
+    this.disableAnimation,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const linearProgressIndicatorThemeTokensConfigGlobalTokens = LinearProgressIndicatorThemeConfigGlobalTokens();
+const linearProgressIndicatorThemeTokens = LinearProgressIndicatorThemeTokens();

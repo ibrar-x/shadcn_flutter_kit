@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'focus_outline_theme_defaults.dart';
 import 'focus_outline_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'focus_outline_theme_tokens.dart';
 class FocusOutlineThemeConfig {
   const FocusOutlineThemeConfig._();
 
-  /// Global component theme override for `FocusOutlineTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'FocusOutlineTheme';
-  static const FocusOutlineThemeConfigGlobalDefaults globalDefaults =
-      FocusOutlineThemeConfigGlobalDefaults();
-  static const FocusOutlineThemeConfigGlobalTokens globalTokens =
-      FocusOutlineThemeConfigGlobalTokens();
+  static const FocusOutlineThemeDefaults defaults = FocusOutlineThemeDefaults();
+  static const FocusOutlineThemeTokens tokens = focusOutlineThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

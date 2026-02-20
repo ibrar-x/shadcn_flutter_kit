@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'radio_group_theme_defaults.dart';
 import 'radio_group_theme_tokens.dart';
@@ -7,19 +9,23 @@ import 'radio_group_theme_tokens.dart';
 class RadioGroupThemeConfig {
   const RadioGroupThemeConfig._();
 
-  /// Global component theme override for `RadioCardTheme`.
-  static Object? global;
-  static const String globalType = 'RadioCardTheme';
-  static const RadioGroupThemeConfigGlobalDefaults globalDefaults =
-      RadioGroupThemeConfigGlobalDefaults();
-  static const RadioGroupThemeConfigGlobalTokens globalTokens =
-      RadioGroupThemeConfigGlobalTokens();
+  static const Object? radioCardTheme = null;
+  static const String radioCardThemeType = 'RadioCardTheme';
+  static const RadioCardThemeDefaults radioCardThemeDefaults = RadioCardThemeDefaults();
+  static const RadioCardThemeTokens radioCardThemeTokenConfig = radioCardThemeTokens;
 
-  /// Global component theme override for `RadioTheme`.
-  static Object? radioTheme;
+  static const Object? radioTheme = null;
   static const String radioThemeType = 'RadioTheme';
-  static const RadioGroupThemeConfigRadioThemeDefaults
-  radioThemeDefaults = RadioGroupThemeConfigRadioThemeDefaults();
-  static const RadioGroupThemeConfigRadioThemeTokens radioThemeTokens =
-      RadioGroupThemeConfigRadioThemeTokens();
+  static const RadioThemeDefaults radioThemeDefaults = RadioThemeDefaults();
+  static const RadioThemeTokens radioThemeTokenConfig = radioThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == radioCardThemeType) {
+      return radioCardTheme as T?;
+    }
+    if (T.toString() == radioThemeType) {
+      return radioTheme as T?;
+    }
+    return null;
+  }
 }

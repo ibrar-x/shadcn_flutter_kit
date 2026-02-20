@@ -1,16 +1,12 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class MultipleChoiceThemeConfigGlobalDefaults {
+class MultipleChoiceThemeDefaults {
   final Object? allowUnselect;
 
-  const MultipleChoiceThemeConfigGlobalDefaults({
+  const MultipleChoiceThemeDefaults({
     this.allowUnselect = true,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'allowUnselect': allowUnselect,
-  };
 }
-
-const multipleChoiceThemeTokensConfigGlobalDefaults = MultipleChoiceThemeConfigGlobalDefaults();

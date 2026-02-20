@@ -1,28 +1,20 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class DrawerThemeConfigGlobalDefaults {
+class DrawerThemeDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
   final Object? barrierColor;
   final Object? showDragHandle;
   final Object? dragHandleSize;
 
-  const DrawerThemeConfigGlobalDefaults({
+  const DrawerThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
     this.barrierColor,
     this.showDragHandle,
     this.dragHandleSize,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-    'barrierColor': barrierColor,
-    'showDragHandle': showDragHandle,
-    'dragHandleSize': dragHandleSize,
-  };
 }
-
-const drawerThemeTokensConfigGlobalDefaults = DrawerThemeConfigGlobalDefaults();

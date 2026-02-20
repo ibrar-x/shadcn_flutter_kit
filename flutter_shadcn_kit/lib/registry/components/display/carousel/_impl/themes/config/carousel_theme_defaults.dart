@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class CarouselThemeConfigGlobalDefaults {
+class CarouselThemeDefaults {
   final Object? alignment;
   final Object? direction;
   final Object? wrap;
@@ -11,7 +13,7 @@ class CarouselThemeConfigGlobalDefaults {
   final Object? speed;
   final Object? curve;
 
-  const CarouselThemeConfigGlobalDefaults({
+  const CarouselThemeDefaults({
     this.alignment = 'CarouselAlignment.center',
     this.direction = 'Axis.horizontal',
     this.wrap = true,
@@ -21,17 +23,4 @@ class CarouselThemeConfigGlobalDefaults {
     this.speed = 'const Duration(milliseconds: 200)',
     this.curve = 'Curves.easeInOut',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'alignment': alignment,
-    'direction': direction,
-    'wrap': wrap,
-    'pauseOnHover': pauseOnHover,
-    'autoplaySpeed': autoplaySpeed,
-    'draggable': draggable,
-    'speed': speed,
-    'curve': curve,
-  };
 }
-
-const carouselThemeTokensConfigGlobalDefaults = CarouselThemeConfigGlobalDefaults();

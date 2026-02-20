@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class CardThemeConfigGlobalDefaults {
+class CardThemeDefaults {
   final Object? padding;
   final Object? filled;
   final Object? fillColor;
@@ -14,7 +16,7 @@ class CardThemeConfigGlobalDefaults {
   final Object? surfaceBlur;
   final Object? duration;
 
-  const CardThemeConfigGlobalDefaults({
+  const CardThemeDefaults({
     this.padding,
     this.filled,
     this.fillColor,
@@ -27,20 +29,4 @@ class CardThemeConfigGlobalDefaults {
     this.surfaceBlur,
     this.duration,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'padding': padding,
-    'filled': filled,
-    'fillColor': fillColor,
-    'borderRadius': borderRadius,
-    'borderColor': borderColor,
-    'borderWidth': borderWidth,
-    'clipBehavior': clipBehavior,
-    'boxShadow': boxShadow,
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-    'duration': duration,
-  };
 }
-
-const cardThemeTokensConfigGlobalDefaults = CardThemeConfigGlobalDefaults();

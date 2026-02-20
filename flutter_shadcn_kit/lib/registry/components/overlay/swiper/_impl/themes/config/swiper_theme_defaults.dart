@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SwiperThemeConfigGlobalDefaults {
+class SwiperThemeDefaults {
   final Object? expands;
   final Object? draggable;
   final Object? barrierDismissible;
@@ -16,7 +18,7 @@ class SwiperThemeConfigGlobalDefaults {
   final Object? barrierColor;
   final Object? behavior;
 
-  const SwiperThemeConfigGlobalDefaults({
+  const SwiperThemeDefaults({
     this.expands,
     this.draggable,
     this.barrierDismissible,
@@ -31,22 +33,4 @@ class SwiperThemeConfigGlobalDefaults {
     this.barrierColor,
     this.behavior = 'HitTestBehavior.translucent',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'expands': expands,
-    'draggable': draggable,
-    'barrierDismissible': barrierDismissible,
-    'backdropBuilder': backdropBuilder,
-    'useSafeArea': useSafeArea,
-    'showDragHandle': showDragHandle,
-    'borderRadius': borderRadius,
-    'dragHandleSize': dragHandleSize,
-    'transformBackdrop': transformBackdrop,
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-    'barrierColor': barrierColor,
-    'behavior': behavior,
-  };
 }
-
-const swiperThemeTokensConfigGlobalDefaults = SwiperThemeConfigGlobalDefaults();

@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'accordion_theme_defaults.dart';
 import 'accordion_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'accordion_theme_tokens.dart';
 class AccordionThemeConfig {
   const AccordionThemeConfig._();
 
-  /// Global component theme override for `AccordionTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'AccordionTheme';
-  static const AccordionThemeConfigGlobalDefaults globalDefaults =
-      AccordionThemeConfigGlobalDefaults();
-  static const AccordionThemeConfigGlobalTokens globalTokens =
-      AccordionThemeConfigGlobalTokens();
+  static const AccordionThemeDefaults defaults = AccordionThemeDefaults();
+  static const AccordionThemeTokens tokens = accordionThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

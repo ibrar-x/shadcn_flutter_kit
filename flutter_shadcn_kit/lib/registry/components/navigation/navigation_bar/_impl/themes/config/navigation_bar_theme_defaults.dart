@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class NavigationBarThemeConfigGlobalDefaults {
+class NavigationBarThemeDefaults {
   final Object? backgroundColor;
   final Object? alignment;
   final Object? direction;
@@ -11,7 +13,7 @@ class NavigationBarThemeConfigGlobalDefaults {
   final Object? labelSize;
   final Object? padding;
 
-  const NavigationBarThemeConfigGlobalDefaults({
+  const NavigationBarThemeDefaults({
     this.backgroundColor,
     this.alignment = 'NavigationBarAlignment.center',
     this.direction = 'Axis.horizontal',
@@ -19,20 +21,6 @@ class NavigationBarThemeConfigGlobalDefaults {
     this.labelType = 'NavigationLabelType.none',
     this.labelPosition = 'NavigationLabelPosition.bottom',
     this.labelSize = 'NavigationLabelSize.small',
-    this.padding =
-        'EdgeInsets.symmetric( vertical: theme.density.baseGap * scaling, horizontal: theme.density.baseContentPadding * scaling * 0.75, )',
+    this.padding = 'EdgeInsets.symmetric( vertical: theme.density.baseGap * scaling, horizontal: theme.density.baseContentPadding * scaling * 0.75, )',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'backgroundColor': backgroundColor,
-    'alignment': alignment,
-    'direction': direction,
-    'spacing': spacing,
-    'labelType': labelType,
-    'labelPosition': labelPosition,
-    'labelSize': labelSize,
-    'padding': padding,
-  };
 }
-
-const navigationBarThemeTokensConfigGlobalDefaults = NavigationBarThemeConfigGlobalDefaults();

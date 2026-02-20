@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SelectThemeConfigGlobalDefaults {
+class SelectThemeDefaults {
   final Object? popupConstraints;
   final Object? popoverAlignment;
   final Object? popoverAnchorAlignment;
@@ -11,7 +13,7 @@ class SelectThemeConfigGlobalDefaults {
   final Object? canUnselect;
   final Object? autoClosePopover;
 
-  const SelectThemeConfigGlobalDefaults({
+  const SelectThemeDefaults({
     this.popupConstraints,
     this.popoverAlignment = 'Alignment.topCenter',
     this.popoverAnchorAlignment,
@@ -21,17 +23,4 @@ class SelectThemeConfigGlobalDefaults {
     this.canUnselect = false,
     this.autoClosePopover = true,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'popupConstraints': popupConstraints,
-    'popoverAlignment': popoverAlignment,
-    'popoverAnchorAlignment': popoverAnchorAlignment,
-    'borderRadius': borderRadius,
-    'padding': padding,
-    'disableHoverEffect': disableHoverEffect,
-    'canUnselect': canUnselect,
-    'autoClosePopover': autoClosePopover,
-  };
 }
-
-const selectThemeTokensConfigGlobalDefaults = SelectThemeConfigGlobalDefaults();

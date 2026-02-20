@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'dropdown_menu_theme_defaults.dart';
 import 'dropdown_menu_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'dropdown_menu_theme_tokens.dart';
 class DropdownMenuThemeConfig {
   const DropdownMenuThemeConfig._();
 
-  /// Global component theme override for `DropdownMenuTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'DropdownMenuTheme';
-  static const DropdownMenuThemeConfigGlobalDefaults globalDefaults =
-      DropdownMenuThemeConfigGlobalDefaults();
-  static const DropdownMenuThemeConfigGlobalTokens globalTokens =
-      DropdownMenuThemeConfigGlobalTokens();
+  static const DropdownMenuThemeDefaults defaults = DropdownMenuThemeDefaults();
+  static const DropdownMenuThemeTokens tokens = dropdownMenuThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

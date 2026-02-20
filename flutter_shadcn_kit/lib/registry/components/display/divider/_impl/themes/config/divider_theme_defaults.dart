@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class DividerThemeConfigGlobalDefaults {
+class DividerThemeDefaults {
   final Object? color;
   final Object? height;
   final Object? thickness;
@@ -10,7 +12,7 @@ class DividerThemeConfigGlobalDefaults {
   final Object? padding;
   final Object? childAlignment;
 
-  const DividerThemeConfigGlobalDefaults({
+  const DividerThemeDefaults({
     this.color,
     this.height,
     this.thickness,
@@ -19,16 +21,4 @@ class DividerThemeConfigGlobalDefaults {
     this.padding,
     this.childAlignment,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'color': color,
-    'height': height,
-    'thickness': thickness,
-    'indent': indent,
-    'endIndent': endIndent,
-    'padding': padding,
-    'childAlignment': childAlignment,
-  };
 }
-
-const dividerThemeTokensConfigGlobalDefaults = DividerThemeConfigGlobalDefaults();

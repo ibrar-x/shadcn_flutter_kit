@@ -1,16 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class SpinnerThemeConfigGlobalDefaults {
+class SpinnerThemeDefaults {
   final Object? color;
   final Object? size;
 
-  const SpinnerThemeConfigGlobalDefaults({this.color, this.size});
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'color': color,
-    'size': size,
-  };
+  const SpinnerThemeDefaults({
+    this.color,
+    this.size,
+  });
 }
-
-const spinnerThemeTokensConfigGlobalDefaults = SpinnerThemeConfigGlobalDefaults();

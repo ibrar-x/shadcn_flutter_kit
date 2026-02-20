@@ -1,10 +1,24 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class ProgressThemeConfigGlobalTokens {
-  const ProgressThemeConfigGlobalTokens();
+class ProgressThemeTokens {
+  final Object? color;
+  final Object? backgroundColor;
+  final Object? borderRadius;
+  final Object? minHeight;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const ProgressThemeTokens({
+    this.color,
+    this.backgroundColor,
+    this.borderRadius,
+    this.minHeight,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const progressThemeTokensConfigGlobalTokens = ProgressThemeConfigGlobalTokens();
+const progressThemeTokens = ProgressThemeTokens();

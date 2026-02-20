@@ -1,22 +1,16 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class KeyboardShortcutThemeConfigGlobalDefaults {
+class KeyboardShortcutThemeDefaults {
   final Object? spacing;
   final Object? keyPadding;
   final Object? keyShadow;
 
-  const KeyboardShortcutThemeConfigGlobalDefaults({
+  const KeyboardShortcutThemeDefaults({
     this.spacing,
     this.keyPadding,
     this.keyShadow,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'spacing': spacing,
-    'keyPadding': keyPadding,
-    'keyShadow': keyShadow,
-  };
 }
-
-const keyboardShortcutThemeTokensConfigGlobalDefaults = KeyboardShortcutThemeConfigGlobalDefaults();

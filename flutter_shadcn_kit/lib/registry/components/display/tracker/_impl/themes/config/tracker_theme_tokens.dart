@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class TrackerThemeConfigGlobalTokens {
-  const TrackerThemeConfigGlobalTokens();
+class TrackerThemeTokens {
+  final Object? radius;
+  final Object? gap;
+  final Object? itemHeight;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const TrackerThemeTokens({
+    this.radius,
+    this.gap,
+    this.itemHeight,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const trackerThemeTokensConfigGlobalTokens = TrackerThemeConfigGlobalTokens();
+const trackerThemeTokens = TrackerThemeTokens();

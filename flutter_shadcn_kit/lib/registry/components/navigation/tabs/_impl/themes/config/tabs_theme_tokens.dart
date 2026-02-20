@@ -1,31 +1,80 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class TabsThemeConfigGlobalTokens {
-  const TabsThemeConfigGlobalTokens();
+class TabsThemeTokens {
+  final Object? containerPadding;
+  final Object? tabPadding;
+  final Object? backgroundColor;
+  final Object? borderRadius;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const TabsThemeTokens({
+    this.containerPadding,
+    this.tabPadding,
+    this.backgroundColor,
+    this.borderRadius,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class TabsThemeConfigTabContainerThemeTokens {
-  const TabsThemeConfigTabContainerThemeTokens();
+const tabsThemeTokens = TabsThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class TabContainerThemeTokens {
+  final Object? builder;
+  final Object? childBuilder;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const TabContainerThemeTokens({
+    this.builder,
+    this.childBuilder,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class TabsThemeConfigTabListThemeTokens {
-  const TabsThemeConfigTabListThemeTokens();
+const tabContainerThemeTokens = TabContainerThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class TabListThemeTokens {
+  final Object? borderColor;
+  final Object? borderWidth;
+  final Object? indicatorColor;
+  final Object? indicatorHeight;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const TabListThemeTokens({
+    this.borderColor,
+    this.borderWidth,
+    this.indicatorColor,
+    this.indicatorHeight,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class TabsThemeConfigTabPaneThemeTokens {
-  const TabsThemeConfigTabPaneThemeTokens();
+const tabListThemeTokens = TabListThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class TabPaneThemeTokens {
+  final Object? borderRadius;
+  final Object? backgroundColor;
+  final Object? border;
+  final Object? barHeight;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const TabPaneThemeTokens({
+    this.borderRadius,
+    this.backgroundColor,
+    this.border,
+    this.barHeight,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const tabsThemeTokensConfigGlobalTokens = TabsThemeConfigGlobalTokens();
-const tabsThemeTokensConfigTabContainerThemeTokens = TabsThemeConfigTabContainerThemeTokens();
-const tabsThemeTokensConfigTabListThemeTokens = TabsThemeConfigTabListThemeTokens();
-const tabsThemeTokensConfigTabPaneThemeTokens = TabsThemeConfigTabPaneThemeTokens();
+const tabPaneThemeTokens = TabPaneThemeTokens();

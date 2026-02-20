@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'text_field_theme_defaults.dart';
 import 'text_field_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'text_field_theme_tokens.dart';
 class TextFieldThemeConfig {
   const TextFieldThemeConfig._();
 
-  /// Global component theme override for `TextFieldTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TextFieldTheme';
-  static const TextFieldThemeConfigGlobalDefaults globalDefaults =
-      TextFieldThemeConfigGlobalDefaults();
-  static const TextFieldThemeConfigGlobalTokens globalTokens =
-      TextFieldThemeConfigGlobalTokens();
+  static const TextFieldThemeDefaults defaults = TextFieldThemeDefaults();
+  static const TextFieldThemeTokens tokens = textFieldThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

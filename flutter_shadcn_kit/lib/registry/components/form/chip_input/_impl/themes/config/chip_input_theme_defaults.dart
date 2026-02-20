@@ -1,19 +1,14 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ChipInputThemeConfigGlobalDefaults {
+class ChipInputThemeDefaults {
   final Object? spacing;
   final Object? useChips;
 
-  const ChipInputThemeConfigGlobalDefaults({
+  const ChipInputThemeDefaults({
     this.spacing,
     this.useChips = true,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'spacing': spacing,
-    'useChips': useChips,
-  };
 }
-
-const chipInputThemeTokensConfigGlobalDefaults = ChipInputThemeConfigGlobalDefaults();

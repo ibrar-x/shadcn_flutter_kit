@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class ColorPickerThemeConfigGlobalTokens {
-  const ColorPickerThemeConfigGlobalTokens();
+class ColorPickerThemeTokens {
+  final Object? spacing;
+  final Object? controlSpacing;
+  final Object? orientation;
+  final Object? enableEyeDropper;
+  final Object? sliderSize;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const ColorPickerThemeTokens({
+    this.spacing,
+    this.controlSpacing,
+    this.orientation,
+    this.enableEyeDropper,
+    this.sliderSize,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const colorPickerThemeTokensConfigGlobalTokens = ColorPickerThemeConfigGlobalTokens();
+const colorPickerThemeTokens = ColorPickerThemeTokens();

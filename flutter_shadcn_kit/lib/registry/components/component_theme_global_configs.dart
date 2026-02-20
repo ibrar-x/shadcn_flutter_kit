@@ -76,52 +76,52 @@ bool _componentThemeGlobalsRegistered = false;
 void registerComponentThemeGlobalConfigs() {
   if (_componentThemeGlobalsRegistered) return;
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.primaryType,
-    () => c0.ButtonThemeConfig.primary,
+    c0.ButtonThemeConfig.primaryButtonThemeType,
+    () => c0.ButtonThemeConfig.primaryButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.secondaryType,
-    () => c0.ButtonThemeConfig.secondary,
+    c0.ButtonThemeConfig.secondaryButtonThemeType,
+    () => c0.ButtonThemeConfig.secondaryButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.outlineType,
-    () => c0.ButtonThemeConfig.outline,
+    c0.ButtonThemeConfig.outlineButtonThemeType,
+    () => c0.ButtonThemeConfig.outlineButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.ghostType,
-    () => c0.ButtonThemeConfig.ghost,
+    c0.ButtonThemeConfig.ghostButtonThemeType,
+    () => c0.ButtonThemeConfig.ghostButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.linkType,
-    () => c0.ButtonThemeConfig.link,
+    c0.ButtonThemeConfig.linkButtonThemeType,
+    () => c0.ButtonThemeConfig.linkButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.textType,
-    () => c0.ButtonThemeConfig.text,
+    c0.ButtonThemeConfig.textButtonThemeType,
+    () => c0.ButtonThemeConfig.textButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.destructiveType,
-    () => c0.ButtonThemeConfig.destructive,
+    c0.ButtonThemeConfig.destructiveButtonThemeType,
+    () => c0.ButtonThemeConfig.destructiveButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.fixedType,
-    () => c0.ButtonThemeConfig.fixed,
+    c0.ButtonThemeConfig.fixedButtonThemeType,
+    () => c0.ButtonThemeConfig.fixedButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.menuType,
-    () => c0.ButtonThemeConfig.menu,
+    c0.ButtonThemeConfig.menuButtonThemeType,
+    () => c0.ButtonThemeConfig.menuButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.menubarType,
-    () => c0.ButtonThemeConfig.menubar,
+    c0.ButtonThemeConfig.menubarButtonThemeType,
+    () => c0.ButtonThemeConfig.menubarButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.mutedType,
-    () => c0.ButtonThemeConfig.muted,
+    c0.ButtonThemeConfig.mutedButtonThemeType,
+    () => c0.ButtonThemeConfig.mutedButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c0.ButtonThemeConfig.cardType,
-    () => c0.ButtonThemeConfig.card,
+    c0.ButtonThemeConfig.cardButtonThemeType,
+    () => c0.ButtonThemeConfig.cardButtonTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c1.HoverThemeConfig.globalType,
@@ -170,6 +170,10 @@ void registerComponentThemeGlobalConfigs() {
   ComponentThemeGlobalRegistry.registerByName(
     c12.EmptyStateThemeConfig.globalType,
     () => c12.EmptyStateThemeConfig.global,
+  );
+  ComponentThemeGlobalRegistry.registerByName(
+    c13.FeatureCarouselThemeConfig.globalType,
+    () => c13.FeatureCarouselThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c14.KeyboardShortcutThemeConfig.globalType,
@@ -224,16 +228,16 @@ void registerComponentThemeGlobalConfigs() {
     () => c26.DatePickerThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c27.FilePickerThemeConfig.globalType,
-    () => c27.FilePickerThemeConfig.global,
+    c27.FilePickerThemeConfig.fileUploadDropzoneThemeType,
+    () => c27.FilePickerThemeConfig.fileUploadDropzoneTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c28.FormattedInputThemeConfig.globalType,
     () => c28.FormattedInputThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c29.InputOtpThemeConfig.globalType,
-    () => c29.InputOtpThemeConfig.global,
+    c29.InputOtpThemeConfig.inputOTPThemeType,
+    () => c29.InputOtpThemeConfig.inputOTPTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c30.MultipleChoiceThemeConfig.globalType,
@@ -244,8 +248,8 @@ void registerComponentThemeGlobalConfigs() {
     () => c31.PhoneInputThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c32.RadioGroupThemeConfig.globalType,
-    () => c32.RadioGroupThemeConfig.global,
+    c32.RadioGroupThemeConfig.radioCardThemeType,
+    () => c32.RadioGroupThemeConfig.radioCardTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c32.RadioGroupThemeConfig.radioThemeType,
@@ -292,6 +296,10 @@ void registerComponentThemeGlobalConfigs() {
     () => c42.CollapsibleThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
+    c43.FilterBarThemeConfig.globalType,
+    () => c43.FilterBarThemeConfig.global,
+  );
+  ComponentThemeGlobalRegistry.registerByName(
     c44.HiddenThemeConfig.globalType,
     () => c44.HiddenThemeConfig.global,
   );
@@ -300,8 +308,8 @@ void registerComponentThemeGlobalConfigs() {
     () => c45.OutlinedContainerThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c46.ScrollableThemeConfig.globalType,
-    () => c46.ScrollableThemeConfig.global,
+    c46.ScrollableThemeConfig.scrollableClientThemeType,
+    () => c46.ScrollableThemeConfig.scrollableClientTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c47.StageContainerThemeConfig.globalType,
@@ -344,8 +352,8 @@ void registerComponentThemeGlobalConfigs() {
     () => c52.ContextMenuThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c53.DialogThemeConfig.globalType,
-    () => c53.DialogThemeConfig.global,
+    c53.DialogThemeConfig.modalBackdropThemeType,
+    () => c53.DialogThemeConfig.modalBackdropTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c54.DrawerThemeConfig.globalType,
@@ -380,8 +388,8 @@ void registerComponentThemeGlobalConfigs() {
     () => c59.MenubarThemeConfig.global,
   );
   ComponentThemeGlobalRegistry.registerByName(
-    c60.PopupThemeConfig.globalType,
-    () => c60.PopupThemeConfig.global,
+    c60.PopupThemeConfig.menuPopupThemeType,
+    () => c60.PopupThemeConfig.menuPopupTheme,
   );
   ComponentThemeGlobalRegistry.registerByName(
     c61.RefreshTriggerThemeConfig.globalType,

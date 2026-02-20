@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'menu_theme_defaults.dart';
 import 'menu_theme_tokens.dart';
@@ -7,27 +9,31 @@ import 'menu_theme_tokens.dart';
 class MenuThemeConfig {
   const MenuThemeConfig._();
 
-  /// Global component theme override for `MenuTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'MenuTheme';
-  static const MenuThemeConfigGlobalDefaults globalDefaults =
-      MenuThemeConfigGlobalDefaults();
-  static const MenuThemeConfigGlobalTokens globalTokens =
-      MenuThemeConfigGlobalTokens();
+  static const MenuThemeDefaults defaults = MenuThemeDefaults();
+  static const MenuThemeTokens tokens = menuThemeTokens;
 
-  /// Global component theme override for `MenuPopupTheme`.
-  static Object? menuPopupTheme;
+  static const Object? menuPopupTheme = null;
   static const String menuPopupThemeType = 'MenuPopupTheme';
-  static const MenuThemeConfigMenuPopupThemeDefaults
-  menuPopupThemeDefaults = MenuThemeConfigMenuPopupThemeDefaults();
-  static const MenuThemeConfigMenuPopupThemeTokens menuPopupThemeTokens =
-      MenuThemeConfigMenuPopupThemeTokens();
+  static const MenuPopupThemeDefaults menuPopupThemeDefaults = MenuPopupThemeDefaults();
+  static const MenuPopupThemeTokens menuPopupThemeTokenConfig = menuPopupThemeTokens;
 
-  /// Global component theme override for `MenubarTheme`.
-  static Object? menubarTheme;
+  static const Object? menubarTheme = null;
   static const String menubarThemeType = 'MenubarTheme';
-  static const MenuThemeConfigMenubarThemeDefaults menubarThemeDefaults =
-      MenuThemeConfigMenubarThemeDefaults();
-  static const MenuThemeConfigMenubarThemeTokens menubarThemeTokens =
-      MenuThemeConfigMenubarThemeTokens();
+  static const MenubarThemeDefaults menubarThemeDefaults = MenubarThemeDefaults();
+  static const MenubarThemeTokens menubarThemeTokenConfig = menubarThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    if (T.toString() == menuPopupThemeType) {
+      return menuPopupTheme as T?;
+    }
+    if (T.toString() == menubarThemeType) {
+      return menubarTheme as T?;
+    }
+    return null;
+  }
 }

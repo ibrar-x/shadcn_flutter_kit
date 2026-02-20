@@ -1,87 +1,148 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class ButtonThemeConfigPrimaryTokens {
-  const ButtonThemeConfigPrimaryTokens();
+class PrimaryButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const PrimaryButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigSecondaryTokens {
-  const ButtonThemeConfigSecondaryTokens();
+const primaryButtonThemeTokens = PrimaryButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class SecondaryButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const SecondaryButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigOutlineTokens {
-  const ButtonThemeConfigOutlineTokens();
+const secondaryButtonThemeTokens = SecondaryButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class OutlineButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const OutlineButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigGhostTokens {
-  const ButtonThemeConfigGhostTokens();
+const outlineButtonThemeTokens = OutlineButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class GhostButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const GhostButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigLinkTokens {
-  const ButtonThemeConfigLinkTokens();
+const ghostButtonThemeTokens = GhostButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class LinkButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const LinkButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigTextTokens {
-  const ButtonThemeConfigTextTokens();
+const linkButtonThemeTokens = LinkButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class TextButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const TextButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigDestructiveTokens {
-  const ButtonThemeConfigDestructiveTokens();
+const textButtonThemeTokens = TextButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class DestructiveButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const DestructiveButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigFixedTokens {
-  const ButtonThemeConfigFixedTokens();
+const destructiveButtonThemeTokens = DestructiveButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class FixedButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const FixedButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigMenuTokens {
-  const ButtonThemeConfigMenuTokens();
+const fixedButtonThemeTokens = FixedButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MenuButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const MenuButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigMenubarTokens {
-  const ButtonThemeConfigMenubarTokens();
+const menuButtonThemeTokens = MenuButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MenubarButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const MenubarButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigMutedTokens {
-  const ButtonThemeConfigMutedTokens();
+const menubarButtonThemeTokens = MenubarButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MutedButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const MutedButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-class ButtonThemeConfigCardTokens {
-  const ButtonThemeConfigCardTokens();
+const mutedButtonThemeTokens = MutedButtonThemeTokens();
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class CardButtonThemeTokens {
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
+
+  const CardButtonThemeTokens({
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const buttonThemeTokensConfigPrimaryTokens = ButtonThemeConfigPrimaryTokens();
-const buttonThemeTokensConfigSecondaryTokens = ButtonThemeConfigSecondaryTokens();
-const buttonThemeTokensConfigOutlineTokens = ButtonThemeConfigOutlineTokens();
-const buttonThemeTokensConfigGhostTokens = ButtonThemeConfigGhostTokens();
-const buttonThemeTokensConfigLinkTokens = ButtonThemeConfigLinkTokens();
-const buttonThemeTokensConfigTextTokens = ButtonThemeConfigTextTokens();
-const buttonThemeTokensConfigDestructiveTokens = ButtonThemeConfigDestructiveTokens();
-const buttonThemeTokensConfigFixedTokens = ButtonThemeConfigFixedTokens();
-const buttonThemeTokensConfigMenuTokens = ButtonThemeConfigMenuTokens();
-const buttonThemeTokensConfigMenubarTokens = ButtonThemeConfigMenubarTokens();
-const buttonThemeTokensConfigMutedTokens = ButtonThemeConfigMutedTokens();
-const buttonThemeTokensConfigCardTokens = ButtonThemeConfigCardTokens();
+const cardButtonThemeTokens = CardButtonThemeTokens();

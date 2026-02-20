@@ -1,87 +1,52 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ButtonThemeConfigPrimaryDefaults {
-  const ButtonThemeConfigPrimaryDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class PrimaryButtonThemeDefaults {
+  const PrimaryButtonThemeDefaults();
 }
 
-class ButtonThemeConfigSecondaryDefaults {
-  const ButtonThemeConfigSecondaryDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class SecondaryButtonThemeDefaults {
+  const SecondaryButtonThemeDefaults();
 }
 
-class ButtonThemeConfigOutlineDefaults {
-  const ButtonThemeConfigOutlineDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class OutlineButtonThemeDefaults {
+  const OutlineButtonThemeDefaults();
 }
 
-class ButtonThemeConfigGhostDefaults {
-  const ButtonThemeConfigGhostDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class GhostButtonThemeDefaults {
+  const GhostButtonThemeDefaults();
 }
 
-class ButtonThemeConfigLinkDefaults {
-  const ButtonThemeConfigLinkDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class LinkButtonThemeDefaults {
+  const LinkButtonThemeDefaults();
 }
 
-class ButtonThemeConfigTextDefaults {
-  const ButtonThemeConfigTextDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class TextButtonThemeDefaults {
+  const TextButtonThemeDefaults();
 }
 
-class ButtonThemeConfigDestructiveDefaults {
-  const ButtonThemeConfigDestructiveDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class DestructiveButtonThemeDefaults {
+  const DestructiveButtonThemeDefaults();
 }
 
-class ButtonThemeConfigFixedDefaults {
-  const ButtonThemeConfigFixedDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class FixedButtonThemeDefaults {
+  const FixedButtonThemeDefaults();
 }
 
-class ButtonThemeConfigMenuDefaults {
-  const ButtonThemeConfigMenuDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MenuButtonThemeDefaults {
+  const MenuButtonThemeDefaults();
 }
 
-class ButtonThemeConfigMenubarDefaults {
-  const ButtonThemeConfigMenubarDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MenubarButtonThemeDefaults {
+  const MenubarButtonThemeDefaults();
 }
 
-class ButtonThemeConfigMutedDefaults {
-  const ButtonThemeConfigMutedDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class MutedButtonThemeDefaults {
+  const MutedButtonThemeDefaults();
 }
 
-class ButtonThemeConfigCardDefaults {
-  const ButtonThemeConfigCardDefaults();
-
-  Map<String, Object?> toMap() => const <String, Object?>{};
+class CardButtonThemeDefaults {
+  const CardButtonThemeDefaults();
 }
-
-const buttonThemeTokensConfigPrimaryDefaults = ButtonThemeConfigPrimaryDefaults();
-const buttonThemeTokensConfigSecondaryDefaults = ButtonThemeConfigSecondaryDefaults();
-const buttonThemeTokensConfigOutlineDefaults = ButtonThemeConfigOutlineDefaults();
-const buttonThemeTokensConfigGhostDefaults = ButtonThemeConfigGhostDefaults();
-const buttonThemeTokensConfigLinkDefaults = ButtonThemeConfigLinkDefaults();
-const buttonThemeTokensConfigTextDefaults = ButtonThemeConfigTextDefaults();
-const buttonThemeTokensConfigDestructiveDefaults = ButtonThemeConfigDestructiveDefaults();
-const buttonThemeTokensConfigFixedDefaults = ButtonThemeConfigFixedDefaults();
-const buttonThemeTokensConfigMenuDefaults = ButtonThemeConfigMenuDefaults();
-const buttonThemeTokensConfigMenubarDefaults = ButtonThemeConfigMenubarDefaults();
-const buttonThemeTokensConfigMutedDefaults = ButtonThemeConfigMutedDefaults();
-const buttonThemeTokensConfigCardDefaults = ButtonThemeConfigCardDefaults();

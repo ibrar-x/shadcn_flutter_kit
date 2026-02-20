@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'switch_theme_defaults.dart';
 import 'switch_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'switch_theme_tokens.dart';
 class SwitchThemeConfig {
   const SwitchThemeConfig._();
 
-  /// Global component theme override for `SwitchTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'SwitchTheme';
-  static const SwitchThemeConfigGlobalDefaults globalDefaults =
-      SwitchThemeConfigGlobalDefaults();
-  static const SwitchThemeConfigGlobalTokens globalTokens =
-      SwitchThemeConfigGlobalTokens();
+  static const SwitchThemeDefaults defaults = SwitchThemeDefaults();
+  static const SwitchThemeTokens tokens = switchThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class CheckboxThemeConfigGlobalDefaults {
+class CheckboxThemeDefaults {
   final Object? backgroundColor;
   final Object? activeColor;
   final Object? borderColor;
@@ -9,7 +11,7 @@ class CheckboxThemeConfigGlobalDefaults {
   final Object? gap;
   final Object? borderRadius;
 
-  const CheckboxThemeConfigGlobalDefaults({
+  const CheckboxThemeDefaults({
     this.backgroundColor = 'theme.colorScheme.input.scaleAlpha(0.3)',
     this.activeColor = 'theme.colorScheme.primary',
     this.borderColor = 'theme.colorScheme.border',
@@ -17,15 +19,4 @@ class CheckboxThemeConfigGlobalDefaults {
     this.gap = '8 * scaling',
     this.borderRadius = 'BorderRadius.circular(theme.radiusSm)',
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'backgroundColor': backgroundColor,
-    'activeColor': activeColor,
-    'borderColor': borderColor,
-    'size': size,
-    'gap': gap,
-    'borderRadius': borderRadius,
-  };
 }
-
-const checkboxThemeTokensConfigGlobalDefaults = CheckboxThemeConfigGlobalDefaults();

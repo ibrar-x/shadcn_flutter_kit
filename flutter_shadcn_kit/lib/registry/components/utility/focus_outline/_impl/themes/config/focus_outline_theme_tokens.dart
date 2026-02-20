@@ -1,10 +1,22 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class FocusOutlineThemeConfigGlobalTokens {
-  const FocusOutlineThemeConfigGlobalTokens();
+class FocusOutlineThemeTokens {
+  final Object? align;
+  final Object? borderRadius;
+  final Object? border;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const FocusOutlineThemeTokens({
+    this.align,
+    this.borderRadius,
+    this.border,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const focusOutlineThemeTokensConfigGlobalTokens = FocusOutlineThemeConfigGlobalTokens();
+const focusOutlineThemeTokens = FocusOutlineThemeTokens();

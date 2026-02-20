@@ -1,25 +1,18 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class ProgressThemeConfigGlobalDefaults {
+class ProgressThemeDefaults {
   final Object? color;
   final Object? backgroundColor;
   final Object? borderRadius;
   final Object? minHeight;
 
-  const ProgressThemeConfigGlobalDefaults({
+  const ProgressThemeDefaults({
     this.color,
     this.backgroundColor,
     this.borderRadius,
     this.minHeight,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'color': color,
-    'backgroundColor': backgroundColor,
-    'borderRadius': borderRadius,
-    'minHeight': minHeight,
-  };
 }
-
-const progressThemeTokensConfigGlobalDefaults = ProgressThemeConfigGlobalDefaults();

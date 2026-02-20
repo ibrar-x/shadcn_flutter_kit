@@ -1,10 +1,20 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class InputOtpThemeConfigGlobalTokens {
-  const InputOtpThemeConfigGlobalTokens();
+class InputOTPThemeTokens {
+  final Object? spacing;
+  final Object? height;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const InputOTPThemeTokens({
+    this.spacing,
+    this.height,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const inputOtpThemeTokensConfigGlobalTokens = InputOtpThemeConfigGlobalTokens();
+const inputOTPThemeTokens = InputOTPThemeTokens();

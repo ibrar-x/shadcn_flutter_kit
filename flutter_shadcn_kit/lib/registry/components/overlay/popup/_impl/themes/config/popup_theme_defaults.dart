@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class PopupThemeConfigGlobalDefaults {
+class MenuPopupThemeDefaults {
   final Object? surfaceOpacity;
   final Object? surfaceBlur;
   final Object? padding;
@@ -9,7 +11,7 @@ class PopupThemeConfigGlobalDefaults {
   final Object? borderColor;
   final Object? borderRadius;
 
-  const PopupThemeConfigGlobalDefaults({
+  const MenuPopupThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
     this.padding,
@@ -17,15 +19,4 @@ class PopupThemeConfigGlobalDefaults {
     this.borderColor,
     this.borderRadius,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'surfaceOpacity': surfaceOpacity,
-    'surfaceBlur': surfaceBlur,
-    'padding': padding,
-    'fillColor': fillColor,
-    'borderColor': borderColor,
-    'borderRadius': borderRadius,
-  };
 }
-
-const popupThemeTokensConfigGlobalDefaults = PopupThemeConfigGlobalDefaults();

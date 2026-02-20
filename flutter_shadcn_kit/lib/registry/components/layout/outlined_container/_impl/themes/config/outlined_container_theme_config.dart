@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'outlined_container_theme_defaults.dart';
 import 'outlined_container_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'outlined_container_theme_tokens.dart';
 class OutlinedContainerThemeConfig {
   const OutlinedContainerThemeConfig._();
 
-  /// Global component theme override for `OutlinedContainerTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'OutlinedContainerTheme';
-  static const OutlinedContainerThemeConfigGlobalDefaults globalDefaults =
-      OutlinedContainerThemeConfigGlobalDefaults();
-  static const OutlinedContainerThemeConfigGlobalTokens globalTokens =
-      OutlinedContainerThemeConfigGlobalTokens();
+  static const OutlinedContainerThemeDefaults defaults = OutlinedContainerThemeDefaults();
+  static const OutlinedContainerThemeTokens tokens = outlinedContainerThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

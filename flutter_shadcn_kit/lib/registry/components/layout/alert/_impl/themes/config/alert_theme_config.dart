@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'alert_theme_defaults.dart';
 import 'alert_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'alert_theme_tokens.dart';
 class AlertThemeConfig {
   const AlertThemeConfig._();
 
-  /// Global component theme override for `AlertTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'AlertTheme';
-  static const AlertThemeConfigGlobalDefaults globalDefaults =
-      AlertThemeConfigGlobalDefaults();
-  static const AlertThemeConfigGlobalTokens globalTokens =
-      AlertThemeConfigGlobalTokens();
+  static const AlertThemeDefaults defaults = AlertThemeDefaults();
+  static const AlertThemeTokens tokens = alertThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

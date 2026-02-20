@@ -1,19 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
-
-import '../variants/button_theme_base.dart';
-import '../variants/card_button_theme.dart';
-import '../variants/destructive_button_theme.dart';
-import '../variants/fixed_button_theme.dart';
-import '../variants/ghost_button_theme.dart';
-import '../variants/link_button_theme.dart';
-import '../variants/menu_button_theme.dart';
-import '../variants/menubar_button_theme.dart';
-import '../variants/muted_button_theme.dart';
-import '../variants/outline_button_theme.dart';
-import '../variants/primary_button_theme.dart';
-import '../variants/secondary_button_theme.dart';
-import '../variants/text_button_theme.dart';
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'button_theme_defaults.dart';
 import 'button_theme_tokens.dart';
@@ -21,116 +9,103 @@ import 'button_theme_tokens.dart';
 class ButtonThemeConfig {
   const ButtonThemeConfig._();
 
-  /// Global component theme override for `PrimaryButtonTheme`.
-  static const PrimaryButtonTheme? primary = null;
-  static const String primaryType = 'PrimaryButtonTheme';
-  static const ButtonThemeConfigPrimaryDefaults primaryDefaults =
-      ButtonThemeConfigPrimaryDefaults();
-  static const ButtonThemeConfigPrimaryTokens primaryTokens =
-      ButtonThemeConfigPrimaryTokens();
+  static const Object? primaryButtonTheme = null;
+  static const String primaryButtonThemeType = 'PrimaryButtonTheme';
+  static const PrimaryButtonThemeDefaults primaryButtonThemeDefaults = PrimaryButtonThemeDefaults();
+  static const PrimaryButtonThemeTokens primaryButtonThemeTokenConfig = primaryButtonThemeTokens;
 
-  /// Global component theme override for `SecondaryButtonTheme`.
-  static const SecondaryButtonTheme? secondary = null;
-  static const String secondaryType = 'SecondaryButtonTheme';
-  static const ButtonThemeConfigSecondaryDefaults secondaryDefaults =
-      ButtonThemeConfigSecondaryDefaults();
-  static const ButtonThemeConfigSecondaryTokens secondaryTokens =
-      ButtonThemeConfigSecondaryTokens();
+  static const Object? secondaryButtonTheme = null;
+  static const String secondaryButtonThemeType = 'SecondaryButtonTheme';
+  static const SecondaryButtonThemeDefaults secondaryButtonThemeDefaults = SecondaryButtonThemeDefaults();
+  static const SecondaryButtonThemeTokens secondaryButtonThemeTokenConfig = secondaryButtonThemeTokens;
 
-  /// Global component theme override for `OutlineButtonTheme`.
-  static const OutlineButtonTheme? outline = null;
-  static const String outlineType = 'OutlineButtonTheme';
-  static const ButtonThemeConfigOutlineDefaults outlineDefaults =
-      ButtonThemeConfigOutlineDefaults();
-  static const ButtonThemeConfigOutlineTokens outlineTokens =
-      ButtonThemeConfigOutlineTokens();
+  static const Object? outlineButtonTheme = null;
+  static const String outlineButtonThemeType = 'OutlineButtonTheme';
+  static const OutlineButtonThemeDefaults outlineButtonThemeDefaults = OutlineButtonThemeDefaults();
+  static const OutlineButtonThemeTokens outlineButtonThemeTokenConfig = outlineButtonThemeTokens;
 
-  /// Global component theme override for `GhostButtonTheme`.
-  static const GhostButtonTheme? ghost = null;
-  static const String ghostType = 'GhostButtonTheme';
-  static const ButtonThemeConfigGhostDefaults ghostDefaults =
-      ButtonThemeConfigGhostDefaults();
-  static const ButtonThemeConfigGhostTokens ghostTokens =
-      ButtonThemeConfigGhostTokens();
+  static const Object? ghostButtonTheme = null;
+  static const String ghostButtonThemeType = 'GhostButtonTheme';
+  static const GhostButtonThemeDefaults ghostButtonThemeDefaults = GhostButtonThemeDefaults();
+  static const GhostButtonThemeTokens ghostButtonThemeTokenConfig = ghostButtonThemeTokens;
 
-  /// Global component theme override for `LinkButtonTheme`.
-  static const LinkButtonTheme? link = null;
-  static const String linkType = 'LinkButtonTheme';
-  static const ButtonThemeConfigLinkDefaults linkDefaults =
-      ButtonThemeConfigLinkDefaults();
-  static const ButtonThemeConfigLinkTokens linkTokens =
-      ButtonThemeConfigLinkTokens();
+  static const Object? linkButtonTheme = null;
+  static const String linkButtonThemeType = 'LinkButtonTheme';
+  static const LinkButtonThemeDefaults linkButtonThemeDefaults = LinkButtonThemeDefaults();
+  static const LinkButtonThemeTokens linkButtonThemeTokenConfig = linkButtonThemeTokens;
 
-  /// Global component theme override for `TextButtonTheme`.
-  static const TextButtonTheme? text = null;
-  static const String textType = 'TextButtonTheme';
-  static const ButtonThemeConfigTextDefaults textDefaults =
-      ButtonThemeConfigTextDefaults();
-  static const ButtonThemeConfigTextTokens textTokens =
-      ButtonThemeConfigTextTokens();
+  static const Object? textButtonTheme = null;
+  static const String textButtonThemeType = 'TextButtonTheme';
+  static const TextButtonThemeDefaults textButtonThemeDefaults = TextButtonThemeDefaults();
+  static const TextButtonThemeTokens textButtonThemeTokenConfig = textButtonThemeTokens;
 
-  /// Global component theme override for `DestructiveButtonTheme`.
-  static const DestructiveButtonTheme? destructive = null;
-  static const String destructiveType = 'DestructiveButtonTheme';
-  static const ButtonThemeConfigDestructiveDefaults destructiveDefaults =
-      ButtonThemeConfigDestructiveDefaults();
-  static const ButtonThemeConfigDestructiveTokens destructiveTokens =
-      ButtonThemeConfigDestructiveTokens();
+  static const Object? destructiveButtonTheme = null;
+  static const String destructiveButtonThemeType = 'DestructiveButtonTheme';
+  static const DestructiveButtonThemeDefaults destructiveButtonThemeDefaults = DestructiveButtonThemeDefaults();
+  static const DestructiveButtonThemeTokens destructiveButtonThemeTokenConfig = destructiveButtonThemeTokens;
 
-  /// Global component theme override for `FixedButtonTheme`.
-  static const FixedButtonTheme? fixed = null;
-  static const String fixedType = 'FixedButtonTheme';
-  static const ButtonThemeConfigFixedDefaults fixedDefaults =
-      ButtonThemeConfigFixedDefaults();
-  static const ButtonThemeConfigFixedTokens fixedTokens =
-      ButtonThemeConfigFixedTokens();
+  static const Object? fixedButtonTheme = null;
+  static const String fixedButtonThemeType = 'FixedButtonTheme';
+  static const FixedButtonThemeDefaults fixedButtonThemeDefaults = FixedButtonThemeDefaults();
+  static const FixedButtonThemeTokens fixedButtonThemeTokenConfig = fixedButtonThemeTokens;
 
-  /// Global component theme override for `MenuButtonTheme`.
-  static const MenuButtonTheme? menu = null;
-  static const String menuType = 'MenuButtonTheme';
-  static const ButtonThemeConfigMenuDefaults menuDefaults =
-      ButtonThemeConfigMenuDefaults();
-  static const ButtonThemeConfigMenuTokens menuTokens =
-      ButtonThemeConfigMenuTokens();
+  static const Object? menuButtonTheme = null;
+  static const String menuButtonThemeType = 'MenuButtonTheme';
+  static const MenuButtonThemeDefaults menuButtonThemeDefaults = MenuButtonThemeDefaults();
+  static const MenuButtonThemeTokens menuButtonThemeTokenConfig = menuButtonThemeTokens;
 
-  /// Global component theme override for `MenubarButtonTheme`.
-  static const MenubarButtonTheme? menubar = null;
-  static const String menubarType = 'MenubarButtonTheme';
-  static const ButtonThemeConfigMenubarDefaults menubarDefaults =
-      ButtonThemeConfigMenubarDefaults();
-  static const ButtonThemeConfigMenubarTokens menubarTokens =
-      ButtonThemeConfigMenubarTokens();
+  static const Object? menubarButtonTheme = null;
+  static const String menubarButtonThemeType = 'MenubarButtonTheme';
+  static const MenubarButtonThemeDefaults menubarButtonThemeDefaults = MenubarButtonThemeDefaults();
+  static const MenubarButtonThemeTokens menubarButtonThemeTokenConfig = menubarButtonThemeTokens;
 
-  /// Global component theme override for `MutedButtonTheme`.
-  static const MutedButtonTheme? muted = null;
-  static const String mutedType = 'MutedButtonTheme';
-  static const ButtonThemeConfigMutedDefaults mutedDefaults =
-      ButtonThemeConfigMutedDefaults();
-  static const ButtonThemeConfigMutedTokens mutedTokens =
-      ButtonThemeConfigMutedTokens();
+  static const Object? mutedButtonTheme = null;
+  static const String mutedButtonThemeType = 'MutedButtonTheme';
+  static const MutedButtonThemeDefaults mutedButtonThemeDefaults = MutedButtonThemeDefaults();
+  static const MutedButtonThemeTokens mutedButtonThemeTokenConfig = mutedButtonThemeTokens;
 
-  /// Global component theme override for `CardButtonTheme`.
-  static const CardButtonTheme? card = null;
-  static const String cardType = 'CardButtonTheme';
-  static const ButtonThemeConfigCardDefaults cardDefaults =
-      ButtonThemeConfigCardDefaults();
-  static const ButtonThemeConfigCardTokens cardTokens =
-      ButtonThemeConfigCardTokens();
+  static const Object? cardButtonTheme = null;
+  static const String cardButtonThemeType = 'CardButtonTheme';
+  static const CardButtonThemeDefaults cardButtonThemeDefaults = CardButtonThemeDefaults();
+  static const CardButtonThemeTokens cardButtonThemeTokenConfig = cardButtonThemeTokens;
 
-  /// Resolves the configured global override for a button theme subtype.
-  static T? resolve<T extends ButtonTheme>() {
-    if (T == PrimaryButtonTheme) return primary as T?;
-    if (T == SecondaryButtonTheme) return secondary as T?;
-    if (T == OutlineButtonTheme) return outline as T?;
-    if (T == GhostButtonTheme) return ghost as T?;
-    if (T == LinkButtonTheme) return link as T?;
-    if (T == TextButtonTheme) return text as T?;
-    if (T == DestructiveButtonTheme) return destructive as T?;
-    if (T == FixedButtonTheme) return fixed as T?;
-    if (T == MenuButtonTheme) return menu as T?;
-    if (T == MenubarButtonTheme) return menubar as T?;
-    if (T == MutedButtonTheme) return muted as T?;
-    if (T == CardButtonTheme) return card as T?;
+  static T? resolve<T>() {
+    if (T.toString() == primaryButtonThemeType) {
+      return primaryButtonTheme as T?;
+    }
+    if (T.toString() == secondaryButtonThemeType) {
+      return secondaryButtonTheme as T?;
+    }
+    if (T.toString() == outlineButtonThemeType) {
+      return outlineButtonTheme as T?;
+    }
+    if (T.toString() == ghostButtonThemeType) {
+      return ghostButtonTheme as T?;
+    }
+    if (T.toString() == linkButtonThemeType) {
+      return linkButtonTheme as T?;
+    }
+    if (T.toString() == textButtonThemeType) {
+      return textButtonTheme as T?;
+    }
+    if (T.toString() == destructiveButtonThemeType) {
+      return destructiveButtonTheme as T?;
+    }
+    if (T.toString() == fixedButtonThemeType) {
+      return fixedButtonTheme as T?;
+    }
+    if (T.toString() == menuButtonThemeType) {
+      return menuButtonTheme as T?;
+    }
+    if (T.toString() == menubarButtonThemeType) {
+      return menubarButtonTheme as T?;
+    }
+    if (T.toString() == mutedButtonThemeType) {
+      return mutedButtonTheme as T?;
+    }
+    if (T.toString() == cardButtonThemeType) {
+      return cardButtonTheme as T?;
+    }
     return null;
   }
 }

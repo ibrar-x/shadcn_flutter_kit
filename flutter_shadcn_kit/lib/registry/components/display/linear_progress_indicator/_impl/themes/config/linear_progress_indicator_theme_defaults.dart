@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class LinearProgressIndicatorThemeConfigGlobalDefaults {
+class LinearProgressIndicatorThemeDefaults {
   final Object? color;
   final Object? backgroundColor;
   final Object? minHeight;
@@ -9,7 +11,7 @@ class LinearProgressIndicatorThemeConfigGlobalDefaults {
   final Object? showSparks;
   final Object? disableAnimation;
 
-  const LinearProgressIndicatorThemeConfigGlobalDefaults({
+  const LinearProgressIndicatorThemeDefaults({
     this.color,
     this.backgroundColor,
     this.minHeight,
@@ -17,15 +19,4 @@ class LinearProgressIndicatorThemeConfigGlobalDefaults {
     this.showSparks,
     this.disableAnimation,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'color': color,
-    'backgroundColor': backgroundColor,
-    'minHeight': minHeight,
-    'borderRadius': borderRadius,
-    'showSparks': showSparks,
-    'disableAnimation': disableAnimation,
-  };
 }
-
-const linearProgressIndicatorThemeTokensConfigGlobalDefaults = LinearProgressIndicatorThemeConfigGlobalDefaults();

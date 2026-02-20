@@ -1,10 +1,26 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class TooltipThemeConfigGlobalTokens {
-  const TooltipThemeConfigGlobalTokens();
+class TooltipThemeTokens {
+  final Object? surfaceOpacity;
+  final Object? surfaceBlur;
+  final Object? padding;
+  final Object? backgroundColor;
+  final Object? borderRadius;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const TooltipThemeTokens({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.padding,
+    this.backgroundColor,
+    this.borderRadius,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const tooltipThemeTokensConfigGlobalTokens = TooltipThemeConfigGlobalTokens();
+const tooltipThemeTokens = TooltipThemeTokens();

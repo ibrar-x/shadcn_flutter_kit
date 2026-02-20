@@ -1,10 +1,28 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CollapsibleThemeConfigGlobalTokens {
-  const CollapsibleThemeConfigGlobalTokens();
+class CollapsibleThemeTokens {
+  final Object? padding;
+  final Object? iconExpanded;
+  final Object? iconCollapsed;
+  final Object? crossAxisAlignment;
+  final Object? mainAxisAlignment;
+  final Object? iconGap;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CollapsibleThemeTokens({
+    this.padding,
+    this.iconExpanded,
+    this.iconCollapsed,
+    this.crossAxisAlignment,
+    this.mainAxisAlignment,
+    this.iconGap,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const collapsibleThemeTokensConfigGlobalTokens = CollapsibleThemeConfigGlobalTokens();
+const collapsibleThemeTokens = CollapsibleThemeTokens();

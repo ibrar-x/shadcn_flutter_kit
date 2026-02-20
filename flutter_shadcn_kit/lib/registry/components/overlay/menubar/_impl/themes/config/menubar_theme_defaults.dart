@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class MenubarThemeConfigGlobalDefaults {
+class MenubarThemeDefaults {
   final Object? border;
   final Object? subMenuOffset;
   final Object? padding;
@@ -9,7 +11,7 @@ class MenubarThemeConfigGlobalDefaults {
   final Object? backgroundColor;
   final Object? borderRadius;
 
-  const MenubarThemeConfigGlobalDefaults({
+  const MenubarThemeDefaults({
     this.border,
     this.subMenuOffset,
     this.padding,
@@ -17,15 +19,4 @@ class MenubarThemeConfigGlobalDefaults {
     this.backgroundColor,
     this.borderRadius,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'border': border,
-    'subMenuOffset': subMenuOffset,
-    'padding': padding,
-    'borderColor': borderColor,
-    'backgroundColor': backgroundColor,
-    'borderRadius': borderRadius,
-  };
 }
-
-const menubarThemeTokensConfigGlobalDefaults = MenubarThemeConfigGlobalDefaults();

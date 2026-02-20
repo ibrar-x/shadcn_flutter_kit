@@ -1,28 +1,20 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class DialogThemeConfigGlobalDefaults {
+class ModalBackdropThemeDefaults {
   final Object? borderRadius;
   final Object? padding;
   final Object? barrierColor;
   final Object? modal;
   final Object? surfaceClip;
 
-  const DialogThemeConfigGlobalDefaults({
+  const ModalBackdropThemeDefaults({
     this.borderRadius,
     this.padding,
     this.barrierColor,
     this.modal,
     this.surfaceClip,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'borderRadius': borderRadius,
-    'padding': padding,
-    'barrierColor': barrierColor,
-    'modal': modal,
-    'surfaceClip': surfaceClip,
-  };
 }
-
-const dialogThemeTokensConfigGlobalDefaults = DialogThemeConfigGlobalDefaults();

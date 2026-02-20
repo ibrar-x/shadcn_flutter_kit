@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'context_menu_theme_defaults.dart';
 import 'context_menu_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'context_menu_theme_tokens.dart';
 class ContextMenuThemeConfig {
   const ContextMenuThemeConfig._();
 
-  /// Global component theme override for `ContextMenuTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'ContextMenuTheme';
-  static const ContextMenuThemeConfigGlobalDefaults globalDefaults =
-      ContextMenuThemeConfigGlobalDefaults();
-  static const ContextMenuThemeConfigGlobalTokens globalTokens =
-      ContextMenuThemeConfigGlobalTokens();
+  static const ContextMenuThemeDefaults defaults = ContextMenuThemeDefaults();
+  static const ContextMenuThemeTokens tokens = contextMenuThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

@@ -1,7 +1,9 @@
-// GENERATED: component theming architecture defaults file.
-// Built-in defaults - do not edit manually.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME DEFAULTS
+// Built-in defaults (never changes)
+// ═══════════════════════════════════════════════════════════
 
-class GooeyToastThemeConfigGlobalDefaults {
+class GooeyToastThemeDefaults {
   final Object? width;
   final Object? fill;
   final Object? roundness;
@@ -29,7 +31,7 @@ class GooeyToastThemeConfigGlobalDefaults {
   final Object? infoTone;
   final Object? actionTone;
 
-  const GooeyToastThemeConfigGlobalDefaults({
+  const GooeyToastThemeDefaults({
     this.width,
     this.fill = 'GooeyToastDefaults.fill',
     this.roundness,
@@ -57,35 +59,4 @@ class GooeyToastThemeConfigGlobalDefaults {
     this.infoTone,
     this.actionTone,
   });
-
-  Map<String, Object?> toMap() => <String, Object?>{
-    'width': width,
-    'fill': fill,
-    'roundness': roundness,
-    'titleStyle': titleStyle,
-    'descriptionStyle': descriptionStyle,
-    'pauseOnHover': pauseOnHover,
-    'swipeToDismiss': swipeToDismiss,
-    'dismissDirections': dismissDirections,
-    'dismissDragThreshold': dismissDragThreshold,
-    'spacing': spacing,
-    'overlapStackWhenMultiple': overlapStackWhenMultiple,
-    'overlapStackOffset': overlapStackOffset,
-    'pauseAutoDismissWhenMultiple': pauseAutoDismissWhenMultiple,
-    'stackAnimationDuration': stackAnimationDuration,
-    'stackAnimationCurve': stackAnimationCurve,
-    'maxVisibleCount': maxVisibleCount,
-    'dismissWholeStackWhenMultiple': dismissWholeStackWhenMultiple,
-    'animationStyle': animationStyle,
-    'shapeStyle': shapeStyle,
-    'enableGooeyBlur': enableGooeyBlur,
-    'successTone': successTone,
-    'loadingTone': loadingTone,
-    'errorTone': errorTone,
-    'warningTone': warningTone,
-    'infoTone': infoTone,
-    'actionTone': actionTone,
-  };
 }
-
-const gooeyToastThemeTokensConfigGlobalDefaults = GooeyToastThemeConfigGlobalDefaults();

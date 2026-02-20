@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'hidden_theme_defaults.dart';
 import 'hidden_theme_tokens.dart';
@@ -7,11 +9,15 @@ import 'hidden_theme_tokens.dart';
 class HiddenThemeConfig {
   const HiddenThemeConfig._();
 
-  /// Global component theme override for `HiddenTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'HiddenTheme';
-  static const HiddenThemeConfigGlobalDefaults globalDefaults =
-      HiddenThemeConfigGlobalDefaults();
-  static const HiddenThemeConfigGlobalTokens globalTokens =
-      HiddenThemeConfigGlobalTokens();
+  static const HiddenThemeDefaults defaults = HiddenThemeDefaults();
+  static const HiddenThemeTokens tokens = hiddenThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    return null;
+  }
 }

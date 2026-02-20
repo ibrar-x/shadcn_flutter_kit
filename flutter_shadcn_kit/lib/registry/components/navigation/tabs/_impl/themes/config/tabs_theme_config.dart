@@ -1,5 +1,7 @@
-// GENERATED: component theming architecture config file.
-// Wires defaults + tokens to theme registry.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME CONFIG
+// Registration wiring (do not edit manually)
+// ═══════════════════════════════════════════════════════════
 
 import 'tabs_theme_defaults.dart';
 import 'tabs_theme_tokens.dart';
@@ -7,35 +9,39 @@ import 'tabs_theme_tokens.dart';
 class TabsThemeConfig {
   const TabsThemeConfig._();
 
-  /// Global component theme override for `TabsTheme`.
-  static Object? global;
+  static const Object? global = null;
   static const String globalType = 'TabsTheme';
-  static const TabsThemeConfigGlobalDefaults globalDefaults =
-      TabsThemeConfigGlobalDefaults();
-  static const TabsThemeConfigGlobalTokens globalTokens =
-      TabsThemeConfigGlobalTokens();
+  static const TabsThemeDefaults defaults = TabsThemeDefaults();
+  static const TabsThemeTokens tokens = tabsThemeTokens;
 
-  /// Global component theme override for `TabContainerTheme`.
-  static Object? tabContainerTheme;
+  static const Object? tabContainerTheme = null;
   static const String tabContainerThemeType = 'TabContainerTheme';
-  static const TabsThemeConfigTabContainerThemeDefaults
-  tabContainerThemeDefaults = TabsThemeConfigTabContainerThemeDefaults();
-  static const TabsThemeConfigTabContainerThemeTokens
-  tabContainerThemeTokens = TabsThemeConfigTabContainerThemeTokens();
+  static const TabContainerThemeDefaults tabContainerThemeDefaults = TabContainerThemeDefaults();
+  static const TabContainerThemeTokens tabContainerThemeTokenConfig = tabContainerThemeTokens;
 
-  /// Global component theme override for `TabListTheme`.
-  static Object? tabListTheme;
+  static const Object? tabListTheme = null;
   static const String tabListThemeType = 'TabListTheme';
-  static const TabsThemeConfigTabListThemeDefaults tabListThemeDefaults =
-      TabsThemeConfigTabListThemeDefaults();
-  static const TabsThemeConfigTabListThemeTokens tabListThemeTokens =
-      TabsThemeConfigTabListThemeTokens();
+  static const TabListThemeDefaults tabListThemeDefaults = TabListThemeDefaults();
+  static const TabListThemeTokens tabListThemeTokenConfig = tabListThemeTokens;
 
-  /// Global component theme override for `TabPaneTheme`.
-  static Object? tabPaneTheme;
+  static const Object? tabPaneTheme = null;
   static const String tabPaneThemeType = 'TabPaneTheme';
-  static const TabsThemeConfigTabPaneThemeDefaults tabPaneThemeDefaults =
-      TabsThemeConfigTabPaneThemeDefaults();
-  static const TabsThemeConfigTabPaneThemeTokens tabPaneThemeTokens =
-      TabsThemeConfigTabPaneThemeTokens();
+  static const TabPaneThemeDefaults tabPaneThemeDefaults = TabPaneThemeDefaults();
+  static const TabPaneThemeTokens tabPaneThemeTokenConfig = tabPaneThemeTokens;
+
+  static T? resolve<T>() {
+    if (T.toString() == globalType) {
+      return global as T?;
+    }
+    if (T.toString() == tabContainerThemeType) {
+      return tabContainerTheme as T?;
+    }
+    if (T.toString() == tabListThemeType) {
+      return tabListTheme as T?;
+    }
+    if (T.toString() == tabPaneThemeType) {
+      return tabPaneTheme as T?;
+    }
+    return null;
+  }
 }

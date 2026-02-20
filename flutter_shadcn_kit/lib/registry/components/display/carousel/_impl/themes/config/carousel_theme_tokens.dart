@@ -1,10 +1,32 @@
-// GENERATED: component theming architecture tokens file.
-// User customization layer - replace this file from website output.
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
 
-class CarouselThemeConfigGlobalTokens {
-  const CarouselThemeConfigGlobalTokens();
+class CarouselThemeTokens {
+  final Object? alignment;
+  final Object? direction;
+  final Object? wrap;
+  final Object? pauseOnHover;
+  final Object? autoplaySpeed;
+  final Object? draggable;
+  final Object? speed;
+  final Object? curve;
+  final bool? ignoreGlobalScaling;
+  final bool? ignoreGlobalRadius;
 
-  Map<String, Object?> toMap() => const <String, Object?>{};
+  const CarouselThemeTokens({
+    this.alignment,
+    this.direction,
+    this.wrap,
+    this.pauseOnHover,
+    this.autoplaySpeed,
+    this.draggable,
+    this.speed,
+    this.curve,
+    this.ignoreGlobalScaling,
+    this.ignoreGlobalRadius,
+  });
 }
 
-const carouselThemeTokensConfigGlobalTokens = CarouselThemeConfigGlobalTokens();
+const carouselThemeTokens = CarouselThemeTokens();
