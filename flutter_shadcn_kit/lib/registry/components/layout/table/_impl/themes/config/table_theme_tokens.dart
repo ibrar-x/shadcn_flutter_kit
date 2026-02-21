@@ -1,42 +1,46 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../table.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class TableThemeTokens {
-  final Object? border;
-  final Object? borderRadius;
-  final Object? backgroundColor;
-  final Object? cellTheme;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const TableThemeTokens({
     this.border,
     this.borderRadius,
-    this.backgroundColor,
+    this.backgroundColor = const Color(0xFFFFFFFF),
     this.cellTheme,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final Border? border;
+  final BorderRadiusGeometry? borderRadius;
+  final Color backgroundColor;
+  final TableCellTheme? cellTheme;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const tableThemeTokens = TableThemeTokens();
 
 class ResizableTableThemeTokens {
-  final Object? tableTheme;
-  final Object? resizerThickness;
-  final Object? resizerColor;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const ResizableTableThemeTokens({
     this.tableTheme,
-    this.resizerThickness,
-    this.resizerColor,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.resizerThickness = 4.0,
+    this.resizerColor = const Color(0xFF171717),
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final TableTheme? tableTheme;
+  final double resizerThickness;
+  final Color resizerColor;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const resizableTableThemeTokens = ResizableTableThemeTokens();

@@ -4,13 +4,13 @@
 // ═══════════════════════════════════════════════════════════
 
 class FilterBarThemeTokens {
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const FilterBarThemeTokens({
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const filterBarThemeTokens = FilterBarThemeTokens();

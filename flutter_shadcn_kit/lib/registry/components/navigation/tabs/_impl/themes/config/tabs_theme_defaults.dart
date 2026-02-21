@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../tabs.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,59 +9,53 @@
 // ═══════════════════════════════════════════════════════════
 
 class TabsThemeDefaults {
-  final Object? containerPadding;
-  final Object? tabPadding;
-  final Object? backgroundColor;
-
-  /// Widget fallback: compTheme?.borderRadius ?? theme.borderRadiusLg
-  final Object? borderRadius;
-
   const TabsThemeDefaults({
-    this.containerPadding,
-    this.tabPadding,
-    this.backgroundColor,
-    this.borderRadius,
+    this.containerPadding = const EdgeInsets.all(4.0),
+    this.tabPadding = const EdgeInsets.symmetric(
+      horizontal: 16.0,
+      vertical: 4.0,
+    ),
+    this.backgroundColor = const Color(0xFFF5F5F5),
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
   });
+
+  final EdgeInsetsGeometry containerPadding;
+  final EdgeInsetsGeometry tabPadding;
+  final Color backgroundColor;
+  final BorderRadiusGeometry borderRadius;
 }
 
 class TabContainerThemeDefaults {
-  final Object? builder;
-
-  /// Widget fallback: compTheme?.childBuilder ?? ((_
-  final Object? childBuilder;
-
   const TabContainerThemeDefaults({this.builder, this.childBuilder});
+
+  final TabBuilder? builder;
+  final TabChildBuilder? childBuilder;
 }
 
 class TabListThemeDefaults {
-  final Object? borderColor;
-  final Object? borderWidth;
-  final Object? indicatorColor;
-  final Object? indicatorHeight;
-
   const TabListThemeDefaults({
-    this.borderColor,
-    this.borderWidth,
-    this.indicatorColor,
-    this.indicatorHeight,
+    this.borderColor = const Color(0xFFE5E5E5),
+    this.borderWidth = 1.0,
+    this.indicatorColor = const Color(0xFF171717),
+    this.indicatorHeight = 2.0,
   });
+
+  final Color borderColor;
+  final double borderWidth;
+  final Color indicatorColor;
+  final double indicatorHeight;
 }
 
 class TabPaneThemeDefaults {
-  /// Widget fallback: compTheme?.borderRadius ?? theme.borderRadiusLg
-  final Object? borderRadius;
-  final Object? backgroundColor;
-
-  /// Widget fallback: compTheme?.border
-  final Object? border;
-
-  /// Widget fallback: compTheme?.barHeight ?? (32 * theme.scaling
-  final Object? barHeight;
-
   const TabPaneThemeDefaults({
-    this.borderRadius,
-    this.backgroundColor,
-    this.border,
-    this.barHeight,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.backgroundColor = const Color(0xFFFFFFFF),
+    this.border = const BorderSide(color: Color(0xFFE5E5E5), width: 1.0),
+    this.barHeight = 32.0,
   });
+
+  final BorderRadiusGeometry borderRadius;
+  final Color backgroundColor;
+  final BorderSide border;
+  final double barHeight;
 }

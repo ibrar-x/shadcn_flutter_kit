@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../table.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,31 +9,27 @@
 // ═══════════════════════════════════════════════════════════
 
 class TableThemeDefaults {
-  final Object? border;
-  final Object? borderRadius;
-
-  /// Widget fallback: appTheme.colorScheme.background
-  final Object? backgroundColor;
-  final Object? cellTheme;
-
   const TableThemeDefaults({
     this.border,
     this.borderRadius,
-    this.backgroundColor,
+    this.backgroundColor = const Color(0xFFFFFFFF),
     this.cellTheme,
   });
+
+  final Border? border;
+  final BorderRadiusGeometry? borderRadius;
+  final Color backgroundColor;
+  final TableCellTheme? cellTheme;
 }
 
 class ResizableTableThemeDefaults {
-  final Object? tableTheme;
-
-  /// Widget fallback: 4
-  final Object? resizerThickness;
-  final Object? resizerColor;
-
   const ResizableTableThemeDefaults({
     this.tableTheme,
-    this.resizerThickness = 4,
-    this.resizerColor,
+    this.resizerThickness = 4.0,
+    this.resizerColor = const Color(0xFF171717),
   });
+
+  final TableTheme? tableTheme;
+  final double resizerThickness;
+  final Color resizerColor;
 }

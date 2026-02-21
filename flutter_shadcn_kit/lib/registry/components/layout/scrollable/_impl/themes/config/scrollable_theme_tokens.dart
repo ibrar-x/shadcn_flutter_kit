@@ -1,28 +1,31 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class ScrollableClientThemeTokens {
-  final Object? diagonalDragBehavior;
-  final Object? dragStartBehavior;
-  final Object? keyboardDismissBehavior;
-  final Object? clipBehavior;
-  final Object? hitTestBehavior;
-  final Object? overscroll;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const ScrollableClientThemeTokens({
-    this.diagonalDragBehavior,
-    this.dragStartBehavior,
-    this.keyboardDismissBehavior,
-    this.clipBehavior,
-    this.hitTestBehavior,
-    this.overscroll,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.diagonalDragBehavior = DiagonalDragBehavior.none,
+    this.dragStartBehavior = DragStartBehavior.start,
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    this.clipBehavior = Clip.hardEdge,
+    this.hitTestBehavior = HitTestBehavior.opaque,
+    this.overscroll = false,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final DiagonalDragBehavior diagonalDragBehavior;
+  final DragStartBehavior dragStartBehavior;
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+  final Clip clipBehavior;
+  final HitTestBehavior hitTestBehavior;
+  final bool overscroll;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const scrollableClientThemeTokens = ScrollableClientThemeTokens();

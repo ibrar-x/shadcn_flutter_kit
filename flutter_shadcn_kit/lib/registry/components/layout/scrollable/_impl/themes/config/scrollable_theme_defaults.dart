@@ -1,3 +1,6 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,25 +8,19 @@
 // ═══════════════════════════════════════════════════════════
 
 class ScrollableClientThemeDefaults {
-  final Object? diagonalDragBehavior;
-  final Object? dragStartBehavior;
-  final Object? keyboardDismissBehavior;
-
-  /// Widget fallback: compTheme?.clipBehavior ?? Clip.hardEdge
-  final Object? clipBehavior;
-
-  /// Widget fallback: compTheme?.hitTestBehavior ?? HitTestBehavior.opaque
-  final Object? hitTestBehavior;
-
-  /// Widget fallback: compTheme?.overscroll ?? false
-  final Object? overscroll;
-
   const ScrollableClientThemeDefaults({
-    this.diagonalDragBehavior,
-    this.dragStartBehavior,
-    this.keyboardDismissBehavior,
-    this.clipBehavior,
-    this.hitTestBehavior,
-    this.overscroll,
+    this.diagonalDragBehavior = DiagonalDragBehavior.none,
+    this.dragStartBehavior = DragStartBehavior.start,
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    this.clipBehavior = Clip.hardEdge,
+    this.hitTestBehavior = HitTestBehavior.opaque,
+    this.overscroll = false,
   });
+
+  final DiagonalDragBehavior diagonalDragBehavior;
+  final DragStartBehavior dragStartBehavior;
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+  final Clip clipBehavior;
+  final HitTestBehavior hitTestBehavior;
+  final bool overscroll;
 }

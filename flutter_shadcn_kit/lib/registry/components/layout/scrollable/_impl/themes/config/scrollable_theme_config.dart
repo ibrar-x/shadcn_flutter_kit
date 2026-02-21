@@ -3,13 +3,14 @@
 // Registration wiring (do not edit manually)
 // ═══════════════════════════════════════════════════════════
 
+import '../../../scrollable.dart';
 import 'scrollable_theme_defaults.dart';
 import 'scrollable_theme_tokens.dart';
 
 class ScrollableThemeConfig {
   const ScrollableThemeConfig._();
 
-  static const Object? scrollableClientTheme = null;
+  static const ScrollableClientTheme? scrollableClientTheme = null;
   static const String scrollableClientThemeType = 'ScrollableClientTheme';
   static const ScrollableClientThemeDefaults scrollableClientThemeDefaults =
       ScrollableClientThemeDefaults();
@@ -17,7 +18,7 @@ class ScrollableThemeConfig {
       scrollableClientThemeTokens;
 
   static T? resolve<T>() {
-    if (T.toString() == scrollableClientThemeType) {
+    if (T == ScrollableClientTheme) {
       return scrollableClientTheme as T?;
     }
     return null;

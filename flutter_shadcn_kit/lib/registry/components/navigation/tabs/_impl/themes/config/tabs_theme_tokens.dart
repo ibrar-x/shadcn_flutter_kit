@@ -1,80 +1,87 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../tabs.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class TabsThemeTokens {
-  final Object? containerPadding;
-  final Object? tabPadding;
-  final Object? backgroundColor;
-  final Object? borderRadius;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const TabsThemeTokens({
-    this.containerPadding,
-    this.tabPadding,
-    this.backgroundColor,
-    this.borderRadius,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.containerPadding = const EdgeInsets.all(4.0),
+    this.tabPadding = const EdgeInsets.symmetric(
+      horizontal: 16.0,
+      vertical: 4.0,
+    ),
+    this.backgroundColor = const Color(0xFFF5F5F5),
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final EdgeInsetsGeometry containerPadding;
+  final EdgeInsetsGeometry tabPadding;
+  final Color backgroundColor;
+  final BorderRadiusGeometry borderRadius;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const tabsThemeTokens = TabsThemeTokens();
 
 class TabContainerThemeTokens {
-  final Object? builder;
-  final Object? childBuilder;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const TabContainerThemeTokens({
     this.builder,
     this.childBuilder,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final TabBuilder? builder;
+  final TabChildBuilder? childBuilder;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const tabContainerThemeTokens = TabContainerThemeTokens();
 
 class TabListThemeTokens {
-  final Object? borderColor;
-  final Object? borderWidth;
-  final Object? indicatorColor;
-  final Object? indicatorHeight;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const TabListThemeTokens({
-    this.borderColor,
-    this.borderWidth,
-    this.indicatorColor,
-    this.indicatorHeight,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.borderColor = const Color(0xFFE5E5E5),
+    this.borderWidth = 1.0,
+    this.indicatorColor = const Color(0xFF171717),
+    this.indicatorHeight = 2.0,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final Color borderColor;
+  final double borderWidth;
+  final Color indicatorColor;
+  final double indicatorHeight;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const tabListThemeTokens = TabListThemeTokens();
 
 class TabPaneThemeTokens {
-  final Object? borderRadius;
-  final Object? backgroundColor;
-  final Object? border;
-  final Object? barHeight;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const TabPaneThemeTokens({
-    this.borderRadius,
-    this.backgroundColor,
-    this.border,
-    this.barHeight,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.backgroundColor = const Color(0xFFFFFFFF),
+    this.border = const BorderSide(color: Color(0xFFE5E5E5), width: 1.0),
+    this.barHeight = 32.0,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final BorderRadiusGeometry borderRadius;
+  final Color backgroundColor;
+  final BorderSide border;
+  final double barHeight;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const tabPaneThemeTokens = TabPaneThemeTokens();

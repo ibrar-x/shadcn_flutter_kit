@@ -1,38 +1,40 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class CardThemeTokens {
-  final Object? padding;
-  final Object? filled;
-  final Object? fillColor;
-  final Object? borderRadius;
-  final Object? borderColor;
-  final Object? borderWidth;
-  final Object? clipBehavior;
-  final Object? boxShadow;
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
-  final Object? duration;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const CardThemeTokens({
-    this.padding,
-    this.filled,
-    this.fillColor,
+    this.padding = const EdgeInsets.all(16.0),
+    this.filled = false,
+    this.fillColor = const Color(0xFFE5E5E5),
     this.borderRadius,
     this.borderColor,
     this.borderWidth,
-    this.clipBehavior,
+    this.clipBehavior = Clip.none,
     this.boxShadow,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.duration,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final EdgeInsetsGeometry padding;
+  final bool filled;
+  final Color fillColor;
+  final BorderRadiusGeometry? borderRadius;
+  final Color? borderColor;
+  final double? borderWidth;
+  final Clip clipBehavior;
+  final List<BoxShadow>? boxShadow;
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final Duration? duration;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const cardThemeTokens = CardThemeTokens();
