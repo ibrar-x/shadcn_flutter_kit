@@ -13,24 +13,34 @@ Scripts for building and validating registry metadata/manifests.
 
 - `registry_sync_all.dart`
   - Syncs component metadata + `components.json` + docs snapshot.
+  - Docs: `registry_sync_all_readme.md`
 - `registry_components_manifest.dart`
   - Rebuilds `components.json` from component metadata and filesystem.
+  - Docs: `registry_components_manifest_readme.md`
 - `registry_meta_update.dart`
   - Updates existing component `meta.json` files (files/deps/version/api merge).
+  - Docs: `registry_meta_update_readme.md`
 - `registry_readme_meta.dart`
   - Generates `<id>.meta.json` from README content.
+  - Docs: `registry_readme_meta_readme.md`
 - `registry_index_generate.dart`
   - Generates `lib/registry/index.json`.
+  - Docs: `registry_index_generate_readme.md`
 - `registry_verify.dart`
   - Validates manifest/files/dependencies consistency.
+  - Docs: `registry_verify_readme.md`
 - `registry_shared_manifest.dart`
   - Generates `shared_manifest.json` from `registry/shared`.
+  - Docs: `registry_shared_manifest_readme.md`
 - `registry_skill_bundle.dart`
   - Creates skill snapshot bundles under `skills/`.
+  - Docs: `registry_skill_bundle_readme.md`
 - `registry_tool.dart`
   - Interactive helper (`init`, `sync`, `add-impl`).
+  - Docs: `registry_tool_readme.md`
 - `generate_available_components.dart`
   - Generates available components listing.
+  - Docs: `generate_available_components_readme.md`
 
 ## Help
 
