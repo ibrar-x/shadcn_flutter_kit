@@ -1,34 +1,45 @@
+import 'package:country_flags/country_flags.dart';
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class PhoneInputThemeTokens {
-  final Object? padding;
-  final Object? borderRadius;
-  final Object? popupConstraints;
-  final Object? maxWidth;
-  final Object? flagHeight;
-  final Object? flagWidth;
-  final Object? flagGap;
-  final Object? countryGap;
-  final Object? flagShape;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const PhoneInputThemeTokens({
-    this.padding,
+    this.padding = const EdgeInsets.only(
+      top: 8.0,
+      left: 8.0,
+      bottom: 8.0,
+      right: 4.0,
+    ),
     this.borderRadius,
-    this.popupConstraints,
-    this.maxWidth,
-    this.flagHeight,
-    this.flagWidth,
-    this.flagGap,
-    this.countryGap,
-    this.flagShape,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.popupConstraints = const BoxConstraints(
+      maxWidth: 250.0,
+      maxHeight: 300.0,
+    ),
+    this.maxWidth = 200.0,
+    this.flagHeight = 18.0,
+    this.flagWidth = 24.0,
+    this.flagGap = 8.0,
+    this.countryGap = 16.0,
+    this.flagShape = const RoundedRectangle(4.0),
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final EdgeInsetsGeometry padding;
+  final BorderRadiusGeometry? borderRadius;
+  final BoxConstraints popupConstraints;
+  final double maxWidth;
+  final double flagHeight;
+  final double flagWidth;
+  final double flagGap;
+  final double countryGap;
+  final Shape flagShape;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const phoneInputThemeTokens = PhoneInputThemeTokens();

@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../form_field/form_field.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,21 +9,21 @@
 // ═══════════════════════════════════════════════════════════
 
 class TimePickerThemeDefaults {
-  final Object? mode;
-  final Object? popoverAlignment;
-  final Object? popoverAnchorAlignment;
-  final Object? popoverPadding;
-  final Object? use24HourFormat;
-  final Object? showSeconds;
-  final Object? dialogTitle;
-
   const TimePickerThemeDefaults({
-    this.mode,
+    this.mode = PromptMode.dialog,
     this.popoverAlignment,
     this.popoverAnchorAlignment,
     this.popoverPadding,
     this.use24HourFormat,
-    this.showSeconds,
+    this.showSeconds = false,
     this.dialogTitle,
   });
+
+  final PromptMode mode;
+  final AlignmentGeometry? popoverAlignment;
+  final AlignmentGeometry? popoverAnchorAlignment;
+  final EdgeInsetsGeometry? popoverPadding;
+  final bool? use24HourFormat;
+  final bool showSeconds;
+  final Widget? dialogTitle;
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,41 +7,41 @@
 // ═══════════════════════════════════════════════════════════
 
 class RadioCardThemeDefaults {
-  final Object? enabledCursor;
-  final Object? disabledCursor;
-  final Object? hoverColor;
-  final Object? color;
-  final Object? borderWidth;
-  final Object? selectedBorderWidth;
-  final Object? borderRadius;
-  final Object? padding;
-  final Object? borderColor;
-  final Object? selectedBorderColor;
-
   const RadioCardThemeDefaults({
-    this.enabledCursor,
-    this.disabledCursor,
-    this.hoverColor,
-    this.color,
-    this.borderWidth,
-    this.selectedBorderWidth,
-    this.borderRadius,
-    this.padding,
-    this.borderColor,
-    this.selectedBorderColor,
+    this.enabledCursor = SystemMouseCursors.click,
+    this.disabledCursor = SystemMouseCursors.forbidden,
+    this.hoverColor = const Color(0xFFF5F5F5),
+    this.color = const Color(0xFFFFFFFF),
+    this.borderWidth = 1.0,
+    this.selectedBorderWidth = 2.0,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6.0)),
+    this.padding = const EdgeInsets.all(16.0),
+    this.borderColor = const Color(0xFFF5F5F5),
+    this.selectedBorderColor = const Color(0xFF171717),
   });
+
+  final MouseCursor enabledCursor;
+  final MouseCursor disabledCursor;
+  final Color hoverColor;
+  final Color color;
+  final double borderWidth;
+  final double selectedBorderWidth;
+  final BorderRadiusGeometry borderRadius;
+  final EdgeInsetsGeometry padding;
+  final Color borderColor;
+  final Color selectedBorderColor;
 }
 
 class RadioThemeDefaults {
-  final Object? activeColor;
-  final Object? borderColor;
-  final Object? backgroundColor;
-  final Object? size;
-
   const RadioThemeDefaults({
-    this.activeColor,
-    this.borderColor,
-    this.backgroundColor,
-    this.size,
+    this.activeColor = const Color(0xFF171717),
+    this.borderColor = const Color(0xFFE5E5E5),
+    this.backgroundColor = const Color(0x4DE5E5E5),
+    this.size = 16.0,
   });
+
+  final Color activeColor;
+  final Color borderColor;
+  final Color backgroundColor;
+  final double size;
 }

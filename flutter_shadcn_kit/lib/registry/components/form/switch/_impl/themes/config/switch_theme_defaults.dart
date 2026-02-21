@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,19 +7,19 @@
 // ═══════════════════════════════════════════════════════════
 
 class SwitchThemeDefaults {
-  final Object? activeColor;
-  final Object? inactiveColor;
-  final Object? activeThumbColor;
-  final Object? inactiveThumbColor;
-  final Object? gap;
-  final Object? borderRadius;
-
   const SwitchThemeDefaults({
-    this.activeColor,
-    this.inactiveColor,
-    this.activeThumbColor,
-    this.inactiveThumbColor,
-    this.gap,
-    this.borderRadius,
+    this.activeColor = const Color(0xFF171717),
+    this.inactiveColor = const Color(0xFFE5E5E5),
+    this.activeThumbColor = const Color(0xFFFFFFFF),
+    this.inactiveThumbColor = const Color(0xFF0A0A0A),
+    this.gap = 8.0,
+    this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
   });
+
+  final Color activeColor;
+  final Color inactiveColor;
+  final Color activeThumbColor;
+  final Color inactiveThumbColor;
+  final double gap;
+  final BorderRadiusGeometry borderRadius;
 }

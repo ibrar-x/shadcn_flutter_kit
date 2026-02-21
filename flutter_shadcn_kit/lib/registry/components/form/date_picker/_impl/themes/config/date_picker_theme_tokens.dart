@@ -1,28 +1,33 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../display/calendar/calendar.dart';
+import '../../../../form_field/form_field.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class DatePickerThemeTokens {
-  final Object? mode;
-  final Object? initialView;
-  final Object? initialViewType;
-  final Object? popoverAlignment;
-  final Object? popoverAnchorAlignment;
-  final Object? popoverPadding;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const DatePickerThemeTokens({
-    this.mode,
+    this.mode = PromptMode.dialog,
     this.initialView,
-    this.initialViewType,
-    this.popoverAlignment,
-    this.popoverAnchorAlignment,
+    this.initialViewType = CalendarViewType.date,
+    this.popoverAlignment = Alignment.topLeft,
+    this.popoverAnchorAlignment = Alignment.bottomLeft,
     this.popoverPadding,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final PromptMode mode;
+  final CalendarView? initialView;
+  final CalendarViewType initialViewType;
+  final AlignmentGeometry popoverAlignment;
+  final AlignmentGeometry popoverAnchorAlignment;
+  final EdgeInsetsGeometry? popoverPadding;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const datePickerThemeTokens = DatePickerThemeTokens();
