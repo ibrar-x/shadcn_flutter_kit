@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 
@@ -120,7 +120,7 @@ int _parseManifestVersion(dynamic value, {int fallback = 1}) {
 
 void _printUsage() {
   stdout.writeln(
-    'Usage: dart run tool/registry_components_manifest.dart [options]',
+    'Usage: dart run tool/registry/registry_components_manifest.dart [options]',
   );
   stdout.writeln('');
   stdout.writeln('Generates components.json and the docs/assets snapshot,');

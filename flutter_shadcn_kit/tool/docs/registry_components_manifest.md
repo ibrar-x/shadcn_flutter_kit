@@ -14,7 +14,7 @@ Generates `components.json` and the docs snapshot, and refreshes shared entries.
 
 ## Usage
 ```bash
-dart run ../tool/registry_components_manifest.dart
+dart run tool/registry/registry_components_manifest.dart
 ```
 
 ## Flags

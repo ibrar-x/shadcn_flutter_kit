@@ -24,15 +24,21 @@ void main(List<String> args) {
     return;
   }
 
-  final presetSourceFile = File('${registryDir.path}/shared/theme/preset_themes.dart');
+  final presetSourceFile = File(
+    '${registryDir.path}/shared/theme/preset_themes.dart',
+  );
   if (!presetSourceFile.existsSync()) {
     stderr.writeln('Error: ${presetSourceFile.path} not found.');
     exitCode = 1;
     return;
   }
 
-  final presets = parseThemePresetsFromDart(presetSourceFile.readAsStringSync());
-  final preset = presets.where((item) => (item['id'] as String) == themeId).firstOrNull;
+  final presets = parseThemePresetsFromDart(
+    presetSourceFile.readAsStringSync(),
+  );
+  final preset = presets
+      .where((item) => (item['id'] as String) == themeId)
+      .firstOrNull;
   if (preset == null) {
     stderr.writeln('Error: Theme "$themeId" not found in preset_themes.dart.');
     exitCode = 1;
@@ -50,12 +56,18 @@ void main(List<String> args) {
     generatedAt: DateTime.now().toUtc().toIso8601String(),
   );
 
-  outputFile.writeAsStringSync(const JsonEncoder.withIndent('  ').convert(outputMap));
+  outputFile.writeAsStringSync(
+    const JsonEncoder.withIndent('  ').convert(outputMap),
+  );
   stdout.writeln('Generated ${outputFile.path}');
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: flutter pub run tool/theme_preset_export_one.dart <theme-id>');
+  stdout.writeln(
+    'Usage: dart run tool/theme/theme_preset_export_one.dart <theme-id>',
+  );
   stdout.writeln('');
-  stdout.writeln('Exports one registry Dart theme preset to lib/registry/themes_preset/<theme-id>.json');
+  stdout.writeln(
+    'Exports one registry Dart theme preset to lib/registry/themes_preset/<theme-id>.json',
+  );
 }

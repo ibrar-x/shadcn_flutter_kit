@@ -11,7 +11,7 @@ Generates documentation metadata (`<id>.meta.json`) from component README.md fil
 
 ## Usage
 ```bash
-dart run ../tool/registry_readme_meta.dart
+dart run tool/registry/registry_readme_meta.dart
 ```
 
 ## Notes

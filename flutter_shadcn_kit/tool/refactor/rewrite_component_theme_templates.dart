@@ -245,7 +245,7 @@ String _buildDefaultsFile(
     out.writeln();
   }
 
-  return out.toString().trimRight() + '\n';
+  return '${out.toString().trimRight()}\n';
 }
 
 String _buildTokensFile(
@@ -288,7 +288,7 @@ String _buildTokensFile(
     out.writeln();
   }
 
-  return out.toString().trimRight() + '\n';
+  return '${out.toString().trimRight()}\n';
 }
 
 String _buildConfigFile(String configClassName, List<Registration> regs) {
@@ -341,7 +341,7 @@ String _buildConfigFile(String configClassName, List<Registration> regs) {
   out.writeln('  }');
   out.writeln('}');
 
-  return out.toString().trimRight() + '\n';
+  return '${out.toString().trimRight()}\n';
 }
 
 String? _literalOrNull(String expr) {

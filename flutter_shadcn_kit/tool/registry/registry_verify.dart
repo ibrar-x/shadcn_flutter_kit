@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 
@@ -94,7 +94,7 @@ bool _mapsEqual(List<Map<String, String>> a, List<Map<String, String>> b) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run tool/registry_verify.dart');
+  stdout.writeln('Usage: dart run tool/registry/registry_verify.dart');
   stdout.writeln('');
   stdout.writeln('Validates registry/components.json against the filesystem:');
   stdout.writeln('  - duplicate/missing/extra component entries');

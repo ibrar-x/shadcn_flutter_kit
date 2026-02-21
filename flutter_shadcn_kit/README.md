@@ -7,9 +7,9 @@ installs from and the docs that describe each component.
 1. Understand the registry layout:
    `lib/registry` is the source of truth for components and shared helpers.
 2. Generate or update manifests:
-   `dart run tool/registry_sync_all.dart`
+   `dart run tool/registry/registry_sync_all.dart`
 3. Validate outputs:
-   `dart run tool/registry_verify.dart`
+   `dart run tool/registry/registry_verify.dart`
 
 For step-by-step instructions, see `tool/docs/getting-started.md`.
 
@@ -49,13 +49,13 @@ Located in `tool/`. These scripts are the canonical source of truth for registry
 manifests and metadata.
 
 Common commands:
-- `dart run tool/registry_sync_all.dart` updates meta.json files, components.json,
+- `dart run tool/registry/registry_sync_all.dart` updates meta.json files, components.json,
   shared manifests, and index output.
-- `dart run tool/registry_components_manifest.dart` rebuilds `components.json`.
-- `dart run tool/registry_shared_manifest.dart` rebuilds `shared_manifest.json`.
-- `dart run tool/registry_meta_update.dart` refreshes `meta.json` files.
-- `dart run tool/registry_index_generate.dart` rebuilds `index.json`.
-- `dart run tool/registry_verify.dart` checks for missing entries and mismatches.
+- `dart run tool/registry/registry_components_manifest.dart` rebuilds `components.json`.
+- `dart run tool/registry/registry_shared_manifest.dart` rebuilds `shared_manifest.json`.
+- `dart run tool/registry/registry_meta_update.dart` refreshes `meta.json` files.
+- `dart run tool/registry/registry_index_generate.dart` rebuilds `index.json`.
+- `dart run tool/registry/registry_verify.dart` checks for missing entries and mismatches.
 
 Docs for each tool live in `tool/docs/`:
 - `tool/docs/registry_components_manifest.md`
@@ -84,4 +84,4 @@ This will:
 ## Notes
 - Do not edit `components.json` by hand. Use the tooling in `tool/`.
 - Keep `meta.json` as the single source of component dependencies and version.
-- Run `dart run tool/registry_sync_all.dart` after large changes.
+- Run `dart run tool/registry/registry_sync_all.dart` after large changes.

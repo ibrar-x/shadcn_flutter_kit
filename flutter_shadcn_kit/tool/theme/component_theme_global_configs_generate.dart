@@ -33,12 +33,13 @@ void main() {
     return;
   }
 
-  final files = componentsDir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('_theme_config.dart'))
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final files =
+      componentsDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('_theme_config.dart'))
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
 
   final classRe = RegExp(r'class\s+(\w+ThemeConfig)\s*\{');
   final typeRe = RegExp(r'static const String\s+(\w+Type)\s*=\s*');
@@ -58,9 +59,13 @@ void main() {
     final regs = <_Registration>[];
     for (final m in typeRe.allMatches(content)) {
       final typeConst = m.group(1)!;
-      final resolverField =
-          typeConst.substring(0, typeConst.length - 'Type'.length);
-      regs.add(_Registration(typeConst: typeConst, resolverField: resolverField));
+      final resolverField = typeConst.substring(
+        0,
+        typeConst.length - 'Type'.length,
+      );
+      regs.add(
+        _Registration(typeConst: typeConst, resolverField: resolverField),
+      );
     }
 
     configs.add(
@@ -75,7 +80,9 @@ void main() {
 
   final buffer = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
-    ..writeln('// Run: dart run tool/component_theme_global_configs_generate.dart')
+    ..writeln(
+      '// Run: dart run tool/theme/component_theme_global_configs_generate.dart',
+    )
     ..writeln()
     ..writeln("import '../shared/theme/component_theme_global_registry.dart';");
 

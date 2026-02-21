@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 const indexSchemaVersion = 1;
 
@@ -121,7 +121,7 @@ void validateIndex(Map<String, dynamic> index) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run ../tool/registry_index_generate.dart');
+  stdout.writeln('Usage: dart run tool/registry/registry_index_generate.dart');
   stdout.writeln('');
   stdout.writeln(
     'Generates registry/index.json from components.json + meta.json.',

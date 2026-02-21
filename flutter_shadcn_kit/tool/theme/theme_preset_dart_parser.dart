@@ -69,9 +69,13 @@ Directory? findRegistryDir(Directory from) {
 }
 
 List<Map<String, dynamic>> parseThemePresetsFromDart(String source) {
-  final listStart = source.indexOf('final List<RegistryThemePreset> registryThemePresets = [');
+  final listStart = source.indexOf(
+    'final List<RegistryThemePreset> registryThemePresets = [',
+  );
   if (listStart == -1) {
-    throw FormatException('Could not find registryThemePresets list in preset_themes.dart');
+    throw FormatException(
+      'Could not find registryThemePresets list in preset_themes.dart',
+    );
   }
 
   final openBracket = source.indexOf('[', listStart);
@@ -112,21 +116,26 @@ Map<String, dynamic> _parsePresetBlock(String block) {
   final id = _firstMatch(block, RegExp(r"id:\s*'([^']+)'"), 'id');
   final name = _firstMatch(block, RegExp(r"name:\s*'([^']+)'"), 'name');
 
-  final light = _parseColorScheme(_extractConstructorBody(block, 'light', 'ColorScheme'));
-  final dark = _parseColorScheme(_extractConstructorBody(block, 'dark', 'ColorScheme'));
+  final light = _parseColorScheme(
+    _extractConstructorBody(block, 'light', 'ColorScheme'),
+  );
+  final dark = _parseColorScheme(
+    _extractConstructorBody(block, 'dark', 'ColorScheme'),
+  );
 
-  final lightTokens = _parseTokens(_extractConstructorBody(block, 'lightTokens', 'RegistryThemePresetTokens'));
-  final darkTokens = _parseTokens(_extractConstructorBody(block, 'darkTokens', 'RegistryThemePresetTokens'));
+  final lightTokens = _parseTokens(
+    _extractConstructorBody(block, 'lightTokens', 'RegistryThemePresetTokens'),
+  );
+  final darkTokens = _parseTokens(
+    _extractConstructorBody(block, 'darkTokens', 'RegistryThemePresetTokens'),
+  );
 
   return {
     'id': id,
     'name': name,
     'light': light,
     'dark': dark,
-    'tokens': {
-      'light': lightTokens,
-      'dark': darkTokens,
-    },
+    'tokens': {'light': lightTokens, 'dark': darkTokens},
   };
 }
 
@@ -157,13 +166,20 @@ Map<String, dynamic> _parseTokens(String content) {
     'tokens.spacing.base',
     group: 1,
   );
-  final trackingNormalMatch = RegExp(r'tracking\s*:\s*TrackingScale\(\s*normal\s*:\s*(-?\d+(?:\.\d+)?)\s*\)')
-      .firstMatch(content);
+  final trackingNormalMatch = RegExp(
+    r'tracking\s*:\s*TrackingScale\(\s*normal\s*:\s*(-?\d+(?:\.\d+)?)\s*\)',
+  ).firstMatch(content);
 
-  final shadowsContent = _extractConstructorBody(content, 'shadows', 'ShadowScale');
+  final shadowsContent = _extractConstructorBody(
+    content,
+    'shadows',
+    'ShadowScale',
+  );
   final shadows = <String, dynamic>{};
   for (final field in _shadowFields) {
-    shadows[field] = _parseShadowList(_extractArrayContent(shadowsContent, field));
+    shadows[field] = _parseShadowList(
+      _extractArrayContent(shadowsContent, field),
+    );
   }
 
   final fontSans = _optionalString(content, 'fontSans');
@@ -172,12 +188,8 @@ Map<String, dynamic> _parseTokens(String content) {
 
   return {
     'radius': _num(radiusValue),
-    'spacing': {
-      'base': _num(spacingBaseValue),
-    },
-    'tracking': {
-      'normal': _num(trackingNormalMatch?.group(1) ?? '0'),
-    },
+    'spacing': {'base': _num(spacingBaseValue)},
+    'tracking': {'normal': _num(trackingNormalMatch?.group(1) ?? '0')},
     'shadows': shadows,
     if (fontSans != null) 'fontSans': fontSans,
     if (fontSerif != null) 'fontSerif': fontSerif,
@@ -205,11 +217,18 @@ List<Map<String, dynamic>> _parseShadowList(String content) {
 }
 
 Map<String, dynamic> _parseBoxShadow(String content) {
-  final offset = RegExp(r'offset\s*:\s*Offset\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)')
-      .firstMatch(content);
-  final blur = RegExp(r'blurRadius\s*:\s*(-?\d+(?:\.\d+)?)').firstMatch(content);
-  final spread = RegExp(r'spreadRadius\s*:\s*(-?\d+(?:\.\d+)?)').firstMatch(content);
-  final color = RegExp(r'color\s*:\s*Color\((0x[0-9A-Fa-f]{8})\)').firstMatch(content);
+  final offset = RegExp(
+    r'offset\s*:\s*Offset\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)',
+  ).firstMatch(content);
+  final blur = RegExp(
+    r'blurRadius\s*:\s*(-?\d+(?:\.\d+)?)',
+  ).firstMatch(content);
+  final spread = RegExp(
+    r'spreadRadius\s*:\s*(-?\d+(?:\.\d+)?)',
+  ).firstMatch(content);
+  final color = RegExp(
+    r'color\s*:\s*Color\((0x[0-9A-Fa-f]{8})\)',
+  ).firstMatch(content);
 
   if (offset == null || blur == null || spread == null || color == null) {
     throw FormatException('Invalid BoxShadow block: $content');
@@ -256,7 +275,9 @@ String _firstMatch(String source, RegExp regex, String label, {int group = 1}) {
 }
 
 String? _optionalString(String source, String field) {
-  final match = RegExp('$field\\s*:\\s*"((?:\\\\.|[^"\\\\])*)"').firstMatch(source);
+  final match = RegExp(
+    '$field\\s*:\\s*"((?:\\\\.|[^"\\\\])*)"',
+  ).firstMatch(source);
   if (match == null) {
     return null;
   }
@@ -265,12 +286,17 @@ String? _optionalString(String source, String field) {
 
 String _unescapeDartString(String value) {
   return value
-  .replaceAll(r'\"', '"')
-  .replaceAll(r"\'", "'")
-  .replaceAll(r'\\', r'\');
+      .replaceAll(r'\"', '"')
+      .replaceAll(r"\'", "'")
+      .replaceAll(r'\\', r'\');
 }
 
-int _findMatching(String text, int openIndex, String openChar, String closeChar) {
+int _findMatching(
+  String text,
+  int openIndex,
+  String openChar,
+  String closeChar,
+) {
   var depth = 0;
   for (var i = openIndex; i < text.length; i++) {
     final ch = text[i];

@@ -42,7 +42,7 @@ void main(List<String> args) {
 
 void _printUsage() {
   stdout.writeln(
-    'Usage: dart run tool/generate_available_components.dart [--output <path>]',
+    'Usage: dart run tool/registry/generate_available_components.dart [--output <path>]',
   );
   stdout.writeln('');
   stdout.writeln(

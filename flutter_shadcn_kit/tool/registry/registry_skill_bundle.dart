@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 /// Creates a "skill bundle" folder from your registry directory by copying the
 /// recommended artifacts for AI tools (index + schemas + shared + meta files).
 ///
 /// Usage:
-///   dart tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
-///   dart tool/registry_skill_bundle.dart --info
+///   dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
+///   dart run tool/registry/registry_skill_bundle.dart --info
 ///
 /// Examples:
-///   dart tool/registry_skill_bundle.dart screen_builder
-///   dart tool/registry_skill_bundle.dart screen_builder --out=skills
-///   dart tool/registry_skill_bundle.dart screen_builder --force
+///   dart run tool/registry/registry_skill_bundle.dart screen_builder
+///   dart run tool/registry/registry_skill_bundle.dart screen_builder --out=skills
+///   dart run tool/registry/registry_skill_bundle.dart screen_builder --force
 
 const defaultRegistry = 'flutter_shadcn_kit/lib/registry';
 const defaultOut = 'skills';
@@ -26,7 +26,7 @@ void main(List<String> args) {
 
   if (args.isEmpty || args[0].startsWith('-')) {
     stderr.writeln(
-      '❌ Missing <skill-name>\n\nUsage: dart tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]\n       dart tool/registry_skill_bundle.dart --info',
+      '❌ Missing <skill-name>\n\nUsage: dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]\n       dart run tool/registry/registry_skill_bundle.dart --info',
     );
     exit(1);
   }
@@ -367,8 +367,8 @@ void printInfo() {
 Create a recommended (B) skill bundle for AI tools.
 
 Usage:
-  dart tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
-  dart tool/registry_skill_bundle.dart --info
+  dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
+  dart run tool/registry/registry_skill_bundle.dart --info
 
 Flags:
   --out=DIR       Output root folder (default: skills)

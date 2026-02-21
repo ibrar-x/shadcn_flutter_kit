@@ -16,7 +16,9 @@ void main(List<String> args) {
     return;
   }
 
-  final presetSourceFile = File('${registryDir.path}/shared/theme/preset_themes.dart');
+  final presetSourceFile = File(
+    '${registryDir.path}/shared/theme/preset_themes.dart',
+  );
   if (!presetSourceFile.existsSync()) {
     stderr.writeln('Error: ${presetSourceFile.path} not found.');
     exitCode = 1;
@@ -29,7 +31,9 @@ void main(List<String> args) {
   }
 
   final generatedAt = DateTime.now().toUtc().toIso8601String();
-  final presets = parseThemePresetsFromDart(presetSourceFile.readAsStringSync());
+  final presets = parseThemePresetsFromDart(
+    presetSourceFile.readAsStringSync(),
+  );
   var count = 0;
 
   for (final preset in presets) {
@@ -46,7 +50,9 @@ void main(List<String> args) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: flutter pub run tool/theme_preset_export_all.dart');
+  stdout.writeln('Usage: dart run tool/theme/theme_preset_export_all.dart');
   stdout.writeln('');
-  stdout.writeln('Exports all registry Dart theme presets to lib/registry/themes_preset/*.json');
+  stdout.writeln(
+    'Exports all registry Dart theme presets to lib/registry/themes_preset/*.json',
+  );
 }

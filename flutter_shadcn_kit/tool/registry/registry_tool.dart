@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 const _taxonomyFolders = [
   'core',
@@ -54,7 +54,7 @@ Future<void> main(List<String> args) async {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run tool/registry_tool.dart <command>');
+  stdout.writeln('Usage: dart run tool/registry/registry_tool.dart <command>');
   stdout.writeln('');
   stdout.writeln('Commands:');
   stdout.writeln('  init      Interactive component/composite setup:');

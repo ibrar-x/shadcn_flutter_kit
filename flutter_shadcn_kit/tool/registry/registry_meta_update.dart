@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 
@@ -96,7 +96,9 @@ Map<String, String> _parseComponentVersionOverrides(List<String> values) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run tool/registry_meta_update.dart [options]');
+  stdout.writeln(
+    'Usage: dart run tool/registry/registry_meta_update.dart [options]',
+  );
   stdout.writeln('');
   stdout.writeln('Updates existing component meta.json files with:');
   stdout.writeln('  - files list');

@@ -38,12 +38,13 @@ void main(List<String> args) {
     return;
   }
 
-  final presetFiles = themesPresetDir
-      .listSync()
-      .whereType<File>()
-      .where((file) => file.path.toLowerCase().endsWith('.json'))
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final presetFiles =
+      themesPresetDir
+          .listSync()
+          .whereType<File>()
+          .where((file) => file.path.toLowerCase().endsWith('.json'))
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
 
   if (presetFiles.isEmpty) {
     stderr.writeln('Error: No JSON files found in ${themesPresetDir.path}.');
@@ -87,7 +88,8 @@ void main(List<String> args) {
     final entry = <String, dynamic>{
       'id': id,
       'name': name,
-      if (description != null && description.isNotEmpty) 'description': description,
+      if (description != null && description.isNotEmpty)
+        'description': description,
       'file': 'themes_preset/${_basename(file.path)}',
       if (primary != null || background != null)
         'preview': {
@@ -112,13 +114,16 @@ void main(List<String> args) {
   }
 
   if (defaultThemeId != null && !seenIds.contains(defaultThemeId)) {
-    stderr.writeln('Error: --default "$defaultThemeId" does not exist in themes_preset JSON files.');
+    stderr.writeln(
+      'Error: --default "$defaultThemeId" does not exist in themes_preset JSON files.',
+    );
     exitCode = 1;
     return;
   }
 
   final output = <String, dynamic>{
-    r'$schema': 'https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json',
+    r'$schema':
+        'https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json',
     'schemaVersion': 1,
     'generatedAt': DateTime.now().toUtc().toIso8601String(),
     if (defaultThemeId != null) 'defaultThemeId': defaultThemeId,
@@ -126,14 +131,22 @@ void main(List<String> args) {
   };
 
   final outputFile = File('${registryDir.path}/$outputFileName');
-  outputFile.writeAsStringSync(const JsonEncoder.withIndent('  ').convert(output));
-  stdout.writeln('Generated ${outputFile.path} with ${themes.length} theme(s).');
+  outputFile.writeAsStringSync(
+    const JsonEncoder.withIndent('  ').convert(output),
+  );
+  stdout.writeln(
+    'Generated ${outputFile.path} with ${themes.length} theme(s).',
+  );
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: flutter pub run tool/theme_index_generate.dart [--default <id>] [--output <filename>]');
+  stdout.writeln(
+    'Usage: dart run tool/theme/theme_index_generate.dart [--default <id>] [--output <filename>]',
+  );
   stdout.writeln('');
-  stdout.writeln('Generates lib/registry/theme.index.json from lib/registry/themes_preset/*.json');
+  stdout.writeln(
+    'Generates lib/registry/theme.index.json from lib/registry/themes_preset/*.json',
+  );
 }
 
 Directory? _findRegistryDir(Directory from) {

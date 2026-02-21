@@ -15,7 +15,7 @@ One-shot sync for meta, components manifest, and shared entries.
 
 ## Usage
 ```bash
-dart run ../tool/registry_sync_all.dart
+dart run tool/registry/registry_sync_all.dart
 ```
 
 ## Flags

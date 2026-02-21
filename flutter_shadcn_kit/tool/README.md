@@ -1,44 +1,22 @@
-# Registry Tooling
+# Tooling Layout
 
-This folder contains the registry tooling for metadata, manifests, docs, and skill bundles.
+Tool scripts are grouped by purpose:
 
-Docs live in `tool/docs` and include per-script references plus a getting started guide.
+- `tool/registry/`
+  - Registry metadata/manifests/index/verification and bootstrap tooling.
+- `tool/theme/`
+  - Theme schema/index/config generation and preset exports.
+- `tool/refactor/`
+  - Migration/refactor scripts.
+- `tool/maintenance/`
+  - Cleanup and maintenance utilities.
+- `tool/common/`
+  - Shared helpers used by scripts in other folders.
 
-## Getting Started
-See `tool/docs/getting-started.md`.
+Each folder includes a local `README.md` describing scripts and run commands.
 
-## Scripts (renamed)
+## Docs
 
-### `registry_readme_meta.dart`
-Generates `<id>.meta.json` from README.md files (documentation metadata).
+Legacy per-script docs are still available in:
 
-### `registry_meta_update.dart`
-Updates existing `meta.json` with file lists, dependencies, API, and version (default `1.0.0`).
-
-### `registry_components_manifest.dart`
-Generates `components.json` and the docs snapshot, and refreshes shared entries.
-
-### `registry_shared_manifest.dart`
-Generates `shared_manifest.json` from `registry/shared`.
-
-### `registry_sync_all.dart`
-One-shot sync for meta + components + shared entries.
-
-### `registry_verify.dart`
-Validates `components.json` against disk and dependency references.
-
-### `component_theme_schema_generate.dart`
-Generates `theme.schema.json` for every component under `lib/registry/components` using discovered `ComponentThemeData` fields.
-
-### `registry_index_generate.dart`
-Builds `index.json` from `components.json` + `meta.json` (optionally merges `<id>.meta.json`).
-
-### `registry_skill_bundle.dart`
-Creates a registry snapshot bundle for AI skills.
-
-### `registry_tool.dart`
-Interactive registry helper for bootstrapping and syncing components.
-
-## Notes
-- The tooling **no longer writes `components_1.json`**.
-- All scripts support `-h` / `--help` for usage and flags.
+- `tool/docs/`

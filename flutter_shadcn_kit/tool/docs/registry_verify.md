@@ -11,7 +11,7 @@ Validates `components.json` against the filesystem and dependency references.
 
 ## Usage
 ```bash
-dart run ../tool/registry_verify.dart
+dart run tool/registry/registry_verify.dart
 ```
 
 ## Flags

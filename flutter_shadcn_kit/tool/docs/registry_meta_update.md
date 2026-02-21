@@ -13,7 +13,7 @@ Updates existing `meta.json` files with file lists, dependencies, API, and versi
 
 ## Usage
 ```bash
-dart run ../tool/registry_meta_update.dart
+dart run tool/registry/registry_meta_update.dart
 ```
 
 ## Flags

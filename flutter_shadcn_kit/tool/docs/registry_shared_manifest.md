@@ -11,7 +11,7 @@ Generates `shared_manifest.json` from `registry/shared` and `components.json`.
 
 ## Usage
 ```bash
-dart run ../tool/registry_shared_manifest.dart
+dart run tool/registry/registry_shared_manifest.dart
 ```
 
 ## Flags

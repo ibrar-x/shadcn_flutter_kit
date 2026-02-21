@@ -19,7 +19,7 @@ Creates a registry snapshot + manifest for AI tooling.
 
 ## Usage
 ```bash
-dart run ../tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
+dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
 ```
 
 ## Flags

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 const registryDir = 'flutter_shadcn_kit/lib/registry';
 const outputSchemaVersion = 1;
@@ -77,7 +77,7 @@ void validateReadmeMeta(Map<String, dynamic> meta, String path) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run tool/registry_readme_meta.dart');
+  stdout.writeln('Usage: dart run tool/registry/registry_readme_meta.dart');
   stdout.writeln('');
   stdout.writeln('Generates <id>.meta.json files from README.md content.');
   stdout.writeln('');

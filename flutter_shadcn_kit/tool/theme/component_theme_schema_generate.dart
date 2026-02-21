@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
 
-import 'registry_component_metadata.dart';
+import '../common/registry_component_metadata.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 
@@ -79,7 +79,7 @@ List<String> _parseCsvValues(List<String> values) {
 
 void _printUsage() {
   stdout.writeln(
-    'Usage: dart run tool/component_theme_schema_generate.dart [options]',
+    'Usage: dart run tool/theme/component_theme_schema_generate.dart [options]',
   );
   stdout.writeln('');
   stdout.writeln(

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND.
-// Run: dart run tool/component_theme_global_configs_generate.dart
+// Run: dart run tool/theme/component_theme_global_configs_generate.dart
 
 import '../shared/theme/component_theme_global_registry.dart';
 import 'control/button/_impl/themes/config/button_theme_config.dart' as c0;

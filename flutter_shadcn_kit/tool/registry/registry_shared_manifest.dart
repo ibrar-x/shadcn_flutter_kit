@@ -75,18 +75,30 @@ int _parseManifestVersion(dynamic value, {int fallback = 1}) {
 }
 
 void _printUsage() {
-  stdout.writeln('Usage: dart run tool/registry_shared_manifest.dart [options]');
+  stdout.writeln(
+    'Usage: dart run tool/registry/registry_shared_manifest.dart [options]',
+  );
   stdout.writeln('');
-  stdout.writeln('Generates shared_manifest.json from registry/shared and components.json.');
+  stdout.writeln(
+    'Generates shared_manifest.json from registry/shared and components.json.',
+  );
   stdout.writeln('');
   stdout.writeln('Options:');
-  stdout.writeln('  --bump-manifest-version       Increment manifestVersion in shared manifest.');
-  stdout.writeln('  --set-manifest-version <int>  Set manifestVersion explicitly.');
+  stdout.writeln(
+    '  --bump-manifest-version       Increment manifestVersion in shared manifest.',
+  );
+  stdout.writeln(
+    '  --set-manifest-version <int>  Set manifestVersion explicitly.',
+  );
   stdout.writeln('  --force                       Skip manifestVersion guard.');
   stdout.writeln('  -h, --help                    Show this help.');
   stdout.writeln('');
-  stdout.writeln('Notes: If manifestVersion > 1, the script refuses to run unless');
-  stdout.writeln('  --bump-manifest-version, --set-manifest-version, or --force is used.');
+  stdout.writeln(
+    'Notes: If manifestVersion > 1, the script refuses to run unless',
+  );
+  stdout.writeln(
+    '  --bump-manifest-version, --set-manifest-version, or --force is used.',
+  );
 }
 
 List<String> _listFilesRelative(Directory baseDir) {
@@ -125,7 +137,9 @@ void main(List<String> args) {
   if (setManifestRaw != null && setManifestRaw.isNotEmpty) {
     setManifestVersion = int.tryParse(setManifestRaw);
     if (setManifestVersion == null || setManifestVersion < 1) {
-      stderr.writeln('Error: --set-manifest-version must be a positive integer.');
+      stderr.writeln(
+        'Error: --set-manifest-version must be a positive integer.',
+      );
       exitCode = 2;
       return;
     }
@@ -141,7 +155,9 @@ void main(List<String> args) {
   final registryDir = Directory('${root.path}/lib/registry');
   final componentsJson = File('${registryDir.path}/components.json');
   if (!componentsJson.existsSync()) {
-    stderr.writeln('Error: components.json not found at ${componentsJson.path}');
+    stderr.writeln(
+      'Error: components.json not found at ${componentsJson.path}',
+    );
     exitCode = 1;
     return;
   }
@@ -159,7 +175,10 @@ void main(List<String> args) {
     final existing = _readJson(existingManifest);
     manifestVersion = _parseManifestVersion(existing['manifestVersion']);
   }
-  if (manifestVersion > 1 && !force && setManifestVersion == null && !bumpManifest) {
+  if (manifestVersion > 1 &&
+      !force &&
+      setManifestVersion == null &&
+      !bumpManifest) {
     stderr.writeln(
       'Refusing to update shared manifest: manifestVersion is $manifestVersion. '
       'Use --bump-manifest-version, --set-manifest-version, or --force to override.',

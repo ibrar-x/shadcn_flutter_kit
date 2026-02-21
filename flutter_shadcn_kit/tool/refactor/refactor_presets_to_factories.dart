@@ -1,21 +1,23 @@
 #!/usr/bin/env dart
 // Refactors preset_themes.dart by extracting presets and rebuilding with factory pattern
-// Run: dart tool/refactor_presets_to_factories.dart
+// Run: dart run tool/refactor/refactor_presets_to_factories.dart
 
 import 'dart:io';
 import 'dart:convert';
 
 const String defaultInputPath =
-  'lib/registry/shared/theme/preset_themes.dart.backup';
-const String fallbackInputPath =
-  'lib/registry/shared/theme/preset_themes.dart';
+    'lib/registry/shared/theme/preset_themes.dart.backup';
+const String fallbackInputPath = 'lib/registry/shared/theme/preset_themes.dart';
 const String defaultOutputPath =
     'lib/registry/shared/theme/preset_themes_refactored.dart';
 
 void main(List<String> args) async {
   try {
-    final inputPath = _argValue(args, '--input') ??
-        (File(defaultInputPath).existsSync() ? defaultInputPath : fallbackInputPath);
+    final inputPath =
+        _argValue(args, '--input') ??
+        (File(defaultInputPath).existsSync()
+            ? defaultInputPath
+            : fallbackInputPath);
     final outputPath = _argValue(args, '--output') ?? defaultOutputPath;
 
     print('📖 Reading source file: $inputPath');
@@ -59,7 +61,9 @@ void main(List<String> args) async {
     print('Next steps:');
     print('  1. Review the output file');
     print('  2. Run: dart analyze $outputPath');
-    print('  3. Copy: cp $outputPath lib/registry/shared/theme/preset_themes.dart');
+    print(
+      '  3. Copy: cp $outputPath lib/registry/shared/theme/preset_themes.dart',
+    );
     print('  4. Test: flutter test');
   } catch (e) {
     print('❌ Error: $e');
@@ -79,7 +83,9 @@ String? _argValue(List<String> args, String key) {
 /// Extracts all RegistryThemePreset instances from the Dart source
 List<Map<String, dynamic>> extractPresets(String source) {
   final presets = <Map<String, dynamic>>[];
-  final listStart = source.indexOf('final List<RegistryThemePreset> registryThemePresets = [');
+  final listStart = source.indexOf(
+    'final List<RegistryThemePreset> registryThemePresets = [',
+  );
   if (listStart == -1) {
     return presets;
   }
@@ -121,12 +127,24 @@ Map<String, dynamic>? _parsePresetBlock(String block) {
     final name = nameMatch.group(1)!;
 
     // Extract light ColorScheme
-    final lightColors = _parseColorScheme(_extractConstructorBody(block, 'light', 'ColorScheme'));
-    final darkColors = _parseColorScheme(_extractConstructorBody(block, 'dark', 'ColorScheme'));
+    final lightColors = _parseColorScheme(
+      _extractConstructorBody(block, 'light', 'ColorScheme'),
+    );
+    final darkColors = _parseColorScheme(
+      _extractConstructorBody(block, 'dark', 'ColorScheme'),
+    );
 
     // Extract tokens
-    final lightTokens = _parseTokens(_extractConstructorBody(block, 'lightTokens', 'RegistryThemePresetTokens'));
-    final darkTokens = _parseTokens(_extractConstructorBody(block, 'darkTokens', 'RegistryThemePresetTokens'));
+    final lightTokens = _parseTokens(
+      _extractConstructorBody(
+        block,
+        'lightTokens',
+        'RegistryThemePresetTokens',
+      ),
+    );
+    final darkTokens = _parseTokens(
+      _extractConstructorBody(block, 'darkTokens', 'RegistryThemePresetTokens'),
+    );
 
     return {
       'id': id,
@@ -167,8 +185,7 @@ Map<String, dynamic> _parseTokens(String block) {
   // Extract spacing base
   final spacingMatch = RegExp(r'SpacingScale\(([-\d.]+)\)').firstMatch(block);
   if (spacingMatch != null) {
-    tokens['spacingBase'] =
-        double.tryParse(spacingMatch.group(1)!) ?? 4.0;
+    tokens['spacingBase'] = double.tryParse(spacingMatch.group(1)!) ?? 4.0;
   }
 
   final normalized = _normalizeWhitespace(block);
@@ -206,8 +223,9 @@ Map<String, dynamic> _parseTokens(String block) {
 
   // Extract fonts
   for (final fontType in ['fontSans', 'fontSerif', 'fontMono']) {
-    final fontMatch =
-        RegExp('$fontType:\\s*"((?:\\\\.|[^"\\\\])*)"').firstMatch(block);
+    final fontMatch = RegExp(
+      '$fontType:\\s*"((?:\\\\.|[^"\\\\])*)"',
+    ).firstMatch(block);
     if (fontMatch != null && fontMatch.group(1)!.isNotEmpty) {
       tokens[fontType] = _unescapeDartString(fontMatch.group(1)!);
     }
@@ -222,7 +240,9 @@ String generateRefactoredFile(List<Map<String, dynamic>> presets) {
 
   // Header
   lines.add('// GENERATED CODE - DO NOT MODIFY BY HAND.');
-  lines.add('// Run `dart run tool/generate_theme_presets.dart` to refresh.');
+  lines.add(
+    '// Run `dart run tool/theme/theme_index_generate.dart` to refresh.',
+  );
   lines.add('// ignore_for_file: prefer_const_constructors');
   lines.add('');
   lines.add("import 'dart:ui';");
@@ -443,31 +463,42 @@ List<String> _generatePresetsList(List<Map<String, dynamic>> presets) {
     final lightShadowPreset = lightTokens['shadowPreset'];
     if (lightShadowPreset == 'lightSoft') {
       lines.add('      shadows: _shadowLightSoft,');
-    } else if (lightShadowPreset == 'lightStandard' || lightShadowPreset == null) {
+    } else if (lightShadowPreset == 'lightStandard' ||
+        lightShadowPreset == null) {
       lines.add('      shadows: _shadowLightStandard,');
     } else if (lightShadowPreset == 'darkStandard') {
       lines.add('      shadows: _shadowDarkStandard,');
     } else if (lightShadowPreset == 'uniformCustom') {
       lines.add(
-          '      shadows: _uniformShadowScale(x: ${lightTokens['shadowX']}, y: ${lightTokens['shadowY']}, blur: ${lightTokens['shadowBlur']}, spread: ${lightTokens['shadowSpread']}, color: ${lightTokens['shadowColor']}),');
+        '      shadows: _uniformShadowScale(x: ${lightTokens['shadowX']}, y: ${lightTokens['shadowY']}, blur: ${lightTokens['shadowBlur']}, spread: ${lightTokens['shadowSpread']}, color: ${lightTokens['shadowColor']}),',
+      );
     }
     if (lightTokens.containsKey('fontSans')) {
-      lines.add('      fontSans: ${_dartStringLiteral(lightTokens['fontSans'] as String)},');
+      lines.add(
+        '      fontSans: ${_dartStringLiteral(lightTokens['fontSans'] as String)},',
+      );
     }
     if (lightTokens.containsKey('fontSerif')) {
-      lines.add('      fontSerif: ${_dartStringLiteral(lightTokens['fontSerif'] as String)},');
+      lines.add(
+        '      fontSerif: ${_dartStringLiteral(lightTokens['fontSerif'] as String)},',
+      );
     }
     if (lightTokens.containsKey('fontMono')) {
-      lines.add('      fontMono: ${_dartStringLiteral(lightTokens['fontMono'] as String)},');
+      lines.add(
+        '      fontMono: ${_dartStringLiteral(lightTokens['fontMono'] as String)},',
+      );
     }
     lines.add('    ),');
 
     // Dark Tokens
     lines.add('    darkTokens: _darkTokens(');
     final darkTokens = preset['darkTokens'] as Map<String, dynamic>;
-    final darkFontSans = (darkTokens['fontSans'] ?? lightTokens['fontSans']) as String?;
-    final darkFontSerif = (darkTokens['fontSerif'] ?? lightTokens['fontSerif']) as String?;
-    final darkFontMono = (darkTokens['fontMono'] ?? lightTokens['fontMono']) as String?;
+    final darkFontSans =
+        (darkTokens['fontSans'] ?? lightTokens['fontSans']) as String?;
+    final darkFontSerif =
+        (darkTokens['fontSerif'] ?? lightTokens['fontSerif']) as String?;
+    final darkFontMono =
+        (darkTokens['fontMono'] ?? lightTokens['fontMono']) as String?;
     lines.add('      radius: ${darkTokens['radius'] ?? 0.5},');
     lines.add('      spacingBase: ${darkTokens['spacingBase'] ?? 3.84},');
     final darkShadowPreset = darkTokens['shadowPreset'];
@@ -479,7 +510,8 @@ List<String> _generatePresetsList(List<Map<String, dynamic>> presets) {
       lines.add('      shadows: _shadowLightStandard,');
     } else if (darkShadowPreset == 'uniformCustom') {
       lines.add(
-          '      shadows: _uniformShadowScale(x: ${darkTokens['shadowX']}, y: ${darkTokens['shadowY']}, blur: ${darkTokens['shadowBlur']}, spread: ${darkTokens['shadowSpread']}, color: ${darkTokens['shadowColor']}),');
+        '      shadows: _uniformShadowScale(x: ${darkTokens['shadowX']}, y: ${darkTokens['shadowY']}, blur: ${darkTokens['shadowBlur']}, spread: ${darkTokens['shadowSpread']}, color: ${darkTokens['shadowColor']}),',
+      );
     }
     if (darkFontSans != null) {
       lines.add('      fontSans: ${_dartStringLiteral(darkFontSans)},');
@@ -512,7 +544,12 @@ String _extractConstructorBody(String source, String field, String typeName) {
   return source.substring(open + 1, close);
 }
 
-int _findMatching(String text, int openIndex, String openChar, String closeChar) {
+int _findMatching(
+  String text,
+  int openIndex,
+  String openChar,
+  String closeChar,
+) {
   var depth = 0;
   var inSingleQuote = false;
   var inDoubleQuote = false;
@@ -547,15 +584,13 @@ int _findMatching(String text, int openIndex, String openChar, String closeChar)
 
 String _unescapeDartString(String value) {
   return value
-  .replaceAll(r'\"', '"')
-  .replaceAll(r"\'", "'")
-  .replaceAll(r'\\', r'\');
+      .replaceAll(r'\"', '"')
+      .replaceAll(r"\'", "'")
+      .replaceAll(r'\\', r'\');
 }
 
 String _dartStringLiteral(String value) {
-  final escaped = value
-      .replaceAll(r'\', r'\\')
-      .replaceAll("'", r"\'");
+  final escaped = value.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
   return "'$escaped'";
 }
 

@@ -12,5 +12,5 @@ Builds `index.json` from `components.json` and `meta.json`.
 
 ## Usage
 ```bash
-dart run ../tool/registry_index_generate.dart
+dart run tool/registry/registry_index_generate.dart
 ```
