@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,28 +7,19 @@
 // ═══════════════════════════════════════════════════════════
 
 class MenubarThemeDefaults {
-  /// Widget fallback: widget.border
-  final Object? border;
-
-  /// Widget fallback: widget.popoverOffset
-  final Object? subMenuOffset;
-  final Object? padding;
-
-  /// Widget fallback: theme.colorScheme.border
-  final Object? borderColor;
-
-  /// Widget fallback: theme.colorScheme.background
-  final Object? backgroundColor;
-
-  /// Widget fallback: theme.borderRadiusMd
-  final Object? borderRadius;
-
   const MenubarThemeDefaults({
-    this.border,
-    this.subMenuOffset,
+    this.border = true,
+    this.subMenuOffset = const Offset(-4.0, 8.0),
     this.padding,
     this.borderColor,
     this.backgroundColor,
     this.borderRadius,
   });
+
+  final bool border;
+  final Offset subMenuOffset;
+  final EdgeInsetsGeometry? padding;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
 }

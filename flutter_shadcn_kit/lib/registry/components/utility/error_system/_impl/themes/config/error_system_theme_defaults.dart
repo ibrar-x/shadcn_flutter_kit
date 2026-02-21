@@ -1,3 +1,9 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../../shared/icons/radix_icons.dart';
+import '../../../../../../shared/theme/theme.dart';
+import '../../../error_system.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,37 +11,6 @@
 // ═══════════════════════════════════════════════════════════
 
 class ErrorSystemThemeDefaults {
-  /// Widget fallback: theme.colorScheme.destructive
-  final Object? iconColor;
-
-  /// Widget fallback: 36 * scaling
-  final Object? iconSize;
-  final Object? titleStyle;
-  final Object? messageStyle;
-  final Object? cardPadding;
-  final Object? cardBorderRadius;
-  final Object? cardFillColor;
-
-  /// Widget fallback: theme.colorScheme.card
-  final Object? bannerBackgroundColor;
-
-  /// Widget fallback: theme.borderRadiusLg
-  final Object? bannerBorderRadius;
-  final Object? bannerPadding;
-  final Object? bannerTitleStyle;
-  final Object? bannerMessageStyle;
-
-  /// Widget fallback: RadixIcons.exclamationTriangle
-  final Object? bannerIcon;
-  final Object? bannerBorderColor;
-  final Object? snackbarBackgroundColor;
-  final Object? snackbarTextStyle;
-  final Object? snackbarBorderRadius;
-  final Object? dialogSurfaceBlur;
-  final Object? dialogSurfaceOpacity;
-  final Object? dialogBarrierColor;
-  final Object? dialogPadding;
-
   const ErrorSystemThemeDefaults({
     this.iconColor,
     this.iconSize,
@@ -49,7 +24,7 @@ class ErrorSystemThemeDefaults {
     this.bannerPadding,
     this.bannerTitleStyle,
     this.bannerMessageStyle,
-    this.bannerIcon,
+    this.bannerIcon = RadixIcons.exclamationTriangle,
     this.bannerBorderColor,
     this.snackbarBackgroundColor,
     this.snackbarTextStyle,
@@ -59,4 +34,26 @@ class ErrorSystemThemeDefaults {
     this.dialogBarrierColor,
     this.dialogPadding,
   });
+
+  final Color? iconColor;
+  final double? iconSize;
+  final TextStyle? titleStyle;
+  final TextStyle? messageStyle;
+  final EdgeInsetsGeometry? cardPadding;
+  final BorderRadiusGeometry? cardBorderRadius;
+  final Color? cardFillColor;
+  final Color? bannerBackgroundColor;
+  final BorderRadiusGeometry? bannerBorderRadius;
+  final EdgeInsetsGeometry? bannerPadding;
+  final TextStyle? bannerTitleStyle;
+  final TextStyle? bannerMessageStyle;
+  final IconData bannerIcon;
+  final Color Function(ThemeData theme, AppError error)? bannerBorderColor;
+  final Color? snackbarBackgroundColor;
+  final TextStyle? snackbarTextStyle;
+  final BorderRadiusGeometry? snackbarBorderRadius;
+  final double? dialogSurfaceBlur;
+  final double? dialogSurfaceOpacity;
+  final Color? dialogBarrierColor;
+  final EdgeInsetsGeometry? dialogPadding;
 }

@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../toast.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,43 +9,18 @@
 // ═══════════════════════════════════════════════════════════
 
 class ToastThemeDefaults {
-  final Object? padding;
-  final Object? margin;
-
-  /// Widget fallback: defaultDuration
-  final Object? duration;
-  final Object? animationDuration;
-
-  /// Widget fallback: Curves.easeOut
-  final Object? animationCurve;
-  final Object? width;
-  final Object? borderRadius;
-  final Object? backgroundColor;
-
-  /// Widget fallback: toastTheme?.pauseOnHover ?? false
-  final Object? pauseOnHover;
-  final Object? dismissDirections;
-  final Object? dismissDragThreshold;
-  final Object? overlapStackWhenMultiple;
-  final Object? overlapStackOffset;
-  final Object? pauseAutoDismissWhenMultiple;
-  final Object? stackAnimationDuration;
-  final Object? stackAnimationCurve;
-  final Object? maxVisibleCount;
-  final Object? dismissWholeStackWhenMultiple;
-
   const ToastThemeDefaults({
     this.padding,
-    this.margin,
-    this.duration,
-    this.animationDuration,
-    this.animationCurve,
+    this.margin = 8.0,
+    this.duration = const Duration(seconds: 3),
+    this.animationDuration = const Duration(milliseconds: 250),
+    this.animationCurve = Curves.easeOut,
     this.width,
-    this.borderRadius,
+    this.borderRadius = 12.0,
     this.backgroundColor,
-    this.pauseOnHover,
+    this.pauseOnHover = false,
     this.dismissDirections,
-    this.dismissDragThreshold,
+    this.dismissDragThreshold = 72.0,
     this.overlapStackWhenMultiple,
     this.overlapStackOffset,
     this.pauseAutoDismissWhenMultiple,
@@ -50,4 +29,23 @@ class ToastThemeDefaults {
     this.maxVisibleCount,
     this.dismissWholeStackWhenMultiple,
   });
+
+  final EdgeInsetsGeometry? padding;
+  final double margin;
+  final Duration duration;
+  final Duration animationDuration;
+  final Curve animationCurve;
+  final double? width;
+  final double borderRadius;
+  final Color? backgroundColor;
+  final bool pauseOnHover;
+  final Set<ToastSwipeDirection>? dismissDirections;
+  final double dismissDragThreshold;
+  final bool? overlapStackWhenMultiple;
+  final double? overlapStackOffset;
+  final bool? pauseAutoDismissWhenMultiple;
+  final Duration? stackAnimationDuration;
+  final Curve? stackAnimationCurve;
+  final int? maxVisibleCount;
+  final bool? dismissWholeStackWhenMultiple;
 }

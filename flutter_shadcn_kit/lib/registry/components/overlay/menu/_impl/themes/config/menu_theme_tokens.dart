@@ -1,34 +1,27 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class MenuThemeTokens {
-  final Object? itemPadding;
-  final Object? subMenuOffset;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const MenuThemeTokens({
-    this.itemPadding,
-    this.subMenuOffset,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.itemPadding = EdgeInsets.zero,
+    this.subMenuOffset = const Offset(8.0, -5.0),
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final EdgeInsets itemPadding;
+  final Offset subMenuOffset;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const menuThemeTokens = MenuThemeTokens();
 
 class MenuPopupThemeTokens {
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
-  final Object? padding;
-  final Object? fillColor;
-  final Object? borderColor;
-  final Object? borderRadius;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const MenuPopupThemeTokens({
     this.surfaceOpacity,
     this.surfaceBlur,
@@ -36,33 +29,42 @@ class MenuPopupThemeTokens {
     this.fillColor,
     this.borderColor,
     this.borderRadius,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final EdgeInsetsGeometry? padding;
+  final Color? fillColor;
+  final Color? borderColor;
+  final BorderRadiusGeometry? borderRadius;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const menuPopupThemeTokens = MenuPopupThemeTokens();
 
 class MenubarThemeTokens {
-  final Object? border;
-  final Object? subMenuOffset;
-  final Object? padding;
-  final Object? borderColor;
-  final Object? backgroundColor;
-  final Object? borderRadius;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const MenubarThemeTokens({
-    this.border,
-    this.subMenuOffset,
+    this.border = true,
+    this.subMenuOffset = const Offset(-4.0, 8.0),
     this.padding,
     this.borderColor,
     this.backgroundColor,
     this.borderRadius,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final bool border;
+  final Offset subMenuOffset;
+  final EdgeInsetsGeometry? padding;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const menubarThemeTokens = MenubarThemeTokens();

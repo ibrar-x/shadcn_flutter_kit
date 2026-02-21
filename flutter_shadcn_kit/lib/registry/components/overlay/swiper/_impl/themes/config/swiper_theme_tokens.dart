@@ -1,25 +1,12 @@
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class SwiperThemeTokens {
-  final Object? expands;
-  final Object? draggable;
-  final Object? barrierDismissible;
-  final Object? backdropBuilder;
-  final Object? useSafeArea;
-  final Object? showDragHandle;
-  final Object? borderRadius;
-  final Object? dragHandleSize;
-  final Object? transformBackdrop;
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
-  final Object? barrierColor;
-  final Object? behavior;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const SwiperThemeTokens({
     this.expands,
     this.draggable,
@@ -33,10 +20,26 @@ class SwiperThemeTokens {
     this.surfaceOpacity,
     this.surfaceBlur,
     this.barrierColor,
-    this.behavior,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.behavior = HitTestBehavior.translucent,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final bool? expands;
+  final bool? draggable;
+  final bool? barrierDismissible;
+  final WidgetBuilder? backdropBuilder;
+  final bool? useSafeArea;
+  final bool? showDragHandle;
+  final BorderRadiusGeometry? borderRadius;
+  final Size? dragHandleSize;
+  final bool? transformBackdrop;
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final Color? barrierColor;
+  final HitTestBehavior behavior;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const swiperThemeTokens = SwiperThemeTokens();

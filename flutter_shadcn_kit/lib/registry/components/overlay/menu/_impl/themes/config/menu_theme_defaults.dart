@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,27 +7,16 @@
 // ═══════════════════════════════════════════════════════════
 
 class MenuThemeDefaults {
-  /// Widget fallback: compTheme?.itemPadding ?? EdgeInsets.zero
-  final Object? itemPadding;
+  const MenuThemeDefaults({
+    this.itemPadding = EdgeInsets.zero,
+    this.subMenuOffset = const Offset(8.0, -5.0),
+  });
 
-  /// Widget fallback: compTheme?.subMenuOffset
-  final Object? subMenuOffset;
-
-  const MenuThemeDefaults({this.itemPadding, this.subMenuOffset});
+  final EdgeInsets itemPadding;
+  final Offset subMenuOffset;
 }
 
 class MenuPopupThemeDefaults {
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
-  final Object? padding;
-  final Object? fillColor;
-
-  /// Widget fallback: theme.colorScheme.border
-  final Object? borderColor;
-
-  /// Widget fallback: theme.borderRadiusMd
-  final Object? borderRadius;
-
   const MenuPopupThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
@@ -34,31 +25,29 @@ class MenuPopupThemeDefaults {
     this.borderColor,
     this.borderRadius,
   });
+
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final EdgeInsetsGeometry? padding;
+  final Color? fillColor;
+  final Color? borderColor;
+  final BorderRadiusGeometry? borderRadius;
 }
 
 class MenubarThemeDefaults {
-  /// Widget fallback: widget.border
-  final Object? border;
-
-  /// Widget fallback: compTheme?.subMenuOffset
-  final Object? subMenuOffset;
-  final Object? padding;
-
-  /// Widget fallback: theme.colorScheme.border
-  final Object? borderColor;
-
-  /// Widget fallback: theme.colorScheme.background
-  final Object? backgroundColor;
-
-  /// Widget fallback: theme.borderRadiusMd
-  final Object? borderRadius;
-
   const MenubarThemeDefaults({
-    this.border,
-    this.subMenuOffset,
+    this.border = true,
+    this.subMenuOffset = const Offset(-4.0, 8.0),
     this.padding,
     this.borderColor,
     this.backgroundColor,
     this.borderRadius,
   });
+
+  final bool border;
+  final Offset subMenuOffset;
+  final EdgeInsetsGeometry? padding;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
 }

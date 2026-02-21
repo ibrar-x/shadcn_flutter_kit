@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -5,19 +7,19 @@
 // ═══════════════════════════════════════════════════════════
 
 class HoverCardThemeDefaults {
-  final Object? debounce;
-  final Object? wait;
-  final Object? popoverAlignment;
-  final Object? anchorAlignment;
-  final Object? popoverOffset;
-  final Object? behavior;
-
   const HoverCardThemeDefaults({
-    this.debounce,
-    this.wait,
-    this.popoverAlignment,
-    this.anchorAlignment,
-    this.popoverOffset,
-    this.behavior,
+    this.debounce = const Duration(milliseconds: 500),
+    this.wait = const Duration(milliseconds: 500),
+    this.popoverAlignment = Alignment.topCenter,
+    this.anchorAlignment = Alignment.bottomCenter,
+    this.popoverOffset = const Offset(0.0, 8.0),
+    this.behavior = HitTestBehavior.deferToChild,
   });
+
+  final Duration debounce;
+  final Duration wait;
+  final AlignmentGeometry popoverAlignment;
+  final AlignmentGeometry anchorAlignment;
+  final Offset popoverOffset;
+  final HitTestBehavior behavior;
 }
