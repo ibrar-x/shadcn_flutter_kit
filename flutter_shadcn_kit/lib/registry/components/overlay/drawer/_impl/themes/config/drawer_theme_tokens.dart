@@ -1,26 +1,29 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
+// Defaults intentionally mirror DrawerThemeDefaults
 // ═══════════════════════════════════════════════════════════
 
 class DrawerThemeTokens {
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
-  final Object? barrierColor;
-  final Object? showDragHandle;
-  final Object? dragHandleSize;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const DrawerThemeTokens({
     this.surfaceOpacity,
     this.surfaceBlur,
-    this.barrierColor,
-    this.showDragHandle,
-    this.dragHandleSize,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.barrierColor = const Color.fromRGBO(0, 0, 0, 0.8),
+    this.showDragHandle = true,
+    this.dragHandleSize = const Size(6.0, 100.0),
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final Color barrierColor;
+  final bool showDragHandle;
+  final Size dragHandleSize;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const drawerThemeTokens = DrawerThemeTokens();

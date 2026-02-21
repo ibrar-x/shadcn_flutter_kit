@@ -1,21 +1,37 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in code snippet widgets
 // ═══════════════════════════════════════════════════════════
 
 class CodeSnippetThemeDefaults {
-  final Object? backgroundColor;
-  final Object? borderColor;
-  final Object? borderWidth;
-  final Object? borderRadius;
-  final Object? padding;
-
   const CodeSnippetThemeDefaults({
-    this.backgroundColor,
-    this.borderColor,
-    this.borderWidth,
-    this.borderRadius,
-    this.padding,
+    this.backgroundColor = const Color(0xFFFFFFFF),
+    this.borderColor = const Color(0xFFE5E5E5),
+    this.borderWidth = 1.0,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.padding = const EdgeInsets.only(
+      left: 16.0,
+      right: 56.0,
+      top: 16.0,
+      bottom: 16.0,
+    ),
   });
+
+  /// From `CodeSnippetState`: `defaultValue: theme.colorScheme.card`
+  final Color backgroundColor;
+
+  /// From `CodeSnippetState`: `defaultValue: theme.colorScheme.border`
+  final Color borderColor;
+
+  /// From `CodeSnippetState`: `defaultValue: theme.scaling`
+  final double borderWidth;
+
+  /// From `CodeSnippetState`: `defaultValue: BorderRadius.circular(theme.radiusLg)`
+  final BorderRadiusGeometry borderRadius;
+
+  /// From `CodeSnippetState`: density-based `EdgeInsets.only(...)`
+  final EdgeInsetsGeometry padding;
 }

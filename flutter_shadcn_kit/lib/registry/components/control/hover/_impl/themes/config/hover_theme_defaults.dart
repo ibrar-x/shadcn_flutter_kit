@@ -1,27 +1,32 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in hover widgets
 // ═══════════════════════════════════════════════════════════
 
 class HoverThemeDefaults {
-  final Object? debounceDuration;
-  final Object? hitTestBehavior;
-
-  /// Widget fallback: const Duration(milliseconds: 500
-  final Object? waitDuration;
-
-  /// Widget fallback: const Duration(milliseconds: 0
-  final Object? minDuration;
-
-  /// Widget fallback: const Duration(milliseconds: 200
-  final Object? showDuration;
-
   const HoverThemeDefaults({
-    this.debounceDuration,
-    this.hitTestBehavior,
-    this.waitDuration,
-    this.minDuration,
-    this.showDuration,
+    this.debounceDuration = const Duration(milliseconds: 100),
+    this.hitTestBehavior = HitTestBehavior.deferToChild,
+    this.waitDuration = const Duration(milliseconds: 500),
+    this.minDuration = const Duration(milliseconds: 0),
+    this.showDuration = const Duration(milliseconds: 200),
   });
+
+  /// From `HoverActivityState`: `defaultValue: Duration(milliseconds: 100)`
+  final Duration debounceDuration;
+
+  /// From hover states: `defaultValue: HitTestBehavior.deferToChild`
+  final HitTestBehavior hitTestBehavior;
+
+  /// From `HoverState`: `defaultValue: Duration(milliseconds: 500)`
+  final Duration waitDuration;
+
+  /// From `HoverState`: `defaultValue: Duration(milliseconds: 0)`
+  final Duration minDuration;
+
+  /// From `HoverState`: `defaultValue: Duration(milliseconds: 200)`
+  final Duration showDuration;
 }

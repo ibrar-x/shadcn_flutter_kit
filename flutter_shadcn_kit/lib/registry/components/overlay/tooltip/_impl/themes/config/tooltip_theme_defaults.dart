@@ -1,24 +1,32 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in tooltip widgets
 // ═══════════════════════════════════════════════════════════
 
 class TooltipThemeDefaults {
-  /// Widget fallback: compTheme?.surfaceOpacity
-  final Object? surfaceOpacity;
-
-  /// Widget fallback: compTheme?.surfaceBlur
-  final Object? surfaceBlur;
-  final Object? padding;
-  final Object? backgroundColor;
-  final Object? borderRadius;
-
   const TooltipThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
-    this.padding,
-    this.backgroundColor,
-    this.borderRadius,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+    this.backgroundColor = const Color(0xFF171717),
+    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
   });
+
+  /// From `TooltipContainer`: `surfaceOpacity ?? compTheme?.surfaceOpacity`
+  final double? surfaceOpacity;
+
+  /// From `TooltipContainer`: `surfaceBlur ?? compTheme?.surfaceBlur`
+  final double? surfaceBlur;
+
+  /// From `TooltipContainer`: density-based symmetric padding fallback.
+  final EdgeInsetsGeometry padding;
+
+  /// From `TooltipContainer`: `defaultValue: theme.colorScheme.primary`
+  final Color backgroundColor;
+
+  /// From `TooltipContainer`: `defaultValue: BorderRadius.circular(theme.radiusSm)`
+  final BorderRadiusGeometry borderRadius;
 }

@@ -1,30 +1,32 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in drawer widgets
 // ═══════════════════════════════════════════════════════════
 
 class DrawerThemeDefaults {
-  /// Widget fallback: = theme?.surfaceOpacity
-  final Object? surfaceOpacity;
-
-  /// Widget fallback: = theme?.surfaceBlur
-  final Object? surfaceBlur;
-
-  /// Widget fallback: = theme?.barrierColor
-  final Object? barrierColor;
-
-  /// Widget fallback: = theme?.showDragHandle ?? true
-  final Object? showDragHandle;
-
-  /// Widget fallback: = theme?.dragHandleSize
-  final Object? dragHandleSize;
-
   const DrawerThemeDefaults({
     this.surfaceOpacity,
     this.surfaceBlur,
-    this.barrierColor,
-    this.showDragHandle,
-    this.dragHandleSize,
+    this.barrierColor = const Color.fromRGBO(0, 0, 0, 0.8),
+    this.showDragHandle = true,
+    this.dragHandleSize = const Size(6.0, 100.0),
   });
+
+  /// From drawer theme/api: fallback to `theme.surfaceOpacity`.
+  final double? surfaceOpacity;
+
+  /// From drawer theme/api: fallback to `theme.surfaceBlur`.
+  final double? surfaceBlur;
+
+  /// From drawer wrappers: fallback to `Colors.black.scaleAlpha(0.8)`.
+  final Color barrierColor;
+
+  /// From drawer API: `theme?.showDragHandle ?? true`
+  final bool showDragHandle;
+
+  /// From drawer wrappers: fallback drag-handle size for edge drawers.
+  final Size dragHandleSize;
 }

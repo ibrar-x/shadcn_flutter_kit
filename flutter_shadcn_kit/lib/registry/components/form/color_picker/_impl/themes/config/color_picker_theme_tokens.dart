@@ -1,26 +1,29 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
+// Defaults intentionally mirror ColorPickerThemeDefaults
 // ═══════════════════════════════════════════════════════════
 
 class ColorPickerThemeTokens {
-  final Object? spacing;
-  final Object? controlSpacing;
-  final Object? orientation;
-  final Object? enableEyeDropper;
-  final Object? sliderSize;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const ColorPickerThemeTokens({
-    this.spacing,
-    this.controlSpacing,
-    this.orientation,
-    this.enableEyeDropper,
-    this.sliderSize,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.spacing = 12.0,
+    this.controlSpacing = 8.0,
+    this.orientation = Axis.vertical,
+    this.enableEyeDropper = true,
+    this.sliderSize = 24.0,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final double spacing;
+  final double controlSpacing;
+  final Axis orientation;
+  final bool enableEyeDropper;
+  final double sliderSize;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const colorPickerThemeTokens = ColorPickerThemeTokens();

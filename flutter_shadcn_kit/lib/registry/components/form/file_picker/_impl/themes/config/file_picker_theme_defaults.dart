@@ -1,28 +1,33 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in file picker widgets
 // ═══════════════════════════════════════════════════════════
 
 class FileUploadDropzoneThemeDefaults {
-  /// Widget fallback: dropzoneTheme?.backgroundColor
-  final Object? backgroundColor;
-
-  /// Widget fallback: dropzoneTheme?.borderRadius
-  final Object? borderRadius;
-
-  /// Widget fallback: dropzoneTheme?.padding
-  final Object? padding;
-
-  /// Widget fallback: dropzoneTheme?.minHeight ?? 220 * scaling
-  final Object? minHeight;
-  final Object? icon;
-
   const FileUploadDropzoneThemeDefaults({
     this.backgroundColor,
     this.borderRadius,
     this.padding,
-    this.minHeight,
+    this.minHeight = 220.0,
     this.icon,
   });
+
+  /// From file upload surfaces: fallback to widget/theme/default surface color behavior.
+  final Color? backgroundColor;
+
+  /// From file upload surfaces: fallback to widget/theme/default border radius behavior.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// From file upload surfaces: fallback to widget/theme/default padding behavior.
+  final EdgeInsetsGeometry? padding;
+
+  /// From `_buildDragDropSurface`: `dropzoneTheme?.minHeight ?? 220 * scaling`
+  final double minHeight;
+
+  /// From upload content builder: theme value is nullable and widget supplies
+  /// its own fallback icon when this is null.
+  final Widget? icon;
 }
