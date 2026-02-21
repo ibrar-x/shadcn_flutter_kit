@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -6,35 +8,37 @@
 
 class EmptyStateThemeDefaults {
   /// Widget fallback: theme.colorScheme.mutedForeground
-  final Object? iconColor;
-  final Object? iconSize;
-  final Object? titleStyle;
-  final Object? descriptionStyle;
-  final Object? padding;
+  final Color iconColor;
+  final double iconSize;
+  final TextStyle? titleStyle;
+  final TextStyle? descriptionStyle;
+  final EdgeInsetsGeometry padding;
 
   /// Widget fallback: maxWidth ?? 520 * scaling
-  final Object? maxWidth;
-  final Object? cardBorderRadius;
-  final Object? cardFillColor;
+  final double maxWidth;
+  final BorderRadiusGeometry? cardBorderRadius;
+  final Color? cardFillColor;
 
   /// Widget fallback: theme.colorScheme.muted
-  final Object? iconContainerColor;
-  final Object? iconContainerBorderColor;
-  final Object? iconContainerBorderRadius;
-  final Object? iconContainerPadding;
+  final Color iconContainerColor;
+  final Color iconContainerBorderColor;
+  final BorderRadiusGeometry iconContainerBorderRadius;
+  final EdgeInsetsGeometry iconContainerPadding;
 
   const EmptyStateThemeDefaults({
-    this.iconColor,
-    this.iconSize,
+    this.iconColor = const Color(0xFF737373),
+    this.iconSize = 36.0,
     this.titleStyle,
     this.descriptionStyle,
-    this.padding,
-    this.maxWidth,
+    this.padding = const EdgeInsets.all(32.0),
+    this.maxWidth = 520.0,
     this.cardBorderRadius,
     this.cardFillColor,
-    this.iconContainerColor,
-    this.iconContainerBorderColor,
-    this.iconContainerBorderRadius,
-    this.iconContainerPadding,
+    this.iconContainerColor = const Color(0xFFF5F5F5),
+    this.iconContainerBorderColor = const Color(0xFFE5E5E5),
+    this.iconContainerBorderRadius = const BorderRadius.all(
+      Radius.circular(14.0),
+    ),
+    this.iconContainerPadding = const EdgeInsets.all(12.0),
   });
 }

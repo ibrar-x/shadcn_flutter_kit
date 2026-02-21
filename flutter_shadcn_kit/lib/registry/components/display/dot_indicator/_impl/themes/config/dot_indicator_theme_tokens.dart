@@ -1,33 +1,37 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../dot_indicator.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class DotIndicatorThemeTokens {
-  final Object? spacing;
-  final Object? padding;
-  final Object? dotBuilder;
-  final Object? size;
-  final Object? borderRadius;
-  final Object? activeColor;
-  final Object? inactiveColor;
-  final Object? inactiveBorderColor;
-  final Object? inactiveBorderWidth;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
+  final double spacing;
+  final EdgeInsetsGeometry padding;
+  final DotBuilder? dotBuilder;
+  final double size;
+  final double borderRadius;
+  final Color activeColor;
+  final Color? inactiveColor;
+  final Color inactiveBorderColor;
+  final double inactiveBorderWidth;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 
   const DotIndicatorThemeTokens({
-    this.spacing,
-    this.padding,
+    this.spacing = 8.0,
+    this.padding = const EdgeInsets.all(8.0),
     this.dotBuilder,
-    this.size,
-    this.borderRadius,
-    this.activeColor,
+    this.size = 12.0,
+    this.borderRadius = 6.0,
+    this.activeColor = const Color(0xFF171717),
     this.inactiveColor,
-    this.inactiveBorderColor,
-    this.inactiveBorderWidth,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.inactiveBorderColor = const Color(0xFFF5F5F5),
+    this.inactiveBorderWidth = 2.0,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
 }
 

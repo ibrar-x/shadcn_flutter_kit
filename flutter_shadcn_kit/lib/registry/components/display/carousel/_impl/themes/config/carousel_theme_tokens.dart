@@ -1,31 +1,35 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../carousel.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class CarouselThemeTokens {
-  final Object? alignment;
-  final Object? direction;
-  final Object? wrap;
-  final Object? pauseOnHover;
-  final Object? autoplaySpeed;
-  final Object? draggable;
-  final Object? speed;
-  final Object? curve;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
+  final CarouselAlignment alignment;
+  final Axis direction;
+  final bool wrap;
+  final bool pauseOnHover;
+  final Duration? autoplaySpeed;
+  final bool draggable;
+  final Duration speed;
+  final Curve curve;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 
   const CarouselThemeTokens({
-    this.alignment,
-    this.direction,
-    this.wrap,
-    this.pauseOnHover,
+    this.alignment = CarouselAlignment.center,
+    this.direction = Axis.horizontal,
+    this.wrap = true,
+    this.pauseOnHover = true,
     this.autoplaySpeed,
-    this.draggable,
-    this.speed,
-    this.curve,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.draggable = true,
+    this.speed = const Duration(milliseconds: 200),
+    this.curve = Curves.easeInOut,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
 }
 

@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../../shared/utils/axis.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
@@ -6,29 +10,29 @@
 
 class DividerThemeDefaults {
   /// Widget fallback: theme.colorScheme.border
-  final Object? color;
-  final Object? height;
+  final Color color;
+  final double? height;
 
   /// Widget fallback: 1
-  final Object? thickness;
+  final double thickness;
 
   /// Widget fallback: 0
-  final Object? indent;
+  final double indent;
 
   /// Widget fallback: 0
-  final Object? endIndent;
-  final Object? padding;
+  final double endIndent;
+  final EdgeInsetsGeometry padding;
 
   /// Widget fallback: AxisAlignment.center
-  final Object? childAlignment;
+  final AxisAlignmentGeometry childAlignment;
 
   const DividerThemeDefaults({
-    this.color,
+    this.color = const Color(0xFFE5E5E5),
     this.height,
-    this.thickness = 1,
-    this.indent = 0,
-    this.endIndent = 0,
-    this.padding,
-    this.childAlignment,
+    this.thickness = 1.0,
+    this.indent = 0.0,
+    this.endIndent = 0.0,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8.0),
+    this.childAlignment = AxisAlignment.center,
   });
 }

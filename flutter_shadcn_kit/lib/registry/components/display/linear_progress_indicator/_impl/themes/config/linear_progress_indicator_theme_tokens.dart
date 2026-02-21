@@ -1,27 +1,29 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class LinearProgressIndicatorThemeTokens {
-  final Object? color;
-  final Object? backgroundColor;
-  final Object? minHeight;
-  final Object? borderRadius;
-  final Object? showSparks;
-  final Object? disableAnimation;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
+  final Color color;
+  final Color backgroundColor;
+  final double minHeight;
+  final BorderRadiusGeometry borderRadius;
+  final bool showSparks;
+  final bool disableAnimation;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 
   const LinearProgressIndicatorThemeTokens({
-    this.color,
-    this.backgroundColor,
-    this.minHeight,
-    this.borderRadius,
-    this.showSparks,
-    this.disableAnimation,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.color = const Color(0xFF171717),
+    this.backgroundColor = const Color(0x33171717),
+    this.minHeight = 2.0,
+    this.borderRadius = BorderRadius.zero,
+    this.showSparks = false,
+    this.disableAnimation = false,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
 }
 

@@ -1,29 +1,33 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../../shared/utils/axis.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
 // ═══════════════════════════════════════════════════════════
 
 class DividerThemeTokens {
-  final Object? color;
-  final Object? height;
-  final Object? thickness;
-  final Object? indent;
-  final Object? endIndent;
-  final Object? padding;
-  final Object? childAlignment;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
+  final Color color;
+  final double? height;
+  final double thickness;
+  final double indent;
+  final double endIndent;
+  final EdgeInsetsGeometry padding;
+  final AxisAlignmentGeometry childAlignment;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 
   const DividerThemeTokens({
-    this.color,
+    this.color = const Color(0xFFE5E5E5),
     this.height,
-    this.thickness,
-    this.indent,
-    this.endIndent,
-    this.padding,
-    this.childAlignment,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.thickness = 1.0,
+    this.indent = 0.0,
+    this.endIndent = 0.0,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8.0),
+    this.childAlignment = AxisAlignment.center,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
 }
 
