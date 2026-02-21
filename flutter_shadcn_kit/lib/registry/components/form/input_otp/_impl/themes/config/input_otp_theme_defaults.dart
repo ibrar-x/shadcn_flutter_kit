@@ -1,15 +1,15 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in input OTP widgets
 // ═══════════════════════════════════════════════════════════
 
 class InputOTPThemeDefaults {
-  /// Widget fallback: theme.density.baseGap * theme.scaling * gapSm
-  final Object? spacing;
+  const InputOTPThemeDefaults({this.spacing = 8.0, this.height = 36.0});
 
-  /// Widget fallback: theme.scaling * 36
-  final Object? height;
+  /// From `_InputOTPSpacing`: `theme.density.baseGap * theme.scaling * gapSm`
+  final double spacing;
 
-  const InputOTPThemeDefaults({this.spacing, this.height});
+  /// From `_InputOTPState`: `theme.scaling * 36`
+  final double height;
 }

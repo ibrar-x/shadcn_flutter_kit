@@ -1,12 +1,17 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in spinner widgets
 // ═══════════════════════════════════════════════════════════
 
 class SpinnerThemeDefaults {
-  final Object? color;
-  final Object? size;
+  const SpinnerThemeDefaults({this.color, this.size = 24.0});
 
-  const SpinnerThemeDefaults({this.color, this.size});
+  /// From `Spinner.resolveColor`: `defaultValue: null`
+  final Color? color;
+
+  /// From `CircleSpinner`: `resolveSize(context, 24)`
+  final double size;
 }

@@ -1,15 +1,32 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in dropdown menu widgets
 // ═══════════════════════════════════════════════════════════
 
 class DropdownMenuThemeDefaults {
-  /// Widget fallback: compTheme?.surfaceOpacity
-  final Object? surfaceOpacity;
+  const DropdownMenuThemeDefaults({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.minWidth = 192.0,
+    this.subMenuOffset = const Offset(8.0, -4.0),
+    this.direction = Axis.vertical,
+  });
 
-  /// Widget fallback: compTheme?.surfaceBlur
-  final Object? surfaceBlur;
+  /// From `MenuPopup`: `defaultValue: theme.surfaceOpacity`
+  final double? surfaceOpacity;
 
-  const DropdownMenuThemeDefaults({this.surfaceOpacity, this.surfaceBlur});
+  /// From `MenuPopup`: `defaultValue: theme.surfaceBlur`
+  final double? surfaceBlur;
+
+  /// From `_DropdownMenuState`: `BoxConstraints(minWidth: 192)`
+  final double minWidth;
+
+  /// From `_DropdownMenuState`: `subMenuOffset: const Offset(8, -4)`
+  final Offset subMenuOffset;
+
+  /// From `_DropdownMenuState`: `direction: Axis.vertical`
+  final Axis direction;
 }

@@ -1,12 +1,26 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../control/button/button.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in chip widgets
 // ═══════════════════════════════════════════════════════════
 
 class ChipThemeDefaults {
-  final Object? padding;
-  final Object? style;
+  const ChipThemeDefaults({
+    this.padding = const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+    this.style = ButtonVariance.secondary,
+    this.buttonPadding = EdgeInsets.zero,
+  });
 
-  const ChipThemeDefaults({this.padding, this.style});
+  /// From `Chip`: `EdgeInsets.symmetric(horizontal: ..., vertical: ...)`
+  final EdgeInsetsGeometry padding;
+
+  /// From `Chip`: `style ?? componentTheme?.style ?? ButtonVariance.secondary`
+  final AbstractButtonStyle style;
+
+  /// From `ChipButton`: `defaultValue: EdgeInsets.zero`
+  final EdgeInsetsGeometry buttonPadding;
 }

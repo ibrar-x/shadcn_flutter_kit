@@ -1,14 +1,15 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in chip input widgets
 // ═══════════════════════════════════════════════════════════
 
 class ChipInputThemeDefaults {
-  final Object? useChips;
+  const ChipInputThemeDefaults({this.useChips = true, this.spacing = 4.0});
 
-  /// Widget fallback: 4.0
-  final Object? spacing;
+  /// From `ChipInputState`: `defaultValue: true`
+  final bool useChips;
 
-  const ChipInputThemeDefaults({this.useChips, this.spacing = 4.0});
+  /// From `ChipEditingController`: `theme?.spacing ?? 4.0`
+  final double spacing;
 }

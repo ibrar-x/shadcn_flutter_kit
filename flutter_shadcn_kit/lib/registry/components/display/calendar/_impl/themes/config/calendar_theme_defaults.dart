@@ -1,11 +1,14 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in calendar widgets
 // ═══════════════════════════════════════════════════════════
 
 class CalendarThemeDefaults {
-  final Object? arrowIconColor;
-
   const CalendarThemeDefaults({this.arrowIconColor});
+
+  /// From `_DatePickerDialogState`: `defaultValue: null`
+  final Color? arrowIconColor;
 }

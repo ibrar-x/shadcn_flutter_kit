@@ -1,12 +1,18 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in multiple choice widgets
 // ═══════════════════════════════════════════════════════════
 
 class MultipleChoiceThemeDefaults {
-  /// Widget fallback: theme?.allowUnselect ?? false
-  final Object? allowUnselect;
+  const MultipleChoiceThemeDefaults({
+    this.allowUnselect = false,
+    this.multipleAnswerAllowUnselect = true,
+  });
 
-  const MultipleChoiceThemeDefaults({this.allowUnselect});
+  /// From `_MultipleChoiceState`: `theme?.allowUnselect ?? false`
+  final bool allowUnselect;
+
+  /// From `_MultipleAnswerState`: `theme?.allowUnselect ?? true`
+  final bool multipleAnswerAllowUnselect;
 }

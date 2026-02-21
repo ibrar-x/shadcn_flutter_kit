@@ -1,18 +1,26 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../stepper.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in stepper widgets
 // ═══════════════════════════════════════════════════════════
 
 class StepperThemeDefaults {
-  /// Widget fallback: compTheme?.direction ?? Axis.horizontal
-  final Object? direction;
+  const StepperThemeDefaults({
+    this.direction = Axis.horizontal,
+    this.size = StepSize.medium,
+    this.variant = StepVariant.circle,
+  });
 
-  /// Widget fallback: compTheme?.size ?? StepSize.medium
-  final Object? size;
+  /// From `Stepper`: `direction ?? compTheme?.direction ?? Axis.horizontal`
+  final Axis direction;
 
-  /// Widget fallback: compTheme?.variant ?? StepVariant.circle
-  final Object? variant;
+  /// From `Stepper`: `size ?? compTheme?.size ?? StepSize.medium`
+  final StepSize size;
 
-  const StepperThemeDefaults({this.direction, this.size, this.variant});
+  /// From `Stepper`: `variant ?? compTheme?.variant ?? StepVariant.circle`
+  final StepVariant variant;
 }

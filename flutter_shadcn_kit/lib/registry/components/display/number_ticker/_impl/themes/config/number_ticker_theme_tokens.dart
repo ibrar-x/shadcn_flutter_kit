@@ -1,22 +1,25 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
+// Defaults intentionally mirror NumberTickerThemeDefaults
 // ═══════════════════════════════════════════════════════════
 
 class NumberTickerThemeTokens {
-  final Object? duration;
-  final Object? curve;
-  final Object? style;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const NumberTickerThemeTokens({
-    this.duration,
-    this.curve,
+    this.duration = const Duration(milliseconds: 500),
+    this.curve = Curves.easeInOut,
     this.style,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final Duration duration;
+  final Curve curve;
+  final TextStyle? style;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const numberTickerThemeTokens = NumberTickerThemeTokens();

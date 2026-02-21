@@ -1,13 +1,22 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../stage_container.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in stage container widgets
 // ═══════════════════════════════════════════════════════════
 
 class StageContainerThemeDefaults {
-  /// Widget fallback: this.breakpoint
-  final Object? breakpoint;
-  final Object? padding;
+  const StageContainerThemeDefaults({
+    this.breakpoint = StageBreakpoint.defaultBreakpoints,
+    this.padding = const EdgeInsets.symmetric(horizontal: 72.0),
+  });
 
-  const StageContainerThemeDefaults({this.breakpoint, this.padding});
+  /// From `StageContainer`: `breakpoint = StageBreakpoint.defaultBreakpoints`
+  final StageBreakpoint breakpoint;
+
+  /// From `StageContainer`: `EdgeInsets.symmetric(horizontal: baseContainerPadding * 4.5)`
+  final EdgeInsets padding;
 }

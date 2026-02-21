@@ -1,18 +1,22 @@
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in tracker widgets
 // ═══════════════════════════════════════════════════════════
 
 class TrackerThemeDefaults {
-  /// Widget fallback: theme.radiusMd
-  final Object? radius;
+  const TrackerThemeDefaults({
+    this.radius = 6.0,
+    this.gap = 2.0,
+    this.itemHeight = 32.0,
+  });
 
-  /// Widget fallback: theme.scaling * 2
-  final Object? gap;
+  /// From `Tracker`: `trackerTheme?.radius ?? theme.radiusMd`
+  final double radius;
 
-  /// Widget fallback: 32
-  final Object? itemHeight;
+  /// From `Tracker`: `trackerTheme?.gap ?? theme.scaling * 2`
+  final double gap;
 
-  const TrackerThemeDefaults({this.radius, this.gap, this.itemHeight = 32});
+  /// From `Tracker`: `trackerTheme?.itemHeight ?? 32`
+  final double itemHeight;
 }

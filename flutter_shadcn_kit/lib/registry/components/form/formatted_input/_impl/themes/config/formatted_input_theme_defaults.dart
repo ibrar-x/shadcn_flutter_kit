@@ -1,13 +1,20 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in formatted input widgets
 // ═══════════════════════════════════════════════════════════
 
 class FormattedInputThemeDefaults {
-  /// Widget fallback: kTextFieldHeight
-  final Object? height;
-  final Object? padding;
+  const FormattedInputThemeDefaults({
+    this.height = 34.0,
+    this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
+  });
 
-  const FormattedInputThemeDefaults({this.height, this.padding});
+  /// From `_FormattedInputState`: `compTheme?.height ?? kTextFieldHeight`
+  final double height;
+
+  /// From `_FormattedInputState`: `EdgeInsets.symmetric(horizontal: ... * 0.75)`
+  final EdgeInsetsGeometry padding;
 }

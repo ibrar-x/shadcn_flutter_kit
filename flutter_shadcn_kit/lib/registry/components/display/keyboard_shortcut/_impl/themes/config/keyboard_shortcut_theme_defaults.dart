@@ -1,17 +1,27 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in keyboard shortcut widgets
 // ═══════════════════════════════════════════════════════════
 
 class KeyboardShortcutThemeDefaults {
-  final Object? spacing;
-  final Object? keyPadding;
-  final Object? keyShadow;
-
   const KeyboardShortcutThemeDefaults({
-    this.spacing,
-    this.keyPadding,
+    this.spacing = 2.0,
+    this.keyPadding = const EdgeInsets.symmetric(
+      horizontal: 6.0,
+      vertical: 4.0,
+    ),
     this.keyShadow,
   });
+
+  /// From `KeyboardDisplay`: `defaultValue: 2 * theme.scaling`
+  final double spacing;
+
+  /// From `KeyboardKeyDisplay`: `EdgeInsets.symmetric(...0.75, ...0.5)`
+  final EdgeInsetsGeometry keyPadding;
+
+  /// From `KeyboardKeyDisplay`: `defaultValue: null`
+  final List<BoxShadow>? keyShadow;
 }

@@ -1,13 +1,30 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in focus outline widgets
 // ═══════════════════════════════════════════════════════════
 
 class FocusOutlineThemeDefaults {
-  final Object? align;
-  final Object? borderRadius;
-  final Object? border;
+  const FocusOutlineThemeDefaults({
+    this.align = 3.0,
+    this.borderRadius,
+    this.border = const Border.fromBorderSide(
+      BorderSide(color: Color(0x80A1A1A1), width: 3.0),
+    ),
+    this.shape = BoxShape.rectangle,
+  });
 
-  const FocusOutlineThemeDefaults({this.align, this.borderRadius, this.border});
+  /// From `FocusOutline`: `defaultValue: 3.0`
+  final double align;
+
+  /// From `FocusOutline`: `defaultValue: null`
+  final BorderRadiusGeometry? borderRadius;
+
+  /// From `FocusOutline`: `defaultValue: Border.all(color: visibleRingColor, width: 3.0)`
+  final Border border;
+
+  /// From `FocusOutline`: `shape ?? BoxShape.rectangle`
+  final BoxShape shape;
 }

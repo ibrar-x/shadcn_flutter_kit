@@ -1,12 +1,32 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in context menu widgets
 // ═══════════════════════════════════════════════════════════
 
 class ContextMenuThemeDefaults {
-  final Object? surfaceOpacity;
-  final Object? surfaceBlur;
+  const ContextMenuThemeDefaults({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.direction = Axis.vertical,
+    this.popupAnimationDuration = const Duration(milliseconds: 100),
+    this.maxWidth = 192.0,
+  });
 
-  const ContextMenuThemeDefaults({this.surfaceOpacity, this.surfaceBlur});
+  /// From `MenuPopup`: `defaultValue: theme.surfaceOpacity`
+  final double? surfaceOpacity;
+
+  /// From `MenuPopup`: `defaultValue: theme.surfaceBlur`
+  final double? surfaceBlur;
+
+  /// From `ContextMenuPopup`: `direction = Axis.vertical`
+  final Axis direction;
+
+  /// From `ContextMenuPopup`: `AnimatedValueBuilder duration = 100ms`
+  final Duration popupAnimationDuration;
+
+  /// From `ContextMenuPopup`: `LimitedBox(maxWidth: 192 * scaling)`
+  final double maxWidth;
 }
