@@ -1,19 +1,40 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in circular progress indicator widgets
 // ═══════════════════════════════════════════════════════════
 
 class CircularProgressIndicatorThemeDefaults {
-  final Object? color;
-  final Object? backgroundColor;
-  final Object? size;
-  final Object? strokeWidth;
-
   const CircularProgressIndicatorThemeDefaults({
-    this.color,
-    this.backgroundColor,
-    this.size,
-    this.strokeWidth,
+    this.color = const Color(0xFF171717),
+    this.backgroundColor = const Color(0x33171717),
+    this.size = 16.0,
+    this.strokeWidth = 1.3333333333333333,
+    this.duration = const Duration(milliseconds: 150),
+    this.animated = true,
+    this.onSurface = false,
   });
+
+  /// From `CircularProgressIndicator`: default primary color when `onSurface` is false.
+  final Color color;
+
+  /// From `CircularProgressIndicator`: `effectiveColor.scaleAlpha(0.2)`
+  final Color backgroundColor;
+
+  /// From `CircularProgressIndicator`: `(iconTheme.size ?? 24 * scaling) - 8 * scaling`
+  final double size;
+
+  /// From `CircularProgressIndicator`: `effectiveSize / 12`
+  final double strokeWidth;
+
+  /// From constructor default: `kDefaultDuration`
+  final Duration duration;
+
+  /// From constructor default: `animated = true`
+  final bool animated;
+
+  /// From constructor default: `onSurface = false`
+  final bool onSurface;
 }

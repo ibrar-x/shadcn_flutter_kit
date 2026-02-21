@@ -1,19 +1,28 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in progress widgets
 // ═══════════════════════════════════════════════════════════
 
 class ProgressThemeDefaults {
-  final Object? color;
-  final Object? backgroundColor;
-  final Object? borderRadius;
-  final Object? minHeight;
-
   const ProgressThemeDefaults({
     this.color,
     this.backgroundColor,
-    this.borderRadius,
-    this.minHeight,
+    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
+    this.minHeight = 8.0,
   });
+
+  /// From `Progress`: `defaultValue: null`
+  final Color? color;
+
+  /// From `Progress`: `defaultValue: null`
+  final Color? backgroundColor;
+
+  /// From `Progress`: `defaultValue: theme.borderRadiusSm`
+  final BorderRadiusGeometry borderRadius;
+
+  /// From `Progress`: `defaultValue: 8.0 * theme.scaling`
+  final double minHeight;
 }

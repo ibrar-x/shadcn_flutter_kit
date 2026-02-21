@@ -1,19 +1,28 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in star rating widgets
 // ═══════════════════════════════════════════════════════════
 
 class StarRatingThemeDefaults {
-  final Object? activeColor;
-  final Object? backgroundColor;
-  final Object? starSize;
-  final Object? starSpacing;
-
   const StarRatingThemeDefaults({
-    this.activeColor,
-    this.backgroundColor,
-    this.starSize,
-    this.starSpacing,
+    this.activeColor = const Color(0xFF171717),
+    this.backgroundColor = const Color(0xFFF5F5F5),
+    this.starSize = 24.0,
+    this.starSpacing = 5.0,
   });
+
+  /// From `StarRatingState`: enabled fallback to `theme.colorScheme.primary`
+  final Color activeColor;
+
+  /// From `StarRatingState`: `defaultValue: theme.colorScheme.muted`
+  final Color backgroundColor;
+
+  /// From `StarRatingState`: `defaultValue: 24.0 * scaling`
+  final double starSize;
+
+  /// From `StarRatingState`: `defaultValue: 5.0 * scaling`
+  final double starSpacing;
 }

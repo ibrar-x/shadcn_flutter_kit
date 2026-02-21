@@ -1,22 +1,33 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME DEFAULTS
 // Built-in defaults (never changes)
-// Hard-coded widget/variant fallbacks are documented per field
+// Extracted from hard-coded values in text field widgets
 // ═══════════════════════════════════════════════════════════
 
 class TextFieldThemeDefaults {
-  /// Widget fallback: compTheme?.borderRadius
-  final Object? borderRadius;
-
-  /// Widget fallback: compTheme?.filled ?? false
-  final Object? filled;
-  final Object? padding;
-  final Object? border;
-
   const TextFieldThemeDefaults({
-    this.borderRadius,
-    this.filled,
-    this.padding,
-    this.border,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6.0)),
+    this.filled = false,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+    this.border = const Border.fromBorderSide(
+      BorderSide(
+        color: Color(0xFFE5E5E5),
+        strokeAlign: BorderSide.strokeAlignCenter,
+      ),
+    ),
   });
+
+  /// From `TextFieldState`: fallback to `BorderRadius.circular(theme.radiusMd)`
+  final BorderRadiusGeometry borderRadius;
+
+  /// From `TextFieldState`: `(widget.filled ?? compTheme?.filled ?? false)`
+  final bool filled;
+
+  /// From `TextFieldState`: density-based symmetric fallback padding.
+  final EdgeInsetsGeometry padding;
+
+  /// From `TextFieldState`: `Border.all(color: theme.colorScheme.border, strokeAlign: center)`
+  final Border border;
 }

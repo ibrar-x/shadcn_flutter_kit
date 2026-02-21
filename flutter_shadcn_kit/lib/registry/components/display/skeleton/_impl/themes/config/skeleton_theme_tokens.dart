@@ -1,24 +1,27 @@
+import 'package:flutter/widgets.dart';
+
 // ═══════════════════════════════════════════════════════════
 // COMPONENT THEME TOKENS
 // User customization layer (replace this file from website output)
+// Defaults intentionally mirror SkeletonThemeDefaults
 // ═══════════════════════════════════════════════════════════
 
 class SkeletonThemeTokens {
-  final Object? duration;
-  final Object? fromColor;
-  final Object? toColor;
-  final Object? enableSwitchAnimation;
-  final bool? ignoreGlobalScaling;
-  final bool? ignoreGlobalRadius;
-
   const SkeletonThemeTokens({
-    this.duration,
-    this.fromColor,
-    this.toColor,
-    this.enableSwitchAnimation,
-    this.ignoreGlobalScaling,
-    this.ignoreGlobalRadius,
+    this.duration = const Duration(seconds: 1),
+    this.fromColor = const Color(0x0D171717),
+    this.toColor = const Color(0x1A171717),
+    this.enableSwitchAnimation = true,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
   });
+
+  final Duration duration;
+  final Color fromColor;
+  final Color toColor;
+  final bool enableSwitchAnimation;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
 }
 
 const skeletonThemeTokens = SkeletonThemeTokens();
