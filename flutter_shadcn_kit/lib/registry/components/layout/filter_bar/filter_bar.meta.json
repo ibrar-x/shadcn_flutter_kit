@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "filter_bar",
   "name": "Filter Bar",
@@ -20,20 +21,20 @@
   },
   "patterns": [
     {
-      "title": "Typed custom filters",
+      "title": "Typed custom filters with matchers",
       "code": "final statusField = FilterField<String>(\n  id: 'status',\n  matcher: FilterMatchers.exact(),\n);\n\nFilterBar(\n  state: state,\n  customFilters: [\n    FilterCustomFilter.typed<String>(\n      field: statusField,\n      builder: (context, value, onChanged) {\n        return Select<String>(\n          value: value,\n          canUnselect: true,\n          placeholder: const Text('Status'),\n          onChanged: onChanged,\n          itemBuilder: (context, value) => Text(value),\n          popup: SelectPopup<String>(\n            items: SelectItemList(\n              children: const [\n                SelectItemButton<String>(value: 'open', child: Text('Open')),\n                SelectItemButton<String>(value: 'closed', child: Text('Closed')),\n              ],\n            ),\n          ).call,\n        );\n      },\n    ),\n  ],\n  onStateChanged: (next) => setState(() => state = next),\n)"
     },
     {
+      "title": "Multiple and custom matcher modes",
+      "code": "final brandField = FilterField<String>(\n  id: 'brand_query',\n  defaultMatcherId: 'contains',\n  matchers: [\n    FilterMatcherOption(\n      id: 'contains',\n      label: 'Contains',\n      matcher: FilterMatchers.contains(),\n    ),\n    FilterMatcherOption(\n      id: 'starts_with',\n      label: 'Starts with',\n      matcher: FilterMatchers.startsWith(),\n    ),\n    FilterMatcherOption(\n      id: 'custom',\n      label: 'Custom',\n      matcher: FilterMatcher<String>((selected, candidate) {\n        return candidate is String && candidate.endsWith(selected);\n      }),\n    ),\n  ],\n);\n\nfinal next = state\n    .setValue(brandField, 'app')\n    .setMatcherIdOf(brandField, 'starts_with');"
+    },
+    {
       "title": "Sheet presentation with groups",
-      "code": "FilterBar(\n  controller: controller,\n  presentation: FilterBarPresentation.autoSheet,\n  sheetBreakpoint: 720,\n  sheetTitle: 'Filters',\n  groups: const [\n    FilterGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n  ],\n)"
+      "code": "FilterBar(\n  controller: controller,\n  presentation: FilterBarPresentation.autoSheet,\n  sheetBreakpoint: 720,\n  sheetTitle: 'Filters',\n  groups: const [\n    FilterGroup(\n      id: 'catalog',\n      title: 'Catalog',\n      filterIds: ['category', 'brand'],\n    ),\n    FilterGroup(\n      id: 'price',\n      title: 'Pricing',\n      filterIds: ['price', 'rating'],\n    ),\n  ],\n)"
     },
     {
       "title": "Explicit model bindings",
       "code": "final bindings = <FilterBinding<Order>>[\n  TypedFilterBinding<Order, String>(\n    field: emailField,\n    selector: (order) => order.email,\n  ),\n  TypedFilterBinding<Order, double>(\n    field: revenueField,\n    selector: (order) => order.revenue,\n  ),\n];\n\nfinal filteredOrders = state.whereMatches(orders, bindings).toList();"
-    },
-    {
-      "title": "Multi matcher + custom matcher",
-      "code": "final brandField = FilterField<String>(\n  id: 'brand_query',\n  defaultMatcherId: 'contains',\n  matchers: [\n    FilterMatcherOption(\n      id: 'contains',\n      label: 'Contains',\n      matcher: FilterMatchers.contains(),\n    ),\n    FilterMatcherOption(\n      id: 'starts_with',\n      label: 'Starts with',\n      matcher: FilterMatchers.startsWith(),\n    ),\n    FilterMatcherOption(\n      id: 'custom',\n      label: 'Custom',\n      matcher: FilterMatcher<String>((selected, candidate) {\n        return candidate is String && candidate.endsWith(selected);\n      }),\n    ),\n  ],\n);\n\nstate = state\n    .setValue(brandField, 'app')\n    .setMatcherIdOf(brandField, 'starts_with');"
     },
     {
       "title": "Trailing page-specific widgets",
@@ -43,8 +44,8 @@
   "api": {
     "constructors": [
       "`FilterBar`",
-      "`state` (`FilterState?`, required if `controller` is null)",
-      "`onStateChanged` (`ValueChanged<FilterState>?`, required if `controller` is null)",
+      "`state` (`FilterState?`, required when `controller` is not provided)",
+      "`onStateChanged` (`ValueChanged<FilterState>?`, required when `controller` is not provided)",
       "`controller` (`FilterBarController?`, optional)",
       "`sortOptions` (`List<FilterSortOption>`, optional)",
       "`enableDateRange` (`bool`, optional)",

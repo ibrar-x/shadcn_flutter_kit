@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 /// Creates a "skill bundle" folder from your registry directory by copying the
 /// recommended artifacts for AI tools (index + schemas + shared + meta files).
 ///
@@ -24,7 +26,8 @@ void main(List<String> args) {
 
   if (args.isEmpty || args[0].startsWith('-')) {
     stderr.writeln(
-        '❌ Missing <skill-name>\n\nUsage: dart tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]\n       dart tool/registry_skill_bundle.dart --info');
+      '❌ Missing <skill-name>\n\nUsage: dart tool/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]\n       dart tool/registry_skill_bundle.dart --info',
+    );
     exit(1);
   }
 
@@ -40,7 +43,8 @@ void main(List<String> args) {
   final outDir = '$outRoot/$skillName';
   if (Directory(outDir).existsSync() && !force) {
     stderr.writeln(
-        '❌ Skill folder already exists: $outDir\nUse --force to refresh registry_snapshot + manifest (SKILL.md and skill.prompt.json are preserved).');
+      '❌ Skill folder already exists: $outDir\nUse --force to refresh registry_snapshot + manifest (SKILL.md and skill.prompt.json are preserved).',
+    );
     exit(1);
   }
 
@@ -60,10 +64,7 @@ void main(List<String> args) {
   final filesToCopy = <String>[];
 
   // Required core
-  final required = [
-    '$registryDir/index.json',
-    '$registryDir/components.json',
-  ];
+  final required = ['$registryDir/index.json', '$registryDir/components.json'];
 
   for (final p in required) {
     if (!File(p).existsSync()) {
@@ -103,22 +104,29 @@ void main(List<String> args) {
   final componentDirs = collectComponentDirs(registryDir);
   for (final dir in componentDirs) {
     final id = dir.split('/').last;
+    final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
 
     // Always include meta.json for dependency graph context (useful for skills)
-    final metaJson = '$dir/meta.json';
-    if (File(metaJson).existsSync()) {
-      filesToCopy.add(metaJson);
-    }
+    if (metadata.canonicalMeta.existsSync())
+      filesToCopy.add(metadata.canonicalMeta.path);
+    if (metadata.legacyMeta.existsSync())
+      filesToCopy.add(metadata.legacyMeta.path);
 
     // Include {id}.meta.json for AI-safe API usage when present
-    final readmeMeta = '$dir/$id.meta.json';
-    if (File(readmeMeta).existsSync()) filesToCopy.add(readmeMeta);
+    if (metadata.canonicalReadmeMeta.existsSync()) {
+      filesToCopy.add(metadata.canonicalReadmeMeta.path);
+    }
+    if (metadata.legacyReadmeMeta.existsSync()) {
+      filesToCopy.add(metadata.legacyReadmeMeta.path);
+    }
   }
 
   // De-dupe, deterministic order
   final uniq = filesToCopy.toSet().toList()
-    ..sort((a, b) => relFromRepo(a, registryDir)
-        .compareTo(relFromRepo(b, registryDir)));
+    ..sort(
+      (a, b) =>
+          relFromRepo(a, registryDir).compareTo(relFromRepo(b, registryDir)),
+    );
 
   // Copy + build manifest
   final manifest = {
@@ -191,13 +199,13 @@ void main(List<String> args) {
         'Search registry_snapshot/index.json',
         'Output install commands',
         'Use only documented APIs from {id}.meta.json',
-        'Write app code only (never modify ui/shadcn/**)'
+        'Write app code only (never modify ui/shadcn/**)',
       ],
       'constraints': [
         'Install via CLI only: flutter_shadcn add <id>',
         'Never guess APIs or imports',
-        'Registry snapshot is read-only'
-      ]
+        'Registry snapshot is read-only',
+      ],
     });
   }
 
@@ -216,10 +224,7 @@ void main(List<String> args) {
 }
 
 String argValue(List<String> args, String prefix, String defaultValue) {
-  final arg = args.firstWhere(
-    (x) => x.startsWith(prefix),
-    orElse: () => '',
-  );
+  final arg = args.firstWhere((x) => x.startsWith(prefix), orElse: () => '');
   if (arg.isEmpty) return defaultValue;
   final parts = arg.split('=');
   return parts.length > 1 ? parts[1] : defaultValue;
@@ -285,13 +290,13 @@ List<String> collectComponentDirs(String registryDir) {
 
   final dirs = <String>[];
   for (final root in roots) {
-    final cats =
-        Directory(root).listSync().whereType<Directory>().map((d) => d.path);
+    final cats = Directory(
+      root,
+    ).listSync().whereType<Directory>().map((d) => d.path);
     for (final catDir in cats) {
-      final ids = Directory(catDir)
-          .listSync()
-          .whereType<Directory>()
-          .map((d) => d.path);
+      final ids = Directory(
+        catDir,
+      ).listSync().whereType<Directory>().map((d) => d.path);
       dirs.addAll(ids);
     }
   }

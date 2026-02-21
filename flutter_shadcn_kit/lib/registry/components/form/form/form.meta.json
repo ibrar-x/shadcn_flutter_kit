@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "form",
   "name": "Form",
@@ -11,7 +12,7 @@
       "you want reusable validators and error builders."
     ],
     "avoid": [
-      "a single input doesn\u2019t require validation."
+      "a single input doesn’t require validation."
     ]
   },
   "examples": {
@@ -25,14 +26,14 @@
   ],
   "api": {
     "constructors": [
-      "`Form` \u2014 root form container.",
-      "`FormController` \u2014 manages values, validation, and submission.",
-      "`FormKey<T>` \u2014 typed keys for form fields.",
-      "`FormEntry<T>` \u2014 attaches validation to an input.",
-      "`FormField<T>` \u2014 labeled field wrapper with errors.",
-      "`FormInline<T>` \u2014 inline label+field layout.",
-      "`SubmitButton` \u2014 submit button with validation state.",
-      "`Validator<T>` and `ValidationResult` \u2014 validation helpers."
+      "`Form` — root form container.",
+      "`FormController` — manages values, validation, and submission.",
+      "`FormKey<T>` — typed keys for form fields.",
+      "`FormEntry<T>` — attaches validation to an input.",
+      "`FormField<T>` — labeled field wrapper with errors.",
+      "`FormInline<T>` — inline label+field layout.",
+      "`SubmitButton` — submit button with validation state.",
+      "`Validator<T>` and `ValidationResult` — validation helpers."
     ],
     "callbacks": [
       "`onSubmitted` (Form)",

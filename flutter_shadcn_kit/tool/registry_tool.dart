@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 const _taxonomyFolders = [
   'core',
   'styles',
@@ -135,19 +137,29 @@ Future<void> _initComponent(Directory root) async {
     readmeFile.writeAsStringSync(_readmeStub(name, description));
   }
 
-  final metaFile = File('${entryDir.path}/meta.json');
-  if (!metaFile.existsSync()) {
-    metaFile.writeAsStringSync(
-      _metaStub(
-        type: type,
-        id: id,
-        name: name,
-        description: description,
-        category: category,
-        tags: tags,
-        sharedDeps: sharedDeps,
-        dependsOn: dependsOn,
+  final metadata = ComponentMetadataPaths(entryDir: entryDir, id: id);
+  if (!metadata.canonicalMeta.existsSync() &&
+      !metadata.legacyMeta.existsSync()) {
+    writeJsonMirrored(
+      canonical: metadata.canonicalMeta,
+      legacy: metadata.legacyMeta,
+      data: jsonDecode(
+        _metaStub(
+          type: type,
+          id: id,
+          name: name,
+          description: description,
+          category: category,
+          tags: tags,
+          sharedDeps: sharedDeps,
+          dependsOn: dependsOn,
+        ),
       ),
+    );
+  } else {
+    mirrorExistingFile(
+      canonical: metadata.canonicalMeta,
+      legacy: metadata.legacyMeta,
     );
   }
 
@@ -268,22 +280,32 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
 
     final id = compDir.uri.pathSegments.last.replaceAll('/', '');
     final category = compDir.parent.uri.pathSegments.last.replaceAll('/', '');
-    final metaFile = File('${compDir.path}/meta.json');
+    final metadata = ComponentMetadataPaths(entryDir: compDir, id: id);
     final name = _titleCase(id);
     final description = 'TODO: describe $name.';
 
-    if (!metaFile.existsSync()) {
-      metaFile.writeAsStringSync(
-        _metaStub(
-          type: type,
-          id: id,
-          name: name,
-          description: description,
-          category: category,
-          tags: [category, id],
-          sharedDeps: const [],
-          dependsOn: const [],
+    if (!metadata.canonicalMeta.existsSync() &&
+        !metadata.legacyMeta.existsSync()) {
+      writeJsonMirrored(
+        canonical: metadata.canonicalMeta,
+        legacy: metadata.legacyMeta,
+        data: jsonDecode(
+          _metaStub(
+            type: type,
+            id: id,
+            name: name,
+            description: description,
+            category: category,
+            tags: [category, id],
+            sharedDeps: const [],
+            dependsOn: const [],
+          ),
         ),
+      );
+    } else {
+      mirrorExistingFile(
+        canonical: metadata.canonicalMeta,
+        legacy: metadata.legacyMeta,
       );
     }
 
@@ -379,16 +401,17 @@ List<_Json> _buildFileList(
 ) {
   final files = <_Json>[];
 
-  for (final file in compDir.listSync(recursive: true).whereType<File>()) {
-    final rel = file.path
+  for (final relInComponent in listComponentSourceFilesRelative(compDir)) {
+    final rel = compDir.path
         .substring(registryDir.path.length + 1)
         .replaceAll('\\', '/');
+    final relPath = '$rel/$relInComponent';
 
-    final source = type == _EntryType.component ? 'registry/$rel' : rel;
+    final source = type == _EntryType.component ? 'registry/$relPath' : relPath;
 
     final destination = type == _EntryType.component
-        ? '{installPath}/$rel'
-        : '{installPath}/$rel';
+        ? '{installPath}/$relPath'
+        : '{installPath}/$relPath';
 
     files.add({'source': source, 'destination': destination});
   }

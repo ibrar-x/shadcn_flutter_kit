@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 const indexSchemaVersion = 1;
 
 /// Validates that a component entry matches the required schema structure
@@ -18,7 +20,8 @@ void validateComponentEntry(Map<String, dynamic> component, int index) {
   if (!component.containsKey('category') || component['category'] is! String) {
     errors.add('Missing or invalid category');
   }
-  if (!component.containsKey('description') || component['description'] is! String) {
+  if (!component.containsKey('description') ||
+      component['description'] is! String) {
     errors.add('Missing or invalid description');
   }
   if (!component.containsKey('tags') || component['tags'] is! List) {
@@ -30,7 +33,8 @@ void validateComponentEntry(Map<String, dynamic> component, int index) {
   if (!component.containsKey('import') || component['import'] is! String) {
     errors.add('Missing or invalid import');
   }
-  if (!component.containsKey('importPath') || component['importPath'] is! String) {
+  if (!component.containsKey('importPath') ||
+      component['importPath'] is! String) {
     errors.add('Missing or invalid importPath');
   }
 
@@ -58,7 +62,8 @@ void validateComponentEntry(Map<String, dynamic> component, int index) {
   }
 
   // Validate dependencies structure
-  if (!component.containsKey('dependencies') || component['dependencies'] is! Map) {
+  if (!component.containsKey('dependencies') ||
+      component['dependencies'] is! Map) {
     errors.add('Missing or invalid dependencies');
   } else {
     final deps = component['dependencies'] as Map;
@@ -118,7 +123,9 @@ void validateIndex(Map<String, dynamic> index) {
 void _printUsage() {
   stdout.writeln('Usage: dart run ../tool/registry_index_generate.dart');
   stdout.writeln('');
-  stdout.writeln('Generates registry/index.json from components.json + meta.json.');
+  stdout.writeln(
+    'Generates registry/index.json from components.json + meta.json.',
+  );
   stdout.writeln('Optionally merges <id>.meta.json if present.');
   stdout.writeln('');
   stdout.writeln('Options:');
@@ -146,7 +153,8 @@ void main(List<String> args) {
 
   if (registry['components'] is! List) {
     throw Exception(
-        'registry/components.json must have a top-level "components" array');
+      'registry/components.json must have a top-level "components" array',
+    );
   }
 
   final items = <Map<String, dynamic>>[];
@@ -156,10 +164,10 @@ void main(List<String> args) {
     final entryMap = entry as Map<String, dynamic>;
     final id = entryMap['id'] as String;
     final category = entryMap['category'] as String;
-    
+
     // Try to find the component folder
     String? dir;
-    
+
     // First, check if files array has a source path we can use
     final files = entryMap['files'] as List?;
     if (files != null && files.isNotEmpty) {
@@ -167,14 +175,14 @@ void main(List<String> args) {
       final source = firstFile['source'] as String;
       dir = detectFolderFromSource(registryDir, source);
     }
-    
+
     // If no files or couldn't detect, try common locations
     if (dir == null) {
       final candidates = [
         '$registryDir/components/$category/$id',
         '$registryDir/composites/$category/$id',
       ];
-      
+
       for (final candidate in candidates) {
         if (Directory(candidate).existsSync()) {
           dir = candidate;
@@ -182,24 +190,31 @@ void main(List<String> args) {
         }
       }
     }
-    
+
     if (dir == null) {
       print('⚠ Skipping $id: folder not found');
       continue;
     }
 
-    final metaJsonPath = '$dir/meta.json';
-    final readmeMetaPath = '$dir/$id.meta.json';
+    final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
+    final metaFile = preferredFile(
+      canonical: metadata.canonicalMeta,
+      legacy: metadata.legacyMeta,
+    );
+    final readmeMetaFile = preferredFile(
+      canonical: metadata.canonicalReadmeMeta,
+      legacy: metadata.legacyReadmeMeta,
+    );
 
-    if (!File(metaJsonPath).existsSync()) {
-      print('⚠ Skipping $id: missing meta.json at $metaJsonPath');
+    if (!metaFile.existsSync()) {
+      print('⚠ Skipping $id: missing component metadata at ${metaFile.path}');
       continue;
     }
 
-    final meta = readJson(metaJsonPath);
+    final meta = readJson(metaFile.path);
     Map<String, dynamic> doc = {};
-    if (File(readmeMetaPath).existsSync()) {
-      doc = readJson(readmeMetaPath);
+    if (readmeMetaFile.existsSync()) {
+      doc = readJson(readmeMetaFile.path);
     }
 
     // Prefer authoritative values from components.json/meta.json for these:
@@ -247,7 +262,8 @@ void main(List<String> args) {
 
       // dependency graph (authoritative from meta.json, not README)
       'dependencies': {
-        'pubspec': (meta['dependencies'] as Map?)?['pubspec'] ?? <String, dynamic>{},
+        'pubspec':
+            (meta['dependencies'] as Map?)?['pubspec'] ?? <String, dynamic>{},
         'shared': (meta['dependencies'] as Map?)?['shared'] ?? <String>[],
       },
 
@@ -325,8 +341,10 @@ Directory? _findRepoRoot(Directory start) {
 String normalizeImportPath(String importStmt) {
   // "import 'package:<your_app>/ui/shadcn/control/button/button.dart';"
   // Convert to relative install import if possible: "ui/shadcn/control/button/button.dart"
-  final pattern =
-      RegExp(r"import\s+'package:<your_app>/([^']+)';", multiLine: true);
+  final pattern = RegExp(
+    r"import\s+'package:<your_app>/([^']+)';",
+    multiLine: true,
+  );
   final match = pattern.firstMatch(importStmt);
   if (match != null) return match.group(1)!;
   return ''; // keep empty if cannot normalize

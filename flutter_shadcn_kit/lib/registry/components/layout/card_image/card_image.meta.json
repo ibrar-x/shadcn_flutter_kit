@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "card_image",
   "name": "Card Image",
@@ -24,7 +25,7 @@
       "`title`, `subtitle`, `content` (`Widget?`)",
       "`direction` (`Axis?`)",
       "`onPressed` (`VoidCallback?`)",
-      "`CardImageTheme` \u2014 style, spacing, and hover settings."
+      "`CardImageTheme` — style, spacing, and hover settings."
     ],
     "callbacks": []
   },

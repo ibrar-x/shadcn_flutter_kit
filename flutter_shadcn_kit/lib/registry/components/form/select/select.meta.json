@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "select",
   "name": "Select",
@@ -20,12 +21,12 @@
   "patterns": [],
   "api": {
     "constructors": [
-      "`Select<T>` \u2014 single-value select.",
-      "`MultiSelect<T>` \u2014 multi-value select.",
-      "`SelectItem<T>` \u2014 item row.",
-      "`SelectGroup` \u2014 grouped items.",
-      "`SelectPopup` \u2014 menu/popup builders.",
-      "`SelectController<T>` / `MultiSelectController<T>` \u2014 controllers.",
+      "`Select<T>` — single-value select.",
+      "`MultiSelect<T>` — multi-value select.",
+      "`SelectItem<T>` — item row.",
+      "`SelectGroup` — grouped items.",
+      "`SelectPopup` — menu/popup builders.",
+      "`SelectController<T>` / `MultiSelectController<T>` — controllers.",
       "Builder types: `SelectPopupBuilder`, `SelectValueBuilder`."
     ],
     "callbacks": [

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 typedef JsonMap = Map<String, dynamic>;
 
 typedef JsonList = List<dynamic>;
@@ -105,19 +107,6 @@ void _printUsage() {
   );
 }
 
-List<String> _listFilesRelative(Directory baseDir) {
-  final result = <String>[];
-  for (final entity in baseDir.listSync(recursive: true)) {
-    if (entity is! File) continue;
-    final rel = entity.path
-        .substring(baseDir.path.length + 1)
-        .replaceAll('\\', '/');
-    result.add(rel);
-  }
-  result.sort();
-  return result;
-}
-
 final _partOfPattern = RegExp(
   "^\\s*part\\s+of\\s+['\\\"]([^'\\\"]+)['\\\"]\\s*;",
   multiLine: true,
@@ -197,7 +186,7 @@ List<JsonMap> _buildFileMappings({
   final baseRel = entryDir.path
       .substring(registryDir.path.length + 1)
       .replaceAll('\\', '/');
-  final relFiles = _listFilesRelative(entryDir);
+  final relFiles = listComponentSourceFilesRelative(entryDir);
   final partDependencies = type == 'components'
       ? _collectPartDependencies(entryDir)
       : const {};
@@ -292,7 +281,7 @@ List<JsonMap> _updateSharedEntries(
         <JsonMap>[];
   }
 
-  final allSources = _listFilesRelative(
+  final allSources = listSharedSourceFilesRelative(
     sharedRoot,
   ).map((rel) => 'registry/shared/$rel').toList();
   allSources.sort();
@@ -569,7 +558,7 @@ JsonMap _buildEntry({
 }) {
   final id = _basename(entryDir.path);
   final category = _basename(entryDir.parent.path);
-  final fileList = _listFilesRelative(entryDir);
+  final fileList = listComponentSourceFilesRelative(entryDir);
 
   final updatedMeta = _mergeMeta(
     id: id,
@@ -723,15 +712,16 @@ void main(List<String> args) {
         final name = _basename(entryDir.path);
         if (name.startsWith('_') || name.startsWith('.')) continue;
 
-        final metaFile = File('${entryDir.path}/meta.json');
-        final meta = metaFile.existsSync()
-            ? _readJson(metaFile)
-            : <String, dynamic>{};
-        if (!metaFile.existsSync()) {
-          missingMetaFiles.add(metaFile.path);
-        }
-
         final id = _basename(entryDir.path);
+        final metadata = ComponentMetadataPaths(entryDir: entryDir, id: id);
+        final meta = readJsonOrEmpty(
+          canonical: metadata.canonicalMeta,
+          legacy: metadata.legacyMeta,
+        );
+        if (!metadata.canonicalMeta.existsSync() &&
+            !metadata.legacyMeta.existsSync()) {
+          missingMetaFiles.add(metadata.canonicalMeta.path);
+        }
         final updatedEntry = _buildEntry(
           registryDir: registryDir,
           entryDir: entryDir,
@@ -740,7 +730,7 @@ void main(List<String> args) {
           existingEntry: existingEntries[id],
         );
 
-        final fileList = _listFilesRelative(entryDir);
+        final fileList = listComponentSourceFilesRelative(entryDir);
         final category = _basename(entryDir.parent.path);
         final updatedMeta = _mergeMeta(
           id: id,
@@ -751,8 +741,17 @@ void main(List<String> args) {
         );
 
         if (!_deepEquals(meta, updatedMeta)) {
-          _writeJson(metaFile, updatedMeta);
-          updatedMetaFiles.add(metaFile.path);
+          writeJsonMirrored(
+            canonical: metadata.canonicalMeta,
+            legacy: metadata.legacyMeta,
+            data: updatedMeta,
+          );
+          updatedMetaFiles.add(metadata.canonicalMeta.path);
+        } else {
+          mirrorExistingFile(
+            canonical: metadata.canonicalMeta,
+            legacy: metadata.legacyMeta,
+          );
         }
 
         updatedEntries[id] = updatedEntry;
@@ -791,10 +790,12 @@ void main(List<String> args) {
   );
 
   _writeJson(componentsJson, registry);
-  final docsSnapshot = File(
-    '${root.path}/docs/assets/registry/components.json',
-  );
-  if (docsSnapshot.existsSync()) {
+  final docsSnapshots = <File>{
+    File('${root.path}/docs/assets/registry/components.json'),
+    File('${root.parent.path}/docs/assets/registry/components.json'),
+  };
+  for (final docsSnapshot in docsSnapshots) {
+    if (!docsSnapshot.existsSync()) continue;
     _writeJson(docsSnapshot, registry);
   }
 
@@ -803,7 +804,9 @@ void main(List<String> args) {
   stdout.writeln('Manifest version: ${registry['manifestVersion']}.');
   stdout.writeln('Meta files updated: ${updatedMetaFiles.length}.');
   if (missingMetaFiles.isNotEmpty) {
-    stdout.writeln('Missing meta.json files: ${missingMetaFiles.length}.');
+    stdout.writeln(
+      'Missing component metadata files: ${missingMetaFiles.length}.',
+    );
   }
   if (removedIds.isNotEmpty) {
     stdout.writeln('Removed stale component entries: ${removedIds.length}.');

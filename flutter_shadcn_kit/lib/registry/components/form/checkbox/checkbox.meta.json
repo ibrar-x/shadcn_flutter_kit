@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "checkbox",
   "name": "Checkbox",
@@ -31,9 +32,9 @@
       "`tristate` (`bool`)",
       "`leading`, `trailing` (`Widget?`)",
       "`size`, `gap`, `backgroundColor`, `activeColor`, `borderColor`, `borderRadius`",
-      "`ControlledCheckbox` \u2014 controller-backed checkbox.",
-      "`CheckboxController` \u2014 `ValueNotifier<CheckboxState>` controller.",
-      "`CheckboxState` \u2014 `checked`, `unchecked`, `indeterminate`."
+      "`ControlledCheckbox` — controller-backed checkbox.",
+      "`CheckboxController` — `ValueNotifier<CheckboxState>` controller.",
+      "`CheckboxState` — `checked`, `unchecked`, `indeterminate`."
     ],
     "callbacks": [
       "`onChanged`"

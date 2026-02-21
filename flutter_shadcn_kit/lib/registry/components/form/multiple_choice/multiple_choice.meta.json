@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "multiple_choice",
   "name": "Multiple Choice",
@@ -20,11 +21,11 @@
   "patterns": [],
   "api": {
     "constructors": [
-      "`MultipleChoice<T>` \u2014 single selection.",
-      "`MultipleAnswer<T>` \u2014 multiple selection.",
-      "`Choice<T>` \u2014 selectable child widget.",
-      "`ControlledMultipleChoice<T>` / `ControlledMultipleAnswer<T>` \u2014 controller-backed.",
-      "`MultipleChoiceController<T>` / `MultipleAnswerController<T>` \u2014 controllers."
+      "`MultipleChoice<T>` — single selection.",
+      "`MultipleAnswer<T>` — multiple selection.",
+      "`Choice<T>` — selectable child widget.",
+      "`ControlledMultipleChoice<T>` / `ControlledMultipleAnswer<T>` — controller-backed.",
+      "`MultipleChoiceController<T>` / `MultipleAnswerController<T>` — controllers."
     ],
     "callbacks": [
       "`onChanged`"

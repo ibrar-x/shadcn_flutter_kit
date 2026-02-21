@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "tab_container",
   "name": "Tab Container",
@@ -24,9 +25,9 @@
       "`onChanged` (`ValueChanged<int>?`)",
       "`children` (`List<Widget>`)",
       "`builder`, `childBuilder`",
-      "`TabItem` / `KeyedTabItem` \u2014 tab items.",
-      "`TabChildWidget` / `KeyedTabChildWidget` \u2014 tab content wrappers.",
-      "`TabContainerTheme` \u2014 builder defaults."
+      "`TabItem` / `KeyedTabItem` — tab items.",
+      "`TabChildWidget` / `KeyedTabChildWidget` — tab content wrappers.",
+      "`TabContainerTheme` — builder defaults."
     ],
     "callbacks": []
   },

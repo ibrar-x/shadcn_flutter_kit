@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "alert",
   "name": "Alert",
@@ -22,8 +23,8 @@
       "`Alert`",
       "`leading`, `title`, `content`, `trailing`",
       "`destructive` (`bool`)",
-      "`Alert.destructive` \u2014 destructive styling shortcut.",
-      "`AlertTheme` \u2014 padding and surface defaults."
+      "`Alert.destructive` — destructive styling shortcut.",
+      "`AlertTheme` — padding and surface defaults."
     ],
     "callbacks": []
   },

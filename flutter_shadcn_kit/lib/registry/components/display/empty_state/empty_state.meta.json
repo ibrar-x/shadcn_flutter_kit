@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "empty_state",
   "name": "Empty State",
@@ -20,7 +21,7 @@
   "patterns": [
     {
       "title": "Actions",
-      "code": "EmptyState(\n  title: const Text('No Projects Yet'),\n  description: const Text(\"You haven't created any projects yet. Get started by creating your first project.\"),\n  primaryAction: const EmptyStateAction(\n    label: 'Create Project',\n    style: EmptyStateActionStyle.primary,\n  ),\n  secondaryAction: const EmptyStateAction(\n    label: 'Import Project',\n    style: EmptyStateActionStyle.secondary,\n  ),\n  footerAction: const EmptyStateAction(\n    label: 'Learn More',\n    style: EmptyStateActionStyle.link,\n    trailingIcon: Icon(RadixIcons.arrowTopRight),\n  ),\n)"
+      "code": "EmptyState(\n  title: const Text('No Projects Yet'),\n  description: const Text(\n    \"You haven't created any projects yet. Get started by creating your first project.\",\n  ),\n  primaryAction: const EmptyStateAction(\n    label: 'Create Project',\n    style: EmptyStateActionStyle.primary,\n  ),\n  secondaryAction: const EmptyStateAction(\n    label: 'Import Project',\n    style: EmptyStateActionStyle.secondary,\n  ),\n  footerAction: const EmptyStateAction(\n    label: 'Learn More',\n    style: EmptyStateActionStyle.link,\n    trailingIcon: Icon(RadixIcons.arrowTopRight),\n  ),\n)"
     }
   ],
   "api": {

@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "scrollable_client",
   "name": "Scrollable Client",
@@ -23,8 +24,8 @@
       "`builder` (`ScrollableBuilder`, required)",
       "`child` (`Widget?`)",
       "`controller` / `diagonalDragBehavior` / `dragStartBehavior`",
-      "`ScrollableClientViewport` \u2014 viewport widget.",
-      "`ScrollableBuilder` \u2014 `Widget Function(BuildContext, Offset, Size, Widget?)`."
+      "`ScrollableClientViewport` — viewport widget.",
+      "`ScrollableBuilder` — `Widget Function(BuildContext, Offset, Size, Widget?)`."
     ],
     "callbacks": []
   },

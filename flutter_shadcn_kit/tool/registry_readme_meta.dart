@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 const registryDir = 'flutter_shadcn_kit/lib/registry';
 const outputSchemaVersion = 1;
 
@@ -12,16 +14,22 @@ void validateReadmeMeta(Map<String, dynamic> meta, String path) {
   if (!meta.containsKey('schemaVersion') || meta['schemaVersion'] is! int) {
     errors.add('Missing or invalid schemaVersion');
   }
-  if (!meta.containsKey('id') || meta['id'] is! String || (meta['id'] as String).isEmpty) {
+  if (!meta.containsKey('id') ||
+      meta['id'] is! String ||
+      (meta['id'] as String).isEmpty) {
     errors.add('Missing or invalid id');
   }
-  if (!meta.containsKey('name') || meta['name'] is! String || (meta['name'] as String).isEmpty) {
+  if (!meta.containsKey('name') ||
+      meta['name'] is! String ||
+      (meta['name'] as String).isEmpty) {
     errors.add('Missing or invalid name');
   }
   if (!meta.containsKey('description') || meta['description'] is! String) {
     errors.add('Missing or invalid description');
   }
-  if (!meta.containsKey('install') || meta['install'] is! String || (meta['install'] as String).isEmpty) {
+  if (!meta.containsKey('install') ||
+      meta['install'] is! String ||
+      (meta['install'] as String).isEmpty) {
     errors.add('Missing or invalid install');
   }
   if (!meta.containsKey('import') || meta['import'] is! String) {
@@ -93,14 +101,21 @@ void main(List<String> args) {
       final md = File(readmePath).readAsStringSync();
       final meta = generateReadmeMetaFromMarkdown(md);
 
-      final outPath = '$dir/${meta['id']}.meta.json';
-      
-      // Validate against schema before writing
-      validateReadmeMeta(meta, outPath);
-      
-      writeJson(outPath, meta);
-      generated.add(outPath);
-      print('✓ Generated: $outPath');
+      final id = meta['id'] as String;
+      final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
+
+      final canonicalMeta = Map<String, dynamic>.from(meta);
+      canonicalMeta[r'$schema'] = '../../../../readme_meta.schema.json';
+      validateReadmeMeta(canonicalMeta, metadata.canonicalReadmeMeta.path);
+      writeJson(metadata.canonicalReadmeMeta.path, canonicalMeta);
+
+      final legacyMeta = Map<String, dynamic>.from(meta);
+      legacyMeta[r'$schema'] = '../readme_meta.schema.json';
+      validateReadmeMeta(legacyMeta, metadata.legacyReadmeMeta.path);
+      writeJson(metadata.legacyReadmeMeta.path, legacyMeta);
+
+      generated.add(metadata.canonicalReadmeMeta.path);
+      print('✓ Generated: ${metadata.canonicalReadmeMeta.path}');
     } catch (e) {
       errors.add('✗ Error in $readmePath: $e');
     }
@@ -128,18 +143,14 @@ List<String> listAllComponentFolders() {
   final out = <String>[];
 
   for (final root in roots) {
-    final categories = Directory(root)
-        .listSync()
-        .whereType<Directory>()
-        .map((d) => d.path)
-        .toList();
+    final categories = Directory(
+      root,
+    ).listSync().whereType<Directory>().map((d) => d.path).toList();
 
     for (final catDir in categories) {
-      final ids = Directory(catDir)
-          .listSync()
-          .whereType<Directory>()
-          .map((d) => d.path)
-          .toList();
+      final ids = Directory(
+        catDir,
+      ).listSync().whereType<Directory>().map((d) => d.path).toList();
 
       for (final idDir in ids) {
         final readme = '$idDir/README.md';
@@ -178,16 +189,16 @@ Map<String, dynamic> generateReadmeMetaFromMarkdown(String md) {
       ? extractWhenToUse(whenToUseSec)
       : {'use': <String>[], 'avoid': <String>[]};
 
-  final install = extractCodeBlock(installSec, 'bash')
-          .split('\n')
-          .firstWhere((l) => l.trim().isNotEmpty, orElse: () => '')
-          .trim();
+  final install = extractCodeBlock(
+    installSec,
+    'bash',
+  ).split('\n').firstWhere((l) => l.trim().isNotEmpty, orElse: () => '').trim();
   final importStmt = extractCodeBlock(importSec, 'dart').trim();
   final minimal = extractCodeBlock(minimalSec, 'dart').trim();
 
   final patterns = extractAllPatternBlocks(patternsSec);
   final api = extractApi(apiSec);
-  
+
   // Ensure API always has required constructors and callbacks arrays
   final apiOutput = <String, dynamic>{
     'constructors': api['constructors'] ?? [],
@@ -293,7 +304,8 @@ List<Map<String, String>> extractAllPatternBlocks(String mdSection) {
     final start = match.start + match.group(0)!.length;
     final rest = mdSection.substring(start);
     final nextMatch = RegExp(r'^###\s+', multiLine: true).firstMatch(rest);
-    final chunk = (nextMatch == null ? rest : rest.substring(0, nextMatch.start)).trim();
+    final chunk =
+        (nextMatch == null ? rest : rest.substring(0, nextMatch.start)).trim();
     final code = extractCodeBlock(chunk, 'dart');
     if (code.isNotEmpty) {
       out.add({'title': title, 'code': code});
@@ -355,10 +367,7 @@ Map<String, List<String>> extractWhenToUse(String mdSection) {
   }
 
   // De-dupe deterministically
-  return {
-    'use': use.toSet().toList(),
-    'avoid': avoid.toSet().toList(),
-  };
+  return {'use': use.toSet().toList(), 'avoid': avoid.toSet().toList()};
 }
 
 Map<String, dynamic> extractApi(String mdSection) {
@@ -366,7 +375,7 @@ Map<String, dynamic> extractApi(String mdSection) {
   final result = <String, dynamic>{};
   final subsectionPattern = RegExp(r'^###\s+(.+?)\s*$', multiLine: true);
   final matches = subsectionPattern.allMatches(mdSection);
-  
+
   if (matches.isEmpty) {
     // No subsections, extract all bullets from API section
     final bullets = extractBullets(mdSection);
@@ -378,23 +387,24 @@ Map<String, dynamic> extractApi(String mdSection) {
     result['callbacks'] = [];
     return result;
   }
-  
+
   // Initialize required fields
   result['constructors'] = <String>[];
   result['callbacks'] = <String>[];
-  
+
   for (final match in matches) {
     final subsectionTitle = match.group(1)!.trim();
     final start = match.start + match.group(0)!.length;
     final rest = mdSection.substring(start);
     final nextMatch = RegExp(r'^###\s+', multiLine: true).firstMatch(rest);
-    final chunk = (nextMatch == null ? rest : rest.substring(0, nextMatch.start)).trim();
+    final chunk =
+        (nextMatch == null ? rest : rest.substring(0, nextMatch.start)).trim();
     final bullets = extractBullets(chunk);
-    
+
     if (bullets.isNotEmpty) {
       // Create a key from the subsection title (lowercase, replace spaces with underscores)
       final key = subsectionTitle.toLowerCase().replaceAll(RegExp(r'\s+'), '_');
-      
+
       // Map common subsection names to standard keys
       if (key == 'constructor' || key == 'constructors') {
         result['constructors'] = bullets;
@@ -405,7 +415,7 @@ Map<String, dynamic> extractApi(String mdSection) {
       }
     }
   }
-  
+
   return result;
 }
 
@@ -442,14 +452,12 @@ Map<String, List<String>> extractDoDont(String mdSection) {
     }
   }
 
-  return {
-    'do': doList.toSet().toList(),
-    'dont': dontList.toSet().toList(),
-  };
+  return {'do': doList.toSet().toList(), 'dont': dontList.toSet().toList()};
 }
 
 void writeJson(String path, Map<String, dynamic> obj) {
   final encoder = JsonEncoder.withIndent('  ');
   final jsonString = encoder.convert(obj);
+  File(path).parent.createSync(recursive: true);
   File(path).writeAsStringSync('$jsonString\n');
 }

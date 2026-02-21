@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "overflow_marquee",
   "name": "Overflow Marquee",
@@ -22,7 +23,7 @@
       "`OverflowMarquee`",
       "`direction`, `duration`, `delayDuration`",
       "`step`, `fadePortion`, `curve`",
-      "`OverflowMarqueeTheme` \u2014 theme defaults."
+      "`OverflowMarqueeTheme` — theme defaults."
     ],
     "callbacks": []
   },

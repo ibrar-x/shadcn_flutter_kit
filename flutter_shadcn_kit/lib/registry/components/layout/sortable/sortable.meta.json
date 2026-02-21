@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "sortable",
   "name": "Sortable",
@@ -19,11 +20,11 @@
   "patterns": [],
   "api": {
     "constructors": [
-      "`Sortable<T>` \u2014 main sortable list/grid.",
-      "`SortableLayer` \u2014 overlay layer for dragging.",
-      "`SortableDragHandle` \u2014 drag handle widget.",
-      "`SortableDropFallback<T>` \u2014 fallback drop handling.",
-      "`SortableData<T>` \u2014 shared sorting data."
+      "`Sortable<T>` — main sortable list/grid.",
+      "`SortableLayer` — overlay layer for dragging.",
+      "`SortableDragHandle` — drag handle widget.",
+      "`SortableDropFallback<T>` — fallback drop handling.",
+      "`SortableData<T>` — shared sorting data."
     ],
     "callbacks": []
   },

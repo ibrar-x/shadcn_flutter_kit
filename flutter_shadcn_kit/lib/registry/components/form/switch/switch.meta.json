@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "switch",
   "name": "Switch",
@@ -23,8 +24,8 @@
       "`value` (`bool`, required)",
       "`onChanged` (`ValueChanged<bool>?`)",
       "`enabled` (`bool?`)",
-      "`ControlledSwitch` \u2014 controller-backed switch.",
-      "`SwitchController` \u2014 controller."
+      "`ControlledSwitch` — controller-backed switch.",
+      "`SwitchController` — controller."
     ],
     "callbacks": [
       "`onChanged`"

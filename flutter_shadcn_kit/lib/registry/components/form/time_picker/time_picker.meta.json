@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "time_picker",
   "name": "Time Picker",
@@ -26,10 +27,10 @@
       "`use24HourFormat`, `showSeconds`",
       "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`dialogTitle`, `placeholder`, `enabled`",
-      "`DurationPicker` \u2014 duration selector.",
-      "`ControlledTimePicker` \u2014 controller-backed picker.",
-      "`TimePickerController` / `DurationPickerController` \u2014 controllers.",
-      "`TimeRange` \u2014 time range value type."
+      "`DurationPicker` — duration selector.",
+      "`ControlledTimePicker` — controller-backed picker.",
+      "`TimePickerController` / `DurationPickerController` — controllers.",
+      "`TimeRange` — time range value type."
     ],
     "callbacks": [
       "`onChanged`"

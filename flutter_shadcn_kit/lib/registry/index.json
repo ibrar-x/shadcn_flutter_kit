@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-18T06:07:10.826839Z",
+  "generatedAt": "2026-02-21T20:59:17.099307Z",
   "components": [
     {
       "id": "accordion",
@@ -172,14 +172,11 @@
       "import": "import 'package:<your_app>/ui/shadcn/layout/app/app.dart';",
       "importPath": "ui/shadcn/layout/app/app.dart",
       "api": {
-        "constructors": [
-          "`ShadcnApp`",
-          "`ShadcnApp.router`"
-        ],
+        "constructors": [],
         "callbacks": []
       },
       "examples": {
-        "minimal": "import 'package:flutter/widgets.dart';\nimport 'package:<your_app>/ui/shadcn/layout/app/app.dart';\nimport 'package:<your_app>/ui/shadcn/utility/shadcn_localizations/shadcn_localizations.dart';\n\nvoid main() => runApp(const AppExample());\n\nclass AppExample extends StatelessWidget {\n  const AppExample({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return ShadcnApp(\n      title: 'Demo',\n      localizationsDelegates: ShadcnLocalizations.localizationsDelegates,\n      supportedLocales: ShadcnLocalizations.supportedLocales,\n      locale: const Locale('en'),\n      home: const Scaffold(\n        child: Center(child: Text('Hello from ShadcnApp')),\n      ),\n    );\n  }\n}"
+        "minimal": ""
       },
       "dependencies": {
         "pubspec": {},
@@ -189,11 +186,7 @@
           "constants"
         ]
       },
-      "related": [
-        "scaffold",
-        "theme",
-        "popover"
-      ]
+      "related": []
     },
     {
       "id": "async",
@@ -2115,8 +2108,8 @@
       "api": {
         "constructors": [
           "`FilterBar`",
-          "`state` (`FilterState?`, required if `controller` is null)",
-          "`onStateChanged` (`ValueChanged<FilterState>?`, required if `controller` is null)",
+          "`state` (`FilterState?`, required when `controller` is not provided)",
+          "`onStateChanged` (`ValueChanged<FilterState>?`, required when `controller` is not provided)",
           "`controller` (`FilterBarController?`, optional)",
           "`sortOptions` (`List<FilterSortOption>`, optional)",
           "`enableDateRange` (`bool`, optional)",
@@ -2438,7 +2431,7 @@
       "id": "gooey_toast",
       "name": "Gooey Toast",
       "category": "overlay",
-      "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
+      "description": "Animated gooey-style toast built on top of the existing `ToastController` overlay stack.",
       "tags": [
         "overlay",
         "toast",
@@ -2446,8 +2439,8 @@
       ],
       "version": "1.0.0",
       "install": "flutter_shadcn add gooey_toast",
-      "import": "",
-      "importPath": "",
+      "import": "import 'package:<your_app>/ui/shadcn/components/overlay/gooey_toast/gooey_toast.dart';",
+      "importPath": "ui/shadcn/components/overlay/gooey_toast/gooey_toast.dart",
       "api": {
         "constructors": [],
         "callbacks": []
@@ -3942,7 +3935,7 @@
       "id": "repeated_animation_builder",
       "name": "Repeated Animation Builder",
       "category": "utility",
-      "description": "Looping animation builder with interpolated values.",
+      "description": "A looping animation builder that emits an interpolated value between `start` and `end`.",
       "tags": [
         "animation",
         "utility",
@@ -3954,13 +3947,10 @@
       "importPath": "ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart",
       "api": {
         "constructors": [],
-        "callbacks": [],
-        "types": [
-          "`RepeatedAnimationBuilder`"
-        ]
+        "callbacks": []
       },
       "examples": {
-        "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatelessWidget {\n  const Demo({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: RepeatedAnimationBuilder(\n          start: 0.7,\n          end: 1.0,\n          duration: const Duration(milliseconds: 900),\n          curve: Curves.easeInOut,\n          builder: (context, value, child) {\n            return Opacity(\n              opacity: value,\n              child: Transform.scale(scale: value, child: child),\n            );\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
+        "minimal": ""
       },
       "dependencies": {
         "pubspec": {},
@@ -3968,9 +3958,7 @@
           "util"
         ]
       },
-      "related": [
-        "timeline_animation"
-      ]
+      "related": []
     },
     {
       "id": "resizable",
@@ -5463,29 +5451,16 @@
       "importPath": "ui/shadcn/components/utility/timeline_animation/timeline_animation.dart",
       "api": {
         "constructors": [],
-        "callbacks": [],
-        "types_and_helpers": [
-          "`TimelineAnimation<T>`",
-          "`TimelineAnimatable<T>`",
-          "`Keyframe<T>`",
-          "`AbsoluteKeyframe<T>`",
-          "`RelativeKeyframe<T>`",
-          "`StillKeyframe<T>`",
-          "`PropertyLerp<T>`",
-          "`Transformers`",
-          "`timelineMaxDuration`"
-        ]
+        "callbacks": []
       },
       "examples": {
-        "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/timeline_animation/timeline_animation.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatefulWidget {\n  const Demo({super.key});\n\n  @override\n  State<Demo> createState() => _DemoState();\n}\n\nclass _DemoState extends State<Demo> with SingleTickerProviderStateMixin {\n  late final AnimationController controller;\n  late final TimelineAnimation<double> timeline;\n\n  @override\n  void initState() {\n    super.initState();\n    controller = AnimationController(\n      vsync: this,\n      duration: const Duration(milliseconds: 1400),\n    )..repeat(reverse: true);\n\n    timeline = TimelineAnimation<double>(\n      keyframes: [\n        AbsoluteKeyframe(const Duration(milliseconds: 400), 0.6, 1.0),\n        RelativeKeyframe(const Duration(milliseconds: 300), 1.2),\n        StillKeyframe(const Duration(milliseconds: 150)),\n        AbsoluteKeyframe(const Duration(milliseconds: 550), 1.2, 0.6),\n      ],\n    );\n  }\n\n  @override\n  void dispose() {\n    controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: AnimatedBuilder(\n          animation: controller,\n          builder: (context, child) {\n            final value = timeline.transform(controller.value);\n            return Transform.scale(scale: value, child: child);\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
+        "minimal": ""
       },
       "dependencies": {
         "pubspec": {},
         "shared": []
       },
-      "related": [
-        "timeline"
-      ]
+      "related": []
     },
     {
       "id": "toast",

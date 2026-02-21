@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 typedef JsonMap = Map<String, dynamic>;
 
 typedef JsonList = List<dynamic>;
@@ -61,19 +63,6 @@ String? _extractSource(dynamic entry) {
   return null;
 }
 
-List<String> _listFilesRelative(Directory baseDir) {
-  final result = <String>[];
-  for (final entity in baseDir.listSync(recursive: true)) {
-    if (entity is! File) continue;
-    final rel = entity.path
-        .substring(baseDir.path.length + 1)
-        .replaceAll('\\', '/');
-    result.add(rel);
-  }
-  result.sort();
-  return result;
-}
-
 List<Map<String, String>> _buildFileMappings({
   required Directory registryDir,
   required Directory entryDir,
@@ -83,7 +72,7 @@ List<Map<String, String>> _buildFileMappings({
   final baseRel = entryDir.path
       .substring(registryDir.path.length + 1)
       .replaceAll('\\', '/');
-  final relFiles = _listFilesRelative(entryDir);
+  final relFiles = listComponentSourceFilesRelative(entryDir);
   for (final rel in relFiles) {
     final registryRel = '$baseRel/$rel';
     final source = type == 'components' ? 'registry/$registryRel' : registryRel;
@@ -136,7 +125,9 @@ void main(List<String> args) {
   final registryDir = Directory('${root.path}/lib/registry');
   final componentsJson = File('${registryDir.path}/components.json');
   if (!componentsJson.existsSync()) {
-    stderr.writeln('Error: components.json not found at ${componentsJson.path}');
+    stderr.writeln(
+      'Error: components.json not found at ${componentsJson.path}',
+    );
     exitCode = 1;
     return;
   }
@@ -208,7 +199,9 @@ void main(List<String> args) {
     final dir = dirIndex[id];
     if (dir == null) continue;
 
-    final rel = dir.path.substring(registryDir.path.length + 1).replaceAll('\\', '/');
+    final rel = dir.path
+        .substring(registryDir.path.length + 1)
+        .replaceAll('\\', '/');
     final type = rel.startsWith('components/') ? 'components' : 'composites';
 
     final expected = _buildFileMappings(
@@ -225,10 +218,12 @@ void main(List<String> args) {
     }
     final actual = files
         .whereType<Map>()
-        .map((e) => {
-              'source': e['source']?.toString() ?? '',
-              'destination': e['destination']?.toString() ?? '',
-            })
+        .map(
+          (e) => {
+            'source': e['source']?.toString() ?? '',
+            'destination': e['destination']?.toString() ?? '',
+          },
+        )
         .toList();
     actual.sort((a, b) => a['source']!.compareTo(b['source']!));
 
@@ -237,8 +232,12 @@ void main(List<String> args) {
     }
   }
 
-  final docsSnapshot = File('${root.path}/docs/assets/registry/components.json');
-  if (docsSnapshot.existsSync()) {
+  final docsSnapshots = <File>{
+    File('${root.path}/docs/assets/registry/components.json'),
+    File('${root.parent.path}/docs/assets/registry/components.json'),
+  };
+  for (final docsSnapshot in docsSnapshots) {
+    if (!docsSnapshot.existsSync()) continue;
     final docsRegistry = _readJson(docsSnapshot);
     if (!_deepEquals(registry, docsRegistry)) {
       docsMismatch.add(docsSnapshot.path);
@@ -271,7 +270,7 @@ void main(List<String> args) {
   final sharedRoot = Directory('${registryDir.path}/shared');
   final sharedFiles = <String>{};
   if (sharedRoot.existsSync()) {
-    for (final rel in _listFilesRelative(sharedRoot)) {
+    for (final rel in listSharedSourceFilesRelative(sharedRoot)) {
       sharedFiles.add('registry/shared/$rel');
     }
   }
@@ -285,7 +284,11 @@ void main(List<String> args) {
     final id = entry.key;
     final dir = entry.value;
     final category = _basename(dir.parent.path);
-    final metaFile = File('${dir.path}/meta.json');
+    final metadata = ComponentMetadataPaths(entryDir: dir, id: id);
+    final metaFile = preferredFile(
+      canonical: metadata.canonicalMeta,
+      legacy: metadata.legacyMeta,
+    );
     if (!metaFile.existsSync()) {
       metaMissing.add(id);
       continue;
@@ -330,7 +333,7 @@ void main(List<String> args) {
 
     final metaFiles = meta['files'];
     if (metaFiles is List) {
-      final actual = _listFilesRelative(dir);
+      final actual = listComponentSourceFilesRelative(dir);
       final listed = metaFiles.whereType<String>().toList()..sort();
       actual.sort();
       if (actual.length != listed.length) {
@@ -361,7 +364,9 @@ void main(List<String> args) {
   stdout.writeln('  Shared duplicate ids: ${duplicateSharedIds.length}');
   stdout.writeln('  Shared duplicate files: ${duplicateSharedFiles.length}');
   stdout.writeln('  Missing shared files: ${missingSharedFiles.length}');
-  stdout.writeln('  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}');
+  stdout.writeln(
+    '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
+  );
 
   if (duplicates.isNotEmpty) {
     stdout.writeln('Duplicate ids: ${duplicates.toList()..sort()}');
@@ -394,10 +399,14 @@ void main(List<String> args) {
     stdout.writeln('Invalid pubspec deps: ${invalidPubspecDeps..sort()}');
   }
   if (duplicateSharedIds.isNotEmpty) {
-    stdout.writeln('Duplicate shared ids: ${duplicateSharedIds.toList()..sort()}');
+    stdout.writeln(
+      'Duplicate shared ids: ${duplicateSharedIds.toList()..sort()}',
+    );
   }
   if (duplicateSharedFiles.isNotEmpty) {
-    stdout.writeln('Duplicate shared files: ${duplicateSharedFiles.toList()..sort()}');
+    stdout.writeln(
+      'Duplicate shared files: ${duplicateSharedFiles.toList()..sort()}',
+    );
   }
   if (missingSharedFiles.isNotEmpty) {
     stdout.writeln('Missing shared files: ${missingSharedFiles..sort()}');

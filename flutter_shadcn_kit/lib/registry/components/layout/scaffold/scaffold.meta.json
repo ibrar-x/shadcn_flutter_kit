@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "scaffold",
   "name": "Scaffold",
@@ -24,8 +25,8 @@
       "`child`",
       "`loadingProgress`, `showLoadingSparks`",
       "`resizeToAvoidBottomInset`",
-      "`AppBar` \u2014 header bar widget.",
-      "`ScaffoldTheme` \u2014 background and loading styling."
+      "`AppBar` — header bar widget.",
+      "`ScaffoldTheme` — background and loading styling."
     ],
     "callbacks": []
   },

@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "text_animate",
   "name": "Streaming Text",
@@ -29,11 +30,11 @@
       "code": "StreamingText(\n  text: streamedText,\n  effect: const BlurInEffect(\n    duration: Duration(milliseconds: 260),\n    maxBlurSigma: 6,\n    fadeIn: true,\n    slideUpPx: 2,\n  ),\n)"
     },
     {
-      "title": "Fade-in and slide-in variants",
+      "title": "Slide-in / fade-in variant",
       "code": "StreamingText(\n  text: streamedText,\n  effect: const SlideInEffect(\n    duration: Duration(milliseconds: 300),\n    offsetY: 8,\n    fadeIn: true,\n  ),\n)"
     },
     {
-      "title": "Scramble-in (custom reveal)",
+      "title": "Scramble-in reveal",
       "code": "StreamingText(\n  text: streamedText,\n  effect: const ScrambleInEffect(\n    duration: Duration(milliseconds: 460),\n    scrambleUntil: 0.74,\n  ),\n)"
     },
     {

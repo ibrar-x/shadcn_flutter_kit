@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "timeline",
   "name": "Timeline",
@@ -22,8 +23,8 @@
       "`Timeline`",
       "`data` (`List<TimelineData>`, required)",
       "`timeConstraints`, `spacing`, `dotSize`, `connectorThickness`, `rowGap`",
-      "`TimelineData` \u2014 `time`, `title`, `content`, `color`.",
-      "`TimelineTheme` \u2014 theme defaults."
+      "`TimelineData` — `time`, `title`, `content`, `color`.",
+      "`TimelineTheme` — theme defaults."
     ],
     "callbacks": []
   },

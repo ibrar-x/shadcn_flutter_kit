@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "radio_group",
   "name": "Radio Group",
@@ -24,10 +25,10 @@
       "`value` (`T?`)",
       "`onChanged` (`ValueChanged<T>?`)",
       "`enabled` (`bool?`)",
-      "`RadioItem<T>` \u2014 standard radio row.",
-      "`RadioCard<T>` \u2014 card-style radio option.",
-      "`ControlledRadioGroup<T>` \u2014 controller-backed group.",
-      "`RadioGroupController<T>` \u2014 controller."
+      "`RadioItem<T>` — standard radio row.",
+      "`RadioCard<T>` — card-style radio option.",
+      "`ControlledRadioGroup<T>` — controller-backed group.",
+      "`RadioGroupController<T>` — controller."
     ],
     "callbacks": [
       "`onChanged`"

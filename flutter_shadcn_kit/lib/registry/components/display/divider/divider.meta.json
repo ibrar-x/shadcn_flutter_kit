@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "divider",
   "name": "Divider",
@@ -31,10 +32,10 @@
     "constructors": [
       "`Divider`",
       "`color`, `height`, `thickness`, `indent`, `endIndent`, `padding`",
-      "`child` (`Widget?`) \u2014 optional label",
+      "`child` (`Widget?`) — optional label",
       "`VerticalDivider`",
       "`color`, `width`, `thickness`, `indent`, `endIndent`, `padding`",
-      "`child` (`Widget?`) \u2014 optional label"
+      "`child` (`Widget?`) — optional label"
     ],
     "callbacks": []
   },

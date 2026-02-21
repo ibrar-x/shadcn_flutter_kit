@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "form_field",
   "name": "Form Field",
@@ -26,9 +27,9 @@
       "`editorBuilder` (`Widget Function(BuildContext, ObjectFormHandler<T>)`, required)",
       "`mode` (`PromptMode`), `dialogTitle`, `popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`leading`, `trailing`, `size`, `density`, `shape`, `enabled`, `decorate`",
-      "`ObjectFormHandler<T>` \u2014 interface for reading/updating value.",
-      "`ObjectFormFieldDialogResult<T>` \u2014 dialog result wrapper.",
-      "`PromptMode` \u2014 `dialog` or `popover`."
+      "`ObjectFormHandler<T>` — interface for reading/updating value.",
+      "`ObjectFormFieldDialogResult<T>` — dialog result wrapper.",
+      "`PromptMode` — `dialog` or `popover`."
     ],
     "callbacks": []
   },

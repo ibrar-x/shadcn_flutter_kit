@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "window",
   "name": "Window",
@@ -19,11 +20,11 @@
   "patterns": [],
   "api": {
     "constructors": [
-      "`Window` \u2014 main window widget.",
-      "`WindowController` \u2014 controller for window state.",
-      "`WindowState` \u2014 bounds, minimization, resizing flags.",
-      "`WindowTheme` \u2014 title bar height and resize thickness.",
-      "`WindowSnapStrategy` \u2014 snapping behavior."
+      "`Window` — main window widget.",
+      "`WindowController` — controller for window state.",
+      "`WindowState` — bounds, minimization, resizing flags.",
+      "`WindowTheme` — title bar height and resize thickness.",
+      "`WindowSnapStrategy` — snapping behavior."
     ],
     "callbacks": []
   },

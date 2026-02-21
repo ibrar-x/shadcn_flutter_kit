@@ -1,47 +1,27 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "repeated_animation_builder",
   "name": "Repeated Animation Builder",
-  "description": "Looping animation builder with interpolated values.",
+  "description": "A looping animation builder that emits an interpolated value between `start` and `end`.",
   "install": "flutter_shadcn add repeated_animation_builder",
   "import": "import 'package:<your_app>/ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart';",
   "whenToUse": {
-    "use": [
-      "you need a simple repeating value animation between two numbers.",
-      "you want to avoid wiring a dedicated AnimationController for simple loops."
-    ],
-    "avoid": [
-      "you need pausable, seekable, or timeline-based choreography."
-    ]
+    "use": [],
+    "avoid": []
   },
   "examples": {
-    "minimal": "import 'package:flutter/material.dart';\nimport 'package:<your_app>/ui/shadcn/components/utility/repeated_animation_builder/repeated_animation_builder.dart';\n\nvoid main() => runApp(const MaterialApp(home: Demo()));\n\nclass Demo extends StatelessWidget {\n  const Demo({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: RepeatedAnimationBuilder(\n          start: 0.7,\n          end: 1.0,\n          duration: const Duration(milliseconds: 900),\n          curve: Curves.easeInOut,\n          builder: (context, value, child) {\n            return Opacity(\n              opacity: value,\n              child: Transform.scale(scale: value, child: child),\n            );\n          },\n          child: const FlutterLogo(size: 120),\n        ),\n      ),\n    );\n  }\n}"
+    "minimal": ""
   },
   "patterns": [],
   "api": {
     "constructors": [],
-    "callbacks": [],
-    "types": [
-      "`RepeatedAnimationBuilder`"
-    ]
+    "callbacks": []
   },
-  "theming": [
-    "Not applicable."
-  ],
-  "accessibility": [
-    "Avoid very short durations that can create aggressive flashing."
-  ],
-  "do": [
-    "Use smooth curves for subtle looping effects."
-  ],
-  "dont": [
-    "Do not animate critical reading text continuously."
-  ],
-  "related": [
-    "timeline_animation"
-  ],
-  "registryRules": [
-    "One public class per file",
-    "Helpers under `_impl/`"
-  ]
+  "theming": [],
+  "accessibility": [],
+  "do": [],
+  "dont": [],
+  "related": [],
+  "registryRules": []
 }

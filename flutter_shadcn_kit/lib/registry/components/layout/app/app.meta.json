@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "app",
   "name": "App",
@@ -6,45 +7,21 @@
   "install": "flutter_shadcn add app",
   "import": "import 'package:<your_app>/ui/shadcn/layout/app/app.dart';",
   "whenToUse": {
-    "use": [
-      "you want a root app wrapper that wires shadcn Theme + overlay managers.",
-      "you need WidgetsApp/WidgetsApp.router with shadcn defaults."
-    ],
-    "avoid": [
-      "you only need one isolated widget without app-level theming/overlays."
-    ]
+    "use": [],
+    "avoid": []
   },
   "examples": {
-    "minimal": "import 'package:flutter/widgets.dart';\nimport 'package:<your_app>/ui/shadcn/layout/app/app.dart';\nimport 'package:<your_app>/ui/shadcn/utility/shadcn_localizations/shadcn_localizations.dart';\n\nvoid main() => runApp(const AppExample());\n\nclass AppExample extends StatelessWidget {\n  const AppExample({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return ShadcnApp(\n      title: 'Demo',\n      localizationsDelegates: ShadcnLocalizations.localizationsDelegates,\n      supportedLocales: ShadcnLocalizations.supportedLocales,\n      locale: const Locale('en'),\n      home: const Scaffold(\n        child: Center(child: Text('Hello from ShadcnApp')),\n      ),\n    );\n  }\n}"
+    "minimal": ""
   },
   "patterns": [],
   "api": {
-    "constructors": [
-      "`ShadcnApp`",
-      "`ShadcnApp.router`"
-    ],
+    "constructors": [],
     "callbacks": []
   },
-  "theming": [
-    "Uses shadcn ThemeData and optionally animates theme transitions.",
-    "Wraps descendants with `ShadcnUI` and overlay manager layer."
-  ],
-  "accessibility": [
-    "Supports localization delegates and locales via WidgetsApp APIs."
-  ],
-  "do": [
-    "Use this at the root of your app when relying on shadcn overlays."
-  ],
-  "dont": [
-    "Do not nest multiple root app wrappers in the same tree."
-  ],
-  "related": [
-    "scaffold",
-    "theme",
-    "popover"
-  ],
-  "registryRules": [
-    "One public class per file",
-    "Helpers under `_impl/`"
-  ]
+  "theming": [],
+  "accessibility": [],
+  "do": [],
+  "dont": [],
+  "related": [],
+  "registryRules": []
 }

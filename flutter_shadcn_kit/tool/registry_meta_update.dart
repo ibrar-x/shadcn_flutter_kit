@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_component_metadata.dart';
+
 typedef JsonMap = Map<String, dynamic>;
 
 typedef JsonList = List<dynamic>;
@@ -22,11 +24,6 @@ Directory? _findRepoRoot(Directory start) {
 
 JsonMap _readJson(File file) {
   return jsonDecode(file.readAsStringSync()) as JsonMap;
-}
-
-void _writeJson(File file, Object data) {
-  final encoder = const JsonEncoder.withIndent('  ');
-  file.writeAsStringSync('${encoder.convert(data)}\n');
 }
 
 class _ParsedArgs {
@@ -84,7 +81,9 @@ Map<String, String> _parseComponentVersionOverrides(List<String> values) {
   for (final raw in values) {
     final cleaned = raw.trim();
     if (cleaned.isEmpty) continue;
-    final separator = cleaned.contains('=') ? '=' : (cleaned.contains(':') ? ':' : '');
+    final separator = cleaned.contains('=')
+        ? '='
+        : (cleaned.contains(':') ? ':' : '');
     if (separator.isEmpty) continue;
     final parts = cleaned.split(separator);
     if (parts.length < 2) continue;
@@ -106,24 +105,19 @@ void _printUsage() {
   stdout.writeln('  - version (defaults to 1.0.0 if missing)');
   stdout.writeln('');
   stdout.writeln('Options:');
-  stdout.writeln('  --components <ids>           Comma-separated component ids to update.');
-  stdout.writeln('  --set-component-version <v>  Set version for all targeted components.');
-  stdout.writeln('  --component-version <id=v>   Set version for a specific component (repeatable).');
-  stdout.writeln('  --default-version <v>        Default version when missing (default: 1.0.0).');
+  stdout.writeln(
+    '  --components <ids>           Comma-separated component ids to update.',
+  );
+  stdout.writeln(
+    '  --set-component-version <v>  Set version for all targeted components.',
+  );
+  stdout.writeln(
+    '  --component-version <id=v>   Set version for a specific component (repeatable).',
+  );
+  stdout.writeln(
+    '  --default-version <v>        Default version when missing (default: 1.0.0).',
+  );
   stdout.writeln('  -h, --help                   Show this help.');
-}
-
-List<String> _listFilesRelative(Directory baseDir) {
-  final result = <String>[];
-  for (final entity in baseDir.listSync(recursive: true)) {
-    if (entity is! File) continue;
-    final rel = entity.path
-        .substring(baseDir.path.length + 1)
-        .replaceAll('\\', '/');
-    result.add(rel);
-  }
-  result.sort();
-  return result;
 }
 
 String _titleCase(String input) {
@@ -188,18 +182,20 @@ JsonMap _mergeMeta({
 }) {
   final updated = JsonMap.from(meta);
 
-  final name = meta['name'] as String? ??
+  final name =
+      meta['name'] as String? ??
       (existingEntry?['name'] as String?) ??
       _titleCase(id);
-  final description = meta['description'] as String? ??
+  final description =
+      meta['description'] as String? ??
       (existingEntry?['description'] as String?) ??
       '';
 
   final tags = meta['tags'] is List
       ? (meta['tags'] as List).whereType<String>().toList()
       : (existingEntry?['tags'] is List
-          ? (existingEntry?['tags'] as List).whereType<String>().toList()
-          : <String>[category, id]);
+            ? (existingEntry?['tags'] as List).whereType<String>().toList()
+            : <String>[category, id]);
 
   final metaDeps = _asJsonMap(meta['dependencies']);
   final shared = _asStringList(metaDeps['shared']);
@@ -213,8 +209,9 @@ JsonMap _mergeMeta({
       : <String>[];
 
   final resolvedShared = shared.isNotEmpty ? shared : existingShared;
-  final resolvedComponents =
-      components.isNotEmpty ? components : existingComponents;
+  final resolvedComponents = components.isNotEmpty
+      ? components
+      : existingComponents;
 
   final metaPubspecRaw = metaDeps['pubspec'];
   var metaPubspec = <String, dynamic>{};
@@ -240,21 +237,22 @@ JsonMap _mergeMeta({
   final existingDevDeps = _asJsonMap(existingPubspec['dev_dependencies']);
 
   final resolvedPubspec = metaPubspec.isNotEmpty ? metaPubspec : existingDeps;
-  final resolvedDevPubspec =
-      metaDevPubspec.isNotEmpty ? metaDevPubspec : existingDevDeps;
+  final resolvedDevPubspec = metaDevPubspec.isNotEmpty
+      ? metaDevPubspec
+      : existingDevDeps;
 
   final assets = meta['assets'] is List
       ? (meta['assets'] as List).whereType<String>().toList()
       : (existingEntry?['assets'] is List
-          ? (existingEntry?['assets'] as List).whereType<String>().toList()
-          : <String>[]);
+            ? (existingEntry?['assets'] as List).whereType<String>().toList()
+            : <String>[]);
   final postInstall = meta['postInstall'] is List
       ? (meta['postInstall'] as List).whereType<String>().toList()
       : (existingEntry?['postInstall'] is List
-          ? (existingEntry?['postInstall'] as List)
-              .whereType<String>()
-              .toList()
-          : <String>[]);
+            ? (existingEntry?['postInstall'] as List)
+                  .whereType<String>()
+                  .toList()
+            : <String>[]);
 
   updated['id'] = id;
   updated['name'] = name;
@@ -285,9 +283,12 @@ void main(List<String> args) {
   }
 
   final parsed = _parseArgs(args);
-  final componentTargets = _parseCsvValues(parsed.getValues('components')).toSet();
-  final componentVersionOverrides =
-      _parseComponentVersionOverrides(parsed.getValues('component-version'));
+  final componentTargets = _parseCsvValues(
+    parsed.getValues('components'),
+  ).toSet();
+  final componentVersionOverrides = _parseComponentVersionOverrides(
+    parsed.getValues('component-version'),
+  );
   componentTargets.addAll(componentVersionOverrides.keys);
   final componentVersionAll = parsed.getValue('set-component-version');
   final defaultVersion = parsed.getValue('default-version') ?? '1.0.0';
@@ -303,7 +304,9 @@ void main(List<String> args) {
   final registryDir = Directory('${root.path}/lib/registry');
   final componentsJson = File('${registryDir.path}/components.json');
   if (!componentsJson.existsSync()) {
-    stderr.writeln('Error: components.json not found at ${componentsJson.path}');
+    stderr.writeln(
+      'Error: components.json not found at ${componentsJson.path}',
+    );
     exitCode = 1;
     return;
   }
@@ -313,8 +316,7 @@ void main(List<String> args) {
   final existingEntries = <String, JsonMap>{};
   for (final entry in existingList) {
     if (entry is Map && entry['id'] is String) {
-      existingEntries[entry['id'] as String] =
-          Map<String, dynamic>.from(entry);
+      existingEntries[entry['id'] as String] = Map<String, dynamic>.from(entry);
     }
   }
 
@@ -330,19 +332,21 @@ void main(List<String> args) {
         final name = _basename(entryDir.path);
         if (name.startsWith('_') || name.startsWith('.')) continue;
 
-        final metaFile = File('${entryDir.path}/meta.json');
-        final meta =
-            metaFile.existsSync() ? _readJson(metaFile) : <String, dynamic>{};
-        if (!metaFile.existsSync()) {
-          missingMetaFiles.add(metaFile.path);
-        }
-
         final id = _basename(entryDir.path);
+        final metadata = ComponentMetadataPaths(entryDir: entryDir, id: id);
+        final meta = readJsonOrEmpty(
+          canonical: metadata.canonicalMeta,
+          legacy: metadata.legacyMeta,
+        );
+        if (!metadata.canonicalMeta.existsSync() &&
+            !metadata.legacyMeta.existsSync()) {
+          missingMetaFiles.add(metadata.canonicalMeta.path);
+        }
         if (filterEnabled && !componentTargets.contains(id)) {
           continue;
         }
         final category = _basename(entryDir.parent.path);
-        final fileList = _listFilesRelative(entryDir);
+        final fileList = listComponentSourceFilesRelative(entryDir);
         final updatedMeta = _mergeMeta(
           id: id,
           category: category,
@@ -351,7 +355,10 @@ void main(List<String> args) {
           fileList: fileList,
         );
 
-        final readmeMetaFile = File('${entryDir.path}/$id.meta.json');
+        final readmeMetaFile = preferredFile(
+          canonical: metadata.canonicalReadmeMeta,
+          legacy: metadata.legacyReadmeMeta,
+        );
         if (readmeMetaFile.existsSync()) {
           final readmeMeta = _readJson(readmeMetaFile);
           if (readmeMeta['api'] != null) {
@@ -378,8 +385,17 @@ void main(List<String> args) {
         }
 
         if (!_deepEquals(meta, updatedMeta)) {
-          _writeJson(metaFile, updatedMeta);
-          updatedMetaFiles.add(metaFile.path);
+          writeJsonMirrored(
+            canonical: metadata.canonicalMeta,
+            legacy: metadata.legacyMeta,
+            data: updatedMeta,
+          );
+          updatedMetaFiles.add(metadata.canonicalMeta.path);
+        } else {
+          mirrorExistingFile(
+            canonical: metadata.canonicalMeta,
+            legacy: metadata.legacyMeta,
+          );
         }
       }
     }
@@ -391,6 +407,8 @@ void main(List<String> args) {
     stdout.writeln('Filtered update: ${componentTargets.toList()..sort()}');
   }
   if (missingMetaFiles.isNotEmpty) {
-    stdout.writeln('Missing meta.json files: ${missingMetaFiles.length}.');
+    stdout.writeln(
+      'Missing component metadata files: ${missingMetaFiles.length}.',
+    );
   }
 }

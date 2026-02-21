@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
 
+import 'registry_component_metadata.dart';
+
 typedef JsonMap = Map<String, dynamic>;
 
 final RegExp _classPattern = RegExp(
@@ -295,12 +297,8 @@ JsonMap _readMeta(File file) {
 
 void _writeJson(File file, Object data) {
   final encoder = const JsonEncoder.withIndent('  ');
+  file.parent.createSync(recursive: true);
   file.writeAsStringSync('${encoder.convert(data)}\n');
-}
-
-String _joinPath(String a, String b) {
-  if (a.endsWith(Platform.pathSeparator)) return '$a$b';
-  return '$a${Platform.pathSeparator}$b';
 }
 
 void main(List<String> args) {
@@ -352,7 +350,11 @@ void main(List<String> args) {
   var written = 0;
   for (final componentDir in componentDirs) {
     final id = componentDir.path.split(Platform.pathSeparator).last;
-    final metaFile = File(_joinPath(componentDir.path, 'meta.json'));
+    final metadata = ComponentMetadataPaths(entryDir: componentDir, id: id);
+    final metaFile = preferredFile(
+      canonical: metadata.canonicalMeta,
+      legacy: metadata.legacyMeta,
+    );
     final category = componentDir.parent.path
         .split(Platform.pathSeparator)
         .last;
@@ -395,15 +397,19 @@ void main(List<String> args) {
       ],
     );
 
-    final outputFile = File(_joinPath(componentDir.path, 'theme.schema.json'));
+    final outputFile = metadata.canonicalThemeSchema;
     if (dryRun) {
       stdout.writeln('[dry-run] ${outputFile.path}');
       continue;
     }
 
-    final schemaJson = schema.toJson();
-    schemaJson[r'$schema'] = '../../../component_theme.schema.json';
-    _writeJson(outputFile, schemaJson);
+    final canonicalJson = schema.toJson();
+    canonicalJson[r'$schema'] = '../../../../component_theme.schema.json';
+    _writeJson(outputFile, canonicalJson);
+
+    final legacyJson = Map<String, dynamic>.from(canonicalJson);
+    legacyJson[r'$schema'] = '../../../component_theme.schema.json';
+    _writeJson(metadata.legacyThemeSchema, legacyJson);
     written++;
     stdout.writeln('Wrote ${outputFile.path} (${fields.length} fields)');
   }

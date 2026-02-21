@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "collapsible",
   "name": "Collapsible",
@@ -23,9 +24,9 @@
       "`children` (`List<Widget>`, required)",
       "`isExpanded` (`bool?`)",
       "`onExpansionChanged` (`ValueChanged<bool>?`)",
-      "`CollapsibleTrigger` \u2014 interactive header.",
-      "`CollapsibleContent` \u2014 animated content panel.",
-      "`CollapsibleTheme` \u2014 spacing and styling."
+      "`CollapsibleTrigger` — interactive header.",
+      "`CollapsibleContent` — animated content panel.",
+      "`CollapsibleTheme` — spacing and styling."
     ],
     "callbacks": []
   },

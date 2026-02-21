@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "hidden",
   "name": "Hidden",
@@ -24,7 +25,7 @@
       "`direction` (`Axis?`)",
       "`duration`, `curve`, `reverse`",
       "`keepCrossAxisSize`, `keepMainAxisSize`",
-      "`HiddenTheme` \u2014 theme defaults for animation and axis."
+      "`HiddenTheme` — theme defaults for animation and axis."
     ],
     "callbacks": []
   },

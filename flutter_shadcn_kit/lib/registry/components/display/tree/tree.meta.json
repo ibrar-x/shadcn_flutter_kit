@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "tree",
   "name": "Tree",
@@ -26,8 +27,8 @@
       "`controller` (`ScrollController?`)",
       "`branchLine`, `padding`, `expandIcon`, `allowMultiSelect`, `recursiveSelection`",
       "`onSelectionChanged` (`TreeNodeSelectionChanged<T>?`)",
-      "`TreeItem<T>` \u2014 data-bearing node with `children`, `expanded`, `selected`.",
-      "`TreeNode<T>` \u2014 base class for tree nodes."
+      "`TreeItem<T>` — data-bearing node with `children`, `expanded`, `selected`.",
+      "`TreeNode<T>` — base class for tree nodes."
     ],
     "callbacks": [
       "`onSelectionChanged`",

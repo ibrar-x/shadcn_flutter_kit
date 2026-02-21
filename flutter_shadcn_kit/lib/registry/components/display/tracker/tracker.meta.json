@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "tracker",
   "name": "Tracker",
@@ -25,7 +26,7 @@
       "`TrackerData`",
       "`level` (`TrackerLevel`, required)",
       "`tooltip` (`Widget`, required)",
-      "`TrackerLevel` \u2014 `fine`, `warning`, `critical`, `unknown`"
+      "`TrackerLevel` — `fine`, `warning`, `critical`, `unknown`"
     ],
     "callbacks": []
   },

@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "stage_container",
   "name": "Stage Container",
@@ -23,8 +24,8 @@
       "`breakpoint` (`StageBreakpoint?`)",
       "`padding` (`EdgeInsetsGeometry?`)",
       "`builder` (`Widget Function(BuildContext, EdgeInsetsGeometry)`, required)",
-      "`StageBreakpoint` \u2014 `constant`, `staged`, `defaultBreakpoints`.",
-      "`StageContainerTheme` \u2014 padding/breakpoint defaults."
+      "`StageBreakpoint` — `constant`, `staged`, `defaultBreakpoints`.",
+      "`StageContainerTheme` — padding/breakpoint defaults."
     ],
     "callbacks": []
   },

@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "text_field",
   "name": "Text Field",
@@ -25,11 +26,11 @@
   ],
   "api": {
     "constructors": [
-      "`TextField` \u2014 main input widget.",
-      "`TextInputStatefulWidget` \u2014 shared base for inputs with features.",
-      "`InputFeature` factories \u2014 `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
-      "`InputFeatureVisibility` \u2014 `always`, `focused`, `textNotEmpty`, etc.",
-      "`PasswordPeekMode` \u2014 `toggle` or `peek`."
+      "`TextField` — main input widget.",
+      "`TextInputStatefulWidget` — shared base for inputs with features.",
+      "`InputFeature` factories — `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
+      "`InputFeatureVisibility` — `always`, `focused`, `textNotEmpty`, etc.",
+      "`PasswordPeekMode` — `toggle` or `peek`."
     ],
     "callbacks": []
   },

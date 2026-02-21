@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "autocomplete",
   "name": "Autocomplete",
@@ -32,8 +33,8 @@
       "`popoverConstraints`, `popoverWidthConstraint`",
       "`popoverAnchorAlignment`, `popoverAlignment`",
       "`completer` (`AutoCompleteCompleter`)",
-      "`AutoCompleteMode` \u2014 `append`, `replaceWord`, `replaceAll`",
-      "`AutoCompleteTheme` \u2014 popover sizing and alignment defaults"
+      "`AutoCompleteMode` — `append`, `replaceWord`, `replaceAll`",
+      "`AutoCompleteTheme` — popover sizing and alignment defaults"
     ],
     "callbacks": []
   },

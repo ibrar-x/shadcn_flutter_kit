@@ -1,4 +1,5 @@
 {
+  "$schema": "../readme_meta.schema.json",
   "schemaVersion": 1,
   "id": "hover",
   "name": "Hover",
@@ -29,8 +30,8 @@
   ],
   "api": {
     "constructors": [
-      "`Hover` \u2014 timed hover activation with `waitDuration`, `minDuration`, and `showDuration`.",
-      "`HoverActivity` \u2014 raw enter/exit/hover callbacks, optional `debounceDuration`."
+      "`Hover` — timed hover activation with `waitDuration`, `minDuration`, and `showDuration`.",
+      "`HoverActivity` — raw enter/exit/hover callbacks, optional `debounceDuration`."
     ],
     "callbacks": [
       "`onHover` (Hover, HoverActivity)",
