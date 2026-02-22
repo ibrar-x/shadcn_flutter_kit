@@ -2,7 +2,7 @@
 
 ## new_component.dart
 Scaffolds a new registry component under `lib/registry/components/<category>/<id>`, then
-updates `lib/registry/components.json` plus `docs/assets/registry/components.json`.
+updates `lib/registry/manifests/components.json` plus `docs/assets/registry/components.json`.
 
 Example:
 ```bash

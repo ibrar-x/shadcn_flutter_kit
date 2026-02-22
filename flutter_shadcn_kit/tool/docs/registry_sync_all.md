@@ -9,7 +9,7 @@ One-shot sync for meta, components manifest, and shared entries.
 - `meta.json`
 
 ## Outputs
-- `flutter_shadcn_kit/lib/registry/components.json`
+- `flutter_shadcn_kit/lib/registry/manifests/components.json`
 - `docs/assets/registry/components.json` (if present)
 - Updated `meta.json` files
 

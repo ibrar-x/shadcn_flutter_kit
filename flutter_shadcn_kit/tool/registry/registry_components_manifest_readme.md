@@ -20,10 +20,10 @@ Generates `components.json` and docs snapshot from component metadata and filesy
 
 ## Inputs
 - Component/composite folders and metadata
-- Existing `lib/registry/components.json`
+- Existing `lib/registry/manifests/components.json`
 
 ## Outputs
-- `lib/registry/components.json`
+- `lib/registry/manifests/components.json`
 - `docs/assets/registry/components.json` (if present)
 
 ## Example

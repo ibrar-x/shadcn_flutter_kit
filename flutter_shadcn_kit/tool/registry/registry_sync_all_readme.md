@@ -19,10 +19,10 @@ Full registry sync pass. Rebuilds component entries in `components.json`, refres
 - `lib/registry/components/**`
 - `lib/registry/composites/**`
 - `lib/registry/shared/**`
-- Existing `lib/registry/components.json`
+- Existing `lib/registry/manifests/components.json`
 
 ## Outputs
-- `lib/registry/components.json`
+- `lib/registry/manifests/components.json`
 - `docs/assets/registry/components.json` (if present)
 - Per-component metadata mirrors:
   - `<component>/registry/meta.json`

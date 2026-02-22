@@ -9,7 +9,7 @@ Generates `components.json` and the docs snapshot, and refreshes shared entries.
 - `meta.json` files
 
 ## Outputs
-- `flutter_shadcn_kit/lib/registry/components.json`
+- `flutter_shadcn_kit/lib/registry/manifests/components.json`
 - `docs/assets/registry/components.json` (if present)
 
 ## Usage
