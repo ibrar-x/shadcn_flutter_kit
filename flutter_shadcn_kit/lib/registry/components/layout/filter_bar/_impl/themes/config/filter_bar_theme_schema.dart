@@ -1,0 +1,76 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// Generator: convention-based schema generator
+
+import 'dart:convert';
+
+import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
+
+class FilterBarThemeSchema {
+  static const String id = 'filter_bar';
+
+  static final ComponentSchema schema = ComponentSchema.fromJson(
+    jsonDecode(_rawSchema) as Map<String, dynamic>,
+  );
+
+  static const String _rawSchema = r'''{
+  "id": "filter_bar",
+  "title": "Filter Bar Theme",
+  "description": "Controlled filter toolbar for list/table pages with search, sort, chips, date range, and clear-all. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Appearance",
+      "fields": [
+        {
+          "type": "boolean",
+          "name": "ignoreGlobalRadius",
+          "label": "Ignore Global Radius",
+          "description": "Override global theme setting.",
+          "defaultValue": false,
+          "required": false,
+          "isAdvanced": true,
+          "visibleIf": [],
+          "tokenBinding": {
+            "path": "radius.md",
+            "allowedFamilies": [
+              "radius"
+            ]
+          },
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    },
+    {
+      "title": "Advanced",
+      "fields": [
+        {
+          "type": "boolean",
+          "name": "ignoreGlobalScaling",
+          "label": "Ignore Global Scaling",
+          "description": "Override global theme setting.",
+          "defaultValue": false,
+          "required": false,
+          "isAdvanced": true,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../../../component_theme.schema.json"
+}''';
+}

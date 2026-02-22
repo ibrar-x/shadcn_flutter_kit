@@ -1,0 +1,129 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// Generator: convention-based schema generator
+
+import 'dart:convert';
+
+import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
+
+class FormattedInputThemeSchema {
+  static const String id = 'formatted_input';
+
+  static final ComponentSchema schema = ComponentSchema.fromJson(
+    jsonDecode(_rawSchema) as Map<String, dynamic>,
+  );
+
+  static const String _rawSchema = r'''{
+  "id": "formatted_input",
+  "title": "Formatted Input Theme",
+  "description": "Low-level formatted-field helpers that sync multiple InputPart segments. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Dimensions",
+      "fields": [
+        {
+          "type": "number",
+          "name": "height",
+          "label": "Height",
+          "description": "Height in pixels (affected by theme.scaling).",
+          "defaultValue": 34.0,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject",
+            "min": 0.0,
+            "max": 200.0,
+            "step": 4.0
+          },
+          "ui": {
+            "control": "slider",
+            "unit": "px"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "padding",
+          "label": "Padding",
+          "description": "Padding in pixels (affected by theme.scaling).",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "tokenBinding": {
+            "path": "spacing.md",
+            "allowedFamilies": [
+              "spacing"
+            ]
+          },
+          "validation": {
+            "clamp": "reject",
+            "min": 0.0,
+            "max": 48.0,
+            "step": 4.0
+          },
+          "ui": {
+            "control": "slider",
+            "unit": "px"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    },
+    {
+      "title": "Appearance",
+      "fields": [
+        {
+          "type": "boolean",
+          "name": "ignoreGlobalRadius",
+          "label": "Ignore Global Radius",
+          "description": "Override global theme setting.",
+          "defaultValue": false,
+          "required": false,
+          "isAdvanced": true,
+          "visibleIf": [],
+          "tokenBinding": {
+            "path": "radius.md",
+            "allowedFamilies": [
+              "radius"
+            ]
+          },
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    },
+    {
+      "title": "Advanced",
+      "fields": [
+        {
+          "type": "boolean",
+          "name": "ignoreGlobalScaling",
+          "label": "Ignore Global Scaling",
+          "description": "Override global theme setting.",
+          "defaultValue": false,
+          "required": false,
+          "isAdvanced": true,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../../../component_theme.schema.json"
+}''';
+}
