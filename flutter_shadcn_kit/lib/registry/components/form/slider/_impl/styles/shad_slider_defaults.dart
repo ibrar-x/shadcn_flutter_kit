@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' hide SliderTheme, Theme;
 import '../../../../../shared/theme/theme.dart';
 
 import '../core/shad_slider_models.dart';
-import '../themes/slider_theme.dart';
+import '../themes/base/slider_theme.dart';
 
 /// Default builders used by slider presets.
 class ShadSliderDefaults {
@@ -129,6 +129,13 @@ class ShadSliderDefaults {
     /// `0` creates square corners; positive values round corners.
     /// Null computes pill radius from resolved thumb width/height.
     double? radius,
+
+    /// Horizontal inset applied to the visual thumb body in logical pixels.
+    ///
+    /// `0` keeps the body centered on the thumb anchor.
+    /// Positive values pull the body inward (LTR: left, RTL: right) while
+    /// preserving edge alignment at min/max.
+    double insideOffsetPx = 0,
   }) {
     return (context, t) {
       final theme = Theme.of(context);
@@ -143,7 +150,7 @@ class ShadSliderDefaults {
       final thumbBorder =
           compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.10);
 
-      return IgnorePointer(
+      Widget body = IgnorePointer(
         ignoring: true,
         child: SizedBox(
           width: t.size.width,
@@ -161,6 +168,21 @@ class ShadSliderDefaults {
           ),
         ),
       );
+
+      if (insideOffsetPx != 0) {
+        const eps = 0.005;
+        final atEdge = t.t <= eps || t.t >= 1 - eps;
+        if (!atEdge) {
+          final dir = Directionality.of(context);
+          final sign = dir == TextDirection.rtl ? 1.0 : -1.0;
+          body = Transform.translate(
+            offset: Offset(sign * insideOffsetPx, 0),
+            child: body,
+          );
+        }
+      }
+
+      return body;
     };
   }
 
@@ -443,38 +465,45 @@ class ShadSliderDefaults {
         cs.foreground.withOpacity(0.40);
 
     return IgnorePointer(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(s.trackRadius),
-        child: Stack(
-          children: [
-            for (int i = 0; i < bars; i++)
-              Positioned(
-                left: i * barW,
-                top: () {
-                  final t = i / (bars - 1);
-                  final amp =
-                      (math.sin(t * math.pi) * 0.85 + 0.15); // 0.15..1.0
-                  final bh = maxBarH * amp;
-                  return (h - bh) / 2;
-                }(),
-                child: Builder(
-                  builder: (_) {
-                    final t = i / (bars - 1);
-                    final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
-                    final bh = maxBarH * amp;
+      child: Positioned.fromRect(
+        rect: s.trackRect,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(s.trackRadius),
+          child: SizedBox(
+            width: w,
+            height: h,
+            child: Stack(
+              children: [
+                for (int i = 0; i < bars; i++)
+                  Positioned(
+                    left: i * barW,
+                    top: () {
+                      final t = i / (bars - 1);
+                      final amp =
+                          (math.sin(t * math.pi) * 0.85 + 0.15); // 0.15..1.0
+                      final bh = maxBarH * amp;
+                      return (h - bh) / 2;
+                    }(),
+                    child: Builder(
+                      builder: (_) {
+                        final t = i / (bars - 1);
+                        final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
+                        final bh = maxBarH * amp;
 
-                    return Container(
-                      width: math.max(1, barW * 0.55),
-                      height: bh,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(999),
-                        color: ((i * barW) <= activeX) ? active : inactive,
-                      ),
-                    );
-                  },
-                ),
-              ),
-          ],
+                        return Container(
+                          width: math.max(1, barW * 0.55),
+                          height: bh,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(999),
+                            color: ((i * barW) <= activeX) ? active : inactive,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

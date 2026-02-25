@@ -56,11 +56,20 @@ class _SliderPreviewState extends State<SliderPreview> {
               child: _PreviewCard(
                 title: 'Adjust brightness',
                 trailing: '${(_brightness * 100).round()}%',
-                child: BrightnessSlider(
+                child: Slider.single(
                   min: 0,
                   max: 1,
                   value: _brightness,
-                  onChanged: (value) => setState(() => _brightness = value),
+                  thumbSize: const Size(10, 25),
+                  trackHeight: 30,
+                  thumbEdgeOffsetPx: 0,
+                  joinGapPx: 2,
+                  fillEdgeBiasPx: 0,
+                  fillStopsAtThumbCenter: false,
+                  preset: 'brightness',
+                  thumbBuilder: ShadSliderDefaults.barThumb(insideOffsetPx: 8),
+                  onChanged: (v) =>
+                      setState(() => _brightness = v >= 0.999 ? 1.0 : v),
                 ),
               ),
             ),
@@ -306,26 +315,33 @@ Widget _waveformTicks(
   ).colorScheme.mutedForeground.withOpacity(0.16);
 
   return IgnorePointer(
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(state.trackRadius),
-      child: Stack(
-        children: [
-          for (int index = 0; index < barCount; index++)
-            Positioned(
-              left: index * barWidth,
-              top: (height - (amplitudes[index] * maxBarHeight)) / 2,
-              child: Container(
-                width: max(1, barWidth * 0.55),
-                height: amplitudes[index] * maxBarHeight,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(999),
-                  color: (index * barWidth) <= activeX
-                      ? activeColor
-                      : inactiveColor,
+    child: Positioned.fromRect(
+      rect: state.trackRect,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(state.trackRadius),
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: Stack(
+            children: [
+              for (int index = 0; index < barCount; index++)
+                Positioned(
+                  left: index * barWidth,
+                  top: (height - (amplitudes[index] * maxBarHeight)) / 2,
+                  child: Container(
+                    width: max(1, barWidth * 0.55),
+                    height: amplitudes[index] * maxBarHeight,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(999),
+                      color: (index * barWidth) <= activeX
+                          ? activeColor
+                          : inactiveColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-        ],
+            ],
+          ),
+        ),
       ),
     ),
   );
