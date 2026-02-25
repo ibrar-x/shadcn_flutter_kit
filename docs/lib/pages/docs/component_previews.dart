@@ -40,6 +40,7 @@ const Map<String, String> componentStatusTags = {
   'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
+  'gooey_toast': 'New',
   if (enableTextAnimateComponent) 'text_animate': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',

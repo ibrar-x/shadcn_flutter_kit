@@ -39,6 +39,7 @@ import 'components/filter_bar/filter_bar_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
 import 'components/formatted_input/formatted_input_examples.dart';
+import 'components/gooey_toast/gooey_toast_examples.dart';
 import 'components/hover_card/hover_card_examples.dart';
 import 'components/input/input_examples.dart';
 import 'components/input_otp/input_otp_examples.dart';
@@ -132,6 +133,7 @@ const Set<String> originalComponentIds = {
   'file_picker',
   'form',
   'formatted_input',
+  'gooey_toast',
   'hover_card',
   'input',
   'input_otp',
@@ -224,6 +226,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'file_picker',
       'form',
       'formatted_input',
+      'gooey_toast',
       'hover_card',
       'input',
       'input_otp',
@@ -315,6 +318,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'file_picker': filePickerExamples,
   'form': formExamples,
   'formatted_input': formattedInputExamples,
+  'gooey_toast': gooeyToastExamples,
   'hover_card': hoverCardExamples,
   'input': inputExamples,
   'input_otp': inputOtpExamples,
