@@ -210,36 +210,45 @@ class ShadWaveformRenderer extends ShadTrackRenderer {
       clipBehavior: Clip.none,
       children: [
         base.build(context, view),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(view.trackRadius),
-          child: Stack(
-            children: [
-              for (int i = 0; i < bars; i++)
-                Positioned(
-                  left: i * barW,
-                  top: () {
-                    final t = i / (bars - 1);
-                    final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
-                    final bh = maxBarH * amp;
-                    return (h - bh) / 2;
-                  }(),
-                  child: Builder(
-                    builder: (_) {
-                      final t = i / (bars - 1);
-                      final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
-                      final bh = maxBarH * amp;
-                      return Container(
-                        width: math.max(1, barW * 0.55),
-                        height: bh,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(999),
-                          color: ((i * barW) <= activeX) ? active : inactive,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-            ],
+        Positioned.fromRect(
+          rect: view.trackRect,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(view.trackRadius),
+            child: SizedBox(
+              width: w,
+              height: h,
+              child: Stack(
+                children: [
+                  for (int i = 0; i < bars; i++)
+                    Positioned(
+                      left: i * barW,
+                      top: () {
+                        final t = i / (bars - 1);
+                        final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
+                        final bh = maxBarH * amp;
+                        return (h - bh) / 2;
+                      }(),
+                      child: Builder(
+                        builder: (_) {
+                          final t = i / (bars - 1);
+                          final amp = (math.sin(t * math.pi) * 0.85 + 0.15);
+                          final bh = maxBarH * amp;
+                          return Container(
+                            width: math.max(1, barW * 0.55),
+                            height: bh,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(999),
+                              color: ((i * barW) <= activeX)
+                                  ? active
+                                  : inactive,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ],

@@ -315,26 +315,33 @@ Widget _waveformTicks(
   ).colorScheme.mutedForeground.withOpacity(0.16);
 
   return IgnorePointer(
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(state.trackRadius),
-      child: Stack(
-        children: [
-          for (int index = 0; index < barCount; index++)
-            Positioned(
-              left: index * barWidth,
-              top: (height - (amplitudes[index] * maxBarHeight)) / 2,
-              child: Container(
-                width: max(1, barWidth * 0.55),
-                height: amplitudes[index] * maxBarHeight,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(999),
-                  color: (index * barWidth) <= activeX
-                      ? activeColor
-                      : inactiveColor,
+    child: Positioned.fromRect(
+      rect: state.trackRect,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(state.trackRadius),
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: Stack(
+            children: [
+              for (int index = 0; index < barCount; index++)
+                Positioned(
+                  left: index * barWidth,
+                  top: (height - (amplitudes[index] * maxBarHeight)) / 2,
+                  child: Container(
+                    width: max(1, barWidth * 0.55),
+                    height: amplitudes[index] * maxBarHeight,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(999),
+                      color: (index * barWidth) <= activeX
+                          ? activeColor
+                          : inactiveColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-        ],
+            ],
+          ),
+        ),
       ),
     ),
   );

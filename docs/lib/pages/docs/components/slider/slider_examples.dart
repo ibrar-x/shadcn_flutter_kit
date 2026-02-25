@@ -5,6 +5,7 @@ import 'slider_example_1.dart';
 import 'slider_example_2.dart';
 import 'slider_example_3.dart';
 import 'slider_example_4.dart';
+import 'slider_example_5.dart';
 
 const ComponentExample sliderExample1 = ComponentExample(
   title: 'Brightness Slider',
@@ -55,4 +56,14 @@ const List<ComponentExample> sliderExamples = [
   sliderExample2,
   sliderExample3,
   sliderExample4,
+  ComponentExample(
+    title: 'Slider Playground (Sidebar Controls)',
+    builder: _buildSliderExample5,
+    code:
+        "import 'package:docs/shadcn_ui.dart';\nimport 'package:flutter/material.dart' as m hide Slider;\n\n/// Interactive playground with a sidebar panel that exposes\n/// most slider customization options live.\nclass SliderExample5 extends StatefulWidget {\n  const SliderExample5({super.key});\n\n  @override\n  State<SliderExample5> createState() => _SliderExample5State();\n}\n\nclass _SliderExample5State extends State<SliderExample5> {\n  double value = 0.72;\n  double min = 0;\n  double max = 1;\n  bool enabled = true;\n  bool fillStopsAtThumbCenter = false;\n  bool popoverAlways = false;\n\n  double trackHeight = 30;\n  double trackRadius = 16;\n  double joinGapPx = 2;\n  double fillEdgeBiasPx = 0;\n  double thumbEdgeOffsetPx = 0;\n  double thumbVerticalOffsetPx = 0;\n  double thumbWidth = 10;\n  double thumbHeight = 25;\n  double thumbRadius = 4;\n  double thumbInsideOffsetPx = 4;\n\n  String preset = 'brightness';\n\n  @override\n  Widget build(BuildContext context) {\n    final maxSafe = max <= min ? min + 0.1 : max;\n    value = value.clamp(min, maxSafe);\n\n    return Slider.single(\n      min: min,\n      max: maxSafe,\n      value: value,\n      enabled: enabled,\n      preset: preset,\n      trackHeight: trackHeight,\n      trackRadius: trackRadius,\n      joinGapPx: joinGapPx,\n      fillEdgeBiasPx: fillEdgeBiasPx,\n      fillStopsAtThumbCenter: fillStopsAtThumbCenter,\n      thumbEdgeOffsetPx: thumbEdgeOffsetPx,\n      thumbVerticalOffsetPx: thumbVerticalOffsetPx,\n      thumbSize: Size(thumbWidth, thumbHeight),\n      thumbBuilder: ShadSliderDefaults.barThumb(\n        radius: thumbRadius,\n        insideOffsetPx: thumbInsideOffsetPx,\n      ),\n      dragPopoverVisibility: popoverAlways\n          ? ShadPopoverVisibility.always\n          : ShadPopoverVisibility.whileDragging,\n      dragPopoverBuilder: ShadSliderDefaults.valuePopoverRounded(\n        formatter: (v) => '\${(v * 100).round()}%',\n      ),\n      onChanged: (next) => setState(() => value = next),\n    );\n  }\n}\n",
+  ),
 ];
+
+Widget _buildSliderExample5(BuildContext context) {
+  return const SliderExample5();
+}
