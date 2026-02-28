@@ -4,13 +4,15 @@ import 'package:docs/shadcn_ui.dart';
 import 'package:docs/ui/shadcn/components/navigation/tabs/tabs.dart'
     as shadcn_tabs;
 
-const Color _kGooeySurface = Color(0xFF0D1117);
-const Color _kGooeyBodyText = Color(0xFFE8EDF5);
+const Color _kLightModeUsesDarkBg = Color(0xFF020817);
+const Color _kDarkModeUsesLightBg = Color(0xFFF8FAFC);
 
 final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
     ValueNotifier<_GooeyGlobalSettings>(
   const _GooeyGlobalSettings(
     preset: _EdgePreset.topLeft,
+    animationStyle: GooeyToastAnimationStyle.smooth,
+    shapeStyle: GooeyToastShapeStyle.sharp,
     width: 420,
     roundness: 16,
     duration: Duration(seconds: 5),
@@ -27,7 +29,7 @@ final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
   ),
 );
 
-/// Playground: only variants + position controls.
+/// Playground controls for variant, position, animation and shape.
 class GooeyToastExample1 extends StatefulWidget {
   const GooeyToastExample1({super.key});
 
@@ -83,13 +85,60 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
                     value: settings.preset == preset,
                     onChanged: (value) {
                       if (!value) return;
-                      _gooeyDocsSettings.value = settings.copyWith(
-                        preset: preset,
-                      );
+                      _gooeyDocsSettings.value =
+                          settings.copyWith(preset: preset);
                     },
                     style: const ButtonStyle.outline(),
                     selectedStyle: const ButtonStyle.primary(),
                     child: Text(preset.label),
+                  ),
+              ],
+            ),
+            const Gap(12),
+            const Text(
+              'Animation',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Gap(8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final style in GooeyToastAnimationStyle.values)
+                  SelectedButton(
+                    value: settings.animationStyle == style,
+                    onChanged: (value) {
+                      if (!value) return;
+                      _gooeyDocsSettings.value =
+                          settings.copyWith(animationStyle: style);
+                    },
+                    style: const ButtonStyle.outline(),
+                    selectedStyle: const ButtonStyle.primary(),
+                    child: Text(style.name),
+                  ),
+              ],
+            ),
+            const Gap(12),
+            const Text(
+              'Edge Shape',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Gap(8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final style in GooeyToastShapeStyle.values)
+                  SelectedButton(
+                    value: settings.shapeStyle == style,
+                    onChanged: (value) {
+                      if (!value) return;
+                      _gooeyDocsSettings.value =
+                          settings.copyWith(shapeStyle: style);
+                    },
+                    style: const ButtonStyle.outline(),
+                    selectedStyle: const ButtonStyle.primary(),
+                    child: Text(style.name),
                   ),
               ],
             ),
@@ -197,17 +246,18 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
           context,
           settings,
           id: 'docs-gooey-custom',
-          title: 'Interactive Workspace',
+          title: 'Ops Control Center',
           description: null,
           state: GooeyToastState.info,
-          expandedChild: _TabsListExpanded(
+          expandedChild: _OpsCenterExpanded(
+            textColor: _resolveToastContentColor(context),
             onTrigger: () {
               _show(
                 context,
                 settings.copyWith(preset: settings.preset.alternate),
                 id: 'docs-gooey-custom-next',
-                title: 'Triggered',
-                description: 'Opened from custom content.',
+                title: 'Escalation Routed',
+                description: 'Ops incident routed to on-call engineering.',
                 state: GooeyToastState.success,
               );
             },
@@ -236,12 +286,12 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
       position: settings.preset.position,
       expandDirection: settings.preset.expandDirection,
       width: settings.width,
-      fill: _kGooeySurface,
+      fill: _resolveToastSurface(context),
       roundness: settings.roundness,
       duration: settings.duration,
       autopilot: settings.autopilot,
-      animationStyle: GooeyToastAnimationStyle.smooth,
-      shapeStyle: GooeyToastShapeStyle.sharp,
+      animationStyle: settings.animationStyle,
+      shapeStyle: settings.shapeStyle,
       enableGooeyBlur: true,
       pauseOnHover: true,
       swipeToDismiss: true,
@@ -254,7 +304,7 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
   }
 }
 
-/// Interactive reply demo (uses global position + defaults).
+/// Interactive reply demo (transition, not replacement).
 class GooeyToastExample2 extends StatefulWidget {
   const GooeyToastExample2({super.key});
 
@@ -279,18 +329,23 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
         _controller.show(
           context: context,
           id: 'docs-gooey-reply',
-          stateTag: 'reply-compose',
+          stateTag: 'reply:compose',
           title: 'Thread Reply',
           state: GooeyToastState.action,
+          compactChild: _flightCompact(
+            title: 'Thread Reply',
+            tone: const Color(0xFF8EA3FF),
+            icon: Icons.forum_rounded,
+          ),
           position: settings.preset.position,
           expandDirection: settings.preset.expandDirection,
           width: settings.width,
-          fill: _kGooeySurface,
+          fill: _resolveToastSurface(context),
           roundness: settings.roundness,
           duration: settings.duration,
           autopilot: settings.autopilot,
-          animationStyle: GooeyToastAnimationStyle.smooth,
-          shapeStyle: GooeyToastShapeStyle.sharp,
+          animationStyle: settings.animationStyle,
+          shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
           pauseOnHover: true,
           swipeToDismiss: true,
@@ -298,24 +353,32 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
           newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
           compactMorph: settings.compactMorph,
           expandedChild: _InteractiveReplyExpanded(
+            textColor: _resolveToastContentColor(context),
             onSend: (message) {
-              _controller.show(
+              _controller.transitionAfterClosed(
                 context: context,
                 id: 'docs-gooey-reply',
-                stateTag: 'reply-sent-${DateTime.now().millisecondsSinceEpoch}',
-                title: 'Message Sent',
-                description: 'Your reply was sent: "$message"',
-                state: GooeyToastState.success,
+                currentTitle: 'Thread Reply',
+                currentState: GooeyToastState.action,
+                currentDuration: settings.duration,
+                nextTitle: 'Message Sent',
+                nextState: GooeyToastState.success,
+                nextStateTag: 'reply:sent:$message',
+                nextDescription: 'Your reply was sent successfully. "$message"',
+                nextDuration: settings.duration,
                 position: settings.preset.position,
                 expandDirection: settings.preset.expandDirection,
-                fill: _kGooeySurface,
-                animationStyle: GooeyToastAnimationStyle.smooth,
-                shapeStyle: GooeyToastShapeStyle.sharp,
+                width: settings.width,
+                fill: _resolveToastSurface(context),
+                roundness: settings.roundness,
+                animationStyle: settings.animationStyle,
+                shapeStyle: settings.shapeStyle,
                 enableGooeyBlur: true,
                 pauseOnHover: true,
                 swipeToDismiss: true,
                 persistUntilDismissed: false,
                 newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+                compactMorph: settings.compactMorph,
               );
             },
           ),
@@ -326,7 +389,7 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
   }
 }
 
-/// Booking flow demo: 3 states transition in the same slot.
+/// Booking flow copied from preview structure: 3 transitions in one slot.
 class GooeyToastExample3 extends StatefulWidget {
   const GooeyToastExample3({super.key});
 
@@ -336,11 +399,11 @@ class GooeyToastExample3 extends StatefulWidget {
 
 class _GooeyToastExample3State extends State<GooeyToastExample3> {
   final GooeyToastController _controller = GooeyToastController();
-  final List<Timer> _timers = <Timer>[];
+  final List<Timer> _flowTimers = <Timer>[];
 
   @override
   void dispose() {
-    for (final timer in _timers) {
+    for (final timer in _flowTimers) {
       timer.cancel();
     }
     _controller.dispose();
@@ -350,79 +413,206 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
   @override
   Widget build(BuildContext context) {
     return PrimaryButton(
-      onPressed: () {
-        for (final timer in _timers) {
-          timer.cancel();
-        }
-        _timers.clear();
-        final settings = _gooeyDocsSettings.value;
-
-        void showState({
-          required String stateTag,
-          required String title,
-          required String description,
-          required GooeyToastState state,
-        }) {
-          _controller.show(
-            context: context,
-            id: 'docs-gooey-booking-flow',
-            stateTag: stateTag,
-            title: title,
-            description: description,
-            state: state,
-            position: settings.preset.position,
-            expandDirection: settings.preset.expandDirection,
-            width: settings.width,
-            fill: _kGooeySurface,
-            roundness: settings.roundness,
-            duration: settings.duration,
-            autopilot: settings.autopilot,
-            animationStyle: GooeyToastAnimationStyle.smooth,
-            shapeStyle: GooeyToastShapeStyle.sharp,
-            enableGooeyBlur: true,
-            pauseOnHover: true,
-            swipeToDismiss: true,
-            persistUntilDismissed: false,
-            newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
-            compactMorph: settings.compactMorph,
-          );
-        }
-
-        showState(
-          stateTag: 'booking-loading',
-          title: 'Booking In Progress',
-          description: 'Reserving seat and confirming fare class...',
-          state: GooeyToastState.loading,
-        );
-        _timers.add(
-          Timer(const Duration(milliseconds: 1200), () {
-            if (!mounted) return;
-            showState(
-              stateTag: 'booking-confirmed',
-              title: 'Booking Confirmed',
-              description: 'Ticket issued and synced to your account.',
-              state: GooeyToastState.success,
-            );
-          }),
-        );
-        _timers.add(
-          Timer(const Duration(milliseconds: 2600), () {
-            if (!mounted) return;
-            showState(
-              stateTag: 'booking-gate-updated',
-              title: 'Gate Updated',
-              description: 'Departure gate changed to A12.',
-              state: GooeyToastState.info,
-            );
-          }),
-        );
-      },
+      onPressed: () => _showFlightBookingFlow(context),
       child: const Text('Booking Multi-State Demo'),
+    );
+  }
+
+  void _showFlightBookingFlow(BuildContext context) {
+    for (final timer in _flowTimers) {
+      timer.cancel();
+    }
+    _flowTimers.clear();
+
+    final settings = _gooeyDocsSettings.value;
+
+    const loadingState = _FlightToastModel(
+      stateTag: 'flight-booking-pending',
+      title: 'Booking In Progress',
+      subtitle: 'Reserving seat and confirming fare class...',
+      state: GooeyToastState.loading,
+      icon: Icons.sync,
+      tone: Color(0xFF77A8FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR -',
+      cta: 'Preparing',
+      duration: Duration(milliseconds: 2800),
+      autopilot: null,
+      showExpanded: false,
+    );
+    const successState = _FlightToastModel(
+      stateTag: 'flight-booking-confirmed',
+      title: 'Booking Confirmed',
+      subtitle: 'Your itinerary is issued and synced to your account.',
+      state: GooeyToastState.success,
+      icon: Icons.check,
+      tone: Color(0xFF42C853),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'View Details',
+      duration: Duration(milliseconds: 3200),
+      autopilot: GooeyAutopilot(
+        expandDelay: Duration.zero,
+        collapseDelay: Duration(milliseconds: 2200),
+      ),
+      showExpanded: true,
+    );
+    const gateCompactState = _FlightToastModel(
+      stateTag: 'flight-gate-updated-compact',
+      title: 'Gate Updated',
+      subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
+      state: GooeyToastState.info,
+      icon: Icons.info_outline,
+      tone: Color(0xFF8EA3FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'Open Pass',
+      duration: Duration(milliseconds: 3600),
+      autopilot: null,
+      showExpanded: false,
+    );
+    const gateExpandedState = _FlightToastModel(
+      stateTag: 'flight-gate-updated-expanded',
+      title: 'Gate Updated',
+      subtitle: 'Departure gate changed to A12. Boarding starts in 35 min.',
+      state: GooeyToastState.info,
+      icon: Icons.info_outline,
+      tone: Color(0xFF8EA3FF),
+      fromCode: 'DEL',
+      toCode: 'SFO',
+      pnr: 'PNR EC2QW4',
+      cta: 'Open Pass',
+      duration: Duration(milliseconds: 3600),
+      autopilot: GooeyAutopilot(
+        expandDelay: Duration.zero,
+        collapseDelay: Duration(milliseconds: 2600),
+      ),
+      showExpanded: true,
+    );
+
+    _controller.show(
+      context: context,
+      id: 'flight-booking-flow',
+      stateTag: loadingState.stateTag,
+      title: loadingState.title,
+      state: loadingState.state,
+      duration: loadingState.duration,
+      autopilot: null,
+      compactChild: _flightCompact(
+        title: loadingState.title,
+        tone: loadingState.tone,
+        icon: loadingState.icon,
+      ),
+      expandedChild: null,
+      position: settings.preset.position,
+      expandDirection: settings.preset.expandDirection,
+      width: settings.width,
+      fill: _resolveToastSurface(context),
+      roundness: settings.roundness,
+      animationStyle: settings.animationStyle,
+      shapeStyle: settings.shapeStyle,
+      enableGooeyBlur: true,
+      pauseOnHover: true,
+      swipeToDismiss: true,
+      persistUntilDismissed: false,
+      newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+      compactMorph: settings.compactMorph,
+    );
+
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 1200), () {
+        if (!mounted) return;
+        _controller.transitionAfterClosed(
+          context: context,
+          id: 'flight-booking-flow',
+          currentTitle: loadingState.title,
+          currentState: loadingState.state,
+          currentCompactChild: _flightCompact(
+            title: loadingState.title,
+            tone: loadingState.tone,
+            icon: loadingState.icon,
+          ),
+          currentDuration: loadingState.duration,
+          nextStateTag: successState.stateTag,
+          nextTitle: successState.title,
+          nextState: successState.state,
+          nextCompactChild: _flightCompact(
+            title: successState.title,
+            tone: successState.tone,
+            icon: successState.icon,
+          ),
+          nextExpandedChild: _flightExpanded(context, successState),
+          nextDuration: successState.duration,
+          nextCompactGap: const Duration(milliseconds: 130),
+          nextExpandedAutopilot:
+              successState.autopilot ?? const GooeyAutopilot(),
+          position: settings.preset.position,
+          expandDirection: settings.preset.expandDirection,
+          width: settings.width,
+          fill: _resolveToastSurface(context),
+          roundness: settings.roundness,
+          animationStyle: settings.animationStyle,
+          shapeStyle: settings.shapeStyle,
+          enableGooeyBlur: true,
+          pauseOnHover: true,
+          swipeToDismiss: true,
+          persistUntilDismissed: false,
+          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          compactMorph: settings.compactMorph,
+        );
+      }),
+    );
+
+    _flowTimers.add(
+      Timer(const Duration(milliseconds: 4200), () {
+        if (!mounted) return;
+        _controller.transitionAfterClosed(
+          context: context,
+          id: 'flight-booking-flow',
+          currentTitle: successState.title,
+          currentState: successState.state,
+          currentCompactChild: _flightCompact(
+            title: successState.title,
+            tone: successState.tone,
+            icon: successState.icon,
+          ),
+          currentDuration: successState.duration,
+          nextStateTag: gateExpandedState.stateTag,
+          nextTitle: gateExpandedState.title,
+          nextState: gateExpandedState.state,
+          nextCompactChild: _flightCompact(
+            title: gateCompactState.title,
+            tone: gateCompactState.tone,
+            icon: gateCompactState.icon,
+          ),
+          nextExpandedChild: _flightExpanded(context, gateExpandedState),
+          nextDuration: gateExpandedState.duration,
+          nextCompactGap: const Duration(milliseconds: 130),
+          nextExpandedAutopilot:
+              gateExpandedState.autopilot ?? const GooeyAutopilot(),
+          position: settings.preset.position,
+          expandDirection: settings.preset.expandDirection,
+          width: settings.width,
+          fill: _resolveToastSurface(context),
+          roundness: settings.roundness,
+          animationStyle: settings.animationStyle,
+          shapeStyle: settings.shapeStyle,
+          enableGooeyBlur: true,
+          pauseOnHover: true,
+          swipeToDismiss: true,
+          persistUntilDismissed: false,
+          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          compactMorph: settings.compactMorph,
+        );
+      }),
     );
   }
 }
 
-/// Extra custom content demo (same global defaults).
+/// Real-life tabs/list scenario.
 class GooeyToastExample4 extends StatelessWidget {
   const GooeyToastExample4({super.key});
 
@@ -453,40 +643,41 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
         final settings = _gooeyDocsSettings.value;
         _controller.show(
           context: context,
-          id: 'docs-gooey-tabs-list',
-          stateTag: 'tabs-list-${DateTime.now().millisecondsSinceEpoch}',
-          title: 'Interactive Workspace',
+          id: 'docs-gooey-ops-center',
+          stateTag: 'ops-center-${DateTime.now().millisecondsSinceEpoch}',
+          title: 'Ops Control Center',
           state: GooeyToastState.info,
           position: settings.preset.position,
           expandDirection: settings.preset.expandDirection,
           width: settings.width,
-          fill: _kGooeySurface,
+          fill: _resolveToastSurface(context),
           roundness: settings.roundness,
           duration: settings.duration,
           autopilot: settings.autopilot,
-          animationStyle: GooeyToastAnimationStyle.smooth,
-          shapeStyle: GooeyToastShapeStyle.sharp,
+          animationStyle: settings.animationStyle,
+          shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
           pauseOnHover: true,
           swipeToDismiss: true,
           persistUntilDismissed: false,
           newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
           compactMorph: settings.compactMorph,
-          expandedChild: _TabsListExpanded(
+          expandedChild: _OpsCenterExpanded(
+            textColor: _resolveToastContentColor(context),
             onTrigger: () {
               _controller.show(
                 context: context,
-                id: 'docs-gooey-tabs-list-next',
-                title: 'Triggered',
-                description: 'Opened from tabs/list content.',
+                id: 'docs-gooey-ops-center-next',
+                title: 'Escalation Routed',
+                description: 'SEV-2 incident assigned to backend on-call.',
                 state: GooeyToastState.success,
                 position: settings.preset.alternate.position,
                 expandDirection: settings.preset.alternate.expandDirection,
-                fill: _kGooeySurface,
-                animationStyle: GooeyToastAnimationStyle.smooth,
-                shapeStyle: GooeyToastShapeStyle.sharp,
-                newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+                fill: _resolveToastSurface(context),
+                animationStyle: settings.animationStyle,
+                shapeStyle: settings.shapeStyle,
                 persistUntilDismissed: false,
+                newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
               );
             },
           ),
@@ -497,32 +688,37 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
   }
 }
 
-class _TabsListExpanded extends StatefulWidget {
-  const _TabsListExpanded({required this.onTrigger});
+class _OpsCenterExpanded extends StatefulWidget {
+  const _OpsCenterExpanded({
+    required this.onTrigger,
+    required this.textColor,
+  });
 
   final VoidCallback onTrigger;
+  final Color textColor;
 
   @override
-  State<_TabsListExpanded> createState() => _TabsListExpandedState();
+  State<_OpsCenterExpanded> createState() => _OpsCenterExpandedState();
 }
 
-class _TabsListExpandedState extends State<_TabsListExpanded> {
+class _OpsCenterExpandedState extends State<_OpsCenterExpanded> {
   int _tabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle.merge(
-      style: const TextStyle(color: _kGooeyBodyText),
+      style: TextStyle(color: widget.textColor),
       child: SizedBox(
-        height: 200,
+        height: 248,
         child: Column(
           children: [
             shadcn_tabs.Tabs(
               index: _tabIndex,
               onChanged: (next) => setState(() => _tabIndex = next),
               children: const [
-                shadcn_tabs.TabItem(child: Text('Tasks')),
-                shadcn_tabs.TabItem(child: Text('Actions')),
+                shadcn_tabs.TabItem(child: Text('Incidents')),
+                shadcn_tabs.TabItem(child: Text('Runbook')),
+                shadcn_tabs.TabItem(child: Text('Dispatch')),
               ],
             ),
             const Gap(8),
@@ -530,18 +726,25 @@ class _TabsListExpandedState extends State<_TabsListExpanded> {
               child: IndexedStack(
                 index: _tabIndex,
                 children: [
-                  ListView.separated(
-                    itemCount: 5,
-                    itemBuilder: (context, index) =>
-                        Text('Pending task #${index + 1}'),
-                    separatorBuilder: (context, index) =>
-                        const Divider(color: Color(0x44E8EDF5)),
-                  ),
+                  _opsIncidentList(),
+                  _opsRunbook(),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: PrimaryButton(
-                      onPressed: widget.onTrigger,
-                      child: const Text('Trigger Another Position'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Route active incident to escalation channel.',
+                          style: TextStyle(
+                            color: widget.textColor.withValues(alpha: 0.86),
+                          ),
+                        ),
+                        const Gap(10),
+                        PrimaryButton(
+                          onPressed: widget.onTrigger,
+                          child: const Text('Escalate To On-Call'),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -552,12 +755,85 @@ class _TabsListExpandedState extends State<_TabsListExpanded> {
       ),
     );
   }
+
+  Widget _opsIncidentList() {
+    const incidents = <(String, String, String)>[
+      ('SEV-2 API latency', 'eu-west-1', '09:42'),
+      ('Payment retries spike', 'checkout', '09:37'),
+      ('Token refresh errors', 'auth-core', '09:31'),
+      ('Queue backlog above SLO', 'worker-bus', '09:19'),
+    ];
+    return ListView.separated(
+      itemCount: incidents.length,
+      itemBuilder: (context, index) {
+        final (title, service, time) = incidents[index];
+        return Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title),
+                  Text(
+                    '$service · opened $time',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: widget.textColor.withValues(alpha: 0.68),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(999),
+                color: widget.textColor.withValues(alpha: 0.12),
+              ),
+              child: Text(
+                index == 0 ? 'active' : 'watch',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: widget.textColor.withValues(alpha: 0.9),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      separatorBuilder: (context, index) =>
+          Divider(color: widget.textColor.withValues(alpha: 0.28)),
+    );
+  }
+
+  Widget _opsRunbook() {
+    final steps = <String>[
+      '1. Enable degraded-mode cache for search endpoints.',
+      '2. Scale worker-bus deployment to 2x replicas.',
+      '3. Pause non-critical cron jobs for 15 minutes.',
+      '4. Post status update in #incident-room.',
+    ];
+    return ListView.separated(
+      itemCount: steps.length,
+      itemBuilder: (context, index) => Text(
+        steps[index],
+        style: TextStyle(color: widget.textColor.withValues(alpha: 0.88)),
+      ),
+      separatorBuilder: (context, index) =>
+          Divider(color: widget.textColor.withValues(alpha: 0.28)),
+    );
+  }
 }
 
 class _InteractiveReplyExpanded extends StatefulWidget {
-  const _InteractiveReplyExpanded({required this.onSend});
+  const _InteractiveReplyExpanded({
+    required this.onSend,
+    required this.textColor,
+  });
 
   final ValueChanged<String> onSend;
+  final Color textColor;
 
   @override
   State<_InteractiveReplyExpanded> createState() =>
@@ -566,6 +842,7 @@ class _InteractiveReplyExpanded extends StatefulWidget {
 
 class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   final TextEditingController _controller = TextEditingController();
+  final TextFieldKey _replyKey = const TextFieldKey(#reply_message);
 
   @override
   void dispose() {
@@ -576,28 +853,398 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle.merge(
-      style: const TextStyle(color: _kGooeyBodyText),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      style: TextStyle(color: widget.textColor),
+      child: Form(
+        onSubmit: (context, values) {
+          final text = _controller.text.trim();
+          if (text.isEmpty) return;
+          _controller.clear();
+          widget.onSend(text);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Click reply to respond from this thread.'),
+            const Gap(8),
+            FormField<String>(
+              key: _replyKey,
+              label: const Text('Reply'),
+              validator: const LengthValidator(min: 3, max: 160),
+              child: TextField(
+                controller: _controller,
+                placeholder: const Text('Type your reply...'),
+              ),
+            ),
+            const Gap(8),
+            Builder(
+              builder: (formContext) {
+                return PrimaryButton(
+                  onPressed: () => formContext.submitForm(),
+                  child: const Text('Send Reply'),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget _flightCompact({
+  required String title,
+  required Color tone,
+  required IconData icon,
+}) {
+  return Row(
+    children: [
+      Expanded(
+        child: _AnimatedCompactLabel(title: title, tone: tone, icon: icon),
+      ),
+    ],
+  );
+}
+
+Widget _flightExpanded(BuildContext context, _FlightToastModel model) {
+  final fill = _resolveToastSurface(context);
+  final isDark = fill.computeLuminance() < 0.5;
+  final headerColor =
+      isDark ? const Color(0xFFE8E8E8) : const Color(0xFF0F172A);
+  final pnrColor = isDark ? const Color(0xFF8C8C8C) : const Color(0xFF475569);
+  final routeColor = isDark ? const Color(0xFFEDEDED) : const Color(0xFF0F172A);
+  final subtitleColor =
+      isDark ? const Color(0xFFC0C5CB) : const Color(0xFF334155);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Row(
         children: [
-          const Text('Click reply to respond from this thread.'),
-          const Gap(8),
-          TextField(
-            controller: _controller,
-            placeholder: const Text('Type your reply...'),
+          Text(
+            'UNITED',
+            style: TextStyle(
+              fontSize: 11,
+              letterSpacing: 3.2,
+              fontWeight: FontWeight.w700,
+              color: headerColor,
+            ),
           ),
-          const Gap(8),
-          PrimaryButton(
-            onPressed: () {
-              final text = _controller.text.trim();
-              if (text.isEmpty) return;
-              widget.onSend(text);
-            },
-            child: const Text('Send Reply'),
+          const Spacer(),
+          Text(
+            model.pnr,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: pnrColor,
+            ),
           ),
         ],
       ),
+      const SizedBox(height: 12),
+      SizedBox(
+        height: 58,
+        child: Stack(
+          children: [
+            Positioned(
+              left: 8,
+              bottom: 0,
+              child: Text(
+                model.fromCode,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: routeColor,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 8,
+              bottom: 0,
+              child: Text(
+                model.toCode,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: routeColor,
+                ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 1,
+              child: Text(
+                '------------------------------',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: model.tone.withValues(alpha: 0.55),
+                  fontSize: 16,
+                  letterSpacing: 1.8,
+                  fontWeight: FontWeight.w700,
+                  height: 1,
+                ),
+              ),
+            ),
+            const Positioned(left: 56, bottom: 6, child: _FlightDot()),
+            const Positioned(right: 56, bottom: 6, child: _FlightDot()),
+          ],
+        ),
+      ),
+      const SizedBox(height: 6),
+      Text(
+        model.subtitle,
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.35,
+          color: subtitleColor,
+        ),
+      ),
+      const SizedBox(height: 12),
+      Container(
+        height: 38,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(999),
+          gradient: LinearGradient(
+            colors: [
+              model.tone.withValues(alpha: 0.22),
+              model.tone.withValues(alpha: 0.34),
+            ],
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          model.cta,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: model.tone,
+            height: 1,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+class _FlightDot extends StatelessWidget {
+  const _FlightDot();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 34,
+      width: 34,
+      decoration: const BoxDecoration(
+        color: Color(0x1F42C853),
+        shape: BoxShape.circle,
+      ),
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.arrow_outward_rounded,
+        size: 18,
+        color: Color(0xFF42C853),
+      ),
+    );
+  }
+}
+
+class _FlightToastModel {
+  const _FlightToastModel({
+    required this.stateTag,
+    required this.title,
+    required this.subtitle,
+    required this.state,
+    required this.icon,
+    required this.tone,
+    required this.fromCode,
+    required this.toCode,
+    required this.pnr,
+    required this.cta,
+    this.showExpanded = true,
+    this.duration,
+    this.autopilot = const GooeyAutopilot(),
+  });
+
+  final Object stateTag;
+  final String title;
+  final String subtitle;
+  final GooeyToastState state;
+  final IconData icon;
+  final Color tone;
+  final String fromCode;
+  final String toCode;
+  final String pnr;
+  final String cta;
+  final bool showExpanded;
+  final Duration? duration;
+  final GooeyAutopilot? autopilot;
+}
+
+class _AnimatedCompactLabel extends StatefulWidget {
+  const _AnimatedCompactLabel({
+    required this.title,
+    required this.tone,
+    required this.icon,
+  });
+
+  final String title;
+  final Color tone;
+  final IconData icon;
+
+  @override
+  State<_AnimatedCompactLabel> createState() => _AnimatedCompactLabelState();
+}
+
+class _AnimatedCompactLabelState extends State<_AnimatedCompactLabel>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _progress;
+  String? _prevTitle;
+  Color? _prevTone;
+  IconData? _prevIcon;
+  bool _hasPrev = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 190),
+    );
+    _progress = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed && mounted) {
+          setState(() => _hasPrev = false);
+        }
+      });
+    _controller.value = 1;
+  }
+
+  @override
+  void didUpdateWidget(covariant _AnimatedCompactLabel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final changed = oldWidget.title != widget.title ||
+        oldWidget.tone != widget.tone ||
+        oldWidget.icon != widget.icon;
+    if (!changed) return;
+    _prevTitle = oldWidget.title;
+    _prevTone = oldWidget.tone;
+    _prevIcon = oldWidget.icon;
+    _hasPrev = true;
+    _controller.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _progress,
+      builder: (context, _) {
+        final t = _progress.value;
+        final previousOpacity = _hasPrev ? (1 - t) : 0.0;
+        final currentOpacity = _hasPrev ? t : 1.0;
+        final previousYOffset = _hasPrev ? (-2.0 * t) : 0.0;
+        final currentYOffset = _hasPrev ? (2.0 * (1 - t)) : 0.0;
+        return Row(
+          children: [
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (_hasPrev && _prevTone != null && _prevIcon != null)
+                    Opacity(
+                      opacity: previousOpacity,
+                      child: _compactIcon(
+                        tone: _prevTone!,
+                        icon: _prevIcon!,
+                        scale: 0.95 + 0.05 * previousOpacity,
+                      ),
+                    ),
+                  Opacity(
+                    opacity: currentOpacity,
+                    child: _compactIcon(
+                      tone: widget.tone,
+                      icon: widget.icon,
+                      scale: 0.95 + 0.05 * currentOpacity,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Stack(
+                children: [
+                  if (_hasPrev && _prevTitle != null && _prevTone != null)
+                    Opacity(
+                      opacity: previousOpacity,
+                      child: Transform.translate(
+                        offset: Offset(0, previousYOffset),
+                        child: _compactText(_prevTitle!, _prevTone!),
+                      ),
+                    ),
+                  Opacity(
+                    opacity: currentOpacity,
+                    child: Transform.translate(
+                      offset: Offset(0, currentYOffset),
+                      child: _compactText(widget.title, widget.tone),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _compactIcon({
+    required Color tone,
+    required IconData icon,
+    required double scale,
+  }) {
+    return Transform.scale(
+      scale: scale,
+      child: Container(
+        height: 24,
+        width: 24,
+        decoration: BoxDecoration(
+          color: tone.withValues(alpha: 0.2),
+          shape: BoxShape.circle,
+        ),
+        alignment: Alignment.center,
+        child: Icon(icon, size: 15, color: tone),
+      ),
+    );
+  }
+
+  Widget _compactText(String title, Color tone) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: tone,
+              height: 1,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -680,6 +1327,8 @@ enum _EdgePreset {
 class _GooeyGlobalSettings {
   const _GooeyGlobalSettings({
     required this.preset,
+    required this.animationStyle,
+    required this.shapeStyle,
     required this.width,
     required this.roundness,
     required this.duration,
@@ -688,15 +1337,23 @@ class _GooeyGlobalSettings {
   });
 
   final _EdgePreset preset;
+  final GooeyToastAnimationStyle animationStyle;
+  final GooeyToastShapeStyle shapeStyle;
   final double width;
   final double roundness;
   final Duration duration;
   final GooeyAutopilot autopilot;
   final GooeyCompactMorph compactMorph;
 
-  _GooeyGlobalSettings copyWith({_EdgePreset? preset}) {
+  _GooeyGlobalSettings copyWith({
+    _EdgePreset? preset,
+    GooeyToastAnimationStyle? animationStyle,
+    GooeyToastShapeStyle? shapeStyle,
+  }) {
     return _GooeyGlobalSettings(
       preset: preset ?? this.preset,
+      animationStyle: animationStyle ?? this.animationStyle,
+      shapeStyle: shapeStyle ?? this.shapeStyle,
       width: width,
       roundness: roundness,
       duration: duration,
@@ -704,4 +1361,17 @@ class _GooeyGlobalSettings {
       compactMorph: compactMorph,
     );
   }
+}
+
+Color _resolveToastSurface(BuildContext context) {
+  final brightness = Theme.of(context).brightness;
+  return brightness == Brightness.light
+      ? _kLightModeUsesDarkBg
+      : _kDarkModeUsesLightBg;
+}
+
+Color _resolveToastContentColor(BuildContext context) {
+  final fill = _resolveToastSurface(context);
+  final isDark = fill.computeLuminance() < 0.5;
+  return isDark ? const Color(0xFFEAF0F8) : const Color(0xFF0F172A);
 }

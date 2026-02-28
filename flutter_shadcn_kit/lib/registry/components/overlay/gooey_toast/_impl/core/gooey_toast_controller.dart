@@ -301,7 +301,9 @@ class GooeyToastController extends ChangeNotifier {
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedDuration = duration ?? _kDefaultDuration;
     final resolvedWidth = width ?? gooeyTheme?.width ?? _kToastWidth;
-    final resolvedFill = fill ?? gooeyTheme?.fill ?? GooeyToastDefaults.fill;
+    final theme = Theme.of(context);
+    final resolvedFill =
+        fill ?? gooeyTheme?.fill ?? _defaultFillForTheme(theme);
     final resolvedRoundness =
         roundness ?? gooeyTheme?.roundness ?? _kDefaultRoundness;
     final resolvedAnimationStyle =
@@ -335,8 +337,13 @@ class GooeyToastController extends ChangeNotifier {
         dismissDragThreshold ??
         gooeyTheme?.dismissDragThreshold ??
         GooeyToastDefaults.dismissDragThreshold;
+    final spacingScale = (1 + (theme.visualDensity.vertical * 0.08)).clamp(
+      0.75,
+      1.5,
+    );
     final resolvedSpacing =
-        spacing ?? gooeyTheme?.spacing ?? GooeyToastDefaults.spacing;
+        (spacing ?? gooeyTheme?.spacing ?? GooeyToastDefaults.spacing) *
+        spacingScale;
     final resolvedNewToastBehavior =
         newToastBehavior ?? GooeyToastDefaults.newToastBehavior;
 
@@ -496,6 +503,12 @@ class GooeyToastController extends ChangeNotifier {
     _scheduleAutoDismiss(toastId, data);
     _rebuildAllEntries();
     notifyListeners();
+  }
+
+  Color _defaultFillForTheme(ThemeData theme) {
+    return theme.brightness == Brightness.light
+        ? const Color(0xFF020817)
+        : const Color(0xFFF8FAFC);
   }
 
   void success({

@@ -434,6 +434,10 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     final stack = GooeyToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
+    final densityScale = (1 + (theme.visualDensity.vertical * 0.08)).clamp(
+      0.85,
+      1.25,
+    );
     final resolvedShapeStyle =
         widget.shapeStyle == GooeyToastShapeStyle.defaultShape
         ? (gooeyTheme?.shapeStyle ?? widget.shapeStyle)
@@ -446,7 +450,13 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       resolvedShapeStyle,
     );
     final fillColor =
-        widget.fill ?? gooeyTheme?.fill ?? GooeyToastDefaults.fill;
+        widget.fill ?? gooeyTheme?.fill ?? _defaultFillForTheme(theme);
+    final isDarkSurface = fillColor.computeLuminance() < 0.5;
+    final descriptionColor = isDarkSurface
+        ? const Color(0xFFC0C5CB)
+        : const Color(0xFF334155);
+    final headerPadding = (8 * densityScale).clamp(6.0, 12.0).toDouble();
+    final expandedPadding = (16 * densityScale).clamp(12.0, 22.0).toDouble();
     final tone = _toneForState(widget.state, gooeyTheme);
     final titleStyle =
         gooeyTheme?.titleStyle ??
@@ -462,7 +472,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
           fontSize: 14,
           height: 1.43,
           fontWeight: FontWeight.w400,
-          color: const Color(0xFFC0C5CB),
+          color: descriptionColor,
         );
     final showStackControls =
         stack != null && stack.hasMultiple && stack.isPrimary;
@@ -712,7 +722,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                   transformAlignment: Alignment.center,
                                   width: pillWidth,
                                   height: _kToastHeight,
-                                  padding: const EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(headerPadding),
                                   child:
                                       widget.compactChild ??
                                       Row(
@@ -824,8 +834,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                             child: SizedBox(
                                               width: toastWidth,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                  16,
+                                                padding: EdgeInsets.all(
+                                                  expandedPadding,
                                                 ),
                                                 child: _MeasureSize(
                                                   onSizeChanged:
@@ -1190,6 +1200,12 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       case GooeyToastState.action:
         return Icon(Icons.arrow_forward, color: color, size: 16);
     }
+  }
+
+  Color _defaultFillForTheme(ThemeData theme) {
+    return theme.brightness == Brightness.light
+        ? const Color(0xFF020817)
+        : const Color(0xFFF8FAFC);
   }
 }
 
