@@ -43,7 +43,7 @@ class ObjectFormField<T> extends StatefulWidget {
 
   /// Builds the editor widget.
   final Widget Function(BuildContext context, ObjectFormHandler<T> handler)
-      editorBuilder;
+  editorBuilder;
 
   /// Popover alignment relative to the trigger.
   final AlignmentGeometry? popoverAlignment;
@@ -68,7 +68,10 @@ class ObjectFormField<T> extends StatefulWidget {
 
   /// Custom dialog action buttons.
   final List<Widget> Function(
-      BuildContext context, ObjectFormHandler<T> handler)? dialogActions;
+    BuildContext context,
+    ObjectFormHandler<T> handler,
+  )?
+  dialogActions;
 
   /// Whether the field is enabled.
   final bool? enabled;
@@ -104,6 +107,7 @@ class ObjectFormField<T> extends StatefulWidget {
     this.immediateValueChange,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ObjectFormField<T>> createState() => ObjectFormFieldState<T>();
 }

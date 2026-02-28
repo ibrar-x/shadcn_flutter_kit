@@ -1,0 +1,21 @@
+import 'package:flutter/widgets.dart';
+
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// Defaults intentionally mirror CalendarThemeDefaults
+// ═══════════════════════════════════════════════════════════
+
+class CalendarThemeTokens {
+  const CalendarThemeTokens({
+    this.arrowIconColor,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
+  });
+
+  final Color? arrowIconColor;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
+}
+
+const calendarThemeTokens = CalendarThemeTokens();

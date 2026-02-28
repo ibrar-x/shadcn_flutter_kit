@@ -1,5 +1,6 @@
 part of '../../eye_dropper.dart';
 
+/// EyeDropperResult defines a reusable type for this registry module.
 class EyeDropperResult {
   /// The size of the captured area.
   final Size size;
@@ -20,8 +21,8 @@ class EyeDropperResult {
   ///
   /// Returns: The color at that position.
   Color operator [](Offset position) {
-    int index =
-        (position.dy.floor() * size.width + position.dx.floor()).toInt();
+    int index = (position.dy.floor() * size.width + position.dx.floor())
+        .toInt();
     return colors[index];
   }
 }

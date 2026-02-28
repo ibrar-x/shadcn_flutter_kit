@@ -1,15 +1,18 @@
 part of '../../overlay.dart';
 
 
+/// _OverlayManagerLayerState defines a reusable type for this registry module.
 class _OverlayManagerLayerState extends State<OverlayManagerLayer>
     implements OverlayManager {
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     OverlayManager._register(this);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Data<OverlayManager>.inherit(
       data: this,
@@ -18,6 +21,7 @@ class _OverlayManagerLayerState extends State<OverlayManagerLayer>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     OverlayManager._unregister(this);
     super.dispose();

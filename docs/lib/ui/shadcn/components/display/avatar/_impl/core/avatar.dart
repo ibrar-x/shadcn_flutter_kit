@@ -1,6 +1,8 @@
 part of '../../avatar.dart';
 
+/// Core class used by the avatar component.
 class Avatar extends StatefulWidget implements AvatarWidget {
+  /// Creates `Avatar` for configuring or rendering avatar.
   const Avatar({
     super.key,
     required this.initials,
@@ -13,6 +15,7 @@ class Avatar extends StatefulWidget implements AvatarWidget {
     this.provider,
   });
 
+  /// Creates `Avatar.network` for configuring or rendering avatar.
   Avatar.network({
     super.key,
     required this.initials,
@@ -26,11 +29,13 @@ class Avatar extends StatefulWidget implements AvatarWidget {
     int? cacheHeight,
     required String photoUrl,
   }) : provider = ResizeImage.resizeIfNeeded(
-          cacheWidth,
-          cacheHeight,
-          NetworkImage(photoUrl),
-        );
+         cacheWidth,
+         cacheHeight,
 
+         NetworkImage(photoUrl),
+       );
+
+  /// Implements `getInitials` behavior for avatar.
   static String getInitials(String name) {
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
@@ -41,22 +46,40 @@ class Avatar extends StatefulWidget implements AvatarWidget {
       final chars = parts.first.characters.take(2).toList();
       return chars.join().toUpperCase();
     }
+
     final first = parts.first.characters.first;
+
     final second = parts[1].characters.first;
     return '$first$second'.toUpperCase();
   }
 
+  /// Input parameter used by `Avatar` during rendering and behavior handling.
   final String initials;
+
+  /// Color value used by avatar painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects avatar rendering.
   @override
   final double? size;
+
+  /// Layout/size setting that affects avatar rendering.
   @override
   final double? borderRadius;
+
+  /// Input parameter used by `Avatar` during rendering and behavior handling.
   final AvatarBadge? badge;
+
+  /// Controls how avatar content is aligned within available space.
   final AlignmentGeometry? badgeAlignment;
+
+  /// Layout/size setting that affects avatar rendering.
   final double? badgeGap;
+
+  /// Input parameter used by `Avatar` during rendering and behavior handling.
   final ImageProvider? provider;
 
+  /// Creates the State object used by this avatar widget.
   @override
   State<Avatar> createState() => _AvatarState();
 }

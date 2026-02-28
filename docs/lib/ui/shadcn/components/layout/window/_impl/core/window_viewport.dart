@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowViewport defines a reusable type for this registry module.
 class WindowViewport {
   /// The size of the window's visible area.
   final Size size;
@@ -46,6 +47,7 @@ class WindowViewport {
   });
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! WindowViewport) return false;

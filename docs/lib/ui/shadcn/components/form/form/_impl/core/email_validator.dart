@@ -14,31 +14,36 @@ part of '../../form.dart';
 class EmailValidator extends Validator<String> {
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates an [EmailValidator] with an optional custom message.
   const EmailValidator({this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
     if (!email_validator.EmailValidator.validate(value)) {
       return InvalidResult(
-          message ??
-              Localizations.of(context, ShadcnLocalizations).invalidEmail,
-          state: state);
+        message ?? Localizations.of(context, ShadcnLocalizations).invalidEmail,
+        state: state,
+      );
     }
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is EmailValidator && other.message == message;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => message.hashCode;
 }

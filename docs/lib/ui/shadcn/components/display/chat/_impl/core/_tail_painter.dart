@@ -1,12 +1,26 @@
 part of '../../chat.dart';
 
+/// Custom painter responsible for drawing chat-specific visuals.
 class _TailPainter extends CustomPainter {
+  /// Color value used by chat painting or state styling.
   final Color color;
+
+  /// Layout/size setting that affects chat rendering.
   final BorderRadius radius;
+
+  /// Layout/size setting that affects chat rendering.
   final Size tailSize;
+
+  /// Input parameter used by `_TailPainter` during rendering and behavior handling.
   final AxisDirection position;
+
+  /// Controls how chat content is aligned within available space.
   final AxisAlignment tailAlignment;
+
+  /// Layout/size setting that affects chat rendering.
   final double tailRadius;
+
+  /// Creates `_TailPainter` for configuring or rendering chat.
   const _TailPainter({
     required this.color,
     required this.radius,
@@ -16,6 +30,7 @@ class _TailPainter extends CustomPainter {
     required this.tailRadius,
   });
 
+  /// Implements `paint` behavior for chat.
   @override
   void paint(Canvas canvas, Size size) {
     final path = Path();
@@ -27,9 +42,11 @@ class _TailPainter extends CustomPainter {
       AxisDirection.right => Axis.horizontal,
     };
 
-    double horizontalOffset = tailAlignment.alongValue(axis, size.width) -
+    double horizontalOffset =
+        tailAlignment.alongValue(axis, size.width) -
         tailAlignment.alongValue(axis, tailSize.width);
-    double verticalOffset = tailAlignment.alongValue(axis, size.height) -
+    double verticalOffset =
+        tailAlignment.alongValue(axis, size.height) -
         tailAlignment.alongValue(axis, tailSize.height);
     double alignVal = tailAlignment.resolveValue(axis);
     double t = (alignVal + 1) / 2;
@@ -55,8 +72,10 @@ class _TailPainter extends CustomPainter {
       case AxisDirection.down:
         initialBase1 = Offset(horizontalOffset, size.height);
         initialBase2 = Offset(horizontalOffset + tailSize.width, size.height);
-        tip = Offset(horizontalOffset + t * tailSize.width,
-            size.height + tailSize.height);
+        tip = Offset(
+          horizontalOffset + t * tailSize.width,
+          size.height + tailSize.height,
+        );
         break;
       case AxisDirection.left:
         initialBase1 = Offset(0, verticalOffset);
@@ -67,14 +86,19 @@ class _TailPainter extends CustomPainter {
         initialBase1 = Offset(size.width, verticalOffset);
         initialBase2 = Offset(size.width, verticalOffset + tailSize.height);
         tip = Offset(
-            size.width + tailSize.width, verticalOffset + t * tailSize.height);
+          size.width + tailSize.width,
+          verticalOffset + t * tailSize.height,
+        );
         break;
     }
 
     // Extend base points along the tail-to-base vectors by cornerRadius
     Offset v1 = initialBase1 - tip;
+
     Offset v2 = initialBase2 - tip;
+
     double d1 = v1.distance;
+
     double d2 = v2.distance;
 
     // Move base1 and base2 outward along their respective vectors
@@ -87,10 +111,12 @@ class _TailPainter extends CustomPainter {
     d1 = v1.distance;
     d2 = v2.distance;
 
-    Offset pathBeforeTail =
-        d1 == 0 ? tip : tip + v1 * (min(d1, tailRadius) / d1);
-    Offset pathAfterTail =
-        d2 == 0 ? tip : tip + v2 * (min(d2, tailRadius) / d2);
+    Offset pathBeforeTail = d1 == 0
+        ? tip
+        : tip + v1 * (min(d1, tailRadius) / d1);
+    Offset pathAfterTail = d2 == 0
+        ? tip
+        : tip + v2 * (min(d2, tailRadius) / d2);
 
     path.moveTo(base1.dx, base1.dy);
     path.lineTo(pathBeforeTail.dx, pathBeforeTail.dy);
@@ -100,6 +126,7 @@ class _TailPainter extends CustomPainter {
     canvas.drawPath(path, Paint()..color = color);
   }
 
+  /// Implements `shouldRepaint` behavior for chat.
   @override
   bool shouldRepaint(covariant _TailPainter oldDelegate) {
     return oldDelegate.color != color ||

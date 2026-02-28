@@ -1,11 +1,114 @@
-# Date Picker
+# Date Picker (`date_picker`)
 
-Single-date and date-range pickers that launch a calendar via popover or dialog prompts.
+Popover/dialog calendar for single-date and range selection.
 
-Use `DatePicker` or `ControlledDatePicker` for single selection with optional calendar view,
-popover alignment, and custom `DateStateBuilder` support. The companion `DateRangePicker`
-works inside the same prompt system but renders a range selection view that adapts to narrow
-and wide layouts.
+---
 
-Wrap the component with a `ControlledComponentAdapter` when you need form integration, and
-provide `DatePickerController`/`DateRangePicker` callbacks to react to the chosen dates.
+## When to use
+
+- Use this when:
+  - you need a date field that opens a calendar.
+  - you want single or range selection.
+- Avoid when:
+  - you only need a plain text date input (use `object_input`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add date_picker
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/date_picker/date_picker.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+DatePicker(
+  value: DateTime.now(),
+  onChanged: (value) {},
+)
+```
+
+---
+
+## Common patterns
+
+### Pattern: Date range
+
+```dart
+DateRangePicker(
+  value: DateTimeRange(DateTime.now(), DateTime.now().add(Duration(days: 3))),
+  onChanged: (range) {},
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `DatePicker`
+  - `value` (`DateTime?`, required)
+  - `onChanged` (`ValueChanged<DateTime?>?`)
+  - `mode` (`PromptMode?`)
+  - `initialView`, `initialViewType`
+  - `popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`
+  - `dialogTitle`, `placeholder`, `stateBuilder`, `enabled`
+- `DateRangePicker`
+  - `value` (`DateTimeRange?`, required)
+  - `onChanged` (`ValueChanged<DateTimeRange?>?`)
+- `ControlledDatePicker` — controller-backed picker.
+- `DatePickerController` — `ValueNotifier<DateTime?>` controller.
+- `DateTimeRange` — start/end date value type.
+
+### Callbacks
+
+- `onChanged`
+
+---
+
+## Theming
+
+- `DatePickerTheme` controls prompt mode and default alignments.
+
+---
+
+## Accessibility
+
+- Provide readable date formatting and labels.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `stateBuilder` to disable invalid dates.
+
+**Don’t**
+- ❌ Allow range selection without clear start/end feedback.
+
+---
+
+## Related components
+
+- `calendar`
+- `form_field`
+- `object_input`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

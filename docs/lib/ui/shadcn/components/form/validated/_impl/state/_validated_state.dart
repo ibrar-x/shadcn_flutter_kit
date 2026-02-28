@@ -1,7 +1,10 @@
 part of '../../validated.dart';
 
+/// _ValidatedState stores and manages mutable widget state.
 class _ValidatedState extends State<Validated> {
   final formKey = const FormKey(#validated);
+
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Form(

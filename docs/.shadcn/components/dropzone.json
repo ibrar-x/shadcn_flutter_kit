@@ -9,7 +9,7 @@
     "upload",
     "experimental"
   ],
-  "installedAt": "2026-02-09T10:18:03.203920Z",
+  "installedAt": "2026-02-22T01:08:41.702996Z",
   "shared": [
     "color_extensions",
     "constants",
@@ -22,11 +22,7 @@
     "button"
   ],
   "files": [
-    "registry/components/form/dropzone/README.md",
-    "registry/components/form/dropzone/dropzone.dart",
-    "registry/components/form/dropzone/dropzone.meta.json",
-    "registry/components/form/dropzone/meta.json",
-    "registry/components/form/dropzone/preview.dart"
+    "registry/components/form/dropzone/dropzone.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

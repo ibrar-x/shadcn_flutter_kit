@@ -22,6 +22,7 @@ class HSVColorSliderPainter extends CustomPainter {
     this.reverse = false,
   });
 
+  /// Performs `paint` logic for this form component.
   @override
   void paint(Canvas canvas, Size size) {
     // disable anti-aliasing
@@ -38,8 +39,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // vertical for hue and horizontal for saturation
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSVColor.fromAHSV(1, i.toDouble(), j / 100, color.value);
+            final result = HSVColor.fromAHSV(
+              1,
+              i.toDouble(),
+              j / 100,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -55,8 +60,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // horizontal for hue and vertical for saturation
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
-            final result =
-                HSVColor.fromAHSV(1, j.toDouble(), i / 100, color.value);
+            final result = HSVColor.fromAHSV(
+              1,
+              j.toDouble(),
+              i / 100,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -75,8 +84,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // vertical for hue and horizontal for value
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSVColor.fromAHSV(1, i.toDouble(), color.saturation, j / 100.0);
+            final result = HSVColor.fromAHSV(
+              1,
+              i.toDouble(),
+              color.saturation,
+              j / 100.0,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -92,8 +105,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // horizontal for hue and vertical for value
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
-            final result =
-                HSVColor.fromAHSV(1, j.toDouble(), color.saturation, i / 100);
+            final result = HSVColor.fromAHSV(
+              1,
+              j.toDouble(),
+              color.saturation,
+              i / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -148,7 +165,11 @@ class HSVColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 360; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSVColor.fromAHSV(
-                j / 100.0, i.toDouble(), color.saturation, color.value);
+              j / 100.0,
+              i.toDouble(),
+              color.saturation,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -165,7 +186,11 @@ class HSVColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 360; j++) {
             final result = HSVColor.fromAHSV(
-                i / 100, j.toDouble(), color.saturation, color.value);
+              i / 100,
+              j.toDouble(),
+              color.saturation,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -184,8 +209,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // horizontal for saturation and vertical for alpha
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSVColor.fromAHSV(j / 100, color.hue, i / 100, color.value);
+            final result = HSVColor.fromAHSV(
+              j / 100,
+              color.hue,
+              i / 100,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -201,8 +230,12 @@ class HSVColorSliderPainter extends CustomPainter {
         // horizontal for saturation and vertical for alpha
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
-            final result =
-                HSVColor.fromAHSV(i / 100, color.hue, j / 100, color.value);
+            final result = HSVColor.fromAHSV(
+              i / 100,
+              color.hue,
+              j / 100,
+              color.value,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -222,7 +255,11 @@ class HSVColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSVColor.fromAHSV(
-                j / 100, color.hue, color.saturation, i / 100);
+              j / 100,
+              color.hue,
+              color.saturation,
+              i / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -239,7 +276,11 @@ class HSVColorSliderPainter extends CustomPainter {
         for (var i = 0; i < 100; i++) {
           for (var j = 0; j < 100; j++) {
             final result = HSVColor.fromAHSV(
-                i / 100, color.hue, color.saturation, j / 100);
+              i / 100,
+              color.hue,
+              color.saturation,
+              j / 100,
+            );
             final paint = pp
               ..color = result.toColor()
               ..style = PaintingStyle.fill;
@@ -255,7 +296,11 @@ class HSVColorSliderPainter extends CustomPainter {
         double width = canvasWidth / 360;
         for (var i = 0; i < 360; i++) {
           final result = HSVColor.fromAHSV(
-              1, i.toDouble(), color.saturation, color.value.clamp(0, 1));
+            1,
+            i.toDouble(),
+            color.saturation,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -268,7 +313,11 @@ class HSVColorSliderPainter extends CustomPainter {
         double height = canvasHeight / 360;
         for (var i = 0; i < 360; i++) {
           final result = HSVColor.fromAHSV(
-              1, i.toDouble(), color.saturation, color.value.clamp(0, 1));
+            1,
+            i.toDouble(),
+            color.saturation,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -282,8 +331,12 @@ class HSVColorSliderPainter extends CustomPainter {
       if (reverse) {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSVColor.fromAHSV(1, color.hue, i / 100, color.value.clamp(0, 1));
+          final result = HSVColor.fromAHSV(
+            1,
+            color.hue,
+            i / 100,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -295,8 +348,12 @@ class HSVColorSliderPainter extends CustomPainter {
       } else {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSVColor.fromAHSV(1, color.hue, i / 100, color.value.clamp(0, 1));
+          final result = HSVColor.fromAHSV(
+            1,
+            color.hue,
+            i / 100,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -310,8 +367,12 @@ class HSVColorSliderPainter extends CustomPainter {
       if (reverse) {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSVColor.fromAHSV(1, color.hue, color.saturation, i / 100);
+          final result = HSVColor.fromAHSV(
+            1,
+            color.hue,
+            color.saturation,
+            i / 100,
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -323,8 +384,12 @@ class HSVColorSliderPainter extends CustomPainter {
       } else {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
-          final result =
-              HSVColor.fromAHSV(1, color.hue, color.saturation, i / 100);
+          final result = HSVColor.fromAHSV(
+            1,
+            color.hue,
+            color.saturation,
+            i / 100,
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -339,7 +404,11 @@ class HSVColorSliderPainter extends CustomPainter {
         double width = canvasWidth / 100;
         for (var i = 0; i < 100; i++) {
           final result = HSVColor.fromAHSV(
-              i / 100, color.hue, color.saturation, color.value.clamp(0, 1));
+            i / 100,
+            color.hue,
+            color.saturation,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -352,7 +421,11 @@ class HSVColorSliderPainter extends CustomPainter {
         double height = canvasHeight / 100;
         for (var i = 0; i < 100; i++) {
           final result = HSVColor.fromAHSV(
-              i / 100, color.hue, color.saturation, color.value.clamp(0, 1));
+            i / 100,
+            color.hue,
+            color.saturation,
+            color.value.clamp(0, 1),
+          );
           final paint = pp
             ..color = result.toColor()
             ..style = PaintingStyle.fill;
@@ -365,6 +438,7 @@ class HSVColorSliderPainter extends CustomPainter {
     }
   }
 
+  /// Performs `shouldRepaint` logic for this form component.
   @override
   bool shouldRepaint(covariant HSVColorSliderPainter oldDelegate) {
     if (oldDelegate.reverse != reverse ||

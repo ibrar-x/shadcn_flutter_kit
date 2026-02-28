@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// FrozenTableData defines a reusable type for this registry module.
 class FrozenTableData {
   /// Rows that should be frozen during vertical scrolling.
   final Iterable<TableRef> frozenRows;
@@ -8,8 +9,10 @@ class FrozenTableData {
   final Iterable<TableRef> frozenColumns;
 
   /// Creates a [FrozenTableData].
-  const FrozenTableData(
-      {this.frozenRows = const [], this.frozenColumns = const []});
+  const FrozenTableData({
+    this.frozenRows = const [],
+    this.frozenColumns = const [],
+  });
 
   /// Tests if a row at the given index and span is frozen.
   bool testRow(int index, int span) {

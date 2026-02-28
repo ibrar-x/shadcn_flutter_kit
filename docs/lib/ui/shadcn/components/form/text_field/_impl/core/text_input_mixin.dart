@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// TextInput provides reusable behavior that can be mixed into classes.
 mixin TextInput on Widget {
   /// Group identifier for related text inputs.
   Object get groupId;

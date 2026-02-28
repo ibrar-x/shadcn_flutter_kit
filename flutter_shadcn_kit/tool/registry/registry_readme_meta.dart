@@ -105,12 +105,13 @@ void main(List<String> args) {
       final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
 
       final canonicalMeta = Map<String, dynamic>.from(meta);
-      canonicalMeta[r'$schema'] = '../../../../readme_meta.schema.json';
+      canonicalMeta[r'$schema'] =
+          '../../../../manifests/readme_meta.schema.json';
       validateReadmeMeta(canonicalMeta, metadata.canonicalReadmeMeta.path);
       writeJson(metadata.canonicalReadmeMeta.path, canonicalMeta);
 
       final legacyMeta = Map<String, dynamic>.from(meta);
-      legacyMeta[r'$schema'] = '../readme_meta.schema.json';
+      legacyMeta[r'$schema'] = '../../../manifests/readme_meta.schema.json';
       validateReadmeMeta(legacyMeta, metadata.legacyReadmeMeta.path);
       writeJson(metadata.legacyReadmeMeta.path, legacyMeta);
 
@@ -223,7 +224,7 @@ Map<String, dynamic> generateReadmeMetaFromMarkdown(String md) {
   final registryRules = extractBullets(rulesSec);
 
   return {
-    r'$schema': '../readme_meta.schema.json',
+    r'$schema': '../../../manifests/readme_meta.schema.json',
     'schemaVersion': outputSchemaVersion,
     'id': h['id'],
     'name': h['name'],

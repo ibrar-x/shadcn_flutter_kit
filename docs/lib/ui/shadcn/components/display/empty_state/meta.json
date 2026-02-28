@@ -24,18 +24,18 @@
     }
   },
   "files": [
-    "README.md",
     "_impl/core/empty_state.dart",
     "_impl/core/empty_state_action.dart",
-    "_impl/themes/empty_state_theme.dart",
+    "_impl/themes/base/empty_state_theme.dart",
+    "_impl/themes/config/empty_state_theme_config.dart",
+    "_impl/themes/config/empty_state_theme_defaults.dart",
+    "_impl/themes/config/empty_state_theme_schema.dart",
+    "_impl/themes/config/empty_state_theme_tokens.dart",
     "_impl/utils/empty_state_defaults.dart",
     "_impl/variants/empty_state_action_style.dart",
     "_impl/variants/empty_state_size.dart",
     "_impl/variants/empty_state_variant.dart",
-    "empty_state.dart",
-    "empty_state.meta.json",
-    "meta.json",
-    "preview.dart"
+    "empty_state.dart"
   ],
   "api": {
     "constructors": [

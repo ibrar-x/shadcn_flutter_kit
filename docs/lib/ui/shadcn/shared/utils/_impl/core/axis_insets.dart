@@ -35,6 +35,7 @@ class AxisInsets extends AxisInsetsGeometry {
   }
 
   @override
+/// Creates a `AxisInsets` instance.
   AxisInsets resolve(TextDirection textDirection) {
     return AxisInsets._(start, end, textDirection);
   }

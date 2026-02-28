@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuRadio defines a reusable type for this registry module.
 class MenuRadio<T> extends StatelessWidget {
   /// The value this radio button represents.
   final T value;
@@ -41,6 +42,7 @@ class MenuRadio<T> extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
@@ -52,11 +54,9 @@ class MenuRadio<T> extends StatelessWidget {
             ? SizedBox(
                 width: 16 * scaling,
                 height: 16 * scaling,
-                child: const Icon(
-                  RadixIcons.dotFilled,
-                ).iconSmall(),
+                child: const Icon(RadixIcons.dotFilled).iconSmall(),
               )
-            : SizedBox(width: 16 * scaling),
+            : SizedBox(width: theme.density.baseContentPadding * scaling),
         onPressed: (context) {
           radioGroup.onChanged?.call(context, value);
         },

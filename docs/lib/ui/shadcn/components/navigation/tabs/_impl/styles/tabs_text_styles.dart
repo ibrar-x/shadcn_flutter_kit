@@ -1,43 +1,42 @@
 part of '../../tabs.dart';
 
+/// _TabsTextStyle defines a reusable type for this registry module.
 class _TabsTextStyle extends StatelessWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
   final TextStyle Function(ThemeData theme) styleBuilder;
 
-  const _TabsTextStyle({
-    required this.child,
-    required this.styleBuilder,
-  });
+  const _TabsTextStyle({required this.child, required this.styleBuilder});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DefaultTextStyle.merge(
-      style: styleBuilder(theme),
-      child: child,
-    );
+    return DefaultTextStyle.merge(style: styleBuilder(theme), child: child);
   }
 }
 
+/// Extension helpers used by this registry module.
 extension TabsTextStyleExtensions on Widget {
+/// Executes `muted` behavior for this component/composite.
   Widget muted() {
     return _TabsTextStyle(
       child: this,
-      styleBuilder: (theme) => TextStyle(
-        color: theme.colorScheme.mutedForeground,
-      ),
+      styleBuilder: (theme) =>
+/// Creates a `TextStyle` instance.
+          TextStyle(color: theme.colorScheme.mutedForeground),
     );
   }
 
+/// Executes `foreground` behavior for this component/composite.
   Widget foreground() {
     return _TabsTextStyle(
       child: this,
-      styleBuilder: (theme) => TextStyle(
-        color: theme.colorScheme.foreground,
-      ),
+      styleBuilder: (theme) => TextStyle(color: theme.colorScheme.foreground),
     );
   }
 
+/// Executes `small` behavior for this component/composite.
   Widget small() {
     return _TabsTextStyle(
       child: this,
@@ -45,6 +44,7 @@ extension TabsTextStyleExtensions on Widget {
     );
   }
 
+/// Executes `medium` behavior for this component/composite.
   Widget medium() {
     return _TabsTextStyle(
       child: this,

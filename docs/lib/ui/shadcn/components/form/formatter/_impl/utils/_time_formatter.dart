@@ -1,20 +1,28 @@
 part of '../../formatter.dart';
 
+/// _TimeFormatter represents a form-related type in the registry.
 class _TimeFormatter extends TextInputFormatter {
+  /// Field storing `length` for this form implementation.
   final int length;
   const _TimeFormatter({required this.length});
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // make sure new value has leading zero
     var newText = newValue.text;
+
     int substringCount = 0;
     if (newText.length > length) {
       substringCount = newText.length - length;
       newText = newText.substring(substringCount);
     }
+
     int padLength = length - newText.length;
+
     var baseOffset2 = newValue.selection.baseOffset;
+
     var extentOffset2 = newValue.selection.extentOffset;
     if (padLength > 0) {
       newText = newText.padLeft(length, '0');
@@ -25,10 +33,14 @@ class _TimeFormatter extends TextInputFormatter {
       text: newText,
       composing: newValue.composing.isValid
           ? TextRange(
-              start: newValue.composing.start
-                  .clamp(0, min(length, newValue.text.length)),
-              end: newValue.composing.end
-                  .clamp(0, min(length, newValue.text.length)),
+              start: newValue.composing.start.clamp(
+                0,
+                min(length, newValue.text.length),
+              ),
+              end: newValue.composing.end.clamp(
+                0,
+                min(length, newValue.text.length),
+              ),
             )
           : newValue.composing,
       selection: TextSelection(

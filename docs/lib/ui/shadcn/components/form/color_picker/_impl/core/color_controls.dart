@@ -58,19 +58,23 @@ class ColorControls extends StatelessWidget {
     this.showHistoryButton = true,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final locale = ShadcnLocalizations.of(context);
     final enableEyeDropper = styleValue(
-        defaultValue: true,
-        themeValue: theme?.enableEyeDropper,
-        widgetValue: this.enableEyeDropper);
+      defaultValue: true,
+      themeValue: theme?.enableEyeDropper,
+      widgetValue: this.enableEyeDropper,
+    );
     final controlSpacing = styleValue(
       defaultValue: 8.0,
       themeValue: theme?.controlSpacing,
       widgetValue: this.controlSpacing,
     );
+
+    /// Performs `pickerModeToLabel` logic for this form component.
     String pickerModeToLabel(ColorPickerMode mode) {
       switch (mode) {
         case ColorPickerMode.rgb:
@@ -93,7 +97,8 @@ class ColorControls extends StatelessWidget {
           if (enableEyeDropper)
             IconButton.outline(
               icon: const Icon(Icons.colorize),
-              onPressed: onEyeDropperRequested ??
+              onPressed:
+                  onEyeDropperRequested ??
                   () async {
                     final result = await pickColorFromScreen(context);
                     if (result != null) {
@@ -106,8 +111,9 @@ class ColorControls extends StatelessWidget {
             ),
           if (showHistoryButton)
             IconButton(
-              variance:
-                  showHistory ? ButtonVariance.primary : ButtonVariance.outline,
+              variance: showHistory
+                  ? ButtonVariance.primary
+                  : ButtonVariance.outline,
               icon: Icon(
                 showHistory ? Icons.history_toggle_off : Icons.history,
               ),
@@ -131,12 +137,15 @@ class ColorControls extends StatelessWidget {
                       }
                     },
                     popup: SelectPopup.noVirtualization(
-                      items: SelectItemList(children: [
-                        for (var mode in ColorPickerMode.values)
-                          SelectItemButton(
+                      items: SelectItemList(
+                        children: [
+                          for (var mode in ColorPickerMode.values)
+                            SelectItemButton(
                               value: mode,
-                              child: Text(pickerModeToLabel(mode))),
-                      ]),
+                              child: Text(pickerModeToLabel(mode)),
+                            ),
+                        ],
+                      ),
                     ).call,
                   ),
                 ),
@@ -160,7 +169,8 @@ class ColorControls extends StatelessWidget {
   }
 
   void Function(String value) _onInputChanged(
-      void Function(double val) changer) {
+    void Function(double val) changer,
+  ) {
     return (String value) {
       final parsed = double.tryParse(value);
       if (parsed != null) {
@@ -186,9 +196,7 @@ class ColorControls extends StatelessWidget {
             final r = val.clamp(0.0, 255.0);
             onChanged?.call(value.changeToColorRed(r));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 255),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 255)],
         ),
       ),
       SizedBox(
@@ -201,9 +209,7 @@ class ColorControls extends StatelessWidget {
             final g = val.clamp(0.0, 255.0);
             onChanged?.call(value.changeToColorGreen(g));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 255),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 255)],
         ),
       ),
       SizedBox(
@@ -216,9 +222,7 @@ class ColorControls extends StatelessWidget {
             final b = val.clamp(0.0, 255.0);
             onChanged?.call(value.changeToColorBlue(b));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 255),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 255)],
         ),
       ),
       if (showAlpha)
@@ -254,9 +258,7 @@ class ColorControls extends StatelessWidget {
             final h = val.clamp(0.0, 360.0);
             onChanged?.call(value.changeToHSLHue(h));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 360),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 360)],
         ),
       ),
       SizedBox(
@@ -269,9 +271,7 @@ class ColorControls extends StatelessWidget {
             final s = (val.clamp(0.0, 100.0)) / 100.0;
             onChanged?.call(value.changeToHSLSaturation(s));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 100),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 100)],
         ),
       ),
       SizedBox(
@@ -284,9 +284,7 @@ class ColorControls extends StatelessWidget {
             final l = (val.clamp(0.0, 100.0)) / 100.0;
             onChanged?.call(value.changeToHSLLightness(l));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 100),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 100)],
         ),
       ),
       if (showAlpha)
@@ -322,9 +320,7 @@ class ColorControls extends StatelessWidget {
             final h = val.clamp(0.0, 360.0);
             onChanged?.call(value.changeToHSVHue(h));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 360),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 360)],
         ),
       ),
       SizedBox(
@@ -337,9 +333,7 @@ class ColorControls extends StatelessWidget {
             final s = (val.clamp(0.0, 100.0)) / 100.0;
             onChanged?.call(value.changeToHSVSaturation(s));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 100),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 100)],
         ),
       ),
       SizedBox(
@@ -352,9 +346,7 @@ class ColorControls extends StatelessWidget {
             final v = (val.clamp(0.0, 100.0)) / 100.0;
             onChanged?.call(value.changeToHSVValue(v));
           }),
-          inputFormatters: [
-            TextInputFormatters.integerOnly(min: 0, max: 100),
-          ],
+          inputFormatters: [TextInputFormatters.integerOnly(min: 0, max: 100)],
         ),
       ),
       if (showAlpha)
@@ -376,6 +368,7 @@ class ColorControls extends StatelessWidget {
     ];
   }
 
+  /// Performs `_toHex` logic for this form component.
   String _toHex() {
     int r = value.red.toInt();
     int g = value.green.toInt();
@@ -410,9 +403,7 @@ class ColorControls extends StatelessWidget {
               );
             }
           },
-          inputFormatters: [
-            TextInputFormatters.hex(hashPrefix: true),
-          ],
+          inputFormatters: [TextInputFormatters.hex(hashPrefix: true)],
         ),
       ),
       if (showAlpha)

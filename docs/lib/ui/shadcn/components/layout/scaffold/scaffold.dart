@@ -49,6 +49,9 @@ class ScaffoldTheme extends ComponentThemeData {
 
   /// Creates a [ScaffoldTheme].
   const ScaffoldTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.backgroundColor,
     this.headerBackgroundColor,
     this.footerBackgroundColor,
@@ -65,8 +68,9 @@ class ScaffoldTheme extends ComponentThemeData {
     ValueGetter<bool?>? resizeToAvoidBottomInset,
   }) {
     return ScaffoldTheme(
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       headerBackgroundColor: headerBackgroundColor == null
           ? this.headerBackgroundColor
           : headerBackgroundColor(),
@@ -83,6 +87,7 @@ class ScaffoldTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) =>
       other is ScaffoldTheme &&
       other.backgroundColor == backgroundColor &&
@@ -93,14 +98,15 @@ class ScaffoldTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        backgroundColor,
-        headerBackgroundColor,
-        footerBackgroundColor,
-        showLoadingSparks,
-        resizeToAvoidBottomInset,
-      );
+    backgroundColor,
+    headerBackgroundColor,
+    footerBackgroundColor,
+    showLoadingSparks,
+    resizeToAvoidBottomInset,
+  );
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() =>
       'ScaffoldTheme(background: $backgroundColor, header: $headerBackgroundColor, footer: $footerBackgroundColor, showLoadingSparks: $showLoadingSparks, resizeToAvoidBottomInset: $resizeToAvoidBottomInset)';
 }
@@ -217,5 +223,5 @@ class ScaffoldTheme extends ComponentThemeData {
 ///
 /// Automatically adjusts padding based on scaffold footer height.
 
+/// _ScaffoldPaddingType enumerates fixed values used by this implementation.
 enum _ScaffoldPaddingType { header, footer }
-

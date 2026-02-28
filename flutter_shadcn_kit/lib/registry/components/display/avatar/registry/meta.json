@@ -28,6 +28,7 @@
     "_impl/themes/base/avatar_theme.dart",
     "_impl/themes/config/avatar_theme_config.dart",
     "_impl/themes/config/avatar_theme_defaults.dart",
+    "_impl/themes/config/avatar_theme_schema.dart",
     "_impl/themes/config/avatar_theme_tokens.dart",
     "avatar.dart"
   ],

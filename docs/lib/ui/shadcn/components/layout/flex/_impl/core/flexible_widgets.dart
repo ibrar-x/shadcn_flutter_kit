@@ -2,6 +2,7 @@ part of '../../flex.dart';
 
 /// Flexible child with optional custom paint order.
 class Flexible extends widgets.ParentDataWidget<FlexParentData> {
+/// Creates a `Flexible` instance.
   const Flexible({
     super.key,
     this.flex = 1,
@@ -10,6 +11,7 @@ class Flexible extends widgets.ParentDataWidget<FlexParentData> {
     required super.child,
   });
 
+/// Stores `flex` state/configuration for this implementation.
   final int flex;
   final rendering.FlexFit fit;
 
@@ -17,9 +19,12 @@ class Flexible extends widgets.ParentDataWidget<FlexParentData> {
   final int? paintOrder;
 
   @override
+/// Executes `applyParentData` behavior for this component/composite.
   void applyParentData(rendering.RenderObject renderObject) {
     assert(renderObject.parentData is FlexParentData);
+/// Stores `parentData` state/configuration for this implementation.
     final parentData = renderObject.parentData! as FlexParentData;
+/// Stores `needsLayout` state/configuration for this implementation.
     var needsLayout = false;
 
     if (parentData.flex != flex) {
@@ -41,9 +46,11 @@ class Flexible extends widgets.ParentDataWidget<FlexParentData> {
   }
 
   @override
+/// Stores `debugTypicalAncestorWidgetClass` state/configuration for this implementation.
   Type get debugTypicalAncestorWidgetClass => Flex;
 
   @override
+/// Executes `debugFillProperties` behavior for this component/composite.
   void debugFillProperties(foundation.DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(foundation.IntProperty('flex', flex));
@@ -54,6 +61,7 @@ class Flexible extends widgets.ParentDataWidget<FlexParentData> {
 
 /// Expanded child with optional custom paint order.
 class Expanded extends Flexible {
+/// Creates a `Expanded` instance.
   const Expanded({
     super.key,
     super.flex,
@@ -66,11 +74,14 @@ class Expanded extends Flexible {
 class PaintOrder extends widgets.ParentDataWidget<FlexParentData> {
   const PaintOrder({super.key, required this.paintOrder, required super.child});
 
+/// Stores `paintOrder` state/configuration for this implementation.
   final int paintOrder;
 
   @override
+/// Executes `applyParentData` behavior for this component/composite.
   void applyParentData(rendering.RenderObject renderObject) {
     assert(renderObject.parentData is FlexParentData);
+/// Stores `parentData` state/configuration for this implementation.
     final parentData = renderObject.parentData! as FlexParentData;
     if (parentData.paintOrder != paintOrder) {
       parentData.paintOrder = paintOrder;
@@ -79,9 +90,11 @@ class PaintOrder extends widgets.ParentDataWidget<FlexParentData> {
   }
 
   @override
+/// Stores `debugTypicalAncestorWidgetClass` state/configuration for this implementation.
   Type get debugTypicalAncestorWidgetClass => Flex;
 
   @override
+/// Executes `debugFillProperties` behavior for this component/composite.
   void debugFillProperties(foundation.DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(foundation.IntProperty('paintOrder', paintOrder));

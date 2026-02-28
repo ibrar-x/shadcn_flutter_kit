@@ -22,25 +22,24 @@
     "pubspec": {}
   },
   "files": [
-    "GETTING_STARTED.md",
-    "README.md",
     "_impl/core/shad_slider_logic.dart",
     "_impl/core/shad_slider_models.dart",
     "_impl/core/shad_slider_renderers.dart",
     "_impl/state/_slider_preview_state.dart",
     "_impl/styles/shad_slider_defaults.dart",
     "_impl/styles/shad_slider_presets.dart",
-    "_impl/themes/slider_theme.dart",
+    "_impl/themes/base/slider_theme.dart",
+    "_impl/themes/config/slider_theme_config.dart",
+    "_impl/themes/config/slider_theme_defaults.dart",
+    "_impl/themes/config/slider_theme_schema.dart",
+    "_impl/themes/config/slider_theme_tokens.dart",
     "_impl/variants/base_slider_variant.dart",
     "_impl/variants/brightness_slider.dart",
     "_impl/variants/range_soft_slider.dart",
     "_impl/variants/steps_dots_slider.dart",
     "_impl/variants/wave_slider.dart",
     "_impl/variants/waveform_slider.dart",
-    "meta.json",
-    "preview.dart",
-    "slider.dart",
-    "slider.meta.json"
+    "slider.dart"
   ],
   "api": {
     "constructors": [

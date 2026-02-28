@@ -1,15 +1,88 @@
-# HSL Color Slider
+# HSL Color Slider (`hsl`)
 
-Gradient slider for adjusting HSL tones, saturation, lightness, and alpha with optional direction control.
+Gradient slider that controls hue, saturation, lightness, or alpha for HSL colors.
+
+---
+
+## When to use
+
+- Use this when:
+  - you need a standalone HSL slider.
+- Avoid when:
+  - you need full color picker UI (use `color_picker`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add hsl
+```
+
+---
+
+## Import
 
 ```dart
-import 'ui/shadcn/components/hsl/hsl_color_slider.dart';
+import 'package:<your_app>/ui/shadcn/form/hsl/hsl_color_slider.dart';
+```
 
+---
+
+## Minimal example
+
+```dart
 HSLColorSlider(
   color: HSLColor.fromColor(Colors.blue),
   sliderType: HSLColorSliderType.hue,
-  onChanged: (color) => print(color.toColor()),
-);
+  onChanged: (color) {},
+)
 ```
 
-Use the shared theme (`ComponentTheme<HSLColorSliderTheme>`) to override radius, padding, and behavior per the registry’s theme helpers.
+---
+
+## API
+
+### Constructor
+
+- `HSLColorSlider`
+  - `color` (`HSLColor`, required)
+  - `sliderType` (`HSLColorSliderType`, required)
+  - `onChanging`, `onChanged`
+  - `reverse`, `radius`, `padding`
+
+---
+
+## Theming
+
+- Uses shared theme for sizing and alpha pattern.
+
+---
+
+## Accessibility
+
+- Provide labels for sliders when used in forms.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `sliderType` to target a single channel.
+
+**Don’t**
+- ❌ Stack multiple sliders without grouping labels.
+
+---
+
+## Related components
+
+- `hsv`
+- `color_picker`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

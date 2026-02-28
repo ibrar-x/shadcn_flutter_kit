@@ -2,37 +2,52 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/style_value.dart';
-import '../themes/hover_theme.dart';
+import '../themes/base/hover_theme.dart';
 import '../core/hover_widget.dart';
 
+/// HoverState defines a reusable type for this registry module.
 class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
+  /// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+
+  /// Stores `_enterTime` state/configuration for this implementation.
   int? _enterTime;
+
+  /// Stores `_waitDur` state/configuration for this implementation.
   late Duration _waitDur;
+
+  /// Stores `_minDur` state/configuration for this implementation.
   late Duration _minDur;
+
+  /// Stores `_showDur` state/configuration for this implementation.
   late Duration _showDur;
+
+  /// Stores `_behavior` state/configuration for this implementation.
   late HitTestBehavior _behavior;
 
   @override
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _waitDur = widget.waitDuration ?? const Duration(milliseconds: 500);
     _minDur = widget.minDuration ?? const Duration(milliseconds: 0);
     _showDur = widget.showDuration ?? const Duration(milliseconds: 200);
-    _controller = AnimationController(
-      vsync: this,
-      duration: _waitDur,
-    );
+    _controller = AnimationController(vsync: this, duration: _waitDur);
     _controller.addStatusListener(_onStatusChanged);
   }
 
+  /// Executes `_onEnter` behavior for this component/composite.
   void _onEnter() {
     _enterTime = DateTime.now().millisecondsSinceEpoch;
     _controller.forward();
   }
 
+  /// Executes `_onExit` behavior for this component/composite.
   void _onExit(bool cursorOut) {
+    /// Stores `minDuration` state/configuration for this implementation.
     int minDuration = _minDur.inMilliseconds;
+
+    /// Stores `enterTime` state/configuration for this implementation.
     int? enterTime = _enterTime;
     if (enterTime != null) {
       int duration = DateTime.now().millisecondsSinceEpoch - enterTime;
@@ -44,6 +59,7 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
     _enterTime = null;
   }
 
+  /// Executes `_onStatusChanged` behavior for this component/composite.
   void _onStatusChanged(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
       widget.onHover(true);
@@ -53,33 +69,40 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
   }
 
   @override
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
     _waitDur = styleValue(
-        widgetValue: widget.waitDuration,
-        themeValue: compTheme?.waitDuration,
-        defaultValue: const Duration(milliseconds: 500));
+      widgetValue: widget.waitDuration,
+      themeValue: compTheme?.waitDuration,
+      defaultValue: const Duration(milliseconds: 500),
+    );
     _minDur = styleValue(
-        widgetValue: widget.minDuration,
-        themeValue: compTheme?.minDuration,
-        defaultValue: const Duration(milliseconds: 0));
+      widgetValue: widget.minDuration,
+      themeValue: compTheme?.minDuration,
+      defaultValue: const Duration(milliseconds: 0),
+    );
     _showDur = styleValue(
-        widgetValue: widget.showDuration,
-        themeValue: compTheme?.showDuration,
-        defaultValue: const Duration(milliseconds: 200));
+      widgetValue: widget.showDuration,
+      themeValue: compTheme?.showDuration,
+      defaultValue: const Duration(milliseconds: 200),
+    );
     _behavior = styleValue(
-        widgetValue: widget.hitTestBehavior,
-        themeValue: compTheme?.hitTestBehavior,
-        defaultValue: HitTestBehavior.deferToChild);
+      widgetValue: widget.hitTestBehavior,
+      themeValue: compTheme?.hitTestBehavior,
+      defaultValue: HitTestBehavior.deferToChild,
+    );
     _controller.duration = _waitDur;
-    bool enableLongPress = platform == TargetPlatform.iOS ||
+    bool enableLongPress =
+        platform == TargetPlatform.iOS ||
         platform == TargetPlatform.android ||
         platform == TargetPlatform.fuchsia;
     return TapRegion(

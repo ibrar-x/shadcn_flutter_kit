@@ -10,7 +10,7 @@
     "search",
     "sort"
   ],
-  "installedAt": "2026-02-15T00:35:30.032872Z",
+  "installedAt": "2026-02-22T01:08:41.745945Z",
   "shared": [
     "localizations",
     "lucide_icons",
@@ -29,21 +29,20 @@
     "text_field"
   ],
   "files": [
-    "registry/components/layout/filter_bar/GETTING_STARTED.md",
-    "registry/components/layout/filter_bar/README.md",
     "registry/components/layout/filter_bar/_impl/core/filter_bar_content.dart",
     "registry/components/layout/filter_bar/_impl/extensions/filter_state_extensions.dart",
     "registry/components/layout/filter_bar/_impl/state/filter_bar_controller.dart",
     "registry/components/layout/filter_bar/_impl/state/filter_bar_state.dart",
     "registry/components/layout/filter_bar/_impl/styles/filter_bar_style.dart",
-    "registry/components/layout/filter_bar/_impl/themes/filter_bar_theme.dart",
+    "registry/components/layout/filter_bar/_impl/themes/base/filter_bar_theme.dart",
+    "registry/components/layout/filter_bar/_impl/themes/config/filter_bar_theme_config.dart",
+    "registry/components/layout/filter_bar/_impl/themes/config/filter_bar_theme_defaults.dart",
+    "registry/components/layout/filter_bar/_impl/themes/config/filter_bar_theme_schema.dart",
+    "registry/components/layout/filter_bar/_impl/themes/config/filter_bar_theme_tokens.dart",
     "registry/components/layout/filter_bar/_impl/utils/filter_bar_utils.dart",
     "registry/components/layout/filter_bar/_impl/variants/filter_bar_layout.dart",
     "registry/components/layout/filter_bar/filter_bar.dart",
-    "registry/components/layout/filter_bar/filter_bar.meta.json",
-    "registry/components/layout/filter_bar/filter_bar_logic.dart",
-    "registry/components/layout/filter_bar/meta.json",
-    "registry/components/layout/filter_bar/preview.dart"
+    "registry/components/layout/filter_bar/filter_bar_logic.dart"
   ],
-  "registryRoot": "../flutter_shadcn_kit/lib/registry"
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -8,7 +8,7 @@
     "drawer",
     "sheet"
   ],
-  "installedAt": "2026-02-09T10:18:03.230337Z",
+  "installedAt": "2026-02-22T01:08:41.617665Z",
   "shared": [
     "color_extensions",
     "constants",
@@ -23,7 +23,6 @@
     "dialog"
   ],
   "files": [
-    "registry/components/overlay/drawer/README.md",
     "registry/components/overlay/drawer/_impl/core/backdrop_transform_data.dart",
     "registry/components/overlay/drawer/_impl/core/drawer_close_drawer.dart",
     "registry/components/overlay/drawer/_impl/core/drawer_close_sheet.dart",
@@ -42,17 +41,18 @@
     "registry/components/overlay/drawer/_impl/state/drawer_entry_widget_state.dart",
     "registry/components/overlay/drawer/_impl/state/drawer_overlay_state.dart",
     "registry/components/overlay/drawer/_impl/state/drawer_wrapper_state_part1.dart",
-    "registry/components/overlay/drawer/_impl/themes/drawer_theme.dart",
+    "registry/components/overlay/drawer/_impl/themes/base/drawer_theme.dart",
+    "registry/components/overlay/drawer/_impl/themes/config/drawer_theme_config.dart",
+    "registry/components/overlay/drawer/_impl/themes/config/drawer_theme_defaults.dart",
+    "registry/components/overlay/drawer/_impl/themes/config/drawer_theme_schema.dart",
+    "registry/components/overlay/drawer/_impl/themes/config/drawer_theme_tokens.dart",
     "registry/components/overlay/drawer/_impl/utils/drawer_api.dart",
     "registry/components/overlay/drawer/_impl/utils/drawer_overlay_completer.dart",
     "registry/components/overlay/drawer/_impl/utils/drawer_raw_api.dart",
     "registry/components/overlay/drawer/_impl/utils/drawer_typedefs.dart",
     "registry/components/overlay/drawer/_impl/utils/drawer_types.dart",
     "registry/components/overlay/drawer/_impl/utils/sheet_overlay_handler.dart",
-    "registry/components/overlay/drawer/drawer.dart",
-    "registry/components/overlay/drawer/drawer.meta.json",
-    "registry/components/overlay/drawer/meta.json",
-    "registry/components/overlay/drawer/preview.dart"
+    "registry/components/overlay/drawer/drawer.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

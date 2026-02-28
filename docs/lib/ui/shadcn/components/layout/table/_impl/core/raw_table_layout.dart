@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// RawTableLayout defines a reusable type for this registry module.
 class RawTableLayout extends MultiChildRenderObjectWidget {
   /// Creates a [RawTableLayout].
   ///
@@ -51,21 +52,26 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
   final Size? viewportSize;
 
   @override
+/// Executes `createRenderObject` behavior for this component/composite.
   RenderTableLayout createRenderObject(BuildContext context) {
     return RenderTableLayout(
-        width: width,
-        height: height,
-        clipBehavior: clipBehavior,
-        frozenCell: frozenColumn,
-        frozenRow: frozenRow,
-        verticalOffset: verticalOffset,
-        horizontalOffset: horizontalOffset,
-        viewportSize: viewportSize);
+      width: width,
+      height: height,
+      clipBehavior: clipBehavior,
+      frozenCell: frozenColumn,
+      frozenRow: frozenRow,
+      verticalOffset: verticalOffset,
+      horizontalOffset: horizontalOffset,
+      viewportSize: viewportSize,
+    );
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderTableLayout renderObject) {
+    BuildContext context,
+    RenderTableLayout renderObject,
+  ) {
+/// Stores `needsRelayout` state/configuration for this implementation.
     bool needsRelayout = false;
     if (renderObject._width != width) {
       renderObject._width = width;

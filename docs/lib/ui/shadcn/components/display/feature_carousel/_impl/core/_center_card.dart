@@ -1,6 +1,8 @@
 part of '../../feature_carousel.dart';
 
+/// Internal helper class used by the feature carousel component implementation.
 class _CenterCard extends StatelessWidget {
+  /// Creates `_CenterCard` for configuring or rendering feature carousel.
   const _CenterCard({
     super.key,
     required this.item,
@@ -9,20 +11,29 @@ class _CenterCard extends StatelessWidget {
     required this.theme,
   });
 
+  /// Data consumed by `_CenterCard` to render feature carousel content.
   final FeatureCarouselItem item;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double width;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double height;
+
+  /// Theme override or resolved theme data for feature carousel.
   final FeatureCarouselThemeData theme;
 
+  /// Builds the widget tree for feature carousel.
   @override
   Widget build(BuildContext context) {
     final accent = item.accentColor ?? theme.accentColor;
+
     final iconSize = width * 0.28;
     final iconWidget = item.iconBuilder != null
         ? item.iconBuilder!(context, accent, iconSize)
         : (item.icon != null
-            ? Icon(item.icon, size: iconSize, color: accent)
-            : const SizedBox.shrink());
+              ? Icon(item.icon, size: iconSize, color: accent)
+              : const SizedBox.shrink());
 
     return Semantics(
       label: 'Feature preview: ${item.title ?? 'item'}',

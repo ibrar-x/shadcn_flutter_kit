@@ -1,15 +1,87 @@
-# FadeScroll
+# Fade Scroll (`fade_scroll`)
 
-Displays fade effects at the edges of a scrollable area using ThemeData tokens.
+Edge fade overlays for scrollable content.
 
-## Usage
+---
 
-```dart
-ScrollController controller = ScrollController();
-FadeScroll(
-  controller: controller,
-  child: ListView(..., controller: controller),
-);
+## When to use
+
+- Use this when:
+  - you want visual fade cues at scroll edges.
+- Avoid when:
+  - the scroll area already has strong boundary cues.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add fade_scroll
 ```
 
-Use `ComponentTheme<FadeScrollTheme>` to override `startOffset`, `endOffset`, or the gradient colors.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/fade_scroll/fade_scroll.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+FadeScroll(
+  child: ListView.builder(
+    itemCount: 50,
+    itemBuilder: (_, i) => Text('Row $i'),
+  ),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `FadeScroll`
+  - `startOffset`, `endOffset`
+  - `gradient` (`List<Color>?`)
+- `FadeScrollTheme` — theme defaults.
+
+---
+
+## Theming
+
+- `FadeScrollTheme` controls fade offsets and gradient colors.
+
+---
+
+## Accessibility
+
+- Ensure fade does not obscure important content.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use subtle gradients for readability.
+
+**Don’t**
+- ❌ Fade interactive elements near edges without padding.
+
+---
+
+## Related components
+
+- `scrollable_client`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

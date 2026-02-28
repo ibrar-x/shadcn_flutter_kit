@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowWidget defines a reusable type for this registry module.
 class WindowWidget extends StatefulWidget {
   /// Widget displayed in the window's title bar.
   ///
@@ -166,16 +167,16 @@ class WindowWidget extends StatefulWidget {
     required WindowController this.controller,
     this.titleBarHeight,
     this.resizeThickness,
-  })  : bounds = null,
-        maximized = null,
-        minimized = null,
-        resizable = null,
-        draggable = null,
-        closable = null,
-        maximizable = null,
-        minimizable = null,
-        enableSnapping = null,
-        constraints = null;
+  }) : bounds = null,
+       maximized = null,
+       minimized = null,
+       resizable = null,
+       draggable = null,
+       closable = null,
+       maximizable = null,
+       minimizable = null,
+       enableSnapping = null,
+       constraints = null;
 
   const WindowWidget._raw({
     super.key,
@@ -193,9 +194,10 @@ class WindowWidget extends StatefulWidget {
     this.maximized,
     this.minimized,
     this.constraints,
-  })  : titleBarHeight = null,
-        resizeThickness = null;
+  }) : titleBarHeight = null,
+       resizeThickness = null;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<WindowWidget> createState() => _WindowWidgetState();
 }

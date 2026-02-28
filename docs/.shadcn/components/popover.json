@@ -8,7 +8,7 @@
     "popover",
     "floating"
   ],
-  "installedAt": "2026-02-09T10:18:03.235430Z",
+  "installedAt": "2026-02-22T01:08:41.559627Z",
   "shared": [
     "color_extensions",
     "constants",
@@ -18,11 +18,7 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/overlay/popover/README.md",
-    "registry/components/overlay/popover/meta.json",
-    "registry/components/overlay/popover/popover.dart",
-    "registry/components/overlay/popover/popover.meta.json",
-    "registry/components/overlay/popover/preview.dart"
+    "registry/components/overlay/popover/popover.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

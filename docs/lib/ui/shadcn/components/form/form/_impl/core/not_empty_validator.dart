@@ -17,7 +17,10 @@ class NotEmptyValidator extends NonNullValidator<String> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null || value.isEmpty) {
       var localizations = Localizations.of(context, ShadcnLocalizations);
       return InvalidResult(message ?? localizations.formNotEmpty, state: state);
@@ -25,11 +28,13 @@ class NotEmptyValidator extends NonNullValidator<String> {
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is NotEmptyValidator && other.message == message;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => message.hashCode;
 }

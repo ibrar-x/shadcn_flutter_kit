@@ -21,7 +21,7 @@ part '_impl/styles/character_span_factory.dart';
 part '_impl/utils/text_diff.dart';
 part '_impl/utils/time_math.dart';
 
-part '_impl/themes/text_animate_theme.dart';
+part '_impl/themes/base/text_animate_theme.dart';
 
 part '_impl/state/streaming_text_state.dart';
 

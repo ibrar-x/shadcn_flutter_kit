@@ -8,12 +8,17 @@ class FormErrorBuilder extends StatelessWidget {
   final Widget? child;
 
   /// Builder function that creates the error display from all form errors.
-  final Widget Function(BuildContext context,
-      Map<FormKey, ValidationResult> errors, Widget? child) builder;
+  final Widget Function(
+    BuildContext context,
+    Map<FormKey, ValidationResult> errors,
+    Widget? child,
+  )
+  builder;
 
   /// Creates a form error builder.
   const FormErrorBuilder({super.key, required this.builder, this.child});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final formController = Data.of<FormController>(context);

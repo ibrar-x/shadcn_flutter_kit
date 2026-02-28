@@ -7,7 +7,7 @@
     "navigation",
     "layout"
   ],
-  "installedAt": "2026-02-09T10:18:03.219015Z",
+  "installedAt": "2026-02-22T01:08:41.432081Z",
   "shared": [
     "basic_layout",
     "radix_icons",
@@ -16,14 +16,10 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/navigation/breadcrumb/README.md",
     "registry/components/navigation/breadcrumb/_impl/core/_arrow_separator.dart",
     "registry/components/navigation/breadcrumb/_impl/core/_slash_separator.dart",
     "registry/components/navigation/breadcrumb/_impl/core/breadcrumb_2.dart",
-    "registry/components/navigation/breadcrumb/breadcrumb.dart",
-    "registry/components/navigation/breadcrumb/breadcrumb.meta.json",
-    "registry/components/navigation/breadcrumb/meta.json",
-    "registry/components/navigation/breadcrumb/preview.dart"
+    "registry/components/navigation/breadcrumb/breadcrumb.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

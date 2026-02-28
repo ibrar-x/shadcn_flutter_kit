@@ -23,6 +23,7 @@
     "_impl/themes/base/tracker_theme.dart",
     "_impl/themes/config/tracker_theme_config.dart",
     "_impl/themes/config/tracker_theme_defaults.dart",
+    "_impl/themes/config/tracker_theme_schema.dart",
     "_impl/themes/config/tracker_theme_tokens.dart",
     "_impl/utils/_simple_tracker_level.dart",
     "_impl/utils/tracker_data.dart",

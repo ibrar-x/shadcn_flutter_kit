@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' hide Theme, TextField, ErrorWidgetBuilder;
+import 'package:flutter/material.dart'
+    hide Theme, TextField, ErrorWidgetBuilder;
 
 import 'command_dialog.dart';
 import '../state/command_state.dart';
@@ -46,5 +47,6 @@ class Command extends StatefulWidget {
   final Widget? searchPlaceholder;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Command> createState() => CommandState();
 }

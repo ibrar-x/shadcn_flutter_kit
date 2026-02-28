@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepTitle defines a reusable type for this registry module.
 class StepTitle extends StatelessWidget {
   /// The main title widget for the step.
   final Widget title;
@@ -42,12 +43,12 @@ class StepTitle extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
     return Clickable(
       mouseCursor: WidgetStatePropertyAll(
-          onPressed == null ? MouseCursor.defer : SystemMouseCursors.click),
+        onPressed == null ? MouseCursor.defer : SystemMouseCursors.click,
+      ),
       onPressed: onPressed,
       child: IntrinsicWidth(
         child: Column(
@@ -55,7 +56,8 @@ class StepTitle extends StatelessWidget {
           children: [
             title,
             if (subtitle != null) ...[
-              Gap(2 * scaling),
+/// Creates a `DensityGap` instance.
+              DensityGap(0.25),
               subtitle!.muted().xSmall(),
             ],
           ],

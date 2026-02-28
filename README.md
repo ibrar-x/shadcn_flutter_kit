@@ -115,8 +115,8 @@ instead of directly using the original shadcn_flutter package. That means:
 Contributions are welcome. Please keep changes registry‑first and ensure the
 docs app uses the registry components. If you add or remove components, update:
 
-- `registry/components.json`
-- `registry/components.schema.json`
+- `registry/manifests/components.json`
+- `registry/manifests/components.schema.json`
 - docs pages/examples as needed
 
 For a contributor onboarding flow (setup, scripts, validation, and docs refresh),

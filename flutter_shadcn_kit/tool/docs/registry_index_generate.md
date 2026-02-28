@@ -8,7 +8,7 @@ Builds `index.json` from `components.json` and `meta.json`.
 - `<id>.meta.json` (optional, for README-derived docs)
 
 ## Outputs
-- `flutter_shadcn_kit/lib/registry/index.json`
+- `flutter_shadcn_kit/lib/registry/manifests/index.json`
 
 ## Usage
 ```bash

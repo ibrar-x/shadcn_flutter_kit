@@ -15,15 +15,11 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/icons/lucide_icons.dart';
 
-part '_impl/themes/color_input_theme.dart';
-
+part '_impl/themes/base/color_input_theme.dart';
 
 part '_impl/state/_color_input_state.dart';
 part '_impl/utils/color_input_controller.dart';
 part '_impl/core/controlled_color_input.dart';
-
-
-
 
 /// A color input widget that allows users to select and edit colors.
 ///
@@ -119,6 +115,7 @@ class ColorInput extends StatefulWidget {
     this.showHistory = true,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ColorInput> createState() => _ColorInputState();
 }

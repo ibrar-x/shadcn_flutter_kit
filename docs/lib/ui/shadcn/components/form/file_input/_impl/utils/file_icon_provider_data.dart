@@ -12,10 +12,7 @@ class FileIconProviderData {
   final Map<String, Widget>? icons;
 
   /// Creates internal data for file icon provision.
-  const FileIconProviderData._({
-    this.builder,
-    this.icons,
-  });
+  const FileIconProviderData._({this.builder, this.icons});
 
   /// Builds an icon for the given file extension.
   ///

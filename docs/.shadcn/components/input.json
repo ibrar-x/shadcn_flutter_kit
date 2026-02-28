@@ -8,7 +8,7 @@
     "input",
     "text"
   ],
-  "installedAt": "2026-02-09T10:18:03.199271Z",
+  "installedAt": "2026-02-22T01:08:41.506907Z",
   "shared": [
     "constants",
     "form_value_supplier",
@@ -22,7 +22,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/input/README.md",
     "registry/components/form/input/_impl/core/input_above_below_feature.dart",
     "registry/components/form/input/_impl/core/input_auto_complete_feature.dart",
     "registry/components/form/input/_impl/core/input_clear_feature.dart",
@@ -49,10 +48,7 @@
     "registry/components/form/input/_impl/state/_input_stepper_button_feature_state.dart",
     "registry/components/form/input/_impl/state/_input_trailing_feature_state.dart",
     "registry/components/form/input/_impl/utils/input_show_hint_intent.dart",
-    "registry/components/form/input/input.dart",
-    "registry/components/form/input/input.meta.json",
-    "registry/components/form/input/meta.json",
-    "registry/components/form/input/preview.dart"
+    "registry/components/form/input/input.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

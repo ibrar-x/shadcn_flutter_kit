@@ -1,20 +1,88 @@
-# Switcher
+# Switcher (`switcher`)
 
-`Switcher` is a gesture-driven viewport that smoothly transitions between multiple children.
-It understands all four `AxisDirection`s, snaps to the nearest index after a drag,
-and exposes callbacks for programmatic control.
+Swipeable viewport that animates between children along an axis.
+
+---
+
+## When to use
+
+- Use this when:
+  - you want swipe-based page switching.
+- Avoid when:
+  - a `PageView` is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add switcher
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/navigation/switcher/switcher.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 Switcher(
-  index: currentIndex,
+  index: 0,
   direction: AxisDirection.right,
-  duration: const Duration(milliseconds: 250),
-  curve: Curves.easeOut,
-  onIndexChanged: (value) => setState(() => currentIndex = value),
-  children: [
-    Container(color: Colors.red, child: const Center(child: Text('First'))),
-    Container(color: Colors.blue, child: const Center(child: Text('Second'))),
-    Container(color: Colors.green, child: const Center(child: Text('Third'))),
-  ],
+  children: const [Text('A'), Text('B')],
 )
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `Switcher`
+  - `index` (`int`)
+  - `onIndexChanged` (`ValueChanged<int>?`)
+  - `direction` (`AxisDirection`, required)
+  - `children` (`List<Widget>`, required)
+  - `duration`, `curve`
+
+---
+
+## Theming
+
+- No theme dependencies.
+
+---
+
+## Accessibility
+
+- Provide non-swipe navigation for keyboard users.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep child count small for performance.
+
+**Don’t**
+- ❌ Use for forms without clear focus handling.
+
+---
+
+## Related components
+
+- `tab_container`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

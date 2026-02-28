@@ -1,6 +1,8 @@
 part of '../../code_snippet.dart';
 
+/// _CodeSnippetState holds mutable state for the code snippet implementation.
 class _CodeSnippetState extends State<CodeSnippet> {
+  /// Builds the widget tree for code snippet.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -24,20 +26,17 @@ class _CodeSnippetState extends State<CodeSnippet> {
     final padding = styleValue(
       themeValue: compTheme?.padding,
       defaultValue: EdgeInsets.only(
-        left: theme.scaling * 16,
-        right: theme.scaling * 48,
-        top: theme.scaling * 16,
-        bottom: theme.scaling * 16,
+        left: theme.density.baseContainerPadding * theme.scaling * padSm,
+        right: theme.density.baseContainerPadding * theme.scaling * pad3xl,
+        top: theme.density.baseContainerPadding * theme.scaling * padSm,
+        bottom: theme.density.baseContainerPadding * theme.scaling * padSm,
       ),
     );
 
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
+        border: Border.all(color: borderColor, width: borderWidth),
         borderRadius: borderRadius,
       ),
       child: Stack(
@@ -55,11 +54,9 @@ class _CodeSnippetState extends State<CodeSnippet> {
           ),
           if (widget.actions.isNotEmpty)
             Positioned(
-              right: 8,
-              top: 8,
-              child: Row(
-                children: _spacedActions,
-              ),
+              right: theme.density.baseGap * theme.scaling * gapSm,
+              top: theme.density.baseGap * theme.scaling * gapSm,
+              child: Row(children: _spacedActions),
             ),
         ],
       ),
@@ -71,11 +68,12 @@ class _CodeSnippetState extends State<CodeSnippet> {
     if (actions.isEmpty) {
       return const [];
     }
+
     final spaced = <Widget>[];
     for (var i = 0; i < actions.length; i++) {
       spaced.add(actions[i]);
       if (i < actions.length - 1) {
-        spaced.add(const Gap(4));
+        spaced.add(const DensityGap(gapXs));
       }
     }
     return spaced;

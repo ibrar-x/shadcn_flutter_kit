@@ -8,7 +8,7 @@
     "resizable",
     "panel"
   ],
-  "installedAt": "2026-02-09T10:18:03.214021Z",
+  "installedAt": "2026-02-22T01:08:41.671235Z",
   "shared": [
     "constants",
     "radix_icons",
@@ -18,7 +18,6 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/layout/resizable/README.md",
     "registry/components/layout/resizable/_impl/core/_render_resizable_layout.dart",
     "registry/components/layout/resizable/_impl/core/_resizable_item.dart",
     "registry/components/layout/resizable/_impl/core/_resizable_layout.dart",
@@ -36,10 +35,7 @@
     "registry/components/layout/resizable/_impl/state/_resizer_state.dart",
     "registry/components/layout/resizable/_impl/utils/absolute_resizable_pane_controller.dart",
     "registry/components/layout/resizable/_impl/utils/flexible_resizable_pane_controller.dart",
-    "registry/components/layout/resizable/meta.json",
-    "registry/components/layout/resizable/preview.dart",
-    "registry/components/layout/resizable/resizable.dart",
-    "registry/components/layout/resizable/resizable.meta.json"
+    "registry/components/layout/resizable/resizable.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

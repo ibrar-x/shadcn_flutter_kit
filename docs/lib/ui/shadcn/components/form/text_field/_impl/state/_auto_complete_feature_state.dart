@@ -1,16 +1,20 @@
 part of '../../text_field.dart';
 
+/// _AutoCompleteFeatureState stores and manages mutable widget state.
 class _AutoCompleteFeatureState
     extends InputFeatureState<InputAutoCompleteFeature> {
   final GlobalKey _key = GlobalKey();
-  final ValueNotifier<FutureOr<Iterable<String>>?> _suggestions =
-      ValueNotifier(null);
+  final ValueNotifier<FutureOr<Iterable<String>>?> _suggestions = ValueNotifier(
+    null,
+  );
 
+  /// Performs `onTextChanged` logic for this form component.
   @override
   void onTextChanged(String text) {
     _suggestions.value = feature.querySuggestions(text);
   }
 
+  /// Performs `wrap` logic for this form component.
   @override
   Widget wrap(Widget child) {
     return ListenableBuilder(
@@ -23,8 +27,9 @@ class _AutoCompleteFeatureState
             builder: (context, snapshot) {
               return AutoComplete(
                 key: _key,
-                suggestions:
-                    snapshot.hasData ? snapshot.requireData.toList() : const [],
+                suggestions: snapshot.hasData
+                    ? snapshot.requireData.toList()
+                    : const [],
                 popoverConstraints: feature.popoverConstraints,
                 popoverWidthConstraint: feature.popoverWidthConstraint,
                 popoverAnchorAlignment: feature.popoverAnchorAlignment,

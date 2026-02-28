@@ -1,6 +1,8 @@
 part of '../../feature_carousel.dart';
 
+/// Internal helper class used by the feature carousel component implementation.
 class _GhostCard extends StatelessWidget {
+  /// Creates `_GhostCard` for configuring or rendering feature carousel.
   const _GhostCard({
     required this.cardWidth,
     required this.cardHeight,
@@ -9,12 +11,22 @@ class _GhostCard extends StatelessWidget {
     required this.indexFromFront,
   });
 
+  /// Layout/size setting that affects feature carousel rendering.
   final double cardWidth;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double cardHeight;
+
+  /// Theme override or resolved theme data for feature carousel.
   final FeatureCarouselThemeData theme;
+
+  /// Animation/progress setting used by feature carousel transitions.
   final Animation<double> animation;
+
+  /// Input parameter used by `_GhostCard` during rendering and behavior handling.
   final int indexFromFront;
 
+  /// Builds the widget tree for feature carousel.
   @override
   Widget build(BuildContext context) {
     final transform = _ghostTransform(indexFromFront);
@@ -29,10 +41,7 @@ class _GhostCard extends StatelessWidget {
             offset: Offset(transform.dx, transform.dy),
             child: Transform.rotate(
               angle: transform.rotation,
-              child: Transform.scale(
-                scale: transform.scale,
-                child: child,
-              ),
+              child: Transform.scale(scale: transform.scale, child: child),
             ),
           ),
         );
@@ -43,15 +52,13 @@ class _GhostCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.ghostFillColor,
           borderRadius: BorderRadius.circular(theme.ghostRadius),
-          border: Border.all(
-            color: theme.ghostBorderColor,
-            width: 1,
-          ),
+          border: Border.all(color: theme.ghostBorderColor, width: 1),
         ),
       ),
     );
   }
 
+  /// Implements `_ghostTransform` behavior for feature carousel.
   _GhostTransform _ghostTransform(int index) {
     switch (index) {
       case 1:

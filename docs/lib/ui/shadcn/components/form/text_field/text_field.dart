@@ -82,8 +82,7 @@ part '_impl/utils/text_field_select_all_and_copy_intent.dart';
 part '_impl/utils/text_field_set_selection_intent.dart';
 part '_impl/utils/text_field_set_text_intent.dart';
 
-
-part '_impl/themes/text_field_theme.dart';
+part '_impl/themes/base/text_field_theme.dart';
 part '_impl/core/input_feature_visibility.dart';
 part '_impl/core/input_feature_base.dart';
 part '_impl/core/text_field_gestures.dart';
@@ -97,7 +96,7 @@ part '_impl/core/input_features_basic.dart';
 part '_impl/core/input_features_autocomplete.dart';
 part '_impl/core/input_features_spinner.dart';
 part '_impl/core/input_features_copy_paste.dart';
-part '_impl/themes/auto_complete_theme.dart';
+part '_impl/themes/variants/auto_complete_theme.dart';
 part '_impl/core/auto_complete_widget.dart';
 
 Widget buildEditableTextContextMenu(
@@ -105,5 +104,6 @@ Widget buildEditableTextContextMenu(
   EditableTextState editableTextState,
 ) {
   return material.AdaptiveTextSelectionToolbar.editableText(
-      editableTextState: editableTextState);
+    editableTextState: editableTextState,
+  );
 }

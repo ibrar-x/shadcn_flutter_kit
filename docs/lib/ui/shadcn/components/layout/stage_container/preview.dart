@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../stage_container/stage_container.dart';
 
+/// StageContainerPreview defines a reusable type for this registry module.
 class StageContainerPreview extends StatelessWidget {
   const StageContainerPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

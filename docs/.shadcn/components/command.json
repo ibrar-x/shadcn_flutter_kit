@@ -8,7 +8,7 @@
     "input",
     "overlay"
   ],
-  "installedAt": "2026-02-09T10:18:03.239432Z",
+  "installedAt": "2026-02-22T01:08:41.431459Z",
   "shared": [
     "border_utils",
     "clickable",
@@ -32,7 +32,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/control/command/README.md",
     "registry/components/control/command/_impl/core/command_category.dart",
     "registry/components/control/command/_impl/core/command_dialog.dart",
     "registry/components/control/command/_impl/core/command_empty.dart",
@@ -44,10 +43,7 @@
     "registry/components/control/command/_impl/state/command_state.dart",
     "registry/components/control/command/_impl/utils/next_item_intent.dart",
     "registry/components/control/command/_impl/utils/previous_item_intent.dart",
-    "registry/components/control/command/command.dart",
-    "registry/components/control/command/command.meta.json",
-    "registry/components/control/command/meta.json",
-    "registry/components/control/command/preview.dart"
+    "registry/components/control/command/command.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

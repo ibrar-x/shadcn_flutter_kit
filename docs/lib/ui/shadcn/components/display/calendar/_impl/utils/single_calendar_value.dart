@@ -19,6 +19,7 @@ class SingleCalendarValue extends CalendarValue {
   /// Creates a single calendar value with the specified date.
   SingleCalendarValue(this.date);
 
+  /// Implements `lookup` behavior for calendar.
   @override
   CalendarValueLookup lookup(int year, [int? month, int? day]) {
     DateTime current = _convertNecessarry(date, year, month, day);
@@ -31,11 +32,13 @@ class SingleCalendarValue extends CalendarValue {
   @override
   CalendarView get view => date.toCalendarView();
 
+  /// Returns a debug string for this calendar value.
   @override
   String toString() {
     return 'SingleCalendarValue($date)';
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -46,16 +49,19 @@ class SingleCalendarValue extends CalendarValue {
   @override
   int get hashCode => date.hashCode;
 
+  /// Implements `toSingle` behavior for calendar.
   @override
   SingleCalendarValue toSingle() {
     return this;
   }
 
+  /// Implements `toRange` behavior for calendar.
   @override
   RangeCalendarValue toRange() {
     return CalendarValue.range(date, date);
   }
 
+  /// Implements `toMulti` behavior for calendar.
   @override
   MultiCalendarValue toMulti() {
     return CalendarValue.multi([date]);

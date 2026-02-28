@@ -25,9 +25,13 @@ class FormEntryInterceptor<T> extends StatefulWidget {
   /// Parameters:
   /// - [child] (`Widget`, required): The form field to wrap.
   /// - [onValueReported] (`ValueChanged<T>?`, optional): Called with new values.
-  const FormEntryInterceptor(
-      {super.key, required this.child, this.onValueReported});
+  const FormEntryInterceptor({
+    super.key,
+    required this.child,
+    this.onValueReported,
+  });
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormEntryInterceptor<T>> createState() =>
       _FormEntryInterceptorState<T>();

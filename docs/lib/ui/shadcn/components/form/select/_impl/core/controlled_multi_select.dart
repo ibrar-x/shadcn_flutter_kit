@@ -85,8 +85,8 @@ class ControlledMultiSelect<T> extends StatelessWidget
   final SelectPopupBuilder popup;
   @override
   SelectValueBuilder<Iterable<T>> get itemBuilder => (context, value) {
-        return MultiSelect._buildItem(multiItemBuilder, context, value);
-      };
+    return MultiSelect._buildItem(multiItemBuilder, context, value);
+  };
   @override
   final SelectValueSelectionHandler<Iterable<T>>? valueSelectionHandler;
   @override
@@ -168,6 +168,7 @@ class ControlledMultiSelect<T> extends StatelessWidget
     this.valueSelectionPredicate,
   }) : multiItemBuilder = itemBuilder;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledSelect<Iterable<T>>(

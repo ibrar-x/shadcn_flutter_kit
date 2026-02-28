@@ -24,6 +24,7 @@
     "_impl/themes/base/number_ticker_theme.dart",
     "_impl/themes/config/number_ticker_theme_config.dart",
     "_impl/themes/config/number_ticker_theme_defaults.dart",
+    "_impl/themes/config/number_ticker_theme_schema.dart",
     "_impl/themes/config/number_ticker_theme_tokens.dart",
     "_number_ticker_preview_state.dart",
     "number_ticker.dart"

@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// Tabs defines a reusable type for this registry module.
 class Tabs extends StatelessWidget {
   /// The index of the currently selected tab (0-indexed).
   ///
@@ -48,14 +49,18 @@ class Tabs extends StatelessWidget {
     Widget child,
   ) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TabsTheme>(context);
     final tabPadding = styleValue(
-      defaultValue:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 4) * scaling,
+      defaultValue: EdgeInsets.symmetric(
+        horizontal: theme.density.baseContentPadding * scaling,
+        vertical: theme.density.baseGap * scaling * 0.5,
+      ),
       themeValue: compTheme?.tabPadding,
       widgetValue: padding,
     );
+/// Stores `i` state/configuration for this implementation.
     final i = data.index;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -84,12 +89,14 @@ class Tabs extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TabsTheme>(context);
     final containerPadding = styleValue(
-      defaultValue: const EdgeInsets.all(4) * scaling,
+      defaultValue: EdgeInsets.all(theme.density.baseGap * scaling * 0.5),
       themeValue: compTheme?.containerPadding,
     );
     final backgroundColor = styleValue(

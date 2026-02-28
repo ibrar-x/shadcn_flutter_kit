@@ -7,11 +7,10 @@
     "color",
     "utility"
   ],
-  "installedAt": "2026-02-09T10:18:03.241346Z",
+  "installedAt": "2026-02-22T01:08:41.367586Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "registry/components/utility/color/README.md",
     "registry/components/utility/color/_impl/core/color_derivative.dart",
     "registry/components/utility/color/_impl/core/color_gradient.dart",
     "registry/components/utility/color/_impl/core/hsl_color_derivative.dart",
@@ -23,10 +22,7 @@
     "registry/components/utility/color/_impl/utils/directional_gradient_angle.dart",
     "registry/components/utility/color/_impl/utils/gradient_angle.dart",
     "registry/components/utility/color/_impl/utils/gradient_angle_geometry.dart",
-    "registry/components/utility/color/color.dart",
-    "registry/components/utility/color/color.meta.json",
-    "registry/components/utility/color/meta.json",
-    "registry/components/utility/color/preview.dart"
+    "registry/components/utility/color/color.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

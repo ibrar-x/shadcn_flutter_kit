@@ -9,6 +9,6 @@ class AccordionTrigger extends StatefulWidget {
   final Widget child;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<AccordionTrigger> createState() => _AccordionTriggerState();
 }
-

@@ -1,7 +1,8 @@
 part of '../../tabs.dart';
 
-typedef TabPaneItemBuilder<T> = TabChild Function(
-    BuildContext context, TabPaneData<T> item, int index);
+/// Type alias for `TabPaneItemBuilder` used by public or internal APIs.
+typedef TabPaneItemBuilder<T> =
+    TabChild Function(BuildContext context, TabPaneData<T> item, int index);
 
 /// A comprehensive tab pane widget with sortable tabs and integrated content display.
 ///

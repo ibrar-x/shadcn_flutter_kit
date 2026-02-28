@@ -65,6 +65,7 @@ class MultiSelectChip extends StatelessWidget {
     required this.child,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final data = Data.maybeOf<SelectData>(context);

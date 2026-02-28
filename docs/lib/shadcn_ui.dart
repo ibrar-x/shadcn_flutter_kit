@@ -53,7 +53,7 @@ export 'package:flutter/widgets.dart'
         TableRow;
 export 'package:gap/gap.dart';
 
-export 'ui/shadcn/composites/layout/app/app.dart';
+export 'ui/shadcn/components/layout/app/app.dart';
 export 'ui/shadcn/components/control/button/button.dart';
 export 'ui/shadcn/components/control/button/preview.dart';
 export 'ui/shadcn/components/control/clickable/clickable.dart';
@@ -267,6 +267,8 @@ export 'ui/shadcn/components/overlay/dropdown_menu/dropdown_menu.dart';
 export 'ui/shadcn/components/overlay/dropdown_menu/preview.dart';
 export 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
 export 'ui/shadcn/components/overlay/eye_dropper/preview.dart';
+export 'ui/shadcn/components/overlay/gooey_toast/gooey_toast.dart';
+export 'ui/shadcn/components/overlay/gooey_toast/preview.dart';
 export 'ui/shadcn/components/overlay/hover_card/hover_card.dart';
 export 'ui/shadcn/components/overlay/hover_card/preview.dart';
 export 'ui/shadcn/components/overlay/menu/preview.dart';
@@ -319,8 +321,7 @@ export 'ui/shadcn/shared/theme/color_scheme.dart';
 export 'ui/shadcn/shared/theme/theme.dart';
 export 'ui/shadcn/shared/theme/typography.dart';
 export 'ui/shadcn/shared/utils/axis.dart';
-export 'ui/shadcn/shared/utils/text_input_utils.dart'
-    hide TextFieldClearIntent;
+export 'ui/shadcn/shared/utils/text_input_utils.dart' hide TextFieldClearIntent;
 export 'ui/shadcn/shared/utils/util.dart'
     hide
         ColumnExtension,

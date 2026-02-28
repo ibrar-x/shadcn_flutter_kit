@@ -11,8 +11,7 @@ enum DatePart {
   month(_getMonth, _computeMonthValueRange),
 
   /// Day component.
-  day(_getDay, _computeDayValueRange),
-  ;
+  day(_getDay, _computeDayValueRange);
 
   /// Function that extracts the date/time component value from a DateTime.
   final int Function(DateTime dateTime) getter;
@@ -26,7 +25,7 @@ enum DatePart {
   /// minimum and maximum valid values for this component, considering
   /// constraints like month lengths or leap years.
   final (int? min, int? max) Function(Map<DatePart, int> values)
-      computeValueRange;
+  computeValueRange;
 
   const DatePart(this.getter, this.computeValueRange, {this.length = 2});
 }

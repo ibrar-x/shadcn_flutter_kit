@@ -1,5 +1,6 @@
 part of '../../fade_scroll.dart';
 
+/// FadeScrollTheme defines a reusable type for this registry module.
 class FadeScrollTheme extends ComponentThemeData {
   /// The distance from the start before fading begins.
   final double? startOffset;
@@ -12,6 +13,9 @@ class FadeScrollTheme extends ComponentThemeData {
 
   /// Creates a [FadeScrollTheme].
   const FadeScrollTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.startOffset,
     this.endOffset,
     this.gradient,
@@ -31,6 +35,7 @@ class FadeScrollTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FadeScrollTheme &&

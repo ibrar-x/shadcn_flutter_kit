@@ -41,11 +41,13 @@ class FormattedValuePart {
     return FormattedValuePart(part, value);
   }
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'FormattedValuePart{part: $part, value: $value}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

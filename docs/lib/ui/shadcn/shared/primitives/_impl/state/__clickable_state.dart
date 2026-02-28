@@ -1,13 +1,18 @@
 part of '../../clickable.dart';
 
-
+/// _ClickableState defines a reusable type for this registry module.
 class _ClickableState extends State<Clickable> {
+/// Stores `_focusNode` state/configuration for this implementation.
   late FocusNode _focusNode;
+/// Stores `_controller` state/configuration for this implementation.
   late WidgetStatesController _controller;
+/// Stores `_lastTap` state/configuration for this implementation.
   DateTime? _lastTap;
+/// Stores `_tapCount` state/configuration for this implementation.
   int _tapCount = 0;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _focusNode = widget.focusNode ?? FocusNode();
@@ -16,6 +21,7 @@ class _ClickableState extends State<Clickable> {
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant Clickable oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.statesController != oldWidget.statesController) {
@@ -39,10 +45,12 @@ class _ClickableState extends State<Clickable> {
     return Future<void>.value();
   }
 
+/// Executes `_onPressed` behavior for this component/composite.
   void _onPressed() {
     if (!widget.enabled) return;
-    Duration? deltaTap =
-        _lastTap == null ? null : DateTime.now().difference(_lastTap!);
+    Duration? deltaTap = _lastTap == null
+        ? null
+        : DateTime.now().difference(_lastTap!);
     _lastTap = DateTime.now();
     if (deltaTap != null && deltaTap < kDoubleTapMinTime) {
       _tapCount++;
@@ -63,27 +71,42 @@ class _ClickableState extends State<Clickable> {
     }
   }
 
+/// Executes `_updateState` behavior for this component/composite.
+  void _updateState(WidgetState state, bool value) {
+    if (!mounted) return;
+    // Avoid notifying listeners during a build; defer to next frame if needed.
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _controller.update(state, value);
+      });
+      return;
+    }
+    _controller.update(state, value);
+  }
+
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `enabled` state/configuration for this implementation.
     var enabled = widget.enabled;
     return WidgetStatesProvider(
       controller: _controller,
-      states: {
-        if (!enabled) WidgetState.disabled,
-      },
-      child: ListenableBuilder(
-        listenable: _controller,
-        builder: _builder,
-      ),
+      states: {if (!enabled) WidgetState.disabled},
+      child: ListenableBuilder(listenable: _controller, builder: _builder),
     );
   }
 
+/// Executes `_builder` behavior for this component/composite.
   Widget _builder(BuildContext context, Widget? _) {
     final theme = Theme.of(context);
+/// Stores `enabled` state/configuration for this implementation.
     final enabled = widget.enabled;
     var widgetStates = Data.maybeOf<WidgetStatesData>(context)?.states ?? {};
     widgetStates = widgetStates.union(_controller.value);
     Decoration? decoration = widget.decoration?.resolve(widgetStates);
+/// Stores `borderRadius` state/configuration for this implementation.
     BorderRadiusGeometry borderRadius;
     if (decoration is BoxDecoration) {
       borderRadius = decoration.borderRadius ?? theme.borderRadiusMd;
@@ -92,7 +115,9 @@ class _ClickableState extends State<Clickable> {
     }
     var buttonContainer = _buildContainer(context, decoration, widgetStates);
     return FocusOutline(
-      focused: widget.focusOutline &&
+      focused:
+          widget.focusOutline &&
+/// Creates a `widgetStates.contains` instance.
           widgetStates.contains(WidgetState.focused) &&
           !widget.disableFocusOutline,
       borderRadius: borderRadius,
@@ -117,9 +142,9 @@ class _ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, true);
+                  _updateState(WidgetState.hovered, true);
                 }
-                _controller.update(WidgetState.pressed, true);
+                _updateState(WidgetState.pressed, true);
                 widget.onTapDown?.call(details);
               }
             : widget.onTapDown,
@@ -127,9 +152,9 @@ class _ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapUp?.call(details);
               }
             : widget.onTapUp,
@@ -137,9 +162,9 @@ class _ClickableState extends State<Clickable> {
             ? () {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapCancel?.call();
               }
             : widget.onTapCancel,
@@ -147,15 +172,25 @@ class _ClickableState extends State<Clickable> {
           enabled: enabled,
           focusNode: _focusNode,
           shortcuts: {
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.enter): const ActivateIntent(),
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.space): const ActivateIntent(),
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowUp):
+/// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.up),
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowDown):
+/// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.down),
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+/// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.left),
+/// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowRight):
+/// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.right),
             ...?widget.shortcuts,
           },
@@ -168,7 +203,9 @@ class _ClickableState extends State<Clickable> {
             ),
             DirectionalFocusIntent: CallbackAction<DirectionalFocusIntent>(
               onInvoke: (e) {
+/// Stores `direction` state/configuration for this implementation.
                 final direction = e.direction;
+/// Stores `focus` state/configuration for this implementation.
                 final focus = _focusNode;
                 switch (direction) {
                   case TraversalDirection.up:
@@ -190,12 +227,15 @@ class _ClickableState extends State<Clickable> {
             ...?widget.actions,
           },
           onShowHoverHighlight: (value) {
-            _controller.update(
-                WidgetState.hovered, value && !widget.disableHoverEffect);
+/// Creates a `_updateState` instance.
+            _updateState(
+              WidgetState.hovered,
+              value && !widget.disableHoverEffect,
+            );
             widget.onHover?.call(value);
           },
           onShowFocusHighlight: (value) {
-            _controller.update(WidgetState.focused, value);
+            _updateState(WidgetState.focused, value);
             widget.onFocus?.call(value);
           },
           mouseCursor:
@@ -203,7 +243,9 @@ class _ClickableState extends State<Clickable> {
           child: DefaultTextStyle.merge(
             style: widget.textStyle?.resolve(widgetStates),
             child: IconTheme.merge(
-              data: widget.iconTheme?.resolve(widgetStates) ??
+              data:
+                  widget.iconTheme?.resolve(widgetStates) ??
+/// Creates a `IconThemeData` instance.
                   const IconThemeData(),
               child: AnimatedBuilder(
                 animation: _controller,
@@ -242,8 +284,11 @@ class _ClickableState extends State<Clickable> {
     return tween.transform(t);
   }
 
-  Widget _buildContainer(BuildContext context, Decoration? decoration,
-      Set<WidgetState> widgetStates) {
+  Widget _buildContainer(
+    BuildContext context,
+    Decoration? decoration,
+    Set<WidgetState> widgetStates,
+  ) {
     var resolvedMargin = widget.margin?.resolve(widgetStates);
     var resolvedPadding = widget.padding?.resolve(widgetStates);
     if (widget.disableTransition) {
@@ -255,10 +300,7 @@ class _ClickableState extends State<Clickable> {
         child: widget.child,
       );
       if (widget.marginAlignment != null) {
-        container = Align(
-          alignment: widget.marginAlignment!,
-          child: container,
-        );
+        container = Align(alignment: widget.marginAlignment!, child: container);
       }
       return container;
     }

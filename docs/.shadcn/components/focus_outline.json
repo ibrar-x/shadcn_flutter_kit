@@ -8,7 +8,7 @@
     "accessibility",
     "overlay"
   ],
-  "installedAt": "2026-02-09T10:18:03.243624Z",
+  "installedAt": "2026-02-22T01:08:41.328161Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -17,12 +17,12 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/utility/focus_outline/README.md",
-    "registry/components/utility/focus_outline/_impl/themes/focus_outline_theme.dart",
-    "registry/components/utility/focus_outline/focus_outline.dart",
-    "registry/components/utility/focus_outline/focus_outline.meta.json",
-    "registry/components/utility/focus_outline/meta.json",
-    "registry/components/utility/focus_outline/preview.dart"
+    "registry/components/utility/focus_outline/_impl/themes/base/focus_outline_theme.dart",
+    "registry/components/utility/focus_outline/_impl/themes/config/focus_outline_theme_config.dart",
+    "registry/components/utility/focus_outline/_impl/themes/config/focus_outline_theme_defaults.dart",
+    "registry/components/utility/focus_outline/_impl/themes/config/focus_outline_theme_schema.dart",
+    "registry/components/utility/focus_outline/_impl/themes/config/focus_outline_theme_tokens.dart",
+    "registry/components/utility/focus_outline/focus_outline.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

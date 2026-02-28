@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// Core class used by the calendar component.
 class Calendar extends StatefulWidget {
   /// The current date for highlighting purposes (defaults to DateTime.now()).
   final DateTime? now;
@@ -63,11 +64,10 @@ class Calendar extends StatefulWidget {
     this.stateBuilder,
   });
 
+  /// Creates the State object used by this calendar widget.
   @override
   State<Calendar> createState() => _CalendarState();
 }
-
-
 
 /// A calendar widget that displays months in a year grid.
 ///

@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationGap defines a reusable type for this registry module.
 class NavigationGap extends StatelessWidget implements NavigationBarItem {
   /// Size of the gap in logical pixels.
   final double gap;
@@ -11,6 +12,7 @@ class NavigationGap extends StatelessWidget implements NavigationBarItem {
   const NavigationGap(this.gap, {super.key});
 
   @override
+/// Stores `selectable` state/configuration for this implementation.
   bool get selectable => false;
 
   /// Builds the gap widget for box-based navigation containers.
@@ -28,6 +30,7 @@ class NavigationGap extends StatelessWidget implements NavigationBarItem {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<NavigationControlData>(context);
     if (data?.containerType == NavigationContainerType.sidebar) {

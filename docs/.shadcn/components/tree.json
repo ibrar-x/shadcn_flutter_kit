@@ -8,7 +8,7 @@
     "hierarchy",
     "navigation"
   ],
-  "installedAt": "2026-02-09T10:18:03.220009Z",
+  "installedAt": "2026-02-22T01:08:41.714603Z",
   "shared": [
     "clickable",
     "color_extensions",
@@ -19,7 +19,6 @@
     "icon"
   ],
   "files": [
-    "registry/components/display/tree/README.md",
     "registry/components/display/tree/_impl/core/_path_painter.dart",
     "registry/components/display/tree/_impl/core/_tree_item_view_state.dart",
     "registry/components/display/tree/_impl/core/_tree_view_state.dart",
@@ -42,10 +41,7 @@
     "registry/components/display/tree/_impl/core/tree_root.dart",
     "registry/components/display/tree/_impl/core/tree_selection_default_handler.dart",
     "registry/components/display/tree/_impl/core/tree_view.dart",
-    "registry/components/display/tree/meta.json",
-    "registry/components/display/tree/preview.dart",
-    "registry/components/display/tree/tree.dart",
-    "registry/components/display/tree/tree.meta.json"
+    "registry/components/display/tree/tree.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -38,7 +38,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
   /// Default loading replacement widget when mode is replace and no widget is provided.
   Widget _buildDefaultLoadingWidget(ThemeData theme) {
     final scaling = theme.scaling;
-    final minHeight = widget.minHeight ??
+    final minHeight =
+        widget.minHeight ??
         switch (widget.surface) {
           _FileUploadSurface.dragDrop => 220 * scaling,
           _FileUploadSurface.tile => 48 * scaling,
@@ -61,21 +62,22 @@ extension _FileUploadStateSurfaces on _FileUploadState {
   Widget _buildDragDropContent(ThemeData theme, double scaling) {
     final singleItemContent =
         (!widget.allowMultiple && _effectiveItems.isNotEmpty)
-            ? FileUploadItemsView(
-                items: [_effectiveItems.first],
-                layout: FileUploadItemsLayout.list,
-                showContainer: false,
-                statusLabels: widget.statusLabels,
-                itemLoading: widget.itemLoading,
-                itemBuilder: widget.itemBuilder,
-              )
-            : null;
+        ? FileUploadItemsView(
+            items: [_effectiveItems.first],
+            layout: FileUploadItemsLayout.list,
+            showContainer: false,
+            statusLabels: widget.statusLabels,
+            itemLoading: widget.itemLoading,
+            itemBuilder: widget.itemBuilder,
+          )
+        : null;
 
     if (singleItemContent != null) {
       return singleItemContent;
     }
 
-    final icon = widget.icon ??
+    final icon =
+        widget.icon ??
         Icon(
           RadixIcons.upload,
           size: 28 * scaling,
@@ -91,7 +93,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       mainAxisSize: MainAxisSize.min,
       children: [
         icon,
-        const DensityGap(gapMd),
+        DensityGap(gapMd),
         DefaultTextStyle.merge(
           style: theme.typography.small.copyWith(
             color: widget.enabled
@@ -102,7 +104,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           child: Text(_dragDropLabel()),
         ),
         if (surfaceSubtitle != null) ...[
-          const DensityGap(gapSm),
+          DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
@@ -112,7 +114,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           ),
         ],
         if (surfaceHint != null) ...[
-          const DensityGap(gapSm),
+          DensityGap(gapSm),
           DefaultTextStyle.merge(
             style: theme.typography.xSmall.copyWith(
               color: theme.colorScheme.mutedForeground,
@@ -121,7 +123,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
             child: surfaceHint,
           ),
         ],
-        if (helpfulInfo != null) ...[const DensityGap(gapSm), helpfulInfo],
+        if (helpfulInfo != null) ...[DensityGap(gapSm), helpfulInfo],
       ],
     );
   }
@@ -146,7 +148,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       case FileUploadState.dragging:
         return widget.enableDragDrop
             ? (widget.dragDropIdleLabel ??
-                'Drag files here or click to pick files.')
+                  'Drag files here or click to pick files.')
             : (widget.dragDropClickToPickLabel ?? 'Click to pick files.');
     }
   }
@@ -176,31 +178,28 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       minHeight: dropzoneMinHeight,
     );
 
-    final onTap =
-        widget.enableDropzoneClick && widget.enabled ? _pickFiles : null;
+    final onTap = widget.enableDropzoneClick && widget.enabled
+        ? _pickFiles
+        : null;
 
-    final resolvedSurface = widget.dropTargetBuilder != null
-        ? widget.dropTargetBuilder!(
-            child: dropzone,
-            enabled: isEnabled && canDrop,
-            withData: widget.withData,
-            onDragActive: _setDragActive,
-            onDrop: _handleDrop,
-            onTap: onTap,
-          )
-        : _adapter.buildDropTarget(
-            enabled: isEnabled && canDrop,
-            withData: widget.withData,
-            onDragActive: _setDragActive,
-            onDrop: _handleDrop,
-            onTap: onTap,
-            child: dropzone,
-          );
+    if (widget.dropTargetBuilder != null) {
+      return widget.dropTargetBuilder!(
+        child: dropzone,
+        enabled: isEnabled && canDrop,
+        withData: widget.withData,
+        onDragActive: _setDragActive,
+        onDrop: _handleDrop,
+        onTap: onTap,
+      );
+    }
 
-    return MouseRegion(
-      cursor:
-          onTap != null ? SystemMouseCursors.click : SystemMouseCursors.basic,
-      child: resolvedSurface,
+    return _adapter.buildDropTarget(
+      enabled: isEnabled && canDrop,
+      withData: widget.withData,
+      onDragActive: _setDragActive,
+      onDrop: _handleDrop,
+      onTap: onTap,
+      child: dropzone,
     );
   }
 
@@ -212,7 +211,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
     final scaling = theme.scaling;
     final minHeight = widget.minHeight ?? 48 * scaling;
     final canPick = widget.enabled && widget.pickFiles != null;
-    final backgroundColor = widget.backgroundColor ??
+    final backgroundColor =
+        widget.backgroundColor ??
         dropzoneTheme?.backgroundColor ??
         theme.colorScheme.background;
 
@@ -229,7 +229,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
             widget.enabled ? 1 : 0.7,
           );
 
-    final tileSurface = OutlinedContainer(
+    return OutlinedContainer(
       borderWidth: 1,
       borderRadius: widget.borderRadius,
       backgroundColor: backgroundColor,
@@ -248,7 +248,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           onTap: canPick ? _pickFiles : null,
           behavior: HitTestBehavior.opaque,
           child: Padding(
-            padding: widget.padding ??
+            padding:
+                widget.padding ??
                 EdgeInsets.symmetric(
                   horizontal: theme.density.baseContainerPadding * scaling,
                   vertical: theme.density.baseGap * scaling,
@@ -276,7 +277,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                         child: Text(buttonLabel),
                       ),
                     ),
-                    const DensityGap(0.75),
+                    DensityGap(0.75),
                     Expanded(
                       child: hasSelection
                           ? DefaultTextStyle.merge(
@@ -290,22 +291,22 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                               ),
                             )
                           : surfaceSubtitle != null
-                              ? DefaultTextStyle.merge(
-                                  style: theme.typography.small.copyWith(
-                                    color: fileNameColor,
-                                  ),
-                                  child: surfaceSubtitle,
-                                )
-                              : DefaultTextStyle.merge(
-                                  style: theme.typography.small.copyWith(
-                                    color: fileNameColor,
-                                  ),
-                                  child: Text(
-                                    selectedLabel,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
+                          ? DefaultTextStyle.merge(
+                              style: theme.typography.small.copyWith(
+                                color: fileNameColor,
+                              ),
+                              child: surfaceSubtitle,
+                            )
+                          : DefaultTextStyle.merge(
+                              style: theme.typography.small.copyWith(
+                                color: fileNameColor,
+                              ),
+                              child: Text(
+                                selectedLabel,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                     ),
                   ],
                 ),
@@ -315,16 +316,13 @@ extension _FileUploadStateSurfaces on _FileUploadState {
         ),
       ),
     );
-    return MouseRegion(
-      cursor: canPick ? SystemMouseCursors.click : SystemMouseCursors.basic,
-      child: tileSurface,
-    );
   }
 
   /// Resolves tile value text based on selected files.
   String _tileSelectionLabel() {
-    final files =
-        _effectiveItems.map((item) => item.file).toList(growable: false);
+    final files = _effectiveItems
+        .map((item) => item.file)
+        .toList(growable: false);
     if (widget.tileSelectionTextBuilder != null) {
       final custom = widget.tileSelectionTextBuilder!.call(files);
       if (custom.trim().isNotEmpty) {

@@ -1,27 +1,97 @@
-# AlertDialog
+# AlertDialog (`alert_dialog`)
 
-Lightweight modal dialog that draws focus with a blurred backdrop, rounded
-surface, and optional header/content/action slots. Designed to pair nicely
-with form or destructive confirmations without plumbing manual overlays.
+Modal alert dialog with customizable header, content, and actions.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need a focused confirmation or alert surface.
+  - you want a styled modal without wiring overlays manually.
+- Avoid when:
+  - you need a full-screen dialog or custom route transitions.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add alert_dialog
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/overlay/alert_dialog/alert_dialog.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 AlertDialog(
-  leading: Icon(Icons.warning),
-  title: Text('Delete File?'),
-  content: Text('This action cannot be undone.'),
+  title: const Text('Delete file?'),
+  content: const Text('This action cannot be undone.'),
   actions: [
-    Button.ghost(onPressed: Navigator.of(context).pop, child: Text('Cancel')),
-    Button.destructive(onPressed: _delete, child: Text('Delete')),
+    TextButton(
+      onPressed: () => Navigator.of(context).pop(),
+      child: const Text('Cancel'),
+    ),
+    TextButton(
+      onPressed: _delete,
+      child: const Text('Delete'),
+    ),
   ],
-);
+)
 ```
 
-## Details
+---
 
-- `leading` and `trailing` icons are rendered with the large muted icon style.
-- `title` and `content` accept any widget but default to themed typography.
-- `actions` are aligned to the end and separated by consistent spacing.
-- `surfaceBlur`, `surfaceOpacity`, and `barrierColor` can customize the
-  backdrop and modal ambiance while retaining the default theme values.
+## API
+
+### Constructor
+
+- `AlertDialog`
+  - `leading`, `trailing`
+  - `title`, `content`, `actions`
+  - `surfaceBlur`, `surfaceOpacity`, `barrierColor`, `padding`
+
+---
+
+## Theming
+
+- Uses `Theme.of(context)` surface tokens (radius, surface blur/opacity, colors).
+
+---
+
+## Accessibility
+
+- Provide clear titles and actionable button labels.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Keep dialog content concise and scannable.
+
+**Don’t**
+- ❌ Nest multiple modals or alerts.
+
+---
+
+## Related components
+
+- `dialog`
+- `drawer`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

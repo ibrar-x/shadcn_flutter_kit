@@ -47,6 +47,7 @@ extension _FileUploadStateUploads on _FileUploadState {
     widget.onFilesSelected?.call(validation.validFiles);
 
     if (widget.files == null) {
+      /// Performs `_setState` logic for this form component.
       _setState(() {
         _items.addAll(validation.validFiles.map(FileUploadItem.fromFile));
       });
@@ -190,6 +191,7 @@ extension _FileUploadStateUploads on _FileUploadState {
     final index = _items.indexWhere((item) => item.file.id == file.id);
     if (index == -1) return;
 
+    /// Performs `_setState` logic for this form component.
     _setState(() {
       _items[index] = _items[index].copyWith(
         status: status,
@@ -212,6 +214,8 @@ extension _FileUploadStateUploads on _FileUploadState {
 
     if (items.isEmpty) {
       _completedOnce = false;
+
+      /// Performs `_setState` logic for this form component.
       _setState(() {});
       return;
     }
@@ -220,6 +224,8 @@ extension _FileUploadStateUploads on _FileUploadState {
     if (_errors.isEmpty) {
       widget.onComplete?.call(items.map((item) => item.file).toList());
     }
+
+    /// Performs `_setState` logic for this form component.
     _setState(() {});
   }
 
@@ -233,6 +239,7 @@ extension _FileUploadStateUploads on _FileUploadState {
     }
     if (widget.files != null) return;
 
+    /// Performs `_setState` logic for this form component.
     _setState(() {
       _items.removeWhere((entry) => entry.file.id == item.file.id);
       if (_items.isEmpty) {
@@ -254,6 +261,8 @@ extension _FileUploadStateUploads on _FileUploadState {
     if (value) {
       _dragDebounce?.cancel();
       if (_dragActive) return;
+
+      /// Performs `_setState` logic for this form component.
       _setState(() => _dragActive = true);
       return;
     }
@@ -261,6 +270,8 @@ extension _FileUploadStateUploads on _FileUploadState {
     _dragDebounce?.cancel();
     _dragDebounce = Timer(const Duration(milliseconds: 120), () {
       if (!mounted) return;
+
+      /// Performs `_setState` logic for this form component.
       _setState(() => _dragActive = false);
     });
   }

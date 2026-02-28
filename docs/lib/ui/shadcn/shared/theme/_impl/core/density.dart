@@ -50,6 +50,7 @@ const gap4xl = 4.0;
 
 /// Density scale used to resolve padding and gap multipliers.
 class Density {
+/// Executes `lerp` behavior for this component/composite.
   static Density lerp(Density a, Density b, double t) {
     return Density(
       baseContainerPadding: lerpDouble(
@@ -99,18 +100,24 @@ class Density {
     );
   }
 
+/// Stores `baseContainerPadding` state/configuration for this implementation.
   final double baseContainerPadding;
+/// Stores `baseGap` state/configuration for this implementation.
   final double baseGap;
+/// Stores `baseContentPadding` state/configuration for this implementation.
   final double baseContentPadding;
 
+/// Creates a `Density` instance.
   const Density({
     required this.baseContainerPadding,
     required this.baseGap,
     required this.baseContentPadding,
   });
 
+/// Executes `toSpacingScale` behavior for this component/composite.
   SpacingScale toSpacingScale() => SpacingScale(baseGap / 2);
 
+/// Creates a `Density` instance.
   Density copyWith({
     ValueGetter<double>? baseContainerPadding,
     ValueGetter<double>? baseGap,
@@ -128,6 +135,7 @@ class Density {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is Density &&
         other.baseContainerPadding == baseContainerPadding &&
@@ -144,8 +152,10 @@ abstract interface class DensityEdgeInsetsGeometry extends EdgeInsetsGeometry {
   EdgeInsetsGeometry resolveDensity(double basePadding);
 }
 
+/// DirectionalEdgeInsetsDensity defines a reusable type for this registry module.
 class DirectionalEdgeInsetsDensity extends EdgeInsetsDirectional
     implements DensityEdgeInsetsGeometry {
+/// Creates a `DirectionalEdgeInsetsDensity.only` instance.
   const DirectionalEdgeInsetsDensity.only({
     super.start = 0.0,
     super.top = 0.0,
@@ -155,12 +165,14 @@ class DirectionalEdgeInsetsDensity extends EdgeInsetsDirectional
 
   const DirectionalEdgeInsetsDensity.all(super.value) : super.all();
 
+/// Creates a `DirectionalEdgeInsetsDensity.symmetric` instance.
   const DirectionalEdgeInsetsDensity.symmetric({
     super.vertical = 0.0,
     super.horizontal = 0.0,
   }) : super.symmetric();
 
   @override
+/// Executes `resolveDensity` behavior for this component/composite.
   EdgeInsetsDirectional resolveDensity(double basePadding) {
     return EdgeInsetsDirectional.only(
       start: start * basePadding,
@@ -186,8 +198,10 @@ class DirectionalEdgeInsetsDensity extends EdgeInsetsDirectional
   }
 }
 
+/// EdgeInsetsDensity defines a reusable type for this registry module.
 class EdgeInsetsDensity extends EdgeInsets
     implements DensityEdgeInsetsGeometry {
+/// Creates a `EdgeInsetsDensity.only` instance.
   const EdgeInsetsDensity.only({
     super.left = 0.0,
     super.top = 0.0,
@@ -197,12 +211,14 @@ class EdgeInsetsDensity extends EdgeInsets
 
   const EdgeInsetsDensity.all(super.value) : super.all();
 
+/// Creates a `EdgeInsetsDensity.symmetric` instance.
   const EdgeInsetsDensity.symmetric({
     super.vertical = 0.0,
     super.horizontal = 0.0,
   }) : super.symmetric();
 
   @override
+/// Executes `resolveDensity` behavior for this component/composite.
   EdgeInsets resolveDensity(double basePadding) {
     return EdgeInsets.only(
       left: left * basePadding,
@@ -240,10 +256,14 @@ EdgeInsetsGeometry resolveEdgeInsets(
   };
 }
 
+/// DensityContentPadding defines a reusable type for this registry module.
 class DensityContentPadding extends StatelessWidget {
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry padding;
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
 
+/// Creates a `DensityContentPadding` instance.
   const DensityContentPadding({
     super.key,
     required this.padding,
@@ -251,6 +271,7 @@ class DensityContentPadding extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final resolvedPadding = resolveEdgeInsets(
@@ -261,10 +282,14 @@ class DensityContentPadding extends StatelessWidget {
   }
 }
 
+/// DensityContainerPadding defines a reusable type for this registry module.
 class DensityContainerPadding extends StatelessWidget {
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry padding;
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
 
+/// Creates a `DensityContainerPadding` instance.
   const DensityContainerPadding({
     super.key,
     required this.padding,
@@ -272,6 +297,7 @@ class DensityContainerPadding extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final resolvedPadding = resolveEdgeInsets(
@@ -282,29 +308,43 @@ class DensityContainerPadding extends StatelessWidget {
   }
 }
 
+/// DensityGap defines a reusable type for this registry module.
 class DensityGap extends StatelessWidget {
+/// Stores `gap` state/configuration for this implementation.
   final double gap;
 
   const DensityGap(this.gap, {super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `adjustedGap` state/configuration for this implementation.
     final adjustedGap = gap * theme.density.baseGap * theme.scaling;
     return Gap(adjustedGap);
   }
 }
 
+/// DensityRow defines a reusable type for this registry module.
 class DensityRow extends StatelessWidget {
+/// Stores `spacing` state/configuration for this implementation.
   final double spacing;
+/// Stores `children` state/configuration for this implementation.
   final List<Widget> children;
+/// Stores `mainAxisAlignment` state/configuration for this implementation.
   final MainAxisAlignment mainAxisAlignment;
+/// Stores `crossAxisAlignment` state/configuration for this implementation.
   final CrossAxisAlignment crossAxisAlignment;
+/// Stores `mainAxisSize` state/configuration for this implementation.
   final MainAxisSize mainAxisSize;
+/// Stores `textDirection` state/configuration for this implementation.
   final TextDirection? textDirection;
+/// Stores `verticalDirection` state/configuration for this implementation.
   final VerticalDirection verticalDirection;
+/// Stores `textBaseline` state/configuration for this implementation.
   final TextBaseline? textBaseline;
 
+/// Creates a `DensityRow` instance.
   const DensityRow({
     super.key,
     this.spacing = 0,
@@ -318,8 +358,10 @@ class DensityRow extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `adjustedSpacing` state/configuration for this implementation.
     final adjustedSpacing = spacing * theme.density.baseGap * theme.scaling;
     return Row(
       mainAxisAlignment: mainAxisAlignment,
@@ -334,16 +376,26 @@ class DensityRow extends StatelessWidget {
   }
 }
 
+/// DensityColumn defines a reusable type for this registry module.
 class DensityColumn extends StatelessWidget {
+/// Stores `spacing` state/configuration for this implementation.
   final double spacing;
+/// Stores `children` state/configuration for this implementation.
   final List<Widget> children;
+/// Stores `mainAxisAlignment` state/configuration for this implementation.
   final MainAxisAlignment mainAxisAlignment;
+/// Stores `crossAxisAlignment` state/configuration for this implementation.
   final CrossAxisAlignment crossAxisAlignment;
+/// Stores `mainAxisSize` state/configuration for this implementation.
   final MainAxisSize mainAxisSize;
+/// Stores `textDirection` state/configuration for this implementation.
   final TextDirection? textDirection;
+/// Stores `verticalDirection` state/configuration for this implementation.
   final VerticalDirection verticalDirection;
+/// Stores `textBaseline` state/configuration for this implementation.
   final TextBaseline? textBaseline;
 
+/// Creates a `DensityColumn` instance.
   const DensityColumn({
     super.key,
     this.spacing = 0,
@@ -357,8 +409,10 @@ class DensityColumn extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `adjustedSpacing` state/configuration for this implementation.
     final adjustedSpacing = spacing * theme.density.baseGap * theme.scaling;
     return Column(
       mainAxisAlignment: mainAxisAlignment,
@@ -373,18 +427,30 @@ class DensityColumn extends StatelessWidget {
   }
 }
 
+/// DensityFlex defines a reusable type for this registry module.
 class DensityFlex extends StatelessWidget {
+/// Stores `direction` state/configuration for this implementation.
   final Axis direction;
+/// Stores `spacing` state/configuration for this implementation.
   final double spacing;
+/// Stores `children` state/configuration for this implementation.
   final List<Widget> children;
+/// Stores `mainAxisAlignment` state/configuration for this implementation.
   final MainAxisAlignment mainAxisAlignment;
+/// Stores `crossAxisAlignment` state/configuration for this implementation.
   final CrossAxisAlignment crossAxisAlignment;
+/// Stores `mainAxisSize` state/configuration for this implementation.
   final MainAxisSize mainAxisSize;
+/// Stores `textDirection` state/configuration for this implementation.
   final TextDirection? textDirection;
+/// Stores `verticalDirection` state/configuration for this implementation.
   final VerticalDirection verticalDirection;
+/// Stores `textBaseline` state/configuration for this implementation.
   final TextBaseline? textBaseline;
+/// Stores `clipBehavior` state/configuration for this implementation.
   final Clip clipBehavior;
 
+/// Creates a `DensityFlex` instance.
   const DensityFlex({
     super.key,
     required this.direction,
@@ -400,8 +466,10 @@ class DensityFlex extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `adjustedSpacing` state/configuration for this implementation.
     final adjustedSpacing = spacing * theme.density.baseGap * theme.scaling;
     return Flex(
       direction: direction,

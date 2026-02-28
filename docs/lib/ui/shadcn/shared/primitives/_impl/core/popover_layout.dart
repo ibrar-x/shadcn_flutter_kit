@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// PopoverLayout defines a reusable type for this registry module.
 class PopoverLayout extends SingleChildRenderObjectWidget {
   /// Popover alignment relative to anchor.
   final Alignment alignment;
@@ -60,6 +61,7 @@ class PopoverLayout extends SingleChildRenderObjectWidget {
   });
 
   @override
+/// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return PopoverLayoutRender(
       alignment: alignment,
@@ -83,6 +85,7 @@ class PopoverLayout extends SingleChildRenderObjectWidget {
     BuildContext context,
     covariant PopoverLayoutRender renderObject,
   ) {
+/// Stores `hasChanged` state/configuration for this implementation.
     bool hasChanged = false;
     if (renderObject._alignment != alignment) {
       renderObject._alignment = alignment;

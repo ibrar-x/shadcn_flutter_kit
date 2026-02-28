@@ -20,11 +20,15 @@ class IndentGuidePath implements BranchLine {
   /// Creates an [IndentGuidePath] with optional custom color.
   const IndentGuidePath({this.color});
 
+  /// Builds the widget tree for tree.
   @override
   Widget build(BuildContext context, List<TreeNodeDepth> depth, int index) {
     bool top = true;
+
     bool right = true;
+
     bool bottom = true;
+
     bool left = false;
 
     if (index >= 0) {

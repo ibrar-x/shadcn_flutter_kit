@@ -28,20 +28,26 @@ class ValidatorBuilder<T> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode lifecycle) {
+    BuildContext context,
+    T? value,
+    FormValidationMode lifecycle,
+  ) {
     return builder(value);
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     return dependencies.contains(source);
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is ValidatorBuilder && other.builder == builder;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => builder.hashCode;
 }

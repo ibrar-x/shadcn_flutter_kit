@@ -83,28 +83,33 @@ class ChatGroup extends StatelessWidget {
     this.avatarSpacing,
   });
 
+  /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final color = styleValue(
-        widgetValue: this.color,
-        themeValue: compTheme?.color,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: this.color,
+      themeValue: compTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
     final type = styleValue(
-        widgetValue: this.type,
-        themeValue: compTheme?.type,
-        defaultValue: ChatBubbleType.tail);
+      widgetValue: this.type,
+      themeValue: compTheme?.type,
+      defaultValue: ChatBubbleType.tail,
+    );
     final groupTheme = ComponentTheme.maybeOf<ChatGroupTheme>(context);
-    final avatarAlignment = styleValue(
-      widgetValue: this.avatarAlignment,
-      themeValue: groupTheme?.avatarAlignment,
-      defaultValue: AxisAlignmentDirectional.end,
-    )
-        .resolve(Directionality.maybeOf(context) ?? TextDirection.ltr)
-        .asVerticalAlignment(AxisAlignment.center);
+    final avatarAlignment =
+        styleValue(
+              widgetValue: this.avatarAlignment,
+              themeValue: groupTheme?.avatarAlignment,
+              defaultValue: AxisAlignmentDirectional.end,
+            )
+            .resolve(Directionality.maybeOf(context) ?? TextDirection.ltr)
+            .asVerticalAlignment(AxisAlignment.center);
     return ComponentTheme<ChatTheme>(
-      data: compTheme?.copyWith(
+      data:
+          compTheme?.copyWith(
             alignment: alignment == null ? null : () => alignment,
             border: border == null ? null : () => border,
             borderRadius: borderRadius == null ? null : () => borderRadius,
@@ -124,40 +129,34 @@ class ChatGroup extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: styleValue(
-              widgetValue: avatarSpacing,
-              themeValue: groupTheme?.avatarSpacing,
-              defaultValue: 8 * theme.scaling),
+            widgetValue: avatarSpacing,
+            themeValue: groupTheme?.avatarSpacing,
+            defaultValue: 8 * theme.scaling,
+          ),
           children: [
             if (avatarPrefix != null)
-              Align(
-                alignment: avatarAlignment,
-                child: avatarPrefix!,
-              ),
+              Align(alignment: avatarAlignment, child: avatarPrefix!),
+
             Flexible(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: styleValue(
-                    widgetValue: spacing,
-                    themeValue: groupTheme?.spacing,
-                    defaultValue: 2 * theme.scaling),
+                  widgetValue: spacing,
+                  themeValue: groupTheme?.spacing,
+                  defaultValue: 2 * theme.scaling,
+                ),
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   for (int i = 0; i < children.length; i++)
                     Data.inherit(
-                      data: ChatBubbleData(
-                        index: i,
-                        length: children.length,
-                      ),
+                      data: ChatBubbleData(index: i, length: children.length),
                       child: children[i],
-                    )
+                    ),
                 ],
               ),
             ),
             if (avatarSuffix != null)
-              Align(
-                alignment: avatarAlignment,
-                child: avatarSuffix!,
-              ),
+              Align(alignment: avatarAlignment, child: avatarSuffix!),
           ],
         ),
       ),

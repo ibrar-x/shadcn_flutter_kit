@@ -1,16 +1,20 @@
 part of '../../table.dart';
 
+/// _TableState defines a reusable type for this registry module.
 class _TableState extends State<Table> {
+/// Stores `_cells` state/configuration for this implementation.
   late List<_FlattenedTableCell> _cells;
   final ValueNotifier<_HoveredCell?> _hoveredCellNotifier = ValueNotifier(null);
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _initCells();
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant Table oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(widget.rows, oldWidget.rows)) {
@@ -18,30 +22,38 @@ class _TableState extends State<Table> {
     }
   }
 
+/// Executes `_initCells` behavior for this component/composite.
   void _initCells() {
     _cells = [];
     for (int r = 0; r < widget.rows.length; r++) {
+/// Stores `row` state/configuration for this implementation.
       final row = widget.rows[r];
       for (int c = 0; c < row.cells.length; c++) {
+/// Stores `cell` state/configuration for this implementation.
         final cell = row.cells[c];
-        _cells.add(_FlattenedTableCell(
-          column: c,
-          row: r,
-          columnSpan: cell.columnSpan,
-          rowSpan: cell.rowSpan,
-          builder: cell.build,
-          enabled: cell.enabled,
-          hoveredCellNotifier: _hoveredCellNotifier,
-          dragNotifier: null,
-          tableCellThemeBuilder: row.buildDefaultTheme,
-          selected: row.selected,
-        ));
+/// Creates a `_cells.add` instance.
+        _cells.add(
+/// Creates a `_FlattenedTableCell` instance.
+          _FlattenedTableCell(
+            column: c,
+            row: r,
+            columnSpan: cell.columnSpan,
+            rowSpan: cell.rowSpan,
+            builder: cell.build,
+            enabled: cell.enabled,
+            hoveredCellNotifier: _hoveredCellNotifier,
+            dragNotifier: null,
+            tableCellThemeBuilder: row.buildDefaultTheme,
+            selected: row.selected,
+          ),
+        );
       }
     }
     _cells = _reorganizeCells(_cells);
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     TableTheme? tableTheme =
         widget.theme ?? ComponentTheme.maybeOf<TableTheme>(context);
@@ -79,9 +91,11 @@ class _TableState extends State<Table> {
               row: cell.row,
               columnSpan: cell.columnSpan,
               rowSpan: cell.rowSpan,
-              child: Builder(builder: (context) {
-                return cell.builder(context);
-              }),
+              child: Builder(
+                builder: (context) {
+                  return cell.builder(context);
+                },
+              ),
             ),
           );
         }).toList(),

@@ -1,5 +1,6 @@
 part of '../../swiper.dart';
 
+/// SheetSwiperHandler defines a reusable type for this registry module.
 class SheetSwiperHandler extends SwiperHandler {
   /// Creates a sheet-style swiper handler.
   const SheetSwiperHandler();

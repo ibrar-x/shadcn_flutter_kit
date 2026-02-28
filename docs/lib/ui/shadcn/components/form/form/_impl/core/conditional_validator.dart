@@ -28,12 +28,18 @@ class ConditionalValidator<T> extends Validator<T> {
   final List<FormKey> dependencies;
 
   /// Creates a [ConditionalValidator] with the specified predicate and dependencies.
-  const ConditionalValidator(this.predicate,
-      {required this.message, this.dependencies = const []});
+  const ConditionalValidator(
+    this.predicate, {
+    required this.message,
+    this.dependencies = const [],
+  });
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode lifecycle) {
+    BuildContext context,
+    T? value,
+    FormValidationMode lifecycle,
+  ) {
     var result = predicate(value);
     if (result is Future<bool>) {
       return result.then((value) {
@@ -49,11 +55,13 @@ class ConditionalValidator<T> extends Validator<T> {
     return null;
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     return dependencies.contains(source);
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is ConditionalValidator &&

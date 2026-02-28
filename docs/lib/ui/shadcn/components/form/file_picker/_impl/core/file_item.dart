@@ -2,6 +2,7 @@ part of '../../file_picker.dart';
 
 /// A widget representing a single file item in a file upload list.
 class FileItem extends StatelessWidget {
+  /// Constructs `FileItem` with the provided parameters.
   const FileItem({
     super.key,
     required this.item,
@@ -14,15 +15,31 @@ class FileItem extends StatelessWidget {
     this.thumbnail,
   });
 
+  /// Field storing `item` for this form implementation.
   final FileUploadItem item;
+
+  /// Field storing `statusLabels` for this form implementation.
   final FileUploadStatusLabels statusLabels;
+
+  /// Field storing `itemLoading` for this form implementation.
   final FileUploadItemLoadingOptions itemLoading;
+
+  /// Callback invoked for `onRemove` events.
   final VoidCallback? onRemove;
+
+  /// Callback invoked for `onRetry` events.
   final VoidCallback? onRetry;
+
+  /// Callback invoked for `onDownload` events.
   final VoidCallback? onDownload;
+
+  /// Callback invoked for `onPreview` events.
   final VoidCallback? onPreview;
+
+  /// Field storing `thumbnail` for this form implementation.
   final Widget? thumbnail;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -87,7 +104,7 @@ class FileItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: resolvedThumbnail,
                 ),
-                const DensityGap(gapMd),
+                DensityGap(gapMd),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +115,7 @@ class FileItem extends StatelessWidget {
                         ),
                         child: Text(item.file.name),
                       ),
-                      const DensityGap(gapXs),
+                      DensityGap(gapXs),
                       DefaultTextStyle.merge(
                         style: theme.typography.xSmall.copyWith(
                           color: theme.colorScheme.mutedForeground,
@@ -137,7 +154,7 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (loadingIndicator != null) const DensityGap(gapMd),
+            if (loadingIndicator != null) DensityGap(gapMd),
             if (loadingIndicator != null) loadingIndicator,
           ],
         ),
@@ -145,6 +162,7 @@ class FileItem extends StatelessWidget {
     );
   }
 
+  /// Performs `_buildLoadingIndicator` logic for this form component.
   Widget? _buildLoadingIndicator(BuildContext context, double scaling) {
     if (!itemLoading.showForStatuses.contains(item.status)) {
       return null;
@@ -181,6 +199,7 @@ class FileItem extends StatelessWidget {
         ),
       );
     }
+
     final extension = item.file.resolvedExtension;
     return IconTheme(
       data: IconThemeData(
@@ -191,16 +210,19 @@ class FileItem extends StatelessWidget {
     );
   }
 
+  /// Performs `_fileTypeLabel` logic for this form component.
   String _fileTypeLabel(FileLike file) {
     final extension = file.resolvedExtension;
     if (extension.isEmpty) return 'File';
     return extension.toUpperCase();
   }
 
+  /// Performs `_statusLabel` logic for this form component.
   String? _statusLabel(FileUploadItemStatus status) {
     return statusLabels.resolve(status);
   }
 
+  /// Performs `_statusColor` logic for this form component.
   Color? _statusColor(ThemeData theme, FileUploadItemStatus status) {
     switch (status) {
       case FileUploadItemStatus.uploading:

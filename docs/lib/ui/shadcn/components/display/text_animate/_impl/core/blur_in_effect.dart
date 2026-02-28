@@ -13,9 +13,13 @@ class BlurInEffect extends StreamingTextEffectAdapter
   }) : assert(maxBlurSigma >= 0, 'maxBlurSigma must be >= 0');
 
   final Duration duration;
+
   final double maxBlurSigma;
+
   final bool fadeIn;
+
   final double slideUpPx;
+
   final Curve curve;
 
   @override
@@ -82,6 +86,7 @@ class BlurInEffect extends StreamingTextEffectAdapter
     );
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

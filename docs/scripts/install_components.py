@@ -36,6 +36,9 @@ def main() -> None:
     default_registry = (
         docs_root / "../flutter_shadcn_kit/lib/registry/components.json"
     ).resolve()
+    local_cli = (
+        docs_root / "../../shadcn_flutter_cli/bin/flutter_shadcn.dart"
+    ).resolve()
 
     parser = argparse.ArgumentParser(
         description="Install registry components into the docs app using flutter_shadcn."
@@ -57,6 +60,11 @@ def main() -> None:
         help="Skip flutter_shadcn init",
     )
     parser.add_argument(
+        "--reinstall",
+        action="store_true",
+        help="Remove all installed components before init/add",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print commands without executing",
@@ -67,16 +75,26 @@ def main() -> None:
     registry_root = registry_path.parent.resolve()
     component_ids = load_component_ids(registry_path)
 
+    cli_base = ["dart", "run", str(local_cli)]
+
+    if args.reinstall:
+        run(
+            [*cli_base, "remove", "--all"],
+            cwd=docs_root,
+            dry_run=args.dry_run,
+        )
+
     if not args.skip_init:
         run(
             [
-                "flutter_shadcn",
+                *cli_base,
                 "init",
                 "--yes",
+                "--all",
                 "--install-path",
-                "ui/shadcn",
+                "lib/ui/shadcn",
                 "--shared-path",
-                "ui/shadcn/shared",
+                "lib/ui/shadcn/shared",
                 "--include-meta",
                 "--include-preview",
                 "--dev",
@@ -87,10 +105,13 @@ def main() -> None:
             dry_run=args.dry_run,
         )
 
+        # init --all already installs every component.
+        return
+
     for batch in chunk(component_ids, args.batch_size):
         run(
             [
-                "flutter_shadcn",
+                *cli_base,
                 "add",
                 *batch,
                 "--registry",

@@ -5,7 +5,7 @@ import 'package:flutter_shadcn_kit/registry/components/layout/filter_bar/preview
 import 'package:flutter_shadcn_kit/registry/components/layout/app/app.dart';
 import 'package:flutter_shadcn_kit/registry/components/overlay/gooey_toast/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';
-import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
+import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart';
 
 void main() {
   runApp(const _RegistryApp());
@@ -18,7 +18,7 @@ class _RegistryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadcnApp(
       title: 'Filter Bar Preview',
-      theme: const shadcn.ThemeData(),
+      theme: ThemeData(),
       localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
       supportedLocales: ShadcnLocalizations.supportedLocales,
       locale: const Locale('en'),

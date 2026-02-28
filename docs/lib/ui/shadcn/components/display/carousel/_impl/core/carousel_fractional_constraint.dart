@@ -7,5 +7,5 @@ class CarouselFractionalConstraint extends CarouselSizeConstraint {
 
   /// Creates a fractional carousel size constraint.
   const CarouselFractionalConstraint(this.fraction)
-      : assert(fraction > 0, 'fraction must be greater than 0');
+    : assert(fraction > 0, 'fraction must be greater than 0');
 }

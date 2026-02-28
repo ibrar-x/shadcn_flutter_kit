@@ -1,5 +1,6 @@
 part of '../../tabs.dart';
 
+/// TabList defines a reusable type for this registry module.
 class TabList extends StatelessWidget {
   /// List of tab child widgets to display in the tab list.
   ///
@@ -83,6 +84,7 @@ class TabList extends StatelessWidget {
       children: [
         data.index == index ? child.foreground() : child.muted(),
         if (data.index == index)
+/// Creates a `Positioned` instance.
           Positioned(
             bottom: 0,
             left: 0,
@@ -94,8 +96,10 @@ class TabList extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TabListTheme>(context);
     final borderColor = styleValue(

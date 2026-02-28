@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 part '_impl/utils/file_icon_provider_data.dart';
 
+/// Performs `_buildFileIcon` logic for this form component.
 Widget _buildFileIcon(String extension) {
   switch (extension) {
     case 'pdf':
@@ -93,6 +94,7 @@ class FileIconProvider extends StatelessWidget {
   const FileIconProvider({super.key, required this.icons, required this.child})
     : builder = null;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Data.inherit(

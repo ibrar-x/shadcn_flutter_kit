@@ -9,7 +9,7 @@ import '../../control/button/button.dart';
 
 part '_impl/core/collapsible_content.dart';
 part '_impl/state/collapsible_state_data.dart';
-part '_impl/themes/collapsible_theme.dart';
+part '_impl/themes/base/collapsible_theme.dart';
 part '_impl/core/collapsible_trigger.dart';
 part '_impl/state/collapsible_state.dart';
 
@@ -33,8 +33,8 @@ class Collapsible extends StatefulWidget {
   final ValueChanged<bool>? onExpansionChanged;
 
   @override
+  /// Executes `createState` behavior for this component/composite.
   State<Collapsible> createState() => CollapsibleState();
 }
 
 /// Tracks the current expansion state and exposes an event for children.
-

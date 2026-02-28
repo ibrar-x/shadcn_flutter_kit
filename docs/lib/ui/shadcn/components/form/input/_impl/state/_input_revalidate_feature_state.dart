@@ -1,7 +1,9 @@
 part of '../../input.dart';
 
+/// _InputRevalidateFeatureState stores and manages mutable widget state.
 class _InputRevalidateFeatureState
     extends InputFeatureState<InputRevalidateFeature> {
+  /// Performs `_revalidate` logic for this form component.
   void _revalidate() {
     var formFieldHandle = Data.maybeFind<FormFieldHandle>(context);
     if (formFieldHandle != null) {
@@ -9,6 +11,7 @@ class _InputRevalidateFeatureState
     }
   }
 
+  /// Performs `_buildIcon` logic for this form component.
   Widget _buildIcon() {
     return FormPendingBuilder(
       builder: (context, futures, _) {

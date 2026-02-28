@@ -13,7 +13,7 @@ import '../../../shared/utils/util.dart';
 
 /// Theme for [ContextMenuPopup] and context menu widgets.
 
-part '_impl/themes/context_menu_theme.dart';
+part '_impl/themes/base/context_menu_theme.dart';
 part '_impl/core/desktop_editable_text_context_menu.dart';
 part '_impl/core/mobile_editable_text_context_menu.dart';
 part '_impl/core/context_menu_widget.dart';

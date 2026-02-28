@@ -1,5 +1,6 @@
 part of '../../eye_dropper.dart';
 
+/// EyeDropperLayerScope defines a reusable type for this registry module.
 abstract class EyeDropperLayerScope {
   /// Prompts the user to pick a color from the screen.
   ///

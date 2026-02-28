@@ -8,7 +8,7 @@
     "layout",
     "data"
   ],
-  "installedAt": "2026-02-09T10:18:03.212996Z",
+  "installedAt": "2026-02-22T01:08:41.684876Z",
   "shared": [
     "clickable",
     "resizer",
@@ -16,7 +16,6 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/layout/table/README.md",
     "registry/components/layout/table/_impl/core/cell_predicate.dart",
     "registry/components/layout/table/_impl/core/cell_resizer.dart",
     "registry/components/layout/table/_impl/core/constrained_table_size.dart",
@@ -45,15 +44,16 @@
     "registry/components/layout/table/_impl/state/cell_resizer_state_part1.dart",
     "registry/components/layout/table/_impl/state/resizable_table_state.dart",
     "registry/components/layout/table/_impl/state/table_state.dart",
-    "registry/components/layout/table/_impl/themes/resizable_table_theme.dart",
-    "registry/components/layout/table/_impl/themes/table_cell_theme.dart",
-    "registry/components/layout/table/_impl/themes/table_cell_theme_builder.dart",
-    "registry/components/layout/table/_impl/themes/table_theme.dart",
+    "registry/components/layout/table/_impl/themes/base/table_theme.dart",
+    "registry/components/layout/table/_impl/themes/config/table_theme_config.dart",
+    "registry/components/layout/table/_impl/themes/config/table_theme_defaults.dart",
+    "registry/components/layout/table/_impl/themes/config/table_theme_schema.dart",
+    "registry/components/layout/table/_impl/themes/config/table_theme_tokens.dart",
+    "registry/components/layout/table/_impl/themes/variants/resizable_table_theme.dart",
+    "registry/components/layout/table/_impl/themes/variants/table_cell_theme.dart",
+    "registry/components/layout/table/_impl/themes/variants/table_cell_theme_builder.dart",
     "registry/components/layout/table/_impl/utils/resizable_table_controller.dart",
-    "registry/components/layout/table/meta.json",
-    "registry/components/layout/table/preview.dart",
-    "registry/components/layout/table/table.dart",
-    "registry/components/layout/table/table.meta.json"
+    "registry/components/layout/table/table.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

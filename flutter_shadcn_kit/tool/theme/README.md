@@ -13,7 +13,7 @@ Scripts for theme schema/index/config generation and exports.
   - Command: `dart run tool/theme/component_theme_global_configs_generate.dart`
   - Docs: `component_theme_global_configs_generate_readme.md`
 - `theme_index_generate.dart`
-  - Generates `lib/registry/theme.index.json`.
+  - Generates `lib/registry/manifests/theme.index.json`.
   - Command: `dart run tool/theme/theme_index_generate.dart`
   - Docs: `theme_index_generate_readme.md`
 - `theme_preset_dart_parser.dart`

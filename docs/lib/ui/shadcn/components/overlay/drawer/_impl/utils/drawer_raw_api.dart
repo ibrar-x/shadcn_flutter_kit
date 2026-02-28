@@ -17,17 +17,25 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
   BoxConstraints? constraints,
   AlignmentGeometry? alignment,
 }) {
-  DrawerLayerData? parentLayer =
-      DrawerOverlay.maybeFind(context, useRootDrawerOverlay);
+  DrawerLayerData? parentLayer = DrawerOverlay.maybeFind(
+    context,
+    useRootDrawerOverlay,
+  );
+/// Stores `themes` state/configuration for this implementation.
   CapturedThemes? themes;
+/// Stores `data` state/configuration for this implementation.
   CapturedData? data;
   if (parentLayer != null) {
-    themes =
-        InheritedTheme.capture(from: context, to: parentLayer.overlay.context);
+    themes = InheritedTheme.capture(
+      from: context,
+      to: parentLayer.overlay.context,
+    );
     data = Data.capture(from: context, to: parentLayer.overlay.context);
   } else {
-    parentLayer =
-        DrawerOverlay.maybeFindMessenger(context, useRootDrawerOverlay);
+    parentLayer = DrawerOverlay.maybeFindMessenger(
+      context,
+      useRootDrawerOverlay,
+    );
   }
   parentLayer ??= DrawerOverlay.currentLayer;
   assert(parentLayer != null, 'No DrawerOverlay found in the widget tree');
@@ -38,9 +46,11 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
     builder: (context, extraSize, size, padding, stackIndex) {
       return _DrawerOverlayWrapper(
         completer: completer,
-        child: Builder(builder: (context) {
-          return builder(context, extraSize, size, padding, stackIndex);
-        }),
+        child: Builder(
+          builder: (context) {
+            return builder(context, extraSize, size, padding, stackIndex);
+          },
+        ),
       );
     },
     modal: modal,
@@ -53,83 +63,85 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
         ? (context, child, animation, stackIndex) {
             final theme = Theme.of(context);
             final existingData = Data.maybeOf<BackdropTransformData>(context);
-            return LayoutBuilder(builder: (context, constraints) {
-              return stackIndex == 0
-                  ? AnimatedBuilder(
-                      animation: animation,
-                      builder: (context, child) {
-                        Size size = constraints.biggest;
-                        double scale =
-                            1 - (1 - kBackdropScaleDown) * animation.value;
-                        Size sizeAfterScale = Size(
-                          size.width * scale,
-                          size.height * scale,
-                        );
-                        var extraSize = Size(
-                          size.width -
-                              sizeAfterScale.width / kBackdropScaleDown,
-                          size.height -
-                              sizeAfterScale.height / kBackdropScaleDown,
-                        );
-                        if (existingData != null) {
-                          extraSize = Size(
-                            extraSize.width +
-                                existingData.sizeDifference.width /
-                                    kBackdropScaleDown,
-                            extraSize.height +
-                                existingData.sizeDifference.height /
-                                    kBackdropScaleDown,
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                return stackIndex == 0
+                    ? AnimatedBuilder(
+                        animation: animation,
+                        builder: (context, child) {
+/// Stores `size` state/configuration for this implementation.
+                          Size size = constraints.biggest;
+                          double scale =
+                              1 - (1 - kBackdropScaleDown) * animation.value;
+                          Size sizeAfterScale = Size(
+                            size.width * scale,
+                            size.height * scale,
                           );
-                        }
-                        return Data.inherit(
-                          data: BackdropTransformData(extraSize),
-                          child: Transform.scale(
-                            scale: scale,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  theme.radiusXxl * animation.value),
-                              child: child,
+                          var extraSize = Size(
+                            size.width -
+                                sizeAfterScale.width / kBackdropScaleDown,
+                            size.height -
+                                sizeAfterScale.height / kBackdropScaleDown,
+                          );
+                          if (existingData != null) {
+                            extraSize = Size(
+                              extraSize.width +
+                                  existingData.sizeDifference.width /
+                                      kBackdropScaleDown,
+                              extraSize.height +
+                                  existingData.sizeDifference.height /
+                                      kBackdropScaleDown,
+                            );
+                          }
+                          return Data.inherit(
+                            data: BackdropTransformData(extraSize),
+                            child: Transform.scale(
+                              scale: scale,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  theme.radiusXxl * animation.value,
+                                ),
+                                child: child,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: child,
-                    )
-                  : AnimatedBuilder(
-                      animation: animation,
-                      builder: (context, child) {
-                        Size size = constraints.biggest;
-                        double scale =
-                            1 - (1 - kBackdropScaleDown) * animation.value;
-                        Size sizeAfterScale = Size(
-                          size.width * scale,
-                          size.height * scale,
-                        );
-                        var extraSize = Size(
-                          size.width - sizeAfterScale.width,
-                          size.height - sizeAfterScale.height,
-                        );
-                        if (existingData != null) {
-                          extraSize = Size(
-                            extraSize.width +
-                                existingData.sizeDifference.width /
-                                    kBackdropScaleDown,
-                            extraSize.height +
-                                existingData.sizeDifference.height /
-                                    kBackdropScaleDown,
                           );
-                        }
-                        return Data.inherit(
-                          data: BackdropTransformData(extraSize),
-                          child: Transform.scale(
-                            scale: scale,
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: child,
-                    );
-            });
+                        },
+                        child: child,
+                      )
+                    : AnimatedBuilder(
+                        animation: animation,
+                        builder: (context, child) {
+/// Stores `size` state/configuration for this implementation.
+                          Size size = constraints.biggest;
+                          double scale =
+                              1 - (1 - kBackdropScaleDown) * animation.value;
+                          Size sizeAfterScale = Size(
+                            size.width * scale,
+                            size.height * scale,
+                          );
+                          var extraSize = Size(
+                            size.width - sizeAfterScale.width,
+                            size.height - sizeAfterScale.height,
+                          );
+                          if (existingData != null) {
+                            extraSize = Size(
+                              extraSize.width +
+                                  existingData.sizeDifference.width /
+                                      kBackdropScaleDown,
+                              extraSize.height +
+                                  existingData.sizeDifference.height /
+                                      kBackdropScaleDown,
+                            );
+                          }
+                          return Data.inherit(
+                            data: BackdropTransformData(extraSize),
+                            child: Transform.scale(scale: scale, child: child),
+                          );
+                        },
+                        child: child,
+                      );
+              },
+            );
           }
         : (context, child, animation, stackIndex) => child,
     barrierBuilder: (context, child, animation, stackIndex) {
@@ -156,9 +168,7 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: barrierDismissible ? () => closeDrawer(context) : null,
-              child: Container(
-                child: backdropBuilder?.call(context),
-              ),
+              child: Container(child: backdropBuilder?.call(context)),
             ),
           ),
         ),
@@ -168,6 +178,7 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
     completer: completer,
     position: position,
   );
+/// Stores `overlay` state/configuration for this implementation.
   final overlay = parentLayer!.overlay;
   overlay.addEntry(entry);
   completer.future.whenComplete(() {

@@ -65,15 +65,18 @@ class FormattedValue {
     return null;
   }
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() => parts.join();
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FormattedValue && listEquals(parts, other.parts);
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => parts.hashCode;
 }

@@ -1,0 +1,18 @@
+{
+    "defaultNamespace": "shadcn",
+    "registryMode": "remote",
+    "registryUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+    "installPath": "lib/ui/shadcn",
+    "sharedPath": "lib/ui/shadcn/shared",
+    "checkUpdates": true,
+    "registries": {
+        "shadcn": {
+            "enabled": true,
+            "registryMode": "remote",
+            "registryUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+            "baseUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+            "installPath": "lib/ui/shadcn",
+            "sharedPath": "lib/ui/shadcn/shared"
+        }
+    }
+}

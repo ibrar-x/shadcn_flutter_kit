@@ -8,7 +8,7 @@
     "overlay",
     "navigation"
   ],
-  "installedAt": "2026-02-09T10:18:03.231524Z",
+  "installedAt": "2026-02-22T01:08:41.588080Z",
   "shared": [
     "constants",
     "outlined_container",
@@ -19,14 +19,14 @@
     "menu"
   ],
   "files": [
-    "registry/components/overlay/menubar/README.md",
     "registry/components/overlay/menubar/_impl/core/menubar_widget.dart",
     "registry/components/overlay/menubar/_impl/state/menubar_state.dart",
-    "registry/components/overlay/menubar/_impl/themes/menubar_theme.dart",
-    "registry/components/overlay/menubar/menubar.dart",
-    "registry/components/overlay/menubar/menubar.meta.json",
-    "registry/components/overlay/menubar/meta.json",
-    "registry/components/overlay/menubar/preview.dart"
+    "registry/components/overlay/menubar/_impl/themes/base/menubar_theme.dart",
+    "registry/components/overlay/menubar/_impl/themes/config/menubar_theme_config.dart",
+    "registry/components/overlay/menubar/_impl/themes/config/menubar_theme_defaults.dart",
+    "registry/components/overlay/menubar/_impl/themes/config/menubar_theme_schema.dart",
+    "registry/components/overlay/menubar/_impl/themes/config/menubar_theme_tokens.dart",
+    "registry/components/overlay/menubar/menubar.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -8,7 +8,7 @@
     "bar",
     "tabs"
   ],
-  "installedAt": "2026-02-09T10:18:03.218385Z",
+  "installedAt": "2026-02-22T01:08:41.637802Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -22,7 +22,6 @@
     "hidden"
   ],
   "files": [
-    "registry/components/navigation/navigation_bar/README.md",
     "registry/components/navigation/navigation_bar/_impl/core/_navigation_child_overflow_handle.dart",
     "registry/components/navigation/navigation_bar/_impl/core/_navigation_label_background_painter.dart",
     "registry/components/navigation/navigation_bar/_impl/core/_navigation_labeled.dart",
@@ -47,12 +46,13 @@
     "registry/components/navigation/navigation_bar/_impl/state/_navigation_item_state.dart",
     "registry/components/navigation/navigation_bar/_impl/state/_navigation_rail_state.dart",
     "registry/components/navigation/navigation_bar/_impl/state/_navigation_sidebar_state.dart",
-    "registry/components/navigation/navigation_bar/_impl/themes/navigation_bar_theme.dart",
+    "registry/components/navigation/navigation_bar/_impl/themes/base/navigation_bar_theme.dart",
+    "registry/components/navigation/navigation_bar/_impl/themes/config/navigation_bar_theme_config.dart",
+    "registry/components/navigation/navigation_bar/_impl/themes/config/navigation_bar_theme_defaults.dart",
+    "registry/components/navigation/navigation_bar/_impl/themes/config/navigation_bar_theme_schema.dart",
+    "registry/components/navigation/navigation_bar/_impl/themes/config/navigation_bar_theme_tokens.dart",
     "registry/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart",
-    "registry/components/navigation/navigation_bar/meta.json",
-    "registry/components/navigation/navigation_bar/navigation_bar.dart",
-    "registry/components/navigation/navigation_bar/navigation_bar.meta.json",
-    "registry/components/navigation/navigation_bar/preview.dart"
+    "registry/components/navigation/navigation_bar/navigation_bar.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

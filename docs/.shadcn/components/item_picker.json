@@ -8,7 +8,7 @@
     "picker",
     "selection"
   ],
-  "installedAt": "2026-02-09T10:18:03.205232Z",
+  "installedAt": "2026-02-22T01:08:41.536668Z",
   "shared": [
     "overlay",
     "text_modifiers",
@@ -22,7 +22,6 @@
     "form_field"
   ],
   "files": [
-    "registry/components/form/item_picker/README.md",
     "registry/components/form/item_picker/_impl/core/_internal_item_picker.dart",
     "registry/components/form/item_picker/_impl/core/grid_item_picker_layout.dart",
     "registry/components/form/item_picker/_impl/core/item_list.dart",
@@ -35,10 +34,7 @@
     "registry/components/form/item_picker/_impl/state/_item_picker_preview_state.dart",
     "registry/components/form/item_picker/_impl/utils/item_builder.dart",
     "registry/components/form/item_picker/_impl/utils/item_child_delegate.dart",
-    "registry/components/form/item_picker/item_picker.dart",
-    "registry/components/form/item_picker/item_picker.meta.json",
-    "registry/components/form/item_picker/meta.json",
-    "registry/components/form/item_picker/preview.dart"
+    "registry/components/form/item_picker/item_picker.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

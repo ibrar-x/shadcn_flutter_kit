@@ -1,22 +1,26 @@
 part of '../../checkbox.dart';
 
+/// _CheckboxState stores and manages mutable widget state.
 class _CheckboxState extends State<Checkbox>
     with FormValueSupplier<CheckboxState, Checkbox> {
   final bool _focusing = false;
   bool _shouldAnimate = false;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.state;
   }
 
+  /// Performs `_changeTo` logic for this form component.
   void _changeTo(CheckboxState state) {
     if (widget.onChanged != null) {
       widget.onChanged!(state);
     }
   }
 
+  /// Performs `_tap` logic for this form component.
   void _tap() {
     if (widget.tristate) {
       switch (widget.state) {
@@ -39,11 +43,13 @@ class _CheckboxState extends State<Checkbox>
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(CheckboxState value) {
     _changeTo(value);
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant Checkbox oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -55,35 +61,42 @@ class _CheckboxState extends State<Checkbox>
 
   bool get enabled => widget.enabled ?? widget.onChanged != null;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<CheckboxTheme>(context);
     final size = styleValue(
-        widgetValue: widget.size,
-        themeValue: compTheme?.size,
-        defaultValue: 16 * scaling);
+      widgetValue: widget.size,
+      themeValue: compTheme?.size,
+      defaultValue: 16 * scaling,
+    );
     final gap = styleValue(
-        widgetValue: widget.gap,
-        themeValue: compTheme?.gap,
-        defaultValue: 8 * scaling);
+      widgetValue: widget.gap,
+      themeValue: compTheme?.gap,
+      defaultValue: 8 * scaling,
+    );
     final backgroundColor = styleValue(
-        widgetValue: widget.backgroundColor,
-        themeValue: compTheme?.backgroundColor,
-        defaultValue: theme.colorScheme.input.scaleAlpha(0.3));
+      widgetValue: widget.backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.input.scaleAlpha(0.3),
+    );
     final activeColor = styleValue(
-        widgetValue: widget.activeColor,
-        themeValue: compTheme?.activeColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: widget.activeColor,
+      themeValue: compTheme?.activeColor,
+      defaultValue: theme.colorScheme.primary,
+    );
     final borderColor = styleValue(
-        widgetValue: widget.borderColor,
-        themeValue: compTheme?.borderColor,
-        defaultValue: theme.colorScheme.border);
+      widgetValue: widget.borderColor,
+      themeValue: compTheme?.borderColor,
+      defaultValue: theme.colorScheme.border,
+    );
     final borderRadius = styleValue<BorderRadiusGeometry>(
-        widgetValue: widget.borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.circular(theme.radiusSm));
+      widgetValue: widget.borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusSm),
+    );
     return Clickable(
       enabled: widget.onChanged != null,
       mouseCursor: enabled
@@ -107,13 +120,13 @@ class _CheckboxState extends State<Checkbox>
                   : backgroundColor,
               borderRadius:
                   optionallyResolveBorderRadius(context, borderRadius) ??
-                      BorderRadius.circular(theme.radiusSm),
+                  BorderRadius.circular(theme.radiusSm),
               border: Border.all(
                 color: !enabled
                     ? theme.colorScheme.muted
                     : widget.state == CheckboxState.checked
-                        ? activeColor
-                        : borderColor,
+                    ? activeColor
+                    : borderColor,
                 width: (_focusing ? 2 : 1) * scaling,
               ),
             ),

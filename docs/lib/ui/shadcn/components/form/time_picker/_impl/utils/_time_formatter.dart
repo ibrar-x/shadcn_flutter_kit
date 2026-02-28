@@ -1,19 +1,26 @@
 part of '../../time_picker.dart';
 
+/// _TimeFormatter represents a form-related type in the registry.
 class _TimeFormatter extends TextInputFormatter {
   const _TimeFormatter();
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // make sure new value has leading zero
     var newText = newValue.text;
+
     int substringCount = 0;
     if (newText.length > 2) {
       substringCount = newText.length - 2;
       newText = newText.substring(substringCount);
     }
+
     int padLength = 2 - newText.length;
+
     var baseOffset2 = newValue.selection.baseOffset;
+
     var extentOffset2 = newValue.selection.extentOffset;
     if (padLength > 0) {
       newText = newText.padLeft(2, '0');

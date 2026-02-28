@@ -7,7 +7,7 @@
     "navigation",
     "pagination"
   ],
-  "installedAt": "2026-02-09T10:18:03.216579Z",
+  "installedAt": "2026-02-22T01:08:41.616445Z",
   "shared": [
     "localizations",
     "radix_icons",
@@ -19,13 +19,9 @@
     "triple_dots"
   ],
   "files": [
-    "registry/components/navigation/pagination/README.md",
     "registry/components/navigation/pagination/_impl/core/pagination_2.dart",
     "registry/components/navigation/pagination/_impl/state/_pagination_preview_state.dart",
-    "registry/components/navigation/pagination/meta.json",
-    "registry/components/navigation/pagination/pagination.dart",
-    "registry/components/navigation/pagination/pagination.meta.json",
-    "registry/components/navigation/pagination/preview.dart"
+    "registry/components/navigation/pagination/pagination.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

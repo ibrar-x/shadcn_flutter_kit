@@ -1,5 +1,6 @@
 part of '../../overflow_marquee.dart';
 
+/// OverflowMarquee defines a reusable type for this registry module.
 class OverflowMarquee extends StatefulWidget {
   /// The child widget to display and potentially scroll.
   final Widget child;
@@ -69,5 +70,6 @@ class OverflowMarquee extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<OverflowMarquee> createState() => _OverflowMarqueeState();
 }

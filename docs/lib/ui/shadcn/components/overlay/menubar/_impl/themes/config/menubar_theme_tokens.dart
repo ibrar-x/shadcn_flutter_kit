@@ -1,0 +1,30 @@
+import 'package:flutter/widgets.dart';
+
+// ═══════════════════════════════════════════════════════════
+// COMPONENT THEME TOKENS
+// User customization layer (replace this file from website output)
+// ═══════════════════════════════════════════════════════════
+
+class MenubarThemeTokens {
+  const MenubarThemeTokens({
+    this.border = true,
+    this.subMenuOffset = const Offset(-4.0, 8.0),
+    this.padding,
+    this.borderColor,
+    this.backgroundColor,
+    this.borderRadius,
+    this.ignoreGlobalScaling = false,
+    this.ignoreGlobalRadius = false,
+  });
+
+  final bool border;
+  final Offset subMenuOffset;
+  final EdgeInsetsGeometry? padding;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
+  final bool ignoreGlobalScaling;
+  final bool ignoreGlobalRadius;
+}
+
+const menubarThemeTokens = MenubarThemeTokens();

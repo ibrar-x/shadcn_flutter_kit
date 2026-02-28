@@ -160,6 +160,7 @@ class ControlledCheckbox extends StatelessWidget
     this.borderRadius,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return ControlledComponentAdapter<CheckboxState>(

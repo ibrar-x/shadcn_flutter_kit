@@ -1,18 +1,22 @@
 part of '../../multiple_choice.dart';
 
+/// _MultipleChoiceState stores and manages mutable widget state.
 class _MultipleChoiceState<T> extends State<MultipleChoice<T>>
     with Choice<T>, FormValueSupplier<T?, MultipleChoice<T>> {
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(T? value) {
     widget.onChanged?.call(value);
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant MultipleChoice<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -21,14 +25,13 @@ class _MultipleChoiceState<T> extends State<MultipleChoice<T>>
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return Data<Choice<T>>.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data<Choice<T>>.inherit(data: this, child: widget.child);
   }
 
+  /// Performs `selectItem` logic for this form component.
   @override
   void selectItem(T item) {
     if (widget.enabled == false) {

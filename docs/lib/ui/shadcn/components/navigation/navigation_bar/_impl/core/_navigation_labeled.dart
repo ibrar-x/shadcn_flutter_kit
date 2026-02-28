@@ -1,16 +1,27 @@
 part of '../../navigation_bar.dart';
 
+/// _NavigationLabeled defines a reusable type for this registry module.
 class _NavigationLabeled extends StatelessWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `label` state/configuration for this implementation.
   final Widget label;
+/// Stores `position` state/configuration for this implementation.
   final NavigationLabelPosition position;
+/// Stores `spacing` state/configuration for this implementation.
   final double spacing;
+/// Stores `showLabel` state/configuration for this implementation.
   final bool showLabel;
+/// Stores `labelType` state/configuration for this implementation.
   final NavigationLabelType labelType;
+/// Stores `direction` state/configuration for this implementation.
   final Axis direction;
+/// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool keepCrossAxisSize;
+/// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool keepMainAxisSize;
 
+/// Creates a `_NavigationLabeled` instance.
   const _NavigationLabeled({
     required this.child,
     required this.label,
@@ -24,20 +35,25 @@ class _NavigationLabeled extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    var direction = position == NavigationLabelPosition.top ||
+    var direction =
+        position == NavigationLabelPosition.top ||
             position == NavigationLabelPosition.bottom
         ? Axis.vertical
         : Axis.horizontal;
     var animatedSize = Hidden(
       hidden: !showLabel,
       direction: direction,
-      reverse: position == NavigationLabelPosition.start ||
+      reverse:
+          position == NavigationLabelPosition.start ||
           position == NavigationLabelPosition.top,
-      keepCrossAxisSize:
-          (this.direction != direction ? keepCrossAxisSize : keepMainAxisSize),
-      keepMainAxisSize:
-          (this.direction != direction ? keepMainAxisSize : keepCrossAxisSize),
+      keepCrossAxisSize: (this.direction != direction
+          ? keepCrossAxisSize
+          : keepMainAxisSize),
+      keepMainAxisSize: (this.direction != direction
+          ? keepMainAxisSize
+          : keepCrossAxisSize),
       child: Padding(
         padding: EdgeInsetsDirectional.only(
           top: position == NavigationLabelPosition.bottom ? spacing : 0,
@@ -56,10 +72,12 @@ class _NavigationLabeled extends StatelessWidget {
           children: [
             if (position == NavigationLabelPosition.start ||
                 position == NavigationLabelPosition.top)
+/// Creates a `Flexible` instance.
               Flexible(child: animatedSize),
             child,
             if (position == NavigationLabelPosition.end ||
                 position == NavigationLabelPosition.bottom)
+/// Creates a `Flexible` instance.
               Flexible(child: animatedSize),
           ],
         ),

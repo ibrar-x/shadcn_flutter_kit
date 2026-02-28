@@ -2,11 +2,19 @@ part of '../../divider.dart';
 
 /// Paints a horizontal line for the divider.
 class DividerPainter extends CustomPainter {
+  /// Color value used by divider painting or state styling.
   final Color color;
+
+  /// Input parameter used by `DividerPainter` during rendering and behavior handling.
   final double thickness;
+
+  /// Input parameter used by `DividerPainter` during rendering and behavior handling.
   final double indent;
+
+  /// Input parameter used by `DividerPainter` during rendering and behavior handling.
   final double endIndent;
 
+  /// Creates `DividerPainter` for configuring or rendering divider.
   DividerPainter({
     required this.color,
     required this.thickness,
@@ -14,6 +22,7 @@ class DividerPainter extends CustomPainter {
     required this.endIndent,
   });
 
+  /// Implements `paint` behavior for divider.
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -25,6 +34,7 @@ class DividerPainter extends CustomPainter {
     canvas.drawLine(start, end, paint);
   }
 
+  /// Implements `shouldRepaint` behavior for divider.
   @override
   bool shouldRepaint(covariant DividerPainter oldDelegate) {
     return oldDelegate.color != color ||

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../subfocus/subfocus.dart';
 
+/// SubfocusPreview defines a reusable type for this registry module.
 class SubfocusPreview extends StatelessWidget {
   const SubfocusPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -31,8 +33,9 @@ class SubfocusPreview extends StatelessWidget {
                         child: Text(
                           'Focusable ${index + 1}',
                           style: TextStyle(
-                            color:
-                                state.isFocused ? Colors.white : Colors.black,
+                            color: state.isFocused
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                       );

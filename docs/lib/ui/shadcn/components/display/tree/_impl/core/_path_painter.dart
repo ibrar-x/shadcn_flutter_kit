@@ -1,12 +1,23 @@
 part of '../../tree.dart';
 
+/// Custom painter responsible for drawing tree-specific visuals.
 class _PathPainter extends CustomPainter {
+  /// Color value used by tree painting or state styling.
   final Color color;
+
+  /// Input parameter used by `_PathPainter` during rendering and behavior handling.
   final bool top;
+
+  /// Input parameter used by `_PathPainter` during rendering and behavior handling.
   final bool right;
+
+  /// Input parameter used by `_PathPainter` during rendering and behavior handling.
   final bool bottom;
+
+  /// Input parameter used by `_PathPainter` during rendering and behavior handling.
   final bool left;
 
+  /// Creates `_PathPainter` for configuring or rendering tree.
   _PathPainter({
     required this.color,
     this.top = false,
@@ -15,6 +26,7 @@ class _PathPainter extends CustomPainter {
     this.left = false,
   });
 
+  /// Implements `paint` behavior for tree.
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -23,7 +35,9 @@ class _PathPainter extends CustomPainter {
       ..strokeWidth = 1
       ..strokeCap = StrokeCap.round;
     final path = Path();
+
     final halfWidth = size.width / 2;
+
     final halfHeight = size.height / 2;
     if (top) {
       path.moveTo(halfWidth, 0);
@@ -44,6 +58,7 @@ class _PathPainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
+  /// Implements `shouldRepaint` behavior for tree.
   @override
   bool shouldRepaint(covariant _PathPainter oldDelegate) {
     return oldDelegate.color != color ||

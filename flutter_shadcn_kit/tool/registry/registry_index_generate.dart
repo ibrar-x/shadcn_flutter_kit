@@ -140,14 +140,16 @@ void main(List<String> args) {
 
   final root = _findRepoRoot(Directory.current);
   if (root == null) {
-    stderr.writeln('Error: Could not locate lib/registry/components.json');
+    stderr.writeln(
+      'Error: Could not locate lib/registry/manifests/components.json',
+    );
     exitCode = 1;
     return;
   }
 
   final registryDir = '${root.path}/lib/registry';
-  final componentsJson = '$registryDir/components.json';
-  final indexJson = '$registryDir/index.json';
+  final componentsJson = '$registryDir/manifests/components.json';
+  final indexJson = '$registryDir/manifests/index.json';
 
   final registry = readJson(componentsJson);
 
@@ -326,7 +328,9 @@ String? detectFolderFromSource(String registryDir, String source) {
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
-    final candidate = File('${current.path}/lib/registry/components.json');
+    final candidate = File(
+      '${current.path}/lib/registry/manifests/components.json',
+    );
     if (candidate.existsSync()) {
       return current;
     }

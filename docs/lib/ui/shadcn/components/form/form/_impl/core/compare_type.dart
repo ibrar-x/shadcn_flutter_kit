@@ -17,5 +17,5 @@ enum CompareType {
   lessOrEqual,
 
   /// Value must be equal to the compared value.
-  equal
+  equal,
 }

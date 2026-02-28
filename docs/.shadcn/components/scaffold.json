@@ -8,7 +8,7 @@
     "scaffold",
     "structure"
   ],
-  "installedAt": "2026-02-09T10:18:03.214609Z",
+  "installedAt": "2026-02-22T01:08:41.695773Z",
   "shared": [
     "color_extensions",
     "theme",
@@ -20,7 +20,6 @@
     "text"
   ],
   "files": [
-    "registry/components/layout/scaffold/README.md",
     "registry/components/layout/scaffold/_impl/core/_render_scaffold_padding.dart",
     "registry/components/layout/scaffold/_impl/core/_scaffold_flex.dart",
     "registry/components/layout/scaffold/_impl/core/_scaffold_parent_data.dart",
@@ -34,10 +33,7 @@
     "registry/components/layout/scaffold/_impl/core/scaffold_padding_storage.dart",
     "registry/components/layout/scaffold/_impl/state/_app_bar_state.dart",
     "registry/components/layout/scaffold/_impl/state/scaffold_state.dart",
-    "registry/components/layout/scaffold/meta.json",
-    "registry/components/layout/scaffold/preview.dart",
-    "registry/components/layout/scaffold/scaffold.dart",
-    "registry/components/layout/scaffold/scaffold.meta.json"
+    "registry/components/layout/scaffold/scaffold.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

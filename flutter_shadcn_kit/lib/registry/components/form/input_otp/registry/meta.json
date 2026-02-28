@@ -39,6 +39,7 @@
     "_impl/themes/base/input_otp_theme.dart",
     "_impl/themes/config/input_otp_theme_config.dart",
     "_impl/themes/config/input_otp_theme_defaults.dart",
+    "_impl/themes/config/input_otp_theme_schema.dart",
     "_impl/themes/config/input_otp_theme_tokens.dart",
     "input_otp.dart"
   ],

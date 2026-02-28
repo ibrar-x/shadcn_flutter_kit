@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' as m;
 
 import 'feature_carousel.dart';
+import '_impl/state/feature_carousel_controller.dart';
+import '_impl/utils/feature_carousel_models.dart';
 
+/// Core class used by the feature carousel component.
 class FeatureCarouselPreview extends m.StatelessWidget {
   const FeatureCarouselPreview({super.key});
 
@@ -15,6 +18,7 @@ class FeatureCarouselPreview extends m.StatelessWidget {
         icon: m.Icons.auto_awesome_rounded,
         accentColor: m.Color(0xFF7EA3FF),
       ),
+
       const FeatureCarouselItem(
         title: 'Add a Style Preset Picker',
         description:
@@ -22,6 +26,7 @@ class FeatureCarouselPreview extends m.StatelessWidget {
         icon: m.Icons.palette_rounded,
         accentColor: m.Color(0xFF9B87FF),
       ),
+
       const FeatureCarouselItem(
         title: 'Add a Detail Slider',
         description:
@@ -42,10 +47,7 @@ class FeatureCarouselPreview extends m.StatelessWidget {
     return m.Scaffold(
       backgroundColor: const m.Color(0xFF121212),
       body: m.Center(
-        child: FeatureCardCarousel(
-          items: items,
-          controller: controller,
-        ),
+        child: FeatureCardCarousel(items: items, controller: controller),
       ),
     );
   }

@@ -14,7 +14,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 
-part '_impl/themes/refresh_trigger_theme.dart';
+part '_impl/themes/base/refresh_trigger_theme.dart';
 part '_impl/core/refresh_trigger_widget.dart';
 part '_impl/core/default_refresh_indicator.dart';
 part '_impl/state/_default_refresh_indicator_state.dart';
@@ -30,8 +30,8 @@ part '_impl/utils/refresh_trigger_physics.dart';
 /// - [stage]: Current refresh trigger stage with progress information
 ///
 /// Returns a widget that visualizes the refresh state.
-typedef RefreshIndicatorBuilder = Widget Function(
-    BuildContext context, RefreshTriggerStage stage);
+typedef RefreshIndicatorBuilder =
+    Widget Function(BuildContext context, RefreshTriggerStage stage);
 
 /// Callback for async refresh operations.
 ///

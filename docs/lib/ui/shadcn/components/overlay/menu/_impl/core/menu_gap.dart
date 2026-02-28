@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuGap defines a reusable type for this registry module.
 class MenuGap extends StatelessWidget implements MenuItem {
   /// Size of the gap in logical pixels.
   final double size;
@@ -11,14 +12,17 @@ class MenuGap extends StatelessWidget implements MenuItem {
   const MenuGap(this.size, {super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Gap(size);
   }
 
   @override
+/// Stores `hasLeading` state/configuration for this implementation.
   bool get hasLeading => false;
 
   @override
+/// Stores `popoverController` state/configuration for this implementation.
   PopoverController? get popoverController => null;
 }
 

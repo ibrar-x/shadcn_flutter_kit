@@ -8,6 +8,7 @@ import 'error_code.dart';
 import 'error_mapper.dart';
 import 'error_scope.dart';
 
+/// Type alias for `AsyncFn` used by public or internal APIs.
 typedef AsyncFn<T> = Future<T> Function();
 
 Future<T?> guard<T>(
@@ -17,6 +18,7 @@ Future<T?> guard<T>(
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) async {
+/// Stores `notifier` state/configuration for this implementation.
   final notifier = channel ?? scope?.notifier;
   if (notifier == null) {
     throw ArgumentError('guard() requires either scope or channel.');
@@ -35,6 +37,7 @@ Future<T?> guard<T>(
   } catch (e, st) {
     notifier.value =
         fallbackMapper?.map(e, st) ??
+/// Creates a `AppError` instance.
         AppError(
           code: AppErrorCode.unknown,
           title: 'Unexpected Error',
@@ -52,6 +55,7 @@ T? guardSync<T>(
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) {
+/// Stores `notifier` state/configuration for this implementation.
   final notifier = channel ?? scope?.notifier;
   if (notifier == null) {
     throw ArgumentError('guardSync() requires either scope or channel.');
@@ -70,6 +74,7 @@ T? guardSync<T>(
   } catch (e, st) {
     notifier.value =
         fallbackMapper?.map(e, st) ??
+/// Creates a `AppError` instance.
         AppError(
           code: AppErrorCode.unknown,
           title: 'Unexpected Error',

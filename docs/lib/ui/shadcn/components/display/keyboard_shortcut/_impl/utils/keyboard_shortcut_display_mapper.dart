@@ -5,6 +5,7 @@ part of '../../keyboard_shortcut.dart';
 /// Allows customization of how keyboard shortcuts are displayed
 /// throughout the widget tree using a builder function.
 class KeyboardShortcutDisplayMapper extends StatefulWidget {
+  /// Implements `_defaultBuilder` behavior for keyboard shortcut.
   static Widget _defaultBuilder(BuildContext context, LogicalKeyboardKey key) {
     switch (key) {
       case LogicalKeyboardKey.control:
@@ -51,6 +52,7 @@ class KeyboardShortcutDisplayMapper extends StatefulWidget {
     required this.child,
   });
 
+  /// Creates the State object used by this keyboard shortcut widget.
   @override
   State<KeyboardShortcutDisplayMapper> createState() =>
       _KeyboardShortcutDisplayMapperState();

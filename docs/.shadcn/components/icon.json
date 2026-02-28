@@ -7,17 +7,13 @@
     "icon",
     "theme"
   ],
-  "installedAt": "2026-02-09T10:18:03.227141Z",
+  "installedAt": "2026-02-22T01:08:41.554571Z",
   "shared": [
     "theme"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/display/icon/README.md",
-    "registry/components/display/icon/icon.dart",
-    "registry/components/display/icon/icon.meta.json",
-    "registry/components/display/icon/meta.json",
-    "registry/components/display/icon/preview.dart"
+    "registry/components/display/icon/icon.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

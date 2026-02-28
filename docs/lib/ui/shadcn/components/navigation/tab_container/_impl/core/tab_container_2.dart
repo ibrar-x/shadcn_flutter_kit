@@ -1,5 +1,6 @@
 part of '../../tab_container.dart';
 
+/// TabContainer defines a reusable type for this registry module.
 class TabContainer extends StatelessWidget {
   /// Currently selected tab index.
   final int selected;
@@ -34,19 +35,25 @@ class TabContainer extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TabContainerTheme>(context);
-    final tabBuilder = builder ??
+    final tabBuilder =
+        builder ??
         compTheme?.builder ??
         (context, children) => Column(children: children);
     final tabChildBuilder =
         childBuilder ?? compTheme?.childBuilder ?? ((_, __, child) => child);
 
+/// Stores `wrappedChildren` state/configuration for this implementation.
     List<Widget> wrappedChildren = [];
+/// Stores `index` state/configuration for this implementation.
     int index = 0;
     for (TabChild child in children) {
       if (child.indexed) {
+/// Creates a `wrappedChildren.add` instance.
         wrappedChildren.add(
+/// Creates a `Data.inherit` instance.
           Data.inherit(
             key: ValueKey(child),
             data: TabContainerData(
@@ -63,9 +70,6 @@ class TabContainer extends StatelessWidget {
         wrappedChildren.add(child);
       }
     }
-    return tabBuilder(
-      context,
-      wrappedChildren,
-    );
+    return tabBuilder(context, wrappedChildren);
   }
 }

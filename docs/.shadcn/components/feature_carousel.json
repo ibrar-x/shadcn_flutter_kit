@@ -8,11 +8,10 @@
     "carousel",
     "feature"
   ],
-  "installedAt": "2026-02-09T10:18:03.222963Z",
+  "installedAt": "2026-02-22T01:08:41.719933Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "registry/components/display/feature_carousel/README.md",
     "registry/components/display/feature_carousel/_impl/core/_carousel_intent.dart",
     "registry/components/display/feature_carousel/_impl/core/_center_card.dart",
     "registry/components/display/feature_carousel/_impl/core/_cta_button.dart",
@@ -22,13 +21,14 @@
     "registry/components/display/feature_carousel/_impl/core/_nav_arrow.dart",
     "registry/components/display/feature_carousel/_impl/core/feature_card_carousel.dart",
     "registry/components/display/feature_carousel/_impl/state/feature_carousel_controller.dart",
-    "registry/components/display/feature_carousel/_impl/themes/feature_carousel_theme.dart",
+    "registry/components/display/feature_carousel/_impl/themes/base/feature_carousel_theme.dart",
+    "registry/components/display/feature_carousel/_impl/themes/config/feature_carousel_theme_config.dart",
+    "registry/components/display/feature_carousel/_impl/themes/config/feature_carousel_theme_defaults.dart",
+    "registry/components/display/feature_carousel/_impl/themes/config/feature_carousel_theme_schema.dart",
+    "registry/components/display/feature_carousel/_impl/themes/config/feature_carousel_theme_tokens.dart",
     "registry/components/display/feature_carousel/_impl/utils/feature_carousel_animation_style.dart",
     "registry/components/display/feature_carousel/_impl/utils/feature_carousel_models.dart",
-    "registry/components/display/feature_carousel/feature_carousel.dart",
-    "registry/components/display/feature_carousel/feature_carousel.meta.json",
-    "registry/components/display/feature_carousel/meta.json",
-    "registry/components/display/feature_carousel/preview.dart"
+    "registry/components/display/feature_carousel/feature_carousel.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -1,23 +1,94 @@
-# Object Input
+# Object Input (`object_input`)
 
-A collection of composite inputs for dates, times, and durations that combine formatted text fields, controllers, and pickers.
+Date, time, and duration inputs powered by formatted editors and pickers.
 
-- `DateInput` pairs `FormattedObjectInput` fields with `DatePickerDialog`/popover integration and `DatePickerController` wiring so users can edit dates via keyboard or a calendar.
-- `TimeInput` renders split hour/minute/second fields with `InputPart` helpers, optional seconds, and localized abbreviations from `ShadcnLocalizations`.
-- `DurationInput` shares the same formatted input plumbing but works with `Duration` values delivered through the same controller architecture.
+---
+
+## When to use
+
+- Use this when:
+  - you need structured date/time/duration inputs.
+  - you want inline editing plus picker integration.
+- Avoid when:
+  - a plain text field or single picker is sufficient.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add object_input
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/object_input/object_input.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 DateInput(
-  controller: DatePickerController(DateTime.now()),
-  placeholder: Text('Pick date'),
-  parts: [
-    InputPart.editable(length: 4, width: 60),
-    InputPart.static('/'),
-    InputPart.editable(length: 2, width: 40),
-    InputPart.static('/'),
-    InputPart.editable(length: 2, width: 40),
-  ],
+  initialValue: DateTime.now(),
+  onChanged: (value) {},
 )
 ```
 
-The component relies on shared utilities (`BiDirectionalConvert`, `ConvertedController`, `ShadcnLocalizations` extensions) to keep the formatted fields and logical values synchronized.
+---
+
+## API
+
+### Constructor
+
+- `DateInput`
+  - `initialValue`, `onChanged`, `controller`, `enabled`
+  - `mode` (`PromptMode`), `initialView`, `initialViewType`
+  - `datePartsOrder`, `separator`, `placeholders`
+- `TimeInput`
+  - `initialValue`, `onChanged`, `controller`, `enabled`
+  - `use24HourFormat`, `showSeconds`
+- `DurationInput`
+  - `initialValue`, `onChanged`, `controller`, `enabled`
+- `NullableDate`, `NullableTimeOfDay` — wrappers for optional values.
+
+---
+
+## Theming
+
+- Uses shared card and input theming through formatted inputs.
+
+---
+
+## Accessibility
+
+- Ensure each part has clear placeholder text.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `datePartsOrder` to match locale expectations.
+
+**Don’t**
+- ❌ Mix incompatible separators or placeholder lengths.
+
+---
+
+## Related components
+
+- `formatted_input`
+- `date_picker`
+- `time_picker`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

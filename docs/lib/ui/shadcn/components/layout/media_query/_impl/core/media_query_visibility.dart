@@ -1,5 +1,6 @@
 part of '../../media_query.dart';
 
+/// MediaQueryVisibility defines a reusable type for this registry module.
 class MediaQueryVisibility extends StatelessWidget {
   /// Minimum screen width to show [child].
   final double? minWidth;
@@ -23,19 +24,24 @@ class MediaQueryVisibility extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final compTheme =
-        ComponentTheme.maybeOf<MediaQueryVisibilityTheme>(context);
+    final compTheme = ComponentTheme.maybeOf<MediaQueryVisibilityTheme>(
+      context,
+    );
+/// Stores `size` state/configuration for this implementation.
     final size = mediaQuery.size.width;
     final minWidth = styleValue(
-        widgetValue: this.minWidth,
-        themeValue: compTheme?.minWidth,
-        defaultValue: null);
+      widgetValue: this.minWidth,
+      themeValue: compTheme?.minWidth,
+      defaultValue: null,
+    );
     final maxWidth = styleValue(
-        widgetValue: this.maxWidth,
-        themeValue: compTheme?.maxWidth,
-        defaultValue: null);
+      widgetValue: this.maxWidth,
+      themeValue: compTheme?.maxWidth,
+      defaultValue: null,
+    );
     if (minWidth != null && size < minWidth) {
       return SizedBox(child: alternateChild);
     }

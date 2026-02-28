@@ -1,14 +1,25 @@
 part of '../../hidden.dart';
 
+/// HiddenTheme defines a reusable type for this registry module.
 class HiddenTheme extends ComponentThemeData {
+/// Stores `direction` state/configuration for this implementation.
   final Axis? direction;
+/// Stores `duration` state/configuration for this implementation.
   final Duration? duration;
+/// Stores `curve` state/configuration for this implementation.
   final Curve? curve;
+/// Stores `reverse` state/configuration for this implementation.
   final bool? reverse;
+/// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool? keepCrossAxisSize;
+/// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool? keepMainAxisSize;
 
+/// Creates a `HiddenTheme` instance.
   const HiddenTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.direction,
     this.duration,
     this.curve,
@@ -17,6 +28,7 @@ class HiddenTheme extends ComponentThemeData {
     this.keepMainAxisSize,
   });
 
+/// Creates a `HiddenTheme` instance.
   HiddenTheme copyWith({
     ValueGetter<Axis?>? direction,
     ValueGetter<Duration?>? duration,
@@ -33,8 +45,9 @@ class HiddenTheme extends ComponentThemeData {
       keepCrossAxisSize: keepCrossAxisSize == null
           ? this.keepCrossAxisSize
           : keepCrossAxisSize(),
-      keepMainAxisSize:
-          keepMainAxisSize == null ? this.keepMainAxisSize : keepMainAxisSize(),
+      keepMainAxisSize: keepMainAxisSize == null
+          ? this.keepMainAxisSize
+          : keepMainAxisSize(),
     );
   }
 }

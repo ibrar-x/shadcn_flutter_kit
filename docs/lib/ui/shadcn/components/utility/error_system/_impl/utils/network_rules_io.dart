@@ -24,8 +24,11 @@ List<ErrorRule> networkRules({
         title: 'Connection failed',
         message: 'Check your internet connection and try again.',
         actions: [
+/// Creates a `ErrorAction.retry` instance.
           ErrorAction.retry(onRetry),
+/// Creates a `ErrorAction.settings` instance.
           ErrorAction.settings(onSettings),
+/// Creates a `ErrorAction.report` instance.
           ErrorAction.report(onReport),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,

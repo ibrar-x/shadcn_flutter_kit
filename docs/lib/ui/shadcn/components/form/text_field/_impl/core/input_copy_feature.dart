@@ -36,6 +36,7 @@ class InputCopyFeature extends InputFeature {
     this.icon,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputCopyFeatureState();
 }

@@ -1,8 +1,11 @@
 part of '../../object_input.dart';
 
+/// _DateInputState stores and manages mutable widget state.
 class _DateInputState extends State<DateInput> {
+  /// Controller used to coordinate `_controller` behavior.
   late ComponentController<NullableDate> _controller;
 
+  /// Performs `_convertToDateTime` logic for this form component.
   NullableDate _convertToDateTime(List<String?> values) {
     Map<DatePart, String?> parts = {};
     var datePartsOrder =
@@ -19,11 +22,13 @@ class _DateInputState extends State<DateInput> {
     int? month = monthString == null || monthString.isEmpty
         ? null
         : int.tryParse(monthString);
-    int? day =
-        dayString == null || dayString.isEmpty ? null : int.tryParse(dayString);
+    int? day = dayString == null || dayString.isEmpty
+        ? null
+        : int.tryParse(dayString);
     return NullableDate(year: year, month: month, day: day);
   }
 
+  /// Performs `_convertFromDateTime` logic for this form component.
   List<String?> _convertFromDateTime(NullableDate? value) {
     var datePartsOrder =
         widget.datePartsOrder ?? ShadcnLocalizations.of(context).datePartsOrder;
@@ -50,6 +55,7 @@ class _DateInputState extends State<DateInput> {
     }).toList();
   }
 
+  /// Performs `_getWidth` logic for this form component.
   double _getWidth(DatePart part) {
     switch (part) {
       case DatePart.year:
@@ -61,11 +67,13 @@ class _DateInputState extends State<DateInput> {
     }
   }
 
+  /// Performs `_getPlaceholder` logic for this form component.
   Widget _getPlaceholder(DatePart part) {
     var localizations = ShadcnLocalizations.of(context);
     return Text(localizations.getDatePartAbbreviation(part));
   }
 
+  /// Performs `_getLength` logic for this form component.
   int _getLength(DatePart part) {
     switch (part) {
       case DatePart.year:
@@ -77,6 +85,7 @@ class _DateInputState extends State<DateInput> {
     }
   }
 
+  /// Performs `_convertToNullableDate` logic for this form component.
   NullableDate _convertToNullableDate(DateTime? value) {
     if (value == null) {
       return NullableDate();
@@ -84,23 +93,29 @@ class _DateInputState extends State<DateInput> {
     return NullableDate(year: value.year, month: value.month, day: value.day);
   }
 
+  /// Performs `_convertFromNullableDate` logic for this form component.
   DateTime? _convertFromNullableDate(NullableDate value) {
     return value.getDateTime();
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _controller = widget.controller == null
         ? ComponentValueController<NullableDate>(
-            _convertToNullableDate(widget.initialValue))
+            _convertToNullableDate(widget.initialValue),
+          )
         : ConvertedController<DateTime?, NullableDate>(
             widget.controller!,
             BiDirectionalConvert(
-                _convertToNullableDate, _convertFromNullableDate),
+              _convertToNullableDate,
+              _convertFromNullableDate,
+            ),
           );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     if (widget.controller == null) {
@@ -109,6 +124,7 @@ class _DateInputState extends State<DateInput> {
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     var datePartsOrder =
@@ -140,22 +156,19 @@ class _DateInputState extends State<DateInput> {
       controller: _controller,
       initialValue: _convertToNullableDate(widget.initialValue),
       onChanged: (value) {
-        widget.onChanged
-            ?.call(value == null ? null : _convertFromNullableDate(value));
+        widget.onChanged?.call(
+          value == null ? null : _convertFromNullableDate(value),
+        );
       },
       parts: datePartsOrder
-          .map(
-            (part) {
-              return InputPart.editable(
-                  length: _getLength(part),
-                  width: _getWidth(part),
-                  placeholder:
-                      widget.placeholders?[part] ?? _getPlaceholder(part),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ]);
-            },
-          )
+          .map((part) {
+            return InputPart.editable(
+              length: _getLength(part),
+              width: _getWidth(part),
+              placeholder: widget.placeholders?[part] ?? _getPlaceholder(part),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            );
+          })
           .joinSeparator(const InputPart.static('/'))
           .toList(),
     );

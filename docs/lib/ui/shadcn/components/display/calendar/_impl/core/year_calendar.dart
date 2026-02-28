@@ -34,15 +34,18 @@ class YearCalendar extends StatelessWidget {
     this.stateBuilder,
   });
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     // same as Calendar, but instead of showing date
     // it shows year in a 4x4 grid
     List<Widget> rows = [];
+
     List<Widget> years = [];
     for (int i = yearSelectStart; i < yearSelectStart + 16; i++) {
       DateTime date = DateTime(i);
+
       CalendarItemType type = CalendarItemType.none;
       if (calendarValue != null) {
         final lookup = calendarValue!.lookup(date.year);
@@ -70,6 +73,7 @@ class YearCalendar extends StatelessWidget {
           type = CalendarItemType.today;
         }
       }
+
       years.add(
         CalendarItem(
           key: ValueKey(date),
@@ -86,14 +90,9 @@ class YearCalendar extends StatelessWidget {
       );
     }
     for (int i = 0; i < years.length; i += 4) {
-      rows.add(SizedBox(height: theme.scaling * 8));
-      rows.add(Row(
-        children: years.sublist(i, i + 4),
-      ));
+      rows.add(SizedBox(height: theme.density.baseGap * theme.scaling * gapSm));
+      rows.add(Row(children: years.sublist(i, i + 4)));
     }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: rows,
-    );
+    return Column(mainAxisSize: MainAxisSize.min, children: rows);
   }
 }

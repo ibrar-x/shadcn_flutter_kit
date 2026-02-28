@@ -30,9 +30,11 @@ class FormInline<T> extends StatelessWidget {
     this.showErrors,
   });
 
+  /// Field storing `key` for this form implementation.
   @override
   FormKey<T> get key => super.key as FormKey<T>;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -56,17 +58,17 @@ class FormInline<T> extends StatelessWidget {
                             : null,
                         child: label.textSmall(),
                       ),
-                      Gap(theme.scaling * 8),
+                      DensityGap(gapSm),
                       Expanded(child: child!),
                     ],
                   ),
                 ),
                 if (hint != null) ...[
-                  const Gap(8),
+                  const DensityGap(gapSm),
                   hint!.xSmall().muted(),
                 ],
                 if (error is InvalidResult) ...[
-                  const Gap(8),
+                  const DensityGap(gapSm),
                   DefaultTextStyle.merge(
                     style: TextStyle(color: theme.colorScheme.destructive),
                     child: Text(error.message).xSmall().medium(),

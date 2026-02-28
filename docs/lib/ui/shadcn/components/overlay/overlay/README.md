@@ -1,11 +1,97 @@
-# `overlay`
+# Overlay (`overlay`)
 
-Central place to import overlay helpers (`OverlayHandler`, `OverlayBarrier`, `OverlayManagerLayer`, etc.) that the shared primitives expose.  
+Shared overlay handler/manager utilities and helpers.
 
-Install this component when you need access to the overlay manager/handler APIs without manually reaching into `_impl` files.
+---
 
-## ShadcnLayer
+## When to use
 
-Use `ShadcnLayer` for a lightweight wrapper that only inserts an
-`OverlayManagerLayer` when one is missing. It optionally applies a `Theme`
-when provided.
+- Use this when:
+  - you need a centralized overlay manager for popovers, tooltips, and menus.
+  - you want access to overlay handlers and popover primitives.
+- Avoid when:
+  - the widget already provides its own overlay behavior.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add overlay
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/overlay/overlay/overlay.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+ShadcnLayer(
+  child: const MyApp(),
+)
+```
+
+---
+
+## API
+
+### Core types
+
+- `OverlayHandler`
+- `OverlayCompleter`
+- `OverlayManager`
+- `OverlayManagerLayer`
+- `OverlayBarrier`
+- `OverlayHandlerStateMixin`
+- `Popover`
+- `PopoverController`
+- `PopoverConstraint`
+
+### Helpers
+
+- `closeOverlay`
+- `showPopover`
+
+---
+
+## Theming
+
+- Uses `Theme.of(context)` for surface tokens in popover widgets.
+
+---
+
+## Accessibility
+
+- Ensure overlays can be dismissed via keyboard and tap outside.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Wrap your app with `ShadcnLayer` or `OverlayManagerLayer` once.
+
+**Don’t**
+- ❌ Stack multiple overlay managers for the same subtree.
+
+---
+
+## Related components
+
+- `popover`
+- `tooltip`
+- `menu`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

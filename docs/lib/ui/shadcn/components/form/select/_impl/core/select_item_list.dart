@@ -22,14 +22,17 @@ class SelectItemList extends SelectItemDelegate {
   /// Creates a [SelectItemList] with the specified children.
   const SelectItemList({required this.children});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, int index) {
     return children[index];
   }
 
+  /// Field storing `estimatedChildCount` for this form implementation.
   @override
   int get estimatedChildCount => children.length;
 
+  /// Performs `shouldRebuild` logic for this form component.
   @override
   bool shouldRebuild(covariant SelectItemList oldDelegate) {
     return !listEquals(oldDelegate.children, children);

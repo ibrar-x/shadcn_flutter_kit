@@ -29,11 +29,13 @@ class PhoneNumber {
   /// Gets the full number or null if the number is empty.
   String? get value => number.isEmpty ? null : fullNumber;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return number.isEmpty ? '' : fullNumber;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

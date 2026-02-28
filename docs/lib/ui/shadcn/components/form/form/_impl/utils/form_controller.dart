@@ -29,9 +29,13 @@ part of '../../form.dart';
 /// final emailValue = controller.getValue(emailKey);
 /// ```
 class FormController extends ChangeNotifier {
+  /// Field storing `_attachedInputs` for this form implementation.
   final Map<FormKey, FormValueState> _attachedInputs = {};
+
+  /// Field storing `_validity` for this form implementation.
   final Map<FormKey, _ValidatorResultStash> _validity = {};
 
+  /// Field storing `_disposed` for this form implementation.
   bool _disposed = false;
 
   /// A map of all current form field values keyed by their [FormKey].
@@ -44,10 +48,11 @@ class FormController extends ChangeNotifier {
   /// and each value is the current value of that field.
   Map<FormKey, Object?> get values {
     return {
-      for (var entry in _attachedInputs.entries) entry.key: entry.value.value
+      for (var entry in _attachedInputs.entries) entry.key: entry.value.value,
     };
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _disposed = true;
@@ -78,8 +83,10 @@ class FormController extends ChangeNotifier {
     for (var entry in _validity.entries) {
       var result = entry.value.result;
       if (result is Future<ValidationResult?>) {
-        errors[entry.key] =
-            WaitingResult.attached(state: entry.value.state, key: entry.key);
+        errors[entry.key] = WaitingResult.attached(
+          state: entry.value.state,
+          key: entry.key,
+        );
       } else if (result != null) {
         errors[entry.key] = result;
       }
@@ -160,8 +167,10 @@ class FormController extends ChangeNotifier {
             _validity[key] = _ValidatorResultStash(future, state);
             future.then((value) {
               if (_validity[key]?.result == future) {
-                _validity[key] =
-                    _ValidatorResultStash(value?.attach(key), state);
+                _validity[key] = _ValidatorResultStash(
+                  value?.attach(key),
+                  state,
+                );
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                   if (_disposed) {
                     return;
@@ -201,10 +210,15 @@ class FormController extends ChangeNotifier {
   /// - [forceRevalidate] (`bool`, default: `false`): Force revalidation even if unchanged.
   ///
   /// Returns: `FutureOr<ValidationResult?>` — validation result if applicable.
-  FutureOr<ValidationResult?> attach(BuildContext context,
-      FormFieldHandle handle, Object? value, Validator? validator,
-      [bool forceRevalidate = false]) {
+  FutureOr<ValidationResult?> attach(
+    BuildContext context,
+    FormFieldHandle handle,
+    Object? value,
+    Validator? validator, [
+    bool forceRevalidate = false,
+  ]) {
     final key = handle.formKey;
+
     final oldState = _attachedInputs[key];
     var state = FormValueState(value: value, validator: validator);
     if (oldState == state && !forceRevalidate) {
@@ -237,22 +251,30 @@ class FormController extends ChangeNotifier {
     Map<FormKey, FutureOr<ValidationResult?>> revalidate = {};
     for (var entry in _attachedInputs.entries) {
       var k = entry.key;
+
       var value = entry.value;
       if (key == k) {
         continue;
       }
       if (value.validator != null && value.validator!.shouldRevalidate(key)) {
-        var revalidateResult =
-            value.validator!.validate(context, value.value, lifecycle);
+        var revalidateResult = value.validator!.validate(
+          context,
+          value.value,
+          lifecycle,
+        );
         revalidate[k] = revalidateResult;
       }
     }
     for (var entry in revalidate.entries) {
       var k = entry.key;
+
       var future = entry.value;
+
       var attachedInput = _attachedInputs[k]!;
       attachedInput = FormValueState(
-          value: attachedInput.value, validator: attachedInput.validator);
+        value: attachedInput.value,
+        validator: attachedInput.validator,
+      );
       _attachedInputs[k] = attachedInput;
       if (future is Future<ValidationResult?>) {
         _validity[k] = _ValidatorResultStash(future, lifecycle);

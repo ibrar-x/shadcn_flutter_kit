@@ -8,7 +8,7 @@
     "dialog",
     "modal"
   ],
-  "installedAt": "2026-02-09T10:18:03.234895Z",
+  "installedAt": "2026-02-22T01:08:41.564213Z",
   "shared": [
     "overlay",
     "theme"
@@ -17,13 +17,9 @@
     "dialog"
   ],
   "files": [
-    "registry/components/overlay/alert_dialog/README.md",
     "registry/components/overlay/alert_dialog/_impl/core/alert_dialog_widget.dart",
     "registry/components/overlay/alert_dialog/_impl/state/_alert_dialog_state.dart",
-    "registry/components/overlay/alert_dialog/alert_dialog.dart",
-    "registry/components/overlay/alert_dialog/alert_dialog.meta.json",
-    "registry/components/overlay/alert_dialog/meta.json",
-    "registry/components/overlay/alert_dialog/preview.dart"
+    "registry/components/overlay/alert_dialog/alert_dialog.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

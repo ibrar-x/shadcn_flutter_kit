@@ -53,6 +53,7 @@ class InputSpinnerFeature extends InputFeature {
     this.max,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputSpinnerFeatureState();
 }

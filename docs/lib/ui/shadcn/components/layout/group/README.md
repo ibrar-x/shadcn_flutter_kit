@@ -1,23 +1,84 @@
-# GroupWidget
+# Group (`group`)
 
-Absolute-position layout surface with `GroupPositioned` children.
+Absolute-position layout surface with explicit offsets and sizes.
 
-```dart
-import 'ui/shadcn/components/group/group_widget.dart';
+---
 
-GroupWidget(
-  children: [
-    GroupPositioned(
-      top: 10,
-      left: 10,
-      child: Text('Layered text sample'),
-    ),
-    GroupPositioned.fromRect(
-      rect: Rect.fromLTWH(20, 40, 100, 60),
-      child: Container(color: Colors.blue),
-    ),
-  ],
-);
+## When to use
+
+- Use this when:
+  - you need manual, absolute positioning of children.
+- Avoid when:
+  - standard layout widgets can solve it.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add group
 ```
 
-Each child gets precise coordinates and optional size, while the render object handles layout/painting so the component behaves like an enhanced Stack.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/group/group_widget.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+GroupWidget(
+  children: const [
+    GroupPositioned(left: 0, top: 0, child: Text('Top-left')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `GroupWidget` — parent for absolute positioning.
+- `GroupPositioned` — child with explicit `left`, `top`, `right`, `bottom`, `width`, `height`.
+
+---
+
+## Theming
+
+- No theme dependencies.
+
+---
+
+## Accessibility
+
+- Ensure positioned elements remain reachable and readable.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use for overlays or fine-tuned layouts.
+
+**Don’t**
+- ❌ Use for general responsive layout.
+
+---
+
+## Related components
+
+- `stack`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

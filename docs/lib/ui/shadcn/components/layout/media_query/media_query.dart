@@ -13,7 +13,13 @@ class MediaQueryVisibilityTheme extends ComponentThemeData {
   final double? maxWidth;
 
   /// Creates a [MediaQueryVisibilityTheme].
-  const MediaQueryVisibilityTheme({this.minWidth, this.maxWidth});
+  const MediaQueryVisibilityTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
+    this.minWidth,
+    this.maxWidth,
+  });
 
   /// Creates a copy of this theme but with the given fields replaced.
   MediaQueryVisibilityTheme copyWith({
@@ -27,6 +33,7 @@ class MediaQueryVisibilityTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is MediaQueryVisibilityTheme &&
@@ -39,4 +46,3 @@ class MediaQueryVisibilityTheme extends ComponentThemeData {
 }
 
 /// A widget that conditionally displays children based on media query constraints.
-

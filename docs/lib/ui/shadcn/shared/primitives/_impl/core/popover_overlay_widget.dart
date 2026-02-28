@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// PopoverOverlayWidget defines a reusable type for this registry module.
 class PopoverOverlayWidget extends StatefulWidget {
   /// Creates a [PopoverOverlayWidget].
   const PopoverOverlayWidget({
@@ -110,6 +111,7 @@ class PopoverOverlayWidget extends StatefulWidget {
   final LayerLink? layerLink;
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<PopoverOverlayWidget> createState() => PopoverOverlayWidgetState();
 }
 

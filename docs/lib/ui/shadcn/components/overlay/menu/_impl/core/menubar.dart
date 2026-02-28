@@ -25,6 +25,7 @@ part of '../../menu.dart';
 /// ```
 /// Theme for [Menubar].
 
+/// Menubar defines a reusable type for this registry module.
 class Menubar extends StatefulWidget {
   /// List of menu items to display in the menubar.
   ///
@@ -90,6 +91,7 @@ class Menubar extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Menubar> createState() => MenubarState();
 }
 

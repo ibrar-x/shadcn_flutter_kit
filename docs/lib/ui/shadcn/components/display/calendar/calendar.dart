@@ -13,16 +13,15 @@ part '_impl/core/_calendar_state.dart';
 part '_impl/core/_date_picker_dialog_state.dart';
 part '_impl/core/calendar_grid_item.dart';
 part '_impl/core/year_calendar.dart';
-part '_impl/themes/calendar_selection_mode.dart';
-part '_impl/themes/calendar_view_type.dart';
-part '_impl/themes/date_state.dart';
+part '_impl/themes/variants/calendar_selection_mode.dart';
+part '_impl/themes/variants/calendar_view_type.dart';
+part '_impl/themes/variants/date_state.dart';
 part '_impl/utils/calendar_value_lookup.dart';
 part '_impl/utils/multi_calendar_value.dart';
 part '_impl/utils/range_calendar_value.dart';
 part '_impl/utils/single_calendar_value.dart';
 
-
-part '_impl/themes/calendar_theme.dart';
+part '_impl/themes/base/calendar_theme.dart';
 part '_impl/core/date_picker_dialog.dart';
 part '_impl/utils/calendar_value.dart';
 part '_impl/utils/calendar_view.dart';

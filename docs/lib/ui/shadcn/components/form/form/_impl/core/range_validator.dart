@@ -26,38 +26,52 @@ class RangeValidator<T extends num> extends Validator<T> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [RangeValidator] with the specified min and max bounds.
-  const RangeValidator(this.min, this.max,
-      {this.inclusive = true, this.message});
+  const RangeValidator(
+    this.min,
+    this.max, {
+    this.inclusive = true,
+    this.message,
+  });
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
     if (inclusive) {
       if (value < min || value > max) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formBetweenInclusively(min, max),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formBetweenInclusively(min, max),
+          state: state,
+        );
       }
     } else {
       if (value <= min || value >= max) {
         return InvalidResult(
-            message ??
-                Localizations.of(context, ShadcnLocalizations)
-                    .formBetweenExclusively(min, max),
-            state: state);
+          message ??
+              Localizations.of(
+                context,
+                ShadcnLocalizations,
+              ).formBetweenExclusively(min, max),
+          state: state,
+        );
       }
     }
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is RangeValidator &&

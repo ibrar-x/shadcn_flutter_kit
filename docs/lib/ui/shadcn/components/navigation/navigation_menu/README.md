@@ -1,25 +1,90 @@
-# Navigation Menu
+# Navigation Menu (`navigation_menu`)
 
-Desktop navigation menu with popovers, groups, and keyboard navigation, ideal for app navigation panels.
+Dropdown-style navigation menu with popovers, groups, and keyboard navigation.
 
-```dart
-import 'ui/shadcn/components/menu/navigation_menu.dart';
+---
 
-NavigationMenu(
-  children: [
-    NavigationMenuItem(
-      content: NavigationMenuContent(
-        title: Text('Products'),
-        content: Text('Product list...'),
-      ),
-      child: Text('Products'),
-    ),
-    NavigationMenuItem(
-      onPressed: () {},
-      child: Text('Contact'),
-    ),
-  ],
-);
+## When to use
+
+- Use this when:
+  - you need top-level navigation with dropdown content.
+- Avoid when:
+  - a simple link list is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add navigation_menu
 ```
 
-Wrap with `ComponentTheme<NavigationMenuTheme>` to adjust popover surfaces, offsets, and blur.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/navigation/navigation_menu/navigation_menu.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+NavigationMenu(
+  children: const [
+    NavigationMenuItem(child: Text('Products')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `NavigationMenu`
+  - `children` (`List<Widget>`, required)
+  - `surfaceOpacity`, `surfaceBlur`, `margin`, `offset`
+- `NavigationMenuItem` — item with optional `content`.
+- `NavigationMenuContent` — content entry.
+- `NavigationMenuContentList` — grid/list of contents.
+- `NavigationMenuTheme` — surface styling.
+
+---
+
+## Theming
+
+- `NavigationMenuTheme` controls popover surface and offsets.
+
+---
+
+## Accessibility
+
+- Ensure menu items are keyboard focusable.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Group related items with content lists.
+
+**Don’t**
+- ❌ Use overly long labels in the top bar.
+
+---
+
+## Related components
+
+- `navigation_bar`
+- `popover`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

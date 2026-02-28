@@ -19,12 +19,13 @@ class OTPSeparator extends StatelessWidget {
   /// Creates an [OTPSeparator].
   const OTPSeparator({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return const Text('-')
         .bold()
-        .withPadding(horizontal: theme.scaling * 4)
+        .withPadding(horizontal: theme.density.baseGap * theme.scaling * gapXs)
         .base()
         .foreground();
   }

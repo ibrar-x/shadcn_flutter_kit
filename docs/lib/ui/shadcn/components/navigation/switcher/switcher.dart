@@ -69,6 +69,6 @@ class Switcher extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Switcher> createState() => _SwitcherState();
 }
-

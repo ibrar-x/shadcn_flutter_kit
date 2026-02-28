@@ -28,6 +28,7 @@
     "_impl/themes/base/accordion_theme.dart",
     "_impl/themes/config/accordion_theme_config.dart",
     "_impl/themes/config/accordion_theme_defaults.dart",
+    "_impl/themes/config/accordion_theme_schema.dart",
     "_impl/themes/config/accordion_theme_tokens.dart",
     "accordion.dart"
   ],

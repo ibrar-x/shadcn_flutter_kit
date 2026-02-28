@@ -39,6 +39,7 @@
     "_impl/themes/base/formatted_input_theme.dart",
     "_impl/themes/config/formatted_input_theme_config.dart",
     "_impl/themes/config/formatted_input_theme_defaults.dart",
+    "_impl/themes/config/formatted_input_theme_schema.dart",
     "_impl/themes/config/formatted_input_theme_tokens.dart",
     "_impl/utils/_editable_part_controller.dart",
     "_impl/utils/_formatted_object_controller.dart",

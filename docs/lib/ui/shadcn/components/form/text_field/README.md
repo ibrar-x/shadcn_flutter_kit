@@ -1,65 +1,102 @@
-# Text Field
+# Text Field (`text_field`)
 
-Flexible text input with built-in features (clear, password toggle, hint popover,
-autocomplete, copy/paste, and spinners) plus theme support.
+Text input with rich features, autocomplete, and actions.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/text_field/text_field.dart';
+## When to use
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+- Use this when:
+  - you need a highly configurable text input.
+  - you want input features like clear, copy, paste, hints, and autocomplete.
+- Avoid when:
+  - a simple `Text` widget is sufficient.
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          placeholder: const Text('Email'),
-          features: const [
-            InputClearFeature(),
-          ],
-        ),
-        TextField(
-          placeholder: const Text('Password'),
-          obscureText: true,
-          features: const [
-            InputPasswordToggleFeature(),
-          ],
-        ),
-      ],
-    );
-  }
-}
+---
+
+## Install
+
+```bash
+flutter_shadcn add text_field
 ```
 
-## Autocomplete
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/text_field/text_field.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+const TextField()
+```
+
+---
+
+## Common patterns
+
+### Pattern: Feature icons
 
 ```dart
 TextField(
-  placeholder: const Text('Fruit'),
-  features: [
-    InputAutoCompleteFeature(
-      querySuggestions: (query) async {
-        return ['apple', 'apricot', 'avocado']
-            .where((item) => item.startsWith(query));
-      },
-      child: const Text('Suggestions'),
-    ),
+  features: const [
+    InputFeature.clear(),
+    InputFeature.passwordToggle(),
   ],
-);
+)
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `TextField` — main input widget.
+- `TextInputStatefulWidget` — shared base for inputs with features.
+- `InputFeature` factories — `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.
+- `InputFeatureVisibility` — `always`, `focused`, `textNotEmpty`, etc.
+- `PasswordPeekMode` — `toggle` or `peek`.
+
+---
 
 ## Theming
 
-The text field reads local theme values from `shared/theme/theme.dart`.
-If no theme is provided, default values are used automatically.
+- `TextFieldTheme` controls borders, padding, and typography.
+- `AutoCompleteTheme` controls suggestions popover.
 
-## Notes
+---
 
-- Dependencies: `data_widget`.
-- Install `button` as a dependency for feature widgets (icons, toggles).
-- Some internal `_impl` files remain over ~300 LOC due to tightly coupled state
-  management; they should be split further if you plan deeper customization.
+## Accessibility
+
+- Ensure labels and hints are provided for screen readers.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `InputFeatureVisibility` to reduce visual noise.
+
+**Don’t**
+- ❌ Add too many trailing features in narrow layouts.
+
+---
+
+## Related components
+
+- `input`
+- `autocomplete`
+- `formatted_input`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

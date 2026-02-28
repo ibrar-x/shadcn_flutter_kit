@@ -1,5 +1,6 @@
 part of '../../phone_number.dart';
 
+/// Country defines a reusable type for this registry module.
 class Country {
   /// The international dial code (e.g. "+1").
   final String dialCode;

@@ -8,7 +8,7 @@
     "slider",
     "hsl"
   ],
-  "installedAt": "2026-02-09T10:18:03.202048Z",
+  "installedAt": "2026-02-22T01:08:41.371444Z",
   "shared": [
     "theme"
   ],
@@ -16,15 +16,11 @@
     "alpha"
   ],
   "files": [
-    "registry/components/form/hsl/README.md",
     "registry/components/form/hsl/_impl/core/hsl_color_slider_painter.dart",
     "registry/components/form/hsl/_impl/core/hsl_color_slider_type.dart",
     "registry/components/form/hsl/_impl/state/_hsl_color_slider_state.dart",
     "registry/components/form/hsl/_impl/state/_hsl_preview_state.dart",
-    "registry/components/form/hsl/hsl.meta.json",
-    "registry/components/form/hsl/hsl_color_slider.dart",
-    "registry/components/form/hsl/meta.json",
-    "registry/components/form/hsl/preview.dart"
+    "registry/components/form/hsl/hsl_color_slider.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

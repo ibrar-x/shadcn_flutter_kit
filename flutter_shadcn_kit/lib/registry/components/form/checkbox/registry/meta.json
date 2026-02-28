@@ -34,6 +34,7 @@
     "_impl/themes/base/checkbox_theme.dart",
     "_impl/themes/config/checkbox_theme_config.dart",
     "_impl/themes/config/checkbox_theme_defaults.dart",
+    "_impl/themes/config/checkbox_theme_schema.dart",
     "_impl/themes/config/checkbox_theme_tokens.dart",
     "_impl/utils/checkbox_controller.dart",
     "checkbox.dart"

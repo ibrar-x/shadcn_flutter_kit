@@ -22,6 +22,7 @@ class SelectGroup extends StatelessWidget {
     required this.children,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Column(

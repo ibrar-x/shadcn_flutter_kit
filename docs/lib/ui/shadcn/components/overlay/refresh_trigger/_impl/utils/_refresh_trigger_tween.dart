@@ -1,11 +1,14 @@
 part of '../../refresh_trigger.dart';
 
+/// _RefreshTriggerTween defines a reusable type for this registry module.
 class _RefreshTriggerTween extends Animatable<double> {
+/// Stores `minExtent` state/configuration for this implementation.
   final double minExtent;
 
   const _RefreshTriggerTween(this.minExtent);
 
   @override
+/// Executes `transform` behavior for this component/composite.
   double transform(double t) {
     return t / minExtent;
   }

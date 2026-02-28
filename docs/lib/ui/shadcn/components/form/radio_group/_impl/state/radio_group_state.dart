@@ -7,6 +7,8 @@ class RadioGroupState<T> extends State<RadioGroup<T>>
     with FormValueSupplier<T, RadioGroup<T>> {
   /// Whether the radio group is currently enabled.
   bool get enabled => widget.enabled ?? widget.onChanged != null;
+
+  /// Performs `_setSelected` logic for this form component.
   void _setSelected(T value) {
     if (!enabled) return;
     if (widget.value != value) {
@@ -14,12 +16,14 @@ class RadioGroupState<T> extends State<RadioGroup<T>>
     }
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant RadioGroup<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -28,11 +32,13 @@ class RadioGroupState<T> extends State<RadioGroup<T>>
     }
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(T value) {
     widget.onChanged?.call(value);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return FocusableActionDetector(
@@ -40,9 +46,7 @@ class RadioGroupState<T> extends State<RadioGroup<T>>
         data: this,
         child: Data.inherit(
           data: RadioGroupData<T>(widget.value, enabled),
-          child: FocusTraversalGroup(
-            child: widget.child,
-          ),
+          child: FocusTraversalGroup(child: widget.child),
         ),
       ),
     );

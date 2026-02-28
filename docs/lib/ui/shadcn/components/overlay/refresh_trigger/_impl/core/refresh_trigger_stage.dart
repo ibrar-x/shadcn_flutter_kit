@@ -1,5 +1,6 @@
 part of '../../refresh_trigger.dart';
 
+/// RefreshTriggerStage defines a reusable type for this registry module.
 class RefreshTriggerStage {
   /// Current stage of the refresh lifecycle.
   final TriggerStage stage;
@@ -18,7 +19,11 @@ class RefreshTriggerStage {
 
   /// Creates a refresh trigger stage snapshot.
   const RefreshTriggerStage(
-      this.stage, this.extent, this.direction, this.reverse);
+    this.stage,
+    this.extent,
+    this.direction,
+    this.reverse,
+  );
 
   /// Current numeric value of the pull extent.
   ///

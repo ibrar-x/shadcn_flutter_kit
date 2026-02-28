@@ -49,11 +49,30 @@ class SizeUnitLocale {
   }
 }
 
-const _fileByteUnits =
-    SizeUnitLocale(1024, ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']);
-const _fileBitUnits = SizeUnitLocale(
-    1024, ['Bi', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']);
+const _fileByteUnits = SizeUnitLocale(1024, [
+  'B',
+  'KB',
+  'MB',
+  'GB',
+  'TB',
+  'PB',
+  'EB',
+  'ZB',
+  'YB',
+]);
+const _fileBitUnits = SizeUnitLocale(1024, [
+  'Bi',
+  'KiB',
+  'MiB',
+  'GiB',
+  'TiB',
+  'PiB',
+  'EiB',
+  'ZiB',
+  'YiB',
+]);
 
+/// Executes `_log10` behavior for this component/composite.
 double _log10(num x) {
   return log(x) / ln10;
 }
@@ -76,19 +95,26 @@ double _log10(num x) {
 /// ```
 String formatFileSize(int bytes, SizeUnitLocale unit) {
   if (bytes <= 0) return '0 ${unit.units[0]}';
+/// Stores `base` state/configuration for this implementation.
   final base = unit.base;
+/// Stores `units` state/configuration for this implementation.
   final units = unit.units;
   int digitGroups = (_log10(bytes) / _log10(base)).floor();
   // return '${NumberFormat('#,##0.#').format(bytes / pow(base, digitGroups))} ${units[digitGroups]}';
   // do it without NumberFormat, but format to #,##0.# format
   final value = bytes / pow(base, digitGroups);
-  final formattedValue =
-      value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
+  final formattedValue = value.toStringAsFixed(
+/// Creates a `value.truncateToDouble` instance.
+    value.truncateToDouble() == value ? 0 : 1,
+  );
   return '$formattedValue ${units[digitGroups]}';
 }
 
+/// Executes `_getYear` behavior for this component/composite.
 int _getYear(DateTime dateTime) => dateTime.year;
+/// Executes `_getMonth` behavior for this component/composite.
 int _getMonth(DateTime dateTime) => dateTime.month;
+/// Executes `_getDay` behavior for this component/composite.
 int _getDay(DateTime dateTime) => dateTime.day;
 
 (int? min, int? max) _computeYearValueRange(Map<DatePart, int> values) {
@@ -100,35 +126,42 @@ int _getDay(DateTime dateTime) => dateTime.day;
 }
 
 (int? min, int? max) _computeDayValueRange(Map<DatePart, int> values) {
+/// Stores `year` state/configuration for this implementation.
   final year = values[DatePart.year];
+/// Stores `month` state/configuration for this implementation.
   final month = values[DatePart.month];
   if (year == null || month == null) return (1, 31);
   final daysInMonth = DateTime(year, month + 1, 0).day;
   return (1, daysInMonth);
 }
 
-
+/// Executes `_getDurationDay` behavior for this component/composite.
 int _getDurationDay(Duration duration) => duration.inDays;
+/// Executes `_getDurationHour` behavior for this component/composite.
 int _getDurationHour(Duration duration) => duration.inHours % 24;
+/// Executes `_getDurationMinute` behavior for this component/composite.
 int _getDurationMinute(Duration duration) => duration.inMinutes % 60;
+/// Executes `_getDurationSecond` behavior for this component/composite.
 int _getDurationSecond(Duration duration) => duration.inSeconds % 60;
 
 (int? min, int? max) _computeDurationDayValueRange(
-        Map<DurationPart, int> values) =>
-    (0, null);
+  Map<DurationPart, int> values,
+) => (0, null);
 (int? min, int? max) _computeDurationHourValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 23);
+  Map<DurationPart, int> values,
+) => (0, 23);
 (int? min, int? max) _computeDurationMinuteValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 59);
+  Map<DurationPart, int> values,
+) => (0, 59);
 (int? min, int? max) _computeDurationSecondValueRange(
-        Map<DurationPart, int> values) =>
-    (0, 59);
+  Map<DurationPart, int> values,
+) => (0, 59);
 
-
+/// Executes `_getTimeHour` behavior for this component/composite.
 int _getTimeHour(TimeOfDay time) => time.hour;
+/// Executes `_getTimeMinute` behavior for this component/composite.
 int _getTimeMinute(TimeOfDay time) => time.minute;
+/// Executes `_getTimeSecond` behavior for this component/composite.
 int _getTimeSecond(TimeOfDay time) => time.second;
 
 (int? min, int? max) _computeTimeHourValueRange(Map<TimePart, int> values) =>

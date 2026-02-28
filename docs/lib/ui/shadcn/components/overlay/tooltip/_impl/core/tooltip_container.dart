@@ -2,13 +2,20 @@ part of '../../tooltip.dart';
 
 /// Styled container widget for tooltip content.
 class TooltipContainer extends StatelessWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
+/// Stores `surfaceOpacity` state/configuration for this implementation.
   final double? surfaceOpacity;
+/// Stores `surfaceBlur` state/configuration for this implementation.
   final double? surfaceBlur;
+/// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
+/// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
+/// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
+/// Creates a `TooltipContainer` instance.
   const TooltipContainer({
     super.key,
     this.surfaceOpacity,
@@ -19,35 +26,46 @@ class TooltipContainer extends StatelessWidget {
     required this.child,
   });
 
+/// Executes `call` behavior for this component/composite.
   Widget call(BuildContext context) {
     return this;
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TooltipTheme>(context);
     Color resolvedColor = styleValue(
-        widgetValue: backgroundColor,
-        themeValue: compTheme?.backgroundColor,
-        defaultValue: theme.colorScheme.primary);
+      widgetValue: backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.primary,
+    );
+/// Stores `resolvedOpacity` state/configuration for this implementation.
     var resolvedOpacity = surfaceOpacity ?? compTheme?.surfaceOpacity;
+/// Stores `resolvedBlur` state/configuration for this implementation.
     var resolvedBlur = surfaceBlur ?? compTheme?.surfaceBlur;
     if (resolvedOpacity != null) {
       resolvedColor = resolvedColor.scaleAlpha(resolvedOpacity);
     }
-    final resolvedPadding = styleValue(
-                widgetValue: padding,
-                themeValue: compTheme?.padding,
-                defaultValue:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6))
-            .resolve(Directionality.of(context)) *
+    final resolvedPadding =
+/// Creates a `styleValue` instance.
+        styleValue(
+          widgetValue: padding,
+          themeValue: compTheme?.padding,
+          defaultValue: EdgeInsets.symmetric(
+            horizontal: theme.density.baseContentPadding * 0.75,
+            vertical: theme.density.baseGap * 0.75,
+          ),
+        ).resolve(Directionality.of(context)) *
         scaling;
     final resolvedRadius = styleValue(
-        widgetValue: borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.circular(theme.radiusSm));
+      widgetValue: borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusSm),
+    );
 
     Widget container = Container(
       padding: resolvedPadding,
@@ -67,7 +85,7 @@ class TooltipContainer extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(6) * scaling,
+      padding: EdgeInsets.all(theme.density.baseGap * scaling * 0.75),
       child: container,
     );
   }

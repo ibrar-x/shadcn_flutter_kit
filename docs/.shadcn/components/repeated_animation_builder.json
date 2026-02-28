@@ -6,18 +6,15 @@
   "tags": [
     "animation",
     "utility",
-    "composite"
+    "builder"
   ],
-  "installedAt": "2026-02-09T10:18:03.248670Z",
+  "installedAt": "2026-02-22T01:08:41.696662Z",
   "shared": [
     "util"
   ],
   "dependsOn": [],
   "files": [
-    "composites/utility/repeated_animation_builder/README.md",
-    "composites/utility/repeated_animation_builder/meta.json",
-    "composites/utility/repeated_animation_builder/repeated_animation_builder.dart",
-    "composites/utility/repeated_animation_builder/repeated_animation_builder.meta.json"
+    "registry/components/utility/repeated_animation_builder/repeated_animation_builder.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

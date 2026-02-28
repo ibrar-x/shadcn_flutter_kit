@@ -20,14 +20,12 @@ part of '../../formatted_input.dart';
 /// ```
 class FormattedObjectInput<T> extends StatefulWidget
     with ControlledComponent<T?> {
-  @override
-
   /// The initial value of the input.
+  @override
   final T? initialValue;
 
-  @override
-
   /// Called when the value changes.
+  @override
   final ValueChanged<T?>? onChanged;
 
   /// Called when the individual parts change.
@@ -36,14 +34,12 @@ class FormattedObjectInput<T> extends StatefulWidget
   /// Builder for creating a custom popup widget.
   final FormattedInputPopupBuilder<T>? popupBuilder;
 
-  @override
-
   /// Whether the input is enabled.
+  @override
   final bool enabled;
 
-  @override
-
   /// Optional controller for external control.
+  @override
   final ComponentController<T?>? controller;
 
   /// Converter between the object type and string parts.
@@ -81,6 +77,7 @@ class FormattedObjectInput<T> extends StatefulWidget
     this.onPartsChanged,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormattedObjectInput<T>> createState() =>
       _FormattedObjectInputState<T>();

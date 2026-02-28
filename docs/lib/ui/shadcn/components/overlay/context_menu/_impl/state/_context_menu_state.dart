@@ -1,15 +1,19 @@
 part of '../../context_menu.dart';
 
+/// _ContextMenuState defines a reusable type for this registry module.
 class _ContextMenuState extends State<ContextMenu> {
+/// Stores `_children` state/configuration for this implementation.
   late ValueNotifier<List<MenuItem>> _children;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _children = ValueNotifier(widget.items);
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant ContextMenu oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(widget.items, oldWidget.items)) {
@@ -20,15 +24,18 @@ class _ContextMenuState extends State<ContextMenu> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _children.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
-    final bool enableLongPress = platform == TargetPlatform.iOS ||
+    final bool enableLongPress =
+        platform == TargetPlatform.iOS ||
         platform == TargetPlatform.android ||
         platform == TargetPlatform.fuchsia;
     return GestureDetector(
@@ -36,13 +43,23 @@ class _ContextMenuState extends State<ContextMenu> {
       onSecondaryTapDown: !widget.enabled
           ? null
           : (details) {
+/// Creates a `_showContextMenu` instance.
               _showContextMenu(
-                  context, details.globalPosition, _children, widget.direction);
+                context,
+                details.globalPosition,
+                _children,
+                widget.direction,
+              );
             },
       onLongPressStart: enableLongPress && widget.enabled
           ? (details) {
+/// Creates a `_showContextMenu` instance.
               _showContextMenu(
-                  context, details.globalPosition, _children, widget.direction);
+                context,
+                details.globalPosition,
+                _children,
+                widget.direction,
+              );
             }
           : null,
       child: widget.child,
@@ -77,38 +94,39 @@ Future<void> _showContextMenu(
         ),
         builder: (context) {
           return AnimatedBuilder(
-              animation: children,
-              builder: (context, child) {
-                bool isSheetOverlay =
-                    SheetOverlayHandler.isSheetOverlay(context);
-                return ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 192,
-                  ),
-                  child: MenuGroup(
-                    itemPadding: isSheetOverlay
-                        ? const EdgeInsets.symmetric(horizontal: 8) *
+            animation: children,
+            builder: (context, child) {
+              bool isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
+              return ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 192),
+                child: MenuGroup(
+                  itemPadding: isSheetOverlay
+                      ? EdgeInsets.symmetric(
+                              horizontal: theme.density.baseGap,
+                            ) *
                             theme.scaling
-                        : EdgeInsets.zero,
-                    direction: direction,
-                    regionGroupId: key,
-                    subMenuOffset: const Offset(8, -4),
-                    onDismissed: () {
-                      closeOverlay(context);
-                    },
-                    builder: (context, children) {
-                      final compTheme =
-                          ComponentTheme.maybeOf<ContextMenuTheme>(context);
-                      return MenuPopup(
-                        surfaceOpacity: compTheme?.surfaceOpacity,
-                        surfaceBlur: compTheme?.surfaceBlur,
-                        children: children,
-                      );
-                    },
-                    children: children.value,
-                  ),
-                );
-              });
+                      : EdgeInsets.zero,
+                  direction: direction,
+                  regionGroupId: key,
+                  subMenuOffset: const Offset(8, -4),
+                  onDismissed: () {
+                    closeOverlay(context);
+                  },
+                  builder: (context, children) {
+                    final compTheme = ComponentTheme.maybeOf<ContextMenuTheme>(
+                      context,
+                    );
+                    return MenuPopup(
+                      surfaceOpacity: compTheme?.surfaceOpacity,
+                      surfaceBlur: compTheme?.surfaceBlur,
+                      children: children,
+                    );
+                  },
+                  children: children.value,
+                ),
+              );
+            },
+          );
         },
       )
       .future;

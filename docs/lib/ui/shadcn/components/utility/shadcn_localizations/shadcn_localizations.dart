@@ -63,11 +63,14 @@ part '_impl/utils/shadcn_localizations_delegate.dart';
 /// be consistent with the languages listed in the ShadcnLocalizations.supportedLocales
 /// property.
 abstract class ShadcnLocalizations {
+/// Creates a `ShadcnLocalizations` instance.
   ShadcnLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
+/// Stores `localeName` state/configuration for this implementation.
   final String localeName;
 
+/// Executes `of` behavior for this component/composite.
   static ShadcnLocalizations of(BuildContext context) {
     return Localizations.of<ShadcnLocalizations>(context, ShadcnLocalizations) ??
         ShadcnLocalizationsEn();
@@ -88,11 +91,11 @@ abstract class ShadcnLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -728,6 +731,7 @@ abstract class ShadcnLocalizations {
   String get durationSecond;
 }
 
+/// Executes `lookupShadcnLocalizations` behavior for this component/composite.
 ShadcnLocalizations lookupShadcnLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
@@ -736,8 +740,9 @@ ShadcnLocalizations lookupShadcnLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'ShadcnLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'ShadcnLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

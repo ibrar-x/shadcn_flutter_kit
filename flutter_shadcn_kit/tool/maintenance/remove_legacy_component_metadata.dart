@@ -3,7 +3,9 @@ import 'dart:io';
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
-    final candidate = File('${current.path}/lib/registry/components.json');
+    final candidate = File(
+      '${current.path}/lib/registry/manifests/components.json',
+    );
     if (candidate.existsSync()) {
       return current;
     }
@@ -66,7 +68,9 @@ void main(List<String> args) {
   final apply = args.contains('--apply');
   final root = _findRepoRoot(Directory.current);
   if (root == null) {
-    stderr.writeln('Error: Could not locate lib/registry/components.json');
+    stderr.writeln(
+      'Error: Could not locate lib/registry/manifests/components.json',
+    );
     exitCode = 1;
     return;
   }

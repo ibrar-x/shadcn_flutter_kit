@@ -18,7 +18,11 @@ class CalendarGridItem {
 
   /// Creates a calendar grid item.
   CalendarGridItem(
-      this.date, this.indexInRow, this.fromAnotherMonth, this.rowIndex);
+    this.date,
+    this.indexInRow,
+    this.fromAnotherMonth,
+    this.rowIndex,
+  );
 
   /// Returns true if this item represents today's date.
   bool get isToday {
@@ -28,6 +32,7 @@ class CalendarGridItem {
         date.day == now.day;
   }
 
+  /// Compares two calendar values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -39,6 +44,7 @@ class CalendarGridItem {
         other.rowIndex == rowIndex;
   }
 
+  /// State flag that toggles specific calendar behavior.
   @override
   int get hashCode => Object.hash(date, indexInRow, fromAnotherMonth, rowIndex);
 }

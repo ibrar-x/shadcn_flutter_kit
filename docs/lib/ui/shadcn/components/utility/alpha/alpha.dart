@@ -16,6 +16,7 @@ class AlphaPainter extends CustomPainter {
   static const double checkboardSize = 8.0;
 
   @override
+/// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..style = PaintingStyle.fill
@@ -27,7 +28,9 @@ class AlphaPainter extends CustomPainter {
         final row = (i / checkboardSize).floor();
         final col = (j / checkboardSize).floor();
         if ((row + col) % 2 == 0) {
+/// Creates a `canvas.drawRect` instance.
           canvas.drawRect(
+/// Creates a `Rect.fromLTWH` instance.
             Rect.fromLTWH(i, j, checkboardSize, checkboardSize),
             paint,
           );
@@ -37,5 +40,6 @@ class AlphaPainter extends CustomPainter {
   }
 
   @override
+/// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant AlphaPainter oldDelegate) => false;
 }

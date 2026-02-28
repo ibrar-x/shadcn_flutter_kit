@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../avatar/avatar.dart';
 
+/// Core class used by the avatar component.
 class AvatarPreview extends StatelessWidget {
   const AvatarPreview({super.key});
 
+  /// Builds the widget tree for avatar.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +37,12 @@ class AvatarPreview extends StatelessWidget {
                       backgroundColor: Colors.purple,
                       initials: Avatar.getInitials('Alice'),
                     ),
+
                     Avatar(
                       backgroundColor: Colors.green,
                       initials: Avatar.getInitials('Bob'),
                     ),
+
                     Avatar(
                       backgroundColor: Colors.orange,
                       initials: Avatar.getInitials('Charlie'),

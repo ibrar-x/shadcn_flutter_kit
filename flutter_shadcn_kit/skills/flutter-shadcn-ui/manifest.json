@@ -12,12 +12,12 @@
   },
   "files": [
     {
-      "path": "registry_snapshot/components.json",
+      "path": "registry_snapshot/manifests/components.json",
       "bytes": 585533,
       "sha256": "77f57b939ac03aba9c1d38a02f385828fe839fd1c44a3b1f308ca0830ccb9106"
     },
     {
-      "path": "registry_snapshot/components.schema.json",
+      "path": "registry_snapshot/manifests/components.schema.json",
       "bytes": 5394,
       "sha256": "b554bef293c61fe312370993e9c0296cb236f460f6ad9b3db5f955764c0e0d26"
     },
@@ -727,22 +727,22 @@
       "sha256": "03c4960961ef36fb96f60669c662e36e4bf4b3a5a82acb00d3b6449a4a48d49a"
     },
     {
-      "path": "registry_snapshot/folder_structure.json",
+      "path": "registry_snapshot/manifests/folder_structure.json",
       "bytes": 908,
       "sha256": "568da451b9a493a6eae20fecf277102a78c6b10aa2c9c4d278b60c9e648abc5f"
     },
     {
-      "path": "registry_snapshot/index.json",
+      "path": "registry_snapshot/manifests/index.json",
       "bytes": 100182,
       "sha256": "af747c3d71bd1f508d2f1165f2a1725b0118bf8eca51f83262ade0e945cdc9cc"
     },
     {
-      "path": "registry_snapshot/index.schema.json",
+      "path": "registry_snapshot/manifests/index.schema.json",
       "bytes": 2397,
       "sha256": "caa5ecede142685201d6377eb8927289e18aff3d7585192687bcb3d65d3eb657"
     },
     {
-      "path": "registry_snapshot/readme_meta.schema.json",
+      "path": "registry_snapshot/manifests/readme_meta.schema.json",
       "bytes": 2136,
       "sha256": "da62a32bfb966e24290a9330449f33f041faff3ab1c72add2470b045f0ed1045"
     },

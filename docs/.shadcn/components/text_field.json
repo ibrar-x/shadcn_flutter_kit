@@ -8,7 +8,7 @@
     "input",
     "text"
   ],
-  "installedAt": "2026-02-09T10:18:03.203278Z",
+  "installedAt": "2026-02-22T01:08:41.571540Z",
   "shared": [
     "border_utils",
     "chip_utils",
@@ -27,7 +27,6 @@
     "button"
   ],
   "files": [
-    "registry/components/form/text_field/README.md",
     "registry/components/form/text_field/_impl/core/_always_visible_input_feature_visibility.dart",
     "registry/components/form/text_field/_impl/core/_attached_input_feature.dart",
     "registry/components/form/text_field/_impl/core/_auto_complete_item.dart",
@@ -79,8 +78,12 @@
     "registry/components/form/text_field/_impl/state/_input_trailing_feature_state.dart",
     "registry/components/form/text_field/_impl/state/input_feature_state.dart",
     "registry/components/form/text_field/_impl/state/text_field_state_part1.dart",
-    "registry/components/form/text_field/_impl/themes/auto_complete_theme.dart",
-    "registry/components/form/text_field/_impl/themes/text_field_theme.dart",
+    "registry/components/form/text_field/_impl/themes/base/text_field_theme.dart",
+    "registry/components/form/text_field/_impl/themes/config/text_field_theme_config.dart",
+    "registry/components/form/text_field/_impl/themes/config/text_field_theme_defaults.dart",
+    "registry/components/form/text_field/_impl/themes/config/text_field_theme_schema.dart",
+    "registry/components/form/text_field/_impl/themes/config/text_field_theme_tokens.dart",
+    "registry/components/form/text_field/_impl/themes/variants/auto_complete_theme.dart",
     "registry/components/form/text_field/_impl/utils/accept_suggestion_intent.dart",
     "registry/components/form/text_field/_impl/utils/auto_complete_intent.dart",
     "registry/components/form/text_field/_impl/utils/input_show_hint_intent.dart",
@@ -92,10 +95,7 @@
     "registry/components/form/text_field/_impl/utils/text_field_set_selection_intent.dart",
     "registry/components/form/text_field/_impl/utils/text_field_set_text_intent.dart",
     "registry/components/form/text_field/input.dart",
-    "registry/components/form/text_field/meta.json",
-    "registry/components/form/text_field/preview.dart",
-    "registry/components/form/text_field/text_field.dart",
-    "registry/components/form/text_field/text_field.meta.json"
+    "registry/components/form/text_field/text_field.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

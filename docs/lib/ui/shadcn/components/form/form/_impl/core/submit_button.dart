@@ -105,6 +105,7 @@ class SubmitButton extends StatelessWidget {
     this.focusNode,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return FormErrorBuilder(

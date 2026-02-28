@@ -14,11 +14,12 @@ part '_impl/utils/divider_painter.dart';
 part '_impl/utils/vertical_divider_painter.dart';
 part '_impl/core/vertical_divider.dart';
 
-part '_impl/themes/divider_theme.dart';
+part '_impl/themes/base/divider_theme.dart';
 part '_impl/utils/divider_painters.dart';
 
 /// Horizontal line separating content with optional label.
 class Divider extends StatelessWidget implements PreferredSizeWidget {
+  /// Creates `Divider` for configuring or rendering divider.
   const Divider({
     super.key,
     this.color,
@@ -31,18 +32,34 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
     this.childAlignment,
   });
 
+  /// Color value used by divider painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects divider rendering.
   final double? height;
+
+  /// Input parameter used by `Divider` during rendering and behavior handling.
   final double? thickness;
+
+  /// Input parameter used by `Divider` during rendering and behavior handling.
   final double? indent;
+
+  /// Input parameter used by `Divider` during rendering and behavior handling.
   final double? endIndent;
+
+  /// Child content displayed inside the divider widget.
   final Widget? child;
+
+  /// Layout/size setting that affects divider rendering.
   final EdgeInsetsGeometry? padding;
+
+  /// Child content displayed inside the divider widget.
   final AxisAlignmentGeometry? childAlignment;
 
   @override
   Size get preferredSize => Size(0, height ?? 1);
 
+  /// Builds the widget tree for divider.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -53,7 +70,8 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
       themeValue: componentTheme?.color,
       defaultValue: theme.colorScheme.border,
     );
-    final densityGap = theme.scaling * 8;
+
+    final densityGap = theme.density.baseGap * theme.scaling;
     final resolvedThickness = styleValue(
       widgetValue: thickness,
       themeValue: componentTheme?.thickness,
@@ -86,9 +104,12 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
     ).resolve(textDirection);
 
     if (child != null) {
-      final clampedAlignmentValue =
-          resolvedChildAlignment.value.clamp(-1.0, 1.0);
+      final clampedAlignmentValue = resolvedChildAlignment.value.clamp(
+        -1.0,
+        1.0,
+      );
       final leftRatio = (clampedAlignmentValue + 1) / 2;
+
       final rightRatio = 1 - leftRatio;
       final leftFlex = (leftRatio * 1000).round();
       final rightFlex = (rightRatio * 1000).round();

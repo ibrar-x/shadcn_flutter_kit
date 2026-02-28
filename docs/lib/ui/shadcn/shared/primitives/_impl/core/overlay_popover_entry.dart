@@ -1,7 +1,10 @@
 part of '../../overlay.dart';
 
+/// OverlayPopoverEntry defines a reusable type for this registry module.
 class OverlayPopoverEntry<T> implements OverlayCompleter<T> {
+/// Stores `_overlayEntry` state/configuration for this implementation.
   late OverlayEntry _overlayEntry;
+/// Stores `_barrierEntry` state/configuration for this implementation.
   late OverlayEntry? _barrierEntry;
 
   /// Completer for the popover's result value.
@@ -13,10 +16,13 @@ class OverlayPopoverEntry<T> implements OverlayCompleter<T> {
   /// Used internally to coordinate animation timing and cleanup.
   final Completer<T?> animationCompleter = Completer();
 
+/// Stores `_removed` state/configuration for this implementation.
   bool _removed = false;
+/// Stores `_disposed` state/configuration for this implementation.
   bool _disposed = false;
 
   @override
+/// Stores `isCompleted` state/configuration for this implementation.
   bool get isCompleted => completer.isCompleted;
 
   /// Initializes the popover entry with overlay entries.
@@ -32,6 +38,7 @@ class OverlayPopoverEntry<T> implements OverlayCompleter<T> {
   }
 
   @override
+/// Executes `remove` behavior for this component/composite.
   void remove() {
     if (_removed) return;
     _removed = true;
@@ -40,6 +47,7 @@ class OverlayPopoverEntry<T> implements OverlayCompleter<T> {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (_disposed) return;
     _disposed = true;
@@ -48,12 +56,15 @@ class OverlayPopoverEntry<T> implements OverlayCompleter<T> {
   }
 
   @override
+/// Stores `future` state/configuration for this implementation.
   Future<T?> get future => completer.future;
 
   @override
+/// Stores `animationFuture` state/configuration for this implementation.
   Future<T?> get animationFuture => animationCompleter.future;
 
   @override
+/// Stores `isAnimationCompleted` state/configuration for this implementation.
   bool get isAnimationCompleted => animationCompleter.isCompleted;
 }
 

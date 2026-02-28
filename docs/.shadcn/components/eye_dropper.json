@@ -8,7 +8,7 @@
     "picker",
     "overlay"
   ],
-  "installedAt": "2026-02-09T10:18:03.232262Z",
+  "installedAt": "2026-02-22T01:08:41.392398Z",
   "shared": [
     "color_extensions",
     "text_modifiers",
@@ -18,7 +18,6 @@
     "history"
   ],
   "files": [
-    "registry/components/overlay/eye_dropper/README.md",
     "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_layer.dart",
     "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_layer_scope.dart",
     "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_result.dart",
@@ -28,10 +27,7 @@
     "registry/components/overlay/eye_dropper/_impl/utils/_eye_dropper_completer.dart",
     "registry/components/overlay/eye_dropper/_impl/utils/_screenshot_image.dart",
     "registry/components/overlay/eye_dropper/_impl/utils/_screenshot_result.dart",
-    "registry/components/overlay/eye_dropper/eye_dropper.dart",
-    "registry/components/overlay/eye_dropper/eye_dropper.meta.json",
-    "registry/components/overlay/eye_dropper/meta.json",
-    "registry/components/overlay/eye_dropper/preview.dart"
+    "registry/components/overlay/eye_dropper/eye_dropper.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -10,29 +10,28 @@
     "error",
     "placeholder"
   ],
-  "installedAt": "2026-02-09T10:18:03.222082Z",
+  "installedAt": "2026-02-22T01:08:41.711563Z",
   "shared": [
     "radix_icons",
     "theme"
   ],
   "dependsOn": [
     "button",
-    "card",
-    "divider"
+    "card"
   ],
   "files": [
-    "registry/components/display/empty_state/README.md",
     "registry/components/display/empty_state/_impl/core/empty_state.dart",
     "registry/components/display/empty_state/_impl/core/empty_state_action.dart",
-    "registry/components/display/empty_state/_impl/themes/empty_state_theme.dart",
+    "registry/components/display/empty_state/_impl/themes/base/empty_state_theme.dart",
+    "registry/components/display/empty_state/_impl/themes/config/empty_state_theme_config.dart",
+    "registry/components/display/empty_state/_impl/themes/config/empty_state_theme_defaults.dart",
+    "registry/components/display/empty_state/_impl/themes/config/empty_state_theme_schema.dart",
+    "registry/components/display/empty_state/_impl/themes/config/empty_state_theme_tokens.dart",
     "registry/components/display/empty_state/_impl/utils/empty_state_defaults.dart",
     "registry/components/display/empty_state/_impl/variants/empty_state_action_style.dart",
     "registry/components/display/empty_state/_impl/variants/empty_state_size.dart",
     "registry/components/display/empty_state/_impl/variants/empty_state_variant.dart",
-    "registry/components/display/empty_state/empty_state.dart",
-    "registry/components/display/empty_state/empty_state.meta.json",
-    "registry/components/display/empty_state/meta.json",
-    "registry/components/display/empty_state/preview.dart"
+    "registry/components/display/empty_state/empty_state.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -23,6 +23,7 @@ class SelectState<T> extends State<Select<T>>
 
   SelectTheme? _theme;
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -30,53 +31,54 @@ class SelectState<T> extends State<Select<T>>
   }
 
   BoxConstraints? get _popupConstraints => styleValue(
-        widgetValue: widget.popupConstraints,
-        themeValue: _theme?.popupConstraints,
-        defaultValue: null,
-      );
+    widgetValue: widget.popupConstraints,
+    themeValue: _theme?.popupConstraints,
+    defaultValue: null,
+  );
 
   AlignmentGeometry get _popoverAlignment => styleValue(
-        widgetValue: widget.popoverAlignment,
-        themeValue: _theme?.popoverAlignment,
-        defaultValue: Alignment.topCenter,
-      );
+    widgetValue: widget.popoverAlignment,
+    themeValue: _theme?.popoverAlignment,
+    defaultValue: Alignment.topCenter,
+  );
 
   AlignmentGeometry? get _popoverAnchorAlignment => styleValue(
-        widgetValue: widget.popoverAnchorAlignment,
-        themeValue: _theme?.popoverAnchorAlignment,
-        defaultValue: null,
-      );
+    widgetValue: widget.popoverAnchorAlignment,
+    themeValue: _theme?.popoverAnchorAlignment,
+    defaultValue: null,
+  );
 
   BorderRadiusGeometry? get _borderRadius => styleValue(
-        widgetValue: widget.borderRadius,
-        themeValue: _theme?.borderRadius,
-        defaultValue: null,
-      );
+    widgetValue: widget.borderRadius,
+    themeValue: _theme?.borderRadius,
+    defaultValue: null,
+  );
 
   EdgeInsetsGeometry? get _padding => styleValue(
-        widgetValue: widget.padding,
-        themeValue: _theme?.padding,
-        defaultValue: null,
-      );
+    widgetValue: widget.padding,
+    themeValue: _theme?.padding,
+    defaultValue: null,
+  );
 
   bool get _disableHoverEffect => styleValue(
-        widgetValue: widget.disableHoverEffect,
-        themeValue: _theme?.disableHoverEffect,
-        defaultValue: false,
-      );
+    widgetValue: widget.disableHoverEffect,
+    themeValue: _theme?.disableHoverEffect,
+    defaultValue: false,
+  );
 
   bool get _canUnselect => styleValue(
-        widgetValue: widget.canUnselect,
-        themeValue: _theme?.canUnselect,
-        defaultValue: false,
-      );
+    widgetValue: widget.canUnselect,
+    themeValue: _theme?.canUnselect,
+    defaultValue: false,
+  );
 
   bool get _autoClosePopover => styleValue(
-        widgetValue: widget.autoClosePopover,
-        themeValue: _theme?.autoClosePopover,
-        defaultValue: true,
-      );
+    widgetValue: widget.autoClosePopover,
+    themeValue: _theme?.autoClosePopover,
+    defaultValue: true,
+  );
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -85,6 +87,7 @@ class SelectState<T> extends State<Select<T>>
     formValue = widget.value;
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(Select<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -119,11 +122,13 @@ class SelectState<T> extends State<Select<T>>
     return const SizedBox();
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(T value) {
     widget.onChanged?.call(value);
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _popoverController.dispose();
@@ -146,23 +151,28 @@ class SelectState<T> extends State<Select<T>>
     return _padding!;
   }
 
+  /// Performs `_onChanged` logic for this form component.
   bool _onChanged(Object? value, bool selected) {
     if (!selected && !_canUnselect) {
       return false;
     }
-    var selectionHandler = widget.valueSelectionHandler ??
+    var selectionHandler =
+        widget.valueSelectionHandler ??
         _defaultSingleSelectValueSelectionHandler;
     var newValue = selectionHandler(widget.value, value, selected);
     widget.onChanged?.call(newValue);
     return true;
   }
 
+  /// Performs `_isSelected` logic for this form component.
   bool _isSelected(Object? value) {
-    final selectionPredicate = widget.valueSelectionPredicate ??
+    final selectionPredicate =
+        widget.valueSelectionPredicate ??
         _defaultSingleSelectValueSelectionPredicate;
     return selectionPredicate(widget.value, value);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -179,13 +189,16 @@ class SelectState<T> extends State<Select<T>>
             enabled: enabled,
             disableHoverEffect: _disableHoverEffect,
             focusNode: _focusNode,
-            style: (widget.filled
-                    ? ButtonVariance.secondary
-                    : ButtonVariance.outline)
-                .copyWith(
-              decoration: _borderRadius != null ? _overrideBorderRadius : null,
-              padding: _padding != null ? _overridePadding : null,
-            ),
+            style:
+                (widget.filled
+                        ? ButtonVariance.secondary
+                        : ButtonVariance.outline)
+                    .copyWith(
+                      decoration: _borderRadius != null
+                          ? _overrideBorderRadius
+                          : null,
+                      padding: _padding != null ? _overridePadding : null,
+                    ),
             onPressed: widget.onChanged == null
                 ? null
                 : () {
@@ -194,50 +207,53 @@ class SelectState<T> extends State<Select<T>>
                     GlobalKey popupKey = GlobalKey();
                     _popoverController
                         .show(
-                      context: context,
-                      offset: Offset(0, 8 * scaling),
-                      alignment: _popoverAlignment,
-                      anchorAlignment: _popoverAnchorAlignment,
-                      widthConstraint: widget.popupWidthConstraint,
-                      overlayBarrier: OverlayBarrier(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 8) * scaling,
-                        borderRadius: BorderRadius.circular(theme.radiusLg),
-                      ),
-                      builder: (context) {
-                        return ConstrainedBox(
-                          constraints: _popupConstraints ??
-                              BoxConstraints(
-                                maxHeight:
-                                    Select.kDefaultSelectMaxHeight * scaling,
-                              ),
-                          child: ListenableBuilder(
-                            listenable: _valueNotifier,
-                            builder: (context, _) {
-                              return Data.inherit(
-                                key: ValueKey(widget.value),
-                                data: SelectData(
-                                  enabled: enabled,
-                                  autoClose: _autoClosePopover,
-                                  isSelected: _isSelected,
-                                  onChanged: _onChanged,
-                                  hasSelection: widget.value != null,
-                                ),
-                                child: Builder(
-                                  key: popupKey,
-                                  builder: (context) {
-                                    return widget.popup(context);
-                                  },
-                                ),
-                              );
-                            },
+                          context: context,
+                          offset: Offset(0, 8 * scaling),
+                          alignment: _popoverAlignment,
+                          anchorAlignment: _popoverAnchorAlignment,
+                          widthConstraint: widget.popupWidthConstraint,
+                          overlayBarrier: OverlayBarrier(
+                            padding: EdgeInsets.symmetric(
+                              vertical: theme.density.baseGap * scaling,
+                            ),
+                            borderRadius: BorderRadius.circular(theme.radiusLg),
                           ),
-                        );
-                      },
-                    )
+                          builder: (context) {
+                            return ConstrainedBox(
+                              constraints:
+                                  _popupConstraints ??
+                                  BoxConstraints(
+                                    maxHeight:
+                                        Select.kDefaultSelectMaxHeight *
+                                        scaling,
+                                  ),
+                              child: ListenableBuilder(
+                                listenable: _valueNotifier,
+                                builder: (context, _) {
+                                  return Data.inherit(
+                                    key: ValueKey(widget.value),
+                                    data: SelectData(
+                                      enabled: enabled,
+                                      autoClose: _autoClosePopover,
+                                      isSelected: _isSelected,
+                                      onChanged: _onChanged,
+                                      hasSelection: widget.value != null,
+                                    ),
+                                    child: Builder(
+                                      key: popupKey,
+                                      builder: (context) {
+                                        return widget.popup(context);
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        )
                         .then((value) {
-                      _focusNode.requestFocus();
-                    });
+                          _focusNode.requestFocus();
+                        });
                   },
             child: WidgetStatesProvider.boundary(
               child: Row(
@@ -252,7 +268,8 @@ class SelectState<T> extends State<Select<T>>
                       hasSelection: widget.value != null,
                     ),
                     child: Expanded(
-                      child: widget.value != null &&
+                      child:
+                          widget.value != null &&
                               (widget.showValuePredicate?.call(
                                     widget.value as T,
                                   ) ??
@@ -268,7 +285,7 @@ class SelectState<T> extends State<Select<T>>
                           : _placeholder,
                     ),
                   ),
-                  SizedBox(width: 8 * scaling),
+                  SizedBox(width: theme.density.baseGap * scaling),
                   IconTheme.merge(
                     data: IconThemeData(
                       color: theme.colorScheme.foreground,

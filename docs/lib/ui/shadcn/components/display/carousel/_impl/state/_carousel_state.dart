@@ -1,20 +1,27 @@
 part of '../../carousel.dart';
 
+/// _CarouselState holds mutable state for the carousel implementation.
 class _CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   late CarouselController _controller;
+
   Duration? _startTime;
+
   late Ticker _ticker;
+
   bool hovered = false;
+
   bool dragging = false;
 
   late double _lastDragValue;
+
   double _dragVelocity = 0;
 
   late int _currentIndex;
 
   CarouselTheme? _theme;
 
+  /// Recomputes derived values when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -22,52 +29,52 @@ class _CarouselState extends State<Carousel>
   }
 
   CarouselAlignment get _alignment => styleValue(
-        widgetValue: widget.alignment,
-        themeValue: _theme?.alignment,
-        defaultValue: CarouselAlignment.center,
-      );
+    widgetValue: widget.alignment,
+    themeValue: _theme?.alignment,
+    defaultValue: CarouselAlignment.center,
+  );
 
   Axis get _direction => styleValue(
-        widgetValue: widget.direction,
-        themeValue: _theme?.direction,
-        defaultValue: Axis.horizontal,
-      );
+    widgetValue: widget.direction,
+    themeValue: _theme?.direction,
+    defaultValue: Axis.horizontal,
+  );
 
   bool get _wrap => styleValue(
-        widgetValue: widget.wrap,
-        themeValue: _theme?.wrap,
-        defaultValue: true,
-      );
+    widgetValue: widget.wrap,
+    themeValue: _theme?.wrap,
+    defaultValue: true,
+  );
 
   bool get _pauseOnHover => styleValue(
-        widgetValue: widget.pauseOnHover,
-        themeValue: _theme?.pauseOnHover,
-        defaultValue: true,
-      );
+    widgetValue: widget.pauseOnHover,
+    themeValue: _theme?.pauseOnHover,
+    defaultValue: true,
+  );
 
   Duration? get _autoplaySpeed => styleValue(
-        widgetValue: widget.autoplaySpeed,
-        themeValue: _theme?.autoplaySpeed,
-        defaultValue: null,
-      );
+    widgetValue: widget.autoplaySpeed,
+    themeValue: _theme?.autoplaySpeed,
+    defaultValue: null,
+  );
 
   bool get _draggable => styleValue(
-        widgetValue: widget.draggable,
-        themeValue: _theme?.draggable,
-        defaultValue: true,
-      );
+    widgetValue: widget.draggable,
+    themeValue: _theme?.draggable,
+    defaultValue: true,
+  );
 
   Duration get _speed => styleValue(
-        widgetValue: widget.speed,
-        themeValue: _theme?.speed,
-        defaultValue: const Duration(milliseconds: 200),
-      );
+    widgetValue: widget.speed,
+    themeValue: _theme?.speed,
+    defaultValue: const Duration(milliseconds: 200),
+  );
 
   Curve get _curve => styleValue(
-        widgetValue: widget.curve,
-        themeValue: _theme?.curve,
-        defaultValue: Curves.easeInOut,
-      );
+    widgetValue: widget.curve,
+    themeValue: _theme?.curve,
+    defaultValue: Curves.easeInOut,
+  );
 
   Duration? get _currentSlideDuration {
     double currentIndex = _controller.getCurrentIndex(widget.itemCount);
@@ -79,6 +86,7 @@ class _CarouselState extends State<Carousel>
     return duration;
   }
 
+  /// Initializes controllers and listeners required by carousel.
   @override
   void initState() {
     super.initState();
@@ -89,6 +97,7 @@ class _CarouselState extends State<Carousel>
     _dispatchControllerChange();
   }
 
+  /// Implements `_check` behavior for carousel.
   void _check() {
     bool shouldStart = false;
     if (_controller.shouldAnimate) {
@@ -122,11 +131,15 @@ class _CarouselState extends State<Carousel>
   }
 
   Duration? _lastTime;
+
+  /// Implements `_tick` behavior for carousel.
   void _tick(Duration elapsed) {
     Duration delta = _lastTime == null ? Duration.zero : elapsed - _lastTime!;
     _lastTime = elapsed;
+
     int deltaMillis = delta.inMilliseconds;
     _controller.tick(delta);
+
     bool shouldAutoPlay = false;
     if (_currentSlideDuration != null) {
       if (_startTime == null) {
@@ -186,6 +199,7 @@ class _CarouselState extends State<Carousel>
     _check();
   }
 
+  /// Updates internal state when carousel configuration changes.
   @override
   void didUpdateWidget(covariant Carousel oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -197,7 +211,9 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Implements `_onControllerChange` behavior for carousel.
   void _onControllerChange() {
+    /// Implements `setState` behavior for carousel.
     setState(() {});
     if (!_wrap && widget.itemCount != null) {
       if (_controller.value < 0) {
@@ -209,6 +225,7 @@ class _CarouselState extends State<Carousel>
     _dispatchControllerChange();
   }
 
+  /// Implements `_dispatchControllerChange` behavior for carousel.
   void _dispatchControllerChange() {
     _check();
     int index = _controller.getCurrentIndex(widget.itemCount).round();
@@ -218,6 +235,7 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Disposes resources allocated by this carousel state.
   @override
   void dispose() {
     _controller.removeListener(_onControllerChange);
@@ -225,6 +243,7 @@ class _CarouselState extends State<Carousel>
     super.dispose();
   }
 
+  /// Builds the widget tree for carousel.
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -269,7 +288,8 @@ class _CarouselState extends State<Carousel>
     if (widget.sizeConstraint is CarouselFixedConstraint) {
       size = (widget.sizeConstraint as CarouselFixedConstraint).size;
     } else if (widget.sizeConstraint is CarouselFractionalConstraint) {
-      size = constraints.maxHeight *
+      size =
+          constraints.maxHeight *
           (widget.sizeConstraint as CarouselFractionalConstraint).fraction;
     } else {
       size = constraints.maxHeight;
@@ -284,6 +304,7 @@ class _CarouselState extends State<Carousel>
       },
       onHorizontalDragUpdate: (details) {
         if (_draggable) {
+          /// Implements `setState` behavior for carousel.
           setState(() {
             var increment = -details.primaryDelta! / size;
             _controller.jumpTo(progressedValue + increment);
@@ -312,7 +333,8 @@ class _CarouselState extends State<Carousel>
     if (widget.sizeConstraint is CarouselFixedConstraint) {
       size = (widget.sizeConstraint as CarouselFixedConstraint).size;
     } else if (widget.sizeConstraint is CarouselFractionalConstraint) {
-      size = constraints.maxWidth *
+      size =
+          constraints.maxWidth *
           (widget.sizeConstraint as CarouselFractionalConstraint).fraction;
     } else {
       size = constraints.maxWidth;
@@ -327,6 +349,7 @@ class _CarouselState extends State<Carousel>
       },
       onVerticalDragUpdate: (details) {
         if (_draggable) {
+          /// Implements `setState` behavior for carousel.
           setState(() {
             var increment = -details.primaryDelta! / size;
             _controller.jumpTo(progressedValue + increment);
@@ -354,6 +377,7 @@ class _CarouselState extends State<Carousel>
     }
   }
 
+  /// Implements `buildCarousel` behavior for carousel.
   Widget buildCarousel(BuildContext context, BoxConstraints constraints) {
     return Stack(
       children: widget.transition.layout(

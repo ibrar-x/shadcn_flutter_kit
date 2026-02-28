@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// ResizableTable defines a reusable type for this registry module.
 class ResizableTable extends StatefulWidget {
   /// List of table rows to display.
   final List<TableRow> rows;
@@ -59,6 +60,6 @@ class ResizableTable extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ResizableTable> createState() => _ResizableTableState();
 }
-

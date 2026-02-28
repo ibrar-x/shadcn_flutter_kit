@@ -7,7 +7,7 @@ import '../../../shared/primitives/overlay.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/modal_backdrop_theme.dart';
+part '_impl/themes/base/modal_backdrop_theme.dart';
 part '_impl/core/modal_backdrop.dart';
 part '_impl/core/modal_container.dart';
 part '_impl/core/surface_barrier_painter.dart';

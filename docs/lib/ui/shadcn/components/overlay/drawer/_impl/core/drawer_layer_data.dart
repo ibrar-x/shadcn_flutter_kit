@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// DrawerLayerData defines a reusable type for this registry module.
 class DrawerLayerData {
   /// The drawer overlay state for this layer.
   final DrawerOverlayState overlay;
@@ -24,6 +25,7 @@ class DrawerLayerData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is DrawerLayerData &&

@@ -1,5 +1,6 @@
 part of '../../context_menu.dart';
 
+/// ContextMenuPopup defines a reusable type for this registry module.
 class ContextMenuPopup extends StatelessWidget {
   /// Build context for anchoring the popup.
   final BuildContext anchorContext;
@@ -44,6 +45,7 @@ class ContextMenuPopup extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return AnimatedValueBuilder<double>(
       value: 1.0,
@@ -66,11 +68,14 @@ class ContextMenuPopup extends StatelessWidget {
               child: MenuGroup(
                 direction: direction,
                 itemPadding: isSheetOverlay
-                    ? const EdgeInsets.symmetric(horizontal: 8) * theme.scaling
+                    ? EdgeInsets.symmetric(
+                        horizontal: theme.density.baseGap * theme.scaling,
+                      )
                     : EdgeInsets.zero,
                 builder: (context, children) {
-                  final compTheme =
-                      ComponentTheme.maybeOf<ContextMenuTheme>(context);
+                  final compTheme = ComponentTheme.maybeOf<ContextMenuTheme>(
+                    context,
+                  );
                   return MenuPopup(
                     surfaceOpacity: compTheme?.surfaceOpacity,
                     surfaceBlur: compTheme?.surfaceBlur,

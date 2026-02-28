@@ -9,9 +9,6 @@
     "otp"
   ],
   "dependencies": {
-    "pubspec": {
-      "data_widget": "^0.0.2"
-    },
     "shared": [
       "theme",
       "focus_outline",
@@ -22,6 +19,44 @@
     ],
     "components": [
       "text_field"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "_impl/core/_input_otp_child.dart",
+    "_impl/core/_input_otp_spacing.dart",
+    "_impl/core/_otp_character_input.dart",
+    "_impl/core/character_input_otp_child.dart",
+    "_impl/core/input_otp_child.dart",
+    "_impl/core/input_otp_child_data.dart",
+    "_impl/core/otp_separator.dart",
+    "_impl/core/widget_input_otp_child.dart",
+    "_impl/state/_input_otp_preview_state.dart",
+    "_impl/state/_input_otp_state.dart",
+    "_impl/state/_otp_character_input_state.dart",
+    "_impl/themes/base/input_otp_theme.dart",
+    "_impl/themes/config/input_otp_theme_config.dart",
+    "_impl/themes/config/input_otp_theme_defaults.dart",
+    "_impl/themes/config/input_otp_theme_schema.dart",
+    "_impl/themes/config/input_otp_theme_tokens.dart",
+    "input_otp.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`InputOTP`",
+      "`children` (`List<InputOTPChild>`, required)",
+      "`initialValue` (`OTPCodepointList?`)",
+      "`onChanged`, `onSubmitted`",
+      "`InputOTPChild` — base class for OTP parts.",
+      "`CharacterInputOTPChild` — standard character input box.",
+      "`WidgetInputOTPChild` — custom widget slot.",
+      "`OTPCodepointList` — list of nullable codepoints."
+    ],
+    "callbacks": [
+      "`onChanged`, `onSubmitted`"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

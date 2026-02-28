@@ -34,6 +34,9 @@ class ChatTheme extends ComponentThemeData {
   /// - [border] (`BorderSide?`, optional): The border of the chat bubble.
   /// - [widthFactor] (`double?`, optional): The width factor of the chat bubble.
   const ChatTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.color,
     this.alignment,
     this.type,
@@ -75,11 +78,13 @@ class ChatTheme extends ComponentThemeData {
     );
   }
 
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatTheme(color: $color, alignment: $alignment, type: $type, borderRadius: $borderRadius, padding: $padding, border: $border, widthFactor: $widthFactor)';
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -96,6 +101,13 @@ class ChatTheme extends ComponentThemeData {
   @override
   int get hashCode {
     return Object.hash(
-        color, alignment, type, borderRadius, padding, border, widthFactor);
+      color,
+      alignment,
+      type,
+      borderRadius,
+      padding,
+      border,
+      widthFactor,
+    );
   }
 }

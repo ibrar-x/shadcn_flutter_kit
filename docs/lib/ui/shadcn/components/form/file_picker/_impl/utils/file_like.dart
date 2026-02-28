@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+/// FileLike represents a form-related type in the registry.
 class FileLike {
+  /// Constructs `FileLike` with the provided parameters.
   const FileLike({
     required this.id,
     required this.name,
@@ -12,13 +14,28 @@ class FileLike {
     this.source,
   });
 
+  /// Field storing `id` for this form implementation.
   final String id;
+
+  /// Field storing `name` for this form implementation.
   final String name;
+
+  /// Field storing `size` for this form implementation.
   final int size;
+
+  /// Field storing `bytes` for this form implementation.
   final Uint8List? bytes;
+
+  /// Field storing `path` for this form implementation.
   final String? path;
+
+  /// Field storing `mimeType` for this form implementation.
   final String? mimeType;
+
+  /// Field storing `extension` for this form implementation.
   final String? extension;
+
+  /// Field storing `source` for this form implementation.
   final Object? source;
 
   String get resolvedExtension {

@@ -21,7 +21,6 @@ import '../text_field/text_field.dart';
 
 part '_impl/core/validator.dart';
 
-
 part '_impl/core/_form_entry_cached_value.dart';
 part '_impl/core/_form_entry_handle_interceptor.dart';
 part '_impl/state/_form_entry_interceptor_state.dart';
@@ -70,13 +69,6 @@ part '_impl/core/validation_result.dart';
 part '_impl/utils/validator_builder.dart';
 part '_impl/core/waiting_result.dart';
 
-
-
-
-
-
-
-
 /// A function type that evaluates a condition on a value and returns a boolean result.
 ///
 /// This type alias represents a predicate function that can be either synchronous
@@ -94,62 +86,14 @@ part '_impl/core/waiting_result.dart';
 /// ```
 typedef FuturePredicate<T> = FutureOr<bool> Function(T? value);
 
-
-
-
-
 /// A function type for building custom validators.
 ///
 /// Parameters:
 /// - [value] (`T?`): The value to validate.
 ///
 /// Returns a `FutureOr<ValidationResult?>` that is null for valid values.
-typedef ValidatorBuilderFunction<T> = FutureOr<ValidationResult?> Function(
-    T? value);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+typedef ValidatorBuilderFunction<T> =
+    FutureOr<ValidationResult?> Function(T? value);
 
 // Type aliases for form field keys
 
@@ -231,22 +175,6 @@ typedef TimeInputKey = FormKey<TimeOfDay>;
 /// Form key type for toggle fields with boolean values.
 typedef ToggleKey = FormKey<bool>;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /// A map of form field keys to their values.
 ///
 /// Used to collect and pass around form data, where each key uniquely identifies
@@ -258,8 +186,8 @@ typedef FormMapValues = Map<FormKey, dynamic>;
 /// Parameters:
 /// - [context] (`BuildContext`): The build context.
 /// - [values] (`FormMapValues`): Map of all form field values.
-typedef FormSubmitCallback = void Function(
-    BuildContext context, FormMapValues values);
+typedef FormSubmitCallback =
+    void Function(BuildContext context, FormMapValues values);
 
 /// Extension methods for [FormMapValues].
 extension FormMapValuesExtension on FormMapValues {
@@ -274,8 +202,10 @@ extension FormMapValuesExtension on FormMapValues {
     if (value == null) {
       return null;
     }
-    assert(key.isInstanceOf(value),
-        'The value for key $key is not of type ${key.type}');
+    assert(
+      key.isInstanceOf(value),
+      'The value for key $key is not of type ${key.type}',
+    );
     return value as T?;
   }
 }
@@ -395,29 +325,20 @@ class Form extends StatefulWidget {
   /// ```
   const Form({super.key, required this.child, this.onSubmit, this.controller});
 
+  /// Creates the `State` object for this widget.
   @override
   State<Form> createState() => FormState();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /// Builder function type for displaying pending form validations.
 ///
 /// Takes the context, map of pending validation futures, and optional child widget.
-typedef FormPendingWidgetBuilder = Widget Function(BuildContext context,
-    Map<FormKey, Future<ValidationResult?>> errors, Widget? child);
-
-
+typedef FormPendingWidgetBuilder =
+    Widget Function(
+      BuildContext context,
+      Map<FormKey, Future<ValidationResult?>> errors,
+      Widget? child,
+    );
 
 /// Extension methods on [BuildContext] for form operations.
 extension FormExtension on BuildContext {
@@ -469,9 +390,10 @@ extension FormExtension on BuildContext {
   }
 
   FutureOr<SubmissionResult> _chainedSubmitForm(
-      Map<FormKey, Object?> values,
-      Map<FormKey, ValidationResult> errors,
-      Iterator<MapEntry<FormKey, _ValidatorResultStash>> iterator) {
+    Map<FormKey, Object?> values,
+    Map<FormKey, ValidationResult> errors,
+    Iterator<MapEntry<FormKey, _ValidatorResultStash>> iterator,
+  ) {
     if (!iterator.moveNext()) {
       return SubmissionResult(values, errors);
     }

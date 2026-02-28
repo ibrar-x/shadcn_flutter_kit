@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationDivider defines a reusable type for this registry module.
 class NavigationDivider extends StatelessWidget implements NavigationBarItem {
   /// Optional thickness of the divider line.
   final double? thickness;
@@ -15,15 +16,25 @@ class NavigationDivider extends StatelessWidget implements NavigationBarItem {
   const NavigationDivider({super.key, this.thickness, this.color});
 
   @override
+  /// Stores `selectable` state/configuration for this implementation.
   bool get selectable => false;
 
   @override
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final data = Data.maybeOf<NavigationControlData>(context);
+
+    /// Stores `parentPadding` state/configuration for this implementation.
     final parentPadding = data?.parentPadding ?? EdgeInsets.zero;
+
+    /// Stores `direction` state/configuration for this implementation.
     final direction = data?.direction ?? Axis.vertical;
+
+    /// Stores `child` state/configuration for this implementation.
     Widget child;
     if (direction == Axis.vertical) {
       child = Divider(
@@ -45,16 +56,22 @@ class NavigationDivider extends StatelessWidget implements NavigationBarItem {
       return SliverToBoxAdapter(
         child: Padding(
           padding: direction == Axis.vertical
-              ? EdgeInsets.symmetric(vertical: 8 * scaling)
-              : EdgeInsets.symmetric(horizontal: 8 * scaling),
+              ? EdgeInsets.symmetric(vertical: theme.density.baseGap * scaling)
+              : EdgeInsets.symmetric(
+                  horizontal: theme.density.baseGap * scaling,
+                ),
           child: child,
         ),
       );
     }
     return Padding(
       padding: direction == Axis.vertical
-          ? EdgeInsets.symmetric(vertical: 4 * scaling)
-          : EdgeInsets.symmetric(horizontal: 4 * scaling),
+          ? EdgeInsets.symmetric(
+              vertical: theme.density.baseGap * scaling * 0.5,
+            )
+          : EdgeInsets.symmetric(
+              horizontal: theme.density.baseGap * scaling * 0.5,
+            ),
       child: child,
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/display/border_loading/border_loading.dart';
-import 'package:flutter_shadcn_kit/registry/components/display/text/text.dart';
-import 'package:flutter_shadcn_kit/registry/shared/icons/lucide_icons.dart';
-import 'package:flutter_shadcn_kit/registry/shared/primitives/outlined_container.dart';
+import '../../display/border_loading/border_loading.dart';
+import '../../display/text/text.dart';
+import '../../../shared/icons/lucide_icons.dart';
+import '../../../shared/primitives/outlined_container.dart';
 
 import '../../layout/scaffold/scaffold.dart';
 import '../../control/button/button.dart';

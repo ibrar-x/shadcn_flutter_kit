@@ -55,6 +55,7 @@ class MultipleAnswer<T> extends StatefulWidget {
     this.allowUnselect,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<MultipleAnswer<T>> createState() => _MultipleAnswerState<T>();
 }

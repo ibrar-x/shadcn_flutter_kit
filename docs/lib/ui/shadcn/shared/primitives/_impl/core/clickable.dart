@@ -1,5 +1,6 @@
 part of '../../clickable.dart';
 
+/// Clickable defines a reusable type for this registry module.
 class Clickable extends StatefulWidget {
   /// The child widget displayed within the clickable area.
   final Widget child;
@@ -194,6 +195,7 @@ class Clickable extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Clickable> createState() => _ClickableState();
 }
 

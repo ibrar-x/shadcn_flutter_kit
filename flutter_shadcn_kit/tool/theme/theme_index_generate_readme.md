@@ -1,7 +1,7 @@
 # theme_index_generate.dart
 
 ## Purpose
-Builds `lib/registry/theme.index.json` from preset theme JSON files.
+Builds `lib/registry/manifests/theme.index.json` from preset theme JSON files.
 
 ## Script
 `tool/theme/theme_index_generate.dart`
@@ -18,7 +18,7 @@ Builds `lib/registry/theme.index.json` from preset theme JSON files.
 - `-h`, `--help`
 
 ## Outputs
-- Default: `lib/registry/theme.index.json`
+- Default: `lib/registry/manifests/theme.index.json`
 
 ## Example
 `dart run tool/theme/theme_index_generate.dart --default zinc`

@@ -85,6 +85,7 @@
     "_impl/themes/base/text_field_theme.dart",
     "_impl/themes/config/text_field_theme_config.dart",
     "_impl/themes/config/text_field_theme_defaults.dart",
+    "_impl/themes/config/text_field_theme_schema.dart",
     "_impl/themes/config/text_field_theme_tokens.dart",
     "_impl/themes/variants/auto_complete_theme.dart",
     "_impl/utils/accept_suggestion_intent.dart",

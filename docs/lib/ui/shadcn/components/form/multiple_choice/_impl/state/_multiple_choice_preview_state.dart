@@ -1,9 +1,14 @@
 part of '../../preview.dart';
 
+/// _MultipleChoicePreviewState stores and manages mutable widget state.
 class _MultipleChoicePreviewState extends State<MultipleChoicePreview> {
+  /// Current value stored for `_singleValue`.
   String? _singleValue;
+
+  /// Current value stored for `_multiValue`.
   Iterable<String>? _multiValue = const [];
 
+  /// Performs `_buildChoice` logic for this form component.
   Widget _buildChoice(String value) {
     return Builder(
       builder: (context) {
@@ -27,6 +32,7 @@ class _MultipleChoicePreviewState extends State<MultipleChoicePreview> {
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +43,7 @@ class _MultipleChoicePreviewState extends State<MultipleChoicePreview> {
             MultipleChoice<String>(
               value: _singleValue,
               onChanged: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _singleValue = value;
                 });
@@ -54,6 +61,7 @@ class _MultipleChoicePreviewState extends State<MultipleChoicePreview> {
             MultipleAnswer<String>(
               value: _multiValue,
               onChanged: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _multiValue = value;
                 });

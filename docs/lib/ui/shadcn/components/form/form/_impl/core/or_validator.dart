@@ -21,15 +21,23 @@ class OrValidator<T> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     return _chainedValidation(context, value, state, 0);
   }
 
   FutureOr<ValidationResult?> _chainedValidation(
-      BuildContext context, T? value, FormValidationMode state, int index) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+    int index,
+  ) {
     if (index >= validators.length) {
       return null;
     }
+
     var validator = validators[index];
     var result = validator.validate(context, value, state);
     if (result is Future<ValidationResult?>) {
@@ -50,11 +58,13 @@ class OrValidator<T> extends Validator<T> {
     return _chainedValidation(context, value, state, index + 1);
   }
 
+  /// Performs `operator |` logic for this form component.
   @override
   Validator<T> operator |(Validator<T> other) {
     return OrValidator([...validators, other]);
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     for (var validator in validators) {
@@ -65,11 +75,13 @@ class OrValidator<T> extends Validator<T> {
     return false;
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is OrValidator && listEquals(other.validators, validators);
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => validators.hashCode;
 }

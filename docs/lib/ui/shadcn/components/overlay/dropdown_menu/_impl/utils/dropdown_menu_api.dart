@@ -26,6 +26,7 @@ OverlayCompleter<T?> showDropdown<T>({
   Duration? dismissDuration,
 }) {
   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   final GlobalKey key = GlobalKey();
   final overlayManager = OverlayManager.of(context);
@@ -54,10 +55,7 @@ OverlayCompleter<T?> showDropdown<T>({
       borderRadius: BorderRadius.circular(theme.radiusMd),
     ),
     builder: (context) {
-      return Data.inherit(
-        data: DropdownMenuData(key),
-        child: builder(context),
-      );
+      return Data.inherit(data: DropdownMenuData(key), child: builder(context));
     },
   );
 }

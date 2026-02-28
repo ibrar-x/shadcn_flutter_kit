@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuData defines a reusable type for this registry module.
 class MenuData {
   /// Controller for this item's submenu popover.
   final PopoverController popoverController;
@@ -9,7 +10,7 @@ class MenuData {
   /// Parameters:
   /// - [popoverController] (PopoverController?): Optional controller, creates default if null
   MenuData({PopoverController? popoverController})
-      : popoverController = popoverController ?? PopoverController();
+    : popoverController = popoverController ?? PopoverController();
 }
 
 /// Container widget for organizing menu items into a group.

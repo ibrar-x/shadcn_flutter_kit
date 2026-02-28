@@ -67,25 +67,21 @@ class TreeRoot<T> extends TreeNode<T> {
   ///   ],
   /// );
   /// ```
-  TreeRoot({
-    required this.children,
-  });
+  TreeRoot({required this.children});
 
+  /// Implements `updateState` behavior for tree.
   @override
-  TreeRoot<T> updateState({
-    bool? expanded,
-    bool? selected,
-  }) {
+  TreeRoot<T> updateState({bool? expanded, bool? selected}) {
     return this;
   }
 
+  /// Implements `updateChildren` behavior for tree.
   @override
   TreeRoot<T> updateChildren(List<TreeNode<T>> children) {
-    return TreeRoot(
-      children: children,
-    );
+    return TreeRoot(children: children);
   }
 
+  /// Compares two tree values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -98,6 +94,7 @@ class TreeRoot<T> extends TreeNode<T> {
     return children.hashCode;
   }
 
+  /// Returns a debug string for this tree value.
   @override
   String toString() => 'TreeRoot(children: $children)';
 }

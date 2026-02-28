@@ -14,11 +14,13 @@ class SubmissionResult {
   /// Creates a submission result.
   const SubmissionResult(this.values, this.errors);
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'SubmissionResult($values, $errors)';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is SubmissionResult &&
@@ -28,5 +30,7 @@ class SubmissionResult {
 
   @override
   int get hashCode => Object.hash(
-      Object.hashAll(values.entries), Object.hashAll(errors.entries));
+    Object.hashAll(values.entries),
+    Object.hashAll(errors.entries),
+  );
 }

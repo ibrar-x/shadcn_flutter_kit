@@ -1,14 +1,87 @@
-# FocusOutline
+# Focus Outline (`focus_outline`)
 
-Adds a focus ring around a child widget without taking input events.
+Keyboard focus visualization outline with theming support.
 
-```dart
-import 'ui/shadcn/components/focus_outline/focus_outline.dart';
+---
 
-FocusOutline(
-  focused: hasFocus,
-  child: TextButton(onPressed: () {}, child: const Text('Button')),
-);
+## When to use
+
+- Use this when:
+  - you need a consistent focus ring around custom widgets.
+- Avoid when:
+  - default focus styles already meet your requirements.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add focus_outline
 ```
 
-Use `ComponentTheme<FocusOutlineTheme>` from `shared/theme/theme.dart` to override the default border, alignment offset, or corner rounding.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/utility/focus_outline/focus_outline.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+FocusOutline(
+  focused: isFocused,
+  child: const Text('Focusable'),
+)
+```
+
+---
+
+## API
+
+### Widget
+
+- `FocusOutline`
+
+### Theme
+
+- `FocusOutlineTheme`
+
+---
+
+## Theming
+
+- `FocusOutlineTheme` controls align offsets and border styling.
+
+---
+
+## Accessibility
+
+- Keep focus rings visible for keyboard users.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use focus outlines on custom interactive widgets.
+
+**Don’t**
+- ❌ Hide focus rings without providing alternatives.
+
+---
+
+## Related components
+
+- `subfocus`
+- `hover`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// ModalBackdrop defines a reusable type for this registry module.
 class ModalBackdrop extends StatelessWidget {
   /// Determines if surface clipping should be enabled based on opacity.
   ///
@@ -67,28 +68,34 @@ class ModalBackdrop extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<ModalBackdropTheme>(context);
     final modal = styleValue(
-        widgetValue: this.modal,
-        themeValue: compTheme?.modal,
-        defaultValue: true);
+      widgetValue: this.modal,
+      themeValue: compTheme?.modal,
+      defaultValue: true,
+    );
     final surfaceClip = styleValue(
-        widgetValue: this.surfaceClip,
-        themeValue: compTheme?.surfaceClip,
-        defaultValue: true);
+      widgetValue: this.surfaceClip,
+      themeValue: compTheme?.surfaceClip,
+      defaultValue: true,
+    );
     final borderRadius = styleValue(
-        widgetValue: this.borderRadius,
-        themeValue: compTheme?.borderRadius,
-        defaultValue: BorderRadius.zero);
+      widgetValue: this.borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.zero,
+    );
     final padding = styleValue(
-        widgetValue: this.padding,
-        themeValue: compTheme?.padding,
-        defaultValue: EdgeInsets.zero);
+      widgetValue: this.padding,
+      themeValue: compTheme?.padding,
+      defaultValue: EdgeInsets.zero,
+    );
     final barrierColor = styleValue(
-        widgetValue: this.barrierColor,
-        themeValue: compTheme?.barrierColor,
-        defaultValue: const Color.fromRGBO(0, 0, 0, 0.8));
+      widgetValue: this.barrierColor,
+      themeValue: compTheme?.barrierColor,
+      defaultValue: const Color.fromRGBO(0, 0, 0, 0.8),
+    );
     if (!modal) {
       return child;
     }
@@ -104,28 +111,20 @@ class ModalBackdrop extends StatelessWidget {
       ),
     );
     if (fadeAnimation != null) {
-      paintWidget = FadeTransition(
-        opacity: fadeAnimation!,
-        child: paintWidget,
-      );
+      paintWidget = FadeTransition(opacity: fadeAnimation!, child: paintWidget);
     }
     return RepaintBoundary(
       child: Stack(
+        clipBehavior: Clip.none,
         fit: StackFit.passthrough,
         children: [
           if (!surfaceClip)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: paintWidget,
-              ),
-            ),
+/// Creates a `Positioned.fill` instance.
+            Positioned.fill(child: IgnorePointer(child: paintWidget)),
           child,
           if (surfaceClip)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: paintWidget,
-              ),
-            ),
+/// Creates a `Positioned.fill` instance.
+            Positioned.fill(child: IgnorePointer(child: paintWidget)),
         ],
       ),
     );

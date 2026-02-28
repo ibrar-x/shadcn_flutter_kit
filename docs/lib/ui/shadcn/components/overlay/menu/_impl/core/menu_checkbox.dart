@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuCheckbox defines a reusable type for this registry module.
 class MenuCheckbox extends StatelessWidget implements MenuItem {
   /// Current checked state.
   final bool value;
@@ -39,24 +40,26 @@ class MenuCheckbox extends StatelessWidget implements MenuItem {
   });
 
   @override
+/// Stores `hasLeading` state/configuration for this implementation.
   bool get hasLeading => true;
   @override
+/// Stores `popoverController` state/configuration for this implementation.
   PopoverController? get popoverController => null;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return MenuButton(
       leading: value
           ? SizedBox(
               width: 16 * scaling,
               height: 16 * scaling,
-              child: const Icon(
-                RadixIcons.check,
-              ).iconSmall(),
+              child: const Icon(RadixIcons.check).iconSmall(),
             )
-          : SizedBox(width: 16 * scaling),
+          : SizedBox(width: theme.density.baseContentPadding * scaling),
       onPressed: (context) {
         onChanged?.call(context, !value);
       },
@@ -67,4 +70,3 @@ class MenuCheckbox extends StatelessWidget implements MenuItem {
     );
   }
 }
-

@@ -8,7 +8,7 @@
     "input",
     "textarea"
   ],
-  "installedAt": "2026-02-09T10:18:03.198971Z",
+  "installedAt": "2026-02-22T01:08:41.544818Z",
   "shared": [
     "theme"
   ],
@@ -16,13 +16,9 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/text_area/README.md",
     "registry/components/form/text_area/_impl/core/text_area_handle.dart",
     "registry/components/form/text_area/_impl/state/text_area_state.dart",
-    "registry/components/form/text_area/meta.json",
-    "registry/components/form/text_area/preview.dart",
-    "registry/components/form/text_area/text_area.dart",
-    "registry/components/form/text_area/text_area.meta.json"
+    "registry/components/form/text_area/text_area.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

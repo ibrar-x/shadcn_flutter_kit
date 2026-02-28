@@ -3,18 +3,25 @@
 
 import 'app_error.dart';
 
+/// Type alias for `ErrorMatch` used by public or internal APIs.
 typedef ErrorMatch = bool Function(Object error, StackTrace? stackTrace);
+/// Type alias for `ErrorBuild` used by public or internal APIs.
 typedef ErrorBuild = AppError Function(Object error, StackTrace? stackTrace);
 
+/// ErrorRule defines a reusable type for this registry module.
 class ErrorRule {
+/// Creates a `ErrorRule` instance.
   const ErrorRule({
     required this.matches,
     required this.build,
     this.priority = 0,
   });
 
+/// Stores `matches` state/configuration for this implementation.
   final ErrorMatch matches;
+/// Stores `build` state/configuration for this implementation.
   final ErrorBuild build;
+/// Stores `priority` state/configuration for this implementation.
   final int priority;
 }
 

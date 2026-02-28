@@ -51,14 +51,13 @@ abstract class InputOTPChild {
     bool obscured = false,
     bool readOnly = false,
     TextInputType? keyboardType,
-  }) =>
-      CharacterInputOTPChild(
-        predicate: predicate,
-        transform: transform,
-        obscured: obscured,
-        readOnly: readOnly,
-        keyboardType: keyboardType,
-      );
+  }) => CharacterInputOTPChild(
+    predicate: predicate,
+    transform: transform,
+    obscured: obscured,
+    readOnly: readOnly,
+    keyboardType: keyboardType,
+  );
 
   /// Creates a character input with alphabet and digit filtering.
   ///
@@ -91,9 +90,12 @@ abstract class InputOTPChild {
     bool readOnly = false,
     TextInputType? keyboardType,
   }) {
-    assert(!(onlyUppercaseAlphabet && onlyLowercaseAlphabet),
-        'onlyUppercaseAlphabet and onlyLowercaseAlphabet cannot be true at the same time');
-    keyboardType ??= allowDigit &&
+    assert(
+      !(onlyUppercaseAlphabet && onlyLowercaseAlphabet),
+      'onlyUppercaseAlphabet and onlyLowercaseAlphabet cannot be true at the same time',
+    );
+    keyboardType ??=
+        allowDigit &&
             !allowLowercaseAlphabet &&
             !allowUppercaseAlphabet &&
             !onlyUppercaseAlphabet &&

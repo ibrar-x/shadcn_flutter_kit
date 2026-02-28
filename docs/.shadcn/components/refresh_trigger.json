@@ -8,7 +8,7 @@
     "scroll",
     "refresh"
   ],
-  "installedAt": "2026-02-09T10:18:03.237089Z",
+  "installedAt": "2026-02-22T01:08:41.576254Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -22,19 +22,19 @@
     "checkbox"
   ],
   "files": [
-    "registry/components/overlay/refresh_trigger/README.md",
     "registry/components/overlay/refresh_trigger/_impl/core/default_refresh_indicator.dart",
     "registry/components/overlay/refresh_trigger/_impl/core/refresh_trigger_stage.dart",
     "registry/components/overlay/refresh_trigger/_impl/core/refresh_trigger_widget.dart",
     "registry/components/overlay/refresh_trigger/_impl/state/_default_refresh_indicator_state.dart",
     "registry/components/overlay/refresh_trigger/_impl/state/refresh_trigger_state.dart",
-    "registry/components/overlay/refresh_trigger/_impl/themes/refresh_trigger_theme.dart",
+    "registry/components/overlay/refresh_trigger/_impl/themes/base/refresh_trigger_theme.dart",
+    "registry/components/overlay/refresh_trigger/_impl/themes/config/refresh_trigger_theme_config.dart",
+    "registry/components/overlay/refresh_trigger/_impl/themes/config/refresh_trigger_theme_defaults.dart",
+    "registry/components/overlay/refresh_trigger/_impl/themes/config/refresh_trigger_theme_schema.dart",
+    "registry/components/overlay/refresh_trigger/_impl/themes/config/refresh_trigger_theme_tokens.dart",
     "registry/components/overlay/refresh_trigger/_impl/utils/_refresh_trigger_tween.dart",
     "registry/components/overlay/refresh_trigger/_impl/utils/refresh_trigger_physics.dart",
-    "registry/components/overlay/refresh_trigger/meta.json",
-    "registry/components/overlay/refresh_trigger/preview.dart",
-    "registry/components/overlay/refresh_trigger/refresh_trigger.dart",
-    "registry/components/overlay/refresh_trigger/refresh_trigger.meta.json"
+    "registry/components/overlay/refresh_trigger/refresh_trigger.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

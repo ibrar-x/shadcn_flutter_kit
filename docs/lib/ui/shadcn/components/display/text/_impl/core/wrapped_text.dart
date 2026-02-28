@@ -119,6 +119,7 @@ class WrappedText extends StatelessWidget implements TextModifier {
     );
   }
 
+  /// Builds the widget tree for text.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -165,8 +166,9 @@ class WrappedText extends StatelessWidget implements TextModifier {
       softWrap: softWrap == null ? this.softWrap : softWrap(),
       overflow: overflow == null ? this.overflow : overflow(),
       maxLines: maxLines == null ? this.maxLines : maxLines(),
-      textWidthBasis:
-          textWidthBasis == null ? this.textWidthBasis : textWidthBasis(),
+      textWidthBasis: textWidthBasis == null
+          ? this.textWidthBasis
+          : textWidthBasis(),
       child: child == null ? this.child : child(),
     );
   }

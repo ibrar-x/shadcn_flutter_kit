@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import '../utils/feature_carousel_animation_style.dart';
 import '../utils/feature_carousel_models.dart';
 
+/// FeatureCarouselController controls runtime behavior and interactions for feature carousel.
 class FeatureCarouselController extends ChangeNotifier {
+  /// Creates `FeatureCarouselController` for configuring or rendering feature carousel.
   FeatureCarouselController({
     int initialIndex = 0,
     this.showCta = true,
@@ -19,21 +21,41 @@ class FeatureCarouselController extends ChangeNotifier {
     this.onIndexChanged,
   }) : _index = initialIndex;
 
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   int _index;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   bool showCta;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   bool showNavArrows;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   bool autoPlay;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   Duration autoPlayInterval;
+
+  /// Animation/progress setting used by feature carousel transitions.
   FeatureCarouselAnimationStyle animationStyle;
+
+  /// Animation/progress setting used by feature carousel transitions.
   bool cycleAnimationStyles;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   bool enableKeyboardNavigation;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   bool enableSwipe;
+
+  /// Input parameter used by `FeatureCarouselController` during rendering and behavior handling.
   String primaryActionLabel;
   void Function(FeatureCarouselItem item, int index)? onPrimaryAction;
   void Function(int index)? onIndexChanged;
 
   int get index => _index;
 
+  /// Implements `index` behavior for feature carousel.
   set index(int value) {
     if (_index == value) return;
     _index = value;
@@ -41,11 +63,13 @@ class FeatureCarouselController extends ChangeNotifier {
     onIndexChanged?.call(_index);
   }
 
+  /// Implements `next` behavior for feature carousel.
   void next(int itemCount) {
     if (itemCount == 0) return;
     index = (index + 1) % itemCount;
   }
 
+  /// Implements `previous` behavior for feature carousel.
   void previous(int itemCount) {
     if (itemCount == 0) return;
     index = (index - 1 + itemCount) % itemCount;

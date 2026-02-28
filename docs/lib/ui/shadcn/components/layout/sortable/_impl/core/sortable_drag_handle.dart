@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// SortableDragHandle defines a reusable type for this registry module.
 class SortableDragHandle extends StatefulWidget {
   /// The child widget that serves as the drag handle.
   ///
@@ -50,14 +51,15 @@ class SortableDragHandle extends StatefulWidget {
   ///   ),
   /// )
   /// ```
-  const SortableDragHandle(
-      {super.key,
-      required this.child,
-      this.enabled = true,
-      this.behavior,
-      this.cursor});
+  const SortableDragHandle({
+    super.key,
+    required this.child,
+    this.enabled = true,
+    this.behavior,
+    this.cursor,
+  });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SortableDragHandle> createState() => _SortableDragHandleState();
 }
-

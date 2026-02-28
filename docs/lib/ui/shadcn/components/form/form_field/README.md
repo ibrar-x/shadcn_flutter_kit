@@ -1,17 +1,99 @@
-# Form Field
+# Form Field (`form_field`)
 
-`ObjectFormField` wraps content in a button-like trigger that opens a dialog or popover editor. It wires `ObjectFormHandler` into the tree so nested editors can update the parent value, and it ships with templated save/cancel buttons that use the existing button themes. Use `mode` to pick between a modal dialog or an inline popover, and pass `editorBuilder` plus optional hooks such as `dialogActions`, `popoverAlignment`, or `immediateValueChange` to customize the experience.
+Modal or popover editor field for complex objects.
+
+---
+
+## When to use
+
+- Use this when:
+  - you need a button-like field that opens a custom editor.
+  - you want a consistent dialog/popover prompt pattern.
+- Avoid when:
+  - a standard text field is sufficient.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add form_field
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/form_field/form_field.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 ObjectFormField<DateTime>(
   value: selectedDate,
-  placeholder: const Text('Pick a date'),
-  builder: (context, date) => Text(DateFormat.yMMMd().format(date)),
-  mode: PromptMode.popover,
-  editorBuilder: (context, handler) => CalendarWidget(
-    onDateSelected: (value) {
-      handler.value = value;
-    },
+  placeholder: const Text('Select date'),
+  builder: (context, value) => Text(value.toString()),
+  editorBuilder: (context, handler) => Calendar(
+    view: CalendarView.now(),
+    selectionMode: CalendarSelectionMode.single,
+    onChanged: (value) => handler.value = (value as SingleCalendarValue).date,
   ),
-);
+)
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `ObjectFormField<T>`
+  - `value` (`T?`, required)
+  - `builder` (`Widget Function(BuildContext, T)`, required)
+  - `editorBuilder` (`Widget Function(BuildContext, ObjectFormHandler<T>)`, required)
+  - `mode` (`PromptMode`), `dialogTitle`, `popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`
+  - `leading`, `trailing`, `size`, `density`, `shape`, `enabled`, `decorate`
+- `ObjectFormHandler<T>` — interface for reading/updating value.
+- `ObjectFormFieldDialogResult<T>` — dialog result wrapper.
+- `PromptMode` — `dialog` or `popover`.
+
+---
+
+## Theming
+
+- Uses shared dialog and card theming.
+
+---
+
+## Accessibility
+
+- Ensure the editor content can be navigated by keyboard.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `immediateValueChange` if you want live updates in popover mode.
+
+**Don’t**
+- ❌ Open heavy editors without constraints or scroll support.
+
+---
+
+## Related components
+
+- `date_picker`
+- `time_picker`
+- `item_picker`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

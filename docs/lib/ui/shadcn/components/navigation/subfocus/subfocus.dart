@@ -8,10 +8,8 @@ part '_impl/state/_sub_focus_scope_state.dart';
 ///
 /// Receives the build context and the scope state for managing focus
 /// within the scope's widget tree.
-typedef SubFocusScopeBuilder = Widget Function(
-  BuildContext context,
-  SubFocusScopeState state,
-);
+typedef SubFocusScopeBuilder =
+    Widget Function(BuildContext context, SubFocusScopeState state);
 
 /// Hierarchical focus management system for complex widget trees.
 ///
@@ -82,6 +80,7 @@ class SubFocusScope extends StatefulWidget {
   const SubFocusScope({super.key, this.builder, this.autofocus = false});
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SubFocusScope> createState() => _SubFocusScopeState();
 }
 
@@ -188,10 +187,8 @@ mixin SubFocusScopeState {
 /// - [state]: The focus state providing focus information and control methods
 ///
 /// Returns the widget tree for this focusable element.
-typedef SubFocusBuilder = Widget Function(
-  BuildContext context,
-  SubFocusState state,
-);
+typedef SubFocusBuilder =
+    Widget Function(BuildContext context, SubFocusState state);
 
 /// Individual focusable widget within a SubFocusScope hierarchy.
 ///
@@ -318,4 +315,3 @@ mixin SubFocusState {
   /// Returns `true` on success.
   bool unfocus();
 }
-

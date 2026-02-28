@@ -18,6 +18,7 @@ class CalendarGrid extends StatelessWidget {
     required this.itemBuilder,
   });
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -40,39 +41,40 @@ class CalendarGrid extends StatelessWidget {
     // );
     // do not use GridView because it doesn't support IntrinsicWidth
     List<Widget> rows = [];
+
     List<Widget> weekDays = [];
     for (int i = 0; i < 7; i++) {
       int weekday = ((i - 1) % 7) + 1;
+
       weekDays.add(
         Container(
           width: theme.scaling * 32,
           height: theme.scaling * 32,
           alignment: Alignment.center,
-          child: Text(localizations.getAbbreviatedWeekday(weekday))
-              .muted()
-              .xSmall(),
+          child: Text(
+            localizations.getAbbreviatedWeekday(weekday),
+          ).muted().xSmall(),
         ),
       );
     }
-    rows.add(Row(
-      mainAxisSize: MainAxisSize.min,
-      children: weekDays,
-    ));
+    rows.add(Row(mainAxisSize: MainAxisSize.min, children: weekDays));
     for (int i = 0; i < data.items.length; i += 7) {
-      rows.add(Row(
-        mainAxisSize: MainAxisSize.min,
-        children: data.items.sublist(i, i + 7).map((e) {
-          return SizedBox(
-            width: theme.scaling * 32,
-            height: theme.scaling * 32,
-            child: itemBuilder(e),
-          );
-        }).toList(),
-      ));
+      rows.add(
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: data.items.sublist(i, i + 7).map((e) {
+            return SizedBox(
+              width: theme.scaling * 32,
+              height: theme.scaling * 32,
+              child: itemBuilder(e),
+            );
+          }).toList(),
+        ),
+      );
     }
     return Column(
       mainAxisSize: MainAxisSize.min,
-      spacing: theme.scaling * 8,
+      spacing: theme.density.baseGap * theme.scaling * gapSm,
       children: rows,
     );
   }

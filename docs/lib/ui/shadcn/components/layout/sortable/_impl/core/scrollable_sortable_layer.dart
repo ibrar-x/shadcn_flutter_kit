@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// ScrollableSortableLayer defines a reusable type for this registry module.
 class ScrollableSortableLayer extends StatefulWidget {
   /// The child widget containing sortable items within a scrollable area.
   ///
@@ -66,7 +67,7 @@ class ScrollableSortableLayer extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<ScrollableSortableLayer> createState() =>
       _ScrollableSortableLayerState();
 }
-

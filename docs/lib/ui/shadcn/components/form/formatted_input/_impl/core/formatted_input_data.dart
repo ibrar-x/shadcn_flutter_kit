@@ -33,6 +33,7 @@ class FormattedInputData {
     required this.focusNodes,
   });
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -47,5 +48,11 @@ class FormattedInputData {
 
   @override
   int get hashCode => Object.hash(
-      partIndex, initialValue, enabled, controller, focusNode, focusNodes);
+    partIndex,
+    initialValue,
+    enabled,
+    controller,
+    focusNode,
+    focusNodes,
+  );
 }

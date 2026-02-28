@@ -48,6 +48,7 @@ class InputHintFeature extends InputFeature {
     this.enableShortcuts = true,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputHintFeatureState();
 }

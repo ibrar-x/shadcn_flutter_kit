@@ -1,12 +1,16 @@
 part of '../../sortable.dart';
 
+/// _SortableDragHandleState defines a reusable type for this registry module.
 class _SortableDragHandleState extends State<SortableDragHandle>
     with AutomaticKeepAliveClientMixin {
+/// Stores `_state` state/configuration for this implementation.
   _SortableState? _state;
 
+/// Stores `_dragging` state/configuration for this implementation.
   bool _dragging = false;
 
   @override
+/// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     _state = Data.maybeOf<_SortableState>(context);
@@ -18,6 +22,7 @@ class _SortableDragHandleState extends State<SortableDragHandle>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     super.build(context);
     return MouseRegion(
@@ -33,8 +38,9 @@ class _SortableDragHandleState extends State<SortableDragHandle>
                 _state!._onDragStart(details);
               }
             : null,
-        onPanUpdate:
-            widget.enabled && _state != null ? _state!._onDragUpdate : null,
+        onPanUpdate: widget.enabled && _state != null
+            ? _state!._onDragUpdate
+            : null,
         onPanEnd: widget.enabled && _state != null
             ? (details) {
                 _state!._onDragEnd(details);

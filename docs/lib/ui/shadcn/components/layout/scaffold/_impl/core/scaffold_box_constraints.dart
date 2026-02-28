@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// ScaffoldBoxConstraints defines a reusable type for this registry module.
 class ScaffoldBoxConstraints extends BoxConstraints {
   /// Height of the header section.
   final double headerHeight;
@@ -46,6 +47,7 @@ class ScaffoldBoxConstraints extends BoxConstraints {
   }
 
   @override
+/// Creates a `ScaffoldBoxConstraints` instance.
   ScaffoldBoxConstraints copyWith({
     double? headerHeight,
     double? footerHeight,
@@ -65,6 +67,7 @@ class ScaffoldBoxConstraints extends BoxConstraints {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ScaffoldBoxConstraints) return false;
@@ -89,6 +92,7 @@ class ScaffoldBoxConstraints extends BoxConstraints {
   }
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'ScaffoldBoxConstraints(headerHeight: $headerHeight, footerHeight: $footerHeight, minWidth: $minWidth, maxWidth: $maxWidth, minHeight: $minHeight, maxHeight: $maxHeight)';
   }

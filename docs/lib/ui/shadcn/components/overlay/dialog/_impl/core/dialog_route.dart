@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// DialogRoute defines a reusable type for this registry module.
 class DialogRoute<T> extends RawDialogRoute<T> {
   /// Captured data from the launching context.
   final CapturedData? data;
@@ -43,36 +44,43 @@ class DialogRoute<T> extends RawDialogRoute<T> {
     this.fullScreen = false,
     this.data,
   }) : super(
-          pageBuilder: (BuildContext buildContext, Animation<double> animation,
-              Animation<double> secondaryAnimation) {
-            final Widget pageChild = Builder(
-              builder: (context) {
-                final theme = Theme.of(context);
-                final scaling = theme.scaling;
-                return Padding(
-                  padding: fullScreen
-                      ? EdgeInsets.zero
-                      : const EdgeInsets.all(16) * scaling,
-                  child: builder(context),
-                );
-              },
-            );
-            Widget dialog = themes?.wrap(pageChild) ?? pageChild;
-            if (data != null) {
-              dialog = data.wrap(dialog);
-            }
-            if (useSafeArea) {
-              dialog = SafeArea(child: dialog);
-            }
-            if (!fullScreen) {
-              dialog = Align(
-                alignment: alignment,
-                child: dialog,
-              );
-            }
-            return dialog;
-          },
-          barrierLabel: barrierLabel ?? 'Dismiss',
-          transitionDuration: const Duration(milliseconds: 150),
-        );
+         pageBuilder:
+             (
+               BuildContext buildContext,
+               Animation<double> animation,
+               Animation<double> secondaryAnimation,
+             ) {
+               final Widget pageChild = Builder(
+                 builder: (context) {
+                   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
+                   final scaling = theme.scaling;
+                   return Padding(
+                     padding: fullScreen
+                         ? EdgeInsets.zero
+                         : EdgeInsets.all(
+                             theme.density.baseContentPadding * scaling,
+                           ),
+                     child: builder(context),
+                   );
+                 },
+               );
+               Widget dialog = themes?.wrap(pageChild) ?? pageChild;
+               if (data != null) {
+                 dialog = data.wrap(dialog);
+               }
+               if (useSafeArea) {
+                 dialog = SafeArea(child: dialog);
+               }
+               if (!fullScreen) {
+                 dialog = Align(
+                   alignment: alignment,
+                   child: dialog,
+                 );
+               }
+               return dialog;
+             },
+         barrierLabel: barrierLabel ?? 'Dismiss',
+         transitionDuration: const Duration(milliseconds: 150),
+       );
 }

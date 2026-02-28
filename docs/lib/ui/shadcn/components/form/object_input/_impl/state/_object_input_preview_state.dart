@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _ObjectInputPreviewState stores and manages mutable widget state.
 class _ObjectInputPreviewState extends State<ObjectInputPreview> {
+  /// Current value stored for `_value`.
   DateTime? _value;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,6 +13,7 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
         child: DateInput(
           initialValue: _value,
           onChanged: (value) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _value = value;
             });

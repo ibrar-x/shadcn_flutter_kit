@@ -62,6 +62,7 @@ class NoEffect extends StreamingTextEffectAdapter
     return child;
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) => other is NoEffect;
 

@@ -8,7 +8,7 @@
     "validation",
     "state"
   ],
-  "installedAt": "2026-02-09T10:18:03.196350Z",
+  "installedAt": "2026-02-22T01:08:41.540279Z",
   "shared": [
     "focus_outline",
     "text_modifiers",
@@ -19,7 +19,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/form/README.md",
     "registry/components/form/form/_impl/core/_form_entry_cached_value.dart",
     "registry/components/form/form/_impl/core/_form_entry_handle_interceptor.dart",
     "registry/components/form/form/_impl/core/_validator_result_stash.dart",
@@ -68,10 +67,7 @@
     "registry/components/form/form/_impl/utils/form_error_builder.dart",
     "registry/components/form/form/_impl/utils/form_pending_builder.dart",
     "registry/components/form/form/_impl/utils/validator_builder.dart",
-    "registry/components/form/form/form.dart",
-    "registry/components/form/form/form.meta.json",
-    "registry/components/form/form/meta.json",
-    "registry/components/form/form/preview.dart"
+    "registry/components/form/form/form.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

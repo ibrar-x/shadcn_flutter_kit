@@ -52,6 +52,7 @@
     "_impl/themes/base/menu_theme.dart",
     "_impl/themes/config/menu_theme_config.dart",
     "_impl/themes/config/menu_theme_defaults.dart",
+    "_impl/themes/config/menu_theme_schema.dart",
     "_impl/themes/config/menu_theme_tokens.dart",
     "_impl/themes/variants/menu_popup_theme.dart",
     "_impl/themes/variants/menubar_theme.dart",

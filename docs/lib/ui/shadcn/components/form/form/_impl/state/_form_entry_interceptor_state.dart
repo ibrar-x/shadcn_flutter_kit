@@ -1,14 +1,18 @@
 part of '../../form.dart';
 
+/// _FormEntryInterceptorState stores and manages mutable widget state.
 class _FormEntryInterceptorState<T> extends State<FormEntryInterceptor<T>> {
+  /// Field storing `_handle` for this form implementation.
   FormFieldHandle? _handle;
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _handle = Data.maybeOf<FormFieldHandle>(context);
   }
 
+  /// Performs `_onValueReported` logic for this form component.
   void _onValueReported(Object? value) {
     var callback = widget.onValueReported;
     if (callback != null && value is T) {
@@ -16,6 +20,7 @@ class _FormEntryInterceptorState<T> extends State<FormEntryInterceptor<T>> {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Data<FormFieldHandle>.inherit(

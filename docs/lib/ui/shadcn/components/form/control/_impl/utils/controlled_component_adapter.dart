@@ -45,7 +45,7 @@ class ControlledComponentAdapter<T> extends StatefulWidget
   /// should create a widget that displays the current value and calls the
   /// onChanged callback when user interaction occurs.
   final Widget Function(BuildContext context, ControlledComponentData<T> data)
-      builder;
+  builder;
 
   /// Creates a [ControlledComponentAdapter].
   ///
@@ -80,9 +80,12 @@ class ControlledComponentAdapter<T> extends StatefulWidget
     this.onChanged,
     this.controller,
     this.enabled = true,
-  }) : assert(controller != null || initialValue is T,
-            'Either controller or initialValue must be provided');
+  }) : assert(
+         controller != null || initialValue is T,
+         'Either controller or initialValue must be provided',
+       );
 
+  /// Creates the `State` object for this widget.
   @override
   State<ControlledComponentAdapter<T>> createState() =>
       _ControlledComponentAdapterState<T>();

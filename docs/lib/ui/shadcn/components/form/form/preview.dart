@@ -4,9 +4,11 @@ import '../../control/button/button.dart';
 import '../form/form.dart';
 import '../text_field/text_field.dart';
 
+/// FormPreview represents a form-related type in the registry.
 class FormPreview extends StatelessWidget {
   const FormPreview({super.key});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,19 +20,17 @@ class FormPreview extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const FormTableLayout(
+                FormTableLayout(
                   rows: [
                     FormField<String>(
-                      key: FormKey(#name),
-                      label: Text('Name'),
-                      child: TextField(
-                        placeholder: Text('Jane Doe'),
-                      ),
+                      key: const FormKey(#name),
+                      label: const Text('Name'),
+                      child: const TextField(placeholder: Text('Jane Doe')),
                     ),
                     FormField<String>(
-                      key: FormKey(#email),
-                      label: Text('Email'),
-                      child: TextField(
+                      key: const FormKey(#email),
+                      label: const Text('Email'),
+                      child: const TextField(
                         placeholder: Text('jane@example.com'),
                       ),
                     ),

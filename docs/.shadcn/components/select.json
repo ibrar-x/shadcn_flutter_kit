@@ -8,7 +8,7 @@
     "input",
     "menu"
   ],
-  "installedAt": "2026-02-09T10:18:03.205838Z",
+  "installedAt": "2026-02-22T01:08:41.478345Z",
   "shared": [
     "clickable",
     "focus_outline",
@@ -35,7 +35,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/select/README.md",
     "registry/components/form/select/_impl/core/controlled_multi_select.dart",
     "registry/components/form/select/_impl/core/controlled_select.dart",
     "registry/components/form/select/_impl/core/empty_select_item.dart",
@@ -53,15 +52,16 @@
     "registry/components/form/select/_impl/state/_select_popup_state.dart",
     "registry/components/form/select/_impl/state/_select_preview_state.dart",
     "registry/components/form/select/_impl/state/select_state.dart",
-    "registry/components/form/select/_impl/themes/select_theme.dart",
+    "registry/components/form/select/_impl/themes/base/select_theme.dart",
+    "registry/components/form/select/_impl/themes/config/select_theme_config.dart",
+    "registry/components/form/select/_impl/themes/config/select_theme_defaults.dart",
+    "registry/components/form/select/_impl/themes/config/select_theme_schema.dart",
+    "registry/components/form/select/_impl/themes/config/select_theme_tokens.dart",
     "registry/components/form/select/_impl/utils/multi_select_controller.dart",
     "registry/components/form/select/_impl/utils/select_controller.dart",
     "registry/components/form/select/_impl/utils/select_item_builder.dart",
     "registry/components/form/select/_impl/utils/select_item_delegate.dart",
-    "registry/components/form/select/meta.json",
-    "registry/components/form/select/preview.dart",
-    "registry/components/form/select/select.dart",
-    "registry/components/form/select/select.meta.json"
+    "registry/components/form/select/select.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

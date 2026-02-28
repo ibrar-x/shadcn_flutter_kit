@@ -34,6 +34,7 @@
     "_impl/themes/base/modal_backdrop_theme.dart",
     "_impl/themes/config/dialog_theme_config.dart",
     "_impl/themes/config/dialog_theme_defaults.dart",
+    "_impl/themes/config/dialog_theme_schema.dart",
     "_impl/themes/config/dialog_theme_tokens.dart",
     "_impl/utils/dialog_api.dart",
     "_impl/utils/dialog_overlay_completer.dart",

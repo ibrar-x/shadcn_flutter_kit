@@ -1,8 +1,10 @@
 part of '../../preview.dart';
 
+/// _ColorInputPreviewState stores and manages mutable widget state.
 class _ColorInputPreviewState extends State<ColorInputPreview> {
   ColorDerivative color = ColorDerivative.fromColor(Colors.blue);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +22,20 @@ class _ColorInputPreviewState extends State<ColorInputPreview> {
                   orientation: Axis.horizontal,
                   promptMode: PromptMode.popover,
                   onChanged: (value) {
+                    /// Triggers a rebuild after mutating local state.
                     setState(() {
                       color = value;
                     });
                   },
                 ),
               ),
-              const Gap(16),
+              const DensityGap(gapLg),
               ColorInput(
                 value: color,
                 promptMode: PromptMode.dialog,
                 dialogTitle: const Text('Select Color'),
                 onChanged: (value) {
+                  /// Triggers a rebuild after mutating local state.
                   setState(() {
                     color = value;
                   });

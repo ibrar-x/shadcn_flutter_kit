@@ -1,3 +1,4 @@
+/// FeatureCarouselAnimationStyle enumerates fixed values used by this implementation.
 enum FeatureCarouselAnimationStyle {
   crossfadeScale,
   slideFade,

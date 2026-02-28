@@ -1,13 +1,14 @@
 part of '../../dialog.dart';
 
 Widget _buildShadcnDialogTransitions(
-    BuildContext context,
-    BorderRadiusGeometry borderRadius,
-    AlignmentGeometry alignment,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    bool fullScreen,
-    Widget child) {
+  BuildContext context,
+  BorderRadiusGeometry borderRadius,
+  AlignmentGeometry alignment,
+  Animation<double> animation,
+  Animation<double> secondaryAnimation,
+  bool fullScreen,
+  Widget child,
+) {
   var scaleTransition = ScaleTransition(
     scale: CurvedAnimation(
       parent: animation.drive(Tween<double>(begin: 0.7, end: 1.0)),
@@ -15,25 +16,17 @@ Widget _buildShadcnDialogTransitions(
       reverseCurve: Curves.easeIn,
     ),
     child: FadeTransition(
-      opacity: CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOut,
-      ),
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
       child: child,
     ),
   );
   return FocusScope(
     child: fullScreen
         ? MultiModel(
-            data: const [
-              Model(ModalContainer.kFullScreenMode, true),
-            ],
+            data: const [Model(ModalContainer.kFullScreenMode, true)],
             child: scaleTransition,
           )
-        : Align(
-            alignment: alignment,
-            child: scaleTransition,
-          ),
+        : Align(alignment: alignment, child: scaleTransition),
   );
 }
 

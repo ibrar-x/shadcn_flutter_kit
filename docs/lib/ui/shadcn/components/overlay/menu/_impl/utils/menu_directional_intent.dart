@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// DirectionalMenuFocusIntent defines a reusable type for this registry module.
 class DirectionalMenuFocusIntent extends Intent {
   /// Direction of focus traversal.
   final TraversalDirection direction;

@@ -9,15 +9,18 @@ class ReplaceResult<T> extends ValidationResult {
   /// The replacement value to use.
   final T value;
 
+  /// Field storing `_key` for this form implementation.
   final FormKey? _key;
 
   /// Creates a [ReplaceResult] with the specified replacement value.
   const ReplaceResult(this.value, {required super.state}) : _key = null;
 
   /// Creates a [ReplaceResult] already attached to a form field key.
-  const ReplaceResult.attached(this.value,
-      {required FormKey key, required super.state})
-      : _key = key;
+  const ReplaceResult.attached(
+    this.value, {
+    required FormKey key,
+    required super.state,
+  }) : _key = key;
 
   @override
   FormKey get key {
@@ -25,6 +28,7 @@ class ReplaceResult<T> extends ValidationResult {
     return _key!;
   }
 
+  /// Performs `attach` logic for this form component.
   @override
   ReplaceResult<T> attach(FormKey key) {
     return ReplaceResult.attached(value, key: key, state: state);

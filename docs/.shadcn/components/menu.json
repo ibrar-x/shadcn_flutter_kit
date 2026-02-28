@@ -8,7 +8,7 @@
     "overlay",
     "navigation"
   ],
-  "installedAt": "2026-02-09T10:18:03.235899Z",
+  "installedAt": "2026-02-22T01:08:41.618176Z",
   "shared": [
     "basic_layout",
     "color_extensions",
@@ -25,7 +25,6 @@
     "drawer"
   ],
   "files": [
-    "registry/components/overlay/menu/README.md",
     "registry/components/overlay/menu/_impl/core/menu_button.dart",
     "registry/components/overlay/menu/_impl/core/menu_checkbox.dart",
     "registry/components/overlay/menu/_impl/core/menu_data.dart",
@@ -45,18 +44,19 @@
     "registry/components/overlay/menu/_impl/state/menu_group_state.dart",
     "registry/components/overlay/menu/_impl/state/menubar_state.dart",
     "registry/components/overlay/menu/_impl/styles/menu_text_styles.dart",
-    "registry/components/overlay/menu/_impl/themes/menu_popup_theme.dart",
-    "registry/components/overlay/menu/_impl/themes/menu_theme.dart",
-    "registry/components/overlay/menu/_impl/themes/menubar_theme.dart",
+    "registry/components/overlay/menu/_impl/themes/base/menu_theme.dart",
+    "registry/components/overlay/menu/_impl/themes/config/menu_theme_config.dart",
+    "registry/components/overlay/menu/_impl/themes/config/menu_theme_defaults.dart",
+    "registry/components/overlay/menu/_impl/themes/config/menu_theme_schema.dart",
+    "registry/components/overlay/menu/_impl/themes/config/menu_theme_tokens.dart",
+    "registry/components/overlay/menu/_impl/themes/variants/menu_popup_theme.dart",
+    "registry/components/overlay/menu/_impl/themes/variants/menubar_theme.dart",
     "registry/components/overlay/menu/_impl/utils/menu_directional_intent.dart",
     "registry/components/overlay/menu/_impl/utils/menu_intents.dart",
     "registry/components/overlay/menu/_impl/utils/menu_overlay_handler.dart",
     "registry/components/overlay/menu/_impl/utils/next_menu_focus_intent.dart",
     "registry/components/overlay/menu/_impl/utils/open_sub_menu_intent.dart",
-    "registry/components/overlay/menu/menu.dart",
-    "registry/components/overlay/menu/menu.meta.json",
-    "registry/components/overlay/menu/meta.json",
-    "registry/components/overlay/menu/preview.dart"
+    "registry/components/overlay/menu/menu.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

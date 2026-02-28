@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationRail defines a reusable type for this registry module.
 class NavigationRail extends StatefulWidget {
   /// Background color for the navigation rail surface.
   ///
@@ -159,5 +160,6 @@ class NavigationRail extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<NavigationRail> createState() => _NavigationRailState();
 }

@@ -1,5 +1,6 @@
 part of '../../scrollable_client.dart';
 
+/// RenderScrollableClientViewport defines a reusable type for this registry module.
 class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
   /// Whether overscroll effects are enabled.
   final bool overscroll;
@@ -19,9 +20,13 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
   });
 
   @override
+/// Executes `layoutChildSequence` behavior for this component/composite.
   void layoutChildSequence() {
+/// Stores `horizontalPixels` state/configuration for this implementation.
     double horizontalPixels = horizontalOffset.pixels;
+/// Stores `verticalPixels` state/configuration for this implementation.
     double verticalPixels = verticalOffset.pixels;
+/// Stores `viewportDimension` state/configuration for this implementation.
     final Size viewportDimension = this.viewportDimension;
     final ChildVicinity vicinity = _ScrollableClientChildVicinity(
       viewportSize: viewportDimension,
@@ -29,30 +34,43 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
       yIndex: 0,
     );
     final RenderBox child = buildOrObtainChildFor(vicinity)!;
+/// Creates a `child.layout` instance.
     child.layout(
-        BoxConstraints(
-          minWidth: constraints.maxWidth,
-          minHeight: constraints.maxHeight,
-        ),
-        parentUsesSize: true);
+/// Creates a `BoxConstraints` instance.
+      BoxConstraints(
+        minWidth: constraints.maxWidth,
+        minHeight: constraints.maxHeight,
+      ),
+      parentUsesSize: true,
+    );
     if (!overscroll) {
       horizontalPixels = max(0.0, horizontalPixels);
       verticalPixels = max(0.0, verticalPixels);
+/// Stores `maxHorizontalPixels` state/configuration for this implementation.
       double maxHorizontalPixels = child.size.width - viewportDimension.width;
+/// Stores `maxVerticalPixels` state/configuration for this implementation.
       double maxVerticalPixels = child.size.height - viewportDimension.height;
       horizontalPixels = min(horizontalPixels, maxHorizontalPixels);
       verticalPixels = min(verticalPixels, maxVerticalPixels);
     }
-    parentDataOf(child).layoutOffset =
-        Offset(-horizontalPixels, -verticalPixels);
+/// Creates a `parentDataOf` instance.
+    parentDataOf(child).layoutOffset = Offset(
+      -horizontalPixels,
+      -verticalPixels,
+    );
+/// Creates a `horizontalOffset.applyContentDimensions` instance.
     horizontalOffset.applyContentDimensions(
-        0,
-        (child.size.width - viewportDimension.width)
-            .clamp(0.0, double.infinity));
+      0,
+      (child.size.width - viewportDimension.width).clamp(0.0, double.infinity),
+    );
+/// Creates a `verticalOffset.applyContentDimensions` instance.
     verticalOffset.applyContentDimensions(
-        0,
-        (child.size.height - viewportDimension.height)
-            .clamp(0.0, double.infinity));
+      0,
+      (child.size.height - viewportDimension.height).clamp(
+        0.0,
+        double.infinity,
+      ),
+    );
     horizontalOffset.applyViewportDimension(viewportDimension.width);
     verticalOffset.applyViewportDimension(viewportDimension.height);
   }

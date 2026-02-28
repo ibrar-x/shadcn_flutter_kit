@@ -2,11 +2,19 @@ part of '../../divider.dart';
 
 /// Immutable divider properties used for lerping transitions.
 class DividerProperties {
+  /// Color value used by divider painting or state styling.
   final Color color;
+
+  /// Input parameter used by `DividerProperties` during rendering and behavior handling.
   final double thickness;
+
+  /// Input parameter used by `DividerProperties` during rendering and behavior handling.
   final double indent;
+
+  /// Input parameter used by `DividerProperties` during rendering and behavior handling.
   final double endIndent;
 
+  /// Creates `DividerProperties` for configuring or rendering divider.
   const DividerProperties({
     required this.color,
     required this.thickness,
@@ -15,8 +23,12 @@ class DividerProperties {
   });
 
   static DividerProperties lerp(
-      DividerProperties? a, DividerProperties? b, double t) {
+    DividerProperties? a,
+    DividerProperties? b,
+    double t,
+  ) {
     final start = a ?? b;
+
     final end = b ?? a;
     assert(start != null && end != null);
     return DividerProperties(

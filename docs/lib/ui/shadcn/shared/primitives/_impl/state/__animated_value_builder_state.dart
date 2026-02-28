@@ -15,10 +15,7 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
     _to = widget.value;
     _cacheIfNonNull(_from);
     _cacheIfNonNull(_to);
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
+    _controller = AnimationController(vsync: this, duration: widget.duration);
     _animation = CurvedAnimation(parent: _controller, curve: widget.curve);
     if (widget.duration == Duration.zero) {
       _controller.value = 1;
@@ -150,7 +147,8 @@ class _AnimatedValueBuilderState<T> extends State<AnimatedValueBuilder<T>>
   }
 
   T _resolveValueOrFallback({required String reason}) {
-    final resolved = _to ??
+    final resolved =
+        _to ??
         _from ??
         widget.value ??
         widget.initialValue ??

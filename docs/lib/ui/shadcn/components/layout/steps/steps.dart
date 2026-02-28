@@ -24,6 +24,9 @@ class StepsTheme extends ComponentThemeData {
 
   /// Creates a [StepsTheme].
   const StepsTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.indicatorSize,
     this.spacing,
     this.indicatorColor,
@@ -38,11 +41,13 @@ class StepsTheme extends ComponentThemeData {
     ValueGetter<double?>? connectorThickness,
   }) {
     return StepsTheme(
-      indicatorSize:
-          indicatorSize == null ? this.indicatorSize : indicatorSize(),
+      indicatorSize: indicatorSize == null
+          ? this.indicatorSize
+          : indicatorSize(),
       spacing: spacing == null ? this.spacing : spacing(),
-      indicatorColor:
-          indicatorColor == null ? this.indicatorColor : indicatorColor(),
+      indicatorColor: indicatorColor == null
+          ? this.indicatorColor
+          : indicatorColor(),
       connectorThickness: connectorThickness == null
           ? this.connectorThickness
           : connectorThickness(),
@@ -50,6 +55,7 @@ class StepsTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StepsTheme &&
@@ -126,4 +132,3 @@ class StepsTheme extends ComponentThemeData {
 ///   ],
 /// )
 /// ```
-

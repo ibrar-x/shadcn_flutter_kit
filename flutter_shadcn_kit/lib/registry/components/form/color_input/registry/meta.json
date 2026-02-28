@@ -38,6 +38,7 @@
     "_impl/themes/base/color_input_theme.dart",
     "_impl/themes/config/color_input_theme_config.dart",
     "_impl/themes/config/color_input_theme_defaults.dart",
+    "_impl/themes/config/color_input_theme_schema.dart",
     "_impl/themes/config/color_input_theme_tokens.dart",
     "_impl/utils/color_input_controller.dart",
     "color_input.dart"

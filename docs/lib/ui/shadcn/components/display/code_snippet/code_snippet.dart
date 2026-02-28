@@ -6,8 +6,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
 part '_impl/state/_code_snippet_state.dart';
-part '_impl/themes/code_snippet_theme.dart';
-
+part '_impl/themes/base/code_snippet_theme.dart';
 
 /// Syntax highlighted code display with optional actions.
 class CodeSnippet extends StatefulWidget {
@@ -28,6 +27,7 @@ class CodeSnippet extends StatefulWidget {
     required this.code,
   });
 
+  /// Creates the State object used by this code snippet widget.
   @override
   State<CodeSnippet> createState() => _CodeSnippetState();
 }

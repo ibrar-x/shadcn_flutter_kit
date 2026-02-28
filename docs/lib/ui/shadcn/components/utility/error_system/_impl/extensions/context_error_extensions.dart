@@ -7,7 +7,9 @@ import '../core/app_error.dart';
 import '../core/error_dialog.dart';
 import '../core/error_snackbar.dart';
 
+/// Extension helpers used by this registry module.
 extension ContextErrorExtensions on BuildContext {
+/// Executes `showErrorSnackbar` behavior for this component/composite.
   void showErrorSnackbar(AppError error, {Duration? duration}) {
     ErrorSnackbar.show(context: this, error: error, duration: duration);
   }

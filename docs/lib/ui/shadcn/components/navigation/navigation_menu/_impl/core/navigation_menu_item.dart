@@ -1,5 +1,6 @@
 part of '../../navigation_menu.dart';
 
+/// NavigationMenuItem defines a reusable type for this registry module.
 class NavigationMenuItem extends StatefulWidget {
   /// Callback invoked when this menu item is pressed.
   ///
@@ -43,9 +44,14 @@ class NavigationMenuItem extends StatefulWidget {
   ///   ),
   /// )
   /// ```
-  const NavigationMenuItem(
-      {super.key, this.onPressed, this.content, required this.child});
+  const NavigationMenuItem({
+    super.key,
+    this.onPressed,
+    this.content,
+    required this.child,
+  });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<NavigationMenuItem> createState() => NavigationMenuItemState();
 }

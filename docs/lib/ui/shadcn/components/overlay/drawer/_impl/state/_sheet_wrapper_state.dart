@@ -1,7 +1,9 @@
 part of '../../drawer.dart';
 
+/// _SheetWrapperState defines a reusable type for this registry module.
 class _SheetWrapperState extends _DrawerWrapperState {
   @override
+/// Executes `getBorder` behavior for this component/composite.
   Border getBorder(ThemeData theme) {
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -18,11 +20,16 @@ class _SheetWrapperState extends _DrawerWrapperState {
   }
 
   @override
+/// Executes `buildMargin` behavior for this component/composite.
   EdgeInsets buildMargin(BuildContext context) {
     var mediaPadding = MediaQuery.paddingOf(context);
+/// Stores `marginTop` state/configuration for this implementation.
     double marginTop = 0;
+/// Stores `marginBottom` state/configuration for this implementation.
     double marginBottom = 0;
+/// Stores `marginLeft` state/configuration for this implementation.
     double marginLeft = 0;
+/// Stores `marginRight` state/configuration for this implementation.
     double marginRight = 0;
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -41,6 +48,7 @@ class _SheetWrapperState extends _DrawerWrapperState {
         throw UnimplementedError('Unknown position');
     }
     return super.buildMargin(context) +
+/// Creates a `EdgeInsets.only` instance.
         EdgeInsets.only(
           top: marginTop,
           bottom: marginBottom,
@@ -50,11 +58,16 @@ class _SheetWrapperState extends _DrawerWrapperState {
   }
 
   @override
+/// Executes `buildChild` behavior for this component/composite.
   Widget buildChild(BuildContext context) {
     var mediaPadding = MediaQuery.paddingOf(context);
+/// Stores `paddingTop` state/configuration for this implementation.
     double paddingTop = 0;
+/// Stores `paddingBottom` state/configuration for this implementation.
     double paddingBottom = 0;
+/// Stores `paddingLeft` state/configuration for this implementation.
     double paddingLeft = 0;
+/// Stores `paddingRight` state/configuration for this implementation.
     double paddingRight = 0;
     switch (resolvedPosition) {
       case OverlayPosition.left:
@@ -92,13 +105,17 @@ class _SheetWrapperState extends _DrawerWrapperState {
   }
 
   @override
+/// Executes `getBorderRadius` behavior for this component/composite.
   BorderRadiusGeometry getBorderRadius(double radius) {
     return BorderRadius.zero;
   }
 
   @override
+/// Executes `getDecoration` behavior for this component/composite.
   BoxDecoration getDecoration(ThemeData theme) {
+/// Stores `backgroundColor` state/configuration for this implementation.
     var backgroundColor = theme.colorScheme.background;
+/// Stores `surfaceOpacity` state/configuration for this implementation.
     var surfaceOpacity = widget.surfaceOpacity ?? theme.surfaceOpacity;
     if (surfaceOpacity != null && surfaceOpacity < 1) {
       if (widget.stackIndex == 0) {
@@ -108,10 +125,7 @@ class _SheetWrapperState extends _DrawerWrapperState {
       }
       backgroundColor = backgroundColor.scaleAlpha(surfaceOpacity);
     }
-    return BoxDecoration(
-      color: backgroundColor,
-      border: getBorder(theme),
-    );
+    return BoxDecoration(color: backgroundColor, border: getBorder(theme));
   }
 }
 

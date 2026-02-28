@@ -20,7 +20,7 @@ export 'filter_bar_logic.dart';
 
 part '_impl/core/filter_bar_content.dart';
 part '_impl/styles/filter_bar_style.dart';
-part '_impl/themes/filter_bar_theme.dart';
+part '_impl/themes/base/filter_bar_theme.dart';
 part '_impl/utils/filter_bar_utils.dart';
 part '_impl/variants/filter_bar_layout.dart';
 

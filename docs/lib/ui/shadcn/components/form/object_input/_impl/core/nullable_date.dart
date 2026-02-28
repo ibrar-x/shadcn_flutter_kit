@@ -28,11 +28,13 @@ class NullableDate {
   /// - [day] (`int?`, optional): Day value (1-31).
   NullableDate({this.year, this.month, this.day});
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'NullableDate{year: $year, month: $month, day: $day}';
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -91,8 +93,11 @@ class NullableDate {
   /// - [defaultDay] (`int`, optional): Default day value (1-31).
   ///
   /// Returns: A [DateTime] instance with non-null parts.
-  DateTime? getDateTime(
-      {int? defaultYear = 0, int? defaultMonth = 1, int? defaultDay = 1}) {
+  DateTime? getDateTime({
+    int? defaultYear = 0,
+    int? defaultMonth = 1,
+    int? defaultDay = 1,
+  }) {
     int? year = this.year ?? defaultYear;
     int? month = this.month ?? defaultMonth;
     int? day = this.day ?? defaultDay;

@@ -8,7 +8,7 @@
     "input",
     "autocomplete"
   ],
-  "installedAt": "2026-02-09T10:18:03.198155Z",
+  "installedAt": "2026-02-22T01:08:41.408437Z",
   "shared": [
     "overlay",
     "style_value",
@@ -19,7 +19,6 @@
     "card"
   ],
   "files": [
-    "registry/components/form/autocomplete/README.md",
     "registry/components/form/autocomplete/_impl/core/auto_complete.dart",
     "registry/components/form/autocomplete/_impl/core/auto_complete_mode.dart",
     "registry/components/form/autocomplete/_impl/core/autocomplete_item.dart",
@@ -29,10 +28,7 @@
     "registry/components/form/autocomplete/_impl/utils/accept_suggestion_intent.dart",
     "registry/components/form/autocomplete/_impl/utils/auto_complete_intent.dart",
     "registry/components/form/autocomplete/_impl/utils/navigate_suggestion_intent.dart",
-    "registry/components/form/autocomplete/autocomplete.dart",
-    "registry/components/form/autocomplete/autocomplete.meta.json",
-    "registry/components/form/autocomplete/meta.json",
-    "registry/components/form/autocomplete/preview.dart"
+    "registry/components/form/autocomplete/autocomplete.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

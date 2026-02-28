@@ -16,6 +16,7 @@ class IndentGuideNone implements BranchLine {
   /// Creates an [IndentGuideNone].
   const IndentGuideNone();
 
+  /// Builds the widget tree for tree.
   @override
   Widget build(BuildContext context, List<TreeNodeDepth> depth, int index) {
     return const SizedBox();

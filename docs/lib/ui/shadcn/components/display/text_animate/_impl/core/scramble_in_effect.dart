@@ -12,14 +12,18 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
     this.characters =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#%&*+=?',
   }) : assert(
-          scrambleUntil > 0 && scrambleUntil <= 1,
-          'scrambleUntil must be in (0, 1].',
-        );
+         scrambleUntil > 0 && scrambleUntil <= 1,
+         'scrambleUntil must be in (0, 1].',
+       );
 
   final Duration duration;
+
   final double scrambleUntil;
+
   final bool fadeIn;
+
   final Curve curve;
+
   final String characters;
 
   @override
@@ -58,8 +62,9 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
     final showScramble = char.trim().isNotEmpty && t < scrambleUntil;
 
     final targetOpacity = fadeIn ? t.clamp(0.0, 1.0) : 1.0;
-    final scrambleOpacity =
-        showScramble ? (1 - (t / scrambleUntil)).clamp(0.0, 1.0) : 0.0;
+    final scrambleOpacity = showScramble
+        ? (1 - (t / scrambleUntil)).clamp(0.0, 1.0)
+        : 0.0;
 
     final displayedChar = showScramble
         ? _scrambledCharacter(char: char, index: index, age: age)
@@ -72,6 +77,7 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
         clipBehavior: Clip.none,
         children: [
           current,
+
           Opacity(
             opacity: scrambleOpacity,
             child: Text(displayedChar, style: baseStyle),
@@ -98,7 +104,9 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
 
     final glyphs = characters.runes.toList(growable: false);
     final frameStepMs = math.max(1, duration.inMilliseconds ~/ 14);
+
     final frame = age.inMilliseconds ~/ frameStepMs;
+
     final code = char.runes.isEmpty ? 0 : char.runes.first;
 
     var seed = index * 73856093;
@@ -109,6 +117,7 @@ class ScrambleInEffect extends StreamingTextEffectAdapter
     return String.fromCharCode(glyphs[value]);
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

@@ -40,6 +40,7 @@
     "_impl/themes/base/filter_bar_theme.dart",
     "_impl/themes/config/filter_bar_theme_config.dart",
     "_impl/themes/config/filter_bar_theme_defaults.dart",
+    "_impl/themes/config/filter_bar_theme_schema.dart",
     "_impl/themes/config/filter_bar_theme_tokens.dart",
     "_impl/utils/filter_bar_utils.dart",
     "_impl/variants/filter_bar_layout.dart",

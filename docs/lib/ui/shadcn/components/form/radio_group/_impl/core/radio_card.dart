@@ -25,6 +25,7 @@ class RadioCard<T> extends StatefulWidget {
     this.focusNode,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<RadioCard<T>> createState() => _RadioCardState<T>();
 }

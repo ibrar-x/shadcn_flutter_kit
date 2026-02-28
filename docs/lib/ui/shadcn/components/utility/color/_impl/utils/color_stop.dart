@@ -20,8 +20,5 @@ class ColorStop {
   final double position;
 
   /// Creates a [ColorStop] with the specified [color] and [position].
-  const ColorStop({
-    required this.color,
-    required this.position,
-  });
+  const ColorStop({required this.color, required this.position});
 }

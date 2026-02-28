@@ -1,7 +1,13 @@
 part of '../../drawer.dart';
 
-typedef BackdropBuilder = Widget Function(BuildContext context, Widget child,
-    Animation<double> animation, int stackIndex);
+/// Type alias for `BackdropBuilder` used by public or internal APIs.
+typedef BackdropBuilder =
+    Widget Function(
+      BuildContext context,
+      Widget child,
+      Animation<double> animation,
+      int stackIndex,
+    );
 
 /// Builder function for drawer modal barriers.
 ///
@@ -15,8 +21,13 @@ typedef BackdropBuilder = Widget Function(BuildContext context, Widget child,
 /// - [stackIndex] (int): Index of the drawer in the stack
 ///
 /// Returns the barrier widget or null if no barrier needed.
-typedef BarrierBuilder = Widget? Function(BuildContext context, Widget child,
-    Animation<double> animation, int stackIndex);
+typedef BarrierBuilder =
+    Widget? Function(
+      BuildContext context,
+      Widget child,
+      Animation<double> animation,
+      int stackIndex,
+    );
 
 /// Data class representing a drawer overlay entry in the stack.
 ///

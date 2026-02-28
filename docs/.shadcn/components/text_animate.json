@@ -9,15 +9,13 @@
     "animation",
     "streaming"
   ],
-  "installedAt": "2026-02-09T11:34:37.202219Z",
+  "installedAt": "2026-02-22T01:08:41.765760Z",
   "shared": [
     "style_value",
     "theme"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/display/text_animate/GETTING_STARTED.md",
-    "registry/components/display/text_animate/README.md",
     "registry/components/display/text_animate/_impl/core/blur_in_effect.dart",
     "registry/components/display/text_animate/_impl/core/combined_effect.dart",
     "registry/components/display/text_animate/_impl/core/fade_in_effect.dart",
@@ -29,13 +27,14 @@
     "registry/components/display/text_animate/_impl/state/_text_animate_preview_state.dart",
     "registry/components/display/text_animate/_impl/state/streaming_text_state.dart",
     "registry/components/display/text_animate/_impl/styles/character_span_factory.dart",
-    "registry/components/display/text_animate/_impl/themes/text_animate_theme.dart",
+    "registry/components/display/text_animate/_impl/themes/base/text_animate_theme.dart",
+    "registry/components/display/text_animate/_impl/themes/config/text_animate_theme_config.dart",
+    "registry/components/display/text_animate/_impl/themes/config/text_animate_theme_defaults.dart",
+    "registry/components/display/text_animate/_impl/themes/config/text_animate_theme_schema.dart",
+    "registry/components/display/text_animate/_impl/themes/config/text_animate_theme_tokens.dart",
     "registry/components/display/text_animate/_impl/utils/text_diff.dart",
     "registry/components/display/text_animate/_impl/utils/time_math.dart",
-    "registry/components/display/text_animate/meta.json",
-    "registry/components/display/text_animate/preview.dart",
-    "registry/components/display/text_animate/text_animate.dart",
-    "registry/components/display/text_animate/text_animate.meta.json"
+    "registry/components/display/text_animate/text_animate.dart"
   ],
-  "registryRoot": "../flutter_shadcn_kit/lib/registry"
+  "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

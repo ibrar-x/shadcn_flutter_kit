@@ -47,6 +47,7 @@
     "_impl/themes/base/color_picker_theme.dart",
     "_impl/themes/config/color_picker_theme_config.dart",
     "_impl/themes/config/color_picker_theme_defaults.dart",
+    "_impl/themes/config/color_picker_theme_schema.dart",
     "_impl/themes/config/color_picker_theme_tokens.dart",
     "color_picker.dart"
   ],

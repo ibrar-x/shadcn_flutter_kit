@@ -1,30 +1,35 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/primitives/menu_group.dart';
 import '../../../../../shared/theme/generated_colors.dart';
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/color_extensions.dart';
 
+/// Executes `buttonZeroMargin` behavior for this component/composite.
 EdgeInsets buttonZeroMargin(BuildContext context, Set<WidgetState> states) {
   return EdgeInsets.zero;
 }
 
+/// Executes `buttonMouseCursor` behavior for this component/composite.
 MouseCursor buttonMouseCursor(BuildContext context, Set<WidgetState> states) {
   return states.contains(WidgetState.disabled)
       ? SystemMouseCursors.basic
       : SystemMouseCursors.click;
 }
 
+/// Executes `buttonPadding` behavior for this component/composite.
 EdgeInsets buttonPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
   return EdgeInsets.symmetric(
-    horizontal: theme.scaling * 16,
-    vertical: theme.scaling * 8,
+    horizontal: theme.density.baseContentPadding * theme.scaling * padSm,
+    vertical: theme.density.baseContentPadding * theme.scaling * padXs,
   );
 }
 
 // CARD
+/// Executes `buttonCardTextStyle` behavior for this component/composite.
 TextStyle buttonCardTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   return themeData.typography.small.copyWith(
@@ -33,61 +38,58 @@ TextStyle buttonCardTextStyle(BuildContext context, Set<WidgetState> states) {
 }
 
 IconThemeData buttonCardIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return IconThemeData(
-    color: themeData.colorScheme.cardForeground,
-  );
+  return IconThemeData(color: themeData.colorScheme.cardForeground);
 }
 
-Decoration buttonCardDecoration(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonCardDecoration` behavior for this component/composite.
+Decoration buttonCardDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
       color: themeData.colorScheme.muted,
       borderRadius: BorderRadius.circular(themeData.radiusXl),
-      border: Border.all(
-        color: themeData.colorScheme.border,
-        width: 1,
-      ),
+      border: Border.all(color: themeData.colorScheme.border, width: 1),
     );
   }
   if (states.contains(WidgetState.hovered) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.border,
       borderRadius: BorderRadius.circular(themeData.radiusXl),
-      border: Border.all(
-        color: themeData.colorScheme.border,
-        width: 1,
-      ),
+      border: Border.all(color: themeData.colorScheme.border, width: 1),
     );
   }
   return BoxDecoration(
     color: themeData.colorScheme.card,
     borderRadius: BorderRadius.circular(themeData.radiusXl),
-    border: Border.all(
-      color: themeData.colorScheme.border,
-      width: 1,
-    ),
+    border: Border.all(color: themeData.colorScheme.border, width: 1),
   );
 }
 
+/// Executes `buttonCardPadding` behavior for this component/composite.
 EdgeInsets buttonCardPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
-  return const EdgeInsets.all(16) * theme.scaling;
+  return EdgeInsets.all(
+    theme.density.baseContainerPadding * theme.scaling * padSm,
+  );
 }
 
 // MENUBUTTON
-Decoration buttonMenuDecoration(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonMenuDecoration` behavior for this component/composite.
+Decoration buttonMenuDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return const BoxDecoration();
   }
   if (states.contains(WidgetState.focused) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.hovered) ||
+/// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.accent,
@@ -97,6 +99,7 @@ Decoration buttonMenuDecoration(
   return const BoxDecoration();
 }
 
+/// Executes `buttonMenuTextStyle` behavior for this component/composite.
 TextStyle buttonMenuTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
@@ -109,34 +112,50 @@ TextStyle buttonMenuTextStyle(BuildContext context, Set<WidgetState> states) {
   );
 }
 
+/// Executes `buttonMenuPadding` behavior for this component/composite.
 EdgeInsets buttonMenuPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   final menuGroupData = Data.maybeOf<MenuGroupData>(context);
   if (menuGroupData != null && menuGroupData.direction == Axis.horizontal) {
-    return const EdgeInsets.symmetric(horizontal: 18, vertical: 6) * scaling;
+    return EdgeInsets.symmetric(
+      horizontal: theme.density.baseContentPadding * scaling * 1.125,
+      vertical: theme.density.baseContentPadding * scaling * 0.375,
+    );
   }
-  return const EdgeInsets.only(left: 8, top: 6, right: 6, bottom: 6) * scaling;
+  return EdgeInsets.only(
+    left: theme.density.baseContentPadding * scaling * padXs,
+    top: theme.density.baseContentPadding * scaling * 0.375,
+    right: theme.density.baseContentPadding * scaling * 0.375,
+    bottom: theme.density.baseContentPadding * scaling * 0.375,
+  );
 }
 
-EdgeInsets buttonMenubarPadding(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonMenubarPadding` behavior for this component/composite.
+EdgeInsets buttonMenubarPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
-  return const EdgeInsets.symmetric(horizontal: 12, vertical: 4) * scaling;
+  return EdgeInsets.symmetric(
+    horizontal: theme.density.baseContentPadding * scaling * 0.75,
+    vertical: theme.density.baseContentPadding * scaling * 0.25,
+  );
 }
 
 IconThemeData buttonMenuIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return IconThemeData(
-    color: themeData.colorScheme.accentForeground,
-  );
+  return IconThemeData(color: themeData.colorScheme.accentForeground);
 }
 
 // PRIMARY
 Decoration buttonPrimaryDecoration(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
@@ -157,24 +176,28 @@ Decoration buttonPrimaryDecoration(
 }
 
 TextStyle buttonPrimaryTextStyle(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
-        color: themeData.colorScheme.primaryForeground,
-      );
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(color: themeData.colorScheme.primaryForeground);
 }
 
 IconThemeData buttonPrimaryIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return IconThemeData(
-    color: themeData.colorScheme.primaryForeground,
-  );
+  return IconThemeData(color: themeData.colorScheme.primaryForeground);
 }
 
 // SECONDARY
 Decoration buttonSecondaryDecoration(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
@@ -195,9 +218,13 @@ Decoration buttonSecondaryDecoration(
 }
 
 TextStyle buttonSecondaryTextStyle(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.disabled)
             ? themeData.colorScheme.mutedForeground
             : themeData.colorScheme.secondaryForeground,
@@ -205,7 +232,9 @@ TextStyle buttonSecondaryTextStyle(
 }
 
 IconThemeData buttonSecondaryIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.disabled)
@@ -215,44 +244,39 @@ IconThemeData buttonSecondaryIconTheme(
 }
 
 Decoration buttonOutlineDecoration(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
-      color: themeData.colorScheme.border.withValues(
-        alpha: 0,
-      ),
-      border: Border.all(
-        color: themeData.colorScheme.border,
-        width: 1,
-      ),
+      color: themeData.colorScheme.border.withValues(alpha: 0),
+      border: Border.all(color: themeData.colorScheme.border, width: 1),
       borderRadius: BorderRadius.circular(themeData.radiusMd),
     );
   }
   if (states.contains(WidgetState.hovered)) {
     return BoxDecoration(
       color: themeData.colorScheme.input.scaleAlpha(0.5),
-      border: Border.all(
-        color: themeData.colorScheme.input,
-        width: 1,
-      ),
+      border: Border.all(color: themeData.colorScheme.input, width: 1),
       borderRadius: BorderRadius.circular(themeData.radiusMd),
     );
   }
   return BoxDecoration(
     color: themeData.colorScheme.input.scaleAlpha(0.3),
-    border: Border.all(
-      color: themeData.colorScheme.input,
-      width: 1,
-    ),
+    border: Border.all(color: themeData.colorScheme.input, width: 1),
     borderRadius: BorderRadius.circular(themeData.radiusMd),
   );
 }
 
 TextStyle buttonOutlineTextStyle(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.disabled)
             ? themeData.colorScheme.mutedForeground
             : themeData.colorScheme.foreground,
@@ -260,7 +284,9 @@ TextStyle buttonOutlineTextStyle(
 }
 
 IconThemeData buttonOutlineIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.disabled)
@@ -270,7 +296,9 @@ IconThemeData buttonOutlineIconTheme(
 }
 
 Decoration buttonGhostDecoration(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
@@ -290,9 +318,12 @@ Decoration buttonGhostDecoration(
   );
 }
 
+/// Executes `buttonGhostTextStyle` behavior for this component/composite.
 TextStyle buttonGhostTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.disabled)
             ? themeData.colorScheme.mutedForeground
             : themeData.colorScheme.foreground,
@@ -300,7 +331,9 @@ TextStyle buttonGhostTextStyle(BuildContext context, Set<WidgetState> states) {
 }
 
 IconThemeData buttonGhostIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.disabled)
@@ -309,32 +342,34 @@ IconThemeData buttonGhostIconTheme(
   );
 }
 
+/// Executes `buttonMutedTextStyle` behavior for this component/composite.
 TextStyle buttonMutedTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
-        color: themeData.colorScheme.mutedForeground,
-      );
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(color: themeData.colorScheme.mutedForeground);
 }
 
 IconThemeData buttonMutedIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return IconThemeData(
-    color: themeData.colorScheme.mutedForeground,
-  );
+  return IconThemeData(color: themeData.colorScheme.mutedForeground);
 }
 
-Decoration buttonLinkDecoration(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonLinkDecoration` behavior for this component/composite.
+Decoration buttonLinkDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return BoxDecoration(
-    borderRadius: BorderRadius.circular(themeData.radiusMd),
-  );
+  return BoxDecoration(borderRadius: BorderRadius.circular(themeData.radiusMd));
 }
 
+/// Executes `buttonLinkTextStyle` behavior for this component/composite.
 TextStyle buttonLinkTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.disabled)
             ? themeData.colorScheme.mutedForeground
             : themeData.colorScheme.foreground,
@@ -345,7 +380,9 @@ TextStyle buttonLinkTextStyle(BuildContext context, Set<WidgetState> states) {
 }
 
 IconThemeData buttonLinkIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.disabled)
@@ -354,17 +391,18 @@ IconThemeData buttonLinkIconTheme(
   );
 }
 
-Decoration buttonTextDecoration(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonTextDecoration` behavior for this component/composite.
+Decoration buttonTextDecoration(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return BoxDecoration(
-    borderRadius: BorderRadius.circular(themeData.radiusMd),
-  );
+  return BoxDecoration(borderRadius: BorderRadius.circular(themeData.radiusMd));
 }
 
+/// Executes `buttonTextTextStyle` behavior for this component/composite.
 TextStyle buttonTextTextStyle(BuildContext context, Set<WidgetState> states) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.hovered)
             ? themeData.colorScheme.primary
             : themeData.colorScheme.mutedForeground,
@@ -372,7 +410,9 @@ TextStyle buttonTextTextStyle(BuildContext context, Set<WidgetState> states) {
 }
 
 IconThemeData buttonTextIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.hovered)
@@ -382,7 +422,9 @@ IconThemeData buttonTextIconTheme(
 }
 
 Decoration buttonDestructiveDecoration(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   if (states.contains(WidgetState.disabled)) {
     return BoxDecoration(
@@ -403,18 +445,24 @@ Decoration buttonDestructiveDecoration(
 }
 
 TextStyle buttonDestructiveTextStyle(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
-  return themeData.typography.small.merge(themeData.typography.medium).copyWith(
+  return themeData.typography.small
+      .merge(themeData.typography.medium)
+      .copyWith(
         color: states.contains(WidgetState.disabled)
             ? themeData.colorScheme.mutedForeground
             : Colors
-                .white, // yeah ik, its straight up white regardless light or dark mode
+                  .white, // yeah ik, its straight up white regardless light or dark mode
       );
 }
 
 IconThemeData buttonDestructiveIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   var themeData = Theme.of(context);
   return IconThemeData(
     color: states.contains(WidgetState.disabled)
@@ -424,16 +472,18 @@ IconThemeData buttonDestructiveIconTheme(
 }
 
 // STATIC BUTTON
-TextStyle buttonStaticTextStyle(
-    BuildContext context, Set<WidgetState> states) {
+/// Executes `buttonStaticTextStyle` behavior for this component/composite.
+TextStyle buttonStaticTextStyle(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
-  return theme.typography.small.merge(theme.typography.medium).copyWith(
-        color: theme.colorScheme.foreground,
-      );
+  return theme.typography.small
+      .merge(theme.typography.medium)
+      .copyWith(color: theme.colorScheme.foreground);
 }
 
 IconThemeData buttonStaticIconTheme(
-    BuildContext context, Set<WidgetState> states) {
+  BuildContext context,
+  Set<WidgetState> states,
+) {
   return const IconThemeData();
 }
 

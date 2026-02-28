@@ -1,6 +1,8 @@
 part of '../../feature_carousel.dart';
 
+/// Internal helper class used by the feature carousel component implementation.
 class _NavArrow extends StatelessWidget {
+  /// Creates `_NavArrow` for configuring or rendering feature carousel.
   const _NavArrow({
     required this.direction,
     required this.size,
@@ -14,17 +16,37 @@ class _NavArrow extends StatelessWidget {
     required this.onHoverChanged,
   });
 
+  /// Input parameter used by `_NavArrow` during rendering and behavior handling.
   final _CarouselDirection direction;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double size;
+
+  /// Layout/size setting that affects feature carousel rendering.
   final double radius;
+
+  /// Input parameter used by `_NavArrow` during rendering and behavior handling.
   final Color background;
+
+  /// Color value used by feature carousel painting or state styling.
   final Color iconColor;
+
+  /// Input parameter used by `_NavArrow` during rendering and behavior handling.
   final bool pressed;
+
+  /// Input parameter used by `_NavArrow` during rendering and behavior handling.
   final bool hovered;
+
+  /// Callback invoked by feature carousel when `onPressed` is triggered.
   final VoidCallback onPressed;
+
+  /// Callback invoked by feature carousel when `onPressedChanged` is triggered.
   final ValueChanged<bool> onPressedChanged;
+
+  /// Callback invoked by feature carousel when `onHoverChanged` is triggered.
   final ValueChanged<bool> onHoverChanged;
 
+  /// Builds the widget tree for feature carousel.
   @override
   Widget build(BuildContext context) {
     final icon = direction == _CarouselDirection.left
@@ -57,8 +79,7 @@ class _NavArrow extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                color:
-                    hovered ? iconColor.withValues(alpha: 0.75) : iconColor,
+                color: hovered ? iconColor.withValues(alpha: 0.75) : iconColor,
                 size: 24,
               ),
             ),

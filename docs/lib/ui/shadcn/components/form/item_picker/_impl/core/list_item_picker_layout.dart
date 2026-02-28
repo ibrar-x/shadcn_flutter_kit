@@ -12,8 +12,11 @@ class ListItemPickerLayout extends ItemPickerLayout {
   /// Creates a [ListItemPickerLayout].
   const ListItemPickerLayout();
   @override
-  Widget build(BuildContext context, ItemChildDelegate items,
-      ItemPickerBuilder builder) {
+  Widget build(
+    BuildContext context,
+    ItemChildDelegate items,
+    ItemPickerBuilder builder,
+  ) {
     final padding = MediaQuery.paddingOf(context);
     return MediaQuery.removePadding(
       context: context,

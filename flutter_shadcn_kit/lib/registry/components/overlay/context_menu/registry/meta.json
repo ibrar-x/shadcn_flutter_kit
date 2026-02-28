@@ -35,6 +35,7 @@
     "_impl/themes/base/context_menu_theme.dart",
     "_impl/themes/config/context_menu_theme_config.dart",
     "_impl/themes/config/context_menu_theme_defaults.dart",
+    "_impl/themes/config/context_menu_theme_schema.dart",
     "_impl/themes/config/context_menu_theme_tokens.dart",
     "context_menu.dart"
   ],

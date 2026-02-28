@@ -7,15 +7,11 @@
     "icon",
     "indicator"
   ],
-  "installedAt": "2026-02-09T10:18:03.223260Z",
+  "installedAt": "2026-02-22T01:08:41.554519Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "registry/components/display/triple_dots/README.md",
-    "registry/components/display/triple_dots/meta.json",
-    "registry/components/display/triple_dots/preview.dart",
-    "registry/components/display/triple_dots/triple_dots.dart",
-    "registry/components/display/triple_dots/triple_dots.meta.json"
+    "registry/components/display/triple_dots/triple_dots.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

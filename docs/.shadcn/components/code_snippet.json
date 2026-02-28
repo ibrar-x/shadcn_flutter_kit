@@ -8,7 +8,7 @@
     "code",
     "text"
   ],
-  "installedAt": "2026-02-09T10:18:03.227790Z",
+  "installedAt": "2026-02-22T01:08:41.435929Z",
   "shared": [
     "style_value",
     "text_modifiers",
@@ -16,13 +16,13 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/display/code_snippet/README.md",
     "registry/components/display/code_snippet/_impl/state/_code_snippet_state.dart",
-    "registry/components/display/code_snippet/_impl/themes/code_snippet_theme.dart",
-    "registry/components/display/code_snippet/code_snippet.dart",
-    "registry/components/display/code_snippet/code_snippet.meta.json",
-    "registry/components/display/code_snippet/meta.json",
-    "registry/components/display/code_snippet/preview.dart"
+    "registry/components/display/code_snippet/_impl/themes/base/code_snippet_theme.dart",
+    "registry/components/display/code_snippet/_impl/themes/config/code_snippet_theme_config.dart",
+    "registry/components/display/code_snippet/_impl/themes/config/code_snippet_theme_defaults.dart",
+    "registry/components/display/code_snippet/_impl/themes/config/code_snippet_theme_schema.dart",
+    "registry/components/display/code_snippet/_impl/themes/config/code_snippet_theme_tokens.dart",
+    "registry/components/display/code_snippet/code_snippet.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

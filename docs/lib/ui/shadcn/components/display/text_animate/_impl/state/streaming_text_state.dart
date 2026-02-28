@@ -47,12 +47,12 @@ class _StreamingTextState extends State<StreamingText> {
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TextAnimateTheme>(context);
     final resolvedStyle = DefaultTextStyle.of(context).style.merge(
-          styleValue(
-            widgetValue: widget.style,
-            themeValue: compTheme?.style,
-            defaultValue: const TextStyle(),
-          ),
-        );
+      styleValue(
+        widgetValue: widget.style,
+        themeValue: compTheme?.style,
+        defaultValue: const TextStyle(),
+      ),
+    );
     final resolvedTypewriter = styleValue(
       widgetValue: widget.typewriter,
       themeValue: compTheme?.typewriter,
@@ -195,7 +195,8 @@ class _StreamingTextState extends State<StreamingText> {
     required int visibleAnimated,
     required StreamingTextEffectAdapter effect,
   }) {
-    final shouldTick = visibleAnimated < totalAnimated ||
+    final shouldTick =
+        visibleAnimated < totalAnimated ||
         (!settled &&
             totalAnimated > 0 &&
             effect.settleDuration > Duration.zero) ||

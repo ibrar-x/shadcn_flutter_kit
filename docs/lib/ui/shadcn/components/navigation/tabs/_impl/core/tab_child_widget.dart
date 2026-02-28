@@ -1,11 +1,11 @@
 part of '../../tabs.dart';
 
+/// TabChildWidget defines a reusable type for this registry module.
 class TabChildWidget extends StatelessWidget with TabChild {
   /// The child widget to display.
   final Widget child;
 
   @override
-
   /// Whether this tab uses indexed positioning.
   ///
   /// Defaults to `false` unless specified in the constructor.
@@ -16,13 +16,10 @@ class TabChildWidget extends StatelessWidget with TabChild {
   /// Parameters:
   /// - [child]: The widget to wrap (required)
   /// - [indexed]: Whether to use indexed positioning (defaults to `false`)
-  const TabChildWidget({
-    super.key,
-    required this.child,
-    this.indexed = false,
-  });
+  const TabChildWidget({super.key, required this.child, this.indexed = false});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return child;
   }

@@ -1,24 +1,91 @@
-# Switch
+# Switch (`switch`)
 
-Toggle control for boolean values with optional leading/trailing widgets.
+Toggle control for boolean values with themed styling.
 
-## Usage
+---
+
+## When to use
+
+- Use this when:
+  - you need a binary on/off control.
+- Avoid when:
+  - you need multi-state input.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add switch
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/form/switch/switch.dart';
+```
+
+---
+
+## Minimal example
 
 ```dart
 Switch(
-  value: isEnabled,
-  onChanged: (value) => setState(() => isEnabled = value),
+  value: enabled,
+  onChanged: (value) {},
 )
 ```
 
-```dart
-ControlledSwitch(
-  initialValue: true,
-  onChanged: (value) => print(value),
-  leading: Icon(Icons.wifi),
-)
-```
+---
 
-## Notes
-- Uses `SwitchTheme` for colors, spacing, and radius overrides.
-- `ControlledSwitch` integrates with `ControlledComponent` helpers.
+## API
+
+### Constructor
+
+- `Switch`
+  - `value` (`bool`, required)
+  - `onChanged` (`ValueChanged<bool>?`)
+  - `enabled` (`bool?`)
+- `ControlledSwitch` — controller-backed switch.
+- `SwitchController` — controller.
+
+### Callbacks
+
+- `onChanged`
+
+---
+
+## Theming
+
+- `SwitchTheme` controls size, colors, and border radius.
+
+---
+
+## Accessibility
+
+- Use descriptive labels for the on/off state.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use switches for immediate effects.
+
+**Don’t**
+- ❌ Use switches for multi-step workflows.
+
+---
+
+## Related components
+
+- `checkbox`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

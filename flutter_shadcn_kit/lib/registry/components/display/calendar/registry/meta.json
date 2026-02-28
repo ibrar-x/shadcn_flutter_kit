@@ -41,6 +41,7 @@
     "_impl/themes/base/calendar_theme.dart",
     "_impl/themes/config/calendar_theme_config.dart",
     "_impl/themes/config/calendar_theme_defaults.dart",
+    "_impl/themes/config/calendar_theme_schema.dart",
     "_impl/themes/config/calendar_theme_tokens.dart",
     "_impl/themes/variants/calendar_selection_mode.dart",
     "_impl/themes/variants/calendar_view_type.dart",

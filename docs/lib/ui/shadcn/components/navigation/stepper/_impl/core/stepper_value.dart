@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// StepperValue defines a reusable type for this registry module.
 class StepperValue {
   /// Map of step indices to their special states.
   final Map<int, StepState> stepStates;
@@ -12,15 +13,14 @@ class StepperValue {
   /// Parameters:
   /// - [stepStates] (`Map<int, StepState>`, required): step states by index
   /// - [currentStep] (int, required): currently active step index
-  StepperValue({
-    required this.stepStates,
-    required this.currentStep,
-  });
+  StepperValue({required this.stepStates, required this.currentStep});
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StepperValue &&
+/// Creates a `mapEquals` instance.
         mapEquals(other.stepStates, stepStates) &&
         other.currentStep == currentStep;
   }
@@ -29,6 +29,7 @@ class StepperValue {
   int get hashCode => Object.hash(stepStates, currentStep);
 
   @override
+/// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'StepperValue{stepStates: $stepStates, currentStep: $currentStep}';
   }

@@ -26,12 +26,17 @@ class ChatTailTheme extends ComponentThemeData {
   /// - [tailRadius] (`double?`, optional): The radius of the tail's curve.
   /// - [tailBehavior] (`TailBehavior?`, optional): The behavior determining when to show the tail.
   const ChatTailTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.position,
     this.size,
     this.borderRadius,
     this.tailRadius,
     this.tailBehavior,
   });
+
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatTailTheme(position: $position, size: $size, borderRadius: $borderRadius, tailRadius: $tailRadius, tailBehavior: $tailBehavior)';
@@ -64,6 +69,7 @@ class ChatTailTheme extends ComponentThemeData {
     );
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -78,12 +84,6 @@ class ChatTailTheme extends ComponentThemeData {
 
   @override
   int get hashCode {
-    return Object.hash(
-      position,
-      size,
-      borderRadius,
-      tailRadius,
-      tailBehavior,
-    );
+    return Object.hash(position, size, borderRadius, tailRadius, tailBehavior);
   }
 }

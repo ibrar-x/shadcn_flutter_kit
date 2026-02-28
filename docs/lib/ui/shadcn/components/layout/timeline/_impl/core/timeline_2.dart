@@ -1,5 +1,6 @@
 part of '../../timeline.dart';
 
+/// Timeline defines a reusable type for this registry module.
 class Timeline extends StatelessWidget {
   /// List of timeline entries to display.
   ///
@@ -55,80 +56,102 @@ class Timeline extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TimelineTheme>(context);
-    final timeConstraints = this.timeConstraints ??
+    final timeConstraints =
+        this.timeConstraints ??
         compTheme?.timeConstraints ??
         BoxConstraints(minWidth: 120 * scaling, maxWidth: 120 * scaling);
-    final spacing = compTheme?.spacing ?? 16 * scaling;
+    final spacing =
+        compTheme?.spacing ?? theme.density.baseContentPadding * scaling;
+/// Stores `dotSize` state/configuration for this implementation.
     final dotSize = compTheme?.dotSize ?? 12 * scaling;
+/// Stores `connectorThickness` state/configuration for this implementation.
     final connectorThickness = compTheme?.connectorThickness ?? 2 * scaling;
+/// Stores `defaultColor` state/configuration for this implementation.
     final defaultColor = compTheme?.color ?? theme.colorScheme.primary;
+/// Stores `rowGap` state/configuration for this implementation.
     final rowGap = compTheme?.rowGap ?? 16 * scaling;
+/// Stores `rows` state/configuration for this implementation.
     List<Widget> rows = [];
     for (int i = 0; i < data.length; i++) {
+/// Stores `data` state/configuration for this implementation.
       final data = this.data[i];
-      rows.add(IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ConstrainedBox(
-              constraints: timeConstraints,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: data.time.medium().small(),
-              ),
-            ),
-            Gap(spacing),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 4 * scaling),
-                  width: dotSize,
-                  height: dotSize,
-                  decoration: BoxDecoration(
-                    shape: theme.radius == 0
-                        ? BoxShape.rectangle
-                        : BoxShape.circle,
-                    color: data.color ?? defaultColor,
-                  ),
+/// Creates a `rows.add` instance.
+      rows.add(
+/// Creates a `IntrinsicHeight` instance.
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+/// Creates a `ConstrainedBox` instance.
+              ConstrainedBox(
+                constraints: timeConstraints,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: data.time.medium().small(),
                 ),
-                if (i != this.data.length - 1)
-                  Expanded(
-                    child: VerticalDivider(
-                      thickness: connectorThickness,
+              ),
+/// Creates a `Gap` instance.
+              Gap(spacing),
+/// Creates a `Column` instance.
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+/// Creates a `Container` instance.
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: theme.density.baseGap * scaling * 0.5,
+                    ),
+                    width: dotSize,
+                    height: dotSize,
+                    decoration: BoxDecoration(
+                      shape: theme.radius == 0
+                          ? BoxShape.rectangle
+                          : BoxShape.circle,
                       color: data.color ?? defaultColor,
-                      endIndent: 0,
                     ),
                   ),
-              ],
-            ),
-            Gap(spacing),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  data.title
-                      .semiBold()
-                      .secondaryForeground()
-                      .base()
-                      .withPadding(left: 4 * scaling),
-                  if (data.content != null) Gap(8 * scaling),
-                  if (data.content != null)
-                    Expanded(child: data.content!.muted().small()),
+                  if (i != this.data.length - 1)
+/// Creates a `Expanded` instance.
+                    Expanded(
+                      child: VerticalDivider(
+                        thickness: connectorThickness,
+                        color: data.color ?? defaultColor,
+                        endIndent: 0,
+                      ),
+                    ),
                 ],
               ),
-            )
-          ],
+/// Creates a `Gap` instance.
+              Gap(spacing),
+/// Creates a `Expanded` instance.
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    data.title
+                        .semiBold()
+                        .secondaryForeground()
+                        .base()
+                        .withPadding(left: 4 * scaling),
+                    if (data.content != null) DensityGap(gapSm),
+                    if (data.content != null)
+/// Creates a `Expanded` instance.
+                      Expanded(child: data.content!.muted().small()),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ));
+      );
     }
-    return Column(
-      children: rows,
-    ).gap(rowGap);
+    return Column(children: rows).gap(rowGap);
   }
 }

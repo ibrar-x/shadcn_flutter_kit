@@ -9,22 +9,17 @@
     "border",
     "animation"
   ],
-  "installedAt": "2026-02-09T10:01:06.732043Z",
+  "installedAt": "2026-02-22T01:08:41.728926Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "registry/components/display/border_loading/GETTING_STARTED.md",
-    "registry/components/display/border_loading/README.md",
     "registry/components/display/border_loading/_impl/core/border_loading_painter.dart",
     "registry/components/display/border_loading/_impl/state/border_loading_controller.dart",
     "registry/components/display/border_loading/_impl/utils/gradient_adapter.dart",
     "registry/components/display/border_loading/_impl/utils/shape_path.dart",
     "registry/components/display/border_loading/_impl/variants/border_progress_painter.dart",
     "registry/components/display/border_loading/_impl/variants/border_tracer_painter.dart",
-    "registry/components/display/border_loading/border_loading.dart",
-    "registry/components/display/border_loading/border_loading.meta.json",
-    "registry/components/display/border_loading/meta.json",
-    "registry/components/display/border_loading/preview.dart"
+    "registry/components/display/border_loading/border_loading.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

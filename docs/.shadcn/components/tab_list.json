@@ -8,7 +8,7 @@
     "navigation",
     "controls"
   ],
-  "installedAt": "2026-02-09T10:18:03.217599Z",
+  "installedAt": "2026-02-22T01:08:41.626553Z",
   "shared": [
     "style_value",
     "theme"
@@ -18,14 +18,10 @@
     "tab_container"
   ],
   "files": [
-    "registry/components/navigation/tab_list/README.md",
     "registry/components/navigation/tab_list/_impl/core/tab_list.dart",
     "registry/components/navigation/tab_list/_impl/core/tab_list_2.dart",
     "registry/components/navigation/tab_list/_impl/state/_tab_list_preview_state.dart",
-    "registry/components/navigation/tab_list/_impl/styles/_tab_list_text_style.dart",
-    "registry/components/navigation/tab_list/meta.json",
-    "registry/components/navigation/tab_list/preview.dart",
-    "registry/components/navigation/tab_list/tab_list.meta.json"
+    "registry/components/navigation/tab_list/_impl/styles/_tab_list_text_style.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

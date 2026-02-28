@@ -6,23 +6,23 @@
   "tags": [
     "layout",
     "app",
-    "composite"
+    "theming",
+    "overlay"
   ],
-  "installedAt": "2026-02-09T10:18:03.245661Z",
+  "installedAt": "2026-02-22T01:08:41.739928Z",
   "shared": [
+    "constants",
     "overlay",
     "theme"
   ],
   "dependsOn": [
     "divider",
-    "scaffold"
+    "scaffold",
+    "shadcn_localizations"
   ],
   "files": [
-    "composites/layout/app/README.md",
-    "composites/layout/app/_impl/core/shadcn_ui.dart",
-    "composites/layout/app/app.dart",
-    "composites/layout/app/app.meta.json",
-    "composites/layout/app/meta.json"
+    "registry/components/layout/app/_impl/core/shadcn_ui.dart",
+    "registry/components/layout/app/app.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -54,9 +54,11 @@ class FormField<T> extends StatelessWidget {
     this.showErrors,
   });
 
+  /// Field storing `key` for this form implementation.
   @override
   FormKey<T> get key => super.key as FormKey<T>;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -71,7 +73,8 @@ class FormField<T> extends StatelessWidget {
               border: error != null
                   ? Border.all(
                       color: theme.colorScheme.destructive.scaleAlpha(0.2),
-                      width: 3.0)
+                      width: 3.0,
+                    )
                   : null,
             ),
             child: ComponentTheme(
@@ -91,31 +94,38 @@ class FormField<T> extends StatelessWidget {
                         if (leadingLabel != null)
                           leadingLabel!.textSmall().muted(),
                         if (leadingLabel != null)
-                          Gap(leadingGap ?? theme.scaling * 8),
+                          Gap(
+                            leadingGap ??
+                                theme.density.baseGap * theme.scaling * gapSm,
+                          ),
                         Expanded(
                           child: DefaultTextStyle.merge(
                             style: error != null
                                 ? TextStyle(
-                                    color: theme.colorScheme.destructive)
+                                    color: theme.colorScheme.destructive,
+                                  )
                                 : null,
                             child: label.textSmall(),
                           ),
                         ),
                         if (trailingLabel != null)
-                          Gap(trailingGap ?? theme.scaling * 8),
+                          Gap(
+                            trailingGap ??
+                                theme.density.baseGap * theme.scaling * gapSm,
+                          ),
                         if (trailingLabel != null)
                           trailingLabel!.textSmall().muted(),
                       ],
                     ),
                   ),
-                  Gap(theme.scaling * 8),
+                  DensityGap(gapSm),
                   child!,
                   if (hint != null) ...[
-                    Gap(theme.scaling * 8),
+                    DensityGap(gapSm),
                     hint!.xSmall().muted(),
                   ],
                   if (error is InvalidResult) ...[
-                    Gap(theme.scaling * 8),
+                    DensityGap(gapSm),
                     DefaultTextStyle.merge(
                       style: TextStyle(color: theme.colorScheme.destructive),
                       child: Text(error.message).xSmall().medium(),

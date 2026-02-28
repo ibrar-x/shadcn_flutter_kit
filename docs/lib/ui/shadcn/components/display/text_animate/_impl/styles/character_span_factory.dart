@@ -1,5 +1,6 @@
 part of '../../text_animate.dart';
 
+/// Implements `_buildCharacterWidgetSpan` behavior for text animate.
 InlineSpan _buildCharacterWidgetSpan({required Widget child}) {
   return WidgetSpan(
     alignment: PlaceholderAlignment.baseline,

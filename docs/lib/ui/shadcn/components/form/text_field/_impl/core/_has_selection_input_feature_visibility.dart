@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// _HasSelectionInputFeatureVisibility renders form UI and wires input behavior.
 class _HasSelectionInputFeatureVisibility extends InputFeatureVisibility {
   const _HasSelectionInputFeatureVisibility();
   @override
@@ -7,6 +8,7 @@ class _HasSelectionInputFeatureVisibility extends InputFeatureVisibility {
     yield state._effectiveSelection;
   }
 
+  /// Performs `canShow` logic for this form component.
   @override
   bool canShow(TextFieldState state) {
     var selection = state._effectiveSelection.value;

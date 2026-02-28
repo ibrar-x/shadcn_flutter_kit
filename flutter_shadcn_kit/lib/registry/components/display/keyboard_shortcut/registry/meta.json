@@ -28,6 +28,7 @@
     "_impl/themes/base/keyboard_shortcut_theme.dart",
     "_impl/themes/config/keyboard_shortcut_theme_config.dart",
     "_impl/themes/config/keyboard_shortcut_theme_defaults.dart",
+    "_impl/themes/config/keyboard_shortcut_theme_schema.dart",
     "_impl/themes/config/keyboard_shortcut_theme_tokens.dart",
     "_impl/utils/_keyboard_shortcut_display_mapper_state.dart",
     "_impl/utils/keyboard_shortcut_display_mapper.dart",

@@ -6,23 +6,20 @@
   "tags": [
     "animation",
     "timeline",
-    "composite"
+    "keyframes"
   ],
-  "installedAt": "2026-02-09T10:18:03.247486Z",
+  "installedAt": "2026-02-22T01:08:41.707427Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "composites/animation/timeline_animation/README.md",
-    "composites/animation/timeline_animation/_impl/core/absolute_keyframe.dart",
-    "composites/animation/timeline_animation/_impl/core/keyframe.dart",
-    "composites/animation/timeline_animation/_impl/core/relative_keyframe.dart",
-    "composites/animation/timeline_animation/_impl/core/still_keyframe.dart",
-    "composites/animation/timeline_animation/_impl/core/timeline_animation_widget.dart",
-    "composites/animation/timeline_animation/_impl/utils/timeline_animatable.dart",
-    "composites/animation/timeline_animation/_impl/utils/transformers.dart",
-    "composites/animation/timeline_animation/meta.json",
-    "composites/animation/timeline_animation/timeline_animation.dart",
-    "composites/animation/timeline_animation/timeline_animation.meta.json"
+    "registry/components/utility/timeline_animation/_impl/core/absolute_keyframe.dart",
+    "registry/components/utility/timeline_animation/_impl/core/keyframe.dart",
+    "registry/components/utility/timeline_animation/_impl/core/relative_keyframe.dart",
+    "registry/components/utility/timeline_animation/_impl/core/still_keyframe.dart",
+    "registry/components/utility/timeline_animation/_impl/core/timeline_animation_widget.dart",
+    "registry/components/utility/timeline_animation/_impl/utils/timeline_animatable.dart",
+    "registry/components/utility/timeline_animation/_impl/utils/transformers.dart",
+    "registry/components/utility/timeline_animation/timeline_animation.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

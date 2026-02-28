@@ -10,7 +10,7 @@
     "repository",
     "ui"
   ],
-  "installedAt": "2026-02-09T10:18:03.242766Z",
+  "installedAt": "2026-02-22T01:08:41.773724Z",
   "shared": [
     "radix_icons",
     "theme"
@@ -24,7 +24,6 @@
     "toast"
   ],
   "files": [
-    "registry/components/utility/error_system/README.md",
     "registry/components/utility/error_system/_impl/core/app_error.dart",
     "registry/components/utility/error_system/_impl/core/app_error_banner.dart",
     "registry/components/utility/error_system/_impl/core/app_error_gate.dart",
@@ -48,7 +47,11 @@
     "registry/components/utility/error_system/_impl/extensions/context_error_extensions.dart",
     "registry/components/utility/error_system/_impl/extensions/future_error_extensions.dart",
     "registry/components/utility/error_system/_impl/state/screen_error_scope.dart",
-    "registry/components/utility/error_system/_impl/themes/error_system_theme.dart",
+    "registry/components/utility/error_system/_impl/themes/base/error_system_theme.dart",
+    "registry/components/utility/error_system/_impl/themes/config/error_system_theme_config.dart",
+    "registry/components/utility/error_system/_impl/themes/config/error_system_theme_defaults.dart",
+    "registry/components/utility/error_system/_impl/themes/config/error_system_theme_schema.dart",
+    "registry/components/utility/error_system/_impl/themes/config/error_system_theme_tokens.dart",
     "registry/components/utility/error_system/_impl/utils/api_rules.dart",
     "registry/components/utility/error_system/_impl/utils/auth_rules.dart",
     "registry/components/utility/error_system/_impl/utils/env.dart",
@@ -61,10 +64,7 @@
     "registry/components/utility/error_system/_impl/utils/platform_rules.dart",
     "registry/components/utility/error_system/_impl/utils/retry_strategy.dart",
     "registry/components/utility/error_system/_impl/utils/validation_rules.dart",
-    "registry/components/utility/error_system/error_system.dart",
-    "registry/components/utility/error_system/error_system.meta.json",
-    "registry/components/utility/error_system/meta.json",
-    "registry/components/utility/error_system/preview.dart"
+    "registry/components/utility/error_system/error_system.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

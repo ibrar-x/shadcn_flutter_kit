@@ -22,6 +22,7 @@
     "_impl/themes/base/focus_outline_theme.dart",
     "_impl/themes/config/focus_outline_theme_config.dart",
     "_impl/themes/config/focus_outline_theme_defaults.dart",
+    "_impl/themes/config/focus_outline_theme_schema.dart",
     "_impl/themes/config/focus_outline_theme_tokens.dart",
     "focus_outline.dart"
   ],

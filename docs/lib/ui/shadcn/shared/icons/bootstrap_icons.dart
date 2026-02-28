@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+/// BootstrapIcons defines a reusable type for this registry module.
 class BootstrapIcons {
   BootstrapIcons._();
 

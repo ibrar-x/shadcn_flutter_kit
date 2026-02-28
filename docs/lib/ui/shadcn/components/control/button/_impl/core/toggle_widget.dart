@@ -1,8 +1,17 @@
 import 'package:flutter/widgets.dart';
 
+import '../../../../../shared/primitives/clickable.dart';
+import '../../../../../shared/primitives/form_control.dart';
+import '../../../../../shared/primitives/form_value_supplier.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../styles/abstract_button_style.dart';
+import '../styles/button_state_property.dart';
 import '../styles/button_style_class.dart';
+import 'button_widget.dart';
+import '../state/toggle_controller.dart';
 import '../state/toggle_state.dart';
 
+/// Toggle defines a reusable type for this registry module.
 class Toggle extends StatefulWidget {
   /// The current toggle state (on/off).
   final bool value;
@@ -60,6 +69,7 @@ class Toggle extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   ToggleState createState() => ToggleState();
 }
 

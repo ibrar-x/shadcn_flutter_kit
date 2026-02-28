@@ -1,5 +1,6 @@
 part of '../../input.dart';
 
+/// _InputLeadingFeatureState stores and manages mutable widget state.
 class _InputLeadingFeatureState extends InputFeatureState<InputLeadingFeature> {
   @override
   Iterable<Widget> buildLeading() sync* {

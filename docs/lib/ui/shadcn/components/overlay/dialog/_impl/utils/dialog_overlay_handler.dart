@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// DialogOverlayHandler defines a reusable type for this registry module.
 class DialogOverlayHandler extends OverlayHandler {
   /// Checks if the current context is within a dialog overlay.
   ///
@@ -45,45 +46,47 @@ class DialogOverlayHandler extends OverlayHandler {
     OverlayBarrier? overlayBarrier,
     LayerLink? layerLink,
   }) {
-    var navigatorState = Navigator.of(
-      context,
-      rootNavigator: rootOverlay,
+    var navigatorState = Navigator.of(context, rootNavigator: rootOverlay);
+    final CapturedThemes themes = InheritedTheme.capture(
+      from: context,
+      to: navigatorState.context,
     );
-    final CapturedThemes themes =
-        InheritedTheme.capture(from: context, to: navigatorState.context);
-    final CapturedData data =
-        Data.capture(from: context, to: navigatorState.context);
+    final CapturedData data = Data.capture(
+      from: context,
+      to: navigatorState.context,
+    );
     var dialogRoute = DialogRoute<T>(
       context: context,
       builder: (context) {
         final theme = Theme.of(context);
+/// Stores `surfaceOpacity` state/configuration for this implementation.
         final surfaceOpacity = theme.surfaceOpacity;
         var child = _DialogOverlayWrapper(
           route: ModalRoute.of(context) as DialogRoute<T>,
-          child: Builder(builder: (context) {
-            return builder(context);
-          }),
+          child: Builder(
+            builder: (context) {
+              return builder(context);
+            },
+          ),
         );
         if (overlayBarrier != null) {
           return MultiModel(
-            data: const [
-              Model(#shadcn_flutter_dialog_overlay, true),
-            ],
+            data: const [Model(#shadcn_flutter_dialog_overlay, true)],
             child: ModalBackdrop(
               modal: modal,
               surfaceClip: ModalBackdrop.shouldClipSurface(surfaceOpacity),
               borderRadius: overlayBarrier.borderRadius,
               padding: overlayBarrier.padding,
-              barrierColor: overlayBarrier.barrierColor ??
+              barrierColor:
+                  overlayBarrier.barrierColor ??
+/// Creates a `Color.fromRGBO` instance.
                   const Color.fromRGBO(0, 0, 0, 0.8),
               child: child,
             ),
           );
         }
         return MultiModel(
-          data: const [
-            Model(#shadcn_flutter_dialog_overlay, true),
-          ],
+          data: const [Model(#shadcn_flutter_dialog_overlay, true)],
           child: child,
         );
       },
@@ -109,9 +112,7 @@ class DialogOverlayHandler extends OverlayHandler {
       },
       alignment: Alignment.center,
     );
-    navigatorState.push(
-      dialogRoute,
-    );
+    navigatorState.push(dialogRoute);
     return DialogOverlayCompleter(dialogRoute);
   }
 }

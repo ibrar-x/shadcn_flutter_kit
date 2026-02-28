@@ -8,7 +8,7 @@
     "format",
     "text"
   ],
-  "installedAt": "2026-02-09T10:18:03.202683Z",
+  "installedAt": "2026-02-22T01:08:41.544683Z",
   "shared": [
     "focus_outline",
     "form_control",
@@ -17,7 +17,6 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/form/formatter/README.md",
     "registry/components/form/formatter/_impl/utils/_double_only_formatter.dart",
     "registry/components/form/formatter/_impl/utils/_hex_text_formatter.dart",
     "registry/components/form/formatter/_impl/utils/_integer_only_formatter.dart",
@@ -25,10 +24,7 @@
     "registry/components/form/formatter/_impl/utils/_time_formatter.dart",
     "registry/components/form/formatter/_impl/utils/_to_lower_case_text_formatter.dart",
     "registry/components/form/formatter/_impl/utils/_to_upper_case_text_formatter.dart",
-    "registry/components/form/formatter/formatter.dart",
-    "registry/components/form/formatter/formatter.meta.json",
-    "registry/components/form/formatter/meta.json",
-    "registry/components/form/formatter/preview.dart"
+    "registry/components/form/formatter/formatter.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

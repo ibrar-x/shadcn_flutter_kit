@@ -284,7 +284,7 @@ Shared entry shape:
 
 ## How Copy/Paste Install Works (CLI flow)
 1) User runs `flutter_shadcn add <component-id>` (or via init).
-2) CLI loads `registry/components.json` and validates it with `components.schema.json`.
+2) CLI loads `registry/manifests/components.json` and validates it with `components.schema.json`.
 3) CLI resolves the component entry by id.
 4) CLI expands:
    - `files` list for the component

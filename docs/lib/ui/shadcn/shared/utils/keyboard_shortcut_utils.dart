@@ -9,6 +9,7 @@ typedef KeyboardShortcutDisplayBuilder = Widget Function(
 
 /// Handle for accessing keyboard shortcut display builders.
 class KeyboardShortcutDisplayHandle {
+/// Stores `_builder` state/configuration for this implementation.
   final KeyboardShortcutDisplayBuilder _builder;
 
   /// Creates a handle with the specified builder.
@@ -24,6 +25,7 @@ class KeyboardShortcutDisplayHandle {
 List<LogicalKeyboardKey> shortcutActivatorToKeySet(
   ShortcutActivator activator,
 ) {
+/// Stores `keys` state/configuration for this implementation.
   List<LogicalKeyboardKey> keys = [];
   if (activator is CharacterActivator) {
     if (activator.control) {

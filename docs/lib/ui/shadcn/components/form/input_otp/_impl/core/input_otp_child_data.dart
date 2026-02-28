@@ -30,9 +30,13 @@ class InputOTPChildData {
   /// Current value (codepoint) of this input field.
   final int? value;
 
+  /// Field storing `_state` for this form implementation.
   final _InputOTPState _state;
+
+  /// Field storing `_key` for this form implementation.
   final GlobalKey<_OTPCharacterInputState>? _key;
 
+  /// Constructs `InputOTPChildData` using the `_` named constructor.
   InputOTPChildData._(
     this._state,
     this._key, {

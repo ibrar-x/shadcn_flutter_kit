@@ -1,10 +1,13 @@
 part of '../../swiper.dart';
 
+/// _SwiperState defines a reusable type for this registry module.
 class _SwiperState extends State<Swiper> {
+/// Stores `_activeOverlay` state/configuration for this implementation.
   DrawerOverlayCompleter? _activeOverlay;
   final GlobalKey _key = GlobalKey();
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
   }
@@ -25,10 +28,14 @@ class _SwiperState extends State<Swiper> {
     return widget.position;
   }
 
+/// Executes `_onDrag` behavior for this component/composite.
   void _onDrag(DragUpdateDetails details) {
     if (_activeOverlay != null) {
+/// Stores `resolvedPosition` state/configuration for this implementation.
       var resolvedPosition = this.resolvedPosition;
+/// Stores `controller` state/configuration for this implementation.
       var controller = _activeOverlay!.animationController;
+/// Stores `delta` state/configuration for this implementation.
       double delta;
       switch (resolvedPosition) {
         case OverlayPosition.top:
@@ -43,10 +50,12 @@ class _SwiperState extends State<Swiper> {
           throw UnimplementedError('Unresolved position');
       }
       // normalize delta
+/// Stores `size` state/configuration for this implementation.
       var size = _key.currentContext?.size;
       if (size == null) {
         return;
       }
+/// Stores `axisSize` state/configuration for this implementation.
       double axisSize;
       if (resolvedPosition == OverlayPosition.top ||
           resolvedPosition == OverlayPosition.bottom) {
@@ -59,12 +68,16 @@ class _SwiperState extends State<Swiper> {
     }
   }
 
+/// Executes `_onDragEnd` behavior for this component/composite.
   void _onDragEnd(DragEndDetails details) {
     if (_activeOverlay != null) {
+/// Stores `activeOverlay` state/configuration for this implementation.
       var activeOverlay = _activeOverlay!;
+/// Stores `controller` state/configuration for this implementation.
       var controller = activeOverlay.animationController;
       if (controller != null) {
         if (controller.value < 0.5) {
+/// Creates a `controller.reverse` instance.
           controller.reverse().then((value) {
             activeOverlay.remove();
           });
@@ -76,12 +89,16 @@ class _SwiperState extends State<Swiper> {
     }
   }
 
+/// Executes `_onDragCancel` behavior for this component/composite.
   void _onDragCancel() {
     if (_activeOverlay != null) {
+/// Stores `activeOverlay` state/configuration for this implementation.
       var activeOverlay = _activeOverlay!;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+/// Stores `controller` state/configuration for this implementation.
         var controller = activeOverlay.animationController;
         if (controller != null) {
+/// Creates a `controller.reverse` instance.
           controller.reverse().then((value) {
             activeOverlay.remove();
           });
@@ -91,16 +108,14 @@ class _SwiperState extends State<Swiper> {
     }
   }
 
+/// Executes `_onDragStart` behavior for this component/composite.
   void _onDragStart(DragStartDetails details) {
     _onDragCancel();
     final compTheme = ComponentTheme.maybeOf<SwiperTheme>(context);
     _activeOverlay = widget.handler.openSwiper(
       context: context,
       builder: (context) {
-        return KeyedSubtree(
-          key: _key,
-          child: widget.builder(context),
-        );
+        return KeyedSubtree(key: _key, child: widget.builder(context));
       },
       position: widget.position,
       expands: widget.expands ?? compTheme?.expands,
@@ -120,10 +135,8 @@ class _SwiperState extends State<Swiper> {
     );
   }
 
-  Widget _buildGesture({
-    required Widget child,
-    required bool draggable,
-  }) {
+/// Executes `_buildGesture` behavior for this component/composite.
+  Widget _buildGesture({required Widget child, required bool draggable}) {
     final compTheme = ComponentTheme.maybeOf<SwiperTheme>(context);
     final behavior =
         widget.behavior ?? compTheme?.behavior ?? HitTestBehavior.translucent;
@@ -149,10 +162,8 @@ class _SwiperState extends State<Swiper> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return _buildGesture(
-      child: widget.child,
-      draggable: widget.enabled,
-    );
+    return _buildGesture(child: widget.child, draggable: widget.enabled);
   }
 }

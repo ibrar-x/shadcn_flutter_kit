@@ -1,5 +1,6 @@
 part of '../../drawer.dart';
 
+/// Executes `closeSheet` behavior for this component/composite.
 Future<void> closeSheet(BuildContext context) {
   // sheet is just a drawer with no backdrop transformation
   return closeDrawer(context);

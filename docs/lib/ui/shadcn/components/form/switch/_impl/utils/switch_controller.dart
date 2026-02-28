@@ -5,6 +5,7 @@ class SwitchController extends ValueNotifier<bool>
     with ComponentController<bool> {
   SwitchController([super.value = false]);
 
+  /// Converts this value using `toggle` logic.
   void toggle() {
     value = !value;
   }

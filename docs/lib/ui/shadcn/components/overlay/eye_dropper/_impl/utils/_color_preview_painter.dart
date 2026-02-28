@@ -1,14 +1,23 @@
 part of '../../eye_dropper.dart';
 
+/// _ColorPreviewPainter defines a reusable type for this registry module.
 class _ColorPreviewPainter extends CustomPainter {
+/// Stores `colors` state/configuration for this implementation.
   final List<Color> colors;
+/// Stores `size` state/configuration for this implementation.
   final Size size;
+/// Stores `borderColor` state/configuration for this implementation.
   final Color borderColor;
+/// Stores `borderWidth` state/configuration for this implementation.
   final double borderWidth;
+/// Stores `selectedBorderColor` state/configuration for this implementation.
   final Color selectedBorderColor;
+/// Stores `selectedBorderWidth` state/configuration for this implementation.
   final double selectedBorderWidth;
+/// Stores `backgroundColor` state/configuration for this implementation.
   final Color backgroundColor;
 
+/// Creates a `_ColorPreviewPainter` instance.
   _ColorPreviewPainter(
     this.colors,
     this.size,
@@ -20,49 +29,71 @@ class _ColorPreviewPainter extends CustomPainter {
   );
 
   @override
+/// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     // clip it to circle
     final clipPath = Path()
-      ..addOval(Rect.fromLTWH(
-          0, 0, size.width.floorToDouble(), size.height.floorToDouble()));
+      ..addOval(
+/// Creates a `Rect.fromLTWH` instance.
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width.floorToDouble(),
+          size.height.floorToDouble(),
+        ),
+      );
     canvas.clipPath(clipPath);
     final paint = Paint();
 
     // draw the background as background color
     paint.color = backgroundColor;
     paint.style = PaintingStyle.fill;
+/// Creates a `canvas.drawRect` instance.
     canvas.drawRect(
-        Rect.fromLTWH(
-            0, 0, size.width.floorToDouble(), size.height.floorToDouble()),
-        paint);
+/// Creates a `Rect.fromLTWH` instance.
+      Rect.fromLTWH(
+        0,
+        0,
+        size.width.floorToDouble(),
+        size.height.floorToDouble(),
+      ),
+      paint,
+    );
 
     // draw the color cells
-    final cellSize = Size(size.width.floor() / this.size.width.floor(),
-        size.height.floor() / this.size.height.floor());
+    final cellSize = Size(
+      size.width.floor() / this.size.width.floor(),
+      size.height.floor() / this.size.height.floor(),
+    );
     for (int y = 0; y < this.size.height.floor(); y++) {
       for (int x = 0; x < this.size.width.floor(); x++) {
         final color = colors[y * this.size.width.floor() + x];
         paint.color = color;
         paint.style = PaintingStyle.fill;
+/// Creates a `canvas.drawRect` instance.
         canvas.drawRect(
+/// Creates a `Rect.fromLTWH` instance.
           Rect.fromLTWH(
-              (x * cellSize.width).floorToDouble(),
-              (y * cellSize.height).floorToDouble(),
-              cellSize.width.floorToDouble(),
-              cellSize.height.floorToDouble()),
+            (x * cellSize.width).floorToDouble(),
+            (y * cellSize.height).floorToDouble(),
+            cellSize.width.floorToDouble(),
+            cellSize.height.floorToDouble(),
+          ),
           paint,
         );
         paint.color = borderColor;
         paint.style = PaintingStyle.stroke;
         paint.strokeWidth = borderWidth;
         // draw a border
+/// Creates a `canvas.drawRect` instance.
         canvas.drawRect(
+/// Creates a `Rect.fromLTWH` instance.
           Rect.fromLTWH(
-                  (x * cellSize.width).floorToDouble(),
-                  (y * cellSize.height).floorToDouble(),
-                  cellSize.width.floorToDouble(),
-                  cellSize.height.floorToDouble())
-              .inflate(paint.strokeWidth / 2),
+            (x * cellSize.width).floorToDouble(),
+            (y * cellSize.height).floorToDouble(),
+            cellSize.width.floorToDouble(),
+            cellSize.height.floorToDouble(),
+          ).inflate(paint.strokeWidth / 2),
           paint,
         );
       }
@@ -71,11 +102,17 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.color = selectedBorderColor;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = selectedBorderWidth;
+/// Stores `centerX` state/configuration for this implementation.
     final centerX = size.width ~/ 2;
+/// Stores `centerY` state/configuration for this implementation.
     final centerY = size.height ~/ 2;
+/// Stores `cellX` state/configuration for this implementation.
     final cellX = centerX ~/ cellSize.width;
+/// Stores `cellY` state/configuration for this implementation.
     final cellY = centerY ~/ cellSize.height;
+/// Creates a `canvas.drawRect` instance.
     canvas.drawRect(
+/// Creates a `Rect.fromLTWH` instance.
       Rect.fromLTWH(
         (cellX * cellSize.width).floorToDouble(),
         (cellY * cellSize.height).floorToDouble(),
@@ -88,13 +125,21 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.color = borderColor;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = borderWidth;
+/// Creates a `canvas.drawOval` instance.
     canvas.drawOval(
-        Rect.fromLTWH(
-            0, 0, size.width.floorToDouble(), size.height.floorToDouble()),
-        paint);
+/// Creates a `Rect.fromLTWH` instance.
+      Rect.fromLTWH(
+        0,
+        0,
+        size.width.floorToDouble(),
+        size.height.floorToDouble(),
+      ),
+      paint,
+    );
   }
 
   @override
+/// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant _ColorPreviewPainter oldDelegate) {
     return !listEquals(oldDelegate.colors, colors) ||
         oldDelegate.size != size ||

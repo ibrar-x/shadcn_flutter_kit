@@ -25,6 +25,7 @@ class SelectItemButton<T> extends StatelessWidget {
     this.style = const ButtonStyle.ghost(),
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -41,36 +42,36 @@ class SelectItemButton<T> extends StatelessWidget {
           },
         ),
       },
-      child: SubFocus(builder: (context, subFocusState) {
-        return WidgetStatesProvider(
-          states: {
-            if (subFocusState.isFocused) WidgetState.hovered,
-          },
-          child: Button(
-            enabled: enabled,
-            disableTransition: true,
-            alignment: AlignmentDirectional.centerStart,
-            onPressed: () {
-              data?.selectItem(value, !isSelected);
-            },
-            style: style.copyWith(
-              padding: (context, states, value) => EdgeInsets.symmetric(
-                vertical: 8 * scaling,
-                horizontal: 8 * scaling,
-              ),
-              mouseCursor: (context, states, value) {
-                return SystemMouseCursors.basic;
+      child: SubFocus(
+        builder: (context, subFocusState) {
+          return WidgetStatesProvider(
+            states: {if (subFocusState.isFocused) WidgetState.hovered},
+            child: Button(
+              enabled: enabled,
+              disableTransition: true,
+              alignment: AlignmentDirectional.centerStart,
+              onPressed: () {
+                data?.selectItem(value, !isSelected);
               },
+              style: style.copyWith(
+                padding: (context, states, value) => EdgeInsets.symmetric(
+                  vertical: 8 * scaling,
+                  horizontal: 8 * scaling,
+                ),
+                mouseCursor: (context, states, value) {
+                  return SystemMouseCursors.basic;
+                },
+              ),
+              trailing: isSelected
+                  ? const Icon(LucideIcons.check).iconSmall()
+                  : hasSelection
+                  ? SizedBox(width: theme.density.baseContentPadding * scaling)
+                  : null,
+              child: child.normal(),
             ),
-            trailing: isSelected
-                ? const Icon(LucideIcons.check).iconSmall()
-                : hasSelection
-                    ? SizedBox(width: 16 * scaling)
-                    : null,
-            child: child.normal(),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,14 +1,20 @@
 part of '../../table.dart';
 
+/// _HoveredCell defines a reusable type for this registry module.
 class _HoveredCell {
+/// Stores `column` state/configuration for this implementation.
   final int column;
+/// Stores `row` state/configuration for this implementation.
   final int row;
+/// Stores `columnSpan` state/configuration for this implementation.
   final int columnSpan;
+/// Stores `rowSpan` state/configuration for this implementation.
   final int rowSpan;
 
   _HoveredCell(this.column, this.row, this.columnSpan, this.rowSpan);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -24,6 +30,7 @@ class _HoveredCell {
     return Object.hash(column, row, columnSpan, rowSpan);
   }
 
+/// Executes `intersects` behavior for this component/composite.
   bool intersects(_HoveredCell other, Axis expected) {
     if (other == this) {
       return true;

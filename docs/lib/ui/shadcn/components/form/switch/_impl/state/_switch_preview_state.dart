@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _SwitchPreviewState stores and manages mutable widget state.
 class _SwitchPreviewState extends State<SwitchPreview> {
+  /// Current value stored for `value`.
   bool value = false;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +18,7 @@ class _SwitchPreviewState extends State<SwitchPreview> {
             Switch(
               value: value,
               onChanged: (newValue) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   value = newValue;
                 });
@@ -25,14 +29,8 @@ class _SwitchPreviewState extends State<SwitchPreview> {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 16,
               children: [
-                Switch(
-                  value: false,
-                  onChanged: null,
-                ),
-                Switch(
-                  value: true,
-                  onChanged: null,
-                ),
+                Switch(value: false, onChanged: null),
+                Switch(value: true, onChanged: null),
               ],
             ),
           ],

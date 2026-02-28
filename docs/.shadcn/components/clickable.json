@@ -8,13 +8,12 @@
     "primitive",
     "gesture"
   ],
-  "installedAt": "2026-02-09T10:18:03.239733Z",
+  "installedAt": "2026-02-22T01:08:41.329165Z",
   "shared": [
     "clickable"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/control/clickable/README.md",
     "registry/components/control/clickable/_impl/core/builder_stated_widget.dart",
     "registry/components/control/clickable/_impl/core/clickable_widget.dart",
     "registry/components/control/clickable/_impl/core/map_stated_widget.dart",
@@ -24,10 +23,7 @@
     "registry/components/control/clickable/_impl/state/clickable_state.dart",
     "registry/components/control/clickable/_impl/state/widget_states_data.dart",
     "registry/components/control/clickable/_impl/state/widget_states_provider.dart",
-    "registry/components/control/clickable/clickable.dart",
-    "registry/components/control/clickable/clickable.meta.json",
-    "registry/components/control/clickable/meta.json",
-    "registry/components/control/clickable/preview.dart"
+    "registry/components/control/clickable/clickable.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

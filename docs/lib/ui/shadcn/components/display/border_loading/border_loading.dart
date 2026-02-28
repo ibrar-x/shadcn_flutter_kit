@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show PathMetric;
 
+import 'package:flutter/painting.dart' show GradientRotation;
+import 'package:flutter/physics.dart' show Simulation;
 import 'package:flutter/widgets.dart';
 
 // State and animation timeline helpers.
@@ -220,6 +222,7 @@ class BorderLoading extends StatefulWidget {
   /// Global stroke opacity multiplier.
   final double opacity;
 
+  /// Creates the State object used by this border loading widget.
   @override
   State<BorderLoading> createState() => _BorderLoadingState();
 }
@@ -247,6 +250,7 @@ class _BorderLoadingState extends State<BorderLoading>
     return progress.clamp(0.0, 1.0).toDouble();
   }
 
+  /// Initializes controllers and listeners required by border loading.
   @override
   void initState() {
     super.initState();
@@ -261,6 +265,7 @@ class _BorderLoadingState extends State<BorderLoading>
     _bindProgressStream();
   }
 
+  /// Updates internal state when border loading configuration changes.
   @override
   void didUpdateWidget(covariant BorderLoading oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -274,6 +279,7 @@ class _BorderLoadingState extends State<BorderLoading>
     }
   }
 
+  /// Disposes resources allocated by this border loading state.
   @override
   void dispose() {
     // Cancel stream subscription.
@@ -299,12 +305,15 @@ class _BorderLoadingState extends State<BorderLoading>
       final next = value.clamp(0.0, 1.0).toDouble();
       if (next == _streamProgress) return;
       if (!mounted) return;
+
+      /// Implements `setState` behavior for border loading.
       setState(() {
         _streamProgress = next;
       });
     }, onError: (_) {});
   }
 
+  /// Builds the widget tree for border loading.
   @override
   Widget build(BuildContext context) {
     // Resolve outer shape once for optional background painting.
@@ -333,6 +342,7 @@ class _BorderLoadingState extends State<BorderLoading>
     }
 
     // Builds the overlay painter for a given progress frame.
+    /// Implements `buildOverlay` behavior for border loading.
     Widget buildOverlay(double progress) {
       // Select the correct painter variant for the active mode.
       final painter = switch (widget.mode) {

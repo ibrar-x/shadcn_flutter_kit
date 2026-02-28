@@ -1,6 +1,6 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart'
-  hide Theme, ThemeData, TextField, ButtonStyle, Tooltip;
+    hide Theme, ThemeData, TextField, ButtonStyle, Tooltip;
 import 'package:gap/gap.dart';
 
 import '../../control/button/button.dart';
@@ -20,7 +20,7 @@ part '_impl/core/navigation_widget.dart';
 part '_impl/core/_navigation_label_background_painter.dart';
 part '_impl/utils/_navigation_label_delegate.dart';
 part '_impl/core/_navigation_child_overflow_handle.dart';
-part '_impl/themes/navigation_bar_theme.dart';
+part '_impl/themes/base/navigation_bar_theme.dart';
 part '_impl/core/navigation_label.dart';
 part '_impl/core/navigation_padding.dart';
 part '_impl/core/_navigation_labeled.dart';
@@ -72,6 +72,8 @@ enum NavigationBarAlignment {
   /// Creates a NavigationBarAlignment with the associated MainAxisAlignment.
   const NavigationBarAlignment(this.mainAxisAlignment);
 }
+
+/// NavigationRailAlignment enumerates fixed values used by this implementation.
 enum NavigationRailAlignment {
   /// Align items to the start (top) of the rail.
   start,
@@ -80,7 +82,7 @@ enum NavigationRailAlignment {
   center,
 
   /// Align items to the end (bottom) of the rail.
-  end
+  end,
 }
 
 /// Enumeration defining the type of navigation container.
@@ -92,7 +94,7 @@ enum NavigationContainerType {
   bar,
 
   /// Expandable sidebar navigation with more space for content.
-  sidebar
+  sidebar,
 }
 
 /// A flexible navigation container widget for organizing navigation items.
@@ -173,6 +175,7 @@ enum NavigationContainerType {
 /// )
 /// ```
 
+/// Executes `_startPadding` behavior for this component/composite.
 double _startPadding(EdgeInsets padding, Axis direction) {
   if (direction == Axis.vertical) {
     return padding.top;
@@ -180,6 +183,7 @@ double _startPadding(EdgeInsets padding, Axis direction) {
   return padding.left;
 }
 
+/// Executes `_endPadding` behavior for this component/composite.
 double _endPadding(EdgeInsets padding, Axis direction) {
   if (direction == Axis.vertical) {
     return padding.bottom;
@@ -407,7 +411,6 @@ enum NavigationLabelSize {
 /// )
 /// ```
 
-
 /// Internal widget that applies spacing between navigation items.
 ///
 /// Automatically calculates and applies appropriate padding based on
@@ -450,8 +453,8 @@ enum NavigationOverflow {
 /// - [selected] (bool): Whether this item is currently selected
 ///
 /// Returns a widget that adapts to selection state.
-typedef NavigationWidgetBuilder = Widget Function(
-    BuildContext context, bool selected);
+typedef NavigationWidgetBuilder =
+    Widget Function(BuildContext context, bool selected);
 
 /// Custom widget wrapper for navigation items.
 ///

@@ -1,14 +1,19 @@
 part of '../../navigation_bar.dart';
 
-abstract class _AbstractNavigationButtonState<T extends AbstractNavigationButton>
+/// _AbstractNavigationButtonState defines a reusable type for this registry module.
+abstract class _AbstractNavigationButtonState<
+  T extends AbstractNavigationButton
+>
     extends State<T> {
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<NavigationControlData>(context);
     final childData = Data.maybeOf<NavigationChildControlData>(context);
     if (data?.containerType == NavigationContainerType.sidebar) {
       return buildSliver(context, data, childData);
     }
+/// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
     if (labelType == NavigationLabelType.tooltip) {
       return buildTooltip(context, data, childData);
@@ -24,7 +29,9 @@ abstract class _AbstractNavigationButtonState<T extends AbstractNavigationButton
     if (widget.label == null) {
       return buildBox(context, data, childData);
     }
+/// Stores `alignment` state/configuration for this implementation.
     AlignmentGeometry alignment = Alignment.topCenter;
+/// Stores `anchorAlignment` state/configuration for this implementation.
     AlignmentGeometry anchorAlignment = Alignment.bottomCenter;
     if (data?.direction == Axis.vertical) {
       alignment = AlignmentDirectional.centerStart;
@@ -46,6 +53,7 @@ abstract class _AbstractNavigationButtonState<T extends AbstractNavigationButton
     NavigationControlData? data,
     NavigationChildControlData? childData,
   ) {
+/// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
     if (labelType == NavigationLabelType.tooltip) {
       return SliverToBoxAdapter(child: buildTooltip(context, data, childData));
@@ -62,6 +70,7 @@ abstract class _AbstractNavigationButtonState<T extends AbstractNavigationButton
       return buildBox(context, data, null);
     }
     return RepaintBoundary.wrap(
+/// Creates a `buildBox` instance.
       buildBox(context, data, childData),
       childData.actualIndex,
     );

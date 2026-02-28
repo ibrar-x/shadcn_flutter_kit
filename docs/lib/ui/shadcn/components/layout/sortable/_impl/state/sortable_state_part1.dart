@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// _SortableState defines a reusable type for this registry module.
 class _SortableState<T> extends State<Sortable<T>>
     with AutomaticKeepAliveClientMixin {
   final ValueNotifier<_SortableDraggingSession<T>?> topCandidate =
@@ -18,18 +19,21 @@ class _SortableState<T> extends State<Sortable<T>>
   final ValueNotifier<bool> _hasDraggedOff = ValueNotifier(false);
 
   (_SortableState<T>, Offset)? _findState(
-      _SortableLayerState target, Offset globalPosition) {
+    _SortableLayerState target,
+    Offset globalPosition,
+  ) {
     BoxHitTestResult result = BoxHitTestResult();
     RenderBox renderBox = target.context.findRenderObject() as RenderBox;
     renderBox.hitTest(result, position: globalPosition);
     for (final HitTestEntry entry in result.path) {
       if (entry.target is RenderMetaData) {
+/// Stores `metaData` state/configuration for this implementation.
         RenderMetaData metaData = entry.target as RenderMetaData;
         if (metaData.metaData is _SortableState<T> &&
             metaData.metaData != this) {
           return (
             metaData.metaData as _SortableState<T>,
-            (entry as BoxHitTestEntry).localPosition
+            (entry as BoxHitTestEntry).localPosition,
           );
         }
       }
@@ -38,12 +42,15 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   _SortableDropFallbackState<T>? _findFallbackState(
-      _SortableLayerState target, Offset globalPosition) {
+    _SortableLayerState target,
+    Offset globalPosition,
+  ) {
     BoxHitTestResult result = BoxHitTestResult();
     RenderBox renderBox = target.context.findRenderObject() as RenderBox;
     renderBox.hitTest(result, position: globalPosition);
     for (final HitTestEntry entry in result.path) {
       if (entry.target is RenderMetaData) {
+/// Stores `metaData` state/configuration for this implementation.
         RenderMetaData metaData = entry.target as RenderMetaData;
         if (metaData.metaData is _SortableDropFallbackState<T> &&
             metaData.metaData != this) {
@@ -54,18 +61,24 @@ class _SortableState<T> extends State<Sortable<T>>
     return null;
   }
 
+/// Stores `_dragging` state/configuration for this implementation.
   bool _dragging = false;
+/// Stores `_claimUnchanged` state/configuration for this implementation.
   bool _claimUnchanged = false;
+/// Stores `_session` state/configuration for this implementation.
   _SortableDraggingSession<T>? _session;
 
+/// Stores `_scrollableLayer` state/configuration for this implementation.
   _ScrollableSortableLayerState? _scrollableLayer;
 
   @override
+/// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scrollableLayer = Data.maybeOf<_ScrollableSortableLayerState>(context);
   }
 
+/// Executes `_onDragStart` behavior for this component/composite.
   void _onDragStart(DragStartDetails details) {
     if (_hasClaimedDrop.value) {
       return;
@@ -76,13 +89,17 @@ class _SortableState<T> extends State<Sortable<T>>
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     RenderBox layerRenderBox = layer!.context.findRenderObject() as RenderBox;
     Matrix4 transform = renderBox.getTransformTo(layerRenderBox);
+/// Stores `size` state/configuration for this implementation.
     Size size = renderBox.size;
     Offset minOffset = MatrixUtils.transformPoint(transform, Offset.zero);
     Offset maxOffset = MatrixUtils.transformPoint(
       transform,
+/// Creates a `Offset` instance.
       Offset(size.width, size.height),
     );
+/// Stores `ghost` state/configuration for this implementation.
     final ghost = widget.ghost ?? widget.child;
+/// Stores `candidateFallback` state/configuration for this implementation.
     final candidateFallback = widget.candidateFallback;
     _session = _SortableDraggingSession(
       layer: layer,
@@ -108,6 +125,7 @@ class _SortableState<T> extends State<Sortable<T>>
     );
     layer.pushDraggingSession(_session!);
     widget.onDragStart?.call();
+/// Creates a `setState` instance.
     setState(() {
       _dragging = true;
     });
@@ -115,7 +133,8 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   ValueNotifier<_SortableDraggingSession<T>?> _getByLocation(
-      _SortableDropLocation location) {
+    _SortableDropLocation location,
+  ) {
     switch (location) {
       case _SortableDropLocation.top:
         return topCandidate;
@@ -128,40 +147,60 @@ class _SortableState<T> extends State<Sortable<T>>
     }
   }
 
+/// Executes `_handleDrag` behavior for this component/composite.
   void _handleDrag(Offset delta) {
+/// Stores `minOffset` state/configuration for this implementation.
     Offset minOffset = _session!.minOffset;
+/// Stores `maxOffset` state/configuration for this implementation.
     Offset maxOffset = _session!.maxOffset;
     if (_session != null) {
       RenderBox sessionRenderBox =
           _session!.layer.context.findRenderObject() as RenderBox;
+/// Stores `size` state/configuration for this implementation.
       Size size = sessionRenderBox.size;
       if (_session!.lock) {
+/// Stores `minX` state/configuration for this implementation.
         double minX = -minOffset.dx;
+/// Stores `maxX` state/configuration for this implementation.
         double maxX = size.width - maxOffset.dx;
+/// Stores `minY` state/configuration for this implementation.
         double minY = -minOffset.dy;
+/// Stores `maxY` state/configuration for this implementation.
         double maxY = size.height - maxOffset.dy;
         _session!.offset.value = Offset(
           (_session!.offset.value.dx + delta.dx).clamp(
+/// Creates a `min` instance.
             min(minX, maxX),
+/// Creates a `max` instance.
             max(minX, maxX),
           ),
           (_session!.offset.value.dy + delta.dy).clamp(
+/// Creates a `min` instance.
             min(minY, maxY),
+/// Creates a `max` instance.
             max(minY, maxY),
           ),
         );
       } else {
         _session!.offset.value += delta;
       }
-      Offset globalPosition = _session!.offset.value +
+      Offset globalPosition =
+          _session!.offset.value +
           minOffset +
-          Offset((maxOffset.dx - minOffset.dx) / 2,
-              (maxOffset.dy - minOffset.dy) / 2);
-      (_SortableState<T>, Offset)? target =
-          _findState(_session!.layer, globalPosition);
+/// Creates a `Offset` instance.
+          Offset(
+            (maxOffset.dx - minOffset.dx) / 2,
+            (maxOffset.dy - minOffset.dy) / 2,
+          );
+      (_SortableState<T>, Offset)? target = _findState(
+        _session!.layer,
+        globalPosition,
+      );
       if (target == null) {
-        _SortableDropFallbackState<T>? fallback =
-            _findFallbackState(_session!.layer, globalPosition);
+        _SortableDropFallbackState<T>? fallback = _findFallbackState(
+          _session!.layer,
+          globalPosition,
+        );
         _currentFallback.value = fallback;
         if (_currentTarget.value != null && fallback == null) {
           _currentTarget.value!.dispose(_session!);
@@ -174,6 +213,7 @@ class _SortableState<T> extends State<Sortable<T>>
           _currentTarget.value!.dispose(_session!);
         }
         var targetRenderBox = target.$1.context.findRenderObject() as RenderBox;
+/// Stores `size` state/configuration for this implementation.
         var size = targetRenderBox.size;
         _SortableDropLocation? location = _getPosition(
           target.$2,
@@ -184,17 +224,21 @@ class _SortableState<T> extends State<Sortable<T>>
           acceptBottom: widget.onAcceptBottom != null,
         );
         if (location != null) {
-          ValueNotifier<_SortableDraggingSession<T>?> candidate =
-              target.$1._getByLocation(location);
+          ValueNotifier<_SortableDraggingSession<T>?> candidate = target.$1
+              ._getByLocation(location);
 
           candidate.value = _session;
           _currentTarget.value = _DroppingTarget(
-              candidate: candidate, source: target.$1, location: location);
+            candidate: candidate,
+            source: target.$1,
+            location: location,
+          );
         }
       }
     }
   }
 
+/// Executes `_getCallback` behavior for this component/composite.
   ValueChanged<SortableData<T>>? _getCallback(_SortableDropLocation location) {
     switch (location) {
       case _SortableDropLocation.top:
@@ -208,6 +252,7 @@ class _SortableState<T> extends State<Sortable<T>>
     }
   }
 
+/// Executes `_getPredicate` behavior for this component/composite.
   Predicate<SortableData<T>>? _getPredicate(_SortableDropLocation location) {
     switch (location) {
       case _SortableDropLocation.top:
@@ -221,6 +266,7 @@ class _SortableState<T> extends State<Sortable<T>>
     }
   }
 
+/// Executes `_onDragUpdate` behavior for this component/composite.
   void _onDragUpdate(DragUpdateDetails details) {
     if (_hasClaimedDrop.value) {
       return;
@@ -229,14 +275,18 @@ class _SortableState<T> extends State<Sortable<T>>
     _scrollableLayer?._updateDrag(this, details.globalPosition);
   }
 
+/// Executes `_onDragEnd` behavior for this component/composite.
   void _onDragEnd(DragEndDetails details) {
     widget.onDragEnd?.call();
     if (_session != null) {
       if (_currentTarget.value != null) {
         _currentTarget.value!.dispose(_session!);
+/// Stores `target` state/configuration for this implementation.
         var target = _currentTarget.value!.source;
+/// Stores `location` state/configuration for this implementation.
         var location = _currentTarget.value!.location;
         var predicate = target._getPredicate(location);
+/// Stores `sortData` state/configuration for this implementation.
         var sortData = _session!.data;
         if (predicate == null || predicate(sortData)) {
           var callback = target._getCallback(location);
@@ -247,8 +297,10 @@ class _SortableState<T> extends State<Sortable<T>>
         _session!.layer.removeDraggingSession(_session!);
         _currentTarget.value = null;
       } else if (_hasDraggedOff.value) {
+/// Stores `target` state/configuration for this implementation.
         var target = _currentFallback.value;
         if (target != null) {
+/// Stores `sortData` state/configuration for this implementation.
           var sortData = _session!.data;
           if (target.widget.canAccept == null ||
               target.widget.canAccept!(sortData)) {
@@ -269,12 +321,14 @@ class _SortableState<T> extends State<Sortable<T>>
       _claimUnchanged = true;
       _session = null;
     }
+/// Creates a `setState` instance.
     setState(() {
       _dragging = false;
     });
     _scrollableLayer?._endDrag(this);
   }
 
+/// Executes `_onDragCancel` behavior for this component/composite.
   void _onDragCancel() {
     if (_session != null) {
       if (_currentTarget.value != null) {
@@ -285,6 +339,7 @@ class _SortableState<T> extends State<Sortable<T>>
       _session!.layer._claimDrop(this, _session!.data, true);
       _session = null;
     }
+/// Creates a `setState` instance.
     setState(() {
       _dragging = false;
     });
@@ -293,10 +348,12 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     final layer = Data.maybeFind<_SortableLayerState>(context);
     if (layer != null) {
+/// Stores `data` state/configuration for this implementation.
       var data = widget.data;
       if (layer._canClaimDrop(this, data)) {
         _hasClaimedDrop.value = true;
@@ -310,6 +367,7 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant Sortable<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.enabled != oldWidget.enabled) {
@@ -322,6 +380,7 @@ class _SortableState<T> extends State<Sortable<T>>
       final layer = Data.maybeFind<_SortableLayerState>(context);
       if (layer != null && layer._canClaimDrop(this, widget.data)) {
         _hasClaimedDrop.value = true;
+/// Stores `data` state/configuration for this implementation.
         final data = widget.data;
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           if (mounted) {
@@ -344,14 +403,11 @@ class _SortableState<T> extends State<Sortable<T>>
     if (!hasCandidate) {
       return child!;
     }
-    return AnimatedSize(
-      duration: duration,
-      alignment: alignment,
-      child: child,
-    );
+    return AnimatedSize(duration: duration, alignment: alignment, child: child);
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     super.dispose();
     if (_dragging) {
@@ -364,6 +420,7 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     super.build(context);
     final layer = Data.of<_SortableLayerState>(context);
@@ -376,6 +433,7 @@ class _SortableState<T> extends State<Sortable<T>>
         child: ListenableBuilder(
           listenable: layer._sessions,
           builder: (context, child) {
+/// Stores `hasCandidate` state/configuration for this implementation.
             bool hasCandidate = layer._sessions.value.isNotEmpty;
             Widget container = GestureDetector(
               key: _gestureKey,
@@ -387,6 +445,7 @@ class _SortableState<T> extends State<Sortable<T>>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+/// Creates a `AbsorbPointer` instance.
                   AbsorbPointer(
                     child: _buildAnimatedSize(
                       duration: kDefaultDuration,
@@ -406,10 +465,12 @@ class _SortableState<T> extends State<Sortable<T>>
                       ),
                     ),
                   ),
+/// Creates a `Flexible` instance.
                   Flexible(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+/// Creates a `AbsorbPointer` instance.
                         AbsorbPointer(
                           child: _buildAnimatedSize(
                             duration: kDefaultDuration,
@@ -429,37 +490,39 @@ class _SortableState<T> extends State<Sortable<T>>
                             ),
                           ),
                         ),
+/// Creates a `Flexible` instance.
                         Flexible(
                           child: _dragging
                               ? widget.fallback ??
-                                  ListenableBuilder(
-                                    listenable: _hasDraggedOff,
-                                    builder: (context, child) {
-                                      return (_hasDraggedOff.value
-                                          ? AbsorbPointer(
-                                              child: Visibility(
-                                                visible: false,
-                                                maintainState: true,
-                                                child: KeyedSubtree(
-                                                  key: _key,
-                                                  child: widget.child,
+/// Creates a `ListenableBuilder` instance.
+                                    ListenableBuilder(
+                                      listenable: _hasDraggedOff,
+                                      builder: (context, child) {
+                                        return (_hasDraggedOff.value
+                                            ? AbsorbPointer(
+                                                child: Visibility(
+                                                  visible: false,
+                                                  maintainState: true,
+                                                  child: KeyedSubtree(
+                                                    key: _key,
+                                                    child: widget.child,
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          : AbsorbPointer(
-                                              child: Visibility(
-                                                maintainSize: true,
-                                                maintainAnimation: true,
-                                                maintainState: true,
-                                                visible: false,
-                                                child: KeyedSubtree(
-                                                  key: _key,
-                                                  child: widget.child,
+                                              )
+                                            : AbsorbPointer(
+                                                child: Visibility(
+                                                  maintainSize: true,
+                                                  maintainAnimation: true,
+                                                  maintainState: true,
+                                                  visible: false,
+                                                  child: KeyedSubtree(
+                                                    key: _key,
+                                                    child: widget.child,
+                                                  ),
                                                 ),
-                                              ),
-                                            ));
-                                    },
-                                  )
+                                              ));
+                                      },
+                                    )
                               : ListenableBuilder(
                                   listenable: _hasClaimedDrop,
                                   builder: (context, child) {
@@ -480,6 +543,7 @@ class _SortableState<T> extends State<Sortable<T>>
                                   },
                                 ),
                         ),
+/// Creates a `AbsorbPointer` instance.
                         AbsorbPointer(
                           child: _buildAnimatedSize(
                             duration: kDefaultDuration,
@@ -502,6 +566,7 @@ class _SortableState<T> extends State<Sortable<T>>
                       ],
                     ),
                   ),
+/// Creates a `AbsorbPointer` instance.
                   AbsorbPointer(
                     child: _buildAnimatedSize(
                       duration: kDefaultDuration,
@@ -527,10 +592,7 @@ class _SortableState<T> extends State<Sortable<T>>
             if (!hasCandidate) {
               return container;
             }
-            return AnimatedSize(
-              duration: kDefaultDuration,
-              child: container,
-            );
+            return AnimatedSize(duration: kDefaultDuration, child: container);
           },
         ),
       ),
@@ -538,6 +600,7 @@ class _SortableState<T> extends State<Sortable<T>>
   }
 
   @override
+/// Stores `wantKeepAlive` state/configuration for this implementation.
   bool get wantKeepAlive => _dragging;
 }
 

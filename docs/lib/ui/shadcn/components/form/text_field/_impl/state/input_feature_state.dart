@@ -5,13 +5,18 @@ part of '../../text_field.dart';
 /// Manages the lifecycle and state of features that extend text field
 /// functionality, such as clear buttons, counters, or custom decorations.
 abstract class InputFeatureState<T extends InputFeature> {
+  /// Field storing `_attached` for this form implementation.
   _AttachedInputFeature? _attached;
+
+  /// Field storing `_inputState` for this form implementation.
   TextFieldState? _inputState;
 
   /// The input feature associated with this state.
   T get feature {
     assert(
-        _attached != null && _attached!.feature is T, 'Feature not attached');
+      _attached != null && _attached!.feature is T,
+      'Feature not attached',
+    );
     return _attached!.feature as T;
   }
 
@@ -26,11 +31,13 @@ abstract class InputFeatureState<T extends InputFeature> {
   BuildContext get context {
     var inputState = _inputState;
     assert(inputState != null, 'Feature not attached');
+
     final context = inputState!.editableTextKey.currentContext;
     if (context == null) {
       throw FlutterError(
-          'InputFeatureState.context was accessed but editableTextKey.currentContext is null.\n'
-          'This usually means the widget is not mounted. Ensure the widget is mounted before accessing context.');
+        'InputFeatureState.context was accessed but editableTextKey.currentContext is null.\n'
+        'This usually means the widget is not mounted. Ensure the widget is mounted before accessing context.',
+      );
     }
     return context;
   }
@@ -52,6 +59,7 @@ abstract class InputFeatureState<T extends InputFeature> {
     return inputState!.effectiveController;
   }
 
+  /// Controller used to coordinate `_visibilityController` behavior.
   late AnimationController _visibilityController;
 
   Iterable<Widget> _internalBuildLeading() sync* {
@@ -88,8 +96,9 @@ abstract class InputFeatureState<T extends InputFeature> {
       vsync: tickerProvider,
       duration: kDefaultDuration,
     );
-    _visibilityController.value =
-        feature.visibility.canShow(_inputState!) ? 1 : 0;
+    _visibilityController.value = feature.visibility.canShow(_inputState!)
+        ? 1
+        : 0;
     _visibilityController.addListener(_updateAnimation);
     for (var dependency in feature.visibility.getDependencies(_inputState!)) {
       dependency.addListener(_updateVisibility);
@@ -101,10 +110,13 @@ abstract class InputFeatureState<T extends InputFeature> {
   /// Override to respond to dependency changes in the widget tree.
   void didChangeDependencies() {}
 
+  /// Performs `_updateAnimation` logic for this form component.
   void _updateAnimation() {
+    /// Triggers a rebuild after mutating local state.
     setState(() {});
   }
 
+  /// Performs `_updateVisibility` logic for this form component.
   void _updateVisibility() {
     bool canShow = feature.visibility.canShow(_inputState!);
     if (canShow && _visibilityController.value == 1) return;
@@ -131,12 +143,14 @@ abstract class InputFeatureState<T extends InputFeature> {
   /// Override to respond to feature configuration changes.
   void didFeatureUpdate(InputFeature oldFeature) {
     if (oldFeature.visibility != feature.visibility) {
-      for (var oldDependency
-          in oldFeature.visibility.getDependencies(_inputState!)) {
+      for (var oldDependency in oldFeature.visibility.getDependencies(
+        _inputState!,
+      )) {
         oldDependency.removeListener(_updateVisibility);
       }
-      for (var newDependency
-          in feature.visibility.getDependencies(_inputState!)) {
+      for (var newDependency in feature.visibility.getDependencies(
+        _inputState!,
+      )) {
         newDependency.addListener(_updateVisibility);
       }
     }

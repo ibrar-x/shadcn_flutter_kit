@@ -1,6 +1,8 @@
 part of '../../avatar.dart';
 
+/// Clipper that shapes painted regions used by avatar.
 class AvatarGroupClipper extends CustomClipper<Path> {
+  /// Creates `AvatarGroupClipper` for configuring or rendering avatar.
   const AvatarGroupClipper({
     required this.borderRadius,
     required this.alignment,
@@ -8,17 +10,27 @@ class AvatarGroupClipper extends CustomClipper<Path> {
     required this.gap,
   });
 
+  /// Layout/size setting that affects avatar rendering.
   final double borderRadius;
+
+  /// Controls how avatar content is aligned within available space.
   final Alignment alignment;
+
+  /// Layout/size setting that affects avatar rendering.
   final double previousAvatarSize;
+
+  /// Layout/size setting that affects avatar rendering.
   final double gap;
 
+  /// Implements `getClip` behavior for avatar.
   @override
   Path getClip(Size size) {
     final widthDiff = size.width - previousAvatarSize;
+
     final heightDiff = size.height - previousAvatarSize;
 
     var left = widthDiff / 2;
+
     var top = heightDiff / 2;
     left += size.width * alignment.x;
     top += size.height * alignment.y;
@@ -36,6 +48,7 @@ class AvatarGroupClipper extends CustomClipper<Path> {
       path.addRRect(
         RRect.fromRectAndRadius(
           cutout,
+
           Radius.circular(borderRadius + gap * 2),
         ),
       );
@@ -45,6 +58,7 @@ class AvatarGroupClipper extends CustomClipper<Path> {
     return path;
   }
 
+  /// Implements `shouldReclip` behavior for avatar.
   @override
   bool shouldReclip(covariant AvatarGroupClipper oldClipper) {
     return oldClipper.borderRadius != borderRadius ||

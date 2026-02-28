@@ -1,7 +1,8 @@
 part of '../../tabs.dart';
 
-typedef TabBuilder = Widget Function(
-    BuildContext context, List<Widget> children);
+/// Type alias for `TabBuilder` used by public or internal APIs.
+typedef TabBuilder =
+    Widget Function(BuildContext context, List<Widget> children);
 
 /// Builder function for creating individual tab child widgets.
 ///
@@ -11,8 +12,8 @@ typedef TabBuilder = Widget Function(
 /// - [child] (`Widget`): child widget to wrap
 ///
 /// Returns: `Widget` — the wrapped child widget
-typedef TabChildBuilder = Widget Function(
-    BuildContext context, TabContainerData data, Widget child);
+typedef TabChildBuilder =
+    Widget Function(BuildContext context, TabContainerData data, Widget child);
 
 /// Container widget for managing multiple tabs.
 ///

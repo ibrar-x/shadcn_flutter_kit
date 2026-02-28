@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'button_group_data.dart';
 import '../styles/button_overrides.dart';
 
+/// ButtonGroup defines a reusable type for this registry module.
 class ButtonGroup extends StatelessWidget {
   /// The layout direction for the button group.
   ///
@@ -76,6 +77,7 @@ class ButtonGroup extends StatelessWidget {
   }) : direction = Axis.vertical;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final parentGroupData = Data.maybeOf<ButtonGroupData>(context);
     List<Widget> children = List.from(this.children);
@@ -93,8 +95,10 @@ class ButtonGroup extends StatelessWidget {
             decoration: (context, states, value) {
               if (value is BoxDecoration) {
                 final borderRadius = groupData.applyToBorderRadius(
-                    value.borderRadius ?? BorderRadius.zero,
-                    Directionality.of(context));
+                  value.borderRadius ?? BorderRadius.zero,
+/// Creates a `Directionality.of` instance.
+                  Directionality.of(context),
+                );
                 return value.copyWith(borderRadius: borderRadius);
               }
               return value;

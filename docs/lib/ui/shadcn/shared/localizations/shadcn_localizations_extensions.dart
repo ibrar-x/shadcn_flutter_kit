@@ -42,6 +42,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
   /// [showSeconds] - Whether to include seconds.
   String formatTimeOfDay(TimeOfDay time,
       {bool use24HourFormat = true, bool showSeconds = false}) {
+/// Stores `result` state/configuration for this implementation.
     String result = '';
     if (use24HourFormat) {
       result +=
@@ -50,6 +51,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
         result += ':${time.second.toString().padLeft(2, '0')}';
       }
     } else {
+/// Stores `hour` state/configuration for this implementation.
       int hour = time.hour;
       if (hour > 12) {
         hour -= 12;
@@ -84,10 +86,15 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
       bool showHours = true,
       bool showMinutes = true,
       bool showSeconds = true}) {
+/// Stores `days` state/configuration for this implementation.
     final days = duration.inDays;
+/// Stores `hours` state/configuration for this implementation.
     final hours = duration.inHours % Duration.hoursPerDay;
+/// Stores `minutes` state/configuration for this implementation.
     final minutes = duration.inMinutes % Duration.minutesPerHour;
+/// Stores `seconds` state/configuration for this implementation.
     final seconds = duration.inSeconds % Duration.secondsPerMinute;
+/// Stores `parts` state/configuration for this implementation.
     final parts = <String>[];
     if (showDays && days > 0) {
       parts.add('${days}d');
@@ -129,6 +136,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
       bool showTime = true,
       bool showSeconds = false,
       bool use24HourFormat = true}) {
+/// Stores `result` state/configuration for this implementation.
     String result = '';
     if (showDate) {
       result += '${getMonth(dateTime.month)} ${dateTime.day}, ${dateTime.year}';
@@ -143,6 +151,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
           result += ':${dateTime.second}';
         }
       } else {
+/// Stores `hour` state/configuration for this implementation.
         int hour = dateTime.hour;
         if (hour > 12) {
           hour -= 12;

@@ -8,7 +8,7 @@ import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
 part '_impl/core/hidden_layout.dart';
-part '_impl/themes/hidden_theme.dart';
+part '_impl/themes/base/hidden_theme.dart';
 part '_impl/core/_render_hidden_layout.dart';
 
 /// Shows or hides a single child with optional animation along an axis.
@@ -51,6 +51,7 @@ class Hidden extends StatelessWidget {
   final bool? keepMainAxisSize;
 
   @override
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HiddenTheme>(context);
     final directionValue = styleValue(

@@ -1,10 +1,15 @@
 part of '../../switcher.dart';
 
+/// _SwitcherTransition defines a reusable type for this registry module.
 class _SwitcherTransition extends MultiChildRenderObjectWidget {
+/// Stores `progress` state/configuration for this implementation.
   final double progress;
+/// Stores `direction` state/configuration for this implementation.
   final AxisDirection direction;
+/// Stores `absolute` state/configuration for this implementation.
   final bool absolute;
 
+/// Creates a `_SwitcherTransition` instance.
   const _SwitcherTransition({
     required this.progress,
     required this.direction,
@@ -13,6 +18,7 @@ class _SwitcherTransition extends MultiChildRenderObjectWidget {
   });
 
   @override
+/// Executes `createRenderObject` behavior for this component/composite.
   _RenderSwitcherTransition createRenderObject(BuildContext context) {
     return _RenderSwitcherTransition()
       ..progress = progress
@@ -22,7 +28,9 @@ class _SwitcherTransition extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _RenderSwitcherTransition renderObject) {
+    BuildContext context,
+    _RenderSwitcherTransition renderObject,
+  ) {
     if (renderObject.progress != progress ||
         renderObject.direction != direction ||
         renderObject.absolute != absolute) {

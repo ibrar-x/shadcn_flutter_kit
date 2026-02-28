@@ -4,7 +4,6 @@ import '../form/form.dart';
 
 part '_impl/state/_validated_state.dart';
 
-
 /// Builder function for validated widgets.
 ///
 /// Creates a widget based on the validation state.
@@ -15,8 +14,12 @@ part '_impl/state/_validated_state.dart';
 /// - [child] (`Widget?`): Optional child widget passed through.
 ///
 /// Returns: `Widget` — the built widget reflecting the validation state.
-typedef ValidatedBuilder = Widget Function(
-    BuildContext context, ValidationResult? error, Widget? child);
+typedef ValidatedBuilder =
+    Widget Function(
+      BuildContext context,
+      ValidationResult? error,
+      Widget? child,
+    );
 
 /// A widget that displays validation feedback for form entries.
 ///
@@ -62,6 +65,7 @@ class Validated<T> extends StatefulWidget {
     this.child,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<Validated> createState() => _ValidatedState();
 }

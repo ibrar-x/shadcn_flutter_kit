@@ -1,17 +1,84 @@
-# Overflow Marquee
+# Overflow Marquee (`overflow_marquee`)
 
-Horizontal or vertical marquee that scrolls overflowing content with optional fades, delays, and custom timing curves.
+Smooth marquee for overflowing content with fade edges and looped timing controls.
 
-```dart
-import 'ui/shadcn/components/overflow_marquee/overflow_marquee.dart';
+---
 
-OverflowMarquee(
-  child: Text('This text scrolls when it overflows its parent.'),
-  duration: Duration(seconds: 8),
-  direction: Axis.horizontal,
-  fadePortion: 0.1,
-  delayDuration: Duration(milliseconds: 600),
-);
+## When to use
+
+- Use this when:
+  - you need scrolling for overflowing text or content.
+- Avoid when:
+  - truncation is acceptable.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add overflow_marquee
 ```
 
-Wrap your app with `ComponentTheme<OverflowMarqueeTheme>` from `registry/shared/theme/theme.dart` to override default durations, fade portions, or animation curves before installing the component.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/overflow_marquee/overflow_marquee.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+OverflowMarquee(
+  child: const Text('Very long title that should scroll'),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `OverflowMarquee`
+  - `direction`, `duration`, `delayDuration`
+  - `step`, `fadePortion`, `curve`
+- `OverflowMarqueeTheme` — theme defaults.
+
+---
+
+## Theming
+
+- `OverflowMarqueeTheme` controls timing and fade configuration.
+
+---
+
+## Accessibility
+
+- Avoid using marquee for critical content that must be read quickly.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use short durations to keep content readable.
+
+**Don’t**
+- ❌ Stack multiple marquees in the same view.
+
+---
+
+## Related components
+
+- `text`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

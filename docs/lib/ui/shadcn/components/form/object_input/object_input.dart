@@ -21,7 +21,6 @@ part '_impl/core/nullable_date.dart';
 part '_impl/core/nullable_time_of_day.dart';
 part '_impl/core/time_input.dart';
 
-
 /// Reactive date input field with integrated date picker and text editing.
 ///
 /// A high-level date input widget that combines text field functionality with
@@ -62,12 +61,19 @@ part '_impl/core/time_input.dart';
 /// )
 /// ```
 class DateInput extends StatefulWidget with ControlledComponent<DateTime?> {
+  /// Current value stored for `initialValue`.
   @override
   final DateTime? initialValue;
+
+  /// Callback invoked for `onChanged` events.
   @override
   final ValueChanged<DateTime?>? onChanged;
+
+  /// Field storing `enabled` for this form implementation.
   @override
   final bool enabled;
+
+  /// Controller used to coordinate `controller` behavior.
   @override
   final DatePickerController? controller;
 
@@ -160,6 +166,7 @@ class DateInput extends StatefulWidget with ControlledComponent<DateTime?> {
     this.placeholders,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<DateInput> createState() => _DateInputState();
 }

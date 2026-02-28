@@ -54,6 +54,7 @@
     "_impl/themes/base/navigation_bar_theme.dart",
     "_impl/themes/config/navigation_bar_theme_config.dart",
     "_impl/themes/config/navigation_bar_theme_defaults.dart",
+    "_impl/themes/config/navigation_bar_theme_schema.dart",
     "_impl/themes/config/navigation_bar_theme_tokens.dart",
     "_impl/utils/_navigation_label_delegate.dart",
     "navigation_bar.dart"

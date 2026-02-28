@@ -1,6 +1,8 @@
 part of '../../feature_carousel.dart';
 
+/// Internal helper class used by the feature carousel component implementation.
 class _CtaButton extends StatelessWidget {
+  /// Creates `_CtaButton` for configuring or rendering feature carousel.
   const _CtaButton({
     required this.label,
     required this.theme,
@@ -9,12 +11,22 @@ class _CtaButton extends StatelessWidget {
     required this.onPressedChanged,
   });
 
+  /// Text/content element used by `_CtaButton` when composing its visual layout.
   final String label;
+
+  /// Theme override or resolved theme data for feature carousel.
   final FeatureCarouselThemeData theme;
+
+  /// Input parameter used by `_CtaButton` during rendering and behavior handling.
   final bool pressed;
+
+  /// Callback invoked by feature carousel when `onPressed` is triggered.
   final VoidCallback onPressed;
+
+  /// Callback invoked by feature carousel when `onPressedChanged` is triggered.
   final ValueChanged<bool> onPressedChanged;
 
+  /// Builds the widget tree for feature carousel.
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -32,7 +44,9 @@ class _CtaButton extends StatelessWidget {
             duration: const Duration(milliseconds: 120),
             height: theme.ctaHeight,
             constraints: BoxConstraints(minWidth: theme.ctaMinWidth),
-            padding: EdgeInsets.symmetric(horizontal: theme.ctaHorizontalPadding),
+            padding: EdgeInsets.symmetric(
+              horizontal: theme.ctaHorizontalPadding,
+            ),
             decoration: BoxDecoration(
               color: theme.ctaBackground,
               borderRadius: BorderRadius.circular(theme.ctaHeight / 2),

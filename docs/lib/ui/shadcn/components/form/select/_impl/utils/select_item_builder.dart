@@ -13,14 +13,17 @@ class SelectItemBuilder extends SelectItemDelegate {
   /// Creates a select item builder.
   const SelectItemBuilder({required this.builder, this.childCount});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context, int index) {
     return builder(context, index);
   }
 
+  /// Field storing `estimatedChildCount` for this form implementation.
   @override
   int? get estimatedChildCount => childCount;
 
+  /// Performs `shouldRebuild` logic for this form component.
   @override
   bool shouldRebuild(covariant SelectItemBuilder oldDelegate) {
     return oldDelegate.builder != builder &&

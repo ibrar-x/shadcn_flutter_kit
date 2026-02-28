@@ -48,6 +48,7 @@ class ItemPickerDialog<T> extends StatefulWidget {
     this.layout = const GridItemPickerLayout(),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<ItemPickerDialog<T>> createState() => _ItemPickerDialogState<T>();
 }

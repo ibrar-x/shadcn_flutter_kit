@@ -12,8 +12,11 @@ class SlideInEffect extends StreamingTextEffectAdapter
   });
 
   final Duration duration;
+
   final double offsetY;
+
   final bool fadeIn;
+
   final Curve curve;
 
   @override
@@ -66,6 +69,7 @@ class SlideInEffect extends StreamingTextEffectAdapter
     );
   }
 
+  /// Compares two text animate values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

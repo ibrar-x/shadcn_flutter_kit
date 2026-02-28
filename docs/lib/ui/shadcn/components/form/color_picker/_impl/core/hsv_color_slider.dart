@@ -6,12 +6,8 @@ import '../../../../../shared/theme/theme.dart';
 
 part 'hsv_color_slider_type.dart';
 
-
 part '../state/_hsv_color_slider_state.dart';
 part 'hsv_color_slider_painter.dart';
-
-
-
 
 /// A slider widget for adjusting HSV color components.
 ///
@@ -64,6 +60,7 @@ class HSVColorSlider extends StatefulWidget {
     this.padding = const EdgeInsets.all(0),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<HSVColorSlider> createState() => _HSVColorSliderState();
 }

@@ -7,7 +7,7 @@
     "overlay",
     "layer"
   ],
-  "installedAt": "2026-02-09T10:18:03.236256Z",
+  "installedAt": "2026-02-22T01:08:41.560517Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -17,11 +17,7 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/overlay/overlay/README.md",
-    "registry/components/overlay/overlay/meta.json",
-    "registry/components/overlay/overlay/overlay.dart",
-    "registry/components/overlay/overlay/overlay.meta.json",
-    "registry/components/overlay/overlay/preview.dart"
+    "registry/components/overlay/overlay/overlay.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

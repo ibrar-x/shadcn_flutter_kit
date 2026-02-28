@@ -7,5 +7,5 @@ class CarouselFixedConstraint extends CarouselSizeConstraint {
 
   /// Creates a fixed carousel size constraint.
   const CarouselFixedConstraint(this.size)
-      : assert(size > 0, 'size must be greater than 0');
+    : assert(size > 0, 'size must be greater than 0');
 }

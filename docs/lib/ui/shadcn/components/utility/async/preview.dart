@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import '../async/async.dart';
 
+/// AsyncPreview defines a reusable type for this registry module.
 class AsyncPreview extends StatelessWidget {
   const AsyncPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: FutureOrBuilder<String>(
           future: Future<String>.delayed(
+/// Creates a `Duration` instance.
             const Duration(milliseconds: 800),
             () => 'Loaded value',
           ),

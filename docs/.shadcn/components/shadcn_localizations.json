@@ -8,18 +8,14 @@
     "i18n",
     "delegate"
   ],
-  "installedAt": "2026-02-09T10:18:03.242480Z",
+  "installedAt": "2026-02-22T01:08:41.662021Z",
   "shared": [],
   "dependsOn": [
     "shadcn_localizations_en"
   ],
   "files": [
-    "registry/components/utility/shadcn_localizations/README.md",
     "registry/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart",
-    "registry/components/utility/shadcn_localizations/meta.json",
-    "registry/components/utility/shadcn_localizations/preview.dart",
-    "registry/components/utility/shadcn_localizations/shadcn_localizations.dart",
-    "registry/components/utility/shadcn_localizations/shadcn_localizations.meta.json"
+    "registry/components/utility/shadcn_localizations/shadcn_localizations.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

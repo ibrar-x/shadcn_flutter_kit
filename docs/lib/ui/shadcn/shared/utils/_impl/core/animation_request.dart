@@ -1,5 +1,6 @@
 part of '../../animation_queue.dart';
 
+/// AnimationRequest defines a reusable type for this registry module.
 class AnimationRequest {
   /// The target value to animate to.
   final double target;

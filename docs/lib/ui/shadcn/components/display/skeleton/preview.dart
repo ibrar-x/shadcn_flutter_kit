@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../avatar/avatar.dart';
 import '../skeleton/skeleton.dart';
 import '../../../shared/primitives/basic.dart';
+import '../../../shared/theme/theme.dart';
 
+/// Core class used by the skeleton component.
 class SkeletonPreview extends StatelessWidget {
   const SkeletonPreview({super.key});
 
+  /// Builds the widget tree for skeleton.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +18,15 @@ class SkeletonPreview extends StatelessWidget {
           children: [
             const Basic(
               title: Text('Skeleton Example 1'),
-              content: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
+              content: Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              ),
               leading: Avatar(initials: ''),
               trailing: Icon(Icons.arrow_forward),
             ),
-            const Gap(24),
+
+            const DensityGap(gap2xl),
+
             Basic(
               title: const Text('Skeleton Example 1'),
               content: const Text(

@@ -26,6 +26,7 @@ class TimePickerDialog extends StatefulWidget {
     this.showSeconds = false,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<TimePickerDialog> createState() => _TimePickerDialogState();
 }

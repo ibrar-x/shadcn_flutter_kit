@@ -28,6 +28,7 @@
     "_impl/themes/base/menubar_theme.dart",
     "_impl/themes/config/menubar_theme_config.dart",
     "_impl/themes/config/menubar_theme_defaults.dart",
+    "_impl/themes/config/menubar_theme_schema.dart",
     "_impl/themes/config/menubar_theme_tokens.dart",
     "menubar.dart"
   ],

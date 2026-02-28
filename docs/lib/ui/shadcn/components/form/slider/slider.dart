@@ -10,7 +10,7 @@ import '_impl/core/shad_slider_models.dart';
 import '_impl/core/shad_slider_renderers.dart';
 import '_impl/styles/shad_slider_defaults.dart';
 import '_impl/styles/shad_slider_presets.dart';
-import '_impl/themes/slider_theme.dart';
+import '_impl/themes/base/slider_theme.dart';
 
 export '_impl/core/shad_slider_renderers.dart';
 export '_impl/variants/base_slider_variant.dart';

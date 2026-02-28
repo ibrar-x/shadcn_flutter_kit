@@ -7,10 +7,11 @@ import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
 import '../../../shared/utils/style_value.dart';
 
-part '_impl/themes/circular_progress_indicator_theme.dart';
+part '_impl/themes/base/circular_progress_indicator_theme.dart';
 
 /// Circular progress indicator with determinate/indeterminate modes and theming.
 class CircularProgressIndicator extends StatelessWidget {
+  /// Creates `CircularProgressIndicator` for configuring or rendering circular progress indicator.
   const CircularProgressIndicator({
     super.key,
     this.value,
@@ -23,21 +24,38 @@ class CircularProgressIndicator extends StatelessWidget {
     this.onSurface = false,
   });
 
+  /// Data consumed by `CircularProgressIndicator` to render circular progress indicator content.
   final double? value;
+
+  /// Layout/size setting that affects circular progress indicator rendering.
   final double? size;
+
+  /// Color value used by circular progress indicator painting or state styling.
   final Color? color;
+
+  /// Color value used by circular progress indicator painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects circular progress indicator rendering.
   final double? strokeWidth;
+
+  /// Animation/progress setting used by circular progress indicator transitions.
   final Duration duration;
+
+  /// Input parameter used by `CircularProgressIndicator` during rendering and behavior handling.
   final bool animated;
+
+  /// Callback invoked by circular progress indicator when `onSurface` is triggered.
   final bool onSurface;
 
+  /// Builds the widget tree for circular progress indicator.
   @override
   Widget build(BuildContext context) {
     final iconTheme = IconTheme.of(context);
     final theme = Theme.of(context);
-    final compTheme =
-        ComponentTheme.maybeOf<CircularProgressIndicatorTheme>(context);
+    final compTheme = ComponentTheme.maybeOf<CircularProgressIndicatorTheme>(
+      context,
+    );
 
     final effectiveSize = styleValue(
       widgetValue: size,
@@ -48,8 +66,9 @@ class CircularProgressIndicator extends StatelessWidget {
     final effectiveColor = styleValue(
       widgetValue: color,
       themeValue: compTheme?.color,
-      defaultValue:
-          onSurface ? theme.colorScheme.background : theme.colorScheme.primary,
+      defaultValue: onSurface
+          ? theme.colorScheme.background
+          : theme.colorScheme.primary,
     );
 
     final effectiveBackgroundColor = styleValue(
@@ -64,6 +83,7 @@ class CircularProgressIndicator extends StatelessWidget {
       defaultValue: effectiveSize / 12,
     );
 
+    /// Implements `buildIndicator` behavior for circular progress indicator.
     Widget buildIndicator(double? currentValue) {
       final progressIndicator = mat.CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(effectiveColor),

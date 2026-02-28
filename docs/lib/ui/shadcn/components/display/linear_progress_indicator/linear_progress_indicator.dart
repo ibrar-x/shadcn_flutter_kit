@@ -12,9 +12,8 @@ import '../../../shared/utils/util.dart';
 
 part '_impl/utils/_linear_progress_indicator_painter.dart';
 
-
 part '_impl/utils/linear_progress_indicator_painter.dart';
-part '_impl/themes/linear_progress_indicator_theme.dart';
+part '_impl/themes/base/linear_progress_indicator_theme.dart';
 
 const int _kIndeterminateLinearDuration = 1800;
 
@@ -41,6 +40,7 @@ class LinearProgressIndicator extends StatelessWidget {
     curve: Cubic(0.10, 0.0, 0.45, 1.0),
   );
 
+  /// Creates `LinearProgressIndicator` for configuring or rendering linear progress indicator.
   const LinearProgressIndicator({
     super.key,
     this.value,
@@ -52,20 +52,35 @@ class LinearProgressIndicator extends StatelessWidget {
     this.disableAnimation,
   });
 
+  /// Data consumed by `LinearProgressIndicator` to render linear progress indicator content.
   final double? value;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color? backgroundColor;
+
+  /// Layout/size setting that affects linear progress indicator rendering.
   final double? minHeight;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color? color;
+
+  /// Layout/size setting that affects linear progress indicator rendering.
   final BorderRadiusGeometry? borderRadius;
+
+  /// Input parameter used by `LinearProgressIndicator` during rendering and behavior handling.
   final bool? showSparks;
+
+  /// Animation/progress setting used by linear progress indicator transitions.
   final bool? disableAnimation;
 
+  /// Builds the widget tree for linear progress indicator.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final directionality = Directionality.of(context);
-    final compTheme =
-        ComponentTheme.maybeOf<LinearProgressIndicatorTheme>(context);
+    final compTheme = ComponentTheme.maybeOf<LinearProgressIndicatorTheme>(
+      context,
+    );
 
     final colorValue = styleValue(
       widgetValue: color,
@@ -180,10 +195,7 @@ class LinearProgressIndicator extends StatelessWidget {
     return RepaintBoundary(
       child: SizedBox(
         height: minHeightValue,
-        child: ClipRRect(
-          borderRadius: borderRadiusValue,
-          child: childWidget,
-        ),
+        child: ClipRRect(borderRadius: borderRadiusValue, child: childWidget),
       ),
     );
   }

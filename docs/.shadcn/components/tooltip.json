@@ -7,7 +7,7 @@
     "overlay",
     "help"
   ],
-  "installedAt": "2026-02-09T10:18:03.230955Z",
+  "installedAt": "2026-02-22T01:08:41.602725Z",
   "shared": [
     "color_extensions",
     "constants",
@@ -22,19 +22,19 @@
     "popover"
   ],
   "files": [
-    "registry/components/overlay/tooltip/README.md",
     "registry/components/overlay/tooltip/_impl/core/instant_tooltip.dart",
     "registry/components/overlay/tooltip/_impl/core/tooltip_container.dart",
     "registry/components/overlay/tooltip/_impl/core/tooltip_widget.dart",
     "registry/components/overlay/tooltip/_impl/state/_instant_tooltip_state.dart",
     "registry/components/overlay/tooltip/_impl/state/_tooltip_state.dart",
-    "registry/components/overlay/tooltip/_impl/themes/tooltip_theme.dart",
+    "registry/components/overlay/tooltip/_impl/themes/base/tooltip_theme.dart",
+    "registry/components/overlay/tooltip/_impl/themes/config/tooltip_theme_config.dart",
+    "registry/components/overlay/tooltip/_impl/themes/config/tooltip_theme_defaults.dart",
+    "registry/components/overlay/tooltip/_impl/themes/config/tooltip_theme_schema.dart",
+    "registry/components/overlay/tooltip/_impl/themes/config/tooltip_theme_tokens.dart",
     "registry/components/overlay/tooltip/_impl/utils/fixed_tooltip_overlay_handler.dart",
     "registry/components/overlay/tooltip/_impl/utils/tooltip_overlay_handlers.dart",
-    "registry/components/overlay/tooltip/meta.json",
-    "registry/components/overlay/tooltip/preview.dart",
-    "registry/components/overlay/tooltip/tooltip.dart",
-    "registry/components/overlay/tooltip/tooltip.meta.json"
+    "registry/components/overlay/tooltip/tooltip.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

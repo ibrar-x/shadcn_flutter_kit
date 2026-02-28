@@ -22,6 +22,7 @@
     "_impl/themes/base/scrollbar_theme.dart",
     "_impl/themes/config/scrollbar_theme_config.dart",
     "_impl/themes/config/scrollbar_theme_defaults.dart",
+    "_impl/themes/config/scrollbar_theme_schema.dart",
     "_impl/themes/config/scrollbar_theme_tokens.dart",
     "scrollbar.dart"
   ],

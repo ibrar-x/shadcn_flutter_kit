@@ -1,19 +1,27 @@
 part of '../../drawer.dart';
 
+/// DrawerEntryWidgetState defines a reusable type for this registry module.
 class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
     with SingleTickerProviderStateMixin {
   /// Notifier for additional offset applied during drag gestures.
   late ValueNotifier<double> additionalOffset = ValueNotifier(0);
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
+/// Stores `_controlledAnimation` state/configuration for this implementation.
   late ControlledAnimation _controlledAnimation;
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
-    _controller = widget.animationController ??
+    _controller =
+        widget.animationController ??
+/// Creates a `AnimationController` instance.
         AnimationController(
-            vsync: this, duration: const Duration(milliseconds: 350));
+          vsync: this,
+          duration: const Duration(milliseconds: 350),
+        );
 
     _controlledAnimation = ControlledAnimation(_controller);
     if (widget.animationController == null && widget.autoOpen) {
@@ -24,6 +32,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (widget.animationController == null) {
       _controller.dispose();
@@ -32,13 +41,16 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant DrawerEntryWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.animationController != oldWidget.animationController) {
       if (oldWidget.animationController == null) {
         _controller.dispose();
       }
-      _controller = widget.animationController ??
+      _controller =
+          widget.animationController ??
+/// Creates a `AnimationController` instance.
           AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 350),
@@ -62,9 +74,13 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `alignment` state/configuration for this implementation.
     AlignmentGeometry alignment;
+/// Stores `startFractionalOffset` state/configuration for this implementation.
     Offset startFractionalOffset;
+/// Stores `position` state/configuration for this implementation.
     var position = widget.position;
     final textDirection = Directionality.of(context);
     if (position == OverlayPosition.start) {
@@ -76,9 +92,13 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
           ? OverlayPosition.right
           : OverlayPosition.left;
     }
+/// Stores `padTop` state/configuration for this implementation.
     bool padTop = widget.useSafeArea && position != OverlayPosition.top;
+/// Stores `padBottom` state/configuration for this implementation.
     bool padBottom = widget.useSafeArea && position != OverlayPosition.bottom;
+/// Stores `padLeft` state/configuration for this implementation.
     bool padLeft = widget.useSafeArea && position != OverlayPosition.left;
+/// Stores `padRight` state/configuration for this implementation.
     bool padRight = widget.useSafeArea && position != OverlayPosition.right;
     switch (position) {
       case OverlayPosition.left:
@@ -107,123 +127,145 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
         data: widget.data,
         child: Data.inherit(
           data: _MountedOverlayEntryData(this),
-          child: Builder(builder: (context) {
-            Widget barrier = (widget.modal
-                    ? widget.barrierBuilder(context, widget.backdrop,
-                        _controlledAnimation, widget.stackIndex)
-                    : null) ??
-                Positioned(
-                  top: -9999,
-                  left: -9999,
-                  right: -9999,
-                  bottom: -9999,
-                  child: GestureDetector(
-                    onTap: () {
-                      close();
-                    },
-                  ),
-                );
-            final extraSize =
-                Data.maybeOf<BackdropTransformData>(context)?.sizeDifference;
-            Size additionalSize;
-            Offset additionalOffset;
-            bool insetTop =
-                widget.useSafeArea && position == OverlayPosition.top;
-            bool insetBottom =
-                widget.useSafeArea && position == OverlayPosition.bottom;
-            bool insetLeft =
-                widget.useSafeArea && position == OverlayPosition.left;
-            bool insetRight =
-                widget.useSafeArea && position == OverlayPosition.right;
-            MediaQueryData mediaQueryData = MediaQuery.of(context);
-            EdgeInsets padding =
-                mediaQueryData.padding + mediaQueryData.viewInsets;
-            if (extraSize == null) {
-              additionalSize = Size.zero;
-              additionalOffset = Offset.zero;
-            } else {
-              switch (position) {
-                case OverlayPosition.left:
-                  additionalSize = Size(extraSize.width / 2, 0);
-                  additionalOffset = Offset(-additionalSize.width, 0);
-                  break;
-                case OverlayPosition.right:
-                  additionalSize = Size(extraSize.width / 2, 0);
-                  additionalOffset = Offset(additionalSize.width, 0);
-                  break;
-                case OverlayPosition.top:
-                  additionalSize = Size(0, extraSize.height / 2);
-                  additionalOffset = Offset(0, -additionalSize.height);
-                  break;
-                case OverlayPosition.bottom:
-                  additionalSize = Size(0, extraSize.height / 2);
-                  additionalOffset = Offset(0, additionalSize.height);
-                  break;
-                default:
-                  throw UnimplementedError('Unknown position');
+          child: Builder(
+            builder: (context) {
+              Widget barrier =
+                  (widget.modal
+                      ? widget.barrierBuilder(
+                          context,
+                          widget.backdrop,
+                          _controlledAnimation,
+                          widget.stackIndex,
+                        )
+                      : null) ??
+/// Creates a `Positioned` instance.
+                  Positioned(
+                    top: -9999,
+                    left: -9999,
+                    right: -9999,
+                    bottom: -9999,
+                    child: GestureDetector(
+                      onTap: () {
+                        close();
+                      },
+                    ),
+                  );
+              final extraSize = Data.maybeOf<BackdropTransformData>(
+                context,
+              )?.sizeDifference;
+/// Stores `additionalSize` state/configuration for this implementation.
+              Size additionalSize;
+/// Stores `additionalOffset` state/configuration for this implementation.
+              Offset additionalOffset;
+              bool insetTop =
+                  widget.useSafeArea && position == OverlayPosition.top;
+              bool insetBottom =
+                  widget.useSafeArea && position == OverlayPosition.bottom;
+              bool insetLeft =
+                  widget.useSafeArea && position == OverlayPosition.left;
+              bool insetRight =
+                  widget.useSafeArea && position == OverlayPosition.right;
+              MediaQueryData mediaQueryData = MediaQuery.of(context);
+              EdgeInsets padding =
+                  mediaQueryData.padding + mediaQueryData.viewInsets;
+              if (extraSize == null) {
+                additionalSize = Size.zero;
+                additionalOffset = Offset.zero;
+              } else {
+                switch (position) {
+                  case OverlayPosition.left:
+                    additionalSize = Size(extraSize.width / 2, 0);
+                    additionalOffset = Offset(-additionalSize.width, 0);
+                    break;
+                  case OverlayPosition.right:
+                    additionalSize = Size(extraSize.width / 2, 0);
+                    additionalOffset = Offset(additionalSize.width, 0);
+                    break;
+                  case OverlayPosition.top:
+                    additionalSize = Size(0, extraSize.height / 2);
+                    additionalOffset = Offset(0, -additionalSize.height);
+                    break;
+                  case OverlayPosition.bottom:
+                    additionalSize = Size(0, extraSize.height / 2);
+                    additionalOffset = Offset(0, additionalSize.height);
+                    break;
+                  default:
+                    throw UnimplementedError('Unknown position');
+                }
               }
-            }
-            return Stack(
-              clipBehavior: Clip.none,
-              fit: StackFit.passthrough,
-              children: [
-                IgnorePointer(
-                  child: widget.backdropBuilder(context, widget.backdrop,
-                      _controlledAnimation, widget.stackIndex),
-                ),
-                barrier,
-                Positioned.fill(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return MediaQuery(
-                      data: widget.useSafeArea
-                          ? mediaQueryData.removePadding(
-                              removeTop: true,
-                              removeBottom: true,
-                              removeLeft: true,
-                              removeRight: true,
-                            )
-                          : mediaQueryData,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: padTop ? padding.top : 0,
-                          bottom: padBottom ? padding.bottom : 0,
-                          left: padLeft ? padding.left : 0,
-                          right: padRight ? padding.right : 0,
-                        ),
-                        child: Align(
-                          alignment: alignment,
-                          child: AnimatedBuilder(
-                            animation: _controlledAnimation,
-                            builder: (context, child) {
-                              return FractionalTranslation(
-                                translation: startFractionalOffset *
-                                    (1 - _controlledAnimation.value),
-                                child: child,
-                              );
-                            },
-                            child: Transform.translate(
-                              offset: additionalOffset / kBackdropScaleDown,
-                              child: widget.builder(
-                                  context,
-                                  additionalSize,
-                                  constraints.biggest,
-                                  EdgeInsets.only(
-                                    top: insetTop ? padding.top : 0,
-                                    bottom: insetBottom ? padding.bottom : 0,
-                                    left: insetLeft ? padding.left : 0,
-                                    right: insetRight ? padding.right : 0,
+              return Stack(
+                clipBehavior: Clip.none,
+                fit: StackFit.passthrough,
+                children: [
+/// Creates a `IgnorePointer` instance.
+                  IgnorePointer(
+                    child: widget.backdropBuilder(
+                      context,
+                      widget.backdrop,
+                      _controlledAnimation,
+                      widget.stackIndex,
+                    ),
+                  ),
+                  barrier,
+/// Creates a `Positioned.fill` instance.
+                  Positioned.fill(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return MediaQuery(
+                          data: widget.useSafeArea
+                              ? mediaQueryData.removePadding(
+                                  removeTop: true,
+                                  removeBottom: true,
+                                  removeLeft: true,
+                                  removeRight: true,
+                                )
+                              : mediaQueryData,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: padTop ? padding.top : 0,
+                              bottom: padBottom ? padding.bottom : 0,
+                              left: padLeft ? padding.left : 0,
+                              right: padRight ? padding.right : 0,
+                            ),
+                            child: Align(
+                              alignment: alignment,
+                              child: AnimatedBuilder(
+                                animation: _controlledAnimation,
+                                builder: (context, child) {
+                                  return FractionalTranslation(
+                                    translation:
+                                        startFractionalOffset *
+                                        (1 - _controlledAnimation.value),
+                                    child: child,
+                                  );
+                                },
+                                child: Transform.translate(
+                                  offset: additionalOffset / kBackdropScaleDown,
+                                  child: widget.builder(
+                                    context,
+                                    additionalSize,
+                                    constraints.biggest,
+/// Creates a `EdgeInsets.only` instance.
+                                    EdgeInsets.only(
+                                      top: insetTop ? padding.top : 0,
+                                      bottom: insetBottom ? padding.bottom : 0,
+                                      left: insetLeft ? padding.left : 0,
+                                      right: insetRight ? padding.right : 0,
+                                    ),
+                                    widget.stackIndex,
                                   ),
-                                  widget.stackIndex),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ],
-            );
-          }),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

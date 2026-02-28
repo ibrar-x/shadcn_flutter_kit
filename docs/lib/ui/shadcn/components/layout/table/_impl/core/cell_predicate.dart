@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// Type alias for `CellPredicate` used by public or internal APIs.
 typedef CellPredicate = bool Function(int index, int span);
 
 /// Low-level table layout widget.

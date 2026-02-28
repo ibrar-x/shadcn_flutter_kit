@@ -1,5 +1,6 @@
 part of '../../eye_dropper.dart';
 
+/// EyeDropperLayer defines a reusable type for this registry module.
 class EyeDropperLayer extends StatefulWidget {
   /// The child widget to wrap.
   final Widget child;
@@ -31,5 +32,6 @@ class EyeDropperLayer extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<EyeDropperLayer> createState() => _EyeDropperLayerState();
 }

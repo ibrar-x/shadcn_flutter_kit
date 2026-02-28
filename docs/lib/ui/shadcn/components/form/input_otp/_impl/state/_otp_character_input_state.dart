@@ -1,9 +1,13 @@
 part of '../../input_otp.dart';
 
+/// _OTPCharacterInputState stores and manages mutable widget state.
 class _OTPCharacterInputState extends State<_OTPCharacterInput> {
   final TextEditingController _controller = TextEditingController();
+
+  /// Current value stored for `_value`.
   late int? _value;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -11,6 +15,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
     _controller.addListener(_onControllerChanged);
   }
 
+  /// Performs `_onControllerChanged` logic for this form component.
   void _onControllerChanged() {
     String text = _controller.text;
     if (text.isNotEmpty) {
@@ -34,6 +39,8 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
       if (widget.predicate != null && !widget.predicate!(codepoint)) {
         _value = null;
         _controller.clear();
+
+        /// Triggers a rebuild after mutating local state.
         setState(() {});
         return;
       }
@@ -47,12 +54,17 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
       if (widget.data.nextFocusNode != null) {
         widget.data.nextFocusNode!.requestFocus();
       }
+
+      /// Triggers a rebuild after mutating local state.
       setState(() {});
     }
   }
 
   BorderRadius getBorderRadiusByRelativeIndex(
-      ThemeData theme, int relativeIndex, int groupLength) {
+    ThemeData theme,
+    int relativeIndex,
+    int groupLength,
+  ) {
     if (relativeIndex == 0) {
       return BorderRadius.only(
         topLeft: Radius.circular(theme.radiusMd),
@@ -68,6 +80,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
     }
   }
 
+  /// Performs `getValueWidget` logic for this form component.
   Widget getValueWidget(ThemeData theme) {
     if (_value == null) {
       return const SizedBox();
@@ -82,14 +95,13 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
         ),
       );
     }
-    return Text(
-      String.fromCharCode(_value!),
-    ).small().foreground();
+    return Text(String.fromCharCode(_value!)).small().foreground();
   }
 
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
   final GlobalKey _key = GlobalKey();
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -114,6 +126,8 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
             if (_value != null) {
               widget.data.changeValue(null);
               _value = null;
+
+              /// Triggers a rebuild after mutating local state.
               setState(() {});
             } else {
               if (widget.data.previousFocusNode != null) {
@@ -154,9 +168,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: theme.colorScheme.input.scaleAlpha(0.3),
-                    border: Border.all(
-                      color: theme.colorScheme.border,
-                    ),
+                    border: Border.all(color: theme.colorScheme.border),
                     borderRadius: getBorderRadiusByRelativeIndex(
                       theme,
                       widget.data.relativeIndex,
@@ -169,9 +181,7 @@ class _OTPCharacterInputState extends State<_OTPCharacterInput> {
             if (_value != null)
               Positioned.fill(
                 child: IgnorePointer(
-                  child: Center(
-                    child: getValueWidget(theme),
-                  ),
+                  child: Center(child: getValueWidget(theme)),
                 ),
               ),
             Positioned.fill(

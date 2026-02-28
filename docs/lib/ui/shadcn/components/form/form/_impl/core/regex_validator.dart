@@ -18,26 +18,30 @@ class RegexValidator extends Validator<String> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [RegexValidator] with the specified pattern.
   const RegexValidator(this.pattern, {this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
     if (!pattern.hasMatch(value)) {
       return InvalidResult(
-          message ??
-              Localizations.of(context, ShadcnLocalizations).invalidValue,
-          state: state);
+        message ?? Localizations.of(context, ShadcnLocalizations).invalidValue,
+        state: state,
+      );
     }
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is RegexValidator &&

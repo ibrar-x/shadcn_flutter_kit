@@ -21,6 +21,7 @@ mixin FormValueSupplier<T, X extends StatefulWidget> on State<X> {
     _reportNewFormValue(value);
   }
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,6 +38,7 @@ mixin FormValueSupplier<T, X extends StatefulWidget> on State<X> {
   @protected
   void didReplaceFormValue(T value);
 
+  /// Performs `_reportNewFormValue` logic for this form component.
   void _reportNewFormValue(T? value) {
     var state = _entryState;
     if (state == null) {

@@ -1,20 +1,35 @@
 part of '../../time_picker.dart';
 
+/// _TimePickerDialogState stores and manages mutable widget state.
 class _TimePickerDialogState extends State<TimePickerDialog> {
+  /// Controller used to coordinate `_hourController` behavior.
   late TextEditingController _hourController;
+
+  /// Controller used to coordinate `_minuteController` behavior.
   late TextEditingController _minuteController;
+
+  /// Controller used to coordinate `_secondController` behavior.
   late TextEditingController _secondController;
+
+  /// Field storing `_pm` for this form implementation.
   late bool _pm;
+
+  /// Performs `_formatDigits` logic for this form component.
   String _formatDigits(int value) {
     return value.toString().padLeft(2, '0');
   }
 
   Widget _buildInput(
-      BuildContext context, TextEditingController controller, String label) {
+    BuildContext context,
+    TextEditingController controller,
+    String label,
+  ) {
     final theme = Theme.of(context);
     return ConstrainedBox(
       constraints: BoxConstraints(
-          minWidth: 72 * theme.scaling, minHeight: 72 * theme.scaling),
+        minWidth: 72 * theme.scaling,
+        minHeight: 72 * theme.scaling,
+      ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -30,21 +45,20 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
               ],
             ),
           ),
-          Positioned(
-            bottom: (-24) * theme.scaling,
-            child: Text(label).muted(),
-          ),
+          Positioned(bottom: (-24) * theme.scaling, child: Text(label).muted()),
         ],
       ),
     );
   }
 
+  /// Performs `_buildSeparator` logic for this form component.
   Widget _buildSeparator(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return const Text(':').x5Large().withPadding(horizontal: 8 * scaling);
   }
 
+  /// Performs `_onChanged` logic for this form component.
   void _onChanged() {
     int hour = int.tryParse(_hourController.text) ?? 0;
     int minute = int.tryParse(_minuteController.text) ?? 0;
@@ -54,8 +68,9 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       minute = minute.clamp(0, 59);
       second = second.clamp(0, 59);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        widget.onChanged
-            ?.call(TimeOfDay(hour: hour, minute: minute, second: second));
+        widget.onChanged?.call(
+          TimeOfDay(hour: hour, minute: minute, second: second),
+        );
       });
     } else {
       if (_pm && hour < 12) {
@@ -68,12 +83,14 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       second = second.clamp(0, 59);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         if (!mounted) return;
-        widget.onChanged
-            ?.call(TimeOfDay(hour: hour, minute: minute, second: second));
+        widget.onChanged?.call(
+          TimeOfDay(hour: hour, minute: minute, second: second),
+        );
       });
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _hourController.dispose();
@@ -82,6 +99,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
     super.dispose();
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -93,9 +111,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
       initialHour -= 12;
       _pm = true;
     }
-    _hourController = TextEditingController(
-      text: _formatDigits(initialHour),
-    );
+    _hourController = TextEditingController(text: _formatDigits(initialHour));
     _minuteController = TextEditingController(
       text: _formatDigits(initialMinute),
     );
@@ -107,6 +123,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
     _secondController.addListener(_onChanged);
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -115,7 +132,12 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
     return IntrinsicWidth(
       child: IntrinsicHeight(
         child: Padding(
-          padding: EdgeInsets.only(bottom: (16 + 12) * scaling),
+          padding: EdgeInsets.only(
+            bottom:
+                ((theme.density.baseContentPadding) +
+                    (theme.density.baseGap * 1.5)) *
+                scaling,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -146,7 +168,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                 ),
               ],
               if (!widget.use24HourFormat) ...[
-                Gap(8 * scaling),
+                DensityGap(gapSm),
                 IntrinsicWidth(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -156,6 +178,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                         child: Toggle(
                           value: !_pm,
                           onChanged: (value) {
+                            /// Triggers a rebuild after mutating local state.
                             setState(() {
                               _pm = !value;
                               _onChanged();
@@ -168,6 +191,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                         child: Toggle(
                           value: _pm,
                           onChanged: (value) {
+                            /// Triggers a rebuild after mutating local state.
                             setState(() {
                               _pm = value;
                               _onChanged();
@@ -178,8 +202,8 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                       ),
                     ],
                   ),
-                )
-              ]
+                ),
+              ],
             ],
           ),
         ),

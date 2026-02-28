@@ -1,5 +1,6 @@
 part of '../../navigation_menu.dart';
 
+/// NavigationMenuContent defines a reusable type for this registry module.
 class NavigationMenuContent extends StatelessWidget {
   /// The primary title text for this content item.
   ///
@@ -64,13 +65,17 @@ class NavigationMenuContent extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+/// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return Button(
       style: ButtonVariance.ghost.copyWith(
         padding: (context, states, value) {
-          return const EdgeInsets.all(12) * scaling;
+          return EdgeInsets.all(
+            theme.density.baseContentPadding * scaling * 0.75,
+          );
         },
       ),
       onPressed: onPressed,

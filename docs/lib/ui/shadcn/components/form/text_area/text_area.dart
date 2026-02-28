@@ -8,17 +8,37 @@ part '_impl/core/text_area_handle.dart';
 
 /// Multi-line text input with resizable dimensions.
 class TextArea extends TextInputStatefulWidget {
+  /// Field storing `expandableHeight` for this form implementation.
   final bool expandableHeight;
+
+  /// Field storing `expandableWidth` for this form implementation.
   final bool expandableWidth;
+
+  /// Field storing `initialHeight` for this form implementation.
   final double initialHeight;
+
+  /// Field storing `initialWidth` for this form implementation.
   final double initialWidth;
+
+  /// Callback invoked for `onHeightChanged` events.
   final ValueChanged<double>? onHeightChanged;
+
+  /// Callback invoked for `onWidthChanged` events.
   final ValueChanged<double>? onWidthChanged;
+
+  /// Field storing `minWidth` for this form implementation.
   final double minWidth;
+
+  /// Field storing `minHeight` for this form implementation.
   final double minHeight;
+
+  /// Field storing `maxWidth` for this form implementation.
   final double maxWidth;
+
+  /// Field storing `maxHeight` for this form implementation.
   final double maxHeight;
 
+  /// Constructs `TextArea` with the provided parameters.
   const TextArea({
     super.key,
     super.groupId,
@@ -104,6 +124,7 @@ class TextArea extends TextInputStatefulWidget {
     this.maxHeight = double.infinity,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<TextArea> createState() => _TextAreaState();
 }

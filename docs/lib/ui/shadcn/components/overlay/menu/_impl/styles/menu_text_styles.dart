@@ -1,25 +1,24 @@
 part of '../../menu.dart';
 
+/// _MenuTextStyle defines a reusable type for this registry module.
 class _MenuTextStyle extends StatelessWidget {
+/// Stores `child` state/configuration for this implementation.
   final Widget child;
   final TextStyle Function(ThemeData theme) styleBuilder;
 
-  const _MenuTextStyle({
-    required this.child,
-    required this.styleBuilder,
-  });
+  const _MenuTextStyle({required this.child, required this.styleBuilder});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DefaultTextStyle.merge(
-      style: styleBuilder(theme),
-      child: child,
-    );
+    return DefaultTextStyle.merge(style: styleBuilder(theme), child: child);
   }
 }
 
+/// Extension helpers used by this registry module.
 extension MenuTextStyleExtensions on Widget {
+/// Executes `xSmall` behavior for this component/composite.
   Widget xSmall() {
     return _MenuTextStyle(
       child: this,
@@ -27,15 +26,17 @@ extension MenuTextStyleExtensions on Widget {
     );
   }
 
+/// Executes `muted` behavior for this component/composite.
   Widget muted() {
     return _MenuTextStyle(
       child: this,
-      styleBuilder: (theme) => TextStyle(
-        color: theme.colorScheme.mutedForeground,
-      ),
+      styleBuilder: (theme) =>
+/// Creates a `TextStyle` instance.
+          TextStyle(color: theme.colorScheme.mutedForeground),
     );
   }
 
+/// Executes `semiBold` behavior for this component/composite.
   Widget semiBold() {
     return _MenuTextStyle(
       child: this,
@@ -43,6 +44,7 @@ extension MenuTextStyleExtensions on Widget {
     );
   }
 
+/// Executes `medium` behavior for this component/composite.
   Widget medium() {
     return _MenuTextStyle(
       child: this,
@@ -50,6 +52,7 @@ extension MenuTextStyleExtensions on Widget {
     );
   }
 
+/// Executes `normal` behavior for this component/composite.
   Widget normal() {
     return _MenuTextStyle(
       child: this,
@@ -58,14 +61,15 @@ extension MenuTextStyleExtensions on Widget {
   }
 }
 
+/// Extension helpers used by this registry module.
 extension MenuIconStyleExtensions on Widget {
+/// Executes `iconSmall` behavior for this component/composite.
   Widget iconSmall() {
-    return Builder(builder: (context) {
-      final theme = Theme.of(context);
-      return IconTheme(
-        data: theme.iconTheme.small,
-        child: this,
-      );
-    });
+    return Builder(
+      builder: (context) {
+        final theme = Theme.of(context);
+        return IconTheme(data: theme.iconTheme.small, child: this);
+      },
+    );
   }
 }

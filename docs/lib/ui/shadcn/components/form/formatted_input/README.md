@@ -1,19 +1,98 @@
-# Formatted Input
+# Formatted Input (`formatted_input`)
 
-Low-level helpers that turn structured `InputPart` lists into writable formatters.
+Low-level formatted-field helpers that sync multiple InputPart segments.
 
-- `InputPart` defines static text, editable digits, or custom widget segments that can be mapped to formatted object values.
-- `FormattedValue`, `FormattedInputController`, and `FormattedInput` provide the plumbing to keep multiple parts synchronized, notify a controller, and expose validation helpers.
-- `FormattedObjectInput` extends the base control with `BiDirectionalConvert` so callers can map between an object (like `DateTime`/`Duration`) and the natural parts.
+---
+
+## When to use
+
+- Use this when:
+  - you need structured inputs (phone, date, currency) with segmented parts.
+  - you want custom formatted objects backed by controllers.
+- Avoid when:
+  - a regular text field is sufficient.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add formatted_input
+```
+
+---
+
+## Import
 
 ```dart
-FormattedObjectInput<DateTime>(
-  converter: dateConverter,
-  parts: [
-    InputPart.editable(length: 2, width: 40),
-    InputPart.static('/'),
-    InputPart.editable(length: 2, width: 40),
-  ],
-  popupBuilder: (context, controller) => CalendarView(controller: controller),
+import 'package:<your_app>/ui/shadcn/form/formatted_input/formatted_input.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+FormattedInput(
+  initialValue: FormattedValue([
+    FormattedValuePart.static('('),
+    FormattedValuePart.editable('555', length: 3),
+    FormattedValuePart.static(') '),
+    FormattedValuePart.editable('123', length: 3),
+  ]),
 )
 ```
+
+---
+
+## API
+
+### Constructor
+
+- `FormattedInput`
+  - `initialValue` (`FormattedValue?`)
+  - `onChanged` (`ValueChanged<FormattedValue>?`)
+  - `controller` (`FormattedInputController?`)
+  - `style`, `leading`, `trailing`, `enabled`
+- `FormattedObjectInput<T>` — formatted input with popup editor.
+- `FormattedInputController` — controller for formatted values.
+- `FormattedValue` — list of `FormattedValuePart` entries.
+- `FormattedValuePart` — `static`, `editable`, or `widget` parts.
+- `InputPart`, `EditablePart`, `StaticPart` — low-level part types.
+
+---
+
+## Theming
+
+- `FormattedInputTheme` controls spacing, borders, and typography.
+
+---
+
+## Accessibility
+
+- Provide clear separators between parts for screen readers.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use monospace fonts for aligned parts.
+
+**Don’t**
+- ❌ Mix unrelated parts without separators.
+
+---
+
+## Related components
+
+- `text_field`
+- `formatter`
+- `object_input`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

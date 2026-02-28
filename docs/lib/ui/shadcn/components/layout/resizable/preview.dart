@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'resizable.dart';
 
+/// ResizablePreview defines a reusable type for this registry module.
 class ResizablePreview extends StatelessWidget {
   const ResizablePreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -14,6 +16,7 @@ class ResizablePreview extends StatelessWidget {
           child: ResizablePanel.horizontal(
             draggerThickness: 16,
             children: [
+/// Creates a `ResizablePane` instance.
               ResizablePane(
                 initialSize: 180,
                 minSize: 120,
@@ -23,6 +26,7 @@ class ResizablePreview extends StatelessWidget {
                   child: const Text('Sidebar'),
                 ),
               ),
+/// Creates a `ResizablePane.flex` instance.
               ResizablePane.flex(
                 initialFlex: 1,
                 child: Container(

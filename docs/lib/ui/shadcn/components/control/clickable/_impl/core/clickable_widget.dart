@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../state/clickable_state.dart';
@@ -229,5 +230,6 @@ class Clickable extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Clickable> createState() => ClickableState();
 }

@@ -20,10 +20,7 @@ class TimeRange {
   final TimeOfDay end;
 
   /// Creates a [TimeRange] with the specified start and end times.
-  const TimeRange({
-    required this.start,
-    required this.end,
-  });
+  const TimeRange({required this.start, required this.end});
 
   /// Creates a copy of this range with the given fields replaced.
   TimeRange copyWith({
@@ -36,6 +33,7 @@ class TimeRange {
     );
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -44,9 +42,11 @@ class TimeRange {
           start == other.start &&
           end == other.end;
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => start.hashCode ^ end.hashCode;
 
+  /// Returns a debug-friendly string representation.
   @override
   String toString() {
     return 'TimeRange{start: $start, end: $end}';

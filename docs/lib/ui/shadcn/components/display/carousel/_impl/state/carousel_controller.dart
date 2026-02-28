@@ -2,6 +2,7 @@ part of '../../carousel.dart';
 
 /// A controller for the carousel.
 class CarouselController extends Listenable {
+  /// Controller dependency used to coordinate carousel behavior.
   final AnimationQueueController _controller = AnimationQueueController();
 
   /// Whether the carousel should animate.
@@ -83,11 +84,13 @@ class CarouselController extends Listenable {
     _controller.tick(delta);
   }
 
+  /// Implements `addListener` behavior for carousel.
   @override
   void addListener(VoidCallback listener) {
     _controller.addListener(listener);
   }
 
+  /// Implements `removeListener` behavior for carousel.
   @override
   void removeListener(VoidCallback listener) {
     _controller.removeListener(listener);

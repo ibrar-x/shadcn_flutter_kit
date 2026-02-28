@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuOverlayHandler defines a reusable type for this registry module.
 class MenuOverlayHandler extends OverlayHandler {
   /// The overlay manager handling menu display.
   final OverlayManager manager;

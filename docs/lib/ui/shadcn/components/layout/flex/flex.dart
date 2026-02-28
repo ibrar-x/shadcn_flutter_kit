@@ -1,23 +1,21 @@
-import 'dart:ui' show Offset;
+import 'dart:ui' show Clip, Offset;
 
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/rendering.dart' as rendering;
 import 'package:flutter/widgets.dart' as widgets;
 
 export 'package:flutter/widgets.dart'
+/// Stores `Positioned` state/configuration for this implementation.
     hide Flexible, Expanded, Row, Column, Flex, Stack, Positioned;
 
 export 'package:flutter/rendering.dart'
-    show FlexFit, MainAxisSize, MainAxisAlignment, CrossAxisAlignment, VerticalDirection, StackFit;
-
-export 'package:flutter/rendering.dart'
     show
-        CrossAxisAlignment,
         FlexFit,
-        MainAxisAlignment,
         MainAxisSize,
-        StackFit,
-        VerticalDirection;
+        MainAxisAlignment,
+        CrossAxisAlignment,
+        VerticalDirection,
+        StackFit;
 
 part '_impl/core/flex_parent_data.dart';
 part '_impl/core/flex_widget.dart';

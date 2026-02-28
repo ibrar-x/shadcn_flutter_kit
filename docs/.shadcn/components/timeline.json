@@ -8,7 +8,7 @@
     "layout",
     "chronology"
   ],
-  "installedAt": "2026-02-09T10:18:03.214891Z",
+  "installedAt": "2026-02-22T01:08:41.679401Z",
   "shared": [
     "theme",
     "util"
@@ -17,13 +17,9 @@
     "text"
   ],
   "files": [
-    "registry/components/layout/timeline/README.md",
     "registry/components/layout/timeline/_impl/core/timeline_2.dart",
     "registry/components/layout/timeline/_impl/core/timeline_data.dart",
-    "registry/components/layout/timeline/meta.json",
-    "registry/components/layout/timeline/preview.dart",
-    "registry/components/layout/timeline/timeline.dart",
-    "registry/components/layout/timeline/timeline.meta.json"
+    "registry/components/layout/timeline/timeline.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

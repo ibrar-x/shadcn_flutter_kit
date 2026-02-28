@@ -1,12 +1,16 @@
 part of '../../table.dart';
 
+/// _HoveredLine defines a reusable type for this registry module.
 class _HoveredLine {
+/// Stores `index` state/configuration for this implementation.
   final int index;
+/// Stores `direction` state/configuration for this implementation.
   final Axis direction;
 
   _HoveredLine(this.index, this.direction);
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

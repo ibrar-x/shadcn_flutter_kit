@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// OverlayHandler defines a reusable type for this registry module.
 abstract class OverlayHandler {
   /// Default popover overlay handler.
   static const OverlayHandler popover = PopoverOverlayHandler();

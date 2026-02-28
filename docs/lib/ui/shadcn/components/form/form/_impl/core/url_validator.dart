@@ -14,14 +14,17 @@ part of '../../form.dart';
 class URLValidator extends Validator<String> {
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [URLValidator] with an optional custom message.
   const URLValidator({this.message});
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, String? value, FormValidationMode state) {
+    BuildContext context,
+    String? value,
+    FormValidationMode state,
+  ) {
     if (value == null) {
       return null;
     }
@@ -29,17 +32,20 @@ class URLValidator extends Validator<String> {
       Uri.parse(value);
     } on FormatException {
       return InvalidResult(
-          message ?? Localizations.of(context, ShadcnLocalizations).invalidURL,
-          state: state);
+        message ?? Localizations.of(context, ShadcnLocalizations).invalidURL,
+        state: state,
+      );
     }
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is URLValidator && other.message == message;
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => message.hashCode;
 }

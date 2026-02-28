@@ -18,8 +18,7 @@ import '../form/form.dart';
 import '../../layout/outlined_container/outlined_container.dart';
 import '../text_field/text_field.dart';
 
-part '_impl/themes/formatted_input_theme.dart';
-
+part '_impl/themes/base/formatted_input_theme.dart';
 
 part '_impl/utils/_editable_part_controller.dart';
 part '_impl/core/_editable_part_widget.dart';
@@ -38,33 +37,6 @@ part '_impl/core/formatted_value_part.dart';
 part '_impl/core/input_part.dart';
 part '_impl/core/static_part.dart';
 part '_impl/core/widget_part.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// A controlled input widget for structured data entry with formatting.
 ///
@@ -160,13 +132,10 @@ class FormattedInput extends StatefulWidget
     this.controller,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormattedInput> createState() => _FormattedInputState();
 }
-
-
-
-
 
 /// A function type for building custom popup content for formatted object inputs.
 ///
@@ -175,5 +144,5 @@ class FormattedInput extends StatefulWidget
 /// - [controller]: The controller managing the input value.
 ///
 /// Returns: A widget to display in the popup.
-typedef FormattedInputPopupBuilder<T> = Widget Function(
-    BuildContext context, ComponentController<T?> controller);
+typedef FormattedInputPopupBuilder<T> =
+    Widget Function(BuildContext context, ComponentController<T?> controller);

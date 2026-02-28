@@ -6,6 +6,7 @@ import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
 
+/// DestructiveButton defines a reusable type for this registry module.
 class DestructiveButton extends StatelessWidget {
   /// The widget to display as the button's content.
   final Widget child;
@@ -129,6 +130,7 @@ class DestructiveButton extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       onPressed: onPressed,
@@ -136,8 +138,11 @@ class DestructiveButton extends StatelessWidget {
       leading: leading,
       trailing: trailing,
       alignment: alignment,
-      style:
-          ButtonStyle.destructive(size: size, density: density, shape: shape),
+      style: ButtonStyle.destructive(
+        size: size,
+        density: density,
+        shape: shape,
+      ),
       focusNode: focusNode,
       disableTransition: disableTransition,
       onHover: onHover,

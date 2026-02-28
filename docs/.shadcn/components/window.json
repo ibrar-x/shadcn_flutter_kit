@@ -8,7 +8,7 @@
     "layout",
     "desktop"
   ],
-  "installedAt": "2026-02-09T10:18:03.213708Z",
+  "installedAt": "2026-02-22T01:08:41.711184Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -24,7 +24,6 @@
     "text"
   ],
   "files": [
-    "registry/components/layout/window/README.md",
     "registry/components/layout/window/_impl/core/_blur_container.dart",
     "registry/components/layout/window/_impl/core/_dragging_window.dart",
     "registry/components/layout/window/_impl/core/_snap_hover.dart",
@@ -40,10 +39,7 @@
     "registry/components/layout/window/_impl/state/_window_widget_state.dart",
     "registry/components/layout/window/_impl/state/window_state.dart",
     "registry/components/layout/window/_impl/utils/window_controller.dart",
-    "registry/components/layout/window/meta.json",
-    "registry/components/layout/window/preview.dart",
-    "registry/components/layout/window/window.dart",
-    "registry/components/layout/window/window.meta.json"
+    "registry/components/layout/window/window.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

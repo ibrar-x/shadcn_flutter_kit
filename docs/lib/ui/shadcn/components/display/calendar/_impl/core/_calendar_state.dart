@@ -1,25 +1,34 @@
 part of '../../calendar.dart';
 
+/// _CalendarState holds mutable state for the calendar implementation.
 class _CalendarState extends State<Calendar> {
+  /// Data consumed by `_CalendarState` to render calendar content.
   late CalendarGridData _gridData;
 
+  /// Initializes controllers and listeners required by calendar.
   @override
   void initState() {
     super.initState();
-    _gridData =
-        CalendarGridData(month: widget.view.month, year: widget.view.year);
+    _gridData = CalendarGridData(
+      month: widget.view.month,
+      year: widget.view.year,
+    );
   }
 
+  /// Updates internal state when calendar configuration changes.
   @override
   void didUpdateWidget(covariant Calendar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.view.year != widget.view.year ||
         oldWidget.view.month != widget.view.month) {
-      _gridData =
-          CalendarGridData(month: widget.view.month, year: widget.view.year);
+      _gridData = CalendarGridData(
+        month: widget.view.month,
+        year: widget.view.year,
+      );
     }
   }
 
+  /// Implements `_handleTap` behavior for calendar.
   void _handleTap(DateTime date) {
     var calendarValue = widget.value;
     if (widget.selectionMode == CalendarSelectionMode.none) {
@@ -75,6 +84,7 @@ class _CalendarState extends State<Calendar> {
       }
       if (calendarValue is RangeCalendarValue) {
         DateTime start = calendarValue.start;
+
         DateTime end = calendarValue.end;
         if (date.isBefore(start)) {
           widget.onChanged?.call(CalendarValue.range(date, end));
@@ -97,6 +107,7 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
+  /// Builds the widget tree for calendar.
   @override
   Widget build(BuildContext context) {
     return CalendarGrid(
@@ -105,7 +116,8 @@ class _CalendarState extends State<Calendar> {
         DateTime date = item.date;
         CalendarValueLookup lookup =
             widget.value?.lookup(date.year, date.month, date.day) ??
-                CalendarValueLookup.none;
+            CalendarValueLookup.none;
+
         CalendarItemType type = CalendarItemType.none;
         switch (lookup) {
           case CalendarValueLookup.none:
@@ -137,10 +149,7 @@ class _CalendarState extends State<Calendar> {
           child: Text('${date.day}'),
         );
         if (item.fromAnotherMonth) {
-          return Opacity(
-            opacity: 0.5,
-            child: calendarItem,
-          );
+          return Opacity(opacity: 0.5, child: calendarItem);
         }
         return calendarItem;
       },

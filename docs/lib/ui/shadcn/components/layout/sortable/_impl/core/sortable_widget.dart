@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// Sortable defines a reusable type for this registry module.
 class Sortable<T> extends StatefulWidget {
   /// Predicate to determine if data can be accepted when dropped above this widget.
   ///
@@ -190,6 +191,6 @@ class Sortable<T> extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Sortable<T>> createState() => _SortableState<T>();
 }
-

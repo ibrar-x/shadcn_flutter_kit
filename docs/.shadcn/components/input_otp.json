@@ -8,7 +8,7 @@
     "input",
     "otp"
   ],
-  "installedAt": "2026-02-09T10:18:03.195530Z",
+  "installedAt": "2026-02-22T01:08:41.500140Z",
   "shared": [
     "color_extensions",
     "focus_outline",
@@ -21,7 +21,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/input_otp/README.md",
     "registry/components/form/input_otp/_impl/core/_input_otp_child.dart",
     "registry/components/form/input_otp/_impl/core/_input_otp_spacing.dart",
     "registry/components/form/input_otp/_impl/core/_otp_character_input.dart",
@@ -33,11 +32,12 @@
     "registry/components/form/input_otp/_impl/state/_input_otp_preview_state.dart",
     "registry/components/form/input_otp/_impl/state/_input_otp_state.dart",
     "registry/components/form/input_otp/_impl/state/_otp_character_input_state.dart",
-    "registry/components/form/input_otp/_impl/themes/input_otp_theme.dart",
-    "registry/components/form/input_otp/input_otp.dart",
-    "registry/components/form/input_otp/input_otp.meta.json",
-    "registry/components/form/input_otp/meta.json",
-    "registry/components/form/input_otp/preview.dart"
+    "registry/components/form/input_otp/_impl/themes/base/input_otp_theme.dart",
+    "registry/components/form/input_otp/_impl/themes/config/input_otp_theme_config.dart",
+    "registry/components/form/input_otp/_impl/themes/config/input_otp_theme_defaults.dart",
+    "registry/components/form/input_otp/_impl/themes/config/input_otp_theme_schema.dart",
+    "registry/components/form/input_otp/_impl/themes/config/input_otp_theme_tokens.dart",
+    "registry/components/form/input_otp/input_otp.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

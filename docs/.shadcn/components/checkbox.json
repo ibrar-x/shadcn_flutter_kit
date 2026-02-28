@@ -8,7 +8,7 @@
     "input",
     "control"
   ],
-  "installedAt": "2026-02-09T10:18:03.200332Z",
+  "installedAt": "2026-02-22T01:08:41.400706Z",
   "shared": [
     "animated_value_builder",
     "border_utils",
@@ -22,18 +22,18 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/form/checkbox/README.md",
     "registry/components/form/checkbox/_impl/core/animated_check_painter.dart",
     "registry/components/form/checkbox/_impl/core/controlled_checkbox.dart",
     "registry/components/form/checkbox/_impl/state/_checkbox_preview_state.dart",
     "registry/components/form/checkbox/_impl/state/_checkbox_state.dart",
     "registry/components/form/checkbox/_impl/state/checkbox_state.dart",
-    "registry/components/form/checkbox/_impl/themes/checkbox_theme.dart",
+    "registry/components/form/checkbox/_impl/themes/base/checkbox_theme.dart",
+    "registry/components/form/checkbox/_impl/themes/config/checkbox_theme_config.dart",
+    "registry/components/form/checkbox/_impl/themes/config/checkbox_theme_defaults.dart",
+    "registry/components/form/checkbox/_impl/themes/config/checkbox_theme_schema.dart",
+    "registry/components/form/checkbox/_impl/themes/config/checkbox_theme_tokens.dart",
     "registry/components/form/checkbox/_impl/utils/checkbox_controller.dart",
-    "registry/components/form/checkbox/checkbox.dart",
-    "registry/components/form/checkbox/checkbox.meta.json",
-    "registry/components/form/checkbox/meta.json",
-    "registry/components/form/checkbox/preview.dart"
+    "registry/components/form/checkbox/checkbox.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

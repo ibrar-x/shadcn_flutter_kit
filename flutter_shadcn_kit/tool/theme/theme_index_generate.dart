@@ -15,7 +15,7 @@ void main(List<String> args) {
   }
 
   String? defaultThemeId;
-  String outputFileName = 'theme.index.json';
+  String outputFileName = 'manifests/theme.index.json';
 
   for (var i = 0; i < args.length; i++) {
     final arg = args[i];
@@ -145,7 +145,7 @@ void _printUsage() {
   );
   stdout.writeln('');
   stdout.writeln(
-    'Generates lib/registry/theme.index.json from lib/registry/themes_preset/*.json',
+    'Generates lib/registry/manifests/theme.index.json from lib/registry/themes_preset/*.json',
   );
 }
 
@@ -154,7 +154,9 @@ Directory? _findRegistryDir(Directory from) {
   while (true) {
     final candidate = Directory('${current.path}/lib/registry');
     if (candidate.existsSync()) {
-      final marker = File('${candidate.path}/themes.index.schema.json');
+      final marker = File(
+        '${candidate.path}/manifests/themes.index.schema.json',
+      );
       if (marker.existsSync()) {
         return candidate;
       }

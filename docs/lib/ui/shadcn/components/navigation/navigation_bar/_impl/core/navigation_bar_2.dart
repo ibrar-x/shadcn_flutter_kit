@@ -1,5 +1,6 @@
 part of '../../navigation_bar.dart';
 
+/// NavigationBar defines a reusable type for this registry module.
 class NavigationBar extends StatefulWidget {
   /// Background color of the navigation bar.
   final Color? backgroundColor;
@@ -79,5 +80,6 @@ class NavigationBar extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<NavigationBar> createState() => _NavigationBarState();
 }

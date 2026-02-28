@@ -21,22 +21,28 @@ class ValidationMode<T> extends Validator<T> {
   final Set<FormValidationMode> mode;
 
   /// Creates a [ValidationMode] that conditionally validates based on lifecycle mode.
-  const ValidationMode(this.validator,
-      {this.mode = const {
-        FormValidationMode.changed,
-        FormValidationMode.submitted,
-        FormValidationMode.initial
-      }});
+  const ValidationMode(
+    this.validator, {
+    this.mode = const {
+      FormValidationMode.changed,
+      FormValidationMode.submitted,
+      FormValidationMode.initial,
+    },
+  });
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode lifecycle) {
+    BuildContext context,
+    T? value,
+    FormValidationMode lifecycle,
+  ) {
     if (mode.contains(lifecycle)) {
       return validator.validate(context, value, lifecycle);
     }
     return null;
   }
 
+  /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
     return other is ValidationMode &&

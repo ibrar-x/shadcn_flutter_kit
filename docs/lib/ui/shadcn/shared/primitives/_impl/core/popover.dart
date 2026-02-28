@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// Popover defines a reusable type for this registry module.
 class Popover {
   /// Global key for accessing the overlay handler state.
   final GlobalKey<OverlayHandlerStateMixin> key;
@@ -29,6 +30,7 @@ class Popover {
   /// await popover.close(true); // Immediate close
   /// ```
   Future<void> close([bool immediate = false]) {
+/// Stores `currentState` state/configuration for this implementation.
     var currentState = key.currentState;
     if (currentState != null) {
       return currentState.close(immediate);
@@ -43,6 +45,7 @@ class Popover {
   /// This method queues the close operation for the next frame, allowing
   /// any current operations to complete before dismissing the popover.
   void closeLater() {
+/// Stores `currentState` state/configuration for this implementation.
     var currentState = key.currentState;
     if (currentState != null) {
       currentState.closeLater();

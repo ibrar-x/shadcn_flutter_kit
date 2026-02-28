@@ -64,7 +64,10 @@ void main(List<String> args) {
   final filesToCopy = <String>[];
 
   // Required core
-  final required = ['$registryDir/index.json', '$registryDir/components.json'];
+  final required = [
+    '$registryDir/manifests/index.json',
+    '$registryDir/manifests/components.json',
+  ];
 
   for (final p in required) {
     if (!File(p).existsSync()) {
@@ -77,10 +80,10 @@ void main(List<String> args) {
 
   // Recommended root-level registry metadata
   final recommended = [
-    '$registryDir/components.schema.json',
-    '$registryDir/folder_structure.json',
-    '$registryDir/readme_meta.schema.json',
-    '$registryDir/index.schema.json',
+    '$registryDir/manifests/components.schema.json',
+    '$registryDir/manifests/folder_structure.json',
+    '$registryDir/manifests/readme_meta.schema.json',
+    '$registryDir/manifests/index.schema.json',
   ];
   for (final p in recommended) {
     if (File(p).existsSync()) {
@@ -175,7 +178,7 @@ void main(List<String> args) {
 
 ## Workflow
 
-1. Search `registry_snapshot/index.json`
+1. Search `registry_snapshot/manifests/index.json`
 2. Output install commands
 3. Use only documented APIs from `{id}.meta.json` (if included) / README
 4. Write app code only (never modify `ui/shadcn/**`)
@@ -196,7 +199,7 @@ void main(List<String> args) {
       'purpose': '',
       'inputs': <String>[],
       'workflow': [
-        'Search registry_snapshot/index.json',
+        'Search registry_snapshot/manifests/index.json',
         'Output install commands',
         'Use only documented APIs from {id}.meta.json',
         'Write app code only (never modify ui/shadcn/**)',
@@ -377,8 +380,8 @@ Flags:
                  (SKILL.md and skill.prompt.json are preserved)
 
 What gets copied:
-  registry_snapshot/index.json
-  registry_snapshot/components.json
+  registry_snapshot/manifests/index.json
+  registry_snapshot/manifests/components.json
   registry_snapshot/**/meta.json
   registry_snapshot/**/{id}.meta.json
   registry_snapshot/shared/** (if present)

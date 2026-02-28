@@ -22,8 +22,11 @@ List<ErrorRule> authRules({
         title: 'Authentication required',
         message: e.message ?? 'Please log in to continue.',
         actions: [
+/// Creates a `ErrorAction.login` instance.
           ErrorAction.login(onLogin),
+/// Creates a `ErrorAction.retry` instance.
           ErrorAction.retry(onRetry),
+/// Creates a `ErrorAction.report` instance.
           ErrorAction.report(onReport),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,

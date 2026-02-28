@@ -17,7 +17,7 @@ Generates `lib/registry/shared/shared_manifest.json` from `registry/shared` usag
 
 ## Inputs
 - `lib/registry/shared/**`
-- `lib/registry/components.json`
+- `lib/registry/manifests/components.json`
 
 ## Outputs
 - `lib/registry/shared/shared_manifest.json`

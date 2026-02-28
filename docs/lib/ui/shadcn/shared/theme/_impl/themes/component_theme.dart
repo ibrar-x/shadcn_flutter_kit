@@ -10,25 +10,18 @@ class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
   /// Parameters:
   /// - [data] (`T`, required): Theme data for this component type.
   /// - [child] (`Widget`, required): Child widget.
-  const ComponentTheme({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  const ComponentTheme({super.key, required this.data, required super.child});
 
   @override
-/// Executes `wrap` behavior for this component/composite.
+  /// Executes `wrap` behavior for this component/composite.
   Widget wrap(BuildContext context, Widget child) {
-    ComponentTheme<T>? ancestorTheme =
-        context.findAncestorWidgetOfExactType<ComponentTheme<T>>();
+    ComponentTheme<T>? ancestorTheme = context
+        .findAncestorWidgetOfExactType<ComponentTheme<T>>();
     // if it's the same type, we don't need to wrap it
     if (identical(this, ancestorTheme)) {
       return child;
     }
-    return ComponentTheme<T>(
-      data: data,
-      child: child,
-    );
+    return ComponentTheme<T>(data: data, child: child);
   }
 
   /// Gets the component theme data of type `T` from the closest ancestor.
@@ -48,16 +41,16 @@ class ComponentTheme<T extends ComponentThemeData> extends InheritedTheme {
   ///
   /// Returns: `T?` — the component theme data, or null.
   static T? maybeOf<T extends ComponentThemeData>(BuildContext context) {
-    final widget =
-        context.dependOnInheritedWidgetOfExactType<ComponentTheme<T>>();
+    final widget = context
+        .dependOnInheritedWidgetOfExactType<ComponentTheme<T>>();
     if (widget == null) {
-      return null;
+      return ComponentThemeGlobalRegistry.maybeOf<T>();
     }
     return widget.data;
   }
 
   @override
-/// Executes `updateShouldNotify` behavior for this component/composite.
+  /// Executes `updateShouldNotify` behavior for this component/composite.
   bool updateShouldNotify(covariant ComponentTheme<T> oldWidget) {
     return oldWidget.data != data ||
         oldWidget.data.themeDensity != data.themeDensity ||

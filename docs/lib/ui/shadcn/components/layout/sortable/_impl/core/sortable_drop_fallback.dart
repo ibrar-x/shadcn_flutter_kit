@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// SortableDropFallback defines a reusable type for this registry module.
 class SortableDropFallback<T> extends StatefulWidget {
   /// Callback invoked when a sortable item is dropped on this fallback zone.
   ///
@@ -48,7 +49,7 @@ class SortableDropFallback<T> extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SortableDropFallback<T>> createState() =>
       _SortableDropFallbackState<T>();
 }
-

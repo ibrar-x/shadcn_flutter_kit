@@ -2,12 +2,12 @@ part of '../../tooltip.dart';
 
 /// Overlay handler that delegates tooltip display to an OverlayManager.
 
+/// OverlayManagerAsTooltipOverlayHandler defines a reusable type for this registry module.
 class OverlayManagerAsTooltipOverlayHandler extends OverlayHandler {
+/// Stores `overlayManager` state/configuration for this implementation.
   final OverlayManager overlayManager;
 
-  const OverlayManagerAsTooltipOverlayHandler({
-    required this.overlayManager,
-  });
+  const OverlayManagerAsTooltipOverlayHandler({required this.overlayManager});
 
   @override
   OverlayCompleter<T?> show<T>({

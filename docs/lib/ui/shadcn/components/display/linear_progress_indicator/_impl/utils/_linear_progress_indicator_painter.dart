@@ -1,20 +1,41 @@
 part of '../../linear_progress_indicator.dart';
 
+/// Custom painter responsible for drawing linear progress indicator-specific visuals.
 class _LinearProgressIndicatorPainter extends CustomPainter {
   static final gradientTransform =
       (Matrix4.identity()..scaleByDouble(1.0, 0.5, 1, 1)).storage;
 
+  /// Input parameter used by `_LinearProgressIndicatorPainter` during rendering and behavior handling.
   final double start;
+
+  /// Input parameter used by `_LinearProgressIndicatorPainter` during rendering and behavior handling.
   final double end;
+
+  /// Input parameter used by `_LinearProgressIndicatorPainter` during rendering and behavior handling.
   final double? start2;
+
+  /// Input parameter used by `_LinearProgressIndicatorPainter` during rendering and behavior handling.
   final double? end2;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color color;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color backgroundColor;
+
+  /// Input parameter used by `_LinearProgressIndicatorPainter` during rendering and behavior handling.
   final bool showSparks;
+
+  /// Color value used by linear progress indicator painting or state styling.
   final Color sparksColor;
+
+  /// Layout/size setting that affects linear progress indicator rendering.
   final double sparksRadius;
+
+  /// Data consumed by `_LinearProgressIndicatorPainter` to render linear progress indicator content.
   final TextDirection textDirection;
 
+  /// Creates `_LinearProgressIndicatorPainter` for configuring or rendering linear progress indicator.
   _LinearProgressIndicatorPainter({
     required this.start,
     required this.end,
@@ -28,11 +49,15 @@ class _LinearProgressIndicatorPainter extends CustomPainter {
     this.textDirection = TextDirection.ltr,
   });
 
+  /// Implements `paint` behavior for linear progress indicator.
   @override
   void paint(Canvas canvas, Size size) {
     var start = this.start;
+
     var end = this.end;
+
     var start2 = this.start2;
+
     var end2 = this.end2;
     if (textDirection == TextDirection.rtl) {
       start = 1 - end;
@@ -66,6 +91,7 @@ class _LinearProgressIndicatorPainter extends CustomPainter {
         0,
         size.width,
         size.height,
+
         Radius.circular(size.height / 2),
       ),
       paint,
@@ -99,6 +125,7 @@ class _LinearProgressIndicatorPainter extends CustomPainter {
         gradientTransform,
       );
       paint.shader = gradient;
+
       canvas.drawCircle(
         Offset(size.width * (end - start), size.height / 2),
         sparksRadius,
@@ -107,6 +134,7 @@ class _LinearProgressIndicatorPainter extends CustomPainter {
     }
   }
 
+  /// Implements `shouldRepaint` behavior for linear progress indicator.
   @override
   bool shouldRepaint(covariant _LinearProgressIndicatorPainter oldDelegate) {
     return oldDelegate.start != start ||

@@ -18,12 +18,17 @@ class FormEntry<T> extends StatefulWidget {
   /// Creates a form entry with a typed key.
   ///
   /// The [key] parameter must be a [FormKey<T>] to ensure type safety.
-  const FormEntry(
-      {required FormKey<T> super.key, required this.child, this.validator});
+  const FormEntry({
+    required FormKey<T> super.key,
+    required this.child,
+    this.validator,
+  });
 
+  /// Field storing `key` for this form implementation.
   @override
   FormKey get key => super.key as FormKey;
 
+  /// Creates the `State` object for this widget.
   @override
   State<FormEntry> createState() => FormEntryState();
 }

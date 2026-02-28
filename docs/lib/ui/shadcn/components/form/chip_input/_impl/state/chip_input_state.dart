@@ -8,6 +8,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     implements _ChipProvider<T> {
   late ChipEditingController<T> _controller;
 
+  /// Performs `buildChip` logic for this form component.
   @override
   Widget? buildChip(BuildContext context, T chip) {
     return _chipBuilder(chip);
@@ -22,10 +23,12 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ??
+    _controller =
+        widget.controller ??
         ChipEditingController<T>(
           initialChips: widget.initialChips,
           text: widget.initialValue ?? '',
@@ -34,10 +37,12 @@ class ChipInputState<T> extends State<ChipInput<T>>
     formValue = widget.controller?.chips ?? [];
   }
 
+  /// Performs `_onTextChanged` logic for this form component.
   void _onTextChanged() {
     formValue = _controller.chips;
   }
 
+  /// Performs `_chipBuilder` logic for this form component.
   Widget? _chipBuilder(T chip) {
     if (!_useChips) {
       return widget.chipBuilder(context, chip);
@@ -54,6 +59,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  /// Reacts to widget configuration updates from the parent.
   @override
   void didUpdateWidget(covariant ChipInput<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -65,60 +71,66 @@ class ChipInputState<T> extends State<ChipInput<T>>
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.removeListener(_onTextChanged);
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Data<_ChipProvider<T>>.inherit(
-        data: this,
-        child: Shortcuts(
-          shortcuts: {
-            LogicalKeySet(LogicalKeyboardKey.enter): const ChipSubmitIntent(),
-          },
-          child: Actions(
-            actions: {
-              if (widget.autoInsertSuggestion)
-                AutoCompleteIntent: Action.overridable(
-                  defaultAction: CallbackAction<AutoCompleteIntent>(
-                    onInvoke: (intent) {
-                      final suggestion = intent.suggestion;
-                      _controller.insertChipAtCursor(
-                          (text) => widget.onChipSubmitted(suggestion));
-                      widget.onChipsChanged?.call(_controller.chips);
-                      return;
-                    },
-                  ),
-                  context: context,
-                ),
-              ChipSubmitIntent: Action.overridable(
-                defaultAction: CallbackAction<ChipSubmitIntent>(
+      data: this,
+      child: Shortcuts(
+        shortcuts: {
+          LogicalKeySet(LogicalKeyboardKey.enter): const ChipSubmitIntent(),
+        },
+        child: Actions(
+          actions: {
+            if (widget.autoInsertSuggestion)
+              AutoCompleteIntent: Action.overridable(
+                defaultAction: CallbackAction<AutoCompleteIntent>(
                   onInvoke: (intent) {
+                    final suggestion = intent.suggestion;
                     _controller.insertChipAtCursor(
-                        (text) => widget.onChipSubmitted(text));
+                      (text) => widget.onChipSubmitted(suggestion),
+                    );
                     widget.onChipsChanged?.call(_controller.chips);
                     return;
                   },
                 ),
                 context: context,
               ),
-            },
-            child: widget.copyWith(
-              controller: () => _controller,
-              onSubmitted: () => (value) {
-                _controller.insertChipAtCursor(widget.onChipSubmitted);
-              },
-              onChanged: () => (text) {
-                widget.onChanged?.call(_controller.plainText);
-              },
+            ChipSubmitIntent: Action.overridable(
+              defaultAction: CallbackAction<ChipSubmitIntent>(
+                onInvoke: (intent) {
+                  _controller.insertChipAtCursor(
+                    (text) => widget.onChipSubmitted(text),
+                  );
+                  widget.onChipsChanged?.call(_controller.chips);
+                  return;
+                },
+              ),
+              context: context,
             ),
+          },
+          child: widget.copyWith(
+            controller: () => _controller,
+            onSubmitted: () => (value) {
+              _controller.insertChipAtCursor(widget.onChipSubmitted);
+            },
+            onChanged: () => (text) {
+              widget.onChanged?.call(_controller.plainText);
+            },
           ),
-        ));
+        ),
+      ),
+    );
   }
 
+  /// Performs `didReplaceFormValue` logic for this form component.
   @override
   void didReplaceFormValue(List<T> value) {
     widget.onChipsChanged?.call(value);

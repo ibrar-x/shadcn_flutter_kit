@@ -8,13 +8,12 @@
     "sortable",
     "interaction"
   ],
-  "installedAt": "2026-02-09T10:18:03.215499Z",
+  "installedAt": "2026-02-22T01:08:41.614873Z",
   "shared": [
     "constants"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/layout/sortable/README.md",
     "registry/components/layout/sortable/_impl/core/scrollable_sortable_layer.dart",
     "registry/components/layout/sortable/_impl/core/sortable_data.dart",
     "registry/components/layout/sortable/_impl/core/sortable_drag_handle.dart",
@@ -31,10 +30,7 @@
     "registry/components/layout/sortable/_impl/state/sortable_drop_fallback_state.dart",
     "registry/components/layout/sortable/_impl/state/sortable_layer_state.dart",
     "registry/components/layout/sortable/_impl/state/sortable_state_part1.dart",
-    "registry/components/layout/sortable/meta.json",
-    "registry/components/layout/sortable/preview.dart",
-    "registry/components/layout/sortable/sortable.dart",
-    "registry/components/layout/sortable/sortable.meta.json"
+    "registry/components/layout/sortable/sortable.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

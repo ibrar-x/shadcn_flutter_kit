@@ -8,7 +8,7 @@
     "navigation",
     "layout"
   ],
-  "installedAt": "2026-02-09T10:18:03.215801Z",
+  "installedAt": "2026-02-22T01:08:41.664125Z",
   "shared": [
     "border_utils",
     "constants",
@@ -21,7 +21,6 @@
     "sortable"
   ],
   "files": [
-    "registry/components/navigation/tabs/README.md",
     "registry/components/navigation/tabs/_impl/core/clip_rect_with_adjustment.dart",
     "registry/components/navigation/tabs/_impl/core/keyed_tab_child_widget.dart",
     "registry/components/navigation/tabs/_impl/core/keyed_tab_item.dart",
@@ -39,15 +38,16 @@
     "registry/components/navigation/tabs/_impl/state/_tabs_preview_state.dart",
     "registry/components/navigation/tabs/_impl/state/tab_pane_state.dart",
     "registry/components/navigation/tabs/_impl/styles/tabs_text_styles.dart",
-    "registry/components/navigation/tabs/_impl/themes/tab_container_theme.dart",
-    "registry/components/navigation/tabs/_impl/themes/tab_list_theme.dart",
-    "registry/components/navigation/tabs/_impl/themes/tab_pane_theme.dart",
-    "registry/components/navigation/tabs/_impl/themes/tabs_theme.dart",
+    "registry/components/navigation/tabs/_impl/themes/base/tabs_theme.dart",
+    "registry/components/navigation/tabs/_impl/themes/config/tabs_theme_config.dart",
+    "registry/components/navigation/tabs/_impl/themes/config/tabs_theme_defaults.dart",
+    "registry/components/navigation/tabs/_impl/themes/config/tabs_theme_schema.dart",
+    "registry/components/navigation/tabs/_impl/themes/config/tabs_theme_tokens.dart",
+    "registry/components/navigation/tabs/_impl/themes/variants/tab_container_theme.dart",
+    "registry/components/navigation/tabs/_impl/themes/variants/tab_list_theme.dart",
+    "registry/components/navigation/tabs/_impl/themes/variants/tab_pane_theme.dart",
     "registry/components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart",
-    "registry/components/navigation/tabs/meta.json",
-    "registry/components/navigation/tabs/preview.dart",
-    "registry/components/navigation/tabs/tabs.dart",
-    "registry/components/navigation/tabs/tabs.meta.json"
+    "registry/components/navigation/tabs/tabs.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

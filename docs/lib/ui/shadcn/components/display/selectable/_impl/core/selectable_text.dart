@@ -116,13 +116,13 @@ class SelectableText extends StatelessWidget {
     this.useNativeContextMenu = false,
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.magnifierConfiguration,
-  })  : assert(maxLines == null || maxLines > 0),
-        assert(minLines == null || minLines > 0),
-        assert(
-          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
-          "minLines can't be greater than maxLines",
-        ),
-        textSpan = null;
+  }) : assert(maxLines == null || maxLines > 0),
+       assert(minLines == null || minLines > 0),
+       assert(
+         (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+         "minLines can't be greater than maxLines",
+       ),
+       textSpan = null;
 
   /// Creates selectable text from a [TextSpan] for styled/rich text.
   ///
@@ -180,13 +180,13 @@ class SelectableText extends StatelessWidget {
     this.useNativeContextMenu = false,
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.magnifierConfiguration,
-  })  : assert(maxLines == null || maxLines > 0),
-        assert(minLines == null || minLines > 0),
-        assert(
-          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
-          "minLines can't be greater than maxLines",
-        ),
-        data = null;
+  }) : assert(maxLines == null || maxLines > 0),
+       assert(minLines == null || minLines > 0),
+       assert(
+         (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+         "minLines can't be greater than maxLines",
+       ),
+       data = null;
 
   /// The plain text string to display.
   ///
@@ -312,7 +312,9 @@ class SelectableText extends StatelessWidget {
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   static Widget _defaultContextMenuBuilder(
-      BuildContext context, EditableTextState editableTextState) {
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
     return m.AdaptiveTextSelectionToolbar.editableText(
       editableTextState: editableTextState,
     );
@@ -327,6 +329,7 @@ class SelectableText extends StatelessWidget {
   /// {@macro flutter.widgets.magnifier.intro}
   final TextMagnifierConfiguration? magnifierConfiguration;
 
+  /// Builds the widget tree for selectable.
   @override
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<SelectableTextTheme>(context);

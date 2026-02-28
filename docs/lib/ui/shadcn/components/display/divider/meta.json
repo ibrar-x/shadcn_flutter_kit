@@ -21,15 +21,16 @@
     "pubspec": {}
   },
   "files": [
-    "README.md",
     "_impl/core/vertical_divider.dart",
-    "_impl/themes/divider_theme.dart",
+    "_impl/themes/base/divider_theme.dart",
+    "_impl/themes/config/divider_theme_config.dart",
+    "_impl/themes/config/divider_theme_defaults.dart",
+    "_impl/themes/config/divider_theme_schema.dart",
+    "_impl/themes/config/divider_theme_tokens.dart",
     "_impl/utils/divider_painter.dart",
     "_impl/utils/divider_painters.dart",
     "_impl/utils/vertical_divider_painter.dart",
-    "divider.dart",
-    "meta.json",
-    "preview.dart"
+    "divider.dart"
   ],
   "api": {
     "constructors": [

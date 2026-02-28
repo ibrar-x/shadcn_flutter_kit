@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// TextField represents a form-related type in the registry.
 class TextField extends TextInputStatefulWidget {
   /// Returns a native platform context menu builder.
   ///
@@ -7,7 +8,8 @@ class TextField extends TextInputStatefulWidget {
   static EditableTextContextMenuBuilder nativeContextMenuBuilder() {
     return (context, editableTextState) {
       return material.AdaptiveTextSelectionToolbar.editableText(
-          editableTextState: editableTextState);
+        editableTextState: editableTextState,
+      );
     };
   }
 
@@ -17,7 +19,8 @@ class TextField extends TextInputStatefulWidget {
   static EditableTextContextMenuBuilder cupertinoContextMenuBuilder() {
     return (context, editableTextState) {
       return cupertino.CupertinoAdaptiveTextSelectionToolbar.editableText(
-          editableTextState: editableTextState);
+        editableTextState: editableTextState,
+      );
     };
   }
 
@@ -33,7 +36,9 @@ class TextField extends TextInputStatefulWidget {
             ? anchors.primaryAnchor
             : anchors.secondaryAnchor!,
         children: _getMaterialButtons(
-            context, editableTextState.contextMenuButtonItems),
+          context,
+          editableTextState.contextMenuButtonItems,
+        ),
       );
     };
   }
@@ -48,7 +53,9 @@ class TextField extends TextInputStatefulWidget {
       buttons.add(
         material.TextSelectionToolbarTextButton(
           padding: material.TextSelectionToolbarTextButton.getPadding(
-              i, buttonItems.length),
+            i,
+            buttonItems.length,
+          ),
           onPressed: buttonItem.onPressed,
           alignment: AlignmentDirectional.centerStart,
           child: Text(_getMaterialButtonLabel(context, buttonItem)),
@@ -59,7 +66,9 @@ class TextField extends TextInputStatefulWidget {
   }
 
   static String _getMaterialButtonLabel(
-      BuildContext context, ContextMenuButtonItem buttonItem) {
+    BuildContext context,
+    ContextMenuButtonItem buttonItem,
+  ) {
     final localizations = material.MaterialLocalizations.of(context);
     return switch (buttonItem.type) {
       ContextMenuButtonType.cut => localizations.cutButtonLabel,
@@ -192,21 +201,32 @@ class TextField extends TextInputStatefulWidget {
     EditableTextState editableTextState,
   ) {
     return CupertinoSpellCheckSuggestionsToolbar.editableText(
-        editableTextState: editableTextState);
+      editableTextState: editableTextState,
+    );
   }
 
+  /// Creates the `State` object for this widget.
   @override
   State<TextField> createState() => TextFieldState();
 
+  /// Performs `debugFillProperties` logic for this form component.
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController>('controller', controller,
-          defaultValue: null),
+      DiagnosticsProperty<TextEditingController>(
+        'controller',
+        controller,
+        defaultValue: null,
+      ),
     );
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode,
-        defaultValue: null));
+    properties.add(
+      DiagnosticsProperty<FocusNode>(
+        'focusNode',
+        focusNode,
+        defaultValue: null,
+      ),
+    );
     properties.add(
       DiagnosticsProperty<UndoHistoryController>(
         'undoController',
@@ -214,12 +234,15 @@ class TextField extends TextInputStatefulWidget {
         defaultValue: null,
       ),
     );
-    properties
-        .add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
+    properties.add(
+      DiagnosticsProperty<BoxDecoration>('decoration', decoration),
+    );
     properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding));
     properties.add(
       DiagnosticsProperty<String>(
-          'clearButtonSemanticLabel', clearButtonSemanticLabel),
+        'clearButtonSemanticLabel',
+        clearButtonSemanticLabel,
+      ),
     );
     properties.add(
       DiagnosticsProperty<TextInputType>(
@@ -229,41 +252,58 @@ class TextField extends TextInputStatefulWidget {
       ),
     );
     properties.add(
-        DiagnosticsProperty<TextStyle>('style', style, defaultValue: null));
-    properties.add(
-        DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
-    properties.add(
-      DiagnosticsProperty<String>('obscuringCharacter', obscuringCharacter,
-          defaultValue: '•'),
+      DiagnosticsProperty<TextStyle>('style', style, defaultValue: null),
     );
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText,
-        defaultValue: false));
-    properties.add(DiagnosticsProperty<bool>('autocorrect', autocorrect,
-        defaultValue: true));
+    properties.add(
+      DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false),
+    );
+    properties.add(
+      DiagnosticsProperty<String>(
+        'obscuringCharacter',
+        obscuringCharacter,
+        defaultValue: '•',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'obscureText',
+        obscureText,
+        defaultValue: false,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>('autocorrect', autocorrect, defaultValue: true),
+    );
     properties.add(
       EnumProperty<SmartDashesType>(
         'smartDashesType',
         smartDashesType,
-        defaultValue:
-            obscureText ? SmartDashesType.disabled : SmartDashesType.enabled,
+        defaultValue: obscureText
+            ? SmartDashesType.disabled
+            : SmartDashesType.enabled,
       ),
     );
     properties.add(
       EnumProperty<SmartQuotesType>(
         'smartQuotesType',
         smartQuotesType,
-        defaultValue:
-            obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled,
+        defaultValue: obscureText
+            ? SmartQuotesType.disabled
+            : SmartQuotesType.enabled,
       ),
     );
     properties.add(
-      DiagnosticsProperty<bool>('enableSuggestions', enableSuggestions,
-          defaultValue: true),
+      DiagnosticsProperty<bool>(
+        'enableSuggestions',
+        enableSuggestions,
+        defaultValue: true,
+      ),
     );
     properties.add(IntProperty('maxLines', maxLines, defaultValue: 1));
     properties.add(IntProperty('minLines', minLines, defaultValue: null));
     properties.add(
-        DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
+      DiagnosticsProperty<bool>('expands', expands, defaultValue: false),
+    );
     properties.add(IntProperty('maxLength', maxLength, defaultValue: null));
     properties.add(
       EnumProperty<MaxLengthEnforcement>(
@@ -272,15 +312,25 @@ class TextField extends TextInputStatefulWidget {
         defaultValue: null,
       ),
     );
-    properties
-        .add(DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0));
-    properties
-        .add(DoubleProperty('cursorHeight', cursorHeight, defaultValue: null));
-    properties.add(DiagnosticsProperty<Radius>('cursorRadius', cursorRadius,
-        defaultValue: null));
     properties.add(
-      DiagnosticsProperty<bool>('cursorOpacityAnimates', cursorOpacityAnimates,
-          defaultValue: true),
+      DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0),
+    );
+    properties.add(
+      DoubleProperty('cursorHeight', cursorHeight, defaultValue: null),
+    );
+    properties.add(
+      DiagnosticsProperty<Radius>(
+        'cursorRadius',
+        cursorRadius,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'cursorOpacityAnimates',
+        cursorOpacityAnimates,
+        defaultValue: true,
+      ),
     );
     properties.add(ColorProperty('cursorColor', cursorColor));
     properties.add(
@@ -298,11 +348,19 @@ class TextField extends TextInputStatefulWidget {
       ),
     );
     properties.add(
-      DiagnosticsProperty<ScrollPhysics>('scrollPhysics', scrollPhysics,
-          defaultValue: null),
+      DiagnosticsProperty<ScrollPhysics>(
+        'scrollPhysics',
+        scrollPhysics,
+        defaultValue: null,
+      ),
     );
-    properties.add(EnumProperty<TextAlign>('textAlign', textAlign,
-        defaultValue: TextAlign.start));
+    properties.add(
+      EnumProperty<TextAlign>(
+        'textAlign',
+        textAlign,
+        defaultValue: TextAlign.start,
+      ),
+    );
     properties.add(
       DiagnosticsProperty<TextAlignVertical>(
         'textAlignVertical',
@@ -310,11 +368,19 @@ class TextField extends TextInputStatefulWidget {
         defaultValue: null,
       ),
     );
-    properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
-        defaultValue: null));
     properties.add(
-      DiagnosticsProperty<Clip>('clipBehavior', clipBehavior,
-          defaultValue: Clip.hardEdge),
+      EnumProperty<TextDirection>(
+        'textDirection',
+        textDirection,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<Clip>(
+        'clipBehavior',
+        clipBehavior,
+        defaultValue: Clip.hardEdge,
+      ),
     );
     properties.add(
       DiagnosticsProperty<bool>(
@@ -349,4 +415,3 @@ class TextField extends TextInputStatefulWidget {
     properties.add(IterableProperty<InputFeature>('features', features));
   }
 }
-

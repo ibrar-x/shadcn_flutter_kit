@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuPopup defines a reusable type for this registry module.
 class MenuPopup extends StatelessWidget {
   /// Opacity of the surface blur effect.
   ///
@@ -59,6 +60,7 @@ class MenuPopup extends StatelessWidget {
     required this.children,
   });
 
+/// Executes `_buildIntrinsicContainer` behavior for this component/composite.
   Widget _buildIntrinsicContainer(Widget child, Axis direction, bool wrap) {
     if (!wrap) {
       return child;
@@ -70,6 +72,7 @@ class MenuPopup extends StatelessWidget {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<MenuGroupData>(context);
     final theme = Theme.of(context);
@@ -77,38 +80,48 @@ class MenuPopup extends StatelessWidget {
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
     final isDialogOverlay = DialogOverlayHandler.isDialogOverlay(context);
     final pad = styleValue(
-        widgetValue: padding,
-        themeValue: compTheme?.padding,
-        defaultValue: isSheetOverlay
-            ? const EdgeInsets.symmetric(vertical: 12, horizontal: 4) *
+      widgetValue: padding,
+      themeValue: compTheme?.padding,
+      defaultValue: isSheetOverlay
+          ? EdgeInsets.symmetric(
+                  vertical: theme.density.baseGap * 1.5,
+                  horizontal: theme.density.baseGap * 0.5,
+                ) *
                 theme.scaling
-            : const EdgeInsets.all(4) * theme.scaling);
+          : EdgeInsets.all(theme.density.baseGap * theme.scaling * 0.5),
+    );
     return ModalContainer(
       borderRadius: styleValue(
-          widgetValue: borderRadius,
-          themeValue: compTheme?.borderRadius,
-          defaultValue: theme.borderRadiusMd),
+        widgetValue: borderRadius,
+        themeValue: compTheme?.borderRadius,
+        defaultValue: theme.borderRadiusMd,
+      ),
       filled: true,
       fillColor: styleValue(
-          widgetValue: fillColor,
-          themeValue: compTheme?.fillColor,
-          defaultValue: theme.colorScheme.popover),
+        widgetValue: fillColor,
+        themeValue: compTheme?.fillColor,
+        defaultValue: theme.colorScheme.popover,
+      ),
       borderColor: styleValue(
-          widgetValue: borderColor,
-          themeValue: compTheme?.borderColor,
-          defaultValue: theme.colorScheme.border),
+        widgetValue: borderColor,
+        themeValue: compTheme?.borderColor,
+        defaultValue: theme.colorScheme.border,
+      ),
       surfaceBlur: styleValue(
-          widgetValue: surfaceBlur,
-          themeValue: compTheme?.surfaceBlur,
-          defaultValue: theme.surfaceBlur),
+        widgetValue: surfaceBlur,
+        themeValue: compTheme?.surfaceBlur,
+        defaultValue: theme.surfaceBlur,
+      ),
       surfaceOpacity: styleValue(
-          widgetValue: surfaceOpacity,
-          themeValue: compTheme?.surfaceOpacity,
-          defaultValue: theme.surfaceOpacity),
+        widgetValue: surfaceOpacity,
+        themeValue: compTheme?.surfaceOpacity,
+        defaultValue: theme.surfaceOpacity,
+      ),
       padding: pad,
       child: SingleChildScrollView(
         scrollDirection: data?.direction ?? Axis.vertical,
         child: _buildIntrinsicContainer(
+/// Creates a `Flex` instance.
           Flex(
             direction: data?.direction ?? Axis.vertical,
             mainAxisSize: MainAxisSize.min,

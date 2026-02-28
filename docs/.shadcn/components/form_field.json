@@ -8,7 +8,7 @@
     "input",
     "editor"
   ],
-  "installedAt": "2026-02-09T10:18:03.207446Z",
+  "installedAt": "2026-02-22T01:08:41.497232Z",
   "shared": [
     "form_value_supplier",
     "localizations",
@@ -22,7 +22,6 @@
     "dialog"
   ],
   "files": [
-    "registry/components/form/form_field/README.md",
     "registry/components/form/form_field/_impl/core/_object_form_field_dialog.dart",
     "registry/components/form/form_field/_impl/core/_object_form_field_popup.dart",
     "registry/components/form/form_field/_impl/core/object_form_field.dart",
@@ -32,10 +31,7 @@
     "registry/components/form/form_field/_impl/state/_object_form_field_dialog_state.dart",
     "registry/components/form/form_field/_impl/state/_object_form_field_popup_state.dart",
     "registry/components/form/form_field/_impl/state/object_form_field_state.dart",
-    "registry/components/form/form_field/form_field.dart",
-    "registry/components/form/form_field/form_field.meta.json",
-    "registry/components/form/form_field/meta.json",
-    "registry/components/form/form_field/preview.dart"
+    "registry/components/form/form_field/form_field.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

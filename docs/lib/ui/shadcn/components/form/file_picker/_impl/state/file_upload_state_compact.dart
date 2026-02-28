@@ -25,7 +25,7 @@ extension _FileUploadStateCompact on _FileUploadState {
       if (!mounted || files.isEmpty) return;
       _handleNewFiles(files);
     } catch (_) {
-      const error = FileUploadError(
+      final error = FileUploadError(
         code: FileUploadErrorCode.uploadFailed,
         message: 'File picking failed.',
       );
@@ -85,7 +85,7 @@ extension _FileUploadStateCompact on _FileUploadState {
                           children: [
                             if (option.icon != null) ...[
                               option.icon!,
-                              const DensityGap(0.5),
+                              DensityGap(0.5),
                             ],
                             Flexible(
                               child: Text(
@@ -113,29 +113,24 @@ extension _FileUploadStateCompact on _FileUploadState {
     final onPressed = !widget.enabled || widget.pickFiles == null
         ? null
         : widget.mobileMode == _FileUploadMobileMode.popover
-            ? _openCompactPickerOptions
-            : () => _pickFilesForOption(firstOption);
+        ? _openCompactPickerOptions
+        : () => _pickFilesForOption(firstOption);
     final icon = widget.compactIcon ?? const Icon(RadixIcons.upload);
 
-    final trigger = widget.compactTrigger == FileUploadCompactTrigger.button
-        ? OutlineButton(
-            onPressed: onPressed,
-            leading: icon,
-            size: ButtonSize.small,
-            child: Text(widget.compactButtonLabel ?? 'Pick files'),
-          )
-        : IconButton.outline(
-            onPressed: onPressed,
-            density: ButtonDensity.icon,
-            size: ButtonSize.small,
-            icon: icon,
-          );
+    if (widget.compactTrigger == FileUploadCompactTrigger.button) {
+      return OutlineButton(
+        onPressed: onPressed,
+        leading: icon,
+        size: ButtonSize.small,
+        child: Text(widget.compactButtonLabel ?? 'Pick files'),
+      );
+    }
 
-    return MouseRegion(
-      cursor: onPressed != null
-          ? SystemMouseCursors.click
-          : SystemMouseCursors.basic,
-      child: trigger,
+    return IconButton.outline(
+      onPressed: onPressed,
+      density: ButtonDensity.icon,
+      size: ButtonSize.small,
+      icon: icon,
     );
   }
 
@@ -152,7 +147,7 @@ extension _FileUploadStateCompact on _FileUploadState {
           style: theme.typography.large.merge(theme.typography.semiBold),
           child: widget.title!,
         ),
-        const DensityGap(gapLg),
+        DensityGap(gapLg),
       ],
     );
   }

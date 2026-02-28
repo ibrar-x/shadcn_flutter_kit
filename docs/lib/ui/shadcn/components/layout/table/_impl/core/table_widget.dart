@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// Table defines a reusable type for this registry module.
 class Table extends StatefulWidget {
   /// List of rows to display in the table.
   ///
@@ -112,6 +113,6 @@ class Table extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Table> createState() => _TableState();
 }
-

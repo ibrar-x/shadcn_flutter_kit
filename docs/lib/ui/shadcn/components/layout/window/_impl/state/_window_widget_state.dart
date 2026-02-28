@@ -1,13 +1,20 @@
 part of '../../window.dart';
 
+/// _WindowWidgetState defines a reusable type for this registry module.
 class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   @override
+/// Stores `controller` state/configuration for this implementation.
   late WindowController controller;
+/// Stores `state` state/configuration for this implementation.
   late WindowState state;
+/// Stores `_viewport` state/configuration for this implementation.
   WindowViewport? _viewport;
+/// Stores `_entry` state/configuration for this implementation.
   Window? _entry;
+/// Stores `_dragAlignment` state/configuration for this implementation.
   Alignment? _dragAlignment;
 
+/// Executes `_initializeController` behavior for this component/composite.
   void _initializeController() {
     if (widget.controller != null) {
       controller = widget.controller!;
@@ -30,11 +37,13 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
     controller.addListener(_handleControllerUpdate);
   }
 
+/// Executes `_handleControllerUpdate` behavior for this component/composite.
   void _handleControllerUpdate() {
     didControllerUpdate(state);
     state = controller.value;
   }
 
+/// Executes `didControllerUpdate` behavior for this component/composite.
   void didControllerUpdate(WindowState oldState) {
     if (oldState.alwaysOnTop != state.alwaysOnTop) {
       _viewport?.navigator.setAlwaysOnTop(_entry!, state.alwaysOnTop);
@@ -42,12 +51,14 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _initializeController();
   }
 
   @override
+/// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     _viewport = Data.maybeOf<WindowViewport>(context);
@@ -55,11 +66,13 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant WindowWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
       controller.removeListener(_handleControllerUpdate);
       controller._attachedState = null;
+/// Stores `oldState` state/configuration for this implementation.
       WindowState oldState = state;
       _initializeController();
       if (oldState != state) {
@@ -68,11 +81,12 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
     }
   }
 
-  Widget _wrapResizer(
-      {required MouseCursor cursor,
-      required Rect Function(Rect bounds, Offset delta) onResize,
-      required int adjustmentX,
-      required int adjustmentY}) {
+  Widget _wrapResizer({
+    required MouseCursor cursor,
+    required Rect Function(Rect bounds, Offset delta) onResize,
+    required int adjustmentX,
+    required int adjustmentY,
+  }) {
     return MouseRegion(
       cursor: cursor,
       child: GestureDetector(
@@ -80,7 +94,9 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
         onPanUpdate: (details) {
           if (state.maximized != null || state.minimized) return;
           var newBounds = onResize(bounds, details.delta);
+/// Stores `deltaXAdjustment` state/configuration for this implementation.
           double deltaXAdjustment = 0;
+/// Stores `deltaYAdjustment` state/configuration for this implementation.
           double deltaYAdjustment = 0;
           if (newBounds.width < state.constraints.minWidth) {
             deltaXAdjustment = state.constraints.minWidth - newBounds.width;
@@ -95,8 +111,11 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
           deltaXAdjustment *= adjustmentX;
           deltaYAdjustment *= adjustmentY;
           if (deltaXAdjustment != 0 || deltaYAdjustment != 0) {
-            newBounds =
-                onResize(newBounds, Offset(deltaXAdjustment, deltaYAdjustment));
+            newBounds = onResize(
+              newBounds,
+/// Creates a `Offset` instance.
+              Offset(deltaXAdjustment, deltaYAdjustment),
+            );
           }
           bounds = newBounds;
         },
@@ -105,6 +124,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Data<WindowHandle>.inherit(
@@ -117,7 +137,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               widget.resizeThickness ?? compTheme?.resizeThickness ?? 8;
           final titleBarHeight =
               (widget.titleBarHeight ?? compTheme?.titleBarHeight ?? 32) *
-                  theme.scaling;
+              theme.scaling;
 
           Widget windowClient = Card(
             clipBehavior: Clip.antiAlias,
@@ -129,6 +149,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.title != null || widget.actions != null)
+/// Creates a `ClickDetector` instance.
                   ClickDetector(
                     onClick: maximizable
                         ? (details) {
@@ -144,25 +165,33 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     child: GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onPanStart: (details) {
+/// Stores `localPosition` state/configuration for this implementation.
                         var localPosition = details.localPosition;
+/// Stores `bounds` state/configuration for this implementation.
                         var bounds = this.bounds;
+/// Stores `max` state/configuration for this implementation.
                         var max = maximized;
+/// Stores `size` state/configuration for this implementation.
                         var size = _viewport?.size;
                         if (max != null && size != null) {
                           bounds = Rect.fromLTWH(
-                              max.left * size.width,
-                              max.top * size.height,
-                              max.width * size.width,
-                              max.height * size.height);
+                            max.left * size.width,
+                            max.top * size.height,
+                            max.width * size.width,
+                            max.height * size.height,
+                          );
                         }
                         var alignX = lerpDouble(
-                            -1, 1, (localPosition.dx / bounds.width))!;
+                          -1,
+                          1,
+                          (localPosition.dx / bounds.width),
+                        )!;
                         var alignY = lerpDouble(
-                            -1, 1, (localPosition.dy / bounds.height))!;
-                        _dragAlignment = Alignment(
-                          alignX,
-                          alignY,
-                        );
+                          -1,
+                          1,
+                          (localPosition.dy / bounds.height),
+                        )!;
+                        _dragAlignment = Alignment(alignX, alignY);
                         if (_entry != null) {
                           _viewport?.navigator._state._startDraggingWindow(
                             _entry!,
@@ -171,14 +200,18 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                         }
                         if (state.maximized != null) {
                           maximized = null;
-                          RenderBox? layerRenderBox = _viewport
-                              ?.navigator._state.context
-                              .findRenderObject() as RenderBox?;
+                          RenderBox? layerRenderBox =
+                              _viewport?.navigator._state.context
+                                      .findRenderObject()
+                                  as RenderBox?;
                           if (layerRenderBox != null) {
-                            Offset layerLocal = layerRenderBox
-                                .globalToLocal(details.globalPosition);
-                            Size titleSize =
-                                Size(this.bounds.width, titleBarHeight);
+                            Offset layerLocal = layerRenderBox.globalToLocal(
+                              details.globalPosition,
+                            );
+                            Size titleSize = Size(
+                              this.bounds.width,
+                              titleBarHeight,
+                            );
                             this.bounds = Rect.fromLTWH(
                               layerLocal.dx - titleSize.width / 2,
                               layerLocal.dy - titleSize.height / 2,
@@ -219,10 +252,11 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                       child: Container(
                         height: titleBarHeight,
                         padding: EdgeInsets.all(
-                          2 * theme.scaling,
+                          theme.density.baseGap * theme.scaling * 0.25,
                         ),
                         child: Row(
                           children: [
+/// Creates a `Expanded` instance.
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -231,7 +265,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                                 child: (_viewport?.focused ?? true)
                                     ? (widget.title ?? const SizedBox())
                                     : (widget.title ?? const SizedBox())
-                                        .muted(),
+                                          .muted(),
                               ),
                             ),
                             if (widget.actions != null) widget.actions!,
@@ -240,35 +274,30 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                       ),
                     ),
                   ),
-                if (widget.content != null)
-                  Expanded(
-                    child: widget.content!,
-                  ),
+                if (widget.content != null) Expanded(child: widget.content!),
               ],
             ),
           );
           // add transition
           windowClient = AnimatedValueBuilder(
-              initialValue: 0.0,
-              value: (_viewport?.closed ?? false) ? 0.0 : 1.0,
-              duration: kDefaultDuration,
-              onEnd: (value) {
-                if (_viewport?.closed ?? false) {
-                  _viewport?.navigator.removeWindow(_entry!);
-                }
-              },
-              builder: (context, value, child) {
-                return Transform.scale(
-                  scale: (_viewport?.closed ?? false)
-                      ? lerpDouble(0.8, 1.0, value)!
-                      : lerpDouble(0.9, 1.0, value)!,
-                  child: Opacity(
-                    opacity: value,
-                    child: child,
-                  ),
-                );
-              },
-              child: windowClient);
+            initialValue: 0.0,
+            value: (_viewport?.closed ?? false) ? 0.0 : 1.0,
+            duration: kDefaultDuration,
+            onEnd: (value) {
+              if (_viewport?.closed ?? false) {
+                _viewport?.navigator.removeWindow(_entry!);
+              }
+            },
+            builder: (context, value, child) {
+              return Transform.scale(
+                scale: (_viewport?.closed ?? false)
+                    ? lerpDouble(0.8, 1.0, value)!
+                    : lerpDouble(0.9, 1.0, value)!,
+                child: Opacity(opacity: value, child: child),
+              );
+            },
+            child: windowClient,
+          );
           windowClient = AnimatedScale(
             scale: (_viewport?.minify ?? false) ? 0.65 : 1.0,
             duration: kDefaultDuration,
@@ -295,6 +324,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     maximized == null &&
                     _dragAlignment == null) ...[
                   // top left
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     left: 0,
@@ -313,6 +343,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // top right
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     right: 0,
@@ -331,6 +362,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom left
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     left: 0,
@@ -349,6 +381,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom right
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     right: 0,
@@ -367,6 +400,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // top
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     left: resizeThickness * theme.scaling,
@@ -385,6 +419,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     left: resizeThickness * theme.scaling,
@@ -403,6 +438,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // left
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: resizeThickness * theme.scaling,
                     left: 0,
@@ -421,6 +457,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // right
+/// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: resizeThickness * theme.scaling,
                     right: 0,
@@ -442,7 +479,9 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               ],
             ),
           );
+/// Stores `size` state/configuration for this implementation.
           final size = _viewport?.size ?? Size.zero;
+/// Stores `maximizedRect` state/configuration for this implementation.
           final maximizedRect = maximized;
           final targetRect = maximizedRect == null
               ? bounds
@@ -468,39 +507,51 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Stores `alwaysOnTop` state/configuration for this implementation.
   bool get alwaysOnTop => state.alwaysOnTop;
 
   @override
+/// Stores `bounds` state/configuration for this implementation.
   Rect get bounds => state.bounds;
 
   @override
+/// Stores `closable` state/configuration for this implementation.
   bool get closable => state.closable;
 
   @override
+/// Stores `draggable` state/configuration for this implementation.
   bool get draggable => state.draggable;
 
   @override
+/// Stores `enableSnapping` state/configuration for this implementation.
   bool get enableSnapping => state.enableSnapping;
 
   @override
+/// Stores `maximizable` state/configuration for this implementation.
   bool get maximizable => state.maximizable;
 
   @override
+/// Stores `maximized` state/configuration for this implementation.
   Rect? get maximized => state.maximized;
 
   @override
+/// Stores `minimizable` state/configuration for this implementation.
   bool get minimizable => state.minimizable;
 
   @override
+/// Stores `minimized` state/configuration for this implementation.
   bool get minimized => state.minimized;
 
   @override
+/// Stores `resizable` state/configuration for this implementation.
   bool get resizable => state.resizable;
 
   @override
+/// Stores `focused` state/configuration for this implementation.
   bool get focused => state.alwaysOnTop;
 
   @override
+/// Executes `alwaysOnTop` behavior for this component/composite.
   set alwaysOnTop(bool value) {
     if (value != state.alwaysOnTop) {
       controller.value = state.copyWith(alwaysOnTop: () => value);
@@ -508,6 +559,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `bounds` behavior for this component/composite.
   set bounds(Rect value) {
     if (value != state.bounds) {
       controller.value = state.copyWith(bounds: () => value);
@@ -515,6 +567,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `closable` behavior for this component/composite.
   set closable(bool value) {
     if (value != state.closable) {
       controller.value = state.copyWith(closable: () => value);
@@ -522,11 +575,13 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `close` behavior for this component/composite.
   void close() {
     _entry?.closed.value = true;
   }
 
   @override
+/// Executes `draggable` behavior for this component/composite.
   set draggable(bool value) {
     if (value != state.draggable) {
       controller.value = state.copyWith(draggable: () => value);
@@ -534,6 +589,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `enableSnapping` behavior for this component/composite.
   set enableSnapping(bool value) {
     if (value != state.enableSnapping) {
       controller.value = state.copyWith(enableSnapping: () => value);
@@ -541,6 +597,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `focused` behavior for this component/composite.
   set focused(bool value) {
     if (_entry == null) return;
     if (value) {
@@ -551,6 +608,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `maximizable` behavior for this component/composite.
   set maximizable(bool value) {
     if (value != state.maximizable) {
       controller.value = state.copyWith(maximizable: () => value);
@@ -558,6 +616,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `maximized` behavior for this component/composite.
   set maximized(Rect? value) {
     if (value != state.maximized) {
       controller.value = state.withMaximized(value);
@@ -565,6 +624,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `minimizable` behavior for this component/composite.
   set minimizable(bool value) {
     if (value != state.minimizable) {
       controller.value = state.copyWith(minimizable: () => value);
@@ -572,6 +632,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `minimized` behavior for this component/composite.
   set minimized(bool value) {
     if (value != state.minimized) {
       controller.value = state.copyWith(minimized: () => value);
@@ -579,6 +640,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
+/// Executes `resizable` behavior for this component/composite.
   set resizable(bool value) {
     if (value != state.resizable) {
       controller.value = state.copyWith(resizable: () => value);

@@ -44,6 +44,7 @@ class AutoComplete extends StatefulWidget {
     this.completer = _defaultCompleter,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<AutoComplete> createState() => _AutoCompleteState();
 

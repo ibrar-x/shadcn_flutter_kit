@@ -13,10 +13,7 @@ class ChatBubbleData {
   /// Parameters:
   /// - [index] (`int`, required): The index of the bubble in the group.
   /// - [length] (`int`, required): The total number of bubbles in the group.
-  const ChatBubbleData({
-    required this.index,
-    required this.length,
-  });
+  const ChatBubbleData({required this.index, required this.length});
 
   /// Creates a copy of this data with the given fields replaced with the new values.
   ///
@@ -26,21 +23,20 @@ class ChatBubbleData {
   ///
   /// Returns:
   /// A new [ChatBubbleData] with the specified values updated.
-  ChatBubbleData copyWith({
-    int? index,
-    int? length,
-  }) {
+  ChatBubbleData copyWith({int? index, int? length}) {
     return ChatBubbleData(
       index: index ?? this.index,
       length: length ?? this.length,
     );
   }
 
+  /// Returns a debug string for this chat value.
   @override
   String toString() {
     return 'ChatBubbleData(index: $index, length: $length)';
   }
 
+  /// Compares two chat values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

@@ -12,5 +12,5 @@ enum ChatBubbleCorner {
   bottomLeft,
 
   /// The bottom-right corner.
-  bottomRight;
+  bottomRight,
 }

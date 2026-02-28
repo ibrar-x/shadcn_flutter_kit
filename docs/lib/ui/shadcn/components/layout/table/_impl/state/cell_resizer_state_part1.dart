@@ -1,37 +1,53 @@
 part of '../../table.dart';
 
+/// _CellResizerState defines a reusable type for this registry module.
 class _CellResizerState extends State<_CellResizer> {
+/// Stores `_resizer` state/configuration for this implementation.
   Resizer? _resizer;
+/// Stores `_resizeRow` state/configuration for this implementation.
   bool? _resizeRow;
 
+/// Executes `_onDragStartRow` behavior for this component/composite.
   void _onDragStartRow(DragStartDetails details) {
+/// Stores `items` state/configuration for this implementation.
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxRow; i++) {
-      items.add(ResizableItem(
-        value: widget.controller.getRowHeight(i),
-        min: widget.controller.getRowMinHeight(i) ?? 0,
-        max: widget.controller.getRowMaxHeight(i) ?? double.infinity,
-      ));
+/// Creates a `items.add` instance.
+      items.add(
+/// Creates a `ResizableItem` instance.
+        ResizableItem(
+          value: widget.controller.getRowHeight(i),
+          min: widget.controller.getRowMinHeight(i) ?? 0,
+          max: widget.controller.getRowMaxHeight(i) ?? double.infinity,
+        ),
+      );
     }
     _resizer = Resizer(items);
     _resizeRow = true;
     widget.onDrag(true, -1, Axis.horizontal);
   }
 
+/// Executes `_onDragStartColumn` behavior for this component/composite.
   void _onDragStartColumn(DragStartDetails details) {
+/// Stores `items` state/configuration for this implementation.
     List<ResizableItem> items = [];
     for (int i = 0; i <= widget.maxColumn; i++) {
-      items.add(ResizableItem(
-        value: widget.controller.getColumnWidth(i),
-        min: widget.controller.getColumnMinWidth(i) ?? 0,
-        max: widget.controller.getColumnMaxWidth(i) ?? double.infinity,
-      ));
+/// Creates a `items.add` instance.
+      items.add(
+/// Creates a `ResizableItem` instance.
+        ResizableItem(
+          value: widget.controller.getColumnWidth(i),
+          min: widget.controller.getColumnMinWidth(i) ?? 0,
+          max: widget.controller.getColumnMaxWidth(i) ?? double.infinity,
+        ),
+      );
     }
     _resizer = Resizer(items);
     _resizeRow = false;
     widget.onDrag(true, -1, Axis.vertical);
   }
 
+/// Executes `_onDragUpdate` behavior for this component/composite.
   void _onDragUpdate(int start, int end, DragUpdateDetails details) {
     // _resizer!.resize(start, end, _delta!);
     _resizer!.dragDivider(end, details.primaryDelta!);
@@ -45,6 +61,7 @@ class _CellResizerState extends State<_CellResizer> {
     }
   }
 
+/// Executes `_onDragEnd` behavior for this component/composite.
   void _onDragEnd(DragEndDetails details) {
     widget.onDrag(false, -1, Axis.horizontal);
     // _delta = null;
@@ -52,6 +69,7 @@ class _CellResizerState extends State<_CellResizer> {
     _resizeRow = null;
   }
 
+/// Executes `_onDragCancel` behavior for this component/composite.
   void _onDragCancel() {
     if (_resizer == null) {
       return;
@@ -70,21 +88,30 @@ class _CellResizerState extends State<_CellResizer> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
+/// Stores `thickness` state/configuration for this implementation.
     double thickness = widget.theme?.resizerThickness ?? 4;
     final flattenedData = Data.of<_FlattenedTableCell>(context);
+/// Stores `row` state/configuration for this implementation.
     final row = flattenedData.row;
+/// Stores `column` state/configuration for this implementation.
     final column = flattenedData.column;
+/// Stores `rowSpan` state/configuration for this implementation.
     final rowSpan = flattenedData.rowSpan;
+/// Stores `columnSpan` state/configuration for this implementation.
     final columnSpan = flattenedData.columnSpan;
     final tableData = Data.of<_ResizableTableData>(context);
+/// Stores `widthMode` state/configuration for this implementation.
     final widthMode = tableData.cellWidthResizeMode;
+/// Stores `heightMode` state/configuration for this implementation.
     final heightMode = tableData.cellHeightResizeMode;
     final theme = Theme.of(context);
     return Stack(
       children: [
         // top
         if (row > 0 && heightMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             top: -thickness / 2,
             left: 0,
@@ -107,9 +134,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(row - 1, row, details);
                   } else {
                     widget.controller.resizeRow(
-                        row - 1,
-                        widget.controller.getRowHeight(row - 1) +
-                            details.primaryDelta!);
+                      row - 1,
+                      widget.controller.getRowHeight(row - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onVerticalDragEnd: _onDragEnd,
@@ -121,18 +149,21 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == row - 1 &&
+                      color:
+                          (hover?.index == row - 1 &&
                                   hover?.direction == Axis.horizontal) ||
                               (drag?.index == row - 1 &&
                                   drag?.direction == Axis.horizontal)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -144,6 +175,7 @@ class _CellResizerState extends State<_CellResizer> {
         if ((row + rowSpan <= tableData.maxRow ||
                 heightMode == TableCellResizeMode.expand) &&
             heightMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             bottom: -thickness / 2,
             left: 0,
@@ -166,10 +198,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(row + rowSpan - 1, row + rowSpan, details);
                   } else {
                     widget.controller.resizeRow(
-                        row + rowSpan - 1,
-                        widget.controller.getRowHeight(row + rowSpan - 1) +
-
-                            details.primaryDelta!);
+                      row + rowSpan - 1,
+                      widget.controller.getRowHeight(row + rowSpan - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onVerticalDragEnd: _onDragEnd,
@@ -180,18 +212,21 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == row + rowSpan - 1 &&
+                      color:
+                          (hover?.index == row + rowSpan - 1 &&
                                   hover?.direction == Axis.horizontal) ||
                               (drag?.index == row + rowSpan - 1 &&
                                   drag?.direction == Axis.horizontal)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -201,6 +236,7 @@ class _CellResizerState extends State<_CellResizer> {
           ),
         // left
         if (column > 0 && widthMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             left: -thickness / 2,
             top: 0,
@@ -223,9 +259,10 @@ class _CellResizerState extends State<_CellResizer> {
                     _onDragUpdate(column - 1, column, details);
                   } else {
                     widget.controller.resizeColumn(
-                        column - 1,
-                        widget.controller.getColumnWidth(column - 1) +
-                            details.primaryDelta!);
+                      column - 1,
+                      widget.controller.getColumnWidth(column - 1) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onHorizontalDragEnd: _onDragEnd,
@@ -236,18 +273,21 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == column - 1 &&
+                      color:
+                          (hover?.index == column - 1 &&
                                   hover?.direction == Axis.vertical) ||
                               (drag?.index == column - 1 &&
                                   drag?.direction == Axis.vertical)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -259,6 +299,7 @@ class _CellResizerState extends State<_CellResizer> {
         if ((column + columnSpan <= tableData.maxColumn ||
                 widthMode == TableCellResizeMode.expand) &&
             widthMode != TableCellResizeMode.none)
+/// Creates a `Positioned` instance.
           Positioned(
             right: -thickness / 2,
             top: 0,
@@ -278,14 +319,20 @@ class _CellResizerState extends State<_CellResizer> {
                 onHorizontalDragStart: _onDragStartColumn,
                 onHorizontalDragUpdate: (details) {
                   if (widthMode == TableCellResizeMode.reallocate) {
+/// Creates a `_onDragUpdate` instance.
                     _onDragUpdate(
-                        column + columnSpan - 1, column + columnSpan, details);
+                      column + columnSpan - 1,
+                      column + columnSpan,
+                      details,
+                    );
                   } else {
                     widget.controller.resizeColumn(
-                        column + columnSpan - 1,
-                        widget.controller
-                                .getColumnWidth(column + columnSpan - 1) +
-                            details.primaryDelta!);
+                      column + columnSpan - 1,
+                      widget.controller.getColumnWidth(
+                            column + columnSpan - 1,
+                          ) +
+                          details.primaryDelta!,
+                    );
                   }
                 },
                 onHorizontalDragEnd: _onDragEnd,
@@ -296,18 +343,21 @@ class _CellResizerState extends State<_CellResizer> {
                     widget.dragNotifier,
                   ]),
                   builder: (context, child) {
+/// Stores `hover` state/configuration for this implementation.
                     _HoveredLine? hover = widget.hoverNotifier.value;
+/// Stores `drag` state/configuration for this implementation.
                     _HoveredLine? drag = widget.dragNotifier.value;
                     if (drag != null) {
                       hover = null;
                     }
                     return Container(
-                      color: (hover?.index == column + columnSpan - 1 &&
+                      color:
+                          (hover?.index == column + columnSpan - 1 &&
                                   hover?.direction == Axis.vertical) ||
                               (drag?.index == column + columnSpan - 1 &&
                                   drag?.direction == Axis.vertical)
                           ? widget.theme?.resizerColor ??
-                              theme.colorScheme.primary
+                                theme.colorScheme.primary
                           : null,
                     );
                   },
@@ -319,4 +369,3 @@ class _CellResizerState extends State<_CellResizer> {
     );
   }
 }
-

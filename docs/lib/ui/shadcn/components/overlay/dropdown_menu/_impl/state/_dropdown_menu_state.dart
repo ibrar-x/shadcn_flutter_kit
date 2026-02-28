@@ -1,20 +1,22 @@
 part of '../../dropdown_menu.dart';
 
+/// _DropdownMenuState defines a reusable type for this registry module.
 class _DropdownMenuState extends State<DropdownMenu> {
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
     final compTheme = ComponentTheme.maybeOf<DropdownMenuTheme>(context);
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: 192,
-      ),
+      constraints: const BoxConstraints(minWidth: 192),
       child: MenuGroup(
         regionGroupId: Data.maybeOf<DropdownMenuData>(context)?.key,
         subMenuOffset: const Offset(8, -4) * theme.scaling,
         itemPadding: isSheetOverlay
-            ? const EdgeInsets.symmetric(horizontal: 8) * theme.scaling
+            ? EdgeInsets.symmetric(
+                horizontal: theme.density.baseGap * theme.scaling,
+              )
             : EdgeInsets.zero,
         onDismissed: () {
           closeOverlay(context);

@@ -42,6 +42,7 @@
     "_impl/themes/base/file_upload_dropzone_theme.dart",
     "_impl/themes/config/file_picker_theme_config.dart",
     "_impl/themes/config/file_picker_theme_defaults.dart",
+    "_impl/themes/config/file_picker_theme_schema.dart",
     "_impl/themes/config/file_picker_theme_tokens.dart",
     "_impl/utils/file_like.dart",
     "_impl/utils/file_picker_adapter.dart",

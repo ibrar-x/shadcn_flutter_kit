@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// ScaffoldState defines a reusable type for this registry module.
 class ScaffoldState extends State<Scaffold> {
   /// Builds the header section of the scaffold.
   ///
@@ -15,12 +16,14 @@ class ScaffoldState extends State<Scaffold> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+/// Creates a `Column` instance.
             Column(
               verticalDirection: VerticalDirection.up,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.loadingProgress != null ||
                     widget.loadingProgressIndeterminate)
+/// Creates a `SizedBox` instance.
                   SizedBox(
                     // to make it float
                     height: 0,
@@ -28,6 +31,7 @@ class ScaffoldState extends State<Scaffold> {
                       clipBehavior: Clip.none,
                       fit: StackFit.passthrough,
                       children: [
+/// Creates a `Positioned` instance.
                         Positioned(
                           left: 0,
                           right: 0,
@@ -42,10 +46,12 @@ class ScaffoldState extends State<Scaffold> {
                       ],
                     ),
                   ),
+/// Creates a `Column` instance.
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     for (var i = 0; i < widget.headers.length; i++)
+/// Creates a `Data.inherit` instance.
                       Data.inherit(
                         data: ScaffoldBarData(
                           childIndex: i,
@@ -61,6 +67,7 @@ class ScaffoldState extends State<Scaffold> {
                 (widget.showLoadingSparks ??
                     compTheme?.showLoadingSparks ??
                     false))
+/// Creates a `SizedBox` instance.
               SizedBox(
                 // to make it float
                 height: 0,
@@ -68,6 +75,7 @@ class ScaffoldState extends State<Scaffold> {
                   clipBehavior: Clip.none,
                   fit: StackFit.passthrough,
                   children: [
+/// Creates a `Positioned` instance.
                     Positioned(
                       left: 0,
                       right: 0,
@@ -107,6 +115,7 @@ class ScaffoldState extends State<Scaffold> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               for (var i = 0; i < widget.footers.length; i++)
+/// Creates a `Data.inherit` instance.
                 Data.inherit(
                   data: ScaffoldBarData(
                     isHeader: false,
@@ -122,28 +131,35 @@ class ScaffoldState extends State<Scaffold> {
     );
   }
 
+/// Executes `_buildContent` behavior for this component/composite.
   Widget _buildContent(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<ScaffoldTheme>(context);
     final viewInsets = MediaQuery.viewInsetsOf(context);
     return DrawerOverlay(
       child: Container(
-        color: widget.backgroundColor ??
+        color:
+            widget.backgroundColor ??
             compTheme?.backgroundColor ??
             theme.colorScheme.background,
         child: _ScaffoldFlex(
           floatingHeader: widget.floatingHeader,
           floatingFooter: widget.floatingFooter,
           children: [
+/// Creates a `buildHeader` instance.
             buildHeader(context),
+/// Creates a `LayoutBuilder` instance.
             LayoutBuilder(
               builder: (context, constraints) {
-                Widget child = (widget.resizeToAvoidBottomInset ??
+                Widget child =
+                    (widget.resizeToAvoidBottomInset ??
                         compTheme?.resizeToAvoidBottomInset ??
                         true)
                     ? Container(
                         // Clamp to prevent negative padding on web when keyboard appears
-                        padding: EdgeInsets.only(bottom: viewInsets.bottom.clamp(0.0, double.infinity)),
+                        padding: EdgeInsets.only(
+                          bottom: viewInsets.bottom.clamp(0.0, double.infinity),
+                        ),
                         child: MediaQuery(
                           data: MediaQuery.of(context).copyWith(
                             viewInsets: viewInsets.copyWith(bottom: 0),
@@ -155,6 +171,7 @@ class ScaffoldState extends State<Scaffold> {
                 if (constraints is ScaffoldBoxConstraints &&
                     (widget.floatingHeader || widget.floatingFooter)) {
                   final currentMediaQuery = MediaQuery.of(context);
+/// Stores `padding` state/configuration for this implementation.
                   EdgeInsets padding = currentMediaQuery.padding;
                   if (widget.floatingHeader) {
                     padding += EdgeInsets.only(top: constraints.headerHeight);
@@ -172,6 +189,7 @@ class ScaffoldState extends State<Scaffold> {
                 return child;
               },
             ),
+/// Creates a `buildFooter` instance.
             buildFooter(context, viewInsets),
           ],
         ),
@@ -180,6 +198,7 @@ class ScaffoldState extends State<Scaffold> {
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Overlay(initialEntries: [OverlayEntry(builder: _buildContent)]);
   }

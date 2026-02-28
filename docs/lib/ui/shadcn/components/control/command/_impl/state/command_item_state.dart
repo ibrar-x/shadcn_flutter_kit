@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide Theme, TextField;
-import 'package:gap/gap.dart';
 
 import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/primitives/subfocus.dart';
@@ -9,8 +8,10 @@ import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/primitives/text.dart';
 import '../core/command_item_widget.dart';
 
+/// CommandItemState defines a reusable type for this registry module.
 class CommandItemState extends State<CommandItem> {
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Actions(
@@ -40,8 +41,9 @@ class CommandItemState extends State<CommandItem> {
                 borderRadius: BorderRadius.circular(themeData.radiusSm),
               ),
               padding: EdgeInsets.symmetric(
-                horizontal: themeData.scaling * 8,
-                vertical: themeData.scaling * 6,
+                horizontal:
+                    themeData.density.baseGap * themeData.scaling * gapSm,
+                vertical: themeData.density.baseGap * themeData.scaling * 0.75,
               ),
               child: IconTheme(
                 data: themeData.iconTheme.small.copyWith(
@@ -53,15 +55,17 @@ class CommandItemState extends State<CommandItem> {
                   style: TextStyle(
                     color: widget.onTap != null
                         ? themeData.colorScheme.accentForeground
-                        : themeData.colorScheme.accentForeground
-                            .scaleAlpha(0.5),
+                        : themeData.colorScheme.accentForeground.scaleAlpha(
+                            0.5,
+                          ),
                   ),
                   child: Row(
                     children: [
                       if (widget.leading != null) widget.leading!,
-                      if (widget.leading != null) Gap(themeData.scaling * 8),
+                      if (widget.leading != null) DensityGap(gapSm),
+/// Creates a `Expanded` instance.
                       Expanded(child: widget.title),
-                      if (widget.trailing != null) Gap(themeData.scaling * 8),
+                      if (widget.trailing != null) DensityGap(gapSm),
                       if (widget.trailing != null)
                         widget.trailing!.muted().xSmall(),
                     ],

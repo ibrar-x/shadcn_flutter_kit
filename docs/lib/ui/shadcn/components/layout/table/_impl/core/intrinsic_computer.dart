@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// Type alias for `IntrinsicComputer` used by public or internal APIs.
 typedef IntrinsicComputer = double Function(RenderBox child, double extent);
 
 /// Result of table layout calculations.

@@ -9,7 +9,7 @@
     "duration",
     "picker"
   ],
-  "installedAt": "2026-02-09T10:18:03.202371Z",
+  "installedAt": "2026-02-22T01:08:41.659022Z",
   "shared": [
     "form_control",
     "localizations",
@@ -24,7 +24,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/time_picker/README.md",
     "registry/components/form/time_picker/_impl/core/controlled_time_picker.dart",
     "registry/components/form/time_picker/_impl/core/duration_picker.dart",
     "registry/components/form/time_picker/_impl/core/duration_picker_dialog.dart",
@@ -33,14 +32,15 @@
     "registry/components/form/time_picker/_impl/state/_duration_picker_dialog_state.dart",
     "registry/components/form/time_picker/_impl/state/_time_picker_dialog_state.dart",
     "registry/components/form/time_picker/_impl/state/_time_picker_preview_state.dart",
-    "registry/components/form/time_picker/_impl/themes/time_picker_theme.dart",
+    "registry/components/form/time_picker/_impl/themes/base/time_picker_theme.dart",
+    "registry/components/form/time_picker/_impl/themes/config/time_picker_theme_config.dart",
+    "registry/components/form/time_picker/_impl/themes/config/time_picker_theme_defaults.dart",
+    "registry/components/form/time_picker/_impl/themes/config/time_picker_theme_schema.dart",
+    "registry/components/form/time_picker/_impl/themes/config/time_picker_theme_tokens.dart",
     "registry/components/form/time_picker/_impl/utils/_time_formatter.dart",
     "registry/components/form/time_picker/_impl/utils/duration_picker_controller.dart",
     "registry/components/form/time_picker/_impl/utils/time_picker_controller.dart",
-    "registry/components/form/time_picker/meta.json",
-    "registry/components/form/time_picker/preview.dart",
-    "registry/components/form/time_picker/time_picker.dart",
-    "registry/components/form/time_picker/time_picker.meta.json"
+    "registry/components/form/time_picker/time_picker.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

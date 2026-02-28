@@ -38,6 +38,7 @@
     "_impl/themes/base/stepper_theme.dart",
     "_impl/themes/config/stepper_theme_config.dart",
     "_impl/themes/config/stepper_theme_defaults.dart",
+    "_impl/themes/config/stepper_theme_schema.dart",
     "_impl/themes/config/stepper_theme_tokens.dart",
     "_impl/utils/stepper_controller.dart",
     "_impl/variants/_step_variant_circle.dart",

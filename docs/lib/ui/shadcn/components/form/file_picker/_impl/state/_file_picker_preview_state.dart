@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _FilePickerPreviewState stores and manages mutable widget state.
 class _FilePickerPreviewState extends State<FilePickerPreview> {
+  /// Controller used to coordinate `_controller` behavior.
   late final FileUploadController _controller;
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
@@ -14,6 +17,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller.dispose();
@@ -28,6 +32,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     }
   }
 
+  /// Performs `_seedFiles` logic for this form component.
   List<FileLike> _seedFiles() {
     final now = DateTime.now().millisecondsSinceEpoch;
     return [
@@ -77,6 +82,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     }).toList();
   }
 
+  /// Performs `_buildControllerBar` logic for this form component.
   Widget _buildControllerBar(ThemeData theme, double scaling) {
     return AnimatedBuilder(
       animation: _controller,
@@ -103,6 +109,7 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
     );
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -135,15 +142,15 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                       mode: FileUploadLoadingMode.wrap,
                       wrapperBuilder: (context, child) {
                         return BorderLoading(
-                          curve: Curves.easeInOut,
                           child: child,
+                          curve: Curves.easeInOut,
                         );
                       },
                     ),
                     itemLoading: const FileUploadItemLoadingOptions(
                       mode: FileUploadItemLoadingMode.linear,
                     ),
-                    hint: const Text(
+                    hint: Text(
                       'Drag files here or click the dropzone to pick. Supports PDFs, images.',
                     ),
                     idleLabel: 'Drag files here or click to pick files.',
@@ -160,10 +167,10 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   uploadFn: _simulateUpload,
                   options: FileUploadTileOptions(
                     actionLabel: 'Add files',
-                    subtitle: const Text(
+                    subtitle: Text(
                       'No File Chosen. Use a button-only file selection UI.',
                     ),
-                    hint: const Text('Good for touch-first layouts.'),
+                    hint: Text('Good for touch-first layouts.'),
                     itemLoading: FileUploadItemLoadingOptions(
                       mode: FileUploadItemLoadingMode.custom,
                       customBuilder: (context, item) {

@@ -8,7 +8,7 @@
     "profile",
     "user"
   ],
-  "installedAt": "2026-02-09T10:18:03.225258Z",
+  "installedAt": "2026-02-22T01:08:41.354630Z",
   "shared": [
     "geometry_extensions",
     "style_value",
@@ -16,7 +16,6 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/display/avatar/README.md",
     "registry/components/display/avatar/_impl/core/_avatar_state.dart",
     "registry/components/display/avatar/_impl/core/_avatar_widget.dart",
     "registry/components/display/avatar/_impl/core/avatar.dart",
@@ -24,11 +23,12 @@
     "registry/components/display/avatar/_impl/core/avatar_group.dart",
     "registry/components/display/avatar/_impl/core/avatar_group_clipper.dart",
     "registry/components/display/avatar/_impl/core/avatar_widget.dart",
-    "registry/components/display/avatar/_impl/themes/avatar_theme.dart",
-    "registry/components/display/avatar/avatar.dart",
-    "registry/components/display/avatar/avatar.meta.json",
-    "registry/components/display/avatar/meta.json",
-    "registry/components/display/avatar/preview.dart"
+    "registry/components/display/avatar/_impl/themes/base/avatar_theme.dart",
+    "registry/components/display/avatar/_impl/themes/config/avatar_theme_config.dart",
+    "registry/components/display/avatar/_impl/themes/config/avatar_theme_defaults.dart",
+    "registry/components/display/avatar/_impl/themes/config/avatar_theme_schema.dart",
+    "registry/components/display/avatar/_impl/themes/config/avatar_theme_tokens.dart",
+    "registry/components/display/avatar/avatar.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

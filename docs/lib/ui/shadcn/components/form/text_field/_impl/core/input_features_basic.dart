@@ -12,26 +12,6 @@ enum InputFeaturePosition {
   trailing,
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /// A callback that provides suggestions based on a query string.
 ///
 /// Parameters:

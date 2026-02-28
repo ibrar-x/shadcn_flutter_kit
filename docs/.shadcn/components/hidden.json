@@ -8,7 +8,7 @@
     "layout",
     "accessibility"
   ],
-  "installedAt": "2026-02-09T10:18:03.209969Z",
+  "installedAt": "2026-02-22T01:08:41.345378Z",
   "shared": [
     "animated_value_builder",
     "constants",
@@ -17,15 +17,15 @@
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/layout/hidden/README.md",
     "registry/components/layout/hidden/_impl/core/_render_hidden_layout.dart",
     "registry/components/layout/hidden/_impl/core/hidden_layout.dart",
     "registry/components/layout/hidden/_impl/state/_hidden_preview_state.dart",
-    "registry/components/layout/hidden/_impl/themes/hidden_theme.dart",
-    "registry/components/layout/hidden/hidden.dart",
-    "registry/components/layout/hidden/hidden.meta.json",
-    "registry/components/layout/hidden/meta.json",
-    "registry/components/layout/hidden/preview.dart"
+    "registry/components/layout/hidden/_impl/themes/base/hidden_theme.dart",
+    "registry/components/layout/hidden/_impl/themes/config/hidden_theme_config.dart",
+    "registry/components/layout/hidden/_impl/themes/config/hidden_theme_defaults.dart",
+    "registry/components/layout/hidden/_impl/themes/config/hidden_theme_schema.dart",
+    "registry/components/layout/hidden/_impl/themes/config/hidden_theme_tokens.dart",
+    "registry/components/layout/hidden/hidden.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

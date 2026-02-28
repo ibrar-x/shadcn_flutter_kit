@@ -29,6 +29,7 @@
     "_impl/themes/base/collapsible_theme.dart",
     "_impl/themes/config/collapsible_theme_config.dart",
     "_impl/themes/config/collapsible_theme_defaults.dart",
+    "_impl/themes/config/collapsible_theme_schema.dart",
     "_impl/themes/config/collapsible_theme_tokens.dart",
     "collapsible.dart"
   ],

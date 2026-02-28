@@ -9,7 +9,7 @@
     "picker",
     "display"
   ],
-  "installedAt": "2026-02-09T10:18:03.221050Z",
+  "installedAt": "2026-02-22T01:08:41.482488Z",
   "shared": [
     "icon_extensions",
     "localizations",
@@ -22,7 +22,6 @@
     "button"
   ],
   "files": [
-    "registry/components/display/calendar/README.md",
     "registry/components/display/calendar/_calendar_preview_state.dart",
     "registry/components/display/calendar/_impl/core/_calendar_state.dart",
     "registry/components/display/calendar/_impl/core/_date_picker_dialog_state.dart",
@@ -35,20 +34,21 @@
     "registry/components/display/calendar/_impl/core/calendar_widget.dart",
     "registry/components/display/calendar/_impl/core/date_picker_dialog.dart",
     "registry/components/display/calendar/_impl/core/year_calendar.dart",
-    "registry/components/display/calendar/_impl/themes/calendar_selection_mode.dart",
-    "registry/components/display/calendar/_impl/themes/calendar_theme.dart",
-    "registry/components/display/calendar/_impl/themes/calendar_view_type.dart",
-    "registry/components/display/calendar/_impl/themes/date_state.dart",
+    "registry/components/display/calendar/_impl/themes/base/calendar_theme.dart",
+    "registry/components/display/calendar/_impl/themes/config/calendar_theme_config.dart",
+    "registry/components/display/calendar/_impl/themes/config/calendar_theme_defaults.dart",
+    "registry/components/display/calendar/_impl/themes/config/calendar_theme_schema.dart",
+    "registry/components/display/calendar/_impl/themes/config/calendar_theme_tokens.dart",
+    "registry/components/display/calendar/_impl/themes/variants/calendar_selection_mode.dart",
+    "registry/components/display/calendar/_impl/themes/variants/calendar_view_type.dart",
+    "registry/components/display/calendar/_impl/themes/variants/date_state.dart",
     "registry/components/display/calendar/_impl/utils/calendar_value.dart",
     "registry/components/display/calendar/_impl/utils/calendar_value_lookup.dart",
     "registry/components/display/calendar/_impl/utils/calendar_view.dart",
     "registry/components/display/calendar/_impl/utils/multi_calendar_value.dart",
     "registry/components/display/calendar/_impl/utils/range_calendar_value.dart",
     "registry/components/display/calendar/_impl/utils/single_calendar_value.dart",
-    "registry/components/display/calendar/calendar.dart",
-    "registry/components/display/calendar/calendar.meta.json",
-    "registry/components/display/calendar/meta.json",
-    "registry/components/display/calendar/preview.dart"
+    "registry/components/display/calendar/calendar.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../command/command.dart';
 
+/// CommandPreview defines a reusable type for this registry module.
 class CommandPreview extends StatelessWidget {
   const CommandPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
@@ -25,19 +27,26 @@ class CommandPreview extends StatelessWidget {
               'Settings': const Icon(Icons.settings_outlined),
             };
             for (final values in items.entries) {
+/// Stores `resultItems` state/configuration for this implementation.
               final resultItems = <Widget>[];
               for (final item in values.value) {
                 if (query == null ||
+/// Creates a `item.toLowerCase` instance.
                     item.toLowerCase().contains(query.toLowerCase())) {
-                  resultItems.add(CommandItem(
-                    title: Text(item),
-                    leading: icons[item],
-                    onTap: () {},
-                  ));
+/// Creates a `resultItems.add` instance.
+                  resultItems.add(
+/// Creates a `CommandItem` instance.
+                    CommandItem(
+                      title: Text(item),
+                      leading: icons[item],
+                      onTap: () {},
+                    ),
+                  );
                 }
               }
               if (resultItems.isNotEmpty) {
                 yield [
+/// Creates a `CommandCategory` instance.
                   CommandCategory(
                     title: Text(values.key),
                     children: resultItems,

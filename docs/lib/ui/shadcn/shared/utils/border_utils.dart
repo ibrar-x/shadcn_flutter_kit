@@ -12,13 +12,17 @@ BorderRadius subtractByBorder(BorderRadius radius, double borderWidth) {
     topRight: _subtractSafe(radius.topRight, Radius.circular(borderWidth)),
     bottomLeft: _subtractSafe(radius.bottomLeft, Radius.circular(borderWidth)),
     bottomRight:
+/// Creates a `_subtractSafe` instance.
         _subtractSafe(radius.bottomRight, Radius.circular(borderWidth)),
   );
 }
 
+/// Executes `_subtractSafe` behavior for this component/composite.
 Radius _subtractSafe(Radius a, Radius b) {
   return Radius.elliptical(
+/// Creates a `max` instance.
     max(0, a.x - b.x),
+/// Creates a `max` instance.
     max(0, a.y - b.y),
   );
 }

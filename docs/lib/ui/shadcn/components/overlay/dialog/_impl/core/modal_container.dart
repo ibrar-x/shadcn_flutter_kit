@@ -1,5 +1,6 @@
 part of '../../dialog.dart';
 
+/// ModalContainer defines a reusable type for this registry module.
 class ModalContainer extends StatelessWidget {
   /// Model key used to identify full-screen modal mode.
   static const kFullScreenMode = #modal_surface_card_fullscreen;
@@ -93,6 +94,7 @@ class ModalContainer extends StatelessWidget {
   });
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     var fullScreenMode = Model.maybeOf<bool>(context, kFullScreenMode);
     return SurfaceCard(

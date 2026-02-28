@@ -1,8 +1,10 @@
 part of '../../preview.dart';
 
+/// _HslPreviewState stores and manages mutable widget state.
 class _HslPreviewState extends State<HslPreview> {
   HSLColor _color = HSLColor.fromColor(Colors.blue);
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +16,7 @@ class _HslPreviewState extends State<HslPreview> {
               color: _color,
               sliderType: HSLColorSliderType.hue,
               onChanged: (color) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _color = color;
                 });

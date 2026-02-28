@@ -25,7 +25,7 @@ export '_impl/core/inline_error.dart';
 export '_impl/extensions/context_error_extensions.dart';
 export '_impl/extensions/future_error_extensions.dart';
 export '_impl/state/screen_error_scope.dart';
-export '_impl/themes/error_system_theme.dart';
+export '_impl/themes/base/error_system_theme.dart';
 export '_impl/utils/api_rules.dart';
 export '_impl/utils/auth_rules.dart';
 export '_impl/utils/env.dart';

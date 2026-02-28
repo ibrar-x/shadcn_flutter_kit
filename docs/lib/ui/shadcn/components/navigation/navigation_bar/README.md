@@ -1,18 +1,96 @@
-# Navigation Bar
+# Navigation Bar (`navigation_bar`)
 
-Responsive navigation bar with tabs, overflow handling, and surface theming.
+Themed navigation bar supporting destinations, overflow, and responsive layout.
 
-```dart
-import 'ui/shadcn/components/navigation/navigation_bar.dart';
+---
 
-NavigationBar(
-  selectedIndex: 0,
-  destinations: [
-    NavigationDestination.icon(label: 'Home', icon: Icon(Icons.home)),
-    NavigationDestination.icon(label: 'Search', icon: Icon(Icons.search)),
-  ],
-  onDestinationSelected: (index) => print('Selected $index'),
-);
+## When to use
+
+- Use this when:
+  - you need a bar/rail/sidebar navigation container.
+- Avoid when:
+  - a simple row of buttons is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add navigation_bar
 ```
 
-Customize through `ComponentTheme<NavigationBarTheme>` before installing.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/navigation/navigation_bar/navigation_bar.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+NavigationBar(
+  index: 0,
+  onSelected: (index) {},
+  children: const [
+    NavigationItem(icon: Icon(Icons.home), label: Text('Home')),
+    NavigationItem(icon: Icon(Icons.search), label: Text('Search')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `NavigationBar`
+  - `index` (`int?`)
+  - `onSelected` (`ValueChanged<int>?`)
+  - `children` (`List<Widget>`)
+  - `alignment` (`NavigationBarAlignment`)
+  - `type` (`NavigationContainerType`)
+- `NavigationItem` / `NavigationButton` — navigation entries.
+- `NavigationRail` / `NavigationSidebar` — alternate layouts.
+- `NavigationDivider`, `NavigationGap` — separators.
+- `NavigationBarTheme` — colors, padding, and label styles.
+
+---
+
+## Theming
+
+- `NavigationBarTheme` controls label styles, spacing, and surfaces.
+
+---
+
+## Accessibility
+
+- Provide labels for icons and clear focus states.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use consistent labels across destinations.
+
+**Don’t**
+- ❌ Mix bar and rail styles without intent.
+
+---
+
+## Related components
+
+- `navigation_menu`
+- `breadcrumb`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

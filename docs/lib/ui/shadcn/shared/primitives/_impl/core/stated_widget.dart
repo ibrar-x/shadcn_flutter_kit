@@ -1,5 +1,6 @@
 part of '../../clickable.dart';
 
+/// StatedWidget defines a reusable type for this registry module.
 abstract class StatedWidget extends StatelessWidget {
   /// Default state priority order for resolving multiple active states.
   ///

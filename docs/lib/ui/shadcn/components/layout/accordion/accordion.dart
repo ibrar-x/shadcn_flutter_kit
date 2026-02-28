@@ -9,7 +9,7 @@ import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 
 part '_impl/core/accordion_item.dart';
-part '_impl/themes/accordion_theme.dart';
+part '_impl/themes/base/accordion_theme.dart';
 part '_impl/core/accordion_trigger.dart';
 part '_impl/state/accordion_state.dart';
 part '_impl/state/_accordion_trigger_state.dart';
@@ -24,8 +24,8 @@ class Accordion extends StatefulWidget {
   final List<Widget> items;
 
   @override
+  /// Executes `createState` behavior for this component/composite.
   AccordionState createState() => AccordionState();
 }
 
 /// State helper that tracks the currently expanded item.
-

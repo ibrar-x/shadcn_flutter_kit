@@ -1,11 +1,13 @@
 part of 'preview.dart';
 
+/// Core class used by the spinner component.
 class CircleSpinner extends Spinner {
   const CircleSpinner({super.key, super.color, super.size});
 
   @override
   m.Widget build(m.BuildContext context) {
     final resolvedSize = resolveSize(context, 24);
+
     final resolvedColor = resolveColor(context);
     return m.SizedBox(
       width: resolvedSize,

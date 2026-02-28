@@ -1,5 +1,6 @@
 part of '../../sortable.dart';
 
+/// SortableLayer defines a reusable type for this registry module.
 class SortableLayer extends StatefulWidget {
   /// The child widget tree containing sortable widgets.
   ///
@@ -65,6 +66,7 @@ class SortableLayer extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<SortableLayer> createState() => _SortableLayerState();
 
   /// Ensures a pending drop operation is completed and dismisses it.
@@ -106,4 +108,3 @@ class SortableLayer extends StatefulWidget {
     layer.dismissDrop();
   }
 }
-

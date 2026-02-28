@@ -27,6 +27,7 @@
     "_impl/themes/base/menu_popup_theme.dart",
     "_impl/themes/config/popup_theme_config.dart",
     "_impl/themes/config/popup_theme_defaults.dart",
+    "_impl/themes/config/popup_theme_schema.dart",
     "_impl/themes/config/popup_theme_tokens.dart",
     "popup.dart"
   ],

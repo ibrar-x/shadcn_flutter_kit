@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _FormFieldPreviewState stores and manages mutable widget state.
 class _FormFieldPreviewState extends State<FormFieldPreview> {
+  /// Current value stored for `_value`.
   String? _value;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +41,7 @@ class _FormFieldPreviewState extends State<FormFieldPreview> {
             ],
           ),
           onChanged: (value) {
+            /// Triggers a rebuild after mutating local state.
             setState(() {
               _value = value;
             });

@@ -59,6 +59,7 @@
     "_impl/themes/base/select_theme.dart",
     "_impl/themes/config/select_theme_config.dart",
     "_impl/themes/config/select_theme_defaults.dart",
+    "_impl/themes/config/select_theme_schema.dart",
     "_impl/themes/config/select_theme_tokens.dart",
     "_impl/utils/multi_select_controller.dart",
     "_impl/utils/select_controller.dart",

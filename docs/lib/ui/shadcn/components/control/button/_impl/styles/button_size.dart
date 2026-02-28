@@ -1,3 +1,4 @@
+/// ButtonSize defines a reusable type for this registry module.
 class ButtonSize {
   /// The scaling factor applied to button dimensions.
   ///

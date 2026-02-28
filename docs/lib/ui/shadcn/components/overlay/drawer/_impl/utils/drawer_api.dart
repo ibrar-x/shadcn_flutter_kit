@@ -52,9 +52,11 @@ DrawerOverlayCompleter<T?> openDrawerOverlay<T>({
         surfaceBlur: surfaceBlur,
         barrierColor: barrierColor,
         stackIndex: stackIndex,
-        child: Builder(builder: (context) {
-          return builder(context);
-        }),
+        child: Builder(
+          builder: (context) {
+            return builder(context);
+          },
+        ),
       );
     },
     position: position,
@@ -138,9 +140,11 @@ DrawerOverlayCompleter<T?> openSheetOverlay<T>({
         padding: padding,
         barrierColor: barrierColor,
         stackIndex: stackIndex,
-        child: Builder(builder: (context) {
-          return builder(context);
-        }),
+        child: Builder(
+          builder: (context) {
+            return builder(context);
+          },
+        ),
       );
     },
     position: position,

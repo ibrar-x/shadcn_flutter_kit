@@ -1,5 +1,6 @@
 part of '../../swiper.dart';
 
+/// SwiperHandler defines a reusable type for this registry module.
 abstract class SwiperHandler {
   /// Handler for drawer-style swipers with backdrop transformation.
   static const SwiperHandler drawer = DrawerSwiperHandler();

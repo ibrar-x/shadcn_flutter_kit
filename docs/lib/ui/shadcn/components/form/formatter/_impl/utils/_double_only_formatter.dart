@@ -1,8 +1,14 @@
 part of '../../formatter.dart';
 
+/// _DoubleOnlyFormatter represents a form-related type in the registry.
 class _DoubleOnlyFormatter extends TextInputFormatter {
+  /// Field storing `min` for this form implementation.
   final double? min;
+
+  /// Field storing `max` for this form implementation.
   final double? max;
+
+  /// Field storing `decimalDigits` for this form implementation.
   final int? decimalDigits;
 
   _DoubleOnlyFormatter({this.min, this.max, this.decimalDigits});

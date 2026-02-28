@@ -1,5 +1,6 @@
 part of '../../scaffold.dart';
 
+/// ScaffoldPaddingStorage defines a reusable type for this registry module.
 class ScaffoldPaddingStorage {
   /// Top padding value.
   double top;

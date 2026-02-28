@@ -24,7 +24,7 @@ Scripts for building and validating registry metadata/manifests.
   - Generates `<id>.meta.json` from README content.
   - Docs: `registry_readme_meta_readme.md`
 - `registry_index_generate.dart`
-  - Generates `lib/registry/index.json`.
+  - Generates `lib/registry/manifests/index.json`.
   - Docs: `registry_index_generate_readme.md`
 - `registry_verify.dart`
   - Validates manifest/files/dependencies consistency.

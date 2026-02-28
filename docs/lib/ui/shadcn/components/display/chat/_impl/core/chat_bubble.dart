@@ -61,6 +61,7 @@ class ChatBubble extends StatelessWidget {
     this.widthFactor,
   });
 
+  /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
@@ -75,11 +76,9 @@ class ChatBubble extends StatelessWidget {
       themeValue: chatTheme?.type,
       defaultValue: ChatBubbleType.tail,
     );
-    final effectiveData = (Data.maybeOf<ChatBubbleData>(context) ??
-        const ChatBubbleData(
-          index: 0,
-          length: 1,
-        ));
+    final effectiveData =
+        (Data.maybeOf<ChatBubbleData>(context) ??
+        ChatBubbleData(index: 0, length: 1));
     final widthFactor = styleValue(
       widgetValue: this.widthFactor,
       themeValue: chatTheme?.widthFactor,
@@ -89,7 +88,8 @@ class ChatBubble extends StatelessWidget {
       widthFactor: widthFactor,
       alignment: alignment,
       child: ComponentTheme(
-        data: chatTheme?.copyWith(
+        data:
+            chatTheme?.copyWith(
               color: color == null ? null : () => color,
               type: () => type,
               alignment: () => alignment,
@@ -107,9 +107,11 @@ class ChatBubble extends StatelessWidget {
               borderRadius: borderRadius,
               widthFactor: widthFactor,
             ),
-        child: Builder(builder: (context) {
-          return type.wrap(context, child, effectiveData, this);
-        }),
+        child: Builder(
+          builder: (context) {
+            return type.wrap(context, child, effectiveData, this);
+          },
+        ),
       ),
     );
   }

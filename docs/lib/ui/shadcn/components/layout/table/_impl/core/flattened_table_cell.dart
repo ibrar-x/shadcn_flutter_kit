@@ -1,21 +1,33 @@
 part of '../../table.dart';
 
+/// _FlattenedTableCell defines a reusable type for this registry module.
 class _FlattenedTableCell extends _TableCellData {
   @override
+/// Stores `column` state/configuration for this implementation.
   final int column;
   @override
+/// Stores `row` state/configuration for this implementation.
   final int row;
   @override
+/// Stores `columnSpan` state/configuration for this implementation.
   final int columnSpan;
   @override
+/// Stores `rowSpan` state/configuration for this implementation.
   final int rowSpan;
+/// Stores `builder` state/configuration for this implementation.
   final WidgetBuilder builder;
+/// Stores `enabled` state/configuration for this implementation.
   final bool enabled;
+/// Stores `hoveredCellNotifier` state/configuration for this implementation.
   final ValueNotifier<_HoveredCell?> hoveredCellNotifier;
+/// Stores `dragNotifier` state/configuration for this implementation.
   final ValueNotifier<_HoveredLine?>? dragNotifier;
+/// Stores `tableCellThemeBuilder` state/configuration for this implementation.
   final TableCellThemeBuilder tableCellThemeBuilder;
+/// Stores `selected` state/configuration for this implementation.
   final bool selected;
 
+/// Creates a `_FlattenedTableCell` instance.
   _FlattenedTableCell({
     required this.column,
     required this.row,
@@ -30,6 +42,7 @@ class _FlattenedTableCell extends _TableCellData {
   });
 
   @override
+/// Executes `shift` behavior for this component/composite.
   _TableCellData shift(int column, int row) {
     return _FlattenedTableCell(
       column: this.column + column,
@@ -46,6 +59,7 @@ class _FlattenedTableCell extends _TableCellData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

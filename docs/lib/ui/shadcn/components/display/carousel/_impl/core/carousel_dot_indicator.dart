@@ -23,6 +23,7 @@ class CarouselDotIndicator extends StatelessWidget {
     this.curve = Curves.easeInOut,
   });
 
+  /// Builds the widget tree for carousel.
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(

@@ -30,8 +30,11 @@ class GridItemPickerLayout extends ItemPickerLayout {
   }
 
   @override
-  Widget build(BuildContext context, ItemChildDelegate items,
-      ItemPickerBuilder builder) {
+  Widget build(
+    BuildContext context,
+    ItemChildDelegate items,
+    ItemPickerBuilder builder,
+  ) {
     final theme = Theme.of(context);
     final padding = MediaQuery.paddingOf(context);
     return MediaQuery.removePadding(

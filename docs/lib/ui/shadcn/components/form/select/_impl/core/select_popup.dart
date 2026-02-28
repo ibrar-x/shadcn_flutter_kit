@@ -64,9 +64,9 @@ class SelectPopup<T> extends StatefulWidget {
     this.enableSearch = true,
     this.errorBuilder,
     this.scrollController,
-  })  : items = null,
-        shrinkWrap = false,
-        disableVirtualization = false;
+  }) : items = null,
+       shrinkWrap = false,
+       disableVirtualization = false;
 
   /// Creates a select popup with static items.
   const SelectPopup({
@@ -83,9 +83,9 @@ class SelectPopup<T> extends StatefulWidget {
     this.canUnselect,
     this.scrollController,
     this.shrinkWrap = true,
-  })  : builder = null,
-        enableSearch = false,
-        disableVirtualization = false;
+  }) : builder = null,
+       enableSearch = false,
+       disableVirtualization = false;
 
   /// Creates a select popup without virtualization optimization.
   const SelectPopup.noVirtualization({
@@ -101,16 +101,17 @@ class SelectPopup<T> extends StatefulWidget {
     this.autoClose,
     this.canUnselect,
     this.scrollController,
-  })  : builder = null,
-        enableSearch = false,
-        disableVirtualization = true,
-        shrinkWrap = false;
+  }) : builder = null,
+       enableSearch = false,
+       disableVirtualization = true,
+       shrinkWrap = false;
 
   /// A method used to implement SelectPopupBuilder
   SelectPopup<T> call(BuildContext context) {
     return this;
   }
 
+  /// Creates the `State` object for this widget.
   @override
   State<SelectPopup<T>> createState() => _SelectPopupState<T>();
 }

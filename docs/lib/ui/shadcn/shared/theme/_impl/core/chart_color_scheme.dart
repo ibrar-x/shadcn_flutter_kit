@@ -1,5 +1,6 @@
 part of '../../color_scheme.dart';
 
+/// ChartColorScheme defines a reusable type for this registry module.
 class ChartColorScheme {
   /// The list of chart colors.
   final List<Color> chartColors;

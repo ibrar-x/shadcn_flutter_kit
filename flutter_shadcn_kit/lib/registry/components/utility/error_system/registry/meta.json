@@ -54,6 +54,7 @@
     "_impl/themes/base/error_system_theme.dart",
     "_impl/themes/config/error_system_theme_config.dart",
     "_impl/themes/config/error_system_theme_defaults.dart",
+    "_impl/themes/config/error_system_theme_schema.dart",
     "_impl/themes/config/error_system_theme_tokens.dart",
     "_impl/utils/api_rules.dart",
     "_impl/utils/auth_rules.dart",

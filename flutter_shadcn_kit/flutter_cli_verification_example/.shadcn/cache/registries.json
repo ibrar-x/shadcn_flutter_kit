@@ -1,0 +1,211 @@
+{
+  "$schema": "./registries.schema.json",
+  "schemaVersion": 1,
+  "registries": [
+    {
+      "id": "official",
+      "displayName": "shadcn_flutter_kit",
+      "maintainers": [
+        "ibrar-x"
+      ],
+      "repo": "https://github.com/ibrar-x/shadcn_flutter_kit",
+      "license": "MIT",
+      "minCliVersion": "0.1.8",
+      "homepage": "https://ibrar-x.github.io/shadcn_flutter_kit/",
+      "description": "Official shadcn Flutter registry.",
+      "baseUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+      "paths": {
+        "componentsJson": "registry/manifests/components.json",
+        "componentsSchemaJson": "registry/manifests/components.schema.json",
+        "indexJson": "registry/manifests/index.json",
+        "indexSchemaJson": "registry/manifests/index.schema.json",
+        "themesJson": "registry/manifests/theme.index.json",
+        "themesSchemaJson": "registry/manifests/themes.index.schema.json",
+        "themeConverterDart": "https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/tool/theme/theme_preset_json_to_dart.dart",
+        "folderStructureJson": "registry/manifests/folder_structure.json"
+      },
+      "install": {
+        "namespace": "shadcn",
+        "root": "lib/ui/shadcn"
+      },
+      "capabilities": {
+        "sharedGroups": true,
+        "composites": true,
+        "theme": true
+      },
+      "trust": {
+        "mode": "none"
+      },
+      "init": {
+        "version": 1,
+        "description": "Bootstrap shared core files, dependencies, and font assets for flutter_shadcn.",
+        "actions": [
+          {
+            "type": "message",
+            "lines": [
+              "shared core: theme, util, color_extensions, form_control, form_value_supplier",
+              "pub dependencies: data_widget, gap"
+            ]
+          },
+          {
+            "type": "ensureDirs",
+            "dirs": [
+              "assets/fonts",
+              "assets/fonts/geist",
+              "lib/ui/shadcn/shared"
+            ]
+          },
+          {
+            "type": "copyFiles",
+            "base": "registry/shared",
+            "destBase": "lib/ui/shadcn/shared",
+            "overwrite": false,
+            "files": [
+              "theme/theme.dart",
+              "theme/typography.dart",
+              "theme/schema/component_schema.dart",
+              "theme/component_theme_global_registry.dart",
+              "theme/color_scheme.dart",
+              "theme/generated_colors.dart",
+              "theme/_impl/core/adaptive_scaler.dart",
+              "theme/_impl/core/adaptive_scaling.dart",
+              "theme/_impl/core/density.dart",
+              "theme/_impl/core/design_tokens.dart",
+              "theme/_impl/core/chart_color_scheme.dart",
+              "theme/_impl/core/color_scheme.dart",
+              "theme/_impl/core/color_schemes.dart",
+              "theme/_impl/core/color_shades.dart",
+              "theme/_impl/core/single_chart_color_scheme.dart",
+              "theme/_impl/themes/__animated_theme_state.dart",
+              "theme/_impl/themes/animated_theme.dart",
+              "theme/_impl/themes/component_theme.dart",
+              "theme/_impl/themes/component_theme_data.dart",
+              "theme/_impl/themes/icon_theme_properties.dart",
+              "theme/_impl/themes/theme.dart",
+              "theme/_impl/themes/theme_data.dart",
+              "theme/_impl/themes/theme_data_tween.dart",
+              "utils/color_extensions.dart",
+              "primitives/_impl/core/controlled_component_adapter.dart",
+              "primitives/_impl/core/controlled_component_data.dart",
+              "primitives/_impl/core/form_key.dart",
+              "primitives/_impl/core/replace_result.dart",
+              "primitives/_impl/core/validation_result.dart",
+              "primitives/_impl/state/__controlled_component_adapter_state.dart",
+              "primitives/_impl/utils/component_value_controller.dart",
+              "primitives/form_control.dart",
+              "primitives/form_value_supplier.dart",
+              "utils/_impl/core/bi_directional_convert.dart",
+              "utils/_impl/core/cached_value_widget.dart",
+              "utils/_impl/core/callback_context_action.dart",
+              "utils/_impl/core/captured_wrapper.dart",
+              "utils/_impl/core/context_callback_action.dart",
+              "utils/_impl/core/form_pending_builder.dart",
+              "utils/_impl/core/repeated_animation_builder.dart",
+              "utils/_impl/core/separated_flex.dart",
+              "utils/_impl/core/time_of_day.dart",
+              "utils/_impl/state/__cached_value_widget_state.dart",
+              "utils/_impl/state/__captured_wrapper_state.dart",
+              "utils/_impl/state/__repeated_animation_builder_state.dart",
+              "utils/_impl/state/__separated_flex_state.dart",
+              "utils/_impl/utils/converted_controller.dart",
+              "utils/util.dart"
+            ]
+          },
+          {
+            "type": "copyFiles",
+            "from": "shared/fonts",
+            "to": "assets/fonts",
+            "overwrite": false,
+            "base": "registry",
+            "destBase": ".",
+            "files": [
+              "shared/fonts/bootstrap.otf",
+              "shared/fonts/geist/Geist-Black.otf",
+              "shared/fonts/geist/Geist-BlackItalic.otf",
+              "shared/fonts/geist/Geist-Bold.otf",
+              "shared/fonts/geist/Geist-BoldItalic.otf",
+              "shared/fonts/geist/Geist-ExtraLightItalic.otf",
+              "shared/fonts/geist/Geist-Light.otf",
+              "shared/fonts/geist/Geist-LightItalic.otf",
+              "shared/fonts/geist/Geist-Medium.otf",
+              "shared/fonts/geist/Geist-MediumItalic.otf",
+              "shared/fonts/geist/Geist-Regular.otf",
+              "shared/fonts/geist/Geist-RegularItalic.otf",
+              "shared/fonts/geist/Geist-SemiBold.otf",
+              "shared/fonts/geist/Geist-SemiBoldItalic.otf",
+              "shared/fonts/geist/Geist-Thin.otf",
+              "shared/fonts/geist/Geist-ThinItalic.otf",
+              "shared/fonts/geist/Geist-UltraBlack.otf",
+              "shared/fonts/geist/Geist-UltraLight.otf",
+              "shared/fonts/geist/GeistMono-Black.otf",
+              "shared/fonts/geist/GeistMono-BlackItalic.otf",
+              "shared/fonts/geist/GeistMono-Bold.otf",
+              "shared/fonts/geist/GeistMono-BoldItalic.otf",
+              "shared/fonts/geist/GeistMono-ExtraLightItalic.otf",
+              "shared/fonts/geist/GeistMono-Italic.otf",
+              "shared/fonts/geist/GeistMono-Light.otf",
+              "shared/fonts/geist/GeistMono-LightItalic.otf",
+              "shared/fonts/geist/GeistMono-Medium.otf",
+              "shared/fonts/geist/GeistMono-MediumItalic.otf",
+              "shared/fonts/geist/GeistMono-Regular.otf",
+              "shared/fonts/geist/GeistMono-SemiBold.otf",
+              "shared/fonts/geist/GeistMono-SemiBoldItalic.otf",
+              "shared/fonts/geist/GeistMono-Thin.otf",
+              "shared/fonts/geist/GeistMono-ThinItalic.otf",
+              "shared/fonts/geist/GeistMono-UltraBlack.otf",
+              "shared/fonts/geist/GeistMono-UltraLight.otf",
+              "shared/fonts/lucide.ttf",
+              "shared/fonts/radix.otf"
+            ]
+          },
+          {
+            "type": "mergePubspec",
+            "dependencies": {
+              "data_widget": "^0.0.2",
+              "gap": "^3.0.1"
+            },
+            "flutterAssets": [
+              "assets/fonts/bootstrap.otf",
+              "assets/fonts/geist/Geist-Black.otf",
+              "assets/fonts/geist/Geist-BlackItalic.otf",
+              "assets/fonts/geist/Geist-Bold.otf",
+              "assets/fonts/geist/Geist-BoldItalic.otf",
+              "assets/fonts/geist/Geist-ExtraLightItalic.otf",
+              "assets/fonts/geist/Geist-Light.otf",
+              "assets/fonts/geist/Geist-LightItalic.otf",
+              "assets/fonts/geist/Geist-Medium.otf",
+              "assets/fonts/geist/Geist-MediumItalic.otf",
+              "assets/fonts/geist/Geist-Regular.otf",
+              "assets/fonts/geist/Geist-RegularItalic.otf",
+              "assets/fonts/geist/Geist-SemiBold.otf",
+              "assets/fonts/geist/Geist-SemiBoldItalic.otf",
+              "assets/fonts/geist/Geist-Thin.otf",
+              "assets/fonts/geist/Geist-ThinItalic.otf",
+              "assets/fonts/geist/Geist-UltraBlack.otf",
+              "assets/fonts/geist/Geist-UltraLight.otf",
+              "assets/fonts/geist/GeistMono-Black.otf",
+              "assets/fonts/geist/GeistMono-BlackItalic.otf",
+              "assets/fonts/geist/GeistMono-Bold.otf",
+              "assets/fonts/geist/GeistMono-BoldItalic.otf",
+              "assets/fonts/geist/GeistMono-ExtraLightItalic.otf",
+              "assets/fonts/geist/GeistMono-Italic.otf",
+              "assets/fonts/geist/GeistMono-Light.otf",
+              "assets/fonts/geist/GeistMono-LightItalic.otf",
+              "assets/fonts/geist/GeistMono-Medium.otf",
+              "assets/fonts/geist/GeistMono-MediumItalic.otf",
+              "assets/fonts/geist/GeistMono-Regular.otf",
+              "assets/fonts/geist/GeistMono-SemiBold.otf",
+              "assets/fonts/geist/GeistMono-SemiBoldItalic.otf",
+              "assets/fonts/geist/GeistMono-Thin.otf",
+              "assets/fonts/geist/GeistMono-ThinItalic.otf",
+              "assets/fonts/geist/GeistMono-UltraBlack.otf",
+              "assets/fonts/geist/GeistMono-UltraLight.otf",
+              "assets/fonts/lucide.ttf",
+              "assets/fonts/radix.otf"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

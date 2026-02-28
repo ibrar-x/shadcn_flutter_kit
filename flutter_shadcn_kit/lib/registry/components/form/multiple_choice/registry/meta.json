@@ -30,6 +30,7 @@
     "_impl/themes/base/multiple_choice_theme.dart",
     "_impl/themes/config/multiple_choice_theme_config.dart",
     "_impl/themes/config/multiple_choice_theme_defaults.dart",
+    "_impl/themes/config/multiple_choice_theme_schema.dart",
     "_impl/themes/config/multiple_choice_theme_tokens.dart",
     "_impl/utils/multiple_answer_controller.dart",
     "_impl/utils/multiple_choice_controller.dart",

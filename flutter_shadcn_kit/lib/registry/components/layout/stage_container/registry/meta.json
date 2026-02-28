@@ -22,6 +22,7 @@
     "_impl/themes/base/stage_container_theme.dart",
     "_impl/themes/config/stage_container_theme_config.dart",
     "_impl/themes/config/stage_container_theme_defaults.dart",
+    "_impl/themes/config/stage_container_theme_schema.dart",
     "_impl/themes/config/stage_container_theme_tokens.dart",
     "stage_container.dart"
   ],

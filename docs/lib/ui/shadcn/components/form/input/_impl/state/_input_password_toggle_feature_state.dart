@@ -1,10 +1,13 @@
 part of '../../input.dart';
 
+/// _InputPasswordToggleFeatureState stores and manages mutable widget state.
 class _InputPasswordToggleFeatureState
     extends InputFeatureState<InputPasswordToggleFeature> {
   bool? _obscureText = true;
 
+  /// Performs `_toggleObscureText` logic for this form component.
   void _toggleObscureText() {
+    /// Triggers a rebuild after mutating local state.
     setState(() {
       if (_obscureText == null) {
         _obscureText = true;
@@ -28,6 +31,7 @@ class _InputPasswordToggleFeatureState
     }
   }
 
+  /// Performs `_buildIcon` logic for this form component.
   Widget _buildIcon() {
     if (_obscureText == true || input.obscureText) {
       return feature.icon ?? const Icon(LucideIcons.eye);
@@ -35,16 +39,19 @@ class _InputPasswordToggleFeatureState
     return feature.iconShow ?? const Icon(LucideIcons.eyeOff);
   }
 
+  /// Performs `_buildIconButton` logic for this form component.
   Widget _buildIconButton() {
     if (feature.mode == PasswordPeekMode.hold) {
       return IconButton.text(
         icon: _buildIcon(),
         onTapDown: (_) {
+          /// Triggers a rebuild after mutating local state.
           setState(() {
             _obscureText = null;
           });
         },
         onTapUp: (_) {
+          /// Triggers a rebuild after mutating local state.
           setState(() {
             _obscureText = true;
           });
@@ -60,10 +67,9 @@ class _InputPasswordToggleFeatureState
     );
   }
 
+  /// Performs `interceptInput` logic for this form component.
   @override
   TextField interceptInput(TextField input) {
-    return input.copyWith(
-      obscureText: () => _obscureText ?? false,
-    );
+    return input.copyWith(obscureText: () => _obscureText ?? false);
   }
 }

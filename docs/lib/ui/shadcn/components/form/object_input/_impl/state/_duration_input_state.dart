@@ -1,8 +1,11 @@
 part of '../../object_input.dart';
 
+/// _DurationInputState stores and manages mutable widget state.
 class _DurationInputState extends State<DurationInput> {
+  /// Controller used to coordinate `_controller` behavior.
   late ComponentController<NullableTimeOfDay> _controller;
 
+  /// Performs `_convertToDuration` logic for this form component.
   NullableTimeOfDay _convertToDuration(List<String?> values) {
     int? hours = values[0] == null || values[0]!.isEmpty
         ? null
@@ -12,12 +15,13 @@ class _DurationInputState extends State<DurationInput> {
         : int.tryParse(values[1]!);
     int? seconds = widget.showSeconds && values.length > 2
         ? (values[2] == null || values[2]!.isEmpty
-            ? null
-            : int.tryParse(values[2]!))
+              ? null
+              : int.tryParse(values[2]!))
         : null;
     return NullableTimeOfDay(hour: hours, minute: minutes, second: seconds);
   }
 
+  /// Performs `_convertFromDuration` logic for this form component.
   List<String?> _convertFromDuration(NullableTimeOfDay? value) {
     if (value == null) {
       return [null, null, if (widget.showSeconds) null];
@@ -37,19 +41,23 @@ class _DurationInputState extends State<DurationInput> {
     ];
   }
 
+  /// Performs `_getWidth` logic for this form component.
   double _getWidth(TimePart part) {
     return 40;
   }
 
+  /// Performs `_getPlaceholder` logic for this form component.
   Widget _getPlaceholder(TimePart part) {
     var localizations = ShadcnLocalizations.of(context);
     return Text(localizations.getTimePartAbbreviation(part));
   }
 
+  /// Performs `_getLength` logic for this form component.
   int _getLength(TimePart part) {
     return 2;
   }
 
+  /// Performs `_convertToNullableTimeOfDay` logic for this form component.
   NullableTimeOfDay _convertToNullableTimeOfDay(Duration? value) {
     if (value == null) {
       return NullableTimeOfDay();
@@ -61,6 +69,7 @@ class _DurationInputState extends State<DurationInput> {
     );
   }
 
+  /// Performs `_convertFromNullableTimeOfDay` logic for this form component.
   Duration? _convertFromNullableTimeOfDay(NullableTimeOfDay value) {
     if (value.hour == null ||
         value.minute == null ||
@@ -74,19 +83,24 @@ class _DurationInputState extends State<DurationInput> {
     );
   }
 
+  /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
     _controller = widget.controller == null
         ? ComponentValueController<NullableTimeOfDay>(
-            _convertToNullableTimeOfDay(widget.initialValue))
+            _convertToNullableTimeOfDay(widget.initialValue),
+          )
         : ConvertedController<Duration?, NullableTimeOfDay>(
             widget.controller!,
             BiDirectionalConvert(
-                _convertToNullableTimeOfDay, _convertFromNullableTimeOfDay),
+              _convertToNullableTimeOfDay,
+              _convertFromNullableTimeOfDay,
+            ),
           );
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     if (widget.controller == null) {
@@ -95,6 +109,7 @@ class _DurationInputState extends State<DurationInput> {
     super.dispose();
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return FormattedObjectInput<NullableTimeOfDay>(
@@ -102,21 +117,24 @@ class _DurationInputState extends State<DurationInput> {
       controller: _controller,
       initialValue: _convertToNullableTimeOfDay(widget.initialValue),
       onChanged: (value) {
-        widget.onChanged
-            ?.call(value == null ? null : _convertFromNullableTimeOfDay(value));
+        widget.onChanged?.call(
+          value == null ? null : _convertFromNullableTimeOfDay(value),
+        );
       },
       parts: [
         InputPart.editable(
           length: _getLength(TimePart.hour),
           width: _getWidth(TimePart.hour),
-          placeholder: widget.placeholders?[TimePart.hour] ??
+          placeholder:
+              widget.placeholders?[TimePart.hour] ??
               _getPlaceholder(TimePart.hour),
         ),
         widget.separator ?? const InputPart.static(':'),
         InputPart.editable(
           length: _getLength(TimePart.minute),
           width: _getWidth(TimePart.minute),
-          placeholder: widget.placeholders?[TimePart.minute] ??
+          placeholder:
+              widget.placeholders?[TimePart.minute] ??
               _getPlaceholder(TimePart.minute),
         ),
         if (widget.showSeconds) ...[
@@ -124,7 +142,8 @@ class _DurationInputState extends State<DurationInput> {
           InputPart.editable(
             length: _getLength(TimePart.second),
             width: _getWidth(TimePart.second),
-            placeholder: widget.placeholders?[TimePart.second] ??
+            placeholder:
+                widget.placeholders?[TimePart.second] ??
                 _getPlaceholder(TimePart.second),
           ),
         ],

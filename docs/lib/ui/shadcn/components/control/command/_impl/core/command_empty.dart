@@ -10,6 +10,7 @@ class CommandEmpty extends StatelessWidget {
   const CommandEmpty({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final localizations = ShadcnLocalizations.of(context);
     return Center(

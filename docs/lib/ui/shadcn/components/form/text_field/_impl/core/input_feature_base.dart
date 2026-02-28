@@ -181,9 +181,10 @@ abstract class InputFeature {
   final bool skipFocusTraversal;
 
   /// Creates an input feature.
-  const InputFeature(
-      {this.visibility = InputFeatureVisibility.always,
-      this.skipFocusTraversal = true});
+  const InputFeature({
+    this.visibility = InputFeatureVisibility.always,
+    this.skipFocusTraversal = true,
+  });
 
   /// Creates the state for this input feature.
   InputFeatureState createState();

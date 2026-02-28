@@ -2,15 +2,15 @@ part of '../../chip.dart';
 
 /// Specialized button for inside chips.
 class ChipButton extends StatelessWidget {
-  const ChipButton({
-    super.key,
-    required this.child,
-    this.onPressed,
-  });
+  const ChipButton({super.key, required this.child, this.onPressed});
 
+  /// Child content displayed inside the chip widget.
   final Widget child;
+
+  /// Callback invoked by chip when `onPressed` is triggered.
   final VoidCallback? onPressed;
 
+  /// Builds the widget tree for chip.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -19,7 +19,8 @@ class ChipButton extends StatelessWidget {
       themeValue: componentTheme?.padding,
       defaultValue: EdgeInsets.zero,
     );
-    final style = componentTheme?.style ??
+    final style =
+        componentTheme?.style ??
         ButtonVariance(
           decoration: (context, states) => const BoxDecoration(),
           mouseCursor: (context, states) {
@@ -33,10 +34,6 @@ class ChipButton extends StatelessWidget {
           iconTheme: (context, states) => theme.iconTheme.xSmall,
           margin: (context, states) => EdgeInsets.zero,
         );
-    return Button(
-      style: style,
-      onPressed: onPressed,
-      child: child,
-    );
+    return Button(style: style, onPressed: onPressed, child: child);
   }
 }

@@ -1,13 +1,16 @@
 part of '../../text.dart';
 
 
+/// UnorderedListData defines a reusable type for this registry module.
 class UnorderedListData {
+/// Stores `depth` state/configuration for this implementation.
   final int depth;
 
   /// Creates an [UnorderedListData].
   const UnorderedListData({this.depth = 0});
 }
 
+/// Executes `getBullet` behavior for this component/composite.
 Widget getBullet(BuildContext context, int depth, double size) {
   return CustomPaint(
     size: Size(size, size),

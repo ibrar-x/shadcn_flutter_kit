@@ -22,7 +22,6 @@ part '_impl/core/item_picker_layout.dart';
 part '_impl/core/item_picker_option.dart';
 part '_impl/core/list_item_picker_layout.dart';
 
-
 /// A widget for selecting items from a collection using various presentation modes.
 ///
 /// This widget provides a flexible item selection interface that can display
@@ -149,43 +148,27 @@ class ItemPicker<T> extends StatelessWidget {
     this.constraints,
   });
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final layout = this.layout ?? ItemPickerLayout.grid;
     final mode = this.mode ?? PromptMode.dialog;
     final constraints = this.constraints;
     return ObjectFormField(
-        value: value,
-        placeholder: placeholder ?? const SizedBox.shrink(),
-        builder: builder,
-        dialogTitle: title,
-        onChanged: onChanged,
-        mode: mode,
-        decorate: false,
-        editorBuilder: (context, handler) {
-          if (mode == PromptMode.dialog) {
-            final theme = Theme.of(context);
-            return ModalBackdrop(
+      value: value,
+      placeholder: placeholder ?? const SizedBox.shrink(),
+      builder: builder,
+      dialogTitle: title,
+      onChanged: onChanged,
+      mode: mode,
+      decorate: false,
+      editorBuilder: (context, handler) {
+        if (mode == PromptMode.dialog) {
+          final theme = Theme.of(context);
+          return ModalBackdrop(
+            borderRadius: theme.borderRadiusXl,
+            child: ModalContainer(
               borderRadius: theme.borderRadiusXl,
-              child: ModalContainer(
-                borderRadius: theme.borderRadiusXl,
-                padding: EdgeInsets.zero,
-                child: _InternalItemPicker<T>(
-                  items: items,
-                  builder: builder,
-                  initialValue: handler.value,
-                  layout: layout,
-                  title: title,
-                  constraints: constraints,
-                  onChanged: (value) {
-                    handler.value = value;
-                    closeOverlay(context);
-                  },
-                ),
-              ),
-            );
-          } else {
-            return SurfaceCard(
               padding: EdgeInsets.zero,
               child: _InternalItemPicker<T>(
                 items: items,
@@ -196,19 +179,31 @@ class ItemPicker<T> extends StatelessWidget {
                 constraints: constraints,
                 onChanged: (value) {
                   handler.value = value;
+                  closeOverlay(context);
                 },
               ),
-            );
-          }
-        });
+            ),
+          );
+        } else {
+          return SurfaceCard(
+            padding: EdgeInsets.zero,
+            child: _InternalItemPicker<T>(
+              items: items,
+              builder: builder,
+              initialValue: handler.value,
+              layout: layout,
+              title: title,
+              constraints: constraints,
+              onChanged: (value) {
+                handler.value = value;
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }
-
-
-
-
-
-
 
 /// A builder function that creates a widget for an item.
 ///
@@ -218,12 +213,6 @@ class ItemPicker<T> extends StatelessWidget {
 ///
 /// Returns: A widget representing the item.
 typedef ItemPickerBuilder<T> = Widget Function(BuildContext context, T item);
-
-
-
-
-
-
 
 /// Shows an item picker in a popover overlay.
 ///
@@ -289,8 +278,6 @@ Future<T?> showItemPicker<T>(
     },
   ).future;
 }
-
-
 
 /// Shows an item picker in a modal dialog.
 ///

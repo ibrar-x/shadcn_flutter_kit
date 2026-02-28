@@ -1,5 +1,6 @@
 part of '../../menu.dart';
 
+/// MenuGroup defines a reusable type for this registry module.
 class MenuGroup extends StatefulWidget {
   /// List of menu item widgets.
   final List<MenuItem> children;
@@ -64,6 +65,6 @@ class MenuGroup extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<MenuGroup> createState() => _MenuGroupState();
 }
-

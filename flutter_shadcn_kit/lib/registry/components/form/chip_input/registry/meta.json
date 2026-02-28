@@ -32,6 +32,7 @@
     "_impl/themes/base/chip_input_theme.dart",
     "_impl/themes/config/chip_input_theme_config.dart",
     "_impl/themes/config/chip_input_theme_defaults.dart",
+    "_impl/themes/config/chip_input_theme_schema.dart",
     "_impl/themes/config/chip_input_theme_tokens.dart",
     "_impl/utils/_chip_provider.dart",
     "_impl/utils/chip_editing_controller.dart",

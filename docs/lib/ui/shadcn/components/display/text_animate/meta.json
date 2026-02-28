@@ -18,8 +18,6 @@
     "pubspec": {}
   },
   "files": [
-    "GETTING_STARTED.md",
-    "README.md",
     "_impl/core/blur_in_effect.dart",
     "_impl/core/combined_effect.dart",
     "_impl/core/fade_in_effect.dart",
@@ -31,13 +29,14 @@
     "_impl/state/_text_animate_preview_state.dart",
     "_impl/state/streaming_text_state.dart",
     "_impl/styles/character_span_factory.dart",
-    "_impl/themes/text_animate_theme.dart",
+    "_impl/themes/base/text_animate_theme.dart",
+    "_impl/themes/config/text_animate_theme_config.dart",
+    "_impl/themes/config/text_animate_theme_defaults.dart",
+    "_impl/themes/config/text_animate_theme_schema.dart",
+    "_impl/themes/config/text_animate_theme_tokens.dart",
     "_impl/utils/text_diff.dart",
     "_impl/utils/time_math.dart",
-    "meta.json",
-    "preview.dart",
-    "text_animate.dart",
-    "text_animate.meta.json"
+    "text_animate.dart"
   ],
   "api": {
     "constructors": [

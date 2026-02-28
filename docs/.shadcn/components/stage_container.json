@@ -8,21 +8,21 @@
     "responsive",
     "container"
   ],
-  "installedAt": "2026-02-09T10:18:03.208088Z",
+  "installedAt": "2026-02-22T01:08:41.689500Z",
   "shared": [
     "style_value",
     "theme"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/layout/stage_container/README.md",
     "registry/components/layout/stage_container/_impl/core/stage_container_2.dart",
     "registry/components/layout/stage_container/_impl/core/staged_breakpoint.dart",
-    "registry/components/layout/stage_container/_impl/themes/stage_container_theme.dart",
-    "registry/components/layout/stage_container/meta.json",
-    "registry/components/layout/stage_container/preview.dart",
-    "registry/components/layout/stage_container/stage_container.dart",
-    "registry/components/layout/stage_container/stage_container.meta.json"
+    "registry/components/layout/stage_container/_impl/themes/base/stage_container_theme.dart",
+    "registry/components/layout/stage_container/_impl/themes/config/stage_container_theme_config.dart",
+    "registry/components/layout/stage_container/_impl/themes/config/stage_container_theme_defaults.dart",
+    "registry/components/layout/stage_container/_impl/themes/config/stage_container_theme_schema.dart",
+    "registry/components/layout/stage_container/_impl/themes/config/stage_container_theme_tokens.dart",
+    "registry/components/layout/stage_container/stage_container.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

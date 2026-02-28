@@ -8,7 +8,7 @@
     "context",
     "overlay"
   ],
-  "installedAt": "2026-02-09T10:18:03.236556Z",
+  "installedAt": "2026-02-22T01:08:41.607888Z",
   "shared": [
     "constants",
     "localizations",
@@ -21,7 +21,6 @@
     "menu"
   ],
   "files": [
-    "registry/components/overlay/context_menu/README.md",
     "registry/components/overlay/context_menu/_impl/core/_context_menu_scope.dart",
     "registry/components/overlay/context_menu/_impl/core/context_menu_popup.dart",
     "registry/components/overlay/context_menu/_impl/core/context_menu_widget.dart",
@@ -29,11 +28,12 @@
     "registry/components/overlay/context_menu/_impl/core/mobile_editable_text_context_menu.dart",
     "registry/components/overlay/context_menu/_impl/state/_context_menu_preview_state.dart",
     "registry/components/overlay/context_menu/_impl/state/_context_menu_state.dart",
-    "registry/components/overlay/context_menu/_impl/themes/context_menu_theme.dart",
-    "registry/components/overlay/context_menu/context_menu.dart",
-    "registry/components/overlay/context_menu/context_menu.meta.json",
-    "registry/components/overlay/context_menu/meta.json",
-    "registry/components/overlay/context_menu/preview.dart"
+    "registry/components/overlay/context_menu/_impl/themes/base/context_menu_theme.dart",
+    "registry/components/overlay/context_menu/_impl/themes/config/context_menu_theme_config.dart",
+    "registry/components/overlay/context_menu/_impl/themes/config/context_menu_theme_defaults.dart",
+    "registry/components/overlay/context_menu/_impl/themes/config/context_menu_theme_schema.dart",
+    "registry/components/overlay/context_menu/_impl/themes/config/context_menu_theme_tokens.dart",
+    "registry/components/overlay/context_menu/context_menu.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

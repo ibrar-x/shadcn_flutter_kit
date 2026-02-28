@@ -1,21 +1,68 @@
 # Getting Started
 
-Hello! This folder is your new component. Think of it like a small toy box with labeled bins so you always know where things go.
+`border_loading` is a registry component in category `display`.
+
+Animated border wrapper for loading, tracer, static, and determinate progress states.
 
 ## Folder Map
-- `README.md` tells people what the component is.
-- `meta.json` is the label the registry uses to install the component.
-- `border_loading.dart` is the main widget that people import.
-- `preview.dart` is for the gallery preview.
-- `_impl/` is the private toolbox for helper code.
 
-## Inside `_impl/`
-- `_impl/core/` for the main building blocks.
-- `_impl/state/` for controllers and state logic.
-- `_impl/styles/` for styles and style helpers.
-- `_impl/themes/` for theme data and theme helpers.
-- `_impl/utils/` for small helper functions.
-- `_impl/variants/` for variant widgets and styles.
-- `_impl/extensions/` for extension methods.
+- `GETTING_STARTED.md`: Folder orientation guide (this file).
+- `README.md`: Primary component docs and usage guidance for contributors/users.
+- `border_loading.dart`: Widget/composite source file in this folder.
+- `border_loading.meta.json`: Generated readme/meta companion used by docs/index tooling.
+- `meta.json`: Registry metadata used for manifests, dependencies, and tooling.
+- `preview.dart`: Preview/demo entry used by gallery/docs environments.
+- `_impl/`: Private implementation details that support `border_loading`.
 
-If you do not need a folder yet, it can stay empty. That is okay.
+## `_impl` Guide
+
+### `core/`
+Core rendering/building blocks that implement the main behavior.
+
+- `border_loading_painter.dart`: Core implementation part of the widget/composite.
+
+### `extensions/`
+Extension methods used by this widget.
+
+- (empty)
+
+### `state/`
+State objects, controllers, and mutable interaction logic.
+
+- `border_loading_controller.dart`: Controller/state-coordination logic for this widget.
+
+### `styles/`
+Style classes and style-resolution helpers.
+
+- (empty)
+
+### `themes/`
+Theme data and ThemeExtension integration.
+
+- (empty)
+
+### `utils/`
+Small reusable helper functions/models.
+
+- `gradient_adapter.dart`: Utility helpers used by this widget implementation.
+- `shape_path.dart`: Utility helpers used by this widget implementation.
+
+### `variants/`
+Alternative visual or behavior variants.
+
+- `border_progress_painter.dart`: Variant-specific implementation details.
+- `border_tracer_painter.dart`: Variant-specific implementation details.
+
+## Suggested Reading Order
+
+1. `README.md`
+2. `meta.json`
+3. `border_loading.dart`
+4. `preview.dart`
+5. `_impl/core/`
+6. `_impl/state/`
+7. `_impl/styles/`
+8. `_impl/themes/`
+9. `_impl/variants/`
+10. `_impl/utils/`
+11. `_impl/extensions/`

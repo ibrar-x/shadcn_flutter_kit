@@ -6,12 +6,8 @@ import '../../../shared/theme/theme.dart';
 
 part '_impl/core/hsl_color_slider_type.dart';
 
-
 part '_impl/state/_hsl_color_slider_state.dart';
 part '_impl/core/hsl_color_slider_painter.dart';
-
-
-
 
 /// A slider widget for adjusting HSL color components.
 ///
@@ -64,6 +60,7 @@ class HSLColorSlider extends StatefulWidget {
     this.padding = const EdgeInsets.all(0),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<HSLColorSlider> createState() => _HSLColorSliderState();
 }

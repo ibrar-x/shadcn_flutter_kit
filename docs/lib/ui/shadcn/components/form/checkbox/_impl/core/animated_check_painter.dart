@@ -56,6 +56,7 @@ class AnimatedCheckPainter extends CustomPainter {
     required this.strokeWidth,
   });
 
+  /// Performs `paint` logic for this form component.
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -79,15 +80,21 @@ class AnimatedCheckPainter extends CustomPainter {
 
     double firstStrokeProgress =
         progress.clamp(0.0, normalizedFirstStrokeLength) /
-            normalizedFirstStrokeLength;
-    double secondStrokeProgress = (progress - normalizedFirstStrokeLength)
-            .clamp(0.0, normalizedSecondStrokeLength) /
+        normalizedFirstStrokeLength;
+    double secondStrokeProgress =
+        (progress - normalizedFirstStrokeLength).clamp(
+          0.0,
+          normalizedSecondStrokeLength,
+        ) /
         normalizedSecondStrokeLength;
     if (firstStrokeProgress <= 0) {
       return;
     }
-    Offset currentPoint =
-        Offset.lerp(firstStrokeStart, firstStrokeEnd, firstStrokeProgress)!;
+    Offset currentPoint = Offset.lerp(
+      firstStrokeStart,
+      firstStrokeEnd,
+      firstStrokeProgress,
+    )!;
     path.moveTo(firstStrokeStart.dx, firstStrokeStart.dy);
     path.lineTo(currentPoint.dx, currentPoint.dy);
     if (secondStrokeProgress <= 0) {
@@ -103,6 +110,7 @@ class AnimatedCheckPainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
+  /// Performs `shouldRepaint` logic for this form component.
   @override
   bool shouldRepaint(covariant AnimatedCheckPainter oldDelegate) {
     return oldDelegate.progress != progress ||

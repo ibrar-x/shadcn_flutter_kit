@@ -5,10 +5,12 @@ import '../card/card.dart';
 import '../../display/text/text.dart';
 import '../../form/text_field/text_field.dart';
 
+/// CardPreview defines a reusable type for this registry module.
 class CardPreview extends StatelessWidget {
   const CardPreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -20,28 +22,45 @@ class CardPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+/// Creates a `Text` instance.
                 const Text('Create project').semiBold(),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 6),
-                const Text('Deploy your new project in one-click.')
-                    .muted()
-                    .small(),
+/// Creates a `Text` instance.
+                const Text(
+                  'Deploy your new project in one-click.',
+                ).muted().small(),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 20),
+/// Creates a `Text` instance.
                 const Text('Name').semiBold().small(),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 6),
+/// Creates a `TextField` instance.
                 const TextField(placeholder: Text('Project name')),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 16),
+/// Creates a `Text` instance.
                 const Text('Description').semiBold().small(),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 6),
+/// Creates a `TextField` instance.
                 const TextField(placeholder: Text('What is this for?')),
+/// Creates a `SizedBox` instance.
                 const SizedBox(height: 24),
+/// Creates a `Row` instance.
                 Row(
                   children: [
+/// Creates a `Spacer` instance.
                     const Spacer(),
+/// Creates a `OutlineButton` instance.
                     OutlineButton(
                       onPressed: () {},
                       child: const Text('Cancel'),
                     ),
+/// Creates a `SizedBox` instance.
                     const SizedBox(width: 8),
+/// Creates a `PrimaryButton` instance.
                     PrimaryButton(
                       onPressed: () {},
                       child: const Text('Deploy'),

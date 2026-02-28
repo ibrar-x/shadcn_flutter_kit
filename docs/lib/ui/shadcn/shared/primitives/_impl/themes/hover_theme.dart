@@ -1,5 +1,6 @@
 part of '../../hover.dart';
 
+/// HoverTheme defines a reusable type for this registry module.
 class HoverTheme extends ComponentThemeData {
   /// Debounce duration for repeated hover events.
   final Duration? debounceDuration;
@@ -16,7 +17,11 @@ class HoverTheme extends ComponentThemeData {
   /// Duration for hover feedback show animations.
   final Duration? showDuration;
 
+/// Creates a `HoverTheme` instance.
   const HoverTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.debounceDuration,
     this.hitTestBehavior,
     this.waitDuration,
@@ -24,6 +29,7 @@ class HoverTheme extends ComponentThemeData {
     this.showDuration,
   });
 
+/// Creates a `HoverTheme` instance.
   HoverTheme copyWith({
     ValueGetter<Duration?>? debounceDuration,
     ValueGetter<HitTestBehavior?>? hitTestBehavior,
@@ -32,10 +38,12 @@ class HoverTheme extends ComponentThemeData {
     ValueGetter<Duration?>? showDuration,
   }) {
     return HoverTheme(
-      debounceDuration:
-          debounceDuration == null ? this.debounceDuration : debounceDuration(),
-      hitTestBehavior:
-          hitTestBehavior == null ? this.hitTestBehavior : hitTestBehavior(),
+      debounceDuration: debounceDuration == null
+          ? this.debounceDuration
+          : debounceDuration(),
+      hitTestBehavior: hitTestBehavior == null
+          ? this.hitTestBehavior
+          : hitTestBehavior(),
       waitDuration: waitDuration == null ? this.waitDuration : waitDuration(),
       minDuration: minDuration == null ? this.minDuration : minDuration(),
       showDuration: showDuration == null ? this.showDuration : showDuration(),
@@ -43,6 +51,7 @@ class HoverTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is HoverTheme &&
         other.debounceDuration == debounceDuration &&
@@ -54,12 +63,12 @@ class HoverTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        debounceDuration,
-        hitTestBehavior,
-        waitDuration,
-        minDuration,
-        showDuration,
-      );
+    debounceDuration,
+    hitTestBehavior,
+    waitDuration,
+    minDuration,
+    showDuration,
+  );
 }
 
 /// Tracks mouse hover state and triggers callbacks.

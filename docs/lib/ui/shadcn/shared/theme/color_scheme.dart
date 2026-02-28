@@ -14,6 +14,7 @@ part '_impl/core/color_schemes.dart';
 part '_impl/core/color_shades.dart';
 part '_impl/core/single_chart_color_scheme.dart';
 
+/// Executes `_fromAHSL` behavior for this component/composite.
 Color _fromAHSL(double a, double h, double s, double l) {
   return HSLColor.fromAHSL(a, h, s, l).toColor();
 }

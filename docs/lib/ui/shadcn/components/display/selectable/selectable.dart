@@ -8,7 +8,6 @@ import '../../../shared/theme/theme.dart';
 
 part '_impl/core/selectable_text.dart';
 
-
 /// {@template selectable_text_theme}
 /// Theme data for [SelectableText] to customize cursor and selection behavior.
 /// {@endtemplate}
@@ -53,6 +52,9 @@ class SelectableTextTheme extends ComponentThemeData {
 
   /// {@macro selectable_text_theme}
   const SelectableTextTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.cursorWidth,
     this.cursorHeight,
     this.cursorRadius,
@@ -105,14 +107,16 @@ class SelectableTextTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-      cursorWidth,
-      cursorHeight,
-      cursorRadius,
-      cursorColor,
-      selectionHeightStyle,
-      selectionWidthStyle,
-      enableInteractiveSelection);
+    cursorWidth,
+    cursorHeight,
+    cursorRadius,
+    cursorColor,
+    selectionHeightStyle,
+    selectionWidthStyle,
+    enableInteractiveSelection,
+  );
 
+  /// Compares two selectable values for structural equality.
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -126,6 +130,7 @@ class SelectableTextTheme extends ComponentThemeData {
         other.enableInteractiveSelection == enableInteractiveSelection;
   }
 
+  /// Returns a debug string for this selectable value.
   @override
   String toString() {
     return 'SelectableTextTheme(cursorWidth: $cursorWidth, cursorHeight: $cursorHeight, cursorRadius: $cursorRadius, cursorColor: $cursorColor, selectionHeightStyle: $selectionHeightStyle, selectionWidthStyle: $selectionWidthStyle, enableInteractiveSelection: $enableInteractiveSelection)';

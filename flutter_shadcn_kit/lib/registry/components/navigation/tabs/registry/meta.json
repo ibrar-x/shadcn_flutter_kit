@@ -45,6 +45,7 @@
     "_impl/themes/base/tabs_theme.dart",
     "_impl/themes/config/tabs_theme_config.dart",
     "_impl/themes/config/tabs_theme_defaults.dart",
+    "_impl/themes/config/tabs_theme_schema.dart",
     "_impl/themes/config/tabs_theme_tokens.dart",
     "_impl/themes/variants/tab_container_theme.dart",
     "_impl/themes/variants/tab_list_theme.dart",

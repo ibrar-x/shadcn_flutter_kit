@@ -26,7 +26,9 @@ Future<void> main(List<String> args) async {
 
   final root = _findRepoRoot(Directory.current);
   if (root == null) {
-    stderr.writeln('Error: Could not locate lib/registry/components.json');
+    stderr.writeln(
+      'Error: Could not locate lib/registry/manifests/components.json',
+    );
     exitCode = 1;
     return;
   }
@@ -74,7 +76,9 @@ void _printUsage() {
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
-    final candidate = File('${current.path}/lib/registry/components.json');
+    final candidate = File(
+      '${current.path}/lib/registry/manifests/components.json',
+    );
     if (candidate.existsSync()) {
       return current;
     }
@@ -88,7 +92,7 @@ Directory? _findRepoRoot(Directory start) {
 
 Future<void> _initComponent(Directory root) async {
   final registryDir = Directory('${root.path}/lib/registry');
-  final componentsJson = File('${registryDir.path}/components.json');
+  final componentsJson = File('${registryDir.path}/manifests/components.json');
   final json = jsonDecode(await componentsJson.readAsString()) as _Json;
 
   final type = _promptType();
@@ -194,7 +198,7 @@ Future<void> _initComponent(Directory root) async {
 
 Future<void> _syncRegistry(Directory root) async {
   final registryDir = Directory('${root.path}/lib/registry');
-  final componentsJson = File('${registryDir.path}/components.json');
+  final componentsJson = File('${registryDir.path}/manifests/components.json');
   final json = jsonDecode(await componentsJson.readAsString()) as _Json;
 
   _syncEntries(json, registryDir, _EntryType.component);

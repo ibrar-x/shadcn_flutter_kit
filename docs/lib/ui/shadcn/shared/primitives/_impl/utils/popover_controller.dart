@@ -1,7 +1,10 @@
 part of '../../overlay.dart';
 
+/// PopoverController defines a reusable type for this registry module.
 class PopoverController extends ChangeNotifier {
+/// Stores `_disposed` state/configuration for this implementation.
   bool _disposed = false;
+/// Stores `_openPopovers` state/configuration for this implementation.
   final List<Popover> _openPopovers = [];
 
   /// Whether there are any open popovers that haven't completed.
@@ -148,60 +151,70 @@ class PopoverController extends ChangeNotifier {
     notifyListeners();
   }
 
+/// Executes `anchorContext` behavior for this component/composite.
   set anchorContext(BuildContext value) {
     for (Popover key in _openPopovers) {
       key.currentState?.anchorContext = value;
     }
   }
 
+/// Executes `alignment` behavior for this component/composite.
   set alignment(AlignmentGeometry value) {
     for (Popover key in _openPopovers) {
       key.currentState?.alignment = value;
     }
   }
 
+/// Executes `anchorAlignment` behavior for this component/composite.
   set anchorAlignment(AlignmentGeometry value) {
     for (Popover key in _openPopovers) {
       key.currentState?.anchorAlignment = value;
     }
   }
 
+/// Executes `widthConstraint` behavior for this component/composite.
   set widthConstraint(PopoverConstraint value) {
     for (Popover key in _openPopovers) {
       key.currentState?.widthConstraint = value;
     }
   }
 
+/// Executes `heightConstraint` behavior for this component/composite.
   set heightConstraint(PopoverConstraint value) {
     for (Popover key in _openPopovers) {
       key.currentState?.heightConstraint = value;
     }
   }
 
+/// Executes `margin` behavior for this component/composite.
   set margin(EdgeInsets value) {
     for (Popover key in _openPopovers) {
       key.currentState?.margin = value;
     }
   }
 
+/// Executes `follow` behavior for this component/composite.
   set follow(bool value) {
     for (Popover key in _openPopovers) {
       key.currentState?.follow = value;
     }
   }
 
+/// Executes `offset` behavior for this component/composite.
   set offset(Offset? value) {
     for (Popover key in _openPopovers) {
       key.currentState?.offset = value;
     }
   }
 
+/// Executes `allowInvertHorizontal` behavior for this component/composite.
   set allowInvertHorizontal(bool value) {
     for (Popover key in _openPopovers) {
       key.currentState?.allowInvertHorizontal = value;
     }
   }
 
+/// Executes `allowInvertVertical` behavior for this component/composite.
   set allowInvertVertical(bool value) {
     for (Popover key in _openPopovers) {
       key.currentState?.allowInvertVertical = value;
@@ -219,6 +232,7 @@ class PopoverController extends ChangeNotifier {
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (_disposed) return;
     _disposed = true;

@@ -9,7 +9,7 @@
     "date",
     "time"
   ],
-  "installedAt": "2026-02-09T10:18:03.202995Z",
+  "installedAt": "2026-02-22T01:08:41.510346Z",
   "shared": [
     "form_control",
     "localizations",
@@ -25,7 +25,6 @@
     "locale_utils"
   ],
   "files": [
-    "registry/components/form/object_input/README.md",
     "registry/components/form/object_input/_impl/core/duration_input.dart",
     "registry/components/form/object_input/_impl/core/nullable_date.dart",
     "registry/components/form/object_input/_impl/core/nullable_time_of_day.dart",
@@ -34,10 +33,7 @@
     "registry/components/form/object_input/_impl/state/_duration_input_state.dart",
     "registry/components/form/object_input/_impl/state/_object_input_preview_state.dart",
     "registry/components/form/object_input/_impl/state/_time_input_state.dart",
-    "registry/components/form/object_input/meta.json",
-    "registry/components/form/object_input/object_input.dart",
-    "registry/components/form/object_input/object_input.meta.json",
-    "registry/components/form/object_input/preview.dart"
+    "registry/components/form/object_input/object_input.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

@@ -12,12 +12,9 @@ class DurationPickerDialog extends StatefulWidget {
   final ValueChanged<Duration?>? onChanged;
 
   /// Creates a duration picker dialog.
-  const DurationPickerDialog({
-    super.key,
-    this.initialValue,
-    this.onChanged,
-  });
+  const DurationPickerDialog({super.key, this.initialValue, this.onChanged});
 
+  /// Creates the `State` object for this widget.
   @override
   State<DurationPickerDialog> createState() => _DurationPickerDialogState();
 }

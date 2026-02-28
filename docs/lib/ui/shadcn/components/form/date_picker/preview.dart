@@ -5,10 +5,11 @@ import '../date_picker/date_picker.dart';
 
 part '_impl/state/_date_picker_preview_state.dart';
 
-
+/// DatePickerPreview represents a form-related type in the registry.
 class DatePickerPreview extends StatefulWidget {
   const DatePickerPreview({super.key});
 
+  /// Creates the `State` object for this widget.
   @override
   State<DatePickerPreview> createState() => _DatePickerPreviewState();
 }

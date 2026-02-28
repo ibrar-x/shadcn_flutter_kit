@@ -1,5 +1,6 @@
 part of '../../text_field.dart';
 
+/// _TextNotEmptyInputFeatureVisibility renders form UI and wires input behavior.
 class _TextNotEmptyInputFeatureVisibility extends InputFeatureVisibility {
   const _TextNotEmptyInputFeatureVisibility();
   @override
@@ -7,6 +8,7 @@ class _TextNotEmptyInputFeatureVisibility extends InputFeatureVisibility {
     yield state._effectiveText;
   }
 
+  /// Performs `canShow` logic for this form component.
   @override
   bool canShow(TextFieldState state) {
     return state._effectiveText.value.isNotEmpty;

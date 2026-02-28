@@ -69,10 +69,7 @@ abstract class TreeNode<T> {
   /// TreeNode<String> selectedNode = node.updateState(selected: true);
   /// TreeNode<String> both = node.updateState(expanded: true, selected: true);
   /// ```
-  TreeNode<T> updateState({
-    bool? expanded,
-    bool? selected,
-  });
+  TreeNode<T> updateState({bool? expanded, bool? selected});
 
   /// Creates a new instance with updated children list.
   ///

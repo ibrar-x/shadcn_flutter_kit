@@ -5,19 +5,28 @@ part of '../../form.dart';
 /// Manages form field lifecycle and integrates with parent [FormController]
 /// for validation and value reporting.
 class FormEntryState extends State<FormEntry> with FormFieldHandle {
+  /// Controller used to coordinate `_controller` behavior.
   FormController? _controller;
+
+  /// Current value stored for `_cachedValue`.
   _FormEntryCachedValue? _cachedValue;
   final ValueNotifier<ValidationResult?> _validity = ValueNotifier(null);
 
+  /// Field storing `formKey` for this form implementation.
   @override
   FormKey get formKey => widget.key;
 
+  /// Field storing `validity` for this form implementation.
   @override
   ValueListenable<ValidationResult?>? get validity => _validity;
 
+  /// Field storing `_toWaitCounter` for this form implementation.
   int _toWaitCounter = 0;
+
+  /// Field storing `_toWait` for this form implementation.
   FutureOr<ValidationResult?>? _toWait;
 
+  /// Updates derived state when inherited dependencies change.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -31,11 +40,16 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
       newController?.addListener(_onControllerChanged);
       if (_cachedValue != null) {
         newController?.attach(
-            context, this, _cachedValue?.value, widget.validator);
+          context,
+          this,
+          _cachedValue?.value,
+          widget.validator,
+        );
       }
     }
   }
 
+  /// Releases resources owned by this state object.
   @override
   void dispose() {
     _controller?.removeListener(_onControllerChanged);
@@ -43,6 +57,7 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
     super.dispose();
   }
 
+  /// Performs `_onControllerChanged` logic for this form component.
   void _onControllerChanged() {
     var validityFuture = _controller?.getError(widget.key);
     if (validityFuture == _toWait) {
@@ -61,12 +76,10 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
     }
   }
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return Data<FormFieldHandle>.inherit(
-      data: this,
-      child: widget.child,
-    );
+    return Data<FormFieldHandle>.inherit(data: this, child: widget.child);
   }
 
   @override
@@ -85,9 +98,15 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
     return _controller?.attach(context, this, value, widget.validator);
   }
 
+  /// Performs `revalidate` logic for this form component.
   @override
   FutureOr<ValidationResult?> revalidate() {
     return _controller?.attach(
-        context, this, _cachedValue, widget.validator, true);
+      context,
+      this,
+      _cachedValue,
+      widget.validator,
+      true,
+    );
   }
 }

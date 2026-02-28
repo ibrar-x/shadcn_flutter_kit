@@ -1,16 +1,22 @@
 part of '../../resizable.dart';
 
+/// AbsoluteResizablePaneController defines a reusable type for this registry module.
 class AbsoluteResizablePaneController extends ChangeNotifier
     with ResizablePaneController {
+/// Stores `_size` state/configuration for this implementation.
   double _size;
+/// Stores `_collapsed` state/configuration for this implementation.
   bool _collapsed = false;
 
+/// Stores `_state` state/configuration for this implementation.
   _ResizablePaneState? _state;
 
   @override
+/// Stores `_paneState` state/configuration for this implementation.
   _ResizablePaneState? get _paneState => _state;
 
   @override
+/// Executes `_paneState` behavior for this component/composite.
   set _paneState(_ResizablePaneState? value) {
     _state = value;
   }
@@ -21,20 +27,24 @@ class AbsoluteResizablePaneController extends ChangeNotifier
   /// - [_size] (`double`, required): Initial absolute size in pixels.
   /// - [collapsed] (`bool`, default: `false`): Initial collapsed state.
   AbsoluteResizablePaneController(this._size, {bool collapsed = false})
-      : _collapsed = collapsed;
+    : _collapsed = collapsed;
 
   @override
+/// Stores `value` state/configuration for this implementation.
   double get value => _size;
 
   @override
+/// Stores `collapsed` state/configuration for this implementation.
   bool get collapsed => _collapsed;
 
+/// Executes `size` behavior for this component/composite.
   set size(double value) {
     _size = value;
     notifyListeners();
   }
 
   @override
+/// Executes `collapse` behavior for this component/composite.
   void collapse() {
     if (_collapsed) return;
     _collapsed = true;
@@ -42,6 +52,7 @@ class AbsoluteResizablePaneController extends ChangeNotifier
   }
 
   @override
+/// Executes `expand` behavior for this component/composite.
   void expand() {
     if (!_collapsed) return;
     _collapsed = false;
@@ -49,13 +60,18 @@ class AbsoluteResizablePaneController extends ChangeNotifier
   }
 
   @override
-  void resize(double newSize, double paneSize,
-      {double? minSize, double? maxSize}) {
+  void resize(
+    double newSize,
+    double paneSize, {
+    double? minSize,
+    double? maxSize,
+  }) {
     _size = newSize.clamp(minSize ?? 0, maxSize ?? double.infinity);
     notifyListeners();
   }
 
   @override
+/// Executes `computeSize` behavior for this component/composite.
   double computeSize(double paneSize, {double? minSize, double? maxSize}) {
     return _size.clamp(minSize ?? 0, maxSize ?? double.infinity);
   }

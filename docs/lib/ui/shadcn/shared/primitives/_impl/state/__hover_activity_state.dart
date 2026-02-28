@@ -1,11 +1,14 @@
 part of '../../hover.dart';
 
 
+/// _HoverActivityState defines a reusable type for this registry module.
 class _HoverActivityState extends State<HoverActivity>
     with SingleTickerProviderStateMixin {
+/// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
 
   @override
+/// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _controller = AnimationController(
@@ -15,23 +18,27 @@ class _HoverActivityState extends State<HoverActivity>
     _controller.addStatusListener(_onStatusChanged);
   }
 
+/// Executes `_onStatusChanged` behavior for this component/composite.
   void _onStatusChanged(AnimationStatus status) {
     widget.onHover?.call();
   }
 
   @override
+/// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant HoverActivity oldWidget) {
     super.didUpdateWidget(oldWidget);
     _controller.duration = widget.debounceDuration;
   }
 
   @override
+/// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
     final debounceDuration = styleValue(

@@ -1,5 +1,6 @@
 part of '../../calendar.dart';
 
+/// Core class used by the calendar component.
 abstract class CalendarValue {
   /// Looks up whether the specified date is part of this calendar value.
   ///
@@ -38,6 +39,7 @@ abstract class CalendarValue {
   CalendarView get view;
 }
 
+/// Implements `_convertNecessarry` behavior for calendar.
 DateTime _convertNecessarry(DateTime from, int year, [int? month, int? date]) {
   if (month == null) {
     return DateTime(from.year);
@@ -47,14 +49,6 @@ DateTime _convertNecessarry(DateTime from, int year, [int? month, int? date]) {
   }
   return DateTime(from.year, from.month, from.day);
 }
-
-
-
-
-
-
-
-
 
 /// Represents a specific month and year view in calendar navigation.
 ///

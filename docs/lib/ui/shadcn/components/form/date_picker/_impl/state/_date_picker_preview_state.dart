@@ -1,8 +1,11 @@
 part of '../../preview.dart';
 
+/// _DatePickerPreviewState stores and manages mutable widget state.
 class _DatePickerPreviewState extends State<DatePickerPreview> {
+  /// Current value stored for `_value`.
   DateTime? _value;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +25,7 @@ class _DatePickerPreviewState extends State<DatePickerPreview> {
                 return DateState.enabled;
               },
               onChanged: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _value = value;
                 });
@@ -39,6 +43,7 @@ class _DatePickerPreviewState extends State<DatePickerPreview> {
                 return DateState.enabled;
               },
               onChanged: (value) {
+                /// Triggers a rebuild after mutating local state.
                 setState(() {
                   _value = value;
                 });

@@ -8,7 +8,7 @@
     "picker",
     "forms"
   ],
-  "installedAt": "2026-02-09T10:18:03.201204Z",
+  "installedAt": "2026-02-22T01:08:41.400155Z",
   "shared": [
     "localizations",
     "style_value",
@@ -25,7 +25,6 @@
     "text_field"
   ],
   "files": [
-    "registry/components/form/color_picker/README.md",
     "registry/components/form/color_picker/_impl/core/_color_value_input.dart",
     "registry/components/form/color_picker/_impl/core/color_controls.dart",
     "registry/components/form/color_picker/_impl/core/color_picker_mode.dart",
@@ -40,11 +39,12 @@
     "registry/components/form/color_picker/_impl/state/_color_value_input_state.dart",
     "registry/components/form/color_picker/_impl/state/_hsl_color_slider_state.dart",
     "registry/components/form/color_picker/_impl/state/_hsv_color_slider_state.dart",
-    "registry/components/form/color_picker/_impl/themes/color_picker_theme.dart",
-    "registry/components/form/color_picker/color_picker.dart",
-    "registry/components/form/color_picker/color_picker.meta.json",
-    "registry/components/form/color_picker/meta.json",
-    "registry/components/form/color_picker/preview.dart"
+    "registry/components/form/color_picker/_impl/themes/base/color_picker_theme.dart",
+    "registry/components/form/color_picker/_impl/themes/config/color_picker_theme_config.dart",
+    "registry/components/form/color_picker/_impl/themes/config/color_picker_theme_defaults.dart",
+    "registry/components/form/color_picker/_impl/themes/config/color_picker_theme_schema.dart",
+    "registry/components/form/color_picker/_impl/themes/config/color_picker_theme_tokens.dart",
+    "registry/components/form/color_picker/color_picker.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

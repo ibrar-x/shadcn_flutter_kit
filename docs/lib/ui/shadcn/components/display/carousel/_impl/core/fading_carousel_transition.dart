@@ -22,6 +22,7 @@ class FadingCarouselTransition extends CarouselTransition {
     double originalSize = direction == Axis.horizontal
         ? constraints.maxWidth
         : constraints.maxHeight;
+
     double size;
     if (sizeConstraint is CarouselFixedConstraint) {
       size = sizeConstraint.size;
@@ -30,9 +31,13 @@ class FadingCarouselTransition extends CarouselTransition {
     } else {
       size = originalSize;
     }
+
     double snapOffsetAlignment = (originalSize - size) * alignment.alignment;
+
     List<_PlacedCarouselItem> items = [];
+
     int start = progressedIndex.floor() - 1;
+
     int end = progressedIndex.floor() + 1;
     if (!wrap && itemCount != null) {
       start = start.clamp(0, itemCount - 1);
@@ -45,9 +50,13 @@ class FadingCarouselTransition extends CarouselTransition {
       } else {
         index = i.toDouble();
       }
+
       var itemIndex = reverse ? (-index).toInt() : index.toInt();
+
       final item = itemBuilder(context, itemIndex);
+
       double position = i.toDouble();
+
       items.add(
         _PlacedCarouselItem._(
           relativeIndex: i,

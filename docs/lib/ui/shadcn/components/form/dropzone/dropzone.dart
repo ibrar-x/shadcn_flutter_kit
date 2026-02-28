@@ -4,7 +4,9 @@ import 'package:gap/gap.dart';
 import '../../../shared/icons/radix_icons.dart';
 import '../../../shared/primitives/outlined_container.dart';
 import '../../../shared/theme/theme.dart';
+import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
+import '../../../shared/utils/geometry_extensions.dart';
 import '../../control/button/button.dart';
 
 /// Visual states for a dropzone surface.
@@ -12,6 +14,7 @@ enum DropzoneState { idle, dragging, uploading, success, error, disabled }
 
 /// A stylized dropzone surface for file uploads.
 class FileDropzone extends StatelessWidget {
+  /// Constructs `FileDropzone` with the provided parameters.
   const FileDropzone({
     super.key,
     this.hotDropEnabled = false,
@@ -76,13 +79,16 @@ class FileDropzone extends StatelessWidget {
   /// Whether to keep the default dropzone content alongside [content].
   final bool showDefaultContent;
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final isEmphasized = hotDropping || state == DropzoneState.dragging;
     final borderColor = _resolveBorderColor(theme);
-    final effectivePadding = padding ?? EdgeInsets.all(24 * scaling);
+    final effectivePadding =
+        padding ??
+        EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5);
     final dropzoneIcon =
         icon ??
         Icon(
@@ -90,14 +96,14 @@ class FileDropzone extends StatelessWidget {
           size: 28 * scaling,
           color: enabled
               ? theme.colorScheme.mutedForeground
-              : theme.colorScheme.mutedForeground.withValues(alpha: 0.5),
+              : theme.colorScheme.mutedForeground.withOpacity(0.5),
         );
     final label = actionLabel ?? 'Browse files';
     final statusLabel = _resolveStatusLabel();
     final focusRing = isFocused
         ? [
             BoxShadow(
-              color: theme.colorScheme.ring.withValues(alpha: 0.45),
+              color: theme.colorScheme.ring.withOpacity(0.45),
               blurRadius: 0,
               spreadRadius: 2 * scaling,
             ),
@@ -133,7 +139,7 @@ class FileDropzone extends StatelessWidget {
                           curve: Curves.easeOut,
                           child: dropzoneIcon,
                         ),
-                        Gap(12 * scaling),
+                        DensityGap(gapMd),
                         AnimatedOpacity(
                           opacity: enabled ? 1 : 0.6,
                           duration: kDefaultDuration,
@@ -142,13 +148,13 @@ class FileDropzone extends StatelessWidget {
                               color: enabled
                                   ? theme.colorScheme.mutedForeground
                                   : theme.colorScheme.mutedForeground
-                                      .withValues(alpha: 0.6),
+                                        .withOpacity(0.6),
                             ),
                             textAlign: TextAlign.center,
                             child: Text(statusLabel),
                           ),
                         ),
-                        if (hint != null) Gap(8 * scaling),
+                        if (hint != null) DensityGap(gapSm),
                         if (hint != null)
                           AnimatedOpacity(
                             opacity: enabled ? 1 : 0.6,
@@ -161,7 +167,7 @@ class FileDropzone extends StatelessWidget {
                               child: hint!,
                             ),
                           ),
-                        Gap(16 * scaling),
+                        DensityGap(gapLg),
                         OutlineButton(
                           onPressed: enabled ? onPressed : null,
                           child: Text(label),
@@ -169,7 +175,7 @@ class FileDropzone extends StatelessWidget {
                       ],
                       if (!showDefaultContent && content != null) content!,
                       if (showDefaultContent && content != null) ...[
-                        Gap(16 * scaling),
+                        DensityGap(gapLg),
                         content!,
                       ],
                     ],
@@ -183,6 +189,7 @@ class FileDropzone extends StatelessWidget {
     );
   }
 
+  /// Performs `_resolveBorderColor` logic for this form component.
   Color? _resolveBorderColor(ThemeData theme) {
     if (!enabled) return null;
     if (hotDropping) return theme.colorScheme.primary;
@@ -202,6 +209,7 @@ class FileDropzone extends StatelessWidget {
     }
   }
 
+  /// Performs `_resolveStatusLabel` logic for this form component.
   String _resolveStatusLabel() {
     if (!enabled) return 'File uploads disabled';
     if (hotDropping || state == DropzoneState.dragging) {

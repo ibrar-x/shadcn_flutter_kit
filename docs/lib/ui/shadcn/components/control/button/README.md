@@ -1,70 +1,162 @@
-# Button
+# Button (`button`)
 
-A flexible button system with variants, sizing, toggle behavior, and grouping.
+Shadcn-style button system with variants, toggles, and groups.
 
-## Usage
+---
 
-```dart
-import 'package:flutter/widgets.dart';
-import 'ui/shadcn/components/button/button.dart';
+## When to use
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+- Use this when:
+  - you need consistent button variants across the app (primary/secondary/ghost/etc.).
+  - you need toggle or selected-state buttons.
+  - you want grouped buttons with shared borders.
+- Avoid when:
+  - a plain `GestureDetector` is sufficient and no theming/variants are needed.
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Button.primary(
-          onPressed: () {},
-          child: const Text('Primary'),
-        ),
-        Button.outline(
-          onPressed: () {},
-          leading: const Icon(Icons.add),
-          child: const Text('Outline'),
-        ),
-      ],
-    );
-  }
-}
+---
+
+## Install
+
+```bash
+flutter_shadcn add button
 ```
 
-## Variants
+---
 
-- `Button.primary`, `Button.secondary`, `Button.outline`, `Button.ghost`
-- `Button.link`, `Button.text`, `Button.destructive`, `Button.card`
-- `IconButton.primary/secondary/outline/ghost/link/text/destructive`
+## Import
 
-## Toggle & Selection
+```dart
+import 'package:<your_app>/ui/shadcn/control/button/button.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+PrimaryButton(
+  onPressed: () {},
+  child: const Text('Save'),
+)
+```
+
+---
+
+## Common patterns
+
+### Pattern: Variant buttons
+
+```dart
+Column(
+  children: const [
+    PrimaryButton(child: Text('Primary')),
+    SecondaryButton(child: Text('Secondary')),
+    OutlineButton(child: Text('Outline')),
+    GhostButton(child: Text('Ghost')),
+  ],
+)
+```
+
+### Pattern: Icon button
+
+```dart
+IconButton.primary(
+  icon: const Icon(Icons.add),
+  onPressed: () {},
+)
+```
+
+### Pattern: Toggle / selected buttons
 
 ```dart
 Toggle(
   value: isEnabled,
   onChanged: (next) => setState(() => isEnabled = next),
-  child: const Text('Toggle me'),
-);
+  child: const Text('Toggle'),
+)
 
 SelectedButton(
   value: isSelected,
   onChanged: (next) => setState(() => isSelected = next),
   child: const Text('Selected'),
-);
+)
 ```
+
+### Pattern: Button group
+
+```dart
+ButtonGroup.horizontal(
+  children: const [
+    OutlineButton(child: Text('Left')),
+    OutlineButton(child: Text('Middle')),
+    OutlineButton(child: Text('Right')),
+  ],
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Button` — base widget requiring `child` and `style`.
+- `PrimaryButton`, `SecondaryButton`, `OutlineButton`, `GhostButton`, `LinkButton`, `TextButton`, `DestructiveButton`, `CardButton`, `TabButton` — pre-styled variants.
+- `IconButton` — icon-only button, with named constructors like `IconButton.primary` and `IconButton.secondary`.
+- `Toggle` — boolean toggle button.
+- `SelectedButton` — selected/unselected button with distinct styles.
+- `ButtonGroup` — groups multiple buttons with shared borders.
+
+### Callbacks
+
+- `onPressed` (buttons and icon buttons)
+- `onChanged` (toggle and selected buttons)
+- `onHover`, `onFocus`
+- `onTapDown`, `onTapUp`, `onTapCancel`
+- `onSecondaryTapDown`, `onSecondaryTapUp`, `onSecondaryTapCancel`
+- `onTertiaryTapDown`, `onTertiaryTapUp`, `onTertiaryTapCancel`
+- `onLongPressStart`, `onLongPressUp`, `onLongPressMoveUpdate`, `onLongPressEnd`
+- `onSecondaryLongPress`, `onTertiaryLongPress`
+
+---
 
 ## Theming
 
-These buttons read from the local `Theme` in `shared/theme/theme.dart`. If you do
-not provide one, a default theme is used automatically.
+- `ButtonStyle` drives padding, decoration, typography, and state-based visuals.
+- `ButtonStyleOverride` can override style values locally for grouped or scoped changes.
+- `ButtonTheme` in the shared theme system can override decoration, padding, text style, and icon theme.
 
-```dart
-Theme(
-  data: const ThemeData(),
-  child: Button.primary(onPressed: () {}, child: const Text('Themed')),
-);
-```
+---
 
-## Notes
+## Accessibility
 
-- Dependencies: `data_widget`, `gap`.
-- Menu padding adapts when a `MenuGroupData` ancestor is present.
+- Uses `FocusNode` and focus callbacks for keyboard navigation.
+- Focus outline can be disabled via `disableFocusOutline` where supported.
+- Hover and pressed states are exposed via callbacks for custom a11y behavior.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use variant widgets for consistent styling.
+- ✅ Use `ButtonGroup` when buttons should visually connect.
+
+**Don’t**
+- ❌ Nest buttons inside other `Clickable` or `GestureDetector` widgets.
+- ❌ Disable focus outlines without providing an alternate focus indicator.
+
+---
+
+## Related components
+
+- `clickable`
+- `hover`
+- `patch`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

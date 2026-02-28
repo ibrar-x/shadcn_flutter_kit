@@ -17,6 +17,7 @@ class FormTableLayout extends StatelessWidget {
   /// - [spacing] (`double?`, optional): Custom row spacing.
   const FormTableLayout({super.key, required this.rows, this.spacing});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -25,16 +26,12 @@ class FormTableLayout extends StatelessWidget {
     return DefaultTextStyle.merge(
       style: TextStyle(color: Theme.of(context).colorScheme.foreground),
       child: Table(
-        columnWidths: const {
-          0: IntrinsicColumnWidth(),
-          1: FlexColumnWidth(),
-        },
+        columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
         children: [
           for (int i = 0; i < rows.length; i++)
             TableRow(
               children: [
-                rows[i]
-                    .label
+                rows[i].label
                     .textSmall()
                     .withAlign(AlignmentDirectional.centerEnd)
                     .sized(height: 32 * scaling)
@@ -55,14 +52,16 @@ class FormTableLayout extends StatelessWidget {
                               ? Border.all(
                                   color: theme.colorScheme.destructive
                                       .scaleAlpha(0.2),
-                                  width: 3.0)
+                                  width: 3.0,
+                                )
                               : null,
                         ),
                         child: ComponentTheme(
                           data: TextFieldTheme(
                             border: error != null
                                 ? Border.all(
-                                    color: theme.colorScheme.destructive)
+                                    color: theme.colorScheme.destructive,
+                                  )
                                 : null,
                           ),
                           child: IntrinsicWidth(
@@ -71,18 +70,20 @@ class FormTableLayout extends StatelessWidget {
                               children: [
                                 child!,
                                 if (rows[i].hint != null) ...[
-                                  Gap(8 * scaling),
+                                  DensityGap(gapSm),
                                   rows[i].hint!.xSmall().muted(),
                                 ],
                                 if (error is InvalidResult) ...[
-                                  Gap(8 * scaling),
+                                  DensityGap(gapSm),
                                   DefaultTextStyle.merge(
                                     style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .destructive),
-                                    child:
-                                        Text(error.message).xSmall().medium(),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.destructive,
+                                    ),
+                                    child: Text(
+                                      error.message,
+                                    ).xSmall().medium(),
                                   ),
                                 ],
                               ],
@@ -93,9 +94,7 @@ class FormTableLayout extends StatelessWidget {
                     },
                     child: rows[i].child,
                   ),
-                ).withPadding(
-                  top: i == 0 ? 0 : spacing,
-                ),
+                ).withPadding(top: i == 0 ? 0 : spacing),
               ],
             ),
         ],

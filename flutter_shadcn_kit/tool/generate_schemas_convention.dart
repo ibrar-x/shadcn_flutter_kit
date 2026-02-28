@@ -1066,8 +1066,8 @@ Map<String, dynamic> _buildSchemaMap(
 }) {
   final json = schema.toJson();
   json[r'$schema'] = canonical
-      ? '../../../../component_theme.schema.json'
-      : '../../../component_theme.schema.json';
+      ? '../../../../manifests/component_theme.schema.json'
+      : '../../../manifests/component_theme.schema.json';
   return json;
 }
 
@@ -1091,7 +1091,7 @@ String _buildDartSchemaFile({
 
 import 'dart:convert';
 
-import 'package:flutter_shadcn_kit/registry/shared/theme/schema/component_schema.dart';
+import '../../../../../../shared/theme/schema/component_schema.dart';
 
 class $className {
   static const String id = '$componentId';

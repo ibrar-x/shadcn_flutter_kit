@@ -20,12 +20,13 @@ class SelectLabel extends StatelessWidget {
   /// - [child] (`Widget`, required): Label content.
   const SelectLabel({super.key, required this.child});
 
+  /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     return Padding(
-      padding: const EdgeInsets.all(8) * scaling,
+      padding: EdgeInsets.all(theme.density.baseGap * scaling),
       child: child.semiBold().small(),
     );
   }

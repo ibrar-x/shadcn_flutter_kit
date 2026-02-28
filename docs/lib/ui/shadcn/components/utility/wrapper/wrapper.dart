@@ -7,10 +7,7 @@ part '_impl/state/wrapper_state.dart';
 /// Takes a [BuildContext] and a [Widget] child, returning a wrapped [Widget].
 /// This allows for dynamic wrapping behavior where the wrapper can access
 /// the build context.
-typedef WrapperBuilder = Widget Function(
-  BuildContext context,
-  Widget child,
-);
+typedef WrapperBuilder = Widget Function(BuildContext context, Widget child);
 
 /// A widget that conditionally wraps its child with a builder function.
 ///
@@ -71,5 +68,6 @@ class Wrapper extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<Wrapper> createState() => _WrapperState();
 }

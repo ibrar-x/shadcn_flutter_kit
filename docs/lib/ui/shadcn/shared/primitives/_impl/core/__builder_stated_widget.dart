@@ -1,17 +1,21 @@
 part of '../../clickable.dart';
 
 
+/// _BuilderStatedWidget defines a reusable type for this registry module.
 class _BuilderStatedWidget extends StatedWidget {
   final Widget Function(BuildContext context, Set<WidgetState> states) builder;
 
+/// Creates a `_BuilderStatedWidget` instance.
   const _BuilderStatedWidget({
     super.key,
     required this.builder,
   }) : super._();
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     WidgetStatesData? statesData = Data.maybeOf(context);
+/// Stores `states` state/configuration for this implementation.
     Set<WidgetState> states = statesData?.states ?? {};
     return builder(context, states);
   }

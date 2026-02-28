@@ -1,5 +1,6 @@
 part of '../../overlay.dart';
 
+/// OverlayCompleter defines a reusable type for this registry module.
 abstract class OverlayCompleter<T> {
   /// Removes the overlay from the screen.
   void remove();

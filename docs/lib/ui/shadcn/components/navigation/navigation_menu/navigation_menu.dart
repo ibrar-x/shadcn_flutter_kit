@@ -63,6 +63,9 @@ class NavigationMenuTheme extends ComponentThemeData {
   /// )
   /// ```
   const NavigationMenuTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.margin,
@@ -77,8 +80,9 @@ class NavigationMenuTheme extends ComponentThemeData {
     ValueGetter<Offset?>? offset,
   }) {
     return NavigationMenuTheme(
-      surfaceOpacity:
-          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       margin: margin == null ? this.margin : margin(),
       offset: offset == null ? this.offset : offset(),
@@ -86,6 +90,7 @@ class NavigationMenuTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is NavigationMenuTheme &&
@@ -216,4 +221,3 @@ class NavigationMenuTheme extends ComponentThemeData {
 ///
 /// Handles hover debouncing, popover control, active menu item tracking,
 /// and content builder management for navigation menu items.
-

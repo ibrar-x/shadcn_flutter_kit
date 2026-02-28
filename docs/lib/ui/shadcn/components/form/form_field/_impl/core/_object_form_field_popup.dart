@@ -1,14 +1,25 @@
 part of '../../form_field.dart';
 
+/// _ObjectFormFieldPopup represents a form-related type in the registry.
 class _ObjectFormFieldPopup<T> extends StatefulWidget {
+  /// Current value stored for `value`.
   final T? value;
   final Widget Function(BuildContext context, ObjectFormHandler<T> handler)
-      editorBuilder;
+  editorBuilder;
+
+  /// Field storing `popoverPadding` for this form implementation.
   final EdgeInsetsGeometry? popoverPadding;
+
+  /// Callback invoked for `onChanged` events.
   final ValueChanged<T?>? onChanged;
+
+  /// Field storing `prompt` for this form implementation.
   final ValueChanged<T?> prompt;
+
+  /// Field storing `decorate` for this form implementation.
   final bool decorate;
 
+  /// Constructs `_ObjectFormFieldPopup` with the provided parameters.
   const _ObjectFormFieldPopup({
     super.key,
     required this.value,
@@ -19,6 +30,7 @@ class _ObjectFormFieldPopup<T> extends StatefulWidget {
     this.decorate = true,
   });
 
+  /// Creates the `State` object for this widget.
   @override
   State<_ObjectFormFieldPopup<T>> createState() =>
       _ObjectFormFieldPopupState<T>();

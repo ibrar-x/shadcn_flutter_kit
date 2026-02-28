@@ -10,7 +10,9 @@ typedef JsonList = List<dynamic>;
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
-    final candidate = File('${current.path}/lib/registry/components.json');
+    final candidate = File(
+      '${current.path}/lib/registry/manifests/components.json',
+    );
     if (candidate.existsSync()) {
       return current;
     }
@@ -117,13 +119,15 @@ void main(List<String> args) {
 
   final root = _findRepoRoot(Directory.current);
   if (root == null) {
-    stderr.writeln('Error: Could not locate lib/registry/components.json');
+    stderr.writeln(
+      'Error: Could not locate lib/registry/manifests/components.json',
+    );
     exitCode = 1;
     return;
   }
 
   final registryDir = Directory('${root.path}/lib/registry');
-  final componentsJson = File('${registryDir.path}/components.json');
+  final componentsJson = File('${registryDir.path}/manifests/components.json');
   if (!componentsJson.existsSync()) {
     stderr.writeln(
       'Error: components.json not found at ${componentsJson.path}',

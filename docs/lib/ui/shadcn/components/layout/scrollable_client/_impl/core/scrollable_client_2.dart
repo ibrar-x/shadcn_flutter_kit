@@ -1,5 +1,6 @@
 part of '../../scrollable_client.dart';
 
+/// ScrollableClient defines a reusable type for this registry module.
 class ScrollableClient extends StatelessWidget {
   /// Whether this is the primary scrollable in the widget tree.
   final bool? primary;
@@ -62,52 +63,67 @@ class ScrollableClient extends StatelessWidget {
     Clip clipBehavior,
   ) {
     return ScrollableClientViewport(
-        overscroll: overscroll,
-        verticalOffset: verticalOffset,
-        verticalAxisDirection: verticalDetails.direction,
-        horizontalOffset: horizontalOffset,
-        horizontalAxisDirection: horizontalDetails.direction,
-        clipBehavior: clipBehavior,
-        delegate: TwoDimensionalChildBuilderDelegate(
-          builder: (context, vicinity) {
-            return ListenableBuilder(
-              listenable: Listenable.merge([
-                verticalOffset,
-                horizontalOffset,
-              ]),
-              builder: (context, child) {
-                var horizontalPixels = horizontalOffset.pixels;
-                var verticalPixels = verticalOffset.pixels;
-                return builder(
-                    context,
-                    Offset(horizontalPixels, verticalPixels),
-                    (vicinity as _ScrollableClientChildVicinity).viewportSize,
-                    child);
-              },
-              child: child,
-            );
-          },
-        ),
-        mainAxis: mainAxis);
+      overscroll: overscroll,
+      verticalOffset: verticalOffset,
+      verticalAxisDirection: verticalDetails.direction,
+      horizontalOffset: horizontalOffset,
+      horizontalAxisDirection: horizontalDetails.direction,
+      clipBehavior: clipBehavior,
+      delegate: TwoDimensionalChildBuilderDelegate(
+        builder: (context, vicinity) {
+          return ListenableBuilder(
+            listenable: Listenable.merge([verticalOffset, horizontalOffset]),
+            builder: (context, child) {
+/// Stores `horizontalPixels` state/configuration for this implementation.
+              var horizontalPixels = horizontalOffset.pixels;
+/// Stores `verticalPixels` state/configuration for this implementation.
+              var verticalPixels = verticalOffset.pixels;
+              return builder(
+                context,
+/// Creates a `Offset` instance.
+                Offset(horizontalPixels, verticalPixels),
+                (vicinity as _ScrollableClientChildVicinity).viewportSize,
+                child,
+              );
+            },
+            child: child,
+          );
+        },
+      ),
+      mainAxis: mainAxis,
+    );
   }
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    assert(axisDirectionToAxis(verticalDetails.direction) == Axis.vertical,
-        'TwoDimensionalScrollView.verticalDetails are not Axis.vertical.');
-    assert(axisDirectionToAxis(horizontalDetails.direction) == Axis.horizontal,
-        'TwoDimensionalScrollView.horizontalDetails are not Axis.horizontal.');
+/// Creates a `assert` instance.
+    assert(
+/// Creates a `axisDirectionToAxis` instance.
+      axisDirectionToAxis(verticalDetails.direction) == Axis.vertical,
+      'TwoDimensionalScrollView.verticalDetails are not Axis.vertical.',
+    );
+/// Creates a `assert` instance.
+    assert(
+/// Creates a `axisDirectionToAxis` instance.
+      axisDirectionToAxis(horizontalDetails.direction) == Axis.horizontal,
+      'TwoDimensionalScrollView.horizontalDetails are not Axis.horizontal.',
+    );
 
     final compTheme = ComponentTheme.maybeOf<ScrollableClientTheme>(context);
-    final diag = diagonalDragBehavior ??
+    final diag =
+        diagonalDragBehavior ??
         compTheme?.diagonalDragBehavior ??
         DiagonalDragBehavior.none;
-    final dragStart = dragStartBehavior ??
+    final dragStart =
+        dragStartBehavior ??
         compTheme?.dragStartBehavior ??
         DragStartBehavior.start;
-    final keyboardDismiss = keyboardDismissBehavior ??
+    final keyboardDismiss =
+        keyboardDismissBehavior ??
         compTheme?.keyboardDismissBehavior ??
         ScrollViewKeyboardDismissBehavior.manual;
+/// Stores `clip` state/configuration for this implementation.
     final clip = clipBehavior ?? compTheme?.clipBehavior ?? Clip.hardEdge;
     final hitTest =
         hitTestBehavior ?? compTheme?.hitTestBehavior ?? HitTestBehavior.opaque;
@@ -119,19 +135,19 @@ class ScrollableClient extends StatelessWidget {
       Axis.horizontal => horizontalDetails,
     };
 
-    final bool effectivePrimary = primary ??
+    final bool effectivePrimary =
+        primary ??
         mainAxisDetails.controller == null &&
-            PrimaryScrollController.shouldInherit(
-              context,
-              mainAxis,
-            );
+            PrimaryScrollController.shouldInherit(context, mainAxis);
 
     if (effectivePrimary) {
+/// Creates a `assert` instance.
       assert(
-          mainAxisDetails.controller == null,
-          'TwoDimensionalScrollView.primary was explicitly set to true, but a '
-          'ScrollController was provided in the ScrollableDetails of the '
-          'TwoDimensionalScrollView.mainAxis.');
+        mainAxisDetails.controller == null,
+        'TwoDimensionalScrollView.primary was explicitly set to true, but a '
+        'ScrollController was provided in the ScrollableDetails of the '
+        'TwoDimensionalScrollView.mainAxis.',
+      );
       mainAxisDetails = mainAxisDetails.copyWith(
         controller: PrimaryScrollController.of(context),
       );
@@ -148,6 +164,7 @@ class ScrollableClient extends StatelessWidget {
       },
       diagonalDragBehavior: diag,
       viewportBuilder: (context, vOffset, hOffset) =>
+/// Creates a `_buildViewport` instance.
           _buildViewport(context, vOffset, hOffset, effectiveOverscroll, clip),
       dragStartBehavior: dragStart,
       hitTestBehavior: hitTest,

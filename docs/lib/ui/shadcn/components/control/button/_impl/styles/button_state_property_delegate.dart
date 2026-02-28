@@ -23,5 +23,5 @@ import 'package:flutter/widgets.dart';
 ///   return defaultColor; // Use default
 /// };
 /// ```
-typedef ButtonStatePropertyDelegate<T> = T Function(
-    BuildContext context, Set<WidgetState> states, T value);
+typedef ButtonStatePropertyDelegate<T> =
+    T Function(BuildContext context, Set<WidgetState> states, T value);

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../../../../shared/icons/radix_icons.dart';
 import '../variants/empty_state_variant.dart';
 
+/// Implements `defaultEmptyStateIcon` behavior for empty state.
 IconData defaultEmptyStateIcon(EmptyStateVariant variant) {
   switch (variant) {
     case EmptyStateVariant.noResults:
@@ -14,6 +15,7 @@ IconData defaultEmptyStateIcon(EmptyStateVariant variant) {
   }
 }
 
+/// Implements `defaultEmptyStateTitle` behavior for empty state.
 String defaultEmptyStateTitle(EmptyStateVariant variant) {
   switch (variant) {
     case EmptyStateVariant.noResults:
@@ -25,6 +27,7 @@ String defaultEmptyStateTitle(EmptyStateVariant variant) {
   }
 }
 
+/// Implements `defaultEmptyStateDescription` behavior for empty state.
 String defaultEmptyStateDescription(EmptyStateVariant variant) {
   switch (variant) {
     case EmptyStateVariant.noResults:

@@ -8,6 +8,12 @@ class InputStepperButtonFeature extends InputFeature {
   /// Default value when the input is invalid or empty.
   final double? invalidValue;
 
+  /// Minimum allowed value.
+  final double? min;
+
+  /// Maximum allowed value.
+  final double? max;
+
   /// Position of the increment button.
   final InputFeaturePosition position;
 
@@ -20,10 +26,11 @@ class InputStepperButtonFeature extends InputFeature {
     super.skipFocusTraversal,
     this.step = 1.0,
     this.invalidValue = 0.0,
+    this.min,
+    this.max,
     this.position = InputFeaturePosition.trailing,
     this.icon = const Icon(LucideIcons.plus),
   });
-
 
   /// Creates a decrement button feature for numeric inputs.
   const InputStepperButtonFeature.decrement({
@@ -31,10 +38,13 @@ class InputStepperButtonFeature extends InputFeature {
     super.skipFocusTraversal,
     this.step = -1.0,
     this.invalidValue = 0.0,
+    this.min,
+    this.max,
     this.position = InputFeaturePosition.trailing,
     this.icon = const Icon(LucideIcons.minus),
   });
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputStepperButtonFeatureState();
 }

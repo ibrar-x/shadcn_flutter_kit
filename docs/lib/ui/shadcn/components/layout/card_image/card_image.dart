@@ -35,6 +35,9 @@ class CardImageTheme extends ComponentThemeData {
   final double? gap;
 
   const CardImageTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.style,
     this.direction,
     this.hoverScale,
@@ -44,6 +47,7 @@ class CardImageTheme extends ComponentThemeData {
     this.gap,
   });
 
+/// Creates a `CardImageTheme` instance.
   CardImageTheme copyWith({
     ValueGetter<AbstractButtonStyle?>? style,
     ValueGetter<Axis?>? direction,
@@ -58,14 +62,16 @@ class CardImageTheme extends ComponentThemeData {
       direction: direction == null ? this.direction : direction(),
       hoverScale: hoverScale == null ? this.hoverScale : hoverScale(),
       normalScale: normalScale == null ? this.normalScale : normalScale(),
-      backgroundColor:
-          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
       borderColor: borderColor == null ? this.borderColor : borderColor(),
       gap: gap == null ? this.gap : gap(),
     );
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is CardImageTheme &&
         other.style == style &&
@@ -79,15 +85,14 @@ class CardImageTheme extends ComponentThemeData {
 
   @override
   int get hashCode => Object.hash(
-        style,
-        direction,
-        hoverScale,
-        normalScale,
-        backgroundColor,
-        borderColor,
-        gap,
-      );
+    style,
+    direction,
+    hoverScale,
+    normalScale,
+    backgroundColor,
+    borderColor,
+    gap,
+  );
 }
 
 /// Interactive card component with an image and optional text content.
-

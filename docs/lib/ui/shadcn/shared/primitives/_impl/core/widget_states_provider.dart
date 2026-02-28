@@ -1,5 +1,6 @@
 part of '../../clickable.dart';
 
+/// WidgetStatesProvider defines a reusable type for this registry module.
 class WidgetStatesProvider extends StatelessWidget {
   /// Optional controller for programmatic state management.
   final WidgetStatesController? controller;
@@ -51,12 +52,14 @@ class WidgetStatesProvider extends StatelessWidget {
         inherit = false;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (boundary) {
       return Data<WidgetStatesData>.boundary(
         child: child,
       );
     }
+/// Stores `parentStates` state/configuration for this implementation.
     Set<WidgetState>? parentStates;
     if (inherit) {
       WidgetStatesData? parentData = Data.maybeOf<WidgetStatesData>(context);
@@ -67,6 +70,7 @@ class WidgetStatesProvider extends StatelessWidget {
         if (controller != null) controller!,
       ]),
       builder: (context, child) {
+/// Stores `currentStates` state/configuration for this implementation.
         Set<WidgetState> currentStates = states ?? {};
         if (controller != null) {
           currentStates = currentStates.union(controller!.value);

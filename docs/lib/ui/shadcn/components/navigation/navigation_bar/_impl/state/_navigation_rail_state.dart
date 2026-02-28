@@ -1,34 +1,54 @@
 part of '../../navigation_bar.dart';
 
+/// _NavigationRailState defines a reusable type for this registry module.
 class _NavigationRailState extends State<NavigationRail>
     with NavigationContainerMixin {
   AlignmentGeometry get _alignment {
     switch ((widget.alignment, widget.direction)) {
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.start, Axis.horizontal):
         return AlignmentDirectional.centerStart;
+
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.center, Axis.horizontal):
         return AlignmentDirectional.topCenter;
+
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.end, Axis.horizontal):
         return AlignmentDirectional.centerEnd;
+
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.start, Axis.vertical):
         return AlignmentDirectional.topCenter;
+
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.center, Axis.vertical):
         return AlignmentDirectional.center;
+
+      /// Creates a `case` instance.
       case (NavigationRailAlignment.end, Axis.vertical):
         return AlignmentDirectional.bottomCenter;
     }
   }
 
+  /// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
   }
 
   @override
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    var parentPadding = widget.padding ??
-        (const EdgeInsets.symmetric(vertical: 8, horizontal: 12) * scaling);
+    var parentPadding =
+        widget.padding ??
+        (EdgeInsets.symmetric(
+          vertical: theme.density.baseGap * scaling,
+          horizontal: theme.density.baseContentPadding * scaling * 0.75,
+        ));
     var directionality = Directionality.of(context);
     var resolvedPadding = parentPadding.resolve(directionality);
     return RepaintBoundary(
@@ -44,14 +64,15 @@ class _NavigationRailState extends State<NavigationRail>
           onSelected: _onSelected,
           expanded: widget.expanded,
           childCount: widget.children.length,
-          spacing: widget.spacing ?? (8 * scaling),
+          spacing: widget.spacing ?? (theme.density.baseGap * scaling),
           keepCrossAxisSize: widget.keepCrossAxisSize,
           keepMainAxisSize: widget.keepMainAxisSize,
         ),
         child: SurfaceBlur(
           surfaceBlur: widget.surfaceBlur,
           child: Container(
-            color: widget.backgroundColor ??
+            color:
+                widget.backgroundColor ??
                 (theme.colorScheme.background.scaleAlpha(
                   widget.surfaceOpacity ?? 1,
                 )),
@@ -62,6 +83,7 @@ class _NavigationRailState extends State<NavigationRail>
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   return _wrapIntrinsic(
+                    /// Creates a `Flex` instance.
                     Flex(
                       direction: widget.direction,
                       crossAxisAlignment: _crossAxisAlignment(
@@ -80,6 +102,7 @@ class _NavigationRailState extends State<NavigationRail>
     );
   }
 
+  /// Executes `_crossAxisAlignment` behavior for this component/composite.
   CrossAxisAlignment _crossAxisAlignment(
     BoxConstraints constraints,
     Axis direction,
@@ -93,6 +116,7 @@ class _NavigationRailState extends State<NavigationRail>
     return CrossAxisAlignment.stretch;
   }
 
+  /// Executes `_wrapIntrinsic` behavior for this component/composite.
   Widget _wrapIntrinsic(Widget child) {
     if (widget.direction == Axis.horizontal) {
       return IntrinsicHeight(child: child);

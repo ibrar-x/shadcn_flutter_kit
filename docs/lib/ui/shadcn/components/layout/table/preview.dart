@@ -2,43 +2,61 @@ import 'package:flutter/material.dart' hide Table;
 
 import '../table/table.dart' as shadcn;
 
+/// TablePreview defines a reusable type for this registry module.
 class TablePreview extends StatelessWidget {
   const TablePreview({super.key});
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 420,
           child: shadcn.Table(
             rows: [
+/// Creates a `shadcn.TableHeader` instance.
               shadcn.TableHeader(
                 cells: [
-                  shadcn.TableCell(child: Text('Name')),
-                  shadcn.TableCell(child: Text('Role')),
-                  shadcn.TableCell(child: Text('Status')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Name')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Role')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Status')),
                 ],
               ),
+/// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
-                  shadcn.TableCell(child: Text('Avery')),
-                  shadcn.TableCell(child: Text('Designer')),
-                  shadcn.TableCell(child: Text('Active')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Avery')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Designer')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Active')),
                 ],
               ),
+/// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
-                  shadcn.TableCell(child: Text('Jordan')),
-                  shadcn.TableCell(child: Text('Engineer')),
-                  shadcn.TableCell(child: Text('Active')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Jordan')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Engineer')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Active')),
                 ],
               ),
+/// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
-                  shadcn.TableCell(child: Text('Casey')),
-                  shadcn.TableCell(child: Text('PM')),
-                  shadcn.TableCell(child: Text('Away')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Casey')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('PM')),
+/// Creates a `shadcn.TableCell` instance.
+                  shadcn.TableCell(child: const Text('Away')),
                 ],
               ),
             ],

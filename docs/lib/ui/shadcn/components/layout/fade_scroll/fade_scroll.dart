@@ -21,6 +21,9 @@ class FadeScrollTheme extends ComponentThemeData {
 
   /// Creates a [FadeScrollTheme].
   const FadeScrollTheme({
+    super.themeDensity,
+    super.themeSpacing,
+    super.themeShadows,
     this.startOffset,
     this.endOffset,
     this.gradient,
@@ -40,6 +43,7 @@ class FadeScrollTheme extends ComponentThemeData {
   }
 
   @override
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FadeScrollTheme &&
@@ -56,4 +60,3 @@ class FadeScrollTheme extends ComponentThemeData {
 ///
 /// Adds gradient fade overlays to the start and end of scrollable content,
 /// creating a visual cue that there's more content to scroll.
-

@@ -23,17 +23,18 @@ class KeyboardDisplay extends StatelessWidget {
     super.key,
     required List<LogicalKeyboardKey> keys,
     this.spacing,
-  })  : _keys = keys,
-        _activator = null;
+  }) : _keys = keys,
+       _activator = null;
 
   /// Creates a [KeyboardDisplay] from a shortcut activator.
   const KeyboardDisplay.fromActivator({
     super.key,
     required ShortcutActivator activator,
     this.spacing,
-  })  : _keys = null,
-        _activator = activator;
+  }) : _keys = null,
+       _activator = activator;
 
+  /// Builds the widget tree for keyboard shortcut.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -52,8 +53,6 @@ class KeyboardDisplay extends StatelessWidget {
     ).gap(spacing);
   }
 }
-
-
 
 /// Converts a [ShortcutActivator] into a list of logical keyboard keys.
 List<LogicalKeyboardKey> shortcutActivatorToKeySet(

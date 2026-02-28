@@ -28,6 +28,7 @@
     "_impl/themes/base/switch_theme.dart",
     "_impl/themes/config/switch_theme_config.dart",
     "_impl/themes/config/switch_theme_defaults.dart",
+    "_impl/themes/config/switch_theme_schema.dart",
     "_impl/themes/config/switch_theme_tokens.dart",
     "_impl/utils/switch_controller.dart",
     "switch.dart"

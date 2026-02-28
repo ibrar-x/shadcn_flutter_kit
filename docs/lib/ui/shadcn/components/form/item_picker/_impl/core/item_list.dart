@@ -18,9 +18,11 @@ class ItemList<T> extends ItemChildDelegate<T> {
   /// - [items] (`List<T>`, required): The items to provide.
   const ItemList(this.items);
 
+  /// Field storing `itemCount` for this form implementation.
   @override
   int get itemCount => items.length;
 
+  /// Performs `operator []` logic for this form component.
   @override
   T operator [](int index) => items[index];
 }

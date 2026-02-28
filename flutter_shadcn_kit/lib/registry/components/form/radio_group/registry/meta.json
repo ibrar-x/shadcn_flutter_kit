@@ -37,6 +37,7 @@
     "_impl/state/radio_group_state.dart",
     "_impl/themes/config/radio_group_theme_config.dart",
     "_impl/themes/config/radio_group_theme_defaults.dart",
+    "_impl/themes/config/radio_group_theme_schema.dart",
     "_impl/themes/config/radio_group_theme_tokens.dart",
     "_impl/themes/variants/radio_card_theme.dart",
     "_impl/themes/variants/radio_theme.dart",

@@ -1,15 +1,87 @@
-# Hidden
+# Hidden (`hidden`)
 
-Animate a child’s visibility without rebuilding layout. Uses `AnimatedOpacity` plus a dedicated render object so the child can shrink along one axis or preserve its size.
+Animated visibility helper with axis-aware size control.
 
-```dart
-import 'ui/shadcn/components/hidden/hidden.dart';
+---
 
-Hidden(
-  hidden: !isVisible,
-  direction: Axis.vertical,
-  child: const Text('Toggle me'),
-);
+## When to use
+
+- Use this when:
+  - you need to hide/show content with animation.
+- Avoid when:
+  - simple `Visibility` is enough.
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add hidden
 ```
 
-Provide `ComponentTheme<HiddenTheme>` from `shared/theme/theme.dart` to adjust animation curves, duration, or size-preservation flags.
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/layout/hidden/hidden.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+Hidden(
+  hidden: isHidden,
+  child: const Text('Toggle me'),
+)
+```
+
+---
+
+## API
+
+### Constructor
+
+- `Hidden`
+  - `hidden` (`bool`, required)
+  - `direction` (`Axis?`)
+  - `duration`, `curve`, `reverse`
+  - `keepCrossAxisSize`, `keepMainAxisSize`
+- `HiddenTheme` — theme defaults for animation and axis.
+
+---
+
+## Theming
+
+- `HiddenTheme` controls duration, curve, and axis.
+
+---
+
+## Accessibility
+
+- Avoid hiding focusable content without updating focus state.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use `keepMainAxisSize` to avoid layout jumps.
+
+**Don’t**
+- ❌ Hide content that is required for form submission.
+
+---
+
+## Related components
+
+- `collapsible`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

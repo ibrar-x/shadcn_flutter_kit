@@ -27,5 +27,8 @@ abstract class ItemPickerLayout {
   ///
   /// Returns: A widget displaying the items in this layout.
   Widget build(
-      BuildContext context, ItemChildDelegate items, ItemPickerBuilder builder);
+    BuildContext context,
+    ItemChildDelegate items,
+    ItemPickerBuilder builder,
+  );
 }

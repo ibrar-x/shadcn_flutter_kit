@@ -1,5 +1,6 @@
 part of '../../stepper.dart';
 
+/// Step defines a reusable type for this registry module.
 class Step {
   /// The title widget displayed for this step.
   final Widget title;
@@ -29,9 +30,5 @@ class Step {
   ///   contentBuilder: (context) => AccountSetupForm(),
   /// );
   /// ```
-  const Step({
-    required this.title,
-    this.contentBuilder,
-    this.icon,
-  });
+  const Step({required this.title, this.contentBuilder, this.icon});
 }

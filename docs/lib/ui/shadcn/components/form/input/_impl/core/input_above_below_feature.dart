@@ -32,6 +32,7 @@ class InputAboveBelowFeature extends InputFeature {
     super.skipFocusTraversal,
   }) : position = InputFeaturePosition.below;
 
+  /// Creates the `State` object for this widget.
   @override
   InputFeatureState createState() => _InputAboveBelowFeatureState();
 }

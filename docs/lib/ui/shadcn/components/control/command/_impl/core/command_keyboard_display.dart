@@ -4,11 +4,15 @@ import 'package:flutter/widgets.dart';
 import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/primitives/text.dart';
 
+/// CommandKeyboardDisplay defines a reusable type for this registry module.
 class CommandKeyboardDisplay extends StatelessWidget {
   const CommandKeyboardDisplay({super.key, required this.keys});
 
-  factory CommandKeyboardDisplay.fromActivator(
-      {required SingleActivator activator}) {
+/// Factory constructor that creates `CommandKeyboardDisplay.fromActivator` instances.
+  factory CommandKeyboardDisplay.fromActivator({
+    required SingleActivator activator,
+  }) {
+/// Stores `keys` state/configuration for this implementation.
     final keys = <LogicalKeyboardKey>[];
     if (activator.control) keys.add(LogicalKeyboardKey.control);
     if (activator.shift) keys.add(LogicalKeyboardKey.shift);
@@ -21,24 +25,26 @@ class CommandKeyboardDisplay extends StatelessWidget {
     );
   }
 
+/// Stores `keys` state/configuration for this implementation.
   final List<LogicalKeyboardKey> keys;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (keys.isEmpty) {
       return const SizedBox.shrink();
     }
     final theme = Theme.of(context);
     return Wrap(
-      spacing: theme.scaling * 4,
+      spacing: theme.density.baseGap * theme.scaling * gapXs,
       children: keys.map((key) {
         final label = key.keyLabel.isNotEmpty
             ? key.keyLabel
             : key.debugName ?? key.toString();
         return Container(
           padding: EdgeInsets.symmetric(
-            horizontal: theme.scaling * 6,
-            vertical: theme.scaling * 2,
+            horizontal: theme.density.baseGap * theme.scaling * 0.75,
+            vertical: theme.density.baseGap * theme.scaling * 0.25,
           ),
           decoration: BoxDecoration(
             color: theme.colorScheme.card,

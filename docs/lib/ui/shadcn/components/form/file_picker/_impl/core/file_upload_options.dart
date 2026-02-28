@@ -88,6 +88,7 @@ class FileUploadDragDropOptions extends FileUploadOptions {
   /// Loading presentation for file items list.
   final FileUploadItemLoadingOptions itemLoading;
 
+  /// Field storing `variant` for this form implementation.
   @override
   FileUploadVariant get variant => FileUploadVariant.dragDrop;
 }
@@ -121,6 +122,7 @@ class FileUploadTileOptions extends FileUploadOptions {
   /// Loading presentation for file items list.
   final FileUploadItemLoadingOptions itemLoading;
 
+  /// Field storing `variant` for this form implementation.
   @override
   FileUploadVariant get variant => FileUploadVariant.tile;
 }
@@ -161,6 +163,7 @@ class FileUploadMobileOptions extends FileUploadOptions {
   /// Loading presentation for file items list.
   final FileUploadItemLoadingOptions itemLoading;
 
+  /// Field storing `variant` for this form implementation.
   @override
   FileUploadVariant get variant => FileUploadVariant.mobile;
 }
@@ -294,10 +297,19 @@ class FileUploadHelpfulInfoData {
     required this.allowedMimeTypes,
   });
 
+  /// Field storing `allowMultiple` for this form implementation.
   final bool allowMultiple;
+
+  /// Field storing `maxFiles` for this form implementation.
   final int? maxFiles;
+
+  /// Field storing `maxFileSizeBytes` for this form implementation.
   final int? maxFileSizeBytes;
+
+  /// Field storing `allowedExtensions` for this form implementation.
   final List<String>? allowedExtensions;
+
+  /// Field storing `allowedMimeTypes` for this form implementation.
   final List<String>? allowedMimeTypes;
 }
 
@@ -314,9 +326,16 @@ class FileUploadStatusLabels {
     this.failed = 'Failed',
   });
 
+  /// Field storing `uploading` for this form implementation.
   final String uploading;
+
+  /// Field storing `completed` for this form implementation.
   final String completed;
+
+  /// Field storing `waiting` for this form implementation.
   final String waiting;
+
+  /// Field storing `failed` for this form implementation.
   final String failed;
 
   /// Maps status enum values to user-facing labels.

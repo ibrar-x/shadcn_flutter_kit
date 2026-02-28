@@ -70,20 +70,17 @@ class WidgetStatesProvider extends StatelessWidget {
   /// ## Parameters
   ///
   /// * [child] - The descendant widget.
-  const WidgetStatesProvider.boundary({
-    super.key,
-    required this.child,
-  })  : boundary = true,
-        controller = null,
-        states = null,
-        inherit = false;
+  const WidgetStatesProvider.boundary({super.key, required this.child})
+    : boundary = true,
+      controller = null,
+      states = null,
+      inherit = false;
 
   @override
+/// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (boundary) {
-      return Data<WidgetStatesData>.boundary(
-        child: child,
-      );
+      return Data<WidgetStatesData>.boundary(child: child);
     }
     Set<WidgetState>? parentStates;
     if (inherit) {
@@ -91,9 +88,7 @@ class WidgetStatesProvider extends StatelessWidget {
       parentStates = parentData?.states;
     }
     return ListenableBuilder(
-      listenable: Listenable.merge([
-        if (controller != null) controller!,
-      ]),
+      listenable: Listenable.merge([if (controller != null) controller!]),
       builder: (context, child) {
         Set<WidgetState> currentStates = states ?? {};
         if (controller != null) {

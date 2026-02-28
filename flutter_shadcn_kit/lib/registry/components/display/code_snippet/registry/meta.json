@@ -24,6 +24,7 @@
     "_impl/themes/base/code_snippet_theme.dart",
     "_impl/themes/config/code_snippet_theme_config.dart",
     "_impl/themes/config/code_snippet_theme_defaults.dart",
+    "_impl/themes/config/code_snippet_theme_schema.dart",
     "_impl/themes/config/code_snippet_theme_tokens.dart",
     "code_snippet.dart"
   ],

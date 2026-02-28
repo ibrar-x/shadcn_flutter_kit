@@ -1,5 +1,87 @@
-# `popup`
+# Popup (`popup`)
 
-`MenuPopup` is a themed container for dropdown/context menu surfaces. It exposes surface styling (opacity, blur, fill color, borders) plus optional scrollability and wraps content in the modal structure shared with dialogs/sheets.
+Styled popup container for menus and dropdowns.
 
-Install this component when you need consistent popup menus or when porting dropdown/context menu functionality from the CLI.
+---
+
+## When to use
+
+- Use this when:
+  - you need a styled container for menu items.
+  - you want the same surface treatment as other overlays.
+- Avoid when:
+  - you need a fully managed overlay (use `menu` or `dropdown_menu`).
+
+---
+
+## Install
+
+```bash
+flutter_shadcn add popup
+```
+
+---
+
+## Import
+
+```dart
+import 'package:<your_app>/ui/shadcn/overlay/popup/popup.dart';
+```
+
+---
+
+## Minimal example
+
+```dart
+MenuPopup(
+  children: [
+    const Text('Item 1'),
+    const Text('Item 2'),
+  ],
+)
+```
+
+---
+
+## API
+
+### Widgets and themes
+
+- `MenuPopup`
+- `MenuPopupTheme`
+
+---
+
+## Theming
+
+- `MenuPopupTheme` controls padding, radius, and surface blur/opacity.
+
+---
+
+## Accessibility
+
+- Ensure menu items are reachable via keyboard when used in overlays.
+
+---
+
+## Do / Don’t
+
+**Do**
+- ✅ Use inside `MenuGroup` for consistent layout.
+
+**Don’t**
+- ❌ Use as a standalone overlay without a dismissal mechanism.
+
+---
+
+## Related components
+
+- `menu`
+- `dropdown_menu`
+
+---
+
+## Registry rules
+
+- One public class per file
+- Helpers under `_impl/`

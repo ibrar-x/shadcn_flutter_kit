@@ -23,15 +23,23 @@ class CompositeValidator<T> extends Validator<T> {
 
   @override
   FutureOr<ValidationResult?> validate(
-      BuildContext context, T? value, FormValidationMode state) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+  ) {
     return _chainValidation(context, value, state, 0);
   }
 
   FutureOr<ValidationResult?> _chainValidation(
-      BuildContext context, T? value, FormValidationMode state, int index) {
+    BuildContext context,
+    T? value,
+    FormValidationMode state,
+    int index,
+  ) {
     if (index >= validators.length) {
       return null;
     }
+
     var validator = validators[index];
     var result = validator.validate(context, value, state);
     if (result is Future<ValidationResult?>) {
@@ -51,11 +59,13 @@ class CompositeValidator<T> extends Validator<T> {
     return _chainValidation(context, value, state, index + 1);
   }
 
+  /// Performs `combine` logic for this form component.
   @override
   Validator<T> combine(Validator<T> other) {
     return CompositeValidator([...validators, other]);
   }
 
+  /// Performs `shouldRevalidate` logic for this form component.
   @override
   bool shouldRevalidate(FormKey<dynamic> source) {
     for (var validator in validators) {
@@ -66,12 +76,14 @@ class CompositeValidator<T> extends Validator<T> {
     return false;
   }
 
+  /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
     return other is CompositeValidator &&
         listEquals(other.validators, validators);
   }
 
+  /// Flag indicating whether `hashCode` is enabled/active.
   @override
   int get hashCode => validators.hashCode;
 }

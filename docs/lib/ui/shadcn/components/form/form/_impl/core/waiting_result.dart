@@ -5,11 +5,12 @@ part of '../../form.dart';
 /// Used when asynchronous validation is being performed and the result
 /// is not yet available.
 class WaitingResult extends ValidationResult {
+  /// Field storing `_key` for this form implementation.
   final FormKey? _key;
 
   /// Creates a waiting result attached to a form key.
   const WaitingResult.attached({required FormKey key, required super.state})
-      : _key = key;
+    : _key = key;
 
   @override
   FormKey get key {
@@ -17,6 +18,7 @@ class WaitingResult extends ValidationResult {
     return _key!;
   }
 
+  /// Performs `attach` logic for this form component.
   @override
   WaitingResult attach(FormKey key) {
     return WaitingResult.attached(key: key, state: state);

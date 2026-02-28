@@ -1,5 +1,6 @@
 part of '../../table.dart';
 
+/// TableRef defines a reusable type for this registry module.
 class TableRef {
   /// Starting index of the reference.
   final int index;

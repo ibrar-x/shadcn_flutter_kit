@@ -8,20 +8,16 @@
     "utility",
     "formatting"
   ],
-  "installedAt": "2026-02-09T10:18:03.241917Z",
+  "installedAt": "2026-02-22T01:08:41.416075Z",
   "shared": [
     "util"
   ],
   "dependsOn": [],
   "files": [
-    "registry/components/utility/locale_utils/README.md",
     "registry/components/utility/locale_utils/_impl/core/date_part.dart",
     "registry/components/utility/locale_utils/_impl/core/duration_part.dart",
     "registry/components/utility/locale_utils/_impl/core/time_part.dart",
-    "registry/components/utility/locale_utils/locale_utils.dart",
-    "registry/components/utility/locale_utils/locale_utils.meta.json",
-    "registry/components/utility/locale_utils/meta.json",
-    "registry/components/utility/locale_utils/preview.dart"
+    "registry/components/utility/locale_utils/locale_utils.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

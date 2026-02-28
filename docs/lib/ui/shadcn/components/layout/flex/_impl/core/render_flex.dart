@@ -2,6 +2,7 @@ part of '../../flex.dart';
 
 /// Patched flex render object with paint-order sorting support.
 class RenderFlex extends rendering.RenderFlex with PaintOrderMixin {
+/// Creates a `RenderFlex` instance.
   RenderFlex({
     super.children,
     super.direction,
@@ -15,12 +16,18 @@ class RenderFlex extends rendering.RenderFlex with PaintOrderMixin {
     super.spacing,
   });
 
+/// Stores `_hasOverflow` state/configuration for this implementation.
   bool _hasOverflow = false;
 
   @override
   rendering.RenderBox? get paintOrderFirstChild => firstChild;
 
   @override
+/// Stores `optionalClipBehavior` state/configuration for this implementation.
+  Clip? get optionalClipBehavior => clipBehavior;
+
+  @override
+/// Executes `setupParentData` behavior for this component/composite.
   void setupParentData(rendering.RenderBox child) {
     if (child.parentData is! FlexParentData) {
       child.parentData = FlexParentData();
@@ -28,16 +35,20 @@ class RenderFlex extends rendering.RenderFlex with PaintOrderMixin {
   }
 
   @override
+/// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
     super.performLayout();
     buildSortedLinkedList();
     _hasOverflow = _checkOverflow();
   }
 
+/// Executes `_checkOverflow` behavior for this component/composite.
   bool _checkOverflow() {
     rendering.RenderBox? child = firstChild;
     while (child != null) {
+/// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData! as FlexParentData;
+/// Stores `childRect` state/configuration for this implementation.
       final childRect = parentData.offset & child.size;
       if (childRect.right > size.width + 0.001 ||
           childRect.bottom > size.height + 0.001) {
@@ -49,6 +60,7 @@ class RenderFlex extends rendering.RenderFlex with PaintOrderMixin {
   }
 
   @override
+/// Executes `paint` behavior for this component/composite.
   void paint(rendering.PaintingContext context, Offset offset) {
     if (!_hasOverflow) {
       paintSorted(context, offset);
@@ -59,6 +71,7 @@ class RenderFlex extends rendering.RenderFlex with PaintOrderMixin {
       return;
     }
 
+/// Creates a `context.pushClipRect` instance.
     context.pushClipRect(
       needsCompositing,
       offset,

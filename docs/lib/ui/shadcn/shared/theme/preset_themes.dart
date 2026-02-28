@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND.
-// Run `dart run tools/generate_theme_presets.dart` to refresh.
+// Run `dart run tool/generate_theme_presets.dart` to refresh.
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:ui';
@@ -9,6 +9,7 @@ import 'package:flutter/painting.dart';
 import 'color_scheme.dart';
 import 'theme.dart';
 
+/// RegistryThemePresetTokens defines a reusable type for this registry module.
 class RegistryThemePresetTokens {
   final double radius;
   final SpacingScale spacing;
@@ -32,6 +33,7 @@ class RegistryThemePresetTokens {
   Density get density => Density.fromSpacingScale(spacing);
 }
 
+/// RegistryThemePreset defines a reusable type for this registry module.
 class RegistryThemePreset {
   final String id;
   final String name;
@@ -49,6 +51,108 @@ class RegistryThemePreset {
     required this.darkTokens,
   });
 }
+
+// ============================================================================
+// Common Shadow Scales
+// ============================================================================
+
+/// Standard light shadow (used by most light mode themes).
+final _shadowLightStandard = ShadowScale(
+  shadow2xs: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadowXs: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadowSm: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadow: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadowMd: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadowLg: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadowXl: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadow2xl: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+);
+
+/// Standard dark shadow (used by most dark mode themes).
+final _shadowDarkStandard = ShadowScale(
+  shadow2xs: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadowXs: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadowSm: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadow: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadowMd: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadowLg: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadowXl: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadow2xl: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+);
+
+/// Soft light shadow (used by amethyst, cosmic, etc).
+final _shadowLightSoft = ShadowScale(
+  shadow2xs: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadowXs: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadowSm: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadow: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadowMd: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadowLg: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadowXl: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadow2xl: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+);
+
+// ============================================================================
+// Factory Helpers
+// ============================================================================
+
+RegistryThemePresetTokens _lightTokens({
+  double radius = 0.5,
+  double spacingBase = 4,
+  ShadowScale? shadows,
+  String? fontSans,
+  String? fontSerif,
+  String? fontMono,
+}) =>
+    RegistryThemePresetTokens(
+      radius: radius,
+      spacing: SpacingScale(spacingBase),
+      tracking: TrackingScale(normal: 0),
+      shadows: shadows ?? _shadowLightStandard,
+      fontSans: fontSans,
+      fontSerif: fontSerif,
+      fontMono: fontMono,
+    );
+
+RegistryThemePresetTokens _darkTokens({
+  double radius = 0.5,
+  double spacingBase = 3.84,
+  ShadowScale? shadows,
+  String? fontSans,
+  String? fontSerif,
+  String? fontMono,
+}) =>
+    RegistryThemePresetTokens(
+      radius: radius,
+      spacing: SpacingScale(spacingBase),
+      tracking: TrackingScale(normal: 0),
+      shadows: shadows ?? _shadowDarkStandard,
+      fontSans: fontSans,
+      fontSerif: fontSerif,
+      fontMono: fontMono,
+    );
+
+ShadowScale _uniformShadowScale({
+  required num x,
+  required num y,
+  required num blur,
+  required num spread,
+  required int color,
+}) =>
+    ShadowScale(
+      shadow2xs: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadowXs: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadowSm: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadow: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadowMd: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadowLg: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadowXl: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+      shadow2xl: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
+    );
+
+// ============================================================================
+// Presets List
+// ============================================================================
 
 final List<RegistryThemePreset> registryThemePresets = [
   RegistryThemePreset(
@@ -124,150 +228,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF404040),
       sidebarRing: Color(0xFFF59E0B),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.375,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 4.0,
+      shadows: _shadowLightStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -343,150 +318,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF2A273A),
       sidebarRing: Color(0xFFA995C9),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-            color: Color(0x0F000000),
-          ),
-        ],
-      ),
-      fontSans: "Geist, sans-serif",
-      fontSerif: "\"Lora\", Georgia, serif",
-      fontMono: "\"Fira Code\", \"Courier New\", monospace",
+      spacingBase: 4.0,
+      shadows: _shadowLightSoft,
+      fontSans: 'Geist, sans-serif',
+      fontSerif: '"Lora", Georgia, serif',
+      fontMono: '"Fira Code", "Courier New", monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Geist, sans-serif',
+      fontSerif: '"Lora", Georgia, serif',
+      fontMono: '"Fira Code", "Courier New", monospace',
     ),
   ),
   RegistryThemePreset(
@@ -562,150 +408,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF2E1065),
       sidebarRing: Color(0xFF8B5CF6),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.625,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x33835EF3),
-          ),
-        ],
-      ),
-      fontSans: "Roboto, sans-serif",
-      fontSerif: "Playfair Display, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 2, y: 2, blur: 4, spread: 0, color: 0x33835EF3),
+      fontSans: 'Roboto, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.625,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Roboto, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -781,153 +498,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF374151),
       sidebarRing: Color(0xFFEC4899),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.4,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x80D1519A),
-          ),
-        ],
-      ),
-      fontSans: "Poppins, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 3, y: 3, blur: 0, spread: 0, color: 0x80D1519A),
+      fontSans: 'Poppins, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF324859),
-          ),
-        ],
-      ),
-      fontSans: "Poppins, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF324859),
+      fontSans: 'Poppins, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -1003,147 +588,15 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF27272A),
       sidebarRing: Color(0xFFD4D4D8),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
   ),
   RegistryThemePreset(
@@ -1219,149 +672,19 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF444444),
       sidebarRing: Color(0xFFFF99CC),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Poppins, sans-serif",
-      fontMono: "Roboto Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Poppins, sans-serif',
+      fontMono: 'Roboto Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Poppins, sans-serif',
+      fontMono: 'Roboto Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -1437,150 +760,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF45475A),
       sidebarRing: Color(0xFFCBA6F7),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.35,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-      ),
-      fontSans: "Montserrat, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 4, blur: 6, spread: 0, color: 0x1F2D2D53),
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -1656,147 +850,15 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFFEBEBEB),
       sidebarRing: Color(0xFFB5B5B5),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
   ),
   RegistryThemePreset(
@@ -1872,150 +934,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF3A3633),
       sidebarRing: Color(0xFF818CF8),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 1.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 10,
-            spreadRadius: 4,
-            color: Color(0x2E95959D),
-          ),
-        ],
-      ),
-      fontSans: "Plus Jakarta Sans, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "Roboto Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 2, y: 2, blur: 10, spread: 4, color: 0x2E95959D),
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'Roboto Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 1.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'Roboto Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -2091,150 +1024,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4B5563),
       sidebarRing: Color(0xFF818CF8),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Merriweather, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowLightStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -2310,150 +1114,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF303052),
       sidebarRing: Color(0xFFA48FFF),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 10,
-            spreadRadius: 0,
-            color: Color(0x1F2D2D53),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 4, blur: 10, spread: 0, color: 0x1F2D2D53),
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -2529,149 +1204,19 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF2E2E5E),
       sidebarRing: Color(0xFFFF00C8),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "Outfit, sans-serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 4, blur: 8, spread: -2, color: 0x1A000000),
+      fontSans: 'Outfit, sans-serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Outfit, sans-serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -2747,150 +1292,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF222222),
       sidebarRing: Color(0xFFE78A53),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.75,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x0D000000),
-          ),
-        ],
-      ),
-      fontSans: "Geist Mono, ui-monospace, monospace",
-      fontSerif: "serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 4, spread: 0, color: 0x0D000000),
+      fontSans: 'Geist Mono, ui-monospace, monospace',
+      fontSerif: 'serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      fontSans: 'Geist Mono, ui-monospace, monospace',
+      fontSerif: 'serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -2966,155 +1382,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4A4A4A),
       sidebarRing: Color(0xFFE53935),
     ),
-    lightTokens: RegistryThemePresetTokens(
-      radius: 0,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x66000000),
-          ),
-        ],
-      ),
-      fontSans: "\"Oxanium\", sans-serif",
-      fontSerif:
-          "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-      fontMono: "\"Source Code Pro\", monospace",
+    lightTokens: _lightTokens(
+      radius: 0.0,
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 4, spread: 0, color: 0x66000000),
+      fontSans: '"Oxanium", sans-serif',
+      fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      fontMono: '"Source Code Pro", monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
-      radius: 0,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x99000000),
-          ),
-        ],
-      ),
-      fontSans: "\"Oxanium\", sans-serif",
-      fontSerif:
-          "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-      fontMono: "\"Source Code Pro\", monospace",
+    darkTokens: _darkTokens(
+      radius: 0.0,
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 5, spread: 0, color: 0x99000000),
+      fontSans: '"Oxanium", sans-serif',
+      fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      fontMono: '"Source Code Pro", monospace',
     ),
   ),
   RegistryThemePreset(
@@ -3190,150 +1472,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF44403C),
       sidebarRing: Color(0xFFB91C1C),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.375,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 16,
-            spreadRadius: -2,
-            color: Color(0x1F4B1111),
-          ),
-        ],
-      ),
-      fontSans: "Poppins, sans-serif",
-      fontSerif: "Libre Baskerville, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 1, y: 1, blur: 16, spread: -2, color: 0x1F4B1111),
+      fontSans: 'Poppins, sans-serif',
+      fontSerif: 'Libre Baskerville, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.375,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Poppins, sans-serif',
+      fontSerif: 'Libre Baskerville, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -3409,153 +1562,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF353535),
       sidebarRing: Color(0xFFA0A0A0),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.35,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x04333333),
-          ),
-        ],
-      ),
-      fontSans: "Montserrat, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 0, spread: 0, color: 0x04333333),
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -3631,150 +1652,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF5A5345),
       sidebarRing: Color(0xFF8A9F7B),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.425,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(3, 3),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x065B6D46),
-          ),
-        ],
-      ),
-      fontSans: "Merriweather, serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 3, y: 3, blur: 2, spread: 0, color: 0x065B6D46),
+      fontSans: 'Merriweather, serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Merriweather, serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -3850,150 +1742,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF444444),
       sidebarRing: Color(0xFF6C5CE7),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 5),
-            blurRadius: 10,
-            spreadRadius: -2,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "Montserrat, sans-serif",
-      fontSerif: "Playfair Display, serif",
-      fontMono: "Source Code Pro, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 5, blur: 10, spread: -2, color: 0x1A000000),
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Source Code Pro, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Source Code Pro, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -4069,150 +1832,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF56453F),
       sidebarRing: Color(0xFFC39E88),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0B997B6C),
-          ),
-        ],
-      ),
-      fontSans: "DM Sans, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Menlo, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 2, y: 2, blur: 0, spread: 0, color: 0x0B997B6C),
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Menlo, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x805A483F),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x805A483F),
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Menlo, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -4288,150 +1922,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF404040),
       sidebarRing: Color(0xFF3B82F6),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.375,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.375,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -4507,150 +2012,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFFFFFFFF),
       sidebarRing: Color(0xFF525252),
     ),
-    lightTokens: RegistryThemePresetTokens(
-      radius: 0,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x00000000),
-          ),
-        ],
-      ),
-      fontSans: "Geist Mono, monospace",
-      fontSerif: "Geist Mono, monospace",
-      fontMono: "Geist Mono, monospace",
+    lightTokens: _lightTokens(
+      radius: 0.0,
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 0, spread: 0, color: 0x00000000),
+      fontSans: 'Geist Mono, monospace',
+      fontSerif: 'Geist Mono, monospace',
+      fontMono: 'Geist Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Geist Mono, monospace',
+      fontSerif: 'Geist Mono, monospace',
+      fontMono: 'Geist Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -4726,150 +2102,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF3E4A3D),
       sidebarRing: Color(0xFF4CAF50),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Montserrat, sans-serif",
-      fontSerif: "Merriweather, serif",
-      fontMono: "Source Code Pro, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Source Code Pro, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Source Code Pro, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -4945,149 +2192,19 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFFFFFFFF),
       sidebarRing: Color(0xFFFF6666),
     ),
-    lightTokens: RegistryThemePresetTokens(
-      radius: 0,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(4, 4),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-      ),
-      fontSans: "DM Sans, sans-serif",
-      fontMono: "Space Mono, monospace",
+    lightTokens: _lightTokens(
+      radius: 0.0,
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 4, y: 4, blur: 0, spread: 0, color: 0xFF000000),
+      fontSans: 'DM Sans, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
-      radius: 0,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+    darkTokens: _darkTokens(
+      radius: 0.0,
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'DM Sans, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -5163,150 +2280,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF444444),
       sidebarRing: Color(0xFF34A85A),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Plus Jakarta Sans, sans-serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -5382,153 +2370,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4F4F4F),
       sidebarRing: Color(0xFFC0C0C0),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.625,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0.5),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-      ),
-      fontSans: "Architects Daughter, sans-serif",
-      fontSerif: "\"Times New Roman\", Times, serif",
-      fontMono: "\"Courier New\", Courier, monospace",
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 1, y: 4, blur: 5, spread: 0, color: 0x08000000),
+      fontSans: 'Architects Daughter, sans-serif',
+      fontSerif: '"Times New Roman", Times, serif',
+      fontMono: '"Courier New", Courier, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.625,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0.5),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 4),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x08000000),
-          ),
-        ],
-      ),
-      fontSans: "Architects Daughter, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "\"Fira Code\", \"Courier New\", monospace",
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 1, y: 4, blur: 5, spread: 0, color: 0x08000000),
+      fontSans: 'Architects Daughter, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: '"Fira Code", "Courier New", monospace',
     ),
   ),
   RegistryThemePreset(
@@ -5604,150 +2460,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4B5563),
       sidebarRing: Color(0xFF34D399),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: -1,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "DM Sans, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowLightStandard,
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -5823,150 +2550,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF3F324A),
       sidebarRing: Color(0xFFC0AAFD),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 1.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 16,
-            spreadRadius: -4,
-            color: Color(0x14000000),
-          ),
-        ],
-      ),
-      fontSans: "Open Sans, sans-serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 8, blur: 16, spread: -4, color: 0x14000000),
+      fontSans: 'Open Sans, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 1.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Open Sans, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -6042,153 +2640,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF164955),
       sidebarRing: Color(0xFF4DE8E8),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.125,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x06177982),
-          ),
-        ],
-      ),
-      fontSans: "Courier New, monospace",
-      fontSerif: "Courier New, monospace",
-      fontMono: "Courier New, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 1, y: 1, blur: 2, spread: 0, color: 0x06177982),
+      fontSans: 'Courier New, monospace',
+      fontSerif: 'Courier New, monospace',
+      fontMono: 'Courier New, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.125,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A52E0E0),
-          ),
-        ],
-      ),
-      fontSans: "Source Code Pro, monospace",
-      fontSerif: "Source Code Pro, monospace",
-      fontMono: "Source Code Pro, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 1, y: 1, blur: 2, spread: 0, color: 0x0A52E0E0),
+      fontSans: 'Source Code Pro, monospace',
+      fontSerif: 'Source Code Pro, monospace',
+      fontMono: 'Source Code Pro, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -6264,153 +2730,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4A1B5F),
       sidebarRing: Color(0xFFFF6BEF),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 3),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0682174D),
-          ),
-        ],
-      ),
-      fontSans: "Poppins, sans-serif",
-      fontSerif: "Playfair Display, serif",
-      fontMono: "Space Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 3, blur: 0, spread: 0, color: 0x0682174D),
+      fontSans: 'Poppins, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Space Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x40E619E6),
-          ),
-        ],
-      ),
-      fontSans: "Quicksand, sans-serif",
-      fontSerif: "Playfair Display, serif",
-      fontMono: "Space Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x40E619E6),
+      fontSans: 'Quicksand, sans-serif',
+      fontSerif: 'Playfair Display, serif',
+      fontMono: 'Space Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -6486,149 +2820,19 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF586E75),
       sidebarRing: Color(0xFFD33682),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-            color: Color(0x2604232F),
-          ),
-        ],
-      ),
-      fontSans: "Outfit, sans-serif",
-      fontMono: "Space Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 2, y: 2, blur: 4, spread: 0, color: 0x2604232F),
+      fontSans: 'Outfit, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Outfit, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -6704,150 +2908,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF2A2A2A),
       sidebarRing: Color(0xFF7C9082),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.35,
-      spacing: SpacingScale(3.68),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x0A1A1F2E),
-          ),
-        ],
-      ),
-      fontSans: "Antic, ui-sans-serif, sans-serif, system-ui",
-      fontSerif: "Signifier, Georgia, serif",
-      fontMono: "JetBrains Mono, Courier New, monospace",
+      spacingBase: 3.68,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 2, spread: 0, color: 0x0A1A1F2E),
+      fontSans: 'Antic, ui-sans-serif, sans-serif, system-ui',
+      fontSerif: 'Signifier, Georgia, serif',
+      fontMono: 'JetBrains Mono, Courier New, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      fontSans: 'Antic, ui-sans-serif, sans-serif, system-ui',
+      fontSerif: 'Signifier, Georgia, serif',
+      fontMono: 'JetBrains Mono, Courier New, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -6923,153 +2998,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFFFFFFFF),
       sidebarRing: Color(0xFF818CF8),
     ),
-    lightTokens: RegistryThemePresetTokens(
-      radius: 1,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-      ),
-      fontSans: "DM Sans, sans-serif",
-      fontSerif: "DM Sans, sans-serif",
-      fontMono: "Space Mono, monospace",
+    lightTokens: _lightTokens(
+      radius: 1.0,
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x0D1A1A1A),
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'DM Sans, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
-      radius: 1,
-      spacing: SpacingScale(4),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x0D1A1A1A),
-          ),
-        ],
-      ),
-      fontSans: "DM Sans, sans-serif",
-      fontSerif: "DM Sans, sans-serif",
-      fontMono: "Space Mono, monospace",
+    darkTokens: _darkTokens(
+      radius: 1.0,
+      spacingBase: 4.0,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x0D1A1A1A),
+      fontSans: 'DM Sans, sans-serif',
+      fontSerif: 'DM Sans, sans-serif',
+      fontMono: 'Space Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -7145,150 +3088,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF44403C),
       sidebarRing: Color(0xFFF97316),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.3,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2E4B3F34),
-          ),
-        ],
-      ),
-      fontSans: "Oxanium, sans-serif",
-      fontSerif: "Merriweather, serif",
-      fontMono: "Fira Code, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x2E4B3F34),
+      fontSans: 'Oxanium, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Fira Code, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.3,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0xFF0D0D0D),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF0D0D0D),
+      fontSans: 'Oxanium, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Fira Code, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -7364,148 +3178,17 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF2D2E3E),
       sidebarRing: Color(0xFFFFE066),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Libre Baskerville, serif",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Libre Baskerville, serif',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Libre Baskerville, serif',
     ),
   ),
   RegistryThemePreset(
@@ -7581,150 +3264,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF463A41),
       sidebarRing: Color(0xFFFF7E5F),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.625,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 6),
-            blurRadius: 12,
-            spreadRadius: -3,
-            color: Color(0x17000000),
-          ),
-        ],
-      ),
-      fontSans: "Montserrat, sans-serif",
-      fontSerif: "Merriweather, serif",
-      fontMono: "Ubuntu Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 6, blur: 12, spread: -3, color: 0x17000000),
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Ubuntu Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.625,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Montserrat, sans-serif',
+      fontSerif: 'Merriweather, serif',
+      fontMono: 'Ubuntu Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -7800,151 +3354,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF292929),
       sidebarRing: Color(0xFF4ADE80),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0.4),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x2B000000),
-          ),
-        ],
-      ),
-      fontSans: "Outfit, sans-serif",
-      fontSerif:
-          "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-      fontMono: "monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 3, spread: 0, color: 0x2B000000),
+      fontSans: 'Outfit, sans-serif',
+      fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      fontMono: 'monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Outfit, sans-serif',
+      fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      fontMono: 'monospace',
     ),
   ),
   RegistryThemePreset(
@@ -8020,147 +3444,15 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF000000),
       sidebarRing: Color(0xFFDB2777),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
     ),
   ),
   RegistryThemePreset(
@@ -8236,150 +3528,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF3D4354),
       sidebarRing: Color(0xFFE05D38),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.75,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x1A000000),
-          ),
-        ],
-      ),
-      fontSans: "Inter, sans-serif",
-      fontSerif: "Source Serif 4, serif",
-      fontMono: "JetBrains Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 3, spread: 0, color: 0x1A000000),
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Inter, sans-serif',
+      fontSerif: 'Source Serif 4, serif',
+      fontMono: 'JetBrains Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -8455,150 +3618,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF38444D),
       sidebarRing: Color(0xFF1DA1F2),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 1.3,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x001DA1F2),
-          ),
-        ],
-      ),
-      fontSans: "Open Sans, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Menlo, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 0, spread: 0, color: 0x001DA1F2),
+      fontSans: 'Open Sans, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Menlo, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            color: Color(0x401DA1F2),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x401DA1F2),
+      fontSans: 'Open Sans, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Menlo, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -8674,153 +3708,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFFE0E0E0),
       sidebarRing: Color(0xFF9CA3AF),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 2,
-            spreadRadius: 0,
-            color: Color(0x2E000000),
-          ),
-        ],
-      ),
-      fontSans: "Geist, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Geist Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 0, y: 1, blur: 2, spread: 0, color: 0x2E000000),
+      fontSans: 'Geist, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Geist Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.5,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
-      fontSans: "Geist, sans-serif",
-      fontSerif: "Georgia, serif",
-      fontMono: "Geist Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Geist, sans-serif',
+      fontSerif: 'Georgia, serif',
+      fontMono: 'Geist Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -8896,150 +3798,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF4A4039),
       sidebarRing: Color(0xFFC0A080),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 0.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(2, 3),
-            blurRadius: 5,
-            spreadRadius: 0,
-            color: Color(0x1F3A332C),
-          ),
-        ],
-      ),
-      fontSans: "Libre Baskerville, serif",
-      fontSerif: "Lora, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 3.84,
+      shadows: _uniformShadowScale(x: 2, y: 3, blur: 5, spread: 0, color: 0x1F3A332C),
+      fontSans: 'Libre Baskerville, serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 0.25,
-      spacing: SpacingScale(3.84),
-      tracking: TrackingScale(normal: 0),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(20.5, 16.5),
-            blurRadius: 25.5,
-            spreadRadius: -30,
-            color: Color(0x12000000),
-          ),
-        ],
-      ),
+      spacingBase: 3.84,
+      shadows: _shadowDarkStandard,
+      fontSans: 'Libre Baskerville, serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
   ),
   RegistryThemePreset(
@@ -9115,153 +3888,21 @@ final List<RegistryThemePreset> registryThemePresets = [
       sidebarBorder: Color(0xFF33353A),
       sidebarRing: Color(0xFF8C5CFF),
     ),
-    lightTokens: RegistryThemePresetTokens(
+    lightTokens: _lightTokens(
       radius: 1.4,
-      spacing: SpacingScale(4.32),
-      tracking: TrackingScale(normal: -0.4),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-      ),
-      fontSans: "Plus Jakarta Sans, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 4.32,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x29000000),
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
-    darkTokens: RegistryThemePresetTokens(
+    darkTokens: _darkTokens(
       radius: 1.4,
-      spacing: SpacingScale(4.32),
-      tracking: TrackingScale(normal: -0.4),
-      shadows: ShadowScale(
-        shadow2xs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowXs: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowSm: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadow: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowMd: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowLg: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadowXl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-        shadow2xl: [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 3,
-            spreadRadius: 0,
-            color: Color(0x29000000),
-          ),
-        ],
-      ),
-      fontSans: "Plus Jakarta Sans, sans-serif",
-      fontSerif: "Lora, serif",
-      fontMono: "IBM Plex Mono, monospace",
+      spacingBase: 4.32,
+      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x29000000),
+      fontSans: 'Plus Jakarta Sans, sans-serif',
+      fontSerif: 'Lora, serif',
+      fontMono: 'IBM Plex Mono, monospace',
     ),
   ),
 ];

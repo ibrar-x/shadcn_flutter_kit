@@ -22,6 +22,7 @@
     "_impl/themes/base/scrollable_client_theme.dart",
     "_impl/themes/config/scrollable_theme_config.dart",
     "_impl/themes/config/scrollable_theme_defaults.dart",
+    "_impl/themes/config/scrollable_theme_schema.dart",
     "_impl/themes/config/scrollable_theme_tokens.dart",
     "scrollable.dart"
   ],

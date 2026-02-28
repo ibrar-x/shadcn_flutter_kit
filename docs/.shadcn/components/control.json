@@ -7,20 +7,16 @@
     "controller",
     "form"
   ],
-  "installedAt": "2026-02-09T10:18:03.207779Z",
+  "installedAt": "2026-02-22T01:08:41.431791Z",
   "shared": [],
   "dependsOn": [],
   "files": [
-    "registry/components/form/control/README.md",
     "registry/components/form/control/_impl/core/controlled_component.dart",
     "registry/components/form/control/_impl/core/controlled_component_data.dart",
     "registry/components/form/control/_impl/state/_controlled_component_adapter_state.dart",
     "registry/components/form/control/_impl/utils/component_value_controller.dart",
     "registry/components/form/control/_impl/utils/controlled_component_adapter.dart",
-    "registry/components/form/control/control.dart",
-    "registry/components/form/control/control.meta.json",
-    "registry/components/form/control/meta.json",
-    "registry/components/form/control/preview.dart"
+    "registry/components/form/control/control.dart"
   ],
   "registryRoot": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry"
 }

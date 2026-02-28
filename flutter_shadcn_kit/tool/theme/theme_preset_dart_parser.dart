@@ -1,7 +1,7 @@
 import 'dart:io';
 
 const _themeSchemaUrl =
-    'https://flutter-shadcn.github.io/registry-directory/registry/themes.schema.v1.json';
+    '../manifests/themes.schema.json';
 
 const List<String> _colorFields = [
   'background',
@@ -54,7 +54,7 @@ Directory? findRegistryDir(Directory from) {
   while (true) {
     final candidate = Directory('${current.path}/lib/registry');
     if (candidate.existsSync()) {
-      final marker = File('${candidate.path}/themes.schema.json');
+      final marker = File('${candidate.path}/manifests/themes.schema.json');
       if (marker.existsSync()) {
         return candidate;
       }

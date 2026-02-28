@@ -1,5 +1,6 @@
 part of '../../window.dart';
 
+/// WindowNavigator defines a reusable type for this registry module.
 class WindowNavigator extends StatefulWidget {
   /// Initial list of windows to display.
   final List<Window> initialWindows;
@@ -24,5 +25,6 @@ class WindowNavigator extends StatefulWidget {
   });
 
   @override
+/// Executes `createState` behavior for this component/composite.
   State<WindowNavigator> createState() => _WindowNavigatorState();
 }
