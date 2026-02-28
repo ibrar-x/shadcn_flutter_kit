@@ -464,9 +464,9 @@ class ShadSliderDefaults {
         compTheme?.waveformTicksInactiveColor ??
         cs.foreground.withOpacity(0.40);
 
-    return IgnorePointer(
-      child: Positioned.fromRect(
-        rect: s.trackRect,
+    return Positioned.fromRect(
+      rect: s.trackRect,
+      child: IgnorePointer(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(s.trackRadius),
           child: SizedBox(
