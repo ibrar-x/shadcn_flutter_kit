@@ -314,9 +314,9 @@ Widget _waveformTicks(
     context,
   ).colorScheme.mutedForeground.withOpacity(0.16);
 
-  return IgnorePointer(
-    child: Positioned.fromRect(
-      rect: state.trackRect,
+  return Positioned.fromRect(
+    rect: state.trackRect,
+    child: IgnorePointer(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(state.trackRadius),
         child: SizedBox(
