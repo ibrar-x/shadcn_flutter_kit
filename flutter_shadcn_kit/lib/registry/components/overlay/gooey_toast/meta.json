@@ -19,6 +19,8 @@
     "pubspec": {}
   },
   "files": [
+    "GETTING_STARTED.md",
+    "README.md",
     "_impl/core/gooey_toast_constants.dart",
     "_impl/core/gooey_toast_controller.dart",
     "_impl/core/gooey_toast_defaults.dart",
@@ -30,6 +32,8 @@
     "_impl/themes/config/gooey_toast_theme_schema.dart",
     "_impl/themes/config/gooey_toast_theme_tokens.dart",
     "_impl/utils/gooey_toast_utils.dart",
-    "gooey_toast.dart"
+    "gooey_toast.dart",
+    "meta.json",
+    "preview.dart"
   ]
 }

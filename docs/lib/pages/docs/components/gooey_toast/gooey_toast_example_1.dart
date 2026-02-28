@@ -83,8 +83,9 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
                     value: settings.preset == preset,
                     onChanged: (value) {
                       if (!value) return;
-                      _gooeyDocsSettings.value =
-                          settings.copyWith(preset: preset);
+                      _gooeyDocsSettings.value = settings.copyWith(
+                        preset: preset,
+                      );
                     },
                     style: const ButtonStyle.outline(),
                     selectedStyle: const ButtonStyle.primary(),
