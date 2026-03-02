@@ -159,6 +159,7 @@ class DocsPageState extends State<DocsPage> {
     'wrapper': 'application',
     'refresh_trigger': 'utility',
   };
+  static const String _applicationSectionTitle = 'Application';
 
   @override
   void initState() {
@@ -268,7 +269,12 @@ class DocsPageState extends State<DocsPage> {
     }
 
     final grouped = <String, List<RegistryComponent>>{};
+    final wipComponents = <RegistryComponent>[];
     for (final component in components) {
+      if (_tagForComponent(component.id) == DocsTag.workInProgress) {
+        wipComponents.add(component);
+        continue;
+      }
       final category = _resolvedCategoryForComponent(component);
       grouped.putIfAbsent(category, () => []);
       grouped[category]!.add(component);
@@ -301,7 +307,7 @@ class DocsPageState extends State<DocsPage> {
           _titleCase(category),
           grouped[category]!
               .map((component) => DocsPageRef(
-                    component.name,
+                    _displayComponentTitle(component.name),
                     component.id,
                     routeName: 'component_detail',
                     pathParameters: {'id': _toKebabCase(component.id)},
@@ -309,6 +315,20 @@ class DocsPageState extends State<DocsPage> {
                   ))
               .toList(),
           icon: iconForCategory(category),
+        ),
+      if (wipComponents.isNotEmpty)
+        DocsSection(
+          'WIP Components',
+          (wipComponents..sort((a, b) => a.name.compareTo(b.name)))
+              .map((component) => DocsPageRef(
+                    _displayComponentTitle(component.name),
+                    component.id,
+                    routeName: 'component_detail',
+                    pathParameters: {'id': _toKebabCase(component.id)},
+                    tag: DocsTag.workInProgress,
+                  ))
+              .toList(),
+          icon: Icons.construction,
         ),
     ];
 
@@ -326,6 +346,16 @@ class DocsPageState extends State<DocsPage> {
       return override;
     }
     return component.category.toLowerCase().trim();
+  }
+
+  String _displayComponentTitle(String title) {
+    return title.replaceAll(RegExp(r'\s*\((Composed|WIP)\)\s*$'), '').trim();
+  }
+
+  List<DocsSection> get _sidebarSections {
+    return _sections
+        .where((section) => section.title != _applicationSectionTitle)
+        .toList();
   }
 
   DocsTag? _tagForComponent(String componentId) {
@@ -389,10 +419,17 @@ class DocsPageState extends State<DocsPage> {
                     onPressed: showSearchDialog,
                     child: Row(
                       children: [
-                        const Icon(Icons.search).iconSmall(),
+                        const Icon(Icons.search)
+                            .iconSmall()
+                            .iconMutedForeground(),
                         SizedBox(width: spacing.xs * scaling),
-                        const Text('Search documentation...').muted(),
-                        const Spacer(),
+                        Expanded(
+                          child: Text(
+                            'Search documentation...',
+                            overflow: TextOverflow.ellipsis,
+                          ).muted(),
+                        ),
+                        SizedBox(width: spacing.xs * scaling),
                         const Text('Cmd+F / Ctrl+F').xSmall().muted(),
                       ],
                     ),
@@ -482,7 +519,7 @@ class DocsPageState extends State<DocsPage> {
               width: targetWidth,
               child: SidebarNav(
                 children: [
-                  for (final section in _sections)
+                  for (final section in _sidebarSections)
                     SidebarSection(
                       header: Text(section.title),
                       children: [
@@ -587,7 +624,7 @@ class DocsPageState extends State<DocsPage> {
                               theme.scaling,
                           child: SidebarNav(
                             children: [
-                              for (final section in _sections)
+                              for (final section in _sidebarSections)
                                 SidebarSection(
                                   header: Text(section.title),
                                   children: [
