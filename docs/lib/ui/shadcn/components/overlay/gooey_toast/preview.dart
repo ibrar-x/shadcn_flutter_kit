@@ -31,6 +31,10 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   /// Active animation style override.
   GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
 
+  /// Active body content animation style override.
+  GooeyToastBodyAnimationStyle _bodyAnimationStyle =
+      GooeyToastBodyAnimationStyle.fade;
+
   /// Active shape style override.
   GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
 
@@ -256,6 +260,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: preset.position,
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: enableGooeyBlur ?? _enableGooeyBlur,
         pauseOnHover: _pauseOnHover,
@@ -364,6 +369,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: preset.position,
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
@@ -392,6 +398,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: GooeyToastPosition.centerLeft,
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: true,
         pauseOnHover: _pauseOnHover,
@@ -411,6 +418,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: GooeyToastPosition.centerRight,
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: false,
         pauseOnHover: _pauseOnHover,
@@ -986,6 +994,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             position: position,
             expandDirection: expandDirection,
             animationStyle: _animationStyle,
+            bodyAnimationStyle: _bodyAnimationStyle,
             shapeStyle: _shapeStyle,
             enableGooeyBlur: _enableGooeyBlur,
             pauseOnHover: _pauseOnHover,
@@ -1030,6 +1039,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             position: position,
             expandDirection: expandDirection,
             animationStyle: _animationStyle,
+            bodyAnimationStyle: _bodyAnimationStyle,
             shapeStyle: _shapeStyle,
             enableGooeyBlur: _enableGooeyBlur,
             pauseOnHover: _pauseOnHover,
@@ -1579,6 +1589,30 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                     onTap: () =>
                                         setState(() => _animationStyle = style),
                                     minWidth: ultra ? 80 : 88,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
+                            title: 'Body Animation',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (final style
+                                    in GooeyToastBodyAnimationStyle.values)
+                                  _PlaygroundChip(
+                                    label: style.label,
+                                    selected: _bodyAnimationStyle == style,
+                                    onTap: () => setState(
+                                      () => _bodyAnimationStyle = style,
+                                    ),
+                                    minWidth: ultra ? 98 : 118,
                                     minHeight: chipHeight,
                                     fontSize: chipFont,
                                     radius: chipRadius,
@@ -3090,6 +3124,17 @@ extension on GooeyToastShapeStyle {
       GooeyToastShapeStyle.soft => 'soft',
       GooeyToastShapeStyle.sharp => 'sharp',
       GooeyToastShapeStyle.capsule => 'capsule',
+    };
+  }
+}
+
+extension on GooeyToastBodyAnimationStyle {
+  String get label {
+    return switch (this) {
+      GooeyToastBodyAnimationStyle.fade => 'fade',
+      GooeyToastBodyAnimationStyle.fadeSlide => 'fade-slide',
+      GooeyToastBodyAnimationStyle.fadeScale => 'fade-scale',
+      GooeyToastBodyAnimationStyle.none => 'none',
     };
   }
 }
