@@ -392,7 +392,7 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenPaymentMethod(BuildContext context) {
     final currentYear = DateTime.now().year;
-    return SurfaceCard(
+    return Card(
       padding: const EdgeInsetsDensity.all(padLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1307,21 +1307,27 @@ class _ThemePageState extends State<ThemePage> {
 
   String _buildAppCodeSnippet(DocsThemeController controller) {
     final data = controller.data;
-    final themeMode = controller.brightness == Brightness.dark
-        ? 'ThemeMode.dark'
-        : 'ThemeMode.light';
     return [
+      '// Use in main.dart (or your app entrypoint).',
+      'final bool isDarkMode = ${controller.brightness == Brightness.dark};',
+      'final ColorScheme activeScheme = isDarkMode',
+      '    ? appThemePreset.dark',
+      '    : appThemePreset.light;',
+      'final RegistryThemePresetTokens activeTokens = isDarkMode',
+      '    ? appThemePreset.darkTokens',
+      '    : appThemePreset.lightTokens;',
+      '',
       'ShadcnApp(',
       '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
-      '  theme: AppTheme.light().copyWith(',
-      '    surfaceOpacity: () => ${_formatNumber(data.surfaceOpacity)},',
-      '    surfaceBlur: () => ${_formatNumber(data.surfaceBlur)},',
+      '  theme: ThemeData(',
+      '    colorScheme: activeScheme,',
+      '    radius: activeTokens.radius,',
+      '    density: activeTokens.density,',
+      '    tracking: activeTokens.tracking,',
+      '    shadows: activeTokens.shadows,',
+      '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
+      '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
       '  ),',
-      '  darkTheme: AppTheme.dark().copyWith(',
-      '    surfaceOpacity: () => ${_formatNumber(data.surfaceOpacity)},',
-      '    surfaceBlur: () => ${_formatNumber(data.surfaceBlur)},',
-      '  ),',
-      '  themeMode: $themeMode,',
       '  child: const AppRoot(),',
       ');',
     ].join('\n');
