@@ -29,13 +29,13 @@ import 'theme/theme_controller.dart';
 import 'web_bridge.dart';
 import 'ui/shadcn/components/form/history/history.dart';
 import 'ui/shadcn/components/display/keyboard_shortcut/keyboard_shortcut.dart';
+import 'ui/shadcn/components/layout/app/app.dart' as shadcn_app;
 import 'ui/shadcn/components/overlay/drawer/drawer.dart';
 import 'ui/shadcn/components/overlay/eye_dropper/eye_dropper.dart';
 import 'ui/shadcn/components/utility/error_system/error_system.dart';
 import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 import 'ui/shadcn/shared/theme/preset_themes.dart';
 import 'ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
-import 'ui/shadcn/shared/primitives/overlay.dart';
 
 const bool enableWebSemantics = bool.fromEnvironment(
   'ENABLE_WEB_SEMANTICS',
@@ -346,55 +346,49 @@ class _DocsRootState extends State<DocsRoot> {
         builder: (context, _) {
           final data = controller.data;
           _notifyWebThemeChanged(data);
-          return ShadcnLayer(
-            child: DocsThemeScope(
-              data: data,
-              child: MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: 'shadcn/ui Registry Flutter Widget',
-                theme: data.toMaterialTheme(),
-                routerConfig: router,
-                builder: (context, child) => Material(
-                  child: shadcn_theme.Theme(
-                    data: data.toShadcnTheme(),
-                    child: KeyboardShortcutDisplayMapper(
-                      child: AppErrorGate.scope(
-                        scope: _appErrorScope,
-                        child: Stack(
-                          children: [
-                            ShadcnLayer(
-                              child: DrawerOverlay(
-                                child: RecentColorsScope(
-                                  child: EyeDropperLayer(
-                                    child: Material(
-                                      type: MaterialType.transparency,
-                                      child: child ?? const SizedBox.shrink(),
-                                    ),
-                                  ),
-                                ),
-                              ),
+          return DocsThemeScope(
+            data: data,
+            child: shadcn_app.ShadcnApp.router(
+              debugShowCheckedModeBanner: false,
+              title: 'shadcn/ui Registry Flutter Widget',
+              theme: data.toShadcnTheme(),
+              routeInformationProvider: router.routeInformationProvider,
+              routeInformationParser: router.routeInformationParser,
+              routerDelegate: router.routerDelegate,
+              backButtonDispatcher: router.backButtonDispatcher,
+              builder: (context, child) => KeyboardShortcutDisplayMapper(
+                child: AppErrorGate.scope(
+                  scope: _appErrorScope,
+                  child: Stack(
+                    children: [
+                      DrawerOverlay(
+                        child: RecentColorsScope(
+                          child: EyeDropperLayer(
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: child ?? const SizedBox.shrink(),
                             ),
-                            const Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              child: SafeArea(
-                                bottom: false,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 12,
-                                  ),
-                                  child: AppErrorBanner(
-                                    watchScopes: ['docs.app.banner'],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                      const Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: SafeArea(
+                          bottom: false,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
+                            child: AppErrorBanner(
+                              watchScopes: ['docs.app.banner'],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
