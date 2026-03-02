@@ -31,6 +31,31 @@ final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
   ),
 );
 
+String _toastIdForBehavior({
+  required String baseId,
+  required GooeyToastNewToastBehavior behavior,
+  required Object stateTag,
+}) {
+  switch (behavior) {
+    case GooeyToastNewToastBehavior.transition:
+      return baseId;
+    case GooeyToastNewToastBehavior.stack:
+    case GooeyToastNewToastBehavior.dismissPrevious:
+      return '$baseId-$stateTag';
+  }
+}
+
+String _behaviorLabel(GooeyToastNewToastBehavior behavior) {
+  switch (behavior) {
+    case GooeyToastNewToastBehavior.stack:
+      return 'stack';
+    case GooeyToastNewToastBehavior.dismissPrevious:
+      return 'dismiss previous';
+    case GooeyToastNewToastBehavior.transition:
+      return 'transition';
+  }
+}
+
 /// Playground controls for variant, position, animation and shape.
 class GooeyToastExample1 extends StatefulWidget {
   const GooeyToastExample1({super.key});
@@ -232,11 +257,7 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
                     },
                     style: const ButtonStyle.outline(),
                     selectedStyle: const ButtonStyle.primary(),
-                    child: Text(
-                      behavior == GooeyToastNewToastBehavior.dismissPrevious
-                          ? 'dismiss previous'
-                          : 'stack',
-                    ),
+                    child: Text(_behaviorLabel(behavior)),
                   ),
               ],
             ),
@@ -374,10 +395,16 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
     GooeyToastAction? action,
     Widget? expandedChild,
   }) {
+    final stateTag = '$id-${DateTime.now().millisecondsSinceEpoch}';
+    final toastId = _toastIdForBehavior(
+      baseId: id,
+      behavior: settings.newToastBehavior,
+      stateTag: stateTag,
+    );
     _controller.show(
       context: context,
-      id: id,
-      stateTag: '$id-${DateTime.now().millisecondsSinceEpoch}',
+      id: toastId,
+      stateTag: stateTag,
       title: title,
       description: description,
       state: state,
@@ -424,10 +451,17 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
     return PrimaryButton(
       onPressed: () {
         final settings = _gooeyDocsSettings.value;
+        final composeStateTag =
+            'reply:compose:${DateTime.now().millisecondsSinceEpoch}';
+        final toastId = _toastIdForBehavior(
+          baseId: 'docs-gooey-reply',
+          behavior: settings.newToastBehavior,
+          stateTag: composeStateTag,
+        );
         _controller.show(
           context: context,
-          id: 'docs-gooey-reply',
-          stateTag: 'reply:compose',
+          id: toastId,
+          stateTag: composeStateTag,
           title: 'Thread Reply',
           state: GooeyToastState.action,
           compactChild: _flightCompact(
@@ -453,22 +487,58 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
           expandedChild: _InteractiveReplyExpanded(
             textColor: _resolveToastContentColor(context),
             onSend: (message) {
-              _controller.transitionAfterClosed(
+              final sentStateTag =
+                  'reply:sent:$message:${DateTime.now().millisecondsSinceEpoch}';
+              if (settings.newToastBehavior ==
+                  GooeyToastNewToastBehavior.transition) {
+                _controller.transitionAfterClosed(
+                  context: context,
+                  id: toastId,
+                  currentTitle: 'Thread Reply',
+                  currentState: GooeyToastState.action,
+                  currentDuration: settings.duration,
+                  nextTitle: 'Message Sent',
+                  nextState: GooeyToastState.success,
+                  nextStateTag: sentStateTag,
+                  nextDescription:
+                      'Your reply was sent successfully. "$message"',
+                  nextDuration: settings.duration,
+                  position: settings.preset.position,
+                  expandDirection: settings.preset.expandDirection,
+                  width: settings.width,
+                  fill: _resolveToastSurface(context),
+                  roundness: settings.roundness,
+                  animationStyle: settings.animationStyle,
+                  shapeStyle: settings.shapeStyle,
+                  enableGooeyBlur: true,
+                  pauseOnHover: settings.pauseOnHover,
+                  swipeToDismiss: settings.swipeToDismiss,
+                  persistUntilDismissed: settings.persistUntilDismissed,
+                  newToastBehavior: settings.newToastBehavior,
+                  compactMorph: settings.compactMorph,
+                );
+                return;
+              }
+              final sentId = _toastIdForBehavior(
+                baseId: 'docs-gooey-reply',
+                behavior: settings.newToastBehavior,
+                stateTag: sentStateTag,
+              );
+              _controller.show(
                 context: context,
-                id: 'docs-gooey-reply',
-                currentTitle: 'Thread Reply',
-                currentState: GooeyToastState.action,
-                currentDuration: settings.duration,
-                nextTitle: 'Message Sent',
-                nextState: GooeyToastState.success,
-                nextStateTag: 'reply:sent:$message',
-                nextDescription: 'Your reply was sent successfully. "$message"',
-                nextDuration: settings.duration,
+                id: sentId,
+                stateTag: sentStateTag,
+                title: 'Message Sent',
+                description: 'Your reply was sent successfully. "$message"',
+                state: GooeyToastState.success,
                 position: settings.preset.position,
                 expandDirection: settings.preset.expandDirection,
                 width: settings.width,
                 fill: _resolveToastSurface(context),
                 roundness: settings.roundness,
+                duration: settings.duration,
+                autopilot:
+                    settings.autopilotEnabled ? settings.autopilot : null,
                 animationStyle: settings.animationStyle,
                 shapeStyle: settings.shapeStyle,
                 enableGooeyBlur: true,
@@ -523,6 +593,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
     _flowTimers.clear();
 
     final settings = _gooeyDocsSettings.value;
+    const flowBaseId = 'flight-booking-flow';
 
     const loadingState = _FlightToastModel(
       stateTag: 'flight-booking-pending',
@@ -591,9 +662,15 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
       showExpanded: true,
     );
 
+    final loadingToastId = _toastIdForBehavior(
+      baseId: flowBaseId,
+      behavior: settings.newToastBehavior,
+      stateTag: loadingState.stateTag,
+    );
+
     _controller.show(
       context: context,
-      id: 'flight-booking-flow',
+      id: loadingToastId,
       stateTag: loadingState.stateTag,
       title: loadingState.title,
       state: loadingState.state,
@@ -623,30 +700,66 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
     _flowTimers.add(
       Timer(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
-        _controller.transitionAfterClosed(
+        if (settings.newToastBehavior ==
+            GooeyToastNewToastBehavior.transition) {
+          _controller.transitionAfterClosed(
+            context: context,
+            id: loadingToastId,
+            currentTitle: loadingState.title,
+            currentState: loadingState.state,
+            currentCompactChild: _flightCompact(
+              title: loadingState.title,
+              tone: loadingState.tone,
+              icon: loadingState.icon,
+            ),
+            currentDuration: loadingState.duration,
+            nextStateTag: successState.stateTag,
+            nextTitle: successState.title,
+            nextState: successState.state,
+            nextCompactChild: _flightCompact(
+              title: successState.title,
+              tone: successState.tone,
+              icon: successState.icon,
+            ),
+            nextExpandedChild: _flightExpanded(context, successState),
+            nextDuration: successState.duration,
+            nextCompactGap: const Duration(milliseconds: 130),
+            nextExpandedAutopilot:
+                successState.autopilot ?? const GooeyAutopilot(),
+            position: settings.preset.position,
+            expandDirection: settings.preset.expandDirection,
+            width: settings.width,
+            fill: _resolveToastSurface(context),
+            roundness: settings.roundness,
+            animationStyle: settings.animationStyle,
+            shapeStyle: settings.shapeStyle,
+            enableGooeyBlur: true,
+            pauseOnHover: settings.pauseOnHover,
+            swipeToDismiss: settings.swipeToDismiss,
+            persistUntilDismissed: settings.persistUntilDismissed,
+            newToastBehavior: settings.newToastBehavior,
+            compactMorph: settings.compactMorph,
+          );
+          return;
+        }
+        _controller.show(
           context: context,
-          id: 'flight-booking-flow',
-          currentTitle: loadingState.title,
-          currentState: loadingState.state,
-          currentCompactChild: _flightCompact(
-            title: loadingState.title,
-            tone: loadingState.tone,
-            icon: loadingState.icon,
+          id: _toastIdForBehavior(
+            baseId: flowBaseId,
+            behavior: settings.newToastBehavior,
+            stateTag: successState.stateTag,
           ),
-          currentDuration: loadingState.duration,
-          nextStateTag: successState.stateTag,
-          nextTitle: successState.title,
-          nextState: successState.state,
-          nextCompactChild: _flightCompact(
+          stateTag: successState.stateTag,
+          title: successState.title,
+          state: successState.state,
+          duration: successState.duration,
+          autopilot: successState.autopilot,
+          compactChild: _flightCompact(
             title: successState.title,
             tone: successState.tone,
             icon: successState.icon,
           ),
-          nextExpandedChild: _flightExpanded(context, successState),
-          nextDuration: successState.duration,
-          nextCompactGap: const Duration(milliseconds: 130),
-          nextExpandedAutopilot:
-              successState.autopilot ?? const GooeyAutopilot(),
+          expandedChild: _flightExpanded(context, successState),
           position: settings.preset.position,
           expandDirection: settings.preset.expandDirection,
           width: settings.width,
@@ -667,30 +780,66 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
     _flowTimers.add(
       Timer(const Duration(milliseconds: 4200), () {
         if (!mounted) return;
-        _controller.transitionAfterClosed(
+        if (settings.newToastBehavior ==
+            GooeyToastNewToastBehavior.transition) {
+          _controller.transitionAfterClosed(
+            context: context,
+            id: loadingToastId,
+            currentTitle: successState.title,
+            currentState: successState.state,
+            currentCompactChild: _flightCompact(
+              title: successState.title,
+              tone: successState.tone,
+              icon: successState.icon,
+            ),
+            currentDuration: successState.duration,
+            nextStateTag: gateExpandedState.stateTag,
+            nextTitle: gateExpandedState.title,
+            nextState: gateExpandedState.state,
+            nextCompactChild: _flightCompact(
+              title: gateCompactState.title,
+              tone: gateCompactState.tone,
+              icon: gateCompactState.icon,
+            ),
+            nextExpandedChild: _flightExpanded(context, gateExpandedState),
+            nextDuration: gateExpandedState.duration,
+            nextCompactGap: const Duration(milliseconds: 130),
+            nextExpandedAutopilot:
+                gateExpandedState.autopilot ?? const GooeyAutopilot(),
+            position: settings.preset.position,
+            expandDirection: settings.preset.expandDirection,
+            width: settings.width,
+            fill: _resolveToastSurface(context),
+            roundness: settings.roundness,
+            animationStyle: settings.animationStyle,
+            shapeStyle: settings.shapeStyle,
+            enableGooeyBlur: true,
+            pauseOnHover: settings.pauseOnHover,
+            swipeToDismiss: settings.swipeToDismiss,
+            persistUntilDismissed: settings.persistUntilDismissed,
+            newToastBehavior: settings.newToastBehavior,
+            compactMorph: settings.compactMorph,
+          );
+          return;
+        }
+        _controller.show(
           context: context,
-          id: 'flight-booking-flow',
-          currentTitle: successState.title,
-          currentState: successState.state,
-          currentCompactChild: _flightCompact(
-            title: successState.title,
-            tone: successState.tone,
-            icon: successState.icon,
+          id: _toastIdForBehavior(
+            baseId: flowBaseId,
+            behavior: settings.newToastBehavior,
+            stateTag: gateExpandedState.stateTag,
           ),
-          currentDuration: successState.duration,
-          nextStateTag: gateExpandedState.stateTag,
-          nextTitle: gateExpandedState.title,
-          nextState: gateExpandedState.state,
-          nextCompactChild: _flightCompact(
+          stateTag: gateExpandedState.stateTag,
+          title: gateExpandedState.title,
+          state: gateExpandedState.state,
+          duration: gateExpandedState.duration,
+          autopilot: gateExpandedState.autopilot,
+          compactChild: _flightCompact(
             title: gateCompactState.title,
             tone: gateCompactState.tone,
             icon: gateCompactState.icon,
           ),
-          nextExpandedChild: _flightExpanded(context, gateExpandedState),
-          nextDuration: gateExpandedState.duration,
-          nextCompactGap: const Duration(milliseconds: 130),
-          nextExpandedAutopilot:
-              gateExpandedState.autopilot ?? const GooeyAutopilot(),
+          expandedChild: _flightExpanded(context, gateExpandedState),
           position: settings.preset.position,
           expandDirection: settings.preset.expandDirection,
           width: settings.width,
@@ -739,10 +888,16 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
     return PrimaryButton(
       onPressed: () {
         final settings = _gooeyDocsSettings.value;
+        final opsStateTag =
+            'ops-center-${DateTime.now().millisecondsSinceEpoch}';
         _controller.show(
           context: context,
-          id: 'docs-gooey-ops-center',
-          stateTag: 'ops-center-${DateTime.now().millisecondsSinceEpoch}',
+          id: _toastIdForBehavior(
+            baseId: 'docs-gooey-ops-center',
+            behavior: settings.newToastBehavior,
+            stateTag: opsStateTag,
+          ),
+          stateTag: opsStateTag,
           title: 'Ops Control Center',
           state: GooeyToastState.info,
           position: settings.preset.position,
@@ -763,9 +918,16 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
           expandedChild: _OpsCenterExpanded(
             textColor: _resolveToastContentColor(context),
             onTrigger: () {
+              final routedStateTag =
+                  'ops-routed-${DateTime.now().millisecondsSinceEpoch}';
               _controller.show(
                 context: context,
-                id: 'docs-gooey-ops-center-next',
+                id: _toastIdForBehavior(
+                  baseId: 'docs-gooey-ops-center-next',
+                  behavior: settings.newToastBehavior,
+                  stateTag: routedStateTag,
+                ),
+                stateTag: routedStateTag,
                 title: 'Escalation Routed',
                 description: 'SEV-2 incident assigned to backend on-call.',
                 state: GooeyToastState.success,

@@ -1444,9 +1444,7 @@ class _GooeyPainter extends CustomPainter {
     canvas.drawPath(shapePath, paint);
 
     if (bodyHeight > 0 && bodyScaleY > 0) {
-      final bodyAlpha = Curves.easeOut.transform(
-        (bodyScaleY * 1.35).clamp(0.0, 1.0),
-      );
+      final bodyAlpha = bodyScaleY.clamp(0.0, 1.0).toDouble();
       final bodyPaint = Paint()
         ..color = color.withValues(alpha: (color.a * bodyAlpha).clamp(0.0, 1.0))
         ..isAntiAlias = true;
@@ -1520,9 +1518,12 @@ Path _buildGooeyBodyPath({
   required double bodyHeight,
   required double bodyScaleY,
 }) {
-  if (bodyHeight <= 0 || bodyScaleY <= 0) return Path();
+  if (bodyHeight <= 0 || bodyScaleY <= 0.04) return Path();
   const seamOverlap = 4.0;
-  final t = Curves.easeOut.transform(bodyScaleY.clamp(0.0, 1.0).toDouble());
+  final normalizedProgress = ((bodyScaleY - 0.04) / 0.96)
+      .clamp(0.0, 1.0)
+      .toDouble();
+  final t = Curves.easeInOutCubicEmphasized.transform(normalizedProgress);
   final morphWidth = (lerpDouble(pillWidth, size.width, t) ?? size.width)
       .clamp(0.0, size.width)
       .toDouble();
@@ -1550,7 +1551,7 @@ Path _buildGooeyShoulderBlendPath({
   required double pillWidth,
   required double bodyScaleY,
 }) {
-  if (bodyScaleY <= 0) return Path();
+  if (bodyScaleY <= 0.04) return Path();
   const seamOverlap = 4.0;
   final t = bodyScaleY.clamp(0.0, 1.0).toDouble();
   final blendRadius = ((roundness * 0.62) * t).clamp(0.0, 24.0).toDouble();
