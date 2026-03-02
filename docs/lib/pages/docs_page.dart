@@ -144,6 +144,7 @@ class DocsPageState extends State<DocsPage> {
         DocsPageRef('Icons', 'icons'),
         DocsPageRef('Colors', 'colors'),
         DocsPageRef('Material/Cupertino', 'material'),
+        DocsPageRef('State Management', 'state'),
       ],
     ),
   ];
@@ -152,6 +153,12 @@ class DocsPageState extends State<DocsPage> {
   final List<OnThisPage> currentlyVisible = [];
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
+  static const Map<String, String> _categoryOverrides = {
+    'app': 'application',
+    'go_router_app_example': 'application',
+    'wrapper': 'application',
+    'refresh_trigger': 'utility',
+  };
 
   @override
   void initState() {
@@ -262,7 +269,7 @@ class DocsPageState extends State<DocsPage> {
 
     final grouped = <String, List<RegistryComponent>>{};
     for (final component in components) {
-      final category = component.category.toLowerCase().trim();
+      final category = _resolvedCategoryForComponent(component);
       grouped.putIfAbsent(category, () => []);
       grouped[category]!.add(component);
     }
@@ -313,6 +320,14 @@ class DocsPageState extends State<DocsPage> {
     });
   }
 
+  String _resolvedCategoryForComponent(RegistryComponent component) {
+    final override = _categoryOverrides[component.id];
+    if (override != null) {
+      return override;
+    }
+    return component.category.toLowerCase().trim();
+  }
+
   DocsTag? _tagForComponent(String componentId) {
     final status = componentStatusTags[componentId];
     switch (status) {
@@ -342,15 +357,16 @@ class DocsPageState extends State<DocsPage> {
     final width = MediaQuery.of(context).size.width;
     final showSearchBar = width >= breakpointWidth2;
     final showDrawer = width < breakpointWidth;
+    final horizontalPadding = width >= breakpointWidth2 ? 32.0 : 18.0;
     return shadcn_scaffold.AppBar(
       leading: const [],
       trailing: const [],
       height: contentHeight,
       padding: EdgeInsets.symmetric(
-        horizontal: spacing.xl * scaling,
-        vertical: spacing.md * scaling,
+        horizontal: horizontalPadding * scaling,
+        vertical: 12 * scaling,
       ),
-      backgroundColor: theme.colorScheme.card,
+      backgroundColor: theme.colorScheme.background.withOpacity(0.3),
       surfaceOpacity: theme.surfaceOpacity,
       surfaceBlur: theme.surfaceBlur,
       child: Row(
@@ -377,7 +393,7 @@ class DocsPageState extends State<DocsPage> {
                         SizedBox(width: spacing.xs * scaling),
                         const Text('Search documentation...').muted(),
                         const Spacer(),
-                        const Text('Cmd+K / Ctrl+K').xSmall().muted(),
+                        const Text('Cmd+F / Ctrl+F').xSmall().muted(),
                       ],
                     ),
                   ),
@@ -526,6 +542,10 @@ class DocsPageState extends State<DocsPage> {
         final headerContentHeight = 36 * theme.scaling;
         return Shortcuts(
           shortcuts: {
+            LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyF):
+                const _OpenSearchIntent(),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyF):
+                const _OpenSearchIntent(),
             LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK):
                 const _OpenSearchIntent(),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK):
@@ -560,9 +580,9 @@ class DocsPageState extends State<DocsPage> {
                         child: SingleChildScrollView(
                           key: const PageStorageKey('sidebar'),
                           padding: EdgeInsets.only(
-                                top: theme.spacing.xxl,
-                                left: theme.spacing.xl + padding.left,
-                                bottom: theme.spacing.xxl,
+                                top: 32,
+                                left: 24 + padding.left,
+                                bottom: 32,
                               ) *
                               theme.scaling,
                           child: SidebarNav(
@@ -596,19 +616,23 @@ class DocsPageState extends State<DocsPage> {
                       child: widget.scrollable
                           ? SingleChildScrollView(
                               controller: scrollController,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: theme.spacing.xxl,
-                                vertical: theme.spacing.xl,
-                              ).copyWith(
-                                right: (hasOnThisPage || widget.sidebar != null)
-                                    ? theme.spacing.xl
-                                    : theme.spacing.xxl,
-                              ),
+                              clipBehavior: Clip.none,
+                              padding: (EdgeInsets.symmetric(
+                                        horizontal: 40,
+                                        vertical: 32,
+                                      ).copyWith(
+                                        right: (hasOnThisPage ||
+                                                widget.sidebar != null)
+                                            ? 24
+                                            : padding.right + 32,
+                                      ) *
+                                      theme.scaling) +
+                                  MediaQuery.of(context).padding,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Breadcrumb(
-                                    separator: Breadcrumb.slashSeparator,
+                                    separator: Breadcrumb.arrowSeparator,
                                     children: [
                                       TextButton(
                                         onPressed: () => context.goNamed(
@@ -636,10 +660,10 @@ class DocsPageState extends State<DocsPage> {
                         child: FocusTraversalGroup(
                           child: SingleChildScrollView(
                             padding: EdgeInsets.only(
-                                  top: theme.spacing.xxl,
-                                  right: theme.spacing.xl,
-                                  bottom: theme.spacing.xxl,
-                                  left: theme.spacing.xl,
+                                  top: 32,
+                                  right: 24,
+                                  bottom: 32,
+                                  left: 0,
                                 ) *
                                 theme.scaling,
                             child: widget.sidebar ?? const SizedBox.shrink(),
@@ -654,10 +678,10 @@ class DocsPageState extends State<DocsPage> {
                           child: FocusTraversalGroup(
                             child: SingleChildScrollView(
                               padding: EdgeInsets.only(
-                                    top: theme.spacing.xxl,
-                                    right: theme.spacing.xl,
-                                    bottom: theme.spacing.xxl,
-                                    left: theme.spacing.xl,
+                                    top: 32,
+                                    right: 24,
+                                    bottom: 32,
+                                    left: 24,
                                   ) *
                                   theme.scaling,
                               child: SidebarNav(

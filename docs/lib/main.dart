@@ -19,6 +19,7 @@ import 'pages/docs/app_setup_page.dart';
 import 'pages/docs/introduction_page.dart';
 import 'pages/docs/layout_page.dart';
 import 'pages/docs/components/material_example.dart';
+import 'pages/docs/state_page.dart';
 import 'pages/docs/theme_page.dart';
 import 'pages/docs/typography_page.dart';
 import 'pages/docs/web_preloader_page.dart';
@@ -260,6 +261,14 @@ class _DocsRootState extends State<DocsRoot> {
           pageBuilder: (context, state) => _buildTransitionPage(
             state,
             const MaterialExample(),
+          ),
+        ),
+        GoRoute(
+          path: '/state',
+          name: 'state',
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            const StatePage(),
           ),
         ),
         GoRoute(
