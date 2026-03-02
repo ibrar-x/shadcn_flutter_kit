@@ -4,16 +4,13 @@ import 'package:docs/shadcn_ui.dart';
 import 'package:docs/ui/shadcn/components/navigation/tabs/tabs.dart'
     as shadcn_tabs;
 
-const Color _kLightModeUsesDarkBg = Color(0xFF020817);
-const Color _kDarkModeUsesLightBg = Color(0xFFF8FAFC);
-
 final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
     ValueNotifier<_GooeyGlobalSettings>(
   const _GooeyGlobalSettings(
     preset: _EdgePreset.topLeft,
     animationStyle: GooeyToastAnimationStyle.smooth,
     shapeStyle: GooeyToastShapeStyle.sharp,
-    width: 420,
+    width: 360,
     roundness: 16,
     duration: Duration(seconds: 5),
     autopilot: GooeyAutopilot(
@@ -1365,9 +1362,9 @@ class _GooeyGlobalSettings {
 
 Color _resolveToastSurface(BuildContext context) {
   final brightness = Theme.of(context).brightness;
-  return brightness == Brightness.light
-      ? _kLightModeUsesDarkBg
-      : _kDarkModeUsesLightBg;
+  return brightness == Brightness.dark
+      ? const Color(0xFF0D1117)
+      : const Color(0xFFF8FAFC);
 }
 
 Color _resolveToastContentColor(BuildContext context) {

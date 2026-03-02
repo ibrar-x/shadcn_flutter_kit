@@ -433,11 +433,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     _syncFromStackScope(context);
     final stack = GooeyToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
+    final shadTheme = shad.Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
-    final densityScale = (1 + (theme.visualDensity.vertical * 0.08)).clamp(
-      0.85,
-      1.25,
-    );
     final resolvedShapeStyle =
         widget.shapeStyle == GooeyToastShapeStyle.defaultShape
             ? (gooeyTheme?.shapeStyle ?? widget.shapeStyle)
@@ -448,13 +445,22 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       widget.roundness,
       resolvedShapeStyle,
     );
-    final fillColor =
-        widget.fill ?? gooeyTheme?.fill ?? _defaultFillForTheme(theme);
-    final isDarkSurface = fillColor.computeLuminance() < 0.5;
-    final descriptionColor =
-        isDarkSurface ? const Color(0xFFC0C5CB) : const Color(0xFF334155);
-    final headerPadding = (8 * densityScale).clamp(6.0, 12.0).toDouble();
-    final expandedPadding = (16 * densityScale).clamp(12.0, 22.0).toDouble();
+    final themeFill = gooeyTheme?.fill;
+    final effectiveThemeFill = themeFill == GooeyToastDefaults.fill
+        ? null
+        : themeFill;
+    final baseFillColor =
+        widget.fill ?? effectiveThemeFill ?? _defaultFillForTheme(shadTheme);
+    final themedSurfaceOpacity =
+        (shadTheme.surfaceOpacity ?? 1.0).clamp(0.0, 1.0).toDouble();
+    final themedSurfaceBlur =
+        (shadTheme.surfaceBlur ?? 0.0).clamp(0.0, 36.0).toDouble();
+    final blurOpacityFactor =
+        1 - (((themedSurfaceBlur / 36).clamp(0.0, 1.0)) * 0.35);
+    final fillColor = baseFillColor.withValues(
+      alpha: (baseFillColor.a * themedSurfaceOpacity * blurOpacityFactor)
+          .clamp(0.0, 1.0),
+    );
     final tone = _toneForState(widget.state, gooeyTheme);
     final titleStyle = gooeyTheme?.titleStyle ??
         theme.textTheme.bodyMedium?.copyWith(
@@ -468,7 +474,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
           fontSize: 14,
           height: 1.43,
           fontWeight: FontWeight.w400,
-          color: descriptionColor,
+          color: const Color(0xFFC0C5CB),
         );
     final showStackControls =
         stack != null && stack.hasMultiple && stack.isPrimary;
@@ -483,7 +489,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       descriptionStyle,
       measuredExpandedChildHeight: _measuredExpandedChildHeight,
     );
-    final minExpanded = _kToastHeight * _kMinExpandRatio;
+    const minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
         ? (contentHeight + _kToastHeight).clamp(minExpanded, 1000.0)
         : minExpanded;
@@ -637,8 +643,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                           : 6.0);
 
                   final headerTransform = Matrix4.identity()
-                    ..translate(0.0, translateY)
-                    ..scale(headerScale, headerScale);
+                    ..translateByDouble(0.0, translateY, 0.0, 1.0)
+                    ..scaleByDouble(headerScale, headerScale, 1.0, 1.0);
 
                   return AnimatedSize(
                     duration: const Duration(milliseconds: 260),
@@ -674,6 +680,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                 height: canvasHeight,
                                 color: fillColor,
                                 blur: blur,
+                                surfaceBlur: themedSurfaceBlur,
                                 roundness: resolvedRoundness,
                                 pillX: pillX,
                                 pillWidth: pillWidth,
@@ -707,7 +714,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                   transformAlignment: Alignment.center,
                                   width: pillWidth,
                                   height: _kToastHeight,
-                                  padding: EdgeInsets.all(headerPadding),
+                                  padding: const EdgeInsets.all(8),
                                   child: widget.compactChild ??
                                       Row(
                                         children: [
@@ -817,8 +824,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                             child: SizedBox(
                                               width: toastWidth,
                                               child: Padding(
-                                                padding: EdgeInsets.all(
-                                                  expandedPadding,
+                                                padding: const EdgeInsets.all(
+                                                  16,
                                                 ),
                                                 child: _MeasureSize(
                                                   onSizeChanged:
@@ -1177,10 +1184,29 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     }
   }
 
-  Color _defaultFillForTheme(ThemeData theme) {
-    return theme.brightness == Brightness.light
-        ? const Color(0xFF020817)
-        : const Color(0xFFF8FAFC);
+  Color _defaultFillForTheme(shad.ThemeData shadTheme) {
+    final currentScheme = shadTheme.colorScheme;
+    final isLightMode = currentScheme.brightness == Brightness.light;
+    for (final preset in shad_presets.registryThemePresets) {
+      final activeScheme = isLightMode ? preset.light : preset.dark;
+      if (_isSamePresetScheme(activeScheme, currentScheme)) {
+        return isLightMode ? preset.dark.background : preset.light.background;
+      }
+    }
+    return isLightMode
+        ? shad_colors.ColorSchemes.darkDefaultColor.background
+        : shad_colors.ColorSchemes.lightDefaultColor.background;
+  }
+
+  bool _isSamePresetScheme(
+    shad_colors.ColorScheme a,
+    shad_colors.ColorScheme b,
+  ) {
+    return a.brightness == b.brightness &&
+        a.background == b.background &&
+        a.foreground == b.foreground &&
+        a.primary == b.primary &&
+        a.card == b.card;
   }
 }
 
@@ -1190,6 +1216,7 @@ class _GooeyLayer extends StatelessWidget {
     required this.height,
     required this.color,
     required this.blur,
+    required this.surfaceBlur,
     required this.roundness,
     required this.pillX,
     required this.pillWidth,
@@ -1204,6 +1231,7 @@ class _GooeyLayer extends StatelessWidget {
   final double height;
   final Color color;
   final double blur;
+  final double surfaceBlur;
   final double roundness;
   final double pillX;
   final double pillWidth;
@@ -1215,6 +1243,16 @@ class _GooeyLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final clipper = _GooeyShapeClipper(
+      roundness: roundness,
+      pillX: pillX,
+      pillWidth: pillWidth,
+      pillHeight: pillHeight,
+      pillScaleY: pillScaleY,
+      bodyHeight: bodyHeight,
+      bodyScaleY: bodyScaleY,
+    );
+
     Widget shapeLayer() {
       return RepaintBoundary(
         child: CustomPaint(
@@ -1236,8 +1274,22 @@ class _GooeyLayer extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: enableGooeyBlur
-          ? Stack(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          if (surfaceBlur > 0)
+            ClipPath(
+              clipper: clipper,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: surfaceBlur,
+                  sigmaY: surfaceBlur,
+                ),
+                child: const SizedBox.expand(),
+              ),
+            ),
+          if (enableGooeyBlur)
+            Stack(
               clipBehavior: Clip.none,
               children: [
                 ColorFiltered(
@@ -1271,8 +1323,56 @@ class _GooeyLayer extends StatelessWidget {
                 shapeLayer(),
               ],
             )
-          : shapeLayer(),
+          else
+            shapeLayer(),
+        ],
+      ),
     );
+  }
+}
+
+class _GooeyShapeClipper extends CustomClipper<Path> {
+  const _GooeyShapeClipper({
+    required this.roundness,
+    required this.pillX,
+    required this.pillWidth,
+    required this.pillHeight,
+    required this.pillScaleY,
+    required this.bodyHeight,
+    required this.bodyScaleY,
+  });
+
+  final double roundness;
+  final double pillX;
+  final double pillWidth;
+  final double pillHeight;
+  final double pillScaleY;
+  final double bodyHeight;
+  final double bodyScaleY;
+
+  @override
+  Path getClip(Size size) {
+    return _buildGooeyShapePath(
+      size: size,
+      roundness: roundness,
+      pillX: pillX,
+      pillWidth: pillWidth,
+      pillHeight: pillHeight,
+      pillScaleY: pillScaleY,
+      bodyHeight: bodyHeight,
+      bodyScaleY: bodyScaleY,
+    );
+  }
+
+  @override
+  bool shouldReclip(covariant _GooeyShapeClipper oldClipper) {
+    return oldClipper.roundness != roundness ||
+        oldClipper.pillX != pillX ||
+        oldClipper.pillWidth != pillWidth ||
+        oldClipper.pillHeight != pillHeight ||
+        oldClipper.pillScaleY != pillScaleY ||
+        oldClipper.bodyHeight != bodyHeight ||
+        oldClipper.bodyScaleY != bodyScaleY;
   }
 }
 
@@ -1302,32 +1402,34 @@ class _GooeyPainter extends CustomPainter {
     final paint = Paint()
       ..color = color
       ..isAntiAlias = true;
-
-    final scaledPillHeight = pillHeight * pillScaleY;
-    final pillRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(pillX, 0, pillWidth, scaledPillHeight),
-      Radius.circular(roundness),
+    final shapePath = _buildGooeyShapePath(
+      size: size,
+      roundness: roundness,
+      pillX: pillX,
+      pillWidth: pillWidth,
+      pillHeight: pillHeight,
+      pillScaleY: pillScaleY,
+      bodyHeight: 0,
+      bodyScaleY: 0,
     );
-    canvas.drawRRect(pillRect, paint);
+    canvas.drawPath(shapePath, paint);
 
     if (bodyHeight > 0 && bodyScaleY > 0) {
-      const seamOverlap = 2.0;
       final bodyAlpha = Curves.easeOut.transform(
         (bodyScaleY * 1.35).clamp(0.0, 1.0),
       );
-      canvas.save();
-      // Slight overlap keeps the stretched body visually fused to the compact pill.
-      canvas.translate(0, _kToastHeight - seamOverlap);
-      canvas.scale(1, bodyScaleY);
       final bodyPaint = Paint()
-        ..color = color.withValues(alpha: bodyAlpha)
+        ..color = color.withValues(
+          alpha: (color.a * bodyAlpha).clamp(0.0, 1.0),
+        )
         ..isAntiAlias = true;
-      final bodyRect = RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
-        Radius.circular(roundness),
+      final bodyPath = _buildGooeyBodyPath(
+        size: size,
+        roundness: roundness,
+        bodyHeight: bodyHeight,
+        bodyScaleY: bodyScaleY,
       );
-      canvas.drawRRect(bodyRect, bodyPaint);
-      canvas.restore();
+      canvas.drawPath(bodyPath, bodyPaint);
     }
   }
 
@@ -1342,6 +1444,91 @@ class _GooeyPainter extends CustomPainter {
         oldDelegate.bodyHeight != bodyHeight ||
         oldDelegate.bodyScaleY != bodyScaleY;
   }
+}
+
+Path _buildGooeyShapePath({
+  required Size size,
+  required double roundness,
+  required double pillX,
+  required double pillWidth,
+  required double pillHeight,
+  required double pillScaleY,
+  required double bodyHeight,
+  required double bodyScaleY,
+}) {
+  final path = Path()
+    ..addRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(pillX, 0, pillWidth, pillHeight * pillScaleY),
+        Radius.circular(roundness),
+      ),
+    );
+  final bodyPath = _buildGooeyBodyPath(
+    size: size,
+    roundness: roundness,
+    bodyHeight: bodyHeight,
+    bodyScaleY: bodyScaleY,
+  );
+  final shoulderBlendPath = _buildGooeyShoulderBlendPath(
+    size: size,
+    roundness: roundness,
+    pillX: pillX,
+    pillWidth: pillWidth,
+    bodyScaleY: bodyScaleY,
+  );
+  path.addPath(bodyPath, Offset.zero);
+  path.addPath(shoulderBlendPath, Offset.zero);
+  return path;
+}
+
+Path _buildGooeyBodyPath({
+  required Size size,
+  required double roundness,
+  required double bodyHeight,
+  required double bodyScaleY,
+}) {
+  if (bodyHeight <= 0 || bodyScaleY <= 0) return Path();
+  const seamOverlap = 4.0;
+  final path = Path()
+    ..addRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
+        Radius.circular(roundness),
+      ),
+    );
+  final transform = Matrix4.identity()
+    ..translateByDouble(0.0, _kToastHeight - seamOverlap, 0.0, 1.0)
+    ..scaleByDouble(1.0, bodyScaleY, 1.0, 1.0);
+  return path.transform(transform.storage);
+}
+
+Path _buildGooeyShoulderBlendPath({
+  required Size size,
+  required double roundness,
+  required double pillX,
+  required double pillWidth,
+  required double bodyScaleY,
+}) {
+  if (bodyScaleY <= 0) return Path();
+  const seamOverlap = 4.0;
+  final t = bodyScaleY.clamp(0.0, 1.0).toDouble();
+  final blendRadius = ((roundness * 0.62) * t).clamp(0.0, 24.0).toDouble();
+  if (blendRadius <= 0) return Path();
+
+  final inset = (blendRadius * 0.24).clamp(0.0, pillWidth / 2).toDouble();
+  final blendY = (_kToastHeight - seamOverlap) + (blendRadius * 0.35);
+  final leftCenter = Offset(
+    (pillX + inset).clamp(0.0, size.width).toDouble(),
+    blendY,
+  );
+  final rightCenter = Offset(
+    (pillX + pillWidth - inset).clamp(0.0, size.width).toDouble(),
+    blendY,
+  );
+
+  return Path()
+    ..addOval(Rect.fromCircle(center: leftCenter, radius: blendRadius))
+    ..addOval(Rect.fromCircle(center: rightCenter, radius: blendRadius));
 }
 
 class _MeasureSize extends SingleChildRenderObjectWidget {

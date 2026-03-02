@@ -28,14 +28,34 @@ enum GooeyToastPosition { left, center, right, centerLeft, centerRight }
 
 enum GooeyToastExpandDirection { top, bottom }
 
-enum GooeyToastAnimationStyle { sileo, smooth, snappy, bouncy }
+enum GooeyToastAnimationStyle {
+  sileo,
+  smooth,
+  snappy,
+  bouncy,
+
+  /// Fluid, liquid-like expansion/collapse with emphasized easing.
+  fluid,
+
+  /// Piecewise spring-easing profile matching the Sileo CSS spring stops.
+  springEasing,
+}
 
 enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
 enum GooeyToastSwipeDirection { up, down, left, right }
 
 /// Strategy used when showing a new toast in a region that already has toasts.
-enum GooeyToastNewToastBehavior { stack, dismissPrevious }
+enum GooeyToastNewToastBehavior {
+  /// Adds new toasts to the same region stack.
+  stack,
+
+  /// Removes existing toasts in-region before showing the new one.
+  dismissPrevious,
+
+  /// Reuses the currently visible in-region toast and transitions its content.
+  transition,
+}
 
 enum GooeyToastExpansionPhase { closed, opening, open, closing }
 

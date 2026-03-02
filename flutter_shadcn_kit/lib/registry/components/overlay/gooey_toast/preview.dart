@@ -2314,6 +2314,8 @@ extension on GooeyToastNewToastBehavior {
       GooeyToastNewToastBehavior.stack => 'new toast · stack',
       GooeyToastNewToastBehavior.dismissPrevious =>
         'new toast · dismiss previous',
+      GooeyToastNewToastBehavior.transition =>
+        'new toast · transition existing',
     };
   }
 }
@@ -3082,6 +3084,8 @@ extension on GooeyToastAnimationStyle {
       GooeyToastAnimationStyle.smooth => 'smooth',
       GooeyToastAnimationStyle.snappy => 'snappy',
       GooeyToastAnimationStyle.bouncy => 'bouncy',
+      GooeyToastAnimationStyle.fluid => 'fluid',
+      GooeyToastAnimationStyle.springEasing => 'spring-easing',
     };
   }
 }
