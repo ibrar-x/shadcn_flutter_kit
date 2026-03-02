@@ -352,7 +352,9 @@ class DocsPageState extends State<DocsPage> {
   }
 
   List<DocsSection> get _sidebarSections {
-    return _sections;
+    return _sections
+        .where((section) => section.title.toLowerCase() != 'application')
+        .toList(growable: false);
   }
 
   DocsTag? _tagForComponent(String componentId) {
@@ -822,7 +824,7 @@ class SidebarSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.xSmall().semiBold().withPadding(vertical: 2, horizontal: 8),
+        header.small().semiBold().withPadding(vertical: 2, horizontal: 8),
         const Gap(6),
         ...children,
       ],
@@ -871,7 +873,7 @@ class DocsNavigationButton extends StatelessWidget {
         ),
         child: Row(
           children: [
-            child.small(),
+            child.xSmall(),
             if (trailing != null) const Gap(8),
             if (trailing != null) trailing!,
           ],
@@ -919,7 +921,7 @@ class SidebarButton extends StatelessWidget {
             );
           },
         ),
-        child: child.small(),
+        child: child.xSmall(),
       ),
     );
   }

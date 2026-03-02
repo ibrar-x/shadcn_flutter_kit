@@ -1,9 +1,4 @@
-import 'package:flutter/widgets.dart';
-
-import '../../../../ui/shadcn/components/control/button/button.dart'
-    as shadcn_buttons;
-import '../../../../ui/shadcn/components/overlay/refresh_trigger/refresh_trigger.dart';
-import '../../../../ui/shadcn/shared/utils/util.dart';
+import 'package:docs/shadcn_ui.dart';
 
 class RefreshTriggerExample1 extends StatefulWidget {
   const RefreshTriggerExample1({super.key});
@@ -13,6 +8,8 @@ class RefreshTriggerExample1 extends StatefulWidget {
 }
 
 class _RefreshTriggerExample1State extends State<RefreshTriggerExample1> {
+  // A GlobalKey lets us access the RefreshTrigger's state so we can
+  // trigger a programmatic refresh (via a button) in addition to pull-to-refresh.
   final GlobalKey<RefreshTriggerState> _refreshTriggerKey =
       GlobalKey<RefreshTriggerState>();
 
@@ -20,20 +17,24 @@ class _RefreshTriggerExample1State extends State<RefreshTriggerExample1> {
   Widget build(BuildContext context) {
     return RefreshTrigger(
       key: _refreshTriggerKey,
+      // Called when the user pulls down far enough or when we call .refresh().
+      // Here we simulate a network call with a short delay.
       onRefresh: () async {
         await Future.delayed(const Duration(seconds: 2));
       },
       child: SingleChildScrollView(
         child: Container(
+          // Give the scroll view some height so pull-to-refresh can be triggered.
           height: 800,
           padding: const EdgeInsets.only(top: 32),
           alignment: Alignment.topCenter,
           child: Column(
             children: [
               const Text('Pull Me'),
-              gap(16),
-              shadcn_buttons.PrimaryButton(
+              const Gap(16),
+              PrimaryButton(
                 onPressed: () {
+                  // Programmatically trigger the refresh without a pull gesture.
                   _refreshTriggerKey.currentState!.refresh();
                 },
                 child: const Text('Refresh'),
