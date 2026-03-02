@@ -67,8 +67,8 @@ class _ThemePageState extends State<ThemePage> {
       ValueNotifier(const ShadRangeValue(320, 800));
   final ValueNotifier<int> _gpuCount = ValueNotifier(8);
 
-  static const double _kitchenColumnGap = 22;
-  static const double _kitchenSectionGap = 18;
+  static const double _kitchenColumnGap = 24;
+  static const double _kitchenSectionGap = 20;
 
   List<DocsThemePreset> get _presetOptions => DocsThemeController.presets;
 
@@ -102,7 +102,7 @@ class _ThemePageState extends State<ThemePage> {
       name: 'theme',
       onThisPage: const {},
       sidebar: SizedBox(
-        width: 272,
+        width: 252,
         child: _buildOptionsPanel(context),
       ),
       child: LayoutBuilder(
@@ -125,7 +125,7 @@ class _ThemePageState extends State<ThemePage> {
               const SizedBox(height: 28),
               const Text('Code').h2(),
               const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildCodeSnippet()),
+              DocsCodeBlock(code: _buildCodeSnippet(controller)),
             ],
           );
         },
@@ -1214,61 +1214,26 @@ class _ThemePageState extends State<ThemePage> {
         .key;
   }
 
-  String _buildCodeSnippet() {
-    final controller = context.docsThemeController;
+  String _buildCodeSnippet(DocsThemeController controller) {
     final data = controller.data;
     final isDark = controller.brightness == Brightness.dark;
+    final modeName = isDark ? 'dark' : 'light';
     final modeField = isDark ? 'dark' : 'light';
-    final tokenField = isDark ? 'darkTokens' : 'lightTokens';
-
     final basePreset = _presetForId(_basePresetId);
     final accentPreset = _presetForId(_accentPresetId);
-    final selectedPresetTokens =
-        _tokensForPreset(_basePresetId, controller.brightness);
-    final selectedPresetScheme = _schemeForSelection(controller.brightness);
-
-    final isSinglePreset = _basePresetId == _accentPresetId;
-    final isPresetOnly = isSinglePreset &&
-        data.colorScheme == selectedPresetScheme &&
-        _sameDouble(data.radius, selectedPresetTokens.radius) &&
-        data.density == selectedPresetTokens.density &&
-        data.spacing == selectedPresetTokens.spacing &&
-        data.tracking == selectedPresetTokens.tracking &&
-        data.shadows == selectedPresetTokens.shadows &&
-        _sameDouble(data.scaling, 1.0) &&
-        _sameDouble(data.surfaceOpacity, 1.0) &&
-        _sameDouble(data.surfaceBlur, 0.0);
-
-    if (isPresetOnly) {
-      return [
-        '// Preset only (no mix and no overrides)',
-        "final preset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-        '',
-        'ShadcnApp(',
-        '  theme: ThemeData(',
-        '    colorScheme: preset.$modeField,',
-        '    radius: preset.$tokenField.radius,',
-        '    density: preset.$tokenField.density,',
-        '    spacing: preset.$tokenField.spacing,',
-        '    tracking: preset.$tokenField.tracking,',
-        '    shadows: preset.$tokenField.shadows,',
-        '  ),',
-        '  child: const AppRoot(),',
-        ');',
-      ].join('\n');
-    }
 
     final lines = <String>[
-      '// Generated from current theme selections',
-      '// base preset: ${basePreset.name} (${basePreset.id})',
-      if (!isSinglePreset)
-        '// accent preset: ${accentPreset.name} (${accentPreset.id})',
+      '// Selected theme settings',
+      '// mode: $modeName',
+      '// base preset: ${basePreset.name} ($_basePresetId)',
+      if (_basePresetId != _accentPresetId)
+        '// accent preset: ${accentPreset.name} ($_accentPresetId)',
       '',
       "final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-      if (!isSinglePreset)
+      if (_basePresetId != _accentPresetId)
         "final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
       'final baseScheme = basePreset.$modeField;',
-      if (isSinglePreset)
+      if (_basePresetId == _accentPresetId)
         'final colorScheme = baseScheme;'
       else ...[
         'final accentScheme = accentPreset.$modeField;',
@@ -1292,19 +1257,13 @@ class _ThemePageState extends State<ThemePage> {
       ],
       '',
       'ShadcnApp(',
-      if (!_sameDouble(data.scaling, 1.0))
-        '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
+      '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
       '  theme: ThemeData(',
       '    colorScheme: colorScheme,',
       '    radius: ${_formatNumber(data.radius)},',
       '    density: ${_densityCode(data.density)},',
-      '    spacing: const SpacingScale(${_formatNumber(data.spacing.base)}),',
-      '    tracking: basePreset.$tokenField.tracking,',
-      '    shadows: basePreset.$tokenField.shadows,',
-      if (!_sameDouble(data.surfaceOpacity, 1.0))
-        '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
-      if (!_sameDouble(data.surfaceBlur, 0.0))
-        '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
+      '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
+      '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
       '  ),',
       '  child: const AppRoot(),',
       ');',
@@ -1317,16 +1276,7 @@ class _ThemePageState extends State<ThemePage> {
     if (density == Density.compactDensity) return 'Density.compactDensity';
     if (density == Density.reducedDensity) return 'Density.reducedDensity';
     if (density == Density.spaciousDensity) return 'Density.spaciousDensity';
-    if (density == Density.defaultDensity) return 'Density.defaultDensity';
-    return 'Density('
-        'baseContainerPadding: ${_formatNumber(density.baseContainerPadding)}, '
-        'baseGap: ${_formatNumber(density.baseGap)}, '
-        'baseContentPadding: ${_formatNumber(density.baseContentPadding)}'
-        ')';
-  }
-
-  bool _sameDouble(double lhs, double rhs) {
-    return (lhs - rhs).abs() < 0.0001;
+    return 'Density.defaultDensity';
   }
 
   String _formatNumber(num value) {
