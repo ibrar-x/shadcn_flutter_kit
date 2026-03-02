@@ -1022,6 +1022,9 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: isDark ? 'Dark' : 'Light',
           values: _themeModes.keys.toList(),
+          itemIconBuilder: (item) {
+            return item == 'Dark' ? Icons.dark_mode : Icons.light_mode;
+          },
           onChanged: (value) {
             if (value == null) return;
             _updateThemeMode(controller, value == 'Dark');
@@ -1058,6 +1061,7 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: radiusKey,
           values: _radiusOptions.keys.toList(),
+          icon: Icons.rounded_corner,
           onChanged: (value) {
             if (value == null) return;
             final next = _radiusOptions[value];
@@ -1071,6 +1075,7 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: densityLabel,
           values: ['Preset', ..._densityOptions.keys],
+          icon: Icons.line_weight,
           onChanged: (value) {
             if (value == null) return;
             if (value == 'Preset') {
@@ -1088,6 +1093,7 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: scalingKey,
           values: _scalingOptions.keys.toList(),
+          icon: Icons.zoom_in,
           onChanged: (value) {
             if (value == null) return;
             final next = _scalingOptions[value];
@@ -1101,6 +1107,7 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: surfaceOpacityKey,
           values: _surfaceOpacityOptions.keys.toList(),
+          icon: Icons.opacity,
           onChanged: (value) {
             if (value == null) return;
             final next = _surfaceOpacityOptions[value];
@@ -1114,6 +1121,7 @@ class _ThemePageState extends State<ThemePage> {
         _stringSelect(
           value: surfaceBlurKey,
           values: _surfaceBlurOptions.keys.toList(),
+          icon: Icons.blur_on,
           onChanged: (value) {
             if (value == null) return;
             final next = _surfaceBlurOptions[value];
@@ -1179,19 +1187,47 @@ class _ThemePageState extends State<ThemePage> {
   Widget _stringSelect({
     required String value,
     required List<String> values,
+    IconData? icon,
+    IconData Function(String item)? itemIconBuilder,
     ValueChanged<String?>? onChanged,
   }) {
     return Select<String>(
       value: value,
       onChanged: onChanged,
-      itemBuilder: (context, item) => Text(item),
+      itemBuilder: (context, item) {
+        final resolvedIcon = itemIconBuilder?.call(item) ?? icon;
+        if (resolvedIcon == null) {
+          return Text(item);
+        }
+        return Row(
+          children: [
+            Icon(resolvedIcon, size: 14).iconMutedForeground(),
+            const SizedBox(width: 8),
+            Flexible(child: Text(item)),
+          ],
+        );
+      },
       popup: SelectPopup.noVirtualization(
         items: SelectItemList(
           children: [
             for (final item in values)
               SelectItemButton(
                 value: item,
-                child: Text(item),
+                child: Builder(
+                  builder: (context) {
+                    final resolvedIcon = itemIconBuilder?.call(item) ?? icon;
+                    if (resolvedIcon == null) {
+                      return Text(item);
+                    }
+                    return Row(
+                      children: [
+                        Icon(resolvedIcon, size: 14).iconMutedForeground(),
+                        const SizedBox(width: 8),
+                        Flexible(child: Text(item)),
+                      ],
+                    );
+                  },
+                ),
               ),
           ],
         ),

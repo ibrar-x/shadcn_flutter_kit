@@ -159,7 +159,6 @@ class DocsPageState extends State<DocsPage> {
     'wrapper': 'application',
     'refresh_trigger': 'utility',
   };
-  static const String _applicationSectionTitle = 'Application';
 
   @override
   void initState() {
@@ -353,9 +352,7 @@ class DocsPageState extends State<DocsPage> {
   }
 
   List<DocsSection> get _sidebarSections {
-    return _sections
-        .where((section) => section.title != _applicationSectionTitle)
-        .toList();
+    return _sections;
   }
 
   DocsTag? _tagForComponent(String componentId) {
@@ -560,6 +557,7 @@ class DocsPageState extends State<DocsPage> {
   @override
   Widget build(BuildContext context) {
     final hasOnThisPage = widget.onThisPage.isNotEmpty;
+    final isThemePage = widget.name == 'theme';
     final currentPage = _sections
         .expand((section) => section.pages)
         .where((page) => page.name == widget.name)
@@ -574,12 +572,14 @@ class DocsPageState extends State<DocsPage> {
     }
 
     return StageContainer(
-      breakpoint: StageBreakpoint.constant(
-        1,
-        minSize: 0,
-        maxSize: double.infinity,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      breakpoint: isThemePage
+          ? StageBreakpoint.constant(
+              1,
+              minSize: 0,
+              maxSize: double.infinity,
+            )
+          : StageBreakpoint.defaultBreakpoints,
+      padding: isThemePage ? const EdgeInsets.symmetric(horizontal: 16) : null,
       builder: (context, padding) {
         final theme = shadcn_theme.Theme.of(context);
         final headerContentHeight = 36 * theme.scaling;
@@ -624,7 +624,7 @@ class DocsPageState extends State<DocsPage> {
                           key: const PageStorageKey('sidebar'),
                           padding: EdgeInsets.only(
                                 top: 32,
-                                left: 12 + padding.left,
+                                left: (isThemePage ? 12 : 24) + padding.left,
                                 bottom: 32,
                               ) *
                               theme.scaling,
@@ -661,12 +661,12 @@ class DocsPageState extends State<DocsPage> {
                               controller: scrollController,
                               clipBehavior: Clip.none,
                               padding: (EdgeInsets.symmetric(
-                                        horizontal: 32,
+                                        horizontal: isThemePage ? 32 : 40,
                                         vertical: 32,
                                       ).copyWith(
                                         right: (hasOnThisPage ||
                                                 widget.sidebar != null)
-                                            ? 16
+                                            ? (isThemePage ? 16 : 24)
                                             : padding.right + 32,
                                       ) *
                                       theme.scaling) +
@@ -704,7 +704,7 @@ class DocsPageState extends State<DocsPage> {
                           child: SingleChildScrollView(
                             padding: EdgeInsets.only(
                                   top: 32,
-                                  right: 16,
+                                  right: isThemePage ? 16 : 24,
                                   bottom: 32,
                                   left: 0,
                                 ) *
@@ -722,9 +722,9 @@ class DocsPageState extends State<DocsPage> {
                             child: SingleChildScrollView(
                               padding: EdgeInsets.only(
                                     top: 32,
-                                    right: 16,
+                                    right: isThemePage ? 16 : 24,
                                     bottom: 32,
-                                    left: 16,
+                                    left: isThemePage ? 16 : 24,
                                   ) *
                                   theme.scaling,
                               child: SidebarNav(
@@ -822,8 +822,8 @@ class SidebarSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.small().semiBold().withPadding(vertical: 4, horizontal: 8),
-        const Gap(4),
+        header.xSmall().semiBold().withPadding(vertical: 2, horizontal: 8),
+        const Gap(6),
         ...children,
       ],
     );
