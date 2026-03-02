@@ -574,6 +574,12 @@ class DocsPageState extends State<DocsPage> {
     }
 
     return StageContainer(
+      breakpoint: StageBreakpoint.constant(
+        1,
+        minSize: 0,
+        maxSize: double.infinity,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       builder: (context, padding) {
         final theme = shadcn_theme.Theme.of(context);
         final headerContentHeight = 36 * theme.scaling;
@@ -618,7 +624,7 @@ class DocsPageState extends State<DocsPage> {
                           key: const PageStorageKey('sidebar'),
                           padding: EdgeInsets.only(
                                 top: 32,
-                                left: 24 + padding.left,
+                                left: 12 + padding.left,
                                 bottom: 32,
                               ) *
                               theme.scaling,
@@ -655,12 +661,12 @@ class DocsPageState extends State<DocsPage> {
                               controller: scrollController,
                               clipBehavior: Clip.none,
                               padding: (EdgeInsets.symmetric(
-                                        horizontal: 40,
+                                        horizontal: 32,
                                         vertical: 32,
                                       ).copyWith(
                                         right: (hasOnThisPage ||
                                                 widget.sidebar != null)
-                                            ? 24
+                                            ? 16
                                             : padding.right + 32,
                                       ) *
                                       theme.scaling) +
@@ -698,7 +704,7 @@ class DocsPageState extends State<DocsPage> {
                           child: SingleChildScrollView(
                             padding: EdgeInsets.only(
                                   top: 32,
-                                  right: 24,
+                                  right: 16,
                                   bottom: 32,
                                   left: 0,
                                 ) *
@@ -716,9 +722,9 @@ class DocsPageState extends State<DocsPage> {
                             child: SingleChildScrollView(
                               padding: EdgeInsets.only(
                                     top: 32,
-                                    right: 24,
+                                    right: 16,
                                     bottom: 32,
-                                    left: 24,
+                                    left: 16,
                                   ) *
                                   theme.scaling,
                               child: SidebarNav(
