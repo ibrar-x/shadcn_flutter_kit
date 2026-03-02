@@ -1216,52 +1216,79 @@ class _ThemePageState extends State<ThemePage> {
 
   String _buildCodeSnippet(DocsThemeController controller) {
     final data = controller.data;
-    final isDark = controller.brightness == Brightness.dark;
-    final modeName = isDark ? 'dark' : 'light';
-    final modeField = isDark ? 'dark' : 'light';
     final basePreset = _presetForId(_basePresetId);
     final accentPreset = _presetForId(_accentPresetId);
+    final usesMixedAccent = _basePresetId != _accentPresetId;
+    final spacingBase = data.density.toSpacingScale().base;
 
     final lines = <String>[
-      '// Selected theme settings',
-      '// mode: $modeName',
-      '// base preset: ${basePreset.name} ($_basePresetId)',
-      if (_basePresetId != _accentPresetId)
-        '// accent preset: ${accentPreset.name} ($_accentPresetId)',
+      '// Generated registry preset from current Theme page selections.',
       '',
-      "final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-      if (_basePresetId != _accentPresetId)
-        "final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
-      'final baseScheme = basePreset.$modeField;',
-      if (_basePresetId == _accentPresetId)
-        'final colorScheme = baseScheme;'
-      else ...[
-        'final accentScheme = accentPreset.$modeField;',
-        'final colorScheme = baseScheme.copyWith(',
-        '  primary: () => accentScheme.primary,',
-        '  primaryForeground: () => accentScheme.primaryForeground,',
-        '  accent: () => accentScheme.accent,',
-        '  accentForeground: () => accentScheme.accentForeground,',
-        '  ring: () => accentScheme.ring,',
-        '  chart1: () => accentScheme.chart1,',
-        '  chart2: () => accentScheme.chart2,',
-        '  chart3: () => accentScheme.chart3,',
-        '  chart4: () => accentScheme.chart4,',
-        '  chart5: () => accentScheme.chart5,',
-        '  sidebarPrimary: () => accentScheme.sidebarPrimary,',
-        '  sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
-        '  sidebarAccent: () => accentScheme.sidebarAccent,',
-        '  sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
-        '  sidebarRing: () => accentScheme.sidebarRing,',
-        ');',
+      'final RegistryThemePreset appPreset = (() {',
+      "  final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
+      if (usesMixedAccent)
+        "  final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
+      if (usesMixedAccent) ...[
+        '  ColorScheme mixScheme(ColorScheme baseScheme, ColorScheme accentScheme) {',
+        '    return baseScheme.copyWith(',
+        '      primary: () => accentScheme.primary,',
+        '      primaryForeground: () => accentScheme.primaryForeground,',
+        '      accent: () => accentScheme.accent,',
+        '      accentForeground: () => accentScheme.accentForeground,',
+        '      ring: () => accentScheme.ring,',
+        '      chart1: () => accentScheme.chart1,',
+        '      chart2: () => accentScheme.chart2,',
+        '      chart3: () => accentScheme.chart3,',
+        '      chart4: () => accentScheme.chart4,',
+        '      chart5: () => accentScheme.chart5,',
+        '      sidebarPrimary: () => accentScheme.sidebarPrimary,',
+        '      sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
+        '      sidebarAccent: () => accentScheme.sidebarAccent,',
+        '      sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
+        '      sidebarRing: () => accentScheme.sidebarRing,',
+        '    );',
+        '  }',
       ],
+      '  final lightScheme = ${usesMixedAccent ? 'mixScheme(basePreset.light, accentPreset.light)' : 'basePreset.light'};',
+      '  final darkScheme = ${usesMixedAccent ? 'mixScheme(basePreset.dark, accentPreset.dark)' : 'basePreset.dark'};',
+      '',
+      '  return RegistryThemePreset(',
+      "    id: 'app-theme',",
+      "    name: 'App Theme',",
+      '    light: lightScheme,',
+      '    dark: darkScheme,',
+      '    lightTokens: RegistryThemePresetTokens(',
+      '      radius: ${_formatNumber(data.radius)},',
+      '      spacing: SpacingScale(${_formatNumber(spacingBase)}),',
+      '      tracking: basePreset.lightTokens.tracking,',
+      '      shadows: basePreset.lightTokens.shadows,',
+      '      fontSans: basePreset.lightTokens.fontSans,',
+      '      fontSerif: basePreset.lightTokens.fontSerif,',
+      '      fontMono: basePreset.lightTokens.fontMono,',
+      '    ),',
+      '    darkTokens: RegistryThemePresetTokens(',
+      '      radius: ${_formatNumber(data.radius)},',
+      '      spacing: SpacingScale(${_formatNumber(spacingBase)}),',
+      '      tracking: basePreset.darkTokens.tracking,',
+      '      shadows: basePreset.darkTokens.shadows,',
+      '      fontSans: basePreset.darkTokens.fontSans,',
+      '      fontSerif: basePreset.darkTokens.fontSerif,',
+      '      fontMono: basePreset.darkTokens.fontMono,',
+      '    ),',
+      '  );',
+      '})();',
+      '',
+      'final bool isDarkMode = ${controller.brightness == Brightness.dark};',
+      'final ColorScheme activeScheme = isDarkMode ? appPreset.dark : appPreset.light;',
+      'final RegistryThemePresetTokens activeTokens =',
+      '    isDarkMode ? appPreset.darkTokens : appPreset.lightTokens;',
       '',
       'ShadcnApp(',
       '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
       '  theme: ThemeData(',
-      '    colorScheme: colorScheme,',
-      '    radius: ${_formatNumber(data.radius)},',
-      '    density: ${_densityCode(data.density)},',
+      '    colorScheme: activeScheme,',
+      '    radius: activeTokens.radius,',
+      '    density: activeTokens.density,',
       '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
       '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
       '  ),',
@@ -1270,13 +1297,6 @@ class _ThemePageState extends State<ThemePage> {
     ];
 
     return lines.join('\n');
-  }
-
-  String _densityCode(Density density) {
-    if (density == Density.compactDensity) return 'Density.compactDensity';
-    if (density == Density.reducedDensity) return 'Density.reducedDensity';
-    if (density == Density.spaciousDensity) return 'Density.spaciousDensity';
-    return 'Density.defaultDensity';
   }
 
   String _formatNumber(num value) {

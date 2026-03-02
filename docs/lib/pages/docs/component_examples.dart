@@ -61,6 +61,7 @@ import 'components/progress/progress_examples.dart';
 import 'components/radio_card/radio_card_examples.dart';
 import 'components/radio_group/radio_group_examples.dart';
 import 'components/repeated_animation_builder/repeated_animation_builder_examples.dart';
+import 'components/refresh_trigger/refresh_trigger_examples.dart';
 import 'components/resizable/resizable_examples.dart';
 import 'components/select/select_examples.dart';
 import 'components/sheet/sheet_examples.dart';
@@ -259,6 +260,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'radio_card',
       'radio_group',
       'repeated_animation_builder',
+      'refresh_trigger',
       'resizable',
       'select',
       'sheet',
@@ -351,6 +353,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'radio_card': radioCardExamples,
   'radio_group': radioGroupExamples,
   'repeated_animation_builder': repeatedAnimationBuilderExamples,
+  'refresh_trigger': refreshTriggerExamples,
   'resizable': resizableExamples,
   'select': selectExamples,
   'sheet': sheetExamples,
