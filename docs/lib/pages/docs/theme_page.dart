@@ -122,7 +122,7 @@ class _ThemePageState extends State<ThemePage> {
               const SizedBox(height: 28),
               const Text('Code').h2(),
               const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildCodeSnippet(controller)),
+              DocsCodeBlock(code: _buildCodeSnippet()),
             ],
           );
         },
@@ -916,33 +916,42 @@ class _ThemePageState extends State<ThemePage> {
           const DensityGap(gapMd),
           const Divider(),
           const DensityGap(gapMd),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                IconButton.outline(
-                  density: ButtonDensity.iconDense,
-                  icon: const Icon(Icons.add),
-                  onPressed: () {},
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final compact = constraints.maxWidth < 260;
+              final tight = constraints.maxWidth < 220;
+              return IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    IconButton.outline(
+                      density: ButtonDensity.iconDense,
+                      icon: const Icon(Icons.add),
+                      onPressed: () {},
+                    ),
+                    DensityGap(compact ? gapXs : gapSm),
+                    if (!tight)
+                      SecondaryButton(
+                        density: ButtonDensity.dense,
+                        onPressed: () {},
+                        child: const Text('Auto'),
+                      ),
+                    const Spacer(),
+                    if (!compact) ...[
+                      const Text('52% Used').muted().small().center(),
+                      const DensityGap(gapSm),
+                      const VerticalDivider(),
+                      const DensityGap(gapSm),
+                    ],
+                    IconButton.primary(
+                      density: ButtonDensity.iconDense,
+                      icon: const Icon(Icons.arrow_upward),
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
-                const DensityGap(gapSm),
-                SecondaryButton(
-                  density: ButtonDensity.dense,
-                  onPressed: () {},
-                  child: const Text('Auto'),
-                ),
-                const Spacer(),
-                const Text('52% Used').muted().small().center(),
-                const DensityGap(gapSm),
-                const VerticalDivider(),
-                const DensityGap(gapSm),
-                IconButton.primary(
-                  density: ButtonDensity.iconDense,
-                  icon: const Icon(Icons.arrow_upward),
-                  onPressed: () {},
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -1202,69 +1211,152 @@ class _ThemePageState extends State<ThemePage> {
         .key;
   }
 
-  String _buildCodeSnippet(DocsThemeController controller) {
-    final data = controller.data;
-    final isDark = controller.brightness == Brightness.dark;
-    final modeName = isDark ? 'dark' : 'light';
-    final modeField = isDark ? 'dark' : 'light';
-    final basePreset = _presetForId(_basePresetId);
-    final accentPreset = _presetForId(_accentPresetId);
+  String _buildCodeSnippet() {
+    final lightScheme = _schemeForSelection(Brightness.light);
+    final darkScheme = _schemeForSelection(Brightness.dark);
+    final lightTokens = _tokensForPreset(_basePresetId, Brightness.light);
+    final darkTokens = _tokensForPreset(_basePresetId, Brightness.dark);
 
     final lines = <String>[
-      '// Selected theme settings',
-      '// mode: $modeName',
-      '// base preset: ${basePreset.name} ($_basePresetId)',
-      if (_basePresetId != _accentPresetId)
-        '// accent preset: ${accentPreset.name} ($_accentPresetId)',
-      '',
-      "final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '$_basePresetId');",
-      if (_basePresetId != _accentPresetId)
-        "final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '$_accentPresetId');",
-      'final baseScheme = basePreset.$modeField;',
-      if (_basePresetId == _accentPresetId)
-        'final colorScheme = baseScheme;'
-      else ...[
-        'final accentScheme = accentPreset.$modeField;',
-        'final colorScheme = baseScheme.copyWith(',
-        '  primary: () => accentScheme.primary,',
-        '  primaryForeground: () => accentScheme.primaryForeground,',
-        '  accent: () => accentScheme.accent,',
-        '  accentForeground: () => accentScheme.accentForeground,',
-        '  ring: () => accentScheme.ring,',
-        '  chart1: () => accentScheme.chart1,',
-        '  chart2: () => accentScheme.chart2,',
-        '  chart3: () => accentScheme.chart3,',
-        '  chart4: () => accentScheme.chart4,',
-        '  chart5: () => accentScheme.chart5,',
-        '  sidebarPrimary: () => accentScheme.sidebarPrimary,',
-        '  sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
-        '  sidebarAccent: () => accentScheme.sidebarAccent,',
-        '  sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
-        '  sidebarRing: () => accentScheme.sidebarRing,',
-        ');',
-      ],
-      '',
-      'ShadcnApp(',
-      '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
-      '  theme: ThemeData(',
-      '    colorScheme: colorScheme,',
-      '    radius: ${_formatNumber(data.radius)},',
-      '    density: ${_densityCode(data.density)},',
-      '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
-      '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
-      '  ),',
-      '  child: const AppRoot(),',
-      ');',
+      'RegistryThemePreset(',
+      "  id: '${_generatedPresetId()}',",
+      "  name: '${_escape(_generatedPresetName())}',",
+      ..._buildColorSchemeLiteral(name: 'light', scheme: lightScheme),
+      ..._buildColorSchemeLiteral(name: 'dark', scheme: darkScheme),
+      ..._buildTokenLiteral(
+        name: 'lightTokens',
+        tokens: lightTokens,
+        helperName: '_lightTokens',
+      ),
+      ..._buildTokenLiteral(
+        name: 'darkTokens',
+        tokens: darkTokens,
+        helperName: '_darkTokens',
+      ),
+      '),',
     ];
 
     return lines.join('\n');
   }
 
-  String _densityCode(Density density) {
-    if (density == Density.compactDensity) return 'Density.compactDensity';
-    if (density == Density.reducedDensity) return 'Density.reducedDensity';
-    if (density == Density.spaciousDensity) return 'Density.spaciousDensity';
-    return 'Density.defaultDensity';
+  String _generatedPresetId() {
+    if (_basePresetId == _accentPresetId) {
+      return '$_basePresetId-custom';
+    }
+    return '$_basePresetId-$_accentPresetId-mix';
+  }
+
+  String _generatedPresetName() {
+    final baseName = _presetForId(_basePresetId).name;
+    final accentName = _presetForId(_accentPresetId).name;
+    if (_basePresetId == _accentPresetId) {
+      return '$baseName Custom';
+    }
+    return '$baseName + $accentName Accent';
+  }
+
+  Iterable<String> _buildColorSchemeLiteral({
+    required String name,
+    required ColorScheme scheme,
+  }) sync* {
+    yield '  $name: const ColorScheme(';
+    yield '    brightness: Brightness.${scheme.brightness.name},';
+    yield '    background: ${_colorLiteral(scheme.background)},';
+    yield '    foreground: ${_colorLiteral(scheme.foreground)},';
+    yield '    card: ${_colorLiteral(scheme.card)},';
+    yield '    cardForeground: ${_colorLiteral(scheme.cardForeground)},';
+    yield '    popover: ${_colorLiteral(scheme.popover)},';
+    yield '    popoverForeground: ${_colorLiteral(scheme.popoverForeground)},';
+    yield '    primary: ${_colorLiteral(scheme.primary)},';
+    yield '    primaryForeground: ${_colorLiteral(scheme.primaryForeground)},';
+    yield '    secondary: ${_colorLiteral(scheme.secondary)},';
+    yield '    secondaryForeground: ${_colorLiteral(scheme.secondaryForeground)},';
+    yield '    muted: ${_colorLiteral(scheme.muted)},';
+    yield '    mutedForeground: ${_colorLiteral(scheme.mutedForeground)},';
+    yield '    accent: ${_colorLiteral(scheme.accent)},';
+    yield '    accentForeground: ${_colorLiteral(scheme.accentForeground)},';
+    yield '    destructive: ${_colorLiteral(scheme.destructive)},';
+    // ignore: deprecated_member_use_from_same_package
+    yield '    destructiveForeground: ${_colorLiteral(scheme.destructiveForeground)},';
+    yield '    border: ${_colorLiteral(scheme.border)},';
+    yield '    input: ${_colorLiteral(scheme.input)},';
+    yield '    ring: ${_colorLiteral(scheme.ring)},';
+    yield '    chart1: ${_colorLiteral(scheme.chart1)},';
+    yield '    chart2: ${_colorLiteral(scheme.chart2)},';
+    yield '    chart3: ${_colorLiteral(scheme.chart3)},';
+    yield '    chart4: ${_colorLiteral(scheme.chart4)},';
+    yield '    chart5: ${_colorLiteral(scheme.chart5)},';
+    yield '    sidebar: ${_colorLiteral(scheme.sidebar)},';
+    yield '    sidebarForeground: ${_colorLiteral(scheme.sidebarForeground)},';
+    yield '    sidebarPrimary: ${_colorLiteral(scheme.sidebarPrimary)},';
+    yield '    sidebarPrimaryForeground: ${_colorLiteral(scheme.sidebarPrimaryForeground)},';
+    yield '    sidebarAccent: ${_colorLiteral(scheme.sidebarAccent)},';
+    yield '    sidebarAccentForeground: ${_colorLiteral(scheme.sidebarAccentForeground)},';
+    yield '    sidebarBorder: ${_colorLiteral(scheme.sidebarBorder)},';
+    yield '    sidebarRing: ${_colorLiteral(scheme.sidebarRing)},';
+    yield '  ),';
+  }
+
+  Iterable<String> _buildTokenLiteral({
+    required String name,
+    required RegistryThemePresetTokens tokens,
+    required String helperName,
+  }) sync* {
+    yield '  $name: $helperName(';
+    yield '    radius: ${_formatNumber(tokens.radius)},';
+    yield '    spacingBase: ${_formatNumber(tokens.spacing.base)},';
+    yield* _buildShadowScaleLiteral(tokens.shadows, indent: 4);
+    if (tokens.fontSans != null) {
+      yield "    fontSans: '${_escape(tokens.fontSans!)}',";
+    }
+    if (tokens.fontSerif != null) {
+      yield "    fontSerif: '${_escape(tokens.fontSerif!)}',";
+    }
+    if (tokens.fontMono != null) {
+      yield "    fontMono: '${_escape(tokens.fontMono!)}',";
+    }
+    yield '  ),';
+  }
+
+  Iterable<String> _buildShadowScaleLiteral(ShadowScale scale,
+      {required int indent}) sync* {
+    final pad = ' ' * indent;
+    yield '${pad}shadows: const ShadowScale(';
+    yield '$pad  shadow2xs: ${_boxShadowListLiteral(scale.shadow2xs)},';
+    yield '$pad  shadowXs: ${_boxShadowListLiteral(scale.shadowXs)},';
+    yield '$pad  shadowSm: ${_boxShadowListLiteral(scale.shadowSm)},';
+    yield '$pad  shadow: ${_boxShadowListLiteral(scale.shadow)},';
+    yield '$pad  shadowMd: ${_boxShadowListLiteral(scale.shadowMd)},';
+    yield '$pad  shadowLg: ${_boxShadowListLiteral(scale.shadowLg)},';
+    yield '$pad  shadowXl: ${_boxShadowListLiteral(scale.shadowXl)},';
+    yield '$pad  shadow2xl: ${_boxShadowListLiteral(scale.shadow2xl)},';
+    yield '$pad),';
+  }
+
+  String _boxShadowListLiteral(List<BoxShadow> shadows) {
+    if (shadows.isEmpty) {
+      return 'const []';
+    }
+    return '[${shadows.map(_boxShadowLiteral).join(', ')}]';
+  }
+
+  String _boxShadowLiteral(BoxShadow shadow) {
+    return 'const BoxShadow('
+        'offset: Offset(${_formatNumber(shadow.offset.dx)}, ${_formatNumber(shadow.offset.dy)}), '
+        'blurRadius: ${_formatNumber(shadow.blurRadius)}, '
+        'spreadRadius: ${_formatNumber(shadow.spreadRadius)}, '
+        'color: ${_colorLiteral(shadow.color)}'
+        ')';
+  }
+
+  String _colorLiteral(Color color) {
+    final hex =
+        color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
+    return 'Color(0x$hex)';
+  }
+
+  String _escape(String value) {
+    return value.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
   }
 
   String _formatNumber(num value) {
