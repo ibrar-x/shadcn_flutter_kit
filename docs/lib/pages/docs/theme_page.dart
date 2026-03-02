@@ -764,7 +764,9 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenBadges() {
     return RepaintBoundary(
-      child: Row(
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
         children: [
           PrimaryBadge(
             leading: const CircularProgressIndicator(
@@ -773,12 +775,10 @@ class _ThemePageState extends State<ThemePage> {
             ),
             child: const Text('Syncing').small(),
           ),
-          const DensityGap(gapSm),
           SecondaryBadge(
             leading: const CircularProgressIndicator(size: 10),
             child: const Text('Updating').small(),
           ),
-          const DensityGap(gapSm),
           OutlineBadge(
             leading: const CircularProgressIndicator(size: 10),
             child: const Text('Loading').small(),
