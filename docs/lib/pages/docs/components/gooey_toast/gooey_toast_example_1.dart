@@ -23,6 +23,11 @@ final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
       slideOffset: Offset(0, 0.10),
       scaleFrom: 0.80,
     ),
+    autopilotEnabled: true,
+    pauseOnHover: true,
+    swipeToDismiss: true,
+    persistUntilDismissed: false,
+    newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
   ),
 );
 
@@ -136,6 +141,102 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
                     style: const ButtonStyle.outline(),
                     selectedStyle: const ButtonStyle.primary(),
                     child: Text(style.name),
+                  ),
+              ],
+            ),
+            const Gap(12),
+            const Text(
+              'Behavior',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Gap(8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                SelectedButton(
+                  value: settings.autopilotEnabled,
+                  onChanged: (value) {
+                    _gooeyDocsSettings.value = settings.copyWith(
+                      autopilotEnabled: value,
+                    );
+                  },
+                  style: const ButtonStyle.outline(),
+                  selectedStyle: const ButtonStyle.primary(),
+                  child: Text(
+                    settings.autopilotEnabled
+                        ? 'autopilot · on'
+                        : 'autopilot · off',
+                  ),
+                ),
+                SelectedButton(
+                  value: settings.pauseOnHover,
+                  onChanged: (value) {
+                    _gooeyDocsSettings.value = settings.copyWith(
+                      pauseOnHover: value,
+                    );
+                  },
+                  style: const ButtonStyle.outline(),
+                  selectedStyle: const ButtonStyle.primary(),
+                  child: Text(
+                    settings.pauseOnHover
+                        ? 'pause-on-hover · on'
+                        : 'pause-on-hover · off',
+                  ),
+                ),
+                SelectedButton(
+                  value: settings.swipeToDismiss,
+                  onChanged: (value) {
+                    _gooeyDocsSettings.value = settings.copyWith(
+                      swipeToDismiss: value,
+                    );
+                  },
+                  style: const ButtonStyle.outline(),
+                  selectedStyle: const ButtonStyle.primary(),
+                  child: Text(
+                    settings.swipeToDismiss
+                        ? 'swipe-dismiss · on'
+                        : 'swipe-dismiss · off',
+                  ),
+                ),
+                SelectedButton(
+                  value: settings.persistUntilDismissed,
+                  onChanged: (value) {
+                    _gooeyDocsSettings.value = settings.copyWith(
+                      persistUntilDismissed: value,
+                    );
+                  },
+                  style: const ButtonStyle.outline(),
+                  selectedStyle: const ButtonStyle.primary(),
+                  child: Text(
+                    settings.persistUntilDismissed
+                        ? 'persist · on'
+                        : 'persist · off',
+                  ),
+                ),
+              ],
+            ),
+            const Gap(8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final behavior in GooeyToastNewToastBehavior.values)
+                  SelectedButton(
+                    value: settings.newToastBehavior == behavior,
+                    onChanged: (value) {
+                      if (!value) return;
+                      _gooeyDocsSettings.value = settings.copyWith(
+                        newToastBehavior: behavior,
+                      );
+                    },
+                    style: const ButtonStyle.outline(),
+                    selectedStyle: const ButtonStyle.primary(),
+                    child: Text(
+                      behavior == GooeyToastNewToastBehavior.dismissPrevious
+                          ? 'dismiss previous'
+                          : 'stack',
+                    ),
                   ),
               ],
             ),
@@ -286,14 +387,14 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
       fill: _resolveToastSurface(context),
       roundness: settings.roundness,
       duration: settings.duration,
-      autopilot: settings.autopilot,
+      autopilot: settings.autopilotEnabled ? settings.autopilot : null,
       animationStyle: settings.animationStyle,
       shapeStyle: settings.shapeStyle,
       enableGooeyBlur: true,
-      pauseOnHover: true,
-      swipeToDismiss: true,
-      persistUntilDismissed: false,
-      newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+      pauseOnHover: settings.pauseOnHover,
+      swipeToDismiss: settings.swipeToDismiss,
+      persistUntilDismissed: settings.persistUntilDismissed,
+      newToastBehavior: settings.newToastBehavior,
       compactMorph: settings.compactMorph,
       action: action,
       expandedChild: expandedChild,
@@ -340,14 +441,14 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
           fill: _resolveToastSurface(context),
           roundness: settings.roundness,
           duration: settings.duration,
-          autopilot: settings.autopilot,
+          autopilot: settings.autopilotEnabled ? settings.autopilot : null,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
-          pauseOnHover: true,
-          swipeToDismiss: true,
-          persistUntilDismissed: false,
-          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          pauseOnHover: settings.pauseOnHover,
+          swipeToDismiss: settings.swipeToDismiss,
+          persistUntilDismissed: settings.persistUntilDismissed,
+          newToastBehavior: settings.newToastBehavior,
           compactMorph: settings.compactMorph,
           expandedChild: _InteractiveReplyExpanded(
             textColor: _resolveToastContentColor(context),
@@ -371,10 +472,10 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
                 animationStyle: settings.animationStyle,
                 shapeStyle: settings.shapeStyle,
                 enableGooeyBlur: true,
-                pauseOnHover: true,
-                swipeToDismiss: true,
-                persistUntilDismissed: false,
-                newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+                pauseOnHover: settings.pauseOnHover,
+                swipeToDismiss: settings.swipeToDismiss,
+                persistUntilDismissed: settings.persistUntilDismissed,
+                newToastBehavior: settings.newToastBehavior,
                 compactMorph: settings.compactMorph,
               );
             },
@@ -512,10 +613,10 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
       animationStyle: settings.animationStyle,
       shapeStyle: settings.shapeStyle,
       enableGooeyBlur: true,
-      pauseOnHover: true,
-      swipeToDismiss: true,
-      persistUntilDismissed: false,
-      newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+      pauseOnHover: settings.pauseOnHover,
+      swipeToDismiss: settings.swipeToDismiss,
+      persistUntilDismissed: settings.persistUntilDismissed,
+      newToastBehavior: settings.newToastBehavior,
       compactMorph: settings.compactMorph,
     );
 
@@ -554,10 +655,10 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
-          pauseOnHover: true,
-          swipeToDismiss: true,
-          persistUntilDismissed: false,
-          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          pauseOnHover: settings.pauseOnHover,
+          swipeToDismiss: settings.swipeToDismiss,
+          persistUntilDismissed: settings.persistUntilDismissed,
+          newToastBehavior: settings.newToastBehavior,
           compactMorph: settings.compactMorph,
         );
       }),
@@ -598,10 +699,10 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
-          pauseOnHover: true,
-          swipeToDismiss: true,
-          persistUntilDismissed: false,
-          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          pauseOnHover: settings.pauseOnHover,
+          swipeToDismiss: settings.swipeToDismiss,
+          persistUntilDismissed: settings.persistUntilDismissed,
+          newToastBehavior: settings.newToastBehavior,
           compactMorph: settings.compactMorph,
         );
       }),
@@ -650,14 +751,14 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
           fill: _resolveToastSurface(context),
           roundness: settings.roundness,
           duration: settings.duration,
-          autopilot: settings.autopilot,
+          autopilot: settings.autopilotEnabled ? settings.autopilot : null,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
           enableGooeyBlur: true,
-          pauseOnHover: true,
-          swipeToDismiss: true,
-          persistUntilDismissed: false,
-          newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+          pauseOnHover: settings.pauseOnHover,
+          swipeToDismiss: settings.swipeToDismiss,
+          persistUntilDismissed: settings.persistUntilDismissed,
+          newToastBehavior: settings.newToastBehavior,
           compactMorph: settings.compactMorph,
           expandedChild: _OpsCenterExpanded(
             textColor: _resolveToastContentColor(context),
@@ -673,8 +774,12 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
                 fill: _resolveToastSurface(context),
                 animationStyle: settings.animationStyle,
                 shapeStyle: settings.shapeStyle,
-                persistUntilDismissed: false,
-                newToastBehavior: GooeyToastNewToastBehavior.dismissPrevious,
+                autopilot:
+                    settings.autopilotEnabled ? settings.autopilot : null,
+                pauseOnHover: settings.pauseOnHover,
+                swipeToDismiss: settings.swipeToDismiss,
+                persistUntilDismissed: settings.persistUntilDismissed,
+                newToastBehavior: settings.newToastBehavior,
               );
             },
           ),
@@ -1331,6 +1436,11 @@ class _GooeyGlobalSettings {
     required this.duration,
     required this.autopilot,
     required this.compactMorph,
+    required this.autopilotEnabled,
+    required this.pauseOnHover,
+    required this.swipeToDismiss,
+    required this.persistUntilDismissed,
+    required this.newToastBehavior,
   });
 
   final _EdgePreset preset;
@@ -1341,11 +1451,21 @@ class _GooeyGlobalSettings {
   final Duration duration;
   final GooeyAutopilot autopilot;
   final GooeyCompactMorph compactMorph;
+  final bool autopilotEnabled;
+  final bool pauseOnHover;
+  final bool swipeToDismiss;
+  final bool persistUntilDismissed;
+  final GooeyToastNewToastBehavior newToastBehavior;
 
   _GooeyGlobalSettings copyWith({
     _EdgePreset? preset,
     GooeyToastAnimationStyle? animationStyle,
     GooeyToastShapeStyle? shapeStyle,
+    bool? autopilotEnabled,
+    bool? pauseOnHover,
+    bool? swipeToDismiss,
+    bool? persistUntilDismissed,
+    GooeyToastNewToastBehavior? newToastBehavior,
   }) {
     return _GooeyGlobalSettings(
       preset: preset ?? this.preset,
@@ -1356,6 +1476,12 @@ class _GooeyGlobalSettings {
       duration: duration,
       autopilot: autopilot,
       compactMorph: compactMorph,
+      autopilotEnabled: autopilotEnabled ?? this.autopilotEnabled,
+      pauseOnHover: pauseOnHover ?? this.pauseOnHover,
+      swipeToDismiss: swipeToDismiss ?? this.swipeToDismiss,
+      persistUntilDismissed:
+          persistUntilDismissed ?? this.persistUntilDismissed,
+      newToastBehavior: newToastBehavior ?? this.newToastBehavior,
     );
   }
 }

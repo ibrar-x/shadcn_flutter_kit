@@ -664,11 +664,12 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                     duration: const Duration(milliseconds: 260),
                     curve: Curves.easeInOutCubic,
                     alignment: Alignment.topCenter,
+                    clipBehavior: Clip.none,
                     child: SizedBox(
                       width: toastWidth,
                       height: visualHeight,
                       child: Stack(
-                        clipBehavior: Clip.hardEdge,
+                        clipBehavior: Clip.none,
                         children: [
                           Positioned(
                             top:
@@ -1452,6 +1453,8 @@ class _GooeyPainter extends CustomPainter {
       final bodyPath = _buildGooeyBodyPath(
         size: size,
         roundness: roundness,
+        pillX: pillX,
+        pillWidth: pillWidth,
         bodyHeight: bodyHeight,
         bodyScaleY: bodyScaleY,
       );
@@ -1492,6 +1495,8 @@ Path _buildGooeyShapePath({
   final bodyPath = _buildGooeyBodyPath(
     size: size,
     roundness: roundness,
+    pillX: pillX,
+    pillWidth: pillWidth,
     bodyHeight: bodyHeight,
     bodyScaleY: bodyScaleY,
   );
@@ -1510,15 +1515,25 @@ Path _buildGooeyShapePath({
 Path _buildGooeyBodyPath({
   required Size size,
   required double roundness,
+  required double pillX,
+  required double pillWidth,
   required double bodyHeight,
   required double bodyScaleY,
 }) {
   if (bodyHeight <= 0 || bodyScaleY <= 0) return Path();
   const seamOverlap = 4.0;
+  final t = Curves.easeOut.transform(bodyScaleY.clamp(0.0, 1.0).toDouble());
+  final morphWidth = (lerpDouble(pillWidth, size.width, t) ?? size.width)
+      .clamp(0.0, size.width)
+      .toDouble();
+  final maxLeft = (size.width - morphWidth).clamp(0.0, size.width).toDouble();
+  final morphLeft = (lerpDouble(pillX, 0.0, t) ?? 0.0)
+      .clamp(0.0, maxLeft)
+      .toDouble();
   final path = Path()
     ..addRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, bodyHeight + seamOverlap),
+        Rect.fromLTWH(morphLeft, 0, morphWidth, bodyHeight + seamOverlap),
         Radius.circular(roundness),
       ),
     );
