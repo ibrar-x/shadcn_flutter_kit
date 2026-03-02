@@ -67,6 +67,9 @@ class _ThemePageState extends State<ThemePage> {
       ValueNotifier(const ShadRangeValue(320, 800));
   final ValueNotifier<int> _gpuCount = ValueNotifier(8);
 
+  static const double _kitchenColumnGap = 22;
+  static const double _kitchenSectionGap = 18;
+
   List<DocsThemePreset> get _presetOptions => DocsThemeController.presets;
 
   @override
@@ -99,7 +102,7 @@ class _ThemePageState extends State<ThemePage> {
       name: 'theme',
       onThisPage: const {},
       sidebar: SizedBox(
-        width: 320,
+        width: 272,
         child: _buildOptionsPanel(context),
       ),
       child: LayoutBuilder(
@@ -113,7 +116,7 @@ class _ThemePageState extends State<ThemePage> {
                 text:
                     'Pick registry presets, mix base and accent from different themes, and preview the result in a full component kitchen.',
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 20),
               if (showInlineOptions) ...[
                 _buildOptionsPanel(context),
                 const SizedBox(height: 24),
@@ -357,9 +360,9 @@ class _ThemePageState extends State<ThemePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildKitchenPaymentMethod(context),
-          const DensityGap(gap2xl),
+          const SizedBox(height: _kitchenSectionGap),
           _buildKitchenInputs(context),
-          const DensityGap(gap2xl),
+          const SizedBox(height: _kitchenSectionGap),
           _buildKitchenAppearanceSettings(context),
         ],
       ),
@@ -367,14 +370,14 @@ class _ThemePageState extends State<ThemePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: _buildKitchenPaymentMethod(context)),
-          const DensityGap(gap2xl),
+          const SizedBox(width: _kitchenColumnGap),
           Expanded(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
+              constraints: const BoxConstraints(maxWidth: 440),
               child: _buildKitchenInputs(context),
             ),
           ),
-          const DensityGap(gap2xl),
+          const SizedBox(width: _kitchenColumnGap),
           Expanded(child: _buildKitchenAppearanceSettings(context)),
         ],
       ),
@@ -384,7 +387,7 @@ class _ThemePageState extends State<ThemePage> {
   Widget _buildKitchenPaymentMethod(BuildContext context) {
     final currentYear = DateTime.now().year;
     return Card(
-      padding: const EdgeInsetsDensity.all(padMd),
+      padding: const EdgeInsetsDensity.all(padLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -550,19 +553,19 @@ class _ThemePageState extends State<ThemePage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildKitchenMembers(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenBadges(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenChatBox(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenPriceRange(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenSearch(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenUrlField(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenAiComposer(),
-        const DensityGap(gapXl),
+        const SizedBox(height: _kitchenSectionGap),
         _buildKitchenMentions(),
       ],
     );
@@ -1212,151 +1215,118 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   String _buildCodeSnippet() {
-    final lightScheme = _schemeForSelection(Brightness.light);
-    final darkScheme = _schemeForSelection(Brightness.dark);
-    final lightTokens = _tokensForPreset(_basePresetId, Brightness.light);
-    final darkTokens = _tokensForPreset(_basePresetId, Brightness.dark);
+    final controller = context.docsThemeController;
+    final data = controller.data;
+    final isDark = controller.brightness == Brightness.dark;
+    final modeField = isDark ? 'dark' : 'light';
+    final tokenField = isDark ? 'darkTokens' : 'lightTokens';
+
+    final basePreset = _presetForId(_basePresetId);
+    final accentPreset = _presetForId(_accentPresetId);
+    final selectedPresetTokens =
+        _tokensForPreset(_basePresetId, controller.brightness);
+    final selectedPresetScheme = _schemeForSelection(controller.brightness);
+
+    final isSinglePreset = _basePresetId == _accentPresetId;
+    final isPresetOnly = isSinglePreset &&
+        data.colorScheme == selectedPresetScheme &&
+        _sameDouble(data.radius, selectedPresetTokens.radius) &&
+        data.density == selectedPresetTokens.density &&
+        data.spacing == selectedPresetTokens.spacing &&
+        data.tracking == selectedPresetTokens.tracking &&
+        data.shadows == selectedPresetTokens.shadows &&
+        _sameDouble(data.scaling, 1.0) &&
+        _sameDouble(data.surfaceOpacity, 1.0) &&
+        _sameDouble(data.surfaceBlur, 0.0);
+
+    if (isPresetOnly) {
+      return [
+        '// Preset only (no mix and no overrides)',
+        "final preset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
+        '',
+        'ShadcnApp(',
+        '  theme: ThemeData(',
+        '    colorScheme: preset.$modeField,',
+        '    radius: preset.$tokenField.radius,',
+        '    density: preset.$tokenField.density,',
+        '    spacing: preset.$tokenField.spacing,',
+        '    tracking: preset.$tokenField.tracking,',
+        '    shadows: preset.$tokenField.shadows,',
+        '  ),',
+        '  child: const AppRoot(),',
+        ');',
+      ].join('\n');
+    }
 
     final lines = <String>[
-      'RegistryThemePreset(',
-      "  id: '${_generatedPresetId()}',",
-      "  name: '${_escape(_generatedPresetName())}',",
-      ..._buildColorSchemeLiteral(name: 'light', scheme: lightScheme),
-      ..._buildColorSchemeLiteral(name: 'dark', scheme: darkScheme),
-      ..._buildTokenLiteral(
-        name: 'lightTokens',
-        tokens: lightTokens,
-        helperName: '_lightTokens',
-      ),
-      ..._buildTokenLiteral(
-        name: 'darkTokens',
-        tokens: darkTokens,
-        helperName: '_darkTokens',
-      ),
-      '),',
+      '// Generated from current theme selections',
+      '// base preset: ${basePreset.name} (${basePreset.id})',
+      if (!isSinglePreset)
+        '// accent preset: ${accentPreset.name} (${accentPreset.id})',
+      '',
+      "final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
+      if (!isSinglePreset)
+        "final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
+      'final baseScheme = basePreset.$modeField;',
+      if (isSinglePreset)
+        'final colorScheme = baseScheme;'
+      else ...[
+        'final accentScheme = accentPreset.$modeField;',
+        'final colorScheme = baseScheme.copyWith(',
+        '  primary: () => accentScheme.primary,',
+        '  primaryForeground: () => accentScheme.primaryForeground,',
+        '  accent: () => accentScheme.accent,',
+        '  accentForeground: () => accentScheme.accentForeground,',
+        '  ring: () => accentScheme.ring,',
+        '  chart1: () => accentScheme.chart1,',
+        '  chart2: () => accentScheme.chart2,',
+        '  chart3: () => accentScheme.chart3,',
+        '  chart4: () => accentScheme.chart4,',
+        '  chart5: () => accentScheme.chart5,',
+        '  sidebarPrimary: () => accentScheme.sidebarPrimary,',
+        '  sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
+        '  sidebarAccent: () => accentScheme.sidebarAccent,',
+        '  sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
+        '  sidebarRing: () => accentScheme.sidebarRing,',
+        ');',
+      ],
+      '',
+      'ShadcnApp(',
+      if (!_sameDouble(data.scaling, 1.0))
+        '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
+      '  theme: ThemeData(',
+      '    colorScheme: colorScheme,',
+      '    radius: ${_formatNumber(data.radius)},',
+      '    density: ${_densityCode(data.density)},',
+      '    spacing: const SpacingScale(${_formatNumber(data.spacing.base)}),',
+      '    tracking: basePreset.$tokenField.tracking,',
+      '    shadows: basePreset.$tokenField.shadows,',
+      if (!_sameDouble(data.surfaceOpacity, 1.0))
+        '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
+      if (!_sameDouble(data.surfaceBlur, 0.0))
+        '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
+      '  ),',
+      '  child: const AppRoot(),',
+      ');',
     ];
 
     return lines.join('\n');
   }
 
-  String _generatedPresetId() {
-    if (_basePresetId == _accentPresetId) {
-      return '$_basePresetId-custom';
-    }
-    return '$_basePresetId-$_accentPresetId-mix';
-  }
-
-  String _generatedPresetName() {
-    final baseName = _presetForId(_basePresetId).name;
-    final accentName = _presetForId(_accentPresetId).name;
-    if (_basePresetId == _accentPresetId) {
-      return '$baseName Custom';
-    }
-    return '$baseName + $accentName Accent';
-  }
-
-  Iterable<String> _buildColorSchemeLiteral({
-    required String name,
-    required ColorScheme scheme,
-  }) sync* {
-    yield '  $name: const ColorScheme(';
-    yield '    brightness: Brightness.${scheme.brightness.name},';
-    yield '    background: ${_colorLiteral(scheme.background)},';
-    yield '    foreground: ${_colorLiteral(scheme.foreground)},';
-    yield '    card: ${_colorLiteral(scheme.card)},';
-    yield '    cardForeground: ${_colorLiteral(scheme.cardForeground)},';
-    yield '    popover: ${_colorLiteral(scheme.popover)},';
-    yield '    popoverForeground: ${_colorLiteral(scheme.popoverForeground)},';
-    yield '    primary: ${_colorLiteral(scheme.primary)},';
-    yield '    primaryForeground: ${_colorLiteral(scheme.primaryForeground)},';
-    yield '    secondary: ${_colorLiteral(scheme.secondary)},';
-    yield '    secondaryForeground: ${_colorLiteral(scheme.secondaryForeground)},';
-    yield '    muted: ${_colorLiteral(scheme.muted)},';
-    yield '    mutedForeground: ${_colorLiteral(scheme.mutedForeground)},';
-    yield '    accent: ${_colorLiteral(scheme.accent)},';
-    yield '    accentForeground: ${_colorLiteral(scheme.accentForeground)},';
-    yield '    destructive: ${_colorLiteral(scheme.destructive)},';
-    // ignore: deprecated_member_use_from_same_package
-    yield '    destructiveForeground: ${_colorLiteral(scheme.destructiveForeground)},';
-    yield '    border: ${_colorLiteral(scheme.border)},';
-    yield '    input: ${_colorLiteral(scheme.input)},';
-    yield '    ring: ${_colorLiteral(scheme.ring)},';
-    yield '    chart1: ${_colorLiteral(scheme.chart1)},';
-    yield '    chart2: ${_colorLiteral(scheme.chart2)},';
-    yield '    chart3: ${_colorLiteral(scheme.chart3)},';
-    yield '    chart4: ${_colorLiteral(scheme.chart4)},';
-    yield '    chart5: ${_colorLiteral(scheme.chart5)},';
-    yield '    sidebar: ${_colorLiteral(scheme.sidebar)},';
-    yield '    sidebarForeground: ${_colorLiteral(scheme.sidebarForeground)},';
-    yield '    sidebarPrimary: ${_colorLiteral(scheme.sidebarPrimary)},';
-    yield '    sidebarPrimaryForeground: ${_colorLiteral(scheme.sidebarPrimaryForeground)},';
-    yield '    sidebarAccent: ${_colorLiteral(scheme.sidebarAccent)},';
-    yield '    sidebarAccentForeground: ${_colorLiteral(scheme.sidebarAccentForeground)},';
-    yield '    sidebarBorder: ${_colorLiteral(scheme.sidebarBorder)},';
-    yield '    sidebarRing: ${_colorLiteral(scheme.sidebarRing)},';
-    yield '  ),';
-  }
-
-  Iterable<String> _buildTokenLiteral({
-    required String name,
-    required RegistryThemePresetTokens tokens,
-    required String helperName,
-  }) sync* {
-    yield '  $name: $helperName(';
-    yield '    radius: ${_formatNumber(tokens.radius)},';
-    yield '    spacingBase: ${_formatNumber(tokens.spacing.base)},';
-    yield* _buildShadowScaleLiteral(tokens.shadows, indent: 4);
-    if (tokens.fontSans != null) {
-      yield "    fontSans: '${_escape(tokens.fontSans!)}',";
-    }
-    if (tokens.fontSerif != null) {
-      yield "    fontSerif: '${_escape(tokens.fontSerif!)}',";
-    }
-    if (tokens.fontMono != null) {
-      yield "    fontMono: '${_escape(tokens.fontMono!)}',";
-    }
-    yield '  ),';
-  }
-
-  Iterable<String> _buildShadowScaleLiteral(ShadowScale scale,
-      {required int indent}) sync* {
-    final pad = ' ' * indent;
-    yield '${pad}shadows: const ShadowScale(';
-    yield '$pad  shadow2xs: ${_boxShadowListLiteral(scale.shadow2xs)},';
-    yield '$pad  shadowXs: ${_boxShadowListLiteral(scale.shadowXs)},';
-    yield '$pad  shadowSm: ${_boxShadowListLiteral(scale.shadowSm)},';
-    yield '$pad  shadow: ${_boxShadowListLiteral(scale.shadow)},';
-    yield '$pad  shadowMd: ${_boxShadowListLiteral(scale.shadowMd)},';
-    yield '$pad  shadowLg: ${_boxShadowListLiteral(scale.shadowLg)},';
-    yield '$pad  shadowXl: ${_boxShadowListLiteral(scale.shadowXl)},';
-    yield '$pad  shadow2xl: ${_boxShadowListLiteral(scale.shadow2xl)},';
-    yield '$pad),';
-  }
-
-  String _boxShadowListLiteral(List<BoxShadow> shadows) {
-    if (shadows.isEmpty) {
-      return 'const []';
-    }
-    return '[${shadows.map(_boxShadowLiteral).join(', ')}]';
-  }
-
-  String _boxShadowLiteral(BoxShadow shadow) {
-    return 'const BoxShadow('
-        'offset: Offset(${_formatNumber(shadow.offset.dx)}, ${_formatNumber(shadow.offset.dy)}), '
-        'blurRadius: ${_formatNumber(shadow.blurRadius)}, '
-        'spreadRadius: ${_formatNumber(shadow.spreadRadius)}, '
-        'color: ${_colorLiteral(shadow.color)}'
+  String _densityCode(Density density) {
+    if (density == Density.compactDensity) return 'Density.compactDensity';
+    if (density == Density.reducedDensity) return 'Density.reducedDensity';
+    if (density == Density.spaciousDensity) return 'Density.spaciousDensity';
+    if (density == Density.defaultDensity) return 'Density.defaultDensity';
+    return 'Density('
+        'baseContainerPadding: ${_formatNumber(density.baseContainerPadding)}, '
+        'baseGap: ${_formatNumber(density.baseGap)}, '
+        'baseContentPadding: ${_formatNumber(density.baseContentPadding)}'
         ')';
   }
 
-  String _colorLiteral(Color color) {
-    final hex =
-        color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
-    return 'Color(0x$hex)';
-  }
-
-  String _escape(String value) {
-    return value.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
+  bool _sameDouble(double lhs, double rhs) {
+    return (lhs - rhs).abs() < 0.0001;
   }
 
   String _formatNumber(num value) {
