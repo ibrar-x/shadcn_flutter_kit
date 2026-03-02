@@ -87,6 +87,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     /// Default shape style variant for all `GooeyToast` instances.
     this.shapeStyle,
 
+    /// Default expanded content animation style for all `GooeyToast` instances.
+    this.bodyAnimationStyle,
+
     /// Enables the gooey blur compositing pass behind the crisp shape.
     ///
     /// `null` falls back to widget/controller override then `true`.
@@ -167,6 +170,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
 
   /// Theme-level default shape style.
   final GooeyToastShapeStyle? shapeStyle;
+
+  /// Theme-level expanded content animation style.
+  final GooeyToastBodyAnimationStyle? bodyAnimationStyle;
 
   /// Theme-level gooey blur pass toggle.
   final bool? enableGooeyBlur;
@@ -251,6 +257,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
     /// Resolves next `shapeStyle`; omit to keep existing value.
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
 
+    /// Resolves next `bodyAnimationStyle`; omit to keep existing value.
+    ValueGetter<GooeyToastBodyAnimationStyle?>? bodyAnimationStyle,
+
     /// Resolves next `enableGooeyBlur`; omit to keep existing value.
     ValueGetter<bool?>? enableGooeyBlur,
 
@@ -316,6 +325,9 @@ class GooeyToastTheme extends shad.ComponentThemeData {
           ? this.animationStyle
           : animationStyle(),
       shapeStyle: shapeStyle == null ? this.shapeStyle : shapeStyle(),
+      bodyAnimationStyle: bodyAnimationStyle == null
+          ? this.bodyAnimationStyle
+          : bodyAnimationStyle(),
       enableGooeyBlur: enableGooeyBlur == null
           ? this.enableGooeyBlur
           : enableGooeyBlur(),

@@ -67,6 +67,10 @@ class GooeyToastDefaults {
   static const GooeyToastShapeStyle shapeStyle =
       GooeyToastShapeStyle.defaultShape;
 
+  /// Default expanded content animation style.
+  static const GooeyToastBodyAnimationStyle bodyAnimationStyle =
+      GooeyToastBodyAnimationStyle.fade;
+
   /// Default success state tone.
   static const Color successTone = Color(0xFF63C65E);
 

@@ -103,6 +103,7 @@ class GooeyToastController extends ChangeNotifier {
     double? roundness,
     GooeyToastAnimationStyle? animationStyle,
     GooeyToastShapeStyle? shapeStyle,
+    GooeyToastBodyAnimationStyle? bodyAnimationStyle,
     bool? enableGooeyBlur,
     bool? pauseOnHover,
     bool? swipeToDismiss,
@@ -153,6 +154,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
+      bodyAnimationStyle: bodyAnimationStyle,
       enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
@@ -196,6 +198,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
+      bodyAnimationStyle: bodyAnimationStyle,
       enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
@@ -238,6 +241,7 @@ class GooeyToastController extends ChangeNotifier {
       roundness: roundness,
       animationStyle: animationStyle,
       shapeStyle: shapeStyle,
+      bodyAnimationStyle: bodyAnimationStyle,
       enableGooeyBlur: enableGooeyBlur,
       pauseOnHover: pauseOnHover,
       swipeToDismiss: swipeToDismiss,
@@ -278,6 +282,7 @@ class GooeyToastController extends ChangeNotifier {
     GooeyAutopilot? autopilot = const GooeyAutopilot(),
     GooeyToastAnimationStyle? animationStyle,
     GooeyToastShapeStyle? shapeStyle,
+    GooeyToastBodyAnimationStyle? bodyAnimationStyle,
     bool? enableGooeyBlur,
     bool? pauseOnHover,
     bool? swipeToDismiss,
@@ -310,6 +315,10 @@ class GooeyToastController extends ChangeNotifier {
         GooeyToastDefaults.animationStyle;
     final resolvedShapeStyle =
         shapeStyle ?? gooeyTheme?.shapeStyle ?? GooeyToastDefaults.shapeStyle;
+    final resolvedBodyAnimationStyle =
+        bodyAnimationStyle ??
+        gooeyTheme?.bodyAnimationStyle ??
+        GooeyToastDefaults.bodyAnimationStyle;
     final resolvedEnableGooeyBlur =
         enableGooeyBlur ??
         gooeyTheme?.enableGooeyBlur ??
@@ -376,6 +385,7 @@ class GooeyToastController extends ChangeNotifier {
       autopilot: autopilot,
       animationStyle: resolvedAnimationStyle,
       shapeStyle: resolvedShapeStyle,
+      bodyAnimationStyle: resolvedBodyAnimationStyle,
       enableGooeyBlur: resolvedEnableGooeyBlur,
       action: action,
       onExpansionPhaseChanged: onExpansionPhaseChanged,
@@ -473,6 +483,7 @@ class GooeyToastController extends ChangeNotifier {
                 autopilot: render.autopilot,
                 animationStyle: render.animationStyle,
                 shapeStyle: render.shapeStyle,
+                bodyAnimationStyle: render.bodyAnimationStyle,
                 enableGooeyBlur: render.enableGooeyBlur,
                 pauseOnHover: render.pauseOnHover,
                 action: render.action,
@@ -853,6 +864,7 @@ class _GooeyToastRenderData {
     required this.autopilot,
     required this.animationStyle,
     required this.shapeStyle,
+    required this.bodyAnimationStyle,
     required this.enableGooeyBlur,
     required this.action,
     required this.onExpansionPhaseChanged,
@@ -921,6 +933,9 @@ class _GooeyToastRenderData {
   /// Shape style variant.
   final GooeyToastShapeStyle shapeStyle;
 
+  /// Expanded body content animation style.
+  final GooeyToastBodyAnimationStyle bodyAnimationStyle;
+
   /// Gooey blur toggle.
   final bool enableGooeyBlur;
 
@@ -984,6 +999,7 @@ class _GooeyToastRenderData {
     Object? autopilot = _kGooeyNoValue,
     GooeyToastAnimationStyle? animationStyle,
     GooeyToastShapeStyle? shapeStyle,
+    GooeyToastBodyAnimationStyle? bodyAnimationStyle,
     bool? enableGooeyBlur,
     Object? action = _kGooeyNoValue,
     ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
@@ -1024,6 +1040,7 @@ class _GooeyToastRenderData {
           : autopilot as GooeyAutopilot?,
       animationStyle: animationStyle ?? this.animationStyle,
       shapeStyle: shapeStyle ?? this.shapeStyle,
+      bodyAnimationStyle: bodyAnimationStyle ?? this.bodyAnimationStyle,
       enableGooeyBlur: enableGooeyBlur ?? this.enableGooeyBlur,
       action: identical(action, _kGooeyNoValue)
           ? this.action

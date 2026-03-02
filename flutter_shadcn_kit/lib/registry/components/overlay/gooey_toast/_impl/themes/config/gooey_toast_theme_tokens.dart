@@ -28,6 +28,7 @@ class GooeyToastThemeTokens {
     this.dismissWholeStackWhenMultiple,
     this.animationStyle = GooeyToastDefaults.animationStyle,
     this.shapeStyle = GooeyToastDefaults.shapeStyle,
+    this.bodyAnimationStyle = GooeyToastDefaults.bodyAnimationStyle,
     this.enableGooeyBlur = GooeyToastDefaults.enableGooeyBlur,
     this.successTone = GooeyToastDefaults.successTone,
     this.loadingTone = GooeyToastDefaults.loadingTone,
@@ -58,6 +59,7 @@ class GooeyToastThemeTokens {
   final bool? dismissWholeStackWhenMultiple;
   final GooeyToastAnimationStyle animationStyle;
   final GooeyToastShapeStyle shapeStyle;
+  final GooeyToastBodyAnimationStyle bodyAnimationStyle;
   final bool enableGooeyBlur;
   final Color successTone;
   final Color loadingTone;

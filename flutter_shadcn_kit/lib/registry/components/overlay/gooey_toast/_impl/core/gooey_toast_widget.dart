@@ -64,6 +64,9 @@ class GooeyToast extends StatefulWidget {
     /// Shape profile applied to roundness.
     this.shapeStyle = GooeyToastShapeStyle.defaultShape,
 
+    /// Expanded body content animation profile.
+    this.bodyAnimationStyle = GooeyToastBodyAnimationStyle.fade,
+
     /// Toggles the gooey blur compositing pass.
     ///
     /// `true` keeps metaball-style blending. `false` renders crisp-only shape.
@@ -135,6 +138,9 @@ class GooeyToast extends StatefulWidget {
 
   /// Shape style for corner behavior.
   final GooeyToastShapeStyle shapeStyle;
+
+  /// Body content animation profile.
+  final GooeyToastBodyAnimationStyle bodyAnimationStyle;
 
   /// Whether gooey blur compositing is enabled.
   final bool enableGooeyBlur;
@@ -641,20 +647,50 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                     0.0,
                     1.0,
                   );
-                  final contentOpacity = Curves.easeOutCubic.transform(
-                    contentProgress,
-                  );
-                  final contentHeightFactor = contentProgress;
                   final contentAlignment =
                       widget.expandDirection == GooeyToastExpandDirection.bottom
                       ? Alignment.topCenter
                       : Alignment.bottomCenter;
-                  final contentSlide =
-                      (1 - contentOpacity) *
-                      (widget.expandDirection ==
-                              GooeyToastExpandDirection.bottom
-                          ? -6.0
-                          : 6.0);
+                  final contentEase = Curves.easeOutCubic.transform(
+                    contentProgress,
+                  );
+                  final contentDirectionSign =
+                      widget.expandDirection == GooeyToastExpandDirection.bottom
+                      ? -1.0
+                      : 1.0;
+
+                  final contentAnimation = switch (widget.bodyAnimationStyle) {
+                    GooeyToastBodyAnimationStyle.fade => (
+                      opacity: contentEase,
+                      heightFactor: contentProgress,
+                      slide: 0.0,
+                      scale: 1.0,
+                    ),
+                    GooeyToastBodyAnimationStyle.fadeSlide => (
+                      opacity: contentEase,
+                      heightFactor: contentProgress,
+                      slide: (1 - contentEase) * 6.0 * contentDirectionSign,
+                      scale: 1.0,
+                    ),
+                    GooeyToastBodyAnimationStyle.fadeScale => (
+                      opacity: contentEase,
+                      heightFactor: contentProgress,
+                      slide: 0.0,
+                      scale: (lerpDouble(0.96, 1.0, contentEase) ?? 1.0)
+                          .clamp(0.94, 1.0)
+                          .toDouble(),
+                    ),
+                    GooeyToastBodyAnimationStyle.none => (
+                      opacity: contentProgress >= 0.999 ? 1.0 : 0.0,
+                      heightFactor: contentProgress >= 0.999 ? 1.0 : 0.0,
+                      slide: 0.0,
+                      scale: 1.0,
+                    ),
+                  };
+                  final contentOpacity = contentAnimation.opacity;
+                  final contentHeightFactor = contentAnimation.heightFactor;
+                  final contentSlide = contentAnimation.slide;
+                  final contentScale = contentAnimation.scale;
 
                   final headerTransform = Matrix4.identity()
                     ..translateByDouble(0.0, translateY, 0.0, 1.0)
@@ -842,20 +878,25 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                           opacity: contentOpacity,
                                           child: Transform.translate(
                                             offset: Offset(0, contentSlide),
-                                            child: SizedBox(
-                                              width: toastWidth,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                  16,
-                                                ),
-                                                child: _MeasureSize(
-                                                  onSizeChanged:
-                                                      onVisibleExpandedSizeChanged ??
-                                                      (_) {},
-                                                  child: _buildExpandedContent(
-                                                    descriptionStyle:
-                                                        descriptionStyle,
-                                                    tone: tone,
+                                            child: Transform.scale(
+                                              scale: contentScale,
+                                              alignment: contentAlignment,
+                                              child: SizedBox(
+                                                width: toastWidth,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    16,
+                                                  ),
+                                                  child: _MeasureSize(
+                                                    onSizeChanged:
+                                                        onVisibleExpandedSizeChanged ??
+                                                        (_) {},
+                                                    child:
+                                                        _buildExpandedContent(
+                                                          descriptionStyle:
+                                                              descriptionStyle,
+                                                          tone: tone,
+                                                        ),
                                                   ),
                                                 ),
                                               ),

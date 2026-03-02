@@ -9,6 +9,7 @@ final ValueNotifier<_GooeyGlobalSettings> _gooeyDocsSettings =
   const _GooeyGlobalSettings(
     preset: _EdgePreset.topLeft,
     animationStyle: GooeyToastAnimationStyle.smooth,
+    bodyAnimationStyle: GooeyToastBodyAnimationStyle.fade,
     shapeStyle: GooeyToastShapeStyle.sharp,
     width: 360,
     roundness: 16,
@@ -138,6 +139,31 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
                       if (!value) return;
                       _gooeyDocsSettings.value =
                           settings.copyWith(animationStyle: style);
+                    },
+                    style: const ButtonStyle.outline(),
+                    selectedStyle: const ButtonStyle.primary(),
+                    child: Text(style.name),
+                  ),
+              ],
+            ),
+            const Gap(12),
+            const Text(
+              'Body Animation',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Gap(8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final style in GooeyToastBodyAnimationStyle.values)
+                  SelectedButton(
+                    value: settings.bodyAnimationStyle == style,
+                    onChanged: (value) {
+                      if (!value) return;
+                      _gooeyDocsSettings.value = settings.copyWith(
+                        bodyAnimationStyle: style,
+                      );
                     },
                     style: const ButtonStyle.outline(),
                     selectedStyle: const ButtonStyle.primary(),
@@ -417,6 +443,7 @@ class _GooeyToastExample1State extends State<GooeyToastExample1> {
       autopilot: settings.autopilotEnabled ? settings.autopilot : null,
       animationStyle: settings.animationStyle,
       shapeStyle: settings.shapeStyle,
+      bodyAnimationStyle: settings.bodyAnimationStyle,
       enableGooeyBlur: true,
       pauseOnHover: settings.pauseOnHover,
       swipeToDismiss: settings.swipeToDismiss,
@@ -478,6 +505,7 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
           autopilot: settings.autopilotEnabled ? settings.autopilot : null,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
+          bodyAnimationStyle: settings.bodyAnimationStyle,
           enableGooeyBlur: true,
           pauseOnHover: settings.pauseOnHover,
           swipeToDismiss: settings.swipeToDismiss,
@@ -510,6 +538,7 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
                   roundness: settings.roundness,
                   animationStyle: settings.animationStyle,
                   shapeStyle: settings.shapeStyle,
+                  bodyAnimationStyle: settings.bodyAnimationStyle,
                   enableGooeyBlur: true,
                   pauseOnHover: settings.pauseOnHover,
                   swipeToDismiss: settings.swipeToDismiss,
@@ -541,6 +570,7 @@ class _GooeyToastExample2State extends State<GooeyToastExample2> {
                     settings.autopilotEnabled ? settings.autopilot : null,
                 animationStyle: settings.animationStyle,
                 shapeStyle: settings.shapeStyle,
+                bodyAnimationStyle: settings.bodyAnimationStyle,
                 enableGooeyBlur: true,
                 pauseOnHover: settings.pauseOnHover,
                 swipeToDismiss: settings.swipeToDismiss,
@@ -689,6 +719,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
       roundness: settings.roundness,
       animationStyle: settings.animationStyle,
       shapeStyle: settings.shapeStyle,
+      bodyAnimationStyle: settings.bodyAnimationStyle,
       enableGooeyBlur: true,
       pauseOnHover: settings.pauseOnHover,
       swipeToDismiss: settings.swipeToDismiss,
@@ -733,6 +764,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
             roundness: settings.roundness,
             animationStyle: settings.animationStyle,
             shapeStyle: settings.shapeStyle,
+            bodyAnimationStyle: settings.bodyAnimationStyle,
             enableGooeyBlur: true,
             pauseOnHover: settings.pauseOnHover,
             swipeToDismiss: settings.swipeToDismiss,
@@ -767,6 +799,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
           roundness: settings.roundness,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
+          bodyAnimationStyle: settings.bodyAnimationStyle,
           enableGooeyBlur: true,
           pauseOnHover: settings.pauseOnHover,
           swipeToDismiss: settings.swipeToDismiss,
@@ -813,6 +846,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
             roundness: settings.roundness,
             animationStyle: settings.animationStyle,
             shapeStyle: settings.shapeStyle,
+            bodyAnimationStyle: settings.bodyAnimationStyle,
             enableGooeyBlur: true,
             pauseOnHover: settings.pauseOnHover,
             swipeToDismiss: settings.swipeToDismiss,
@@ -847,6 +881,7 @@ class _GooeyToastExample3State extends State<GooeyToastExample3> {
           roundness: settings.roundness,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
+          bodyAnimationStyle: settings.bodyAnimationStyle,
           enableGooeyBlur: true,
           pauseOnHover: settings.pauseOnHover,
           swipeToDismiss: settings.swipeToDismiss,
@@ -909,6 +944,7 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
           autopilot: settings.autopilotEnabled ? settings.autopilot : null,
           animationStyle: settings.animationStyle,
           shapeStyle: settings.shapeStyle,
+          bodyAnimationStyle: settings.bodyAnimationStyle,
           enableGooeyBlur: true,
           pauseOnHover: settings.pauseOnHover,
           swipeToDismiss: settings.swipeToDismiss,
@@ -936,6 +972,7 @@ class _TabsListDemoButtonState extends State<_TabsListDemoButton> {
                 fill: _resolveToastSurface(context),
                 animationStyle: settings.animationStyle,
                 shapeStyle: settings.shapeStyle,
+                bodyAnimationStyle: settings.bodyAnimationStyle,
                 autopilot:
                     settings.autopilotEnabled ? settings.autopilot : null,
                 pauseOnHover: settings.pauseOnHover,
@@ -1592,6 +1629,7 @@ class _GooeyGlobalSettings {
   const _GooeyGlobalSettings({
     required this.preset,
     required this.animationStyle,
+    required this.bodyAnimationStyle,
     required this.shapeStyle,
     required this.width,
     required this.roundness,
@@ -1607,6 +1645,7 @@ class _GooeyGlobalSettings {
 
   final _EdgePreset preset;
   final GooeyToastAnimationStyle animationStyle;
+  final GooeyToastBodyAnimationStyle bodyAnimationStyle;
   final GooeyToastShapeStyle shapeStyle;
   final double width;
   final double roundness;
@@ -1622,6 +1661,7 @@ class _GooeyGlobalSettings {
   _GooeyGlobalSettings copyWith({
     _EdgePreset? preset,
     GooeyToastAnimationStyle? animationStyle,
+    GooeyToastBodyAnimationStyle? bodyAnimationStyle,
     GooeyToastShapeStyle? shapeStyle,
     bool? autopilotEnabled,
     bool? pauseOnHover,
@@ -1632,6 +1672,7 @@ class _GooeyGlobalSettings {
     return _GooeyGlobalSettings(
       preset: preset ?? this.preset,
       animationStyle: animationStyle ?? this.animationStyle,
+      bodyAnimationStyle: bodyAnimationStyle ?? this.bodyAnimationStyle,
       shapeStyle: shapeStyle ?? this.shapeStyle,
       width: width,
       roundness: roundness,

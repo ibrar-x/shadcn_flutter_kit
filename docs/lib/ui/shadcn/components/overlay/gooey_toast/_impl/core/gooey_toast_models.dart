@@ -43,6 +43,21 @@ enum GooeyToastAnimationStyle {
 
 enum GooeyToastShapeStyle { defaultShape, soft, sharp, capsule }
 
+/// Expanded-body content animation profile.
+enum GooeyToastBodyAnimationStyle {
+  /// Fades content in/out while height opens/closes.
+  fade,
+
+  /// Fades content while sliding from toast seam.
+  fadeSlide,
+
+  /// Fades content while slightly scaling from compact to expanded.
+  fadeScale,
+
+  /// Shows content without extra opacity/transform animation.
+  none,
+}
+
 enum GooeyToastSwipeDirection { up, down, left, right }
 
 /// Strategy used when showing a new toast in a region that already has toasts.
