@@ -124,8 +124,14 @@ class _ThemePageState extends State<ThemePage> {
               _buildKitchenPreview(context),
               const SizedBox(height: 28),
               const Text('Code').h2(),
+              const SizedBox(height: 12),
+              const Text('Generated Theme Preset').semiBold(),
               const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildCodeSnippet(controller)),
+              DocsCodeBlock(code: _buildPresetCodeSnippet(controller)),
+              const SizedBox(height: 16),
+              const Text('ShadcnApp Usage').semiBold(),
+              const SizedBox(height: 8),
+              DocsCodeBlock(code: _buildAppCodeSnippet(controller)),
             ],
           );
         },
@@ -1250,74 +1256,66 @@ class _ThemePageState extends State<ThemePage> {
         .key;
   }
 
-  String _buildCodeSnippet(DocsThemeController controller) {
+  String _buildPresetCodeSnippet(DocsThemeController controller) {
     final data = controller.data;
-    final basePreset = _presetForId(_basePresetId);
-    final accentPreset = _presetForId(_accentPresetId);
-    final usesMixedAccent = _basePresetId != _accentPresetId;
-    final spacingBase = data.density.toSpacingScale().base;
+    final currentTokens =
+        _tokensForPreset(_basePresetId, controller.brightness);
+    final lightTokenSource = _tokensForPreset(_basePresetId, Brightness.light);
+    final darkTokenSource = _tokensForPreset(_basePresetId, Brightness.dark);
+    final lightScheme = _schemeForSelection(Brightness.light);
+    final darkScheme = _schemeForSelection(Brightness.dark);
+
+    final usesPresetRadius = data.radius == currentTokens.radius;
+    final usesPresetDensity = data.density == currentTokens.density;
+    final selectedSpacingBase = data.density.toSpacingScale().base;
+
+    final lightRadius =
+        usesPresetRadius ? lightTokenSource.radius : data.radius;
+    final darkRadius = usesPresetRadius ? darkTokenSource.radius : data.radius;
+    final lightSpacingBase =
+        usesPresetDensity ? lightTokenSource.spacing.base : selectedSpacingBase;
+    final darkSpacingBase =
+        usesPresetDensity ? darkTokenSource.spacing.base : selectedSpacingBase;
 
     final lines = <String>[
-      '// Generated registry preset from current Theme page selections.',
+      '// Paste into your preset_themes.dart file.',
+      '// Keep model classes once. If they already exist, do not duplicate them.',
       '',
-      'final RegistryThemePreset appPreset = (() {',
-      "  final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-      if (usesMixedAccent)
-        "  final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
-      if (usesMixedAccent) ...[
-        '  ColorScheme mixScheme(ColorScheme baseScheme, ColorScheme accentScheme) {',
-        '    return baseScheme.copyWith(',
-        '      primary: () => accentScheme.primary,',
-        '      primaryForeground: () => accentScheme.primaryForeground,',
-        '      accent: () => accentScheme.accent,',
-        '      accentForeground: () => accentScheme.accentForeground,',
-        '      ring: () => accentScheme.ring,',
-        '      chart1: () => accentScheme.chart1,',
-        '      chart2: () => accentScheme.chart2,',
-        '      chart3: () => accentScheme.chart3,',
-        '      chart4: () => accentScheme.chart4,',
-        '      chart5: () => accentScheme.chart5,',
-        '      sidebarPrimary: () => accentScheme.sidebarPrimary,',
-        '      sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
-        '      sidebarAccent: () => accentScheme.sidebarAccent,',
-        '      sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
-        '      sidebarRing: () => accentScheme.sidebarRing,',
-        '    );',
-        '  }',
-      ],
-      '  final lightScheme = ${usesMixedAccent ? 'mixScheme(basePreset.light, accentPreset.light)' : 'basePreset.light'};',
-      '  final darkScheme = ${usesMixedAccent ? 'mixScheme(basePreset.dark, accentPreset.dark)' : 'basePreset.dark'};',
+      _buildRegistryPresetModelCode(),
       '',
-      '  return RegistryThemePreset(',
-      "    id: 'app-theme',",
-      "    name: 'App Theme',",
-      '    light: lightScheme,',
-      '    dark: darkScheme,',
-      '    lightTokens: RegistryThemePresetTokens(',
-      '      radius: ${_formatNumber(data.radius)},',
-      '      spacing: SpacingScale(${_formatNumber(spacingBase)}),',
-      '      tracking: basePreset.lightTokens.tracking,',
-      '      shadows: basePreset.lightTokens.shadows,',
-      '      fontSans: basePreset.lightTokens.fontSans,',
-      '      fontSerif: basePreset.lightTokens.fontSerif,',
-      '      fontMono: basePreset.lightTokens.fontMono,',
-      '    ),',
-      '    darkTokens: RegistryThemePresetTokens(',
-      '      radius: ${_formatNumber(data.radius)},',
-      '      spacing: SpacingScale(${_formatNumber(spacingBase)}),',
-      '      tracking: basePreset.darkTokens.tracking,',
-      '      shadows: basePreset.darkTokens.shadows,',
-      '      fontSans: basePreset.darkTokens.fontSans,',
-      '      fontSerif: basePreset.darkTokens.fontSerif,',
-      '      fontMono: basePreset.darkTokens.fontMono,',
-      '    ),',
-      '  );',
-      '})();',
-      '',
+      'final RegistryThemePreset appThemePreset = RegistryThemePreset(',
+      "  id: 'app-theme',",
+      "  name: 'App Theme',",
+      ..._colorSchemeLiteralLines(fieldName: 'light', scheme: lightScheme),
+      ..._colorSchemeLiteralLines(fieldName: 'dark', scheme: darkScheme),
+      ..._tokenLiteralLines(
+        fieldName: 'lightTokens',
+        radius: lightRadius,
+        spacingBase: lightSpacingBase,
+        tokenSource: lightTokenSource,
+      ),
+      ..._tokenLiteralLines(
+        fieldName: 'darkTokens',
+        radius: darkRadius,
+        spacingBase: darkSpacingBase,
+        tokenSource: darkTokenSource,
+      ),
+      ');',
+    ];
+    return lines.join('\n');
+  }
+
+  String _buildAppCodeSnippet(DocsThemeController controller) {
+    final data = controller.data;
+    return [
+      '// Use in main.dart (or your app entrypoint).',
       'final bool isDarkMode = ${controller.brightness == Brightness.dark};',
-      'final ColorScheme activeScheme = isDarkMode ? appPreset.dark : appPreset.light;',
-      'final RegistryThemePresetTokens activeTokens =',
-      '    isDarkMode ? appPreset.darkTokens : appPreset.lightTokens;',
+      'final ColorScheme activeScheme = isDarkMode',
+      '    ? appThemePreset.dark',
+      '    : appThemePreset.light;',
+      'final RegistryThemePresetTokens activeTokens = isDarkMode',
+      '    ? appThemePreset.darkTokens',
+      '    : appThemePreset.lightTokens;',
       '',
       'ShadcnApp(',
       '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
@@ -1325,14 +1323,163 @@ class _ThemePageState extends State<ThemePage> {
       '    colorScheme: activeScheme,',
       '    radius: activeTokens.radius,',
       '    density: activeTokens.density,',
+      '    tracking: activeTokens.tracking,',
+      '    shadows: activeTokens.shadows,',
       '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
       '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
       '  ),',
       '  child: const AppRoot(),',
       ');',
-    ];
+    ].join('\n');
+  }
 
-    return lines.join('\n');
+  String _buildRegistryPresetModelCode() {
+    return [
+      'class RegistryThemePresetTokens {',
+      '  final double radius;',
+      '  final SpacingScale spacing;',
+      '  final TrackingScale tracking;',
+      '  final ShadowScale shadows;',
+      '  final String? fontSans;',
+      '  final String? fontSerif;',
+      '  final String? fontMono;',
+      '',
+      '  RegistryThemePresetTokens({',
+      '    required this.radius,',
+      '    required this.spacing,',
+      '    required this.tracking,',
+      '    required this.shadows,',
+      '    this.fontSans,',
+      '    this.fontSerif,',
+      '    this.fontMono,',
+      '  });',
+      '',
+      '  Density get density => Density.fromSpacingScale(spacing);',
+      '}',
+      '',
+      'class RegistryThemePreset {',
+      '  final String id;',
+      '  final String name;',
+      '  final ColorScheme light;',
+      '  final ColorScheme dark;',
+      '  final RegistryThemePresetTokens lightTokens;',
+      '  final RegistryThemePresetTokens darkTokens;',
+      '',
+      '  RegistryThemePreset({',
+      '    required this.id,',
+      '    required this.name,',
+      '    required this.light,',
+      '    required this.dark,',
+      '    required this.lightTokens,',
+      '    required this.darkTokens,',
+      '  });',
+      '}',
+    ].join('\n');
+  }
+
+  List<String> _colorSchemeLiteralLines({
+    required String fieldName,
+    required ColorScheme scheme,
+  }) {
+    return [
+      '  $fieldName: ColorScheme(',
+      '    brightness: Brightness.${scheme.brightness == Brightness.dark ? 'dark' : 'light'},',
+      '    background: ${_colorCode(scheme.background)},',
+      '    foreground: ${_colorCode(scheme.foreground)},',
+      '    card: ${_colorCode(scheme.card)},',
+      '    cardForeground: ${_colorCode(scheme.cardForeground)},',
+      '    popover: ${_colorCode(scheme.popover)},',
+      '    popoverForeground: ${_colorCode(scheme.popoverForeground)},',
+      '    primary: ${_colorCode(scheme.primary)},',
+      '    primaryForeground: ${_colorCode(scheme.primaryForeground)},',
+      '    secondary: ${_colorCode(scheme.secondary)},',
+      '    secondaryForeground: ${_colorCode(scheme.secondaryForeground)},',
+      '    muted: ${_colorCode(scheme.muted)},',
+      '    mutedForeground: ${_colorCode(scheme.mutedForeground)},',
+      '    accent: ${_colorCode(scheme.accent)},',
+      '    accentForeground: ${_colorCode(scheme.accentForeground)},',
+      '    destructive: ${_colorCode(scheme.destructive)},',
+      '    destructiveForeground: ${_colorCode(scheme.destructiveForeground)},',
+      '    border: ${_colorCode(scheme.border)},',
+      '    input: ${_colorCode(scheme.input)},',
+      '    ring: ${_colorCode(scheme.ring)},',
+      '    chart1: ${_colorCode(scheme.chart1)},',
+      '    chart2: ${_colorCode(scheme.chart2)},',
+      '    chart3: ${_colorCode(scheme.chart3)},',
+      '    chart4: ${_colorCode(scheme.chart4)},',
+      '    chart5: ${_colorCode(scheme.chart5)},',
+      '    sidebar: ${_colorCode(scheme.sidebar)},',
+      '    sidebarForeground: ${_colorCode(scheme.sidebarForeground)},',
+      '    sidebarPrimary: ${_colorCode(scheme.sidebarPrimary)},',
+      '    sidebarPrimaryForeground: ${_colorCode(scheme.sidebarPrimaryForeground)},',
+      '    sidebarAccent: ${_colorCode(scheme.sidebarAccent)},',
+      '    sidebarAccentForeground: ${_colorCode(scheme.sidebarAccentForeground)},',
+      '    sidebarBorder: ${_colorCode(scheme.sidebarBorder)},',
+      '    sidebarRing: ${_colorCode(scheme.sidebarRing)},',
+      '  ),',
+    ];
+  }
+
+  List<String> _tokenLiteralLines({
+    required String fieldName,
+    required double radius,
+    required double spacingBase,
+    required RegistryThemePresetTokens tokenSource,
+  }) {
+    return [
+      '  $fieldName: RegistryThemePresetTokens(',
+      '    radius: ${_formatNumber(radius)},',
+      '    spacing: SpacingScale(${_formatNumber(spacingBase)}),',
+      '    tracking: TrackingScale(normal: ${_formatNumber(tokenSource.tracking.normal)}),',
+      '    shadows: ShadowScale(',
+      ..._shadowScaleLiteralLines(tokenSource.shadows),
+      '    ),',
+      '    fontSans: ${_stringLiteral(tokenSource.fontSans)},',
+      '    fontSerif: ${_stringLiteral(tokenSource.fontSerif)},',
+      '    fontMono: ${_stringLiteral(tokenSource.fontMono)},',
+      '  ),',
+    ];
+  }
+
+  List<String> _shadowScaleLiteralLines(ShadowScale shadows) {
+    return [
+      '      shadow2xs: ${_boxShadowListCode(shadows.shadow2xs)},',
+      '      shadowXs: ${_boxShadowListCode(shadows.shadowXs)},',
+      '      shadowSm: ${_boxShadowListCode(shadows.shadowSm)},',
+      '      shadow: ${_boxShadowListCode(shadows.shadow)},',
+      '      shadowMd: ${_boxShadowListCode(shadows.shadowMd)},',
+      '      shadowLg: ${_boxShadowListCode(shadows.shadowLg)},',
+      '      shadowXl: ${_boxShadowListCode(shadows.shadowXl)},',
+      '      shadow2xl: ${_boxShadowListCode(shadows.shadow2xl)},',
+    ];
+  }
+
+  String _boxShadowListCode(List<BoxShadow> shadows) {
+    if (shadows.isEmpty) {
+      return 'const <BoxShadow>[]';
+    }
+    return '[${shadows.map(_boxShadowCode).join(', ')}]';
+  }
+
+  String _boxShadowCode(BoxShadow shadow) {
+    final blurStyle = shadow.blurStyle != BlurStyle.normal
+        ? ', blurStyle: BlurStyle.${shadow.blurStyle.name}'
+        : '';
+    return 'BoxShadow(offset: Offset(${_formatNumber(shadow.offset.dx)}, ${_formatNumber(shadow.offset.dy)}), blurRadius: ${_formatNumber(shadow.blurRadius)}, spreadRadius: ${_formatNumber(shadow.spreadRadius)}, color: ${_colorCode(shadow.color)}$blurStyle)';
+  }
+
+  String _colorCode(Color color) {
+    final hex =
+        color.toARGB32().toRadixString(16).toUpperCase().padLeft(8, '0');
+    return 'Color(0x$hex)';
+  }
+
+  String _stringLiteral(String? value) {
+    if (value == null) {
+      return 'null';
+    }
+    final escaped = value.replaceAll('\\', '\\\\').replaceAll("'", r"\'");
+    return "'$escaped'";
   }
 
   String _formatNumber(num value) {
