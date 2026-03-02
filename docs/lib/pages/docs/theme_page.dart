@@ -2,7 +2,6 @@ import 'package:docs/shadcn_ui.dart';
 import 'package:docs/ui/shadcn/components/form/slider/_impl/core/shad_slider_models.dart'
     show ShadRangeValue;
 
-import '../../theme/docs_theme.dart';
 import '../../theme/theme_controller.dart';
 import '../../ui/shadcn/shared/theme/preset_themes.dart';
 import '../docs_page.dart';
@@ -12,40 +11,6 @@ const Map<String, String> _themeModes = {
   'Light': 'light',
   'Dark': 'dark',
 };
-
-const List<String> _baseColors = [
-  'Slate',
-  'Zinc',
-  'Gray',
-  'Neutral',
-  'Stone',
-];
-
-const List<String> _accentColors = [
-  'Base',
-  'Slate',
-  'Gray',
-  'Zinc',
-  'Neutral',
-  'Stone',
-  'Red',
-  'Orange',
-  'Amber',
-  'Yellow',
-  'Lime',
-  'Green',
-  'Emerald',
-  'Teal',
-  'Cyan',
-  'Sky',
-  'Blue',
-  'Indigo',
-  'Violet',
-  'Purple',
-  'Fuchsia',
-  'Pink',
-  'Rose',
-];
 
 const Map<String, double> _radiusOptions = {
   'Sharp': 0.0,
@@ -91,31 +56,42 @@ class ThemePage extends StatefulWidget {
 }
 
 class _ThemePageState extends State<ThemePage> {
-  String? _baseColorOverride;
-  String? _accentColorOverride;
+  late String _basePresetId;
+  late String _accentPresetId;
+  bool _presetSelectionsReady = false;
 
   bool _previewSwitch = true;
   CheckboxState _previewCheckbox = CheckboxState.checked;
   ShadRangeValue _priceRange = const ShadRangeValue(320, 800);
 
+  List<DocsThemePreset> get _presetOptions => DocsThemeController.presets;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_presetSelectionsReady) return;
+    _initializePresetSelections(context.docsThemeController);
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = context.docsThemeController;
-    final data = controller.data;
     final showInlineOptions =
         MediaQuery.of(context).size.width < breakpointWidth2;
+
+    if (!_presetSelectionsReady) {
+      _initializePresetSelections(controller);
+    }
 
     return DocsPage(
       name: 'theme',
       onThisPage: const {},
       sidebar: SizedBox(
-        width: 300,
+        width: 320,
         child: _buildOptionsPanel(context),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final showThreePreviewCols = constraints.maxWidth >= 1380;
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -123,21 +99,18 @@ class _ThemePageState extends State<ThemePage> {
               const SizedBox(height: 12),
               const DocsParagraph(
                 text:
-                    'Tune visual tokens while previewing live UI blocks, matching the docs theme workflow.',
+                    'Pick registry presets, mix base and accent from different themes, and preview the result in a full component kitchen.',
               ),
               const SizedBox(height: 14),
               if (showInlineOptions) ...[
                 _buildOptionsPanel(context),
                 const SizedBox(height: 24),
               ],
-              _buildKitchenPreview(
-                context,
-                threeColumns: showThreePreviewCols,
-              ),
+              _buildKitchenPreview(context),
               const SizedBox(height: 28),
               const Text('Code').h2(),
               const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildCodeSnippet(controller, data)),
+              DocsCodeBlock(code: _buildCodeSnippet()),
             ],
           );
         },
@@ -145,105 +118,366 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  Widget _buildKitchenPreview(BuildContext context,
-      {required bool threeColumns}) {
-    if (threeColumns) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: _buildPaymentCard(context)),
-          const SizedBox(width: 20),
-          Expanded(child: _buildMiddlePreview(context)),
-          const SizedBox(width: 20),
-          Expanded(child: _buildAppearancePanel(context)),
-        ],
+  void _initializePresetSelections(DocsThemeController controller) {
+    final currentBrightness = controller.brightness;
+
+    if (controller.presetId != 'custom' && _hasPreset(controller.presetId)) {
+      _basePresetId = controller.presetId;
+      _accentPresetId = controller.presetId;
+    } else {
+      _basePresetId = _closestBasePresetId(
+        scheme: controller.data.colorScheme,
+        brightness: currentBrightness,
+      );
+      _accentPresetId = _closestAccentPresetId(
+        scheme: controller.data.colorScheme,
+        brightness: currentBrightness,
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildPaymentCard(context),
-        const SizedBox(height: 20),
-        _buildMiddlePreview(context),
-        const SizedBox(height: 20),
-        _buildAppearancePanel(context),
-      ],
+    if (controller.presetId != 'custom' &&
+        controller.presetId != _basePresetId) {
+      controller.setPreset(_basePresetId);
+    }
+
+    _presetSelectionsReady = true;
+  }
+
+  bool _hasPreset(String id) {
+    return _presetOptions.any((preset) => preset.id == id);
+  }
+
+  DocsThemePreset _presetForId(String id) {
+    return _presetOptions.firstWhere(
+      (preset) => preset.id == id,
+      orElse: () => _presetOptions.first,
     );
   }
 
-  Widget _buildPaymentCard(BuildContext context) {
-    return Card(
-      child: Column(
+  ColorScheme _schemeForPreset(String id, Brightness brightness) {
+    final preset = _presetForId(id);
+    return brightness == Brightness.dark ? preset.dark : preset.light;
+  }
+
+  RegistryThemePresetTokens _tokensForPreset(String id, Brightness brightness) {
+    final preset = _presetForId(id);
+    return brightness == Brightness.dark
+        ? preset.darkTokens
+        : preset.lightTokens;
+  }
+
+  ColorScheme _mixedScheme({
+    required ColorScheme baseScheme,
+    required ColorScheme accentScheme,
+  }) {
+    return baseScheme.copyWith(
+      primary: () => accentScheme.primary,
+      primaryForeground: () => accentScheme.primaryForeground,
+      accent: () => accentScheme.accent,
+      accentForeground: () => accentScheme.accentForeground,
+      ring: () => accentScheme.ring,
+      chart1: () => accentScheme.chart1,
+      chart2: () => accentScheme.chart2,
+      chart3: () => accentScheme.chart3,
+      chart4: () => accentScheme.chart4,
+      chart5: () => accentScheme.chart5,
+      sidebarPrimary: () => accentScheme.sidebarPrimary,
+      sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,
+      sidebarAccent: () => accentScheme.sidebarAccent,
+      sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,
+      sidebarRing: () => accentScheme.sidebarRing,
+    );
+  }
+
+  ColorScheme _schemeForSelection(Brightness brightness) {
+    final baseScheme = _schemeForPreset(_basePresetId, brightness);
+    if (_basePresetId == _accentPresetId) {
+      return baseScheme;
+    }
+    final accentScheme = _schemeForPreset(_accentPresetId, brightness);
+    return _mixedScheme(baseScheme: baseScheme, accentScheme: accentScheme);
+  }
+
+  void _updateThemeMode(DocsThemeController controller, bool isDark) {
+    controller.setBrightness(isDark ? Brightness.dark : Brightness.light);
+    _applyPresetSelections(controller, baseChanged: false);
+  }
+
+  void _updateBasePreset(
+      DocsThemeController controller, String nextBasePresetId) {
+    if (_basePresetId == nextBasePresetId) return;
+    setState(() {
+      _basePresetId = nextBasePresetId;
+    });
+    _applyPresetSelections(controller, baseChanged: true);
+  }
+
+  void _updateAccentPreset(
+      DocsThemeController controller, String nextAccentPresetId) {
+    if (_accentPresetId == nextAccentPresetId) return;
+    setState(() {
+      _accentPresetId = nextAccentPresetId;
+    });
+    _applyPresetSelections(controller, baseChanged: false);
+  }
+
+  void _applyPresetSelections(
+    DocsThemeController controller, {
+    required bool baseChanged,
+  }) {
+    if (baseChanged) {
+      controller.setPreset(_basePresetId);
+    }
+
+    if (_basePresetId == _accentPresetId) {
+      if (controller.presetId != _basePresetId) {
+        controller.setPreset(_basePresetId);
+      }
+      return;
+    }
+
+    final mixedScheme = _schemeForSelection(controller.brightness);
+    controller.setCustomScheme(mixedScheme);
+  }
+
+  String _closestBasePresetId({
+    required ColorScheme scheme,
+    required Brightness brightness,
+  }) {
+    var bestPreset = _presetOptions.first.id;
+    var bestDistance = double.infinity;
+
+    for (final preset in _presetOptions) {
+      final candidate =
+          brightness == Brightness.dark ? preset.dark : preset.light;
+      final distance = _baseSchemeDistance(scheme, candidate);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestPreset = preset.id;
+      }
+    }
+
+    return bestPreset;
+  }
+
+  String _closestAccentPresetId({
+    required ColorScheme scheme,
+    required Brightness brightness,
+  }) {
+    var bestPreset = _presetOptions.first.id;
+    var bestDistance = double.infinity;
+
+    for (final preset in _presetOptions) {
+      final candidate =
+          brightness == Brightness.dark ? preset.dark : preset.light;
+      final distance = _accentSchemeDistance(scheme, candidate);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestPreset = preset.id;
+      }
+    }
+
+    return bestPreset;
+  }
+
+  double _baseSchemeDistance(ColorScheme lhs, ColorScheme rhs) {
+    return _colorDistance(lhs.background, rhs.background) +
+        _colorDistance(lhs.foreground, rhs.foreground) +
+        _colorDistance(lhs.card, rhs.card) +
+        _colorDistance(lhs.cardForeground, rhs.cardForeground) +
+        _colorDistance(lhs.muted, rhs.muted) +
+        _colorDistance(lhs.mutedForeground, rhs.mutedForeground) +
+        _colorDistance(lhs.border, rhs.border) +
+        _colorDistance(lhs.input, rhs.input) +
+        _colorDistance(lhs.sidebar, rhs.sidebar) +
+        _colorDistance(lhs.sidebarForeground, rhs.sidebarForeground);
+  }
+
+  double _accentSchemeDistance(ColorScheme lhs, ColorScheme rhs) {
+    return _colorDistance(lhs.primary, rhs.primary) +
+        _colorDistance(lhs.primaryForeground, rhs.primaryForeground) +
+        _colorDistance(lhs.accent, rhs.accent) +
+        _colorDistance(lhs.accentForeground, rhs.accentForeground) +
+        _colorDistance(lhs.ring, rhs.ring) +
+        _colorDistance(lhs.chart1, rhs.chart1) +
+        _colorDistance(lhs.chart2, rhs.chart2) +
+        _colorDistance(lhs.chart3, rhs.chart3) +
+        _colorDistance(lhs.chart4, rhs.chart4) +
+        _colorDistance(lhs.chart5, rhs.chart5) +
+        _colorDistance(lhs.sidebarPrimary, rhs.sidebarPrimary) +
+        _colorDistance(lhs.sidebarAccent, rhs.sidebarAccent) +
+        _colorDistance(lhs.sidebarRing, rhs.sidebarRing);
+  }
+
+  double _colorDistance(Color lhs, Color rhs) {
+    final lhsValue = lhs.toARGB32();
+    final rhsValue = rhs.toARGB32();
+    final lhsRed = (lhsValue >> 16) & 0xFF;
+    final lhsGreen = (lhsValue >> 8) & 0xFF;
+    final lhsBlue = lhsValue & 0xFF;
+    final rhsRed = (rhsValue >> 16) & 0xFF;
+    final rhsGreen = (rhsValue >> 8) & 0xFF;
+    final rhsBlue = rhsValue & 0xFF;
+
+    final dr = (lhsRed - rhsRed).toDouble();
+    final dg = (lhsGreen - rhsGreen).toDouble();
+    final db = (lhsBlue - rhsBlue).toDouble();
+
+    return (dr * dr) + (dg * dg) + (db * db);
+  }
+
+  Widget _buildKitchenPreview(BuildContext context) {
+    return MediaQueryVisibility(
+      minWidth: 1350,
+      alternateChild: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Payment Method').large().semiBold(),
-          const SizedBox(height: 6),
+          _buildKitchenPaymentMethod(context),
+          const DensityGap(gap2xl),
+          _buildKitchenInputs(context),
+          const DensityGap(gap2xl),
+          _buildKitchenAppearanceSettings(context),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: _buildKitchenPaymentMethod(context)),
+          const DensityGap(gap2xl),
+          Expanded(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
+              child: _buildKitchenInputs(context),
+            ),
+          ),
+          const DensityGap(gap2xl),
+          Expanded(child: _buildKitchenAppearanceSettings(context)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKitchenPaymentMethod(BuildContext context) {
+    final currentYear = DateTime.now().year;
+    return Card(
+      padding: const EdgeInsetsDensity.all(padMd),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Payment Method').medium(),
+          const DensityGap(gapXs),
           const Text('All transactions are secure and encrypted.')
               .muted()
               .small(),
-          const SizedBox(height: 16),
+          const DensityGap(gapXl),
           const Text('Name on Card').medium(),
-          const SizedBox(height: 8),
-          const TextField(placeholder: Text('John Doe')),
-          const SizedBox(height: 14),
+          const DensityGap(gapSm),
+          const TextField(
+            placeholder: Text('John Doe'),
+          ),
+          const DensityGap(gapXl),
           Row(
             children: [
-              Expanded(
+              Flexible(
                 flex: 2,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Card Number').medium(),
-                    const SizedBox(height: 8),
-                    const TextField(placeholder: Text('1234 5678 9012 3456')),
+                    const DensityGap(gapSm),
+                    const TextField(
+                      placeholder: Text('1234 5678 9012 3456'),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
+              const DensityGap(gapXl),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('CVV').medium(),
+                    const DensityGap(gapSm),
+                    const TextField(
+                      placeholder: Text('123'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const DensityGap(gapMd),
+          const Text('Enter your 16-digit number.').muted(),
+          const DensityGap(gapLg),
+          Row(
+            children: [
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text('CVV').medium(),
-                    const SizedBox(height: 8),
-                    const TextField(placeholder: Text('123')),
+                    const Text('Month').medium(),
+                    const DensityGap(gapSm),
+                    Select<String>(
+                      placeholder: const Text('MM'),
+                      itemBuilder: (context, item) => Text(item),
+                      value: null,
+                      onChanged: (value) {},
+                      popup: SelectPopup.noVirtualization(
+                        items: SelectItemList(
+                          children: [
+                            for (var month = 1; month <= 12; month++)
+                              SelectItemButton(
+                                value: month.toString().padLeft(2, '0'),
+                                child: Text(month.toString().padLeft(2, '0')),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const DensityGap(gapXl),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Year').medium(),
+                    const DensityGap(gapSm),
+                    Select<String>(
+                      placeholder: const Text('YYYY'),
+                      itemBuilder: (context, item) => Text(item),
+                      value: null,
+                      onChanged: (value) {},
+                      popup: SelectPopup.noVirtualization(
+                        items: SelectItemList(
+                          children: [
+                            for (var yearOffset = 0;
+                                yearOffset < 12;
+                                yearOffset++)
+                              SelectItemButton(
+                                value: (currentYear + yearOffset).toString(),
+                                child:
+                                    Text((currentYear + yearOffset).toString()),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          const Text('Enter your 16-digit number.').muted().small(),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(
-                child: _smallSelect(
-                  value: 'MM',
-                  options: const ['MM', '01', '02', '03', '04', '05'],
-                  onChanged: (_) {},
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _smallSelect(
-                  value: 'YYYY',
-                  options: const ['YYYY', '2026', '2027', '2028', '2029'],
-                  onChanged: (_) {},
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
+          const DensityGap(gapXl),
           const Divider(),
-          const SizedBox(height: 16),
+          const DensityGap(gapXl),
           const Text('Billing Address').medium(),
-          const SizedBox(height: 6),
+          const DensityGap(gapXs),
           const Text('The billing address associated with your payment method')
               .muted()
               .small(),
-          const SizedBox(height: 10),
+          const DensityGap(gapMd),
           Checkbox(
             state: _previewCheckbox,
             onChanged: (value) {
@@ -253,24 +487,25 @@ class _ThemePageState extends State<ThemePage> {
             },
             trailing: const Text('Same as shipping address'),
           ),
-          const SizedBox(height: 16),
+          const DensityGap(gapXl),
           const Divider(),
-          const SizedBox(height: 16),
+          const DensityGap(gapXl),
           const Text('Comments').medium(),
-          const SizedBox(height: 8),
+          const DensityGap(gapSm),
           const TextArea(
-            minHeight: 90,
-            maxHeight: 120,
             placeholder: Text('Add any additional comments'),
+            expandableHeight: true,
+            minHeight: 90,
+            maxHeight: 150,
           ),
-          const SizedBox(height: 14),
+          const DensityGap(gapLg),
           Row(
             children: [
               PrimaryButton(
                 onPressed: () {},
                 child: const Text('Submit'),
               ),
-              const SizedBox(width: 10),
+              const DensityGap(gapMd),
               OutlineButton(
                 onPressed: () {},
                 child: const Text('Cancel'),
@@ -282,73 +517,285 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  Widget _buildMiddlePreview(BuildContext context) {
+  Widget _buildKitchenInputs(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        OutlinedContainer(
-          borderStyle: BorderStyle.solid,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+        _buildKitchenMembers(),
+        const DensityGap(gapXl),
+        _buildKitchenBadges(),
+        const DensityGap(gapXl),
+        _buildKitchenChatBox(),
+        const DensityGap(gapXl),
+        _buildKitchenPriceRange(),
+        const DensityGap(gapXl),
+        _buildKitchenSearch(),
+        const DensityGap(gapXl),
+        _buildKitchenUrlField(),
+        const DensityGap(gapXl),
+        _buildKitchenAiComposer(),
+        const DensityGap(gapXl),
+        _buildKitchenMentions(),
+      ],
+    );
+  }
+
+  Widget _buildKitchenAppearanceSettings(BuildContext context) {
+    return RadioGroup<bool>(
+      value: true,
+      onChanged: (value) {},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Card(
+            child: Row(
               children: [
-                AvatarGroup.toLeft(
-                  offset: 0.7,
-                  gap: 2,
-                  children: const [
-                    Avatar(initials: 'MJ'),
-                    Avatar(initials: 'JS'),
-                    Avatar(initials: 'ST'),
-                  ],
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Two-factor authentication'),
+                      DensityGap(gapXs),
+                      Text('Verify via email or phone number.'),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 14),
-                const Text('No Team Members').medium(),
-                const SizedBox(height: 8),
-                const Text('Invite your team to collaborate on this project.')
-                    .muted()
-                    .small()
-                    .center(),
-                const SizedBox(height: 12),
-                SecondaryButton(
+                PrimaryButton(
+                  density: ButtonDensity.dense,
                   onPressed: () {},
-                  leading: const Icon(Icons.add),
-                  child: const Text('Invite Members'),
+                  child: const Text('Enable'),
                 ),
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        const Row(
-          children: [
-            SecondaryBadge(child: Text('Syncing')),
-            SizedBox(width: 8),
-            SecondaryBadge(child: Text('Updating')),
-            SizedBox(width: 8),
-            OutlineBadge(child: Text('Loading')),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            IconButton.outline(
-              icon: const Icon(Icons.add),
-              onPressed: () {},
+          const DensityGap(gapMd),
+          const Card(
+            child: Row(
+              children: [
+                Icon(LucideIcons.badgeCheck),
+                DensityGap(gapSm),
+                Expanded(child: Text('Your profile has been verified.')),
+                Icon(Icons.chevron_right),
+              ],
             ),
-            const SizedBox(width: 8),
-            const Expanded(
-              child: TextField(
-                placeholder: Text('Send a message...'),
+          ),
+          const DensityGap(gapXl),
+          Divider(
+            child: const Text('Appearance Settings').muted().small(),
+          ),
+          const DensityGap(gapXl),
+          const Text('Compute Environment').medium(),
+          const DensityGap(gapXs),
+          const Text('Select the compute environment for your cluster.')
+              .muted()
+              .small(),
+          const DensityGap(gapMd),
+          const RadioCard(
+            value: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text('Kubernetes'),
+                    Spacer(),
+                    Radio(value: true),
+                  ],
+                ),
+                DensityGap(gapSm),
+                Text(
+                  'Run GPU workloads on a K8s configured cluster. This is the default.',
+                ),
+              ],
+            ),
+          ),
+          const DensityGap(gapSm),
+          const RadioCard(
+            value: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text('Virtual Machine'),
+                    Spacer(),
+                    Radio(value: false),
+                  ],
+                ),
+                DensityGap(gapSm),
+                Text(
+                  'Access a VM configured cluster to run workloads. (Coming soon)',
+                ),
+              ],
+            ),
+          ),
+          const DensityGap(gapXl),
+          const Divider(),
+          const DensityGap(gapXl),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Number of GPUs'),
+                    DensityGap(gapXs),
+                    Text('You can add more later.'),
+                  ],
+                ),
               ),
+              Expanded(
+                child: TextField(
+                  initialValue: '8',
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  features: const [
+                    InputFeature.spinner(step: 1),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const DensityGap(gapXl),
+          const Divider(),
+          const DensityGap(gapXl),
+          Row(
+            children: [
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Wallpaper Tinting'),
+                    DensityGap(gapXs),
+                    Text('Allow the wallpaper to be tinted.'),
+                  ],
+                ),
+              ),
+              Switch(
+                value: _previewSwitch,
+                onChanged: (value) {
+                  setState(() {
+                    _previewSwitch = value;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKitchenMembers() {
+    return DashedContainer(
+      child: DensityContainerPadding(
+        padding: const EdgeInsetsDensity.all(padLg),
+        child: Column(
+          children: [
+            AvatarGroup.toLeft(
+              gap: 2,
+              offset: 0.7,
+              children: const [
+                Avatar(initials: 'MJ'),
+                Avatar(initials: 'JS'),
+                Avatar(initials: 'ST'),
+              ],
+            ),
+            const DensityGap(gapXl),
+            const Text('No Team Members').small(),
+            const DensityGap(gapSm),
+            const Text('Invite your team to collaborate on this project.')
+                .muted()
+                .small()
+                .center(),
+            const DensityGap(gapMd),
+            SecondaryButton(
+              leading: const Icon(Icons.add),
+              density: ButtonDensity.dense,
+              onPressed: () {},
+              child: const Text('Invite Members').small(),
             ),
           ],
         ),
-        const SizedBox(height: 14),
+      ),
+    );
+  }
+
+  Widget _buildKitchenBadges() {
+    return RepaintBoundary(
+      child: Row(
+        children: [
+          PrimaryBadge(
+            leading: const CircularProgressIndicator(
+              onSurface: true,
+              size: 10,
+            ),
+            child: const Text('Syncing').small(),
+          ),
+          const DensityGap(gapSm),
+          SecondaryBadge(
+            leading: const CircularProgressIndicator(size: 10),
+            child: const Text('Updating').small(),
+          ),
+          const DensityGap(gapSm),
+          OutlineBadge(
+            leading: const CircularProgressIndicator(size: 10),
+            child: const Text('Loading').small(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKitchenChatBox() {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          IconButton.outline(icon: const Icon(Icons.add), onPressed: () {}),
+          const DensityGap(gapSm),
+          Expanded(
+            child: TextField(
+              placeholder: const Text('Send a message...'),
+              padding: const DirectionalEdgeInsetsDensity.only(
+                start: padSm,
+                end: padXs,
+                top: 0,
+                bottom: 0,
+              ),
+              features: [
+                InputFeature.trailing(
+                  WidgetStatesProvider.boundary(
+                    child: Tooltip(
+                      tooltip: const TooltipContainer(child: Text('Voice mode'))
+                          .call,
+                      child: IconButton.ghost(
+                        icon: const Icon(LucideIcons.audioLines),
+                        onPressed: () {},
+                        shape: ButtonShape.circle,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKitchenPriceRange() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
         const Text('Price Range').medium(),
-        const SizedBox(height: 6),
-        const Text('Set your budget range (\$320 - \$800)').muted().small(),
-        const SizedBox(height: 8),
+        const DensityGap(gapXs),
+        const Text('Set your budget range (\$320 - \$800)').muted(),
+        const DensityGap(gapMd),
         Slider.range(
           min: 0,
           max: 1000,
@@ -359,148 +806,92 @@ class _ThemePageState extends State<ThemePage> {
             });
           },
         ),
-        const SizedBox(height: 10),
-        const TextField(
-          placeholder: Text('Search...'),
-          features: [
-            InputFeature.leading(Icon(Icons.search)),
-            InputFeature.trailing(Text('12 Results')),
-          ],
-        ),
-        const SizedBox(height: 10),
-        const TextField(
-          placeholder: Text('https://example.com'),
-        ),
-        const SizedBox(height: 10),
-        const TextArea(
-          minHeight: 78,
-          maxHeight: 90,
-          placeholder: Text('Ask, Search, or Chat...'),
-        ),
-        const SizedBox(height: 10),
-        const TextField(
-          placeholder: Text('@sunarya-thito'),
-          features: [
-            InputFeature.trailing(Icon(Icons.check_circle_outline)),
-          ],
+      ],
+    );
+  }
+
+  Widget _buildKitchenSearch() {
+    return const TextField(
+      placeholder: Text('Search...'),
+      features: [
+        InputFeature.leading(Icon(Icons.search)),
+        InputFeature.trailing(Text('12 Results')),
+      ],
+    );
+  }
+
+  Widget _buildKitchenUrlField() {
+    return TextField(
+      placeholder: const Text('example.com'),
+      features: [
+        const InputFeature.leading(Text('https://')),
+        InputFeature.hint(
+          popupBuilder: const TooltipContainer(
+            child: Text('This is content in a tooltip'),
+          ).call,
         ),
       ],
     );
   }
 
-  Widget _buildAppearancePanel(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Card(
-          child: Row(
-            children: [
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Two-factor authentication'),
-                    SizedBox(height: 4),
-                    Text('Verify via email or phone number.'),
-                  ],
-                ),
-              ),
-              SecondaryButton(
-                onPressed: () {},
-                child: const Text('Enable'),
-              ),
-            ],
+  Widget _buildKitchenAiComposer() {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const TextArea(
+            minHeight: 80,
+            maxHeight: 100,
+            placeholder: Text('Ask, Search, or Chat...'),
           ),
-        ),
-        const SizedBox(height: 10),
-        const Card(
-          child: Row(
-            children: [
-              Icon(Icons.verified_outlined),
-              SizedBox(width: 8),
-              Expanded(child: Text('Your profile has been verified.')),
-              Icon(Icons.chevron_right),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        const Divider(),
-        const SizedBox(height: 16),
-        const Text('Compute Environment').large().semiBold(),
-        const SizedBox(height: 6),
-        const Text('Select the compute environment for your cluster.')
-            .muted()
-            .small(),
-        const SizedBox(height: 10),
-        RadioGroup<bool>(
-          value: true,
-          onChanged: (_) {},
-          child: const Column(
-            children: [
-              RadioCard(
-                value: true,
-                child: Basic(
-                  title: Text('Kubernetes'),
-                  subtitle:
-                      Text('Run GPU workloads on a K8s configured cluster.'),
-                  trailing: Radio(value: true),
+          const DensityGap(gapMd),
+          const Divider(),
+          const DensityGap(gapMd),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                IconButton.outline(
+                  density: ButtonDensity.iconDense,
+                  icon: const Icon(Icons.add),
+                  onPressed: () {},
                 ),
-              ),
-              SizedBox(height: 8),
-              RadioCard(
-                value: false,
-                child: Basic(
-                  title: Text('Virtual Machine'),
-                  subtitle:
-                      Text('Access a VM configured cluster to run workloads.'),
-                  trailing: Radio(value: false),
+                const DensityGap(gapSm),
+                SecondaryButton(
+                  density: ButtonDensity.dense,
+                  onPressed: () {},
+                  child: const Text('Auto'),
                 ),
-              ),
-            ],
+                const Spacer(),
+                const Text('52% Used').muted().small().center(),
+                const DensityGap(gapSm),
+                const VerticalDivider(),
+                const DensityGap(gapSm),
+                IconButton.primary(
+                  density: ButtonDensity.iconDense,
+                  icon: const Icon(Icons.arrow_upward),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 14),
-        const Divider(),
-        const SizedBox(height: 14),
-        const Row(
-          children: [
-            Expanded(
-              child: Basic(
-                title: Text('Number of GPUs'),
-                subtitle: Text('You can add more later.'),
-              ),
-            ),
-            SizedBox(
-              width: 140,
-              child: TextField(
-                initialValue: '8',
-                features: [
-                  InputFeature.trailing(Icon(Icons.add)),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 14),
-        const Divider(),
-        const SizedBox(height: 14),
-        Row(
-          children: [
-            const Expanded(
-              child: Basic(
-                title: Text('Wallpaper Tinting'),
-                subtitle: Text('Allow the wallpaper to be tinted.'),
-              ),
-            ),
-            Switch(
-              value: _previewSwitch,
-              onChanged: (value) {
-                setState(() {
-                  _previewSwitch = value;
-                });
-              },
-            ),
-          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKitchenMentions() {
+    return TextField(
+      placeholder: const Text('@sunarya-thito'),
+      features: [
+        InputFeature.trailing(
+          IconButton.primary(
+            density: ButtonDensity.iconDense,
+            size: ButtonSize.small,
+            shape: ButtonShape.circle,
+            icon: const Icon(Icons.check),
+            onPressed: () {},
+          ),
         ),
       ],
     );
@@ -510,23 +901,36 @@ class _ThemePageState extends State<ThemePage> {
     final controller = context.docsThemeController;
     final data = controller.data;
     final isDark = controller.brightness == Brightness.dark;
-    final presetTokens = _activePresetTokens(controller);
-    final baseColor = _inferBaseColor(
-      presetId: controller.presetId,
-      scheme: data.colorScheme,
-      isDark: isDark,
-    );
-    final accentColor = _inferAccentColor(
-      data.colorScheme.primary,
-      _baseColorOverride ?? baseColor,
-    );
-    final selectedBaseColor = _baseColorOverride ?? baseColor;
-    final selectedAccentColor = _accentColorOverride ?? accentColor;
+    final presetTokens = _tokensForPreset(_basePresetId, controller.brightness);
+
+    final radiusKey = _radiusOptions.entries
+        .firstWhere(
+          (entry) => entry.value == data.radius,
+          orElse: () => const MapEntry('Default', 0.5),
+        )
+        .key;
+    final scalingKey = _scalingOptions.entries
+        .firstWhere(
+          (entry) => entry.value == data.scaling,
+          orElse: () => const MapEntry('Default', 1.0),
+        )
+        .key;
+    final surfaceOpacityKey = _surfaceOpacityOptions.entries
+        .firstWhere(
+          (entry) => entry.value == data.surfaceOpacity,
+          orElse: () => const MapEntry('Solid', 1.0),
+        )
+        .key;
+    final surfaceBlurKey = _surfaceBlurOptions.entries
+        .firstWhere(
+          (entry) => entry.value == data.surfaceBlur,
+          orElse: () => const MapEntry('None', 0.0),
+        )
+        .key;
     final densityLabel = _densityLabel(
       density: data.density,
       presetDensity: presetTokens.density,
     );
-    final densityValues = ['Preset', ..._densityOptions.keys];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -539,94 +943,103 @@ class _ThemePageState extends State<ThemePage> {
           values: _themeModes.keys.toList(),
           onChanged: (value) {
             if (value == null) return;
-            controller.setBrightness(
-              value == 'Dark' ? Brightness.dark : Brightness.light,
-            );
+            _updateThemeMode(controller, value == 'Dark');
           },
         ),
         const SizedBox(height: 12),
-        _panelLabel('Preset themes'),
-        _stringSelect(
-          value: controller.presetId,
-          values: DocsThemeController.presets.map((p) => p.id).toList(),
-          onChanged: (value) {
-            if (value != null) {
-              controller.setPreset(value);
-              setState(() {
-                _baseColorOverride = null;
-                _accentColorOverride = null;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Base colors'),
-        _stringSelect(
-          value: selectedBaseColor,
-          values: _baseColors,
+        _panelLabel('Base preset (surface + tokens)'),
+        _presetSelect(
+          value: _basePresetId,
+          brightness: controller.brightness,
           onChanged: (value) {
             if (value == null) return;
-            setState(() {
-              _baseColorOverride = value == baseColor ? null : value;
-            });
+            _updateBasePreset(controller, value);
           },
         ),
         const SizedBox(height: 12),
-        _panelLabel('Accent colors'),
-        _stringSelect(
-          value: selectedAccentColor,
-          values: _accentColors,
+        _panelLabel('Accent preset (primary + charts)'),
+        _presetSelect(
+          value: _accentPresetId,
+          brightness: controller.brightness,
           onChanged: (value) {
             if (value == null) return;
-            setState(() {
-              _accentColorOverride = value == accentColor ? null : value;
-            });
+            _updateAccentPreset(controller, value);
           },
         ),
+        const SizedBox(height: 6),
+        Text(
+          _basePresetId == _accentPresetId
+              ? 'Using one preset for both base and accent.'
+              : 'Mix & match active: base and accent come from different presets.',
+        ).small().muted(),
         const SizedBox(height: 12),
         _panelLabel('Radius'),
-        _numericSelect(
-          value: data.radius,
-          options: _radiusOptions,
-          onChanged: controller.setRadius,
+        _stringSelect(
+          value: radiusKey,
+          values: _radiusOptions.keys.toList(),
+          onChanged: (value) {
+            if (value == null) return;
+            final next = _radiusOptions[value];
+            if (next != null) {
+              controller.setRadius(next);
+            }
+          },
         ),
         const SizedBox(height: 12),
         _panelLabel('Density'),
         _stringSelect(
           value: densityLabel,
-          values: densityValues,
+          values: ['Preset', ..._densityOptions.keys],
           onChanged: (value) {
             if (value == null) return;
             if (value == 'Preset') {
               controller.setDensity(presetTokens.density);
               return;
             }
-            final density = _densityOptions[value];
-            if (density != null) {
-              controller.setDensity(density);
+            final next = _densityOptions[value];
+            if (next != null) {
+              controller.setDensity(next);
             }
           },
         ),
         const SizedBox(height: 12),
         _panelLabel('Scaling'),
-        _numericSelect(
-          value: data.scaling,
-          options: _scalingOptions,
-          onChanged: controller.setScaling,
+        _stringSelect(
+          value: scalingKey,
+          values: _scalingOptions.keys.toList(),
+          onChanged: (value) {
+            if (value == null) return;
+            final next = _scalingOptions[value];
+            if (next != null) {
+              controller.setScaling(next);
+            }
+          },
         ),
         const SizedBox(height: 12),
         _panelLabel('Surface opacity'),
-        _numericSelect(
-          value: data.surfaceOpacity,
-          options: _surfaceOpacityOptions,
-          onChanged: controller.setSurfaceOpacity,
+        _stringSelect(
+          value: surfaceOpacityKey,
+          values: _surfaceOpacityOptions.keys.toList(),
+          onChanged: (value) {
+            if (value == null) return;
+            final next = _surfaceOpacityOptions[value];
+            if (next != null) {
+              controller.setSurfaceOpacity(next);
+            }
+          },
         ),
         const SizedBox(height: 12),
         _panelLabel('Surface blur'),
-        _numericSelect(
-          value: data.surfaceBlur,
-          options: _surfaceBlurOptions,
-          onChanged: controller.setSurfaceBlur,
+        _stringSelect(
+          value: surfaceBlurKey,
+          values: _surfaceBlurOptions.keys.toList(),
+          onChanged: (value) {
+            if (value == null) return;
+            final next = _surfaceBlurOptions[value];
+            if (next != null) {
+              controller.setSurfaceBlur(next);
+            }
+          },
         ),
       ],
     );
@@ -639,45 +1052,42 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  Widget _numericSelect({
-    required double value,
-    required Map<String, double> options,
-    required ValueChanged<double> onChanged,
-  }) {
-    var selected = options.entries.first.key;
-    for (final entry in options.entries) {
-      if (entry.value == value) {
-        selected = entry.key;
-        break;
-      }
-    }
-    return _stringSelect(
-      value: selected,
-      values: options.keys.toList(),
-      onChanged: (choice) {
-        if (choice == null) return;
-        final next = options[choice];
-        if (next != null) onChanged(next);
-      },
-    );
-  }
-
-  Widget _smallSelect({
+  Widget _presetSelect({
     required String value,
-    required List<String> options,
+    required Brightness brightness,
     required ValueChanged<String?> onChanged,
   }) {
     return Select<String>(
       value: value,
       onChanged: onChanged,
-      itemBuilder: (context, item) => Text(item),
+      itemBuilder: (context, item) {
+        final preset = _presetForId(item);
+        final scheme = _schemeForPreset(item, brightness);
+        return Row(
+          children: [
+            Icon(Icons.circle, size: 12, color: scheme.primary),
+            const SizedBox(width: 8),
+            Flexible(child: Text(preset.name)),
+          ],
+        );
+      },
       popup: SelectPopup.noVirtualization(
         items: SelectItemList(
           children: [
-            for (final item in options)
+            for (final preset in _presetOptions)
               SelectItemButton(
-                value: item,
-                child: Text(item),
+                value: preset.id,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 12,
+                      color: _schemeForPreset(preset.id, brightness).primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(child: Text(preset.name)),
+                  ],
+                ),
               ),
           ],
         ),
@@ -708,71 +1118,6 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  String _buildCodeSnippet(DocsThemeController controller, DocsThemeData data) {
-    final isDark = controller.brightness == Brightness.dark;
-    final presetTokens = _activePresetTokens(controller);
-    final baseColor = _inferBaseColor(
-      presetId: controller.presetId,
-      scheme: data.colorScheme,
-      isDark: isDark,
-    );
-    final accentColor = _inferAccentColor(data.colorScheme.primary, baseColor);
-    final selectedBase = _baseColorOverride ?? baseColor;
-    final selectedAccent = _accentColorOverride ?? accentColor;
-    final densityLabel = _densityLabel(
-      density: data.density,
-      presetDensity: presetTokens.density,
-    );
-
-    final extras = <String>[];
-    if (!isDark) {
-      extras.add('--mode light');
-    }
-    if (_baseColorOverride != null) {
-      extras.add('--base ${selectedBase.toLowerCase()}');
-    }
-    if (_accentColorOverride != null) {
-      extras.add('--accent ${selectedAccent.toLowerCase()}');
-    }
-    if (data.radius != presetTokens.radius) {
-      extras.add('--radius ${data.radius}');
-    }
-    if (densityLabel != 'Preset') {
-      extras.add('--density ${densityLabel.toLowerCase()}');
-    }
-    if (data.scaling != 1.0) {
-      extras.add('--scaling ${data.scaling}');
-    }
-    if (data.surfaceOpacity != 1.0) {
-      extras.add('--surface-opacity ${data.surfaceOpacity}');
-    }
-    if (data.surfaceBlur != 0.0) {
-      extras.add('--surface-blur ${data.surfaceBlur}');
-    }
-
-    final lines = <String>[
-      'flutter_shadcn theme --apply ${controller.presetId}',
-      for (final extra in extras) '  $extra',
-    ];
-    if (lines.length > 1) {
-      for (var i = 0; i < lines.length - 1; i += 1) {
-        lines[i] = '${lines[i]} \\';
-      }
-    }
-    return lines.join('\n');
-  }
-
-  RegistryThemePresetTokens _activePresetTokens(
-      DocsThemeController controller) {
-    final preset = DocsThemeController.presets.firstWhere(
-      (entry) => entry.id == controller.presetId,
-      orElse: () => DocsThemeController.presets.first,
-    );
-    return controller.brightness == Brightness.dark
-        ? preset.darkTokens
-        : preset.lightTokens;
-  }
-
   String _densityLabel({
     required Density density,
     required Density presetDensity,
@@ -788,97 +1133,162 @@ class _ThemePageState extends State<ThemePage> {
         .key;
   }
 
-  String _inferBaseColor({
-    required String presetId,
+  String _buildCodeSnippet() {
+    final lightScheme = _schemeForSelection(Brightness.light);
+    final darkScheme = _schemeForSelection(Brightness.dark);
+    final lightTokens = _tokensForPreset(_basePresetId, Brightness.light);
+    final darkTokens = _tokensForPreset(_basePresetId, Brightness.dark);
+
+    final lines = <String>[
+      'RegistryThemePreset(',
+      "  id: '${_generatedPresetId()}',",
+      "  name: '${_escape(_generatedPresetName())}',",
+      ..._buildColorSchemeLiteral(name: 'light', scheme: lightScheme),
+      ..._buildColorSchemeLiteral(name: 'dark', scheme: darkScheme),
+      ..._buildTokenLiteral(
+        name: 'lightTokens',
+        tokens: lightTokens,
+        helperName: '_lightTokens',
+      ),
+      ..._buildTokenLiteral(
+        name: 'darkTokens',
+        tokens: darkTokens,
+        helperName: '_darkTokens',
+      ),
+      '),',
+    ];
+
+    return lines.join('\n');
+  }
+
+  String _generatedPresetId() {
+    if (_basePresetId == _accentPresetId) {
+      return '$_basePresetId-custom';
+    }
+    return '$_basePresetId-$_accentPresetId-mix';
+  }
+
+  String _generatedPresetName() {
+    final baseName = _presetForId(_basePresetId).name;
+    final accentName = _presetForId(_accentPresetId).name;
+    if (_basePresetId == _accentPresetId) {
+      return '$baseName Custom';
+    }
+    return '$baseName + $accentName Accent';
+  }
+
+  Iterable<String> _buildColorSchemeLiteral({
+    required String name,
     required ColorScheme scheme,
-    required bool isDark,
-  }) {
-    final lower = presetId.toLowerCase();
-    for (final base in _baseColors) {
-      if (lower.contains(base.toLowerCase())) {
-        return base;
-      }
-    }
-
-    const baseAnchors = <String, Color>{
-      'Slate': Color(0xFF020617),
-      'Zinc': Color(0xFF09090B),
-      'Gray': Color(0xFF030712),
-      'Neutral': Color(0xFF0A0A0A),
-      'Stone': Color(0xFF0C0A09),
-    };
-
-    final sample = isDark ? scheme.background : scheme.foreground;
-    var best = 'Slate';
-    var minDistance = double.infinity;
-    for (final entry in baseAnchors.entries) {
-      final distance = _colorDistance(sample, entry.value);
-      if (distance < minDistance) {
-        minDistance = distance;
-        best = entry.key;
-      }
-    }
-    return best;
+  }) sync* {
+    yield '  $name: const ColorScheme(';
+    yield '    brightness: Brightness.${scheme.brightness.name},';
+    yield '    background: ${_colorLiteral(scheme.background)},';
+    yield '    foreground: ${_colorLiteral(scheme.foreground)},';
+    yield '    card: ${_colorLiteral(scheme.card)},';
+    yield '    cardForeground: ${_colorLiteral(scheme.cardForeground)},';
+    yield '    popover: ${_colorLiteral(scheme.popover)},';
+    yield '    popoverForeground: ${_colorLiteral(scheme.popoverForeground)},';
+    yield '    primary: ${_colorLiteral(scheme.primary)},';
+    yield '    primaryForeground: ${_colorLiteral(scheme.primaryForeground)},';
+    yield '    secondary: ${_colorLiteral(scheme.secondary)},';
+    yield '    secondaryForeground: ${_colorLiteral(scheme.secondaryForeground)},';
+    yield '    muted: ${_colorLiteral(scheme.muted)},';
+    yield '    mutedForeground: ${_colorLiteral(scheme.mutedForeground)},';
+    yield '    accent: ${_colorLiteral(scheme.accent)},';
+    yield '    accentForeground: ${_colorLiteral(scheme.accentForeground)},';
+    yield '    destructive: ${_colorLiteral(scheme.destructive)},';
+    // ignore: deprecated_member_use_from_same_package
+    yield '    destructiveForeground: ${_colorLiteral(scheme.destructiveForeground)},';
+    yield '    border: ${_colorLiteral(scheme.border)},';
+    yield '    input: ${_colorLiteral(scheme.input)},';
+    yield '    ring: ${_colorLiteral(scheme.ring)},';
+    yield '    chart1: ${_colorLiteral(scheme.chart1)},';
+    yield '    chart2: ${_colorLiteral(scheme.chart2)},';
+    yield '    chart3: ${_colorLiteral(scheme.chart3)},';
+    yield '    chart4: ${_colorLiteral(scheme.chart4)},';
+    yield '    chart5: ${_colorLiteral(scheme.chart5)},';
+    yield '    sidebar: ${_colorLiteral(scheme.sidebar)},';
+    yield '    sidebarForeground: ${_colorLiteral(scheme.sidebarForeground)},';
+    yield '    sidebarPrimary: ${_colorLiteral(scheme.sidebarPrimary)},';
+    yield '    sidebarPrimaryForeground: ${_colorLiteral(scheme.sidebarPrimaryForeground)},';
+    yield '    sidebarAccent: ${_colorLiteral(scheme.sidebarAccent)},';
+    yield '    sidebarAccentForeground: ${_colorLiteral(scheme.sidebarAccentForeground)},';
+    yield '    sidebarBorder: ${_colorLiteral(scheme.sidebarBorder)},';
+    yield '    sidebarRing: ${_colorLiteral(scheme.sidebarRing)},';
+    yield '  ),';
   }
 
-  String _inferAccentColor(Color primary, String baseColor) {
-    const accentAnchors = <String, Color>{
-      'Slate': Color(0xFF64748B),
-      'Gray': Color(0xFF6B7280),
-      'Zinc': Color(0xFF71717A),
-      'Neutral': Color(0xFF737373),
-      'Stone': Color(0xFF78716C),
-      'Red': Color(0xFFEF4444),
-      'Orange': Color(0xFFF97316),
-      'Amber': Color(0xFFF59E0B),
-      'Yellow': Color(0xFFEAB308),
-      'Lime': Color(0xFF84CC16),
-      'Green': Color(0xFF22C55E),
-      'Emerald': Color(0xFF10B981),
-      'Teal': Color(0xFF14B8A6),
-      'Cyan': Color(0xFF06B6D4),
-      'Sky': Color(0xFF0EA5E9),
-      'Blue': Color(0xFF3B82F6),
-      'Indigo': Color(0xFF6366F1),
-      'Violet': Color(0xFF8B5CF6),
-      'Purple': Color(0xFFA855F7),
-      'Fuchsia': Color(0xFFD946EF),
-      'Pink': Color(0xFFEC4899),
-      'Rose': Color(0xFFF43F5E),
-    };
-
-    var best = 'Base';
-    var minDistance = double.infinity;
-    for (final entry in accentAnchors.entries) {
-      final distance = _colorDistance(primary, entry.value);
-      if (distance < minDistance) {
-        minDistance = distance;
-        best = entry.key;
-      }
+  Iterable<String> _buildTokenLiteral({
+    required String name,
+    required RegistryThemePresetTokens tokens,
+    required String helperName,
+  }) sync* {
+    yield '  $name: $helperName(';
+    yield '    radius: ${_formatNumber(tokens.radius)},';
+    yield '    spacingBase: ${_formatNumber(tokens.spacing.base)},';
+    yield* _buildShadowScaleLiteral(tokens.shadows, indent: 4);
+    if (tokens.fontSans != null) {
+      yield "    fontSans: '${_escape(tokens.fontSans!)}',";
     }
-
-    final baseDistance = _colorDistance(
-      primary,
-      accentAnchors[baseColor] ?? accentAnchors['Slate']!,
-    );
-    if (baseDistance <= minDistance + 10) {
-      return 'Base';
+    if (tokens.fontSerif != null) {
+      yield "    fontSerif: '${_escape(tokens.fontSerif!)}',";
     }
-    return best;
+    if (tokens.fontMono != null) {
+      yield "    fontMono: '${_escape(tokens.fontMono!)}',";
+    }
+    yield '  ),';
   }
 
-  double _colorDistance(Color a, Color b) {
-    final aValue = a.toARGB32();
-    final bValue = b.toARGB32();
-    final aRed = (aValue >> 16) & 0xFF;
-    final aGreen = (aValue >> 8) & 0xFF;
-    final aBlue = aValue & 0xFF;
-    final bRed = (bValue >> 16) & 0xFF;
-    final bGreen = (bValue >> 8) & 0xFF;
-    final bBlue = bValue & 0xFF;
-    final dr = (aRed - bRed).toDouble();
-    final dg = (aGreen - bGreen).toDouble();
-    final db = (aBlue - bBlue).toDouble();
-    return (dr * dr) + (dg * dg) + (db * db);
+  Iterable<String> _buildShadowScaleLiteral(ShadowScale scale,
+      {required int indent}) sync* {
+    final pad = ' ' * indent;
+    yield '${pad}shadows: const ShadowScale(';
+    yield '$pad  shadow2xs: ${_boxShadowListLiteral(scale.shadow2xs)},';
+    yield '$pad  shadowXs: ${_boxShadowListLiteral(scale.shadowXs)},';
+    yield '$pad  shadowSm: ${_boxShadowListLiteral(scale.shadowSm)},';
+    yield '$pad  shadow: ${_boxShadowListLiteral(scale.shadow)},';
+    yield '$pad  shadowMd: ${_boxShadowListLiteral(scale.shadowMd)},';
+    yield '$pad  shadowLg: ${_boxShadowListLiteral(scale.shadowLg)},';
+    yield '$pad  shadowXl: ${_boxShadowListLiteral(scale.shadowXl)},';
+    yield '$pad  shadow2xl: ${_boxShadowListLiteral(scale.shadow2xl)},';
+    yield '$pad),';
+  }
+
+  String _boxShadowListLiteral(List<BoxShadow> shadows) {
+    if (shadows.isEmpty) {
+      return 'const []';
+    }
+    return '[${shadows.map(_boxShadowLiteral).join(', ')}]';
+  }
+
+  String _boxShadowLiteral(BoxShadow shadow) {
+    return 'const BoxShadow('
+        'offset: Offset(${_formatNumber(shadow.offset.dx)}, ${_formatNumber(shadow.offset.dy)}), '
+        'blurRadius: ${_formatNumber(shadow.blurRadius)}, '
+        'spreadRadius: ${_formatNumber(shadow.spreadRadius)}, '
+        'color: ${_colorLiteral(shadow.color)}'
+        ')';
+  }
+
+  String _colorLiteral(Color color) {
+    final hex =
+        color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
+    return 'Color(0x$hex)';
+  }
+
+  String _escape(String value) {
+    return value.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
+  }
+
+  String _formatNumber(num value) {
+    final rounded = value.toDouble();
+    if (rounded == rounded.roundToDouble()) {
+      return rounded.toStringAsFixed(1);
+    }
+    final text = rounded.toStringAsFixed(6);
+    return text
+        .replaceFirst(RegExp(r'0+$'), '')
+        .replaceFirst(RegExp(r'\.$'), '');
   }
 }
