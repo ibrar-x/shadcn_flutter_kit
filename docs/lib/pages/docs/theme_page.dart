@@ -1,6 +1,8 @@
 import 'package:docs/shadcn_ui.dart';
 import 'package:docs/ui/shadcn/components/form/slider/_impl/core/shad_slider_models.dart'
     show ShadRangeValue;
+import 'package:docs/ui/shadcn/components/overlay/menu/menu.dart'
+    show MenuButton;
 
 import '../../theme/theme_controller.dart';
 import '../../ui/shadcn/shared/theme/preset_themes.dart';
@@ -66,6 +68,7 @@ class _ThemePageState extends State<ThemePage> {
   final ValueNotifier<ShadRangeValue> _priceRange =
       ValueNotifier(const ShadRangeValue(320, 800));
   final ValueNotifier<int> _gpuCount = ValueNotifier(8);
+  final ValueNotifier<String> _composerMode = ValueNotifier('Auto');
 
   static const double _kitchenColumnGap = 24;
   static const double _kitchenSectionGap = 20;
@@ -85,6 +88,7 @@ class _ThemePageState extends State<ThemePage> {
     _previewCheckbox.dispose();
     _priceRange.dispose();
     _gpuCount.dispose();
+    _composerMode.dispose();
     super.dispose();
   }
 
@@ -390,7 +394,7 @@ class _ThemePageState extends State<ThemePage> {
     final currentYear = DateTime.now().year;
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(18 * theme.scaling),
+        padding: EdgeInsets.all(padLg * theme.scaling),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -939,10 +943,46 @@ class _ThemePageState extends State<ThemePage> {
                     ),
                     DensityGap(compact ? gapXs : gapSm),
                     if (!tight)
-                      SecondaryButton(
-                        density: ButtonDensity.dense,
-                        onPressed: () {},
-                        child: const Text('Auto'),
+                      ValueListenableBuilder<String>(
+                        valueListenable: _composerMode,
+                        builder: (context, composerMode, child) {
+                          return SecondaryButton(
+                            density: ButtonDensity.dense,
+                            onPressed: () {
+                              showDropdown(
+                                context: context,
+                                anchorAlignment: Alignment.bottomLeft,
+                                alignment: Alignment.topLeft,
+                                offset: const Offset(0, 8),
+                                builder: (context) {
+                                  return DropdownMenu(
+                                    children: [
+                                      MenuButton(
+                                        child: const Text('Auto'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Auto';
+                                        },
+                                      ),
+                                      MenuButton(
+                                        child: const Text('Agent'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Agent';
+                                        },
+                                      ),
+                                      MenuButton(
+                                        child: const Text('Manual'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Manual';
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text(composerMode),
+                          );
+                        },
                       ),
                     const Spacer(),
                     if (!compact) ...[
