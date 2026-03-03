@@ -156,6 +156,11 @@ class _ThemePageState extends State<ThemePage> {
       );
     }
 
+    if (controller.presetId != 'custom' &&
+        controller.presetId != _basePresetId) {
+      controller.setPreset(_basePresetId);
+    }
+
     _presetSelectionsReady = true;
   }
 
@@ -386,165 +391,169 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   Widget _buildKitchenPaymentMethod(BuildContext context) {
+    final theme = Theme.of(context);
     final currentYear = DateTime.now().year;
-    return SurfaceCard(
-      padding: const EdgeInsetsDensity.all(pad3xl),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Payment Method').medium(),
-          const DensityGap(gapXs),
-          const Text('All transactions are secure and encrypted.')
-              .muted()
-              .small(),
-          const DensityGap(gapXl),
-          const Text('Name on Card').medium(),
-          const DensityGap(gapSm),
-          const TextField(
-            placeholder: Text('John Doe'),
-          ),
-          const DensityGap(gapXl),
-          Row(
-            children: [
-              Flexible(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Card Number').medium(),
-                    const DensityGap(gapSm),
-                    const TextField(
-                      placeholder: Text('1234 5678 9012 3456'),
-                    ),
-                  ],
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(18 * theme.scaling),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Payment Method').medium(),
+            const DensityGap(gapXs),
+            const Text('All transactions are secure and encrypted.')
+                .muted()
+                .small(),
+            const DensityGap(gapXl),
+            const Text('Name on Card').medium(),
+            const DensityGap(gapSm),
+            const TextField(
+              placeholder: Text('John Doe'),
+            ),
+            const DensityGap(gapXl),
+            Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Card Number').medium(),
+                      const DensityGap(gapSm),
+                      const TextField(
+                        placeholder: Text('1234 5678 9012 3456'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const DensityGap(gapXl),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('CVV').medium(),
-                    const DensityGap(gapSm),
-                    const TextField(
-                      placeholder: Text('123'),
-                    ),
-                  ],
+                const DensityGap(gapXl),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('CVV').medium(),
+                      const DensityGap(gapSm),
+                      const TextField(
+                        placeholder: Text('123'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const DensityGap(gapMd),
-          const Text('Enter your 16-digit number.').muted(),
-          const DensityGap(gapLg),
-          Row(
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Month').medium(),
-                    const DensityGap(gapSm),
-                    Select<String>(
-                      placeholder: const Text('MM'),
-                      itemBuilder: (context, item) => Text(item),
-                      value: null,
-                      onChanged: (value) {},
-                      popup: SelectPopup.noVirtualization(
-                        items: SelectItemList(
-                          children: [
-                            for (var month = 1; month <= 12; month++)
-                              SelectItemButton(
-                                value: month.toString().padLeft(2, '0'),
-                                child: Text(month.toString().padLeft(2, '0')),
-                              ),
-                          ],
+              ],
+            ),
+            const DensityGap(gapMd),
+            const Text('Enter your 16-digit number.').muted(),
+            const DensityGap(gapLg),
+            Row(
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Month').medium(),
+                      const DensityGap(gapSm),
+                      Select<String>(
+                        placeholder: const Text('MM'),
+                        itemBuilder: (context, item) => Text(item),
+                        value: null,
+                        onChanged: (value) {},
+                        popup: SelectPopup.noVirtualization(
+                          items: SelectItemList(
+                            children: [
+                              for (var month = 1; month <= 12; month++)
+                                SelectItemButton(
+                                  value: month.toString().padLeft(2, '0'),
+                                  child: Text(month.toString().padLeft(2, '0')),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const DensityGap(gapXl),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Year').medium(),
-                    const DensityGap(gapSm),
-                    Select<String>(
-                      placeholder: const Text('YYYY'),
-                      itemBuilder: (context, item) => Text(item),
-                      value: null,
-                      onChanged: (value) {},
-                      popup: SelectPopup.noVirtualization(
-                        items: SelectItemList(
-                          children: [
-                            for (var yearOffset = 0;
-                                yearOffset < 12;
-                                yearOffset++)
-                              SelectItemButton(
-                                value: (currentYear + yearOffset).toString(),
-                                child:
-                                    Text((currentYear + yearOffset).toString()),
-                              ),
-                          ],
+                const DensityGap(gapXl),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Year').medium(),
+                      const DensityGap(gapSm),
+                      Select<String>(
+                        placeholder: const Text('YYYY'),
+                        itemBuilder: (context, item) => Text(item),
+                        value: null,
+                        onChanged: (value) {},
+                        popup: SelectPopup.noVirtualization(
+                          items: SelectItemList(
+                            children: [
+                              for (var yearOffset = 0;
+                                  yearOffset < 12;
+                                  yearOffset++)
+                                SelectItemButton(
+                                  value: (currentYear + yearOffset).toString(),
+                                  child: Text(
+                                      (currentYear + yearOffset).toString()),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const DensityGap(gapXl),
-          const Divider(),
-          const DensityGap(gapXl),
-          const Text('Billing Address').medium(),
-          const DensityGap(gapXs),
-          const Text('The billing address associated with your payment method')
-              .muted()
-              .small(),
-          const DensityGap(gapMd),
-          ValueListenableBuilder<CheckboxState>(
-            valueListenable: _previewCheckbox,
-            builder: (context, checkboxState, child) {
-              return Checkbox(
-                state: checkboxState,
-                onChanged: (value) {
-                  _previewCheckbox.value = value;
-                },
-                trailing: child,
-              );
-            },
-            child: const Text('Same as shipping address'),
-          ),
-          const DensityGap(gapXl),
-          const Divider(),
-          const DensityGap(gapXl),
-          const Text('Comments').medium(),
-          const DensityGap(gapSm),
-          const TextArea(
-            placeholder: Text('Add any additional comments'),
-            expandableHeight: true,
-            minHeight: 90,
-            maxHeight: 150,
-          ),
-          const DensityGap(gapLg),
-          Row(
-            children: [
-              PrimaryButton(
-                onPressed: () {},
-                child: const Text('Submit'),
-              ),
-              const DensityGap(gapMd),
-              OutlineButton(
-                onPressed: () {},
-                child: const Text('Cancel'),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            const DensityGap(gapXl),
+            const Divider(),
+            const DensityGap(gapXl),
+            const Text('Billing Address').medium(),
+            const DensityGap(gapXs),
+            const Text(
+                    'The billing address associated with your payment method')
+                .muted()
+                .small(),
+            const DensityGap(gapMd),
+            ValueListenableBuilder<CheckboxState>(
+              valueListenable: _previewCheckbox,
+              builder: (context, checkboxState, child) {
+                return Checkbox(
+                  state: checkboxState,
+                  onChanged: (value) {
+                    _previewCheckbox.value = value;
+                  },
+                  trailing: child,
+                );
+              },
+              child: const Text('Same as shipping address'),
+            ),
+            const DensityGap(gapXl),
+            const Divider(),
+            const DensityGap(gapXl),
+            const Text('Comments').medium(),
+            const DensityGap(gapSm),
+            const TextArea(
+              placeholder: Text('Add any additional comments'),
+              expandableHeight: true,
+              minHeight: 90,
+              maxHeight: 150,
+            ),
+            const DensityGap(gapLg),
+            Row(
+              children: [
+                PrimaryButton(
+                  onPressed: () {},
+                  child: const Text('Submit'),
+                ),
+                const DensityGap(gapMd),
+                OutlineButton(
+                  onPressed: () {},
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -964,7 +973,7 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenMentions() {
     return TextField(
-      placeholder: const Text('@sunarya-thito'),
+      placeholder: const Text('@ibrar-x'),
       features: [
         InputFeature.trailing(
           IconButton.primary(
@@ -1192,6 +1201,11 @@ class _ThemePageState extends State<ThemePage> {
     IconData Function(String item)? itemIconBuilder,
     ValueChanged<String?>? onChanged,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final iconColor = colorScheme.brightness == Brightness.light
+        ? colorScheme.foreground
+        : colorScheme.secondaryForeground;
+
     return Select<String>(
       value: value,
       onChanged: onChanged,
@@ -1202,7 +1216,7 @@ class _ThemePageState extends State<ThemePage> {
         }
         return Row(
           children: [
-            Icon(resolvedIcon, size: 14).iconMutedForeground(),
+            Icon(resolvedIcon, size: 14, color: iconColor),
             const SizedBox(width: 8),
             Flexible(child: Text(item)),
           ],
@@ -1222,7 +1236,7 @@ class _ThemePageState extends State<ThemePage> {
                     }
                     return Row(
                       children: [
-                        Icon(resolvedIcon, size: 14).iconMutedForeground(),
+                        Icon(resolvedIcon, size: 14, color: iconColor),
                         const SizedBox(width: 8),
                         Flexible(child: Text(item)),
                       ],
