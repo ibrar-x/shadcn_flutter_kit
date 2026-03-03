@@ -163,7 +163,7 @@ class ShadcnApp extends StatelessWidget {
       child: ShadcnUI(child: child),
     );
     if (!enableThemeAnimation) {
-      return _wrapWithMaterialFallback(wrapped);
+      return _wrapWithMaterialFallback(wrapped, themeData);
     }
     wrapped = TweenAnimationBuilder<ThemeData>(
       tween: ThemeDataTween(begin: themeData, end: themeData),
@@ -173,16 +173,51 @@ class ShadcnApp extends StatelessWidget {
       },
       child: ShadcnUI(child: child),
     );
-    return _wrapWithMaterialFallback(wrapped);
+    return _wrapWithMaterialFallback(wrapped, themeData);
   }
 
-  Widget _wrapWithMaterialFallback(Widget child) {
+  material.ThemeData _materialFallbackTheme(ThemeData themeData) {
+    final shadScheme = themeData.colorScheme;
+    final brightness = shadScheme.background.computeLuminance() < 0.5
+        ? material.Brightness.dark
+        : material.Brightness.light;
+    final materialScheme = material.ColorScheme.fromSeed(
+      seedColor: shadScheme.primary,
+      brightness: brightness,
+    ).copyWith(
+      primary: shadScheme.primary,
+      onPrimary: shadScheme.primaryForeground,
+      secondary: shadScheme.secondary,
+      onSecondary: shadScheme.secondaryForeground,
+      surface: shadScheme.background,
+      onSurface: shadScheme.foreground,
+      error: shadScheme.destructive,
+      onError: shadScheme.destructiveForeground,
+    );
+    final baseTextTheme = material.ThemeData(brightness: brightness).textTheme;
+    final textColor = shadScheme.foreground;
+    return material.ThemeData(
+      brightness: brightness,
+      colorScheme: materialScheme,
+      scaffoldBackgroundColor: shadScheme.background,
+      canvasColor: shadScheme.background,
+      textTheme: baseTextTheme.apply(
+        bodyColor: textColor,
+        displayColor: textColor,
+      ),
+    );
+  }
+
+  Widget _wrapWithMaterialFallback(Widget child, ThemeData themeData) {
     if (!materialFallback) {
       return child;
     }
-    return material.Material(
-      type: material.MaterialType.transparency,
-      child: child,
+    return material.Theme(
+      data: _materialFallbackTheme(themeData),
+      child: material.Material(
+        type: material.MaterialType.transparency,
+        child: child,
+      ),
     );
   }
 
