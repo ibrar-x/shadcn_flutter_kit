@@ -806,21 +806,39 @@ class _ThemePageState extends State<ThemePage> {
         child: Row(
           children: [
             PrimaryBadge(
-              leading: const CircularProgressIndicator(
-                onSurface: true,
-                size: 10,
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    onSurface: true,
+                    size: 10,
+                  ),
+                  DensityGap(gapSm),
+                  Text('Syncing'),
+                ],
               ),
-              child: const Text('Syncing').small(),
             ),
             const DensityGap(gapSm),
             SecondaryBadge(
-              leading: const CircularProgressIndicator(size: 10),
-              child: const Text('Updating').small(),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(size: 10),
+                  DensityGap(gapSm),
+                  Text('Updating'),
+                ],
+              ),
             ),
             const DensityGap(gapSm),
             OutlineBadge(
-              leading: const CircularProgressIndicator(size: 10),
-              child: const Text('Loading').small(),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(size: 10),
+                  DensityGap(gapSm),
+                  Text('Loading'),
+                ],
+              ),
             ),
           ],
         ),
