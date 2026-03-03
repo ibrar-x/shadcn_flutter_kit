@@ -52,12 +52,43 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final settings = await _loadSettings(prefs);
 
-  runApp(DocsRoot(
-    docsConfig: docsConfig,
-    settings: settings,
-    prefs: prefs,
+  runApp(_DeferredFirstFrameApp(
+    child: DocsRoot(
+      docsConfig: docsConfig,
+      settings: settings,
+      prefs: prefs,
+    ),
   ));
   _notifyWebAppReady();
+}
+
+class _DeferredFirstFrameApp extends StatefulWidget {
+  const _DeferredFirstFrameApp({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_DeferredFirstFrameApp> createState() => _DeferredFirstFrameAppState();
+}
+
+class _DeferredFirstFrameAppState extends State<_DeferredFirstFrameApp> {
+  bool _ready = false;
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      setState(() {
+        _ready = true;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _ready ? widget.child : const SizedBox.shrink();
+  }
 }
 
 Future<Map<String, Object?>> _loadDocsConfig() async {
