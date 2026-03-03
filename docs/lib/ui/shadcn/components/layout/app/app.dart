@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../component_theme_global_configs.dart';
+import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/primitives/overlay.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
@@ -190,6 +191,7 @@ class ShadcnApp extends StatelessWidget {
         (localizationsDelegates ?? const <LocalizationsDelegate<dynamic>>[])
             .toList(growable: true);
     const defaults = <LocalizationsDelegate<dynamic>>[
+      ShadcnLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
