@@ -156,11 +156,6 @@ class _ThemePageState extends State<ThemePage> {
       );
     }
 
-    if (controller.presetId != 'custom' &&
-        controller.presetId != _basePresetId) {
-      controller.setPreset(_basePresetId);
-    }
-
     _presetSelectionsReady = true;
   }
 
@@ -392,8 +387,8 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenPaymentMethod(BuildContext context) {
     final currentYear = DateTime.now().year;
-    return Card(
-      padding: const EdgeInsetsDensity.all(padLg),
+    return SurfaceCard(
+      padding: const EdgeInsetsDensity.all(pad3xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
