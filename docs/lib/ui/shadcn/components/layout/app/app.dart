@@ -3,6 +3,7 @@ export '../scaffold/scaffold.dart' show AppBar, Scaffold;
 
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../component_theme_global_configs.dart';
 import '../../../shared/primitives/overlay.dart';
@@ -88,15 +89,15 @@ class ShadcnApp extends StatelessWidget {
     this.menuHandler,
     this.enableThemeAnimation = false,
     this.materialFallback = true,
-  }) : navigatorKey = null,
-       home = null,
-       routes = const <String, WidgetBuilder>{},
-       initialRoute = null,
-       onGenerateRoute = null,
-       onGenerateInitialRoutes = null,
-       onUnknownRoute = null,
-       pageRouteBuilder = null,
-       navigatorObservers = const <NavigatorObserver>[];
+  })  : navigatorKey = null,
+        home = null,
+        routes = const <String, WidgetBuilder>{},
+        initialRoute = null,
+        onGenerateRoute = null,
+        onGenerateInitialRoutes = null,
+        onUnknownRoute = null,
+        pageRouteBuilder = null,
+        navigatorObservers = const <NavigatorObserver>[];
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final Widget? home;
@@ -141,8 +142,7 @@ class ShadcnApp extends StatelessWidget {
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
         MediaQuery.maybeOf(context)?.platformBrightness ?? Brightness.light;
-    final useDark =
-        themeMode == ThemeMode.dark ||
+    final useDark = themeMode == ThemeMode.dark ||
         (themeMode == ThemeMode.system &&
             platformBrightness == Brightness.dark);
     var resolved = useDark ? (darkTheme ?? theme) : theme;
@@ -185,6 +185,26 @@ class ShadcnApp extends StatelessWidget {
     );
   }
 
+  Iterable<LocalizationsDelegate<dynamic>> _resolvedLocalizationDelegates() {
+    final delegates =
+        (localizationsDelegates ?? const <LocalizationsDelegate<dynamic>>[])
+            .toList(growable: true);
+    const defaults = <LocalizationsDelegate<dynamic>>[
+      GlobalWidgetsLocalizations.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];
+    for (final delegate in defaults) {
+      final exists = delegates.any(
+        (existing) => existing.runtimeType == delegate.runtimeType,
+      );
+      if (!exists) {
+        delegates.add(delegate);
+      }
+    }
+    return delegates;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!_globalThemesRegistered) {
@@ -192,6 +212,7 @@ class ShadcnApp extends StatelessWidget {
       _globalThemesRegistered = true;
     }
     final resolvedTheme = _resolveTheme(context);
+    final resolvedDelegates = _resolvedLocalizationDelegates();
     Widget appBuilder(BuildContext context, Widget? child) {
       final built = builder != null ? builder!(context, child) : child;
       final safeChild = built ?? const SizedBox.shrink();
@@ -213,7 +234,7 @@ class ShadcnApp extends StatelessWidget {
         title: title,
         builder: appBuilder,
         locale: locale,
-        localizationsDelegates: localizationsDelegates,
+        localizationsDelegates: resolvedDelegates,
         localeListResolutionCallback: localeListResolutionCallback,
         localeResolutionCallback: localeResolutionCallback,
         supportedLocales: supportedLocales,
@@ -240,7 +261,7 @@ class ShadcnApp extends StatelessWidget {
       navigatorObservers: navigatorObservers,
       builder: appBuilder,
       locale: locale,
-      localizationsDelegates: localizationsDelegates,
+      localizationsDelegates: resolvedDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
       localeResolutionCallback: localeResolutionCallback,
       supportedLocales: supportedLocales,
@@ -257,7 +278,8 @@ class ShadcnApp extends StatelessWidget {
 PageRoute<T> _defaultPageRouteBuilder<T>(
   RouteSettings settings,
   WidgetBuilder builder,
-) => PageRouteBuilder<T>(
-  settings: settings,
-  pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-);
+) =>
+    PageRouteBuilder<T>(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+    );
