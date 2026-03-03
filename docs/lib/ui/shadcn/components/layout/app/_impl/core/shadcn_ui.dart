@@ -12,14 +12,10 @@ class ShadcnUI extends StatelessWidget {
     final theme = Theme.of(context);
     final backgroundIsDark =
         theme.colorScheme.background.computeLuminance() < 0.5;
-    final foregroundIsDark =
-        theme.colorScheme.foreground.computeLuminance() < 0.5;
-    final iconColor = backgroundIsDark && foregroundIsDark
-        ? const Color(0xFFF5F5F5)
-        : theme.colorScheme.foreground;
+    final iconColor =
+        backgroundIsDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
     return AnimatedDefaultTextStyle(
-      style:
-          textStyle ??
+      style: textStyle ??
           theme.typography.sans.copyWith(color: theme.colorScheme.foreground),
       duration: kDefaultDuration,
       child: IconTheme(
