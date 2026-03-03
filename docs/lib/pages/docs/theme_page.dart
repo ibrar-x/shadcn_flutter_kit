@@ -156,11 +156,6 @@ class _ThemePageState extends State<ThemePage> {
       );
     }
 
-    if (controller.presetId != 'custom' &&
-        controller.presetId != _basePresetId) {
-      controller.setPreset(_basePresetId);
-    }
-
     _presetSelectionsReady = true;
   }
 
