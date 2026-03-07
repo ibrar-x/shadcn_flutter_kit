@@ -642,6 +642,9 @@ bool _looksLikeTableHeader(List<String> lines, int index) {
   if (!first.contains('|')) {
     return false;
   }
+  if (_parseTableRow(first).length < 2) {
+    return false;
+  }
   return _isTableSeparatorLine(second);
 }
 
@@ -699,9 +702,17 @@ TextAlign _tableAlignment(String cell) {
 }
 
 bool _isTableSeparatorLine(String line) {
-  return RegExp(
-    r'^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$',
-  ).hasMatch(line);
+  final cells = _parseTableRow(line);
+  if (cells.length < 2) {
+    return false;
+  }
+  for (final cell in cells) {
+    final normalized = cell.replaceAll(' ', '');
+    if (!RegExp(r'^:?-{2,}:?$').hasMatch(normalized)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 (String, String, String?)? _tryParseImageSyntax(String input) {
