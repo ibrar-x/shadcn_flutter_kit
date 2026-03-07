@@ -74,6 +74,13 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
       continue;
     }
 
+    final htmlSemantic = _tryParseSemanticHtmlBlock(lines, i);
+    if (htmlSemantic != null) {
+      blocks.add(htmlSemantic.$1);
+      i = htmlSemantic.$2;
+      continue;
+    }
+
     final htmlBlock = _tryParseHtmlBlock(lines, i);
     if (htmlBlock != null) {
       blocks.add(htmlBlock.$1);
@@ -191,6 +198,7 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
           _tryParseIndentedCode(lines, i) != null ||
           _tryParseDetailsBlock(lines, i) != null ||
           _tryParseHtmlTable(lines, i) != null ||
+          _tryParseSemanticHtmlBlock(lines, i) != null ||
           _tryParseHtmlBlock(lines, i) != null ||
           RegExp(r'^(#{1,6})\s+').hasMatch(next) ||
           _parseListItem(next) != null ||
@@ -626,7 +634,7 @@ bool _isStandaloneStableLine(String line) {
 }
 
 (_MarkdownBlock, int)? _tryParseDetailsBlock(List<String> lines, int index) {
-  if (lines[index].trim().toLowerCase() != '<details>') {
+  if (!lines[index].trim().toLowerCase().startsWith('<details')) {
     return null;
   }
 
@@ -667,7 +675,7 @@ bool _isStandaloneStableLine(String line) {
   if (!trimmed.startsWith('<') || trimmed.startsWith('</')) {
     return null;
   }
-  if (trimmed.toLowerCase() == '<details>') {
+  if (trimmed.toLowerCase().startsWith('<details')) {
     return null;
   }
 
@@ -689,6 +697,272 @@ bool _isStandaloneStableLine(String line) {
     _MarkdownBlock(type: _MarkdownBlockType.rawHtml, text: buffer.join('\n')),
     i,
   );
+}
+
+(_MarkdownBlock, int)? _tryParseSemanticHtmlBlock(
+  List<String> lines,
+  int index,
+) {
+  final trimmed = lines[index].trimLeft();
+  if (!trimmed.startsWith('<') || trimmed.startsWith('</')) {
+    return null;
+  }
+
+  final headingMatch = RegExp(
+    r'^<h([1-6])\b',
+    caseSensitive: false,
+  ).firstMatch(trimmed);
+  if (headingMatch != null) {
+    final level = int.tryParse(headingMatch.group(1) ?? '') ?? 1;
+    final tag = 'h$level';
+    final collected = _collectHtmlElement(lines, index, tag);
+    if (collected == null) {
+      return null;
+    }
+    final content = _extractInnerHtml(collected.$1, tag);
+    final text = _normalizeHtmlInline(content);
+    if (text.isEmpty) {
+      return null;
+    }
+    return (
+      _MarkdownBlock(
+        type: switch (level) {
+          1 => _MarkdownBlockType.heading1,
+          2 => _MarkdownBlockType.heading2,
+          3 => _MarkdownBlockType.heading3,
+          4 => _MarkdownBlockType.heading4,
+          5 => _MarkdownBlockType.heading5,
+          _ => _MarkdownBlockType.heading6,
+        },
+        text: text,
+      ),
+      collected.$2,
+    );
+  }
+
+  final lower = trimmed.toLowerCase();
+  if (RegExp(r'^<hr\b[^>]*\/?>$').hasMatch(lower)) {
+    return (
+      const _MarkdownBlock(type: _MarkdownBlockType.horizontalRule, text: ''),
+      index + 1,
+    );
+  }
+
+  if (lower.startsWith('<img')) {
+    final collected = _collectSelfClosingHtmlTag(lines, index);
+    if (collected == null) {
+      return null;
+    }
+    final attrs = collected.$1;
+    final src = _extractHtmlAttribute(attrs, 'src');
+    if (src == null || src.isEmpty) {
+      return null;
+    }
+    return (
+      _MarkdownBlock(
+        type: _MarkdownBlockType.image,
+        text: '',
+        imageUrl: _decodeHtmlEntities(src),
+        imageAlt: _decodeHtmlEntities(
+          _extractHtmlAttribute(attrs, 'alt') ?? '',
+        ),
+        imageTitle: _decodeHtmlEntities(
+          _extractHtmlAttribute(attrs, 'title') ?? '',
+        ),
+      ),
+      collected.$2,
+    );
+  }
+
+  if (lower.startsWith('<pre')) {
+    final collected = _collectHtmlElement(lines, index, 'pre');
+    if (collected == null) {
+      return null;
+    }
+    final raw = collected.$1;
+    final codeMatch = RegExp(
+      r'<code\b([^>]*)>([\s\S]*?)</code>',
+      caseSensitive: false,
+    ).firstMatch(raw);
+    final language =
+        _extractLanguageFromCodeAttrs(codeMatch?.group(1) ?? '') ??
+        _extractLanguageFromCodeAttrs(raw);
+    final codeInner = codeMatch?.group(2) ?? _extractInnerHtml(raw, 'pre');
+    final code = _decodeHtmlEntities(codeInner).trimRight();
+    return (
+      _MarkdownBlock(
+        type: _MarkdownBlockType.codeFence,
+        text: code,
+        language: language,
+      ),
+      collected.$2,
+    );
+  }
+
+  if (lower.startsWith('<blockquote')) {
+    final collected = _collectHtmlElement(lines, index, 'blockquote');
+    if (collected == null) {
+      return null;
+    }
+    final inner = _extractInnerHtml(collected.$1, 'blockquote');
+    final text = _normalizeHtmlBlockText(inner);
+    if (text.isEmpty) {
+      return null;
+    }
+    return (
+      _MarkdownBlock(type: _MarkdownBlockType.quote, text: text),
+      collected.$2,
+    );
+  }
+
+  if (lower.startsWith('<p') || lower.startsWith('<div')) {
+    final tag = lower.startsWith('<p') ? 'p' : 'div';
+    final collected = _collectHtmlElement(lines, index, tag);
+    if (collected == null) {
+      return null;
+    }
+    final text = _normalizeHtmlBlockText(_extractInnerHtml(collected.$1, tag));
+    if (text.isEmpty) {
+      return null;
+    }
+    return (
+      _MarkdownBlock(type: _MarkdownBlockType.paragraph, text: text),
+      collected.$2,
+    );
+  }
+
+  return null;
+}
+
+(String, int)? _collectHtmlElement(List<String> lines, int index, String tag) {
+  final open = RegExp('<$tag\\b', caseSensitive: false);
+  final close = RegExp('</$tag\\s*>', caseSensitive: false);
+  if (!open.hasMatch(lines[index])) {
+    return null;
+  }
+
+  final buffer = <String>[];
+  var depth = 0;
+  var i = index;
+  while (i < lines.length) {
+    final line = lines[i];
+    buffer.add(line);
+    depth += open.allMatches(line).length;
+    depth -= close.allMatches(line).length;
+    i += 1;
+    if (depth <= 0 && close.hasMatch(line)) {
+      break;
+    }
+  }
+
+  if (depth > 0) {
+    return null;
+  }
+  return (buffer.join('\n'), i);
+}
+
+(String, int)? _collectSelfClosingHtmlTag(List<String> lines, int index) {
+  final buffer = StringBuffer(lines[index].trim());
+  var i = index + 1;
+  while (!buffer.toString().contains('>') && i < lines.length) {
+    buffer.write(lines[i].trim());
+    i += 1;
+  }
+  if (!buffer.toString().contains('>')) {
+    return null;
+  }
+  return (buffer.toString(), i);
+}
+
+String _extractInnerHtml(String raw, String tag) {
+  final openPattern = RegExp('^\\s*<$tag\\b[^>]*>', caseSensitive: false);
+  final closePattern = RegExp('</$tag>\\s*\$', caseSensitive: false);
+  var value = raw.replaceFirst(openPattern, '');
+  value = value.replaceFirst(closePattern, '');
+  return value.trim();
+}
+
+String? _extractHtmlAttribute(String raw, String name) {
+  final match = RegExp(
+    '''$name\\s*=\\s*("([^"]*)"|'([^']*)')''',
+    caseSensitive: false,
+  ).firstMatch(raw);
+  return match?.group(2) ?? match?.group(3);
+}
+
+String? _extractLanguageFromCodeAttrs(String attrs) {
+  final match = RegExp(
+    r'''class\s*=\s*("([^"]*)"|'([^']*)')''',
+    caseSensitive: false,
+  ).firstMatch(attrs);
+  final classes = match?.group(2) ?? match?.group(3);
+  if (classes == null || classes.isEmpty) {
+    return null;
+  }
+  for (final token in classes.split(RegExp(r'\s+'))) {
+    final normalized = token.trim();
+    if (normalized.startsWith('language-') && normalized.length > 9) {
+      return normalized.substring(9);
+    }
+    if (normalized.startsWith('lang-') && normalized.length > 5) {
+      return normalized.substring(5);
+    }
+  }
+  return null;
+}
+
+String _normalizeHtmlBlockText(String value) {
+  final text = _normalizeHtmlInline(
+    value
+        .replaceAll(
+          RegExp(r'</?(p|div|section|article)\b[^>]*>', caseSensitive: false),
+          '\n',
+        )
+        .replaceAll(RegExp(r'</li>', caseSensitive: false), '\n')
+        .replaceAll(RegExp(r'<li\b[^>]*>', caseSensitive: false), '• '),
+  );
+  return text.replaceAll(RegExp(r'\n{3,}'), '\n\n').trim();
+}
+
+String _normalizeHtmlInline(String html) {
+  var value = html;
+  value = value.replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n');
+  value = value.replaceAllMapped(
+    RegExp(
+      r'''<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)</a>''',
+      caseSensitive: false,
+    ),
+    (match) {
+      final href = _decodeHtmlEntities(match.group(1) ?? '');
+      final label = _stripHtmlTags(match.group(2) ?? '').trim();
+      if (href.isEmpty) {
+        return label;
+      }
+      return '[${label.isEmpty ? href : label}]($href)';
+    },
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<(strong|b)>([\s\S]*?)</\1>', caseSensitive: false),
+    (match) => '**${_stripHtmlTags(match.group(2) ?? '').trim()}**',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<(em|i)>([\s\S]*?)</\1>', caseSensitive: false),
+    (match) => '*${_stripHtmlTags(match.group(2) ?? '').trim()}*',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<(del|s)>([\s\S]*?)</\1>', caseSensitive: false),
+    (match) => '~~${_stripHtmlTags(match.group(2) ?? '').trim()}~~',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<code>([\s\S]*?)</code>', caseSensitive: false),
+    (match) => '`${_stripHtmlTags(match.group(1) ?? '').trim()}`',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<kbd>([\s\S]*?)</kbd>', caseSensitive: false),
+    (match) => '<kbd>${_stripHtmlTags(match.group(1) ?? '').trim()}</kbd>',
+  );
+  value = _stripHtmlTags(value);
+  return _decodeHtmlEntities(value).trim();
 }
 
 (_MarkdownBlock, int)? _tryParseHtmlTable(List<String> lines, int index) {
