@@ -569,6 +569,11 @@ class _MarkdownState extends State<Markdown> {
     if (rows.isEmpty) {
       return const SizedBox.shrink();
     }
+    final maxColumns = rows.fold<int>(
+      0,
+      (max, row) => row.length > max ? row.length : max,
+    );
+    final minCellWidth = markdownTheme?.tableCellMinWidth ?? 112.0;
 
     final headerStyle = styleValue<TextStyle>(
       widgetValue: null,
@@ -591,6 +596,11 @@ class _MarkdownState extends State<Markdown> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Table(
+          defaultColumnWidth: const IntrinsicColumnWidth(),
+          columnWidths: <int, TableColumnWidth>{
+            for (var col = 0; col < maxColumns; col++)
+              col: const IntrinsicColumnWidth(),
+          },
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           border: TableBorder(
             horizontalInside: BorderSide(color: borderColor),
@@ -618,20 +628,24 @@ class _MarkdownState extends State<Markdown> {
                             horizontal: 12,
                             vertical: 10,
                           ),
-                      child: RichText(
-                        textAlign: colIndex < block.tableAlignments.length
-                            ? block.tableAlignments[colIndex]
-                            : TextAlign.left,
-                        text: TextSpan(
-                          style: rowIndex == 0 ? headerStyle : cellStyle,
-                          children: _buildInlineSpans(
-                            context,
-                            rows[rowIndex][colIndex],
-                            rowIndex == 0 ? headerStyle : cellStyle,
-                            document,
-                            onTapLink: widget.onTapLink,
-                            followLinks: widget.followLinks,
-                            linkStyle: markdownTheme?.linkStyle,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(minWidth: minCellWidth),
+                        child: RichText(
+                          softWrap: false,
+                          textAlign: colIndex < block.tableAlignments.length
+                              ? block.tableAlignments[colIndex]
+                              : TextAlign.left,
+                          text: TextSpan(
+                            style: rowIndex == 0 ? headerStyle : cellStyle,
+                            children: _buildInlineSpans(
+                              context,
+                              rows[rowIndex][colIndex],
+                              rowIndex == 0 ? headerStyle : cellStyle,
+                              document,
+                              onTapLink: widget.onTapLink,
+                              followLinks: widget.followLinks,
+                              linkStyle: markdownTheme?.linkStyle,
+                            ),
                           ),
                         ),
                       ),
