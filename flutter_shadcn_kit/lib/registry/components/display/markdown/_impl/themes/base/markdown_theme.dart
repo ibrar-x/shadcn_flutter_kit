@@ -34,6 +34,7 @@ class MarkdownTheme extends ComponentThemeData {
     this.listIndent,
     this.quoteBorderWidth,
     this.imageMaxHeight,
+    this.tableCellMinWidth,
     this.codePadding,
     this.quotePadding,
     this.tableCellPadding,
@@ -75,6 +76,7 @@ class MarkdownTheme extends ComponentThemeData {
   final double? listIndent;
   final double? quoteBorderWidth;
   final double? imageMaxHeight;
+  final double? tableCellMinWidth;
 
   final EdgeInsetsGeometry? codePadding;
   final EdgeInsetsGeometry? quotePadding;
@@ -116,6 +118,7 @@ class MarkdownTheme extends ComponentThemeData {
     ValueGetter<double?>? listIndent,
     ValueGetter<double?>? quoteBorderWidth,
     ValueGetter<double?>? imageMaxHeight,
+    ValueGetter<double?>? tableCellMinWidth,
     ValueGetter<EdgeInsetsGeometry?>? codePadding,
     ValueGetter<EdgeInsetsGeometry?>? quotePadding,
     ValueGetter<EdgeInsetsGeometry?>? tableCellPadding,
@@ -199,6 +202,9 @@ class MarkdownTheme extends ComponentThemeData {
       imageMaxHeight: imageMaxHeight == null
           ? this.imageMaxHeight
           : imageMaxHeight(),
+      tableCellMinWidth: tableCellMinWidth == null
+          ? this.tableCellMinWidth
+          : tableCellMinWidth(),
       codePadding: codePadding == null ? this.codePadding : codePadding(),
       quotePadding: quotePadding == null ? this.quotePadding : quotePadding(),
       tableCellPadding: tableCellPadding == null
