@@ -44,6 +44,9 @@ class MarkdownEditingHelpers {
     required TextSelection selection,
     int level = 2,
   }) {
+    if (!_shouldTransformWholeLines(text, selection)) {
+      return _toggleHeadingOnSelection(text, selection, level: level);
+    }
     final normalizedLevel = level.clamp(1, 6);
     return _transformSelectedLines(text, selection, (lines) {
       final prefix = '${'#' * normalizedLevel} ';
@@ -116,6 +119,14 @@ class MarkdownEditingHelpers {
     required String text,
     required TextSelection selection,
   }) {
+    if (!_shouldTransformWholeLines(text, selection)) {
+      return _toggleSelectionPrefix(
+        text,
+        selection,
+        prefix: '1. ',
+        stripPattern: RegExp(r'^\d+\.\s+'),
+      );
+    }
     return _transformSelectedLines(text, selection, (lines) {
       final nonEmpty = lines.where((line) => line.trim().isNotEmpty).toList();
       final shouldRemove =
@@ -144,6 +155,25 @@ class MarkdownEditingHelpers {
     required TextSelection selection,
     String language = '',
   }) {
+    if (!_shouldTransformWholeLines(text, selection)) {
+      final normalized = _normalizeSelection(text, selection);
+      final selected = text.substring(normalized.start, normalized.end);
+      final languageLabel = language.trim();
+      final openingFence = languageLabel.isEmpty ? '```' : '```$languageLabel';
+      final replacement = '$openingFence\n$selected\n```';
+      final nextText = text.replaceRange(
+        normalized.start,
+        normalized.end,
+        replacement,
+      );
+      return MarkdownEditResult(
+        text: nextText,
+        selection: TextSelection(
+          baseOffset: normalized.start,
+          extentOffset: normalized.start + replacement.length,
+        ),
+      );
+    }
     final normalized = _normalizeSelection(text, selection);
     final bounds = _lineBounds(text, normalized);
     final block = text.substring(bounds.$1, bounds.$2);
@@ -372,6 +402,9 @@ class MarkdownEditingHelpers {
     TextSelection selection, {
     required String prefix,
   }) {
+    if (!_shouldTransformWholeLines(text, selection)) {
+      return _toggleSelectionPrefix(text, selection, prefix: prefix);
+    }
     return _transformSelectedLines(text, selection, (lines) {
       final nonEmpty = lines.where((line) => line.trim().isNotEmpty).toList();
       final shouldRemove =
@@ -431,6 +464,68 @@ class MarkdownEditingHelpers {
     final lineStart = start == -1 ? 0 : start + 1;
     final lineEnd = end == -1 ? text.length : end;
     return (lineStart, lineEnd);
+  }
+
+  static bool _shouldTransformWholeLines(String text, TextSelection selection) {
+    final normalized = _normalizeSelection(text, selection);
+    if (normalized.isCollapsed) {
+      return true;
+    }
+    final bounds = _lineBounds(text, normalized);
+    return normalized.start == bounds.$1 && normalized.end == bounds.$2;
+  }
+
+  static MarkdownEditResult _toggleSelectionPrefix(
+    String text,
+    TextSelection selection, {
+    required String prefix,
+    RegExp? stripPattern,
+  }) {
+    final normalized = _normalizeSelection(text, selection);
+    final selected = text.substring(normalized.start, normalized.end);
+    final effectiveStrip = stripPattern ?? RegExp('^${RegExp.escape(prefix)}');
+    final nextSelected = effectiveStrip.hasMatch(selected)
+        ? selected.replaceFirst(effectiveStrip, '')
+        : '$prefix$selected';
+    final nextText = text.replaceRange(
+      normalized.start,
+      normalized.end,
+      nextSelected,
+    );
+    return MarkdownEditResult(
+      text: nextText,
+      selection: TextSelection(
+        baseOffset: normalized.start,
+        extentOffset: normalized.start + nextSelected.length,
+      ),
+    );
+  }
+
+  static MarkdownEditResult _toggleHeadingOnSelection(
+    String text,
+    TextSelection selection, {
+    required int level,
+  }) {
+    final normalized = _normalizeSelection(text, selection);
+    final selected = text.substring(normalized.start, normalized.end);
+    final normalizedLevel = level.clamp(1, 6);
+    final headingPrefix = '${'#' * normalizedLevel} ';
+    final stripPattern = RegExp(r'^#{1,6}\s+');
+    final nextSelected = stripPattern.hasMatch(selected)
+        ? selected.replaceFirst(stripPattern, '')
+        : '$headingPrefix$selected';
+    final nextText = text.replaceRange(
+      normalized.start,
+      normalized.end,
+      nextSelected,
+    );
+    return MarkdownEditResult(
+      text: nextText,
+      selection: TextSelection(
+        baseOffset: normalized.start,
+        extentOffset: normalized.start + nextSelected.length,
+      ),
+    );
   }
 
   static int _currentHeadingLevel(List<String> lines) {
