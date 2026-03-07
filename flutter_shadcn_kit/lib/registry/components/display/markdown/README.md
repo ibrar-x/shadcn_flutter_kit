@@ -17,6 +17,7 @@ Standalone markdown renderer with no `flutter_markdown` dependency.
 - Built-in HTML sanitization strategies
 - Rich image preview on tap, with overridable preview builder
 - Dependency-free markdown editing helpers for editor toolbars
+- Dedicated `MarkdownTheme.chatBubbleDefaults(...)` preset for chat surfaces
 - Multiple data sources:
   - direct string (`Markdown(data: ...)`)
   - asset file (`Markdown.asset(asset: ...)`)
@@ -117,5 +118,17 @@ ComponentTheme(
     heading1Style: TextStyle(fontSize: 31, fontWeight: FontWeight.w800),
   ),
   child: Markdown.asset(asset: 'assets/markdown/markdown_feature_showcase.md'),
+)
+```
+
+## Chat Bubble Preset
+
+```dart
+ComponentTheme(
+  data: MarkdownTheme.chatBubbleDefaults(
+    const TextStyle(fontSize: 14),
+    isOutgoing: false,
+  ),
+  child: Markdown(data: messageMarkdown),
 )
 ```
