@@ -2,9 +2,9 @@
   "$schema": "https://schema.example.com/skill/1.0.0",
   "schemaVersion": 1,
   "id": "flutter-shadcn-ui",
-  "name": "Flutter Shadcn UI",
-  "version": "1.1.1",
-  "description": "CLI-first guidance for flutter_shadcn component workflows. Uses manual fallback only when CLI execution is unavailable or failing.",
+  "name": "Flutter shadcn CLI",
+  "version": "2.0.0",
+  "description": "Comprehensive flutter_shadcn CLI skill with namespace-safe install workflows, theming rules, diagnostics, and AI model installation guidance.",
   "author": "Flutter Shadcn Contributors",
   "license": "MIT",
   "tags": [
@@ -16,19 +16,19 @@
   ],
   "files": {
     "main": "SKILL.md",
+    "installation": "INSTALLATION.md",
     "references": {
-      "commands": "references/commands.md",
-      "installation": "references/INSTALLATION.md",
-      "core-concepts": "references/core_concepts.md",
-      "configuration": "references/configuration.md",
-      "common-tasks": "references/common_tasks.md",
-      "advanced-usage": "references/advanced_usage.md",
-      "themes": "references/themes.md",
-      "troubleshooting": "references/troubleshooting.md",
-      "registry-formats": "references/registry_formats.md",
+      "cli": "cli.md",
+      "customization": "customization.md",
+      "mcp": "mcp.md",
+      "rules-forms": "rules/forms.md",
+      "rules-composition": "rules/composition.md",
+      "rules-styling": "rules/styling.md",
+      "rules-icons": "rules/icons.md",
+      "rules-namespace": "rules/base-vs-radix.md",
+      "evals": "evals/evals.json",
       "schemas": "references/schemas.md",
-      "best-practices": "references/best_practices.md",
-      "examples": "references/examples.md"
+      "commands-legacy": "references/commands.md"
     }
   }
 }

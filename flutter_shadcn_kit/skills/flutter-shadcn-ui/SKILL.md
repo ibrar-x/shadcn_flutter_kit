@@ -1,157 +1,159 @@
 ---
 name: flutter-shadcn-ui
-description: CLI-first guidance for using flutter_shadcn in Flutter projects. Prefer documented CLI workflows for discovery, install, theming, validation, and skill setup. Use manual/file-inspection fallback only when CLI execution is unavailable or fails.
-compatibility: Requires Flutter/Dart tooling and flutter_shadcn_cli. Network is required for remote registry operations unless --offline is used.
+description: Manages flutter_shadcn CLI workflows for Flutter projects - initialization, registry selection, component discovery, dry-run planning, installation and removal, theming, diagnostics, and AI skill installation. Use when working with flutter_shadcn, .shadcn/config.json, components.json, multi-registry namespaces, or overlay-dependent shadcn Flutter components.
+user-invocable: false
 ---
 
-# Flutter Shadcn UI Skill
+# Flutter shadcn CLI
 
-## Mission
+`flutter_shadcn` is the source of truth for installing and managing shadcn Flutter components.
 
-Use `flutter_shadcn` as the primary interface for all shadcn component work in Flutter projects.
-Treat this skill bundle and CLI `--help` output as canonical in runtime environments.
+## Current Project Context
 
-## Operating Rules
-
-1. CLI first. Use commands before reading or editing registry/component files directly.
-2. No guessed flags. Only use syntax documented in this skill or command `--help` output.
-3. Manual fallback only when CLI is unavailable or broken.
-4. If fallback is used, state why CLI could not be used and return to CLI flow once recovered.
-
-## Canonical Sources
-
-- [SKILL.md](SKILL.md) - Core rules and runtime policy for this skill.
-- [references/commands.md](references/commands.md) - CLI command syntax and options.
-- [references/core_concepts.md](references/core_concepts.md) - Registry, manifests, base widgets, and overlay rules.
-- [references/registry_essential_widgets.md](references/registry_essential_widgets.md) - Required wrappers and preferred shadcn replacements over raw material/cupertino usage.
-- [references/configuration.md](references/configuration.md) - Config/state files and safe sync flow.
-- [references/troubleshooting.md](references/troubleshooting.md) - Common failures and recovery steps.
-- `flutter_shadcn --help` and `flutter_shadcn <command> --help`
-
-## Core CLI Workflow
-
-1. Install and verify CLI
+Run these first in the target project:
 
 ```bash
-dart pub global activate flutter_shadcn_cli
-flutter_shadcn version
-```
-
-2. Initialize project
-
-```bash
-flutter_shadcn init
-# or
-flutter_shadcn init --yes
-```
-
-3. Discover components
-
-```bash
-flutter_shadcn list
-flutter_shadcn search <query>
-flutter_shadcn info <component-id>
-flutter_shadcn dry-run <component>
-```
-
-4. Install and manage components
-
-```bash
-flutter_shadcn add <component>
-flutter_shadcn remove <component>
-flutter_shadcn sync
-```
-
-5. Configure theme/assets/platform
-
-```bash
-flutter_shadcn theme --list
-flutter_shadcn assets --all
-flutter_shadcn platform --list
-```
-
-6. Validate health and integrity
-
-```bash
-flutter_shadcn doctor
-flutter_shadcn validate
-flutter_shadcn audit
-flutter_shadcn deps
-```
-
-## Command Surface (Documented)
-
-- Discovery: `list`, `search`, `info`
-- Setup/Install: `init`, `add`, `dry-run`, `remove`, `sync`
-- Customization: `theme`, `assets`, `platform`
-- Diagnostics: `doctor`, `validate`, `audit`, `deps`
-- Skill tooling: `install-skill`
-- CLI maintenance: `version`, `upgrade`, `feedback`, `docs`
-
-## Base Components and Overlay Wrappers
-
-When using overlay-capable components, ensure the widget tree is wrapped with one of:
-- `ShadcnApp` (recommended app-level wrapper)
-- `ShadcnLayer`
-- `OverlayManagerLayer`
-
-Registry-backed wrapper guidance:
-- `app` composite provides `ShadcnApp` and already wires `OverlayManagerLayer`.
-- `scaffold` is a base layout component and depends on `drawer` (overlay category).
-- `app_bar` is a base composite export over `AppBar` + outline primitives.
-- `card` exposes `Card` and `SurfaceCard` as base surface widgets.
-
-Overlay category components in the registry:
-- `alert_dialog`, `context_menu`, `dialog`, `drawer`, `dropdown_menu`, `eye_dropper`
-- `hover_card`, `menu`, `menubar`, `overlay`, `popover`, `popup`
-- `refresh_trigger`, `sheet`, `swiper`, `toast`, `tooltip`
-
-Non-overlay components that currently depend on overlay components:
-- `color_input`, `color_picker`, `command`, `error_system`, `form_field`
-- `item_picker`, `material`, `navigation_menu`, `scaffold`, `select`, `tracker`
-
-Rule: if `dry-run` shows overlay-category dependencies, require one of the wrappers above.
-
-## JSON and Offline Modes
-
-Use `--json` on commands that document JSON output.
-Use `--offline` on commands that document offline support.
-
-## Fallback Path (Only if CLI Fails)
-
-Use this path only when `flutter_shadcn` cannot run or a command is failing due environment/tooling issues.
-
-1. Diagnose failure cause
-
-```bash
+flutter_shadcn registries --json
+flutter_shadcn default
 flutter_shadcn doctor --json
 ```
 
-2. If command or cache issue, follow troubleshooting reset guidance in:
-`references/troubleshooting.md`
+## Principles
 
-3. As a temporary manual fallback, inspect only these files:
+1. CLI first. Use CLI commands before manually editing registry files.
+2. No guessed flags. Use only `flutter_shadcn --help` and command help output.
+3. Preview before install. Use `dry-run` before `add` in non-trivial changes.
+4. Keep registries explicit. Use namespace-qualified IDs when ambiguous.
+5. Respect overlay requirements. Keep `ShadcnApp`/`ShadcnLayer`/`OverlayManagerLayer` around overlay-driven components.
 
-- `.shadcn/config.json`
-- `.shadcn/state.json`
-- `<installPath>/components.json`
-- `.shadcn/components/*.json`
-- Registry `index.json` and `components.json`
+## Critical Rules
 
-4. Once CLI is healthy, stop manual flow and continue with standard CLI commands.
+### Styling & Theme -> [rules/styling.md](./rules/styling.md)
 
-## References in This Skill
+- Apply theme changes with `flutter_shadcn theme`, not ad-hoc edits first.
+- Keep install/shared paths under `lib/`.
+- Prefer semantic theme usage in app code over hardcoded visual values.
 
-- [references/commands.md](references/commands.md) - Command reference and supported flags.
-- [references/core_concepts.md](references/core_concepts.md) - Concepts, base components, and overlay wrapper requirements.
-- [references/registry_essential_widgets.md](references/registry_essential_widgets.md) - Essential wrappers, replacement mapping, and import-collision rules.
-- [references/configuration.md](references/configuration.md) - Config/state/manifests and sync validation flow.
-- [references/common_tasks.md](references/common_tasks.md) - Common install and lifecycle tasks.
-- [references/advanced_usage.md](references/advanced_usage.md) - JSON/offline and safer change planning workflows.
-- [references/themes.md](references/themes.md) - Theme list/apply flows.
-- [references/troubleshooting.md](references/troubleshooting.md) - Troubleshooting steps for CLI and cache issues.
-- [references/INSTALLATION.md](references/INSTALLATION.md) - Skill installation (CLI-first, manual fallback).
-- [references/registry_formats.md](references/registry_formats.md) - Registry file roles and usage.
-- [references/schemas.md](references/schemas.md) - Validation and schema checks.
-- [references/best_practices.md](references/best_practices.md) - Operational guidelines.
-- [references/examples.md](references/examples.md) - End-to-end command examples.
+### Forms & Inputs -> [rules/forms.md](./rules/forms.md)
+
+- Install the form stack as a set (`form`, `form_field`, `input`, `select`, etc.) instead of one-off improvisation.
+- Run `dry-run` first for large form bundles.
+- Keep validation behavior in form primitives/components, not duplicated wrapper logic.
+
+### Component Composition -> [rules/composition.md](./rules/composition.md)
+
+- Overlay-heavy components require one of the wrapper layers at app scope.
+- Prefer existing shadcn components before rebuilding with raw Material/Cupertino widgets.
+- Use `remove --force` only when dependency constraints are intentionally overridden.
+
+### Icons & Assets -> [rules/icons.md](./rules/icons.md)
+
+- Install icon and typography assets through `flutter_shadcn assets`.
+- Do not hand-edit font assets or `pubspec.yaml` when CLI asset flows exist.
+
+### Namespace Resolution -> [rules/base-vs-radix.md](./rules/base-vs-radix.md)
+
+- Unqualified IDs resolve through default and enabled registries and can become ambiguous.
+- Use `@namespace/component` in automation, docs, and scripts.
+- Keep default namespace intentional with `flutter_shadcn default`.
+
+## Key Patterns
+
+```bash
+# Discovery
+flutter_shadcn list @shadcn --json
+flutter_shadcn search @shadcn button --json
+flutter_shadcn info @shadcn/dialog --json
+
+# Plan + install
+flutter_shadcn dry-run @shadcn/dialog --json
+flutter_shadcn add @shadcn/dialog @shadcn/button
+
+# Cleanup
+flutter_shadcn remove @shadcn/dialog
+# Use only when intentionally bypassing dependency safety:
+flutter_shadcn remove @shadcn/dialog --force
+
+# Theme + verification
+flutter_shadcn theme --list
+flutter_shadcn theme --apply slate
+flutter_shadcn doctor --json
+flutter_shadcn validate --json
+flutter_shadcn audit --json
+flutter_shadcn deps --json
+```
+
+## Component Selection
+
+| Need | Use |
+| --- | --- |
+| Discover available components | `list`, `search`, `info` |
+| Preview impact before install | `dry-run` |
+| Install/remove components | `add`, `remove` |
+| Keep config changes applied | `sync` |
+| Theme presets/custom JSON | `theme` |
+| Icon/font assets | `assets` |
+| Platform target overrides | `platform` |
+| Registry health checks | `doctor`, `validate`, `audit`, `deps` |
+| AI model skill setup | `install-skill` |
+
+## Key Files
+
+- `.shadcn/config.json` - CLI config (registry mode, namespace defaults, paths, aliases)
+- `.shadcn/state.json` - managed state and dependency bookkeeping
+- `<installPath>/components.json` - installed component manifest
+- `.shadcn/components/*.json` - per-component install metadata
+
+## Workflow
+
+1. Get registry context with `registries`, `default`, and `doctor`.
+2. Discover candidates with `list`, `search`, and `info`.
+3. Preview change impact with `dry-run`.
+4. Install with `add` using explicit namespaces where needed.
+5. Verify overlay wrappers for overlay or overlay-dependent components.
+6. Run diagnostics (`validate`, `audit`, `deps`) after changes.
+7. Apply theme/assets/platform changes through CLI commands.
+8. Re-apply config-wide changes with `sync`.
+9. Use `install-skill` to deploy this skill into model folders.
+
+## Updating Components
+
+`flutter_shadcn` has no dedicated `update` command. To refresh component source:
+
+1. Run `dry-run` for the target component(s).
+2. Review dependency and file changes.
+3. Re-run `add` for those component(s).
+4. Validate with `audit` and `deps`.
+
+## Quick Reference
+
+```bash
+# bootstrap
+flutter_shadcn init @shadcn --yes
+
+# multi-registry controls
+flutter_shadcn registries --json
+flutter_shadcn default shadcn
+
+# core workflow
+flutter_shadcn search @shadcn card
+flutter_shadcn dry-run @shadcn/card --json
+flutter_shadcn add @shadcn/card
+flutter_shadcn remove @shadcn/card
+
+# maintenance
+flutter_shadcn version --check
+flutter_shadcn upgrade
+flutter_shadcn feedback --type bug --title "..." --body "..."
+```
+
+## Detailed References
+
+- [cli.md](./cli.md) - full command and flag reference
+- [customization.md](./customization.md) - theming, assets, platform customization
+- [mcp.md](./mcp.md) - MCP status and alternatives
+- [rules/forms.md](./rules/forms.md) - form install/composition rules
+- [rules/composition.md](./rules/composition.md) - overlay and composition rules
+- [rules/icons.md](./rules/icons.md) - icon/font asset rules
+- [rules/styling.md](./rules/styling.md) - theme/style rules
+- [rules/base-vs-radix.md](./rules/base-vs-radix.md) - namespace and registry resolution patterns

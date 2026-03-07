@@ -1,14 +1,14 @@
 ---
 schema_version: 1
 id: flutter-shadcn-ui
-name: Flutter Shadcn UI
-version: "1.1.1"
+name: Flutter shadcn CLI
+version: "2.0.0"
 description: |
-  CLI-first guidance for flutter_shadcn component workflows.
-  Uses manual fallback only when CLI execution is unavailable or failing.
+  Comprehensive flutter_shadcn CLI skill with namespace-safe install workflows,
+  theming rules, diagnostics, and AI model installation guidance.
 author: Flutter Shadcn Contributors
 license: MIT
-updated: 2026-02-07
+updated: 2026-03-07
 status: stable
 category: ui-development
 
@@ -21,16 +21,16 @@ tags:
 
 files:
   main: SKILL.md
+  installation: INSTALLATION.md
   references:
-    commands: references/commands.md
-    installation: references/INSTALLATION.md
-    core_concepts: references/core_concepts.md
-    configuration: references/configuration.md
-    common_tasks: references/common_tasks.md
-    advanced_usage: references/advanced_usage.md
-    themes: references/themes.md
-    troubleshooting: references/troubleshooting.md
-    registry_formats: references/registry_formats.md
+    cli: cli.md
+    customization: customization.md
+    mcp: mcp.md
+    rules_forms: rules/forms.md
+    rules_composition: rules/composition.md
+    rules_styling: rules/styling.md
+    rules_icons: rules/icons.md
+    rules_namespace: rules/base-vs-radix.md
+    evals: evals/evals.json
     schemas: references/schemas.md
-    best_practices: references/best_practices.md
-    examples: references/examples.md
+    commands_legacy: references/commands.md
