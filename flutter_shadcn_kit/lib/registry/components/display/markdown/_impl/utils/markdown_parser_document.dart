@@ -131,6 +131,26 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
       continue;
     }
 
+    final wrappedHeading = _tryParseWrappedAtxHeading(trimmed);
+    if (wrappedHeading != null) {
+      final level = wrappedHeading.$1;
+      blocks.add(
+        _MarkdownBlock(
+          type: switch (level) {
+            1 => _MarkdownBlockType.heading1,
+            2 => _MarkdownBlockType.heading2,
+            3 => _MarkdownBlockType.heading3,
+            4 => _MarkdownBlockType.heading4,
+            5 => _MarkdownBlockType.heading5,
+            _ => _MarkdownBlockType.heading6,
+          },
+          text: wrappedHeading.$2,
+        ),
+      );
+      i += 1;
+      continue;
+    }
+
     final setextHeading = _tryParseSetextHeading(lines, i);
     if (setextHeading != null) {
       blocks.add(setextHeading.$1);
@@ -264,4 +284,50 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
     references: Map<String, _MarkdownLinkTarget>.unmodifiable(references),
     footnotes: Map<String, String>.unmodifiable(footnotes),
   );
+}
+
+(int, String)? _tryParseWrappedAtxHeading(String line) {
+  final tokens = <String>[];
+  var cursor = 0;
+  const markers = <String>['***', '~~', '**', '__', '*', '_'];
+  while (cursor < line.length) {
+    String? matched;
+    for (final marker in markers) {
+      if (line.startsWith(marker, cursor)) {
+        matched = marker;
+        break;
+      }
+    }
+    if (matched == null) {
+      break;
+    }
+    tokens.add(matched);
+    cursor += matched.length;
+  }
+  if (tokens.isEmpty) {
+    return null;
+  }
+
+  final heading = RegExp(
+    r'^(#{1,6})\s+(.+)$',
+  ).firstMatch(line.substring(cursor));
+  if (heading == null) {
+    return null;
+  }
+
+  final level = heading.group(1)!.length;
+  var body = heading.group(2)!.trimRight();
+  for (final marker in tokens.reversed) {
+    if (!body.endsWith(marker)) {
+      return null;
+    }
+    body = body.substring(0, body.length - marker.length).trimRight();
+  }
+  if (body.isEmpty) {
+    return null;
+  }
+
+  final prefix = tokens.join();
+  final suffix = tokens.reversed.join();
+  return (level, '$prefix$body$suffix');
 }

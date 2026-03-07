@@ -306,16 +306,12 @@ class MarkdownEditingHelpers {
       );
     }
 
-    final isWrapped =
-        selected.startsWith(delimiter) &&
-        selected.endsWith(delimiter) &&
-        selected.length >= delimiter.length * 2;
-    final replacement = isWrapped
-        ? selected.substring(
-            delimiter.length,
-            selected.length - delimiter.length,
-          )
-        : '$delimiter$selected$delimiter';
+    final headingMatch = RegExp(r'^(\s*#{1,6}\s+)(.+)$').firstMatch(selected);
+    final replacement = switch (headingMatch) {
+      null => _toggleDelimitedSegment(selected, delimiter),
+      _ =>
+        '${headingMatch.group(1)}${_toggleDelimitedSegment(headingMatch.group(2)!, delimiter)}',
+    };
     final nextText = text.replaceRange(
       normalized.start,
       normalized.end,
@@ -328,6 +324,16 @@ class MarkdownEditingHelpers {
         extentOffset: normalized.start + replacement.length,
       ),
     );
+  }
+
+  static String _toggleDelimitedSegment(String segment, String delimiter) {
+    final isWrapped =
+        segment.startsWith(delimiter) &&
+        segment.endsWith(delimiter) &&
+        segment.length >= delimiter.length * 2;
+    return isWrapped
+        ? segment.substring(delimiter.length, segment.length - delimiter.length)
+        : '$delimiter$segment$delimiter';
   }
 
   static MarkdownEditResult _toggleLinePrefix(

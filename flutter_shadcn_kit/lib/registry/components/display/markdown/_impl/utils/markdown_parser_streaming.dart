@@ -342,6 +342,7 @@ bool _isClosingFenceLine(String line, String marker) {
 
 bool _isStandaloneStableLine(String line) {
   return RegExp(r'^(#{1,6})\s+').hasMatch(line) ||
+      _looksLikeWrappedHeadingLine(line) ||
       RegExp(r'^\s*(=+|-+)\s*$').hasMatch(line) ||
       RegExp(r'^\s*([-_*])\s*\1\s*\1').hasMatch(line) ||
       RegExp(r'^\s*[-*+]\s+').hasMatch(line) ||
@@ -351,4 +352,10 @@ bool _isStandaloneStableLine(String line) {
       RegExp(r'^\s*\[[^\]]+\]:').hasMatch(line) ||
       RegExp(r'^\s*\[\^[^\]]+\]:').hasMatch(line) ||
       _openingHtmlContainerTag(line) != null;
+}
+
+bool _looksLikeWrappedHeadingLine(String line) {
+  return RegExp(
+    r'^\s*(?:(?:\*\*\*|~~|\*\*|__|\*|_)+)(#{1,6})\s+.+$',
+  ).hasMatch(line.trimLeft());
 }
