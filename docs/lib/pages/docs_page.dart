@@ -930,3 +930,17 @@ class SidebarButton extends StatelessWidget {
 String _toKebabCase(String value) {
   return value.replaceAll('_', '-');
 }
+import 'docs/cli_reference_data.dart';
+    DocsSection(
+      'CLI',
+      [
+        for (final pageId in cliReferenceOrder)
+          DocsPageRef(
+            cliReferenceDocs[pageId]!.title,
+            pageId,
+            routeName: 'cli_reference',
+            pathParameters: {'id': pageId},
+          ),
+      ],
+      icon: Icons.terminal,
+    ),

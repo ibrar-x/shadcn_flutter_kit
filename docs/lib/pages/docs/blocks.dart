@@ -88,6 +88,94 @@ class DocsCodeBlock extends StatelessWidget {
   }
 }
 
+class DocsOptionRow {
+  final String name;
+  final String value;
+  final String description;
+
+  const DocsOptionRow({
+    required this.name,
+    required this.value,
+    required this.description,
+  });
+}
+
+class DocsOptionsTable extends StatelessWidget {
+  final List<DocsOptionRow> rows;
+
+  const DocsOptionsTable({super.key, required this.rows});
+
+  @override
+  Widget build(BuildContext context) {
+    if (rows.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return OutlinedContainer(
+      child: Table(
+        columnWidths: const <int, TableColumnWidth>{
+          0: FlexColumnWidth(1.4),
+          1: FlexColumnWidth(1.1),
+          2: FlexColumnWidth(3.2),
+        },
+        border: TableBorder.symmetric(
+          inside: BorderSide(color: Theme.of(context).dividerColor),
+        ),
+        children: [
+          TableRow(
+            children: [
+              _DocsTableCell(
+                isHeader: true,
+                child: const Text('Flag').semiBold(),
+              ),
+              _DocsTableCell(
+                isHeader: true,
+                child: const Text('Value').semiBold(),
+              ),
+              _DocsTableCell(
+                isHeader: true,
+                child: const Text('Description').semiBold(),
+              ),
+            ],
+          ),
+          for (final row in rows)
+            TableRow(
+              children: [
+                _DocsTableCell(
+                  child: Text(row.name).mono().small(),
+                ),
+                _DocsTableCell(
+                  child: Text(row.value).small().muted(),
+                ),
+                _DocsTableCell(
+                  child: Text(row.description).small(),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DocsTableCell extends StatelessWidget {
+  final Widget child;
+  final bool isHeader;
+
+  const _DocsTableCell({
+    required this.child,
+    this.isHeader = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: isHeader ? Theme.of(context).colorScheme.surface : null,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      child: child,
+    );
+  }
+}
+
 class DocsLinkRow extends StatelessWidget {
   final String label;
   final String url;

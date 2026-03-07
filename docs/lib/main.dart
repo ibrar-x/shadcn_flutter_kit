@@ -16,6 +16,7 @@ import 'pages/docs/icons_page.dart';
 import 'pages/docs/installation_page.dart';
 import 'pages/docs/registry_guide_page.dart';
 import 'pages/docs/app_setup_page.dart';
+import 'pages/docs/cli_reference_page.dart';
 import 'pages/docs/introduction_page.dart';
 import 'pages/docs/layout_page.dart';
 import 'pages/docs/components/material_example.dart';
@@ -244,6 +245,16 @@ class _DocsRootState extends State<DocsRoot> {
           pageBuilder: (context, state) => _buildTransitionPage(
             state,
             const RegistryGuidePage(),
+          ),
+        ),
+        GoRoute(
+          path: '/cli/:id',
+          name: 'cli_reference',
+          pageBuilder: (context, state) => _buildTransitionPage(
+            state,
+            CliReferencePage(
+              pageId: state.pathParameters['id'] ?? 'cli-overview',
+            ),
           ),
         ),
         GoRoute(
