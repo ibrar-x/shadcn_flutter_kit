@@ -433,6 +433,28 @@ class _MarkdownState extends State<Markdown> {
     );
   }
 
+  Widget _buildRichTextBlock(
+    BuildContext context, {
+    required TextSpan text,
+    TextAlign textAlign = TextAlign.start,
+    bool softWrap = true,
+  }) {
+    final registrar = widget.selectable
+        ? SelectionContainer.maybeOf(context)
+        : null;
+    final selectionColor = widget.selectable
+        ? (DefaultSelectionStyle.of(context).selectionColor ??
+              const Color(0x406694E8))
+        : null;
+    return RichText(
+      text: text,
+      textAlign: textAlign,
+      softWrap: softWrap,
+      selectionRegistrar: registrar,
+      selectionColor: selectionColor,
+    );
+  }
+
   MarkdownBlockKind _blockKind(_MarkdownBlock block) {
     return switch (block.type) {
       _MarkdownBlockType.blank => MarkdownBlockKind.blank,
@@ -645,7 +667,7 @@ class _MarkdownState extends State<Markdown> {
       return const SizedBox.shrink();
     }
 
-    return LayoutBuilder(
+    Widget content = LayoutBuilder(
       builder: (context, constraints) {
         final useViewportList =
             !widget.shrinkWrap && constraints.hasBoundedHeight;
@@ -665,26 +687,32 @@ class _MarkdownState extends State<Markdown> {
           physics: useViewportList
               ? const AlwaysScrollableScrollPhysics()
               : const NeverScrollableScrollPhysics(),
-          cacheExtent: useViewportList ? 960 : null,
+          cacheExtent: useViewportList ? (kIsWeb ? 240.0 : 640.0) : null,
           addAutomaticKeepAlives: false,
           itemCount: visibleChunkCount,
           itemBuilder: (context, chunkIndex) {
             final chunk = _chunks[chunkIndex];
-            return RepaintBoundary(
-              child: _buildChunk(
-                context,
-                chunk,
-                baseStyle,
-                document,
-                markdownTheme,
-                blockAnchors,
-                blockHeadingSlugs,
-              ),
+            final chunkChild = _buildChunk(
+              context,
+              chunk,
+              baseStyle,
+              document,
+              markdownTheme,
+              blockAnchors,
+              blockHeadingSlugs,
             );
+            if (kIsWeb) {
+              return chunkChild;
+            }
+            return RepaintBoundary(child: chunkChild);
           },
         );
       },
     );
+    if (widget.selectable && SelectionContainer.maybeOf(context) == null) {
+      content = SelectionArea(child: content);
+    }
+    return content;
   }
 
   Widget _buildChunk(
@@ -805,9 +833,10 @@ class _MarkdownState extends State<Markdown> {
                       ),
                     ),
                   ),
-                widget.selectable
-                    ? SelectableText(block.text, style: mono)
-                    : Text(block.text, style: mono),
+                _buildRichTextBlock(
+                  context,
+                  text: TextSpan(style: mono, text: block.text),
+                ),
               ],
             ),
           );
@@ -831,11 +860,7 @@ class _MarkdownState extends State<Markdown> {
                     _ => '',
                   }, style: baseStyle),
                 ),
-                Expanded(
-                  child: widget.selectable
-                      ? SelectableText.rich(rich)
-                      : RichText(text: rich),
-                ),
+                Expanded(child: _buildRichTextBlock(context, text: rich)),
               ],
             ),
           );
@@ -966,35 +991,21 @@ class _MarkdownState extends State<Markdown> {
             markdownTheme,
           );
         case _MarkdownBlockType.rawHtml:
-          return widget.selectable
-              ? SelectableText.rich(
-                  TextSpan(
-                    style: baseStyle,
-                    children: _buildInlineSpans(
-                      context,
-                      _htmlToInlineText(block.text),
-                      baseStyle,
-                      document,
-                      onTapLink: _handleTapLink,
-                      followLinks: widget.followLinks,
-                      linkStyle: linkStyle,
-                    ),
-                  ),
-                )
-              : RichText(
-                  text: TextSpan(
-                    style: baseStyle,
-                    children: _buildInlineSpans(
-                      context,
-                      _htmlToInlineText(block.text),
-                      baseStyle,
-                      document,
-                      onTapLink: _handleTapLink,
-                      followLinks: widget.followLinks,
-                      linkStyle: linkStyle,
-                    ),
-                  ),
-                );
+          return _buildRichTextBlock(
+            context,
+            text: TextSpan(
+              style: baseStyle,
+              children: _buildInlineSpans(
+                context,
+                _htmlToInlineText(block.text),
+                baseStyle,
+                document,
+                onTapLink: _handleTapLink,
+                followLinks: widget.followLinks,
+                linkStyle: linkStyle,
+              ),
+            ),
+          );
         default:
           final resolvedHeadingStyle = styleValue<TextStyle>(
             widgetValue: null,
@@ -1008,7 +1019,13 @@ class _MarkdownState extends State<Markdown> {
             ),
           );
           return widget.selectable
-              ? SelectableText.rich(rich, style: resolvedHeadingStyle)
+              ? _buildRichTextBlock(
+                  context,
+                  text: TextSpan(
+                    style: resolvedHeadingStyle,
+                    children: rich.children,
+                  ),
+                )
               : RichText(
                   text: TextSpan(
                     style: resolvedHeadingStyle,
@@ -1171,48 +1188,25 @@ class _MarkdownState extends State<Markdown> {
                             tableRow: rowIndex,
                             tableColumn: colIndex,
                           ),
-                          child: widget.selectable
-                              ? SelectableText.rich(
-                                  TextSpan(
-                                    style: rowIndex == 0
-                                        ? headerStyle
-                                        : cellStyle,
-                                    children: _buildInlineSpans(
-                                      context,
-                                      rows[rowIndex][colIndex],
-                                      rowIndex == 0 ? headerStyle : cellStyle,
-                                      document,
-                                      onTapLink: _handleTapLink,
-                                      followLinks: widget.followLinks,
-                                      linkStyle: markdownTheme?.linkStyle,
-                                    ),
-                                  ),
-                                  textAlign:
-                                      colIndex < block.tableAlignments.length
-                                      ? block.tableAlignments[colIndex]
-                                      : TextAlign.left,
-                                )
-                              : RichText(
-                                  softWrap: false,
-                                  textAlign:
-                                      colIndex < block.tableAlignments.length
-                                      ? block.tableAlignments[colIndex]
-                                      : TextAlign.left,
-                                  text: TextSpan(
-                                    style: rowIndex == 0
-                                        ? headerStyle
-                                        : cellStyle,
-                                    children: _buildInlineSpans(
-                                      context,
-                                      rows[rowIndex][colIndex],
-                                      rowIndex == 0 ? headerStyle : cellStyle,
-                                      document,
-                                      onTapLink: _handleTapLink,
-                                      followLinks: widget.followLinks,
-                                      linkStyle: markdownTheme?.linkStyle,
-                                    ),
-                                  ),
-                                ),
+                          child: _buildRichTextBlock(
+                            context,
+                            softWrap: false,
+                            textAlign: colIndex < block.tableAlignments.length
+                                ? block.tableAlignments[colIndex]
+                                : TextAlign.left,
+                            text: TextSpan(
+                              style: rowIndex == 0 ? headerStyle : cellStyle,
+                              children: _buildInlineSpans(
+                                context,
+                                rows[rowIndex][colIndex],
+                                rowIndex == 0 ? headerStyle : cellStyle,
+                                document,
+                                onTapLink: _handleTapLink,
+                                followLinks: widget.followLinks,
+                                linkStyle: markdownTheme?.linkStyle,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -1384,35 +1378,21 @@ class _MarkdownState extends State<Markdown> {
                   text: block.items[itemIndex],
                   blockIndex: blockIndex,
                 ),
-                child: widget.selectable
-                    ? SelectableText.rich(
-                        TextSpan(
-                          style: baseStyle,
-                          children: _buildInlineSpans(
-                            context,
-                            block.items[itemIndex],
-                            baseStyle,
-                            document,
-                            onTapLink: _handleTapLink,
-                            followLinks: widget.followLinks,
-                            linkStyle: markdownTheme?.linkStyle,
-                          ),
-                        ),
-                      )
-                    : RichText(
-                        text: TextSpan(
-                          style: baseStyle,
-                          children: _buildInlineSpans(
-                            context,
-                            block.items[itemIndex],
-                            baseStyle,
-                            document,
-                            onTapLink: _handleTapLink,
-                            followLinks: widget.followLinks,
-                            linkStyle: markdownTheme?.linkStyle,
-                          ),
-                        ),
-                      ),
+                child: _buildRichTextBlock(
+                  context,
+                  text: TextSpan(
+                    style: baseStyle,
+                    children: _buildInlineSpans(
+                      context,
+                      block.items[itemIndex],
+                      baseStyle,
+                      document,
+                      onTapLink: _handleTapLink,
+                      followLinks: widget.followLinks,
+                      linkStyle: markdownTheme?.linkStyle,
+                    ),
+                  ),
+                ),
               ),
             ),
         ],
@@ -1466,35 +1446,21 @@ class _MarkdownState extends State<Markdown> {
         children: [
           Text('[${block.label}] ', style: labelStyle),
           Expanded(
-            child: widget.selectable
-                ? SelectableText.rich(
-                    TextSpan(
-                      style: baseStyle,
-                      children: _buildInlineSpans(
-                        context,
-                        block.text,
-                        baseStyle,
-                        document,
-                        onTapLink: _handleTapLink,
-                        followLinks: widget.followLinks,
-                        linkStyle: markdownTheme?.linkStyle,
-                      ),
-                    ),
-                  )
-                : RichText(
-                    text: TextSpan(
-                      style: baseStyle,
-                      children: _buildInlineSpans(
-                        context,
-                        block.text,
-                        baseStyle,
-                        document,
-                        onTapLink: _handleTapLink,
-                        followLinks: widget.followLinks,
-                        linkStyle: markdownTheme?.linkStyle,
-                      ),
-                    ),
-                  ),
+            child: _buildRichTextBlock(
+              context,
+              text: TextSpan(
+                style: baseStyle,
+                children: _buildInlineSpans(
+                  context,
+                  block.text,
+                  baseStyle,
+                  document,
+                  onTapLink: _handleTapLink,
+                  followLinks: widget.followLinks,
+                  linkStyle: markdownTheme?.linkStyle,
+                ),
+              ),
+            ),
           ),
         ],
       ),

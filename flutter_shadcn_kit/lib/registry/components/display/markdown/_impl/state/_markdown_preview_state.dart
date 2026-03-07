@@ -113,7 +113,7 @@ Normal paragraphs still fall back to the built-in renderer.
 
   Timer? _timer;
   _StreamMode _streamMode = _StreamMode.character;
-  _AnimationKind _animation = _AnimationKind.blur;
+  _AnimationKind _animation = _AnimationKind.fade;
   double _speed = 1.0;
   String _streamed = '';
   int _cursor = 0;

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui' show ImageFilter;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../markdown/markdown.dart' as md;
@@ -340,7 +341,7 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     if (effect is BlurInEffect) {
       final t = _progress(age, effect.duration, effect.curve);
       Widget current = child;
-      final sigma = effect.maxBlurSigma * (1 - t);
+      final sigma = kIsWeb ? 0.0 : effect.maxBlurSigma * (1 - t);
       if (sigma > 0.01) {
         current = ImageFiltered(
           imageFilter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
@@ -355,6 +356,11 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
       }
       if (effect.fadeIn) {
         current = Opacity(opacity: t.clamp(0.0, 1.0), child: current);
+      } else if (kIsWeb) {
+        current = Opacity(
+          opacity: (0.6 + (0.4 * t)).clamp(0.0, 1.0),
+          child: current,
+        );
       }
       return current;
     }
