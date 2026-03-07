@@ -162,6 +162,7 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
   String? _showcaseMarkdown;
   Object? _showcaseError;
   MarkdownDocumentMetrics? _showcaseMetrics;
+  MarkdownDocumentMetrics? _fullPageMetrics;
   MarkdownDocumentMetrics? _interactionMetrics;
   MarkdownDocumentMetrics? _fileMetrics;
   List<String> _interactionLog = const <String>[];
@@ -339,11 +340,37 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
     setState(() => _interactionMetrics = metrics);
   }
 
+  void _setFullPageMetrics(MarkdownDocumentMetrics metrics) {
+    if (_sameMetrics(_fullPageMetrics, metrics)) {
+      return;
+    }
+    setState(() => _fullPageMetrics = metrics);
+  }
+
   void _setFileMetrics(MarkdownDocumentMetrics metrics) {
     if (_sameMetrics(_fileMetrics, metrics)) {
       return;
     }
     setState(() => _fileMetrics = metrics);
+  }
+
+  Future<void> _openFullPageShowcase() async {
+    final data = _showcaseMarkdown ?? _inlineMarkdown;
+    await m.Navigator.of(context).push<void>(
+      m.MaterialPageRoute<void>(
+        builder: (routeContext) {
+          return _MarkdownFullPageDemo(
+            data: data,
+            imageBuilder: _previewImageBuilder,
+            onTapLinkDetails: _handleLinkTap,
+            onTapImage: _handleImageTap,
+            onTapHeading: _handleHeadingTap,
+            onTapElement: _handleElementTap,
+            onDocumentReady: _setFullPageMetrics,
+          );
+        },
+      ),
+    );
   }
 
   void _handleLinkTap(MarkdownLinkTapDetails details) {
@@ -988,6 +1015,32 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
               ),
               const m.SizedBox(height: 14),
               _sectionCard(
+                title: 'Full-Page Website Layout (No Fixed Height)',
+                child: m.Column(
+                  crossAxisAlignment: m.CrossAxisAlignment.start,
+                  children: [
+                    const m.Text(
+                      'This demo opens markdown in a full page route with no fixed viewport height. It uses virtualized chunk rendering (`shrinkWrap: false`) so large pages stay smoother while scrolling.',
+                    ),
+                    const m.SizedBox(height: 10),
+                    _metricsBar(_fullPageMetrics),
+                    const m.SizedBox(height: 10),
+                    m.Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        m.FilledButton.icon(
+                          onPressed: _openFullPageShowcase,
+                          icon: const m.Icon(m.Icons.open_in_new_rounded),
+                          label: const m.Text('Open full-page markdown demo'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const m.SizedBox(height: 14),
+              _sectionCard(
                 title: 'Theme Override Example',
                 child: _surface(
                   _markdownViewport(
@@ -1309,6 +1362,47 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
           ],
         ),
       ],
+    );
+  }
+}
+
+class _MarkdownFullPageDemo extends m.StatelessWidget {
+  const _MarkdownFullPageDemo({
+    required this.data,
+    required this.imageBuilder,
+    required this.onTapLinkDetails,
+    required this.onTapImage,
+    required this.onTapHeading,
+    required this.onTapElement,
+    required this.onDocumentReady,
+  });
+
+  final String data;
+  final m.Widget Function(m.BuildContext context, String url, String alt)
+  imageBuilder;
+  final MarkdownTapLinkDetailsCallback onTapLinkDetails;
+  final MarkdownTapImageCallback onTapImage;
+  final MarkdownTapHeadingCallback onTapHeading;
+  final MarkdownTapElementCallback onTapElement;
+  final MarkdownDocumentReadyCallback onDocumentReady;
+
+  @override
+  m.Widget build(m.BuildContext context) {
+    return m.Scaffold(
+      appBar: m.AppBar(title: const m.Text('Markdown Full-Page Demo')),
+      body: Markdown(
+        data: data,
+        selectable: true,
+        shrinkWrap: false,
+        followLinks: true,
+        viewportStorageId: 'preview-full-page',
+        imageBuilder: imageBuilder,
+        onTapLinkDetails: onTapLinkDetails,
+        onTapImage: onTapImage,
+        onTapHeading: onTapHeading,
+        onTapElement: onTapElement,
+        onDocumentReady: onDocumentReady,
+      ),
     );
   }
 }
