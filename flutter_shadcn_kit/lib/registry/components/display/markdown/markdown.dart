@@ -372,12 +372,16 @@ class _MarkdownState extends State<Markdown> {
       );
     }
 
-    final markdownTheme = ComponentTheme.maybeOf<MarkdownTheme>(context);
+    final markdownThemeOverride = ComponentTheme.maybeOf<MarkdownTheme>(
+      context,
+    );
     final baseStyle = styleValue<TextStyle>(
       widgetValue: widget.style,
-      themeValue: markdownTheme?.style,
+      themeValue: markdownThemeOverride?.style,
       defaultValue: DefaultTextStyle.of(context).style,
     );
+    final markdownTheme = (markdownThemeOverride ?? const MarkdownTheme())
+        .withFallback(MarkdownTheme.htmlDefaults(baseStyle));
     final document = _resolveDocument();
     final blocks = document.blocks;
     final blockAnchors = _resolveHeadingAnchors(blocks).$1;
