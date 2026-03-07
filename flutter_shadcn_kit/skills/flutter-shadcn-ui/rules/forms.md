@@ -6,6 +6,7 @@
 - Preview transitive dependencies
 - Keep validation in form components
 - Verify after form changes
+- Start from docs app recipes
 
 ---
 
@@ -74,3 +75,17 @@ flutter_shadcn validate --json
 flutter_shadcn audit --json
 flutter_shadcn deps --json
 ```
+
+---
+
+## Start from docs app recipes
+
+Before building form screens from scratch, use:
+`references/docs_app_common_examples.md`
+
+Prioritize these patterns:
+- Basic profile form
+- Validation states and submit states
+- Async + cross-field registration validation
+- Sheet/dialog form composition
+- Login/register switcher form flows

@@ -7,7 +7,7 @@
     {
       "id": "flutter-shadcn-ui",
       "name": "Flutter shadcn CLI",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "description": "Comprehensive flutter_shadcn skill modeled after shadcn's original skill structure with CLI workflows, rules, and evals.",
       "status": "stable",
       "category": "ui-development",
@@ -16,7 +16,8 @@
       "manifest": "flutter-shadcn-ui/skill.json",
       "references": {
         "cli": "flutter-shadcn-ui/cli.md",
-        "installation": "flutter-shadcn-ui/INSTALLATION.md"
+        "installation": "flutter-shadcn-ui/INSTALLATION.md",
+        "docsExamples": "flutter-shadcn-ui/references/docs_app_common_examples.md"
       },
       "installation": {
         "supportedByCli": true

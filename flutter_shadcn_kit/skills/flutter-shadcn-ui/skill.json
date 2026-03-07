@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "flutter-shadcn-ui",
   "name": "Flutter shadcn CLI",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Comprehensive flutter_shadcn CLI skill with namespace-safe install workflows, theming rules, diagnostics, and AI model installation guidance.",
   "author": "Flutter Shadcn Contributors",
   "license": "MIT",
@@ -27,7 +27,8 @@
       "rules-icons": "rules/icons.md",
       "rules-namespace": "rules/base-vs-radix.md",
       "evals": "evals/evals.json",
-      "common-replacements": "references/COMMON_PATCHED_WIDGETS_README.md"
+      "common-replacements": "references/COMMON_PATCHED_WIDGETS_README.md",
+      "docs-app-examples": "references/docs_app_common_examples.md"
     }
   }
 }

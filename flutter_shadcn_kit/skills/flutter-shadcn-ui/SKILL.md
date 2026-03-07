@@ -39,6 +39,7 @@ flutter_shadcn doctor --json
 - Install the form stack as a set (`form`, `form_field`, `input`, `select`, etc.) instead of one-off improvisation.
 - Run `dry-run` first for large form bundles.
 - Keep validation behavior in form primitives/components, not duplicated wrapper logic.
+- Use [references/docs_app_common_examples.md](./references/docs_app_common_examples.md) as the default recipe source for easy and complex app-form flows.
 
 ### Component Composition -> [rules/composition.md](./rules/composition.md)
 
@@ -159,3 +160,4 @@ flutter_shadcn feedback --type bug --title "..." --body "..."
 - [rules/styling.md](./rules/styling.md) - theme/style rules
 - [rules/base-vs-radix.md](./rules/base-vs-radix.md) - namespace and registry resolution patterns
 - [references/COMMON_PATCHED_WIDGETS_README.md](./references/COMMON_PATCHED_WIDGETS_README.md) - required Material/Cupertino replacement map
+- [references/docs_app_common_examples.md](./references/docs_app_common_examples.md) - docs-derived easy/complex app usage recipes
