@@ -7,76 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `navigation/navigation_bar` theme classes.",
       "fields": [
         {
-          "type": "number",
-          "name": "padding",
-          "label": "Padding",
-          "description": "Padding in pixels (affected by theme.scaling).",
+          "type": "object",
+          "name": "alignment",
+          "label": "Alignment",
+          "description": "Generated from Dart type `NavigationBarAlignment?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "spacing",
-          "label": "Spacing",
-          "description": "Spacing in pixels (affected by theme.scaling).",
-          "defaultValue": 8.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -84,27 +26,16 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
+        },
         {
           "type": "color",
           "name": "backgroundColor",
           "label": "Background Color",
-          "description": "Background Color in hex format (#RRGGBB or #AARRGGBB).",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -112,20 +43,15 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "object",
+          "name": "direction",
+          "label": "Direction",
+          "description": "Generated from Dart type `Axis?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -134,52 +60,13 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "alignment",
-          "label": "Alignment",
-          "description": "Alignment in pixels (affected by theme.scaling).",
-          "defaultValue": "center",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
         },
         {
-          "type": "enum",
-          "name": "direction",
-          "label": "Direction",
-          "description": "Direction in pixels (affected by theme.scaling).",
-          "defaultValue": "horizontal",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "enum",
+          "type": "object",
           "name": "labelPosition",
           "label": "Label Position",
-          "description": "Label Position in pixels (affected by theme.scaling).",
-          "defaultValue": "bottom",
+          "description": "Generated from Dart type `NavigationLabelPosition?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -187,16 +74,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "labelSize",
           "label": "Label Size",
-          "description": "Label Size in pixels (affected by theme.scaling).",
-          "defaultValue": "small",
+          "description": "Generated from Dart type `NavigationLabelSize?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -204,16 +91,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "labelType",
           "label": "Label Type",
-          "description": "Label Type in pixels (affected by theme.scaling).",
-          "defaultValue": "none",
+          "description": "Generated from Dart type `NavigationLabelType?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -221,8 +108,43 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "padding",
+          "label": "Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "spacing",
+          "label": "Spacing",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

@@ -46,5 +46,36 @@
     "_impl/variants/filter_bar_layout.dart",
     "filter_bar.dart",
     "filter_bar_logic.dart"
-  ]
+  ],
+  "api": {
+    "constructors": [
+      "`FilterBar`",
+      "`state` (`FilterState?`, required when `controller` is not provided)",
+      "`onStateChanged` (`ValueChanged<FilterState>?`, required when `controller` is not provided)",
+      "`controller` (`FilterBarController?`, optional)",
+      "`sortOptions` (`List<FilterSortOption>`, optional)",
+      "`enableDateRange` (`bool`, optional)",
+      "`resultsCount` (`int?`, optional)",
+      "`searchPlaceholder` (`String`, optional)",
+      "`searchLabel` (`String`, optional)",
+      "`searchDebounce` (`Duration?`, optional)",
+      "`trailingFilters` (`List<Widget>`, optional)",
+      "`customFilters` (`List<FilterCustomFilter>`, optional)",
+      "`style` (`FilterBarStyle?`, optional)",
+      "`clearPolicy` (`FilterClearPolicy`, optional)",
+      "`onClearAll` (`FilterState Function(FilterState current)?`, optional)",
+      "`showClearAllWhenEmpty` (`bool`, optional)",
+      "`presentation` (`FilterBarPresentation`, optional, default: `autoSheet`)",
+      "`sheetBreakpoint` (`double`, optional, default: `720`)",
+      "`sheetTriggerLabel` (`String`, optional)",
+      "`sheetTitle` (`String`, optional)",
+      "`sheetPosition` (`OverlayPosition`, optional, default: `OverlayPosition.bottom`)",
+      "`groups` (`List<FilterGroup>`, optional)",
+      "`clearPolicy.clearCustomFilters` (`bool`, optional, default: `true`)"
+    ],
+    "callbacks": [
+      "`onStateChanged` emits the next `FilterState` whenever the UI changes.",
+      "`onClearAll` optionally overrides clear-all behavior with custom policy logic."
+    ]
+  }
 }

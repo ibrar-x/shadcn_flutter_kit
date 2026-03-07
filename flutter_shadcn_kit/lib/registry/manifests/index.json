@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-22T01:53:09.583086Z",
+  "generatedAt": "2026-03-07T23:08:06.469337Z",
   "components": [
     {
       "id": "accordion",
@@ -3068,6 +3068,35 @@
         "shadcn_localizations",
         "shadcn_localizations_extensions"
       ]
+    },
+    {
+      "id": "markdown",
+      "name": "Markdown",
+      "category": "display",
+      "description": "Advanced markdown renderer with asset/file sources and optional streaming support.",
+      "tags": [
+        "display",
+        "markdown",
+        "streaming",
+        "asset",
+        "file"
+      ],
+      "version": "1.0.0",
+      "install": "flutter_shadcn add markdown",
+      "import": "",
+      "importPath": "",
+      "api": {
+        "constructors": [],
+        "callbacks": []
+      },
+      "examples": {
+        "minimal": ""
+      },
+      "dependencies": {
+        "pubspec": {},
+        "shared": []
+      },
+      "related": []
     },
     {
       "id": "media_query",

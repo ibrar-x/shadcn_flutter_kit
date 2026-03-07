@@ -8,6 +8,8 @@ import '../../ui/shadcn/components/display/border_loading/border_loading.dart'
     as shadcn_border_loading;
 import '../../ui/shadcn/components/display/divider/divider.dart'
     as shadcn_divider;
+import '../../ui/shadcn/components/display/markdown/markdown.dart'
+    as shadcn_markdown;
 import '../../ui/shadcn/components/display/progress/progress.dart'
     as shadcn_progress;
 import '../../ui/shadcn/components/display/text_animate/text_animate.dart'
@@ -30,6 +32,10 @@ const bool enableTextAnimateComponent = bool.fromEnvironment(
   'ENABLE_TEXT_ANIMATE_COMPONENT',
   defaultValue: true,
 );
+const bool enableMarkdownComponent = bool.fromEnvironment(
+  'ENABLE_MARKDOWN_COMPONENT',
+  defaultValue: true,
+);
 
 const Map<String, String> componentStatusTags = {
   'chat': 'Experimental',
@@ -40,6 +46,7 @@ const Map<String, String> componentStatusTags = {
   'empty_state': 'New',
   'error_system': 'New',
   'gooey_toast': 'New',
+  if (enableMarkdownComponent) 'markdown': 'Experimental',
   if (enableTextAnimateComponent) 'text_animate': 'New',
   'window': 'Experimental',
   'audio_control': 'WIP',
@@ -61,6 +68,7 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'slider': _sliderPreview,
   'switch': _switchPreview,
   'progress': _progressPreview,
+  if (enableMarkdownComponent) 'markdown': _markdownPreview,
   if (enableTextAnimateComponent) 'text_animate': _textAnimatePreview,
 };
 
@@ -209,6 +217,17 @@ Widget _progressPreview(BuildContext context) {
   return const SizedBox(
     width: 160,
     child: shadcn_progress.Progress(progress: 0.62),
+  );
+}
+
+Widget _markdownPreview(BuildContext context) {
+  return const SizedBox(
+    width: 190,
+    child: shadcn_markdown.Markdown(
+      data: '### Markdown\n- **Bold**\n- `Code`',
+      selectable: false,
+      followLinks: false,
+    ),
   );
 }
 

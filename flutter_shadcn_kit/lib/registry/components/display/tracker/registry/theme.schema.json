@@ -7,124 +7,53 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/tracker` theme classes.",
       "fields": [
         {
           "type": "number",
           "name": "gap",
           "label": "Gap",
-          "description": "Gap in pixels (affected by theme.scaling).",
-          "defaultValue": 2.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
           "type": "number",
           "name": "itemHeight",
           "label": "Item Height",
-          "description": "Item Height in pixels (affected by theme.scaling).",
-          "defaultValue": 32.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
           "type": "number",
           "name": "radius",
           "label": "Radius",
-          "description": "Radius in pixels (affected by theme.radius).",
-          "defaultValue": 6.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -132,6 +61,7 @@
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

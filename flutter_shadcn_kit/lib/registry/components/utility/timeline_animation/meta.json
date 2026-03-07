@@ -25,18 +25,7 @@
   ],
   "api": {
     "constructors": [],
-    "callbacks": [],
-    "types_and_helpers": [
-      "`TimelineAnimation<T>`",
-      "`TimelineAnimatable<T>`",
-      "`Keyframe<T>`",
-      "`AbsoluteKeyframe<T>`",
-      "`RelativeKeyframe<T>`",
-      "`StillKeyframe<T>`",
-      "`PropertyLerp<T>`",
-      "`Transformers`",
-      "`timelineMaxDuration`"
-    ]
+    "callbacks": []
   },
   "version": "1.0.0"
 }

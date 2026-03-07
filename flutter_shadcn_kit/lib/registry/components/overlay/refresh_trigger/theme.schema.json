@@ -7,42 +7,15 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/refresh_trigger` theme classes.",
       "fields": [
         {
           "type": "duration",
           "name": "completeDuration",
           "label": "Complete Duration",
-          "description": "Complete Duration in milliseconds.",
-          "defaultValue": 500,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -54,20 +27,15 @@
             "unit": "ms"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "curve",
+          "name": "curve",
+          "label": "Curve",
+          "description": "Generated from Dart type `Curve?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -76,35 +44,13 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "curve",
-          "label": "Curve",
-          "description": "Curve in pixels (affected by theme.scaling).",
-          "defaultValue": "easeOutSine",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "indicatorBuilder",
           "label": "Indicator Builder",
-          "description": "Indicator Builder in pixels (affected by theme.scaling).",
-          "defaultValue": "defaultIndicatorBuilder",
+          "description": "Generated from Dart type `RefreshIndicatorBuilder?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -112,7 +58,7 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -120,42 +66,36 @@
           "type": "number",
           "name": "maxExtent",
           "label": "Max Extent",
-          "description": "Max Extent in pixels (affected by theme.scaling).",
-          "defaultValue": 150.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 150.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
           "type": "number",
           "name": "minExtent",
           "label": "Min Extent",
-          "description": "Min Extent in pixels (affected by theme.scaling).",
-          "defaultValue": 75.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 100.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

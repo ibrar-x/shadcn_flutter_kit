@@ -46,6 +46,7 @@ import 'components/input_otp/input_otp_examples.dart';
 import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_display/keyboard_display_examples.dart';
 import 'components/linear_progress/linear_progress_examples.dart';
+import 'components/markdown/markdown_examples.dart';
 import 'components/menubar/menubar_examples.dart';
 import 'components/multiselect/multiselect_examples.dart';
 import 'components/navigation_bar/navigation_bar_examples.dart';
@@ -140,6 +141,7 @@ const Set<String> originalComponentIds = {
   'item_picker',
   'keyboard_display',
   'linear_progress',
+  'markdown',
   'menubar',
   'multiselect',
   'navigation_bar',
@@ -233,6 +235,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'item_picker',
       'keyboard_display',
       'linear_progress',
+      'markdown',
       'menubar',
       'multiselect',
       'navigation_bar',
@@ -325,6 +328,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'item_picker': itemPickerExamples,
   'keyboard_display': keyboardDisplayExamples,
   'linear_progress': linearProgressExamples,
+  'markdown': markdownExamples,
   'menubar': menubarExamples,
   'multiselect': multiselectExamples,
   'navigation_bar': navigationBarExamples,

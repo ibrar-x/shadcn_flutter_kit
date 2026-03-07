@@ -7,124 +7,53 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/dot_indicator` theme classes.",
       "fields": [
         {
-          "type": "number",
-          "name": "inactiveBorderWidth",
-          "label": "Inactive Border Width",
-          "description": "Inactive Border Width in pixels (affected by theme.scaling).",
-          "defaultValue": 2.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "padding",
-          "label": "Padding",
-          "description": "Padding in pixels (affected by theme.scaling).",
+          "type": "color",
+          "name": "activeColor",
+          "label": "Active Color",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "color"
           },
           "since": "1.0.0"
         },
-        {
-          "type": "number",
-          "name": "spacing",
-          "label": "Spacing",
-          "description": "Spacing in pixels (affected by theme.scaling).",
-          "defaultValue": 8.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
         {
           "type": "number",
           "name": "borderRadius",
           "label": "Border Radius",
-          "description": "Border Radius in pixels (affected by theme.radius).",
-          "defaultValue": 6.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "object",
+          "name": "dotBuilder",
+          "label": "Dot Builder",
+          "description": "Generated from Dart type `DotBuilder?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -137,45 +66,11 @@
           "type": "color",
           "name": "inactiveBorderColor",
           "label": "Inactive Border Color",
-          "description": "Inactive Border Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#F5F5F5",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
-        {
-          "type": "color",
-          "name": "activeColor",
-          "label": "Active Color",
-          "description": "Active Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#171717",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -185,20 +80,32 @@
           "since": "1.0.0"
         },
         {
-          "type": "color",
-          "name": "inactiveColor",
-          "label": "Inactive Color",
-          "description": "Inactive Color in hex format (#RRGGBB or #AARRGGBB).",
+          "type": "number",
+          "name": "inactiveBorderWidth",
+          "label": "Inactive Border Width",
+          "description": "Generated from Dart type `double?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
+          "validation": {
+            "clamp": "reject"
           },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "inactiveColor",
+          "label": "Inactive Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
           "validation": {
             "clamp": "reject"
           },
@@ -206,20 +113,15 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "object",
+          "name": "padding",
+          "label": "Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -228,31 +130,41 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
+        },
         {
           "type": "number",
           "name": "size",
           "label": "Size",
-          "description": "Size in pixels (affected by theme.scaling).",
-          "defaultValue": 12.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 100.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "spacing",
+          "label": "Spacing",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

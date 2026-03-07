@@ -7,64 +7,15 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/hover_card` theme classes.",
       "fields": [
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
+          "type": "object",
           "name": "anchorAlignment",
           "label": "Anchor Alignment",
-          "description": "Anchor Alignment in pixels (affected by theme.scaling).",
-          "defaultValue": "bottomCenter",
+          "description": "Generated from Dart type `AlignmentGeometry?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -72,16 +23,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "behavior",
           "label": "Behavior",
-          "description": "Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "deferToChild",
+          "description": "Generated from Dart type `HitTestBehavior?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -89,7 +40,7 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -97,8 +48,8 @@
           "type": "duration",
           "name": "debounce",
           "label": "Debounce",
-          "description": "Debounce in milliseconds.",
-          "defaultValue": 500,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -112,11 +63,11 @@
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "popoverAlignment",
           "label": "Popover Alignment",
-          "description": "Popover Alignment in pixels (affected by theme.scaling).",
-          "defaultValue": "topCenter",
+          "description": "Generated from Dart type `AlignmentGeometry?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -124,7 +75,24 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "popoverOffset",
+          "label": "Popover Offset",
+          "description": "Generated from Dart type `Offset?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -132,8 +100,8 @@
           "type": "duration",
           "name": "wait",
           "label": "Wait",
-          "description": "Wait in milliseconds.",
-          "defaultValue": 500,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
