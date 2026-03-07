@@ -17,6 +17,7 @@ Standalone markdown renderer with no `flutter_markdown` dependency.
 - Built-in HTML sanitization strategies
 - Rich image preview on tap, with overridable preview builder
 - Dependency-free markdown editing helpers for editor toolbars
+- `MarkdownEditingController`, `MarkdownEditingBar`, and `MarkdownLivePreview`
 - Dedicated `MarkdownTheme.chatBubbleDefaults(...)` preset for chat surfaces
 - Multiple data sources:
   - direct string (`Markdown(data: ...)`)
@@ -86,6 +87,33 @@ controller.value = controller.value.copyWith(
   text: result.text,
   selection: result.selection,
 );
+```
+
+## Editing Bar + Live Preview
+
+```dart
+final controller = MarkdownEditingController(text: '# Hello');
+final focusNode = FocusNode();
+
+Column(
+  children: [
+    MarkdownEditingBar(
+      controller: controller,
+      focusNode: focusNode,
+    ),
+    TextField(
+      controller: controller,
+      focusNode: focusNode,
+      maxLines: 12,
+    ),
+    Expanded(
+      child: MarkdownLivePreview(
+        controller: controller,
+        shrinkWrap: false,
+      ),
+    ),
+  ],
+)
 ```
 
 ## Optional Streaming (Extension)
