@@ -7,12 +7,14 @@ List<InlineSpan> _buildInlineSpans(
   _MarkdownDocument document, {
   MarkdownTapLinkCallback? onTapLink,
   required bool followLinks,
+  TextStyle? linkStyle,
 }) {
   return _MarkdownInlineParser(
     baseStyle: baseStyle,
     document: document,
     onTapLink: onTapLink,
     followLinks: followLinks,
+    linkStyle: linkStyle,
   ).parse(text);
 }
 
@@ -22,12 +24,14 @@ class _MarkdownInlineParser {
     required this.document,
     required this.onTapLink,
     required this.followLinks,
+    required this.linkStyle,
   });
 
   final TextStyle baseStyle;
   final _MarkdownDocument document;
   final MarkdownTapLinkCallback? onTapLink;
   final bool followLinks;
+  final TextStyle? linkStyle;
 
   List<InlineSpan> parse(String input) {
     final spans = <InlineSpan>[];
@@ -217,14 +221,16 @@ class _MarkdownInlineParser {
   }
 
   InlineSpan _buildLinkSpan(String label, String url) {
-    final linkStyle = baseStyle.copyWith(
-      color: const Color(0xFF2F6FEB),
-      decoration: TextDecoration.underline,
-    );
+    final resolvedLinkStyle =
+        linkStyle ??
+        baseStyle.copyWith(
+          color: const Color(0xFF2F6FEB),
+          decoration: TextDecoration.underline,
+        );
 
     final callback = onTapLink;
     if (callback == null && !followLinks) {
-      return TextSpan(text: label, style: linkStyle);
+      return TextSpan(text: label, style: resolvedLinkStyle);
     }
 
     return WidgetSpan(
@@ -238,7 +244,7 @@ class _MarkdownInlineParser {
           }
           await openMarkdownLink(url);
         },
-        child: Text(label, style: linkStyle),
+        child: Text(label, style: resolvedLinkStyle),
       ),
     );
   }

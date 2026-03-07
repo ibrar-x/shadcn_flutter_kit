@@ -2,12 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../shared/theme/theme.dart';
+import '../../../shared/utils/style_value.dart';
 import '_impl/utils/markdown_file_loader.dart';
 import '_impl/utils/markdown_link_opener.dart';
 
 part '_impl/core/markdown_block_type.dart';
 part '_impl/core/markdown_block.dart';
 part '_impl/core/markdown_document.dart';
+part '_impl/core/markdown_disclosure.dart';
+part '_impl/themes/base/markdown_theme.dart';
 part '_impl/utils/markdown_inline_spans.dart';
 part '_impl/utils/markdown_parser.dart';
 
@@ -247,7 +251,12 @@ class _MarkdownState extends State<Markdown> {
       );
     }
 
-    final baseStyle = DefaultTextStyle.of(context).style.merge(widget.style);
+    final markdownTheme = ComponentTheme.maybeOf<MarkdownTheme>(context);
+    final baseStyle = styleValue<TextStyle>(
+      widgetValue: widget.style,
+      themeValue: markdownTheme?.style,
+      defaultValue: DefaultTextStyle.of(context).style,
+    );
     final document = _parseMarkdownDocument(_resolvedData);
     final blocks = document.blocks;
 
@@ -260,7 +269,7 @@ class _MarkdownState extends State<Markdown> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         for (final block in blocks)
-          _buildBlock(context, block, baseStyle, document),
+          _buildBlock(context, block, baseStyle, document, markdownTheme),
       ],
     );
   }
@@ -270,7 +279,9 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownBlock block,
     TextStyle baseStyle,
     _MarkdownDocument document,
+    MarkdownTheme? markdownTheme,
   ) {
+    final linkStyle = markdownTheme?.linkStyle;
     final rich = TextSpan(
       style: baseStyle,
       children: _buildInlineSpans(
@@ -280,10 +291,15 @@ class _MarkdownState extends State<Markdown> {
         document,
         onTapLink: widget.onTapLink,
         followLinks: widget.followLinks,
+        linkStyle: linkStyle,
       ),
     );
 
-    final mono = baseStyle.copyWith(fontFamily: 'GeistMono', height: 1.45);
+    final mono = styleValue<TextStyle>(
+      widgetValue: null,
+      themeValue: markdownTheme?.codeStyle,
+      defaultValue: baseStyle.copyWith(fontFamily: 'GeistMono', height: 1.45),
+    );
 
     final headingScale = switch (block.type) {
       _MarkdownBlockType.heading1 => 1.75,
@@ -295,6 +311,16 @@ class _MarkdownState extends State<Markdown> {
       _ => 1.0,
     };
 
+    final headingStyle = switch (block.type) {
+      _MarkdownBlockType.heading1 => markdownTheme?.heading1Style,
+      _MarkdownBlockType.heading2 => markdownTheme?.heading2Style,
+      _MarkdownBlockType.heading3 => markdownTheme?.heading3Style,
+      _MarkdownBlockType.heading4 => markdownTheme?.heading4Style,
+      _MarkdownBlockType.heading5 => markdownTheme?.heading5Style,
+      _MarkdownBlockType.heading6 => markdownTheme?.heading6Style,
+      _ => null,
+    };
+
     Widget child;
     switch (block.type) {
       case _MarkdownBlockType.codeFence:
@@ -302,10 +328,12 @@ class _MarkdownState extends State<Markdown> {
         child = Container(
           width: double.infinity,
           margin: const EdgeInsets.symmetric(vertical: 6),
-          padding: const EdgeInsets.all(12),
+          padding: markdownTheme?.codePadding ?? const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: const Color(0x11000000),
-            borderRadius: BorderRadius.circular(10),
+            color:
+                markdownTheme?.codeBackgroundColor ?? const Color(0x11000000),
+            borderRadius:
+                markdownTheme?.codeRadius ?? BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,9 +343,13 @@ class _MarkdownState extends State<Markdown> {
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
                     block.language!,
-                    style: mono.copyWith(
-                      fontSize: (mono.fontSize ?? 14) * 0.85,
-                      color: baseStyle.color?.withValues(alpha: 0.65),
+                    style: styleValue<TextStyle>(
+                      widgetValue: null,
+                      themeValue: markdownTheme?.codeLanguageStyle,
+                      defaultValue: mono.copyWith(
+                        fontSize: (mono.fontSize ?? 14) * 0.85,
+                        color: baseStyle.color?.withValues(alpha: 0.65),
+                      ),
                     ),
                   ),
                 ),
@@ -331,7 +363,9 @@ class _MarkdownState extends State<Markdown> {
       case _MarkdownBlockType.orderedList:
       case _MarkdownBlockType.taskList:
         child = Padding(
-          padding: EdgeInsets.only(left: 8 + (block.indentLevel * 18)),
+          padding: EdgeInsets.only(
+            left: 8 + (block.indentLevel * (markdownTheme?.listIndent ?? 18)),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -357,21 +391,25 @@ class _MarkdownState extends State<Markdown> {
         child = Container(
           width: double.infinity,
           margin: const EdgeInsets.symmetric(vertical: 4),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding:
+              markdownTheme?.quotePadding ??
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
+            color: markdownTheme?.quoteBackgroundColor,
             border: Border(
               left: BorderSide(
                 color:
+                    markdownTheme?.quoteBorderColor ??
                     baseStyle.color?.withValues(alpha: 0.45) ??
                     const Color(0x66000000),
-                width: 3,
+                width: markdownTheme?.quoteBorderWidth ?? 3,
               ),
             ),
           ),
           child: Markdown(
             data: block.text,
             selectable: widget.selectable,
-            style: baseStyle,
+            style: markdownTheme?.quoteStyle ?? baseStyle,
             onTapLink: widget.onTapLink,
             shrinkWrap: true,
             followLinks: widget.followLinks,
@@ -379,19 +417,43 @@ class _MarkdownState extends State<Markdown> {
           ),
         );
       case _MarkdownBlockType.horizontalRule:
-        child = const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: Divider(height: 1),
+        child = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Divider(height: 1, color: markdownTheme?.horizontalRuleColor),
         );
       case _MarkdownBlockType.table:
-        child = _buildTable(context, block, baseStyle, document);
+        child = _buildTable(context, block, baseStyle, document, markdownTheme);
       case _MarkdownBlockType.image:
-        child = _buildImage(context, block, baseStyle);
+        child = _buildImage(context, block, baseStyle, markdownTheme);
       case _MarkdownBlockType.definitionList:
-        child = _buildDefinitionList(context, block, baseStyle, document);
+        child = _buildDefinitionList(
+          context,
+          block,
+          baseStyle,
+          document,
+          markdownTheme,
+        );
       case _MarkdownBlockType.details:
         child = _MarkdownDisclosure(
           summary: block.text,
+          summaryStyle:
+              markdownTheme?.detailsSummaryStyle ??
+              baseStyle.copyWith(fontWeight: FontWeight.w600),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color:
+                  markdownTheme?.detailsBorderColor ?? const Color(0x22000000),
+            ),
+            color: markdownTheme?.detailsBackgroundColor,
+            borderRadius:
+                markdownTheme?.detailsRadius ?? BorderRadius.circular(10),
+          ),
+          headerPadding:
+              markdownTheme?.detailsHeaderPadding ??
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          bodyPadding:
+              markdownTheme?.detailsBodyPadding ??
+              const EdgeInsets.fromLTRB(12, 0, 12, 12),
           child: Markdown(
             data: block.items.isEmpty ? '' : block.items.first,
             selectable: widget.selectable,
@@ -403,9 +465,15 @@ class _MarkdownState extends State<Markdown> {
           ),
         );
       case _MarkdownBlockType.math:
-        child = _buildMathBlock(block, mono);
+        child = _buildMathBlock(block, mono, markdownTheme);
       case _MarkdownBlockType.footnote:
-        child = _buildFootnote(context, block, baseStyle, document);
+        child = _buildFootnote(
+          context,
+          block,
+          baseStyle,
+          document,
+          markdownTheme,
+        );
       case _MarkdownBlockType.rawHtml:
         child = widget.selectable
             ? SelectableText.rich(
@@ -418,6 +486,7 @@ class _MarkdownState extends State<Markdown> {
                     document,
                     onTapLink: widget.onTapLink,
                     followLinks: widget.followLinks,
+                    linkStyle: linkStyle,
                   ),
                 ),
               )
@@ -431,27 +500,37 @@ class _MarkdownState extends State<Markdown> {
                     document,
                     onTapLink: widget.onTapLink,
                     followLinks: widget.followLinks,
+                    linkStyle: linkStyle,
                   ),
                 ),
               );
       default:
-        final headingStyle = baseStyle.copyWith(
-          fontWeight: block.type.index <= _MarkdownBlockType.heading6.index
-              ? FontWeight.w700
-              : FontWeight.w400,
-          fontSize: (baseStyle.fontSize ?? 14) * headingScale,
-          height: 1.35,
+        final resolvedHeadingStyle = styleValue<TextStyle>(
+          widgetValue: null,
+          themeValue: headingStyle,
+          defaultValue: baseStyle.copyWith(
+            fontWeight: block.type.index <= _MarkdownBlockType.heading6.index
+                ? FontWeight.w700
+                : FontWeight.w400,
+            fontSize: (baseStyle.fontSize ?? 14) * headingScale,
+            height: 1.35,
+          ),
         );
         child = widget.selectable
-            ? SelectableText.rich(rich, style: headingStyle)
+            ? SelectableText.rich(rich, style: resolvedHeadingStyle)
             : RichText(
-                text: TextSpan(style: headingStyle, children: rich.children),
+                text: TextSpan(
+                  style: resolvedHeadingStyle,
+                  children: rich.children,
+                ),
               );
     }
 
     return Padding(
       padding: EdgeInsets.only(
-        bottom: block.type == _MarkdownBlockType.blank ? 8 : 6,
+        bottom: block.type == _MarkdownBlockType.blank
+            ? 8
+            : (markdownTheme?.blockSpacing ?? 6),
       ),
       child: child,
     );
@@ -462,33 +541,46 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownBlock block,
     TextStyle baseStyle,
     _MarkdownDocument document,
+    MarkdownTheme? markdownTheme,
   ) {
     final rows = block.tableRows;
     if (rows.isEmpty) {
       return const SizedBox.shrink();
     }
 
-    final headerStyle = baseStyle.copyWith(fontWeight: FontWeight.w700);
+    final headerStyle = styleValue<TextStyle>(
+      widgetValue: null,
+      themeValue: markdownTheme?.tableHeaderStyle,
+      defaultValue: baseStyle.copyWith(fontWeight: FontWeight.w700),
+    );
+    final cellStyle = styleValue<TextStyle>(
+      widgetValue: null,
+      themeValue: markdownTheme?.tableCellStyle,
+      defaultValue: baseStyle,
+    );
+    final borderColor =
+        markdownTheme?.tableBorderColor ?? const Color(0x22000000);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0x22000000)),
-        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: borderColor),
+        borderRadius: markdownTheme?.tableRadius ?? BorderRadius.circular(10),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Table(
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          border: const TableBorder(
-            horizontalInside: BorderSide(color: Color(0x22000000)),
-            verticalInside: BorderSide(color: Color(0x22000000)),
+          border: TableBorder(
+            horizontalInside: BorderSide(color: borderColor),
+            verticalInside: BorderSide(color: borderColor),
           ),
           children: [
             for (var rowIndex = 0; rowIndex < rows.length; rowIndex++)
               TableRow(
                 decoration: BoxDecoration(
                   color: rowIndex == 0
-                      ? const Color(0x11000000)
+                      ? (markdownTheme?.tableHeaderBackgroundColor ??
+                            const Color(0x11000000))
                       : Colors.transparent,
                 ),
                 children: [
@@ -498,23 +590,26 @@ class _MarkdownState extends State<Markdown> {
                     colIndex++
                   )
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
-                      ),
+                      padding:
+                          markdownTheme?.tableCellPadding ??
+                          const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 10,
+                          ),
                       child: RichText(
                         textAlign: colIndex < block.tableAlignments.length
                             ? block.tableAlignments[colIndex]
                             : TextAlign.left,
                         text: TextSpan(
-                          style: rowIndex == 0 ? headerStyle : baseStyle,
+                          style: rowIndex == 0 ? headerStyle : cellStyle,
                           children: _buildInlineSpans(
                             context,
                             rows[rowIndex][colIndex],
-                            rowIndex == 0 ? headerStyle : baseStyle,
+                            rowIndex == 0 ? headerStyle : cellStyle,
                             document,
                             onTapLink: widget.onTapLink,
                             followLinks: widget.followLinks,
+                            linkStyle: markdownTheme?.linkStyle,
                           ),
                         ),
                       ),
@@ -531,6 +626,7 @@ class _MarkdownState extends State<Markdown> {
     BuildContext context,
     _MarkdownBlock block,
     TextStyle baseStyle,
+    MarkdownTheme? markdownTheme,
   ) {
     final imageUrl = block.imageUrl ?? '';
     if (imageUrl.isEmpty) {
@@ -555,7 +651,9 @@ class _MarkdownState extends State<Markdown> {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      constraints: const BoxConstraints(maxHeight: 280),
+      constraints: BoxConstraints(
+        maxHeight: markdownTheme?.imageMaxHeight ?? 280,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -567,9 +665,13 @@ class _MarkdownState extends State<Markdown> {
                 block.imageTitle?.isNotEmpty == true
                     ? '$alt • ${block.imageTitle}'
                     : alt,
-                style: baseStyle.copyWith(
-                  fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-                  color: baseStyle.color?.withValues(alpha: 0.75),
+                style: styleValue<TextStyle>(
+                  widgetValue: null,
+                  themeValue: markdownTheme?.imageCaptionStyle,
+                  defaultValue: baseStyle.copyWith(
+                    fontSize: (baseStyle.fontSize ?? 14) * 0.9,
+                    color: baseStyle.color?.withValues(alpha: 0.75),
+                  ),
                 ),
               ),
             ),
@@ -583,6 +685,7 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownBlock block,
     TextStyle baseStyle,
     _MarkdownDocument document,
+    MarkdownTheme? markdownTheme,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -607,6 +710,7 @@ class _MarkdownState extends State<Markdown> {
                           document,
                           onTapLink: widget.onTapLink,
                           followLinks: widget.followLinks,
+                          linkStyle: markdownTheme?.linkStyle,
                         ),
                       ),
                     )
@@ -620,6 +724,7 @@ class _MarkdownState extends State<Markdown> {
                           document,
                           onTapLink: widget.onTapLink,
                           followLinks: widget.followLinks,
+                          linkStyle: markdownTheme?.linkStyle,
                         ),
                       ),
                     ),
@@ -629,18 +734,26 @@ class _MarkdownState extends State<Markdown> {
     );
   }
 
-  Widget _buildMathBlock(_MarkdownBlock block, TextStyle mono) {
+  Widget _buildMathBlock(
+    _MarkdownBlock block,
+    TextStyle mono,
+    MarkdownTheme? markdownTheme,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(12),
+      padding: markdownTheme?.codePadding ?? const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0x11000000),
-        borderRadius: BorderRadius.circular(10),
+        color: markdownTheme?.codeBackgroundColor ?? const Color(0x11000000),
+        borderRadius: markdownTheme?.codeRadius ?? BorderRadius.circular(10),
       ),
       child: Text(
         block.text,
-        style: mono.copyWith(fontStyle: FontStyle.italic),
+        style: styleValue<TextStyle>(
+          widgetValue: null,
+          themeValue: markdownTheme?.mathStyle,
+          defaultValue: mono.copyWith(fontStyle: FontStyle.italic),
+        ),
       ),
     );
   }
@@ -650,10 +763,15 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownBlock block,
     TextStyle baseStyle,
     _MarkdownDocument document,
+    MarkdownTheme? markdownTheme,
   ) {
-    final labelStyle = baseStyle.copyWith(
-      fontWeight: FontWeight.w700,
-      fontSize: (baseStyle.fontSize ?? 14) * 0.9,
+    final labelStyle = styleValue<TextStyle>(
+      widgetValue: null,
+      themeValue: markdownTheme?.footnoteLabelStyle,
+      defaultValue: baseStyle.copyWith(
+        fontWeight: FontWeight.w700,
+        fontSize: (baseStyle.fontSize ?? 14) * 0.9,
+      ),
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
@@ -673,6 +791,7 @@ class _MarkdownState extends State<Markdown> {
                         document,
                         onTapLink: widget.onTapLink,
                         followLinks: widget.followLinks,
+                        linkStyle: markdownTheme?.linkStyle,
                       ),
                     ),
                   )
@@ -686,6 +805,7 @@ class _MarkdownState extends State<Markdown> {
                         document,
                         onTapLink: widget.onTapLink,
                         followLinks: widget.followLinks,
+                        linkStyle: markdownTheme?.linkStyle,
                       ),
                     ),
                   ),
@@ -703,64 +823,5 @@ class _MarkdownState extends State<Markdown> {
         )
         .replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n')
         .trim();
-  }
-}
-
-class _MarkdownDisclosure extends StatefulWidget {
-  const _MarkdownDisclosure({required this.summary, required this.child});
-
-  final String summary;
-  final Widget child;
-
-  @override
-  State<_MarkdownDisclosure> createState() => _MarkdownDisclosureState();
-}
-
-class _MarkdownDisclosureState extends State<_MarkdownDisclosure> {
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0x22000000)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () => setState(() => _expanded = !_expanded),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              child: Row(
-                children: [
-                  Text(
-                    _expanded ? '▼' : '▶',
-                    style: DefaultTextStyle.of(context).style,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(widget.summary)),
-                ],
-              ),
-            ),
-          ),
-          ClipRect(
-            child: AnimatedAlign(
-              duration: const Duration(milliseconds: 180),
-              curve: Curves.easeOutCubic,
-              heightFactor: _expanded ? 1 : 0,
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-                child: widget.child,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

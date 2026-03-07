@@ -13,6 +13,7 @@ Standalone markdown renderer with no `flutter_markdown` dependency.
 - Reference links/images, footnotes, definition lists
 - Details blocks, inline/block math, basic HTML tags (`<br>`, `<kbd>`, `<strong>`, `<em>`, `<code>`)
 - Inline bold/italic/code/strikethrough, escaped characters, HTML entities
+- Component-level theming via `MarkdownTheme`
 - Multiple data sources:
   - direct string (`Markdown(data: ...)`)
   - asset file (`Markdown.asset(asset: ...)`)
@@ -51,3 +52,18 @@ Markdown(
 Streaming is opt-in and separate from markdown rendering.
 
 When used with `.withTextStreaming(...)`, the widget now commits completed markdown blocks incrementally and only reparses the active streaming tail, which reduces visible churn and keeps memory bounded.
+
+## Theming
+
+```dart
+ComponentTheme(
+  data: const MarkdownTheme(
+    linkStyle: TextStyle(color: Color(0xFF0E7490)),
+    codeBackgroundColor: Color(0xFFF5EEE2),
+    tableBorderColor: Color(0xFFD6C5AB),
+    quoteBorderColor: Color(0xFFD97706),
+    heading1Style: TextStyle(fontSize: 31, fontWeight: FontWeight.w800),
+  ),
+  child: Markdown.asset(asset: 'assets/markdown/markdown_feature_showcase.md'),
+)
+```
