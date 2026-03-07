@@ -1437,49 +1437,43 @@ class _MarkdownState extends State<Markdown> {
                         colIndex < rows[rowIndex].length;
                         colIndex++
                       )
-                        Padding(
-                          padding: cellPadding,
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth: resolvedMinCellWidth,
-                            ),
-                            child: _wrapElementTap(
-                              details: MarkdownTapElementDetails(
-                                kind: rowIndex == 0
-                                    ? MarkdownTapElementKind.tableHeaderCell
-                                    : MarkdownTapElementKind.tableCell,
-                                text: rows[rowIndex][colIndex],
-                                blockIndex: blockIndex,
-                                tableRow: rowIndex,
-                                tableColumn: colIndex,
+                        () {
+                          final cellText = rows[rowIndex][colIndex];
+                          final cellTextAlign =
+                              colIndex < block.tableAlignments.length
+                              ? block.tableAlignments[colIndex]
+                              : TextAlign.left;
+                          final effectiveCellStyle = rowIndex == 0
+                              ? compactHeaderStyle
+                              : compactCellStyle;
+                          return Padding(
+                            padding: cellPadding,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minWidth: resolvedMinCellWidth,
                               ),
-                              child: _buildRichTextBlock(
-                                context,
-                                softWrap: false,
-                                textAlign:
-                                    colIndex < block.tableAlignments.length
-                                    ? block.tableAlignments[colIndex]
-                                    : TextAlign.left,
-                                text: TextSpan(
-                                  style: rowIndex == 0
-                                      ? compactHeaderStyle
-                                      : compactCellStyle,
-                                  children: _buildInlineSpans(
-                                    context,
-                                    rows[rowIndex][colIndex],
-                                    rowIndex == 0
-                                        ? compactHeaderStyle
-                                        : compactCellStyle,
-                                    document,
-                                    onTapLink: _handleTapLink,
-                                    followLinks: widget.followLinks,
-                                    linkStyle: markdownTheme?.linkStyle,
-                                  ),
+                              child: _wrapElementTap(
+                                details: MarkdownTapElementDetails(
+                                  kind: rowIndex == 0
+                                      ? MarkdownTapElementKind.tableHeaderCell
+                                      : MarkdownTapElementKind.tableCell,
+                                  text: cellText,
+                                  blockIndex: blockIndex,
+                                  tableRow: rowIndex,
+                                  tableColumn: colIndex,
+                                ),
+                                child: _buildTableCellContent(
+                                  context,
+                                  cellText: cellText,
+                                  textStyle: effectiveCellStyle,
+                                  textAlign: cellTextAlign,
+                                  document: document,
+                                  markdownTheme: markdownTheme,
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        }(),
                     ],
                   ),
               ],
@@ -1488,6 +1482,89 @@ class _MarkdownState extends State<Markdown> {
         );
       },
     );
+  }
+
+  Widget _buildTableCellContent(
+    BuildContext context, {
+    required String cellText,
+    required TextStyle textStyle,
+    required TextAlign textAlign,
+    required _MarkdownDocument document,
+    required MarkdownTheme? markdownTheme,
+  }) {
+    if (_looksLikeTableCellBlockContent(cellText)) {
+      return Align(
+        alignment: _alignmentForTextAlign(textAlign),
+        child: Markdown(
+          data: cellText,
+          selectable: widget.selectable,
+          style: textStyle,
+          onTapLink: _handleTapLink,
+          onTapLinkDetails: widget.onTapLinkDetails,
+          onTapImage: widget.onTapImage,
+          onTapHeading: widget.onTapHeading,
+          onTapElement: widget.onTapElement,
+          blockBuilder: widget.blockBuilder,
+          shrinkWrap: true,
+          followLinks: widget.followLinks,
+          htmlSanitizationStrategy: widget.htmlSanitizationStrategy,
+          imagePreviewBehavior: widget.imagePreviewBehavior,
+          imagePreviewBuilder: widget.imagePreviewBuilder,
+          imageBuilder: widget.imageBuilder,
+        ),
+      );
+    }
+
+    return _buildRichTextBlock(
+      context,
+      textAlign: textAlign,
+      text: TextSpan(
+        style: textStyle,
+        children: _buildInlineSpans(
+          context,
+          cellText,
+          textStyle,
+          document,
+          onTapLink: _handleTapLink,
+          followLinks: widget.followLinks,
+          linkStyle: markdownTheme?.linkStyle,
+        ),
+      ),
+    );
+  }
+
+  bool _looksLikeTableCellBlockContent(String value) {
+    final normalized = value.replaceAll('\r\n', '\n').trim();
+    if (normalized.isEmpty) {
+      return false;
+    }
+    if (_looksLikeNestedMixedBlock(normalized)) {
+      return true;
+    }
+    if (!normalized.contains('\n')) {
+      return false;
+    }
+    for (final line in normalized.split('\n')) {
+      final trimmed = line.trimLeft();
+      if (trimmed.isEmpty) {
+        continue;
+      }
+      if (_looksLikeNestedMixedBlock(trimmed) ||
+          RegExp(r'^```').hasMatch(trimmed) ||
+          RegExp(r'^~~~').hasMatch(trimmed)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Alignment _alignmentForTextAlign(TextAlign textAlign) {
+    return switch (textAlign) {
+      TextAlign.right => Alignment.centerRight,
+      TextAlign.center => Alignment.center,
+      TextAlign.end => Alignment.centerRight,
+      _ => Alignment.centerLeft,
+    };
   }
 
   Widget _buildImage(
