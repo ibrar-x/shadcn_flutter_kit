@@ -88,6 +88,149 @@ class MarkdownTheme extends ComponentThemeData {
   final BorderRadiusGeometry? tableRadius;
   final BorderRadiusGeometry? detailsRadius;
 
+  static MarkdownTheme htmlDefaults(TextStyle baseStyle) {
+    final textColor = baseStyle.color ?? const Color(0xFF111827);
+    final mutedText = textColor.withValues(alpha: 0.72);
+    final softBorder = textColor.withValues(alpha: 0.16);
+    final subtleFill = textColor.withValues(alpha: 0.06);
+    final fs = baseStyle.fontSize ?? 14;
+
+    return MarkdownTheme(
+      style: baseStyle.copyWith(height: 1.6),
+      linkStyle: baseStyle.copyWith(
+        color: const Color(0xFF0969DA),
+        decoration: TextDecoration.underline,
+      ),
+      codeStyle: baseStyle.copyWith(fontFamily: 'GeistMono', height: 1.45),
+      codeLanguageStyle: baseStyle.copyWith(
+        fontFamily: 'GeistMono',
+        fontSize: fs * 0.85,
+        color: mutedText,
+      ),
+      mathStyle: baseStyle.copyWith(
+        fontFamily: 'GeistMono',
+        fontStyle: FontStyle.italic,
+      ),
+      quoteStyle: baseStyle.copyWith(height: 1.55),
+      tableHeaderStyle: baseStyle.copyWith(fontWeight: FontWeight.w700),
+      tableCellStyle: baseStyle,
+      footnoteLabelStyle: baseStyle.copyWith(
+        fontWeight: FontWeight.w700,
+        fontSize: fs * 0.9,
+      ),
+      imageCaptionStyle: baseStyle.copyWith(
+        fontSize: fs * 0.9,
+        color: mutedText,
+      ),
+      detailsSummaryStyle: baseStyle.copyWith(fontWeight: FontWeight.w600),
+      heading1Style: baseStyle.copyWith(
+        fontSize: fs * 2.0,
+        fontWeight: FontWeight.w800,
+        height: 1.25,
+      ),
+      heading2Style: baseStyle.copyWith(
+        fontSize: fs * 1.65,
+        fontWeight: FontWeight.w800,
+        height: 1.28,
+      ),
+      heading3Style: baseStyle.copyWith(
+        fontSize: fs * 1.4,
+        fontWeight: FontWeight.w700,
+        height: 1.3,
+      ),
+      heading4Style: baseStyle.copyWith(
+        fontSize: fs * 1.25,
+        fontWeight: FontWeight.w700,
+        height: 1.32,
+      ),
+      heading5Style: baseStyle.copyWith(
+        fontSize: fs * 1.1,
+        fontWeight: FontWeight.w700,
+      ),
+      heading6Style: baseStyle.copyWith(
+        fontSize: fs,
+        fontWeight: FontWeight.w700,
+      ),
+      horizontalRuleColor: softBorder,
+      codeBackgroundColor: subtleFill,
+      quoteBorderColor: textColor.withValues(alpha: 0.35),
+      quoteBackgroundColor: textColor.withValues(alpha: 0.04),
+      tableBorderColor: softBorder,
+      tableHeaderBackgroundColor: subtleFill,
+      detailsBorderColor: softBorder,
+      detailsBackgroundColor: textColor.withValues(alpha: 0.04),
+      blockSpacing: 6,
+      listIndent: 18,
+      quoteBorderWidth: 3,
+      imageMaxHeight: 280,
+      tableCellMinWidth: 112,
+      codePadding: const EdgeInsets.all(12),
+      quotePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      tableCellPadding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      detailsHeaderPadding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      detailsBodyPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      codeRadius: BorderRadius.circular(10),
+      tableRadius: BorderRadius.circular(10),
+      detailsRadius: BorderRadius.circular(10),
+    );
+  }
+
+  MarkdownTheme withFallback(MarkdownTheme fallback) {
+    return MarkdownTheme(
+      themeDensity: themeDensity ?? fallback.themeDensity,
+      themeSpacing: themeSpacing ?? fallback.themeSpacing,
+      themeShadows: themeShadows ?? fallback.themeShadows,
+      style: style ?? fallback.style,
+      linkStyle: linkStyle ?? fallback.linkStyle,
+      codeStyle: codeStyle ?? fallback.codeStyle,
+      codeLanguageStyle: codeLanguageStyle ?? fallback.codeLanguageStyle,
+      mathStyle: mathStyle ?? fallback.mathStyle,
+      quoteStyle: quoteStyle ?? fallback.quoteStyle,
+      tableHeaderStyle: tableHeaderStyle ?? fallback.tableHeaderStyle,
+      tableCellStyle: tableCellStyle ?? fallback.tableCellStyle,
+      footnoteLabelStyle: footnoteLabelStyle ?? fallback.footnoteLabelStyle,
+      imageCaptionStyle: imageCaptionStyle ?? fallback.imageCaptionStyle,
+      detailsSummaryStyle: detailsSummaryStyle ?? fallback.detailsSummaryStyle,
+      heading1Style: heading1Style ?? fallback.heading1Style,
+      heading2Style: heading2Style ?? fallback.heading2Style,
+      heading3Style: heading3Style ?? fallback.heading3Style,
+      heading4Style: heading4Style ?? fallback.heading4Style,
+      heading5Style: heading5Style ?? fallback.heading5Style,
+      heading6Style: heading6Style ?? fallback.heading6Style,
+      horizontalRuleColor: horizontalRuleColor ?? fallback.horizontalRuleColor,
+      codeBackgroundColor: codeBackgroundColor ?? fallback.codeBackgroundColor,
+      quoteBorderColor: quoteBorderColor ?? fallback.quoteBorderColor,
+      quoteBackgroundColor:
+          quoteBackgroundColor ?? fallback.quoteBackgroundColor,
+      tableBorderColor: tableBorderColor ?? fallback.tableBorderColor,
+      tableHeaderBackgroundColor:
+          tableHeaderBackgroundColor ?? fallback.tableHeaderBackgroundColor,
+      detailsBorderColor: detailsBorderColor ?? fallback.detailsBorderColor,
+      detailsBackgroundColor:
+          detailsBackgroundColor ?? fallback.detailsBackgroundColor,
+      blockSpacing: blockSpacing ?? fallback.blockSpacing,
+      listIndent: listIndent ?? fallback.listIndent,
+      quoteBorderWidth: quoteBorderWidth ?? fallback.quoteBorderWidth,
+      imageMaxHeight: imageMaxHeight ?? fallback.imageMaxHeight,
+      tableCellMinWidth: tableCellMinWidth ?? fallback.tableCellMinWidth,
+      codePadding: codePadding ?? fallback.codePadding,
+      quotePadding: quotePadding ?? fallback.quotePadding,
+      tableCellPadding: tableCellPadding ?? fallback.tableCellPadding,
+      detailsHeaderPadding:
+          detailsHeaderPadding ?? fallback.detailsHeaderPadding,
+      detailsBodyPadding: detailsBodyPadding ?? fallback.detailsBodyPadding,
+      codeRadius: codeRadius ?? fallback.codeRadius,
+      tableRadius: tableRadius ?? fallback.tableRadius,
+      detailsRadius: detailsRadius ?? fallback.detailsRadius,
+    );
+  }
+
   MarkdownTheme copyWith({
     ValueGetter<TextStyle?>? style,
     ValueGetter<TextStyle?>? linkStyle,
