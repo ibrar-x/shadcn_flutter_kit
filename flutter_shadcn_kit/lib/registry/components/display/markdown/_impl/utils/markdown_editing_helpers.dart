@@ -306,12 +306,31 @@ class MarkdownEditingHelpers {
       );
     }
 
-    final headingMatch = RegExp(r'^(\s*#{1,6}\s+)(.+)$').firstMatch(selected);
-    final replacement = switch (headingMatch) {
-      null => _toggleDelimitedSegment(selected, delimiter),
-      _ =>
-        '${headingMatch.group(1)}${_toggleDelimitedSegment(headingMatch.group(2)!, delimiter)}',
-    };
+    final (coreSelected, trailingBreaks) = _splitTrailingLineBreaks(selected);
+    if (coreSelected.isEmpty) {
+      final nextText = text.replaceRange(
+        normalized.start,
+        normalized.end,
+        '$delimiter$delimiter$trailingBreaks',
+      );
+      final caret = normalized.start + delimiter.length;
+      return MarkdownEditResult(
+        text: nextText,
+        selection: TextSelection.collapsed(offset: caret),
+      );
+    }
+
+    final headingMatch = RegExp(
+      r'^(\s*#{1,6}\s+)(.+)$',
+      dotAll: true,
+    ).firstMatch(coreSelected);
+    final replacement =
+        switch (headingMatch) {
+          null => _toggleDelimitedSegment(coreSelected, delimiter),
+          _ =>
+            '${headingMatch.group(1)}${_toggleDelimitedSegment(headingMatch.group(2)!, delimiter)}',
+        } +
+        trailingBreaks;
     final nextText = text.replaceRange(
       normalized.start,
       normalized.end,
@@ -334,6 +353,18 @@ class MarkdownEditingHelpers {
     return isWrapped
         ? segment.substring(delimiter.length, segment.length - delimiter.length)
         : '$delimiter$segment$delimiter';
+  }
+
+  static (String, String) _splitTrailingLineBreaks(String value) {
+    var index = value.length;
+    while (index > 0) {
+      final char = value.codeUnitAt(index - 1);
+      if (char != 0x0A && char != 0x0D) {
+        break;
+      }
+      index -= 1;
+    }
+    return (value.substring(0, index), value.substring(index));
   }
 
   static MarkdownEditResult _toggleLinePrefix(
