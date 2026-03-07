@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/widgets.dart';
 
 import '../../../markdown/markdown.dart' as md;
@@ -49,14 +52,22 @@ class _StreamingMarkdownAdapter extends StatefulWidget {
 }
 
 class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
+  static const Duration _frameInterval = Duration(milliseconds: 16);
+
+  late final Stopwatch _clock;
+  Timer? _ticker;
+
   String _sourceSnapshot = '';
   String _committedMarkdown = '';
-  String _streamingRawTail = '';
-  String _streamingPlainTail = '';
+  String _pendingMarkdown = '';
+  List<String> _stableUnits = const <String>[];
+  List<String> _animatedUnits = const <String>[];
+  Duration _changedAt = Duration.zero;
 
   @override
   void initState() {
     super.initState();
+    _clock = Stopwatch()..start();
     _applyIncoming(widget.source.data, forceReset: true);
   }
 
@@ -68,14 +79,22 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     }
   }
 
+  @override
+  void dispose() {
+    _ticker?.cancel();
+    _clock.stop();
+    super.dispose();
+  }
+
   void _applyIncoming(String next, {required bool forceReset}) {
     if (forceReset ||
         _sourceSnapshot.isEmpty ||
         !next.startsWith(_sourceSnapshot)) {
       _sourceSnapshot = next;
       _committedMarkdown = '';
-      _streamingRawTail = next;
-      _streamingPlainTail = _markdownToPlainText(next);
+      _pendingMarkdown = next;
+      _promoteStablePrefix();
+      _resetPendingAnimation();
       return;
     }
 
@@ -84,47 +103,121 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     if (appended.isEmpty) {
       return;
     }
-    _streamingRawTail = '$_streamingRawTail$appended';
-    _streamingPlainTail =
-        '$_streamingPlainTail${_markdownToPlainText(appended)}';
+
+    final previousPending = _pendingMarkdown;
+    _pendingMarkdown = '$_pendingMarkdown$appended';
+    final promoted = _promoteStablePrefix();
+    if (promoted > 0) {
+      _resetPendingAnimation();
+    } else {
+      _updatePendingAnimation(previousPending);
+    }
   }
 
-  void _onSettled(String _) {
-    if (!mounted || _streamingRawTail.isEmpty) {
-      return;
+  int _promoteStablePrefix() {
+    final stableLength = md.computeStableMarkdownPrefixLength(_pendingMarkdown);
+    if (stableLength <= 0) {
+      return 0;
     }
-    setState(() {
-      _committedMarkdown = '$_committedMarkdown$_streamingRawTail';
-      _streamingRawTail = '';
-      _streamingPlainTail = '';
-    });
+    _committedMarkdown =
+        '$_committedMarkdown${_pendingMarkdown.substring(0, stableLength)}';
+    _pendingMarkdown = _pendingMarkdown.substring(stableLength);
+    return stableLength;
+  }
+
+  void _resetPendingAnimation() {
+    _stableUnits = const <String>[];
+    _animatedUnits = _splitUnits(_pendingMarkdown);
+    _changedAt = _clock.elapsed;
+  }
+
+  void _updatePendingAnimation(String previousPending) {
+    final previousUnits = _splitUnits(previousPending);
+    final nextUnits = _splitUnits(_pendingMarkdown);
+    final shared = _sharedPrefixLength(previousUnits, nextUnits);
+    _stableUnits = List<String>.unmodifiable(nextUnits.take(shared));
+    _animatedUnits = List<String>.unmodifiable(nextUnits.skip(shared));
+    _changedAt = _clock.elapsed;
+  }
+
+  List<String> _splitUnits(String value) {
+    if (value.isEmpty) {
+      return const <String>[];
+    }
+    if (widget.animateByWord) {
+      return List<String>.unmodifiable(
+        RegExp(r'\S+\s*|\s+')
+            .allMatches(value)
+            .map((match) => match.group(0)!)
+            .where((value) => value.isNotEmpty),
+      );
+    }
+    return List<String>.unmodifiable(
+      value.runes.map((rune) => String.fromCharCode(rune)),
+    );
+  }
+
+  int _sharedPrefixLength(List<String> previous, List<String> next) {
+    final limit = previous.length < next.length ? previous.length : next.length;
+    var index = 0;
+    while (index < limit && previous[index] == next[index]) {
+      index += 1;
+    }
+    return index;
   }
 
   @override
   Widget build(BuildContext context) {
-    final children = <Widget>[];
+    final elapsed = _clock.elapsed - _changedAt;
+    final totalAnimated = _animatedUnits.length;
+    final visibleAnimated = _visibleUnitCount(
+      total: totalAnimated,
+      elapsed: elapsed,
+      typewriter: widget.typewriter,
+    );
+    final visiblePending =
+        '${_stableUnits.join()}${_animatedUnits.take(visibleAnimated).join()}';
+    final newestUnitAge = totalAnimated == 0 || visibleAnimated == 0
+        ? elapsed
+        : _ageOfNewestVisibleUnit(elapsed, visibleAnimated - 1);
+    final settled = _isSettled(
+      elapsed: elapsed,
+      totalAnimated: totalAnimated,
+      visibleAnimated: visibleAnimated,
+      typewriter: widget.typewriter,
+      effect: widget.effect,
+    );
 
+    _syncTicker(
+      settled: settled,
+      totalAnimated: totalAnimated,
+      visibleAnimated: visibleAnimated,
+      effect: widget.effect,
+    );
+
+    final children = <Widget>[];
     if (_committedMarkdown.isNotEmpty) {
       children.add(widget.source.copyWith(data: _committedMarkdown));
     }
-
-    if (_streamingPlainTail.isNotEmpty) {
+    if (visiblePending.isNotEmpty) {
       children.add(
-        StreamingText(
-          text: _streamingPlainTail,
-          typewriter: widget.typewriter,
-          effect: widget.effect,
-          cursor: widget.cursor,
-          animateByWord: widget.animateByWord,
-          onSettled: _onSettled,
+        _wrapEffect(
+          context: context,
+          child: md.Markdown(
+            data: visiblePending,
+            selectable: widget.source.selectable,
+            style: widget.source.style,
+            onTapLink: widget.source.onTapLink,
+            shrinkWrap: true,
+            imageBuilder: widget.source.imageBuilder,
+          ),
+          age: newestUnitAge,
         ),
       );
     }
-
     if (children.isEmpty) {
       return widget.source;
     }
-
     return Column(
       mainAxisSize: widget.source.shrinkWrap
           ? MainAxisSize.min
@@ -134,31 +227,146 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     );
   }
 
-  String _markdownToPlainText(String value) {
-    var text = value.replaceAll('\r\n', '\n');
-    text = text.replaceAll(RegExp(r'```[\\w-]*\n'), '');
-    text = text.replaceAll('```', '');
-    text = text.replaceAll(RegExp(r'`([^`]+)`'), r'$1');
-    text = text.replaceAll(RegExp(r'~~([^~]+)~~'), r'$1');
-    text = text.replaceAll(RegExp(r'\*\*([^*]+)\*\*'), r'$1');
-    text = text.replaceAll(RegExp(r'\*([^*]+)\*'), r'$1');
-    text = text.replaceAll(RegExp(r'!\[([^\]]*)\]\([^\)]+\)'), r'$1');
-    text = text.replaceAll(RegExp(r'\[([^\]]+)\]\([^\)]+\)'), r'$1');
-    text = text.replaceAll(RegExp(r'^\s*\|(.+)\|\s*$', multiLine: true), r'$1');
-    text = text.replaceAll('|', ' ');
-    text = text.replaceAll(
-      RegExp(r'^[ \\t]{0,3}#{1,6}[ \\t]*', multiLine: true),
-      '',
-    );
-    text = text.replaceAll(RegExp(r'^[ \\t]*>[ \\t]?', multiLine: true), '');
-    text = text.replaceAll(
-      RegExp(r'^[ \\t]*[-+*][ \\t]+', multiLine: true),
-      '• ',
-    );
-    text = text.replaceAll(
-      RegExp(r'^[ \\t]*\\d+\\.[ \\t]+', multiLine: true),
-      '',
-    );
-    return text.trimRight();
+  Duration _ageOfNewestVisibleUnit(Duration elapsed, int index) {
+    final revealDelay = _revealDelayForUnitIndex(index, widget.typewriter);
+    return elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
+  }
+
+  bool _isSettled({
+    required Duration elapsed,
+    required int totalAnimated,
+    required int visibleAnimated,
+    required TypewriterEffect typewriter,
+    required StreamingTextEffectAdapter effect,
+  }) {
+    if (totalAnimated == 0) {
+      return true;
+    }
+    if (visibleAnimated < totalAnimated) {
+      return false;
+    }
+    if (effect.settleDuration <= Duration.zero) {
+      return true;
+    }
+    final revealDelay = _revealDelayForUnitIndex(totalAnimated - 1, typewriter);
+    final age = elapsed > revealDelay ? elapsed - revealDelay : Duration.zero;
+    return age >= effect.settleDuration;
+  }
+
+  void _syncTicker({
+    required bool settled,
+    required int totalAnimated,
+    required int visibleAnimated,
+    required StreamingTextEffectAdapter effect,
+  }) {
+    final shouldTick =
+        visibleAnimated < totalAnimated ||
+        (!settled &&
+            totalAnimated > 0 &&
+            effect.settleDuration > Duration.zero);
+
+    if (!shouldTick) {
+      _ticker?.cancel();
+      _ticker = null;
+      return;
+    }
+
+    _ticker ??= Timer.periodic(_frameInterval, (_) {
+      if (!mounted) {
+        _ticker?.cancel();
+        _ticker = null;
+        return;
+      }
+      setState(() {});
+    });
+  }
+
+  Widget _wrapEffect({
+    required BuildContext context,
+    required Widget child,
+    required Duration age,
+  }) {
+    final effect = widget.effect;
+    if (effect is BlurInEffect) {
+      final t = _progress(age, effect.duration, effect.curve);
+      Widget current = child;
+      final sigma = effect.maxBlurSigma * (1 - t);
+      if (sigma > 0.01) {
+        current = ImageFiltered(
+          imageFilter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+          child: current,
+        );
+      }
+      if (effect.slideUpPx != 0) {
+        current = Transform.translate(
+          offset: Offset(0, effect.slideUpPx * (1 - t)),
+          child: current,
+        );
+      }
+      if (effect.fadeIn) {
+        current = Opacity(opacity: t.clamp(0.0, 1.0), child: current);
+      }
+      return current;
+    }
+    if (effect is FadeInEffect) {
+      final t = _progress(age, effect.duration, effect.curve);
+      return Opacity(opacity: t.clamp(0.0, 1.0), child: child);
+    }
+    if (effect is SlideInEffect) {
+      final t = _progress(age, effect.duration, effect.curve);
+      Widget current = Transform.translate(
+        offset: Offset(0, effect.offsetY * (1 - t)),
+        child: child,
+      );
+      if (effect.fadeIn) {
+        current = Opacity(opacity: t.clamp(0.0, 1.0), child: current);
+      }
+      return current;
+    }
+    if (effect is ScrambleInEffect) {
+      final t = _progress(age, effect.duration, Curves.easeOutCubic);
+      return Opacity(opacity: t.clamp(0.0, 1.0), child: child);
+    }
+    return child;
+  }
+
+  double _progress(Duration age, Duration duration, Curve curve) {
+    if (duration <= Duration.zero) {
+      return 1;
+    }
+    final raw = age.inMicroseconds / duration.inMicroseconds;
+    final clamped = raw.clamp(0.0, 1.0).toDouble();
+    return curve.transform(clamped);
+  }
+
+  Duration _revealDelayForUnitIndex(int index, TypewriterEffect typewriter) {
+    if (!typewriter.enabled || typewriter.charsPerSecond <= 0 || index <= 0) {
+      return Duration.zero;
+    }
+    final micros =
+        (index / typewriter.charsPerSecond) * Duration.microsecondsPerSecond;
+    return Duration(microseconds: micros.round());
+  }
+
+  int _visibleUnitCount({
+    required int total,
+    required Duration elapsed,
+    required TypewriterEffect typewriter,
+  }) {
+    if (total <= 0) {
+      return 0;
+    }
+    if (!typewriter.enabled || typewriter.charsPerSecond <= 0) {
+      return total;
+    }
+    final micros = elapsed.inMicroseconds;
+    if (micros <= 0) {
+      return 1;
+    }
+    final revealed =
+        ((micros / Duration.microsecondsPerSecond) * typewriter.charsPerSecond)
+            .floor() +
+        1;
+    return revealed.clamp(0, total).toInt();
   }
 }

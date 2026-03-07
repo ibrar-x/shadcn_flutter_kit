@@ -6,6 +6,7 @@ import '_impl/utils/markdown_file_loader.dart';
 
 part '_impl/core/markdown_block_type.dart';
 part '_impl/core/markdown_block.dart';
+part '_impl/core/markdown_document.dart';
 part '_impl/utils/markdown_inline_spans.dart';
 part '_impl/utils/markdown_parser.dart';
 
@@ -13,6 +14,10 @@ part '_impl/utils/markdown_parser.dart';
 typedef MarkdownTapLinkCallback = void Function(String text, String url);
 
 enum MarkdownSourceType { text, asset, file }
+
+int computeStableMarkdownPrefixLength(String data) {
+  return _computeStableMarkdownPrefixLength(data);
+}
 
 /// Lightweight markdown renderer with no external markdown package dependency.
 class Markdown extends StatefulWidget {
@@ -233,7 +238,8 @@ class _MarkdownState extends State<Markdown> {
     }
 
     final baseStyle = DefaultTextStyle.of(context).style.merge(widget.style);
-    final blocks = _parseMarkdownBlocks(_resolvedData);
+    final document = _parseMarkdownDocument(_resolvedData);
+    final blocks = document.blocks;
 
     if (blocks.isEmpty) {
       return const SizedBox.shrink();
@@ -243,7 +249,8 @@ class _MarkdownState extends State<Markdown> {
       mainAxisSize: widget.shrinkWrap ? MainAxisSize.min : MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final block in blocks) _buildBlock(context, block, baseStyle),
+        for (final block in blocks)
+          _buildBlock(context, block, baseStyle, document),
       ],
     );
   }
@@ -252,6 +259,7 @@ class _MarkdownState extends State<Markdown> {
     BuildContext context,
     _MarkdownBlock block,
     TextStyle baseStyle,
+    _MarkdownDocument document,
   ) {
     final rich = TextSpan(
       style: baseStyle,
@@ -259,6 +267,7 @@ class _MarkdownState extends State<Markdown> {
         context,
         block.text,
         baseStyle,
+        document,
         onTapLink: widget.onTapLink,
       ),
     );
@@ -278,6 +287,7 @@ class _MarkdownState extends State<Markdown> {
     Widget child;
     switch (block.type) {
       case _MarkdownBlockType.codeFence:
+      case _MarkdownBlockType.indentedCode:
         child = Container(
           width: double.infinity,
           margin: const EdgeInsets.symmetric(vertical: 6),
@@ -347,9 +357,14 @@ class _MarkdownState extends State<Markdown> {
               ),
             ),
           ),
-          child: widget.selectable
-              ? SelectableText.rich(rich)
-              : RichText(text: rich),
+          child: Markdown(
+            data: block.text,
+            selectable: widget.selectable,
+            style: baseStyle,
+            onTapLink: widget.onTapLink,
+            shrinkWrap: true,
+            imageBuilder: widget.imageBuilder,
+          ),
         );
       case _MarkdownBlockType.horizontalRule:
         child = const Padding(
@@ -357,9 +372,53 @@ class _MarkdownState extends State<Markdown> {
           child: Divider(height: 1),
         );
       case _MarkdownBlockType.table:
-        child = _buildTable(context, block, baseStyle);
+        child = _buildTable(context, block, baseStyle, document);
       case _MarkdownBlockType.image:
         child = _buildImage(context, block, baseStyle);
+      case _MarkdownBlockType.definitionList:
+        child = _buildDefinitionList(context, block, baseStyle, document);
+      case _MarkdownBlockType.details:
+        child = _MarkdownDisclosure(
+          summary: block.text,
+          child: Markdown(
+            data: block.items.isEmpty ? '' : block.items.first,
+            selectable: widget.selectable,
+            style: baseStyle,
+            onTapLink: widget.onTapLink,
+            shrinkWrap: true,
+            imageBuilder: widget.imageBuilder,
+          ),
+        );
+      case _MarkdownBlockType.math:
+        child = _buildMathBlock(block, mono);
+      case _MarkdownBlockType.footnote:
+        child = _buildFootnote(context, block, baseStyle, document);
+      case _MarkdownBlockType.rawHtml:
+        child = widget.selectable
+            ? SelectableText.rich(
+                TextSpan(
+                  style: baseStyle,
+                  children: _buildInlineSpans(
+                    context,
+                    _htmlToInlineText(block.text),
+                    baseStyle,
+                    document,
+                    onTapLink: widget.onTapLink,
+                  ),
+                ),
+              )
+            : RichText(
+                text: TextSpan(
+                  style: baseStyle,
+                  children: _buildInlineSpans(
+                    context,
+                    _htmlToInlineText(block.text),
+                    baseStyle,
+                    document,
+                    onTapLink: widget.onTapLink,
+                  ),
+                ),
+              );
       default:
         final headingStyle = baseStyle.copyWith(
           fontWeight: block.type.index <= _MarkdownBlockType.heading6.index
@@ -387,6 +446,7 @@ class _MarkdownState extends State<Markdown> {
     BuildContext context,
     _MarkdownBlock block,
     TextStyle baseStyle,
+    _MarkdownDocument document,
   ) {
     final rows = block.tableRows;
     if (rows.isEmpty) {
@@ -427,12 +487,20 @@ class _MarkdownState extends State<Markdown> {
                         horizontal: 12,
                         vertical: 10,
                       ),
-                      child: Text(
-                        rows[rowIndex][colIndex],
-                        style: rowIndex == 0 ? headerStyle : baseStyle,
+                      child: RichText(
                         textAlign: colIndex < block.tableAlignments.length
                             ? block.tableAlignments[colIndex]
                             : TextAlign.left,
+                        text: TextSpan(
+                          style: rowIndex == 0 ? headerStyle : baseStyle,
+                          children: _buildInlineSpans(
+                            context,
+                            rows[rowIndex][colIndex],
+                            rowIndex == 0 ? headerStyle : baseStyle,
+                            document,
+                            onTapLink: widget.onTapLink,
+                          ),
+                        ),
                       ),
                     ),
                 ],
@@ -480,13 +548,197 @@ class _MarkdownState extends State<Markdown> {
             Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Text(
-                alt,
+                block.imageTitle?.isNotEmpty == true
+                    ? '$alt • ${block.imageTitle}'
+                    : alt,
                 style: baseStyle.copyWith(
                   fontSize: (baseStyle.fontSize ?? 14) * 0.9,
                   color: baseStyle.color?.withValues(alpha: 0.75),
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDefinitionList(
+    BuildContext context,
+    _MarkdownBlock block,
+    TextStyle baseStyle,
+    _MarkdownDocument document,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            block.text,
+            style: baseStyle.copyWith(fontWeight: FontWeight.w700),
+          ),
+          for (final item in block.items)
+            Padding(
+              padding: const EdgeInsets.only(left: 14, top: 4),
+              child: widget.selectable
+                  ? SelectableText.rich(
+                      TextSpan(
+                        style: baseStyle,
+                        children: _buildInlineSpans(
+                          context,
+                          item,
+                          baseStyle,
+                          document,
+                          onTapLink: widget.onTapLink,
+                        ),
+                      ),
+                    )
+                  : RichText(
+                      text: TextSpan(
+                        style: baseStyle,
+                        children: _buildInlineSpans(
+                          context,
+                          item,
+                          baseStyle,
+                          document,
+                          onTapLink: widget.onTapLink,
+                        ),
+                      ),
+                    ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMathBlock(_MarkdownBlock block, TextStyle mono) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0x11000000),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        block.text,
+        style: mono.copyWith(fontStyle: FontStyle.italic),
+      ),
+    );
+  }
+
+  Widget _buildFootnote(
+    BuildContext context,
+    _MarkdownBlock block,
+    TextStyle baseStyle,
+    _MarkdownDocument document,
+  ) {
+    final labelStyle = baseStyle.copyWith(
+      fontWeight: FontWeight.w700,
+      fontSize: (baseStyle.fontSize ?? 14) * 0.9,
+    );
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('[${block.label}] ', style: labelStyle),
+          Expanded(
+            child: widget.selectable
+                ? SelectableText.rich(
+                    TextSpan(
+                      style: baseStyle,
+                      children: _buildInlineSpans(
+                        context,
+                        block.text,
+                        baseStyle,
+                        document,
+                        onTapLink: widget.onTapLink,
+                      ),
+                    ),
+                  )
+                : RichText(
+                    text: TextSpan(
+                      style: baseStyle,
+                      children: _buildInlineSpans(
+                        context,
+                        block.text,
+                        baseStyle,
+                        document,
+                        onTapLink: widget.onTapLink,
+                      ),
+                    ),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _htmlToInlineText(String value) {
+    return value
+        .replaceAll(
+          RegExp(r'</?(div|p|details|summary)>', caseSensitive: false),
+          '',
+        )
+        .replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n')
+        .trim();
+  }
+}
+
+class _MarkdownDisclosure extends StatefulWidget {
+  const _MarkdownDisclosure({required this.summary, required this.child});
+
+  final String summary;
+  final Widget child;
+
+  @override
+  State<_MarkdownDisclosure> createState() => _MarkdownDisclosureState();
+}
+
+class _MarkdownDisclosureState extends State<_MarkdownDisclosure> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0x22000000)),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () => setState(() => _expanded = !_expanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    _expanded ? '▼' : '▶',
+                    style: DefaultTextStyle.of(context).style,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(widget.summary)),
+                ],
+              ),
+            ),
+          ),
+          ClipRect(
+            child: AnimatedAlign(
+              duration: const Duration(milliseconds: 180),
+              curve: Curves.easeOutCubic,
+              heightFactor: _expanded ? 1 : 0,
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                child: widget.child,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -14,7 +14,13 @@ enum _MarkdownBlockType {
   taskList,
   quote,
   codeFence,
+  indentedCode,
   table,
   image,
+  definitionList,
+  details,
+  math,
+  footnote,
+  rawHtml,
   horizontalRule,
 }

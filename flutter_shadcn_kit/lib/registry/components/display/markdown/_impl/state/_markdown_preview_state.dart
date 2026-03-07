@@ -5,6 +5,8 @@ enum _StreamMode { character, word, chunk, part }
 enum _AnimationKind { blur, fade, slide, scramble }
 
 class _MarkdownPreviewState extends m.State<MarkdownPreview> {
+  static const String _showcaseFilePath =
+      '/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/Markdown Feature Showcase - ChatGPT.md';
   static const String _inlineMarkdown = '''# Advanced Markdown Renderer
 
 This is **bold**, *italic*, ***bold italic***, `inline code`, and ~~strikethrough~~.
@@ -50,7 +52,7 @@ Link example: [Flutter](https://flutter.dev)
   double _speed = 1.0;
   String _streamed = '';
   int _cursor = 0;
-  String _filePath = '/tmp/advanced_markdown.md';
+  String _filePath = _showcaseFilePath;
 
   @override
   void initState() {
