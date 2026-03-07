@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../shared/theme/theme.dart';
+import '../../../shared/theme/theme.dart' hide Theme;
 import '../../../shared/utils/style_value.dart';
 import '_impl/utils/markdown_file_loader.dart';
 import '_impl/utils/markdown_link_opener.dart';

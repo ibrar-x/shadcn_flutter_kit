@@ -3,10 +3,41 @@
 import 'dart:html' as html;
 
 Future<bool> openMarkdownLink(String url) async {
-  if (url.startsWith('#')) {
-    html.window.location.hash = url.substring(1);
+  final normalized = _normalizeOpenableUrl(url);
+  if (normalized == null) {
+    return false;
+  }
+  if (normalized.startsWith('#')) {
+    html.window.location.hash = normalized.substring(1);
     return true;
   }
-  html.window.open(url, '_blank');
+  html.window.open(normalized, '_blank');
   return true;
+}
+
+String? _normalizeOpenableUrl(String value) {
+  final trimmed = value.trim();
+  if (trimmed.isEmpty) {
+    return null;
+  }
+  if (trimmed.startsWith('#')) {
+    return trimmed;
+  }
+
+  final uri = Uri.tryParse(trimmed);
+  if (uri == null) {
+    return null;
+  }
+  if (!uri.hasScheme) {
+    return trimmed;
+  }
+
+  final scheme = uri.scheme.toLowerCase();
+  if ((scheme == 'http' || scheme == 'https') && uri.host.isEmpty) {
+    return null;
+  }
+  if (scheme == 'mailto' && uri.path.isEmpty) {
+    return null;
+  }
+  return trimmed;
 }

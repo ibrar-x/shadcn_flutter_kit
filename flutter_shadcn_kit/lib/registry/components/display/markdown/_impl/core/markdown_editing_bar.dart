@@ -35,13 +35,15 @@ class MarkdownEditingBarAction {
       divider(),
       bold(),
       italic(),
-      heading(),
+      headingCycle(),
+      inlineCode(),
       strikethrough(),
       bulletList(),
       orderedList(),
       taskList(),
       quote(),
       codeFence(),
+      horizontalRule(),
       table(),
       link(),
       image(),
@@ -64,7 +66,6 @@ class MarkdownEditingBarAction {
       icon: Icons.undo_rounded,
       tooltip: 'Undo',
       onPressed: (context, controller) => controller.undo(),
-      isEnabled: (controller) => controller.canUndo,
     );
   }
 
@@ -74,7 +75,6 @@ class MarkdownEditingBarAction {
       icon: Icons.redo_rounded,
       tooltip: 'Redo',
       onPressed: (context, controller) => controller.redo(),
-      isEnabled: (controller) => controller.canRedo,
     );
   }
 
@@ -111,6 +111,26 @@ class MarkdownEditingBarAction {
               level: level,
             ),
       ),
+    );
+  }
+
+  static MarkdownEditingBarAction headingCycle() {
+    return MarkdownEditingBarAction(
+      id: 'heading-cycle',
+      icon: Icons.title_rounded,
+      tooltip: 'Cycle heading level',
+      onPressed: (context, controller) =>
+          controller.applyTransformer(MarkdownEditingHelpers.cycleHeading),
+    );
+  }
+
+  static MarkdownEditingBarAction inlineCode() {
+    return MarkdownEditingBarAction(
+      id: 'inline-code',
+      icon: Icons.code_off_rounded,
+      tooltip: 'Inline code',
+      onPressed: (context, controller) =>
+          controller.applyTransformer(MarkdownEditingHelpers.toggleInlineCode),
     );
   }
 
@@ -181,6 +201,17 @@ class MarkdownEditingBarAction {
     );
   }
 
+  static MarkdownEditingBarAction horizontalRule() {
+    return MarkdownEditingBarAction(
+      id: 'horizontal-rule',
+      icon: Icons.horizontal_rule_rounded,
+      tooltip: 'Horizontal rule',
+      onPressed: (context, controller) => controller.applyTransformer(
+        MarkdownEditingHelpers.insertHorizontalRule,
+      ),
+    );
+  }
+
   static MarkdownEditingBarAction table() {
     return MarkdownEditingBarAction(
       id: 'table',
@@ -225,7 +256,7 @@ class MarkdownEditingBarItemDetails {
   final bool enabled;
 }
 
-class MarkdownEditingBar extends StatelessWidget {
+class MarkdownEditingBar extends StatefulWidget {
   const MarkdownEditingBar({
     super.key,
     required this.controller,
@@ -236,9 +267,12 @@ class MarkdownEditingBar extends StatelessWidget {
     this.trailing,
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     this.spacing = 6,
-    this.backgroundColor = const Color(0xFF2B2B2F),
+    this.backgroundColor,
+    this.iconBackgroundColor,
+    this.iconColor,
+    this.disabledIconColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(14)),
-    this.borderColor = const Color(0x22FFFFFF),
+    this.borderColor,
   });
 
   final MarkdownEditingController controller;
@@ -249,42 +283,104 @@ class MarkdownEditingBar extends StatelessWidget {
   final Widget? trailing;
   final EdgeInsetsGeometry padding;
   final double spacing;
-  final Color backgroundColor;
+  final Color? backgroundColor;
+  final Color? iconBackgroundColor;
+  final Color? iconColor;
+  final Color? disabledIconColor;
   final BorderRadiusGeometry borderRadius;
-  final Color borderColor;
+  final Color? borderColor;
+
+  @override
+  State<MarkdownEditingBar> createState() => _MarkdownEditingBarState();
+}
+
+class _MarkdownEditingBarState extends State<MarkdownEditingBar> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_handleControllerChanged);
+  }
+
+  @override
+  void didUpdateWidget(covariant MarkdownEditingBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller.removeListener(_handleControllerChanged);
+      widget.controller.addListener(_handleControllerChanged);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_handleControllerChanged);
+    super.dispose();
+  }
+
+  void _handleControllerChanged() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final resolvedActions = actions ?? MarkdownEditingBarAction.defaults();
+    final resolvedActions =
+        widget.actions ?? MarkdownEditingBarAction.defaults();
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+    final backgroundColor =
+        widget.backgroundColor ??
+        (isDark ? scheme.surfaceContainerHigh : scheme.surface);
+    final borderColor =
+        widget.borderColor ??
+        (isDark
+            ? scheme.outline.withValues(alpha: 0.4)
+            : scheme.outlineVariant.withValues(alpha: 0.8));
+    final iconBackground =
+        widget.iconBackgroundColor ??
+        (isDark
+            ? scheme.surfaceContainerHighest.withValues(alpha: 0.55)
+            : scheme.surfaceContainerHighest.withValues(alpha: 0.75));
+    final iconColor = widget.iconColor ?? scheme.onSurface;
+    final disabledIconColor =
+        widget.disabledIconColor ?? scheme.onSurfaceVariant;
+
     return Material(
       color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: borderRadius,
+          borderRadius: widget.borderRadius,
           border: Border.all(color: borderColor),
-          boxShadow: const <BoxShadow>[
+          boxShadow: <BoxShadow>[
             BoxShadow(
-              color: Color(0x24000000),
+              color: scheme.shadow.withValues(alpha: isDark ? 0.32 : 0.14),
               blurRadius: 18,
               offset: Offset(0, 10),
             ),
           ],
         ),
-        padding: padding,
+        padding: widget.padding,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: <Widget>[
-              if (leading != null) ...<Widget>[
-                leading!,
-                SizedBox(width: spacing),
+              if (widget.leading != null) ...<Widget>[
+                widget.leading!,
+                SizedBox(width: widget.spacing),
               ],
               for (final action in resolvedActions) ...<Widget>[
-                _buildAction(context, action),
-                SizedBox(width: spacing),
+                _buildAction(
+                  context,
+                  action,
+                  iconBackgroundColor: iconBackground,
+                  iconColor: iconColor,
+                  disabledIconColor: disabledIconColor,
+                ),
+                SizedBox(width: widget.spacing),
               ],
-              if (trailing != null) trailing!,
+              if (widget.trailing != null) widget.trailing!,
             ],
           ),
         ),
@@ -292,39 +388,45 @@ class MarkdownEditingBar extends StatelessWidget {
     );
   }
 
-  Widget _buildAction(BuildContext context, MarkdownEditingBarAction action) {
+  Widget _buildAction(
+    BuildContext context,
+    MarkdownEditingBarAction action, {
+    required Color iconBackgroundColor,
+    required Color iconColor,
+    required Color disabledIconColor,
+  }) {
     if (action.id == '__divider__') {
       return Container(
         width: 1,
         height: 26,
-        color: const Color(0x22FFFFFF),
+        color: Theme.of(
+          context,
+        ).colorScheme.outlineVariant.withValues(alpha: 0.7),
         margin: const EdgeInsets.symmetric(horizontal: 4),
       );
     }
 
-    final enabled = action.enabledFor(controller);
+    final enabled = action.enabledFor(widget.controller);
     final details = MarkdownEditingBarItemDetails(
       action: action,
-      controller: controller,
+      controller: widget.controller,
       enabled: enabled,
     );
-    if (itemBuilder != null) {
-      return itemBuilder!(context, details);
+    if (widget.itemBuilder != null) {
+      return widget.itemBuilder!(context, details);
     }
 
     return IconButton(
       onPressed: enabled
           ? () {
-              action.onPressed(context, controller);
-              focusNode?.requestFocus();
+              action.onPressed(context, widget.controller);
+              widget.focusNode?.requestFocus();
             }
           : null,
       tooltip: action.tooltip,
       style: IconButton.styleFrom(
-        backgroundColor: enabled ? const Color(0x0FFFFFFF) : Colors.transparent,
-        foregroundColor: enabled
-            ? const Color(0xFFF8FAFC)
-            : const Color(0x66F8FAFC),
+        backgroundColor: enabled ? iconBackgroundColor : Colors.transparent,
+        foregroundColor: enabled ? iconColor : disabledIconColor,
         minimumSize: const Size(38, 38),
         maximumSize: const Size(38, 38),
         padding: EdgeInsets.zero,

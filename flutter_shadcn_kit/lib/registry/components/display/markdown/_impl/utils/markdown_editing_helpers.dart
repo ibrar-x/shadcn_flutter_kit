@@ -74,6 +74,23 @@ class MarkdownEditingHelpers {
     });
   }
 
+  static MarkdownEditResult cycleHeading({
+    required String text,
+    required TextSelection selection,
+  }) {
+    final normalized = _normalizeSelection(text, selection);
+    final bounds = _lineBounds(text, normalized);
+    final lines = text.substring(bounds.$1, bounds.$2).split('\n');
+    final currentLevel = _currentHeadingLevel(lines);
+    final nextLevel = currentLevel >= 6 ? 0 : currentLevel + 1;
+    return _transformSelectedLines(text, selection, (sourceLines) {
+      return _setHeadingLevel(
+        sourceLines,
+        targetLevel: nextLevel == 0 ? null : nextLevel,
+      );
+    });
+  }
+
   static MarkdownEditResult toggleQuote({
     required String text,
     required TextSelection selection,
@@ -239,6 +256,31 @@ class MarkdownEditingHelpers {
     );
   }
 
+  static MarkdownEditResult insertHorizontalRule({
+    required String text,
+    required TextSelection selection,
+  }) {
+    final normalized = _normalizeSelection(text, selection);
+    final before = normalized.start > 0 && text[normalized.start - 1] != '\n'
+        ? '\n'
+        : '';
+    final after = normalized.end < text.length && text[normalized.end] != '\n'
+        ? '\n'
+        : '';
+    const rule = '---';
+    final replacement = '$before$rule$after';
+    final nextText = text.replaceRange(
+      normalized.start,
+      normalized.end,
+      replacement,
+    );
+    final caret = normalized.start + replacement.length;
+    return MarkdownEditResult(
+      text: nextText,
+      selection: TextSelection.collapsed(offset: caret),
+    );
+  }
+
   static MarkdownEditResult _toggleDelimited(
     String text,
     TextSelection selection,
@@ -341,10 +383,48 @@ class MarkdownEditingHelpers {
   }
 
   static (int, int) _lineBounds(String text, TextSelection selection) {
-    final start = text.lastIndexOf('\n', selection.start - 1);
+    final start = selection.start <= 0
+        ? -1
+        : text.lastIndexOf('\n', selection.start - 1);
     final end = text.indexOf('\n', selection.end);
     final lineStart = start == -1 ? 0 : start + 1;
     final lineEnd = end == -1 ? text.length : end;
     return (lineStart, lineEnd);
+  }
+
+  static int _currentHeadingLevel(List<String> lines) {
+    for (final line in lines) {
+      final trimmed = line.trimLeft();
+      if (trimmed.isEmpty) {
+        continue;
+      }
+      final match = RegExp(r'^(#{1,6})\s+').firstMatch(trimmed);
+      if (match == null) {
+        return 0;
+      }
+      return match.group(1)!.length;
+    }
+    return 0;
+  }
+
+  static List<String> _setHeadingLevel(
+    List<String> lines, {
+    required int? targetLevel,
+  }) {
+    final sanitizedLevel = targetLevel?.clamp(1, 6).toInt();
+    final nextLines = <String>[];
+    for (final line in lines) {
+      if (line.trim().isEmpty) {
+        nextLines.add(line);
+        continue;
+      }
+      final stripped = line.replaceFirst(RegExp(r'^#{1,6}\s+'), '');
+      if (sanitizedLevel == null) {
+        nextLines.add(stripped);
+      } else {
+        nextLines.add('${'#' * sanitizedLevel} $stripped');
+      }
+    }
+    return nextLines;
   }
 }
