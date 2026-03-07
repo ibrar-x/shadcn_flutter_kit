@@ -288,12 +288,13 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
 
 (int, String)? _tryParseWrappedAtxHeading(String line) {
   final tokens = <String>[];
+  final source = line.trimLeft();
   var cursor = 0;
-  const markers = <String>['***', '~~', '**', '__', '*', '_'];
-  while (cursor < line.length) {
+  const markers = <String>['***', '~~', '**', '__', '`', '*', '_'];
+  while (cursor < source.length) {
     String? matched;
     for (final marker in markers) {
-      if (line.startsWith(marker, cursor)) {
+      if (source.startsWith(marker, cursor)) {
         matched = marker;
         break;
       }
@@ -309,8 +310,8 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
   }
 
   final heading = RegExp(
-    r'^(#{1,6})\s+(.+)$',
-  ).firstMatch(line.substring(cursor));
+    r'^\s*(#{1,6})\s+(.+)$',
+  ).firstMatch(source.substring(cursor));
   if (heading == null) {
     return null;
   }
