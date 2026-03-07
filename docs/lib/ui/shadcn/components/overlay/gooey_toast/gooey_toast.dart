@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../../shared/theme/color_scheme.dart' as shad_colors;
+import '../../../shared/theme/preset_themes.dart' as shad_presets;
 import '../../../shared/theme/theme.dart' as shad;
 
 part '_impl/core/gooey_toast_constants.dart';
