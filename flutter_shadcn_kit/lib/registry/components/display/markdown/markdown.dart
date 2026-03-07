@@ -20,6 +20,77 @@ part '_impl/utils/markdown_parser.dart';
 
 /// Link callback for markdown links: [label](url)
 typedef MarkdownTapLinkCallback = void Function(String text, String url);
+typedef MarkdownTapLinkDetailsCallback =
+    void Function(MarkdownLinkTapDetails details);
+typedef MarkdownTapImageCallback =
+    void Function(MarkdownImageTapDetails details);
+typedef MarkdownTapHeadingCallback =
+    void Function(MarkdownHeadingTapDetails details);
+typedef MarkdownDocumentReadyCallback =
+    void Function(MarkdownDocumentMetrics metrics);
+
+enum MarkdownLinkKind { anchor, email, external, relative }
+
+@immutable
+class MarkdownLinkTapDetails {
+  const MarkdownLinkTapDetails({
+    required this.text,
+    required this.url,
+    required this.kind,
+  });
+
+  final String text;
+  final String url;
+  final MarkdownLinkKind kind;
+
+  bool get isAnchor => kind == MarkdownLinkKind.anchor;
+  bool get isEmail => kind == MarkdownLinkKind.email;
+  bool get isExternal => kind == MarkdownLinkKind.external;
+  bool get isRelative => kind == MarkdownLinkKind.relative;
+}
+
+@immutable
+class MarkdownImageTapDetails {
+  const MarkdownImageTapDetails({
+    required this.url,
+    required this.alt,
+    this.title,
+  });
+
+  final String url;
+  final String alt;
+  final String? title;
+}
+
+@immutable
+class MarkdownHeadingTapDetails {
+  const MarkdownHeadingTapDetails({
+    required this.text,
+    required this.anchor,
+    required this.level,
+  });
+
+  final String text;
+  final String anchor;
+  final int level;
+}
+
+@immutable
+class MarkdownDocumentMetrics {
+  const MarkdownDocumentMetrics({
+    required this.blockCount,
+    required this.chunkCount,
+    required this.headingCount,
+    required this.imageCount,
+    required this.tableCount,
+  });
+
+  final int blockCount;
+  final int chunkCount;
+  final int headingCount;
+  final int imageCount;
+  final int tableCount;
+}
 
 enum MarkdownSourceType { text, asset, file }
 
@@ -35,6 +106,10 @@ class Markdown extends StatefulWidget {
     this.selectable = true,
     this.style,
     this.onTapLink,
+    this.onTapLinkDetails,
+    this.onTapImage,
+    this.onTapHeading,
+    this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -49,6 +124,10 @@ class Markdown extends StatefulWidget {
     this.selectable = true,
     this.style,
     this.onTapLink,
+    this.onTapLinkDetails,
+    this.onTapImage,
+    this.onTapHeading,
+    this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -64,6 +143,10 @@ class Markdown extends StatefulWidget {
     this.selectable = true,
     this.style,
     this.onTapLink,
+    this.onTapLinkDetails,
+    this.onTapImage,
+    this.onTapHeading,
+    this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -77,6 +160,10 @@ class Markdown extends StatefulWidget {
   final bool selectable;
   final TextStyle? style;
   final MarkdownTapLinkCallback? onTapLink;
+  final MarkdownTapLinkDetailsCallback? onTapLinkDetails;
+  final MarkdownTapImageCallback? onTapImage;
+  final MarkdownTapHeadingCallback? onTapHeading;
+  final MarkdownDocumentReadyCallback? onDocumentReady;
   final bool shrinkWrap;
   final bool followLinks;
   final MarkdownSourceType sourceType;
@@ -91,6 +178,10 @@ class Markdown extends StatefulWidget {
     bool? selectable,
     TextStyle? style,
     MarkdownTapLinkCallback? onTapLink,
+    MarkdownTapLinkDetailsCallback? onTapLinkDetails,
+    MarkdownTapImageCallback? onTapImage,
+    MarkdownTapHeadingCallback? onTapHeading,
+    MarkdownDocumentReadyCallback? onDocumentReady,
     bool? shrinkWrap,
     bool? followLinks,
     Widget Function(BuildContext context, String url, String alt)? imageBuilder,
@@ -104,6 +195,10 @@ class Markdown extends StatefulWidget {
         selectable: selectable ?? this.selectable,
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
+        onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
+        onTapImage: onTapImage ?? this.onTapImage,
+        onTapHeading: onTapHeading ?? this.onTapHeading,
+        onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -116,6 +211,10 @@ class Markdown extends StatefulWidget {
         selectable: selectable ?? this.selectable,
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
+        onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
+        onTapImage: onTapImage ?? this.onTapImage,
+        onTapHeading: onTapHeading ?? this.onTapHeading,
+        onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -128,6 +227,10 @@ class Markdown extends StatefulWidget {
         selectable: selectable ?? this.selectable,
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
+        onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
+        onTapImage: onTapImage ?? this.onTapImage,
+        onTapHeading: onTapHeading ?? this.onTapHeading,
+        onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -152,6 +255,10 @@ extension on Markdown {
       selectable: selectable,
       style: style,
       onTapLink: onTapLink,
+      onTapLinkDetails: onTapLinkDetails,
+      onTapImage: onTapImage,
+      onTapHeading: onTapHeading,
+      onDocumentReady: onDocumentReady,
       shrinkWrap: shrinkWrap,
       followLinks: followLinks,
       imageBuilder: imageBuilder,
@@ -176,6 +283,7 @@ class _MarkdownState extends State<Markdown> {
   List<_MarkdownChunk> _chunks = const <_MarkdownChunk>[];
   int _visibleChunkCount = 0;
   List<GlobalKey?> _cachedBlockHeadingKeys = const <GlobalKey?>[];
+  List<String?> _cachedBlockHeadingAnchors = const <String?>[];
   Map<String, GlobalKey> _cachedHeadingAnchorMap = const <String, GlobalKey>{};
   Map<String, int> _cachedHeadingChunkIndices = const <String, int>{};
   final ScrollController _chunkScrollController = ScrollController();
@@ -270,6 +378,7 @@ class _MarkdownState extends State<Markdown> {
       }
       final chunks = _chunkMarkdownBlocks(parsed.blocks);
       final initialChunkCount = _initialChunkCountForDocument(parsed, chunks);
+      final metrics = _collectDocumentMetrics(parsed, chunks);
       setState(() {
         _cachedDocument = parsed;
         _chunks = chunks;
@@ -277,6 +386,7 @@ class _MarkdownState extends State<Markdown> {
         _primeHeadingAnchors(parsed.blocks, chunks);
         _preparingDocument = false;
       });
+      _notifyDocumentReady(generation, metrics);
       _scheduleProgressiveChunkWarmup();
     } catch (error) {
       if (!mounted || generation != _parseGeneration) {
@@ -346,6 +456,7 @@ class _MarkdownState extends State<Markdown> {
     _chunks = const <_MarkdownChunk>[];
     _visibleChunkCount = 0;
     _cachedBlockHeadingKeys = const <GlobalKey?>[];
+    _cachedBlockHeadingAnchors = const <String?>[];
     _cachedHeadingAnchorMap = const <String, GlobalKey>{};
     _cachedHeadingChunkIndices = const <String, int>{};
   }
@@ -355,6 +466,7 @@ class _MarkdownState extends State<Markdown> {
     List<_MarkdownChunk> chunks,
   ) {
     final keys = List<GlobalKey?>.filled(blocks.length, null);
+    final slugs = List<String?>.filled(blocks.length, null);
     final anchors = <String, GlobalKey>{};
     final counts = <String, int>{};
     final blockIndices = <String, int>{};
@@ -372,6 +484,7 @@ class _MarkdownState extends State<Markdown> {
       counts[base] = seen + 1;
       final key = GlobalKey(debugLabel: 'md-anchor-$slug');
       keys[index] = key;
+      slugs[index] = slug;
       anchors[slug] = key;
       blockIndices[slug] = index;
     }
@@ -382,8 +495,49 @@ class _MarkdownState extends State<Markdown> {
     }
 
     _cachedBlockHeadingKeys = List<GlobalKey?>.unmodifiable(keys);
+    _cachedBlockHeadingAnchors = List<String?>.unmodifiable(slugs);
     _cachedHeadingAnchorMap = Map<String, GlobalKey>.unmodifiable(anchors);
     _cachedHeadingChunkIndices = Map<String, int>.unmodifiable(chunkIndices);
+  }
+
+  MarkdownDocumentMetrics _collectDocumentMetrics(
+    _MarkdownDocument document,
+    List<_MarkdownChunk> chunks,
+  ) {
+    var headingCount = 0;
+    var imageCount = 0;
+    var tableCount = 0;
+    for (final block in document.blocks) {
+      if (_isHeadingBlockType(block.type)) {
+        headingCount += 1;
+      }
+      if (block.type == _MarkdownBlockType.image) {
+        imageCount += 1;
+      }
+      if (block.type == _MarkdownBlockType.table) {
+        tableCount += 1;
+      }
+    }
+    return MarkdownDocumentMetrics(
+      blockCount: document.blocks.length,
+      chunkCount: chunks.length,
+      headingCount: headingCount,
+      imageCount: imageCount,
+      tableCount: tableCount,
+    );
+  }
+
+  void _notifyDocumentReady(int generation, MarkdownDocumentMetrics metrics) {
+    final callback = widget.onDocumentReady;
+    if (callback == null) {
+      return;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || generation != _parseGeneration) {
+        return;
+      }
+      callback(metrics);
+    });
   }
 
   int _chunkIndexForBlock(int blockIndex, List<_MarkdownChunk> chunks) {
@@ -500,17 +654,40 @@ class _MarkdownState extends State<Markdown> {
     return offset;
   }
 
+  MarkdownLinkKind _classifyLinkKind(String url) {
+    final trimmed = url.trim();
+    if (trimmed.startsWith('#')) {
+      return MarkdownLinkKind.anchor;
+    }
+    if (trimmed.toLowerCase().startsWith('mailto:')) {
+      return MarkdownLinkKind.email;
+    }
+    final uri = Uri.tryParse(trimmed);
+    if (uri != null && uri.hasScheme) {
+      return MarkdownLinkKind.external;
+    }
+    return MarkdownLinkKind.relative;
+  }
+
   void _handleTapLink(String text, String url) {
-    final callback = widget.onTapLink;
-    if (callback != null) {
-      callback(text, url);
+    final normalizedUrl = url.trim();
+    final details = MarkdownLinkTapDetails(
+      text: text,
+      url: normalizedUrl,
+      kind: _classifyLinkKind(normalizedUrl),
+    );
+    if (details.isAnchor && _scrollToAnchor(normalizedUrl.substring(1))) {
+      widget.onTapLinkDetails?.call(details);
+      widget.onTapLink?.call(text, normalizedUrl);
       return;
     }
-    if (url.startsWith('#') && _scrollToAnchor(url.substring(1))) {
+    widget.onTapLinkDetails?.call(details);
+    widget.onTapLink?.call(text, normalizedUrl);
+    if (widget.onTapLinkDetails != null || widget.onTapLink != null) {
       return;
     }
     if (widget.followLinks) {
-      unawaited(openMarkdownLink(url));
+      unawaited(openMarkdownLink(normalizedUrl));
     }
   }
 
@@ -550,6 +727,7 @@ class _MarkdownState extends State<Markdown> {
     }
     final blocks = document.blocks;
     final blockAnchors = _cachedBlockHeadingKeys;
+    final blockHeadingSlugs = _cachedBlockHeadingAnchors;
 
     if (blocks.isEmpty) {
       return const SizedBox.shrink();
@@ -587,6 +765,7 @@ class _MarkdownState extends State<Markdown> {
                 document,
                 markdownTheme,
                 blockAnchors,
+                blockHeadingSlugs,
               ),
             );
           },
@@ -602,6 +781,7 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownDocument document,
     MarkdownTheme markdownTheme,
     List<GlobalKey?> blockAnchors,
+    List<String?> blockHeadingSlugs,
   ) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -621,6 +801,9 @@ class _MarkdownState extends State<Markdown> {
             headingAnchorKey: blockIndex < blockAnchors.length
                 ? blockAnchors[blockIndex]
                 : null,
+            headingAnchorSlug: blockIndex < blockHeadingSlugs.length
+                ? blockHeadingSlugs[blockIndex]
+                : null,
           ),
       ],
     );
@@ -633,6 +816,7 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownDocument document,
     MarkdownTheme? markdownTheme, {
     GlobalKey? headingAnchorKey,
+    String? headingAnchorSlug,
   }) {
     final linkStyle = markdownTheme?.linkStyle;
     final rich = TextSpan(
@@ -764,6 +948,9 @@ class _MarkdownState extends State<Markdown> {
             selectable: widget.selectable,
             style: markdownTheme?.quoteStyle ?? baseStyle,
             onTapLink: _handleTapLink,
+            onTapLinkDetails: widget.onTapLinkDetails,
+            onTapImage: widget.onTapImage,
+            onTapHeading: widget.onTapHeading,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -812,6 +999,9 @@ class _MarkdownState extends State<Markdown> {
             selectable: widget.selectable,
             style: baseStyle,
             onTapLink: _handleTapLink,
+            onTapLinkDetails: widget.onTapLinkDetails,
+            onTapImage: widget.onTapImage,
+            onTapHeading: widget.onTapHeading,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -881,6 +1071,36 @@ class _MarkdownState extends State<Markdown> {
 
     if (headingAnchorKey != null) {
       child = KeyedSubtree(key: headingAnchorKey, child: child);
+    }
+
+    if (headingAnchorSlug != null && widget.onTapHeading != null) {
+      final level = switch (block.type) {
+        _MarkdownBlockType.heading1 => 1,
+        _MarkdownBlockType.heading2 => 2,
+        _MarkdownBlockType.heading3 => 3,
+        _MarkdownBlockType.heading4 => 4,
+        _MarkdownBlockType.heading5 => 5,
+        _MarkdownBlockType.heading6 => 6,
+        _ => 0,
+      };
+      if (level > 0) {
+        child = MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              widget.onTapHeading?.call(
+                MarkdownHeadingTapDetails(
+                  text: block.text,
+                  anchor: headingAnchorSlug,
+                  level: level,
+                ),
+              );
+            },
+            child: child,
+          ),
+        );
+      }
     }
 
     return Padding(
@@ -1005,44 +1225,45 @@ class _MarkdownState extends State<Markdown> {
     }
 
     final alt = block.imageAlt ?? '';
-    if (widget.imageBuilder != null) {
-      return widget.imageBuilder!(context, imageUrl, alt);
-    }
-
-    final normalized = imageUrl.trim();
     Widget image;
-    if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
-      if (_failedNetworkImageUrls.contains(normalized)) {
-        image = _buildImageFallback(
-          baseStyle,
-          alt.isNotEmpty ? alt : 'Image failed to load: $normalized',
-        );
+    if (widget.imageBuilder != null) {
+      image = widget.imageBuilder!(context, imageUrl, alt);
+    } else {
+      final normalized = imageUrl.trim();
+      if (normalized.startsWith('http://') ||
+          normalized.startsWith('https://')) {
+        if (_failedNetworkImageUrls.contains(normalized)) {
+          image = _buildImageFallback(
+            baseStyle,
+            alt.isNotEmpty ? alt : 'Image failed to load: $normalized',
+          );
+        } else {
+          image = Image.network(
+            normalized,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              _failedNetworkImageUrls.add(normalized);
+              return _buildImageFallback(
+                baseStyle,
+                alt.isNotEmpty ? alt : 'Image failed to load',
+              );
+            },
+          );
+        }
       } else {
-        image = Image.network(
-          normalized,
+        final assetPath = normalized.startsWith('asset:')
+            ? normalized.substring(6)
+            : normalized;
+        image = Image.asset(
+          assetPath,
           fit: BoxFit.contain,
-          errorBuilder: (context, error, stackTrace) {
-            _failedNetworkImageUrls.add(normalized);
-            return _buildImageFallback(
-              baseStyle,
-              alt.isNotEmpty ? alt : 'Image failed to load',
-            );
-          },
+          errorBuilder: (context, error, stackTrace) =>
+              _buildImageFallback(baseStyle, alt.isNotEmpty ? alt : assetPath),
         );
       }
-    } else {
-      final assetPath = normalized.startsWith('asset:')
-          ? normalized.substring(6)
-          : normalized;
-      image = Image.asset(
-        assetPath,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) =>
-            _buildImageFallback(baseStyle, alt.isNotEmpty ? alt : assetPath),
-      );
     }
 
-    return Container(
+    Widget child = Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       constraints: BoxConstraints(
         maxHeight: markdownTheme?.imageMaxHeight ?? 280,
@@ -1071,6 +1292,27 @@ class _MarkdownState extends State<Markdown> {
         ],
       ),
     );
+
+    if (widget.onTapImage != null) {
+      child = MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            widget.onTapImage?.call(
+              MarkdownImageTapDetails(
+                url: imageUrl.trim(),
+                alt: alt,
+                title: block.imageTitle,
+              ),
+            );
+          },
+          child: child,
+        ),
+      );
+    }
+
+    return child;
   }
 
   Widget _buildImageFallback(TextStyle baseStyle, String message) {
