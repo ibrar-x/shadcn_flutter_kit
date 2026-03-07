@@ -252,6 +252,59 @@ Link example: [Flutter](https://flutter.dev)
                   ),
                   const m.SizedBox(height: 14),
                   _sectionCard(
+                    title: 'Theme Override Example',
+                    child: _surface(
+                      shadcn.ComponentTheme(
+                        data: const MarkdownTheme(
+                          style: m.TextStyle(
+                            fontFamily: 'GeistSans',
+                            height: 1.55,
+                            color: m.Color(0xFF2B1B10),
+                          ),
+                          linkStyle: m.TextStyle(
+                            color: m.Color(0xFF0E7490),
+                            decoration: m.TextDecoration.underline,
+                            fontWeight: m.FontWeight.w600,
+                          ),
+                          codeBackgroundColor: m.Color(0xFFF5EEE2),
+                          quoteBorderColor: m.Color(0xFFD97706),
+                          quoteBackgroundColor: m.Color(0xFFFFFBEB),
+                          tableBorderColor: m.Color(0xFFD6C5AB),
+                          tableHeaderBackgroundColor: m.Color(0xFFF5EEE2),
+                          detailsBorderColor: m.Color(0xFFD6C5AB),
+                          detailsBackgroundColor: m.Color(0xFFFFFBEB),
+                          horizontalRuleColor: m.Color(0xFFD6C5AB),
+                          codeRadius: m.BorderRadius.all(m.Radius.circular(14)),
+                          tableRadius: m.BorderRadius.all(
+                            m.Radius.circular(14),
+                          ),
+                          detailsRadius: m.BorderRadius.all(
+                            m.Radius.circular(14),
+                          ),
+                          imageMaxHeight: 220,
+                          listIndent: 20,
+                          heading1Style: m.TextStyle(
+                            fontSize: 31,
+                            fontWeight: m.FontWeight.w800,
+                            color: m.Color(0xFF7C2D12),
+                          ),
+                          heading2Style: m.TextStyle(
+                            fontSize: 26,
+                            fontWeight: m.FontWeight.w800,
+                            color: m.Color(0xFF9A3412),
+                          ),
+                        ),
+                        child: Markdown.asset(
+                          asset: _showcaseAssetPath,
+                          selectable: true,
+                          errorBuilder: (context, error) =>
+                              m.Text('Theme example error: $error'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const m.SizedBox(height: 14),
+                  _sectionCard(
                     title: 'Inline API Sample',
                     child: _surface(
                       Markdown(data: _inlineMarkdown, selectable: true),

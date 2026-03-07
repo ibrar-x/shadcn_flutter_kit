@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' as f;
 import 'package:flutter/material.dart' as m;
 
+import '../../../shared/theme/theme.dart' as shadcn;
 import 'markdown.dart';
 import '../text_animate/text_animate.dart' as ta;
 import '../text_animate/_impl/extensions/markdown_streaming_extension.dart';

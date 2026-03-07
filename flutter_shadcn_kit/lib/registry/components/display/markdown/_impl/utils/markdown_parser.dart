@@ -700,7 +700,7 @@ TextAlign _tableAlignment(String cell) {
 
 bool _isTableSeparatorLine(String line) {
   return RegExp(
-    r'^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$',
+    r'^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$',
   ).hasMatch(line);
 }
 
