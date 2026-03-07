@@ -52,7 +52,7 @@ class _StreamingMarkdownAdapter extends StatefulWidget {
 }
 
 class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
-  static const Duration _frameInterval = Duration(milliseconds: 16);
+  static const Duration _frameInterval = Duration(milliseconds: 24);
 
   late final Stopwatch _clock;
   Timer? _ticker;
@@ -63,6 +63,10 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
   List<String> _stableUnits = const <String>[];
   List<String> _animatedUnits = const <String>[];
   Duration _changedAt = Duration.zero;
+  Widget? _cachedCommittedWidget;
+  String _cachedCommittedData = '';
+  Widget? _cachedPendingWidget;
+  String _cachedPendingData = '';
 
   @override
   void initState() {
@@ -74,6 +78,14 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
   @override
   void didUpdateWidget(covariant _StreamingMarkdownAdapter oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.source.selectable != widget.source.selectable ||
+        oldWidget.source.style != widget.source.style ||
+        oldWidget.source.onTapLink != widget.source.onTapLink ||
+        oldWidget.source.followLinks != widget.source.followLinks ||
+        oldWidget.source.imageBuilder != widget.source.imageBuilder ||
+        oldWidget.source.shrinkWrap != widget.source.shrinkWrap) {
+      _clearRenderCache();
+    }
     if (oldWidget.source.data != widget.source.data) {
       _applyIncoming(widget.source.data, forceReset: false);
     }
@@ -93,6 +105,7 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
       _sourceSnapshot = next;
       _committedMarkdown = '';
       _pendingMarkdown = next;
+      _clearRenderCache();
       _promoteStablePrefix();
       _resetPendingAnimation();
       return;
@@ -122,6 +135,8 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     _committedMarkdown =
         '$_committedMarkdown${_pendingMarkdown.substring(0, stableLength)}';
     _pendingMarkdown = _pendingMarkdown.substring(stableLength);
+    _cachedCommittedWidget = null;
+    _cachedPendingWidget = null;
     return stableLength;
   }
 
@@ -129,6 +144,7 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     _stableUnits = const <String>[];
     _animatedUnits = _splitUnits(_pendingMarkdown);
     _changedAt = _clock.elapsed;
+    _cachedPendingWidget = null;
   }
 
   void _updatePendingAnimation(String previousPending) {
@@ -138,6 +154,14 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
     _stableUnits = List<String>.unmodifiable(nextUnits.take(shared));
     _animatedUnits = List<String>.unmodifiable(nextUnits.skip(shared));
     _changedAt = _clock.elapsed;
+    _cachedPendingWidget = null;
+  }
+
+  void _clearRenderCache() {
+    _cachedCommittedWidget = null;
+    _cachedCommittedData = '';
+    _cachedPendingWidget = null;
+    _cachedPendingData = '';
   }
 
   List<String> _splitUnits(String value) {
@@ -197,20 +221,33 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
 
     final children = <Widget>[];
     if (_committedMarkdown.isNotEmpty) {
-      children.add(widget.source.copyWith(data: _committedMarkdown));
+      if (_cachedCommittedWidget == null ||
+          _cachedCommittedData != _committedMarkdown) {
+        _cachedCommittedData = _committedMarkdown;
+        _cachedCommittedWidget = widget.source.copyWith(
+          data: _committedMarkdown,
+        );
+      }
+      children.add(_cachedCommittedWidget!);
     }
     if (visiblePending.isNotEmpty) {
+      if (_cachedPendingWidget == null ||
+          _cachedPendingData != visiblePending) {
+        _cachedPendingData = visiblePending;
+        _cachedPendingWidget = md.Markdown(
+          data: visiblePending,
+          selectable: widget.source.selectable,
+          style: widget.source.style,
+          onTapLink: widget.source.onTapLink,
+          shrinkWrap: true,
+          followLinks: widget.source.followLinks,
+          imageBuilder: widget.source.imageBuilder,
+        );
+      }
       children.add(
         _wrapEffect(
           context: context,
-          child: md.Markdown(
-            data: visiblePending,
-            selectable: widget.source.selectable,
-            style: widget.source.style,
-            onTapLink: widget.source.onTapLink,
-            shrinkWrap: true,
-            imageBuilder: widget.source.imageBuilder,
-          ),
+          child: _cachedPendingWidget!,
           age: newestUnitAge,
         ),
       );

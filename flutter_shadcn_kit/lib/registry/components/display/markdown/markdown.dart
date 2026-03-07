@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -166,6 +168,9 @@ class _MarkdownState extends State<Markdown> {
   bool _loading = false;
   String? _cachedDocumentSource;
   _MarkdownDocument? _cachedDocument;
+  String? _cachedAnchorSource;
+  List<GlobalKey?> _cachedBlockHeadingKeys = const <GlobalKey?>[];
+  Map<String, GlobalKey> _cachedHeadingAnchorMap = const <String, GlobalKey>{};
 
   @override
   void initState() {
@@ -190,8 +195,7 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = null;
         _resolvedData = widget.data;
-        _cachedDocumentSource = null;
-        _cachedDocument = null;
+        _clearMarkdownCaches();
       });
       return;
     }
@@ -202,8 +206,7 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = StateError('Markdown source path cannot be empty.');
         _resolvedData = '';
-        _cachedDocumentSource = null;
-        _cachedDocument = null;
+        _clearMarkdownCaches();
       });
       return;
     }
@@ -226,8 +229,7 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = null;
         _resolvedData = loaded;
-        _cachedDocumentSource = null;
-        _cachedDocument = null;
+        _clearMarkdownCaches();
       });
     } catch (error) {
       if (!mounted) {
@@ -237,8 +239,7 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = error;
         _resolvedData = '';
-        _cachedDocumentSource = null;
-        _cachedDocument = null;
+        _clearMarkdownCaches();
       });
     }
   }
@@ -251,6 +252,104 @@ class _MarkdownState extends State<Markdown> {
     _cachedDocumentSource = _resolvedData;
     _cachedDocument = parsed;
     return parsed;
+  }
+
+  void _clearMarkdownCaches() {
+    _cachedDocumentSource = null;
+    _cachedDocument = null;
+    _cachedAnchorSource = null;
+    _cachedBlockHeadingKeys = const <GlobalKey?>[];
+    _cachedHeadingAnchorMap = const <String, GlobalKey>{};
+  }
+
+  (List<GlobalKey?>, Map<String, GlobalKey>) _resolveHeadingAnchors(
+    List<_MarkdownBlock> blocks,
+  ) {
+    if (_cachedAnchorSource == _resolvedData &&
+        _cachedBlockHeadingKeys.length == blocks.length) {
+      return (_cachedBlockHeadingKeys, _cachedHeadingAnchorMap);
+    }
+
+    final keys = List<GlobalKey?>.filled(blocks.length, null);
+    final anchors = <String, GlobalKey>{};
+    final counts = <String, int>{};
+    for (var index = 0; index < blocks.length; index++) {
+      final block = blocks[index];
+      if (!_isHeadingBlockType(block.type)) {
+        continue;
+      }
+      final base = _normalizeAnchorSlug(block.text);
+      if (base.isEmpty) {
+        continue;
+      }
+      final seen = counts[base] ?? 0;
+      final slug = seen == 0 ? base : '$base-$seen';
+      counts[base] = seen + 1;
+      final key = GlobalKey(debugLabel: 'md-anchor-$slug');
+      keys[index] = key;
+      anchors[slug] = key;
+    }
+
+    _cachedAnchorSource = _resolvedData;
+    _cachedBlockHeadingKeys = List<GlobalKey?>.unmodifiable(keys);
+    _cachedHeadingAnchorMap = Map<String, GlobalKey>.unmodifiable(anchors);
+    return (_cachedBlockHeadingKeys, _cachedHeadingAnchorMap);
+  }
+
+  bool _isHeadingBlockType(_MarkdownBlockType type) {
+    return type == _MarkdownBlockType.heading1 ||
+        type == _MarkdownBlockType.heading2 ||
+        type == _MarkdownBlockType.heading3 ||
+        type == _MarkdownBlockType.heading4 ||
+        type == _MarkdownBlockType.heading5 ||
+        type == _MarkdownBlockType.heading6;
+  }
+
+  String _normalizeAnchorSlug(String value) {
+    final decoded = Uri.decodeComponent(value).trim().toLowerCase();
+    if (decoded.isEmpty) {
+      return '';
+    }
+    var slug = decoded.replaceAll(RegExp(r'<[^>]+>'), '');
+    slug = slug.replaceAll(RegExp(r'[`\*_\~\[\]\(\)\{\}]'), '');
+    slug = slug.replaceAll(RegExp(r'[^\w\s-]'), '');
+    slug = slug.replaceAll(RegExp(r'\s+'), '-');
+    slug = slug.replaceAll(RegExp(r'-+'), '-');
+    slug = slug.replaceAll(RegExp(r'^-+|-+$'), '');
+    return slug;
+  }
+
+  bool _scrollToAnchor(String rawAnchor) {
+    final anchor = _normalizeAnchorSlug(rawAnchor);
+    if (anchor.isEmpty) {
+      return false;
+    }
+    final key = _cachedHeadingAnchorMap[anchor];
+    final targetContext = key?.currentContext;
+    if (targetContext == null) {
+      return false;
+    }
+    Scrollable.ensureVisible(
+      targetContext,
+      alignment: 0.08,
+      curve: Curves.easeOutCubic,
+      duration: const Duration(milliseconds: 180),
+    );
+    return true;
+  }
+
+  void _handleTapLink(String text, String url) {
+    final callback = widget.onTapLink;
+    if (callback != null) {
+      callback(text, url);
+      return;
+    }
+    if (url.startsWith('#') && _scrollToAnchor(url.substring(1))) {
+      return;
+    }
+    if (widget.followLinks) {
+      unawaited(openMarkdownLink(url));
+    }
   }
 
   @override
@@ -281,6 +380,7 @@ class _MarkdownState extends State<Markdown> {
     );
     final document = _resolveDocument();
     final blocks = document.blocks;
+    final blockAnchors = _resolveHeadingAnchors(blocks).$1;
 
     if (blocks.isEmpty) {
       return const SizedBox.shrink();
@@ -290,8 +390,15 @@ class _MarkdownState extends State<Markdown> {
       mainAxisSize: widget.shrinkWrap ? MainAxisSize.min : MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final block in blocks)
-          _buildBlock(context, block, baseStyle, document, markdownTheme),
+        for (var index = 0; index < blocks.length; index++)
+          _buildBlock(
+            context,
+            blocks[index],
+            baseStyle,
+            document,
+            markdownTheme,
+            headingAnchorKey: blockAnchors[index],
+          ),
       ],
     );
   }
@@ -301,8 +408,9 @@ class _MarkdownState extends State<Markdown> {
     _MarkdownBlock block,
     TextStyle baseStyle,
     _MarkdownDocument document,
-    MarkdownTheme? markdownTheme,
-  ) {
+    MarkdownTheme? markdownTheme, {
+    GlobalKey? headingAnchorKey,
+  }) {
     final linkStyle = markdownTheme?.linkStyle;
     final rich = TextSpan(
       style: baseStyle,
@@ -311,7 +419,7 @@ class _MarkdownState extends State<Markdown> {
         block.text,
         baseStyle,
         document,
-        onTapLink: widget.onTapLink,
+        onTapLink: _handleTapLink,
         followLinks: widget.followLinks,
         linkStyle: linkStyle,
       ),
@@ -432,7 +540,7 @@ class _MarkdownState extends State<Markdown> {
             data: block.text,
             selectable: widget.selectable,
             style: markdownTheme?.quoteStyle ?? baseStyle,
-            onTapLink: widget.onTapLink,
+            onTapLink: _handleTapLink,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -480,7 +588,7 @@ class _MarkdownState extends State<Markdown> {
             data: block.items.isEmpty ? '' : block.items.first,
             selectable: widget.selectable,
             style: baseStyle,
-            onTapLink: widget.onTapLink,
+            onTapLink: _handleTapLink,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -506,7 +614,7 @@ class _MarkdownState extends State<Markdown> {
                     _htmlToInlineText(block.text),
                     baseStyle,
                     document,
-                    onTapLink: widget.onTapLink,
+                    onTapLink: _handleTapLink,
                     followLinks: widget.followLinks,
                     linkStyle: linkStyle,
                   ),
@@ -520,7 +628,7 @@ class _MarkdownState extends State<Markdown> {
                     _htmlToInlineText(block.text),
                     baseStyle,
                     document,
-                    onTapLink: widget.onTapLink,
+                    onTapLink: _handleTapLink,
                     followLinks: widget.followLinks,
                     linkStyle: linkStyle,
                   ),
@@ -546,6 +654,10 @@ class _MarkdownState extends State<Markdown> {
                   children: rich.children,
                 ),
               );
+    }
+
+    if (headingAnchorKey != null) {
+      child = KeyedSubtree(key: headingAnchorKey, child: child);
     }
 
     return Padding(
@@ -642,7 +754,7 @@ class _MarkdownState extends State<Markdown> {
                               rows[rowIndex][colIndex],
                               rowIndex == 0 ? headerStyle : cellStyle,
                               document,
-                              onTapLink: widget.onTapLink,
+                              onTapLink: _handleTapLink,
                               followLinks: widget.followLinks,
                               linkStyle: markdownTheme?.linkStyle,
                             ),
@@ -785,7 +897,7 @@ class _MarkdownState extends State<Markdown> {
                           item,
                           baseStyle,
                           document,
-                          onTapLink: widget.onTapLink,
+                          onTapLink: _handleTapLink,
                           followLinks: widget.followLinks,
                           linkStyle: markdownTheme?.linkStyle,
                         ),
@@ -799,7 +911,7 @@ class _MarkdownState extends State<Markdown> {
                           item,
                           baseStyle,
                           document,
-                          onTapLink: widget.onTapLink,
+                          onTapLink: _handleTapLink,
                           followLinks: widget.followLinks,
                           linkStyle: markdownTheme?.linkStyle,
                         ),
@@ -866,7 +978,7 @@ class _MarkdownState extends State<Markdown> {
                         block.text,
                         baseStyle,
                         document,
-                        onTapLink: widget.onTapLink,
+                        onTapLink: _handleTapLink,
                         followLinks: widget.followLinks,
                         linkStyle: markdownTheme?.linkStyle,
                       ),
@@ -880,7 +992,7 @@ class _MarkdownState extends State<Markdown> {
                         block.text,
                         baseStyle,
                         document,
-                        onTapLink: widget.onTapLink,
+                        onTapLink: _handleTapLink,
                         followLinks: widget.followLinks,
                         linkStyle: markdownTheme?.linkStyle,
                       ),
