@@ -5,7 +5,8 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
     return const _MarkdownDocument(blocks: <_MarkdownBlock>[]);
   }
 
-  final source = data.replaceAll('\r\n', '\n');
+  final normalized = data.replaceAll('\r\n', '\n');
+  final source = _normalizeMarkdownWithHtmlBridges(normalized);
   final lines = source.split('\n');
   final blocks = <_MarkdownBlock>[];
   final references = <String, _MarkdownLinkTarget>{};
@@ -63,6 +64,13 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
     if (indentedCode != null) {
       blocks.add(indentedCode.$1);
       i = indentedCode.$2;
+      continue;
+    }
+
+    final htmlTable = _tryParseHtmlTable(lines, i);
+    if (htmlTable != null) {
+      blocks.add(htmlTable.$1);
+      i = htmlTable.$2;
       continue;
     }
 
@@ -182,6 +190,7 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
           _tryParseBlockMath(lines, i) != null ||
           _tryParseIndentedCode(lines, i) != null ||
           _tryParseDetailsBlock(lines, i) != null ||
+          _tryParseHtmlTable(lines, i) != null ||
           _tryParseHtmlBlock(lines, i) != null ||
           RegExp(r'^(#{1,6})\s+').hasMatch(next) ||
           _parseListItem(next) != null ||
@@ -238,6 +247,7 @@ int _computeStableMarkdownPrefixLength(String data) {
   var inMath = false;
   var inDetails = false;
   var inTable = false;
+  var inHtmlTable = false;
 
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
@@ -289,6 +299,16 @@ int _computeStableMarkdownPrefixLength(String data) {
       inTable = false;
     }
 
+    if (inHtmlTable) {
+      final lower = trimmed.toLowerCase();
+      if (lower.contains('</table>')) {
+        inHtmlTable = false;
+        lastStable = lineEnd;
+      }
+      offset = lineEnd;
+      continue;
+    }
+
     if (trimmed.isEmpty) {
       lastStable = lineEnd;
       offset = lineEnd;
@@ -309,6 +329,19 @@ int _computeStableMarkdownPrefixLength(String data) {
 
     if (trimmed.toLowerCase() == '<details>') {
       inDetails = true;
+      offset = lineEnd;
+      continue;
+    }
+
+    final lower = trimmed.toLowerCase();
+    if (lower.startsWith('<table')) {
+      if (lower.contains('</table>')) {
+        if (hasTrailingNewline) {
+          lastStable = lineEnd;
+        }
+      } else {
+        inHtmlTable = true;
+      }
       offset = lineEnd;
       continue;
     }
@@ -340,6 +373,124 @@ int _computeStableMarkdownPrefixLength(String data) {
   }
 
   return lastStable.clamp(0, source.length);
+}
+
+String _normalizeMarkdownWithHtmlBridges(String source) {
+  return _convertMarkdownTablesToHtml(source);
+}
+
+String _convertMarkdownTablesToHtml(String source) {
+  final lines = source.split('\n');
+  final output = <String>[];
+  var inFence = false;
+  var inMath = false;
+  var i = 0;
+
+  while (i < lines.length) {
+    final line = lines[i];
+    final trimmed = line.trimRight();
+
+    if (RegExp(r'^\s*```').hasMatch(trimmed)) {
+      inFence = !inFence;
+      output.add(line);
+      i += 1;
+      continue;
+    }
+
+    if (!inFence && trimmed == r'$$') {
+      inMath = !inMath;
+      output.add(line);
+      i += 1;
+      continue;
+    }
+
+    if (inFence || inMath) {
+      output.add(line);
+      i += 1;
+      continue;
+    }
+
+    if (_looksLikeTableHeader(lines, i)) {
+      final header = _parseTableRow(lines[i]);
+      final alignments = _tableAlignments(lines[i + 1]);
+      final bodyRows = <List<String>>[];
+      i += 2;
+      while (i < lines.length &&
+          lines[i].trim().isNotEmpty &&
+          lines[i].contains('|')) {
+        bodyRows.add(_parseTableRow(lines[i]));
+        i += 1;
+      }
+      output.addAll(_buildHtmlTableLines(header, bodyRows, alignments));
+      continue;
+    }
+
+    output.add(line);
+    i += 1;
+  }
+
+  return output.join('\n');
+}
+
+List<String> _buildHtmlTableLines(
+  List<String> header,
+  List<List<String>> bodyRows,
+  List<TextAlign> alignments,
+) {
+  final rows = <List<String>>[header, ...bodyRows];
+  final maxColumns = rows.fold<int>(
+    0,
+    (max, row) => row.length > max ? row.length : max,
+  );
+  final normalizedHeader = [
+    for (var col = 0; col < maxColumns; col++)
+      col < header.length ? header[col] : '',
+  ];
+
+  final lines = <String>['<table>', '  <thead>', '    <tr>'];
+  for (var col = 0; col < normalizedHeader.length; col++) {
+    final align = col < alignments.length ? alignments[col] : TextAlign.left;
+    lines.add(
+      '      <th style="text-align: ${_alignmentToCss(align)}">${_escapeHtmlText(normalizedHeader[col])}</th>',
+    );
+  }
+  lines.addAll(<String>['    </tr>', '  </thead>']);
+
+  if (bodyRows.isNotEmpty) {
+    lines.add('  <tbody>');
+    for (final row in bodyRows) {
+      lines.add('    <tr>');
+      for (var col = 0; col < maxColumns; col++) {
+        final value = col < row.length ? row[col] : '';
+        final align = col < alignments.length
+            ? alignments[col]
+            : TextAlign.left;
+        lines.add(
+          '      <td style="text-align: ${_alignmentToCss(align)}">${_escapeHtmlText(value)}</td>',
+        );
+      }
+      lines.add('    </tr>');
+    }
+    lines.add('  </tbody>');
+  }
+
+  lines.add('</table>');
+  return lines;
+}
+
+String _alignmentToCss(TextAlign align) {
+  return switch (align) {
+    TextAlign.center => 'center',
+    TextAlign.right => 'right',
+    _ => 'left',
+  };
+}
+
+String _escapeHtmlText(String value) {
+  return value
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
 }
 
 bool _isStandaloneStableLine(String line) {
@@ -538,6 +689,164 @@ bool _isStandaloneStableLine(String line) {
     _MarkdownBlock(type: _MarkdownBlockType.rawHtml, text: buffer.join('\n')),
     i,
   );
+}
+
+(_MarkdownBlock, int)? _tryParseHtmlTable(List<String> lines, int index) {
+  final start = lines[index].trimLeft().toLowerCase();
+  if (!start.startsWith('<table')) {
+    return null;
+  }
+
+  final buffer = <String>[lines[index]];
+  var i = index + 1;
+  while (i < lines.length) {
+    buffer.add(lines[i]);
+    if (lines[i].trim().toLowerCase().contains('</table>')) {
+      i += 1;
+      break;
+    }
+    i += 1;
+  }
+
+  final raw = buffer.join('\n');
+  final table = _parseHtmlTable(raw);
+  if (table != null) {
+    return (table, i);
+  }
+  return (_MarkdownBlock(type: _MarkdownBlockType.rawHtml, text: raw), i);
+}
+
+_MarkdownBlock? _parseHtmlTable(String raw) {
+  final rowMatches = RegExp(
+    r'<tr\b[^>]*>([\s\S]*?)</tr>',
+    caseSensitive: false,
+  ).allMatches(raw);
+  if (rowMatches.isEmpty) {
+    return null;
+  }
+
+  final rows = <List<String>>[];
+  var alignments = <TextAlign>[];
+
+  for (final rowMatch in rowMatches) {
+    final rowHtml = rowMatch.group(1) ?? '';
+    final cells = _parseHtmlTableCells(rowHtml);
+    if (cells.isEmpty) {
+      continue;
+    }
+
+    rows.add(<String>[
+      for (final cell in cells) _normalizeHtmlTableCell(cell.$3),
+    ]);
+    if (alignments.isEmpty) {
+      alignments = <TextAlign>[
+        for (final cell in cells) _alignmentFromHtmlAttributes(cell.$2),
+      ];
+    }
+  }
+
+  if (rows.isEmpty) {
+    return null;
+  }
+
+  final maxColumns = rows.fold<int>(
+    0,
+    (max, row) => row.length > max ? row.length : max,
+  );
+  return _MarkdownBlock(
+    type: _MarkdownBlockType.table,
+    text: '',
+    tableRows: [
+      for (final row in rows)
+        [
+          for (var col = 0; col < maxColumns; col++)
+            col < row.length ? row[col] : '',
+        ],
+    ],
+    tableAlignments: [
+      for (var col = 0; col < maxColumns; col++)
+        col < alignments.length ? alignments[col] : TextAlign.left,
+    ],
+  );
+}
+
+List<(String, String, String)> _parseHtmlTableCells(String rowHtml) {
+  final matches = RegExp(
+    r'<(th|td)\b([^>]*)>([\s\S]*?)</\1>',
+    caseSensitive: false,
+  ).allMatches(rowHtml);
+  return <(String, String, String)>[
+    for (final match in matches)
+      (
+        (match.group(1) ?? '').toLowerCase(),
+        match.group(2) ?? '',
+        match.group(3) ?? '',
+      ),
+  ];
+}
+
+TextAlign _alignmentFromHtmlAttributes(String attrs) {
+  final alignMatch = RegExp(
+    r'''align\s*=\s*["']?\s*(left|center|right)\s*["']?''',
+    caseSensitive: false,
+  ).firstMatch(attrs);
+  if (alignMatch != null) {
+    return _cssAlignToTextAlign(alignMatch.group(1) ?? '');
+  }
+
+  final styleMatch = RegExp(
+    r'''text-align\s*:\s*(left|center|right)''',
+    caseSensitive: false,
+  ).firstMatch(attrs);
+  if (styleMatch != null) {
+    return _cssAlignToTextAlign(styleMatch.group(1) ?? '');
+  }
+  return TextAlign.left;
+}
+
+TextAlign _cssAlignToTextAlign(String value) {
+  return switch (value.toLowerCase().trim()) {
+    'center' => TextAlign.center,
+    'right' => TextAlign.right,
+    _ => TextAlign.left,
+  };
+}
+
+String _normalizeHtmlTableCell(String html) {
+  var value = html;
+  value = value.replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n');
+  value = value.replaceAllMapped(
+    RegExp(
+      r'''<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)</a>''',
+      caseSensitive: false,
+    ),
+    (match) {
+      final url = match.group(1) ?? '';
+      final label = _stripHtmlTags(match.group(2) ?? '').trim();
+      if (url.isEmpty) {
+        return label;
+      }
+      return '[${label.isEmpty ? url : label}]($url)';
+    },
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<(strong|b)>([\s\S]*?)</\1>', caseSensitive: false),
+    (match) => '**${_stripHtmlTags(match.group(2) ?? '').trim()}**',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<(em|i)>([\s\S]*?)</\1>', caseSensitive: false),
+    (match) => '*${_stripHtmlTags(match.group(2) ?? '').trim()}*',
+  );
+  value = value.replaceAllMapped(
+    RegExp(r'<code>([\s\S]*?)</code>', caseSensitive: false),
+    (match) => '`${_stripHtmlTags(match.group(1) ?? '').trim()}`',
+  );
+  value = _stripHtmlTags(value);
+  return _decodeHtmlEntities(value).trim();
+}
+
+String _stripHtmlTags(String value) {
+  return value.replaceAll(RegExp(r'<[^>]+>'), '');
 }
 
 (_MarkdownBlock, int)? _tryParseQuote(List<String> lines, int index) {
