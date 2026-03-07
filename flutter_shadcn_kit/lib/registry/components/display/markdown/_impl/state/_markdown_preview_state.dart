@@ -147,7 +147,8 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
   ];
 
   late final m.TextEditingController _filePathController;
-  late final m.TextEditingController _editorController;
+  late final MarkdownEditingController _editorController;
+  late final m.FocusNode _editorFocusNode;
 
   Timer? _timer;
   _StreamMode _streamMode = _StreamMode.character;
@@ -169,8 +170,9 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
   void initState() {
     super.initState();
     _filePathController = m.TextEditingController(text: _filePath);
-    _editorController = m.TextEditingController(text: _editingSeedMarkdown)
+    _editorController = MarkdownEditingController(text: _editingSeedMarkdown)
       ..addListener(_handleEditorChanged);
+    _editorFocusNode = m.FocusNode();
     _loadShowcaseAsset();
     _restartStreaming();
   }
@@ -180,6 +182,7 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
     _timer?.cancel();
     _editorController.removeListener(_handleEditorChanged);
     _editorController.dispose();
+    _editorFocusNode.dispose();
     _filePathController.dispose();
     super.dispose();
   }
@@ -370,31 +373,68 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
     _recordInteraction('element[${details.kind.name}]$location $label');
   }
 
-  void _applyEdit(
-    MarkdownEditResult Function({
-      required String text,
-      required m.TextSelection selection,
-    })
-    operation,
+  m.Widget _buildEditingPreviewStatus(
+    m.BuildContext context,
+    MarkdownLivePreviewStateDetails details,
   ) {
-    final result = operation(
-      text: _editorController.text,
-      selection: _editorController.selection,
-    );
-    _editorController.value = _editorController.value.copyWith(
-      text: result.text,
-      selection: result.selection,
-      composing: m.TextRange.empty,
+    final label = details.error != null
+        ? 'Preview held on last valid parse'
+        : details.isValidating
+        ? 'Validating markdown...'
+        : details.hasPendingChanges
+        ? 'Pending update'
+        : 'Preview synced';
+    final color = details.error != null
+        ? const m.Color(0xFF7F1D1D)
+        : details.hasPendingChanges || details.isValidating
+        ? const m.Color(0xFF1D4ED8)
+        : const m.Color(0xFF166534);
+
+    return m.Align(
+      alignment: m.Alignment.topRight,
+      child: m.Padding(
+        padding: const m.EdgeInsets.all(10),
+        child: m.Container(
+          padding: const m.EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: m.BoxDecoration(
+            color: color.withValues(alpha: 0.92),
+            borderRadius: m.BorderRadius.circular(999),
+          ),
+          child: m.Text(
+            label,
+            style: const m.TextStyle(
+              color: m.Color(0xFFF8FAFC),
+              fontSize: 11,
+              fontWeight: m.FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
-  m.Widget _editorActionButton(String label, void Function() onPressed) {
-    return m.OutlinedButton(
-      onPressed: onPressed,
-      style: m.OutlinedButton.styleFrom(
-        padding: const m.EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+  m.Widget _buildCustomEditingBarButton(
+    m.BuildContext context,
+    MarkdownEditingBarItemDetails details,
+  ) {
+    if (details.action.id == '__divider__') {
+      return const m.SizedBox(width: 2);
+    }
+    return m.IconButton.filledTonal(
+      onPressed: details.enabled
+          ? () {
+              details.action.onPressed(context, details.controller);
+              _editorFocusNode.requestFocus();
+            }
+          : null,
+      tooltip: details.action.tooltip,
+      style: m.IconButton.styleFrom(
+        backgroundColor: const m.Color(0xFFF1F5F9),
+        foregroundColor: const m.Color(0xFF0F172A),
+        disabledBackgroundColor: const m.Color(0xFFF8FAFC),
+        disabledForegroundColor: const m.Color(0xFF94A3B8),
       ),
-      child: m.Text(label),
+      icon: m.Icon(details.action.icon, size: 18),
     );
   }
 
@@ -403,68 +443,45 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
       crossAxisAlignment: m.CrossAxisAlignment.start,
       children: [
         const m.Text(
-          'These helpers only transform text and selection state. They do not depend on a specific editor widget.',
+          'The editing bar is a reusable widget, not just a preview helper. It works with a history-aware `MarkdownEditingController`, supports custom action lists, and the live preview only swaps to newly validated markdown so broken intermediate edits do not churn the renderer.',
         ),
         const m.SizedBox(height: 10),
-        m.Wrap(
-          spacing: 8,
-          runSpacing: 8,
+        MarkdownEditingBar(
+          controller: _editorController,
+          focusNode: _editorFocusNode,
+        ),
+        const m.SizedBox(height: 12),
+        m.Row(
           children: [
-            _editorActionButton(
-              'Bold',
-              () => _applyEdit(MarkdownEditingHelpers.toggleBold),
+            const m.Text(
+              'Custom bar skin',
+              style: m.TextStyle(fontWeight: m.FontWeight.w700),
             ),
-            _editorActionButton(
-              'Italic',
-              () => _applyEdit(MarkdownEditingHelpers.toggleItalic),
-            ),
-            _editorActionButton(
-              'H2',
-              () => _applyEdit(
-                ({required text, required selection}) =>
-                    MarkdownEditingHelpers.toggleHeading(
-                      text: text,
-                      selection: selection,
-                      level: 2,
-                    ),
+            const m.SizedBox(width: 10),
+            m.Expanded(
+              child: MarkdownEditingBar(
+                controller: _editorController,
+                focusNode: _editorFocusNode,
+                backgroundColor: const m.Color(0xFFFFFFFF),
+                borderColor: const m.Color(0x220F172A),
+                actions: <MarkdownEditingBarAction>[
+                  MarkdownEditingBarAction.undo(),
+                  MarkdownEditingBarAction.redo(),
+                  MarkdownEditingBarAction.divider(),
+                  MarkdownEditingBarAction.bold(),
+                  MarkdownEditingBarAction.italic(),
+                  MarkdownEditingBarAction.link(),
+                  MarkdownEditingBarAction.image(),
+                ],
+                itemBuilder: _buildCustomEditingBarButton,
               ),
-            ),
-            _editorActionButton(
-              'Bullet List',
-              () => _applyEdit(MarkdownEditingHelpers.toggleBulletList),
-            ),
-            _editorActionButton(
-              'Task List',
-              () => _applyEdit(MarkdownEditingHelpers.toggleTaskList),
-            ),
-            _editorActionButton(
-              'Quote',
-              () => _applyEdit(MarkdownEditingHelpers.toggleQuote),
-            ),
-            _editorActionButton(
-              'Code Fence',
-              () => _applyEdit(
-                ({required text, required selection}) =>
-                    MarkdownEditingHelpers.wrapCodeFence(
-                      text: text,
-                      selection: selection,
-                      language: 'dart',
-                    ),
-              ),
-            ),
-            _editorActionButton(
-              'Link',
-              () => _applyEdit(MarkdownEditingHelpers.insertLink),
-            ),
-            _editorActionButton(
-              'Image',
-              () => _applyEdit(MarkdownEditingHelpers.insertImage),
             ),
           ],
         ),
         const m.SizedBox(height: 12),
         m.TextField(
           controller: _editorController,
+          focusNode: _editorFocusNode,
           maxLines: 10,
           minLines: 10,
           decoration: const m.InputDecoration(
@@ -481,13 +498,14 @@ Use [links](https://flutter.dev) and `inline code` without the table feeling ove
             factor: 0.38,
             min: 220,
             max: 340,
-            child: Markdown(
-              data: _editorController.text,
+            child: MarkdownLivePreview(
+              controller: _editorController,
               selectable: true,
               shrinkWrap: false,
               followLinks: true,
               viewportStorageId: 'preview-editing-helpers',
               imageBuilder: _previewImageBuilder,
+              statusBuilder: _buildEditingPreviewStatus,
             ),
           ),
         ),

@@ -202,6 +202,43 @@ class MarkdownEditingHelpers {
     );
   }
 
+  static MarkdownEditResult insertTable({
+    required String text,
+    required TextSelection selection,
+    List<String> headers = const <String>['Column 1', 'Column 2', 'Column 3'],
+  }) {
+    final normalized = _normalizeSelection(text, selection);
+    final safeHeaders = headers.isEmpty
+        ? const <String>['Column 1', 'Column 2']
+        : headers;
+    final headerRow = '| ${safeHeaders.join(' | ')} |';
+    final separatorRow =
+        '| ${List<String>.filled(safeHeaders.length, '---').join(' | ')} |';
+    final placeholderRow =
+        '| ${List<String>.filled(safeHeaders.length, 'Value').join(' | ')} |';
+    final table = '$headerRow\n$separatorRow\n$placeholderRow';
+    final prefix = normalized.start > 0 && text[normalized.start - 1] != '\n'
+        ? '\n'
+        : '';
+    final suffix = normalized.end < text.length && text[normalized.end] != '\n'
+        ? '\n'
+        : '';
+    final replacement = '$prefix$table$suffix';
+    final nextText = text.replaceRange(
+      normalized.start,
+      normalized.end,
+      replacement,
+    );
+    final selectStart = normalized.start + prefix.length;
+    return MarkdownEditResult(
+      text: nextText,
+      selection: TextSelection(
+        baseOffset: selectStart + 2,
+        extentOffset: selectStart + 2 + safeHeaders.first.length,
+      ),
+    );
+  }
+
   static MarkdownEditResult _toggleDelimited(
     String text,
     TextSelection selection,
