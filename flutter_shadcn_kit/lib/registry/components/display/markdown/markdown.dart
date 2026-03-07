@@ -159,9 +159,13 @@ extension on Markdown {
 }
 
 class _MarkdownState extends State<Markdown> {
+  static final Set<String> _failedNetworkImageUrls = <String>{};
+
   String _resolvedData = '';
   Object? _error;
   bool _loading = false;
+  String? _cachedDocumentSource;
+  _MarkdownDocument? _cachedDocument;
 
   @override
   void initState() {
@@ -186,6 +190,8 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = null;
         _resolvedData = widget.data;
+        _cachedDocumentSource = null;
+        _cachedDocument = null;
       });
       return;
     }
@@ -196,6 +202,8 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = StateError('Markdown source path cannot be empty.');
         _resolvedData = '';
+        _cachedDocumentSource = null;
+        _cachedDocument = null;
       });
       return;
     }
@@ -218,6 +226,8 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = null;
         _resolvedData = loaded;
+        _cachedDocumentSource = null;
+        _cachedDocument = null;
       });
     } catch (error) {
       if (!mounted) {
@@ -227,8 +237,20 @@ class _MarkdownState extends State<Markdown> {
         _loading = false;
         _error = error;
         _resolvedData = '';
+        _cachedDocumentSource = null;
+        _cachedDocument = null;
       });
     }
+  }
+
+  _MarkdownDocument _resolveDocument() {
+    if (_cachedDocumentSource == _resolvedData && _cachedDocument != null) {
+      return _cachedDocument!;
+    }
+    final parsed = _parseMarkdownDocument(_resolvedData);
+    _cachedDocumentSource = _resolvedData;
+    _cachedDocument = parsed;
+    return parsed;
   }
 
   @override
@@ -257,7 +279,7 @@ class _MarkdownState extends State<Markdown> {
       themeValue: markdownTheme?.style,
       defaultValue: DefaultTextStyle.of(context).style,
     );
-    final document = _parseMarkdownDocument(_resolvedData);
+    final document = _resolveDocument();
     final blocks = document.blocks;
 
     if (blocks.isEmpty) {
@@ -641,12 +663,34 @@ class _MarkdownState extends State<Markdown> {
     final normalized = imageUrl.trim();
     Widget image;
     if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
-      image = Image.network(normalized, fit: BoxFit.contain);
+      if (_failedNetworkImageUrls.contains(normalized)) {
+        image = _buildImageFallback(
+          baseStyle,
+          alt.isNotEmpty ? alt : 'Image failed to load: $normalized',
+        );
+      } else {
+        image = Image.network(
+          normalized,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            _failedNetworkImageUrls.add(normalized);
+            return _buildImageFallback(
+              baseStyle,
+              alt.isNotEmpty ? alt : 'Image failed to load',
+            );
+          },
+        );
+      }
     } else {
       final assetPath = normalized.startsWith('asset:')
           ? normalized.substring(6)
           : normalized;
-      image = Image.asset(assetPath, fit: BoxFit.contain);
+      image = Image.asset(
+        assetPath,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) =>
+            _buildImageFallback(baseStyle, alt.isNotEmpty ? alt : assetPath),
+      );
     }
 
     return Container(
@@ -676,6 +720,25 @@ class _MarkdownState extends State<Markdown> {
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildImageFallback(TextStyle baseStyle, String message) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0x22000000)),
+        color: const Color(0x08000000),
+      ),
+      child: Text(
+        message,
+        style: baseStyle.copyWith(
+          fontSize: (baseStyle.fontSize ?? 14) * 0.9,
+          color: baseStyle.color?.withValues(alpha: 0.72),
+        ),
       ),
     );
   }
