@@ -11,6 +11,7 @@ import '_impl/utils/markdown_link_opener.dart';
 
 part '_impl/core/markdown_block_type.dart';
 part '_impl/core/markdown_block.dart';
+part '_impl/core/markdown_chunk.dart';
 part '_impl/core/markdown_document.dart';
 part '_impl/core/markdown_disclosure.dart';
 part '_impl/themes/base/markdown_theme.dart';
@@ -162,20 +163,35 @@ extension on Markdown {
 
 class _MarkdownState extends State<Markdown> {
   static final Set<String> _failedNetworkImageUrls = <String>{};
+  static const int _largeDocumentBlockThreshold = 48;
+  static const int _initialProgressiveChunkCount = 4;
+  static const int _progressiveChunkBatchSize = 2;
+  static const Duration _progressiveChunkInterval = Duration(milliseconds: 24);
 
-  String _resolvedData = '';
   Object? _error;
   bool _loading = false;
-  String? _cachedDocumentSource;
+  bool _preparingDocument = false;
+  int _parseGeneration = 0;
   _MarkdownDocument? _cachedDocument;
-  String? _cachedAnchorSource;
+  List<_MarkdownChunk> _chunks = const <_MarkdownChunk>[];
+  int _visibleChunkCount = 0;
   List<GlobalKey?> _cachedBlockHeadingKeys = const <GlobalKey?>[];
   Map<String, GlobalKey> _cachedHeadingAnchorMap = const <String, GlobalKey>{};
+  Map<String, int> _cachedHeadingChunkIndices = const <String, int>{};
+  final ScrollController _chunkScrollController = ScrollController();
+  Timer? _progressiveChunkTimer;
 
   @override
   void initState() {
     super.initState();
     _loadSource();
+  }
+
+  @override
+  void dispose() {
+    _progressiveChunkTimer?.cancel();
+    _chunkScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -191,12 +207,9 @@ class _MarkdownState extends State<Markdown> {
   Future<void> _loadSource() async {
     final sourceType = widget.sourceType;
     if (sourceType == MarkdownSourceType.text) {
-      setState(() {
-        _loading = false;
-        _error = null;
-        _resolvedData = widget.data;
-        _clearMarkdownCaches();
-      });
+      _loading = false;
+      _error = null;
+      await _prepareDocument(widget.data);
       return;
     }
 
@@ -205,8 +218,8 @@ class _MarkdownState extends State<Markdown> {
       setState(() {
         _loading = false;
         _error = StateError('Markdown source path cannot be empty.');
-        _resolvedData = '';
         _clearMarkdownCaches();
+        _preparingDocument = false;
       });
       return;
     }
@@ -225,12 +238,9 @@ class _MarkdownState extends State<Markdown> {
       if (!mounted) {
         return;
       }
-      setState(() {
-        _loading = false;
-        _error = null;
-        _resolvedData = loaded;
-        _clearMarkdownCaches();
-      });
+      _loading = false;
+      _error = null;
+      await _prepareDocument(loaded);
     } catch (error) {
       if (!mounted) {
         return;
@@ -238,41 +248,116 @@ class _MarkdownState extends State<Markdown> {
       setState(() {
         _loading = false;
         _error = error;
-        _resolvedData = '';
+        _clearMarkdownCaches();
+        _preparingDocument = false;
+      });
+    }
+  }
+
+  Future<void> _prepareDocument(String data) async {
+    final generation = ++_parseGeneration;
+    _progressiveChunkTimer?.cancel();
+    setState(() {
+      _error = null;
+      _preparingDocument = true;
+      _clearMarkdownCaches();
+    });
+
+    try {
+      final parsed = await _parseMarkdownDocumentAsync(data);
+      if (!mounted || generation != _parseGeneration) {
+        return;
+      }
+      final chunks = _chunkMarkdownBlocks(parsed.blocks);
+      final initialChunkCount = _initialChunkCountForDocument(parsed, chunks);
+      setState(() {
+        _cachedDocument = parsed;
+        _chunks = chunks;
+        _visibleChunkCount = initialChunkCount;
+        _primeHeadingAnchors(parsed.blocks, chunks);
+        _preparingDocument = false;
+      });
+      _scheduleProgressiveChunkWarmup();
+    } catch (error) {
+      if (!mounted || generation != _parseGeneration) {
+        return;
+      }
+      setState(() {
+        _error = error;
+        _preparingDocument = false;
         _clearMarkdownCaches();
       });
     }
   }
 
-  _MarkdownDocument _resolveDocument() {
-    if (_cachedDocumentSource == _resolvedData && _cachedDocument != null) {
-      return _cachedDocument!;
+  Future<_MarkdownDocument> _parseMarkdownDocumentAsync(String data) async {
+    if (data.trim().isEmpty) {
+      return const _MarkdownDocument(blocks: <_MarkdownBlock>[]);
     }
-    final parsed = _parseMarkdownDocument(_resolvedData);
-    _cachedDocumentSource = _resolvedData;
-    _cachedDocument = parsed;
-    return parsed;
+    if (kIsWeb) {
+      await Future<void>.delayed(Duration.zero);
+      return _parseMarkdownDocument(data);
+    }
+    if (data.length < 8000) {
+      await Future<void>.delayed(Duration.zero);
+      return _parseMarkdownDocument(data);
+    }
+    return compute(_parseMarkdownDocument, data);
+  }
+
+  int _initialChunkCountForDocument(
+    _MarkdownDocument document,
+    List<_MarkdownChunk> chunks,
+  ) {
+    if (document.blocks.length < _largeDocumentBlockThreshold) {
+      return chunks.length;
+    }
+    return chunks.length < _initialProgressiveChunkCount
+        ? chunks.length
+        : _initialProgressiveChunkCount;
+  }
+
+  void _scheduleProgressiveChunkWarmup() {
+    _progressiveChunkTimer?.cancel();
+    if (!widget.shrinkWrap ||
+        _visibleChunkCount >= _chunks.length ||
+        _chunks.length <= _initialProgressiveChunkCount) {
+      return;
+    }
+    _progressiveChunkTimer = Timer.periodic(_progressiveChunkInterval, (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      if (_visibleChunkCount >= _chunks.length) {
+        timer.cancel();
+        return;
+      }
+      setState(() {
+        _visibleChunkCount = (_visibleChunkCount + _progressiveChunkBatchSize)
+            .clamp(0, _chunks.length);
+      });
+    });
   }
 
   void _clearMarkdownCaches() {
-    _cachedDocumentSource = null;
+    _progressiveChunkTimer?.cancel();
     _cachedDocument = null;
-    _cachedAnchorSource = null;
+    _chunks = const <_MarkdownChunk>[];
+    _visibleChunkCount = 0;
     _cachedBlockHeadingKeys = const <GlobalKey?>[];
     _cachedHeadingAnchorMap = const <String, GlobalKey>{};
+    _cachedHeadingChunkIndices = const <String, int>{};
   }
 
-  (List<GlobalKey?>, Map<String, GlobalKey>) _resolveHeadingAnchors(
+  void _primeHeadingAnchors(
     List<_MarkdownBlock> blocks,
+    List<_MarkdownChunk> chunks,
   ) {
-    if (_cachedAnchorSource == _resolvedData &&
-        _cachedBlockHeadingKeys.length == blocks.length) {
-      return (_cachedBlockHeadingKeys, _cachedHeadingAnchorMap);
-    }
-
     final keys = List<GlobalKey?>.filled(blocks.length, null);
     final anchors = <String, GlobalKey>{};
     final counts = <String, int>{};
+    final blockIndices = <String, int>{};
     for (var index = 0; index < blocks.length; index++) {
       final block = blocks[index];
       if (!_isHeadingBlockType(block.type)) {
@@ -288,12 +373,28 @@ class _MarkdownState extends State<Markdown> {
       final key = GlobalKey(debugLabel: 'md-anchor-$slug');
       keys[index] = key;
       anchors[slug] = key;
+      blockIndices[slug] = index;
     }
 
-    _cachedAnchorSource = _resolvedData;
+    final chunkIndices = <String, int>{};
+    for (final entry in blockIndices.entries) {
+      chunkIndices[entry.key] = _chunkIndexForBlock(entry.value, chunks);
+    }
+
     _cachedBlockHeadingKeys = List<GlobalKey?>.unmodifiable(keys);
     _cachedHeadingAnchorMap = Map<String, GlobalKey>.unmodifiable(anchors);
-    return (_cachedBlockHeadingKeys, _cachedHeadingAnchorMap);
+    _cachedHeadingChunkIndices = Map<String, int>.unmodifiable(chunkIndices);
+  }
+
+  int _chunkIndexForBlock(int blockIndex, List<_MarkdownChunk> chunks) {
+    for (var index = 0; index < chunks.length; index++) {
+      final chunk = chunks[index];
+      if (blockIndex >= chunk.startBlockIndex &&
+          blockIndex < chunk.endBlockIndex) {
+        return index;
+      }
+    }
+    return 0;
   }
 
   bool _isHeadingBlockType(_MarkdownBlockType type) {
@@ -327,6 +428,59 @@ class _MarkdownState extends State<Markdown> {
     final key = _cachedHeadingAnchorMap[anchor];
     final targetContext = key?.currentContext;
     if (targetContext == null) {
+      final targetChunkIndex = _cachedHeadingChunkIndices[anchor];
+      if (targetChunkIndex == null) {
+        return false;
+      }
+      if (widget.shrinkWrap) {
+        if (_visibleChunkCount <= targetChunkIndex) {
+          setState(() {
+            _visibleChunkCount = targetChunkIndex + 1;
+          });
+        }
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final contextAfterBuild =
+              _cachedHeadingAnchorMap[anchor]?.currentContext;
+          if (contextAfterBuild != null) {
+            Scrollable.ensureVisible(
+              contextAfterBuild,
+              alignment: 0.08,
+              curve: Curves.easeOutCubic,
+              duration: const Duration(milliseconds: 180),
+            );
+          }
+        });
+        return true;
+      }
+      if (_chunkScrollController.hasClients) {
+        final targetOffset = _estimatedScrollOffsetForChunk(targetChunkIndex);
+        unawaited(
+          _chunkScrollController
+              .animateTo(
+                targetOffset.clamp(
+                  0.0,
+                  _chunkScrollController.position.maxScrollExtent,
+                ),
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
+              )
+              .whenComplete(() {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  final contextAfterScroll =
+                      _cachedHeadingAnchorMap[anchor]?.currentContext;
+                  if (contextAfterScroll != null) {
+                    Scrollable.ensureVisible(
+                      contextAfterScroll,
+                      alignment: 0.08,
+                      curve: Curves.easeOutCubic,
+                      duration: const Duration(milliseconds: 140),
+                    );
+                  }
+                });
+              }),
+        );
+        return true;
+      }
       return false;
     }
     Scrollable.ensureVisible(
@@ -336,6 +490,14 @@ class _MarkdownState extends State<Markdown> {
       duration: const Duration(milliseconds: 180),
     );
     return true;
+  }
+
+  double _estimatedScrollOffsetForChunk(int chunkIndex) {
+    var offset = 0.0;
+    for (var index = 0; index < chunkIndex && index < _chunks.length; index++) {
+      offset += _chunks[index].estimatedExtent;
+    }
+    return offset;
   }
 
   void _handleTapLink(String text, String url) {
@@ -354,7 +516,7 @@ class _MarkdownState extends State<Markdown> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
+    if (_loading || (_preparingDocument && _cachedDocument == null)) {
       return widget.loading ??
           const Center(child: CircularProgressIndicator(strokeWidth: 2));
     }
@@ -382,26 +544,83 @@ class _MarkdownState extends State<Markdown> {
     );
     final markdownTheme = (markdownThemeOverride ?? const MarkdownTheme())
         .withFallback(MarkdownTheme.htmlDefaults(baseStyle));
-    final document = _resolveDocument();
+    final document = _cachedDocument;
+    if (document == null) {
+      return const SizedBox.shrink();
+    }
     final blocks = document.blocks;
-    final blockAnchors = _resolveHeadingAnchors(blocks).$1;
+    final blockAnchors = _cachedBlockHeadingKeys;
 
     if (blocks.isEmpty) {
       return const SizedBox.shrink();
     }
 
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final useViewportList =
+            !widget.shrinkWrap && constraints.hasBoundedHeight;
+        final visibleChunkCount = useViewportList
+            ? _chunks.length
+            : _visibleChunkCount.clamp(0, _chunks.length);
+
+        if (_chunks.isEmpty) {
+          return const SizedBox.shrink();
+        }
+
+        return ListView.builder(
+          controller: useViewportList ? _chunkScrollController : null,
+          padding: EdgeInsets.zero,
+          shrinkWrap: !useViewportList,
+          physics: useViewportList
+              ? const AlwaysScrollableScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
+          cacheExtent: useViewportList ? 960 : null,
+          addAutomaticKeepAlives: false,
+          itemCount: visibleChunkCount,
+          itemBuilder: (context, chunkIndex) {
+            final chunk = _chunks[chunkIndex];
+            return RepaintBoundary(
+              child: _buildChunk(
+                context,
+                chunk,
+                baseStyle,
+                document,
+                markdownTheme,
+                blockAnchors,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildChunk(
+    BuildContext context,
+    _MarkdownChunk chunk,
+    TextStyle baseStyle,
+    _MarkdownDocument document,
+    MarkdownTheme markdownTheme,
+    List<GlobalKey?> blockAnchors,
+  ) {
     return Column(
-      mainAxisSize: widget.shrinkWrap ? MainAxisSize.min : MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var index = 0; index < blocks.length; index++)
+        for (
+          var blockIndex = chunk.startBlockIndex;
+          blockIndex < chunk.endBlockIndex;
+          blockIndex++
+        )
           _buildBlock(
             context,
-            blocks[index],
+            chunk.blocks[blockIndex - chunk.startBlockIndex],
             baseStyle,
             document,
             markdownTheme,
-            headingAnchorKey: blockAnchors[index],
+            headingAnchorKey: blockIndex < blockAnchors.length
+                ? blockAnchors[blockIndex]
+                : null,
           ),
       ],
     );
