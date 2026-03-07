@@ -296,6 +296,14 @@ const markdownTheme = MarkdownTheme(
     _recordInteraction('heading h${details.level} #${details.anchor}');
   }
 
+  void _handleElementTap(MarkdownTapElementDetails details) {
+    final location = details.isTableCell
+        ? ' r${details.tableRow}c${details.tableColumn}'
+        : '';
+    final label = details.url ?? details.anchor ?? details.text;
+    _recordInteraction('element[${details.kind.name}]$location $label');
+  }
+
   m.Widget _previewImageBuilder(
     m.BuildContext context,
     String url,
@@ -392,7 +400,7 @@ const markdownTheme = MarkdownTheme(
           const m.SizedBox(height: 8),
           if (_interactionLog.isEmpty)
             const m.Text(
-              'Tap a link, image, or heading in the demos below to inspect callback payloads.',
+              'Tap links, headings, images, table cells, or plain markdown blocks below to inspect callback payloads.',
               style: m.TextStyle(fontSize: 12),
             )
           else
@@ -448,7 +456,7 @@ const markdownTheme = MarkdownTheme(
               ),
               const m.SizedBox(height: 10),
               const m.Text(
-                'Large previews now run in bounded viewports so the markdown widget can virtualize chunks instead of mounting the whole document. Interaction hooks are also wired in: links, headings, images, and document metrics are captured below.',
+                'Large previews still run in bounded viewports so the markdown widget can virtualize chunks, but the content is selectable again and links now follow their default navigation behavior while the hooks observe those taps.',
               ),
               const m.SizedBox(height: 20),
               _sectionCard(
@@ -515,9 +523,13 @@ const markdownTheme = MarkdownTheme(
                     _surface(
                       Markdown(
                         data: _streamed,
-                        selectable: false,
-                        followLinks: false,
+                        selectable: true,
+                        followLinks: true,
                         imageBuilder: _previewImageBuilder,
+                        onTapLinkDetails: _handleLinkTap,
+                        onTapImage: _handleImageTap,
+                        onTapHeading: _handleHeadingTap,
+                        onTapElement: _handleElementTap,
                       ).withTextStreaming(
                         typewriter: const ta.TypewriterEffect(enabled: false),
                         effect: _effectForSelection(),
@@ -534,7 +546,7 @@ const markdownTheme = MarkdownTheme(
                   crossAxisAlignment: m.CrossAxisAlignment.start,
                   children: [
                     const m.Text(
-                      'This is the heavy document. The preview keeps it non-selectable and bounded so scrolling stays on the lazy chunk path.',
+                      'This is the heavy document. It stays bounded so scrolling uses lazy chunks, but the text remains selectable.',
                     ),
                     const m.SizedBox(height: 10),
                     _metricsBar(_showcaseMetrics),
@@ -597,10 +609,14 @@ const markdownTheme = MarkdownTheme(
                       ),
                       child: Markdown(
                         data: _themeMarkdown,
-                        selectable: false,
+                        selectable: true,
                         shrinkWrap: false,
-                        followLinks: false,
+                        followLinks: true,
                         imageBuilder: _previewImageBuilder,
+                        onTapLinkDetails: _handleLinkTap,
+                        onTapImage: _handleImageTap,
+                        onTapHeading: _handleHeadingTap,
+                        onTapElement: _handleElementTap,
                       ),
                     ),
                   ),
@@ -613,7 +629,7 @@ const markdownTheme = MarkdownTheme(
                   crossAxisAlignment: m.CrossAxisAlignment.start,
                   children: [
                     const m.Text(
-                      'External links are intercepted in this preview, anchors still jump inside the same markdown view, and headings/images emit structured callbacks.',
+                      'Links open normally, anchors still jump inside the same markdown view, and both the specific hooks and the generic element hook are logged.',
                     ),
                     const m.SizedBox(height: 10),
                     _metricsBar(_interactionMetrics),
@@ -626,13 +642,14 @@ const markdownTheme = MarkdownTheme(
                         max: 420,
                         child: Markdown(
                           data: _interactionMarkdown,
-                          selectable: false,
+                          selectable: true,
                           shrinkWrap: false,
-                          followLinks: false,
+                          followLinks: true,
                           imageBuilder: _previewImageBuilder,
                           onTapLinkDetails: _handleLinkTap,
                           onTapImage: _handleImageTap,
                           onTapHeading: _handleHeadingTap,
+                          onTapElement: _handleElementTap,
                           onDocumentReady: _setInteractionMetrics,
                         ),
                       ),
@@ -685,13 +702,14 @@ const markdownTheme = MarkdownTheme(
                           child: Markdown.file(
                             key: m.ValueKey(_filePath),
                             path: _filePath,
-                            selectable: false,
+                            selectable: true,
                             shrinkWrap: false,
-                            followLinks: false,
+                            followLinks: true,
                             imageBuilder: _previewImageBuilder,
                             onTapLinkDetails: _handleLinkTap,
                             onTapImage: _handleImageTap,
                             onTapHeading: _handleHeadingTap,
+                            onTapElement: _handleElementTap,
                             onDocumentReady: _setFileMetrics,
                             errorBuilder: (context, error) =>
                                 m.Text('File load error: $error'),
@@ -747,13 +765,14 @@ const markdownTheme = MarkdownTheme(
     if (data != null) {
       return Markdown(
         data: data,
-        selectable: false,
+        selectable: true,
         shrinkWrap: false,
-        followLinks: false,
+        followLinks: true,
         imageBuilder: _previewImageBuilder,
         onTapLinkDetails: _handleLinkTap,
         onTapImage: _handleImageTap,
         onTapHeading: _handleHeadingTap,
+        onTapElement: _handleElementTap,
         onDocumentReady: _setShowcaseMetrics,
       );
     }

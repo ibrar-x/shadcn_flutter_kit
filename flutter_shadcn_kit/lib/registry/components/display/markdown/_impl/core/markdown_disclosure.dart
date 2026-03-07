@@ -8,6 +8,7 @@ class _MarkdownDisclosure extends StatefulWidget {
     required this.decoration,
     required this.headerPadding,
     required this.bodyPadding,
+    this.onSummaryTap,
   });
 
   final String summary;
@@ -16,6 +17,7 @@ class _MarkdownDisclosure extends StatefulWidget {
   final BoxDecoration decoration;
   final EdgeInsetsGeometry headerPadding;
   final EdgeInsetsGeometry bodyPadding;
+  final VoidCallback? onSummaryTap;
 
   @override
   State<_MarkdownDisclosure> createState() => _MarkdownDisclosureState();
@@ -34,7 +36,10 @@ class _MarkdownDisclosureState extends State<_MarkdownDisclosure> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () => setState(() => _expanded = !_expanded),
+            onTap: () {
+              setState(() => _expanded = !_expanded);
+              widget.onSummaryTap?.call();
+            },
             child: Padding(
               padding: widget.headerPadding,
               child: Row(
