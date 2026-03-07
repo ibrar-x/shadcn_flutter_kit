@@ -233,19 +233,17 @@ class _MarkdownInlineParser {
       return TextSpan(text: label, style: resolvedLinkStyle);
     }
 
-    return WidgetSpan(
-      alignment: PlaceholderAlignment.baseline,
-      baseline: TextBaseline.alphabetic,
-      child: GestureDetector(
-        onTap: () async {
+    return TextSpan(
+      text: label,
+      style: resolvedLinkStyle,
+      recognizer: TapGestureRecognizer()
+        ..onTap = () {
           if (callback != null) {
             callback(label, url);
             return;
           }
-          await openMarkdownLink(url);
+          unawaited(openMarkdownLink(url));
         },
-        child: Text(label, style: resolvedLinkStyle),
-      ),
     );
   }
 

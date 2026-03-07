@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,10 +27,31 @@ typedef MarkdownTapImageCallback =
     void Function(MarkdownImageTapDetails details);
 typedef MarkdownTapHeadingCallback =
     void Function(MarkdownHeadingTapDetails details);
+typedef MarkdownTapElementCallback =
+    void Function(MarkdownTapElementDetails details);
 typedef MarkdownDocumentReadyCallback =
     void Function(MarkdownDocumentMetrics metrics);
 
 enum MarkdownLinkKind { anchor, email, external, relative }
+
+enum MarkdownTapElementKind {
+  paragraph,
+  heading,
+  listItem,
+  quote,
+  codeBlock,
+  tableHeaderCell,
+  tableCell,
+  image,
+  definitionTerm,
+  definitionDescription,
+  detailsSummary,
+  math,
+  footnote,
+  rawHtml,
+  horizontalRule,
+  link,
+}
 
 @immutable
 class MarkdownLinkTapDetails {
@@ -76,6 +98,39 @@ class MarkdownHeadingTapDetails {
 }
 
 @immutable
+class MarkdownTapElementDetails {
+  const MarkdownTapElementDetails({
+    required this.kind,
+    required this.text,
+    this.url,
+    this.title,
+    this.anchor,
+    this.headingLevel,
+    this.blockIndex,
+    this.tableRow,
+    this.tableColumn,
+    this.orderedIndex,
+    this.checked,
+  });
+
+  final MarkdownTapElementKind kind;
+  final String text;
+  final String? url;
+  final String? title;
+  final String? anchor;
+  final int? headingLevel;
+  final int? blockIndex;
+  final int? tableRow;
+  final int? tableColumn;
+  final int? orderedIndex;
+  final bool? checked;
+
+  bool get isTableCell =>
+      kind == MarkdownTapElementKind.tableCell ||
+      kind == MarkdownTapElementKind.tableHeaderCell;
+}
+
+@immutable
 class MarkdownDocumentMetrics {
   const MarkdownDocumentMetrics({
     required this.blockCount,
@@ -109,6 +164,7 @@ class Markdown extends StatefulWidget {
     this.onTapLinkDetails,
     this.onTapImage,
     this.onTapHeading,
+    this.onTapElement,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -127,6 +183,7 @@ class Markdown extends StatefulWidget {
     this.onTapLinkDetails,
     this.onTapImage,
     this.onTapHeading,
+    this.onTapElement,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -146,6 +203,7 @@ class Markdown extends StatefulWidget {
     this.onTapLinkDetails,
     this.onTapImage,
     this.onTapHeading,
+    this.onTapElement,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -163,6 +221,7 @@ class Markdown extends StatefulWidget {
   final MarkdownTapLinkDetailsCallback? onTapLinkDetails;
   final MarkdownTapImageCallback? onTapImage;
   final MarkdownTapHeadingCallback? onTapHeading;
+  final MarkdownTapElementCallback? onTapElement;
   final MarkdownDocumentReadyCallback? onDocumentReady;
   final bool shrinkWrap;
   final bool followLinks;
@@ -181,6 +240,7 @@ class Markdown extends StatefulWidget {
     MarkdownTapLinkDetailsCallback? onTapLinkDetails,
     MarkdownTapImageCallback? onTapImage,
     MarkdownTapHeadingCallback? onTapHeading,
+    MarkdownTapElementCallback? onTapElement,
     MarkdownDocumentReadyCallback? onDocumentReady,
     bool? shrinkWrap,
     bool? followLinks,
@@ -198,6 +258,7 @@ class Markdown extends StatefulWidget {
         onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
+        onTapElement: onTapElement ?? this.onTapElement,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -214,6 +275,7 @@ class Markdown extends StatefulWidget {
         onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
+        onTapElement: onTapElement ?? this.onTapElement,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -230,6 +292,7 @@ class Markdown extends StatefulWidget {
         onTapLinkDetails: onTapLinkDetails ?? this.onTapLinkDetails,
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
+        onTapElement: onTapElement ?? this.onTapElement,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -258,12 +321,63 @@ extension on Markdown {
       onTapLinkDetails: onTapLinkDetails,
       onTapImage: onTapImage,
       onTapHeading: onTapHeading,
+      onTapElement: onTapElement,
       onDocumentReady: onDocumentReady,
       shrinkWrap: shrinkWrap,
       followLinks: followLinks,
       imageBuilder: imageBuilder,
       loading: loading,
       errorBuilder: errorBuilder,
+    );
+  }
+}
+
+class _MarkdownTapReporter extends StatefulWidget {
+  const _MarkdownTapReporter({required this.child, required this.onTap});
+
+  final Widget child;
+  final VoidCallback onTap;
+
+  @override
+  State<_MarkdownTapReporter> createState() => _MarkdownTapReporterState();
+}
+
+class _MarkdownTapReporterState extends State<_MarkdownTapReporter> {
+  static const double _maxTapMovement = 10;
+  static const Duration _maxTapDuration = Duration(milliseconds: 260);
+
+  Offset? _pointerDownPosition;
+  Duration? _pointerDownTime;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        _pointerDownPosition = event.position;
+        _pointerDownTime = event.timeStamp;
+      },
+      onPointerCancel: (_) {
+        _pointerDownPosition = null;
+        _pointerDownTime = null;
+      },
+      onPointerUp: (event) {
+        final pointerDownPosition = _pointerDownPosition;
+        final pointerDownTime = _pointerDownTime;
+        _pointerDownPosition = null;
+        _pointerDownTime = null;
+        if (pointerDownPosition == null || pointerDownTime == null) {
+          return;
+        }
+        if ((event.position - pointerDownPosition).distance > _maxTapMovement) {
+          return;
+        }
+        if (event.timeStamp - pointerDownTime > _maxTapDuration) {
+          return;
+        }
+        widget.onTap();
+      },
+      child: widget.child,
     );
   }
 }
@@ -669,12 +783,92 @@ class _MarkdownState extends State<Markdown> {
     return MarkdownLinkKind.relative;
   }
 
+  void _emitElementTap(MarkdownTapElementDetails details) {
+    widget.onTapElement?.call(details);
+  }
+
+  Widget _wrapElementTap({
+    required Widget child,
+    required MarkdownTapElementDetails details,
+    bool enabled = true,
+  }) {
+    if (!enabled || widget.onTapElement == null) {
+      return child;
+    }
+    return _MarkdownTapReporter(
+      onTap: () => _emitElementTap(details),
+      child: child,
+    );
+  }
+
+  MarkdownTapElementKind? _blockTapKind(_MarkdownBlock block) {
+    return switch (block.type) {
+      _MarkdownBlockType.paragraph => MarkdownTapElementKind.paragraph,
+      _MarkdownBlockType.heading1 ||
+      _MarkdownBlockType.heading2 ||
+      _MarkdownBlockType.heading3 ||
+      _MarkdownBlockType.heading4 ||
+      _MarkdownBlockType.heading5 ||
+      _MarkdownBlockType.heading6 => MarkdownTapElementKind.heading,
+      _MarkdownBlockType.unorderedList ||
+      _MarkdownBlockType.orderedList ||
+      _MarkdownBlockType.taskList => MarkdownTapElementKind.listItem,
+      _MarkdownBlockType.codeFence ||
+      _MarkdownBlockType.indentedCode => MarkdownTapElementKind.codeBlock,
+      _MarkdownBlockType.math => MarkdownTapElementKind.math,
+      _MarkdownBlockType.footnote => MarkdownTapElementKind.footnote,
+      _MarkdownBlockType.rawHtml => MarkdownTapElementKind.rawHtml,
+      _MarkdownBlockType.horizontalRule =>
+        MarkdownTapElementKind.horizontalRule,
+      _ => null,
+    };
+  }
+
+  MarkdownTapElementDetails? _buildBlockTapDetails(
+    _MarkdownBlock block, {
+    required int blockIndex,
+    String? headingAnchorSlug,
+  }) {
+    final kind = _blockTapKind(block);
+    if (kind == null) {
+      return null;
+    }
+    final headingLevel = switch (block.type) {
+      _MarkdownBlockType.heading1 => 1,
+      _MarkdownBlockType.heading2 => 2,
+      _MarkdownBlockType.heading3 => 3,
+      _MarkdownBlockType.heading4 => 4,
+      _MarkdownBlockType.heading5 => 5,
+      _MarkdownBlockType.heading6 => 6,
+      _ => null,
+    };
+    return MarkdownTapElementDetails(
+      kind: kind,
+      text: block.text,
+      anchor: headingAnchorSlug,
+      headingLevel: headingLevel,
+      blockIndex: blockIndex,
+      orderedIndex: block.type == _MarkdownBlockType.orderedList
+          ? block.orderedIndex
+          : null,
+      checked: block.type == _MarkdownBlockType.taskList ? block.checked : null,
+    );
+  }
+
   void _handleTapLink(String text, String url) {
     final normalizedUrl = url.trim();
     final details = MarkdownLinkTapDetails(
       text: text,
       url: normalizedUrl,
       kind: _classifyLinkKind(normalizedUrl),
+    );
+    _emitElementTap(
+      MarkdownTapElementDetails(
+        kind: MarkdownTapElementKind.link,
+        text: text,
+        url: normalizedUrl,
+        anchor: details.isAnchor ? normalizedUrl.substring(1) : null,
+      ),
     );
     if (details.isAnchor && _scrollToAnchor(normalizedUrl.substring(1))) {
       widget.onTapLinkDetails?.call(details);
@@ -683,9 +877,6 @@ class _MarkdownState extends State<Markdown> {
     }
     widget.onTapLinkDetails?.call(details);
     widget.onTapLink?.call(text, normalizedUrl);
-    if (widget.onTapLinkDetails != null || widget.onTapLink != null) {
-      return;
-    }
     if (widget.followLinks) {
       unawaited(openMarkdownLink(normalizedUrl));
     }
@@ -795,6 +986,7 @@ class _MarkdownState extends State<Markdown> {
           _buildBlock(
             context,
             chunk.blocks[blockIndex - chunk.startBlockIndex],
+            blockIndex,
             baseStyle,
             document,
             markdownTheme,
@@ -812,6 +1004,7 @@ class _MarkdownState extends State<Markdown> {
   Widget _buildBlock(
     BuildContext context,
     _MarkdownBlock block,
+    int blockIndex,
     TextStyle baseStyle,
     _MarkdownDocument document,
     MarkdownTheme? markdownTheme, {
@@ -951,6 +1144,7 @@ class _MarkdownState extends State<Markdown> {
             onTapLinkDetails: widget.onTapLinkDetails,
             onTapImage: widget.onTapImage,
             onTapHeading: widget.onTapHeading,
+            onTapElement: widget.onTapElement,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -962,13 +1156,27 @@ class _MarkdownState extends State<Markdown> {
           child: Divider(height: 1, color: markdownTheme?.horizontalRuleColor),
         );
       case _MarkdownBlockType.table:
-        child = _buildTable(context, block, baseStyle, document, markdownTheme);
+        child = _buildTable(
+          context,
+          block,
+          blockIndex,
+          baseStyle,
+          document,
+          markdownTheme,
+        );
       case _MarkdownBlockType.image:
-        child = _buildImage(context, block, baseStyle, markdownTheme);
+        child = _buildImage(
+          context,
+          block,
+          blockIndex,
+          baseStyle,
+          markdownTheme,
+        );
       case _MarkdownBlockType.definitionList:
         child = _buildDefinitionList(
           context,
           block,
+          blockIndex,
           baseStyle,
           document,
           markdownTheme,
@@ -976,6 +1184,17 @@ class _MarkdownState extends State<Markdown> {
       case _MarkdownBlockType.details:
         child = _MarkdownDisclosure(
           summary: block.text,
+          onSummaryTap: (widget.onTapElement == null)
+              ? null
+              : () {
+                  _emitElementTap(
+                    MarkdownTapElementDetails(
+                      kind: MarkdownTapElementKind.detailsSummary,
+                      text: block.text,
+                      blockIndex: blockIndex,
+                    ),
+                  );
+                },
           summaryStyle:
               markdownTheme?.detailsSummaryStyle ??
               baseStyle.copyWith(fontWeight: FontWeight.w600),
@@ -1002,6 +1221,7 @@ class _MarkdownState extends State<Markdown> {
             onTapLinkDetails: widget.onTapLinkDetails,
             onTapImage: widget.onTapImage,
             onTapHeading: widget.onTapHeading,
+            onTapElement: widget.onTapElement,
             shrinkWrap: true,
             followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
@@ -1073,33 +1293,47 @@ class _MarkdownState extends State<Markdown> {
       child = KeyedSubtree(key: headingAnchorKey, child: child);
     }
 
-    if (headingAnchorSlug != null && widget.onTapHeading != null) {
-      final level = switch (block.type) {
-        _MarkdownBlockType.heading1 => 1,
-        _MarkdownBlockType.heading2 => 2,
-        _MarkdownBlockType.heading3 => 3,
-        _MarkdownBlockType.heading4 => 4,
-        _MarkdownBlockType.heading5 => 5,
-        _MarkdownBlockType.heading6 => 6,
-        _ => 0,
-      };
-      if (level > 0) {
-        child = MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              widget.onTapHeading?.call(
-                MarkdownHeadingTapDetails(
-                  text: block.text,
-                  anchor: headingAnchorSlug,
-                  level: level,
-                ),
-              );
-            },
-            child: child,
-          ),
-        );
+    final headingLevel = switch (block.type) {
+      _MarkdownBlockType.heading1 => 1,
+      _MarkdownBlockType.heading2 => 2,
+      _MarkdownBlockType.heading3 => 3,
+      _MarkdownBlockType.heading4 => 4,
+      _MarkdownBlockType.heading5 => 5,
+      _MarkdownBlockType.heading6 => 6,
+      _ => null,
+    };
+    if (headingAnchorSlug != null &&
+        headingLevel != null &&
+        (widget.onTapHeading != null || widget.onTapElement != null)) {
+      child = _MarkdownTapReporter(
+        onTap: () {
+          widget.onTapHeading?.call(
+            MarkdownHeadingTapDetails(
+              text: block.text,
+              anchor: headingAnchorSlug,
+              level: headingLevel,
+            ),
+          );
+          _emitElementTap(
+            MarkdownTapElementDetails(
+              kind: MarkdownTapElementKind.heading,
+              text: block.text,
+              anchor: headingAnchorSlug,
+              headingLevel: headingLevel,
+              blockIndex: blockIndex,
+            ),
+          );
+        },
+        child: child,
+      );
+    } else {
+      final blockTapDetails = _buildBlockTapDetails(
+        block,
+        blockIndex: blockIndex,
+        headingAnchorSlug: headingAnchorSlug,
+      );
+      if (blockTapDetails != null) {
+        child = _wrapElementTap(child: child, details: blockTapDetails);
       }
     }
 
@@ -1116,6 +1350,7 @@ class _MarkdownState extends State<Markdown> {
   Widget _buildTable(
     BuildContext context,
     _MarkdownBlock block,
+    int blockIndex,
     TextStyle baseStyle,
     _MarkdownDocument document,
     MarkdownTheme? markdownTheme,
@@ -1185,23 +1420,58 @@ class _MarkdownState extends State<Markdown> {
                           ),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(minWidth: minCellWidth),
-                        child: RichText(
-                          softWrap: false,
-                          textAlign: colIndex < block.tableAlignments.length
-                              ? block.tableAlignments[colIndex]
-                              : TextAlign.left,
-                          text: TextSpan(
-                            style: rowIndex == 0 ? headerStyle : cellStyle,
-                            children: _buildInlineSpans(
-                              context,
-                              rows[rowIndex][colIndex],
-                              rowIndex == 0 ? headerStyle : cellStyle,
-                              document,
-                              onTapLink: _handleTapLink,
-                              followLinks: widget.followLinks,
-                              linkStyle: markdownTheme?.linkStyle,
-                            ),
+                        child: _wrapElementTap(
+                          details: MarkdownTapElementDetails(
+                            kind: rowIndex == 0
+                                ? MarkdownTapElementKind.tableHeaderCell
+                                : MarkdownTapElementKind.tableCell,
+                            text: rows[rowIndex][colIndex],
+                            blockIndex: blockIndex,
+                            tableRow: rowIndex,
+                            tableColumn: colIndex,
                           ),
+                          child: widget.selectable
+                              ? SelectableText.rich(
+                                  TextSpan(
+                                    style: rowIndex == 0
+                                        ? headerStyle
+                                        : cellStyle,
+                                    children: _buildInlineSpans(
+                                      context,
+                                      rows[rowIndex][colIndex],
+                                      rowIndex == 0 ? headerStyle : cellStyle,
+                                      document,
+                                      onTapLink: _handleTapLink,
+                                      followLinks: widget.followLinks,
+                                      linkStyle: markdownTheme?.linkStyle,
+                                    ),
+                                  ),
+                                  textAlign:
+                                      colIndex < block.tableAlignments.length
+                                      ? block.tableAlignments[colIndex]
+                                      : TextAlign.left,
+                                )
+                              : RichText(
+                                  softWrap: false,
+                                  textAlign:
+                                      colIndex < block.tableAlignments.length
+                                      ? block.tableAlignments[colIndex]
+                                      : TextAlign.left,
+                                  text: TextSpan(
+                                    style: rowIndex == 0
+                                        ? headerStyle
+                                        : cellStyle,
+                                    children: _buildInlineSpans(
+                                      context,
+                                      rows[rowIndex][colIndex],
+                                      rowIndex == 0 ? headerStyle : cellStyle,
+                                      document,
+                                      onTapLink: _handleTapLink,
+                                      followLinks: widget.followLinks,
+                                      linkStyle: markdownTheme?.linkStyle,
+                                    ),
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -1216,6 +1486,7 @@ class _MarkdownState extends State<Markdown> {
   Widget _buildImage(
     BuildContext context,
     _MarkdownBlock block,
+    int blockIndex,
     TextStyle baseStyle,
     MarkdownTheme? markdownTheme,
   ) {
@@ -1293,22 +1564,27 @@ class _MarkdownState extends State<Markdown> {
       ),
     );
 
-    if (widget.onTapImage != null) {
-      child = MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            widget.onTapImage?.call(
-              MarkdownImageTapDetails(
-                url: imageUrl.trim(),
-                alt: alt,
-                title: block.imageTitle,
-              ),
-            );
-          },
-          child: child,
-        ),
+    if (widget.onTapImage != null || widget.onTapElement != null) {
+      child = _MarkdownTapReporter(
+        onTap: () {
+          widget.onTapImage?.call(
+            MarkdownImageTapDetails(
+              url: imageUrl.trim(),
+              alt: alt,
+              title: block.imageTitle,
+            ),
+          );
+          _emitElementTap(
+            MarkdownTapElementDetails(
+              kind: MarkdownTapElementKind.image,
+              text: alt,
+              url: imageUrl.trim(),
+              title: block.imageTitle,
+              blockIndex: blockIndex,
+            ),
+          );
+        },
+        child: child,
       );
     }
 
@@ -1337,6 +1613,7 @@ class _MarkdownState extends State<Markdown> {
   Widget _buildDefinitionList(
     BuildContext context,
     _MarkdownBlock block,
+    int blockIndex,
     TextStyle baseStyle,
     _MarkdownDocument document,
     MarkdownTheme? markdownTheme,
@@ -1346,42 +1623,56 @@ class _MarkdownState extends State<Markdown> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            block.text,
-            style: baseStyle.copyWith(fontWeight: FontWeight.w700),
+          _wrapElementTap(
+            details: MarkdownTapElementDetails(
+              kind: MarkdownTapElementKind.definitionTerm,
+              text: block.text,
+              blockIndex: blockIndex,
+            ),
+            child: Text(
+              block.text,
+              style: baseStyle.copyWith(fontWeight: FontWeight.w700),
+            ),
           ),
-          for (final item in block.items)
+          for (var itemIndex = 0; itemIndex < block.items.length; itemIndex++)
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 4),
-              child: widget.selectable
-                  ? SelectableText.rich(
-                      TextSpan(
-                        style: baseStyle,
-                        children: _buildInlineSpans(
-                          context,
-                          item,
-                          baseStyle,
-                          document,
-                          onTapLink: _handleTapLink,
-                          followLinks: widget.followLinks,
-                          linkStyle: markdownTheme?.linkStyle,
+              child: _wrapElementTap(
+                details: MarkdownTapElementDetails(
+                  kind: MarkdownTapElementKind.definitionDescription,
+                  text: block.items[itemIndex],
+                  blockIndex: blockIndex,
+                ),
+                child: widget.selectable
+                    ? SelectableText.rich(
+                        TextSpan(
+                          style: baseStyle,
+                          children: _buildInlineSpans(
+                            context,
+                            block.items[itemIndex],
+                            baseStyle,
+                            document,
+                            onTapLink: _handleTapLink,
+                            followLinks: widget.followLinks,
+                            linkStyle: markdownTheme?.linkStyle,
+                          ),
+                        ),
+                      )
+                    : RichText(
+                        text: TextSpan(
+                          style: baseStyle,
+                          children: _buildInlineSpans(
+                            context,
+                            block.items[itemIndex],
+                            baseStyle,
+                            document,
+                            onTapLink: _handleTapLink,
+                            followLinks: widget.followLinks,
+                            linkStyle: markdownTheme?.linkStyle,
+                          ),
                         ),
                       ),
-                    )
-                  : RichText(
-                      text: TextSpan(
-                        style: baseStyle,
-                        children: _buildInlineSpans(
-                          context,
-                          item,
-                          baseStyle,
-                          document,
-                          onTapLink: _handleTapLink,
-                          followLinks: widget.followLinks,
-                          linkStyle: markdownTheme?.linkStyle,
-                        ),
-                      ),
-                    ),
+              ),
             ),
         ],
       ),
