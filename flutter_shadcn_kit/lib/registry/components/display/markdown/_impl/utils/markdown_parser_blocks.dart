@@ -390,6 +390,87 @@ List<String> _parseTableRow(String line) {
   return cells;
 }
 
+(List<List<String>>, int) _consumeMarkdownTableRows(
+  List<String> lines,
+  int startIndex, {
+  required int expectedColumns,
+}) {
+  final rows = <List<String>>[];
+  List<String>? pendingRow;
+  var i = startIndex;
+
+  while (i < lines.length) {
+    final rawLine = lines[i];
+    final trimmedRight = rawLine.trimRight();
+    if (trimmedRight.trim().isEmpty) {
+      break;
+    }
+
+    if (trimmedRight.contains('|')) {
+      final parsed = _parseTableRow(trimmedRight);
+      if (pendingRow == null) {
+        pendingRow = parsed;
+      } else if (_isTableRowComplete(pendingRow, expectedColumns)) {
+        rows.add(pendingRow);
+        pendingRow = parsed;
+      } else {
+        pendingRow = _mergeTableRowFragments(pendingRow, parsed);
+      }
+      i += 1;
+      continue;
+    }
+
+    if (pendingRow == null ||
+        _isTableRowComplete(pendingRow, expectedColumns)) {
+      break;
+    }
+
+    pendingRow = _appendTableRowContinuation(pendingRow, trimmedRight);
+    i += 1;
+  }
+
+  if (pendingRow != null) {
+    rows.add(pendingRow);
+  }
+  return (rows, i);
+}
+
+bool _isTableRowComplete(List<String> row, int expectedColumns) {
+  return row.length >= expectedColumns;
+}
+
+List<String> _mergeTableRowFragments(List<String> base, List<String> fragment) {
+  if (fragment.isEmpty) {
+    return base;
+  }
+  final merged = List<String>.from(base);
+  if (merged.isEmpty) {
+    return List<String>.from(fragment);
+  }
+  merged[merged.length - 1] = merged.last.isEmpty
+      ? fragment.first
+      : '${merged.last}\n${fragment.first}';
+  if (fragment.length > 1) {
+    merged.addAll(fragment.skip(1));
+  }
+  return merged;
+}
+
+List<String> _appendTableRowContinuation(
+  List<String> row,
+  String continuation,
+) {
+  final merged = List<String>.from(row);
+  if (merged.isEmpty) {
+    merged.add(continuation);
+    return merged;
+  }
+  merged[merged.length - 1] = merged.last.isEmpty
+      ? continuation
+      : '${merged.last}\n$continuation';
+  return merged;
+}
+
 List<TextAlign> _tableAlignments(String separatorLine) {
   final cells = _parseTableRow(separatorLine);
   return <TextAlign>[for (final cell in cells) _tableAlignment(cell)];

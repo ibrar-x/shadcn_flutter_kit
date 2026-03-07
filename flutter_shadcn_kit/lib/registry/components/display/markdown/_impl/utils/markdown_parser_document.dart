@@ -176,13 +176,13 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
     if (_looksLikeTableHeader(lines, i)) {
       final rows = <List<String>>[_parseTableRow(lines[i])];
       final alignments = _tableAlignments(lines[i + 1]);
-      i += 2;
-      while (i < lines.length &&
-          lines[i].trim().isNotEmpty &&
-          lines[i].contains('|')) {
-        rows.add(_parseTableRow(lines[i]));
-        i += 1;
-      }
+      final bodyResult = _consumeMarkdownTableRows(
+        lines,
+        i + 2,
+        expectedColumns: rows.first.length,
+      );
+      rows.addAll(bodyResult.$1);
+      i = bodyResult.$2;
       final maxColumns = rows.fold<int>(
         0,
         (max, row) => row.length > max ? row.length : max,
