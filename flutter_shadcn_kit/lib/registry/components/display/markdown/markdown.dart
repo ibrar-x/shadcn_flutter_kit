@@ -568,7 +568,6 @@ class _MarkdownState extends State<Markdown> {
     setState(() {
       _error = null;
       _preparingDocument = true;
-      _clearMarkdownCaches();
     });
 
     try {
