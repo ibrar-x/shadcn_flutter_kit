@@ -74,6 +74,20 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
       continue;
     }
 
+    final htmlList = _tryParseHtmlListBlock(lines, i);
+    if (htmlList != null) {
+      blocks.addAll(htmlList.$1);
+      i = htmlList.$2;
+      continue;
+    }
+
+    final htmlDefinitionList = _tryParseHtmlDefinitionListBlock(lines, i);
+    if (htmlDefinitionList != null) {
+      blocks.addAll(htmlDefinitionList.$1);
+      i = htmlDefinitionList.$2;
+      continue;
+    }
+
     final htmlSemantic = _tryParseSemanticHtmlBlock(lines, i);
     if (htmlSemantic != null) {
       blocks.add(htmlSemantic.$1);
@@ -114,6 +128,13 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
         ),
       );
       i += 1;
+      continue;
+    }
+
+    final setextHeading = _tryParseSetextHeading(lines, i);
+    if (setextHeading != null) {
+      blocks.add(setextHeading.$1);
+      i = setextHeading.$2;
       continue;
     }
 
@@ -198,9 +219,12 @@ _MarkdownDocument _parseMarkdownDocument(String data) {
           _tryParseIndentedCode(lines, i) != null ||
           _tryParseDetailsBlock(lines, i) != null ||
           _tryParseHtmlTable(lines, i) != null ||
+          _tryParseHtmlListBlock(lines, i) != null ||
+          _tryParseHtmlDefinitionListBlock(lines, i) != null ||
           _tryParseSemanticHtmlBlock(lines, i) != null ||
           _tryParseHtmlBlock(lines, i) != null ||
           RegExp(r'^(#{1,6})\s+').hasMatch(next) ||
+          _tryParseSetextHeading(lines, i) != null ||
           _parseListItem(next) != null ||
           _isQuoteLine(next) ||
           RegExp(r'^\s*([-_*])\s*\1\s*\1').hasMatch(next) ||
@@ -252,10 +276,12 @@ int _computeStableMarkdownPrefixLength(String data) {
   var offset = 0;
   var lastStable = 0;
   var inFence = false;
+  String? openFence;
   var inMath = false;
   var inDetails = false;
   var inTable = false;
   var inHtmlTable = false;
+  String? inHtmlContainerTag;
 
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
@@ -264,8 +290,9 @@ int _computeStableMarkdownPrefixLength(String data) {
     final lineEnd = offset + line.length + (hasTrailingNewline ? 1 : 0);
 
     if (inFence) {
-      if (trimmed.startsWith('```')) {
+      if (openFence != null && _isClosingFenceLine(trimmed, openFence)) {
         inFence = false;
+        openFence = null;
         lastStable = lineEnd;
       }
       offset = lineEnd;
@@ -282,7 +309,7 @@ int _computeStableMarkdownPrefixLength(String data) {
     }
 
     if (inDetails) {
-      if (trimmed.toLowerCase() == '</details>') {
+      if (trimmed.toLowerCase().startsWith('</details')) {
         inDetails = false;
         lastStable = lineEnd;
       }
@@ -317,14 +344,26 @@ int _computeStableMarkdownPrefixLength(String data) {
       continue;
     }
 
+    if (inHtmlContainerTag != null) {
+      final lower = trimmed.toLowerCase();
+      if (lower.contains('</$inHtmlContainerTag>')) {
+        inHtmlContainerTag = null;
+        lastStable = lineEnd;
+      }
+      offset = lineEnd;
+      continue;
+    }
+
     if (trimmed.isEmpty) {
       lastStable = lineEnd;
       offset = lineEnd;
       continue;
     }
 
-    if (RegExp(r'^\s*```').hasMatch(trimmed)) {
+    final fenceInfo = _parseFenceMarker(trimmed);
+    if (fenceInfo != null) {
       inFence = true;
+      openFence = fenceInfo.$1;
       offset = lineEnd;
       continue;
     }
@@ -335,7 +374,7 @@ int _computeStableMarkdownPrefixLength(String data) {
       continue;
     }
 
-    if (trimmed.toLowerCase() == '<details>') {
+    if (trimmed.toLowerCase().startsWith('<details')) {
       inDetails = true;
       offset = lineEnd;
       continue;
@@ -349,6 +388,19 @@ int _computeStableMarkdownPrefixLength(String data) {
         }
       } else {
         inHtmlTable = true;
+      }
+      offset = lineEnd;
+      continue;
+    }
+
+    final htmlContainer = _openingHtmlContainerTag(trimmed);
+    if (htmlContainer != null) {
+      if (trimmed.toLowerCase().contains('</$htmlContainer>')) {
+        if (hasTrailingNewline) {
+          lastStable = lineEnd;
+        }
+      } else {
+        inHtmlContainerTag = htmlContainer;
       }
       offset = lineEnd;
       continue;
@@ -390,7 +442,7 @@ String _normalizeMarkdownWithHtmlBridges(String source) {
 String _convertMarkdownTablesToHtml(String source) {
   final lines = source.split('\n');
   final output = <String>[];
-  var inFence = false;
+  String? openFence;
   var inMath = false;
   var i = 0;
 
@@ -398,21 +450,28 @@ String _convertMarkdownTablesToHtml(String source) {
     final line = lines[i];
     final trimmed = line.trimRight();
 
-    if (RegExp(r'^\s*```').hasMatch(trimmed)) {
-      inFence = !inFence;
+    final fenceInfo = _parseFenceMarker(trimmed);
+    if (openFence == null && fenceInfo != null) {
+      openFence = fenceInfo.$1;
+      output.add(line);
+      i += 1;
+      continue;
+    }
+    if (openFence != null && _isClosingFenceLine(trimmed, openFence)) {
+      openFence = null;
       output.add(line);
       i += 1;
       continue;
     }
 
-    if (!inFence && trimmed == r'$$') {
+    if (openFence == null && trimmed == r'$$') {
       inMath = !inMath;
       output.add(line);
       i += 1;
       continue;
     }
 
-    if (inFence || inMath) {
+    if (openFence != null || inMath) {
       output.add(line);
       i += 1;
       continue;
@@ -501,15 +560,63 @@ String _escapeHtmlText(String value) {
       .replaceAll('>', '&gt;');
 }
 
+String? _openingHtmlContainerTag(String line) {
+  final trimmed = line.trimLeft();
+  final lower = trimmed.toLowerCase();
+  for (final tag in const <String>[
+    'ul',
+    'ol',
+    'dl',
+    'blockquote',
+    'pre',
+    'p',
+    'div',
+    'section',
+    'article',
+  ]) {
+    if (lower.startsWith('<$tag')) {
+      return tag;
+    }
+  }
+  final heading = RegExp(
+    r'^<h([1-6])\b',
+    caseSensitive: false,
+  ).firstMatch(trimmed);
+  if (heading != null) {
+    return 'h${heading.group(1)}';
+  }
+  return null;
+}
+
+(String, String?)? _parseFenceMarker(String line) {
+  final match = RegExp(
+    r'^\s*(`{3,}|~{3,})(?:\s*([\w-]+))?\s*$',
+  ).firstMatch(line.trimRight());
+  if (match == null) {
+    return null;
+  }
+  return (match.group(1)!, match.group(2)?.trim());
+}
+
+bool _isClosingFenceLine(String line, String marker) {
+  final char = marker[0];
+  final length = marker.length;
+  return RegExp(
+    '^\\s*${RegExp.escape(char)}{$length,}\\s*\$',
+  ).hasMatch(line.trimRight());
+}
+
 bool _isStandaloneStableLine(String line) {
   return RegExp(r'^(#{1,6})\s+').hasMatch(line) ||
+      RegExp(r'^\s*(=+|-+)\s*$').hasMatch(line) ||
       RegExp(r'^\s*([-_*])\s*\1\s*\1').hasMatch(line) ||
       RegExp(r'^\s*[-*+]\s+').hasMatch(line) ||
       RegExp(r'^\s*\d+\.\s+').hasMatch(line) ||
       RegExp(r'^\s*>\s?').hasMatch(line) ||
       RegExp(r'^\s*!\[').hasMatch(line) ||
       RegExp(r'^\s*\[[^\]]+\]:').hasMatch(line) ||
-      RegExp(r'^\s*\[\^[^\]]+\]:').hasMatch(line);
+      RegExp(r'^\s*\[\^[^\]]+\]:').hasMatch(line) ||
+      _openingHtmlContainerTag(line) != null;
 }
 
 (String, _MarkdownLinkTarget)? _tryParseReferenceDefinition(String line) {
@@ -560,15 +667,17 @@ bool _isStandaloneStableLine(String line) {
 }
 
 (_MarkdownBlock, int)? _tryParseCodeFence(List<String> lines, int index) {
-  final match = RegExp(
-    r'^\s*```([\w-]+)?\s*$',
-  ).firstMatch(lines[index].trimRight());
-  if (match == null) {
+  final firstLine = lines[index].trimRight();
+  final fenceInfo = _parseFenceMarker(firstLine);
+  if (fenceInfo == null) {
     return null;
   }
+  final marker = fenceInfo.$1;
+  final language = fenceInfo.$2;
   final buffer = <String>[];
   var i = index + 1;
-  while (i < lines.length && !lines[i].trimRight().startsWith('```')) {
+  while (i < lines.length &&
+      !_isClosingFenceLine(lines[i].trimRight(), marker)) {
     buffer.add(lines[i]);
     i += 1;
   }
@@ -579,9 +688,33 @@ bool _isStandaloneStableLine(String line) {
     _MarkdownBlock(
       type: _MarkdownBlockType.codeFence,
       text: buffer.join('\n'),
-      language: match.group(1)?.trim(),
+      language: language,
     ),
     i,
+  );
+}
+
+(_MarkdownBlock, int)? _tryParseSetextHeading(List<String> lines, int index) {
+  if (index + 1 >= lines.length) {
+    return null;
+  }
+  final text = lines[index].trimRight();
+  if (text.isEmpty) {
+    return null;
+  }
+  final underline = lines[index + 1].trimRight();
+  final match = RegExp(r'^\s*(=+|-+)\s*$').firstMatch(underline);
+  if (match == null) {
+    return null;
+  }
+  return (
+    _MarkdownBlock(
+      type: match.group(1)!.startsWith('=')
+          ? _MarkdownBlockType.heading1
+          : _MarkdownBlockType.heading2,
+      text: text,
+    ),
+    index + 2,
   );
 }
 
@@ -643,16 +776,16 @@ bool _isStandaloneStableLine(String line) {
   var i = index + 1;
   while (i < lines.length) {
     final trimmed = lines[i].trim();
-    if (trimmed.toLowerCase().startsWith('<summary>') &&
-        trimmed.toLowerCase().endsWith('</summary>')) {
-      summary = trimmed
-          .replaceFirst(RegExp(r'^<summary>', caseSensitive: false), '')
-          .replaceFirst(RegExp(r'</summary>$', caseSensitive: false), '')
-          .trim();
+    final summaryMatch = RegExp(
+      r'^<summary\b[^>]*>([\s\S]*?)</summary>$',
+      caseSensitive: false,
+    ).firstMatch(trimmed);
+    if (summaryMatch != null) {
+      summary = _normalizeHtmlInline(summaryMatch.group(1) ?? '').trim();
       i += 1;
       continue;
     }
-    if (trimmed.toLowerCase() == '</details>') {
+    if (trimmed.toLowerCase().startsWith('</details')) {
       i += 1;
       break;
     }
@@ -832,6 +965,288 @@ bool _isStandaloneStableLine(String line) {
   }
 
   return null;
+}
+
+(List<_MarkdownBlock>, int)? _tryParseHtmlListBlock(
+  List<String> lines,
+  int index,
+) {
+  final lower = lines[index].trimLeft().toLowerCase();
+  if (!lower.startsWith('<ul') && !lower.startsWith('<ol')) {
+    return null;
+  }
+  final tag = lower.startsWith('<ol') ? 'ol' : 'ul';
+  final collected = _collectHtmlElement(lines, index, tag);
+  if (collected == null) {
+    return null;
+  }
+  final blocks = _parseHtmlListElement(collected.$1, indentLevel: 0);
+  if (blocks.isEmpty) {
+    return null;
+  }
+  return (blocks, collected.$2);
+}
+
+List<_MarkdownBlock> _parseHtmlListElement(
+  String raw, {
+  required int indentLevel,
+}) {
+  final trimmed = raw.trimLeft();
+  final openMatch = RegExp(
+    r'^<\s*(ul|ol)\b([^>]*)>',
+    caseSensitive: false,
+  ).firstMatch(trimmed);
+  if (openMatch == null) {
+    return const <_MarkdownBlock>[];
+  }
+
+  final listTag = (openMatch.group(1) ?? 'ul').toLowerCase();
+  final isOrdered = listTag == 'ol';
+  final attrs = openMatch.group(2) ?? '';
+  var nextOrderedIndex = isOrdered
+      ? int.tryParse(_extractHtmlAttribute(attrs, 'start') ?? '') ?? 1
+      : 1;
+
+  final inner = _extractInnerHtml(trimmed, listTag);
+  final liItems = _extractTopLevelElements(inner, 'li');
+  final blocks = <_MarkdownBlock>[];
+  for (final liRaw in liItems) {
+    final parsed = _parseHtmlListItem(
+      liRaw,
+      ordered: isOrdered,
+      indentLevel: indentLevel,
+      orderedIndex: nextOrderedIndex,
+    );
+    if (parsed.$1 != null) {
+      blocks.add(parsed.$1!);
+    }
+    blocks.addAll(parsed.$2);
+    if (isOrdered) {
+      nextOrderedIndex += 1;
+    }
+  }
+  return blocks;
+}
+
+(_MarkdownBlock?, List<_MarkdownBlock>) _parseHtmlListItem(
+  String raw, {
+  required bool ordered,
+  required int indentLevel,
+  required int orderedIndex,
+}) {
+  final inner = _extractInnerHtml(raw, 'li');
+  final nestedSegments = _extractTopLevelListSegments(inner);
+  final mainHtml = _removeRanges(inner, [
+    for (final segment in nestedSegments) (segment.$2, segment.$3),
+  ]);
+  final checkboxState = _extractHtmlCheckboxState(mainHtml);
+  final normalized = _normalizeHtmlBlockText(
+    _stripHtmlCheckboxInputs(mainHtml),
+  );
+
+  _MarkdownBlock? block;
+  if (normalized.isNotEmpty || checkboxState != null) {
+    if (checkboxState != null) {
+      block = _MarkdownBlock(
+        type: _MarkdownBlockType.taskList,
+        text: normalized,
+        checked: checkboxState,
+        indentLevel: indentLevel,
+      );
+    } else if (ordered) {
+      block = _MarkdownBlock(
+        type: _MarkdownBlockType.orderedList,
+        text: normalized,
+        orderedIndex: orderedIndex,
+        indentLevel: indentLevel,
+      );
+    } else {
+      block = _MarkdownBlock(
+        type: _MarkdownBlockType.unorderedList,
+        text: normalized,
+        indentLevel: indentLevel,
+      );
+    }
+  }
+
+  final nestedBlocks = <_MarkdownBlock>[];
+  for (final segment in nestedSegments) {
+    final nestedRaw = inner.substring(segment.$2, segment.$3);
+    nestedBlocks.addAll(
+      _parseHtmlListElement(nestedRaw, indentLevel: indentLevel + 1),
+    );
+  }
+
+  return (block, nestedBlocks);
+}
+
+List<(String, int, int)> _extractTopLevelListSegments(String html) {
+  final segments = <(String, int, int)>[];
+  for (final tag in const <String>['ul', 'ol']) {
+    final ranges = _extractTopLevelTagRanges(html, tag);
+    for (final range in ranges) {
+      segments.add((tag, range.$1, range.$2));
+    }
+  }
+  segments.sort((a, b) => a.$2.compareTo(b.$2));
+  return segments;
+}
+
+List<String> _extractTopLevelElements(String html, String tag) {
+  final ranges = _extractTopLevelTagRanges(html, tag);
+  return <String>[
+    for (final range in ranges) html.substring(range.$1, range.$2),
+  ];
+}
+
+List<(int, int)> _extractTopLevelTagRanges(String html, String tag) {
+  final tokenPattern = RegExp('</?$tag\\b[^>]*>', caseSensitive: false);
+  final ranges = <(int, int)>[];
+  var depth = 0;
+  int? start;
+
+  for (final match in tokenPattern.allMatches(html)) {
+    final token = match.group(0)!.toLowerCase();
+    final isClosing = token.startsWith('</');
+    final isSelfClosing = token.endsWith('/>');
+    if (!isClosing) {
+      if (depth == 0) {
+        start = match.start;
+      }
+      if (isSelfClosing) {
+        if (depth == 0 && start != null) {
+          ranges.add((start, match.end));
+          start = null;
+        }
+      } else {
+        depth += 1;
+      }
+      continue;
+    }
+    if (depth == 0) {
+      continue;
+    }
+    depth -= 1;
+    if (depth == 0 && start != null) {
+      ranges.add((start, match.end));
+      start = null;
+    }
+  }
+
+  return ranges;
+}
+
+String _removeRanges(String source, List<(int, int)> ranges) {
+  if (ranges.isEmpty) {
+    return source;
+  }
+  final sorted = <(int, int)>[...ranges]..sort((a, b) => a.$1.compareTo(b.$1));
+  final buffer = StringBuffer();
+  var cursor = 0;
+  for (final range in sorted) {
+    if (range.$1 > cursor) {
+      buffer.write(source.substring(cursor, range.$1));
+    }
+    cursor = range.$2 > cursor ? range.$2 : cursor;
+  }
+  if (cursor < source.length) {
+    buffer.write(source.substring(cursor));
+  }
+  return buffer.toString();
+}
+
+bool? _extractHtmlCheckboxState(String value) {
+  final input = RegExp(
+    r'<input\b([^>]*)>',
+    caseSensitive: false,
+  ).firstMatch(value);
+  if (input == null) {
+    return null;
+  }
+  final attrs = input.group(1) ?? '';
+  final type = _extractHtmlAttribute(attrs, 'type')?.toLowerCase().trim();
+  if (type != 'checkbox') {
+    return null;
+  }
+  return RegExp(r'\bchecked\b', caseSensitive: false).hasMatch(attrs);
+}
+
+String _stripHtmlCheckboxInputs(String value) {
+  return value.replaceAllMapped(
+    RegExp(r'<input\b([^>]*)>', caseSensitive: false),
+    (match) {
+      final attrs = match.group(1) ?? '';
+      final type = _extractHtmlAttribute(attrs, 'type')?.toLowerCase().trim();
+      if (type == 'checkbox') {
+        return '';
+      }
+      return match.group(0) ?? '';
+    },
+  );
+}
+
+(List<_MarkdownBlock>, int)? _tryParseHtmlDefinitionListBlock(
+  List<String> lines,
+  int index,
+) {
+  final lower = lines[index].trimLeft().toLowerCase();
+  if (!lower.startsWith('<dl')) {
+    return null;
+  }
+
+  final collected = _collectHtmlElement(lines, index, 'dl');
+  if (collected == null) {
+    return null;
+  }
+
+  final inner = _extractInnerHtml(collected.$1, 'dl');
+  final entries = <(String, int, int)>[
+    for (final range in _extractTopLevelTagRanges(inner, 'dt'))
+      ('dt', range.$1, range.$2),
+    for (final range in _extractTopLevelTagRanges(inner, 'dd'))
+      ('dd', range.$1, range.$2),
+  ]..sort((a, b) => a.$2.compareTo(b.$2));
+
+  final blocks = <_MarkdownBlock>[];
+  String? currentTerm;
+  final definitions = <String>[];
+
+  void flushCurrent() {
+    if (currentTerm == null || definitions.isEmpty) {
+      return;
+    }
+    blocks.add(
+      _MarkdownBlock(
+        type: _MarkdownBlockType.definitionList,
+        text: currentTerm!,
+        items: List<String>.unmodifiable(definitions),
+      ),
+    );
+    currentTerm = null;
+    definitions.clear();
+  }
+
+  for (final entry in entries) {
+    final tag = entry.$1;
+    final raw = inner.substring(entry.$2, entry.$3);
+    final text = _normalizeHtmlBlockText(_extractInnerHtml(raw, tag));
+    if (text.isEmpty) {
+      continue;
+    }
+    if (tag == 'dt') {
+      flushCurrent();
+      currentTerm = text;
+      continue;
+    }
+    currentTerm ??= 'Term';
+    definitions.add(text);
+  }
+  flushCurrent();
+
+  if (blocks.isEmpty) {
+    return null;
+  }
+  return (blocks, collected.$2);
 }
 
 (String, int)? _collectHtmlElement(List<String> lines, int index, String tag) {
