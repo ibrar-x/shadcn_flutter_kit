@@ -7,8 +7,11 @@ const MethodChannel _markdownLinkChannel = MethodChannel(
 );
 
 Future<bool> openMarkdownLink(String url) async {
-  final normalized = url.trim();
-  if (normalized.isEmpty) {
+  final normalized = _normalizeOpenableUrl(url);
+  if (normalized == null) {
+    return false;
+  }
+  if (normalized.startsWith('#')) {
     return false;
   }
 
@@ -36,4 +39,26 @@ Future<bool> openMarkdownLink(String url) async {
     return false;
   }
   return result.exitCode == 0;
+}
+
+String? _normalizeOpenableUrl(String value) {
+  final trimmed = value.trim();
+  if (trimmed.isEmpty) {
+    return null;
+  }
+  final uri = Uri.tryParse(trimmed);
+  if (uri == null) {
+    return null;
+  }
+  if (!uri.hasScheme) {
+    return trimmed;
+  }
+  final scheme = uri.scheme.toLowerCase();
+  if ((scheme == 'http' || scheme == 'https') && uri.host.isEmpty) {
+    return null;
+  }
+  if (scheme == 'mailto' && uri.path.isEmpty) {
+    return null;
+  }
+  return trimmed;
 }
