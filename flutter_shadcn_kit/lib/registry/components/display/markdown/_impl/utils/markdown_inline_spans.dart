@@ -6,11 +6,13 @@ List<InlineSpan> _buildInlineSpans(
   TextStyle baseStyle,
   _MarkdownDocument document, {
   MarkdownTapLinkCallback? onTapLink,
+  required bool followLinks,
 }) {
   return _MarkdownInlineParser(
     baseStyle: baseStyle,
     document: document,
     onTapLink: onTapLink,
+    followLinks: followLinks,
   ).parse(text);
 }
 
@@ -19,11 +21,13 @@ class _MarkdownInlineParser {
     required this.baseStyle,
     required this.document,
     required this.onTapLink,
+    required this.followLinks,
   });
 
   final TextStyle baseStyle;
   final _MarkdownDocument document;
   final MarkdownTapLinkCallback? onTapLink;
+  final bool followLinks;
 
   List<InlineSpan> parse(String input) {
     final spans = <InlineSpan>[];
@@ -219,7 +223,7 @@ class _MarkdownInlineParser {
     );
 
     final callback = onTapLink;
-    if (callback == null) {
+    if (callback == null && !followLinks) {
       return TextSpan(text: label, style: linkStyle);
     }
 
@@ -227,7 +231,13 @@ class _MarkdownInlineParser {
       alignment: PlaceholderAlignment.baseline,
       baseline: TextBaseline.alphabetic,
       child: GestureDetector(
-        onTap: () => callback(label, url),
+        onTap: () async {
+          if (callback != null) {
+            callback(label, url);
+            return;
+          }
+          await openMarkdownLink(url);
+        },
         child: Text(label, style: linkStyle),
       ),
     );
