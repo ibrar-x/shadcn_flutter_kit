@@ -2,21 +2,16 @@ import 'package:flutter/material.dart' hide Theme, TextField;
 import 'package:flutter/services.dart';
 
 import '../../../button/button.dart';
-import '../../../../overlay/dialog/dialog.dart' as shadcn_dialog;
 import '../../../../form/text_field/text_field.dart';
 import '../../../../../shared/icons/lucide_icons.dart';
-import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/primitives/focus_outline.dart';
 import '../../../../../shared/primitives/outlined_container.dart';
 import '../../../../../shared/primitives/subfocus.dart';
 import '../../../../../shared/theme/theme.dart';
-import '../../../../../shared/utils/border_utils.dart';
-import '../../../../../shared/utils/constants.dart';
 import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/primitives/text.dart';
 import '../../../../../shared/utils/util.dart';
 import '../../../../../shared/primitives/icon_extensions.dart';
-import '../../../../../shared/utils/color_extensions.dart';
 import '../../../../../shared/localizations/shadcn_localizations.dart';
 import '../core/command_empty.dart';
 import '../core/command_keyboard_display.dart';
@@ -197,7 +192,7 @@ class CommandState extends State<Command> {
                                   child:
 
                                       /// Creates a `Center` instance.
-                                      Center(
+                                      const Center(
                                     child: CircularProgressIndicator(),
                                   ).withPadding(
                                     vertical: theme.density.baseGap *
@@ -258,7 +253,7 @@ class CommandState extends State<Command> {
                             children: [
                               /// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                               CommandKeyboardDisplay.fromActivator(
-                                activator: SingleActivator(
+                                activator: const SingleActivator(
                                   LogicalKeyboardKey.arrowUp,
                                 ),
                               ).xSmall().muted(),
@@ -271,7 +266,7 @@ class CommandState extends State<Command> {
 
                               /// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                               CommandKeyboardDisplay.fromActivator(
-                                activator: SingleActivator(
+                                activator: const SingleActivator(
                                   LogicalKeyboardKey.arrowDown,
                                 ),
                               ).xSmall().muted(),
@@ -286,7 +281,7 @@ class CommandState extends State<Command> {
 
                               /// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                               CommandKeyboardDisplay.fromActivator(
-                                activator: SingleActivator(
+                                activator: const SingleActivator(
                                   LogicalKeyboardKey.enter,
                                 ),
                               ).xSmall().muted(),

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/primitives/form_control.dart';
-import '../../../../../shared/primitives/form_value_supplier.dart';
 
 /// ToggleController defines a reusable type for this registry module.
 class ToggleController extends ValueNotifier<bool>

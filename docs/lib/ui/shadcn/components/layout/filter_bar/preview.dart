@@ -220,9 +220,9 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
                     canUnselect: true,
                     placeholder: const Text('Status'),
                     itemBuilder: (context, value) => Text(value),
-                    popup: SelectPopup<String>(
+                    popup: const SelectPopup<String>(
                       items: SelectItemList(
-                        children: const [
+                        children: [
                           SelectItemButton<String>(value: 'open', child: Text('Open')),
                           SelectItemButton<String>(
                             value: 'in_progress',
@@ -403,9 +403,9 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                     canUnselect: true,
                     placeholder: const Text('Category'),
                     itemBuilder: (context, value) => Text(value),
-                    popup: SelectPopup<String>(
+                    popup: const SelectPopup<String>(
                       items: SelectItemList(
-                        children: const [
+                        children: [
                           SelectItemButton<String>(
                             value: 'electronics',
                             child: Text('Electronics'),
@@ -430,9 +430,9 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                     canUnselect: true,
                     placeholder: const Text('Price'),
                     itemBuilder: (context, value) => Text(value),
-                    popup: SelectPopup<String>(
+                    popup: const SelectPopup<String>(
                       items: SelectItemList(
-                        children: const [
+                        children: [
                           SelectItemButton<String>(value: '<200', child: Text('< 200')),
                           SelectItemButton<String>(
                             value: '200-600',
@@ -560,9 +560,9 @@ class _MobileOnlySheetExampleState extends State<_MobileOnlySheetExample> {
                         canUnselect: true,
                         placeholder: const Text('Quick status'),
                         itemBuilder: (context, value) => Text(value),
-                        popup: SelectPopup<String>(
+                        popup: const SelectPopup<String>(
                           items: SelectItemList(
-                            children: const [
+                            children: [
                               SelectItemButton<String>(
                                 value: 'open',
                                 child: Text('Open'),

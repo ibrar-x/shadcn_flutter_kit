@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/primitives/form_control.dart';
-import '../../../../../shared/primitives/form_value_supplier.dart';
 import '../styles/button_style_class.dart';
 import '../state/toggle_controller_class.dart';
 import 'toggle_widget.dart';

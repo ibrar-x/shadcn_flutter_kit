@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 
 /// Details about a click event, including the click count.
 ///

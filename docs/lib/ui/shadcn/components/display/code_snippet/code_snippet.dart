@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';

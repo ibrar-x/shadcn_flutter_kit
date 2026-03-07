@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart' as m;
-import '../../layout/flex/flex.dart';
 
 import 'text_animate.dart';
 

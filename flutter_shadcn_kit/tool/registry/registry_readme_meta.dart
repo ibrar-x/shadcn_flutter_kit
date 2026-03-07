@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
+
 import '../common/registry_component_metadata.dart';
 
 const registryDir = 'flutter_shadcn_kit/lib/registry';
@@ -68,15 +70,15 @@ void validateReadmeMeta(Map<String, dynamic> meta, String path) {
   }
 
   if (errors.isNotEmpty) {
-    print('❌ Schema validation failed for $path:');
+    debugPrint('❌ Schema validation failed for $path:');
     for (final error in errors) {
-      print('   - $error');
+      debugPrint('   - $error');
     }
     throw Exception('Schema validation failed for $path');
   }
 }
 
-void _printUsage() {
+void _debugPrintUsage() {
   stdout.writeln('Usage: dart run tool/registry/registry_readme_meta.dart');
   stdout.writeln('');
   stdout.writeln('Generates <id>.meta.json files from README.md content.');
@@ -87,7 +89,7 @@ void _printUsage() {
 
 void main(List<String> args) {
   if (args.contains('-h') || args.contains('--help')) {
-    _printUsage();
+    _debugPrintUsage();
     return;
   }
 
@@ -116,18 +118,18 @@ void main(List<String> args) {
       writeJson(metadata.legacyReadmeMeta.path, legacyMeta);
 
       generated.add(metadata.canonicalReadmeMeta.path);
-      print('✓ Generated: ${metadata.canonicalReadmeMeta.path}');
+      debugPrint('✓ Generated: ${metadata.canonicalReadmeMeta.path}');
     } catch (e) {
       errors.add('✗ Error in $readmePath: $e');
     }
   }
 
-  print('\n${'=' * 60}');
-  print('Generated ${generated.length} readme meta files.');
+  debugPrint('\n${'=' * 60}');
+  debugPrint('Generated ${generated.length} readme meta files.');
   if (errors.isNotEmpty) {
-    print('\nErrors (${errors.length}):');
+    debugPrint('\nErrors (${errors.length}):');
     for (final error in errors) {
-      print(error);
+      debugPrint(error);
     }
   }
 }

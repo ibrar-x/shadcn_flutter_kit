@@ -156,7 +156,7 @@ class _SliderPreviewState extends State<SliderPreview> {
   }
 
   Widget _airbnbPriceRangeExample(BuildContext context) {
-    final accent = const Color(0xFFD9366E);
+    const accent = Color(0xFFD9366E);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,7 +377,7 @@ Widget _priceHistogramTicks(
 ) {
   final width = state.trackRect.width;
   final lineTop = state.trackRect.top;
-  final maxHeight = 34.0;
+  const maxHeight = 34.0;
   final count = bars.length;
   final step = width / count;
   final barW = max(2.0, step * 0.72);

@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/rendering.dart';
+
 import '../common/registry_component_metadata.dart';
 
 /// Creates a "skill bundle" folder from your registry directory by copying the
 /// recommended artifacts for AI tools (index + schemas + shared + meta files).
 ///
 /// Usage:
-///   dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
+///   dart run tool/registry/registry_skill_bundle.dart `<skill-name>` [--out=skills] [--force]
 ///   dart run tool/registry/registry_skill_bundle.dart --info
 ///
 /// Examples:
@@ -20,13 +22,13 @@ const defaultOut = 'skills';
 
 void main(List<String> args) {
   if (args.contains('--info')) {
-    printInfo();
+    debugPrintInfo();
     exit(0);
   }
 
   if (args.isEmpty || args[0].startsWith('-')) {
     stderr.writeln(
-      '❌ Missing <skill-name>\n\nUsage: dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]\n       dart run tool/registry/registry_skill_bundle.dart --info',
+      '❌ Missing `<skill-name>`\n\nUsage: dart run tool/registry/registry_skill_bundle.dart `<skill-name>` [--out=skills] [--force]\n       dart run tool/registry/registry_skill_bundle.dart --info',
     );
     exit(1);
   }
@@ -110,10 +112,12 @@ void main(List<String> args) {
     final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
 
     // Always include meta.json for dependency graph context (useful for skills)
-    if (metadata.canonicalMeta.existsSync())
+    if (metadata.canonicalMeta.existsSync()) {
       filesToCopy.add(metadata.canonicalMeta.path);
-    if (metadata.legacyMeta.existsSync())
+    }
+    if (metadata.legacyMeta.existsSync()) {
       filesToCopy.add(metadata.legacyMeta.path);
+    }
 
     // Include {id}.meta.json for AI-safe API usage when present
     if (metadata.canonicalReadmeMeta.existsSync()) {
@@ -219,11 +223,11 @@ void main(List<String> args) {
   // Create manifest schema
   createManifestSchema(outDir);
 
-  print('✅ Skill bundle created: $outDir');
-  print('   Files copied: ${(manifest['files'] as List).length}');
-  print('   Snapshot root: $outDir/registry_snapshot');
-  print('   Manifest: $manifestPath');
-  print('\nTip: use --info to see all flags and behavior.');
+  debugPrint('✅ Skill bundle created: $outDir');
+  debugPrint('   Files copied: ${(manifest['files'] as List).length}');
+  debugPrint('   Snapshot root: $outDir/registry_snapshot');
+  debugPrint('   Manifest: $manifestPath');
+  debugPrint('\nTip: use --info to see all flags and behavior.');
 }
 
 String argValue(List<String> args, String prefix, String defaultValue) {
@@ -365,12 +369,12 @@ void createManifestSchema(String outDir) {
   writeJson('$schemaDir/manifest.schema.json', schema);
 }
 
-void printInfo() {
-  print('''
+void debugPrintInfo() {
+  debugPrint('''
 Create a recommended (B) skill bundle for AI tools.
 
 Usage:
-  dart run tool/registry/registry_skill_bundle.dart <skill-name> [--out=skills] [--force]
+  dart run tool/registry/registry_skill_bundle.dart `<skill-name>` [--out=skills] [--force]
   dart run tool/registry/registry_skill_bundle.dart --info
 
 Flags:

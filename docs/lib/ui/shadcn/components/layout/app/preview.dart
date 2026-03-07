@@ -8,12 +8,12 @@ class AppPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnApp(
+    return const ShadcnApp(
       title: 'ShadcnApp Preview',
       localizationsDelegates: ShadcnLocalizations.localizationsDelegates,
       supportedLocales: ShadcnLocalizations.supportedLocales,
-      locale: const Locale('en'),
-      home: const Scaffold(
+      locale: Locale('en'),
+      home: Scaffold(
         child: Center(child: Text('ShadcnApp is wired and running.')),
       ),
     );

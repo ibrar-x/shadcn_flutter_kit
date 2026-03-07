@@ -711,12 +711,6 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
         return FilterBarSheetScaffold(
           title: widget.title,
           contentPadding: widget.sheetContentPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: widget.groups.isEmpty
-                ? _buildDefaultMobileContent(customWidgets)
-                : _buildGroupedMobileContent(context),
-          ),
           footer: showClearAll
               ? GhostButton(
                   onPressed: _state.hasActiveFilters
@@ -728,6 +722,12 @@ class _FilterBarMobileSheetState extends State<_FilterBarMobileSheet> {
                   child: Text(widget.clearAllLabel),
                 )
               : null,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: widget.groups.isEmpty
+                ? _buildDefaultMobileContent(customWidgets)
+                : _buildGroupedMobileContent(context),
+          ),
         );
       },
     );

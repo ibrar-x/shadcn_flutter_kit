@@ -656,8 +656,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Text(
                     'UNITED',
                     style: TextStyle(
@@ -2520,7 +2520,7 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
       height: 1.35,
       color: Color(0xFFC0C5CB),
     );
-    final tone = const Color(0xFF8EA3FF);
+    const tone = Color(0xFF8EA3FF);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -2685,15 +2685,15 @@ class _TabsListExpanded extends StatelessWidget {
             style: TextStyle(fontSize: 12, color: Color(0xFF9FB0C6)),
           ),
           const SizedBox(height: 10),
-          TabBar(
+          const TabBar(
             isScrollable: true,
-            labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+            labelPadding: EdgeInsets.symmetric(horizontal: 10),
             dividerColor: Colors.transparent,
             tabAlignment: TabAlignment.start,
             labelColor: tone,
-            unselectedLabelColor: const Color(0xFF8A93A3),
+            unselectedLabelColor: Color(0xFF8A93A3),
             indicatorColor: tone,
-            tabs: const [
+            tabs: [
               Tab(text: 'Tasks'),
               Tab(text: 'Feeds'),
               Tab(text: 'Actions'),

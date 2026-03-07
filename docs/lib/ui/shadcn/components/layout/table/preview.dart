@@ -9,7 +9,7 @@ class TablePreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: SizedBox(
           width: 420,
@@ -19,44 +19,44 @@ class TablePreview extends StatelessWidget {
               shadcn.TableHeader(
                 cells: [
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Name')),
+                  shadcn.TableCell(child: Text('Name')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Role')),
+                  shadcn.TableCell(child: Text('Role')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Status')),
+                  shadcn.TableCell(child: Text('Status')),
                 ],
               ),
 /// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Avery')),
+                  shadcn.TableCell(child: Text('Avery')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Designer')),
+                  shadcn.TableCell(child: Text('Designer')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Active')),
+                  shadcn.TableCell(child: Text('Active')),
                 ],
               ),
 /// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Jordan')),
+                  shadcn.TableCell(child: Text('Jordan')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Engineer')),
+                  shadcn.TableCell(child: Text('Engineer')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Active')),
+                  shadcn.TableCell(child: Text('Active')),
                 ],
               ),
 /// Creates a `shadcn.TableRow` instance.
               shadcn.TableRow(
                 cells: [
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Casey')),
+                  shadcn.TableCell(child: Text('Casey')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('PM')),
+                  shadcn.TableCell(child: Text('PM')),
 /// Creates a `shadcn.TableCell` instance.
-                  shadcn.TableCell(child: const Text('Away')),
+                  shadcn.TableCell(child: Text('Away')),
                 ],
               ),
             ],

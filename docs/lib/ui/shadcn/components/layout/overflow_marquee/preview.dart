@@ -8,13 +8,13 @@ class OverflowMarqueePreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: SizedBox(
           width: 200,
           child: OverflowMarquee(
-            duration: const Duration(seconds: 6),
-            child: const Text(
+            duration: Duration(seconds: 6),
+            child: Text(
               'This text scrolls when it overflows its parent.',
             ),
           ),

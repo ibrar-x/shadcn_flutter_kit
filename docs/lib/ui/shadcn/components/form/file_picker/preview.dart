@@ -1,8 +1,5 @@
 import 'package:flutter/widgets.dart';
 import '../../display/border_loading/border_loading.dart';
-import '../../display/text/text.dart';
-import '../../../shared/icons/lucide_icons.dart';
-import '../../../shared/primitives/outlined_container.dart';
 
 import '../../layout/scaffold/scaffold.dart';
 import '../../control/button/button.dart';

@@ -13893,6 +13893,46 @@
       },
       "assets": [],
       "postInstall": []
+    },
+    {
+      "id": "markdown",
+      "name": "Markdown",
+      "description": "Advanced markdown renderer with streaming support.",
+      "category": "display",
+      "tags": [
+        "display",
+        "markdown"
+      ],
+      "version": "1.0.0",
+      "files": [
+        {
+          "source": "registry/components/display/markdown/GETTING_STARTED.md",
+          "destination": "{installPath}/components/display/markdown/GETTING_STARTED.md"
+        },
+        {
+          "source": "registry/components/display/markdown/README.md",
+          "destination": "{installPath}/components/display/markdown/README.md"
+        },
+        {
+          "source": "registry/components/display/markdown/markdown.dart",
+          "destination": "{installPath}/components/display/markdown/markdown.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/meta.json",
+          "destination": "{installPath}/components/display/markdown/meta.json"
+        },
+        {
+          "source": "registry/components/display/markdown/preview.dart",
+          "destination": "{installPath}/components/display/markdown/preview.dart"
+        }
+      ],
+      "shared": [],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": []
     }
   ],
   "manifestVersion": 1

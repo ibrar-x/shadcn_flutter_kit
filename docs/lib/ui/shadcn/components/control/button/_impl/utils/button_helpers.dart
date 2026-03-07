@@ -1,7 +1,6 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/primitives/menu_group.dart';
 import '../../../../../shared/theme/generated_colors.dart';
 import '../../../../../shared/theme/theme.dart';

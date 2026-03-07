@@ -70,11 +70,11 @@ class FormTableLayout extends StatelessWidget {
                               children: [
                                 child!,
                                 if (rows[i].hint != null) ...[
-                                  DensityGap(gapSm),
+                                  const DensityGap(gapSm),
                                   rows[i].hint!.xSmall().muted(),
                                 ],
                                 if (error is InvalidResult) ...[
-                                  DensityGap(gapSm),
+                                  const DensityGap(gapSm),
                                   DefaultTextStyle.merge(
                                     style: TextStyle(
                                       color: Theme.of(

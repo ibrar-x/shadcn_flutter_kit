@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-import '../../../../../shared/utils/style_value.dart';
-import '../themes/base/scrollbar_theme.dart';
 import '../state/shadcn_scrollbar_state.dart';
 
 const Duration _kScrollbarFadeDuration = Duration(milliseconds: 300);

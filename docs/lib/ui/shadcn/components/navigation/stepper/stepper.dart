@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'
     show Colors, Divider, Icons, VerticalDivider;
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../shared/primitives/clickable.dart';
 import '../../../shared/theme/theme.dart';

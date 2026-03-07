@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' show Icons, TextAlignVertical;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/localizations/shadcn_localizations_extensions.dart';
@@ -85,8 +84,7 @@ class TimePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final compTheme = ComponentTheme.maybeOf<TimePickerTheme>(context);
-    bool use24HourFormat =
-        this.use24HourFormat ??
+    bool use24HourFormat = this.use24HourFormat ??
         compTheme?.use24HourFormat ??
         MediaQuery.of(context).alwaysUse24HourFormat;
     final bool showSeconds = compTheme?.showSeconds ?? this.showSeconds;

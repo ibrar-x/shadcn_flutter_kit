@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../media_query/media_query.dart';
-import '../media_query/media_query.dart';
 
 /// MediaQueryPreview defines a reusable type for this registry module.
 class MediaQueryPreview extends StatelessWidget {

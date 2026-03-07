@@ -25,6 +25,7 @@ import '../ui/shadcn/shared/theme/theme.dart' as shadcn_theme;
 import '../ui/shadcn/shared/utils/util.dart';
 import 'docs/component_previews.dart';
 import 'docs/component_examples.dart';
+import 'docs/cli_reference_data.dart';
 import 'docs/components_registry.dart';
 
 const double breakpointWidth = 768;
@@ -146,6 +147,19 @@ class DocsPageState extends State<DocsPage> {
         DocsPageRef('Material/Cupertino', 'material'),
         DocsPageRef('State Management', 'state'),
       ],
+    ),
+    DocsSection(
+      'CLI',
+      [
+        for (final pageId in cliReferenceOrder)
+          DocsPageRef(
+            cliReferenceDocs[pageId]!.title,
+            pageId,
+            routeName: 'cli_reference',
+            pathParameters: {'id': pageId},
+          ),
+      ],
+      icon: Icons.terminal,
     ),
   ];
 
@@ -395,7 +409,7 @@ class DocsPageState extends State<DocsPage> {
         horizontal: horizontalPadding * scaling,
         vertical: 12 * scaling,
       ),
-      backgroundColor: theme.colorScheme.background.withOpacity(0.3),
+      backgroundColor: theme.colorScheme.background.withValues(alpha: 0.3),
       surfaceOpacity: theme.surfaceOpacity,
       surfaceBlur: theme.surfaceBlur,
       child: Row(
@@ -423,7 +437,7 @@ class DocsPageState extends State<DocsPage> {
                             .iconMutedForeground(),
                         SizedBox(width: spacing.xs * scaling),
                         Expanded(
-                          child: Text(
+                          child: const Text(
                             'Search documentation...',
                             overflow: TextOverflow.ellipsis,
                           ).muted(),
@@ -930,17 +944,3 @@ class SidebarButton extends StatelessWidget {
 String _toKebabCase(String value) {
   return value.replaceAll('_', '-');
 }
-import 'docs/cli_reference_data.dart';
-    DocsSection(
-      'CLI',
-      [
-        for (final pageId in cliReferenceOrder)
-          DocsPageRef(
-            cliReferenceDocs[pageId]!.title,
-            pageId,
-            routeName: 'cli_reference',
-            pathParameters: {'id': pageId},
-          ),
-      ],
-      icon: Icons.terminal,
-    ),

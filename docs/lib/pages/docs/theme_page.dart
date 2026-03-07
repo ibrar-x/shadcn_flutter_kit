@@ -800,13 +800,13 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   Widget _buildKitchenBadges() {
-    return RepaintBoundary(
+    return const RepaintBoundary(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
             PrimaryBadge(
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(
@@ -818,9 +818,9 @@ class _ThemePageState extends State<ThemePage> {
                 ],
               ),
             ),
-            const DensityGap(gapSm),
+            DensityGap(gapSm),
             SecondaryBadge(
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(size: 10),
@@ -829,9 +829,9 @@ class _ThemePageState extends State<ThemePage> {
                 ],
               ),
             ),
-            const DensityGap(gapSm),
+            DensityGap(gapSm),
             OutlineBadge(
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(size: 10),
@@ -1076,124 +1076,127 @@ class _ThemePageState extends State<ThemePage> {
       presetDensity: presetTokens.density,
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Text('Theme options').h2(),
-        const SizedBox(height: 14),
-        _panelLabel('Theme mode'),
-        _stringSelect(
-          value: isDark ? 'Dark' : 'Light',
-          values: _themeModes.keys.toList(),
-          itemIconBuilder: (item) {
-            return item == 'Dark' ? Icons.dark_mode : Icons.light_mode;
-          },
-          onChanged: (value) {
-            if (value == null) return;
-            _updateThemeMode(controller, value == 'Dark');
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Base preset (surface + tokens)'),
-        _presetSelect(
-          value: _basePresetId,
-          brightness: controller.brightness,
-          onChanged: (value) {
-            if (value == null) return;
-            _updateBasePreset(controller, value);
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Accent preset (primary + charts)'),
-        _presetSelect(
-          value: _accentPresetId,
-          brightness: controller.brightness,
-          onChanged: (value) {
-            if (value == null) return;
-            _updateAccentPreset(controller, value);
-          },
-        ),
-        const SizedBox(height: 6),
-        Text(
-          _basePresetId == _accentPresetId
-              ? 'Using one preset for both base and accent.'
-              : 'Mix & match active: base and accent come from different presets.',
-        ).small().muted(),
-        const SizedBox(height: 12),
-        _panelLabel('Radius'),
-        _stringSelect(
-          value: radiusKey,
-          values: _radiusOptions.keys.toList(),
-          icon: Icons.rounded_corner,
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _radiusOptions[value];
-            if (next != null) {
-              controller.setRadius(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Density'),
-        _stringSelect(
-          value: densityLabel,
-          values: ['Preset', ..._densityOptions.keys],
-          icon: Icons.line_weight,
-          onChanged: (value) {
-            if (value == null) return;
-            if (value == 'Preset') {
-              controller.setDensity(presetTokens.density);
-              return;
-            }
-            final next = _densityOptions[value];
-            if (next != null) {
-              controller.setDensity(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Scaling'),
-        _stringSelect(
-          value: scalingKey,
-          values: _scalingOptions.keys.toList(),
-          icon: Icons.zoom_in,
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _scalingOptions[value];
-            if (next != null) {
-              controller.setScaling(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Surface opacity'),
-        _stringSelect(
-          value: surfaceOpacityKey,
-          values: _surfaceOpacityOptions.keys.toList(),
-          icon: Icons.opacity,
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _surfaceOpacityOptions[value];
-            if (next != null) {
-              controller.setSurfaceOpacity(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Surface blur'),
-        _stringSelect(
-          value: surfaceBlurKey,
-          values: _surfaceBlurOptions.keys.toList(),
-          icon: Icons.blur_on,
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _surfaceBlurOptions[value];
-            if (next != null) {
-              controller.setSurfaceBlur(next);
-            }
-          },
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsetsDensity.all(padLg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text('Theme options').h2(),
+          const SizedBox(height: 14),
+          _panelLabel('Theme mode'),
+          _stringSelect(
+            value: isDark ? 'Dark' : 'Light',
+            values: _themeModes.keys.toList(),
+            itemIconBuilder: (item) {
+              return item == 'Dark' ? Icons.dark_mode : Icons.light_mode;
+            },
+            onChanged: (value) {
+              if (value == null) return;
+              _updateThemeMode(controller, value == 'Dark');
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Base preset (surface + tokens)'),
+          _presetSelect(
+            value: _basePresetId,
+            brightness: controller.brightness,
+            onChanged: (value) {
+              if (value == null) return;
+              _updateBasePreset(controller, value);
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Accent preset (primary + charts)'),
+          _presetSelect(
+            value: _accentPresetId,
+            brightness: controller.brightness,
+            onChanged: (value) {
+              if (value == null) return;
+              _updateAccentPreset(controller, value);
+            },
+          ),
+          const SizedBox(height: 6),
+          Text(
+            _basePresetId == _accentPresetId
+                ? 'Using one preset for both base and accent.'
+                : 'Mix & match active: base and accent come from different presets.',
+          ).small().muted(),
+          const SizedBox(height: 12),
+          _panelLabel('Radius'),
+          _stringSelect(
+            value: radiusKey,
+            values: _radiusOptions.keys.toList(),
+            icon: Icons.rounded_corner,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _radiusOptions[value];
+              if (next != null) {
+                controller.setRadius(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Density'),
+          _stringSelect(
+            value: densityLabel,
+            values: ['Preset', ..._densityOptions.keys],
+            icon: Icons.line_weight,
+            onChanged: (value) {
+              if (value == null) return;
+              if (value == 'Preset') {
+                controller.setDensity(presetTokens.density);
+                return;
+              }
+              final next = _densityOptions[value];
+              if (next != null) {
+                controller.setDensity(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Scaling'),
+          _stringSelect(
+            value: scalingKey,
+            values: _scalingOptions.keys.toList(),
+            icon: Icons.zoom_in,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _scalingOptions[value];
+              if (next != null) {
+                controller.setScaling(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Surface opacity'),
+          _stringSelect(
+            value: surfaceOpacityKey,
+            values: _surfaceOpacityOptions.keys.toList(),
+            icon: Icons.opacity,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _surfaceOpacityOptions[value];
+              if (next != null) {
+                controller.setSurfaceOpacity(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Surface blur'),
+          _stringSelect(
+            value: surfaceBlurKey,
+            values: _surfaceBlurOptions.keys.toList(),
+            icon: Icons.blur_on,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _surfaceBlurOptions[value];
+              if (next != null) {
+                controller.setSurfaceBlur(next);
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 

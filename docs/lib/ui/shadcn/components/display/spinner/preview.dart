@@ -10,12 +10,12 @@ class SpinnerPreview extends m.StatelessWidget {
 
   @override
   m.Widget build(m.BuildContext context) {
-    return m.Scaffold(
+    return const m.Scaffold(
       body: m.Center(
         child: m.Wrap(
           spacing: 32,
           runSpacing: 32,
-          children: const [
+          children: [
             CircleSpinner(),
 
             CircleSpinner(size: 20),

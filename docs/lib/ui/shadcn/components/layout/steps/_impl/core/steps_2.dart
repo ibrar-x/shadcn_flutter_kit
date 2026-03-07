@@ -72,7 +72,7 @@ class Steps extends StatelessWidget {
                     ),
                   ),
 /// Creates a `DensityGap` instance.
-                  DensityGap(gapXs),
+                  const DensityGap(gapXs),
 /// Creates a `Expanded` instance.
                   Expanded(
                     child: VerticalDivider(
@@ -81,7 +81,7 @@ class Steps extends StatelessWidget {
                     ),
                   ),
 /// Creates a `DensityGap` instance.
-                  DensityGap(gapXs),
+                  const DensityGap(gapXs),
                 ],
               ),
 /// Creates a `Gap` instance.

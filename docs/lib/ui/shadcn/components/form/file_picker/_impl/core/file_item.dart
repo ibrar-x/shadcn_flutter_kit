@@ -104,7 +104,7 @@ class FileItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: resolvedThumbnail,
                 ),
-                DensityGap(gapMd),
+                const DensityGap(gapMd),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +115,7 @@ class FileItem extends StatelessWidget {
                         ),
                         child: Text(item.file.name),
                       ),
-                      DensityGap(gapXs),
+                      const DensityGap(gapXs),
                       DefaultTextStyle.merge(
                         style: theme.typography.xSmall.copyWith(
                           color: theme.colorScheme.mutedForeground,
@@ -154,7 +154,7 @@ class FileItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (loadingIndicator != null) DensityGap(gapMd),
+            if (loadingIndicator != null) const DensityGap(gapMd),
             if (loadingIndicator != null) loadingIndicator,
           ],
         ),

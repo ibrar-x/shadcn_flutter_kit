@@ -483,7 +483,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       descriptionStyle,
       measuredExpandedChildHeight: _measuredExpandedChildHeight,
     );
-    final minExpanded = _kToastHeight * _kMinExpandRatio;
+    const minExpanded = _kToastHeight * _kMinExpandRatio;
     final rawExpanded = _hasContent
         ? (contentHeight + _kToastHeight).clamp(minExpanded, 1000.0)
         : minExpanded;
