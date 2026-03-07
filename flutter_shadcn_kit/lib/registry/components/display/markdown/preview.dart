@@ -5,6 +5,8 @@ import 'package:flutter/material.dart' as m;
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../../../shared/theme/theme.dart' as shadcn;
+import '../../../shared/utils/axis.dart';
+import '../chat/chat.dart';
 import 'markdown.dart';
 import '../text_animate/text_animate.dart' as ta;
 import '../text_animate/_impl/extensions/markdown_streaming_extension.dart';

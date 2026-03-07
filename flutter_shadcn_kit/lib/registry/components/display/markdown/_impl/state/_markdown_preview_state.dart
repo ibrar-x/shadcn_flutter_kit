@@ -102,6 +102,43 @@ You can call `details.buildDefault()` and place it inside your own layout.
 Normal paragraphs still fall back to the built-in renderer.
 ''';
 
+  static const String _sanitizationMarkdown = '''# HTML Sanitization
+
+<div class="callout" onclick="alert('clicked')">
+  <strong>Inline HTML</strong> can still be rendered when the strategy allows it.
+</div>
+
+<script>alert('remove-me')</script>
+
+Unsafe HTML link: <a href="javascript:alert('xss')">blocked link</a>
+
+Safe HTML link: <a href="https://flutter.dev">Flutter docs</a>
+
+Regular markdown still works:
+- **bold**
+- `inline code`
+''';
+
+  static const String _editingSeedMarkdown = '''# Editing Helpers
+
+Select some text and use the helper buttons below.
+
+- Turn lines into lists
+- Wrap a code fence
+- Insert links and images
+''';
+
+  static const String _chatBubbleMarkdown = '''### Table Inside A Bubble
+
+| Capability | Behavior | Notes |
+| :-- | :--: | --: |
+| Parsing | stable | shared renderer |
+| Width | adaptive | compact cells |
+| Theme | dedicated | bubble preset |
+
+Use [links](https://flutter.dev) and `inline code` without the table feeling oversized.
+''';
+
   static const List<String> _partStream = [
     '# Streaming Markdown\n\n',
     'The assistant is thinking...\n\n',
@@ -110,10 +147,13 @@ Normal paragraphs still fall back to the built-in renderer.
   ];
 
   late final m.TextEditingController _filePathController;
+  late final m.TextEditingController _editorController;
 
   Timer? _timer;
   _StreamMode _streamMode = _StreamMode.character;
   _AnimationKind _animation = _AnimationKind.fade;
+  MarkdownHtmlSanitizationStrategy _sanitizationStrategy =
+      MarkdownHtmlSanitizationStrategy.stripDangerousHtml;
   double _speed = 1.0;
   String _streamed = '';
   int _cursor = 0;
@@ -129,6 +169,8 @@ Normal paragraphs still fall back to the built-in renderer.
   void initState() {
     super.initState();
     _filePathController = m.TextEditingController(text: _filePath);
+    _editorController = m.TextEditingController(text: _editingSeedMarkdown)
+      ..addListener(_handleEditorChanged);
     _loadShowcaseAsset();
     _restartStreaming();
   }
@@ -136,8 +178,17 @@ Normal paragraphs still fall back to the built-in renderer.
   @override
   void dispose() {
     _timer?.cancel();
+    _editorController.removeListener(_handleEditorChanged);
+    _editorController.dispose();
     _filePathController.dispose();
     super.dispose();
+  }
+
+  void _handleEditorChanged() {
+    if (!mounted) {
+      return;
+    }
+    setState(() {});
   }
 
   void _restartStreaming() {
@@ -317,6 +368,279 @@ Normal paragraphs still fall back to the built-in renderer.
         : '';
     final label = details.url ?? details.anchor ?? details.text;
     _recordInteraction('element[${details.kind.name}]$location $label');
+  }
+
+  void _applyEdit(
+    MarkdownEditResult Function({
+      required String text,
+      required m.TextSelection selection,
+    })
+    operation,
+  ) {
+    final result = operation(
+      text: _editorController.text,
+      selection: _editorController.selection,
+    );
+    _editorController.value = _editorController.value.copyWith(
+      text: result.text,
+      selection: result.selection,
+      composing: m.TextRange.empty,
+    );
+  }
+
+  m.Widget _editorActionButton(String label, void Function() onPressed) {
+    return m.OutlinedButton(
+      onPressed: onPressed,
+      style: m.OutlinedButton.styleFrom(
+        padding: const m.EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      ),
+      child: m.Text(label),
+    );
+  }
+
+  m.Widget _buildEditingHelpersDemo() {
+    return m.Column(
+      crossAxisAlignment: m.CrossAxisAlignment.start,
+      children: [
+        const m.Text(
+          'These helpers only transform text and selection state. They do not depend on a specific editor widget.',
+        ),
+        const m.SizedBox(height: 10),
+        m.Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            _editorActionButton(
+              'Bold',
+              () => _applyEdit(MarkdownEditingHelpers.toggleBold),
+            ),
+            _editorActionButton(
+              'Italic',
+              () => _applyEdit(MarkdownEditingHelpers.toggleItalic),
+            ),
+            _editorActionButton(
+              'H2',
+              () => _applyEdit(
+                ({required text, required selection}) =>
+                    MarkdownEditingHelpers.toggleHeading(
+                      text: text,
+                      selection: selection,
+                      level: 2,
+                    ),
+              ),
+            ),
+            _editorActionButton(
+              'Bullet List',
+              () => _applyEdit(MarkdownEditingHelpers.toggleBulletList),
+            ),
+            _editorActionButton(
+              'Task List',
+              () => _applyEdit(MarkdownEditingHelpers.toggleTaskList),
+            ),
+            _editorActionButton(
+              'Quote',
+              () => _applyEdit(MarkdownEditingHelpers.toggleQuote),
+            ),
+            _editorActionButton(
+              'Code Fence',
+              () => _applyEdit(
+                ({required text, required selection}) =>
+                    MarkdownEditingHelpers.wrapCodeFence(
+                      text: text,
+                      selection: selection,
+                      language: 'dart',
+                    ),
+              ),
+            ),
+            _editorActionButton(
+              'Link',
+              () => _applyEdit(MarkdownEditingHelpers.insertLink),
+            ),
+            _editorActionButton(
+              'Image',
+              () => _applyEdit(MarkdownEditingHelpers.insertImage),
+            ),
+          ],
+        ),
+        const m.SizedBox(height: 12),
+        m.TextField(
+          controller: _editorController,
+          maxLines: 10,
+          minLines: 10,
+          decoration: const m.InputDecoration(
+            labelText: 'Markdown source',
+            alignLabelWithHint: true,
+            border: m.OutlineInputBorder(),
+          ),
+          style: const m.TextStyle(fontFamily: 'GeistMono', fontSize: 13),
+        ),
+        const m.SizedBox(height: 12),
+        _surface(
+          _markdownViewport(
+            context: context,
+            factor: 0.38,
+            min: 220,
+            max: 340,
+            child: Markdown(
+              data: _editorController.text,
+              selectable: true,
+              shrinkWrap: false,
+              followLinks: true,
+              viewportStorageId: 'preview-editing-helpers',
+              imageBuilder: _previewImageBuilder,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  m.Widget _buildSanitizationDemo() {
+    return m.Column(
+      crossAxisAlignment: m.CrossAxisAlignment.start,
+      children: [
+        const m.Text(
+          'Switch between sanitization modes to see how raw HTML is handled before parsing. Dangerous tags and unsafe URLs are stripped by default.',
+        ),
+        const m.SizedBox(height: 10),
+        _choiceRow<MarkdownHtmlSanitizationStrategy>(
+          label: 'Sanitization strategy',
+          values: MarkdownHtmlSanitizationStrategy.values,
+          current: _sanitizationStrategy,
+          text: (value) => switch (value) {
+            MarkdownHtmlSanitizationStrategy.permissive => 'Permissive',
+            MarkdownHtmlSanitizationStrategy.stripDangerousHtml =>
+              'Strip dangerous',
+            MarkdownHtmlSanitizationStrategy.stripAllHtml => 'Strip all HTML',
+          },
+          onSelect: (value) => setState(() => _sanitizationStrategy = value),
+        ),
+        const m.SizedBox(height: 12),
+        m.LayoutBuilder(
+          builder: (context, constraints) {
+            final stacked = constraints.maxWidth < 760;
+            final sourceCard = _surface(
+              m.Column(
+                crossAxisAlignment: m.CrossAxisAlignment.start,
+                children: [
+                  const m.Text(
+                    'Source markdown',
+                    style: m.TextStyle(fontWeight: m.FontWeight.w700),
+                  ),
+                  const m.SizedBox(height: 8),
+                  m.SelectableText(
+                    _sanitizationMarkdown,
+                    style: const m.TextStyle(
+                      fontFamily: 'GeistMono',
+                      fontSize: 12,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
+            );
+            final renderedCard = _surface(
+              _markdownViewport(
+                context: context,
+                factor: 0.34,
+                min: 220,
+                max: 320,
+                child: Markdown(
+                  data: _sanitizationMarkdown,
+                  selectable: true,
+                  shrinkWrap: false,
+                  followLinks: true,
+                  viewportStorageId:
+                      'preview-sanitization-${_sanitizationStrategy.name}',
+                  imageBuilder: _previewImageBuilder,
+                  htmlSanitizationStrategy: _sanitizationStrategy,
+                  onTapLinkDetails: _handleLinkTap,
+                  onTapElement: _handleElementTap,
+                ),
+              ),
+            );
+            if (stacked) {
+              return m.Column(
+                children: [
+                  sourceCard,
+                  const m.SizedBox(height: 12),
+                  renderedCard,
+                ],
+              );
+            }
+            return m.Row(
+              crossAxisAlignment: m.CrossAxisAlignment.start,
+              children: [
+                m.Expanded(child: sourceCard),
+                const m.SizedBox(width: 12),
+                m.Expanded(child: renderedCard),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  m.Widget _buildChatBubbleDemo() {
+    m.Widget bubble({
+      required bool outgoing,
+      required m.Color color,
+      required String storageId,
+    }) {
+      return ChatBubble(
+        widthFactor: 0.88,
+        color: color,
+        alignment: outgoing
+            ? AxisAlignmentDirectional.end
+            : AxisAlignmentDirectional.start,
+        child: shadcn.ComponentTheme(
+          data: MarkdownTheme.chatBubbleDefaults(
+            m.TextStyle(
+              fontSize: 14,
+              color: outgoing
+                  ? const m.Color(0xFFF8FAFC)
+                  : const m.Color(0xFF0F172A),
+            ),
+            isOutgoing: outgoing,
+          ),
+          child: Markdown(
+            data: _chatBubbleMarkdown,
+            selectable: true,
+            followLinks: true,
+            viewportStorageId: storageId,
+            imageBuilder: _previewImageBuilder,
+          ),
+        ),
+      );
+    }
+
+    return m.Column(
+      crossAxisAlignment: m.CrossAxisAlignment.start,
+      children: [
+        const m.Text(
+          'Use `MarkdownTheme.chatBubbleDefaults(...)` when markdown is rendered inside constrained message surfaces. It tightens table spacing and adjusts contrast for incoming and outgoing bubbles.',
+        ),
+        const m.SizedBox(height: 12),
+        _surface(
+          m.Column(
+            children: [
+              bubble(
+                outgoing: false,
+                color: const m.Color(0xFFF8FAFC),
+                storageId: 'preview-chat-bubble-incoming',
+              ),
+              const m.SizedBox(height: 12),
+              bubble(
+                outgoing: true,
+                color: const m.Color(0xFF0F172A),
+                storageId: 'preview-chat-bubble-outgoing',
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   m.Widget _previewImageBuilder(
@@ -709,6 +1033,16 @@ Normal paragraphs still fall back to the built-in renderer.
               ),
               const m.SizedBox(height: 14),
               _sectionCard(
+                title: 'Sanitization Modes',
+                child: _buildSanitizationDemo(),
+              ),
+              const m.SizedBox(height: 14),
+              _sectionCard(
+                title: 'Editing Helpers',
+                child: _buildEditingHelpersDemo(),
+              ),
+              const m.SizedBox(height: 14),
+              _sectionCard(
                 title: 'Interaction Hooks',
                 child: m.Column(
                   crossAxisAlignment: m.CrossAxisAlignment.start,
@@ -766,6 +1100,11 @@ Normal paragraphs still fall back to the built-in renderer.
                     ),
                   ],
                 ),
+              ),
+              const m.SizedBox(height: 14),
+              _sectionCard(
+                title: 'Chat Bubble Theme Preset',
+                child: _buildChatBubbleDemo(),
               ),
               const m.SizedBox(height: 14),
               _sectionCard(

@@ -181,6 +181,76 @@ class MarkdownTheme extends ComponentThemeData {
     );
   }
 
+  static MarkdownTheme chatBubbleDefaults(
+    TextStyle baseStyle, {
+    bool isOutgoing = false,
+  }) {
+    final fallback = htmlDefaults(baseStyle);
+    final textColor = isOutgoing
+        ? const Color(0xFFF8FAFC)
+        : (baseStyle.color ?? const Color(0xFF0F172A));
+    final mutedText = textColor.withValues(alpha: isOutgoing ? 0.82 : 0.7);
+    final borderColor = isOutgoing
+        ? const Color(0x33FFFFFF)
+        : const Color(0x1F0F172A);
+    final subtleFill = isOutgoing
+        ? const Color(0x14FFFFFF)
+        : const Color(0x080F172A);
+    final headerFill = isOutgoing
+        ? const Color(0x1FFFFFFF)
+        : const Color(0x100F172A);
+
+    return fallback.copyWith(
+      style: () => baseStyle.copyWith(color: textColor, height: 1.5),
+      linkStyle: () => baseStyle.copyWith(
+        color: isOutgoing ? const Color(0xFFBFDBFE) : const Color(0xFF0F766E),
+        decoration: TextDecoration.underline,
+        fontWeight: FontWeight.w600,
+      ),
+      codeStyle: () => fallback.codeStyle?.copyWith(color: textColor),
+      codeLanguageStyle: () =>
+          fallback.codeLanguageStyle?.copyWith(color: mutedText),
+      quoteStyle: () => baseStyle.copyWith(color: textColor, height: 1.5),
+      tableHeaderStyle: () =>
+          baseStyle.copyWith(color: textColor, fontWeight: FontWeight.w700),
+      tableCellStyle: () => baseStyle.copyWith(color: textColor),
+      footnoteLabelStyle: () =>
+          fallback.footnoteLabelStyle?.copyWith(color: textColor),
+      imageCaptionStyle: () => baseStyle.copyWith(
+        color: mutedText,
+        fontSize: (baseStyle.fontSize ?? 14) * 0.88,
+      ),
+      detailsSummaryStyle: () =>
+          baseStyle.copyWith(color: textColor, fontWeight: FontWeight.w700),
+      horizontalRuleColor: () => borderColor,
+      codeBackgroundColor: () => subtleFill,
+      quoteBorderColor: () =>
+          isOutgoing ? const Color(0x99FFFFFF) : const Color(0xFF94A3B8),
+      quoteBackgroundColor: () => subtleFill,
+      tableBorderColor: () => borderColor,
+      tableHeaderBackgroundColor: () => headerFill,
+      detailsBorderColor: () => borderColor,
+      detailsBackgroundColor: () => subtleFill,
+      blockSpacing: () => 5,
+      listIndent: () => 16,
+      quoteBorderWidth: () => 2.5,
+      imageMaxHeight: () => 220,
+      tableCellMinWidth: () => 72,
+      codePadding: () =>
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+      quotePadding: () =>
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      tableCellPadding: () =>
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      detailsHeaderPadding: () =>
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      detailsBodyPadding: () => const EdgeInsets.fromLTRB(10, 0, 10, 10),
+      codeRadius: () => BorderRadius.circular(10),
+      tableRadius: () => BorderRadius.circular(12),
+      detailsRadius: () => BorderRadius.circular(12),
+    );
+  }
+
   MarkdownTheme withFallback(MarkdownTheme fallback) {
     return MarkdownTheme(
       themeDensity: themeDensity ?? fallback.themeDensity,
