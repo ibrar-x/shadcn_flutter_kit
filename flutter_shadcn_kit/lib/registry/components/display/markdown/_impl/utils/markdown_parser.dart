@@ -237,6 +237,7 @@ int _computeStableMarkdownPrefixLength(String data) {
   var inFence = false;
   var inMath = false;
   var inDetails = false;
+  var inTable = false;
 
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
@@ -271,6 +272,23 @@ int _computeStableMarkdownPrefixLength(String data) {
       continue;
     }
 
+    if (inTable) {
+      if (trimmed.isEmpty) {
+        inTable = false;
+        lastStable = lineEnd;
+        offset = lineEnd;
+        continue;
+      }
+      if (trimmed.contains('|')) {
+        if (hasTrailingNewline) {
+          lastStable = lineEnd;
+        }
+        offset = lineEnd;
+        continue;
+      }
+      inTable = false;
+    }
+
     if (trimmed.isEmpty) {
       lastStable = lineEnd;
       offset = lineEnd;
@@ -293,6 +311,25 @@ int _computeStableMarkdownPrefixLength(String data) {
       inDetails = true;
       offset = lineEnd;
       continue;
+    }
+
+    if (_isTableSeparatorLine(trimmed) && i > 0 && lines[i - 1].contains('|')) {
+      inTable = true;
+      if (hasTrailingNewline) {
+        lastStable = lineEnd;
+      }
+      offset = lineEnd;
+      continue;
+    }
+
+    if (trimmed.contains('|')) {
+      final nextLine = i + 1 < lines.length ? lines[i + 1].trimRight() : null;
+      final canBecomeTable =
+          nextLine != null && _isTableSeparatorLine(nextLine);
+      if (canBecomeTable) {
+        offset = lineEnd;
+        continue;
+      }
     }
 
     if (hasTrailingNewline && _isStandaloneStableLine(trimmed)) {
@@ -605,9 +642,7 @@ bool _looksLikeTableHeader(List<String> lines, int index) {
   if (!first.contains('|')) {
     return false;
   }
-  return RegExp(
-    r'^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$',
-  ).hasMatch(second);
+  return _isTableSeparatorLine(second);
 }
 
 List<String> _parseTableRow(String line) {
@@ -661,6 +696,12 @@ TextAlign _tableAlignment(String cell) {
     return TextAlign.right;
   }
   return TextAlign.left;
+}
+
+bool _isTableSeparatorLine(String line) {
+  return RegExp(
+    r'^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$',
+  ).hasMatch(line);
 }
 
 (String, String, String?)? _tryParseImageSyntax(String input) {

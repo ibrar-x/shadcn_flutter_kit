@@ -7,6 +7,8 @@ enum _AnimationKind { blur, fade, slide, scramble }
 class _MarkdownPreviewState extends m.State<MarkdownPreview> {
   static const String _showcaseFilePath =
       '/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/Markdown Feature Showcase - ChatGPT.md';
+  static const String _showcaseAssetPath =
+      'assets/markdown/markdown_feature_showcase.md';
   static const String _inlineMarkdown = '''# Advanced Markdown Renderer
 
 This is **bold**, *italic*, ***bold italic***, `inline code`, and ~~strikethrough~~.
@@ -156,7 +158,7 @@ Link example: [Flutter](https://flutter.dev)
                   ),
                   const m.SizedBox(height: 10),
                   const m.Text(
-                    'Standalone markdown renderer with optional streaming extension via dot-operator.',
+                    'Standalone markdown renderer with optional streaming extension via dot-operator. Links open by default, and the bundled showcase below exercises the full parser.',
                   ),
                   const m.SizedBox(height: 20),
                   _sectionCard(
@@ -238,21 +240,21 @@ Link example: [Flutter](https://flutter.dev)
                   ),
                   const m.SizedBox(height: 14),
                   _sectionCard(
-                    title: 'Inline Markdown Source',
-                    child: _surface(
-                      Markdown(data: _inlineMarkdown, selectable: true),
-                    ),
-                  ),
-                  const m.SizedBox(height: 14),
-                  _sectionCard(
-                    title: 'Asset Markdown Source',
+                    title: 'Comprehensive Feature Showcase (Bundled Asset)',
                     child: _surface(
                       Markdown.asset(
-                        asset: 'assets/markdown/advanced_markdown.md',
+                        asset: _showcaseAssetPath,
                         selectable: true,
                         errorBuilder: (context, error) =>
                             m.Text('Asset load error: $error'),
                       ),
+                    ),
+                  ),
+                  const m.SizedBox(height: 14),
+                  _sectionCard(
+                    title: 'Inline API Sample',
+                    child: _surface(
+                      Markdown(data: _inlineMarkdown, selectable: true),
                     ),
                   ),
                   const m.SizedBox(height: 14),

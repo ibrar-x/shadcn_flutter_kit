@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '_impl/utils/markdown_file_loader.dart';
+import '_impl/utils/markdown_link_opener.dart';
 
 part '_impl/core/markdown_block_type.dart';
 part '_impl/core/markdown_block.dart';
@@ -28,6 +29,7 @@ class Markdown extends StatefulWidget {
     this.style,
     this.onTapLink,
     this.shrinkWrap = true,
+    this.followLinks = true,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -41,6 +43,7 @@ class Markdown extends StatefulWidget {
     this.style,
     this.onTapLink,
     this.shrinkWrap = true,
+    this.followLinks = true,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -55,6 +58,7 @@ class Markdown extends StatefulWidget {
     this.style,
     this.onTapLink,
     this.shrinkWrap = true,
+    this.followLinks = true,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -67,6 +71,7 @@ class Markdown extends StatefulWidget {
   final TextStyle? style;
   final MarkdownTapLinkCallback? onTapLink;
   final bool shrinkWrap;
+  final bool followLinks;
   final MarkdownSourceType sourceType;
   final String? sourcePath;
   final Widget Function(BuildContext context, String url, String alt)?
@@ -80,6 +85,7 @@ class Markdown extends StatefulWidget {
     TextStyle? style,
     MarkdownTapLinkCallback? onTapLink,
     bool? shrinkWrap,
+    bool? followLinks,
     Widget Function(BuildContext context, String url, String alt)? imageBuilder,
     Widget? loading,
     Widget Function(BuildContext context, Object error)? errorBuilder,
@@ -92,6 +98,7 @@ class Markdown extends StatefulWidget {
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
+        followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -103,6 +110,7 @@ class Markdown extends StatefulWidget {
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
+        followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -114,6 +122,7 @@ class Markdown extends StatefulWidget {
         style: style ?? this.style,
         onTapLink: onTapLink ?? this.onTapLink,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
+        followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -137,6 +146,7 @@ extension on Markdown {
       style: style,
       onTapLink: onTapLink,
       shrinkWrap: shrinkWrap,
+      followLinks: followLinks,
       imageBuilder: imageBuilder,
       loading: loading,
       errorBuilder: errorBuilder,
@@ -269,6 +279,7 @@ class _MarkdownState extends State<Markdown> {
         baseStyle,
         document,
         onTapLink: widget.onTapLink,
+        followLinks: widget.followLinks,
       ),
     );
 
@@ -363,6 +374,7 @@ class _MarkdownState extends State<Markdown> {
             style: baseStyle,
             onTapLink: widget.onTapLink,
             shrinkWrap: true,
+            followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
           ),
         );
@@ -386,6 +398,7 @@ class _MarkdownState extends State<Markdown> {
             style: baseStyle,
             onTapLink: widget.onTapLink,
             shrinkWrap: true,
+            followLinks: widget.followLinks,
             imageBuilder: widget.imageBuilder,
           ),
         );
@@ -404,6 +417,7 @@ class _MarkdownState extends State<Markdown> {
                     baseStyle,
                     document,
                     onTapLink: widget.onTapLink,
+                    followLinks: widget.followLinks,
                   ),
                 ),
               )
@@ -416,6 +430,7 @@ class _MarkdownState extends State<Markdown> {
                     baseStyle,
                     document,
                     onTapLink: widget.onTapLink,
+                    followLinks: widget.followLinks,
                   ),
                 ),
               );
@@ -499,6 +514,7 @@ class _MarkdownState extends State<Markdown> {
                             rowIndex == 0 ? headerStyle : baseStyle,
                             document,
                             onTapLink: widget.onTapLink,
+                            followLinks: widget.followLinks,
                           ),
                         ),
                       ),
@@ -590,6 +606,7 @@ class _MarkdownState extends State<Markdown> {
                           baseStyle,
                           document,
                           onTapLink: widget.onTapLink,
+                          followLinks: widget.followLinks,
                         ),
                       ),
                     )
@@ -602,6 +619,7 @@ class _MarkdownState extends State<Markdown> {
                           baseStyle,
                           document,
                           onTapLink: widget.onTapLink,
+                          followLinks: widget.followLinks,
                         ),
                       ),
                     ),
@@ -654,6 +672,7 @@ class _MarkdownState extends State<Markdown> {
                         baseStyle,
                         document,
                         onTapLink: widget.onTapLink,
+                        followLinks: widget.followLinks,
                       ),
                     ),
                   )
@@ -666,6 +685,7 @@ class _MarkdownState extends State<Markdown> {
                         baseStyle,
                         document,
                         onTapLink: widget.onTapLink,
+                        followLinks: widget.followLinks,
                       ),
                     ),
                   ),
