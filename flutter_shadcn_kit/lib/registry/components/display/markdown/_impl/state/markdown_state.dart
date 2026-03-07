@@ -1065,6 +1065,13 @@ class _MarkdownState extends State<Markdown> {
         case _MarkdownBlockType.orderedList:
         case _MarkdownBlockType.taskList:
           final isTaskList = block.type == _MarkdownBlockType.taskList;
+          final listContent = _buildListItemContent(
+            context,
+            block,
+            baseStyle,
+            document,
+            markdownTheme,
+          );
           return Padding(
             padding: EdgeInsets.only(
               left: 8 + (block.indentLevel * (markdownTheme?.listIndent ?? 18)),
@@ -1089,7 +1096,7 @@ class _MarkdownState extends State<Markdown> {
                         }, style: baseStyle),
                 ),
                 SizedBox(width: isTaskList ? 8 : 0),
-                Expanded(child: _buildRichTextBlock(context, text: rich)),
+                Expanded(child: listContent),
               ],
             ),
           );
@@ -1633,6 +1640,63 @@ class _MarkdownState extends State<Markdown> {
         ],
       ),
     );
+  }
+
+  Widget _buildListItemContent(
+    BuildContext context,
+    _MarkdownBlock block,
+    TextStyle baseStyle,
+    _MarkdownDocument document,
+    MarkdownTheme? markdownTheme,
+  ) {
+    if (_looksLikeNestedMixedBlock(block.text)) {
+      return Markdown(
+        data: block.text,
+        selectable: widget.selectable,
+        style: baseStyle,
+        onTapLink: _handleTapLink,
+        onTapLinkDetails: widget.onTapLinkDetails,
+        onTapImage: widget.onTapImage,
+        onTapHeading: widget.onTapHeading,
+        onTapElement: widget.onTapElement,
+        blockBuilder: widget.blockBuilder,
+        shrinkWrap: true,
+        followLinks: widget.followLinks,
+        htmlSanitizationStrategy: widget.htmlSanitizationStrategy,
+        imagePreviewBehavior: widget.imagePreviewBehavior,
+        imagePreviewBuilder: widget.imagePreviewBuilder,
+        imageBuilder: widget.imageBuilder,
+      );
+    }
+
+    final rich = TextSpan(
+      style: baseStyle,
+      children: _buildInlineSpans(
+        context,
+        block.text,
+        baseStyle,
+        document,
+        onTapLink: _handleTapLink,
+        followLinks: widget.followLinks,
+        linkStyle: markdownTheme?.linkStyle,
+      ),
+    );
+    return _buildRichTextBlock(context, text: rich);
+  }
+
+  bool _looksLikeNestedMixedBlock(String value) {
+    final trimmed = value.trimLeft();
+    if (trimmed.isEmpty) {
+      return false;
+    }
+    return RegExp(r'^(#{1,6})\s+').hasMatch(trimmed) ||
+        RegExp(r'^\s*>\s?').hasMatch(trimmed) ||
+        RegExp(r'^\s*[-*+]\s+\[( |x|X)\]\s+').hasMatch(trimmed) ||
+        RegExp(r'^\s*[-*+]\s+').hasMatch(trimmed) ||
+        RegExp(r'^\s*\d+\.\s+').hasMatch(trimmed) ||
+        RegExp(r'^\s*(`{3,}|~{3,})').hasMatch(trimmed) ||
+        RegExp(r'^\s*([-_*])\s*\1\s*\1').hasMatch(trimmed) ||
+        _looksLikeWrappedHeadingLine(trimmed);
   }
 
   Widget _buildMathBlock(
