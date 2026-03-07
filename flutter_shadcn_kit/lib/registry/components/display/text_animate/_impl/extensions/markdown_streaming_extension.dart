@@ -87,6 +87,7 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
         oldWidget.source.onTapElement != widget.source.onTapElement ||
         oldWidget.source.blockBuilder != widget.source.blockBuilder ||
         oldWidget.source.onDocumentReady != widget.source.onDocumentReady ||
+        oldWidget.source.viewportStorageId != widget.source.viewportStorageId ||
         oldWidget.source.followLinks != widget.source.followLinks ||
         oldWidget.source.imageBuilder != widget.source.imageBuilder ||
         oldWidget.source.shrinkWrap != widget.source.shrinkWrap) {
@@ -250,6 +251,7 @@ class _StreamingMarkdownAdapterState extends State<_StreamingMarkdownAdapter> {
           onTapHeading: widget.source.onTapHeading,
           onTapElement: widget.source.onTapElement,
           blockBuilder: widget.source.blockBuilder,
+          viewportStorageId: widget.source.viewportStorageId,
           shrinkWrap: true,
           followLinks: widget.source.followLinks,
           imageBuilder: widget.source.imageBuilder,

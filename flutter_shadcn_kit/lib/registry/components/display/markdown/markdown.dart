@@ -235,6 +235,7 @@ class Markdown extends StatefulWidget {
     this.onTapElement,
     this.blockBuilder,
     this.onDocumentReady,
+    this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -255,6 +256,7 @@ class Markdown extends StatefulWidget {
     this.onTapElement,
     this.blockBuilder,
     this.onDocumentReady,
+    this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -276,6 +278,7 @@ class Markdown extends StatefulWidget {
     this.onTapElement,
     this.blockBuilder,
     this.onDocumentReady,
+    this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
     this.imageBuilder,
@@ -295,6 +298,7 @@ class Markdown extends StatefulWidget {
   final MarkdownTapElementCallback? onTapElement;
   final MarkdownBlockBuilder? blockBuilder;
   final MarkdownDocumentReadyCallback? onDocumentReady;
+  final Object? viewportStorageId;
   final bool shrinkWrap;
   final bool followLinks;
   final MarkdownSourceType sourceType;
@@ -315,6 +319,7 @@ class Markdown extends StatefulWidget {
     MarkdownTapElementCallback? onTapElement,
     MarkdownBlockBuilder? blockBuilder,
     MarkdownDocumentReadyCallback? onDocumentReady,
+    Object? viewportStorageId,
     bool? shrinkWrap,
     bool? followLinks,
     Widget Function(BuildContext context, String url, String alt)? imageBuilder,
@@ -334,6 +339,7 @@ class Markdown extends StatefulWidget {
         onTapElement: onTapElement ?? this.onTapElement,
         blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
+        viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -352,6 +358,7 @@ class Markdown extends StatefulWidget {
         onTapElement: onTapElement ?? this.onTapElement,
         blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
+        viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -370,6 +377,7 @@ class Markdown extends StatefulWidget {
         onTapElement: onTapElement ?? this.onTapElement,
         blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
+        viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
         imageBuilder: imageBuilder ?? this.imageBuilder,
@@ -400,6 +408,7 @@ extension on Markdown {
       onTapElement: onTapElement,
       blockBuilder: blockBuilder,
       onDocumentReady: onDocumentReady,
+      viewportStorageId: viewportStorageId,
       shrinkWrap: shrinkWrap,
       followLinks: followLinks,
       imageBuilder: imageBuilder,
@@ -860,6 +869,21 @@ class _MarkdownState extends State<Markdown> {
     return MarkdownLinkKind.relative;
   }
 
+  PageStorageKey<String> _viewportPageStorageKey() {
+    final explicitId = widget.viewportStorageId;
+    if (explicitId != null) {
+      return PageStorageKey<String>('markdown:$explicitId');
+    }
+    final source = switch (widget.sourceType) {
+      MarkdownSourceType.text =>
+        'text:${widget.data.hashCode}:${widget.data.length}',
+      MarkdownSourceType.asset => 'asset:${widget.sourcePath ?? ''}',
+      MarkdownSourceType.file => 'file:${widget.sourcePath ?? ''}',
+    };
+    final widgetKey = widget.key?.toString() ?? 'no-key';
+    return PageStorageKey<String>('markdown:$widgetKey:$source');
+  }
+
   void _emitElementTap(MarkdownTapElementDetails details) {
     widget.onTapElement?.call(details);
   }
@@ -1103,6 +1127,7 @@ class _MarkdownState extends State<Markdown> {
         }
 
         return ListView.builder(
+          key: _viewportPageStorageKey(),
           controller: useViewportList ? _chunkScrollController : null,
           padding: EdgeInsets.zero,
           shrinkWrap: !useViewportList,
