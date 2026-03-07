@@ -4,6 +4,8 @@
 
 - Keep overlay wrappers in place
 - Compose with installed shadcn building blocks first
+- Use Common Replacements before custom widgets
+- Resolve framework import conflicts with `hide`
 - Use dry-run before add/remove changes
 - Use dependency-safe remove flows
 
@@ -41,6 +43,45 @@ flutter_shadcn add @shadcn/dialog
 ```bash
 flutter_shadcn add @shadcn/app @shadcn/scaffold @shadcn/app_bar @shadcn/card
 flutter_shadcn add @shadcn/dialog
+```
+
+---
+
+## Use Common Replacements before custom widgets
+
+Before creating custom wrappers, read:
+`references/COMMON_PATCHED_WIDGETS_README.md`
+
+If a registry/shared replacement exists, use it instead of adding a new custom widget.
+
+---
+
+## Resolve framework import conflicts with `hide`
+
+When registry widgets share names with Material/Cupertino widgets (`Scaffold`, `AppBar`, `Card`, etc.), do not alias shadcn widgets. Hide framework symbols and keep registry names canonical.
+
+**Incorrect:**
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:my_app/ui/shadcn/components/scaffold.dart' as shadcn;
+
+final page = shadcn.Scaffold(...);
+```
+
+**Correct:**
+
+```dart
+import 'package:flutter/material.dart' hide Scaffold, AppBar, Card, Drawer;
+import 'package:my_app/ui/shadcn/components/scaffold.dart';
+
+final page = Scaffold(...);
+```
+
+Apply the same pattern for Cupertino conflicts:
+
+```dart
+import 'package:flutter/cupertino.dart' hide CupertinoNavigationBar;
 ```
 
 ---

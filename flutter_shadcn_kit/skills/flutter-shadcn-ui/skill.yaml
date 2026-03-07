@@ -32,5 +32,4 @@ files:
     rules_icons: rules/icons.md
     rules_namespace: rules/base-vs-radix.md
     evals: evals/evals.json
-    schemas: references/schemas.md
-    commands_legacy: references/commands.md
+    common_replacements: references/COMMON_PATCHED_WIDGETS_README.md

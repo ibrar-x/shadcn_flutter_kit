@@ -27,8 +27,7 @@
       "rules-icons": "rules/icons.md",
       "rules-namespace": "rules/base-vs-radix.md",
       "evals": "evals/evals.json",
-      "schemas": "references/schemas.md",
-      "commands-legacy": "references/commands.md"
+      "common-replacements": "references/COMMON_PATCHED_WIDGETS_README.md"
     }
   }
 }
