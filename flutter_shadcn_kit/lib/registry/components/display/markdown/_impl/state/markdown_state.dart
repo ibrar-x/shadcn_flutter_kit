@@ -455,6 +455,45 @@ class _MarkdownState extends State<Markdown> {
     );
   }
 
+  Widget _buildTaskCheckbox(
+    BuildContext context, {
+    required bool checked,
+    required TextStyle baseStyle,
+    MarkdownTheme? markdownTheme,
+  }) {
+    final referenceColor =
+        markdownTheme?.linkStyle?.color ?? const Color(0xFF6F8A99);
+    const surfaceColor = Color(0xFFF8FAFC);
+    final fillColor = Color.lerp(referenceColor, surfaceColor, 0.35)!;
+    final uncheckedBorderColor =
+        baseStyle.color?.withValues(alpha: 0.34) ?? const Color(0xFF9CA3AF);
+
+    return Container(
+      width: 22,
+      height: 22,
+      decoration: BoxDecoration(
+        color: checked ? fillColor : Colors.transparent,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: checked ? fillColor : uncheckedBorderColor,
+          width: 1.4,
+        ),
+        boxShadow: checked
+            ? [
+                BoxShadow(
+                  color: fillColor.withValues(alpha: 0.18),
+                  blurRadius: 6,
+                  offset: const Offset(0, 1),
+                ),
+              ]
+            : null,
+      ),
+      child: checked
+          ? const Icon(Icons.check_rounded, size: 15, color: Colors.white)
+          : null,
+    );
+  }
+
   MarkdownBlockKind _blockKind(_MarkdownBlock block) {
     return switch (block.type) {
       _MarkdownBlockType.blank => MarkdownBlockKind.blank,
@@ -843,6 +882,7 @@ class _MarkdownState extends State<Markdown> {
         case _MarkdownBlockType.unorderedList:
         case _MarkdownBlockType.orderedList:
         case _MarkdownBlockType.taskList:
+          final isTaskList = block.type == _MarkdownBlockType.taskList;
           return Padding(
             padding: EdgeInsets.only(
               left: 8 + (block.indentLevel * (markdownTheme?.listIndent ?? 18)),
@@ -852,14 +892,21 @@ class _MarkdownState extends State<Markdown> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
-                  child: Text(switch (block.type) {
-                    _MarkdownBlockType.unorderedList => '• ',
-                    _MarkdownBlockType.orderedList => '${block.orderedIndex}. ',
-                    _MarkdownBlockType.taskList =>
-                      block.checked == true ? '☑ ' : '☐ ',
-                    _ => '',
-                  }, style: baseStyle),
+                  child: isTaskList
+                      ? _buildTaskCheckbox(
+                          context,
+                          checked: block.checked == true,
+                          baseStyle: baseStyle,
+                          markdownTheme: markdownTheme,
+                        )
+                      : Text(switch (block.type) {
+                          _MarkdownBlockType.unorderedList => '• ',
+                          _MarkdownBlockType.orderedList =>
+                            '${block.orderedIndex}. ',
+                          _ => '',
+                        }, style: baseStyle),
                 ),
+                SizedBox(width: isTaskList ? 8 : 0),
                 Expanded(child: _buildRichTextBlock(context, text: rich)),
               ],
             ),
