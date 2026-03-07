@@ -55,11 +55,14 @@ Link example: [Flutter](https://flutter.dev)
   String _streamed = '';
   int _cursor = 0;
   String _filePath = _showcaseFilePath;
+  String? _showcaseMarkdown;
+  Object? _showcaseError;
 
   @override
   void initState() {
     super.initState();
     _filePathController = m.TextEditingController(text: _filePath);
+    _loadShowcaseAsset();
     _restartStreaming();
   }
 
@@ -92,6 +95,32 @@ Link example: [Flutter](https://flutter.dev)
         _streamed = '$_streamed${units[_cursor]}';
         _cursor += 1;
       });
+    });
+  }
+
+  Future<void> _loadShowcaseAsset() async {
+    const candidates = <String>[
+      _showcaseAssetPath,
+      'packages/flutter_shadcn_kit/assets/markdown/markdown_feature_showcase.md',
+    ];
+    Object? lastError;
+    for (final key in candidates) {
+      try {
+        final data = await rootBundle.loadString(key);
+        if (!mounted) return;
+        setState(() {
+          _showcaseMarkdown = data;
+          _showcaseError = null;
+        });
+        return;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    if (!mounted) return;
+    setState(() {
+      _showcaseMarkdown = null;
+      _showcaseError = lastError;
     });
   }
 
@@ -241,14 +270,7 @@ Link example: [Flutter](https://flutter.dev)
                   const m.SizedBox(height: 14),
                   _sectionCard(
                     title: 'Comprehensive Feature Showcase (Bundled Asset)',
-                    child: _surface(
-                      Markdown.asset(
-                        asset: _showcaseAssetPath,
-                        selectable: true,
-                        errorBuilder: (context, error) =>
-                            m.Text('Asset load error: $error'),
-                      ),
-                    ),
+                    child: _surface(_buildShowcaseContent()),
                   ),
                   const m.SizedBox(height: 14),
                   _sectionCard(
@@ -392,6 +414,31 @@ Link example: [Flutter](https://flutter.dev)
           child,
         ],
       ),
+    );
+  }
+
+  m.Widget _buildShowcaseContent() {
+    final data = _showcaseMarkdown;
+    if (data != null) {
+      return Markdown(data: data, selectable: true);
+    }
+    final error = _showcaseError;
+    if (error != null) {
+      return m.Column(
+        crossAxisAlignment: m.CrossAxisAlignment.start,
+        children: [
+          m.Text('Showcase asset load error: $error'),
+          const m.SizedBox(height: 8),
+          m.OutlinedButton(
+            onPressed: _loadShowcaseAsset,
+            child: const m.Text('Retry loading showcase'),
+          ),
+        ],
+      );
+    }
+    return const m.Padding(
+      padding: m.EdgeInsets.symmetric(vertical: 16),
+      child: m.Center(child: m.CircularProgressIndicator()),
     );
   }
 
