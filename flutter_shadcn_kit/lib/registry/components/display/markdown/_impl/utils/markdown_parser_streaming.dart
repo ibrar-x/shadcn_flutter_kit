@@ -355,7 +355,26 @@ bool _isStandaloneStableLine(String line) {
 }
 
 bool _looksLikeWrappedHeadingLine(String line) {
-  return RegExp(
-    r'^\s*(?:(?:\*\*\*|~~|\*\*|__|\*|_)+)(#{1,6})\s+.+$',
-  ).hasMatch(line.trimLeft());
+  const markers = <String>['***', '~~', '**', '__', '`', '*', '_'];
+  final source = line.trimLeft();
+  var cursor = 0;
+  var sawWrapper = false;
+  while (cursor < source.length) {
+    String? matched;
+    for (final marker in markers) {
+      if (source.startsWith(marker, cursor)) {
+        matched = marker;
+        break;
+      }
+    }
+    if (matched == null) {
+      break;
+    }
+    sawWrapper = true;
+    cursor += matched.length;
+  }
+  if (!sawWrapper || cursor >= source.length) {
+    return false;
+  }
+  return RegExp(r'^\s*#{1,6}\s+.+$').hasMatch(source.substring(cursor));
 }
