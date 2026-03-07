@@ -39,7 +39,8 @@ class _MarkdownState extends State<Markdown> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.data != widget.data ||
         oldWidget.sourcePath != widget.sourcePath ||
-        oldWidget.sourceType != widget.sourceType) {
+        oldWidget.sourceType != widget.sourceType ||
+        oldWidget.htmlSanitizationStrategy != widget.htmlSanitizationStrategy) {
       _loadSource();
     }
   }
@@ -97,13 +98,17 @@ class _MarkdownState extends State<Markdown> {
   Future<void> _prepareDocument(String data) async {
     final generation = ++_parseGeneration;
     _progressiveChunkTimer?.cancel();
+    final sanitizedData = _sanitizeMarkdownHtml(
+      data,
+      widget.htmlSanitizationStrategy,
+    );
     setState(() {
       _error = null;
       _preparingDocument = true;
     });
 
     try {
-      final parsed = await _parseMarkdownDocumentAsync(data);
+      final parsed = await _parseMarkdownDocumentAsync(sanitizedData);
       if (!mounted || generation != _parseGeneration) {
         return;
       }
@@ -491,6 +496,183 @@ class _MarkdownState extends State<Markdown> {
       child: checked
           ? const Icon(Icons.check_rounded, size: 15, color: Colors.white)
           : null,
+    );
+  }
+
+  MarkdownImagePreviewDetails _imagePreviewDetailsForBlock(
+    _MarkdownBlock block,
+  ) {
+    return MarkdownImagePreviewDetails(
+      url: (block.imageUrl ?? '').trim(),
+      alt: block.imageAlt ?? '',
+      title: block.imageTitle,
+    );
+  }
+
+  Widget _buildResolvedImageWidget(
+    BuildContext context,
+    MarkdownImagePreviewDetails details, {
+    BoxFit fit = BoxFit.contain,
+  }) {
+    if (widget.imageBuilder != null) {
+      return widget.imageBuilder!(context, details.url, details.alt);
+    }
+
+    final normalized = details.url.trim();
+    if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+      if (_failedNetworkImageUrls.contains(normalized)) {
+        return _buildImageFallback(
+          DefaultTextStyle.of(context).style,
+          details.alt.isNotEmpty ? details.alt : 'Image failed to load',
+        );
+      }
+      return Image.network(
+        normalized,
+        fit: fit,
+        errorBuilder: (context, error, stackTrace) {
+          _failedNetworkImageUrls.add(normalized);
+          return _buildImageFallback(
+            DefaultTextStyle.of(context).style,
+            details.alt.isNotEmpty ? details.alt : 'Image failed to load',
+          );
+        },
+      );
+    }
+
+    final assetPath = normalized.startsWith('asset:')
+        ? normalized.substring(6)
+        : normalized;
+    return Image.asset(
+      assetPath,
+      fit: fit,
+      errorBuilder: (context, error, stackTrace) => _buildImageFallback(
+        DefaultTextStyle.of(context).style,
+        details.alt.isNotEmpty ? details.alt : assetPath,
+      ),
+    );
+  }
+
+  Future<void> _showImagePreview(
+    BuildContext context,
+    MarkdownImagePreviewDetails details,
+  ) async {
+    if (widget.imagePreviewBehavior == MarkdownImagePreviewBehavior.none) {
+      return;
+    }
+
+    await showDialog<void>(
+      context: context,
+      barrierColor: Colors.black.withValues(alpha: 0.76),
+      builder: (dialogContext) {
+        void close() {
+          Navigator.of(dialogContext).maybePop();
+        }
+
+        if (widget.imagePreviewBuilder != null) {
+          return widget.imagePreviewBuilder!(dialogContext, details, close);
+        }
+
+        return Dialog(
+          elevation: 0,
+          insetPadding: const EdgeInsets.all(24),
+          backgroundColor: Colors.transparent,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 860,
+              maxHeight: MediaQuery.sizeOf(dialogContext).height * 0.88,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8FAFC),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0x22000000)),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 12, 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                details.alt.isNotEmpty
+                                    ? details.alt
+                                    : 'Image preview',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              if ((details.title ?? '').isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2),
+                                  child: Text(
+                                    details.title!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: close,
+                          icon: const Icon(Icons.close_rounded),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: const Color(0xFFF1F5F9),
+                      padding: const EdgeInsets.all(16),
+                      child: InteractiveViewer(
+                        minScale: 1,
+                        maxScale: 4,
+                        child: Center(
+                          child: _buildResolvedImageWidget(
+                            dialogContext,
+                            details,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            details.url,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF475569),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        TextButton.icon(
+                          onPressed: () =>
+                              unawaited(openMarkdownLink(details.url)),
+                          icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                          label: const Text('Open source'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -942,6 +1124,9 @@ class _MarkdownState extends State<Markdown> {
               blockBuilder: widget.blockBuilder,
               shrinkWrap: true,
               followLinks: widget.followLinks,
+              htmlSanitizationStrategy: widget.htmlSanitizationStrategy,
+              imagePreviewBehavior: widget.imagePreviewBehavior,
+              imagePreviewBuilder: widget.imagePreviewBuilder,
               imageBuilder: widget.imageBuilder,
             ),
           );
@@ -1024,6 +1209,9 @@ class _MarkdownState extends State<Markdown> {
               blockBuilder: widget.blockBuilder,
               shrinkWrap: true,
               followLinks: widget.followLinks,
+              htmlSanitizationStrategy: widget.htmlSanitizationStrategy,
+              imagePreviewBehavior: widget.imagePreviewBehavior,
+              imagePreviewBuilder: widget.imagePreviewBuilder,
               imageBuilder: widget.imageBuilder,
             ),
           );
@@ -1182,86 +1370,116 @@ class _MarkdownState extends State<Markdown> {
     );
     final borderColor =
         markdownTheme?.tableBorderColor ?? const Color(0x22000000);
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      decoration: BoxDecoration(
-        border: Border.all(color: borderColor),
-        borderRadius: markdownTheme?.tableRadius ?? BorderRadius.circular(10),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Table(
-          defaultColumnWidth: const IntrinsicColumnWidth(),
-          columnWidths: <int, TableColumnWidth>{
-            for (var col = 0; col < maxColumns; col++)
-              col: const IntrinsicColumnWidth(),
-          },
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          border: TableBorder(
-            horizontalInside: BorderSide(color: borderColor),
-            verticalInside: BorderSide(color: borderColor),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compactMode =
+            constraints.maxWidth.isFinite && constraints.maxWidth < 420;
+        final compactHeaderStyle = compactMode
+            ? headerStyle.copyWith(
+                fontSize:
+                    (headerStyle.fontSize ?? baseStyle.fontSize ?? 14) * 0.92,
+              )
+            : headerStyle;
+        final compactCellStyle = compactMode
+            ? cellStyle.copyWith(
+                fontSize:
+                    (cellStyle.fontSize ?? baseStyle.fontSize ?? 14) * 0.94,
+              )
+            : cellStyle;
+        final cellPadding = compactMode
+            ? const EdgeInsets.symmetric(horizontal: 10, vertical: 8)
+            : (markdownTheme?.tableCellPadding ??
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10));
+        final resolvedMinCellWidth = compactMode
+            ? (minCellWidth.clamp(72.0, 88.0) as num).toDouble()
+            : minCellWidth;
+
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: compactMode ? 4 : 6),
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor),
+            borderRadius:
+                markdownTheme?.tableRadius ?? BorderRadius.circular(10),
           ),
-          children: [
-            for (var rowIndex = 0; rowIndex < rows.length; rowIndex++)
-              TableRow(
-                decoration: BoxDecoration(
-                  color: rowIndex == 0
-                      ? (markdownTheme?.tableHeaderBackgroundColor ??
-                            const Color(0x11000000))
-                      : Colors.transparent,
-                ),
-                children: [
-                  for (
-                    var colIndex = 0;
-                    colIndex < rows[rowIndex].length;
-                    colIndex++
-                  )
-                    Padding(
-                      padding:
-                          markdownTheme?.tableCellPadding ??
-                          const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 10,
-                          ),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(minWidth: minCellWidth),
-                        child: _wrapElementTap(
-                          details: MarkdownTapElementDetails(
-                            kind: rowIndex == 0
-                                ? MarkdownTapElementKind.tableHeaderCell
-                                : MarkdownTapElementKind.tableCell,
-                            text: rows[rowIndex][colIndex],
-                            blockIndex: blockIndex,
-                            tableRow: rowIndex,
-                            tableColumn: colIndex,
-                          ),
-                          child: _buildRichTextBlock(
-                            context,
-                            softWrap: false,
-                            textAlign: colIndex < block.tableAlignments.length
-                                ? block.tableAlignments[colIndex]
-                                : TextAlign.left,
-                            text: TextSpan(
-                              style: rowIndex == 0 ? headerStyle : cellStyle,
-                              children: _buildInlineSpans(
+          clipBehavior: Clip.antiAlias,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Table(
+              defaultColumnWidth: const IntrinsicColumnWidth(),
+              columnWidths: <int, TableColumnWidth>{
+                for (var col = 0; col < maxColumns; col++)
+                  col: const IntrinsicColumnWidth(),
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              border: TableBorder(
+                horizontalInside: BorderSide(color: borderColor),
+                verticalInside: BorderSide(color: borderColor),
+              ),
+              children: [
+                for (var rowIndex = 0; rowIndex < rows.length; rowIndex++)
+                  TableRow(
+                    decoration: BoxDecoration(
+                      color: rowIndex == 0
+                          ? (markdownTheme?.tableHeaderBackgroundColor ??
+                                const Color(0x11000000))
+                          : Colors.transparent,
+                    ),
+                    children: [
+                      for (
+                        var colIndex = 0;
+                        colIndex < rows[rowIndex].length;
+                        colIndex++
+                      )
+                        Padding(
+                          padding: cellPadding,
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: resolvedMinCellWidth,
+                            ),
+                            child: _wrapElementTap(
+                              details: MarkdownTapElementDetails(
+                                kind: rowIndex == 0
+                                    ? MarkdownTapElementKind.tableHeaderCell
+                                    : MarkdownTapElementKind.tableCell,
+                                text: rows[rowIndex][colIndex],
+                                blockIndex: blockIndex,
+                                tableRow: rowIndex,
+                                tableColumn: colIndex,
+                              ),
+                              child: _buildRichTextBlock(
                                 context,
-                                rows[rowIndex][colIndex],
-                                rowIndex == 0 ? headerStyle : cellStyle,
-                                document,
-                                onTapLink: _handleTapLink,
-                                followLinks: widget.followLinks,
-                                linkStyle: markdownTheme?.linkStyle,
+                                softWrap: false,
+                                textAlign:
+                                    colIndex < block.tableAlignments.length
+                                    ? block.tableAlignments[colIndex]
+                                    : TextAlign.left,
+                                text: TextSpan(
+                                  style: rowIndex == 0
+                                      ? compactHeaderStyle
+                                      : compactCellStyle,
+                                  children: _buildInlineSpans(
+                                    context,
+                                    rows[rowIndex][colIndex],
+                                    rowIndex == 0
+                                        ? compactHeaderStyle
+                                        : compactCellStyle,
+                                    document,
+                                    onTapLink: _handleTapLink,
+                                    followLinks: widget.followLinks,
+                                    linkStyle: markdownTheme?.linkStyle,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                ],
-              ),
-          ],
-        ),
-      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -1278,43 +1496,8 @@ class _MarkdownState extends State<Markdown> {
     }
 
     final alt = block.imageAlt ?? '';
-    Widget image;
-    if (widget.imageBuilder != null) {
-      image = widget.imageBuilder!(context, imageUrl, alt);
-    } else {
-      final normalized = imageUrl.trim();
-      if (normalized.startsWith('http://') ||
-          normalized.startsWith('https://')) {
-        if (_failedNetworkImageUrls.contains(normalized)) {
-          image = _buildImageFallback(
-            baseStyle,
-            alt.isNotEmpty ? alt : 'Image failed to load: $normalized',
-          );
-        } else {
-          image = Image.network(
-            normalized,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) {
-              _failedNetworkImageUrls.add(normalized);
-              return _buildImageFallback(
-                baseStyle,
-                alt.isNotEmpty ? alt : 'Image failed to load',
-              );
-            },
-          );
-        }
-      } else {
-        final assetPath = normalized.startsWith('asset:')
-            ? normalized.substring(6)
-            : normalized;
-        image = Image.asset(
-          assetPath,
-          fit: BoxFit.contain,
-          errorBuilder: (context, error, stackTrace) =>
-              _buildImageFallback(baseStyle, alt.isNotEmpty ? alt : assetPath),
-        );
-      }
-    }
+    final previewDetails = _imagePreviewDetailsForBlock(block);
+    final image = _buildResolvedImageWidget(context, previewDetails);
 
     Widget child = Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -1346,16 +1529,17 @@ class _MarkdownState extends State<Markdown> {
       ),
     );
 
-    if (widget.onTapImage != null || widget.onTapElement != null) {
+    if (widget.onTapImage != null ||
+        widget.onTapElement != null ||
+        widget.imagePreviewBehavior != MarkdownImagePreviewBehavior.none) {
       child = _MarkdownTapReporter(
         onTap: () {
-          widget.onTapImage?.call(
-            MarkdownImageTapDetails(
-              url: imageUrl.trim(),
-              alt: alt,
-              title: block.imageTitle,
-            ),
+          final tapDetails = MarkdownImageTapDetails(
+            url: imageUrl.trim(),
+            alt: alt,
+            title: block.imageTitle,
           );
+          widget.onTapImage?.call(tapDetails);
           _emitElementTap(
             MarkdownTapElementDetails(
               kind: MarkdownTapElementKind.image,
@@ -1365,6 +1549,10 @@ class _MarkdownState extends State<Markdown> {
               blockIndex: blockIndex,
             ),
           );
+          if (widget.imagePreviewBehavior !=
+              MarkdownImagePreviewBehavior.none) {
+            unawaited(_showImagePreview(context, previewDetails));
+          }
         },
         child: child,
       );

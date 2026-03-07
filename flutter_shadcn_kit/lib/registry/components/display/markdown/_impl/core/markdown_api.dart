@@ -6,6 +6,12 @@ typedef MarkdownTapLinkDetailsCallback =
     void Function(MarkdownLinkTapDetails details);
 typedef MarkdownTapImageCallback =
     void Function(MarkdownImageTapDetails details);
+typedef MarkdownImagePreviewBuilder =
+    Widget Function(
+      BuildContext context,
+      MarkdownImagePreviewDetails details,
+      VoidCallback close,
+    );
 typedef MarkdownTapHeadingCallback =
     void Function(MarkdownHeadingTapDetails details);
 typedef MarkdownTapElementCallback =
@@ -16,6 +22,14 @@ typedef MarkdownDocumentReadyCallback =
     void Function(MarkdownDocumentMetrics metrics);
 
 enum MarkdownLinkKind { anchor, email, external, relative }
+
+enum MarkdownHtmlSanitizationStrategy {
+  permissive,
+  stripDangerousHtml,
+  stripAllHtml,
+}
+
+enum MarkdownImagePreviewBehavior { none, dialog }
 
 enum MarkdownBlockKind {
   blank,
@@ -84,6 +98,33 @@ class MarkdownImageTapDetails {
   final String url;
   final String alt;
   final String? title;
+}
+
+@immutable
+class MarkdownImagePreviewDetails {
+  const MarkdownImagePreviewDetails({
+    required this.url,
+    required this.alt,
+    this.title,
+  });
+
+  final String url;
+  final String alt;
+  final String? title;
+
+  bool get isNetwork {
+    final lower = url.trim().toLowerCase();
+    return lower.startsWith('http://') || lower.startsWith('https://');
+  }
+
+  bool get isAsset {
+    final trimmed = url.trim();
+    if (trimmed.startsWith('asset:')) {
+      return true;
+    }
+    final uri = Uri.tryParse(trimmed);
+    return uri == null || !uri.hasScheme;
+  }
 }
 
 @immutable
@@ -219,6 +260,10 @@ class Markdown extends StatefulWidget {
     this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
+    this.htmlSanitizationStrategy =
+        MarkdownHtmlSanitizationStrategy.stripDangerousHtml,
+    this.imagePreviewBehavior = MarkdownImagePreviewBehavior.dialog,
+    this.imagePreviewBuilder,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -240,6 +285,10 @@ class Markdown extends StatefulWidget {
     this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
+    this.htmlSanitizationStrategy =
+        MarkdownHtmlSanitizationStrategy.stripDangerousHtml,
+    this.imagePreviewBehavior = MarkdownImagePreviewBehavior.dialog,
+    this.imagePreviewBuilder,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -262,6 +311,10 @@ class Markdown extends StatefulWidget {
     this.viewportStorageId,
     this.shrinkWrap = true,
     this.followLinks = true,
+    this.htmlSanitizationStrategy =
+        MarkdownHtmlSanitizationStrategy.stripDangerousHtml,
+    this.imagePreviewBehavior = MarkdownImagePreviewBehavior.dialog,
+    this.imagePreviewBuilder,
     this.imageBuilder,
     this.loading,
     this.errorBuilder,
@@ -282,6 +335,9 @@ class Markdown extends StatefulWidget {
   final Object? viewportStorageId;
   final bool shrinkWrap;
   final bool followLinks;
+  final MarkdownHtmlSanitizationStrategy htmlSanitizationStrategy;
+  final MarkdownImagePreviewBehavior imagePreviewBehavior;
+  final MarkdownImagePreviewBuilder? imagePreviewBuilder;
   final MarkdownSourceType sourceType;
   final String? sourcePath;
   final Widget Function(BuildContext context, String url, String alt)?
@@ -303,6 +359,9 @@ class Markdown extends StatefulWidget {
     Object? viewportStorageId,
     bool? shrinkWrap,
     bool? followLinks,
+    MarkdownHtmlSanitizationStrategy? htmlSanitizationStrategy,
+    MarkdownImagePreviewBehavior? imagePreviewBehavior,
+    MarkdownImagePreviewBuilder? imagePreviewBuilder,
     Widget Function(BuildContext context, String url, String alt)? imageBuilder,
     Widget? loading,
     Widget Function(BuildContext context, Object error)? errorBuilder,
@@ -323,6 +382,10 @@ class Markdown extends StatefulWidget {
         viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
+        htmlSanitizationStrategy:
+            htmlSanitizationStrategy ?? this.htmlSanitizationStrategy,
+        imagePreviewBehavior: imagePreviewBehavior ?? this.imagePreviewBehavior,
+        imagePreviewBuilder: imagePreviewBuilder ?? this.imagePreviewBuilder,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -342,6 +405,10 @@ class Markdown extends StatefulWidget {
         viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
+        htmlSanitizationStrategy:
+            htmlSanitizationStrategy ?? this.htmlSanitizationStrategy,
+        imagePreviewBehavior: imagePreviewBehavior ?? this.imagePreviewBehavior,
+        imagePreviewBuilder: imagePreviewBuilder ?? this.imagePreviewBuilder,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -361,6 +428,10 @@ class Markdown extends StatefulWidget {
         viewportStorageId: viewportStorageId ?? this.viewportStorageId,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
+        htmlSanitizationStrategy:
+            htmlSanitizationStrategy ?? this.htmlSanitizationStrategy,
+        imagePreviewBehavior: imagePreviewBehavior ?? this.imagePreviewBehavior,
+        imagePreviewBuilder: imagePreviewBuilder ?? this.imagePreviewBuilder,
         imageBuilder: imageBuilder ?? this.imageBuilder,
         loading: loading ?? this.loading,
         errorBuilder: errorBuilder ?? this.errorBuilder,
@@ -392,6 +463,9 @@ extension on Markdown {
       viewportStorageId: viewportStorageId,
       shrinkWrap: shrinkWrap,
       followLinks: followLinks,
+      htmlSanitizationStrategy: htmlSanitizationStrategy,
+      imagePreviewBehavior: imagePreviewBehavior,
+      imagePreviewBuilder: imagePreviewBuilder,
       imageBuilder: imageBuilder,
       loading: loading,
       errorBuilder: errorBuilder,

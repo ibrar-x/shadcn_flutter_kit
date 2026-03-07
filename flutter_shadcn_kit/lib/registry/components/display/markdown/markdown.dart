@@ -19,6 +19,8 @@ part '_impl/core/markdown_document.dart';
 part '_impl/core/markdown_tap_reporter.dart';
 part '_impl/state/markdown_state.dart';
 part '_impl/themes/base/markdown_theme.dart';
+part '_impl/utils/markdown_editing_helpers.dart';
+part '_impl/utils/markdown_html_sanitizer.dart';
 part '_impl/utils/markdown_inline_spans.dart';
 part '_impl/utils/markdown_parser_blocks.dart';
 part '_impl/utils/markdown_parser_document.dart';
