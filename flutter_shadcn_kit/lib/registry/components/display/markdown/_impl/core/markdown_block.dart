@@ -16,6 +16,8 @@ class _MarkdownBlock {
     this.imageTitle,
     this.label,
     this.items = const <String>[],
+    this.htmlTag,
+    this.rawHtml,
   });
 
   final _MarkdownBlockType type;
@@ -31,4 +33,6 @@ class _MarkdownBlock {
   final String? imageTitle;
   final String? label;
   final List<String> items;
+  final String? htmlTag;
+  final String? rawHtml;
 }

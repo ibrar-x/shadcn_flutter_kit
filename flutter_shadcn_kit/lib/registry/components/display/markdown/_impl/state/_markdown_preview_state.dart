@@ -87,6 +87,21 @@ const markdownTheme = MarkdownTheme(
 ```
 ''';
 
+  static const String _customRenderMarkdown = '''# Custom Block Builder
+
+## This heading is replaced
+Use `blockBuilder` to intercept parsed markdown and HTML-origin blocks.
+
+<button data-variant="primary" data-label="Launch action">
+  Launch action
+</button>
+
+### This heading wraps the default widget
+You can call `details.buildDefault()` and place it inside your own layout.
+
+Normal paragraphs still fall back to the built-in renderer.
+''';
+
   static const List<String> _partStream = [
     '# Streaming Markdown\n\n',
     'The assistant is thinking...\n\n',
@@ -343,6 +358,73 @@ const markdownTheme = MarkdownTheme(
           ),
         ],
       ),
+    );
+  }
+
+  m.Widget _buildCustomRendererDemo() {
+    return Markdown(
+      data: _customRenderMarkdown,
+      selectable: true,
+      shrinkWrap: false,
+      followLinks: true,
+      onTapLinkDetails: _handleLinkTap,
+      onTapImage: _handleImageTap,
+      onTapHeading: _handleHeadingTap,
+      onTapElement: _handleElementTap,
+      blockBuilder: (context, details) {
+        if (details.kind == MarkdownBlockKind.heading &&
+            details.headingLevel == 2) {
+          return m.Container(
+            width: double.infinity,
+            margin: const m.EdgeInsets.symmetric(vertical: 4),
+            padding: const m.EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: m.BoxDecoration(
+              borderRadius: m.BorderRadius.circular(12),
+              color: const m.Color(0xFF101828),
+            ),
+            child: m.Text(
+              'Custom heading widget: ${details.text}',
+              style: const m.TextStyle(
+                color: m.Color(0xFFF8FAFC),
+                fontWeight: m.FontWeight.w800,
+                fontSize: 18,
+              ),
+            ),
+          );
+        }
+
+        if (details.kind == MarkdownBlockKind.heading &&
+            details.headingLevel == 3) {
+          return m.Container(
+            margin: const m.EdgeInsets.symmetric(vertical: 4),
+            padding: const m.EdgeInsets.all(10),
+            decoration: m.BoxDecoration(
+              border: m.Border.all(color: const m.Color(0x22000000)),
+              borderRadius: m.BorderRadius.circular(12),
+            ),
+            child: details.buildDefault(),
+          );
+        }
+
+        if (details.htmlTag == 'button') {
+          return m.Padding(
+            padding: const m.EdgeInsets.symmetric(vertical: 8),
+            child: m.FilledButton.icon(
+              onPressed: () {
+                _recordInteraction(
+                  'custom-button ${details.htmlAttributes['data-label'] ?? details.text}',
+                );
+              },
+              icon: const m.Icon(m.Icons.smart_button_outlined),
+              label: m.Text(
+                details.htmlAttributes['data-label'] ?? details.text.trim(),
+              ),
+            ),
+          );
+        }
+
+        return null;
+      },
     );
   }
 
@@ -656,6 +738,28 @@ const markdownTheme = MarkdownTheme(
                     ),
                     const m.SizedBox(height: 10),
                     _interactionLogCard(),
+                  ],
+                ),
+              ),
+              const m.SizedBox(height: 14),
+              _sectionCard(
+                title: 'Custom Widget Builder',
+                child: m.Column(
+                  crossAxisAlignment: m.CrossAxisAlignment.start,
+                  children: [
+                    const m.Text(
+                      'Use `blockBuilder` to replace or wrap specific parsed blocks. The demo below swaps an H2 with a custom banner, wraps an H3 around the default renderer, and turns a raw HTML `<button>` block into a real Flutter button.',
+                    ),
+                    const m.SizedBox(height: 10),
+                    _surface(
+                      _markdownViewport(
+                        context: context,
+                        factor: 0.42,
+                        min: 260,
+                        max: 380,
+                        child: _buildCustomRendererDemo(),
+                      ),
+                    ),
                   ],
                 ),
               ),
