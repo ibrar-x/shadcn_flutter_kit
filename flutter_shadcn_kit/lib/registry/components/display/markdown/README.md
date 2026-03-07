@@ -7,9 +7,12 @@ Standalone markdown renderer with no `flutter_markdown` dependency.
 - Headings, paragraphs, block quotes, horizontal rules
 - Ordered/unordered/nested lists + task lists (`- [x]`)
 - Fenced code blocks with optional language labels
+- Indented code blocks
 - Tables with alignment (`:--`, `:--:`, `--:`)
 - Images (`![alt](url)`), links, auto-links
-- Inline bold/italic/code/strikethrough
+- Reference links/images, footnotes, definition lists
+- Details blocks, inline/block math, basic HTML tags (`<br>`, `<kbd>`, `<strong>`, `<em>`, `<code>`)
+- Inline bold/italic/code/strikethrough, escaped characters, HTML entities
 - Multiple data sources:
   - direct string (`Markdown(data: ...)`)
   - asset file (`Markdown.asset(asset: ...)`)
@@ -46,3 +49,5 @@ Markdown(
 ```
 
 Streaming is opt-in and separate from markdown rendering.
+
+When used with `.withTextStreaming(...)`, the widget now commits completed markdown blocks incrementally and only reparses the active streaming tail, which reduces visible churn and keeps memory bounded.

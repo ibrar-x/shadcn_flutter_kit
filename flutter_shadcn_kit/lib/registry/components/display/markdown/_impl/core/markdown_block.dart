@@ -13,6 +13,9 @@ class _MarkdownBlock {
     this.tableAlignments = const <TextAlign>[],
     this.imageAlt,
     this.imageUrl,
+    this.imageTitle,
+    this.label,
+    this.items = const <String>[],
   });
 
   final _MarkdownBlockType type;
@@ -25,4 +28,7 @@ class _MarkdownBlock {
   final List<TextAlign> tableAlignments;
   final String? imageAlt;
   final String? imageUrl;
+  final String? imageTitle;
+  final String? label;
+  final List<String> items;
 }
