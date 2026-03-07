@@ -355,10 +355,31 @@ Link example: [Flutter](https://flutter.dev)
           runSpacing: 8,
           children: [
             for (final value in values)
-              m.ChoiceChip(
-                label: m.Text(text(value)),
-                selected: value == current,
-                onSelected: (_) => onSelect(value),
+              m.GestureDetector(
+                onTap: () => onSelect(value),
+                child: m.AnimatedContainer(
+                  duration: const Duration(milliseconds: 160),
+                  curve: m.Curves.easeOutCubic,
+                  padding: const m.EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 7,
+                  ),
+                  decoration: m.BoxDecoration(
+                    borderRadius: m.BorderRadius.circular(999),
+                    color: value == current
+                        ? const m.Color(0x22000000)
+                        : const m.Color(0x11000000),
+                    border: m.Border.all(
+                      color: value == current
+                          ? const m.Color(0x66000000)
+                          : const m.Color(0x33000000),
+                    ),
+                  ),
+                  child: m.Text(
+                    text(value),
+                    style: const m.TextStyle(fontSize: 12),
+                  ),
+                ),
               ),
           ],
         ),
