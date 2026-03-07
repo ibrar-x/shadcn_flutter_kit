@@ -371,6 +371,21 @@ class _MarkdownInlineParser {
   }
 
   (InlineSpan, int)? _tryParseHtmlInline(String input, int start) {
+    final anchor = RegExp(
+      r'''^<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)</a>''',
+      caseSensitive: false,
+    ).matchAsPrefix(input.substring(start));
+    if (anchor != null) {
+      final href = _decodeHtmlEntities(anchor.group(1) ?? '');
+      final rawLabel = anchor.group(2) ?? '';
+      final label = _decodeHtmlEntities(_stripInlineHtmlTags(rawLabel));
+      final length = anchor.group(0)!.length;
+      return (
+        _buildLinkSpan(label.isEmpty ? href : label, href),
+        start + length,
+      );
+    }
+
     for (final tag in <String>['strong', 'em', 'code', 'kbd']) {
       final open = '<$tag>';
       final close = '</$tag>';
@@ -420,6 +435,10 @@ class _MarkdownInlineParser {
     }
     return null;
   }
+}
+
+String _stripInlineHtmlTags(String value) {
+  return value.replaceAll(RegExp(r'<[^>]+>'), '');
 }
 
 int _findClosingDelimiter(String input, int start, String delimiter) {
