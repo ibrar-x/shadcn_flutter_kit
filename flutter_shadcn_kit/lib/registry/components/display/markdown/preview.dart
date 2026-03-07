@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart' as f;
 import 'package:flutter/material.dart' as m;
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../../../shared/theme/theme.dart' as shadcn;
 import 'markdown.dart';
