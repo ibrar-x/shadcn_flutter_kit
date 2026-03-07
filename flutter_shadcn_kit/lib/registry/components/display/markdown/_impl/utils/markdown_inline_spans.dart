@@ -89,7 +89,7 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            style: baseStyle.copyWith(fontFamily: 'GeistMono'),
+            style: const TextStyle(fontFamily: 'GeistMono'),
             children: parse(inlineCode.$1),
           ),
         );
@@ -127,7 +127,7 @@ class _MarkdownInlineParser {
         spans.add(
           TextSpan(
             text: math.$1,
-            style: baseStyle.copyWith(
+            style: const TextStyle(
               fontFamily: 'GeistMono',
               fontStyle: FontStyle.italic,
             ),
@@ -142,7 +142,7 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            style: baseStyle.copyWith(
+            style: const TextStyle(
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.italic,
             ),
@@ -160,7 +160,7 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            style: baseStyle.copyWith(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w700),
             children: parse(bold.$1),
           ),
         );
@@ -175,7 +175,7 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            style: baseStyle.copyWith(fontStyle: FontStyle.italic),
+            style: const TextStyle(fontStyle: FontStyle.italic),
             children: parse(italic.$1),
           ),
         );
@@ -188,7 +188,7 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            style: baseStyle.copyWith(decoration: TextDecoration.lineThrough),
+            style: const TextStyle(decoration: TextDecoration.lineThrough),
             children: parse(strike.$1),
           ),
         );
