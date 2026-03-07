@@ -29,10 +29,31 @@ typedef MarkdownTapHeadingCallback =
     void Function(MarkdownHeadingTapDetails details);
 typedef MarkdownTapElementCallback =
     void Function(MarkdownTapElementDetails details);
+typedef MarkdownBlockBuilder =
+    Widget? Function(BuildContext context, MarkdownBlockBuildDetails details);
 typedef MarkdownDocumentReadyCallback =
     void Function(MarkdownDocumentMetrics metrics);
 
 enum MarkdownLinkKind { anchor, email, external, relative }
+
+enum MarkdownBlockKind {
+  blank,
+  paragraph,
+  heading,
+  unorderedList,
+  orderedList,
+  taskList,
+  quote,
+  codeBlock,
+  table,
+  image,
+  definitionList,
+  details,
+  math,
+  footnote,
+  rawHtml,
+  horizontalRule,
+}
 
 enum MarkdownTapElementKind {
   paragraph,
@@ -131,6 +152,53 @@ class MarkdownTapElementDetails {
 }
 
 @immutable
+class MarkdownBlockBuildDetails {
+  const MarkdownBlockBuildDetails({
+    required this.kind,
+    required this.text,
+    required this.blockIndex,
+    required this.buildDefault,
+    this.headingLevel,
+    this.headingAnchor,
+    this.language,
+    this.orderedIndex,
+    this.checked,
+    this.tableRows = const <List<String>>[],
+    this.tableAlignments = const <TextAlign>[],
+    this.imageUrl,
+    this.imageAlt,
+    this.imageTitle,
+    this.label,
+    this.items = const <String>[],
+    this.htmlTag,
+    this.htmlAttributes = const <String, String>{},
+    this.rawHtml,
+  });
+
+  final MarkdownBlockKind kind;
+  final String text;
+  final int blockIndex;
+  final Widget Function() buildDefault;
+  final int? headingLevel;
+  final String? headingAnchor;
+  final String? language;
+  final int? orderedIndex;
+  final bool? checked;
+  final List<List<String>> tableRows;
+  final List<TextAlign> tableAlignments;
+  final String? imageUrl;
+  final String? imageAlt;
+  final String? imageTitle;
+  final String? label;
+  final List<String> items;
+  final String? htmlTag;
+  final Map<String, String> htmlAttributes;
+  final String? rawHtml;
+
+  bool get isHtmlBlock => htmlTag != null;
+}
+
+@immutable
 class MarkdownDocumentMetrics {
   const MarkdownDocumentMetrics({
     required this.blockCount,
@@ -165,6 +233,7 @@ class Markdown extends StatefulWidget {
     this.onTapImage,
     this.onTapHeading,
     this.onTapElement,
+    this.blockBuilder,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -184,6 +253,7 @@ class Markdown extends StatefulWidget {
     this.onTapImage,
     this.onTapHeading,
     this.onTapElement,
+    this.blockBuilder,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -204,6 +274,7 @@ class Markdown extends StatefulWidget {
     this.onTapImage,
     this.onTapHeading,
     this.onTapElement,
+    this.blockBuilder,
     this.onDocumentReady,
     this.shrinkWrap = true,
     this.followLinks = true,
@@ -222,6 +293,7 @@ class Markdown extends StatefulWidget {
   final MarkdownTapImageCallback? onTapImage;
   final MarkdownTapHeadingCallback? onTapHeading;
   final MarkdownTapElementCallback? onTapElement;
+  final MarkdownBlockBuilder? blockBuilder;
   final MarkdownDocumentReadyCallback? onDocumentReady;
   final bool shrinkWrap;
   final bool followLinks;
@@ -241,6 +313,7 @@ class Markdown extends StatefulWidget {
     MarkdownTapImageCallback? onTapImage,
     MarkdownTapHeadingCallback? onTapHeading,
     MarkdownTapElementCallback? onTapElement,
+    MarkdownBlockBuilder? blockBuilder,
     MarkdownDocumentReadyCallback? onDocumentReady,
     bool? shrinkWrap,
     bool? followLinks,
@@ -259,6 +332,7 @@ class Markdown extends StatefulWidget {
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
         onTapElement: onTapElement ?? this.onTapElement,
+        blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -276,6 +350,7 @@ class Markdown extends StatefulWidget {
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
         onTapElement: onTapElement ?? this.onTapElement,
+        blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -293,6 +368,7 @@ class Markdown extends StatefulWidget {
         onTapImage: onTapImage ?? this.onTapImage,
         onTapHeading: onTapHeading ?? this.onTapHeading,
         onTapElement: onTapElement ?? this.onTapElement,
+        blockBuilder: blockBuilder ?? this.blockBuilder,
         onDocumentReady: onDocumentReady ?? this.onDocumentReady,
         shrinkWrap: shrinkWrap ?? this.shrinkWrap,
         followLinks: followLinks ?? this.followLinks,
@@ -322,6 +398,7 @@ extension on Markdown {
       onTapImage: onTapImage,
       onTapHeading: onTapHeading,
       onTapElement: onTapElement,
+      blockBuilder: blockBuilder,
       onDocumentReady: onDocumentReady,
       shrinkWrap: shrinkWrap,
       followLinks: followLinks,
@@ -801,6 +878,45 @@ class _MarkdownState extends State<Markdown> {
     );
   }
 
+  MarkdownBlockKind _blockKind(_MarkdownBlock block) {
+    return switch (block.type) {
+      _MarkdownBlockType.blank => MarkdownBlockKind.blank,
+      _MarkdownBlockType.paragraph => MarkdownBlockKind.paragraph,
+      _MarkdownBlockType.heading1 ||
+      _MarkdownBlockType.heading2 ||
+      _MarkdownBlockType.heading3 ||
+      _MarkdownBlockType.heading4 ||
+      _MarkdownBlockType.heading5 ||
+      _MarkdownBlockType.heading6 => MarkdownBlockKind.heading,
+      _MarkdownBlockType.unorderedList => MarkdownBlockKind.unorderedList,
+      _MarkdownBlockType.orderedList => MarkdownBlockKind.orderedList,
+      _MarkdownBlockType.taskList => MarkdownBlockKind.taskList,
+      _MarkdownBlockType.quote => MarkdownBlockKind.quote,
+      _MarkdownBlockType.codeFence ||
+      _MarkdownBlockType.indentedCode => MarkdownBlockKind.codeBlock,
+      _MarkdownBlockType.table => MarkdownBlockKind.table,
+      _MarkdownBlockType.image => MarkdownBlockKind.image,
+      _MarkdownBlockType.definitionList => MarkdownBlockKind.definitionList,
+      _MarkdownBlockType.details => MarkdownBlockKind.details,
+      _MarkdownBlockType.math => MarkdownBlockKind.math,
+      _MarkdownBlockType.footnote => MarkdownBlockKind.footnote,
+      _MarkdownBlockType.rawHtml => MarkdownBlockKind.rawHtml,
+      _MarkdownBlockType.horizontalRule => MarkdownBlockKind.horizontalRule,
+    };
+  }
+
+  int? _headingLevelForBlock(_MarkdownBlock block) {
+    return switch (block.type) {
+      _MarkdownBlockType.heading1 => 1,
+      _MarkdownBlockType.heading2 => 2,
+      _MarkdownBlockType.heading3 => 3,
+      _MarkdownBlockType.heading4 => 4,
+      _MarkdownBlockType.heading5 => 5,
+      _MarkdownBlockType.heading6 => 6,
+      _ => null,
+    };
+  }
+
   MarkdownTapElementKind? _blockTapKind(_MarkdownBlock block) {
     return switch (block.type) {
       _MarkdownBlockType.paragraph => MarkdownTapElementKind.paragraph,
@@ -852,6 +968,56 @@ class _MarkdownState extends State<Markdown> {
           ? block.orderedIndex
           : null,
       checked: block.type == _MarkdownBlockType.taskList ? block.checked : null,
+    );
+  }
+
+  MarkdownBlockBuildDetails _buildBlockRenderDetails(
+    _MarkdownBlock block, {
+    required int blockIndex,
+    required Widget Function() buildDefault,
+    String? headingAnchorSlug,
+  }) {
+    return MarkdownBlockBuildDetails(
+      kind: _blockKind(block),
+      text: block.text,
+      blockIndex: blockIndex,
+      buildDefault: buildDefault,
+      headingLevel: _headingLevelForBlock(block),
+      headingAnchor: headingAnchorSlug,
+      language: block.language,
+      orderedIndex: block.type == _MarkdownBlockType.orderedList
+          ? block.orderedIndex
+          : null,
+      checked: block.type == _MarkdownBlockType.taskList ? block.checked : null,
+      tableRows: List<List<String>>.unmodifiable(
+        block.tableRows
+            .map((row) => List<String>.unmodifiable(row))
+            .toList(growable: false),
+      ),
+      tableAlignments: List<TextAlign>.unmodifiable(block.tableAlignments),
+      imageUrl: block.imageUrl,
+      imageAlt: block.imageAlt,
+      imageTitle: block.imageTitle,
+      label: block.label,
+      items: List<String>.unmodifiable(block.items),
+      htmlTag: block.htmlTag,
+      htmlAttributes: Map<String, String>.unmodifiable(
+        _extractHtmlAttributesMapFromBlock(block),
+      ),
+      rawHtml: block.rawHtml,
+    );
+  }
+
+  Map<String, String> _extractHtmlAttributesMapFromBlock(_MarkdownBlock block) {
+    final tag = block.htmlTag;
+    if (tag == null || tag.isEmpty) {
+      return const <String, String>{};
+    }
+    if (block.rawHtml == null || block.rawHtml!.isEmpty) {
+      return const <String, String>{};
+    }
+    return _extractHtmlAttributesMap(
+      _extractOpeningHtmlAttributes(block.rawHtml!, tag),
     );
   }
 
@@ -1051,243 +1217,262 @@ class _MarkdownState extends State<Markdown> {
       _ => null,
     };
 
-    Widget child;
-    switch (block.type) {
-      case _MarkdownBlockType.codeFence:
-      case _MarkdownBlockType.indentedCode:
-        child = Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 6),
-          padding: markdownTheme?.codePadding ?? const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color:
-                markdownTheme?.codeBackgroundColor ?? const Color(0x11000000),
-            borderRadius:
-                markdownTheme?.codeRadius ?? BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if ((block.language ?? '').isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    block.language!,
-                    style: styleValue<TextStyle>(
-                      widgetValue: null,
-                      themeValue: markdownTheme?.codeLanguageStyle,
-                      defaultValue: mono.copyWith(
-                        fontSize: (mono.fontSize ?? 14) * 0.85,
-                        color: baseStyle.color?.withValues(alpha: 0.65),
+    Widget buildDefaultChild() {
+      switch (block.type) {
+        case _MarkdownBlockType.codeFence:
+        case _MarkdownBlockType.indentedCode:
+          return Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(vertical: 6),
+            padding: markdownTheme?.codePadding ?? const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color:
+                  markdownTheme?.codeBackgroundColor ?? const Color(0x11000000),
+              borderRadius:
+                  markdownTheme?.codeRadius ?? BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if ((block.language ?? '').isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      block.language!,
+                      style: styleValue<TextStyle>(
+                        widgetValue: null,
+                        themeValue: markdownTheme?.codeLanguageStyle,
+                        defaultValue: mono.copyWith(
+                          fontSize: (mono.fontSize ?? 14) * 0.85,
+                          color: baseStyle.color?.withValues(alpha: 0.65),
+                        ),
                       ),
                     ),
                   ),
+                widget.selectable
+                    ? SelectableText(block.text, style: mono)
+                    : Text(block.text, style: mono),
+              ],
+            ),
+          );
+        case _MarkdownBlockType.unorderedList:
+        case _MarkdownBlockType.orderedList:
+        case _MarkdownBlockType.taskList:
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 8 + (block.indentLevel * (markdownTheme?.listIndent ?? 18)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 2),
+                  child: Text(switch (block.type) {
+                    _MarkdownBlockType.unorderedList => '• ',
+                    _MarkdownBlockType.orderedList => '${block.orderedIndex}. ',
+                    _MarkdownBlockType.taskList =>
+                      block.checked == true ? '☑ ' : '☐ ',
+                    _ => '',
+                  }, style: baseStyle),
                 ),
-              widget.selectable
-                  ? SelectableText(block.text, style: mono)
-                  : Text(block.text, style: mono),
-            ],
-          ),
-        );
-      case _MarkdownBlockType.unorderedList:
-      case _MarkdownBlockType.orderedList:
-      case _MarkdownBlockType.taskList:
-        child = Padding(
-          padding: EdgeInsets.only(
-            left: 8 + (block.indentLevel * (markdownTheme?.listIndent ?? 18)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(switch (block.type) {
-                  _MarkdownBlockType.unorderedList => '• ',
-                  _MarkdownBlockType.orderedList => '${block.orderedIndex}. ',
-                  _MarkdownBlockType.taskList =>
-                    block.checked == true ? '☑ ' : '☐ ',
-                  _ => '',
-                }, style: baseStyle),
+                Expanded(
+                  child: widget.selectable
+                      ? SelectableText.rich(rich)
+                      : RichText(text: rich),
+                ),
+              ],
+            ),
+          );
+        case _MarkdownBlockType.quote:
+          return Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            padding:
+                markdownTheme?.quotePadding ??
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: markdownTheme?.quoteBackgroundColor,
+              border: Border(
+                left: BorderSide(
+                  color:
+                      markdownTheme?.quoteBorderColor ??
+                      baseStyle.color?.withValues(alpha: 0.45) ??
+                      const Color(0x66000000),
+                  width: markdownTheme?.quoteBorderWidth ?? 3,
+                ),
               ),
-              Expanded(
-                child: widget.selectable
-                    ? SelectableText.rich(rich)
-                    : RichText(text: rich),
-              ),
-            ],
-          ),
-        );
-      case _MarkdownBlockType.quote:
-        child = Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 4),
-          padding:
-              markdownTheme?.quotePadding ??
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: markdownTheme?.quoteBackgroundColor,
-            border: Border(
-              left: BorderSide(
+            ),
+            child: Markdown(
+              data: block.text,
+              selectable: widget.selectable,
+              style: markdownTheme?.quoteStyle ?? baseStyle,
+              onTapLink: _handleTapLink,
+              onTapLinkDetails: widget.onTapLinkDetails,
+              onTapImage: widget.onTapImage,
+              onTapHeading: widget.onTapHeading,
+              onTapElement: widget.onTapElement,
+              blockBuilder: widget.blockBuilder,
+              shrinkWrap: true,
+              followLinks: widget.followLinks,
+              imageBuilder: widget.imageBuilder,
+            ),
+          );
+        case _MarkdownBlockType.horizontalRule:
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Divider(
+              height: 1,
+              color: markdownTheme?.horizontalRuleColor,
+            ),
+          );
+        case _MarkdownBlockType.table:
+          return _buildTable(
+            context,
+            block,
+            blockIndex,
+            baseStyle,
+            document,
+            markdownTheme,
+          );
+        case _MarkdownBlockType.image:
+          return _buildImage(
+            context,
+            block,
+            blockIndex,
+            baseStyle,
+            markdownTheme,
+          );
+        case _MarkdownBlockType.definitionList:
+          return _buildDefinitionList(
+            context,
+            block,
+            blockIndex,
+            baseStyle,
+            document,
+            markdownTheme,
+          );
+        case _MarkdownBlockType.details:
+          return _MarkdownDisclosure(
+            summary: block.text,
+            onSummaryTap: (widget.onTapElement == null)
+                ? null
+                : () {
+                    _emitElementTap(
+                      MarkdownTapElementDetails(
+                        kind: MarkdownTapElementKind.detailsSummary,
+                        text: block.text,
+                        blockIndex: blockIndex,
+                      ),
+                    );
+                  },
+            summaryStyle:
+                markdownTheme?.detailsSummaryStyle ??
+                baseStyle.copyWith(fontWeight: FontWeight.w600),
+            decoration: BoxDecoration(
+              border: Border.all(
                 color:
-                    markdownTheme?.quoteBorderColor ??
-                    baseStyle.color?.withValues(alpha: 0.45) ??
-                    const Color(0x66000000),
-                width: markdownTheme?.quoteBorderWidth ?? 3,
+                    markdownTheme?.detailsBorderColor ??
+                    const Color(0x22000000),
               ),
+              color: markdownTheme?.detailsBackgroundColor,
+              borderRadius:
+                  markdownTheme?.detailsRadius ?? BorderRadius.circular(10),
             ),
-          ),
-          child: Markdown(
-            data: block.text,
-            selectable: widget.selectable,
-            style: markdownTheme?.quoteStyle ?? baseStyle,
-            onTapLink: _handleTapLink,
-            onTapLinkDetails: widget.onTapLinkDetails,
-            onTapImage: widget.onTapImage,
-            onTapHeading: widget.onTapHeading,
-            onTapElement: widget.onTapElement,
-            shrinkWrap: true,
-            followLinks: widget.followLinks,
-            imageBuilder: widget.imageBuilder,
-          ),
-        );
-      case _MarkdownBlockType.horizontalRule:
-        child = Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Divider(height: 1, color: markdownTheme?.horizontalRuleColor),
-        );
-      case _MarkdownBlockType.table:
-        child = _buildTable(
-          context,
-          block,
-          blockIndex,
-          baseStyle,
-          document,
-          markdownTheme,
-        );
-      case _MarkdownBlockType.image:
-        child = _buildImage(
-          context,
-          block,
-          blockIndex,
-          baseStyle,
-          markdownTheme,
-        );
-      case _MarkdownBlockType.definitionList:
-        child = _buildDefinitionList(
-          context,
-          block,
-          blockIndex,
-          baseStyle,
-          document,
-          markdownTheme,
-        );
-      case _MarkdownBlockType.details:
-        child = _MarkdownDisclosure(
-          summary: block.text,
-          onSummaryTap: (widget.onTapElement == null)
-              ? null
-              : () {
-                  _emitElementTap(
-                    MarkdownTapElementDetails(
-                      kind: MarkdownTapElementKind.detailsSummary,
-                      text: block.text,
-                      blockIndex: blockIndex,
+            headerPadding:
+                markdownTheme?.detailsHeaderPadding ??
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            bodyPadding:
+                markdownTheme?.detailsBodyPadding ??
+                const EdgeInsets.fromLTRB(12, 0, 12, 12),
+            child: Markdown(
+              data: block.items.isEmpty ? '' : block.items.first,
+              selectable: widget.selectable,
+              style: baseStyle,
+              onTapLink: _handleTapLink,
+              onTapLinkDetails: widget.onTapLinkDetails,
+              onTapImage: widget.onTapImage,
+              onTapHeading: widget.onTapHeading,
+              onTapElement: widget.onTapElement,
+              blockBuilder: widget.blockBuilder,
+              shrinkWrap: true,
+              followLinks: widget.followLinks,
+              imageBuilder: widget.imageBuilder,
+            ),
+          );
+        case _MarkdownBlockType.math:
+          return _buildMathBlock(block, mono, markdownTheme);
+        case _MarkdownBlockType.footnote:
+          return _buildFootnote(
+            context,
+            block,
+            baseStyle,
+            document,
+            markdownTheme,
+          );
+        case _MarkdownBlockType.rawHtml:
+          return widget.selectable
+              ? SelectableText.rich(
+                  TextSpan(
+                    style: baseStyle,
+                    children: _buildInlineSpans(
+                      context,
+                      _htmlToInlineText(block.text),
+                      baseStyle,
+                      document,
+                      onTapLink: _handleTapLink,
+                      followLinks: widget.followLinks,
+                      linkStyle: linkStyle,
                     ),
-                  );
-                },
-          summaryStyle:
-              markdownTheme?.detailsSummaryStyle ??
-              baseStyle.copyWith(fontWeight: FontWeight.w600),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color:
-                  markdownTheme?.detailsBorderColor ?? const Color(0x22000000),
+                  ),
+                )
+              : RichText(
+                  text: TextSpan(
+                    style: baseStyle,
+                    children: _buildInlineSpans(
+                      context,
+                      _htmlToInlineText(block.text),
+                      baseStyle,
+                      document,
+                      onTapLink: _handleTapLink,
+                      followLinks: widget.followLinks,
+                      linkStyle: linkStyle,
+                    ),
+                  ),
+                );
+        default:
+          final resolvedHeadingStyle = styleValue<TextStyle>(
+            widgetValue: null,
+            themeValue: headingStyle,
+            defaultValue: baseStyle.copyWith(
+              fontWeight: block.type.index <= _MarkdownBlockType.heading6.index
+                  ? FontWeight.w700
+                  : FontWeight.w400,
+              fontSize: (baseStyle.fontSize ?? 14) * headingScale,
+              height: 1.35,
             ),
-            color: markdownTheme?.detailsBackgroundColor,
-            borderRadius:
-                markdownTheme?.detailsRadius ?? BorderRadius.circular(10),
-          ),
-          headerPadding:
-              markdownTheme?.detailsHeaderPadding ??
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          bodyPadding:
-              markdownTheme?.detailsBodyPadding ??
-              const EdgeInsets.fromLTRB(12, 0, 12, 12),
-          child: Markdown(
-            data: block.items.isEmpty ? '' : block.items.first,
-            selectable: widget.selectable,
-            style: baseStyle,
-            onTapLink: _handleTapLink,
-            onTapLinkDetails: widget.onTapLinkDetails,
-            onTapImage: widget.onTapImage,
-            onTapHeading: widget.onTapHeading,
-            onTapElement: widget.onTapElement,
-            shrinkWrap: true,
-            followLinks: widget.followLinks,
-            imageBuilder: widget.imageBuilder,
-          ),
-        );
-      case _MarkdownBlockType.math:
-        child = _buildMathBlock(block, mono, markdownTheme);
-      case _MarkdownBlockType.footnote:
-        child = _buildFootnote(
-          context,
-          block,
-          baseStyle,
-          document,
-          markdownTheme,
-        );
-      case _MarkdownBlockType.rawHtml:
-        child = widget.selectable
-            ? SelectableText.rich(
-                TextSpan(
-                  style: baseStyle,
-                  children: _buildInlineSpans(
-                    context,
-                    _htmlToInlineText(block.text),
-                    baseStyle,
-                    document,
-                    onTapLink: _handleTapLink,
-                    followLinks: widget.followLinks,
-                    linkStyle: linkStyle,
+          );
+          return widget.selectable
+              ? SelectableText.rich(rich, style: resolvedHeadingStyle)
+              : RichText(
+                  text: TextSpan(
+                    style: resolvedHeadingStyle,
+                    children: rich.children,
                   ),
-                ),
-              )
-            : RichText(
-                text: TextSpan(
-                  style: baseStyle,
-                  children: _buildInlineSpans(
-                    context,
-                    _htmlToInlineText(block.text),
-                    baseStyle,
-                    document,
-                    onTapLink: _handleTapLink,
-                    followLinks: widget.followLinks,
-                    linkStyle: linkStyle,
-                  ),
-                ),
-              );
-      default:
-        final resolvedHeadingStyle = styleValue<TextStyle>(
-          widgetValue: null,
-          themeValue: headingStyle,
-          defaultValue: baseStyle.copyWith(
-            fontWeight: block.type.index <= _MarkdownBlockType.heading6.index
-                ? FontWeight.w700
-                : FontWeight.w400,
-            fontSize: (baseStyle.fontSize ?? 14) * headingScale,
-            height: 1.35,
-          ),
-        );
-        child = widget.selectable
-            ? SelectableText.rich(rich, style: resolvedHeadingStyle)
-            : RichText(
-                text: TextSpan(
-                  style: resolvedHeadingStyle,
-                  children: rich.children,
-                ),
-              );
+                );
+      }
     }
+
+    Widget child =
+        widget.blockBuilder?.call(
+          context,
+          _buildBlockRenderDetails(
+            block,
+            blockIndex: blockIndex,
+            buildDefault: buildDefaultChild,
+            headingAnchorSlug: headingAnchorSlug,
+          ),
+        ) ??
+        buildDefaultChild();
 
     if (headingAnchorKey != null) {
       child = KeyedSubtree(key: headingAnchorKey, child: child);

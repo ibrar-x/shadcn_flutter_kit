@@ -827,7 +827,12 @@ bool _isStandaloneStableLine(String line) {
   }
 
   return (
-    _MarkdownBlock(type: _MarkdownBlockType.rawHtml, text: buffer.join('\n')),
+    _MarkdownBlock(
+      type: _MarkdownBlockType.rawHtml,
+      text: buffer.join('\n'),
+      htmlTag: tag,
+      rawHtml: buffer.join('\n'),
+    ),
     i,
   );
 }
@@ -868,6 +873,8 @@ bool _isStandaloneStableLine(String line) {
           _ => _MarkdownBlockType.heading6,
         },
         text: text,
+        htmlTag: tag,
+        rawHtml: collected.$1,
       ),
       collected.$2,
     );
@@ -876,7 +883,12 @@ bool _isStandaloneStableLine(String line) {
   final lower = trimmed.toLowerCase();
   if (RegExp(r'^<hr\b[^>]*\/?>$').hasMatch(lower)) {
     return (
-      const _MarkdownBlock(type: _MarkdownBlockType.horizontalRule, text: ''),
+      _MarkdownBlock(
+        type: _MarkdownBlockType.horizontalRule,
+        text: '',
+        htmlTag: 'hr',
+        rawHtml: lines[index].trimRight(),
+      ),
       index + 1,
     );
   }
@@ -902,6 +914,8 @@ bool _isStandaloneStableLine(String line) {
         imageTitle: _decodeHtmlEntities(
           _extractHtmlAttribute(attrs, 'title') ?? '',
         ),
+        htmlTag: 'img',
+        rawHtml: collected.$1,
       ),
       collected.$2,
     );
@@ -927,6 +941,8 @@ bool _isStandaloneStableLine(String line) {
         type: _MarkdownBlockType.codeFence,
         text: code,
         language: language,
+        htmlTag: 'pre',
+        rawHtml: collected.$1,
       ),
       collected.$2,
     );
@@ -943,7 +959,12 @@ bool _isStandaloneStableLine(String line) {
       return null;
     }
     return (
-      _MarkdownBlock(type: _MarkdownBlockType.quote, text: text),
+      _MarkdownBlock(
+        type: _MarkdownBlockType.quote,
+        text: text,
+        htmlTag: 'blockquote',
+        rawHtml: collected.$1,
+      ),
       collected.$2,
     );
   }
@@ -959,7 +980,12 @@ bool _isStandaloneStableLine(String line) {
       return null;
     }
     return (
-      _MarkdownBlock(type: _MarkdownBlockType.paragraph, text: text),
+      _MarkdownBlock(
+        type: _MarkdownBlockType.paragraph,
+        text: text,
+        htmlTag: tag,
+        rawHtml: collected.$1,
+      ),
       collected.$2,
     );
   }
@@ -1297,6 +1323,34 @@ String _extractInnerHtml(String raw, String tag) {
   return value.trim();
 }
 
+String _extractOpeningHtmlAttributes(String raw, String tag) {
+  final match = RegExp(
+    '^\\s*<$tag\\b([^>]*)>',
+    caseSensitive: false,
+  ).firstMatch(raw);
+  return match?.group(1)?.trim() ?? '';
+}
+
+Map<String, String> _extractHtmlAttributesMap(String raw) {
+  if (raw.trim().isEmpty) {
+    return const <String, String>{};
+  }
+  final attributes = <String, String>{};
+  final matches = RegExp(
+    r'''([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?''',
+    caseSensitive: false,
+  ).allMatches(raw);
+  for (final match in matches) {
+    final key = (match.group(1) ?? '').trim();
+    if (key.isEmpty) {
+      continue;
+    }
+    final value = match.group(2) ?? match.group(3) ?? match.group(4) ?? 'true';
+    attributes[key] = _decodeHtmlEntities(value);
+  }
+  return Map<String, String>.unmodifiable(attributes);
+}
+
 String? _extractHtmlAttribute(String raw, String name) {
   final match = RegExp(
     '''$name\\s*=\\s*("([^"]*)"|'([^']*)')''',
@@ -1402,7 +1456,15 @@ String _normalizeHtmlInline(String html) {
   if (table != null) {
     return (table, i);
   }
-  return (_MarkdownBlock(type: _MarkdownBlockType.rawHtml, text: raw), i);
+  return (
+    _MarkdownBlock(
+      type: _MarkdownBlockType.rawHtml,
+      text: raw,
+      htmlTag: 'table',
+      rawHtml: raw,
+    ),
+    i,
+  );
 }
 
 _MarkdownBlock? _parseHtmlTable(String raw) {
@@ -1456,6 +1518,8 @@ _MarkdownBlock? _parseHtmlTable(String raw) {
       for (var col = 0; col < maxColumns; col++)
         col < alignments.length ? alignments[col] : TextAlign.left,
     ],
+    htmlTag: 'table',
+    rawHtml: raw,
   );
 }
 
