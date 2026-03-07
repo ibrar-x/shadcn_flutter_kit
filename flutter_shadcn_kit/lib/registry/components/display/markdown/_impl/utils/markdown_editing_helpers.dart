@@ -81,6 +81,18 @@ class MarkdownEditingHelpers {
     required String text,
     required TextSelection selection,
   }) {
+    if (!_shouldTransformWholeLines(text, selection)) {
+      final normalized = _normalizeSelection(text, selection);
+      final selected = text.substring(normalized.start, normalized.end);
+      final currentLevel = _currentHeadingLevelFromText(selected);
+      final nextLevel = currentLevel >= 6 ? 0 : currentLevel + 1;
+      return _setSelectionHeadingLevel(
+        text,
+        selection,
+        targetLevel: nextLevel == 0 ? null : nextLevel,
+      );
+    }
+
     final normalized = _normalizeSelection(text, selection);
     final bounds = _lineBounds(text, normalized);
     final lines = text.substring(bounds.$1, bounds.$2).split('\n');
@@ -506,14 +518,26 @@ class MarkdownEditingHelpers {
     TextSelection selection, {
     required int level,
   }) {
+    return _setSelectionHeadingLevel(
+      text,
+      selection,
+      targetLevel: level.clamp(1, 6),
+    );
+  }
+
+  static MarkdownEditResult _setSelectionHeadingLevel(
+    String text,
+    TextSelection selection, {
+    required int? targetLevel,
+  }) {
     final normalized = _normalizeSelection(text, selection);
     final selected = text.substring(normalized.start, normalized.end);
-    final normalizedLevel = level.clamp(1, 6);
-    final headingPrefix = '${'#' * normalizedLevel} ';
+    final headingPrefix = targetLevel == null ? '' : '${'#' * targetLevel} ';
     final stripPattern = RegExp(r'^#{1,6}\s+');
-    final nextSelected = stripPattern.hasMatch(selected)
-        ? selected.replaceFirst(stripPattern, '')
-        : '$headingPrefix$selected';
+    final stripped = selected.replaceFirst(stripPattern, '');
+    final nextSelected = targetLevel == null
+        ? stripped
+        : '$headingPrefix$stripped';
     final nextText = text.replaceRange(
       normalized.start,
       normalized.end,
@@ -526,6 +550,14 @@ class MarkdownEditingHelpers {
         extentOffset: normalized.start + nextSelected.length,
       ),
     );
+  }
+
+  static int _currentHeadingLevelFromText(String value) {
+    final match = RegExp(r'^\s*(#{1,6})\s+').firstMatch(value);
+    if (match == null) {
+      return 0;
+    }
+    return match.group(1)!.length;
   }
 
   static int _currentHeadingLevel(List<String> lines) {

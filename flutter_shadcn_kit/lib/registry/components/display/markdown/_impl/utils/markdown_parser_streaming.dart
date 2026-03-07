@@ -214,14 +214,13 @@ String _convertMarkdownTablesToHtml(String source) {
     if (_looksLikeTableHeader(lines, i)) {
       final header = _parseTableRow(lines[i]);
       final alignments = _tableAlignments(lines[i + 1]);
-      final bodyRows = <List<String>>[];
-      i += 2;
-      while (i < lines.length &&
-          lines[i].trim().isNotEmpty &&
-          lines[i].contains('|')) {
-        bodyRows.add(_parseTableRow(lines[i]));
-        i += 1;
-      }
+      final bodyResult = _consumeMarkdownTableRows(
+        lines,
+        i + 2,
+        expectedColumns: header.length,
+      );
+      final bodyRows = bodyResult.$1;
+      i = bodyResult.$2;
       output.addAll(_buildHtmlTableLines(header, bodyRows, alignments));
       continue;
     }
