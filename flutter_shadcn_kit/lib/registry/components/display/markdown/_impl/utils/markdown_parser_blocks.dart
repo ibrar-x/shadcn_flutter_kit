@@ -83,6 +83,9 @@ part of '../../markdown.dart';
   if (text.isEmpty) {
     return null;
   }
+  if (!_isSetextHeadingCandidate(text)) {
+    return null;
+  }
   final underline = lines[index + 1].trimRight();
   final match = RegExp(r'^\s*(=+|-+)\s*$').firstMatch(underline);
   if (match == null) {
@@ -97,6 +100,32 @@ part of '../../markdown.dart';
     ),
     index + 2,
   );
+}
+
+bool _isSetextHeadingCandidate(String line) {
+  final trimmed = line.trimLeft();
+  if (trimmed.isEmpty) {
+    return false;
+  }
+  if (RegExp(r'^[-*+]\s+').hasMatch(trimmed)) {
+    return false;
+  }
+  if (RegExp(r'^\d+\.\s+').hasMatch(trimmed)) {
+    return false;
+  }
+  if (RegExp(r'^\[(?: |x|X)\]\s+').hasMatch(trimmed)) {
+    return false;
+  }
+  if (trimmed.startsWith('>')) {
+    return false;
+  }
+  if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+    return false;
+  }
+  if (trimmed.startsWith('#')) {
+    return false;
+  }
+  return true;
 }
 
 (_MarkdownBlock, int)? _tryParseIndentedCode(List<String> lines, int index) {

@@ -89,8 +89,8 @@ class _MarkdownInlineParser {
         flushBuffer();
         spans.add(
           TextSpan(
-            text: inlineCode.$1,
             style: baseStyle.copyWith(fontFamily: 'GeistMono'),
+            children: parse(inlineCode.$1),
           ),
         );
         index = inlineCode.$2;

@@ -261,12 +261,16 @@ class MarkdownEditingHelpers {
     required TextSelection selection,
   }) {
     final normalized = _normalizeSelection(text, selection);
-    final before = normalized.start > 0 && text[normalized.start - 1] != '\n'
-        ? '\n'
-        : '';
-    final after = normalized.end < text.length && text[normalized.end] != '\n'
-        ? '\n'
-        : '';
+    final beforeNeedsGap =
+        normalized.start > 1 &&
+        text.substring(0, normalized.start).trimRight().isNotEmpty &&
+        !text.substring(0, normalized.start).endsWith('\n\n');
+    final afterNeedsGap =
+        normalized.end < text.length - 1 &&
+        text.substring(normalized.end).trimLeft().isNotEmpty &&
+        !text.substring(normalized.end).startsWith('\n\n');
+    final before = beforeNeedsGap ? '\n\n' : '';
+    final after = afterNeedsGap ? '\n\n' : '';
     const rule = '---';
     final replacement = '$before$rule$after';
     final nextText = text.replaceRange(
