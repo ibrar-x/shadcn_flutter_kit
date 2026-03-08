@@ -5,6 +5,8 @@ import '../docs_page.dart';
 import 'blocks.dart';
 import 'components_registry.dart';
 import 'component_examples.dart';
+import '../../ui/shadcn/components/control/button/button.dart'
+    as shadcn_buttons;
 import '../../ui/shadcn/shared/primitives/text.dart';
 
 class ComponentsPage extends StatefulWidget {
@@ -64,8 +66,8 @@ class _ComponentNameGrid extends StatelessWidget {
   const _ComponentNameGrid({required this.components});
 
   int _columnCountForWidth(double width) {
-    if (width >= 1200) return 3;
-    if (width >= 760) return 2;
+    if (width >= 980) return 3;
+    if (width >= 620) return 2;
     return 1;
   }
 
@@ -80,9 +82,9 @@ class _ComponentNameGrid extends StatelessWidget {
           itemCount: components.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columns,
-            mainAxisExtent: 62,
-            crossAxisSpacing: 56,
-            mainAxisSpacing: 10,
+            mainAxisExtent: 36,
+            crossAxisSpacing: 28,
+            mainAxisSpacing: 6,
           ),
           itemBuilder: (context, index) {
             return _ComponentNameLink(component: components[index]);
@@ -106,16 +108,18 @@ class _ComponentNameLink extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: TextButton(
+      child: shadcn_buttons.LinkButton(
         onPressed: () =>
             context.go('/components/${_toKebabCase(component.id)}'),
-        style: TextButton.styleFrom(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-          foregroundColor: Theme.of(context).colorScheme.onSurface,
-          textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+        alignment: Alignment.centerLeft,
+        size: shadcn_buttons.ButtonSize.small,
+        density: shadcn_buttons.ButtonDensity.dense,
+        child: Text(
+          component.name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
-        child: Text(component.name),
       ),
     );
   }

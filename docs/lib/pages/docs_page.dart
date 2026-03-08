@@ -471,8 +471,9 @@ class DocsPageState extends State<DocsPage> {
               width: targetWidth,
               child: FadeScroll(
                 controller: _drawerSidebarScrollController,
-                startOffset: 14,
-                endOffset: 14,
+                startOffset: 20,
+                endOffset: 20,
+                gradient: const [Colors.transparent, Colors.white],
                 child: SingleChildScrollView(
                   controller: _drawerSidebarScrollController,
                   child: SidebarNav(
@@ -572,8 +573,12 @@ class DocsPageState extends State<DocsPage> {
                       child: FocusTraversalGroup(
                         child: FadeScroll(
                           controller: _sidebarScrollController,
-                          startOffset: 14,
-                          endOffset: 14,
+                          startOffset: 20,
+                          endOffset: 20,
+                          gradient: const [
+                            Colors.transparent,
+                            Colors.white,
+                          ],
                           child: SingleChildScrollView(
                             controller: _sidebarScrollController,
                             key: const PageStorageKey('sidebar'),
