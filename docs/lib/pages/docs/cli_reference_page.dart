@@ -35,6 +35,7 @@ class CliReferencePage extends StatelessWidget {
 
     return DocsPage(
       name: doc.id,
+      sidebarMode: DocsSidebarMode.cli,
       onThisPage: onThisPage,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

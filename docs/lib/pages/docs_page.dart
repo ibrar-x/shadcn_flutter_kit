@@ -67,6 +67,7 @@ class DocsPage extends StatefulWidget {
   final Map<String, OnThisPage> onThisPage;
   final List<Widget> navigationItems;
   final bool scrollable;
+  final DocsSidebarMode sidebarMode;
 
   const DocsPage({
     super.key,
@@ -76,10 +77,16 @@ class DocsPage extends StatefulWidget {
     this.onThisPage = const {},
     this.navigationItems = const [],
     this.scrollable = true,
+    this.sidebarMode = DocsSidebarMode.main,
   });
 
   @override
   State<DocsPage> createState() => DocsPageState();
+}
+
+enum DocsSidebarMode {
+  main,
+  cli,
 }
 
 enum DocsTag {
@@ -130,7 +137,7 @@ class DocsSection {
 }
 
 class DocsPageState extends State<DocsPage> {
-  static final List<DocsSection> baseSections = [
+  static final List<DocsSection> mainBaseSections = [
     DocsSection(
       'Getting Started',
       [
@@ -147,8 +154,17 @@ class DocsPageState extends State<DocsPage> {
         DocsPageRef('Colors', 'colors'),
         DocsPageRef('Material/Cupertino', 'material'),
         DocsPageRef('State Management', 'state'),
+        DocsPageRef(
+          'CLI',
+          'cli-overview',
+          routeName: 'cli_reference',
+          pathParameters: {'id': 'cli-overview'},
+        ),
       ],
     ),
+  ];
+
+  static final List<DocsSection> cliBaseSections = [
     DocsSection(
       'CLI',
       [
@@ -181,11 +197,13 @@ class DocsPageState extends State<DocsPage> {
   @override
   void initState() {
     super.initState();
-    _sections = List.of(baseSections);
+    _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
     for (final child in widget.onThisPage.values) {
       child.isVisible.addListener(_onVisibilityChanged);
     }
-    _loadComponentSections();
+    if (widget.sidebarMode == DocsSidebarMode.main) {
+      _loadComponentSections();
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       setState(() {});
@@ -195,6 +213,17 @@ class DocsPageState extends State<DocsPage> {
   @override
   void didUpdateWidget(covariant DocsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.sidebarMode != widget.sidebarMode) {
+      _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
+      if (widget.sidebarMode == DocsSidebarMode.main) {
+        _loadComponentSections();
+      } else {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          setState(() {});
+        });
+      }
+    }
     if (!mapEquals(oldWidget.onThisPage, widget.onThisPage)) {
       for (final child in widget.onThisPage.values) {
         child.isVisible.addListener(_onVisibilityChanged);
@@ -230,6 +259,13 @@ class DocsPageState extends State<DocsPage> {
 
   bool isVisible(OnThisPage onThisPage) {
     return currentlyVisible.isNotEmpty && currentlyVisible.first == onThisPage;
+  }
+
+  List<DocsSection> _baseSectionsForMode(DocsSidebarMode mode) {
+    return switch (mode) {
+      DocsSidebarMode.main => mainBaseSections,
+      DocsSidebarMode.cli => cliBaseSections,
+    };
   }
 
   void showSearchDialog() {
@@ -354,7 +390,7 @@ class DocsPageState extends State<DocsPage> {
 
     setState(() {
       _sections = [
-        ...baseSections,
+        ..._baseSectionsForMode(widget.sidebarMode),
         ...componentSections,
       ];
     });
@@ -373,6 +409,9 @@ class DocsPageState extends State<DocsPage> {
   }
 
   List<DocsSection> get _sidebarSections {
+    if (widget.sidebarMode == DocsSidebarMode.cli) {
+      return _sections.toList(growable: false);
+    }
     return _sections
         .where((section) => section.title.toLowerCase() != 'application')
         .toList(growable: false);
@@ -539,8 +578,8 @@ class DocsPageState extends State<DocsPage> {
               width: targetWidth,
               child: FadeScroll(
                 controller: _drawerSidebarScrollController,
-                startOffset: 96,
-                endOffset: 96,
+                startOffset: 20,
+                endOffset: 20,
                 gradient: const [Colors.transparent, Colors.white],
                 child: SingleChildScrollView(
                   controller: _drawerSidebarScrollController,
@@ -654,8 +693,8 @@ class DocsPageState extends State<DocsPage> {
                       child: FocusTraversalGroup(
                         child: FadeScroll(
                           controller: _sidebarScrollController,
-                          startOffset: 96,
-                          endOffset: 96,
+                          startOffset: 20,
+                          endOffset: 20,
                           gradient: const [Colors.transparent, Colors.white],
                           child: SingleChildScrollView(
                             controller: _sidebarScrollController,
@@ -718,10 +757,25 @@ class DocsPageState extends State<DocsPage> {
                                     separator: Breadcrumb.arrowSeparator,
                                     children: [
                                       TextButton(
-                                        onPressed: () => context.goNamed(
-                                          'introduction',
+                                        onPressed: () {
+                                          if (widget.sidebarMode ==
+                                              DocsSidebarMode.cli) {
+                                            context.goNamed(
+                                              'cli_reference',
+                                              pathParameters: const {
+                                                'id': 'cli-overview'
+                                              },
+                                            );
+                                            return;
+                                          }
+                                          context.goNamed('introduction');
+                                        },
+                                        child: Text(
+                                          widget.sidebarMode ==
+                                                  DocsSidebarMode.cli
+                                              ? 'CLI'
+                                              : 'Docs',
                                         ),
-                                        child: const Text('Docs'),
                                       ),
                                       ...widget.navigationItems,
                                       if (currentPage != null)
@@ -761,8 +815,8 @@ class DocsPageState extends State<DocsPage> {
                           child: FocusTraversalGroup(
                             child: FadeScroll(
                               controller: _onThisPageScrollController,
-                              startOffset: 96,
-                              endOffset: 96,
+                              startOffset: 20,
+                              endOffset: 20,
                               gradient: const [
                                 Colors.transparent,
                                 Colors.white
