@@ -1,3 +1,0 @@
-interface:
-  display_name: "Flutter shadcn CLI"
-  short_description: "Manages flutter_shadcn workflows: setup, discovery, install/remove, theming, diagnostics, and skill installation."
