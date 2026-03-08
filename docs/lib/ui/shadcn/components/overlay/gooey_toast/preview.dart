@@ -31,6 +31,10 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   /// Active animation style override.
   GooeyToastAnimationStyle _animationStyle = GooeyToastAnimationStyle.sileo;
 
+  /// Active body content animation style override.
+  GooeyToastBodyAnimationStyle _bodyAnimationStyle =
+      GooeyToastBodyAnimationStyle.fade;
+
   /// Active shape style override.
   GooeyToastShapeStyle _shapeStyle = GooeyToastShapeStyle.defaultShape;
 
@@ -69,8 +73,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
   /// Custom step description input controller.
   final TextEditingController _customDescriptionController =
       TextEditingController(
-        text: 'Preparing your itinerary and verifying payment.',
-      );
+    text: 'Preparing your itinerary and verifying payment.',
+  );
 
   /// Custom step duration input controller in milliseconds.
   final TextEditingController _customDurationController = TextEditingController(
@@ -256,6 +260,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: preset.position,
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: enableGooeyBlur ?? _enableGooeyBlur,
         pauseOnHover: _pauseOnHover,
@@ -295,8 +300,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
     }) async {
       final resolvedCompactGap =
           compactGap ?? const Duration(milliseconds: 260);
-      final resolvedExpandedAutopilot =
-          expandedAutopilot ??
+      final resolvedExpandedAutopilot = expandedAutopilot ??
           const GooeyAutopilot(
             expandDelay: Duration.zero,
             collapseDelay: Duration(milliseconds: 2200),
@@ -365,6 +369,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: preset.position,
         expandDirection: preset.expandDirection,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         pauseOnHover: _pauseOnHover,
         swipeToDismiss: swipeToDismiss,
@@ -393,6 +398,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: GooeyToastPosition.centerLeft,
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: true,
         pauseOnHover: _pauseOnHover,
@@ -412,6 +418,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
         position: GooeyToastPosition.centerRight,
         expandDirection: GooeyToastExpandDirection.bottom,
         animationStyle: _animationStyle,
+        bodyAnimationStyle: _bodyAnimationStyle,
         shapeStyle: _shapeStyle,
         enableGooeyBlur: false,
         pauseOnHover: _pauseOnHover,
@@ -987,6 +994,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             position: position,
             expandDirection: expandDirection,
             animationStyle: _animationStyle,
+            bodyAnimationStyle: _bodyAnimationStyle,
             shapeStyle: _shapeStyle,
             enableGooeyBlur: _enableGooeyBlur,
             pauseOnHover: _pauseOnHover,
@@ -1031,6 +1039,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
             position: position,
             expandDirection: expandDirection,
             animationStyle: _animationStyle,
+            bodyAnimationStyle: _bodyAnimationStyle,
             shapeStyle: _shapeStyle,
             enableGooeyBlur: _enableGooeyBlur,
             pauseOnHover: _pauseOnHover,
@@ -1085,8 +1094,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       bool? persistUntilDismissed,
       ValueChanged<GooeyToastExpansionPhase>? onExpansionPhaseChanged,
       ValueChanged<double>? onExpansionProgressChanged,
-    })
-    show,
+    }) show,
     Future<void> Function({
       required String id,
       required Object stateTag,
@@ -1102,8 +1110,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
       Duration? nextCompactGap,
       ValueChanged<GooeyToastExpansionPhase>? onExpandedPhaseChanged,
       ValueChanged<double>? onExpandedProgressChanged,
-    })
-    transitionToState,
+    }) transitionToState,
   ) {
     for (final timer in _flowTimers) {
       timer.cancel();
@@ -1591,6 +1598,30 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                           ),
                           SizedBox(height: sectionSpacing),
                           _ControlSection(
+                            title: 'Body Animation',
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: chipSpacing,
+                              runSpacing: chipSpacing,
+                              children: [
+                                for (final style
+                                    in GooeyToastBodyAnimationStyle.values)
+                                  _PlaygroundChip(
+                                    label: style.label,
+                                    selected: _bodyAnimationStyle == style,
+                                    onTap: () => setState(
+                                      () => _bodyAnimationStyle = style,
+                                    ),
+                                    minWidth: ultra ? 98 : 118,
+                                    minHeight: chipHeight,
+                                    fontSize: chipFont,
+                                    radius: chipRadius,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: sectionSpacing),
+                          _ControlSection(
                             title: 'Shape',
                             child: Wrap(
                               alignment: WrapAlignment.center,
@@ -1877,8 +1908,7 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                     ),
                                     _PlaygroundChip(
                                       label: 'Next State',
-                                      selected:
-                                          _selectedAction ==
+                                      selected: _selectedAction ==
                                           _DemoAction.customStateFlow,
                                       onTap: () => _triggerDemo(
                                         _DemoAction.customStateFlow,
@@ -1947,15 +1977,14 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                     _PlaygroundChip(
                                       label:
                                           'trigger ${(_customFlowProgressTrigger * 100).round()}%',
-                                      selected:
-                                          _customFlowAdvanceMode ==
+                                      selected: _customFlowAdvanceMode ==
                                           _FlowAdvanceMode.progress,
                                       onTap: () => setState(
                                         () => _customFlowProgressTrigger =
                                             _customFlowProgressTrigger >= 0.95
-                                            ? 0.5
-                                            : (_customFlowProgressTrigger +
-                                                  0.1),
+                                                ? 0.5
+                                                : (_customFlowProgressTrigger +
+                                                    0.1),
                                       ),
                                       minWidth: ultra ? 112 : 132,
                                       minHeight: chipHeight,
@@ -1981,8 +2010,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       onTap: () => setState(
                                         () => _compactMorphMs =
                                             _compactMorphMs >= 420
-                                            ? 160
-                                            : _compactMorphMs + 40,
+                                                ? 160
+                                                : _compactMorphMs + 40,
                                       ),
                                       minWidth: ultra ? 112 : 128,
                                       minHeight: chipHeight,
@@ -1996,8 +2025,8 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       onTap: () => setState(
                                         () => _compactMorphSlide =
                                             _compactMorphSlide >= 0.28
-                                            ? 0.06
-                                            : (_compactMorphSlide + 0.04),
+                                                ? 0.06
+                                                : (_compactMorphSlide + 0.04),
                                       ),
                                       minWidth: ultra ? 112 : 126,
                                       minHeight: chipHeight,
@@ -2011,8 +2040,9 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                       onTap: () => setState(
                                         () => _compactMorphScaleFrom =
                                             _compactMorphScaleFrom <= 0.82
-                                            ? 0.96
-                                            : (_compactMorphScaleFrom - 0.04),
+                                                ? 0.96
+                                                : (_compactMorphScaleFrom -
+                                                    0.04),
                                       ),
                                       minWidth: ultra ? 112 : 126,
                                       minHeight: chipHeight,
@@ -2047,17 +2077,15 @@ class _GooeyToastPreviewState extends State<GooeyToastPreview> {
                                           CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        for (
-                                          var i = 0;
-                                          i < _customSteps.length;
-                                          i++
-                                        )
+                                        for (var i = 0;
+                                            i < _customSteps.length;
+                                            i++)
                                           Padding(
                                             padding: EdgeInsets.only(
                                               bottom:
                                                   i == _customSteps.length - 1
-                                                  ? 0
-                                                  : 6,
+                                                      ? 0
+                                                      : 6,
                                             ),
                                             child: Text(
                                               '${i + 1}. ${_customSteps[i].state.name} · ${_customSteps[i].title} · ${_customSteps[i].duration.inMilliseconds}ms'
@@ -2314,6 +2342,8 @@ extension on GooeyToastNewToastBehavior {
       GooeyToastNewToastBehavior.stack => 'new toast · stack',
       GooeyToastNewToastBehavior.dismissPrevious =>
         'new toast · dismiss previous',
+      GooeyToastNewToastBehavior.transition =>
+        'new toast · transition existing',
     };
   }
 }
@@ -2906,8 +2936,7 @@ class _AnimatedCompactLabelState extends State<_AnimatedCompactLabel>
   @override
   void didUpdateWidget(covariant _AnimatedCompactLabel oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final changed =
-        oldWidget.title != widget.title ||
+    final changed = oldWidget.title != widget.title ||
         oldWidget.tone != widget.tone ||
         oldWidget.icon != widget.icon;
     if (!changed) return;
@@ -3082,6 +3111,8 @@ extension on GooeyToastAnimationStyle {
       GooeyToastAnimationStyle.smooth => 'smooth',
       GooeyToastAnimationStyle.snappy => 'snappy',
       GooeyToastAnimationStyle.bouncy => 'bouncy',
+      GooeyToastAnimationStyle.fluid => 'fluid',
+      GooeyToastAnimationStyle.springEasing => 'spring-easing',
     };
   }
 }
@@ -3093,6 +3124,17 @@ extension on GooeyToastShapeStyle {
       GooeyToastShapeStyle.soft => 'soft',
       GooeyToastShapeStyle.sharp => 'sharp',
       GooeyToastShapeStyle.capsule => 'capsule',
+    };
+  }
+}
+
+extension on GooeyToastBodyAnimationStyle {
+  String get label {
+    return switch (this) {
+      GooeyToastBodyAnimationStyle.fade => 'fade',
+      GooeyToastBodyAnimationStyle.fadeSlide => 'fade-slide',
+      GooeyToastBodyAnimationStyle.fadeScale => 'fade-scale',
+      GooeyToastBodyAnimationStyle.none => 'none',
     };
   }
 }
