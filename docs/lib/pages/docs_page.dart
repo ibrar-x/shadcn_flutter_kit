@@ -165,19 +165,20 @@ class DocsPageState extends State<DocsPage> {
   ];
 
   static final List<DocsSection> cliBaseSections = [
-    DocsSection(
-      'CLI',
-      [
-        for (final pageId in cliReferenceOrder)
-          DocsPageRef(
-            cliReferenceDocs[pageId]!.title,
-            pageId,
-            routeName: 'cli_reference',
-            pathParameters: {'id': pageId},
-          ),
-      ],
-      icon: Icons.terminal,
-    ),
+    for (final section in cliReferenceSections)
+      DocsSection(
+        section.title,
+        [
+          for (final pageId in section.pageIds)
+            DocsPageRef(
+              cliReferenceDocs[pageId]!.title,
+              pageId,
+              routeName: 'cli_reference',
+              pathParameters: {'id': pageId},
+            ),
+        ],
+        icon: Icons.terminal,
+      ),
   ];
 
   final ScrollController scrollController = ScrollController();

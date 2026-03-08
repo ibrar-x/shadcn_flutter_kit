@@ -34,6 +34,16 @@ class CliReferenceDoc {
   });
 }
 
+class CliReferenceSection {
+  final String title;
+  final List<String> pageIds;
+
+  const CliReferenceSection({
+    required this.title,
+    required this.pageIds,
+  });
+}
+
 final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
   'cli-overview': const CliReferenceDoc(
     id: 'cli-overview',
@@ -947,4 +957,66 @@ const List<String> cliReferenceOrder = <String>[
   'cli-upgrade',
   'cli-troubleshooting',
   'cli-development',
+];
+
+const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
+  CliReferenceSection(
+    title: 'Getting Started',
+    pageIds: <String>[
+      'cli-overview',
+      'cli-init',
+      'cli-add',
+      'cli-remove',
+      'cli-sync',
+      'cli-dry-run',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Discovery',
+    pageIds: <String>[
+      'cli-list',
+      'cli-search',
+      'cli-info',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Themes & Assets',
+    pageIds: <String>[
+      'cli-theme',
+      'cli-theme-widget',
+      'cli-assets',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Registry & Config',
+    pageIds: <String>[
+      'cli-registries',
+      'cli-default',
+      'cli-platform',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Diagnostics',
+    pageIds: <String>[
+      'cli-doctor',
+      'cli-validate',
+      'cli-audit',
+      'cli-deps',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Maintenance',
+    pageIds: <String>[
+      'cli-docs',
+      'cli-version',
+      'cli-upgrade',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Guides',
+    pageIds: <String>[
+      'cli-troubleshooting',
+      'cli-development',
+    ],
+  ),
 ];
