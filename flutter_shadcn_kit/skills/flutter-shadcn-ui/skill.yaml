@@ -2,13 +2,13 @@
 schema_version: 1
 id: flutter-shadcn-ui
 name: Flutter shadcn CLI
-version: "2.2.0"
+version: "2.3.0"
 description: |
   Comprehensive flutter_shadcn CLI skill with namespace-safe install workflows,
   theming rules, diagnostics, and AI model installation guidance.
 author: Flutter Shadcn Contributors
 license: MIT
-updated: 2026-03-07
+updated: 2026-03-08
 status: stable
 category: ui-development
 

@@ -58,30 +58,42 @@ If a registry/shared replacement exists, use it instead of adding a new custom w
 
 ## Resolve framework import conflicts with `hide`
 
-When registry widgets share names with Material/Cupertino widgets (`Scaffold`, `AppBar`, `Card`, etc.), do not alias shadcn widgets. Hide framework symbols and keep registry names canonical.
+When registry symbols share names with Material/Cupertino symbols (`Scaffold`, `AppBar`, `Card`, `AlertDialog`, `showDialog`, etc.), do not alias registry imports. Hide conflicting framework symbols and keep registry names canonical.
+
+Required:
+
+- Never import registry libraries with `as <alias>`.
+- Use registry names directly (`Scaffold`, `AlertDialog`, `showDialog`, etc.).
+- If Material/Cupertino is imported, hide every conflicting framework symbol (widgets, functions, classes, extensions, constants).
 
 **Incorrect:**
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:my_app/ui/shadcn/components/scaffold.dart' as shadcn;
+import 'package:my_app/ui/shadcn/components/scaffold.dart';
+import 'package:my_app/ui/shadcn/components/dialog.dart';
 
-final page = shadcn.Scaffold(...);
+final page = Scaffold(...); // conflict with Material Scaffold
+showDialog(context: context, builder: (context) => AlertDialog(...)); // conflict with Material dialog symbols
 ```
 
 **Correct:**
 
 ```dart
-import 'package:flutter/material.dart' hide Scaffold, AppBar, Card, Drawer;
+import 'package:flutter/material.dart'
+    hide Scaffold, AppBar, Card, Drawer, AlertDialog, showDialog;
 import 'package:my_app/ui/shadcn/components/scaffold.dart';
+import 'package:my_app/ui/shadcn/components/dialog.dart';
 
 final page = Scaffold(...);
+showDialog(context: context, builder: (context) => AlertDialog(...));
 ```
 
 Apply the same pattern for Cupertino conflicts:
 
 ```dart
-import 'package:flutter/cupertino.dart' hide CupertinoNavigationBar;
+import 'package:flutter/cupertino.dart'
+    hide CupertinoNavigationBar, CupertinoAlertDialog, showCupertinoDialog;
 ```
 
 ---

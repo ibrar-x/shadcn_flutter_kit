@@ -1,5 +1,5 @@
 SKILL_ID: flutter-shadcn-ui
-SKILL_VERSION: 2.2.0
+SKILL_VERSION: 2.3.0
 SKILL_NAME: Flutter shadcn CLI
 SKILL_TYPE: domain-expert
 SKILL_CATEGORY: ui-development
@@ -14,7 +14,8 @@ PRIMARY_RULES:
 3. Use `dry-run` before non-trivial `add` operations.
 4. Prefer explicit `@namespace/component` references.
 5. Enforce overlay wrappers for overlay-dependent components.
-6. Re-run diagnostics after install/theme/path changes.
+6. Never alias registry imports; resolve framework conflicts via `hide` and keep canonical registry symbol names.
+7. Re-run diagnostics after install/theme/path changes.
 
 CANONICAL_DOCS:
 - SKILL.md

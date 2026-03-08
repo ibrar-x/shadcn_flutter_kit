@@ -46,6 +46,7 @@ flutter_shadcn doctor --json
 - Overlay-heavy components require one of the wrapper layers at app scope.
 - Prefer existing shadcn components before rebuilding with raw Material/Cupertino widgets.
 - Always check [references/COMMON_PATCHED_WIDGETS_README.md](./references/COMMON_PATCHED_WIDGETS_README.md) before introducing custom widgets.
+- Never alias registry imports; if framework symbols conflict, hide framework symbols and keep registry names canonical.
 - Use `remove --force` only when dependency constraints are intentionally overridden.
 
 ### Icons & Assets -> [rules/icons.md](./rules/icons.md)

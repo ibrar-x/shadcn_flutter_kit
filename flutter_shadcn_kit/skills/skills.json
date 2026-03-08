@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-03-07",
+  "generatedAt": "2026-03-08",
   "scope": "cli-registry",
   "description": "Canonical index of installable skills for flutter_shadcn CLI.",
   "skills": [
     {
       "id": "flutter-shadcn-ui",
       "name": "Flutter shadcn CLI",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "description": "Comprehensive flutter_shadcn skill modeled after shadcn's original skill structure with CLI workflows, rules, and evals.",
       "status": "stable",
       "category": "ui-development",

@@ -20,6 +20,7 @@
     "Prefer @namespace/component references",
     "Do not skip dry-run for non-trivial installs",
     "Maintain overlay wrappers for overlay-dependent components",
+    "Never alias registry imports; hide conflicting framework symbols and use canonical registry names",
     "Never guess APIs or imports",
     "Registry snapshot is read-only when present"
   ]

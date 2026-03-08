@@ -314,11 +314,12 @@ TextField(
 ## 10) Common overlay: Dialog with embedded form
 
 Pattern: open dialog, mount a small `Form`, return values on save.
+Conflict rule: if `material.dart` is imported, hide `showDialog` and `AlertDialog` from Material and use registry symbols directly.
 
 ```dart
 final controller = FormController();
 
-shadcn_dialog.showDialog(
+showDialog(
   context: context,
   builder: (context) => AlertDialog(
     title: const Text('Edit profile'),
@@ -677,4 +678,6 @@ FileUpload(
 1. Start from one of these recipes.
 2. Replace labels/fields/validators with app-specific requirements.
 3. Keep shadcn components as primary building blocks.
-4. Check `COMMON_PATCHED_WIDGETS_README.md` before introducing custom Material/Cupertino widgets.
+4. Never alias registry imports (`as shadcn_*`); use canonical registry names directly.
+5. For symbol conflicts, hide Material/Cupertino symbols (widgets/functions/classes/extensions/constants) and keep registry names.
+6. Check `COMMON_PATCHED_WIDGETS_README.md` before introducing custom Material/Cupertino widgets.
