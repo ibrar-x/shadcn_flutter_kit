@@ -8,13 +8,13 @@ class BasicPreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Basic(
-          leading: const Icon(Icons.person),
-          title: const Text('John Doe'),
-          subtitle: const Text('john@example.com'),
-          trailing: const Icon(Icons.chevron_right),
+          leading: Icon(Icons.person),
+          title: Text('John Doe'),
+          subtitle: Text('john@example.com'),
+          trailing: Icon(Icons.chevron_right),
         ),
       ),
     );

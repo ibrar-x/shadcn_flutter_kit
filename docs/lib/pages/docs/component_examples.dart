@@ -46,7 +46,6 @@ import 'components/input_otp/input_otp_examples.dart';
 import 'components/item_picker/item_picker_examples.dart';
 import 'components/keyboard_display/keyboard_display_examples.dart';
 import 'components/linear_progress/linear_progress_examples.dart';
-import 'components/markdown/markdown_examples.dart';
 import 'components/menubar/menubar_examples.dart';
 import 'components/multiselect/multiselect_examples.dart';
 import 'components/navigation_bar/navigation_bar_examples.dart';
@@ -62,6 +61,7 @@ import 'components/progress/progress_examples.dart';
 import 'components/radio_card/radio_card_examples.dart';
 import 'components/radio_group/radio_group_examples.dart';
 import 'components/repeated_animation_builder/repeated_animation_builder_examples.dart';
+import 'components/refresh_trigger/refresh_trigger_examples.dart';
 import 'components/resizable/resizable_examples.dart';
 import 'components/select/select_examples.dart';
 import 'components/sheet/sheet_examples.dart';
@@ -98,7 +98,9 @@ const Set<String> originalComponentIds = {
   'alert',
   'alert_dialog',
   'animated_value_builder',
+  'app',
   'app_bar',
+  'audio_control',
   'autocomplete',
   'avatar',
   'avatar_group',
@@ -134,6 +136,7 @@ const Set<String> originalComponentIds = {
   'file_picker',
   'form',
   'formatted_input',
+  'go_router_app_example',
   'gooey_toast',
   'hover_card',
   'input',
@@ -141,11 +144,12 @@ const Set<String> originalComponentIds = {
   'item_picker',
   'keyboard_display',
   'linear_progress',
-  'markdown',
+  'linear_gradient_picker',
   'menubar',
   'multiselect',
   'navigation_bar',
   'navigation_menu',
+  'navigation_rail',
   'navigation_sidebar',
   'number_input',
   'number_ticker',
@@ -156,7 +160,9 @@ const Set<String> originalComponentIds = {
   'progress',
   'radio_card',
   'radio_group',
+  'radial_gradient_picker',
   'repeated_animation_builder',
+  'refresh_trigger',
   'resizable',
   'select',
   'sheet',
@@ -169,6 +175,8 @@ const Set<String> originalComponentIds = {
   'swiper',
   'switch',
   'switcher',
+  'sweep_gradient_picker',
+  'tab_pane',
   'tab_list',
   'table',
   'tabs',
@@ -181,7 +189,9 @@ const Set<String> originalComponentIds = {
   'tooltip',
   'tracker',
   'tree',
+  'video_control',
   'window',
+  'wrapper',
 };
 
 const List<ComponentExampleBatch> exampleBatches = [
@@ -235,7 +245,6 @@ const List<ComponentExampleBatch> exampleBatches = [
       'item_picker',
       'keyboard_display',
       'linear_progress',
-      'markdown',
       'menubar',
       'multiselect',
       'navigation_bar',
@@ -251,6 +260,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'radio_card',
       'radio_group',
       'repeated_animation_builder',
+      'refresh_trigger',
       'resizable',
       'select',
       'sheet',
@@ -328,7 +338,6 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'item_picker': itemPickerExamples,
   'keyboard_display': keyboardDisplayExamples,
   'linear_progress': linearProgressExamples,
-  'markdown': markdownExamples,
   'menubar': menubarExamples,
   'multiselect': multiselectExamples,
   'navigation_bar': navigationBarExamples,
@@ -344,6 +353,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'radio_card': radioCardExamples,
   'radio_group': radioGroupExamples,
   'repeated_animation_builder': repeatedAnimationBuilderExamples,
+  'refresh_trigger': refreshTriggerExamples,
   'resizable': resizableExamples,
   'select': selectExamples,
   'sheet': sheetExamples,

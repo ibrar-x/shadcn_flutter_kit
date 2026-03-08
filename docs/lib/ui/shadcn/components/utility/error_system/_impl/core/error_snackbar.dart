@@ -2,7 +2,6 @@
 // Inserts an OverlayEntry and decorates it with a border color derived from AppErrorCode severity.
 
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../../../shared/icons/radix_icons.dart';
 import '../../../../../shared/theme/theme.dart';
@@ -34,8 +33,7 @@ class ErrorSnackbar {
     entry = OverlayEntry(
       builder: (overlayContext) {
         final overlayTheme = Theme.of(overlayContext);
-        final padding =
-            toastTheme?.padding ??
+        final padding = toastTheme?.padding ??
             EdgeInsets.all(overlayTheme.density.baseContentPadding);
 
         /// Stores `margin` state/configuration for this implementation.
@@ -43,16 +41,14 @@ class ErrorSnackbar {
 
         /// Stores `totalOffset` state/configuration for this implementation.
         final totalOffset = _entries.length * margin;
-        final backgroundColor =
-            compTheme?.snackbarBackgroundColor ??
+        final backgroundColor = compTheme?.snackbarBackgroundColor ??
             toastTheme?.backgroundColor ??
             overlayTheme.colorScheme.background;
         final resolvedRadius = compTheme?.snackbarBorderRadius?.resolve(
           /// Creates a `Directionality.of` instance.
           Directionality.of(overlayContext),
         );
-        final borderRadius =
-            resolvedRadius ??
+        final borderRadius = resolvedRadius ??
             (toastTheme?.borderRadius != null
                 ? BorderRadius.circular(toastTheme!.borderRadius!)
                 : BorderRadius.circular(12));
@@ -61,8 +57,8 @@ class ErrorSnackbar {
           right: 24,
           child: ToastEntry(
             duration: resolvedDuration,
-            animationDuration:
-                toastTheme?.animationDuration ??
+            animationDuration: toastTheme?.animationDuration ??
+
                 /// Creates a `Duration` instance.
                 const Duration(milliseconds: 250),
             animationCurve: toastTheme?.animationCurve ?? Curves.easeOut,
@@ -106,6 +102,7 @@ class _ErrorSnackbarContent extends StatelessWidget {
   final AppError error;
 
   @override
+
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -113,8 +110,7 @@ class _ErrorSnackbarContent extends StatelessWidget {
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final textStyle =
-        compTheme?.snackbarTextStyle ??
+    final textStyle = compTheme?.snackbarTextStyle ??
         theme.typography.xSmall.copyWith(color: theme.colorScheme.foreground);
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -127,7 +123,7 @@ class _ErrorSnackbarContent extends StatelessWidget {
         ),
 
         /// Creates a `DensityGap` instance.
-        DensityGap(gapSm),
+        const DensityGap(gapSm),
 
         /// Creates a `Flexible` instance.
         Flexible(
@@ -171,5 +167,4 @@ Color _resolveBorderColor(ThemeData theme, AppErrorCode code) {
     case AppErrorCode.unknown:
       return theme.colorScheme.mutedForeground;
   }
-  return theme.colorScheme.mutedForeground;
 }

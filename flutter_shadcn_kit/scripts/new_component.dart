@@ -171,8 +171,9 @@ void _writeMainDart({
     "import 'package:flutter/widgets.dart';\n"
     "import 'package:flutter_shadcn_kit/registry/components/$category/$componentId/preview.dart';\n"
     '\n'
-    "import 'package:flutter_shadcn_kit/registry/composites/layout/app/app.dart';\n"
+    "import 'package:flutter_shadcn_kit/registry/components/layout/app/app.dart';\n"
     "import 'package:flutter_shadcn_kit/registry/components/display/empty_state/preview.dart';\n"
+    "import 'package:flutter_shadcn_kit/registry/components/utility/shadcn_localizations/shadcn_localizations.dart';\n"
     "import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;\n"
     '\n'
     'void main() {\n'
@@ -187,6 +188,8 @@ void _writeMainDart({
     '    return ShadcnApp(\n'
     "      title: '$title Preview',\n"
     '      theme: const shadcn.ThemeData(),\n'
+    '      localizationsDelegates: ShadcnLocalizations.localizationsDelegates,\n'
+    '      supportedLocales: ShadcnLocalizations.supportedLocales,\n'
     '      home: const $previewClassName(),\n'
     '    );\n'
     '  }\n'

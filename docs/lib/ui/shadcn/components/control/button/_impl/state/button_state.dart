@@ -1,10 +1,8 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 
 import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/theme/theme.dart';
-import '../../../../../shared/utils/geometry_extensions.dart';
 import '../../../../../shared/utils/platform_utils.dart';
 import '../styles/button_overrides.dart';
 import '../styles/button_style.dart';
@@ -21,20 +19,23 @@ class ButtonState<T extends Button> extends State<T> {
     return isMobile(theme.platform);
   }
 
-/// Stores `_style` state/configuration for this implementation.
+  /// Stores `_style` state/configuration for this implementation.
   AbstractButtonStyle? _style;
-/// Stores `_overrideData` state/configuration for this implementation.
+
+  /// Stores `_overrideData` state/configuration for this implementation.
   ButtonStyleOverrideData? _overrideData;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _style = widget.style;
   }
 
   @override
-/// Executes `didChangeDependencies` behavior for this component/composite.
+
+  /// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     var overrideData = Data.maybeOf<ButtonStyleOverrideData>(context);
@@ -56,11 +57,12 @@ class ButtonState<T extends Button> extends State<T> {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(T oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.style != oldWidget.style) {
-/// Stores `overrideData` state/configuration for this implementation.
+      /// Stores `overrideData` state/configuration for this implementation.
       var overrideData = _overrideData;
       if (overrideData != null) {
         _style = widget.style.copyWith(
@@ -77,40 +79,41 @@ class ButtonState<T extends Button> extends State<T> {
     }
   }
 
-/// Executes `_resolveMargin` behavior for this component/composite.
+  /// Executes `_resolveMargin` behavior for this component/composite.
   EdgeInsetsGeometry _resolveMargin(Set<WidgetState> states) {
     return _style!.margin(context, states);
   }
 
-/// Executes `_resolveDecoration` behavior for this component/composite.
+  /// Executes `_resolveDecoration` behavior for this component/composite.
   Decoration _resolveDecoration(Set<WidgetState> states) {
     return _style!.decoration(context, states);
   }
 
-/// Executes `_resolveMouseCursor` behavior for this component/composite.
+  /// Executes `_resolveMouseCursor` behavior for this component/composite.
   MouseCursor _resolveMouseCursor(Set<WidgetState> states) {
     return _style!.mouseCursor(context, states);
   }
 
-/// Executes `_resolvePadding` behavior for this component/composite.
+  /// Executes `_resolvePadding` behavior for this component/composite.
   EdgeInsetsGeometry _resolvePadding(Set<WidgetState> states) {
     return _style!.padding(context, states);
   }
 
-/// Executes `_resolveTextStyle` behavior for this component/composite.
+  /// Executes `_resolveTextStyle` behavior for this component/composite.
   TextStyle _resolveTextStyle(Set<WidgetState> states) {
     return _style!.textStyle(context, states);
   }
 
-/// Executes `_resolveIconTheme` behavior for this component/composite.
+  /// Executes `_resolveIconTheme` behavior for this component/composite.
   IconThemeData _resolveIconTheme(Set<WidgetState> states) {
     return _style!.iconTheme(context, states);
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-/// Stores `enableFeedback` state/configuration for this implementation.
+    /// Stores `enableFeedback` state/configuration for this implementation.
     bool enableFeedback = widget.enableFeedback ?? _shouldEnableFeedback;
     return Clickable(
       disableFocusOutline: widget.disableFocusOutline,
@@ -168,19 +171,19 @@ class ButtonState<T extends Button> extends State<T> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (widget.leading != null) widget.leading!,
-                    if (widget.leading != null) DensityGap(gapSm),
-/// Creates a `Expanded` instance.
+                    if (widget.leading != null) const DensityGap(gapSm),
+
+                    /// Creates a `Expanded` instance.
                     Expanded(
                       child: Align(
                         widthFactor: 1,
                         heightFactor: 1,
-                        alignment:
-                            widget.alignment ??
+                        alignment: widget.alignment ??
                             AlignmentDirectional.centerStart,
                         child: widget.child,
                       ),
                     ),
-                    if (widget.trailing != null) DensityGap(gapSm),
+                    if (widget.trailing != null) const DensityGap(gapSm),
                     if (widget.trailing != null) widget.trailing!,
                   ],
                 ),

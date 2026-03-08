@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart' as m;
 
 import 'feature_carousel.dart';
-import '_impl/state/feature_carousel_controller.dart';
-import '_impl/utils/feature_carousel_models.dart';
 
 /// Core class used by the feature carousel component.
 class FeatureCarouselPreview extends m.StatelessWidget {

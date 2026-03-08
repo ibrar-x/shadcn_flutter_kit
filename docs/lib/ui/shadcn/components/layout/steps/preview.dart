@@ -9,12 +9,12 @@ class StepsPreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: SizedBox(
           width: 360,
           child: Steps(
-            children: const [
+            children: [
 /// Creates a `Text` instance.
               Text('Create an account'),
 /// Creates a `Text` instance.

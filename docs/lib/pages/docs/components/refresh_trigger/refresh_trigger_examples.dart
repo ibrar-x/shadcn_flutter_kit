@@ -1,4 +1,13 @@
-import 'package:docs/shadcn_ui.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../component_example_models.dart';
+import 'refresh_trigger_example_1.dart';
+
+const ComponentExample refreshTriggerExample1 = ComponentExample(
+  title: 'Refresh Trigger Example',
+  builder: _buildRefreshTriggerExample1,
+  code: '''
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class RefreshTriggerExample1 extends StatefulWidget {
   const RefreshTriggerExample1({super.key});
@@ -46,3 +55,13 @@ class _RefreshTriggerExample1State extends State<RefreshTriggerExample1> {
     );
   }
 }
+''',
+);
+
+Widget _buildRefreshTriggerExample1(BuildContext context) {
+  return const RefreshTriggerExample1();
+}
+
+const List<ComponentExample> refreshTriggerExamples = [
+  refreshTriggerExample1,
+];

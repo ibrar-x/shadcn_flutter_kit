@@ -23,12 +23,12 @@ class PopoverPreview extends StatelessWidget {
                 return Material(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
+                  child: const Padding(
+                    padding: EdgeInsets.all(16),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
 /// Creates a `Text` instance.
                         Text(
                           'Popover title',

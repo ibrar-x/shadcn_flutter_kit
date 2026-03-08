@@ -27,9 +27,6 @@ class Theme extends InheritedTheme {
 
   static ThemeData _ensureReadableDarkTheme(ThemeData data) {
     final scheme = data.colorScheme;
-    if (scheme.brightness != Brightness.dark) {
-      return data;
-    }
     if (scheme.background.computeLuminance() >= 0.5) {
       return data;
     }
@@ -57,13 +54,15 @@ class Theme extends InheritedTheme {
   }
 
   @override
-/// Executes `updateShouldNotify` behavior for this component/composite.
+
+  /// Executes `updateShouldNotify` behavior for this component/composite.
   bool updateShouldNotify(covariant Theme oldWidget) {
     return oldWidget.data != data;
   }
 
   @override
-/// Executes `wrap` behavior for this component/composite.
+
+  /// Executes `wrap` behavior for this component/composite.
   Widget wrap(BuildContext context, Widget child) {
     final Theme? ancestorTheme = context.findAncestorWidgetOfExactType<Theme>();
     return identical(this, ancestorTheme)
@@ -72,7 +71,8 @@ class Theme extends InheritedTheme {
   }
 
   @override
-/// Executes `debugFillProperties` behavior for this component/composite.
+
+  /// Executes `debugFillProperties` behavior for this component/composite.
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<ThemeData>('data', data));

@@ -8,10 +8,10 @@ class PopupPreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: MenuPopup(
-          children: const [
+          children: [
 /// Creates a `Padding` instance.
             Padding(padding: EdgeInsets.all(8), child: Text('Profile')),
 /// Creates a `Padding` instance.

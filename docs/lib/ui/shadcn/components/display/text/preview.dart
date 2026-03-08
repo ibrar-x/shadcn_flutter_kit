@@ -14,11 +14,11 @@ class TextPreview extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Headline').large().semiBold(),
+            const Text('Headline').large().semiBold(),
 
             const SizedBox(height: 8),
 
-            Text('Supporting copy goes here.').muted().small(),
+            const Text('Supporting copy goes here.').muted().small(),
           ],
         ),
       ),

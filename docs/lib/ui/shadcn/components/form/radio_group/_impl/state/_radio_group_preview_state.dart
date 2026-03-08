@@ -13,9 +13,9 @@ class _RadioGroupPreviewState extends State<RadioGroupPreview> {
         child: RadioGroup<String>(
           value: _value,
           onChanged: (value) => setState(() => _value = value),
-          child: Column(
+          child: const Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               RadioItem(value: 'starter', leading: Text('Starter')),
               SizedBox(height: 8),
               RadioItem(value: 'pro', leading: Text('Pro')),

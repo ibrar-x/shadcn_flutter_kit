@@ -20,14 +20,14 @@ class _StepVariantCircle extends StepVariant {
             children: [
               properties[i]?.icon ?? const StepNumber(),
 /// Creates a `DensityGap` instance.
-              DensityGap(gapSm),
+              const DensityGap(gapSm),
               properties.size.wrapper(
                 context,
                 properties[i]?.title ?? const SizedBox(),
               ),
               if (i != properties.steps.length - 1) ...[
 /// Creates a `DensityGap` instance.
-                DensityGap(gapSm),
+                const DensityGap(gapSm),
 /// Creates a `Expanded` instance.
                 Expanded(
                   child: AnimatedBuilder(
@@ -47,7 +47,7 @@ class _StepVariantCircle extends StepVariant {
                   ),
                 ),
 /// Creates a `DensityGap` instance.
-                DensityGap(gapSm),
+                const DensityGap(gapSm),
               ],
             ],
           ),
@@ -116,12 +116,12 @@ class _StepVariantCircle extends StepVariant {
                   children: [
                     properties.steps[i].icon ?? const StepNumber(),
 /// Creates a `DensityGap` instance.
-                    DensityGap(gapSm),
+                    const DensityGap(gapSm),
                     properties.size.wrapper(context, properties.steps[i].title),
                   ],
                 ),
 /// Creates a `DensityGap` instance.
-                DensityGap(gapSm),
+                const DensityGap(gapSm),
 /// Creates a `ConstrainedBox` instance.
                 ConstrainedBox(
                   constraints: BoxConstraints(minHeight: 16 * scaling),

@@ -21,7 +21,7 @@ class _BulletPainter extends CustomPainter {
       canvas.drawCircle(
           Offset(size.width / 2, size.height / 2), size.width / 2, paint);
     } else if (depth % 3 == 1) {
-      canvas.drawRect(Offset(0, 0) & size, paint);
+      canvas.drawRect(const Offset(0, 0) & size, paint);
     } else {
       final path = Path();
       path.moveTo(size.width / 2, 0);

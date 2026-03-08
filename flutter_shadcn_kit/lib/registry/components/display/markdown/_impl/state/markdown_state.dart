@@ -1026,10 +1026,6 @@ class _MarkdownState extends State<Markdown> {
       switch (block.type) {
         case _MarkdownBlockType.codeFence:
         case _MarkdownBlockType.indentedCode:
-          if (block.text.trim().isEmpty &&
-              (block.language ?? '').trim().isEmpty) {
-            return const SizedBox.shrink();
-          }
           return Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 6),
@@ -1416,13 +1412,10 @@ class _MarkdownState extends State<Markdown> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Table(
-              // Avoid intrinsic width measurement: table cells can host nested
-              // markdown widgets that use LayoutBuilder, which is incompatible
-              // with intrinsic passes.
-              defaultColumnWidth: FixedColumnWidth(resolvedMinCellWidth),
+              defaultColumnWidth: const IntrinsicColumnWidth(),
               columnWidths: <int, TableColumnWidth>{
                 for (var col = 0; col < maxColumns; col++)
-                  col: FixedColumnWidth(resolvedMinCellWidth),
+                  col: const IntrinsicColumnWidth(),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               border: TableBorder(

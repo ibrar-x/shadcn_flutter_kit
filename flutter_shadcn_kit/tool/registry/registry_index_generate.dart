@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+
 import '../common/registry_component_metadata.dart';
 
 const indexSchemaVersion = 1;
@@ -81,9 +83,9 @@ void validateComponentEntry(Map<String, dynamic> component, int index) {
   }
 
   if (errors.isNotEmpty) {
-    print('❌ Schema validation failed for component[$index] "$id":');
+    debugPrint('❌ Schema validation failed for component[$index] "$id":');
     for (final error in errors) {
-      print('   - $error');
+      debugPrint('   - $error');
     }
     throw Exception('Schema validation failed for component "$id"');
   }
@@ -104,9 +106,9 @@ void validateIndex(Map<String, dynamic> index) {
   }
 
   if (errors.isNotEmpty) {
-    print('❌ Index schema validation failed:');
+    debugPrint('❌ Index schema validation failed:');
     for (final error in errors) {
-      print('   - $error');
+      debugPrint('   - $error');
     }
     throw Exception('Index schema validation failed');
   }
@@ -120,7 +122,7 @@ void validateIndex(Map<String, dynamic> index) {
   }
 }
 
-void _printUsage() {
+void _debugPrintUsage() {
   stdout.writeln('Usage: dart run tool/registry/registry_index_generate.dart');
   stdout.writeln('');
   stdout.writeln(
@@ -134,7 +136,7 @@ void _printUsage() {
 
 void main(List<String> args) {
   if (args.contains('-h') || args.contains('--help')) {
-    _printUsage();
+    _debugPrintUsage();
     return;
   }
 
@@ -194,7 +196,7 @@ void main(List<String> args) {
     }
 
     if (dir == null) {
-      print('⚠ Skipping $id: folder not found');
+      debugPrint('⚠ Skipping $id: folder not found');
       continue;
     }
 
@@ -209,7 +211,9 @@ void main(List<String> args) {
     );
 
     if (!metaFile.existsSync()) {
-      print('⚠ Skipping $id: missing component metadata at ${metaFile.path}');
+      debugPrint(
+        '⚠ Skipping $id: missing component metadata at ${metaFile.path}',
+      );
       continue;
     }
 
@@ -287,12 +291,12 @@ void main(List<String> args) {
   };
 
   // Validate against schema before writing
-  print('Validating index against schema...');
+  debugPrint('Validating index against schema...');
   validateIndex(index);
-  print('✓ Schema validation passed');
+  debugPrint('✓ Schema validation passed');
 
   writeJson(indexJson, index);
-  print('Wrote $indexJson (${items.length} components).');
+  debugPrint('Wrote $indexJson (${items.length} components).');
 }
 
 String? detectFolderFromSource(String registryDir, String source) {

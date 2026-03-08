@@ -20,17 +20,17 @@ class FormPreview extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                FormTableLayout(
+                const FormTableLayout(
                   rows: [
                     FormField<String>(
-                      key: const FormKey(#name),
-                      label: const Text('Name'),
-                      child: const TextField(placeholder: Text('Jane Doe')),
+                      key: FormKey(#name),
+                      label: Text('Name'),
+                      child: TextField(placeholder: Text('Jane Doe')),
                     ),
                     FormField<String>(
-                      key: const FormKey(#email),
-                      label: const Text('Email'),
-                      child: const TextField(
+                      key: FormKey(#email),
+                      label: Text('Email'),
+                      child: TextField(
                         placeholder: Text('jane@example.com'),
                       ),
                     ),

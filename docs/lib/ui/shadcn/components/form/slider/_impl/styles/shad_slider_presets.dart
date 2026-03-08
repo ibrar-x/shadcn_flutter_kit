@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' hide Theme;
 
-import '../../../../../shared/theme/theme.dart';
 
 import '../core/shad_slider_models.dart';
 import 'shad_slider_defaults.dart';

@@ -1,6 +1,8 @@
 import 'package:docs/shadcn_ui.dart';
 import 'package:docs/ui/shadcn/components/form/slider/_impl/core/shad_slider_models.dart'
     show ShadRangeValue;
+import 'package:docs/ui/shadcn/components/overlay/menu/menu.dart'
+    show MenuButton;
 
 import '../../theme/theme_controller.dart';
 import '../../ui/shadcn/shared/theme/preset_themes.dart';
@@ -66,9 +68,10 @@ class _ThemePageState extends State<ThemePage> {
   final ValueNotifier<ShadRangeValue> _priceRange =
       ValueNotifier(const ShadRangeValue(320, 800));
   final ValueNotifier<int> _gpuCount = ValueNotifier(8);
+  final ValueNotifier<String> _composerMode = ValueNotifier('Auto');
 
-  static const double _kitchenColumnGap = 22;
-  static const double _kitchenSectionGap = 18;
+  static const double _kitchenColumnGap = 24;
+  static const double _kitchenSectionGap = 20;
 
   List<DocsThemePreset> get _presetOptions => DocsThemeController.presets;
 
@@ -85,6 +88,7 @@ class _ThemePageState extends State<ThemePage> {
     _previewCheckbox.dispose();
     _priceRange.dispose();
     _gpuCount.dispose();
+    _composerMode.dispose();
     super.dispose();
   }
 
@@ -102,7 +106,7 @@ class _ThemePageState extends State<ThemePage> {
       name: 'theme',
       onThisPage: const {},
       sidebar: SizedBox(
-        width: 272,
+        width: 252,
         child: _buildOptionsPanel(context),
       ),
       child: LayoutBuilder(
@@ -124,8 +128,14 @@ class _ThemePageState extends State<ThemePage> {
               _buildKitchenPreview(context),
               const SizedBox(height: 28),
               const Text('Code').h2(),
+              const SizedBox(height: 12),
+              const Text('Generated Theme Preset').semiBold(),
               const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildCodeSnippet()),
+              DocsCodeBlock(code: _buildPresetCodeSnippet(controller)),
+              const SizedBox(height: 16),
+              const Text('ShadcnApp Usage').semiBold(),
+              const SizedBox(height: 8),
+              DocsCodeBlock(code: _buildAppCodeSnippet(controller)),
             ],
           );
         },
@@ -148,11 +158,6 @@ class _ThemePageState extends State<ThemePage> {
         scheme: controller.data.colorScheme,
         brightness: currentBrightness,
       );
-    }
-
-    if (controller.presetId != 'custom' &&
-        controller.presetId != _basePresetId) {
-      controller.setPreset(_basePresetId);
     }
 
     _presetSelectionsReady = true;
@@ -385,165 +390,169 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   Widget _buildKitchenPaymentMethod(BuildContext context) {
+    final theme = Theme.of(context);
     final currentYear = DateTime.now().year;
     return Card(
-      padding: const EdgeInsetsDensity.all(padLg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Payment Method').medium(),
-          const DensityGap(gapXs),
-          const Text('All transactions are secure and encrypted.')
-              .muted()
-              .small(),
-          const DensityGap(gapXl),
-          const Text('Name on Card').medium(),
-          const DensityGap(gapSm),
-          const TextField(
-            placeholder: Text('John Doe'),
-          ),
-          const DensityGap(gapXl),
-          Row(
-            children: [
-              Flexible(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Card Number').medium(),
-                    const DensityGap(gapSm),
-                    const TextField(
-                      placeholder: Text('1234 5678 9012 3456'),
-                    ),
-                  ],
+      child: Padding(
+        padding: EdgeInsets.all(padLg * theme.scaling),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Payment Method').medium(),
+            const DensityGap(gapXs),
+            const Text('All transactions are secure and encrypted.')
+                .muted()
+                .small(),
+            const DensityGap(gapXl),
+            const Text('Name on Card').medium(),
+            const DensityGap(gapSm),
+            const TextField(
+              placeholder: Text('John Doe'),
+            ),
+            const DensityGap(gapXl),
+            Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Card Number').medium(),
+                      const DensityGap(gapSm),
+                      const TextField(
+                        placeholder: Text('1234 5678 9012 3456'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const DensityGap(gapXl),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('CVV').medium(),
-                    const DensityGap(gapSm),
-                    const TextField(
-                      placeholder: Text('123'),
-                    ),
-                  ],
+                const DensityGap(gapXl),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('CVV').medium(),
+                      const DensityGap(gapSm),
+                      const TextField(
+                        placeholder: Text('123'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const DensityGap(gapMd),
-          const Text('Enter your 16-digit number.').muted(),
-          const DensityGap(gapLg),
-          Row(
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Month').medium(),
-                    const DensityGap(gapSm),
-                    Select<String>(
-                      placeholder: const Text('MM'),
-                      itemBuilder: (context, item) => Text(item),
-                      value: null,
-                      onChanged: (value) {},
-                      popup: SelectPopup.noVirtualization(
-                        items: SelectItemList(
-                          children: [
-                            for (var month = 1; month <= 12; month++)
-                              SelectItemButton(
-                                value: month.toString().padLeft(2, '0'),
-                                child: Text(month.toString().padLeft(2, '0')),
-                              ),
-                          ],
+              ],
+            ),
+            const DensityGap(gapMd),
+            const Text('Enter your 16-digit number.').muted(),
+            const DensityGap(gapLg),
+            Row(
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Month').medium(),
+                      const DensityGap(gapSm),
+                      Select<String>(
+                        placeholder: const Text('MM'),
+                        itemBuilder: (context, item) => Text(item),
+                        value: null,
+                        onChanged: (value) {},
+                        popup: SelectPopup.noVirtualization(
+                          items: SelectItemList(
+                            children: [
+                              for (var month = 1; month <= 12; month++)
+                                SelectItemButton(
+                                  value: month.toString().padLeft(2, '0'),
+                                  child: Text(month.toString().padLeft(2, '0')),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const DensityGap(gapXl),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Year').medium(),
-                    const DensityGap(gapSm),
-                    Select<String>(
-                      placeholder: const Text('YYYY'),
-                      itemBuilder: (context, item) => Text(item),
-                      value: null,
-                      onChanged: (value) {},
-                      popup: SelectPopup.noVirtualization(
-                        items: SelectItemList(
-                          children: [
-                            for (var yearOffset = 0;
-                                yearOffset < 12;
-                                yearOffset++)
-                              SelectItemButton(
-                                value: (currentYear + yearOffset).toString(),
-                                child:
-                                    Text((currentYear + yearOffset).toString()),
-                              ),
-                          ],
+                const DensityGap(gapXl),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Year').medium(),
+                      const DensityGap(gapSm),
+                      Select<String>(
+                        placeholder: const Text('YYYY'),
+                        itemBuilder: (context, item) => Text(item),
+                        value: null,
+                        onChanged: (value) {},
+                        popup: SelectPopup.noVirtualization(
+                          items: SelectItemList(
+                            children: [
+                              for (var yearOffset = 0;
+                                  yearOffset < 12;
+                                  yearOffset++)
+                                SelectItemButton(
+                                  value: (currentYear + yearOffset).toString(),
+                                  child: Text(
+                                      (currentYear + yearOffset).toString()),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const DensityGap(gapXl),
-          const Divider(),
-          const DensityGap(gapXl),
-          const Text('Billing Address').medium(),
-          const DensityGap(gapXs),
-          const Text('The billing address associated with your payment method')
-              .muted()
-              .small(),
-          const DensityGap(gapMd),
-          ValueListenableBuilder<CheckboxState>(
-            valueListenable: _previewCheckbox,
-            builder: (context, checkboxState, child) {
-              return Checkbox(
-                state: checkboxState,
-                onChanged: (value) {
-                  _previewCheckbox.value = value;
-                },
-                trailing: child,
-              );
-            },
-            child: const Text('Same as shipping address'),
-          ),
-          const DensityGap(gapXl),
-          const Divider(),
-          const DensityGap(gapXl),
-          const Text('Comments').medium(),
-          const DensityGap(gapSm),
-          const TextArea(
-            placeholder: Text('Add any additional comments'),
-            expandableHeight: true,
-            minHeight: 90,
-            maxHeight: 150,
-          ),
-          const DensityGap(gapLg),
-          Row(
-            children: [
-              PrimaryButton(
-                onPressed: () {},
-                child: const Text('Submit'),
-              ),
-              const DensityGap(gapMd),
-              OutlineButton(
-                onPressed: () {},
-                child: const Text('Cancel'),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            const DensityGap(gapXl),
+            const Divider(),
+            const DensityGap(gapXl),
+            const Text('Billing Address').medium(),
+            const DensityGap(gapXs),
+            const Text(
+                    'The billing address associated with your payment method')
+                .muted()
+                .small(),
+            const DensityGap(gapMd),
+            ValueListenableBuilder<CheckboxState>(
+              valueListenable: _previewCheckbox,
+              builder: (context, checkboxState, child) {
+                return Checkbox(
+                  state: checkboxState,
+                  onChanged: (value) {
+                    _previewCheckbox.value = value;
+                  },
+                  trailing: child,
+                );
+              },
+              child: const Text('Same as shipping address'),
+            ),
+            const DensityGap(gapXl),
+            const Divider(),
+            const DensityGap(gapXl),
+            const Text('Comments').medium(),
+            const DensityGap(gapSm),
+            const TextArea(
+              placeholder: Text('Add any additional comments'),
+              expandableHeight: true,
+              minHeight: 90,
+              maxHeight: 150,
+            ),
+            const DensityGap(gapLg),
+            Row(
+              children: [
+                PrimaryButton(
+                  onPressed: () {},
+                  child: const Text('Submit'),
+                ),
+                const DensityGap(gapMd),
+                OutlineButton(
+                  onPressed: () {},
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -791,27 +800,45 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   Widget _buildKitchenBadges() {
-    return RepaintBoundary(
+    return const RepaintBoundary(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
             PrimaryBadge(
-              leading: const CircularProgressIndicator(
-                onSurface: true,
-                size: 10,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    onSurface: true,
+                    size: 10,
+                  ),
+                  DensityGap(gapSm),
+                  Text('Syncing'),
+                ],
               ),
-              child: const Text('Syncing').small(),
             ),
-            const DensityGap(gapSm),
+            DensityGap(gapSm),
             SecondaryBadge(
-              leading: const CircularProgressIndicator(size: 10),
-              child: const Text('Updating').small(),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(size: 10),
+                  DensityGap(gapSm),
+                  Text('Updating'),
+                ],
+              ),
             ),
-            const DensityGap(gapSm),
+            DensityGap(gapSm),
             OutlineBadge(
-              leading: const CircularProgressIndicator(size: 10),
-              child: const Text('Loading').small(),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(size: 10),
+                  DensityGap(gapSm),
+                  Text('Loading'),
+                ],
+              ),
             ),
           ],
         ),
@@ -934,10 +961,46 @@ class _ThemePageState extends State<ThemePage> {
                     ),
                     DensityGap(compact ? gapXs : gapSm),
                     if (!tight)
-                      SecondaryButton(
-                        density: ButtonDensity.dense,
-                        onPressed: () {},
-                        child: const Text('Auto'),
+                      ValueListenableBuilder<String>(
+                        valueListenable: _composerMode,
+                        builder: (context, composerMode, child) {
+                          return SecondaryButton(
+                            density: ButtonDensity.dense,
+                            onPressed: () {
+                              showDropdown(
+                                context: context,
+                                anchorAlignment: Alignment.bottomLeft,
+                                alignment: Alignment.topLeft,
+                                offset: const Offset(0, 8),
+                                builder: (context) {
+                                  return DropdownMenu(
+                                    children: [
+                                      MenuButton(
+                                        child: const Text('Auto'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Auto';
+                                        },
+                                      ),
+                                      MenuButton(
+                                        child: const Text('Agent'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Agent';
+                                        },
+                                      ),
+                                      MenuButton(
+                                        child: const Text('Manual'),
+                                        onPressed: (context) {
+                                          _composerMode.value = 'Manual';
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text(composerMode),
+                          );
+                        },
                       ),
                     const Spacer(),
                     if (!compact) ...[
@@ -963,7 +1026,7 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenMentions() {
     return TextField(
-      placeholder: const Text('@sunarya-thito'),
+      placeholder: const Text('@ibrar-x'),
       features: [
         InputFeature.trailing(
           IconButton.primary(
@@ -1013,116 +1076,127 @@ class _ThemePageState extends State<ThemePage> {
       presetDensity: presetTokens.density,
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Text('Theme options').h2(),
-        const SizedBox(height: 14),
-        _panelLabel('Theme mode'),
-        _stringSelect(
-          value: isDark ? 'Dark' : 'Light',
-          values: _themeModes.keys.toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            _updateThemeMode(controller, value == 'Dark');
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Base preset (surface + tokens)'),
-        _presetSelect(
-          value: _basePresetId,
-          brightness: controller.brightness,
-          onChanged: (value) {
-            if (value == null) return;
-            _updateBasePreset(controller, value);
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Accent preset (primary + charts)'),
-        _presetSelect(
-          value: _accentPresetId,
-          brightness: controller.brightness,
-          onChanged: (value) {
-            if (value == null) return;
-            _updateAccentPreset(controller, value);
-          },
-        ),
-        const SizedBox(height: 6),
-        Text(
-          _basePresetId == _accentPresetId
-              ? 'Using one preset for both base and accent.'
-              : 'Mix & match active: base and accent come from different presets.',
-        ).small().muted(),
-        const SizedBox(height: 12),
-        _panelLabel('Radius'),
-        _stringSelect(
-          value: radiusKey,
-          values: _radiusOptions.keys.toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _radiusOptions[value];
-            if (next != null) {
-              controller.setRadius(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Density'),
-        _stringSelect(
-          value: densityLabel,
-          values: ['Preset', ..._densityOptions.keys],
-          onChanged: (value) {
-            if (value == null) return;
-            if (value == 'Preset') {
-              controller.setDensity(presetTokens.density);
-              return;
-            }
-            final next = _densityOptions[value];
-            if (next != null) {
-              controller.setDensity(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Scaling'),
-        _stringSelect(
-          value: scalingKey,
-          values: _scalingOptions.keys.toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _scalingOptions[value];
-            if (next != null) {
-              controller.setScaling(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Surface opacity'),
-        _stringSelect(
-          value: surfaceOpacityKey,
-          values: _surfaceOpacityOptions.keys.toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _surfaceOpacityOptions[value];
-            if (next != null) {
-              controller.setSurfaceOpacity(next);
-            }
-          },
-        ),
-        const SizedBox(height: 12),
-        _panelLabel('Surface blur'),
-        _stringSelect(
-          value: surfaceBlurKey,
-          values: _surfaceBlurOptions.keys.toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            final next = _surfaceBlurOptions[value];
-            if (next != null) {
-              controller.setSurfaceBlur(next);
-            }
-          },
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsetsDensity.all(padLg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text('Theme options').h2(),
+          const SizedBox(height: 14),
+          _panelLabel('Theme mode'),
+          _stringSelect(
+            value: isDark ? 'Dark' : 'Light',
+            values: _themeModes.keys.toList(),
+            itemIconBuilder: (item) {
+              return item == 'Dark' ? Icons.dark_mode : Icons.light_mode;
+            },
+            onChanged: (value) {
+              if (value == null) return;
+              _updateThemeMode(controller, value == 'Dark');
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Base preset (surface + tokens)'),
+          _presetSelect(
+            value: _basePresetId,
+            brightness: controller.brightness,
+            onChanged: (value) {
+              if (value == null) return;
+              _updateBasePreset(controller, value);
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Accent preset (primary + charts)'),
+          _presetSelect(
+            value: _accentPresetId,
+            brightness: controller.brightness,
+            onChanged: (value) {
+              if (value == null) return;
+              _updateAccentPreset(controller, value);
+            },
+          ),
+          const SizedBox(height: 6),
+          Text(
+            _basePresetId == _accentPresetId
+                ? 'Using one preset for both base and accent.'
+                : 'Mix & match active: base and accent come from different presets.',
+          ).small().muted(),
+          const SizedBox(height: 12),
+          _panelLabel('Radius'),
+          _stringSelect(
+            value: radiusKey,
+            values: _radiusOptions.keys.toList(),
+            icon: Icons.rounded_corner,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _radiusOptions[value];
+              if (next != null) {
+                controller.setRadius(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Density'),
+          _stringSelect(
+            value: densityLabel,
+            values: ['Preset', ..._densityOptions.keys],
+            icon: Icons.line_weight,
+            onChanged: (value) {
+              if (value == null) return;
+              if (value == 'Preset') {
+                controller.setDensity(presetTokens.density);
+                return;
+              }
+              final next = _densityOptions[value];
+              if (next != null) {
+                controller.setDensity(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Scaling'),
+          _stringSelect(
+            value: scalingKey,
+            values: _scalingOptions.keys.toList(),
+            icon: Icons.zoom_in,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _scalingOptions[value];
+              if (next != null) {
+                controller.setScaling(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Surface opacity'),
+          _stringSelect(
+            value: surfaceOpacityKey,
+            values: _surfaceOpacityOptions.keys.toList(),
+            icon: Icons.opacity,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _surfaceOpacityOptions[value];
+              if (next != null) {
+                controller.setSurfaceOpacity(next);
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          _panelLabel('Surface blur'),
+          _stringSelect(
+            value: surfaceBlurKey,
+            values: _surfaceBlurOptions.keys.toList(),
+            icon: Icons.blur_on,
+            onChanged: (value) {
+              if (value == null) return;
+              final next = _surfaceBlurOptions[value];
+              if (next != null) {
+                controller.setSurfaceBlur(next);
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -1179,19 +1253,52 @@ class _ThemePageState extends State<ThemePage> {
   Widget _stringSelect({
     required String value,
     required List<String> values,
+    IconData? icon,
+    IconData Function(String item)? itemIconBuilder,
     ValueChanged<String?>? onChanged,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final iconColor = colorScheme.brightness == Brightness.light
+        ? colorScheme.foreground
+        : colorScheme.secondaryForeground;
+
     return Select<String>(
       value: value,
       onChanged: onChanged,
-      itemBuilder: (context, item) => Text(item),
+      itemBuilder: (context, item) {
+        final resolvedIcon = itemIconBuilder?.call(item) ?? icon;
+        if (resolvedIcon == null) {
+          return Text(item);
+        }
+        return Row(
+          children: [
+            Icon(resolvedIcon, size: 14, color: iconColor),
+            const SizedBox(width: 8),
+            Flexible(child: Text(item)),
+          ],
+        );
+      },
       popup: SelectPopup.noVirtualization(
         items: SelectItemList(
           children: [
             for (final item in values)
               SelectItemButton(
                 value: item,
-                child: Text(item),
+                child: Builder(
+                  builder: (context) {
+                    final resolvedIcon = itemIconBuilder?.call(item) ?? icon;
+                    if (resolvedIcon == null) {
+                      return Text(item);
+                    }
+                    return Row(
+                      children: [
+                        Icon(resolvedIcon, size: 14, color: iconColor),
+                        const SizedBox(width: 8),
+                        Flexible(child: Text(item)),
+                      ],
+                    );
+                  },
+                ),
               ),
           ],
         ),
@@ -1214,119 +1321,230 @@ class _ThemePageState extends State<ThemePage> {
         .key;
   }
 
-  String _buildCodeSnippet() {
-    final controller = context.docsThemeController;
+  String _buildPresetCodeSnippet(DocsThemeController controller) {
     final data = controller.data;
-    final isDark = controller.brightness == Brightness.dark;
-    final modeField = isDark ? 'dark' : 'light';
-    final tokenField = isDark ? 'darkTokens' : 'lightTokens';
-
-    final basePreset = _presetForId(_basePresetId);
-    final accentPreset = _presetForId(_accentPresetId);
-    final selectedPresetTokens =
+    final currentTokens =
         _tokensForPreset(_basePresetId, controller.brightness);
-    final selectedPresetScheme = _schemeForSelection(controller.brightness);
+    final lightTokenSource = _tokensForPreset(_basePresetId, Brightness.light);
+    final darkTokenSource = _tokensForPreset(_basePresetId, Brightness.dark);
+    final lightScheme = _schemeForSelection(Brightness.light);
+    final darkScheme = _schemeForSelection(Brightness.dark);
 
-    final isSinglePreset = _basePresetId == _accentPresetId;
-    final isPresetOnly = isSinglePreset &&
-        data.colorScheme == selectedPresetScheme &&
-        _sameDouble(data.radius, selectedPresetTokens.radius) &&
-        data.density == selectedPresetTokens.density &&
-        data.spacing == selectedPresetTokens.spacing &&
-        data.tracking == selectedPresetTokens.tracking &&
-        data.shadows == selectedPresetTokens.shadows &&
-        _sameDouble(data.scaling, 1.0) &&
-        _sameDouble(data.surfaceOpacity, 1.0) &&
-        _sameDouble(data.surfaceBlur, 0.0);
+    final usesPresetRadius = data.radius == currentTokens.radius;
+    final usesPresetDensity = data.density == currentTokens.density;
+    final selectedSpacingBase = data.density.toSpacingScale().base;
 
-    if (isPresetOnly) {
-      return [
-        '// Preset only (no mix and no overrides)',
-        "final preset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-        '',
-        'ShadcnApp(',
-        '  theme: ThemeData(',
-        '    colorScheme: preset.$modeField,',
-        '    radius: preset.$tokenField.radius,',
-        '    density: preset.$tokenField.density,',
-        '    spacing: preset.$tokenField.spacing,',
-        '    tracking: preset.$tokenField.tracking,',
-        '    shadows: preset.$tokenField.shadows,',
-        '  ),',
-        '  child: const AppRoot(),',
-        ');',
-      ].join('\n');
-    }
+    final lightRadius =
+        usesPresetRadius ? lightTokenSource.radius : data.radius;
+    final darkRadius = usesPresetRadius ? darkTokenSource.radius : data.radius;
+    final lightSpacingBase =
+        usesPresetDensity ? lightTokenSource.spacing.base : selectedSpacingBase;
+    final darkSpacingBase =
+        usesPresetDensity ? darkTokenSource.spacing.base : selectedSpacingBase;
 
     final lines = <String>[
-      '// Generated from current theme selections',
-      '// base preset: ${basePreset.name} (${basePreset.id})',
-      if (!isSinglePreset)
-        '// accent preset: ${accentPreset.name} (${accentPreset.id})',
+      '// Paste into your preset_themes.dart file.',
+      '// Keep model classes once. If they already exist, do not duplicate them.',
       '',
-      "final basePreset = registryThemePresets.firstWhere((preset) => preset.id == '${basePreset.id}');",
-      if (!isSinglePreset)
-        "final accentPreset = registryThemePresets.firstWhere((preset) => preset.id == '${accentPreset.id}');",
-      'final baseScheme = basePreset.$modeField;',
-      if (isSinglePreset)
-        'final colorScheme = baseScheme;'
-      else ...[
-        'final accentScheme = accentPreset.$modeField;',
-        'final colorScheme = baseScheme.copyWith(',
-        '  primary: () => accentScheme.primary,',
-        '  primaryForeground: () => accentScheme.primaryForeground,',
-        '  accent: () => accentScheme.accent,',
-        '  accentForeground: () => accentScheme.accentForeground,',
-        '  ring: () => accentScheme.ring,',
-        '  chart1: () => accentScheme.chart1,',
-        '  chart2: () => accentScheme.chart2,',
-        '  chart3: () => accentScheme.chart3,',
-        '  chart4: () => accentScheme.chart4,',
-        '  chart5: () => accentScheme.chart5,',
-        '  sidebarPrimary: () => accentScheme.sidebarPrimary,',
-        '  sidebarPrimaryForeground: () => accentScheme.sidebarPrimaryForeground,',
-        '  sidebarAccent: () => accentScheme.sidebarAccent,',
-        '  sidebarAccentForeground: () => accentScheme.sidebarAccentForeground,',
-        '  sidebarRing: () => accentScheme.sidebarRing,',
-        ');',
-      ],
+      _buildRegistryPresetModelCode(),
       '',
-      'ShadcnApp(',
-      if (!_sameDouble(data.scaling, 1.0))
-        '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
-      '  theme: ThemeData(',
-      '    colorScheme: colorScheme,',
-      '    radius: ${_formatNumber(data.radius)},',
-      '    density: ${_densityCode(data.density)},',
-      '    spacing: const SpacingScale(${_formatNumber(data.spacing.base)}),',
-      '    tracking: basePreset.$tokenField.tracking,',
-      '    shadows: basePreset.$tokenField.shadows,',
-      if (!_sameDouble(data.surfaceOpacity, 1.0))
-        '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
-      if (!_sameDouble(data.surfaceBlur, 0.0))
-        '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
-      '  ),',
-      '  child: const AppRoot(),',
+      'final RegistryThemePreset appThemePreset = RegistryThemePreset(',
+      "  id: 'app-theme',",
+      "  name: 'App Theme',",
+      ..._colorSchemeLiteralLines(fieldName: 'light', scheme: lightScheme),
+      ..._colorSchemeLiteralLines(fieldName: 'dark', scheme: darkScheme),
+      ..._tokenLiteralLines(
+        fieldName: 'lightTokens',
+        radius: lightRadius,
+        spacingBase: lightSpacingBase,
+        tokenSource: lightTokenSource,
+      ),
+      ..._tokenLiteralLines(
+        fieldName: 'darkTokens',
+        radius: darkRadius,
+        spacingBase: darkSpacingBase,
+        tokenSource: darkTokenSource,
+      ),
       ');',
     ];
-
     return lines.join('\n');
   }
 
-  String _densityCode(Density density) {
-    if (density == Density.compactDensity) return 'Density.compactDensity';
-    if (density == Density.reducedDensity) return 'Density.reducedDensity';
-    if (density == Density.spaciousDensity) return 'Density.spaciousDensity';
-    if (density == Density.defaultDensity) return 'Density.defaultDensity';
-    return 'Density('
-        'baseContainerPadding: ${_formatNumber(density.baseContainerPadding)}, '
-        'baseGap: ${_formatNumber(density.baseGap)}, '
-        'baseContentPadding: ${_formatNumber(density.baseContentPadding)}'
-        ')';
+  String _buildAppCodeSnippet(DocsThemeController controller) {
+    final data = controller.data;
+    return [
+      '// Use in main.dart (or your app entrypoint).',
+      'final bool isDarkMode = ${controller.brightness == Brightness.dark};',
+      'final ColorScheme activeScheme = isDarkMode',
+      '    ? appThemePreset.dark',
+      '    : appThemePreset.light;',
+      'final RegistryThemePresetTokens activeTokens = isDarkMode',
+      '    ? appThemePreset.darkTokens',
+      '    : appThemePreset.lightTokens;',
+      '',
+      'ShadcnApp(',
+      '  scaling: const AdaptiveScaling(${_formatNumber(data.scaling)}),',
+      '  theme: ThemeData(',
+      '    colorScheme: activeScheme,',
+      '    radius: activeTokens.radius,',
+      '    density: activeTokens.density,',
+      '    tracking: activeTokens.tracking,',
+      '    shadows: activeTokens.shadows,',
+      '    surfaceOpacity: ${_formatNumber(data.surfaceOpacity)},',
+      '    surfaceBlur: ${_formatNumber(data.surfaceBlur)},',
+      '  ),',
+      '  child: const AppRoot(),',
+      ');',
+    ].join('\n');
   }
 
-  bool _sameDouble(double lhs, double rhs) {
-    return (lhs - rhs).abs() < 0.0001;
+  String _buildRegistryPresetModelCode() {
+    return [
+      'class RegistryThemePresetTokens {',
+      '  final double radius;',
+      '  final SpacingScale spacing;',
+      '  final TrackingScale tracking;',
+      '  final ShadowScale shadows;',
+      '  final String? fontSans;',
+      '  final String? fontSerif;',
+      '  final String? fontMono;',
+      '',
+      '  RegistryThemePresetTokens({',
+      '    required this.radius,',
+      '    required this.spacing,',
+      '    required this.tracking,',
+      '    required this.shadows,',
+      '    this.fontSans,',
+      '    this.fontSerif,',
+      '    this.fontMono,',
+      '  });',
+      '',
+      '  Density get density => Density.fromSpacingScale(spacing);',
+      '}',
+      '',
+      'class RegistryThemePreset {',
+      '  final String id;',
+      '  final String name;',
+      '  final ColorScheme light;',
+      '  final ColorScheme dark;',
+      '  final RegistryThemePresetTokens lightTokens;',
+      '  final RegistryThemePresetTokens darkTokens;',
+      '',
+      '  RegistryThemePreset({',
+      '    required this.id,',
+      '    required this.name,',
+      '    required this.light,',
+      '    required this.dark,',
+      '    required this.lightTokens,',
+      '    required this.darkTokens,',
+      '  });',
+      '}',
+    ].join('\n');
+  }
+
+  List<String> _colorSchemeLiteralLines({
+    required String fieldName,
+    required ColorScheme scheme,
+  }) {
+    return [
+      '  $fieldName: ColorScheme(',
+      '    brightness: Brightness.${scheme.brightness == Brightness.dark ? 'dark' : 'light'},',
+      '    background: ${_colorCode(scheme.background)},',
+      '    foreground: ${_colorCode(scheme.foreground)},',
+      '    card: ${_colorCode(scheme.card)},',
+      '    cardForeground: ${_colorCode(scheme.cardForeground)},',
+      '    popover: ${_colorCode(scheme.popover)},',
+      '    popoverForeground: ${_colorCode(scheme.popoverForeground)},',
+      '    primary: ${_colorCode(scheme.primary)},',
+      '    primaryForeground: ${_colorCode(scheme.primaryForeground)},',
+      '    secondary: ${_colorCode(scheme.secondary)},',
+      '    secondaryForeground: ${_colorCode(scheme.secondaryForeground)},',
+      '    muted: ${_colorCode(scheme.muted)},',
+      '    mutedForeground: ${_colorCode(scheme.mutedForeground)},',
+      '    accent: ${_colorCode(scheme.accent)},',
+      '    accentForeground: ${_colorCode(scheme.accentForeground)},',
+      '    destructive: ${_colorCode(scheme.destructive)},',
+      '    destructiveForeground: ${_colorCode(scheme.destructiveForeground)},',
+      '    border: ${_colorCode(scheme.border)},',
+      '    input: ${_colorCode(scheme.input)},',
+      '    ring: ${_colorCode(scheme.ring)},',
+      '    chart1: ${_colorCode(scheme.chart1)},',
+      '    chart2: ${_colorCode(scheme.chart2)},',
+      '    chart3: ${_colorCode(scheme.chart3)},',
+      '    chart4: ${_colorCode(scheme.chart4)},',
+      '    chart5: ${_colorCode(scheme.chart5)},',
+      '    sidebar: ${_colorCode(scheme.sidebar)},',
+      '    sidebarForeground: ${_colorCode(scheme.sidebarForeground)},',
+      '    sidebarPrimary: ${_colorCode(scheme.sidebarPrimary)},',
+      '    sidebarPrimaryForeground: ${_colorCode(scheme.sidebarPrimaryForeground)},',
+      '    sidebarAccent: ${_colorCode(scheme.sidebarAccent)},',
+      '    sidebarAccentForeground: ${_colorCode(scheme.sidebarAccentForeground)},',
+      '    sidebarBorder: ${_colorCode(scheme.sidebarBorder)},',
+      '    sidebarRing: ${_colorCode(scheme.sidebarRing)},',
+      '  ),',
+    ];
+  }
+
+  List<String> _tokenLiteralLines({
+    required String fieldName,
+    required double radius,
+    required double spacingBase,
+    required RegistryThemePresetTokens tokenSource,
+  }) {
+    return [
+      '  $fieldName: RegistryThemePresetTokens(',
+      '    radius: ${_formatNumber(radius)},',
+      '    spacing: SpacingScale(${_formatNumber(spacingBase)}),',
+      '    tracking: TrackingScale(normal: ${_formatNumber(tokenSource.tracking.normal)}),',
+      '    shadows: ShadowScale(',
+      ..._shadowScaleLiteralLines(tokenSource.shadows),
+      '    ),',
+      '    fontSans: ${_stringLiteral(tokenSource.fontSans)},',
+      '    fontSerif: ${_stringLiteral(tokenSource.fontSerif)},',
+      '    fontMono: ${_stringLiteral(tokenSource.fontMono)},',
+      '  ),',
+    ];
+  }
+
+  List<String> _shadowScaleLiteralLines(ShadowScale shadows) {
+    return [
+      '      shadow2xs: ${_boxShadowListCode(shadows.shadow2xs)},',
+      '      shadowXs: ${_boxShadowListCode(shadows.shadowXs)},',
+      '      shadowSm: ${_boxShadowListCode(shadows.shadowSm)},',
+      '      shadow: ${_boxShadowListCode(shadows.shadow)},',
+      '      shadowMd: ${_boxShadowListCode(shadows.shadowMd)},',
+      '      shadowLg: ${_boxShadowListCode(shadows.shadowLg)},',
+      '      shadowXl: ${_boxShadowListCode(shadows.shadowXl)},',
+      '      shadow2xl: ${_boxShadowListCode(shadows.shadow2xl)},',
+    ];
+  }
+
+  String _boxShadowListCode(List<BoxShadow> shadows) {
+    if (shadows.isEmpty) {
+      return 'const <BoxShadow>[]';
+    }
+    return '[${shadows.map(_boxShadowCode).join(', ')}]';
+  }
+
+  String _boxShadowCode(BoxShadow shadow) {
+    final blurStyle = shadow.blurStyle != BlurStyle.normal
+        ? ', blurStyle: BlurStyle.${shadow.blurStyle.name}'
+        : '';
+    return 'BoxShadow(offset: Offset(${_formatNumber(shadow.offset.dx)}, ${_formatNumber(shadow.offset.dy)}), blurRadius: ${_formatNumber(shadow.blurRadius)}, spreadRadius: ${_formatNumber(shadow.spreadRadius)}, color: ${_colorCode(shadow.color)}$blurStyle)';
+  }
+
+  String _colorCode(Color color) {
+    final hex =
+        color.toARGB32().toRadixString(16).toUpperCase().padLeft(8, '0');
+    return 'Color(0x$hex)';
+  }
+
+  String _stringLiteral(String? value) {
+    if (value == null) {
+      return 'null';
+    }
+    final escaped = value.replaceAll('\\', '\\\\').replaceAll("'", r"\'");
+    return "'$escaped'";
   }
 
   String _formatNumber(num value) {

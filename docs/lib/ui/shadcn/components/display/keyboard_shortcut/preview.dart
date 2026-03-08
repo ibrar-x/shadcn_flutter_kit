@@ -9,10 +9,10 @@ class KeyboardShortcutPreview extends StatelessWidget {
   /// Builds the widget tree for keyboard shortcut.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: KeyboardDisplay.fromActivator(
-          activator: const SingleActivator(
+          activator: SingleActivator(
             LogicalKeyboardKey.keyS,
             control: true,
           ),

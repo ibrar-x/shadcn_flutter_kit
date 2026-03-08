@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import '../styles/abstract_button_style.dart';
 import '../utils/button_helpers.dart';
 import '../styles/button_state_property.dart';
-import '../styles/component_theme_button_style.dart';
 import '../themes/base/button_theme.dart';
 
 /// ButtonVariance defines a reusable type for this registry module.

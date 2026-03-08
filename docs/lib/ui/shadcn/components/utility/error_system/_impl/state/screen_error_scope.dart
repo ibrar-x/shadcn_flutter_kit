@@ -1,7 +1,6 @@
 // ScreenErrorScope: widget that owns a screen-level error channel and disposes it automatically.
 // Provides a typed HubScreenScope plus run/runSync helpers so screens can publish AppError without guard().
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../core/app_error.dart';

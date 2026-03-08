@@ -8,11 +8,11 @@ class OverlayPreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return OverlayManagerLayer(
+    return const OverlayManagerLayer(
       popoverHandler: OverlayHandler.popover,
       tooltipHandler: OverlayHandler.popover,
       menuHandler: OverlayHandler.popover,
-      child: const Scaffold(
+      child: Scaffold(
         body: Center(child: Text('Overlay manager layer ready')),
       ),
     );

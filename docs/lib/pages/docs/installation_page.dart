@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../docs_page.dart';
 import 'blocks.dart';
@@ -32,6 +33,14 @@ class InstallationPage extends StatelessWidget {
             text:
                 'The docs app is powered by registry components installed through the flutter_shadcn CLI. Use the CLI to copy widgets and shared helpers into your Flutter project with dependency-aware installs.',
           ),
+          TextButton(
+            onPressed: () => context.goNamed(
+              'cli_reference',
+              pathParameters: {'id': 'cli-overview'},
+            ),
+            child: const Text('Open the full CLI command guide'),
+          ),
+          const SizedBox(height: 12),
           DocsSectionTitle(title: 'CLI setup', anchor: cliKey),
           const SizedBox(height: 12),
           const DocsParagraph(

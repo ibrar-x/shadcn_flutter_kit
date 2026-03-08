@@ -83,6 +83,28 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
     category: 'layout',
     tags: ['docs-only', 'composed', 'scaffold'],
   ),
+  'go_router_app_example': RegistryComponent(
+    id: 'go_router_app_example',
+    name: 'GoRouter Example (Composed)',
+    description:
+        'Docs-only composition example showing route-aware app structure.',
+    category: 'application',
+    tags: ['docs-only', 'composed', 'app', 'router'],
+  ),
+  'audio_control': RegistryComponent(
+    id: 'audio_control',
+    name: 'Audio Control (WIP)',
+    description: 'Work-in-progress docs entry for media audio controls.',
+    category: 'control',
+    tags: ['docs-only', 'wip', 'control'],
+  ),
+  'video_control': RegistryComponent(
+    id: 'video_control',
+    name: 'Video Control (WIP)',
+    description: 'Work-in-progress docs entry for media video controls.',
+    category: 'control',
+    tags: ['docs-only', 'wip', 'control'],
+  ),
   'material': RegistryComponent(
     id: 'material',
     name: 'Material',
@@ -121,6 +143,30 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
     description: 'Docs-only composition example built from drawer/form/button.',
     category: 'overlay',
     tags: ['docs-only', 'composed', 'drawer'],
+  ),
+  'linear_gradient_picker': RegistryComponent(
+    id: 'linear_gradient_picker',
+    name: 'Linear Gradient Picker (WIP)',
+    description:
+        'Work-in-progress docs entry for gradient picker functionality.',
+    category: 'form',
+    tags: ['docs-only', 'wip', 'gradient'],
+  ),
+  'radial_gradient_picker': RegistryComponent(
+    id: 'radial_gradient_picker',
+    name: 'Radial Gradient Picker (WIP)',
+    description:
+        'Work-in-progress docs entry for gradient picker functionality.',
+    category: 'form',
+    tags: ['docs-only', 'wip', 'gradient'],
+  ),
+  'sweep_gradient_picker': RegistryComponent(
+    id: 'sweep_gradient_picker',
+    name: 'Sweep Gradient Picker (WIP)',
+    description:
+        'Work-in-progress docs entry for gradient picker functionality.',
+    category: 'form',
+    tags: ['docs-only', 'wip', 'gradient'],
   ),
 };
 
