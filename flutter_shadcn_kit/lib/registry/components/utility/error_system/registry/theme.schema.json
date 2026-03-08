@@ -7,109 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
-      "fields": [
-        {
-          "type": "number",
-          "name": "bannerPadding",
-          "label": "Banner Padding",
-          "description": "Banner Padding in pixels (affected by theme.scaling).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "cardPadding",
-          "label": "Card Padding",
-          "description": "Card Padding in pixels (affected by theme.scaling).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "dialogPadding",
-          "label": "Dialog Padding",
-          "description": "Dialog Padding in pixels (affected by theme.scaling).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `utility/error_system` theme classes.",
       "fields": [
         {
           "type": "color",
-          "name": "bannerBorderColor",
-          "label": "Banner Border Color",
-          "description": "Banner Border Color in hex format (#RRGGBB or #AARRGGBB).",
+          "name": "bannerBackgroundColor",
+          "label": "Banner Background Color",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -119,95 +28,184 @@
           "since": "1.0.0"
         },
         {
-          "type": "number",
+          "type": "object",
+          "name": "bannerBorderColor",
+          "label": "Banner Border Color",
+          "description": "Generated from Dart type `Color Function(ThemeData theme, AppError error)?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
           "name": "bannerBorderRadius",
           "label": "Banner Border Radius",
-          "description": "Banner Border Radius in pixels (affected by theme.radius).",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "number",
+          "type": "object",
+          "name": "bannerIcon",
+          "label": "Banner Icon",
+          "description": "Generated from Dart type `IconData?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "textStyle",
+          "name": "bannerMessageStyle",
+          "label": "Banner Message Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "bannerPadding",
+          "label": "Banner Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "textStyle",
+          "name": "bannerTitleStyle",
+          "label": "Banner Title Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
           "name": "cardBorderRadius",
           "label": "Card Border Radius",
-          "description": "Card Border Radius in pixels (affected by theme.radius).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "dialogSurfaceOpacity",
-          "label": "Dialog Surface Opacity",
-          "description": "Dialog Surface Opacity (0.0 = transparent, 1.0 = opaque).",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 1.0,
-            "step": 0.05
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "color",
+          "name": "cardFillColor",
+          "label": "Card Fill Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
+          "validation": {
+            "clamp": "reject"
           },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "cardPadding",
+          "label": "Card Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "dialogBarrierColor",
+          "label": "Dialog Barrier Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "dialogPadding",
+          "label": "Dialog Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
           "validation": {
             "clamp": "reject"
           },
@@ -218,42 +216,10 @@
         },
         {
           "type": "number",
-          "name": "snackbarBorderRadius",
-          "label": "Snackbar Border Radius",
-          "description": "Snackbar Border Radius in pixels (affected by theme.radius).",
+          "name": "dialogSurfaceBlur",
+          "label": "Dialog Surface Blur",
+          "description": "Generated from Dart type `double?`.",
           "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Typography",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "bannerIcon",
-          "label": "Banner Icon",
-          "description": "Banner Icon in pixels (affected by theme.scaling).",
-          "defaultValue": "exclamationTriangle",
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -261,25 +227,38 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "dialogSurfaceOpacity",
+          "label": "Dialog Surface Opacity",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
           "type": "color",
           "name": "iconColor",
           "label": "Icon Color",
-          "description": "Icon Color in hex format (#RRGGBB or #AARRGGBB).",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -292,133 +271,28 @@
           "type": "number",
           "name": "iconSize",
           "label": "Icon Size",
-          "description": "Icon Size in pixels (affected by theme.scaling).",
+          "description": "Generated from Dart type `double?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 12.0,
-            "max": 48.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
-        {
-          "type": "color",
-          "name": "bannerBackgroundColor",
-          "label": "Banner Background Color",
-          "description": "Banner Background Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
           "ui": {
-            "control": "color"
+            "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
-          "type": "color",
-          "name": "cardFillColor",
-          "label": "Card Fill Color",
-          "description": "Card Fill Color in hex format (#RRGGBB or #AARRGGBB).",
+          "type": "textStyle",
+          "name": "messageStyle",
+          "label": "Message Style",
+          "description": "Generated from Dart type `TextStyle?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "color",
-          "name": "dialogBarrierColor",
-          "label": "Dialog Barrier Color",
-          "description": "Dialog Barrier Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "color",
-          "name": "snackbarBackgroundColor",
-          "label": "Snackbar Background Color",
-          "description": "Snackbar Background Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -427,30 +301,72 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
+        },
         {
-          "type": "number",
-          "name": "dialogSurfaceBlur",
-          "label": "Dialog Surface Blur",
-          "description": "Dialog Surface Blur in pixels (affected by theme.scaling).",
+          "type": "color",
+          "name": "snackbarBackgroundColor",
+          "label": "Snackbar Background Color",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 100.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "snackbarBorderRadius",
+          "label": "Snackbar Border Radius",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "textStyle",
+          "name": "snackbarTextStyle",
+          "label": "Snackbar Text Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "textStyle",
+          "name": "titleStyle",
+          "label": "Title Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         }

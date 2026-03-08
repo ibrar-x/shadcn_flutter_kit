@@ -7,71 +7,35 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/table` theme classes.",
       "fields": [
         {
-          "type": "number",
+          "type": "color",
+          "name": "backgroundColor",
+          "label": "Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "border",
           "name": "border",
           "label": "Border",
-          "description": "Border in pixels (affected by theme.scaling).",
+          "description": "Generated from Dart type `Border?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 100.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "borderRadius",
-          "label": "Border Radius",
-          "description": "Border Radius in pixels (affected by theme.radius).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -79,32 +43,38 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
+        },
         {
-          "type": "color",
-          "name": "backgroundColor",
-          "label": "Background Color",
-          "description": "Background Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#FFFFFF",
+          "type": "object",
+          "name": "borderRadius",
+          "label": "Border Radius",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
           "ui": {
-            "control": "color"
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "cellTheme",
+          "label": "Cell Theme",
+          "description": "Generated from Dart type `TableCellTheme?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -112,17 +82,11 @@
           "type": "color",
           "name": "resizerColor",
           "label": "Resizer Color",
-          "description": "Resizer Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#171717",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -130,20 +94,15 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "number",
+          "name": "resizerThickness",
+          "label": "Resizer Thickness",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -151,31 +110,23 @@
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
+        },
         {
-          "type": "number",
-          "name": "resizerThickness",
-          "label": "Resizer Thickness",
-          "description": "Resizer Thickness in pixels (affected by theme.scaling).",
-          "defaultValue": 4.0,
+          "type": "object",
+          "name": "tableTheme",
+          "label": "Table Theme",
+          "description": "Generated from Dart type `TableTheme?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 100.0,
-            "step": 1.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
           },
           "since": "1.0.0"
         }

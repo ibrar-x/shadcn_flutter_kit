@@ -7,23 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/hidden` theme classes.",
       "fields": [
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "curve",
+          "name": "curve",
+          "label": "Curve",
+          "description": "Generated from Dart type `Curve?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -31,18 +26,30 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
-      "fields": [
+        },
+        {
+          "type": "object",
+          "name": "direction",
+          "label": "Direction",
+          "description": "Generated from Dart type `Axis?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
         {
           "type": "duration",
           "name": "duration",
           "label": "Duration",
-          "description": "Duration in milliseconds.",
-          "defaultValue": 150,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -54,74 +61,13 @@
             "unit": "ms"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "curve",
-          "label": "Curve",
-          "description": "Curve in pixels (affected by theme.scaling).",
-          "defaultValue": "easeInOut",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "enum",
-          "name": "direction",
-          "label": "Direction",
-          "description": "Direction in pixels (affected by theme.scaling).",
-          "defaultValue": "horizontal",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
         },
         {
           "type": "boolean",
           "name": "keepCrossAxisSize",
           "label": "Keep Cross Axis Size",
-          "description": "Toggle Keep Cross Axis Size.",
-          "defaultValue": false,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -137,8 +83,8 @@
           "type": "boolean",
           "name": "keepMainAxisSize",
           "label": "Keep Main Axis Size",
-          "description": "Toggle Keep Main Axis Size.",
-          "defaultValue": false,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -154,8 +100,8 @@
           "type": "boolean",
           "name": "reverse",
           "label": "Reverse",
-          "description": "Toggle Reverse.",
-          "defaultValue": false,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],

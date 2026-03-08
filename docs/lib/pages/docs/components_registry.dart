@@ -33,21 +33,21 @@ class RegistryComponent {
 const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   'toggle': RegistryComponent(
     id: 'toggle',
-    name: 'Toggle (Composed)',
+    name: 'Toggle',
     description: 'Docs-only composition example built from button primitives.',
     category: 'control',
     tags: ['docs-only', 'composed', 'button'],
   ),
   'avatar_group': RegistryComponent(
     id: 'avatar_group',
-    name: 'Avatar Group (Composed)',
+    name: 'Avatar Group',
     description: 'Docs-only composition example built from avatar widgets.',
     category: 'display',
     tags: ['docs-only', 'composed', 'avatar'],
   ),
   'choices': RegistryComponent(
     id: 'choices',
-    name: 'Choices (Composed)',
+    name: 'Choices',
     description:
         'Docs-only composition example built from multiple_choice widgets.',
     category: 'form',
@@ -55,14 +55,14 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'multiselect': RegistryComponent(
     id: 'multiselect',
-    name: 'Multiselect (Composed)',
+    name: 'Multiselect',
     description: 'Docs-only composition example built from select widgets.',
     category: 'form',
     tags: ['docs-only', 'composed', 'select'],
   ),
   'number_input': RegistryComponent(
     id: 'number_input',
-    name: 'Number Input (Composed)',
+    name: 'Number Input',
     description:
         'Docs-only composition example built from text_field + formatter.',
     category: 'form',
@@ -70,7 +70,7 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'radio_card': RegistryComponent(
     id: 'radio_card',
-    name: 'Radio Card (Composed)',
+    name: 'Radio Card',
     description:
         'Docs-only composition example built from radio_group widgets.',
     category: 'form',
@@ -78,14 +78,14 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'app_bar': RegistryComponent(
     id: 'app_bar',
-    name: 'App Bar (Composed)',
+    name: 'App Bar',
     description: 'Docs-only composition example built from scaffold app bar.',
     category: 'layout',
     tags: ['docs-only', 'composed', 'scaffold'],
   ),
   'material': RegistryComponent(
     id: 'material',
-    name: 'Material (Composed)',
+    name: 'Material',
     description:
         'Docs-only composition example built from app/card/dialog/button.',
     category: 'layout',
@@ -93,7 +93,7 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'expandable_sidebar': RegistryComponent(
     id: 'expandable_sidebar',
-    name: 'Expandable Sidebar (Composed)',
+    name: 'Expandable Sidebar',
     description:
         'Docs-only composition example built from navigation_bar + outlined_container.',
     category: 'navigation',
@@ -101,7 +101,7 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'navigation_rail': RegistryComponent(
     id: 'navigation_rail',
-    name: 'Navigation Rail (Composed)',
+    name: 'Navigation Rail',
     description:
         'Docs-only composition example built from navigation_bar widgets.',
     category: 'navigation',
@@ -109,7 +109,7 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'navigation_sidebar': RegistryComponent(
     id: 'navigation_sidebar',
-    name: 'Navigation Sidebar (Composed)',
+    name: 'Navigation Sidebar',
     description:
         'Docs-only composition example built from navigation_bar + outlined_container.',
     category: 'navigation',
@@ -117,7 +117,7 @@ const Map<String, RegistryComponent> _docsOnlyDependentEntries = {
   ),
   'sheet': RegistryComponent(
     id: 'sheet',
-    name: 'Sheet (Composed)',
+    name: 'Sheet',
     description: 'Docs-only composition example built from drawer/form/button.',
     category: 'overlay',
     tags: ['docs-only', 'composed', 'drawer'],

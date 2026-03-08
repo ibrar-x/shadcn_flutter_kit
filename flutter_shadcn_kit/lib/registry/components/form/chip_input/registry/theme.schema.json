@@ -7,90 +7,33 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `form/chip_input` theme classes.",
       "fields": [
         {
           "type": "number",
           "name": "spacing",
           "label": "Spacing",
-          "description": "Spacing in pixels (affected by theme.scaling).",
-          "defaultValue": 4.0,
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
             "clamp": "reject"
           },
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
+        },
         {
           "type": "boolean",
           "name": "useChips",
           "label": "Use Chips",
-          "description": "Toggle Use Chips.",
-          "defaultValue": true,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],

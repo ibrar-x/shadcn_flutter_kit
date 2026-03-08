@@ -1,22 +1,23 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-02-07",
+  "generatedAt": "2026-03-08",
   "scope": "cli-registry",
   "description": "Canonical index of installable skills for flutter_shadcn CLI.",
   "skills": [
     {
       "id": "flutter-shadcn-ui",
-      "name": "Flutter Shadcn UI",
-      "version": "1.1.1",
-      "description": "CLI-first guidance for flutter_shadcn workflows with manual fallback only when the CLI fails.",
+      "name": "Flutter shadcn CLI",
+      "version": "1.0.0",
+      "description": "Comprehensive flutter_shadcn skill modeled after shadcn's original skill structure with CLI workflows, rules, and evals.",
       "status": "stable",
       "category": "ui-development",
       "path": "flutter-shadcn-ui",
       "entry": "flutter-shadcn-ui/SKILL.md",
       "manifest": "flutter-shadcn-ui/skill.json",
       "references": {
-        "commands": "flutter-shadcn-ui/references/commands.md",
-        "installation": "flutter-shadcn-ui/references/INSTALLATION.md"
+        "cli": "flutter-shadcn-ui/cli.md",
+        "installation": "flutter-shadcn-ui/INSTALLATION.md",
+        "docsExamples": "flutter-shadcn-ui/references/docs_app_common_examples.md"
       },
       "installation": {
         "supportedByCli": true

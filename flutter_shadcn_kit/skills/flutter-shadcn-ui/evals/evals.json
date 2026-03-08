@@ -1,0 +1,42 @@
+{
+  "skill_name": "flutter-shadcn-ui",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a settings page in my Flutter app with shadcn components: cards, form fields, and a save button. Please install everything needed.",
+      "expected_output": "A CLI-first plan using namespace-aware discovery, dry-run, add commands for form + layout components, and post-install validation commands.",
+      "files": [],
+      "expectations": [
+        "Uses flutter_shadcn discovery commands before installation (search/info or list)",
+        "Runs dry-run for selected components before add",
+        "Installs components using explicit namespace-qualified IDs",
+        "Includes validation commands after install (validate/audit/deps)",
+        "Avoids inventing undocumented flags"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add dialog and popover from whichever registry has them. I don't care which.",
+      "expected_output": "A response that clarifies or chooses namespace deterministically, uses explicit @namespace/component IDs, checks overlays, and applies safe install workflow.",
+      "files": [],
+      "expectations": [
+        "Uses explicit namespace strategy instead of ambiguous unqualified IDs",
+        "Uses dry-run before add to surface dependencies",
+        "Mentions overlay wrapper requirements for overlay-dependent components",
+        "Uses add with qualified component refs"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Apply a custom theme JSON and then verify nothing broke in the registry setup.",
+      "expected_output": "A sequence using global --experimental theme apply-file/apply-url and verification via doctor/validate/audit/deps.",
+      "files": [],
+      "expectations": [
+        "Uses --experimental with top-level theme --apply-file or --apply-url",
+        "Runs doctor --json after theme changes",
+        "Runs validate --json and audit --json after updates",
+        "Suggests sync when config or theme paths changed"
+      ]
+    }
+  ]
+}

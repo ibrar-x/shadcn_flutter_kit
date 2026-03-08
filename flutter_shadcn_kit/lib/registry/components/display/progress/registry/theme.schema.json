@@ -7,109 +7,40 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
-      "fields": [
-        {
-          "type": "number",
-          "name": "minHeight",
-          "label": "Min Height",
-          "description": "Min Height in pixels (affected by theme.scaling).",
-          "defaultValue": 8.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "number",
-          "name": "borderRadius",
-          "label": "Border Radius",
-          "description": "Border Radius in pixels (affected by theme.radius).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/progress` theme classes.",
       "fields": [
         {
           "type": "color",
           "name": "backgroundColor",
           "label": "Background Color",
-          "description": "Background Color in hex format (#RRGGBB or #AARRGGBB).",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
           "ui": {
             "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "borderRadius",
+          "label": "Border Radius",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -117,17 +48,11 @@
           "type": "color",
           "name": "color",
           "label": "Color",
-          "description": "Color in hex format (#RRGGBB or #AARRGGBB).",
+          "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -135,20 +60,15 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "number",
+          "name": "minHeight",
+          "label": "Min Height",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -156,6 +76,7 @@
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

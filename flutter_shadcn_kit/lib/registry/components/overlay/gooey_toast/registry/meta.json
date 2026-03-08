@@ -31,5 +31,9 @@
     "_impl/themes/config/gooey_toast_theme_tokens.dart",
     "_impl/utils/gooey_toast_utils.dart",
     "gooey_toast.dart"
-  ]
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": []
+  }
 }
