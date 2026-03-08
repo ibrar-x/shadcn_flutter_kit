@@ -13,6 +13,7 @@ import '../ui/shadcn/components/control/command/command.dart';
 import '../ui/shadcn/components/display/badge/badge.dart';
 import '../ui/shadcn/components/display/icon/icon.dart';
 import '../ui/shadcn/components/layout/basic/basic.dart' as shadcn_basic;
+import '../ui/shadcn/components/layout/fade_scroll/fade_scroll.dart';
 import '../ui/shadcn/components/layout/scaffold/scaffold.dart'
     as shadcn_scaffold;
 import '../ui/shadcn/components/layout/media_query/media_query.dart';
@@ -164,6 +165,9 @@ class DocsPageState extends State<DocsPage> {
   ];
 
   final ScrollController scrollController = ScrollController();
+  final ScrollController _sidebarScrollController = ScrollController();
+  final ScrollController _drawerSidebarScrollController = ScrollController();
+  final ScrollController _onThisPageScrollController = ScrollController();
   final List<OnThisPage> currentlyVisible = [];
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
@@ -208,6 +212,9 @@ class DocsPageState extends State<DocsPage> {
       child.isVisible.removeListener(_onVisibilityChanged);
     }
     scrollController.dispose();
+    _sidebarScrollController.dispose();
+    _drawerSidebarScrollController.dispose();
+    _onThisPageScrollController.dispose();
     super.dispose();
   }
 
@@ -530,32 +537,41 @@ class DocsPageState extends State<DocsPage> {
                 theme.scaling,
             child: SizedBox(
               width: targetWidth,
-              child: SidebarNav(
-                children: [
-                  for (final section in _sidebarSections)
-                    SidebarSection(
-                      header: Text(section.title),
-                      children: [
-                        for (final page in section.pages)
-                          DocsNavigationButton(
-                            onPressed: () {
-                              closeSheet(context);
-                              routerContext.goNamed(
-                                page.routeName,
-                                pathParameters: page.pathParameters,
-                              );
-                            },
-                            selected: page.name == widget.name,
-                            child: shadcn_basic.Basic(
-                              content: Text(page.title),
-                              trailing: page.tag?.badge(context),
-                              trailingAlignment:
-                                  AlignmentDirectional.centerStart,
-                            ),
-                          ),
-                      ],
-                    ),
-                ],
+              child: FadeScroll(
+                controller: _drawerSidebarScrollController,
+                startOffset: 96,
+                endOffset: 96,
+                gradient: const [Colors.transparent, Colors.white],
+                child: SingleChildScrollView(
+                  controller: _drawerSidebarScrollController,
+                  child: SidebarNav(
+                    children: [
+                      for (final section in _sidebarSections)
+                        SidebarSection(
+                          header: Text(section.title),
+                          children: [
+                            for (final page in section.pages)
+                              DocsNavigationButton(
+                                onPressed: () {
+                                  closeSheet(context);
+                                  routerContext.goNamed(
+                                    page.routeName,
+                                    pathParameters: page.pathParameters,
+                                  );
+                                },
+                                selected: page.name == widget.name,
+                                child: shadcn_basic.Basic(
+                                  content: Text(page.title),
+                                  trailing: page.tag?.badge(context),
+                                  trailingAlignment:
+                                      AlignmentDirectional.centerStart,
+                                ),
+                              ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -636,37 +652,45 @@ class DocsPageState extends State<DocsPage> {
                     MediaQueryVisibility(
                       minWidth: breakpointWidth,
                       child: FocusTraversalGroup(
-                        child: SingleChildScrollView(
-                          key: const PageStorageKey('sidebar'),
-                          padding: EdgeInsets.only(
-                                top: 32,
-                                left: (isThemePage ? 12 : 24) + padding.left,
-                                bottom: 32,
-                              ) *
-                              theme.scaling,
-                          child: SidebarNav(
-                            children: [
-                              for (final section in _sidebarSections)
-                                SidebarSection(
-                                  header: Text(section.title),
-                                  children: [
-                                    for (final page in section.pages)
-                                      DocsNavigationButton(
-                                        onPressed: () => context.goNamed(
-                                          page.routeName,
-                                          pathParameters: page.pathParameters,
+                        child: FadeScroll(
+                          controller: _sidebarScrollController,
+                          startOffset: 96,
+                          endOffset: 96,
+                          gradient: const [Colors.transparent, Colors.white],
+                          child: SingleChildScrollView(
+                            controller: _sidebarScrollController,
+                            key: const PageStorageKey('sidebar'),
+                            padding: EdgeInsets.only(
+                                  top: 32,
+                                  left: (isThemePage ? 12 : 24) + padding.left,
+                                  bottom: 32,
+                                ) *
+                                theme.scaling,
+                            child: SidebarNav(
+                              children: [
+                                for (final section in _sidebarSections)
+                                  SidebarSection(
+                                    header: Text(section.title),
+                                    children: [
+                                      for (final page in section.pages)
+                                        DocsNavigationButton(
+                                          onPressed: () => context.goNamed(
+                                            page.routeName,
+                                            pathParameters: page.pathParameters,
+                                          ),
+                                          selected: page.name == widget.name,
+                                          child: shadcn_basic.Basic(
+                                            content: Text(page.title),
+                                            trailing: page.tag?.badge(context),
+                                            trailingAlignment:
+                                                AlignmentDirectional
+                                                    .centerStart,
+                                          ),
                                         ),
-                                        selected: page.name == widget.name,
-                                        child: shadcn_basic.Basic(
-                                          content: Text(page.title),
-                                          trailing: page.tag?.badge(context),
-                                          trailingAlignment:
-                                              AlignmentDirectional.centerStart,
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                            ],
+                                    ],
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -735,44 +759,54 @@ class DocsPageState extends State<DocsPage> {
                         child: SizedBox(
                           width: (padding.right + 180) * theme.scaling,
                           child: FocusTraversalGroup(
-                            child: SingleChildScrollView(
-                              padding: EdgeInsets.only(
-                                    top: 32,
-                                    right: isThemePage ? 16 : 24,
-                                    bottom: 32,
-                                    left: isThemePage ? 16 : 24,
-                                  ) *
-                                  theme.scaling,
-                              child: SidebarNav(
-                                children: [
-                                  SidebarSection(
-                                    header: const Text('On This Page'),
-                                    children: [
-                                      for (final entry
-                                          in widget.onThisPage.entries)
-                                        SidebarButton(
-                                          onPressed: () {
-                                            final context =
-                                                entry.value.currentContext;
-                                            if (context == null) {
-                                              return;
-                                            }
-                                            Scrollable.ensureVisible(
-                                              context,
-                                              duration: const Duration(
-                                                milliseconds: 200,
-                                              ),
-                                            );
-                                          },
-                                          selected:
-                                              entry.value.currentContext !=
-                                                      null &&
-                                                  isVisible(entry.value),
-                                          child: Text(entry.key),
-                                        ),
-                                    ],
-                                  ),
-                                ],
+                            child: FadeScroll(
+                              controller: _onThisPageScrollController,
+                              startOffset: 96,
+                              endOffset: 96,
+                              gradient: const [
+                                Colors.transparent,
+                                Colors.white
+                              ],
+                              child: SingleChildScrollView(
+                                controller: _onThisPageScrollController,
+                                padding: EdgeInsets.only(
+                                      top: 32,
+                                      right: isThemePage ? 16 : 24,
+                                      bottom: 32,
+                                      left: isThemePage ? 16 : 24,
+                                    ) *
+                                    theme.scaling,
+                                child: SidebarNav(
+                                  children: [
+                                    SidebarSection(
+                                      header: const Text('On This Page'),
+                                      children: [
+                                        for (final entry
+                                            in widget.onThisPage.entries)
+                                          SidebarButton(
+                                            onPressed: () {
+                                              final context =
+                                                  entry.value.currentContext;
+                                              if (context == null) {
+                                                return;
+                                              }
+                                              Scrollable.ensureVisible(
+                                                context,
+                                                duration: const Duration(
+                                                  milliseconds: 200,
+                                                ),
+                                              );
+                                            },
+                                            selected:
+                                                entry.value.currentContext !=
+                                                        null &&
+                                                    isVisible(entry.value),
+                                            child: Text(entry.key),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -807,15 +841,12 @@ class SidebarNav extends StatelessWidget {
       }
       spacedChildren.add(children[index]);
     }
-    return Container(
+    return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 200),
-      child: SingleChildScrollView(
-        primary: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: spacedChildren,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: spacedChildren,
       ),
     );
   }
@@ -838,8 +869,8 @@ class SidebarSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.small().semiBold().withPadding(vertical: 2, horizontal: 8),
-        const Gap(6),
+        header.base().bold().withPadding(vertical: 4, horizontal: 10),
+        const Gap(8),
         ...children,
       ],
     );
@@ -862,30 +893,31 @@ class DocsNavigationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = shadcn_theme.Theme.of(context);
-    if (!selected) {
-      data = data.copyWith(
-        colorScheme: () => data.colorScheme.copyWith(
-          foreground: () => data.colorScheme.mutedForeground,
-        ),
-      );
-    }
+    final data = shadcn_theme.Theme.of(context);
+    final selectedText = data.colorScheme.secondaryForeground;
+    final unselectedText =
+        data.colorScheme.mutedForeground.withValues(alpha: 0.72);
+    final themedData = data.copyWith(
+      colorScheme: () => data.colorScheme.copyWith(
+        foreground: () => selected ? selectedText : unselectedText,
+      ),
+    );
     return shadcn_theme.Theme(
-      data: data,
+      data: themedData,
       child: shadcn_buttons.Button(
         onPressed: onPressed,
         alignment: AlignmentDirectional.centerStart,
         style: shadcn_buttons.ButtonVariance.link.copyWith(
-          padding: (context, states, value) {
-            return const EdgeInsets.symmetric(vertical: 4, horizontal: 8);
-          },
+          padding: (context, states, value) =>
+              const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
             );
           },
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             child.xSmall(),
             if (trailing != null) const Gap(8),
@@ -911,27 +943,27 @@ class SidebarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = shadcn_theme.Theme.of(context);
-    if (selected) {
-      data = data.copyWith(
-        colorScheme: () => data.colorScheme.copyWith(
-          mutedForeground: () => data.colorScheme.secondaryForeground,
-        ),
-      );
-    }
+    final data = shadcn_theme.Theme.of(context);
+    final selectedText = data.colorScheme.secondaryForeground;
+    final unselectedText =
+        data.colorScheme.mutedForeground.withValues(alpha: 0.72);
+    final themedData = data.copyWith(
+      colorScheme: () => data.colorScheme.copyWith(
+        foreground: () => selected ? selectedText : unselectedText,
+        mutedForeground: () => selected ? selectedText : unselectedText,
+      ),
+    );
     return shadcn_theme.Theme(
-      data: data,
+      data: themedData,
       child: shadcn_buttons.Button(
         onPressed: onPressed,
         alignment: AlignmentDirectional.centerStart,
-        style: shadcn_buttons.ButtonVariance.text.copyWith(
-          padding: (context, states, value) {
-            return const EdgeInsets.symmetric(vertical: 4, horizontal: 8) *
-                data.scaling;
-          },
+        style: shadcn_buttons.ButtonVariance.link.copyWith(
+          padding: (context, states, value) =>
+              const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
             );
           },
         ),
