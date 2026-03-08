@@ -12,6 +12,7 @@ import '../ui/shadcn/components/control/button/button.dart' as shadcn_buttons;
 import '../ui/shadcn/components/control/command/command.dart';
 import '../ui/shadcn/components/display/badge/badge.dart';
 import '../ui/shadcn/components/display/icon/icon.dart';
+import '../ui/shadcn/components/layout/fade_scroll/fade_scroll.dart';
 import '../ui/shadcn/components/layout/basic/basic.dart' as shadcn_basic;
 import '../ui/shadcn/components/layout/scaffold/scaffold.dart'
     as shadcn_scaffold;
@@ -149,6 +150,8 @@ class DocsPageState extends State<DocsPage> {
   ];
 
   final ScrollController scrollController = ScrollController();
+  final ScrollController _sidebarScrollController = ScrollController();
+  final ScrollController _drawerSidebarScrollController = ScrollController();
   final List<OnThisPage> currentlyVisible = [];
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
@@ -187,6 +190,8 @@ class DocsPageState extends State<DocsPage> {
       child.isVisible.removeListener(_onVisibilityChanged);
     }
     scrollController.dispose();
+    _sidebarScrollController.dispose();
+    _drawerSidebarScrollController.dispose();
     super.dispose();
   }
 
@@ -464,32 +469,40 @@ class DocsPageState extends State<DocsPage> {
                 theme.scaling,
             child: SizedBox(
               width: targetWidth,
-              child: SidebarNav(
-                children: [
-                  for (final section in _sections)
-                    SidebarSection(
-                      header: Text(section.title),
-                      children: [
-                        for (final page in section.pages)
-                          DocsNavigationButton(
-                            onPressed: () {
-                              closeSheet(context);
-                              routerContext.goNamed(
-                                page.routeName,
-                                pathParameters: page.pathParameters,
-                              );
-                            },
-                            selected: page.name == widget.name,
-                            child: shadcn_basic.Basic(
-                              content: Text(page.title),
-                              trailing: page.tag?.badge(context),
-                              trailingAlignment:
-                                  AlignmentDirectional.centerStart,
-                            ),
-                          ),
-                      ],
-                    ),
-                ],
+              child: FadeScroll(
+                controller: _drawerSidebarScrollController,
+                startOffset: 14,
+                endOffset: 14,
+                child: SingleChildScrollView(
+                  controller: _drawerSidebarScrollController,
+                  child: SidebarNav(
+                    children: [
+                      for (final section in _sections)
+                        SidebarSection(
+                          header: Text(section.title),
+                          children: [
+                            for (final page in section.pages)
+                              DocsNavigationButton(
+                                onPressed: () {
+                                  closeSheet(context);
+                                  routerContext.goNamed(
+                                    page.routeName,
+                                    pathParameters: page.pathParameters,
+                                  );
+                                },
+                                selected: page.name == widget.name,
+                                child: shadcn_basic.Basic(
+                                  content: Text(page.title),
+                                  trailing: page.tag?.badge(context),
+                                  trailingAlignment:
+                                      AlignmentDirectional.centerStart,
+                                ),
+                              ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -557,37 +570,44 @@ class DocsPageState extends State<DocsPage> {
                     MediaQueryVisibility(
                       minWidth: breakpointWidth,
                       child: FocusTraversalGroup(
-                        child: SingleChildScrollView(
-                          key: const PageStorageKey('sidebar'),
-                          padding: EdgeInsets.only(
-                                top: theme.spacing.xxl,
-                                left: theme.spacing.xl + padding.left,
-                                bottom: theme.spacing.xxl,
-                              ) *
-                              theme.scaling,
-                          child: SidebarNav(
-                            children: [
-                              for (final section in _sections)
-                                SidebarSection(
-                                  header: Text(section.title),
-                                  children: [
-                                    for (final page in section.pages)
-                                      DocsNavigationButton(
-                                        onPressed: () => context.goNamed(
-                                          page.routeName,
-                                          pathParameters: page.pathParameters,
+                        child: FadeScroll(
+                          controller: _sidebarScrollController,
+                          startOffset: 14,
+                          endOffset: 14,
+                          child: SingleChildScrollView(
+                            controller: _sidebarScrollController,
+                            key: const PageStorageKey('sidebar'),
+                            padding: EdgeInsets.only(
+                                  top: theme.spacing.xxl,
+                                  left: theme.spacing.xl + padding.left,
+                                  bottom: theme.spacing.xxl,
+                                ) *
+                                theme.scaling,
+                            child: SidebarNav(
+                              children: [
+                                for (final section in _sections)
+                                  SidebarSection(
+                                    header: Text(section.title),
+                                    children: [
+                                      for (final page in section.pages)
+                                        DocsNavigationButton(
+                                          onPressed: () => context.goNamed(
+                                            page.routeName,
+                                            pathParameters: page.pathParameters,
+                                          ),
+                                          selected: page.name == widget.name,
+                                          child: shadcn_basic.Basic(
+                                            content: Text(page.title),
+                                            trailing: page.tag?.badge(context),
+                                            trailingAlignment:
+                                                AlignmentDirectional
+                                                    .centerStart,
+                                          ),
                                         ),
-                                        selected: page.name == widget.name,
-                                        child: shadcn_basic.Basic(
-                                          content: Text(page.title),
-                                          trailing: page.tag?.badge(context),
-                                          trailingAlignment:
-                                              AlignmentDirectional.centerStart,
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                            ],
+                                    ],
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -724,15 +744,12 @@ class SidebarNav extends StatelessWidget {
       }
       spacedChildren.add(children[index]);
     }
-    return Container(
+    return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 200),
-      child: SingleChildScrollView(
-        primary: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: spacedChildren,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: spacedChildren,
       ),
     );
   }
