@@ -7,7 +7,7 @@
     {
       "id": "flutter-shadcn-ui",
       "name": "Flutter shadcn CLI",
-      "version": "2.3.0",
+      "version": "1.0.0",
       "description": "Comprehensive flutter_shadcn skill modeled after shadcn's original skill structure with CLI workflows, rules, and evals.",
       "status": "stable",
       "category": "ui-development",
