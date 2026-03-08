@@ -30,7 +30,7 @@ class InstallationPage extends StatelessWidget {
           const SizedBox(height: 12),
           const DocsParagraph(
             text:
-                'The docs app is powered by registry components installed through the flutter_shadcn CLI. Use the CLI to copy widgets and shared helpers into your Flutter project and keep everything in sync.',
+                'The docs app is powered by registry components installed through the flutter_shadcn CLI. Use the CLI to copy widgets and shared helpers into your Flutter project with dependency-aware installs.',
           ),
           DocsSectionTitle(title: 'CLI setup', anchor: cliKey),
           const SizedBox(height: 12),
@@ -44,10 +44,16 @@ class InstallationPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const DocsParagraph(
-            text: 'Add the pub cache bin directory to your PATH if needed.',
+            text:
+                'Add the pub cache bin directory to your PATH if needed. The CLI also provides a short alias: `shadcn`.',
           ),
           const DocsCodeBlock(
             code: r'$HOME/.pub-cache/bin',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn --help',
             mode: 'bash',
           ),
           const SizedBox(height: 20),
@@ -78,6 +84,24 @@ class InstallationPage extends StatelessWidget {
             code: 'flutter_shadcn init --install-fonts --install-icons',
             mode: 'bash',
           ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text: 'Non-interactive setup with explicit options:',
+          ),
+          const DocsCodeBlock(
+            code:
+                'flutter_shadcn init --yes --install-path ui/shadcn --shared-path ui/shadcn/shared --include-meta --include-readme=false --include-preview=false --theme modern-minimal',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text:
+                'One-line setup: initialize and install components in the same command.',
+          ),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn init button dialog',
+            mode: 'bash',
+          ),
           const SizedBox(height: 20),
           DocsSectionTitle(title: 'Add components', anchor: addKey),
           const SizedBox(height: 12),
@@ -91,10 +115,40 @@ class InstallationPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const DocsParagraph(
+            text: 'Namespace install from a specific registry:',
+          ),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn add @shadcn/button',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
             text: 'Add multiple components at once:',
           ),
           const DocsCodeBlock(
             code: 'flutter_shadcn add command dialog',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text: 'Install all components from the active registry:',
+          ),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn add --all',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text: 'Control optional files during install:',
+          ),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn add @shadcn/button --include-files=preview',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code:
+                'flutter_shadcn add @shadcn/button --exclude-files=readme,meta',
             mode: 'bash',
           ),
           const SizedBox(height: 12),
@@ -109,8 +163,15 @@ class InstallationPage extends StatelessWidget {
           DocsSectionTitle(title: 'Install assets', anchor: assetsKey),
           const SizedBox(height: 12),
           const DocsParagraph(
-            text: 'Install icon and typography assets on demand.',
+            text:
+                'Install icon and typography assets on demand, or install everything in one command.',
           ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn assets --all',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
           const DocsCodeBlock(
             code: 'flutter_shadcn assets --icons',
             mode: 'bash',
@@ -120,17 +181,12 @@ class InstallationPage extends StatelessWidget {
             code: 'flutter_shadcn assets --fonts',
             mode: 'bash',
           ),
-          const SizedBox(height: 12),
-          const DocsCodeBlock(
-            code: 'flutter_shadcn assets --all',
-            mode: 'bash',
-          ),
           const SizedBox(height: 20),
           DocsSectionTitle(title: 'Registry modes', anchor: registryKey),
           const SizedBox(height: 12),
           const DocsParagraph(
             text:
-                'Use the local registry for development or the remote registry for production installs.',
+                'Use local registry mode for development, or remote/CDN mode for production installs. You can also persist dev mode globally for your workspace.',
           ),
           const DocsCodeBlock(
             code:
@@ -140,6 +196,23 @@ class InstallationPage extends StatelessWidget {
           const SizedBox(height: 12),
           const DocsCodeBlock(
             code: 'flutter_shadcn add button --registry remote',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code:
+                'flutter_shadcn add button --registry remote --registry-url https://cdn.jsdelivr.net/gh/ibrar-x/shadcn_flutter_kit@latest/flutter_shadcn_kit/lib',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code:
+                'flutter_shadcn --dev --dev-path /absolute/path/to/registry init',
+            mode: 'bash',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code: 'flutter_shadcn registries',
             mode: 'bash',
           ),
         ],
