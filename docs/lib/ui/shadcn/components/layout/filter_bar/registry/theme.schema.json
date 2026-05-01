@@ -7,54 +7,9 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/filter_bar` theme classes.",
+      "fields": []
     }
   ],
   "$schema": "../../../../manifests/component_theme.schema.json"

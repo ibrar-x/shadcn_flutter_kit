@@ -142,15 +142,15 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                       mode: FileUploadLoadingMode.wrap,
                       wrapperBuilder: (context, child) {
                         return BorderLoading(
-                          curve: Curves.easeInOut,
                           child: child,
+                          curve: Curves.easeInOut,
                         );
                       },
                     ),
                     itemLoading: const FileUploadItemLoadingOptions(
                       mode: FileUploadItemLoadingMode.linear,
                     ),
-                    hint: const Text(
+                    hint: Text(
                       'Drag files here or click the dropzone to pick. Supports PDFs, images.',
                     ),
                     idleLabel: 'Drag files here or click to pick files.',
@@ -167,10 +167,10 @@ class _FilePickerPreviewState extends State<FilePickerPreview> {
                   uploadFn: _simulateUpload,
                   options: FileUploadTileOptions(
                     actionLabel: 'Add files',
-                    subtitle: const Text(
+                    subtitle: Text(
                       'No File Chosen. Use a button-only file selection UI.',
                     ),
-                    hint: const Text('Good for touch-first layouts.'),
+                    hint: Text('Good for touch-first layouts.'),
                     itemLoading: FileUploadItemLoadingOptions(
                       mode: FileUploadItemLoadingMode.custom,
                       customBuilder: (context, item) {

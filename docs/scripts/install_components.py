@@ -34,7 +34,7 @@ def run(cmd: list[str], cwd: Path, dry_run: bool) -> None:
 def main() -> None:
     docs_root = Path(__file__).resolve().parents[1]
     default_registry = (
-        docs_root / "../flutter_shadcn_kit/lib/registry/components.json"
+        docs_root / "../flutter_shadcn_kit/lib/registry/manifests/components.json"
     ).resolve()
     local_cli = (
         docs_root / "../../shadcn_flutter_cli/bin/flutter_shadcn.dart"
@@ -46,7 +46,7 @@ def main() -> None:
     parser.add_argument(
         "--registry",
         default=str(default_registry),
-        help="Path to registry/components.json",
+        help="Path to registry/manifests/components.json",
     )
     parser.add_argument(
         "--batch-size",

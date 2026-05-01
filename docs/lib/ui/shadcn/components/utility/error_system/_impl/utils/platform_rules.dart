@@ -2,6 +2,7 @@
 // Captures platform code/message and provides retry/report actions.
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../core/app_error.dart';
 import '../core/error_action.dart';

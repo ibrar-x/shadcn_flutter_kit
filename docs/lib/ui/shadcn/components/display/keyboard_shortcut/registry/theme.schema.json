@@ -7,32 +7,41 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/keyboard_shortcut` theme classes.",
       "fields": [
         {
-          "type": "number",
+          "type": "object",
           "name": "keyPadding",
           "label": "Key Padding",
-          "description": "Key Padding in pixels (affected by theme.scaling).",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
+            "clamp": "reject"
           },
           "ui": {
-            "control": "slider",
-            "unit": "px"
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "shadowList",
+          "name": "keyShadow",
+          "label": "Key Shadow",
+          "description": "Generated from Dart type `List<BoxShadow>?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject",
+            "minItems": 0
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -40,92 +49,18 @@
           "type": "number",
           "name": "spacing",
           "label": "Spacing",
-          "description": "Spacing in pixels (affected by theme.scaling).",
-          "defaultValue": 2.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "keyShadow",
-          "label": "Key Shadow",
-          "description": "Key Shadow in pixels (affected by theme.scaling).",
+          "description": "Generated from Dart type `double?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
           "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 24.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
             "clamp": "reject"
           },
           "ui": {
             "control": "input"
           },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

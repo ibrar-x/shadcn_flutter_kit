@@ -8,22 +8,22 @@ class DividerPreview extends StatelessWidget {
   /// Builds the widget tree for divider.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Item 1'),
+              const Text('Item 1'),
 
-              Divider(),
+              const Divider(),
 
-              Text('Item 2'),
+              const Text('Item 2'),
 
-              Divider(),
+              const Divider(),
 
-              Text('Item 3'),
+              const Text('Item 3'),
             ],
           ),
         ),

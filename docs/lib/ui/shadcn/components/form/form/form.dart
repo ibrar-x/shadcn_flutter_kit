@@ -92,8 +92,8 @@ typedef FuturePredicate<T> = FutureOr<bool> Function(T? value);
 /// - [value] (`T?`): The value to validate.
 ///
 /// Returns a `FutureOr<ValidationResult?>` that is null for valid values.
-typedef ValidatorBuilderFunction<T> = FutureOr<ValidationResult?> Function(
-    T? value);
+typedef ValidatorBuilderFunction<T> =
+    FutureOr<ValidationResult?> Function(T? value);
 
 // Type aliases for form field keys
 
@@ -186,8 +186,8 @@ typedef FormMapValues = Map<FormKey, dynamic>;
 /// Parameters:
 /// - [context] (`BuildContext`): The build context.
 /// - [values] (`FormMapValues`): Map of all form field values.
-typedef FormSubmitCallback = void Function(
-    BuildContext context, FormMapValues values);
+typedef FormSubmitCallback =
+    void Function(BuildContext context, FormMapValues values);
 
 /// Extension methods for [FormMapValues].
 extension FormMapValuesExtension on FormMapValues {
@@ -333,11 +333,12 @@ class Form extends StatefulWidget {
 /// Builder function type for displaying pending form validations.
 ///
 /// Takes the context, map of pending validation futures, and optional child widget.
-typedef FormPendingWidgetBuilder = Widget Function(
-  BuildContext context,
-  Map<FormKey, Future<ValidationResult?>> errors,
-  Widget? child,
-);
+typedef FormPendingWidgetBuilder =
+    Widget Function(
+      BuildContext context,
+      Map<FormKey, Future<ValidationResult?>> errors,
+      Widget? child,
+    );
 
 /// Extension methods on [BuildContext] for form operations.
 extension FormExtension on BuildContext {

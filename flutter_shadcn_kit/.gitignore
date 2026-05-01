@@ -46,3 +46,11 @@ app.*.map.json
 
 # Registry taxonomy placeholders (skip category-level _impl folders; real entries are deeper).
 lib/registry/composites/*/_impl/
+
+# Local agent/knowledge graph artifacts
+.codex/
+**/.codex/
+AGENTS.md
+**/AGENTS.md
+graphify-out/
+**/graphify-out/

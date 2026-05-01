@@ -62,10 +62,10 @@ class CommandItemState extends State<CommandItem> {
                   child: Row(
                     children: [
                       if (widget.leading != null) widget.leading!,
-                      if (widget.leading != null) const DensityGap(gapSm),
+                      if (widget.leading != null) DensityGap(gapSm),
 /// Creates a `Expanded` instance.
                       Expanded(child: widget.title),
-                      if (widget.trailing != null) const DensityGap(gapSm),
+                      if (widget.trailing != null) DensityGap(gapSm),
                       if (widget.trailing != null)
                         widget.trailing!.muted().xSmall(),
                     ],

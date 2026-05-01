@@ -30,9 +30,9 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
               // Sweep gradient loading demo.
               _demoTile(
                 title: 'Sweep',
-                child: const BorderLoading(
+                child: BorderLoading(
                   mode: BorderLoadingMode.sweepGradient,
-                  spec: BorderGradientSpec(
+                  spec: const BorderGradientSpec(
                     type: BorderGradientType.sweep,
                     colors: [
                       m.Color(0x00000000),
@@ -47,7 +47,7 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
                     ],
                     gap: 0.24,
                   ),
-                  child: m.Padding(
+                  child: const m.Padding(
                     padding: m.EdgeInsets.symmetric(
                       horizontal: 18,
                       vertical: 12,
@@ -59,11 +59,11 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
               // Circular shape loading demo.
               _demoTile(
                 title: 'Circle',
-                child: const BorderLoading(
-                  shapeBorder: m.CircleBorder(),
+                child: BorderLoading(
+                  shapeBorder: const m.CircleBorder(),
                   strokeWidth: 3,
-                  padding: m.EdgeInsets.all(3),
-                  spec: BorderGradientSpec(
+                  padding: const m.EdgeInsets.all(3),
+                  spec: const BorderGradientSpec(
                     type: BorderGradientType.sweep,
                     colors: [
                       m.Color(0x00000000),
@@ -74,23 +74,23 @@ class _BorderLoadingPreviewState extends m.State<BorderLoadingPreview> {
                     ],
                     gap: 0.30,
                   ),
-                  child: m.SizedBox(width: 56, height: 56),
+                  child: const m.SizedBox(width: 56, height: 56),
                 ),
               ),
               // Tracer segment demo.
               _demoTile(
                 title: 'Tracer',
-                child: const BorderLoading(
+                child: BorderLoading(
                   mode: BorderLoadingMode.tracer,
-                  tracer: BorderTracerSpec(
+                  tracer: const BorderTracerSpec(
                     lengthFraction: 0.12,
                     dashCount: 2,
                   ),
-                  spec: BorderGradientSpec(
+                  spec: const BorderGradientSpec(
                     type: BorderGradientType.linear,
                     colors: [m.Color(0xFF3B82F6), m.Color(0xFF22C55E)],
                   ),
-                  child: m.Padding(
+                  child: const m.Padding(
                     padding: m.EdgeInsets.symmetric(
                       horizontal: 18,
                       vertical: 12,

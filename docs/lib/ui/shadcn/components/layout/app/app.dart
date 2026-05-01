@@ -3,10 +3,8 @@ export '../scaffold/scaffold.dart' show AppBar, Scaffold;
 
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../component_theme_global_configs.dart';
-import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/primitives/overlay.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
@@ -90,15 +88,15 @@ class ShadcnApp extends StatelessWidget {
     this.menuHandler,
     this.enableThemeAnimation = false,
     this.materialFallback = true,
-  })  : navigatorKey = null,
-        home = null,
-        routes = const <String, WidgetBuilder>{},
-        initialRoute = null,
-        onGenerateRoute = null,
-        onGenerateInitialRoutes = null,
-        onUnknownRoute = null,
-        pageRouteBuilder = null,
-        navigatorObservers = const <NavigatorObserver>[];
+  }) : navigatorKey = null,
+       home = null,
+       routes = const <String, WidgetBuilder>{},
+       initialRoute = null,
+       onGenerateRoute = null,
+       onGenerateInitialRoutes = null,
+       onUnknownRoute = null,
+       pageRouteBuilder = null,
+       navigatorObservers = const <NavigatorObserver>[];
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final Widget? home;
@@ -143,7 +141,8 @@ class ShadcnApp extends StatelessWidget {
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
         MediaQuery.maybeOf(context)?.platformBrightness ?? Brightness.light;
-    final useDark = themeMode == ThemeMode.dark ||
+    final useDark =
+        themeMode == ThemeMode.dark ||
         (themeMode == ThemeMode.system &&
             platformBrightness == Brightness.dark);
     var resolved = useDark ? (darkTheme ?? theme) : theme;
@@ -163,7 +162,7 @@ class ShadcnApp extends StatelessWidget {
       child: ShadcnUI(child: child),
     );
     if (!enableThemeAnimation) {
-      return _wrapWithMaterialFallback(wrapped, themeData);
+      return _wrapWithMaterialFallback(wrapped);
     }
     wrapped = TweenAnimationBuilder<ThemeData>(
       tween: ThemeDataTween(begin: themeData, end: themeData),
@@ -173,73 +172,17 @@ class ShadcnApp extends StatelessWidget {
       },
       child: ShadcnUI(child: child),
     );
-    return _wrapWithMaterialFallback(wrapped, themeData);
+    return _wrapWithMaterialFallback(wrapped);
   }
 
-  material.ThemeData _materialFallbackTheme(ThemeData themeData) {
-    final shadScheme = themeData.colorScheme;
-    final brightness = shadScheme.background.computeLuminance() < 0.5
-        ? material.Brightness.dark
-        : material.Brightness.light;
-    final materialScheme = material.ColorScheme.fromSeed(
-      seedColor: shadScheme.primary,
-      brightness: brightness,
-    ).copyWith(
-      primary: shadScheme.primary,
-      onPrimary: shadScheme.primaryForeground,
-      secondary: shadScheme.secondary,
-      onSecondary: shadScheme.secondaryForeground,
-      surface: shadScheme.background,
-      onSurface: shadScheme.foreground,
-      error: shadScheme.destructive,
-      onError: shadScheme.destructiveForeground,
-    );
-    final baseTextTheme = material.ThemeData(brightness: brightness).textTheme;
-    final textColor = shadScheme.foreground;
-    return material.ThemeData(
-      brightness: brightness,
-      colorScheme: materialScheme,
-      scaffoldBackgroundColor: shadScheme.background,
-      canvasColor: shadScheme.background,
-      textTheme: baseTextTheme.apply(
-        bodyColor: textColor,
-        displayColor: textColor,
-      ),
-    );
-  }
-
-  Widget _wrapWithMaterialFallback(Widget child, ThemeData themeData) {
+  Widget _wrapWithMaterialFallback(Widget child) {
     if (!materialFallback) {
       return child;
     }
-    return material.Theme(
-      data: _materialFallbackTheme(themeData),
-      child: material.Material(
-        type: material.MaterialType.transparency,
-        child: child,
-      ),
+    return material.Material(
+      type: material.MaterialType.transparency,
+      child: child,
     );
-  }
-
-  Iterable<LocalizationsDelegate<dynamic>> _resolvedLocalizationDelegates() {
-    final delegates =
-        (localizationsDelegates ?? const <LocalizationsDelegate<dynamic>>[])
-            .toList(growable: true);
-    const defaults = <LocalizationsDelegate<dynamic>>[
-      ShadcnLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ];
-    for (final delegate in defaults) {
-      final exists = delegates.any(
-        (existing) => existing.runtimeType == delegate.runtimeType,
-      );
-      if (!exists) {
-        delegates.add(delegate);
-      }
-    }
-    return delegates;
   }
 
   @override
@@ -249,7 +192,6 @@ class ShadcnApp extends StatelessWidget {
       _globalThemesRegistered = true;
     }
     final resolvedTheme = _resolveTheme(context);
-    final resolvedDelegates = _resolvedLocalizationDelegates();
     Widget appBuilder(BuildContext context, Widget? child) {
       final built = builder != null ? builder!(context, child) : child;
       final safeChild = built ?? const SizedBox.shrink();
@@ -271,7 +213,7 @@ class ShadcnApp extends StatelessWidget {
         title: title,
         builder: appBuilder,
         locale: locale,
-        localizationsDelegates: resolvedDelegates,
+        localizationsDelegates: localizationsDelegates,
         localeListResolutionCallback: localeListResolutionCallback,
         localeResolutionCallback: localeResolutionCallback,
         supportedLocales: supportedLocales,
@@ -298,7 +240,7 @@ class ShadcnApp extends StatelessWidget {
       navigatorObservers: navigatorObservers,
       builder: appBuilder,
       locale: locale,
-      localizationsDelegates: resolvedDelegates,
+      localizationsDelegates: localizationsDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
       localeResolutionCallback: localeResolutionCallback,
       supportedLocales: supportedLocales,
@@ -315,8 +257,7 @@ class ShadcnApp extends StatelessWidget {
 PageRoute<T> _defaultPageRouteBuilder<T>(
   RouteSettings settings,
   WidgetBuilder builder,
-) =>
-    PageRouteBuilder<T>(
-      settings: settings,
-      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-    );
+) => PageRouteBuilder<T>(
+  settings: settings,
+  pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+);

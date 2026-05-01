@@ -7,7 +7,6 @@ class _ControlledComponentAdapterState<T>
   late T _value;
 
   @override
-
   /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
@@ -31,7 +30,6 @@ class _ControlledComponentAdapterState<T>
   }
 
   @override
-
   /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant ControlledComponentAdapter<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -58,7 +56,6 @@ class _ControlledComponentAdapterState<T>
   }
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return widget.builder(

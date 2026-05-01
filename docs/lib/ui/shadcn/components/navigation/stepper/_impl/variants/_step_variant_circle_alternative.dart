@@ -53,10 +53,10 @@ class _StepVariantCircleAlternative extends StepVariant {
                               ),
                             ),
 /// Creates a `DensityGap` instance.
-                      const DensityGap(gapXs),
+                      DensityGap(gapXs),
                       steps[i].icon ?? const StepNumber(),
 /// Creates a `DensityGap` instance.
-                      const DensityGap(gapXs),
+                      DensityGap(gapXs),
                       i == steps.length - 1
                           ? const Spacer()
                           : Expanded(
@@ -84,7 +84,7 @@ class _StepVariantCircleAlternative extends StepVariant {
                     ],
                   ),
 /// Creates a `DensityGap` instance.
-                  const DensityGap(gapXs),
+                  DensityGap(gapXs),
 /// Creates a `Center` instance.
                   Center(
                     child: DefaultTextStyle.merge(
@@ -156,12 +156,12 @@ class _StepVariantCircleAlternative extends StepVariant {
                   children: [
                     properties.steps[i].icon ?? const StepNumber(),
 /// Creates a `DensityGap` instance.
-                    const DensityGap(gapSm),
+                    DensityGap(gapSm),
                     properties.size.wrapper(context, properties.steps[i].title),
                   ],
                 ),
 /// Creates a `DensityGap` instance.
-                const DensityGap(gapSm),
+                DensityGap(gapSm),
 /// Creates a `ConstrainedBox` instance.
                 ConstrainedBox(
                   constraints: BoxConstraints(minHeight: 16 * scaling),

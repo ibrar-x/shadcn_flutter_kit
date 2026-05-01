@@ -43,7 +43,7 @@ class _StepVariantLine extends StepVariant {
                     },
                   ),
 /// Creates a `DensityGap` instance.
-                  const DensityGap(gapSm),
+                  DensityGap(gapSm),
                   properties.size.wrapper(context, steps[i].title),
                 ],
               ),
@@ -124,7 +124,7 @@ class _StepVariantLine extends StepVariant {
                         },
                       ),
 /// Creates a `DensityGap` instance.
-                      const DensityGap(gapLg),
+                      DensityGap(gapLg),
                       properties.size
                           .wrapper(context, properties.steps[i].title)
                           .withPadding(vertical: 8 * scaling),

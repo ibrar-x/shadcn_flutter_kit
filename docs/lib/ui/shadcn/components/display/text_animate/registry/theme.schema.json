@@ -7,23 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/text_animate` theme classes.",
       "fields": [
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "object",
+          "name": "cursor",
+          "label": "Cursor",
+          "description": "Generated from Dart type `StreamingCursor?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -31,20 +26,49 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "object",
+          "name": "effect",
+          "label": "Effect",
+          "description": "Generated from Dart type `StreamingTextEffectAdapter?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "textStyle",
+          "name": "style",
+          "label": "Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "typewriter",
+          "label": "Typewriter",
+          "description": "Generated from Dart type `TypewriterEffect?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"

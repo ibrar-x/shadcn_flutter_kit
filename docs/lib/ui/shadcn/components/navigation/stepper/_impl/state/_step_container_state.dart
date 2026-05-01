@@ -16,7 +16,7 @@ class _StepContainerState extends State<StepContainer> {
       children: [
         widget.child,
 /// Creates a `DensityGap` instance.
-        const DensityGap(gapLg),
+        DensityGap(gapLg),
 /// Creates a `Row` instance.
         Row(children: widget.actions).gap(8 * scaling),
       ],

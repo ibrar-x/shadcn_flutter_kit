@@ -9,13 +9,13 @@ class FormatterPreview extends StatelessWidget {
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 200,
           child: TextField(
-            decoration: InputDecoration(labelText: 'HEX'),
-            inputFormatters: <TextInputFormatter>[
+            decoration: const InputDecoration(labelText: 'HEX'),
+            inputFormatters: const <TextInputFormatter>[
               TextInputFormatters.toUpperCase,
             ],
           ),

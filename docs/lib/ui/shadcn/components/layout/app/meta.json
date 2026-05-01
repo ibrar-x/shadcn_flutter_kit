@@ -26,5 +26,9 @@
   "files": [
     "_impl/core/shadcn_ui.dart",
     "app.dart"
-  ]
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": []
+  }
 }

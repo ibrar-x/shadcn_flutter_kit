@@ -210,14 +210,14 @@ def update_progress(progress_path: Path, components: list[dict]) -> None:
 
 def main() -> None:
     docs_root = Path(__file__).resolve().parents[1]
-    default_registry = docs_root / "../flutter_shadcn_kit/lib/registry/components.json"
+    default_registry = docs_root / "../flutter_shadcn_kit/lib/registry/manifests/components.json"
 
     parser = argparse.ArgumentParser(
         description="Generate docs component pages and sync progress.")
     parser.add_argument(
         "--registry",
         default=str(default_registry),
-        help="Path to components.json",
+        help="Path to registry/manifests/components.json",
     )
     parser.add_argument(
         "--docs-root",

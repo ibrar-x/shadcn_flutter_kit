@@ -53,8 +53,9 @@ extension IconExtensions on Widget {
         final theme = Theme.of(context);
         final inherited = IconTheme.of(context);
         return IconTheme(
-          data: IconThemeData(color: theme.colorScheme.mutedForeground)
-              .merge(inherited),
+          data: IconThemeData(
+            color: theme.colorScheme.mutedForeground,
+          ).merge(inherited),
           child: this,
         );
       },

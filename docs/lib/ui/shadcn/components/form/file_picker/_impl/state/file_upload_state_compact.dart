@@ -25,7 +25,7 @@ extension _FileUploadStateCompact on _FileUploadState {
       if (!mounted || files.isEmpty) return;
       _handleNewFiles(files);
     } catch (_) {
-      const error = FileUploadError(
+      final error = FileUploadError(
         code: FileUploadErrorCode.uploadFailed,
         message: 'File picking failed.',
       );
@@ -85,7 +85,7 @@ extension _FileUploadStateCompact on _FileUploadState {
                           children: [
                             if (option.icon != null) ...[
                               option.icon!,
-                              const DensityGap(0.5),
+                              DensityGap(0.5),
                             ],
                             Flexible(
                               child: Text(
@@ -147,7 +147,7 @@ extension _FileUploadStateCompact on _FileUploadState {
           style: theme.typography.large.merge(theme.typography.semiBold),
           child: widget.title!,
         ),
-        const DensityGap(gapLg),
+        DensityGap(gapLg),
       ],
     );
   }

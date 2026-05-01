@@ -51,7 +51,12 @@
       "`BrightnessSlider`",
       "`RangeSoftSlider`",
       "`StepsDotsSlider`",
-      "`WaveformSlider`"
+      "`WaveformSlider`",
+      "`ShadJoinGapLayout`",
+      "`ShadContinuousLayout`",
+      "`ShadSegmentedCapsuleRenderer`",
+      "`ShadWaveformRenderer`",
+      "`ShadStepDotsRenderer`"
     ],
     "callbacks": [
       "`onChanged`"

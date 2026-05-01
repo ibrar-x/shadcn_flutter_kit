@@ -78,7 +78,7 @@ class ChatBubble extends StatelessWidget {
     );
     final effectiveData =
         (Data.maybeOf<ChatBubbleData>(context) ??
-        const ChatBubbleData(index: 0, length: 1));
+        ChatBubbleData(index: 0, length: 1));
     final widthFactor = styleValue(
       widgetValue: this.widthFactor,
       themeValue: chatTheme?.widthFactor,

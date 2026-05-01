@@ -34,7 +34,7 @@ def main() -> None:
     shared_path = normalize_path(config.get("sharedPath", "lib/ui/shadcn/shared"))
 
     registry_path = (
-        docs_root / "../flutter_shadcn_kit/lib/registry/components.json"
+        docs_root / "../flutter_shadcn_kit/lib/registry/manifests/components.json"
     ).resolve()
     data = json.loads(registry_path.read_text())
 

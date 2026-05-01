@@ -7,23 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/number_ticker` theme classes.",
       "fields": [
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "curve",
+          "name": "curve",
+          "label": "Curve",
+          "description": "Generated from Dart type `Curve?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -31,18 +26,13 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
-      "fields": [
+        },
         {
           "type": "duration",
           "name": "duration",
           "label": "Duration",
-          "description": "Duration in milliseconds.",
-          "defaultValue": 500,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -54,40 +44,13 @@
             "unit": "ms"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "curve",
-          "label": "Curve",
-          "description": "Curve in pixels (affected by theme.scaling).",
-          "defaultValue": "easeInOut",
+          "type": "textStyle",
+          "name": "style",
+          "label": "Style",
+          "description": "Generated from Dart type `TextStyle?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -95,7 +58,7 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         }

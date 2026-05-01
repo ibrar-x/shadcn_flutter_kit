@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -20,9 +21,10 @@ part '_impl/themes/base/scrollable_client_theme.dart';
 /// - [offset] (`Offset`): Current scroll offset.
 /// - [viewportSize] (`Size`): Size of the visible viewport.
 /// - [child] (`Widget?`): Optional child widget.
-typedef ScrollableBuilder = Widget Function(
-  BuildContext context,
-  Offset offset,
-  Size viewportSize,
-  Widget? child,
-);
+typedef ScrollableBuilder =
+    Widget Function(
+      BuildContext context,
+      Offset offset,
+      Size viewportSize,
+      Widget? child,
+    );

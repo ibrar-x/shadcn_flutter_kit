@@ -17,24 +17,24 @@ class _MenuPreviewState extends State<MenuPreview> {
 /// Creates a `MenuLabel` instance.
             const MenuLabel(child: Text('File')),
 /// Creates a `MenuButton` instance.
-            const MenuButton(
-              trailing: MenuShortcut(
+            MenuButton(
+              trailing: const MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyN,
                   control: true,
                 ),
               ),
-              child: Text('New Window'),
+              child: const Text('New Window'),
             ),
 /// Creates a `MenuButton` instance.
-            const MenuButton(
-              trailing: MenuShortcut(
+            MenuButton(
+              trailing: const MenuShortcut(
                 activator: SingleActivator(
                   LogicalKeyboardKey.keyO,
                   control: true,
                 ),
               ),
-              child: Text('Open File...'),
+              child: const Text('Open File...'),
             ),
 /// Creates a `MenuDivider` instance.
             const MenuDivider(),

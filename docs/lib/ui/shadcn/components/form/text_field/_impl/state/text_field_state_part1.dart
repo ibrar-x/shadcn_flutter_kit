@@ -38,7 +38,7 @@ class TextFieldState extends State<TextField>
   bool _showSelectionHandles = false;
 
   late _TextFieldSelectionGestureDetectorBuilder
-      _selectionGestureDetectorBuilder;
+  _selectionGestureDetectorBuilder;
 
   /// Performs `_setStateFeature` logic for this form component.
   void _setStateFeature(VoidCallback fn) {
@@ -122,9 +122,11 @@ class TextFieldState extends State<TextField>
     }
     _effectiveFocusNode.canRequestFocus = widget.enabled;
 
-    for (var i = 0;
-        i < max(oldWidget.features.length, widget.features.length);
-        i++) {
+    for (
+      var i = 0;
+      i < max(oldWidget.features.length, widget.features.length);
+      i++
+    ) {
       if (i >= oldWidget.features.length) {
         final newFeature = widget.features[i];
         final newState = newFeature.createState();
@@ -179,8 +181,9 @@ class TextFieldState extends State<TextField>
   void _handleControllerChanged() {
     _effectiveText.value = effectiveController.text;
     _effectiveSelection.value = effectiveController.selection;
-    formValue =
-        effectiveController.text.isEmpty ? null : effectiveController.text;
+    formValue = effectiveController.text.isEmpty
+        ? null
+        : effectiveController.text;
   }
 
   /// Performs `_createLocalController` logic for this form component.
@@ -423,21 +426,23 @@ class TextFieldState extends State<TextField>
         for (final attached in _attachedFeatures) {
           leadingChildren.addAll(
             attached.state._internalBuildLeading().map(
-                  (e) => Focus(
-                    skipTraversal: widget.skipInputFeatureFocusTraversal ||
-                        attached.feature.skipFocusTraversal,
-                    child: e,
-                  ),
-                ),
+              (e) => Focus(
+                skipTraversal:
+                    widget.skipInputFeatureFocusTraversal ||
+                    attached.feature.skipFocusTraversal,
+                child: e,
+              ),
+            ),
           );
           trailingChildren.addAll(
             attached.state._internalBuildTrailing().map(
-                  (e) => FocusScope(
-                    skipTraversal: widget.skipInputFeatureFocusTraversal ||
-                        attached.feature.skipFocusTraversal,
-                    child: e,
-                  ),
-                ),
+              (e) => FocusScope(
+                skipTraversal:
+                    widget.skipInputFeatureFocusTraversal ||
+                    attached.feature.skipFocusTraversal,
+                child: e,
+              ),
+            ),
           );
         }
 
@@ -454,7 +459,8 @@ class TextFieldState extends State<TextField>
         );
 
         final densityGap = theme.density.baseGap * theme.scaling;
-        final bool isMultiline = widget.expands ||
+        final bool isMultiline =
+            widget.expands ||
             (widget.maxLines == null) ||
             (widget.maxLines != null && widget.maxLines! > 1) ||
             (widget.minLines != null && widget.minLines! > 1);
@@ -747,15 +753,13 @@ class TextFieldState extends State<TextField>
 
     TextStyle defaultTextStyle;
     if (widget.style != null) {
-      defaultTextStyle = DefaultTextStyle.of(context)
-          .style
+      defaultTextStyle = DefaultTextStyle.of(context).style
           .merge(theme.typography.small)
           .merge(theme.typography.normal)
           .copyWith(color: theme.colorScheme.foreground)
           .merge(widget.style);
     } else {
-      defaultTextStyle = DefaultTextStyle.of(context)
-          .style
+      defaultTextStyle = DefaultTextStyle.of(context).style
           .merge(theme.typography.small)
           .merge(theme.typography.normal)
           .copyWith(color: theme.colorScheme.foreground);
@@ -763,7 +767,8 @@ class TextFieldState extends State<TextField>
 
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? theme.brightness;
-    final Color cursorColor = widget.cursorColor ??
+    final Color cursorColor =
+        widget.cursorColor ??
         DefaultSelectionStyle.of(context).cursorColor ??
         theme.colorScheme.primary;
 
@@ -776,9 +781,11 @@ class TextFieldState extends State<TextField>
       themeValue: compTheme?.border,
       widgetValue: widget.border,
     );
-    Decoration effectiveDecoration = widget.decoration ??
+    Decoration effectiveDecoration =
+        widget.decoration ??
         BoxDecoration(
-          borderRadius: optionallyResolveBorderRadius(
+          borderRadius:
+              optionallyResolveBorderRadius(
                 context,
                 widget.borderRadius ?? compTheme?.borderRadius,
               ) ??
@@ -795,7 +802,8 @@ class TextFieldState extends State<TextField>
     // }
     final styleOverride = Data.maybeOf<ButtonStyleOverrideData>(context);
     if (styleOverride != null) {
-      effectiveDecoration = styleOverride.decoration?.call(
+      effectiveDecoration =
+          styleOverride.decoration?.call(
             context,
             _statesController.value,
             effectiveDecoration,
@@ -805,14 +813,14 @@ class TextFieldState extends State<TextField>
 
     final Color selectionColor =
         DefaultSelectionStyle.of(context).selectionColor ??
-            theme.colorScheme.primary.withValues(alpha: 0.2);
+        theme.colorScheme.primary.withValues(alpha: 0.2);
 
     // Set configuration as disabled if not otherwise specified. If specified,
     // ensure that configuration uses Cupertino text style for misspelled words
     // unless a custom style is specified.
     final SpellCheckConfiguration spellCheckConfiguration =
         widget.spellCheckConfiguration ??
-            const SpellCheckConfiguration.disabled();
+        const SpellCheckConfiguration.disabled();
 
     final scaling = theme.scaling;
     final Widget editable = RepaintBoundary(
@@ -844,7 +852,8 @@ class TextFieldState extends State<TextField>
           maxLines: widget.maxLines,
           minLines: widget.minLines,
           expands: widget.expands,
-          magnifierConfiguration: widget.magnifierConfiguration ??
+          magnifierConfiguration:
+              widget.magnifierConfiguration ??
               const TextMagnifierConfiguration(),
           // Only show the selection highlight when the text field is focused.
           selectionColor: _effectiveFocusNode.hasFocus ? selectionColor : null,
@@ -900,9 +909,7 @@ class TextFieldState extends State<TextField>
             : null,
         child: IconTheme.merge(
           data: theme.iconTheme.small.copyWith(
-            color: theme.colorScheme.background.computeLuminance() < 0.5
-                ? const Color(0xFFFFFFFF)
-                : const Color(0xFF000000),
+            color: theme.colorScheme.mutedForeground,
           ),
           child: _wrapActions(
             child: MouseRegion(
@@ -959,41 +966,44 @@ class TextFieldState extends State<TextField>
                     child: Container(
                       clipBehavior: widget.clipBehavior,
                       decoration: effectiveDecoration,
-                      child:
-                          _selectionGestureDetectorBuilder.buildGestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Align(
-                          alignment: Alignment(-1.0, _textAlignVertical.y),
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Builder(
-                            builder: (context) {
-                              final densityGap =
-                                  theme.density.baseGap * scaling;
-                              final densityContentPadding =
-                                  theme.density.baseContentPadding * scaling;
-                              final padding = widget.padding ??
-                                  compTheme?.padding ??
-                                  EdgeInsets.symmetric(
-                                    horizontal: densityContentPadding * 0.75,
-                                    vertical: densityGap,
+                      child: _selectionGestureDetectorBuilder
+                          .buildGestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Align(
+                              alignment: Alignment(-1.0, _textAlignVertical.y),
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Builder(
+                                builder: (context) {
+                                  final densityGap =
+                                      theme.density.baseGap * scaling;
+                                  final densityContentPadding =
+                                      theme.density.baseContentPadding *
+                                      scaling;
+                                  final padding =
+                                      widget.padding ??
+                                      compTheme?.padding ??
+                                      EdgeInsets.symmetric(
+                                        horizontal:
+                                            densityContentPadding * 0.75,
+                                        vertical: densityGap,
+                                      );
+                                  final resolvedPadding = resolveEdgeInsets(
+                                    padding,
+                                    densityContentPadding,
                                   );
-                              final resolvedPadding = resolveEdgeInsets(
-                                padding,
-                                densityContentPadding,
-                              );
-                              return Padding(
-                                padding: resolvedPadding,
-                                child: _addTextDependentAttachments(
-                                  editable,
-                                  defaultTextStyle,
-                                  theme,
-                                ),
-                              );
-                            },
+                                  return Padding(
+                                    padding: resolvedPadding,
+                                    child: _addTextDependentAttachments(
+                                      editable,
+                                      defaultTextStyle,
+                                      theme,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -1013,7 +1023,8 @@ class TextFieldState extends State<TextField>
     final densityGap = theme.density.baseGap * scaling;
     final densityContentPadding = theme.density.baseContentPadding * scaling;
     final textDirection = widget.textDirection ?? Directionality.of(context);
-    final padding = widget.padding ??
+    final padding =
+        widget.padding ??
         compTheme?.padding ??
         EdgeInsets.symmetric(
           horizontal: densityContentPadding * 0.75,

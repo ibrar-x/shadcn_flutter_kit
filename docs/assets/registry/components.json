@@ -13548,6 +13548,10 @@
           "destination": "{installPath}/components/display/text_animate/_impl/core/typewriter_effect.dart"
         },
         {
+          "source": "registry/components/display/text_animate/_impl/extensions/markdown_streaming_extension.dart",
+          "destination": "{installPath}/components/display/text_animate/_impl/extensions/markdown_streaming_extension.dart"
+        },
+        {
           "source": "registry/components/display/text_animate/_impl/state/_text_animate_preview_state.dart",
           "destination": "{installPath}/components/display/text_animate/_impl/state/_text_animate_preview_state.dart"
         },
@@ -13897,33 +13901,201 @@
     {
       "id": "markdown",
       "name": "Markdown",
-      "description": "Advanced markdown renderer with streaming support.",
+      "description": "Advanced markdown renderer with asset/file sources and optional streaming support.",
       "category": "display",
       "tags": [
         "display",
-        "markdown"
+        "markdown",
+        "streaming",
+        "asset",
+        "file"
       ],
-      "version": "1.0.0",
       "files": [
         {
-          "source": "registry/components/display/markdown/GETTING_STARTED.md",
-          "destination": "{installPath}/components/display/markdown/GETTING_STARTED.md"
+          "source": "registry/components/display/markdown/_impl/core/markdown_api.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_api.dart"
         },
         {
-          "source": "registry/components/display/markdown/README.md",
-          "destination": "{installPath}/components/display/markdown/README.md"
+          "source": "registry/components/display/markdown/_impl/core/markdown_block.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_block.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_block_type.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_block_type.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_chunk.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_chunk.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_disclosure.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_disclosure.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_document.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_document.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_editing_bar.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_editing_bar.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_editing_controller.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_editing_controller.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/core/markdown_tap_reporter.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/core/markdown_tap_reporter.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/state/_markdown_preview_state.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/state/_markdown_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/state/markdown_state.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/state/markdown_state.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/themes/base/markdown_theme.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/themes/base/markdown_theme.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/themes/config/markdown_theme_config.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/themes/config/markdown_theme_config.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/themes/config/markdown_theme_defaults.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/themes/config/markdown_theme_defaults.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/themes/config/markdown_theme_tokens.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/themes/config/markdown_theme_tokens.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_editing_helpers.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_editing_helpers.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_file_loader.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_file_loader.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_file_loader_io.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_file_loader_io.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_file_loader_stub.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_file_loader_stub.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_html_sanitizer.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_html_sanitizer.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_inline_spans.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_inline_spans.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_link_opener.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_link_opener.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_link_opener_io.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_link_opener_io.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_link_opener_stub.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_link_opener_stub.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_link_opener_web.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_link_opener_web.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_parser_blocks.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_parser_blocks.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_parser_document.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_parser_document.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_blocks.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_parser_html_blocks.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_utils.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_parser_html_utils.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/utils/markdown_parser_streaming.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/utils/markdown_parser_streaming.dart"
         },
         {
           "source": "registry/components/display/markdown/markdown.dart",
-          "destination": "{installPath}/components/display/markdown/markdown.dart"
-        },
-        {
-          "source": "registry/components/display/markdown/meta.json",
-          "destination": "{installPath}/components/display/markdown/meta.json"
-        },
-        {
-          "source": "registry/components/display/markdown/preview.dart",
-          "destination": "{installPath}/components/display/markdown/preview.dart"
+          "destination": "{installPath}/components/display/markdown/markdown.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_api.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_block_type.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_block.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_chunk.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_disclosure.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_document.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_editing_bar.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_editing_controller.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/core/markdown_tap_reporter.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/state/markdown_live_preview.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/state/markdown_state.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/themes/base/markdown_theme.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_editing_helpers.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_html_sanitizer.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_inline_spans.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_blocks.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_document.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_blocks.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_utils.dart"
+            },
+            {
+              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_streaming.dart"
+            }
+          ]
         }
       ],
       "shared": [],
@@ -13932,7 +14104,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "version": "1.0.0"
     }
   ],
   "manifestVersion": 1

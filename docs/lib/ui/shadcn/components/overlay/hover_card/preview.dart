@@ -16,9 +16,9 @@ class HoverCardPreview extends StatelessWidget {
       body: Center(
         child: HoverCard(
           hoverBuilder: (context) {
-            return const SizedBox(
+            return SizedBox(
               width: 300,
-              child: SurfaceCard(
+              child: const SurfaceCard(
                 child: Basic(
                   leading: FlutterLogo(),
                   title: Text('@flutter'),

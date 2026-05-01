@@ -126,7 +126,7 @@ class _ColorInputState extends State<ColorInput>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Flexible(child: Text(colorToHex(value.toColor(), showAlpha))),
-              const DensityGap(gapSm),
+              DensityGap(gapSm),
               AspectRatio(
                 aspectRatio: 1,
                 child: Container(
@@ -187,7 +187,7 @@ class _ColorInputState extends State<ColorInput>
                 key: ValueKey(_showHistoryNotifier.value),
                 value:
                     handler.value ??
-                    ColorDerivative.fromColor(const Color(0x00000000)),
+                    ColorDerivative.fromColor(Color(0x00000000)),
                 initialShowHistory: _showHistoryNotifier.value,
                 enableEyeDropper:
                     promptMode == PromptMode.popover && enableEyeDropper,

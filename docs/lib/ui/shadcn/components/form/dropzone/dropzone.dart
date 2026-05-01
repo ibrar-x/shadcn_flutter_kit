@@ -1,9 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
 import '../../../shared/icons/radix_icons.dart';
 import '../../../shared/primitives/outlined_container.dart';
 import '../../../shared/theme/theme.dart';
+import '../../../shared/utils/color_extensions.dart';
 import '../../../shared/utils/constants.dart';
+import '../../../shared/utils/geometry_extensions.dart';
 import '../../control/button/button.dart';
 
 /// Visual states for a dropzone surface.
@@ -83,22 +86,24 @@ class FileDropzone extends StatelessWidget {
     final scaling = theme.scaling;
     final isEmphasized = hotDropping || state == DropzoneState.dragging;
     final borderColor = _resolveBorderColor(theme);
-    final effectivePadding = padding ??
+    final effectivePadding =
+        padding ??
         EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5);
-    final dropzoneIcon = icon ??
+    final dropzoneIcon =
+        icon ??
         Icon(
           RadixIcons.upload,
           size: 28 * scaling,
           color: enabled
               ? theme.colorScheme.mutedForeground
-              : theme.colorScheme.mutedForeground.withValues(alpha: 0.5),
+              : theme.colorScheme.mutedForeground.withOpacity(0.5),
         );
     final label = actionLabel ?? 'Browse files';
     final statusLabel = _resolveStatusLabel();
     final focusRing = isFocused
         ? [
             BoxShadow(
-              color: theme.colorScheme.ring.withValues(alpha: 0.45),
+              color: theme.colorScheme.ring.withOpacity(0.45),
               blurRadius: 0,
               spreadRadius: 2 * scaling,
             ),
@@ -107,8 +112,9 @@ class FileDropzone extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final height =
-            constraints.hasBoundedHeight ? constraints.maxHeight : null;
+        final height = constraints.hasBoundedHeight
+            ? constraints.maxHeight
+            : null;
         return SizedBox(
           width: double.infinity,
           height: height,
@@ -133,7 +139,7 @@ class FileDropzone extends StatelessWidget {
                           curve: Curves.easeOut,
                           child: dropzoneIcon,
                         ),
-                        const DensityGap(gapMd),
+                        DensityGap(gapMd),
                         AnimatedOpacity(
                           opacity: enabled ? 1 : 0.6,
                           duration: kDefaultDuration,
@@ -142,13 +148,13 @@ class FileDropzone extends StatelessWidget {
                               color: enabled
                                   ? theme.colorScheme.mutedForeground
                                   : theme.colorScheme.mutedForeground
-                                      .withValues(alpha: 0.6),
+                                        .withOpacity(0.6),
                             ),
                             textAlign: TextAlign.center,
                             child: Text(statusLabel),
                           ),
                         ),
-                        if (hint != null) const DensityGap(gapSm),
+                        if (hint != null) DensityGap(gapSm),
                         if (hint != null)
                           AnimatedOpacity(
                             opacity: enabled ? 1 : 0.6,
@@ -161,7 +167,7 @@ class FileDropzone extends StatelessWidget {
                               child: hint!,
                             ),
                           ),
-                        const DensityGap(gapLg),
+                        DensityGap(gapLg),
                         OutlineButton(
                           onPressed: enabled ? onPressed : null,
                           child: Text(label),
@@ -169,7 +175,7 @@ class FileDropzone extends StatelessWidget {
                       ],
                       if (!showDefaultContent && content != null) content!,
                       if (showDefaultContent && content != null) ...[
-                        const DensityGap(gapLg),
+                        DensityGap(gapLg),
                         content!,
                       ],
                     ],

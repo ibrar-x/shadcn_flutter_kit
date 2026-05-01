@@ -7,103 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/accordion` theme classes.",
       "fields": [
         {
-          "type": "number",
-          "name": "dividerHeight",
-          "label": "Divider Height",
-          "description": "Divider Height in pixels (affected by theme.scaling).",
-          "defaultValue": 1.0,
+          "type": "object",
+          "name": "arrowIcon",
+          "label": "Arrow Icon",
+          "description": "Generated from Dart type `IconData?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "iconGap",
-          "label": "Icon Gap",
-          "description": "Icon Gap in pixels (affected by theme.scaling).",
-          "defaultValue": 18.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "padding",
-          "label": "Padding",
-          "description": "Padding in pixels (affected by theme.scaling).",
-          "defaultValue": 16.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -111,44 +26,16 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Typography",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "arrowIcon",
-          "label": "Arrow Icon",
-          "description": "Arrow Icon in pixels (affected by theme.scaling).",
-          "defaultValue": "keyboard_arrow_up",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
         },
         {
           "type": "color",
           "name": "arrowIconColor",
           "label": "Arrow Icon Color",
-          "description": "Arrow Icon Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#737373",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -156,27 +43,33 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
+        },
+        {
+          "type": "curve",
+          "name": "curve",
+          "label": "Curve",
+          "description": "Generated from Dart type `Curve?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
         {
           "type": "color",
           "name": "dividerColor",
           "label": "Divider Color",
-          "description": "Divider Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#F5F5F5",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -184,18 +77,31 @@
             "control": "color"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
-      "fields": [
+        },
+        {
+          "type": "number",
+          "name": "dividerHeight",
+          "label": "Divider Height",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
         {
           "type": "duration",
           "name": "duration",
           "label": "Duration",
-          "description": "Duration in milliseconds.",
-          "defaultValue": 200,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -207,20 +113,15 @@
             "unit": "ms"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "number",
+          "name": "iconGap",
+          "label": "Icon Gap",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
@@ -228,36 +129,15 @@
           "ui": {
             "control": "input"
           },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "curve",
-          "label": "Curve",
-          "description": "Curve in pixels (affected by theme.scaling).",
-          "defaultValue": "easeIn",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
+          "precision": 2,
           "since": "1.0.0"
         },
         {
-          "type": "enum",
-          "name": "reverseCurve",
-          "label": "Reverse Curve",
-          "description": "Reverse Curve in pixels (affected by theme.scaling).",
-          "defaultValue": "easeOut",
+          "type": "number",
+          "name": "padding",
+          "label": "Padding",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -265,7 +145,25 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "curve",
+          "name": "reverseCurve",
+          "label": "Reverse Curve",
+          "description": "Generated from Dart type `Curve?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         }

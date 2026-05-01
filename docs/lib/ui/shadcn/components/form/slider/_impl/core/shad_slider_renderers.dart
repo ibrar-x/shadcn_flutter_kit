@@ -85,8 +85,7 @@ class ShadSegmentedCapsuleRenderer extends ShadTrackRenderer {
           return const ShadSegmentStyle(color: Colors.transparent);
         case ShadSegmentKind.disabled:
           return ShadSegmentStyle(
-            color: (compTheme?.fillInactiveColor ?? cs.muted)
-                .withValues(alpha: 0.5),
+            color: (compTheme?.fillInactiveColor ?? cs.muted).withOpacity(0.5),
             radius: s.radius,
           );
         case ShadSegmentKind.custom:
@@ -146,9 +145,9 @@ class ShadStepDotsRenderer extends ShadTrackRenderer {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
     final active =
-        compTheme?.dotsActiveColor ?? cs.foreground.withValues(alpha: 0.18);
+        compTheme?.dotsActiveColor ?? cs.foreground.withOpacity(0.18);
     final inactive =
-        compTheme?.dotsInactiveColor ?? cs.foreground.withValues(alpha: 0.08);
+        compTheme?.dotsInactiveColor ?? cs.foreground.withOpacity(0.08);
     final activeT = view.t ?? 0;
 
     return Stack(
@@ -201,10 +200,11 @@ class ShadWaveformRenderer extends ShadTrackRenderer {
     final barW = w / bars;
     final maxBarH = h * 0.75;
     final activeX = w * (view.t ?? 0);
-    final active = compTheme?.waveformTicksActiveColor ??
-        cs.background.withValues(alpha: 0.52);
-    final inactive = compTheme?.waveformTicksInactiveColor ??
-        cs.foreground.withValues(alpha: 0.40);
+    final active =
+        compTheme?.waveformTicksActiveColor ?? cs.background.withOpacity(0.52);
+    final inactive =
+        compTheme?.waveformTicksInactiveColor ??
+        cs.foreground.withOpacity(0.40);
 
     return Stack(
       clipBehavior: Clip.none,
@@ -238,8 +238,9 @@ class ShadWaveformRenderer extends ShadTrackRenderer {
                             height: bh,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
-                              color:
-                                  ((i * barW) <= activeX) ? active : inactive,
+                              color: ((i * barW) <= activeX)
+                                  ? active
+                                  : inactive,
                             ),
                           );
                         },

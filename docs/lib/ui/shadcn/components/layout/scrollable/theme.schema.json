@@ -7,64 +7,15 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
+      "title": "Theme",
+      "description": "Generated fields discovered from `layout/scrollable` theme classes.",
       "fields": [
         {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
+          "type": "object",
           "name": "clipBehavior",
           "label": "Clip Behavior",
-          "description": "Clip Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "hardEdge",
+          "description": "Generated from Dart type `Clip?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -72,16 +23,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "diagonalDragBehavior",
           "label": "Diagonal Drag Behavior",
-          "description": "Diagonal Drag Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "none",
+          "description": "Generated from Dart type `DiagonalDragBehavior?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -89,16 +40,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "dragStartBehavior",
           "label": "Drag Start Behavior",
-          "description": "Drag Start Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "start",
+          "description": "Generated from Dart type `DragStartBehavior?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -106,16 +57,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "hitTestBehavior",
           "label": "Hit Test Behavior",
-          "description": "Hit Test Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "opaque",
+          "description": "Generated from Dart type `HitTestBehavior?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -123,16 +74,16 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
         {
-          "type": "enum",
+          "type": "object",
           "name": "keyboardDismissBehavior",
           "label": "Keyboard Dismiss Behavior",
-          "description": "Keyboard Dismiss Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "manual",
+          "description": "Generated from Dart type `ScrollViewKeyboardDismissBehavior?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -140,7 +91,7 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -148,8 +99,8 @@
           "type": "boolean",
           "name": "overscroll",
           "label": "Overscroll",
-          "description": "Toggle Overscroll.",
-          "defaultValue": false,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],

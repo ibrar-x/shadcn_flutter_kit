@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../core/shad_slider_renderers.dart';
 import '../core/shad_slider_models.dart';
 import '../../slider.dart';
 

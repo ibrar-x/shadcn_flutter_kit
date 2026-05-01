@@ -14,9 +14,9 @@ class NavigationMenuPreview extends StatelessWidget {
         child: NavigationMenu(
           children: [
 /// Creates a `NavigationMenuItem` instance.
-            const NavigationMenuItem(
+            NavigationMenuItem(
               content: NavigationMenuContentList(
-                children: [
+                children: const [
 /// Creates a `NavigationMenuContent` instance.
                   NavigationMenuContent(
                     title: Text('Web Apps'),
@@ -29,12 +29,12 @@ class NavigationMenuPreview extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text('Products'),
+              child: const Text('Products'),
             ),
 /// Creates a `NavigationMenuItem` instance.
-            const NavigationMenuItem(
+            NavigationMenuItem(
               content: NavigationMenuContentList(
-                children: [
+                children: const [
 /// Creates a `NavigationMenuContent` instance.
                   NavigationMenuContent(
                     title: Text('About'),
@@ -47,7 +47,7 @@ class NavigationMenuPreview extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text('Company'),
+              child: const Text('Company'),
             ),
 /// Creates a `NavigationMenuItem` instance.
             NavigationMenuItem(onPressed: () {}, child: const Text('Contact')),

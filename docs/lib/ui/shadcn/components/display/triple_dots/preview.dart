@@ -8,11 +8,11 @@ class TripleDotsPreview extends StatelessWidget {
   /// Builds the widget tree for triple dots.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             MoreDots(count: 3, spacing: 4),
 
             SizedBox(height: 12),

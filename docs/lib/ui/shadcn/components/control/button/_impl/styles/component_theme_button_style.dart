@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../../../../shared/theme/theme.dart';
 import 'abstract_button_style.dart';
 import 'button_state_property.dart';
+import 'button_state_property_delegate.dart';
 import '../themes/variants/button_theme_base.dart';
 import '../themes/config/button_theme_config.dart';
 

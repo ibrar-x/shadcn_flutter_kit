@@ -10,38 +10,38 @@ class CollapsiblePreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 360,
           child: Collapsible(
             children: [
 /// Creates a `CollapsibleTrigger` instance.
-              CollapsibleTrigger(child: Text('Recent activity')),
+              const CollapsibleTrigger(child: Text('Recent activity')),
 /// Creates a `SizedBox` instance.
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
 /// Creates a `OutlinedContainer` instance.
               OutlinedContainer(
-                padding: EdgeInsets.all(12),
-                child: Text('@ibrar-x/shadcn_flutter_kit'),
+                padding: const EdgeInsets.all(12),
+                child: const Text('@ibrar-x/shadcn_flutter_kit'),
               ),
 /// Creates a `CollapsibleContent` instance.
               CollapsibleContent(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.only(top: 8),
                   child: OutlinedContainer(
-                    padding: EdgeInsets.all(12),
-                    child: Text('@flutter/flutter'),
+                    padding: const EdgeInsets.all(12),
+                    child: const Text('@flutter/flutter'),
                   ),
                 ),
               ),
 /// Creates a `CollapsibleContent` instance.
               CollapsibleContent(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.only(top: 8),
                   child: OutlinedContainer(
-                    padding: EdgeInsets.all(12),
-                    child: Text('@dart-lang/sdk'),
+                    padding: const EdgeInsets.all(12),
+                    child: const Text('@dart-lang/sdk'),
                   ),
                 ),
               ),

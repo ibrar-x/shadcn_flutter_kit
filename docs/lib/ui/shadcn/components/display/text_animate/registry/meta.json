@@ -26,6 +26,7 @@
     "_impl/core/streaming_cursor.dart",
     "_impl/core/streaming_text_effect_adapter.dart",
     "_impl/core/typewriter_effect.dart",
+    "_impl/extensions/markdown_streaming_extension.dart",
     "_impl/state/_text_animate_preview_state.dart",
     "_impl/state/streaming_text_state.dart",
     "_impl/styles/character_span_factory.dart",

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import '../../../shared/theme/generated_colors.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
+part '_impl/core/_scale_gradient.dart';
 part '_impl/core/fade_scroll_2.dart';
 
 /// Theme configuration for [FadeScroll].
@@ -42,8 +43,7 @@ class FadeScrollTheme extends ComponentThemeData {
   }
 
   @override
-
-  /// Executes `operator ==` behavior for this component/composite.
+/// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is FadeScrollTheme &&

@@ -7,199 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `form/phone_input` theme classes.",
       "fields": [
         {
-          "type": "number",
-          "name": "countryGap",
-          "label": "Country Gap",
-          "description": "Country Gap in pixels (affected by theme.scaling).",
-          "defaultValue": 16.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "flagGap",
-          "label": "Flag Gap",
-          "description": "Flag Gap in pixels (affected by theme.scaling).",
-          "defaultValue": 8.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 2.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "flagHeight",
-          "label": "Flag Height",
-          "description": "Flag Height in pixels (affected by theme.scaling).",
-          "defaultValue": 18.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "flagWidth",
-          "label": "Flag Width",
-          "description": "Flag Width in pixels (affected by theme.scaling).",
-          "defaultValue": 24.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "maxWidth",
-          "label": "Max Width",
-          "description": "Max Width in pixels (affected by theme.scaling).",
-          "defaultValue": 200.0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 200.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "number",
-          "name": "padding",
-          "label": "Padding",
-          "description": "Padding in pixels (affected by theme.scaling).",
-          "defaultValue": null,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "number",
+          "type": "object",
           "name": "borderRadius",
           "label": "Border Radius",
-          "description": "Border Radius in pixels (affected by theme.radius).",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 32.0,
-            "step": 1.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -207,20 +26,139 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "number",
+          "name": "countryGap",
+          "label": "Country Gap",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "flagGap",
+          "label": "Flag Gap",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "flagHeight",
+          "label": "Flag Height",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "flagShape",
+          "label": "Flag Shape",
+          "description": "Generated from Dart type `Shape?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "flagWidth",
+          "label": "Flag Width",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "maxWidth",
+          "label": "Max Width",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "padding",
+          "label": "Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "popupConstraints",
+          "label": "Popup Constraints",
+          "description": "Generated from Dart type `BoxConstraints?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"

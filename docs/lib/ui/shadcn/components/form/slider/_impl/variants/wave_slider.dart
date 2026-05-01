@@ -546,7 +546,7 @@ class _WaveSliderState extends State<WaveSlider> {
     final resolvedInactive = styleValue(
       widgetValue: widget.inactiveColor,
       themeValue: compTheme?.waveInactiveColor,
-      defaultValue: cs.muted.withValues(alpha: 0.75),
+      defaultValue: cs.muted.withOpacity(0.75),
     );
     final resolvedDisabledOpacity = styleValue(
       widgetValue: widget.disabledOpacity,
@@ -571,7 +571,7 @@ class _WaveSliderState extends State<WaveSlider> {
     final resolvedThumbBorderColor = styleValue(
       widgetValue: widget.thumbBorderColor,
       themeValue: compTheme?.waveThumbBorderColor,
-      defaultValue: cs.foreground.withValues(alpha: 0.18),
+      defaultValue: cs.foreground.withOpacity(0.18),
     );
     final resolvedThumbBorderWidth = styleValue(
       widgetValue: widget.thumbBorderWidth,
@@ -601,7 +601,8 @@ class _WaveSliderState extends State<WaveSlider> {
 
     final normalizedValue = _normalize(widget.value);
     final denormalizedValue = _denormalize(normalizedValue);
-    final semanticsText = widget.valueFormatter?.call(denormalizedValue) ??
+    final semanticsText =
+        widget.valueFormatter?.call(denormalizedValue) ??
         '${(normalizedValue * 100).round()}%';
 
     final defaultWavePopover = ShadSliderDefaults.valuePopover(
@@ -612,8 +613,8 @@ class _WaveSliderState extends State<WaveSlider> {
         resolvedPopoverBuilder ?? defaultWavePopover;
     final showPopover =
         resolvedPopoverVisibility != ShadPopoverVisibility.never &&
-            (resolvedPopoverVisibility == ShadPopoverVisibility.always ||
-                _dragging);
+        (resolvedPopoverVisibility == ShadPopoverVisibility.always ||
+            _dragging);
 
     Widget body = SizedBox(
       width: double.infinity,
@@ -665,7 +666,8 @@ class _WaveSliderState extends State<WaveSlider> {
             if (showPopover)
               Positioned(
                 left: thumbX + resolvedPopoverOffset.dx,
-                top: thumbY -
+                top:
+                    thumbY -
                     (resolvedShowThumb ? resolvedThumbRadius : 0) +
                     resolvedPopoverOffset.dy,
                 child: FractionalTranslation(

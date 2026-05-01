@@ -2,7 +2,7 @@
   "$schema": "./shared_manifest.schema.json",
   "manifestVersion": 1,
   "schemaVersion": 1,
-  "generatedAt": "2026-02-18T06:07:11.343206Z",
+  "generatedAt": "2026-03-07T23:08:05.386602Z",
   "root": "registry/shared",
   "files": [
     "README.md",
@@ -167,9 +167,13 @@
     "theme/_impl/themes/theme.dart",
     "theme/_impl/themes/theme_data.dart",
     "theme/_impl/themes/theme_data_tween.dart",
+    "theme/app_theme.dart",
+    "theme/app_theme_preset.dart",
     "theme/color_scheme.dart",
+    "theme/component_theme_global_registry.dart",
     "theme/generated_colors.dart",
     "theme/preset_themes.dart",
+    "theme/schema/component_schema.dart",
     "theme/theme.dart",
     "theme/typography.dart",
     "utils/README.md",
@@ -222,16 +226,6 @@
       "id": "README",
       "description": "Shared helpers from README.md.",
       "files": [
-        {
-          "path": "README.md",
-          "source": "registry/shared/README.md",
-          "destination": "{sharedPath}/README.md"
-        },
-        {
-          "path": "fonts/README.md",
-          "source": "registry/shared/fonts/README.md",
-          "destination": "{sharedPath}/fonts/README.md"
-        },
         {
           "path": "fonts/bootstrap.otf",
           "source": "registry/shared/fonts/bootstrap.otf",
@@ -408,11 +402,6 @@
           "destination": "{sharedPath}/fonts/geist/GeistMono-UltraLight.otf"
         },
         {
-          "path": "fonts/geist/README.md",
-          "source": "registry/shared/fonts/geist/README.md",
-          "destination": "{sharedPath}/fonts/geist/README.md"
-        },
-        {
           "path": "fonts/lucide.ttf",
           "source": "registry/shared/fonts/lucide.ttf",
           "destination": "{sharedPath}/fonts/lucide.ttf"
@@ -421,31 +410,6 @@
           "path": "fonts/radix.otf",
           "source": "registry/shared/fonts/radix.otf",
           "destination": "{sharedPath}/fonts/radix.otf"
-        },
-        {
-          "path": "icons/README.md",
-          "source": "registry/shared/icons/README.md",
-          "destination": "{sharedPath}/icons/README.md"
-        },
-        {
-          "path": "localizations/README.md",
-          "source": "registry/shared/localizations/README.md",
-          "destination": "{sharedPath}/localizations/README.md"
-        },
-        {
-          "path": "primitives/README.md",
-          "source": "registry/shared/primitives/README.md",
-          "destination": "{sharedPath}/primitives/README.md"
-        },
-        {
-          "path": "theme/README.md",
-          "source": "registry/shared/theme/README.md",
-          "destination": "{sharedPath}/theme/README.md"
-        },
-        {
-          "path": "utils/README.md",
-          "source": "registry/shared/utils/README.md",
-          "destination": "{sharedPath}/utils/README.md"
         }
       ]
     },
@@ -504,6 +468,28 @@
           "path": "utils/animation_queue.dart",
           "source": "registry/shared/utils/animation_queue.dart",
           "destination": "{sharedPath}/utils/animation_queue.dart"
+        }
+      ]
+    },
+    {
+      "id": "app_theme",
+      "description": "Shared helpers from theme/app_theme.dart.",
+      "files": [
+        {
+          "path": "theme/app_theme.dart",
+          "source": "registry/shared/theme/app_theme.dart",
+          "destination": "{sharedPath}/theme/app_theme.dart"
+        }
+      ]
+    },
+    {
+      "id": "app_theme_preset",
+      "description": "Shared helpers from theme/app_theme_preset.dart.",
+      "files": [
+        {
+          "path": "theme/app_theme_preset.dart",
+          "source": "registry/shared/theme/app_theme_preset.dart",
+          "destination": "{sharedPath}/theme/app_theme_preset.dart"
         }
       ]
     },
@@ -749,6 +735,28 @@
           "path": "theme/_impl/core/color_shades.dart",
           "source": "registry/shared/theme/_impl/core/color_shades.dart",
           "destination": "{sharedPath}/theme/_impl/core/color_shades.dart"
+        }
+      ]
+    },
+    {
+      "id": "component_schema",
+      "description": "Shared helpers from theme/schema/component_schema.dart.",
+      "files": [
+        {
+          "path": "theme/schema/component_schema.dart",
+          "source": "registry/shared/theme/schema/component_schema.dart",
+          "destination": "{sharedPath}/theme/schema/component_schema.dart"
+        }
+      ]
+    },
+    {
+      "id": "component_theme_global_registry",
+      "description": "Shared helpers from theme/component_theme_global_registry.dart.",
+      "files": [
+        {
+          "path": "theme/component_theme_global_registry.dart",
+          "source": "registry/shared/theme/component_theme_global_registry.dart",
+          "destination": "{sharedPath}/theme/component_theme_global_registry.dart"
         }
       ]
     },
@@ -1641,5 +1649,14 @@
     }
   ],
   "missingFiles": [],
-  "ungroupedFiles": []
+  "ungroupedFiles": [
+    "README.md",
+    "fonts/README.md",
+    "fonts/geist/README.md",
+    "icons/README.md",
+    "localizations/README.md",
+    "primitives/README.md",
+    "theme/README.md",
+    "utils/README.md"
+  ]
 }

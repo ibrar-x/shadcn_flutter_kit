@@ -118,14 +118,14 @@ class FormField<T> extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const DensityGap(gapSm),
+                  DensityGap(gapSm),
                   child!,
                   if (hint != null) ...[
-                    const DensityGap(gapSm),
+                    DensityGap(gapSm),
                     hint!.xSmall().muted(),
                   ],
                   if (error is InvalidResult) ...[
-                    const DensityGap(gapSm),
+                    DensityGap(gapSm),
                     DefaultTextStyle.merge(
                       style: TextStyle(color: theme.colorScheme.destructive),
                       child: Text(error.message).xSmall().medium(),

@@ -7,55 +7,18 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Dimensions",
+      "title": "Theme",
+      "description": "Generated fields discovered from `form/color_input` theme classes.",
       "fields": [
         {
-          "type": "number",
-          "name": "popoverPadding",
-          "label": "Popover Padding",
-          "description": "Popover Padding in pixels (affected by theme.scaling).",
+          "type": "boolean",
+          "name": "enableEyeDropper",
+          "label": "Enable Eye Dropper",
+          "description": "Generated from Dart type `bool?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
-          "tokenBinding": {
-            "path": "spacing.md",
-            "allowedFamilies": [
-              "spacing"
-            ]
-          },
-          "validation": {
-            "clamp": "reject",
-            "min": 0.0,
-            "max": 48.0,
-            "step": 4.0
-          },
-          "ui": {
-            "control": "slider",
-            "unit": "px"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
           "validation": {
             "clamp": "reject"
           },
@@ -63,18 +26,115 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Options",
-      "fields": [
+        },
+        {
+          "type": "object",
+          "name": "mode",
+          "label": "Mode",
+          "description": "Generated from Dart type `PromptMode?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "orientation",
+          "label": "Orientation",
+          "description": "Generated from Dart type `Axis?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "pickerMode",
+          "label": "Picker Mode",
+          "description": "Generated from Dart type `ColorPickerMode?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "popoverAlignment",
+          "label": "Popover Alignment",
+          "description": "Generated from Dart type `AlignmentGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "popoverAnchorAlignment",
+          "label": "Popover Anchor Alignment",
+          "description": "Generated from Dart type `AlignmentGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "popoverPadding",
+          "label": "Popover Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
         {
           "type": "boolean",
           "name": "showAlpha",
           "label": "Show Alpha",
-          "description": "Show or hide Show Alpha.",
-          "defaultValue": true,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -90,8 +150,8 @@
           "type": "boolean",
           "name": "showHistory",
           "label": "Show History",
-          "description": "Show or hide Show History.",
-          "defaultValue": true,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -107,8 +167,8 @@
           "type": "boolean",
           "name": "showLabel",
           "label": "Show Label",
-          "description": "Show or hide Show Label.",
-          "defaultValue": false,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -117,118 +177,6 @@
           },
           "ui": {
             "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "enableEyeDropper",
-          "label": "Enable Eye Dropper",
-          "description": "Enable or disable Enable Eye Dropper.",
-          "defaultValue": true,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "mode",
-          "label": "Mode",
-          "description": "Mode in pixels (affected by theme.scaling).",
-          "defaultValue": "popover",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "enum",
-          "name": "pickerMode",
-          "label": "Picker Mode",
-          "description": "Picker Mode in pixels (affected by theme.scaling).",
-          "defaultValue": "rgb",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "enum",
-          "name": "popoverAlignment",
-          "label": "Popover Alignment",
-          "description": "Popover Alignment in pixels (affected by theme.scaling).",
-          "defaultValue": "topCenter",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "enum",
-          "name": "popoverAnchorAlignment",
-          "label": "Popover Anchor Alignment",
-          "description": "Popover Anchor Alignment in pixels (affected by theme.scaling).",
-          "defaultValue": "bottomCenter",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "select"
           },
           "since": "1.0.0"
         }

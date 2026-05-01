@@ -9,12 +9,12 @@ class TrackerPreview extends StatelessWidget {
   /// Builds the widget tree for tracker.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 260,
           child: Tracker(
-            data: [
+            data: const [
               TrackerData(tooltip: Text('Healthy'), level: TrackerLevel.fine),
 
               TrackerData(

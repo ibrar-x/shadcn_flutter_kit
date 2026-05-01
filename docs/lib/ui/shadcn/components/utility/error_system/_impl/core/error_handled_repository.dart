@@ -1,6 +1,7 @@
 // ErrorHandledRepository: base class for repositories with automatic AppError mapping.
 // execute()/executeSync() wrap operations, map errors via ErrorMapper, and forward to ErrorReporter.
 
+import 'app_error.dart';
 import 'error_mapper.dart';
 import '../utils/error_reporter.dart';
 

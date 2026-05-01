@@ -9,13 +9,13 @@ class TextFieldPreview extends StatelessWidget {
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 360,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: const [
               TextField(placeholder: Text('Enter your name')),
               SizedBox(height: 16),
               TextField(

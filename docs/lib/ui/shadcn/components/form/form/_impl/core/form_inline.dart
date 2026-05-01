@@ -58,7 +58,7 @@ class FormInline<T> extends StatelessWidget {
                             : null,
                         child: label.textSmall(),
                       ),
-                      const DensityGap(gapSm),
+                      DensityGap(gapSm),
                       Expanded(child: child!),
                     ],
                   ),

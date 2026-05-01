@@ -2,6 +2,7 @@
 // Renders optional illustration + icon + title/message and maps ErrorAction list to buttons.
 
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../../shared/icons/radix_icons.dart';
 import '../../../../../shared/theme/theme.dart';
@@ -36,7 +37,6 @@ class ErrorState extends StatelessWidget {
   final double? maxWidth;
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -44,8 +44,8 @@ class ErrorState extends StatelessWidget {
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final resolvedIcon = icon ??
-
+    final resolvedIcon =
+        icon ??
         /// Creates a `Icon` instance.
         Icon(
           RadixIcons.exclamationTriangle,
@@ -55,13 +55,16 @@ class ErrorState extends StatelessWidget {
 
     /// Stores `resolvedIllustration` state/configuration for this implementation.
     final resolvedIllustration = illustration;
-    final titleStyle = compTheme?.titleStyle ??
+    final titleStyle =
+        compTheme?.titleStyle ??
         theme.typography.medium.merge(theme.typography.semiBold);
-    final messageStyle = compTheme?.messageStyle ??
+    final messageStyle =
+        compTheme?.messageStyle ??
         theme.typography.small.copyWith(
           color: theme.colorScheme.mutedForeground,
         );
-    final padding = compTheme?.cardPadding ??
+    final padding =
+        compTheme?.cardPadding ??
         EdgeInsets.all(theme.density.baseContainerPadding * scaling * 1.5);
 
     /// Stores `borderRadius` state/configuration for this implementation.
@@ -85,12 +88,12 @@ class ErrorState extends StatelessWidget {
                 resolvedIllustration,
 
                 /// Creates a `DensityGap` instance.
-                const DensityGap(gapLg),
+                DensityGap(gapLg),
               ],
               resolvedIcon,
 
               /// Creates a `DensityGap` instance.
-              const DensityGap(gapMd),
+              DensityGap(gapMd),
 
               /// Creates a `DefaultTextStyle.merge` instance.
               DefaultTextStyle.merge(
@@ -100,7 +103,7 @@ class ErrorState extends StatelessWidget {
               ),
 
               /// Creates a `DensityGap` instance.
-              const DensityGap(0.75),
+              DensityGap(0.75),
 
               /// Creates a `DefaultTextStyle.merge` instance.
               DefaultTextStyle.merge(
@@ -110,13 +113,13 @@ class ErrorState extends StatelessWidget {
               ),
               if (error.hasActions) ...[
                 /// Creates a `DensityGap` instance.
-                const DensityGap(gapLg),
+                DensityGap(gapLg),
 
                 /// Creates a `Divider` instance.
                 const Divider(),
 
                 /// Creates a `DensityGap` instance.
-                const DensityGap(gapLg),
+                DensityGap(gapLg),
 
                 /// Creates a `Wrap` instance.
                 Wrap(
@@ -125,7 +128,6 @@ class ErrorState extends StatelessWidget {
                   alignment: WrapAlignment.center,
                   children: [
                     for (final action in error.actions)
-
                       /// Creates a `_buildAction` instance.
                       _buildAction(context, action),
                   ],
@@ -151,7 +153,7 @@ class ErrorState extends StatelessWidget {
               Icon(icon, size: 16 * Theme.of(context).scaling),
 
               /// Creates a `DensityGap` instance.
-              const DensityGap(gapSm),
+              DensityGap(gapSm),
 
               /// Creates a `Text` instance.
               Text(action.label),

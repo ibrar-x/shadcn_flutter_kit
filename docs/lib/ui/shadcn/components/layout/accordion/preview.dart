@@ -8,14 +8,14 @@ class AccordionPreview extends StatelessWidget {
   @override
 /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: SizedBox(
               width: 600,
-              child: Accordion(
+              child: const Accordion(
                 items: [
 /// Creates a `AccordionItem` instance.
                   AccordionItem(

@@ -1,0 +1,28 @@
+.DS_Store
+AGENTS.md
+**/AGENTS.md
+.codex/
+**/.codex/
+graphify-out/
+**/graphify-out/
+
+# Build and tool caches
+.dart_tool/
+.pub/
+.pub-cache/
+build/
+coverage/
+
+# IDE and local metadata
+.idea/
+*.iml
+.vscode/
+
+# App-template platform shells are not part of the registry package payload.
+android/
+ios/
+linux/
+macos/
+web/
+windows/
+flutter_cli_verification_example/

@@ -140,7 +140,7 @@ class Timeline extends StatelessWidget {
                         .secondaryForeground()
                         .base()
                         .withPadding(left: 4 * scaling),
-                    if (data.content != null) const DensityGap(gapSm),
+                    if (data.content != null) DensityGap(gapSm),
                     if (data.content != null)
 /// Creates a `Expanded` instance.
                       Expanded(child: data.content!.muted().small()),

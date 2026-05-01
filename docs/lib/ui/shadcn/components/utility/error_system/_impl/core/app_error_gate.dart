@@ -42,10 +42,10 @@ class AppErrorGate extends StatelessWidget {
   }) {
     return AppErrorGate(
       key: key,
+      child: child,
       notifier: scope.notifier,
       overlayBuilder: overlayBuilder,
       blockInteraction: blockInteraction,
-      child: child,
     );
   }
 

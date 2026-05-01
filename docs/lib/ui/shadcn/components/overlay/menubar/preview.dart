@@ -9,7 +9,7 @@ class MenubarPreview extends m.StatelessWidget {
 
   @override
   m.Widget build(m.BuildContext context) {
-    return const m.Scaffold(
+    return m.Scaffold(
       body: m.Center(
         child: shadcn.Menubar(
           border: true,
@@ -18,27 +18,27 @@ class MenubarPreview extends m.StatelessWidget {
             shadcn_menu.MenuButton(
               subMenu: [
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('New')),
+                shadcn_menu.MenuButton(child: const m.Text('New')),
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('Open')),
+                shadcn_menu.MenuButton(child: const m.Text('Open')),
 /// Creates a `shadcn_menu.MenuDivider` instance.
-                shadcn_menu.MenuDivider(),
+                const shadcn_menu.MenuDivider(),
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('Exit')),
+                shadcn_menu.MenuButton(child: const m.Text('Exit')),
               ],
-              child: m.Text('File'),
+              child: const m.Text('File'),
             ),
 /// Creates a `shadcn_menu.MenuButton` instance.
             shadcn_menu.MenuButton(
               subMenu: [
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('Cut')),
+                shadcn_menu.MenuButton(child: const m.Text('Cut')),
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('Copy')),
+                shadcn_menu.MenuButton(child: const m.Text('Copy')),
 /// Creates a `shadcn_menu.MenuButton` instance.
-                shadcn_menu.MenuButton(child: m.Text('Paste')),
+                shadcn_menu.MenuButton(child: const m.Text('Paste')),
               ],
-              child: m.Text('Edit'),
+              child: const m.Text('Edit'),
             ),
           ],
         ),

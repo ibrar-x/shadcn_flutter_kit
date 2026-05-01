@@ -1,17 +1,10 @@
-# flutter_cli_verification_example
+# Flutter CLI Verification Example
 
-A new Flutter project.
+This Flutter app is a smoke-test target for `flutter_shadcn_cli` install flows.
+Its `.shadcn/config.json` points at the hosted GitHub registry under
+`flutter_shadcn_kit/lib` and declares the manifest paths the CLI needs to
+resolve components, schemas, the component index, theme index, and folder
+structure.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Do not commit generated component installs from this example unless the smoke
+test fixture intentionally changes.

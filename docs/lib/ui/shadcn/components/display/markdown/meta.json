@@ -1,0 +1,19 @@
+{
+  "id": "markdown",
+  "name": "Markdown",
+  "description": "Advanced markdown renderer with asset/file sources and optional streaming support.",
+  "category": "display",
+  "version": "1.0.0",
+  "tags": [
+    "display",
+    "markdown",
+    "streaming",
+    "asset",
+    "file"
+  ],
+  "dependencies": {
+    "pubspec": {},
+    "shared": [],
+    "components": []
+  }
+}

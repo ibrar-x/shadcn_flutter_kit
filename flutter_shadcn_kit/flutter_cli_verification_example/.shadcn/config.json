@@ -11,6 +11,13 @@
             "registryMode": "remote",
             "registryUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
             "baseUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+            "componentsPath": "registry/manifests/components.json",
+            "componentsSchemaPath": "registry/manifests/components.schema.json",
+            "indexPath": "registry/manifests/index.json",
+            "indexSchemaPath": "registry/manifests/index.schema.json",
+            "themesPath": "registry/manifests/theme.index.json",
+            "themesSchemaPath": "registry/manifests/themes.index.schema.json",
+            "folderStructurePath": "registry/manifests/folder_structure.json",
             "installPath": "lib/ui/shadcn",
             "sharedPath": "lib/ui/shadcn/shared"
         }

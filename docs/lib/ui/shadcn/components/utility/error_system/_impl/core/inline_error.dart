@@ -2,6 +2,7 @@
 // Shows an icon + message using shadcn theme typography and destructive/accent colors.
 
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../../shared/icons/radix_icons.dart';
 import '../../../../../shared/theme/theme.dart';
@@ -18,7 +19,6 @@ class InlineError extends StatelessWidget {
   final Widget? icon;
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -26,15 +26,16 @@ class InlineError extends StatelessWidget {
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
-    final resolvedIcon = icon ??
-
+    final resolvedIcon =
+        icon ??
         /// Creates a `Icon` instance.
         Icon(
           RadixIcons.infoCircled,
           size: compTheme?.iconSize ?? 16 * scaling,
           color: compTheme?.iconColor ?? theme.colorScheme.destructive,
         );
-    final messageStyle = compTheme?.messageStyle ??
+    final messageStyle =
+        compTheme?.messageStyle ??
         theme.typography.xSmall.copyWith(color: theme.colorScheme.destructive);
 
     return Row(
@@ -43,7 +44,7 @@ class InlineError extends StatelessWidget {
         resolvedIcon,
 
         /// Creates a `DensityGap` instance.
-        const DensityGap(gapSm),
+        DensityGap(gapSm),
 
         /// Creates a `Expanded` instance.
         Expanded(

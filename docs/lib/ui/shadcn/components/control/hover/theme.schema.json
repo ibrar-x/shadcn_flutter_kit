@@ -7,42 +7,15 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
+      "title": "Theme",
+      "description": "Generated fields discovered from `control/hover` theme classes.",
       "fields": [
         {
           "type": "duration",
           "name": "debounceDuration",
           "label": "Debounce Duration",
-          "description": "Debounce Duration in milliseconds.",
-          "defaultValue": 100,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -56,28 +29,10 @@
           "since": "1.0.0"
         },
         {
-          "type": "duration",
-          "name": "minDuration",
-          "label": "Min Duration",
-          "description": "Min Duration in milliseconds.",
-          "defaultValue": 0,
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input",
-            "unit": "ms"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "boolean",
-          "name": "showDuration",
-          "label": "Show Duration",
-          "description": "Show or hide Show Duration.",
+          "type": "object",
+          "name": "hitTestBehavior",
+          "label": "Hit Test Behavior",
+          "description": "Generated from Dart type `HitTestBehavior?`.",
           "defaultValue": null,
           "required": false,
           "isAdvanced": false,
@@ -92,10 +47,10 @@
         },
         {
           "type": "duration",
-          "name": "waitDuration",
-          "label": "Wait Duration",
-          "description": "Wait Duration in milliseconds.",
-          "defaultValue": 500,
+          "name": "minDuration",
+          "label": "Min Duration",
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -107,40 +62,13 @@
             "unit": "ms"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "General",
-      "fields": [
-        {
-          "type": "enum",
-          "name": "hitTestBehavior",
-          "label": "Hit Test Behavior",
-          "description": "Hit Test Behavior in pixels (affected by theme.scaling).",
-          "defaultValue": "deferToChild",
+          "type": "duration",
+          "name": "showDuration",
+          "label": "Show Duration",
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -148,7 +76,26 @@
             "clamp": "reject"
           },
           "ui": {
-            "control": "select"
+            "control": "input",
+            "unit": "ms"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "duration",
+          "name": "waitDuration",
+          "label": "Wait Duration",
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input",
+            "unit": "ms"
           },
           "since": "1.0.0"
         }

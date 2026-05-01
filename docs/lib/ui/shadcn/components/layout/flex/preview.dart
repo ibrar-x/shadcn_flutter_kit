@@ -15,9 +15,9 @@ class FlexPreview extends m.StatelessWidget {
         child: m.Center(
           child: m.ConstrainedBox(
             constraints: const m.BoxConstraints(maxWidth: 700),
-            child: const m.Column(
+            child: m.Column(
               crossAxisAlignment: m.CrossAxisAlignment.start,
-              children: [
+              children: const [
 /// Creates a `m.Text` instance.
                 m.Text(
                   'Paint Order Example 1',

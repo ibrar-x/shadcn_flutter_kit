@@ -57,7 +57,7 @@ class StepTitle extends StatelessWidget {
             title,
             if (subtitle != null) ...[
 /// Creates a `DensityGap` instance.
-              const DensityGap(0.25),
+              DensityGap(0.25),
               subtitle!.muted().xSmall(),
             ],
           ],

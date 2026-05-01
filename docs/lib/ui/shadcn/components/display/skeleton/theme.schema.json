@@ -7,93 +7,15 @@
   "migrations": {},
   "groups": [
     {
-      "title": "Appearance",
-      "fields": [
-        {
-          "type": "boolean",
-          "name": "ignoreGlobalRadius",
-          "label": "Ignore Global Radius",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
-          "required": false,
-          "isAdvanced": true,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "radius.md",
-            "allowedFamilies": [
-              "radius"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "input"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Colors",
-      "fields": [
-        {
-          "type": "color",
-          "name": "fromColor",
-          "label": "From Color",
-          "description": "From Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#0D171717",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        },
-        {
-          "type": "color",
-          "name": "toColor",
-          "label": "To Color",
-          "description": "To Color in hex format (#RRGGBB or #AARRGGBB).",
-          "defaultValue": "#1A171717",
-          "required": false,
-          "isAdvanced": false,
-          "visibleIf": [],
-          "tokenBinding": {
-            "path": "palette.primary",
-            "allowedFamilies": [
-              "palette"
-            ]
-          },
-          "validation": {
-            "clamp": "reject"
-          },
-          "ui": {
-            "control": "color"
-          },
-          "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Animation",
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/skeleton` theme classes.",
       "fields": [
         {
           "type": "duration",
           "name": "duration",
           "label": "Duration",
-          "description": "Duration in milliseconds.",
-          "defaultValue": 1000,
+          "description": "Generated from Dart type `Duration?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -110,8 +32,8 @@
           "type": "boolean",
           "name": "enableSwitchAnimation",
           "label": "Enable Switch Animation",
-          "description": "Enable or disable Enable Switch Animation.",
-          "defaultValue": true,
+          "description": "Generated from Dart type `bool?`.",
+          "defaultValue": null,
           "required": false,
           "isAdvanced": false,
           "visibleIf": [],
@@ -122,26 +44,38 @@
             "control": "input"
           },
           "since": "1.0.0"
-        }
-      ]
-    },
-    {
-      "title": "Advanced",
-      "fields": [
+        },
         {
-          "type": "boolean",
-          "name": "ignoreGlobalScaling",
-          "label": "Ignore Global Scaling",
-          "description": "Override global theme setting.",
-          "defaultValue": false,
+          "type": "color",
+          "name": "fromColor",
+          "label": "From Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
           "required": false,
-          "isAdvanced": true,
+          "isAdvanced": false,
           "visibleIf": [],
           "validation": {
             "clamp": "reject"
           },
           "ui": {
-            "control": "input"
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "toColor",
+          "label": "To Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
           },
           "since": "1.0.0"
         }

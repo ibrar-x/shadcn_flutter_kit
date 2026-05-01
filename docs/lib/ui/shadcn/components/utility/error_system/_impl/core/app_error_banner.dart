@@ -2,6 +2,7 @@
 // Intended for "global" problems (session expired / network down) that should remain visible across navigation until dismissed.
 
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../../shared/icons/radix_icons.dart';
 import '../../../../../shared/primitives/outlined_container.dart';
@@ -30,7 +31,6 @@ class AppErrorBanner extends StatelessWidget {
   final List<String> watchScopes;
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -75,21 +75,24 @@ class AppErrorBanner extends StatelessWidget {
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<ErrorSystemTheme>(context);
 
-    final borderColor = compTheme?.bannerBorderColor?.call(theme, error) ??
+    final borderColor =
+        compTheme?.bannerBorderColor?.call(theme, error) ??
         _borderForCode(theme, error.code);
 
     final backgroundColor =
         compTheme?.bannerBackgroundColor ?? theme.colorScheme.card;
 
-    final titleStyle = compTheme?.bannerTitleStyle ??
+    final titleStyle =
+        compTheme?.bannerTitleStyle ??
         theme.typography.small.merge(theme.typography.semiBold);
-    final messageStyle = compTheme?.bannerMessageStyle ??
+    final messageStyle =
+        compTheme?.bannerMessageStyle ??
         theme.typography.xSmall.copyWith(
           color: theme.colorScheme.mutedForeground,
         );
 
-    final padding = compTheme?.bannerPadding ??
-
+    final padding =
+        compTheme?.bannerPadding ??
         /// Creates a `EdgeInsets.symmetric` instance.
         EdgeInsets.symmetric(
           horizontal: theme.density.baseContentPadding * scaling,
@@ -101,18 +104,18 @@ class AppErrorBanner extends StatelessWidget {
     final Widget? actionButton = action == null
         ? null
         : (action.primary
-            ? PrimaryButton(
-                onPressed: action.onPressed,
-                size: ButtonSize.small,
-                density: ButtonDensity.dense,
-                child: Text(action.label),
-              )
-            : SecondaryButton(
-                onPressed: action.onPressed,
-                size: ButtonSize.small,
-                density: ButtonDensity.dense,
-                child: Text(action.label),
-              ));
+              ? PrimaryButton(
+                  onPressed: action.onPressed,
+                  size: ButtonSize.small,
+                  density: ButtonDensity.dense,
+                  child: Text(action.label),
+                )
+              : SecondaryButton(
+                  onPressed: action.onPressed,
+                  size: ButtonSize.small,
+                  density: ButtonDensity.dense,
+                  child: Text(action.label),
+                ));
 
     return OutlinedContainer(
       width: double.infinity,
@@ -130,7 +133,7 @@ class AppErrorBanner extends StatelessWidget {
           ),
 
           /// Creates a `DensityGap` instance.
-          const DensityGap(gapMd),
+          DensityGap(gapMd),
 
           /// Creates a `Expanded` instance.
           Expanded(
@@ -145,7 +148,7 @@ class AppErrorBanner extends StatelessWidget {
                 ),
 
                 /// Creates a `DensityGap` instance.
-                const DensityGap(gapXs),
+                DensityGap(gapXs),
 
                 /// Creates a `DefaultTextStyle.merge` instance.
                 DefaultTextStyle.merge(
@@ -155,10 +158,10 @@ class AppErrorBanner extends StatelessWidget {
               ],
             ),
           ),
-          if (actionButton != null) ...[const DensityGap(gapMd), actionButton],
+          if (actionButton != null) ...[DensityGap(gapMd), actionButton],
 
           /// Creates a `DensityGap` instance.
-          const DensityGap(gapSm),
+          DensityGap(gapSm),
 
           /// Creates a `GhostButton` instance.
           GhostButton(
