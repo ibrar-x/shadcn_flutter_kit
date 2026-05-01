@@ -27,7 +27,7 @@ class CliReferencePage extends StatelessWidget {
     final onThisPage = <String, OnThisPage>{
       'Overview': overviewKey,
       if (doc.syntax.isNotEmpty) 'Syntax': syntaxKey,
-      if (doc.options.isNotEmpty) 'Arguments': optionsKey,
+      if (doc.options.isNotEmpty) 'Options': optionsKey,
       if (doc.examples.isNotEmpty) 'Examples': examplesKey,
       if (doc.behavior.isNotEmpty) 'Behavior': behaviorKey,
       if (doc.related.isNotEmpty) 'Related': relatedKey,
@@ -35,6 +35,7 @@ class CliReferencePage extends StatelessWidget {
 
     return DocsPage(
       name: doc.id,
+      sidebarMode: DocsSidebarMode.cli,
       onThisPage: onThisPage,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +62,7 @@ class CliReferencePage extends StatelessWidget {
           ],
           if (doc.options.isNotEmpty) ...[
             const SizedBox(height: 20),
-            DocsSectionTitle(title: 'Arguments', anchor: optionsKey),
+            DocsSectionTitle(title: 'Options', anchor: optionsKey),
             const SizedBox(height: 12),
             DocsOptionsTable(rows: doc.options),
           ],

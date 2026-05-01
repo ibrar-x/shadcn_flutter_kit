@@ -15,6 +15,7 @@ class TextFieldState extends State<TextField>
   final GlobalKey _clearGlobalKey = GlobalKey();
 
   final List<_AttachedInputFeature> _attachedFeatures = [];
+  Timer? _revalidateDebounceTimer;
 
   late WidgetStatesController _statesController;
 
@@ -206,6 +207,7 @@ class TextFieldState extends State<TextField>
   /// Releases resources owned by this state object.
   @override
   void dispose() {
+    _revalidateDebounceTimer?.cancel();
     for (final attached in _attachedFeatures) {
       attached.state.dispose();
     }
@@ -237,6 +239,7 @@ class TextFieldState extends State<TextField>
 
   /// Performs `_formatSubmit` logic for this form component.
   void _formatSubmit() {
+    _flushFormRevalidate();
     if (widget.submitFormatters != null) {
       TextEditingValue value = effectiveController.value;
       for (var formatter in widget.submitFormatters!) {
@@ -247,6 +250,24 @@ class TextFieldState extends State<TextField>
         widget.onChanged?.call(value.text);
       }
     }
+  }
+
+  /// Performs `_scheduleFormRevalidate` logic for this form component.
+  void _scheduleFormRevalidate() {
+    _revalidateDebounceTimer?.cancel();
+    _revalidateDebounceTimer = Timer(const Duration(milliseconds: 140), () {
+      if (!mounted) {
+        return;
+      }
+      Data.maybeFind<FormFieldHandle>(context)?.revalidate();
+    });
+  }
+
+  /// Performs `_flushFormRevalidate` logic for this form component.
+  void _flushFormRevalidate() {
+    _revalidateDebounceTimer?.cancel();
+    _revalidateDebounceTimer = null;
+    Data.maybeFind<FormFieldHandle>(context)?.revalidate();
   }
 
   /// Performs `_shouldShowSelectionHandles` logic for this form component.
@@ -515,6 +536,7 @@ class TextFieldState extends State<TextField>
       widget.onChanged!(value);
     }
     formValue = value.isEmpty ? null : value;
+    _scheduleFormRevalidate();
     _effectiveText.value = value;
 
     for (final attached in _attachedFeatures) {

@@ -55,7 +55,7 @@ class ShadSliderDefaults {
             .clamp(1.0, 3.0)
             .toDouble();
         final guideColor =
-            compTheme?.guideColor ?? cs.foreground.withOpacity(0.06);
+            compTheme?.guideColor ?? cs.foreground.withValues(alpha: 0.06);
         return Positioned.fromRect(
           rect: s.trackRect,
           child: SizedBox(
@@ -79,9 +79,9 @@ class ShadSliderDefaults {
         final cs = theme.colorScheme;
         final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
         final fillColor = (compTheme?.fillActiveColor ?? cs.primary)
-            .withOpacity(s.enabled ? 0.92 : 0.35);
-        final remColor = (compTheme?.fillInactiveColor ?? cs.muted).withOpacity(
-          0.78,
+            .withValues(alpha: s.enabled ? 0.92 : 0.35);
+        final remColor = (compTheme?.fillInactiveColor ?? cs.muted).withValues(
+          alpha: 0.78,
         );
         final ordered = [...s.segments]
           ..sort((a, b) => a.paintOrder.compareTo(b.paintOrder));
@@ -99,7 +99,8 @@ class ShadSliderDefaults {
                           ShadSegmentKind.fill => fillColor,
                           ShadSegmentKind.remaining => remColor,
                           ShadSegmentKind.gap => Colors.transparent,
-                          ShadSegmentKind.disabled => remColor.withOpacity(0.5),
+                          ShadSegmentKind.disabled =>
+                            remColor.withValues(alpha: 0.5),
                           ShadSegmentKind.custom => remColor,
                         },
                         borderRadius: segment.radius ??
@@ -147,7 +148,7 @@ class ShadSliderDefaults {
       final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
       final thumbFill = compTheme?.thumbFillColor ?? cs.background;
       final thumbBorder =
-          compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.10);
+          compTheme?.thumbBorderColor ?? cs.foreground.withValues(alpha: 0.10);
 
       Widget body = IgnorePointer(
         ignoring: true,
@@ -159,7 +160,7 @@ class ShadSliderDefaults {
               width: w,
               height: barH,
               decoration: BoxDecoration(
-                color: thumbFill.withOpacity(t.enabled ? 1 : 0.7),
+                color: thumbFill.withValues(alpha: t.enabled ? 1 : 0.7),
                 borderRadius: BorderRadius.circular(barRadius),
                 border: Border.all(color: thumbBorder, width: 1),
               ),
@@ -290,8 +291,8 @@ class ShadSliderDefaults {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
     final border =
-        compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.18);
-    final ring = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
+        compTheme?.thumbBorderColor ?? cs.foreground.withValues(alpha: 0.18);
+    final ring = cs.primary.withValues(alpha: t.enabled ? 0.95 : 0.45);
     final d = t.size.width;
 
     return IgnorePointer(
@@ -332,7 +333,7 @@ class ShadSliderDefaults {
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
     final cs = theme.colorScheme;
     final border =
-        compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.12);
+        compTheme?.thumbBorderColor ?? cs.foreground.withValues(alpha: 0.12);
     final fill = compTheme?.thumbFillColor ?? cs.background;
     final w = t.size.width;
     final h = t.size.height * 0.85;
@@ -364,9 +365,9 @@ class ShadSliderDefaults {
     final cs = Theme.of(context).colorScheme;
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
     final border =
-        compTheme?.thumbBorderColor ?? cs.foreground.withOpacity(0.12);
+        compTheme?.thumbBorderColor ?? cs.foreground.withValues(alpha: 0.12);
     final fill = compTheme?.thumbFillColor ?? cs.background;
-    final dot = cs.primary.withOpacity(t.enabled ? 0.95 : 0.45);
+    final dot = cs.primary.withValues(alpha: t.enabled ? 0.95 : 0.45);
 
     return IgnorePointer(
       ignoring: true,
@@ -416,9 +417,9 @@ class ShadSliderDefaults {
     final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
     final activeT = s.t ?? 0;
     final active =
-        compTheme?.dotsActiveColor ?? cs.foreground.withOpacity(0.18);
+        compTheme?.dotsActiveColor ?? cs.foreground.withValues(alpha: 0.18);
     final inactive =
-        compTheme?.dotsInactiveColor ?? cs.foreground.withOpacity(0.08);
+        compTheme?.dotsInactiveColor ?? cs.foreground.withValues(alpha: 0.08);
 
     return IgnorePointer(
       child: Stack(
@@ -457,10 +458,10 @@ class ShadSliderDefaults {
     final activeX = w * activeT;
 
     // Inner bars: light on active segment, darker on inactive segment.
-    final active =
-        compTheme?.waveformTicksActiveColor ?? cs.background.withOpacity(0.52);
+    final active = compTheme?.waveformTicksActiveColor ??
+        cs.background.withValues(alpha: 0.52);
     final inactive = compTheme?.waveformTicksInactiveColor ??
-        cs.foreground.withOpacity(0.40);
+        cs.foreground.withValues(alpha: 0.40);
 
     return Positioned.fromRect(
       rect: s.trackRect,

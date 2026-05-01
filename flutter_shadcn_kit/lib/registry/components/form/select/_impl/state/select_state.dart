@@ -286,12 +286,20 @@ class SelectState<T> extends State<Select<T>>
                     ),
                   ),
                   SizedBox(width: theme.density.baseGap * scaling),
-                  IconTheme.merge(
-                    data: IconThemeData(
-                      color: theme.colorScheme.foreground,
-                      opacity: 0.5,
-                    ),
-                    child: const Icon(LucideIcons.chevronsUpDown).iconSmall(),
+                  Builder(
+                    builder: (context) {
+                      final triggerTextColor =
+                          DefaultTextStyle.of(context).style.color ??
+                          theme.colorScheme.secondaryForeground;
+                      return IconTheme.merge(
+                        data: IconThemeData(
+                          color: triggerTextColor.withValues(alpha: 0.72),
+                        ),
+                        child: const Icon(
+                          LucideIcons.chevronsUpDown,
+                        ).iconSmall(),
+                      );
+                    },
                   ),
                 ],
               ),

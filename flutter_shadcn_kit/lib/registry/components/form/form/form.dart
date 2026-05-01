@@ -407,6 +407,9 @@ extension FormExtension on BuildContext {
         return _chainedSubmitForm(values, errors, iterator);
       });
     }
+    if (value != null) {
+      errors[entry.key] = value;
+    }
     return _chainedSubmitForm(values, errors, iterator);
   }
 }

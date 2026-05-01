@@ -10,6 +10,7 @@ class PhoneInputExample1 extends StatefulWidget {
 
 class _PhoneInputExample1State extends State<PhoneInputExample1> {
   PhoneNumber? _phoneNumber;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,8 +18,7 @@ class _PhoneInputExample1State extends State<PhoneInputExample1> {
       children: join(
         [
           PhoneInput(
-            // Preselect a country; phone parsing/formatting adapt accordingly.
-            initialCountry: Country.unitedStates,
+            initialCountry: Country.indonesia,
             onChanged: (value) {
               setState(() {
                 _phoneNumber = value;

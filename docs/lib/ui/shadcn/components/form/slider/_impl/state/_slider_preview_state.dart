@@ -163,7 +163,8 @@ class _SliderPreviewState extends State<SliderPreview> {
       children: [
         Text(
           'Trip price, includes all fees',
-          style: TextStyle(color: Colors.black.withOpacity(0.68), fontSize: 13),
+          style: TextStyle(
+              color: Colors.black.withValues(alpha: 0.68), fontSize: 13),
         ),
         const SizedBox(height: 14),
         RangeSoftSlider(
@@ -183,7 +184,7 @@ class _SliderPreviewState extends State<SliderPreview> {
               child: Container(
                 height: state.trackRect.height,
                 decoration: BoxDecoration(
-                  color: accent.withOpacity(0.26),
+                  color: accent.withValues(alpha: 0.26),
                   borderRadius: BorderRadius.circular(999),
                 ),
               ),
@@ -234,7 +235,8 @@ class _SliderPreviewState extends State<SliderPreview> {
       children: [
         Text(
           label,
-          style: TextStyle(color: Colors.black.withOpacity(0.58), fontSize: 12),
+          style: TextStyle(
+              color: Colors.black.withValues(alpha: 0.58), fontSize: 12),
         ),
         const SizedBox(height: 6),
         Container(
@@ -312,7 +314,7 @@ Widget _waveformTicks(
   final activeColor = Theme.of(context).colorScheme.primary;
   final inactiveColor = Theme.of(
     context,
-  ).colorScheme.mutedForeground.withOpacity(0.16);
+  ).colorScheme.mutedForeground.withValues(alpha: 0.16);
 
   return Positioned.fromRect(
     rect: state.trackRect,
@@ -403,7 +405,7 @@ Widget _priceHistogramTicks(
                 color: (() {
                   final t = i / (count - 1);
                   final selected = t >= tStart && t <= tEnd;
-                  return selected ? accent : accent.withOpacity(0.32);
+                  return selected ? accent : accent.withValues(alpha: 0.32);
                 })(),
                 borderRadius: BorderRadius.circular(4),
               ),

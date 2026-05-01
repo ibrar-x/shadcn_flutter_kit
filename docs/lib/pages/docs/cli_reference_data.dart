@@ -34,6 +34,16 @@ class CliReferenceDoc {
   });
 }
 
+class CliReferenceSection {
+  final String title;
+  final List<String> pageIds;
+
+  const CliReferenceSection({
+    required this.title,
+    required this.pageIds,
+  });
+}
+
 final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
   'cli-overview': const CliReferenceDoc(
     id: 'cli-overview',
@@ -44,6 +54,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'flutter_shadcn <command> [options]',
       'flutter_shadcn <command> @namespace [args]',
       'flutter_shadcn --registry-name namespace <command> [args]',
+      'flutter_shadcn --advanced <command> [args]',
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
@@ -53,34 +64,16 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
             'Select the active registry namespace for the command without using an inline @namespace token.',
       ),
       DocsOptionRow(
-        name: '--registry',
-        value: 'auto|local|remote',
+        name: '--advanced',
+        value: 'flag',
         description:
-            'Force registry resolution mode. auto prefers local when available and falls back to remote.',
-      ),
-      DocsOptionRow(
-        name: '--registry-path',
-        value: 'path',
-        description:
-            'Point the command at a local registry root for development and testing.',
-      ),
-      DocsOptionRow(
-        name: '--registry-url',
-        value: 'url',
-        description:
-            'Override the remote registry base URL for the current invocation.',
+            'Show and enable developer and experimental features, including local registry overrides and generated docs tooling.',
       ),
       DocsOptionRow(
         name: '--offline',
         value: 'flag',
         description:
             'Disable network fetches and use cached registry/theme data only.',
-      ),
-      DocsOptionRow(
-        name: '--experimental',
-        value: 'flag',
-        description:
-            'Enable experimental command paths such as theme payload application from file or URL.',
       ),
       DocsOptionRow(
         name: '--verbose',
@@ -107,6 +100,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'Global theme presets are discovered from a registry theme index. Theme payload installation is delegated to the registry converter.',
       'Widget theming is intentionally converter-owned. The CLI fetches and caches payload JSON, then invokes the registry converter with project-local paths.',
       'Most read-only commands can emit JSON for automation or CI usage.',
+      'Developer registry overrides and experimental file/URL theme imports require --advanced.',
     ],
     related: <String>[
       'cli-init',
@@ -114,6 +108,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'cli-theme',
       'cli-doctor',
       'cli-troubleshooting',
+      'cli-development',
     ],
   ),
   'cli-init': const CliReferenceDoc(
@@ -123,7 +118,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         'Initializes flutter_shadcn for the current project and runs inline bootstrap actions for the selected namespace.',
     syntax: <String>[
       'flutter_shadcn init',
-      'flutter_shadcn init @namespace',
+      'flutter_shadcn init shadcn',
       'flutter_shadcn init --yes',
     ],
     options: <DocsOptionRow>[
@@ -142,7 +137,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       ),
       CliExampleDoc(
         title: 'Bootstrap a specific namespace',
-        command: 'flutter_shadcn init @shadcn',
+        command: 'flutter_shadcn init shadcn --yes',
         description:
             'Runs the init flow using the selected namespace instead of the current default registry.',
       ),
@@ -251,7 +246,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     syntax: <String>[
       'flutter_shadcn theme --list',
       'flutter_shadcn theme --apply modern-minimal',
-      'flutter_shadcn --experimental theme --apply-url https://example.com/theme.json',
+      'flutter_shadcn --advanced theme --apply-url https://example.com/theme.json',
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
@@ -275,13 +270,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         name: '--apply-file',
         value: 'path',
         description:
-            'Read a theme payload from a local JSON file. Requires --experimental.',
+            'Read a theme payload from a local JSON file. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--apply-url',
         value: 'url',
         description:
-            'Fetch a theme payload over HTTP, cache it in the project, and hand it to the registry converter. Requires --experimental.',
+            'Fetch a theme payload over HTTP, cache it in the project, and hand it to the registry converter. Requires --advanced.',
       ),
     ],
     examples: <CliExampleDoc>[
@@ -294,14 +289,14 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       CliExampleDoc(
         title: 'Apply a preset payload from a URL',
         command:
-            'flutter_shadcn --experimental theme @shadcn --apply-url https://registry.dev/themes/modern-minimal.json',
+            'flutter_shadcn --advanced theme @shadcn --apply-url https://registry.dev/themes/modern-minimal.json',
         description:
             'Downloads the payload, stores it under .shadcn/cache/themes/<namespace>/, and invokes the converter with the cached file path.',
       ),
     ],
     behavior: <String>[
       'Theme-by-ID still depends on the registry theme index so the CLI can resolve the preset metadata before calling the converter.',
-      'Theme-by-file and theme-by-URL do not parse theme structure in the CLI. The CLI only caches payload JSON and forwards it to the converter.',
+      'Theme-by-file and theme-by-URL require --advanced and do not parse theme structure in the CLI. The CLI only caches payload JSON and forwards it to the converter.',
       'A registry can support global themes without supporting widget themes, or vice versa.',
     ],
     related: <String>['cli-theme-widget', 'cli-sync', 'cli-troubleshooting'],
@@ -314,7 +309,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     syntax: <String>[
       'flutter_shadcn theme widget --list',
       'flutter_shadcn theme widget button --list-targets',
-      'flutter_shadcn theme widget button --apply-url https://example.com/widget-theme.json',
+      'flutter_shadcn --advanced theme widget button --apply-url https://example.com/widget-theme.json',
       'flutter_shadcn theme widget button --reset',
     ],
     options: <DocsOptionRow>[
@@ -334,13 +329,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         name: '--apply-file',
         value: 'path',
         description:
-            'Read a widget-theme payload from a local JSON file, cache it under .shadcn/cache/widget_themes/, then invoke the converter.',
+            'Read a widget-theme payload from a local JSON file, cache it under .shadcn/cache/widget_themes/, then invoke the converter. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--apply-url',
         value: 'url',
         description:
-            'Fetch a widget-theme payload from a URL, cache it in the current project, then invoke the converter.',
+            'Fetch a widget-theme payload from a URL, cache it in the current project, then invoke the converter. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--reset',
@@ -359,7 +354,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       CliExampleDoc(
         title: 'Apply a button theme payload',
         command:
-            'flutter_shadcn theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button-primary.json',
+            'flutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button-primary.json',
         description:
             'Caches the payload locally and lets the converter patch the installed button theme override files.',
       ),
@@ -367,6 +362,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     behavior: <String>[
       'Widget theme structure is not hardcoded in the CLI. Unsupported registries should fail through the converter response, not through CLI assumptions.',
       'The converter decides whether a widget is installed, whether it supports theming, which targets exist, and which files must be written or patched.',
+      'Widget theme file and URL payload imports require --advanced. Listing, target discovery, and reset stay public.',
       'Reset also goes through the converter so registries can restore their own default theme shape safely.',
     ],
     related: <String>['cli-theme', 'cli-troubleshooting', 'cli-development'],
@@ -375,7 +371,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-assets',
     title: 'assets',
     summary:
-        'Installs registry-managed icon and typography assets, either through inline registry actions or the standard component installer path.',
+        'Installs registry-managed icon and typography assets through inline registry actions.',
     syntax: <String>[
       'flutter_shadcn assets --icons',
       'flutter_shadcn assets --typography',
@@ -417,8 +413,8 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       ),
     ],
     behavior: <String>[
-      'If the registry exposes inline asset actions, assets are handled without component installation.',
-      'When no inline asset action exists, the CLI falls back to installing the synthetic icon_fonts or typography_fonts components.',
+      'Assets are handled by the current inline registry action engine.',
+      'The CLI does not use component-ID fallback for asset installation.',
     ],
     related: <String>['cli-init', 'cli-remove'],
   ),
@@ -628,7 +624,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       CliExampleDoc(
         title: 'Validate a local registry clone',
         command:
-            'flutter_shadcn --registry local --registry-path /absolute/path/to/registry validate',
+            'flutter_shadcn --advanced --registry-path /absolute/path/to/registry validate',
         description:
             'Runs schema and dependency validation against a local registry root.',
       ),
@@ -793,22 +789,143 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-docs',
     title: 'docs',
     summary:
-        'Regenerates the markdown command docs under the CLI doc/site workspace.',
+        'Regenerates generated command reference markdown under docs/reference/commands. This is an advanced maintainer command.',
     syntax: <String>[
-      'flutter_shadcn docs',
-      'flutter_shadcn docs --generate',
+      'flutter_shadcn --advanced docs',
+      'flutter_shadcn docs --advanced --generate',
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
           name: '--generate, -g',
           value: 'flag',
           description:
-              'Regenerate the docs site content. This is the default action.'),
+              'Regenerate docs/reference/commands from Dart command metadata. This is the default action.'),
     ],
     behavior: <String>[
-      'docs is primarily a maintainer command. It writes missing command markdown stubs into the CLI documentation workspace.',
+      'docs requires --advanced and writes the committed generated command reference.',
+      'The generated markdown is protected by a stale-docs test so command metadata and reference pages stay synchronized.',
     ],
     related: <String>['cli-development'],
+  ),
+  'cli-feedback': const CliReferenceDoc(
+    id: 'cli-feedback',
+    title: 'feedback',
+    summary:
+        'Submits feedback, bug reports, feature requests, documentation issues, questions, or performance reports.',
+    syntax: <String>[
+      'flutter_shadcn feedback',
+      'flutter_shadcn feedback --type bug --title "Button issue" --body "Describe the issue"',
+      'flutter_shadcn feedback @shadcn',
+    ],
+    options: <DocsOptionRow>[
+      DocsOptionRow(
+          name: '--type, -t',
+          value: 'type',
+          description:
+              'Feedback type: bug, feature, docs, question, performance, or other.'),
+      DocsOptionRow(
+          name: '--title',
+          value: 'text',
+          description: 'Issue title for non-interactive feedback.'),
+      DocsOptionRow(
+          name: '--body',
+          value: 'text',
+          description: 'Issue body for non-interactive feedback.'),
+      DocsOptionRow(
+          name: '@namespace',
+          value: 'token',
+          description:
+              'Optional registry context to include with the feedback report.'),
+    ],
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'Open the interactive feedback flow',
+        command: 'flutter_shadcn feedback',
+        description: 'Prompts for feedback type, title, and details.',
+      ),
+      CliExampleDoc(
+        title: 'Submit a bug report with registry context',
+        command:
+            'flutter_shadcn feedback @shadcn --type bug --title "Button issue" --body "Describe the issue"',
+        description:
+            'Includes shadcn registry context with the submitted feedback.',
+      ),
+    ],
+    behavior: <String>[
+      'feedback is public and does not require --advanced.',
+      'When GitHub CLI is available and authenticated, the command can create an issue directly; otherwise it falls back to browser-based submission.',
+    ],
+    related: <String>['cli-doctor', 'cli-version'],
+  ),
+  'cli-install-skill': const CliReferenceDoc(
+    id: 'cli-install-skill',
+    title: 'install-skill',
+    summary:
+        'Installs AI skill files for local model workflows. This is an advanced command.',
+    syntax: <String>[
+      'flutter_shadcn --advanced install-skill --available',
+      'flutter_shadcn --advanced install-skill --list',
+      'flutter_shadcn --advanced install-skill --skill flutter-shadcn-ui --model claude',
+    ],
+    options: <DocsOptionRow>[
+      DocsOptionRow(
+          name: '--available, -a',
+          value: 'flag',
+          description: 'List skills available from the skill registry.'),
+      DocsOptionRow(
+          name: '--list',
+          value: 'flag',
+          description: 'List locally installed skills.'),
+      DocsOptionRow(
+          name: '--skill, -s',
+          value: 'id',
+          description: 'Select a skill to install.'),
+      DocsOptionRow(
+          name: '--model, -m',
+          value: 'name',
+          description: 'Select the target model folder.'),
+      DocsOptionRow(
+          name: '--skills-url',
+          value: 'url-or-path',
+          description: 'Override the skill registry source.'),
+      DocsOptionRow(
+          name: '--symlink',
+          value: 'flag',
+          description: 'Symlink a shared skill into a target model folder.'),
+      DocsOptionRow(
+          name: '--uninstall',
+          value: 'id',
+          description:
+              'Uninstall a skill. Use --model for single-model removal.'),
+      DocsOptionRow(
+          name: '--uninstall-interactive',
+          value: 'flag',
+          description: 'Choose skills and models interactively for removal.'),
+      DocsOptionRow(
+          name: '--interactive, -i',
+          value: 'flag',
+          description: 'Run interactive multi-skill installation.'),
+    ],
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'List available skills',
+        command: 'flutter_shadcn --advanced install-skill --available',
+        description:
+            'Shows skills that can be installed for local model tools.',
+      ),
+      CliExampleDoc(
+        title: 'Install one skill for one model',
+        command:
+            'flutter_shadcn --advanced install-skill --skill flutter-shadcn-ui --model claude',
+        description:
+            'Copies the selected skill into the requested model folder.',
+      ),
+    ],
+    behavior: <String>[
+      'install-skill requires --advanced so the default CLI remains focused on component workflows.',
+      'The command is intended for local model tooling and maintainer workflows.',
+    ],
+    related: <String>['cli-docs', 'cli-development'],
   ),
   'cli-version': const CliReferenceDoc(
     id: 'cli-version',
@@ -860,7 +977,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       CliExampleDoc(
         title: 'Validate a local registry before blaming the installer',
         command:
-            'flutter_shadcn --registry local --registry-path /absolute/path/to/registry validate',
+            'flutter_shadcn --advanced --registry-path /absolute/path/to/registry validate',
         description:
             'Make sure the registry itself is valid before debugging install behavior.',
       ),
@@ -869,7 +986,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'If flutter_shadcn is not found, confirm that your pub cache bin directory is on PATH.',
       'If a namespace is missing, run flutter_shadcn registries and check the configured default with flutter_shadcn default.',
       'If widget theming fails, verify that the selected registry exposes a theme converter and that the installed component actually provides widget theme files.',
-      'If global theme apply-file or apply-url fails, make sure you passed --experimental and that the payload is valid JSON.',
+      'If global theme apply-file or apply-url fails, make sure you passed --advanced and that the payload is valid JSON.',
       'If offline mode fails, rerun once online to warm the registry/theme caches first.',
       'If a patch anchor is missing, the converter or installed files have drifted. Re-run sync, then audit, then inspect the registry converter output.',
     ],
@@ -889,22 +1006,22 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       CliExampleDoc(
         title: 'Test against a local registry clone',
         command:
-            'flutter_shadcn --registry local --registry-path /absolute/path/to/registry validate\nflutter_shadcn --registry local --registry-path /absolute/path/to/registry list',
+            'flutter_shadcn --advanced --registry-path /absolute/path/to/registry validate\nflutter_shadcn --advanced --registry-path /absolute/path/to/registry list',
         description:
             'Validate and browse a local registry before using it for installs.',
       ),
       CliExampleDoc(
         title: 'Exercise converter-driven theme flows',
         command:
-            'flutter_shadcn theme @shadcn --list\nflutter_shadcn --experimental theme @shadcn --apply-file ./theme.json\nflutter_shadcn theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button.json',
+            'flutter_shadcn theme @shadcn --list\nflutter_shadcn --advanced theme @shadcn --apply-file ./theme.json\nflutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button.json',
         description:
             'Use the same CLI surface your users will run while keeping all theme semantics inside the registry converter.',
       ),
       CliExampleDoc(
         title: 'Regenerate command docs for the CLI workspace',
-        command: 'flutter_shadcn docs --generate',
+        command: 'flutter_shadcn --advanced docs --generate',
         description:
-            'Refreshes the markdown command stubs under the CLI doc/site workspace.',
+            'Refreshes generated markdown under docs/reference/commands.',
       ),
     ],
     behavior: <String>[
@@ -912,12 +1029,14 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'Namespace-aware testing matters: a command that succeeds in the default namespace can still fail in a secondary registry because install roots and converter behavior differ.',
       'Global theme presets should stay index-driven, while widget theming should remain converter-owned and payload-driven.',
       'When developing theme converters, keep network fetches in the CLI and hand the converter cached local payload files plus project context.',
+      'Developer registry overrides, generated docs, install-skill, and file/URL theme imports all require --advanced.',
     ],
     related: <String>[
       'cli-theme',
       'cli-theme-widget',
       'cli-validate',
-      'cli-docs'
+      'cli-docs',
+      'cli-install-skill'
     ],
   ),
 };
@@ -942,9 +1061,80 @@ const List<String> cliReferenceOrder = <String>[
   'cli-validate',
   'cli-audit',
   'cli-deps',
+  'cli-feedback',
   'cli-docs',
+  'cli-install-skill',
   'cli-version',
   'cli-upgrade',
   'cli-troubleshooting',
   'cli-development',
+];
+
+const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
+  CliReferenceSection(
+    title: 'Getting Started',
+    pageIds: <String>[
+      'cli-overview',
+      'cli-init',
+      'cli-add',
+      'cli-remove',
+      'cli-sync',
+      'cli-dry-run',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Discovery',
+    pageIds: <String>[
+      'cli-list',
+      'cli-search',
+      'cli-info',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Themes & Assets',
+    pageIds: <String>[
+      'cli-theme',
+      'cli-theme-widget',
+      'cli-assets',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Registry & Config',
+    pageIds: <String>[
+      'cli-registries',
+      'cli-default',
+      'cli-platform',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Diagnostics',
+    pageIds: <String>[
+      'cli-doctor',
+      'cli-validate',
+      'cli-audit',
+      'cli-deps',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Tooling',
+    pageIds: <String>[
+      'cli-feedback',
+      'cli-version',
+      'cli-upgrade',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Advanced',
+    pageIds: <String>[
+      'cli-docs',
+      'cli-install-skill',
+    ],
+  ),
+  CliReferenceSection(
+    title: 'Guides',
+    pageIds: <String>[
+      'cli-troubleshooting',
+      'cli-development',
+    ],
+  ),
 ];

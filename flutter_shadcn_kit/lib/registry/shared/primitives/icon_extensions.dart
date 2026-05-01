@@ -9,7 +9,11 @@ extension IconExtensions on Widget {
     return Builder(
       builder: (context) {
         final theme = Theme.of(context);
-        return IconTheme(data: theme.iconTheme.small, child: this);
+        final inherited = IconTheme.of(context);
+        return IconTheme(
+          data: theme.iconTheme.small.merge(inherited),
+          child: this,
+        );
       },
     );
   }
@@ -19,7 +23,11 @@ extension IconExtensions on Widget {
     return Builder(
       builder: (context) {
         final theme = Theme.of(context);
-        return IconTheme(data: theme.iconTheme.xSmall, child: this);
+        final inherited = IconTheme.of(context);
+        return IconTheme(
+          data: theme.iconTheme.xSmall.merge(inherited),
+          child: this,
+        );
       },
     );
   }
@@ -29,7 +37,11 @@ extension IconExtensions on Widget {
     return Builder(
       builder: (context) {
         final theme = Theme.of(context);
-        return IconTheme(data: theme.iconTheme.x3Small, child: this);
+        final inherited = IconTheme.of(context);
+        return IconTheme(
+          data: theme.iconTheme.x3Small.merge(inherited),
+          child: this,
+        );
       },
     );
   }
@@ -39,8 +51,11 @@ extension IconExtensions on Widget {
     return Builder(
       builder: (context) {
         final theme = Theme.of(context);
+        final inherited = IconTheme.of(context);
         return IconTheme(
-          data: IconThemeData(color: theme.colorScheme.mutedForeground),
+          data: IconThemeData(
+            color: theme.colorScheme.mutedForeground,
+          ).merge(inherited),
           child: this,
         );
       },

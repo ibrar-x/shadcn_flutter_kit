@@ -33,7 +33,7 @@ const double breakpointWidth = 768;
 const double breakpointWidth2 = 1024;
 
 class OnThisPage extends LabeledGlobalKey {
-  final ValueNotifier<bool> isVisible = ValueNotifier(false);
+  final ValueNotifier<double> visibleFraction = ValueNotifier(0);
 
   OnThisPage([super.debugLabel]);
 }
@@ -54,7 +54,7 @@ class PageItemWidget extends StatelessWidget {
       key: onThisPage,
       child: child,
       onVisibilityChanged: (info) {
-        onThisPage.isVisible.value = info.visibleFraction >= 1;
+        onThisPage.visibleFraction.value = info.visibleFraction;
       },
     );
   }
@@ -67,6 +67,7 @@ class DocsPage extends StatefulWidget {
   final Map<String, OnThisPage> onThisPage;
   final List<Widget> navigationItems;
   final bool scrollable;
+  final DocsSidebarMode sidebarMode;
 
   const DocsPage({
     super.key,
@@ -76,17 +77,24 @@ class DocsPage extends StatefulWidget {
     this.onThisPage = const {},
     this.navigationItems = const [],
     this.scrollable = true,
+    this.sidebarMode = DocsSidebarMode.main,
   });
 
   @override
   State<DocsPage> createState() => DocsPageState();
 }
 
+enum DocsSidebarMode {
+  main,
+  cli,
+}
+
 enum DocsTag {
   experimental,
   workInProgress,
   updated,
-  newFeature;
+  newFeature,
+  ;
 
   Widget badge(BuildContext context) {
     final badge = switch (this) {
@@ -116,8 +124,8 @@ class DocsPageRef {
     String? routeName,
     Map<String, String>? pathParameters,
     this.tag,
-  }) : routeName = routeName ?? name,
-       pathParameters = pathParameters ?? const {};
+  })  : routeName = routeName ?? name,
+        pathParameters = pathParameters ?? const {};
 }
 
 class DocsSection {
@@ -129,38 +137,55 @@ class DocsSection {
 }
 
 class DocsPageState extends State<DocsPage> {
-  static final List<DocsSection> baseSections = [
-    DocsSection('Getting Started', [
-      DocsPageRef('Introduction', 'introduction'),
-      DocsPageRef('Installation', 'installation'),
-      DocsPageRef('App Setup', 'app-setup'),
-      DocsPageRef('Registry Guide', 'registry-guide'),
-      DocsPageRef('Theme', 'theme'),
-      DocsPageRef('Typography', 'typography'),
-      DocsPageRef('Layout', 'layout'),
-      DocsPageRef('Web Preloader', 'web_preloader'),
-      DocsPageRef('Components', 'components'),
-      DocsPageRef('Icons', 'icons'),
-      DocsPageRef('Colors', 'colors'),
-      DocsPageRef('Material/Cupertino', 'material'),
-      DocsPageRef('State Management', 'state'),
-    ]),
-    DocsSection('CLI', [
-      for (final pageId in cliReferenceOrder)
+  static final List<DocsSection> mainBaseSections = [
+    DocsSection(
+      'Getting Started',
+      [
+        DocsPageRef('Introduction', 'introduction'),
+        DocsPageRef('Installation', 'installation'),
+        DocsPageRef('App Setup', 'app-setup'),
+        DocsPageRef('Registry Guide', 'registry-guide'),
+        DocsPageRef('Theme', 'theme'),
+        DocsPageRef('Typography', 'typography'),
+        DocsPageRef('Layout', 'layout'),
+        DocsPageRef('Web Preloader', 'web_preloader'),
+        DocsPageRef('Components', 'components'),
+        DocsPageRef('Icons', 'icons'),
+        DocsPageRef('Colors', 'colors'),
+        DocsPageRef('Material/Cupertino', 'material'),
+        DocsPageRef('State Management', 'state'),
         DocsPageRef(
-          cliReferenceDocs[pageId]!.title,
-          pageId,
+          'CLI',
+          'cli-overview',
           routeName: 'cli_reference',
-          pathParameters: {'id': pageId},
+          pathParameters: {'id': 'cli-overview'},
         ),
-    ], icon: Icons.terminal),
+      ],
+    ),
+  ];
+
+  static final List<DocsSection> cliBaseSections = [
+    for (final section in cliReferenceSections)
+      DocsSection(
+        section.title,
+        [
+          for (final pageId in section.pageIds)
+            DocsPageRef(
+              cliReferenceDocs[pageId]!.title,
+              pageId,
+              routeName: 'cli_reference',
+              pathParameters: {'id': pageId},
+            ),
+        ],
+        icon: Icons.terminal,
+      ),
   ];
 
   final ScrollController scrollController = ScrollController();
   final ScrollController _sidebarScrollController = ScrollController();
   final ScrollController _drawerSidebarScrollController = ScrollController();
   final ScrollController _onThisPageScrollController = ScrollController();
-  final List<OnThisPage> currentlyVisible = [];
+  OnThisPage? _activeOnThisPage;
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
   static const Map<String, String> _categoryOverrides = {
@@ -173,14 +198,17 @@ class DocsPageState extends State<DocsPage> {
   @override
   void initState() {
     super.initState();
-    _sections = List.of(baseSections);
+    _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
     for (final child in widget.onThisPage.values) {
-      child.isVisible.addListener(_onVisibilityChanged);
+      child.visibleFraction.addListener(_onVisibilityChanged);
     }
-    _loadComponentSections();
+    scrollController.addListener(_onScrollChanged);
+    if (widget.sidebarMode == DocsSidebarMode.main) {
+      _loadComponentSections();
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      setState(() {});
+      _updateActiveOnThisPage(force: true);
     });
   }
 
@@ -188,21 +216,36 @@ class DocsPageState extends State<DocsPage> {
   void didUpdateWidget(covariant DocsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!mapEquals(oldWidget.onThisPage, widget.onThisPage)) {
+      for (final child in oldWidget.onThisPage.values) {
+        child.visibleFraction.removeListener(_onVisibilityChanged);
+      }
       for (final child in widget.onThisPage.values) {
-        child.isVisible.addListener(_onVisibilityChanged);
+        child.visibleFraction.addListener(_onVisibilityChanged);
       }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
-        setState(() {});
+        _updateActiveOnThisPage(force: true);
       });
+    }
+    if (oldWidget.sidebarMode != widget.sidebarMode) {
+      _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
+      if (widget.sidebarMode == DocsSidebarMode.main) {
+        _loadComponentSections();
+      } else {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          _updateActiveOnThisPage(force: true);
+        });
+      }
     }
   }
 
   @override
   void dispose() {
     for (final child in widget.onThisPage.values) {
-      child.isVisible.removeListener(_onVisibilityChanged);
+      child.visibleFraction.removeListener(_onVisibilityChanged);
     }
+    scrollController.removeListener(_onScrollChanged);
     scrollController.dispose();
     _sidebarScrollController.dispose();
     _drawerSidebarScrollController.dispose();
@@ -210,19 +253,67 @@ class DocsPageState extends State<DocsPage> {
     super.dispose();
   }
 
+  void _onScrollChanged() {
+    if (widget.onThisPage.isEmpty) {
+      return;
+    }
+    _updateActiveOnThisPage();
+  }
+
   void _onVisibilityChanged() {
+    _updateActiveOnThisPage();
+  }
+
+  void _updateActiveOnThisPage({bool force = false}) {
     if (!mounted) return;
-    setState(() {
-      currentlyVisible
-        ..clear()
-        ..addAll(
-          widget.onThisPage.values.where((element) => element.isVisible.value),
-        );
-    });
+    final next = _resolveActiveOnThisPage();
+    if (!force && next == _activeOnThisPage) {
+      return;
+    }
+    setState(() => _activeOnThisPage = next);
   }
 
   bool isVisible(OnThisPage onThisPage) {
-    return currentlyVisible.isNotEmpty && currentlyVisible.first == onThisPage;
+    return _activeOnThisPage == onThisPage;
+  }
+
+  OnThisPage? _resolveActiveOnThisPage() {
+    if (widget.onThisPage.isEmpty) {
+      return null;
+    }
+    final visible = widget.onThisPage.values
+        .where((key) => key.visibleFraction.value > 0)
+        .toList(growable: false);
+    if (visible.isEmpty) {
+      return null;
+    }
+
+    final anchorY =
+        MediaQuery.of(context).padding.top + (112 * context.docsTheme.scaling);
+    OnThisPage? best;
+    double bestScore = double.infinity;
+    for (final key in visible) {
+      final renderObject = key.currentContext?.findRenderObject();
+      if (renderObject is! RenderBox || !renderObject.attached) {
+        continue;
+      }
+      final top = renderObject.localToGlobal(Offset.zero).dy;
+      final score = top >= anchorY
+          ? (top - anchorY)
+          : (anchorY - top) + 10000; // prefer first item at/after anchor
+      if (score < bestScore) {
+        bestScore = score;
+        best = key;
+      }
+    }
+    return best ?? visible.first;
+  }
+
+  List<DocsSection> _baseSectionsForMode(DocsSidebarMode mode) {
+    return switch (mode) {
+      DocsSidebarMode.main => mainBaseSections,
+      DocsSidebarMode.cli => cliBaseSections,
+    };
   }
 
   void showSearchDialog() {
@@ -240,7 +331,11 @@ class DocsPageState extends State<DocsPage> {
           }).toList();
           if (pages.isEmpty) continue;
           filteredSections.add(
-            DocsSection(section.title, pages, icon: section.icon),
+            DocsSection(
+              section.title,
+              pages,
+              icon: section.icon,
+            ),
           );
         }
         return Stream.value([
@@ -315,15 +410,13 @@ class DocsPageState extends State<DocsPage> {
         DocsSection(
           _titleCase(category),
           grouped[category]!
-              .map(
-                (component) => DocsPageRef(
-                  _displayComponentTitle(component.name),
-                  component.id,
-                  routeName: 'component_detail',
-                  pathParameters: {'id': _toKebabCase(component.id)},
-                  tag: _tagForComponent(component.id),
-                ),
-              )
+              .map((component) => DocsPageRef(
+                    _displayComponentTitle(component.name),
+                    component.id,
+                    routeName: 'component_detail',
+                    pathParameters: {'id': _toKebabCase(component.id)},
+                    tag: _tagForComponent(component.id),
+                  ))
               .toList(),
           icon: iconForCategory(category),
         ),
@@ -331,22 +424,23 @@ class DocsPageState extends State<DocsPage> {
         DocsSection(
           'WIP Components',
           (wipComponents..sort((a, b) => a.name.compareTo(b.name)))
-              .map(
-                (component) => DocsPageRef(
-                  _displayComponentTitle(component.name),
-                  component.id,
-                  routeName: 'component_detail',
-                  pathParameters: {'id': _toKebabCase(component.id)},
-                  tag: DocsTag.workInProgress,
-                ),
-              )
+              .map((component) => DocsPageRef(
+                    _displayComponentTitle(component.name),
+                    component.id,
+                    routeName: 'component_detail',
+                    pathParameters: {'id': _toKebabCase(component.id)},
+                    tag: DocsTag.workInProgress,
+                  ))
               .toList(),
           icon: Icons.construction,
         ),
     ];
 
     setState(() {
-      _sections = [...baseSections, ...componentSections];
+      _sections = [
+        ..._baseSectionsForMode(widget.sidebarMode),
+        ...componentSections,
+      ];
     });
   }
 
@@ -363,6 +457,9 @@ class DocsPageState extends State<DocsPage> {
   }
 
   List<DocsSection> get _sidebarSections {
+    if (widget.sidebarMode == DocsSidebarMode.cli) {
+      return _sections.toList(growable: false);
+    }
     return _sections
         .where((section) => section.title.toLowerCase() != 'application')
         .toList(growable: false);
@@ -395,9 +492,12 @@ class DocsPageState extends State<DocsPage> {
     final theme = shadcn_theme.Theme.of(context);
     final spacing = theme.spacing;
     final width = MediaQuery.of(context).size.width;
+    final isCliMode = widget.sidebarMode == DocsSidebarMode.cli;
     final showSearchBar = width >= breakpointWidth2;
     final showDrawer = width < breakpointWidth;
     final horizontalPadding = width >= breakpointWidth2 ? 32.0 : 18.0;
+    final backLabel =
+        width >= breakpointWidth2 ? 'shadcn_registry_docs' : 'docs';
     return shadcn_scaffold.AppBar(
       leading: const [],
       trailing: const [],
@@ -417,7 +517,14 @@ class DocsPageState extends State<DocsPage> {
               density: shadcn_buttons.ButtonDensity.icon,
               child: const Icon(Icons.menu),
             ),
-          const Text('shadcn_flutter_registry').semiBold(),
+          if (isCliMode)
+            shadcn_buttons.TextButton(
+              onPressed: () => context.goNamed('introduction'),
+              leading: const Icon(LucideIcons.chevronLeft).iconSmall(),
+              child: Text(backLabel).small().semiBold(),
+            )
+          else
+            const Text('shadcn_flutter_registry').semiBold(),
           if (showSearchBar) ...[
             const Spacer(),
             Expanded(
@@ -429,9 +536,9 @@ class DocsPageState extends State<DocsPage> {
                     onPressed: showSearchDialog,
                     child: Row(
                       children: [
-                        const Icon(
-                          Icons.search,
-                        ).iconSmall().iconMutedForeground(),
+                        const Icon(Icons.search)
+                            .iconSmall()
+                            .iconMutedForeground(),
                         SizedBox(width: spacing.xs * scaling),
                         Expanded(
                           child: const Text(
@@ -522,20 +629,15 @@ class DocsPageState extends State<DocsPage> {
         final theme = shadcn_theme.Theme.of(context);
         return SafeArea(
           child: Padding(
-            padding:
-                const EdgeInsets.only(
-                  left: 32,
-                  right: 32,
-                  bottom: 48,
-                  top: 48,
-                ) *
+            padding: const EdgeInsets.only(
+                    left: 32, right: 32, bottom: 48, top: 48) *
                 theme.scaling,
             child: SizedBox(
               width: targetWidth,
               child: FadeScroll(
                 controller: _drawerSidebarScrollController,
-                startOffset: 96,
-                endOffset: 96,
+                startOffset: 20,
+                endOffset: 20,
                 gradient: const [Colors.transparent, Colors.white],
                 child: SingleChildScrollView(
                   controller: _drawerSidebarScrollController,
@@ -600,7 +702,11 @@ class DocsPageState extends State<DocsPage> {
 
     return StageContainer(
       breakpoint: isThemePage
-          ? StageBreakpoint.constant(1, minSize: 0, maxSize: double.infinity)
+          ? StageBreakpoint.constant(
+              1,
+              minSize: 0,
+              maxSize: double.infinity,
+            )
           : StageBreakpoint.defaultBreakpoints,
       padding: isThemePage ? const EdgeInsets.symmetric(horizontal: 16) : null,
       builder: (context, padding) {
@@ -631,7 +737,10 @@ class DocsPageState extends State<DocsPage> {
               autofocus: true,
               child: shadcn_scaffold.Scaffold(
                 headers: [
-                  _buildHeader(context, contentHeight: headerContentHeight),
+                  _buildHeader(
+                    context,
+                    contentHeight: headerContentHeight,
+                  ),
                   const Divider(height: 1),
                 ],
                 child: Row(
@@ -642,14 +751,13 @@ class DocsPageState extends State<DocsPage> {
                       child: FocusTraversalGroup(
                         child: FadeScroll(
                           controller: _sidebarScrollController,
-                          startOffset: 96,
-                          endOffset: 96,
+                          startOffset: 20,
+                          endOffset: 20,
                           gradient: const [Colors.transparent, Colors.white],
                           child: SingleChildScrollView(
                             controller: _sidebarScrollController,
                             key: const PageStorageKey('sidebar'),
-                            padding:
-                                EdgeInsets.only(
+                            padding: EdgeInsets.only(
                                   top: 32,
                                   left: (isThemePage ? 12 : 24) + padding.left,
                                   bottom: 32,
@@ -689,13 +797,11 @@ class DocsPageState extends State<DocsPage> {
                           ? SingleChildScrollView(
                               controller: scrollController,
                               clipBehavior: Clip.none,
-                              padding:
-                                  (EdgeInsets.symmetric(
+                              padding: (EdgeInsets.symmetric(
                                         horizontal: isThemePage ? 32 : 40,
                                         vertical: 32,
                                       ).copyWith(
-                                        right:
-                                            (hasOnThisPage ||
+                                        right: (hasOnThisPage ||
                                                 widget.sidebar != null)
                                             ? (isThemePage ? 16 : 24)
                                             : padding.right + 32,
@@ -709,16 +815,34 @@ class DocsPageState extends State<DocsPage> {
                                     separator: Breadcrumb.arrowSeparator,
                                     children: [
                                       TextButton(
-                                        onPressed: () =>
-                                            context.goNamed('introduction'),
-                                        child: const Text('Docs'),
+                                        onPressed: () {
+                                          if (widget.sidebarMode ==
+                                              DocsSidebarMode.cli) {
+                                            context.goNamed(
+                                              'cli_reference',
+                                              pathParameters: const {
+                                                'id': 'cli-overview'
+                                              },
+                                            );
+                                            return;
+                                          }
+                                          context.goNamed('introduction');
+                                        },
+                                        child: Text(
+                                          widget.sidebarMode ==
+                                                  DocsSidebarMode.cli
+                                              ? 'CLI'
+                                              : 'Docs',
+                                        ),
                                       ),
                                       ...widget.navigationItems,
                                       if (currentPage != null)
                                         Text(currentPage.title),
                                     ],
                                   ),
-                                  SizedBox(height: theme.spacing.lg),
+                                  SizedBox(
+                                    height: theme.spacing.lg,
+                                  ),
                                   widget.child,
                                 ],
                               ),
@@ -730,8 +854,7 @@ class DocsPageState extends State<DocsPage> {
                         minWidth: breakpointWidth2,
                         child: FocusTraversalGroup(
                           child: SingleChildScrollView(
-                            padding:
-                                EdgeInsets.only(
+                            padding: EdgeInsets.only(
                                   top: 32,
                                   right: isThemePage ? 16 : 24,
                                   bottom: 32,
@@ -750,16 +873,15 @@ class DocsPageState extends State<DocsPage> {
                           child: FocusTraversalGroup(
                             child: FadeScroll(
                               controller: _onThisPageScrollController,
-                              startOffset: 96,
-                              endOffset: 96,
+                              startOffset: 20,
+                              endOffset: 20,
                               gradient: const [
                                 Colors.transparent,
-                                Colors.white,
+                                Colors.white
                               ],
                               child: SingleChildScrollView(
                                 controller: _onThisPageScrollController,
-                                padding:
-                                    EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                       top: 32,
                                       right: isThemePage ? 16 : 24,
                                       bottom: 32,
@@ -789,8 +911,8 @@ class DocsPageState extends State<DocsPage> {
                                             },
                                             selected:
                                                 entry.value.currentContext !=
-                                                    null &&
-                                                isVisible(entry.value),
+                                                        null &&
+                                                    isVisible(entry.value),
                                             child: Text(entry.key),
                                           ),
                                       ],
@@ -859,7 +981,7 @@ class SidebarSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.base().bold().withPadding(vertical: 4, horizontal: 10),
+        header.base().semiBold().withPadding(vertical: 4, horizontal: 10),
         const Gap(8),
         ...children,
       ],
@@ -884,37 +1006,38 @@ class DocsNavigationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
-    final selectedText = data.colorScheme.secondaryForeground;
-    final unselectedText = data.colorScheme.mutedForeground.withValues(
-      alpha: 0.72,
-    );
-    final themedData = data.copyWith(
-      colorScheme: () => data.colorScheme.copyWith(
-        foreground: () => selected ? selectedText : unselectedText,
-      ),
-    );
-    return shadcn_theme.Theme(
-      data: themedData,
-      child: shadcn_buttons.Button(
-        onPressed: onPressed,
-        alignment: AlignmentDirectional.centerStart,
-        style: shadcn_buttons.ButtonVariance.link.copyWith(
+    final selectedText = data.colorScheme.primary;
+    final unselectedText =
+        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final style = shadcn_buttons.ButtonVariance.link
+        .copyWith(
           padding: (context, states, value) =>
               const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+              fontSize: 12.5,
+              height: 1.25,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
             );
           },
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            child.xSmall(),
-            if (trailing != null) const Gap(8),
-            if (trailing != null) trailing!,
-          ],
-        ),
+        )
+        .withForegroundColor(
+          color: selected ? selectedText : unselectedText,
+          hoverColor: selected
+              ? selectedText.withValues(alpha: 0.9)
+              : unselectedText.withValues(alpha: 0.78),
+        );
+    return shadcn_buttons.Button(
+      onPressed: onPressed,
+      alignment: AlignmentDirectional.centerStart,
+      style: style,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          child,
+          if (trailing != null) const Gap(8),
+          if (trailing != null) trailing!,
+        ],
       ),
     );
   }
@@ -935,32 +1058,32 @@ class SidebarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
-    final selectedText = data.colorScheme.secondaryForeground;
-    final unselectedText = data.colorScheme.mutedForeground.withValues(
-      alpha: 0.72,
-    );
-    final themedData = data.copyWith(
-      colorScheme: () => data.colorScheme.copyWith(
-        foreground: () => selected ? selectedText : unselectedText,
-        mutedForeground: () => selected ? selectedText : unselectedText,
-      ),
-    );
-    return shadcn_theme.Theme(
-      data: themedData,
-      child: shadcn_buttons.Button(
-        onPressed: onPressed,
-        alignment: AlignmentDirectional.centerStart,
-        style: shadcn_buttons.ButtonVariance.link.copyWith(
+    final selectedText = data.colorScheme.primary;
+    final unselectedText =
+        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final style = shadcn_buttons.ButtonVariance.link
+        .copyWith(
           padding: (context, states, value) =>
               const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+              fontSize: 12.5,
+              height: 1.25,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
             );
           },
-        ),
-        child: child.xSmall(),
-      ),
+        )
+        .withForegroundColor(
+          color: selected ? selectedText : unselectedText,
+          hoverColor: selected
+              ? selectedText.withValues(alpha: 0.9)
+              : unselectedText.withValues(alpha: 0.78),
+        );
+    return shadcn_buttons.Button(
+      onPressed: onPressed,
+      alignment: AlignmentDirectional.centerStart,
+      style: style,
+      child: child,
     );
   }
 }

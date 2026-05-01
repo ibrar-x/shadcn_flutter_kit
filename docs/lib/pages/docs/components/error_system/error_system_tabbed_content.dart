@@ -31,10 +31,10 @@ class _ErrorSystemTabbedContentState extends State<ErrorSystemTabbedContent> {
   void _setIndex(int nextIndex) {
     setState(() => index = nextIndex);
     for (final entry in widget.previewOnThisPage.values) {
-      entry.isVisible.value = false;
+      entry.visibleFraction.value = 0;
     }
     for (final entry in widget.quickStartOnThisPage.values) {
-      entry.isVisible.value = false;
+      entry.visibleFraction.value = 0;
     }
     final ScrollController? controller = PrimaryScrollController.maybeOf(
       context,
@@ -95,17 +95,15 @@ class _PreviewTab extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: examples.length,
-      itemBuilder: (context, index) => 
-          PageItemWidget(
-            onThisPage: onThisPage[examples[index].title]!,
-            child: WidgetUsageExample(
-              title: examples[index].title,
-              code: examples[index].code,
-              installCommand:
-                  index == 0 ? 'flutter_shadcn add error-system' : null,
-              child: examples[index].builder(context),
-            ),
-          ),
+      itemBuilder: (context, index) => PageItemWidget(
+        onThisPage: onThisPage[examples[index].title]!,
+        child: WidgetUsageExample(
+          title: examples[index].title,
+          code: examples[index].code,
+          installCommand: index == 0 ? 'flutter_shadcn add error-system' : null,
+          child: examples[index].builder(context),
+        ),
+      ),
     );
   }
 }
