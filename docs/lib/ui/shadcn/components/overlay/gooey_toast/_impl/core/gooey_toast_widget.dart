@@ -637,8 +637,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                           : 6.0);
 
                   final headerTransform = Matrix4.identity()
-                    ..translate(0.0, translateY)
-                    ..scale(headerScale, headerScale);
+                    ..translateByDouble(0.0, translateY, 0.0, 1.0)
+                    ..scaleByDouble(headerScale, headerScale, 1.0, 1.0);
 
                   return AnimatedSize(
                     duration: const Duration(milliseconds: 260),

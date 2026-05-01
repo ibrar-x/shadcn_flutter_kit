@@ -129,6 +129,34 @@ class ShadcnLocalizations {
 /// Stores `colorValue` state/configuration for this implementation.
   String get colorValue => 'Value';
 
+/// Stores `formNotEmpty` state/configuration for this implementation.
+  String get formNotEmpty => 'This field cannot be empty.';
+
+/// Executes `formLessThan` behavior for this component/composite.
+  String formLessThan(Object? value) => 'Must be less than $value.';
+
+/// Executes `formGreaterThan` behavior for this component/composite.
+  String formGreaterThan(Object? value) => 'Must be greater than $value.';
+
+/// Executes `formLessThanOrEqualTo` behavior for this component/composite.
+  String formLessThanOrEqualTo(Object? value) =>
+      'Must be less than or equal to $value.';
+
+/// Executes `formGreaterThanOrEqualTo` behavior for this component/composite.
+  String formGreaterThanOrEqualTo(Object? value) =>
+      'Must be greater than or equal to $value.';
+
+/// Executes `formEqualTo` behavior for this component/composite.
+  String formEqualTo(Object? value) => 'Must be equal to $value.';
+
+/// Executes `formBetweenInclusively` behavior for this component/composite.
+  String formBetweenInclusively(Object? min, Object? max) =>
+      'Must be between $min and $max (inclusive).';
+
+/// Executes `formBetweenExclusively` behavior for this component/composite.
+  String formBetweenExclusively(Object? min, Object? max) =>
+      'Must be between $min and $max (exclusive).';
+
 /// Executes `formLengthLessThan` behavior for this component/composite.
   String formLengthLessThan(int limit) =>
       'Must be shorter than $limit characters.';

@@ -38,14 +38,9 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
       _controller = newController;
       _onControllerChanged();
       newController?.addListener(_onControllerChanged);
-      if (_cachedValue != null) {
-        newController?.attach(
-          context,
-          this,
-          _cachedValue?.value,
-          widget.validator,
-        );
-      }
+      // Always attach so validator-only fields are still tracked when value is
+      // currently null.
+      newController?.attach(context, this, _cachedValue?.value, widget.validator);
     }
   }
 
@@ -101,12 +96,6 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
   /// Performs `revalidate` logic for this form component.
   @override
   FutureOr<ValidationResult?> revalidate() {
-    return _controller?.attach(
-      context,
-      this,
-      _cachedValue,
-      widget.validator,
-      true,
-    );
+    return _controller?.attach(context, this, _cachedValue?.value, widget.validator, true);
   }
 }

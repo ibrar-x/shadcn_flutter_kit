@@ -33,7 +33,7 @@ const double breakpointWidth = 768;
 const double breakpointWidth2 = 1024;
 
 class OnThisPage extends LabeledGlobalKey {
-  final ValueNotifier<bool> isVisible = ValueNotifier(false);
+  final ValueNotifier<double> visibleFraction = ValueNotifier(0);
 
   OnThisPage([super.debugLabel]);
 }
@@ -54,7 +54,7 @@ class PageItemWidget extends StatelessWidget {
       key: onThisPage,
       child: child,
       onVisibilityChanged: (info) {
-        onThisPage.isVisible.value = info.visibleFraction >= 1;
+        onThisPage.visibleFraction.value = info.visibleFraction;
       },
     );
   }
@@ -185,7 +185,7 @@ class DocsPageState extends State<DocsPage> {
   final ScrollController _sidebarScrollController = ScrollController();
   final ScrollController _drawerSidebarScrollController = ScrollController();
   final ScrollController _onThisPageScrollController = ScrollController();
-  final List<OnThisPage> currentlyVisible = [];
+  OnThisPage? _activeOnThisPage;
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
   static const Map<String, String> _categoryOverrides = {
@@ -200,20 +200,33 @@ class DocsPageState extends State<DocsPage> {
     super.initState();
     _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
     for (final child in widget.onThisPage.values) {
-      child.isVisible.addListener(_onVisibilityChanged);
+      child.visibleFraction.addListener(_onVisibilityChanged);
     }
+    scrollController.addListener(_onScrollChanged);
     if (widget.sidebarMode == DocsSidebarMode.main) {
       _loadComponentSections();
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      setState(() {});
+      _updateActiveOnThisPage(force: true);
     });
   }
 
   @override
   void didUpdateWidget(covariant DocsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (!mapEquals(oldWidget.onThisPage, widget.onThisPage)) {
+      for (final child in oldWidget.onThisPage.values) {
+        child.visibleFraction.removeListener(_onVisibilityChanged);
+      }
+      for (final child in widget.onThisPage.values) {
+        child.visibleFraction.addListener(_onVisibilityChanged);
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _updateActiveOnThisPage(force: true);
+      });
+    }
     if (oldWidget.sidebarMode != widget.sidebarMode) {
       _sections = List.of(_baseSectionsForMode(widget.sidebarMode));
       if (widget.sidebarMode == DocsSidebarMode.main) {
@@ -221,26 +234,18 @@ class DocsPageState extends State<DocsPage> {
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (!mounted) return;
-          setState(() {});
+          _updateActiveOnThisPage(force: true);
         });
       }
-    }
-    if (!mapEquals(oldWidget.onThisPage, widget.onThisPage)) {
-      for (final child in widget.onThisPage.values) {
-        child.isVisible.addListener(_onVisibilityChanged);
-      }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        setState(() {});
-      });
     }
   }
 
   @override
   void dispose() {
     for (final child in widget.onThisPage.values) {
-      child.isVisible.removeListener(_onVisibilityChanged);
+      child.visibleFraction.removeListener(_onVisibilityChanged);
     }
+    scrollController.removeListener(_onScrollChanged);
     scrollController.dispose();
     _sidebarScrollController.dispose();
     _drawerSidebarScrollController.dispose();
@@ -248,18 +253,60 @@ class DocsPageState extends State<DocsPage> {
     super.dispose();
   }
 
+  void _onScrollChanged() {
+    if (widget.onThisPage.isEmpty) {
+      return;
+    }
+    _updateActiveOnThisPage();
+  }
+
   void _onVisibilityChanged() {
+    _updateActiveOnThisPage();
+  }
+
+  void _updateActiveOnThisPage({bool force = false}) {
     if (!mounted) return;
-    setState(() {
-      currentlyVisible
-        ..clear()
-        ..addAll(widget.onThisPage.values
-            .where((element) => element.isVisible.value));
-    });
+    final next = _resolveActiveOnThisPage();
+    if (!force && next == _activeOnThisPage) {
+      return;
+    }
+    setState(() => _activeOnThisPage = next);
   }
 
   bool isVisible(OnThisPage onThisPage) {
-    return currentlyVisible.isNotEmpty && currentlyVisible.first == onThisPage;
+    return _activeOnThisPage == onThisPage;
+  }
+
+  OnThisPage? _resolveActiveOnThisPage() {
+    if (widget.onThisPage.isEmpty) {
+      return null;
+    }
+    final visible = widget.onThisPage.values
+        .where((key) => key.visibleFraction.value > 0)
+        .toList(growable: false);
+    if (visible.isEmpty) {
+      return null;
+    }
+
+    final anchorY =
+        MediaQuery.of(context).padding.top + (112 * context.docsTheme.scaling);
+    OnThisPage? best;
+    double bestScore = double.infinity;
+    for (final key in visible) {
+      final renderObject = key.currentContext?.findRenderObject();
+      if (renderObject is! RenderBox || !renderObject.attached) {
+        continue;
+      }
+      final top = renderObject.localToGlobal(Offset.zero).dy;
+      final score = top >= anchorY
+          ? (top - anchorY)
+          : (anchorY - top) + 10000; // prefer first item at/after anchor
+      if (score < bestScore) {
+        bestScore = score;
+        best = key;
+      }
+    }
+    return best ?? visible.first;
   }
 
   List<DocsSection> _baseSectionsForMode(DocsSidebarMode mode) {
@@ -445,9 +492,12 @@ class DocsPageState extends State<DocsPage> {
     final theme = shadcn_theme.Theme.of(context);
     final spacing = theme.spacing;
     final width = MediaQuery.of(context).size.width;
+    final isCliMode = widget.sidebarMode == DocsSidebarMode.cli;
     final showSearchBar = width >= breakpointWidth2;
     final showDrawer = width < breakpointWidth;
     final horizontalPadding = width >= breakpointWidth2 ? 32.0 : 18.0;
+    final backLabel =
+        width >= breakpointWidth2 ? 'shadcn_registry_docs' : 'docs';
     return shadcn_scaffold.AppBar(
       leading: const [],
       trailing: const [],
@@ -467,7 +517,14 @@ class DocsPageState extends State<DocsPage> {
               density: shadcn_buttons.ButtonDensity.icon,
               child: const Icon(Icons.menu),
             ),
-          const Text('shadcn_flutter_registry').semiBold(),
+          if (isCliMode)
+            shadcn_buttons.TextButton(
+              onPressed: () => context.goNamed('introduction'),
+              leading: const Icon(LucideIcons.chevronLeft).iconSmall(),
+              child: Text(backLabel).small().semiBold(),
+            )
+          else
+            const Text('shadcn_flutter_registry').semiBold(),
           if (showSearchBar) ...[
             const Spacer(),
             Expanded(
@@ -924,7 +981,7 @@ class SidebarSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.base().bold().withPadding(vertical: 4, horizontal: 10),
+        header.base().semiBold().withPadding(vertical: 4, horizontal: 10),
         const Gap(8),
         ...children,
       ],
@@ -949,36 +1006,38 @@ class DocsNavigationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
-    final selectedText = data.colorScheme.secondaryForeground;
+    final selectedText = data.colorScheme.primary;
     final unselectedText =
-        data.colorScheme.mutedForeground.withValues(alpha: 0.72);
-    final themedData = data.copyWith(
-      colorScheme: () => data.colorScheme.copyWith(
-        foreground: () => selected ? selectedText : unselectedText,
-      ),
-    );
-    return shadcn_theme.Theme(
-      data: themedData,
-      child: shadcn_buttons.Button(
-        onPressed: onPressed,
-        alignment: AlignmentDirectional.centerStart,
-        style: shadcn_buttons.ButtonVariance.link.copyWith(
+        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final style = shadcn_buttons.ButtonVariance.link
+        .copyWith(
           padding: (context, states, value) =>
               const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+              fontSize: 12.5,
+              height: 1.25,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
             );
           },
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            child.xSmall(),
-            if (trailing != null) const Gap(8),
-            if (trailing != null) trailing!,
-          ],
-        ),
+        )
+        .withForegroundColor(
+          color: selected ? selectedText : unselectedText,
+          hoverColor: selected
+              ? selectedText.withValues(alpha: 0.9)
+              : unselectedText.withValues(alpha: 0.78),
+        );
+    return shadcn_buttons.Button(
+      onPressed: onPressed,
+      alignment: AlignmentDirectional.centerStart,
+      style: style,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          child,
+          if (trailing != null) const Gap(8),
+          if (trailing != null) trailing!,
+        ],
       ),
     );
   }
@@ -999,31 +1058,32 @@ class SidebarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
-    final selectedText = data.colorScheme.secondaryForeground;
+    final selectedText = data.colorScheme.primary;
     final unselectedText =
-        data.colorScheme.mutedForeground.withValues(alpha: 0.72);
-    final themedData = data.copyWith(
-      colorScheme: () => data.colorScheme.copyWith(
-        foreground: () => selected ? selectedText : unselectedText,
-        mutedForeground: () => selected ? selectedText : unselectedText,
-      ),
-    );
-    return shadcn_theme.Theme(
-      data: themedData,
-      child: shadcn_buttons.Button(
-        onPressed: onPressed,
-        alignment: AlignmentDirectional.centerStart,
-        style: shadcn_buttons.ButtonVariance.link.copyWith(
+        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final style = shadcn_buttons.ButtonVariance.link
+        .copyWith(
           padding: (context, states, value) =>
               const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
           textStyle: (context, states, value) {
             return value.copyWith(
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+              fontSize: 12.5,
+              height: 1.25,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
             );
           },
-        ),
-        child: child.xSmall(),
-      ),
+        )
+        .withForegroundColor(
+          color: selected ? selectedText : unselectedText,
+          hoverColor: selected
+              ? selectedText.withValues(alpha: 0.9)
+              : unselectedText.withValues(alpha: 0.78),
+        );
+    return shadcn_buttons.Button(
+      onPressed: onPressed,
+      alignment: AlignmentDirectional.centerStart,
+      style: style,
+      child: child,
     );
   }
 }

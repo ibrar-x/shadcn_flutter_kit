@@ -5,7 +5,41 @@ import 'phone_input_example_1.dart';
 const ComponentExample phoneInputExample1 = ComponentExample(
   title: "Example",
   builder: _buildPhoneInputExample1,
-  code: "import 'package:docs/shadcn_ui.dart';\n\nclass PhoneInputExample1 extends StatefulWidget {\n  const PhoneInputExample1({super.key});\n\n  @override\n  State<PhoneInputExample1> createState() => _PhoneInputExample1State();\n}\n\nclass _PhoneInputExample1State extends State<PhoneInputExample1> {\n  PhoneNumber? _phoneNumber;\n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      mainAxisSize: MainAxisSize.min,\n      children: [\n        PhoneInput(\n          // Preselect a country; phone parsing/formatting adapt accordingly.\n          initialCountry: Country.indonesia,\n          onChanged: (value) {\n            setState(() {\n              _phoneNumber = value;\n            });\n          },\n        ),\n        const Gap(24),\n        Text(\n          _phoneNumber?.value ?? '(No value)',\n        ),\n      ],\n    );\n  }\n}\n",
+  code: r"""import 'package:docs/shadcn_ui.dart';
+import 'package:phonecodes/phonecodes.dart' show Country;
+
+class PhoneInputExample1 extends StatefulWidget {
+  const PhoneInputExample1({super.key});
+
+  @override
+  State<PhoneInputExample1> createState() => _PhoneInputExample1State();
+}
+
+class _PhoneInputExample1State extends State<PhoneInputExample1> {
+  PhoneNumber? _phoneNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: join(
+        [
+          PhoneInput(
+            initialCountry: Country.indonesia,
+            onChanged: (value) {
+              setState(() {
+                _phoneNumber = value;
+              });
+            },
+          ),
+          Text(_phoneNumber?.value ?? '(No value)'),
+        ],
+        const Gap(24),
+      ).toList(),
+    );
+  }
+}
+""",
 );
 
 Widget _buildPhoneInputExample1(BuildContext context) {

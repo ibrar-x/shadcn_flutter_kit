@@ -136,8 +136,11 @@ class SubmitButton extends StatelessWidget {
             trailing: errorTrailing ?? trailing,
             alignment: alignment,
             disableHoverEffect: disableHoverEffect,
-            enabled: false,
+            enabled: enabled ?? true,
             enableFeedback: true,
+            onPressed: () {
+              context.submitForm();
+            },
             disableTransition: disableTransition,
             focusNode: focusNode,
             style: style ?? const ButtonStyle.primary(),

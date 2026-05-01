@@ -10,7 +10,10 @@ class _ControlledComponentAdapterState<T>
   void initState() {
     super.initState();
     T? value = widget.controller?.value ?? widget.initialValue;
-    assert(value != null, 'Either controller or initialValue must be provided');
+    assert(
+      widget.controller != null || widget.initialValue is T,
+      'Either controller or initialValue must be provided',
+    );
     _value = value as T;
     widget.controller?.addListener(_onControllerChanged);
   }

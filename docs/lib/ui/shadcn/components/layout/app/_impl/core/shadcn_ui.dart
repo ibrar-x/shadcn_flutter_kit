@@ -10,10 +10,28 @@ class ShadcnUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final backgroundIsDark =
-        theme.colorScheme.background.computeLuminance() < 0.5;
-    final iconColor =
-        backgroundIsDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
+    final scheme = theme.colorScheme;
+    final isDarkMode = scheme.brightness == Brightness.dark;
+    final fallbackIconColor =
+        isDarkMode ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
+
+    Color pickReadableIconColor(Color preferred) {
+      final background = scheme.background;
+      final contrastDistance =
+          (preferred.computeLuminance() - background.computeLuminance()).abs();
+      if (contrastDistance >= 0.30) {
+        return preferred;
+      }
+      final foregroundDistance =
+          (scheme.foreground.computeLuminance() - background.computeLuminance())
+              .abs();
+      if (foregroundDistance >= 0.30) {
+        return scheme.foreground;
+      }
+      return fallbackIconColor;
+    }
+
+    final iconColor = pickReadableIconColor(scheme.secondaryForeground);
     return AnimatedDefaultTextStyle(
       style: textStyle ??
           theme.typography.sans.copyWith(color: theme.colorScheme.foreground),
