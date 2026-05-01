@@ -36,6 +36,7 @@ def load_components(components_path: Path) -> list[dict]:
                 "name": comp.get("name") or comp_id,
                 "description": comp.get("description") or "Component preview.",
                 "category": comp.get("category") or "uncategorized",
+                "files": comp.get("files") or [],
             }
         )
     output.sort(key=lambda item: (item["category"], item["id"]))
@@ -90,22 +91,37 @@ def build_page_content(
     lines.append("")
     lines.append("  @override")
     lines.append("  Widget build(BuildContext context) {")
-    lines.append("    return ComponentPage(")
+    lines.append("    return const ComponentPage(")
     lines.append(f"      name: '{component_id}',")
     lines.append(f"      displayName: '{safe_display_name}',")
     lines.append(f"      description: '{safe_description}',")
     lines.append("      children: [")
     if preview_class:
-        lines.append(f"        const {preview_class}(),")
+        lines.append(f"        {preview_class}(),")
     else:
         lines.append(
-            "        const Center(child: Text('Preview not available.')),")
+            "        Center(child: Text('Preview not available.')),")
     lines.append("      ],")
     lines.append("    );")
     lines.append("  }")
     lines.append("}")
     lines.append("")
     return "\n".join(lines)
+
+
+def preview_destination(comp: dict) -> str | None:
+    for file_entry in comp.get("files", []):
+        if not isinstance(file_entry, dict):
+            continue
+        destination = file_entry.get("destination")
+        if not isinstance(destination, str):
+            continue
+        normalized = destination.replace("\\", "/")
+        if normalized.endswith("/preview.dart"):
+            return normalized
+    category = comp.get("category") or "uncategorized"
+    comp_id = comp["id"]
+    return f"{{installPath}}/components/{category}/{comp_id}/preview.dart"
 
 
 def generate_pages(
@@ -125,13 +141,16 @@ def generate_pages(
     for comp in components:
         comp_id = comp["id"]
         display_name = comp["name"]
-        preview_path = components_root / comp_id / "preview.dart"
+        preview_template = preview_destination(comp)
+        preview_rel = preview_template.replace("{installPath}", install_path)
+        preview_path = docs_root / preview_rel
         preview_class = None
         preview_import = None
         if preview_path.exists():
             preview_class = f"{snake_to_pascal(comp_id)}Preview"
+            preview_import_path = preview_rel[4:] if preview_rel.startswith("lib/") else preview_rel
             preview_import = (
-                f"import 'package:{package_name}/{import_base}/components/{comp_id}/preview.dart';"
+                f"import 'package:{package_name}/{preview_import_path}';"
             )
 
         content = build_page_content(

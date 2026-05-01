@@ -5,7 +5,7 @@ Repository maintenance and cleanup utilities.
 ## Scripts
 
 - `remove_legacy_component_metadata.dart`
-  - Removes legacy component-root metadata files only when canonical copies exist under `component/registry/`.
+  - Removes nested legacy `component/registry/` metadata files when production top-level metadata exists.
   - Dry-run by default.
   - Docs: `remove_legacy_component_metadata_readme.md`
 

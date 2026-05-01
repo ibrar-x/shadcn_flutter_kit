@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/rendering.dart';
-
 import '../common/registry_component_metadata.dart';
 
 /// Creates a "skill bundle" folder from your registry directory by copying the
@@ -115,16 +113,10 @@ void main(List<String> args) {
     if (metadata.canonicalMeta.existsSync()) {
       filesToCopy.add(metadata.canonicalMeta.path);
     }
-    if (metadata.legacyMeta.existsSync()) {
-      filesToCopy.add(metadata.legacyMeta.path);
-    }
 
     // Include {id}.meta.json for AI-safe API usage when present
     if (metadata.canonicalReadmeMeta.existsSync()) {
       filesToCopy.add(metadata.canonicalReadmeMeta.path);
-    }
-    if (metadata.legacyReadmeMeta.existsSync()) {
-      filesToCopy.add(metadata.legacyReadmeMeta.path);
     }
   }
 
@@ -223,11 +215,11 @@ void main(List<String> args) {
   // Create manifest schema
   createManifestSchema(outDir);
 
-  debugPrint('✅ Skill bundle created: $outDir');
-  debugPrint('   Files copied: ${(manifest['files'] as List).length}');
-  debugPrint('   Snapshot root: $outDir/registry_snapshot');
-  debugPrint('   Manifest: $manifestPath');
-  debugPrint('\nTip: use --info to see all flags and behavior.');
+  stdout.writeln('✅ Skill bundle created: $outDir');
+  stdout.writeln('   Files copied: ${(manifest['files'] as List).length}');
+  stdout.writeln('   Snapshot root: $outDir/registry_snapshot');
+  stdout.writeln('   Manifest: $manifestPath');
+  stdout.writeln('\nTip: use --info to see all flags and behavior.');
 }
 
 String argValue(List<String> args, String prefix, String defaultValue) {
@@ -370,7 +362,7 @@ void createManifestSchema(String outDir) {
 }
 
 void debugPrintInfo() {
-  debugPrint('''
+  stdout.writeln('''
 Create a recommended (B) skill bundle for AI tools.
 
 Usage:

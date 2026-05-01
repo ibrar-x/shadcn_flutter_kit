@@ -79,18 +79,18 @@ class ComponentMetadataPaths {
   final Directory entryDir;
   final String id;
 
-  Directory get metadataDir =>
+  Directory get legacyMetadataDir =>
       Directory('${entryDir.path}/$componentRegistryFolder');
 
-  File get canonicalMeta => File('${metadataDir.path}/meta.json');
-  File get legacyMeta => File('${entryDir.path}/meta.json');
+  File get canonicalMeta => File('${entryDir.path}/meta.json');
+  File get legacyMeta => File('${legacyMetadataDir.path}/meta.json');
 
-  File get canonicalReadmeMeta => File('${metadataDir.path}/$id.meta.json');
-  File get legacyReadmeMeta => File('${entryDir.path}/$id.meta.json');
+  File get canonicalReadmeMeta => File('${entryDir.path}/$id.meta.json');
+  File get legacyReadmeMeta => File('${legacyMetadataDir.path}/$id.meta.json');
 
-  File get canonicalThemeSchema =>
-      File('${metadataDir.path}/theme.schema.json');
-  File get legacyThemeSchema => File('${entryDir.path}/theme.schema.json');
+  File get canonicalThemeSchema => File('${entryDir.path}/theme.schema.json');
+  File get legacyThemeSchema =>
+      File('${legacyMetadataDir.path}/theme.schema.json');
 }
 
 File preferredFile({required File canonical, required File legacy}) {
@@ -114,8 +114,10 @@ void writeJsonMirrored({
 
   canonical.parent.createSync(recursive: true);
   canonical.writeAsStringSync(payload);
-  legacy.parent.createSync(recursive: true);
-  legacy.writeAsStringSync(payload);
+  if (legacy.existsSync()) {
+    legacy.deleteSync();
+  }
+  _deleteDirIfEmpty(legacy.parent);
 }
 
 void mirrorExistingFile({required File canonical, required File legacy}) {
@@ -126,6 +128,28 @@ void mirrorExistingFile({required File canonical, required File legacy}) {
 
   canonical.parent.createSync(recursive: true);
   canonical.writeAsStringSync(payload);
-  legacy.parent.createSync(recursive: true);
-  legacy.writeAsStringSync(payload);
+  if (legacy.existsSync()) {
+    legacy.deleteSync();
+  }
+  _deleteDirIfEmpty(legacy.parent);
+}
+
+void deleteLegacyMetadata(ComponentMetadataPaths metadata) {
+  for (final file in <File>[
+    metadata.legacyMeta,
+    metadata.legacyReadmeMeta,
+    metadata.legacyThemeSchema,
+  ]) {
+    if (file.existsSync()) {
+      file.deleteSync();
+    }
+  }
+  _deleteDirIfEmpty(metadata.legacyMetadataDir);
+}
+
+void _deleteDirIfEmpty(Directory directory) {
+  if (!directory.existsSync()) return;
+  if (directory.listSync().isEmpty) {
+    directory.deleteSync();
+  }
 }

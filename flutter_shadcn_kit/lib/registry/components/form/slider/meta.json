@@ -42,25 +42,8 @@
     "slider.dart"
   ],
   "api": {
-    "constructors": [
-      "`Slider`",
-      "`Slider.single`",
-      "`Slider.range`",
-      "`WaveSlider`",
-      "`SliderTheme`",
-      "`BrightnessSlider`",
-      "`RangeSoftSlider`",
-      "`StepsDotsSlider`",
-      "`WaveformSlider`",
-      "`ShadJoinGapLayout`",
-      "`ShadContinuousLayout`",
-      "`ShadSegmentedCapsuleRenderer`",
-      "`ShadWaveformRenderer`",
-      "`ShadStepDotsRenderer`"
-    ],
-    "callbacks": [
-      "`onChanged`"
-    ]
+    "constructors": [],
+    "callbacks": []
   },
   "version": "1.1.0"
 }

@@ -11,14 +11,14 @@ Builds `lib/registry/manifests/index.json` from `components.json` and component 
 
 ## Inputs
 - `lib/registry/manifests/components.json`
-- Per-component metadata (`meta.json` + optional `<id>.meta.json`)
+- Per-component top-level metadata (`meta.json` + optional `<id>.meta.json`)
 
 ## Outputs
 - `lib/registry/manifests/index.json`
 
 ## Notes
 - Validates generated index structure before writing.
-- Uses canonical metadata path first, then legacy fallback.
+- Uses component top-level metadata as canonical. Nested `component/registry/` metadata is legacy and should be removed.
 
 ## Example
 `dart run tool/registry/registry_index_generate.dart`

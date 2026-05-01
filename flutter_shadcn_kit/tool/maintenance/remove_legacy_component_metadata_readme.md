@@ -1,7 +1,7 @@
 # remove_legacy_component_metadata.dart
 
 ## Purpose
-Deletes legacy component-root metadata files when canonical `component/registry/*` copies are present.
+Deletes nested legacy `component/registry/*` metadata files when canonical component top-level metadata is present.
 
 ## Script
 `tool/maintenance/remove_legacy_component_metadata.dart`
@@ -14,13 +14,13 @@ Deletes legacy component-root metadata files when canonical `component/registry/
 - `--apply`: actually deletes candidate files
 
 ## Files targeted
-- `<component>/meta.json`
-- `<component>/<id>.meta.json`
-- `<component>/theme.schema.json`
+- `<component>/registry/meta.json`
+- `<component>/registry/<id>.meta.json`
+- `<component>/registry/theme.schema.json`
 
 ## Safety behavior
-- File is deleted only if canonical counterpart exists under `<component>/registry/`.
-- Missing canonical files are reported as skipped.
+- A legacy file is deleted only if its canonical counterpart exists at the component top level.
+- Missing top-level canonical files are reported as skipped.
 
 ## Example
 - Preview: `dart run tool/maintenance/remove_legacy_component_metadata.dart`

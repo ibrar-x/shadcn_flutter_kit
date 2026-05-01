@@ -1,7 +1,7 @@
 # registry_sync_all.dart
 
 ## Purpose
-Full registry sync pass. Rebuilds component entries in `components.json`, refreshes per-component metadata, and updates docs snapshot.
+Full registry sync pass. Rebuilds component entries in `components.json`, refreshes per-component top-level metadata, and updates docs snapshots.
 
 ## Script
 `tool/registry/registry_sync_all.dart`
@@ -24,13 +24,15 @@ Full registry sync pass. Rebuilds component entries in `components.json`, refres
 ## Outputs
 - `lib/registry/manifests/components.json`
 - `docs/assets/registry/components.json` (if present)
-- Per-component metadata mirrors:
-  - `<component>/registry/meta.json`
+- Per-component canonical metadata:
   - `<component>/meta.json`
+- Docs generated mirror inputs consumed by `docs/lib/ui/shadcn`
 
 ## Notes
 - Enforces filtered file lists (excludes README/getting-started/preview and metadata helper files).
-- Preserves backward-compatible legacy metadata files while canonical path is `component/registry/*`.
+- Production metadata lives at the component top level: `meta.json`, `<id>.meta.json`, and `theme.schema.json`.
+- Nested `component/registry/` metadata directories are legacy and should be removed.
+- Run `dart run tool/registry/registry_verify.dart` after sync to confirm manifest, metadata, dependency, and docs snapshot parity.
 
 ## Example
 `dart run tool/registry/registry_sync_all.dart --force`

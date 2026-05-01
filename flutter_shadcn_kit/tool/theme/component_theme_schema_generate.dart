@@ -405,12 +405,10 @@ void main(List<String> args) {
 
     final canonicalJson = schema.toJson();
     canonicalJson[r'$schema'] =
-        '../../../../manifests/component_theme.schema.json';
+        '../../../manifests/component_theme.schema.json';
     _writeJson(outputFile, canonicalJson);
 
-    final legacyJson = Map<String, dynamic>.from(canonicalJson);
-    legacyJson[r'$schema'] = '../../../manifests/component_theme.schema.json';
-    _writeJson(metadata.legacyThemeSchema, legacyJson);
+    deleteLegacyMetadata(metadata);
     written++;
     stdout.writeln('Wrote ${outputFile.path} (${fields.length} fields)');
   }

@@ -2,6 +2,12 @@
 
 Scripts for building and validating registry metadata/manifests.
 
+## Production Layout
+
+- Component-level `meta.json`, `<id>.meta.json`, and `theme.schema.json` are canonical.
+- Nested component `registry/` metadata directories are legacy compatibility artifacts and should be removed.
+- `docs/lib/ui/shadcn` is generated from the registry mirror for the docs app. Do not hand-edit generated docs mirror files.
+
 ## Main Workflow
 
 1. `dart run tool/registry/registry_readme_meta.dart`
@@ -12,13 +18,13 @@ Scripts for building and validating registry metadata/manifests.
 ## Scripts
 
 - `registry_sync_all.dart`
-  - Syncs component metadata + `components.json` + docs snapshot.
+  - Syncs top-level component metadata + `components.json` + docs snapshot.
   - Docs: `registry_sync_all_readme.md`
 - `registry_components_manifest.dart`
   - Rebuilds `components.json` from component metadata and filesystem.
   - Docs: `registry_components_manifest_readme.md`
 - `registry_meta_update.dart`
-  - Updates existing component `meta.json` files (files/deps/version/api merge).
+  - Updates existing top-level component `meta.json` files (files/deps/version/api merge).
   - Docs: `registry_meta_update_readme.md`
 - `registry_readme_meta.dart`
   - Generates `<id>.meta.json` from README content.

@@ -23,12 +23,14 @@ void _printUsage() {
   );
   stdout.writeln('');
   stdout.writeln(
-    'Removes legacy component-root metadata files when canonical copies exist',
+    'Removes legacy nested component metadata files when canonical root copies exist.',
   );
-  stdout.writeln('under each component `registry/` directory:');
-  stdout.writeln('  - meta.json');
-  stdout.writeln('  - <id>.meta.json');
-  stdout.writeln('  - theme.schema.json');
+  stdout.writeln(
+    'Legacy files removed from each component `registry/` directory:',
+  );
+  stdout.writeln('  - registry/meta.json');
+  stdout.writeln('  - registry/<id>.meta.json');
+  stdout.writeln('  - registry/theme.schema.json');
   stdout.writeln('');
   stdout.writeln('By default this runs in dry-run mode.');
   stdout.writeln('Use --apply to actually delete files.');
@@ -81,14 +83,14 @@ void main(List<String> args) {
 
   for (final componentDir in _componentDirs(registryDir)) {
     final id = _basename(componentDir.path);
-    final canonicalDir = Directory('${componentDir.path}/registry');
-    final legacyMeta = File('${componentDir.path}/meta.json');
-    final legacyReadmeMeta = File('${componentDir.path}/$id.meta.json');
-    final legacyThemeSchema = File('${componentDir.path}/theme.schema.json');
+    final legacyDir = Directory('${componentDir.path}/registry');
+    final canonicalMeta = File('${componentDir.path}/meta.json');
+    final canonicalReadmeMeta = File('${componentDir.path}/$id.meta.json');
+    final canonicalThemeSchema = File('${componentDir.path}/theme.schema.json');
 
-    final canonicalMeta = File('${canonicalDir.path}/meta.json');
-    final canonicalReadmeMeta = File('${canonicalDir.path}/$id.meta.json');
-    final canonicalThemeSchema = File('${canonicalDir.path}/theme.schema.json');
+    final legacyMeta = File('${legacyDir.path}/meta.json');
+    final legacyReadmeMeta = File('${legacyDir.path}/$id.meta.json');
+    final legacyThemeSchema = File('${legacyDir.path}/theme.schema.json');
 
     if (legacyMeta.existsSync()) {
       if (canonicalMeta.existsSync()) {
@@ -137,6 +139,16 @@ void main(List<String> args) {
       stdout.writeln('deleted ${file.path}');
     } else {
       stdout.writeln('would delete ${file.path}');
+    }
+  }
+
+  if (apply) {
+    for (final componentDir in _componentDirs(registryDir)) {
+      final legacyDir = Directory('${componentDir.path}/registry');
+      if (legacyDir.existsSync() && legacyDir.listSync().isEmpty) {
+        legacyDir.deleteSync();
+        stdout.writeln('deleted empty ${legacyDir.path}');
+      }
     }
   }
 

@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-
 import '../common/registry_component_metadata.dart';
 
 const indexSchemaVersion = 1;
@@ -83,9 +81,9 @@ void validateComponentEntry(Map<String, dynamic> component, int index) {
   }
 
   if (errors.isNotEmpty) {
-    debugPrint('❌ Schema validation failed for component[$index] "$id":');
+    stdout.writeln('❌ Schema validation failed for component[$index] "$id":');
     for (final error in errors) {
-      debugPrint('   - $error');
+      stdout.writeln('   - $error');
     }
     throw Exception('Schema validation failed for component "$id"');
   }
@@ -106,9 +104,9 @@ void validateIndex(Map<String, dynamic> index) {
   }
 
   if (errors.isNotEmpty) {
-    debugPrint('❌ Index schema validation failed:');
+    stdout.writeln('❌ Index schema validation failed:');
     for (final error in errors) {
-      debugPrint('   - $error');
+      stdout.writeln('   - $error');
     }
     throw Exception('Index schema validation failed');
   }
@@ -196,7 +194,7 @@ void main(List<String> args) {
     }
 
     if (dir == null) {
-      debugPrint('⚠ Skipping $id: folder not found');
+      stdout.writeln('⚠ Skipping $id: folder not found');
       continue;
     }
 
@@ -211,7 +209,7 @@ void main(List<String> args) {
     );
 
     if (!metaFile.existsSync()) {
-      debugPrint(
+      stdout.writeln(
         '⚠ Skipping $id: missing component metadata at ${metaFile.path}',
       );
       continue;
@@ -291,12 +289,12 @@ void main(List<String> args) {
   };
 
   // Validate against schema before writing
-  debugPrint('Validating index against schema...');
+  stdout.writeln('Validating index against schema...');
   validateIndex(index);
-  debugPrint('✓ Schema validation passed');
+  stdout.writeln('✓ Schema validation passed');
 
   writeJson(indexJson, index);
-  debugPrint('Wrote $indexJson (${items.length} components).');
+  stdout.writeln('Wrote $indexJson (${items.length} components).');
 }
 
 String? detectFolderFromSource(String registryDir, String source) {

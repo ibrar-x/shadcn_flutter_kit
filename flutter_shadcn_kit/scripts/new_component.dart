@@ -417,6 +417,15 @@ void main(List<String> args) {
     if (_isHiddenPath(normalized)) {
       continue;
     }
+    final fileName = normalized.split('/').last;
+    if (fileName == 'README.md' ||
+        fileName == 'GETTING_STARTED.md' ||
+        fileName == 'preview.dart' ||
+        fileName == 'meta.json' ||
+        fileName == 'theme.schema.json' ||
+        fileName.endsWith('.meta.json')) {
+      continue;
+    }
     relFiles.add(normalized);
   }
   relFiles.sort();

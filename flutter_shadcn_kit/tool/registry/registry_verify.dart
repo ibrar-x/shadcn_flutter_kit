@@ -167,6 +167,7 @@ void main(List<String> args) {
   final invalidPubspecDeps = <String>[];
   final docsMismatch = <String>[];
   final missingSharedFiles = <String>[];
+  final nestedMetadataDirs = <String>[];
   final duplicateSharedIds = <String>{};
   final duplicateSharedFiles = <String>{};
 
@@ -351,6 +352,11 @@ void main(List<String> args) {
         }
       }
     }
+
+    final legacyDir = metadata.legacyMetadataDir;
+    if (legacyDir.existsSync()) {
+      nestedMetadataDirs.add(id);
+    }
   }
 
   stdout.writeln('Registry verification summary:');
@@ -370,6 +376,9 @@ void main(List<String> args) {
   stdout.writeln('  Missing shared files: ${missingSharedFiles.length}');
   stdout.writeln(
     '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
+  );
+  stdout.writeln(
+    '  Nested component registry dirs: ${nestedMetadataDirs.length}',
   );
 
   if (duplicates.isNotEmpty) {
@@ -418,6 +427,11 @@ void main(List<String> args) {
   if (docsMismatch.isNotEmpty) {
     stdout.writeln('Docs snapshot mismatch: ${docsMismatch.first}');
   }
+  if (nestedMetadataDirs.isNotEmpty) {
+    stdout.writeln(
+      'Nested component registry dirs: ${nestedMetadataDirs..sort()}',
+    );
+  }
 
   if (duplicates.isNotEmpty ||
       missingEntries.isNotEmpty ||
@@ -432,7 +446,8 @@ void main(List<String> args) {
       duplicateSharedIds.isNotEmpty ||
       duplicateSharedFiles.isNotEmpty ||
       missingSharedFiles.isNotEmpty ||
-      docsMismatch.isNotEmpty) {
+      docsMismatch.isNotEmpty ||
+      nestedMetadataDirs.isNotEmpty) {
     exitCode = 2;
   }
 }

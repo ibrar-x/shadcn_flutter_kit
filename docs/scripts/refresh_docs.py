@@ -14,6 +14,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Install components and regenerate docs pages.")
     parser.add_argument(
+        "--skip-sync",
+        action="store_true",
+        help="Skip syncing the docs registry mirror",
+    )
+    parser.add_argument(
         "--skip-install",
         action="store_true",
         help="Skip flutter_shadcn install step",
@@ -36,6 +41,8 @@ def main() -> None:
     args, unknown = parser.parse_known_args()
 
     if args.dry_run:
+        if not args.skip_sync:
+            print("python3 scripts/sync_registry.py")
         if not args.skip_install:
             print("python3 scripts/install_components.py", *unknown)
         if not args.skip_generate:
@@ -44,6 +51,9 @@ def main() -> None:
             print("python3 scripts/generate_shadcn_barrel.py")
             print("dart run scripts/fix_shadcn_barrel.dart --write")
         return
+
+    if not args.skip_sync:
+        run(["python3", "scripts/sync_registry.py"], docs_root)
 
     if not args.skip_install:
         run(["python3", "scripts/install_components.py", *unknown], docs_root)

@@ -20,9 +20,11 @@ Generates per-component `theme.schema.json` from discovered `ComponentThemeData`
 
 ## Outputs
 - Canonical schema:
-  - `<component>/registry/theme.schema.json`
-- Legacy mirror:
   - `<component>/theme.schema.json`
+
+## Notes
+- Per-component top-level `theme.schema.json` is canonical.
+- Nested `<component>/registry/theme.schema.json` copies are legacy and should be removed.
 
 ## Example
 `dart run tool/theme/component_theme_schema_generate.dart --components button,checkbox`

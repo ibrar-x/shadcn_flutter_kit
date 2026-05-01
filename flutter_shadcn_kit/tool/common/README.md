@@ -6,7 +6,8 @@ Shared utility code used by multiple tool scripts.
 
 - `registry_component_metadata.dart`
   - Centralizes component metadata paths.
-  - Handles canonical (`component/registry/*.json`) vs legacy (`component/*.json`) read/write mirroring.
+  - Treats component top-level `meta.json`, `<id>.meta.json`, and `theme.schema.json` as the production canonical files.
+  - Recognizes nested `component/registry/*.json` files only as legacy metadata that should be removed after migration.
   - Provides file filtering helpers for manifest generation.
 
 ## Usage

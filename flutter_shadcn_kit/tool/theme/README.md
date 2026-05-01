@@ -2,10 +2,18 @@
 
 Scripts for theme schema/index/config generation and exports.
 
+## Production Layout
+
+- Per-component top-level `theme.schema.json` files are canonical.
+- Nested component `registry/theme.schema.json` files are legacy compatibility artifacts and should be removed.
+- Run registry sync and verify after schema changes:
+  - `dart run tool/registry/registry_sync_all.dart --force`
+  - `dart run tool/registry/registry_verify.dart`
+
 ## Scripts
 
 - `component_theme_schema_generate.dart`
-  - Generates per-component `registry/theme.schema.json` files.
+  - Generates per-component top-level `theme.schema.json` files.
   - Command: `dart run tool/theme/component_theme_schema_generate.dart`
   - Docs: `component_theme_schema_generate_readme.md`
 - `component_theme_global_configs_generate.dart`

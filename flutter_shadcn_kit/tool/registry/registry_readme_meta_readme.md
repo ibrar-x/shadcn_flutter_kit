@@ -14,13 +14,12 @@ Generates `<id>.meta.json` from each component README.
 
 ## Outputs
 - Canonical readme metadata:
-  - `<component>/registry/<id>.meta.json`
-- Legacy mirror for compatibility:
   - `<component>/<id>.meta.json`
 
 ## Notes
 - Script validates generated schema structure before writing.
 - Components with malformed README headings are reported as errors.
+- Nested `<component>/registry/<id>.meta.json` copies are legacy and should be removed.
 
 ## Example
 `dart run tool/registry/registry_readme_meta.dart`

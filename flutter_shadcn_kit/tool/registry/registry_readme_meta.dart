@@ -1,12 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
-
 import '../common/registry_component_metadata.dart';
 
-const registryDir = 'flutter_shadcn_kit/lib/registry';
 const outputSchemaVersion = 1;
+
+Directory? _findRepoRoot(Directory start) {
+  Directory current = start.absolute;
+  while (true) {
+    final candidate = File(
+      '${current.path}/lib/registry/manifests/components.json',
+    );
+    if (candidate.existsSync()) {
+      return current;
+    }
+    final parent = current.parent;
+    if (parent.path == current.path) {
+      return null;
+    }
+    current = parent;
+  }
+}
 
 /// Validates that the generated meta matches the required schema structure
 void validateReadmeMeta(Map<String, dynamic> meta, String path) {
@@ -70,9 +84,9 @@ void validateReadmeMeta(Map<String, dynamic> meta, String path) {
   }
 
   if (errors.isNotEmpty) {
-    debugPrint('❌ Schema validation failed for $path:');
+    stdout.writeln('❌ Schema validation failed for $path:');
     for (final error in errors) {
-      debugPrint('   - $error');
+      stdout.writeln('   - $error');
     }
     throw Exception('Schema validation failed for $path');
   }
@@ -93,7 +107,18 @@ void main(List<String> args) {
     return;
   }
 
-  final folders = listAllComponentFolders();
+  final root = _findRepoRoot(Directory.current);
+  if (root == null) {
+    stderr.writeln(
+      'Error: Could not locate lib/registry/manifests/components.json',
+    );
+    exitCode = 1;
+    return;
+  }
+
+  final folders = listAllComponentFolders(
+    Directory('${root.path}/lib/registry'),
+  );
   final generated = <String>[];
   final errors = <String>[];
 
@@ -101,46 +126,45 @@ void main(List<String> args) {
     final readmePath = '$dir/README.md';
     try {
       final md = File(readmePath).readAsStringSync();
-      final meta = generateReadmeMetaFromMarkdown(md);
+      final fallbackId = Directory(
+        dir,
+      ).uri.pathSegments.where((segment) => segment.isNotEmpty).last;
+      final meta = generateReadmeMetaFromMarkdown(md, fallbackId: fallbackId);
 
       final id = meta['id'] as String;
       final metadata = ComponentMetadataPaths(entryDir: Directory(dir), id: id);
 
       final canonicalMeta = Map<String, dynamic>.from(meta);
-      canonicalMeta[r'$schema'] =
-          '../../../../manifests/readme_meta.schema.json';
+      canonicalMeta[r'$schema'] = '../../../manifests/readme_meta.schema.json';
       validateReadmeMeta(canonicalMeta, metadata.canonicalReadmeMeta.path);
       writeJson(metadata.canonicalReadmeMeta.path, canonicalMeta);
 
-      final legacyMeta = Map<String, dynamic>.from(meta);
-      legacyMeta[r'$schema'] = '../../../manifests/readme_meta.schema.json';
-      validateReadmeMeta(legacyMeta, metadata.legacyReadmeMeta.path);
-      writeJson(metadata.legacyReadmeMeta.path, legacyMeta);
+      deleteLegacyMetadata(metadata);
 
       generated.add(metadata.canonicalReadmeMeta.path);
-      debugPrint('✓ Generated: ${metadata.canonicalReadmeMeta.path}');
+      stdout.writeln('✓ Generated: ${metadata.canonicalReadmeMeta.path}');
     } catch (e) {
       errors.add('✗ Error in $readmePath: $e');
     }
   }
 
-  debugPrint('\n${'=' * 60}');
-  debugPrint('Generated ${generated.length} readme meta files.');
+  stdout.writeln('\n${'=' * 60}');
+  stdout.writeln('Generated ${generated.length} readme meta files.');
   if (errors.isNotEmpty) {
-    debugPrint('\nErrors (${errors.length}):');
+    stdout.writeln('\nErrors (${errors.length}):');
     for (final error in errors) {
-      debugPrint(error);
+      stdout.writeln(error);
     }
   }
 }
 
-List<String> listAllComponentFolders() {
+List<String> listAllComponentFolders(Directory registryDir) {
   // Matches structure:
   // registry/components/<category>/<id>/
   // registry/composites/<category>/<id>/
   final roots = [
-    '$registryDir/components',
-    '$registryDir/composites',
+    '${registryDir.path}/components',
+    '${registryDir.path}/composites',
   ].where((p) => Directory(p).existsSync()).toList();
 
   final out = <String>[];
@@ -168,10 +192,13 @@ List<String> listAllComponentFolders() {
   return out;
 }
 
-Map<String, dynamic> generateReadmeMetaFromMarkdown(String md) {
-  final h = extractFirstHeading(md);
+Map<String, dynamic> generateReadmeMetaFromMarkdown(
+  String md, {
+  required String fallbackId,
+}) {
+  final h = extractFirstHeading(md, fallbackId: fallbackId);
   if (h == null) {
-    throw Exception('README missing required heading: # Name (`id`)');
+    throw Exception('README missing required heading.');
   }
 
   final description = extractDescription(md);
@@ -231,7 +258,7 @@ Map<String, dynamic> generateReadmeMetaFromMarkdown(String md) {
     'id': h['id'],
     'name': h['name'],
     'description': description,
-    'install': install,
+    'install': install.isNotEmpty ? install : 'flutter_shadcn add ${h['id']}',
     'import': importStmt,
     'whenToUse': when,
     'examples': {'minimal': minimal},
@@ -246,11 +273,21 @@ Map<String, dynamic> generateReadmeMetaFromMarkdown(String md) {
   };
 }
 
-Map<String, String>? extractFirstHeading(String md) {
+Map<String, String>? extractFirstHeading(
+  String md, {
+  required String fallbackId,
+}) {
   // "# Button (`button`)"
   final pattern = RegExp(r'^#\s+(.+?)\s*\(`([^`]+)`\)\s*$', multiLine: true);
   final match = pattern.firstMatch(md);
-  if (match == null) return null;
+  if (match == null) {
+    final plainHeading = RegExp(
+      r'^#\s+(.+?)\s*$',
+      multiLine: true,
+    ).firstMatch(md);
+    if (plainHeading == null) return null;
+    return {'name': plainHeading.group(1)!.trim(), 'id': fallbackId};
+  }
   return {'name': match.group(1)!.trim(), 'id': match.group(2)!.trim()};
 }
 

@@ -1,7 +1,7 @@
 # registry_meta_update.dart
 
 ## Purpose
-Updates existing component `meta.json` files with file lists, dependency info, optional API merge, and version defaults.
+Updates existing component top-level `meta.json` files with file lists, dependency info, optional API merge, and version defaults.
 
 ## Script
 `tool/registry/registry_meta_update.dart`
@@ -18,12 +18,11 @@ Updates existing component `meta.json` files with file lists, dependency info, o
 
 ## Inputs
 - Existing `components.json`
-- Component metadata files
-- Optional `<id>.meta.json` for API merge
+- Component top-level `meta.json` files
+- Optional top-level `<id>.meta.json` for API merge
 
 ## Outputs
-- Updated per-component metadata mirrors:
-  - `<component>/registry/meta.json`
+- Updated per-component canonical metadata:
   - `<component>/meta.json`
 
 ## Example

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-03-07T23:08:06.469337Z",
+  "generatedAt": "2026-05-01T21:11:48.414116Z",
   "components": [
     {
       "id": "accordion",
@@ -3073,7 +3073,7 @@
       "id": "markdown",
       "name": "Markdown",
       "category": "display",
-      "description": "Advanced markdown renderer with asset/file sources and optional streaming support.",
+      "description": "Standalone markdown renderer with no `flutter_markdown` dependency.",
       "tags": [
         "display",
         "markdown",
@@ -4495,7 +4495,7 @@
       "id": "slider",
       "name": "Slider",
       "category": "form",
-      "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
+      "description": "Registry slider component with single and range modes, token-driven theming,",
       "tags": [
         "form",
         "input",
@@ -4504,31 +4504,14 @@
       ],
       "version": "1.1.0",
       "install": "flutter_shadcn add slider",
-      "import": "import 'package:<your_app>/ui/shadcn/form/slider/slider.dart';",
-      "importPath": "ui/shadcn/form/slider/slider.dart",
+      "import": "",
+      "importPath": "",
       "api": {
-        "constructors": [
-          "`Slider`",
-          "`Slider.single`",
-          "`Slider.range`",
-          "`WaveSlider`",
-          "`SliderTheme`",
-          "`BrightnessSlider`",
-          "`RangeSoftSlider`",
-          "`StepsDotsSlider`",
-          "`WaveformSlider`",
-          "`ShadJoinGapLayout`",
-          "`ShadContinuousLayout`",
-          "`ShadSegmentedCapsuleRenderer`",
-          "`ShadWaveformRenderer`",
-          "`ShadStepDotsRenderer`"
-        ],
-        "callbacks": [
-          "`onChanged`"
-        ]
+        "constructors": [],
+        "callbacks": []
       },
       "examples": {
-        "minimal": "Slider(\n  value: 0.5,\n  onChanged: (value) {},\n)"
+        "minimal": ""
       },
       "dependencies": {
         "pubspec": {},
@@ -4541,9 +4524,7 @@
           "theme"
         ]
       },
-      "related": [
-        "progress"
-      ]
+      "related": []
     },
     {
       "id": "sortable",

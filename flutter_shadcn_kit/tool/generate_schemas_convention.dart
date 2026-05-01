@@ -1062,12 +1062,12 @@ List<_DefaultFieldInfo> _mergeFields({
 
 Map<String, dynamic> _buildSchemaMap(
   ComponentSchema schema, {
-  required bool canonical,
+  required bool componentRoot,
 }) {
   final json = schema.toJson();
-  json[r'$schema'] = canonical
-      ? '../../../../manifests/component_theme.schema.json'
-      : '../../../manifests/component_theme.schema.json';
+  json[r'$schema'] = componentRoot
+      ? '../../../manifests/component_theme.schema.json'
+      : '../../../../manifests/component_theme.schema.json';
   return json;
 }
 
@@ -1269,10 +1269,12 @@ void _writeSchemaJson({
   required ComponentMetadataPaths metadata,
   required ComponentSchema schema,
 }) {
-  final canonical = _buildSchemaMap(schema, canonical: true);
-  final legacy = _buildSchemaMap(schema, canonical: false);
+  final canonical = _buildSchemaMap(schema, componentRoot: true);
   _writeJson(metadata.canonicalThemeSchema, canonical);
-  _writeJson(metadata.legacyThemeSchema, legacy);
+  if (metadata.legacyThemeSchema.existsSync()) {
+    metadata.legacyThemeSchema.deleteSync();
+  }
+  deleteLegacyMetadata(metadata);
 }
 
 void _writeDartSchema(
@@ -1400,7 +1402,7 @@ void main(List<String> args) {
       hasStrictViolation = true;
     }
 
-    final canonicalJson = _buildSchemaMap(built.schema, canonical: true);
+    final canonicalJson = _buildSchemaMap(built.schema, componentRoot: true);
     final dartOutputPath = target.defaultsFile.path.replaceAll(
       '_theme_defaults.dart',
       '_theme_schema.dart',
@@ -1414,7 +1416,6 @@ void main(List<String> args) {
     if (dryRun) {
       if (format == _OutputFormat.json || format == _OutputFormat.both) {
         stdout.writeln('  [dry-run] ${metadata.canonicalThemeSchema.path}');
-        stdout.writeln('  [dry-run] ${metadata.legacyThemeSchema.path}');
       }
       if (format == _OutputFormat.dart || format == _OutputFormat.both) {
         stdout.writeln('  [dry-run] $dartOutputPath');
