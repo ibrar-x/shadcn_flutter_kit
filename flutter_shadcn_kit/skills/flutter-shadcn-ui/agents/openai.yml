@@ -1,3 +1,10 @@
-interface:
-  display_name: "Flutter shadcn CLI"
-  short_description: "Manages flutter_shadcn workflows: setup, discovery, install/remove, theming, diagnostics, and skill installation."
+name: flutter-shadcn-ui
+description: Flutter shadcn UI skill for OpenAI/Codex-style agents.
+entry: SKILL.md
+references:
+  - references/cli-workflows.md
+  - references/component-catalog.md
+  - references/replacement-map.md
+  - references/composition.md
+  - references/forms.md
+  - references/theming-assets.md

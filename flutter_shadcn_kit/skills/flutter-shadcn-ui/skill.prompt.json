@@ -1,27 +1,4 @@
 {
-  "skill": "flutter-shadcn-ui",
-  "purpose": "Execute flutter_shadcn workflows with namespace-safe, CLI-first practices",
-  "inputs": [
-    "Requested component(s)",
-    "Target namespace",
-    "Theme/asset requirements",
-    "Desired AI model installation target"
-  ],
-  "workflow": [
-    "Check registry/default namespace context",
-    "Discover with list/search/info",
-    "Run dry-run before add",
-    "Install/remove with explicit namespace-qualified IDs",
-    "Run diagnostics (doctor/validate/audit/deps)",
-    "Apply themes and assets through CLI"
-  ],
-  "constraints": [
-    "Use only documented flags from command help",
-    "Prefer @namespace/component references",
-    "Do not skip dry-run for non-trivial installs",
-    "Maintain overlay wrappers for overlay-dependent components",
-    "Never alias registry imports; hide conflicting framework symbols and use canonical registry names",
-    "Never guess APIs or imports",
-    "Registry snapshot is read-only when present"
-  ]
+  "id": "flutter-shadcn-ui",
+  "prompt": "Use the Flutter shadcn UI skill. Prefer flutter_shadcn CLI commands, explicit @namespace/component IDs, dry-run planning, registry components over Material/Cupertino replacements, and diagnostics after changes."
 }

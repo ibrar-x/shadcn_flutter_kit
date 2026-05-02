@@ -1,36 +1,5 @@
----
-schema_version: 1
 id: flutter-shadcn-ui
-name: Flutter shadcn CLI
-version: "1.0.0"
-description: |
-  Comprehensive flutter_shadcn CLI skill with namespace-safe install workflows,
-  theming rules, diagnostics, and AI model installation guidance.
-author: Flutter Shadcn Contributors
-license: MIT
-updated: 2026-03-08
-status: stable
-category: ui-development
-
-tags:
-  - flutter
-  - shadcn
-  - cli
-  - ui-components
-  - skill
-
-files:
-  main: SKILL.md
-  installation: INSTALLATION.md
-  references:
-    cli: cli.md
-    customization: customization.md
-    mcp: mcp.md
-    rules_forms: rules/forms.md
-    rules_composition: rules/composition.md
-    rules_styling: rules/styling.md
-    rules_icons: rules/icons.md
-    rules_namespace: rules/base-vs-radix.md
-    evals: evals/evals.json
-    common_replacements: references/COMMON_PATCHED_WIDGETS_README.md
-    docs_app_examples: references/docs_app_common_examples.md
+name: Flutter shadcn UI
+version: 2.0.0
+description: AI skill for installing and composing Flutter shadcn registry components correctly.
+main: SKILL.md

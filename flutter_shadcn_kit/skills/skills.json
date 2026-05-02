@@ -7,17 +7,18 @@
     {
       "id": "flutter-shadcn-ui",
       "name": "Flutter shadcn CLI",
-      "version": "1.0.0",
-      "description": "Comprehensive flutter_shadcn skill modeled after shadcn's original skill structure with CLI workflows, rules, and evals.",
+      "version": "2.0.0",
+      "description": "Comprehensive Flutter shadcn UI skill with CLI workflows, component catalog, Material/Cupertino replacement map, composition rules, form guidance, theming, assets, and diagnostics.",
       "status": "stable",
       "category": "ui-development",
       "path": "flutter-shadcn-ui",
       "entry": "flutter-shadcn-ui/SKILL.md",
       "manifest": "flutter-shadcn-ui/skill.json",
       "references": {
-        "cli": "flutter-shadcn-ui/cli.md",
+        "cli": "flutter-shadcn-ui/references/cli-workflows.md",
         "installation": "flutter-shadcn-ui/INSTALLATION.md",
-        "docsExamples": "flutter-shadcn-ui/references/docs_app_common_examples.md"
+        "components": "flutter-shadcn-ui/references/component-catalog.md",
+        "replacements": "flutter-shadcn-ui/references/replacement-map.md"
       },
       "installation": {
         "supportedByCli": true

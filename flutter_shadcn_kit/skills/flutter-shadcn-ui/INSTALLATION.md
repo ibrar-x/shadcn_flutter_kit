@@ -1,43 +1,30 @@
-# Install flutter-shadcn-ui Skill
+# Install The Flutter shadcn UI Skill
 
-Use the Flutter shadcn CLI skill installer from the target project root.
-
-## Install
+This skill ships with `flutter_shadcn_cli` and can be installed into AI model folders from any Flutter project.
 
 ```bash
-# Interactive
-flutter_shadcn install-skill --skill flutter-shadcn-ui
-
-# Direct install to one model folder
-flutter_shadcn install-skill --skill flutter-shadcn-ui --model .codex
+dart pub global activate flutter_shadcn_cli
+flutter_shadcn --advanced install-skill --available
+flutter_shadcn --advanced install-skill --skill flutter-shadcn-ui --model .codex
 ```
 
-## Verify
+For local repo development:
 
 ```bash
-flutter_shadcn install-skill --list
+dart run bin/flutter_shadcn.dart --advanced install-skill --skill flutter-shadcn-ui --model .codex
 ```
 
-## Install to Multiple Models with Symlinks
+Remote kit source fallback:
 
 ```bash
-# Install into one model
-flutter_shadcn install-skill --skill flutter-shadcn-ui --model .codex
-
-# Symlink to other discovered models
-flutter_shadcn install-skill --symlink --skill flutter-shadcn-ui --model .codex
+flutter_shadcn --advanced install-skill \
+  --skills-url https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/skills \
+  --skill flutter-shadcn-ui \
+  --model .codex
 ```
 
-## Uninstall
+Verify:
 
 ```bash
-flutter_shadcn install-skill --uninstall flutter-shadcn-ui --model .codex
-# or interactive removal
-flutter_shadcn install-skill --uninstall-interactive
+flutter_shadcn --advanced install-skill --list
 ```
-
-## Notes
-
-- `skill.json` or `skill.yaml` must exist in the source skill folder.
-- The installer copies files declared in `skill.json` and keeps management files (`skill.json`, `skill.yaml`) in the source registry.
-- If local skill discovery fails, set `--skills-url` explicitly.
