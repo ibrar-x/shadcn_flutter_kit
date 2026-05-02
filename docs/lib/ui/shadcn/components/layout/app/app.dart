@@ -2,10 +2,12 @@ export '../../display/divider/divider.dart' show Divider;
 export '../scaffold/scaffold.dart' show AppBar, Scaffold;
 
 import 'package:flutter/material.dart' as material;
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../component_theme_global_configs.dart';
 import '../../../shared/primitives/overlay.dart';
+import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
 
@@ -88,15 +90,15 @@ class ShadcnApp extends StatelessWidget {
     this.menuHandler,
     this.enableThemeAnimation = false,
     this.materialFallback = true,
-  }) : navigatorKey = null,
-       home = null,
-       routes = const <String, WidgetBuilder>{},
-       initialRoute = null,
-       onGenerateRoute = null,
-       onGenerateInitialRoutes = null,
-       onUnknownRoute = null,
-       pageRouteBuilder = null,
-       navigatorObservers = const <NavigatorObserver>[];
+  })  : navigatorKey = null,
+        home = null,
+        routes = const <String, WidgetBuilder>{},
+        initialRoute = null,
+        onGenerateRoute = null,
+        onGenerateInitialRoutes = null,
+        onUnknownRoute = null,
+        pageRouteBuilder = null,
+        navigatorObservers = const <NavigatorObserver>[];
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final Widget? home;
@@ -141,8 +143,7 @@ class ShadcnApp extends StatelessWidget {
   ThemeData _resolveTheme(BuildContext context) {
     final platformBrightness =
         MediaQuery.maybeOf(context)?.platformBrightness ?? Brightness.light;
-    final useDark =
-        themeMode == ThemeMode.dark ||
+    final useDark = themeMode == ThemeMode.dark ||
         (themeMode == ThemeMode.system &&
             platformBrightness == Brightness.dark);
     var resolved = useDark ? (darkTheme ?? theme) : theme;
@@ -185,6 +186,40 @@ class ShadcnApp extends StatelessWidget {
     );
   }
 
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _effectiveLocalizationsDelegates {
+    final delegates = <LocalizationsDelegate<dynamic>>[
+      if (localizationsDelegates != null) ...localizationsDelegates!,
+      ...ShadcnLocalizations.localizationsDelegates,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];
+    final seen = <Type>{};
+    return delegates
+        .where((delegate) => seen.add(delegate.runtimeType))
+        .toList(growable: false);
+  }
+
+  Locale get _resolvedLocale {
+    if (locale != null) {
+      return locale!;
+    }
+    final supported = supportedLocales.toList();
+    if (supported.isEmpty) {
+      return const Locale('en', 'US');
+    }
+    final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
+    for (final candidate in supported) {
+      if (candidate.languageCode == platformLocale.languageCode &&
+          (candidate.countryCode == null ||
+              candidate.countryCode == platformLocale.countryCode)) {
+        return candidate;
+      }
+    }
+    return supported.first;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!_globalThemesRegistered) {
@@ -195,11 +230,15 @@ class ShadcnApp extends StatelessWidget {
     Widget appBuilder(BuildContext context, Widget? child) {
       final built = builder != null ? builder!(context, child) : child;
       final safeChild = built ?? const SizedBox.shrink();
-      return OverlayManagerLayer(
-        popoverHandler: popoverHandler ?? OverlayHandler.popover,
-        tooltipHandler: tooltipHandler ?? OverlayHandler.popover,
-        menuHandler: menuHandler ?? OverlayHandler.popover,
-        child: _wrapWithTheme(context, safeChild, resolvedTheme),
+      return Localizations(
+        locale: _resolvedLocale,
+        delegates: _effectiveLocalizationsDelegates.toList(),
+        child: OverlayManagerLayer(
+          popoverHandler: popoverHandler ?? OverlayHandler.popover,
+          tooltipHandler: tooltipHandler ?? OverlayHandler.popover,
+          menuHandler: menuHandler ?? OverlayHandler.popover,
+          child: _wrapWithTheme(context, safeChild, resolvedTheme),
+        ),
       );
     }
 
@@ -213,7 +252,7 @@ class ShadcnApp extends StatelessWidget {
         title: title,
         builder: appBuilder,
         locale: locale,
-        localizationsDelegates: localizationsDelegates,
+        localizationsDelegates: _effectiveLocalizationsDelegates,
         localeListResolutionCallback: localeListResolutionCallback,
         localeResolutionCallback: localeResolutionCallback,
         supportedLocales: supportedLocales,
@@ -240,7 +279,7 @@ class ShadcnApp extends StatelessWidget {
       navigatorObservers: navigatorObservers,
       builder: appBuilder,
       locale: locale,
-      localizationsDelegates: localizationsDelegates,
+      localizationsDelegates: _effectiveLocalizationsDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
       localeResolutionCallback: localeResolutionCallback,
       supportedLocales: supportedLocales,
@@ -257,7 +296,8 @@ class ShadcnApp extends StatelessWidget {
 PageRoute<T> _defaultPageRouteBuilder<T>(
   RouteSettings settings,
   WidgetBuilder builder,
-) => PageRouteBuilder<T>(
-  settings: settings,
-  pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-);
+) =>
+    PageRouteBuilder<T>(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+    );

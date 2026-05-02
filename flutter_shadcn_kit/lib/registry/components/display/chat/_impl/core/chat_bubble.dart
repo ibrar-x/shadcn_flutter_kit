@@ -64,6 +64,7 @@ class ChatBubble extends StatelessWidget {
   /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final alignment = styleValue(
@@ -84,6 +85,12 @@ class ChatBubble extends StatelessWidget {
       themeValue: chatTheme?.widthFactor,
       defaultValue: 0.5,
     );
+    final bubbleColor = styleValue(
+      widgetValue: color,
+      themeValue: chatTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
+    final foregroundColor = _chatForegroundColorFor(bubbleColor);
     return ChatConstrainedBox(
       widthFactor: widthFactor,
       alignment: alignment,
@@ -109,7 +116,18 @@ class ChatBubble extends StatelessWidget {
             ),
         child: Builder(
           builder: (context) {
-            return type.wrap(context, child, effectiveData, this);
+            return type.wrap(
+              context,
+              DefaultTextStyle.merge(
+                style: TextStyle(color: foregroundColor),
+                child: IconTheme.merge(
+                  data: IconThemeData(color: foregroundColor),
+                  child: child,
+                ),
+              ),
+              effectiveData,
+              this,
+            );
           },
         ),
       ),

@@ -14,13 +14,13 @@ class BreadcrumbExample1 extends StatelessWidget {
       // Use a built-in arrow separator for a conventional look.
       separator: Breadcrumb.arrowSeparator,
       children: [
-        TextButton(
+        LinkButton(
           onPressed: () {},
           density: ButtonDensity.compact,
           child: const Text('Home'),
         ),
         const MoreDots(),
-        TextButton(
+        LinkButton(
           onPressed: () {},
           density: ButtonDensity.compact,
           child: const Text('Components'),

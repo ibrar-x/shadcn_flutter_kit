@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -5,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
+import 'theme/docs_theme.dart';
 import 'ui/shadcn/components/control/button/button.dart' as shadcn_buttons;
 import 'ui/shadcn/components/display/code_snippet/code_snippet.dart';
 import 'ui/shadcn/components/layout/card/card.dart' as shadcn_card;
 import 'ui/shadcn/components/overlay/toast/toast.dart';
+import 'ui/shadcn/shared/theme/color_scheme.dart' as shadcn_colors;
 
 class CodeHighlighter extends StatefulWidget {
   final String code;
@@ -36,8 +39,7 @@ class _HighlighterResult {
 
 class _CodeHighlighterState extends State<CodeHighlighter> {
   static final Map<String, Future<bool>> _initializedLanguages = {};
-  static final Map<Brightness, Future<HighlighterTheme>> _initializedThemes =
-      {};
+  static final Map<String, Future<HighlighterTheme>> _initializedThemes = {};
 
   static const Set<String> supportedLanguages = {
     'css',
@@ -49,9 +51,9 @@ class _CodeHighlighterState extends State<CodeHighlighter> {
     'yaml',
   };
 
-  static String _resolveMode(String mode) {
+  static String? _resolveMode(String mode) {
     if (mode == 'bash' || mode == 'shell' || mode == 'sh') {
-      return 'javascript';
+      return null;
     }
     if (mode == 'js') {
       return 'javascript';
@@ -67,6 +69,9 @@ class _CodeHighlighterState extends State<CodeHighlighter> {
 
   static Future<bool> initializeLanguage(String mode) {
     final resolvedMode = _resolveMode(mode);
+    if (resolvedMode == null) {
+      return Future.value(false);
+    }
     final current = _initializedLanguages[resolvedMode];
     if (current != null) {
       return current;
@@ -88,20 +93,179 @@ class _CodeHighlighterState extends State<CodeHighlighter> {
     return future;
   }
 
-  static Future<HighlighterTheme> initializeTheme(Brightness brightness) {
-    final current = _initializedThemes[brightness];
+  static Future<HighlighterTheme> initializeTheme(
+    shadcn_colors.ColorScheme colorScheme,
+  ) {
+    final cacheKey = [
+      colorScheme.brightness.name,
+      colorScheme.foreground.toARGB32(),
+      colorScheme.background.toARGB32(),
+      colorScheme.primary.toARGB32(),
+      colorScheme.accent.toARGB32(),
+      colorScheme.mutedForeground.toARGB32(),
+    ].join(':');
+    final current = _initializedThemes[cacheKey];
     if (current != null) {
       return current;
     }
-    final future = HighlighterTheme.loadForBrightness(brightness);
-    _initializedThemes[brightness] = future;
+    final future = Future.value(_buildTheme(colorScheme));
+    _initializedThemes[cacheKey] = future;
     return future;
   }
 
+  static HighlighterTheme _buildTheme(shadcn_colors.ColorScheme colorScheme) {
+    final isDark = colorScheme.brightness == Brightness.dark;
+    final wrapperColor = _mix(
+      colorScheme.foreground,
+      isDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      isDark ? 0.08 : 0.04,
+    );
+    final commentColor = _mix(
+      colorScheme.mutedForeground,
+      wrapperColor,
+      isDark ? 0.22 : 0.12,
+    );
+    final keywordColor =
+        isDark ? const Color(0xFFFF7B72) : const Color(0xFFB42318);
+    final functionColor =
+        isDark ? const Color(0xFFD2A8FF) : const Color(0xFF8250DF);
+    final typeColor =
+        isDark ? const Color(0xFF79C0FF) : const Color(0xFF0550AE);
+    final stringColor =
+        isDark ? const Color(0xFFA5D6FF) : const Color(0xFF0A6E31);
+    final numberColor =
+        isDark ? const Color(0xFFFFA657) : const Color(0xFF9A4D00);
+    final constantColor =
+        isDark ? const Color(0xFF7EE787) : const Color(0xFF116329);
+    final punctuationColor = _mix(
+      wrapperColor,
+      isDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      isDark ? 0.18 : 0.08,
+    );
+
+    final themeJson = jsonEncode({
+      'name': isDark ? 'Docs Dark' : 'Docs Light',
+      'settings': [
+        {
+          'settings': {
+            'foreground': _hex(wrapperColor),
+          },
+        },
+        {
+          'scope': 'comment',
+          'settings': {
+            'foreground': _hex(commentColor),
+            'fontStyle': 'italic',
+          },
+        },
+        {
+          'scope': [
+            'keyword',
+            'keyword.control',
+            'storage',
+            'storage.type',
+            'storage.modifier',
+          ],
+          'settings': {
+            'foreground': _hex(keywordColor),
+          },
+        },
+        {
+          'scope': [
+            'entity.name.function',
+            'support.function',
+            'meta.function-call',
+          ],
+          'settings': {
+            'foreground': _hex(functionColor),
+          },
+        },
+        {
+          'scope': [
+            'entity.name.type',
+            'entity.name.class',
+            'support.class',
+            'support.type',
+            'meta.return-type',
+          ],
+          'settings': {
+            'foreground': _hex(typeColor),
+          },
+        },
+        {
+          'scope': [
+            'string',
+            'string.quoted',
+            'markup.inline.raw',
+          ],
+          'settings': {
+            'foreground': _hex(stringColor),
+          },
+        },
+        {
+          'scope': [
+            'constant.numeric',
+            'constant.language',
+            'constant.regexp',
+          ],
+          'settings': {
+            'foreground': _hex(numberColor),
+          },
+        },
+        {
+          'scope': [
+            'constant',
+            'support.constant',
+            'variable.language',
+          ],
+          'settings': {
+            'foreground': _hex(constantColor),
+          },
+        },
+        {
+          'scope': [
+            'variable',
+            'meta.definition.variable.name',
+            'support.variable',
+            'meta.object-literal.key',
+            'entity.other.attribute-name',
+          ],
+          'settings': {
+            'foreground': _hex(wrapperColor),
+          },
+        },
+        {
+          'scope': [
+            'punctuation',
+            'meta.brace',
+            'punctuation.definition.tag',
+          ],
+          'settings': {
+            'foreground': _hex(punctuationColor),
+          },
+        },
+      ],
+    });
+
+    return HighlighterTheme.fromConfiguration(
+      themeJson,
+      TextStyle(color: wrapperColor),
+    );
+  }
+
+  static Color _mix(Color a, Color b, double amount) {
+    return Color.lerp(a, b, amount.clamp(0.0, 1.0)) ?? a;
+  }
+
+  static String _hex(Color color) {
+    final value = color.toARGB32() & 0x00FFFFFF;
+    return '#${value.toRadixString(16).padLeft(6, '0').toUpperCase()}';
+  }
+
   Future<_HighlighterResult> _request() async {
-    final brightness = Theme.of(context).brightness;
+    final colorScheme = DocsThemeScope.of(context).colorScheme;
     final success = await initializeLanguage(widget.mode);
-    final theme = await initializeTheme(brightness);
+    final theme = await initializeTheme(colorScheme);
     return _HighlighterResult(success: success, theme: theme);
   }
 
@@ -125,7 +289,7 @@ class _CodeHighlighterState extends State<CodeHighlighter> {
           final data = snapshot.requireData;
           final resolvedMode = _resolveMode(widget.mode);
           return SelectableText.rich(
-            !data.success
+            !data.success || resolvedMode == null
                 ? TextSpan(text: widget.code)
                 : Highlighter(language: resolvedMode, theme: data.theme)
                     .highlight(widget.code),

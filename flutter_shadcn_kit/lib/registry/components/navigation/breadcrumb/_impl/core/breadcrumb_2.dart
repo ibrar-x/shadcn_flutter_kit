@@ -26,10 +26,11 @@ class Breadcrumb extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<BreadcrumbTheme>(context);
-/// Stores `sep` state/configuration for this implementation.
+
+    /// Stores `sep` state/configuration for this implementation.
     final sep = separator ?? compTheme?.separator ?? Breadcrumb.arrowSeparator;
     final pad = styleValue(
       widgetValue: padding,
@@ -52,10 +53,10 @@ class Breadcrumb extends StatelessWidget {
                   if (i == children.length - 1)
                     children[i].medium().foreground()
                   else
-/// Creates a `Row` instance.
+                    /// Creates a `Row` instance.
                     Row(children: [children[i].medium(), sep]),
             ],
-          ).small().muted(),
+          ).small(),
         ),
       ),
     );

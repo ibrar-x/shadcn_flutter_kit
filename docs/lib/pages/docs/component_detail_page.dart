@@ -280,7 +280,9 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
         ),
         SizedBox(height: spacing.md),
         Opacity(
-          opacity: _performanceMode ? 1 : 0.4,
+          opacity: _performanceMode
+              ? 1
+              : (Theme.of(context).brightness == Brightness.dark ? 0.72 : 0.55),
           child: IgnorePointer(
             ignoring: !_performanceMode,
             child: Column(

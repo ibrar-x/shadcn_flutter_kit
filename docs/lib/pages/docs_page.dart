@@ -185,6 +185,9 @@ class DocsPageState extends State<DocsPage> {
   final ScrollController _sidebarScrollController = ScrollController();
   final ScrollController _drawerSidebarScrollController = ScrollController();
   final ScrollController _onThisPageScrollController = ScrollController();
+  final FocusNode _shortcutFocusNode = FocusNode(
+    debugLabel: 'docs-page-shortcuts',
+  );
   OnThisPage? _activeOnThisPage;
   bool _isSheetOpen = false;
   late List<DocsSection> _sections;
@@ -209,6 +212,9 @@ class DocsPageState extends State<DocsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       _updateActiveOnThisPage(force: true);
+      if (!_shortcutFocusNode.hasFocus) {
+        _shortcutFocusNode.requestFocus();
+      }
     });
   }
 
@@ -250,6 +256,7 @@ class DocsPageState extends State<DocsPage> {
     _sidebarScrollController.dispose();
     _drawerSidebarScrollController.dispose();
     _onThisPageScrollController.dispose();
+    _shortcutFocusNode.dispose();
     super.dispose();
   }
 
@@ -498,6 +505,12 @@ class DocsPageState extends State<DocsPage> {
     final horizontalPadding = width >= breakpointWidth2 ? 32.0 : 18.0;
     final backLabel =
         width >= breakpointWidth2 ? 'shadcn_registry_docs' : 'docs';
+    final shellSurface = Color.lerp(
+          theme.colorScheme.background,
+          theme.colorScheme.card,
+          theme.brightness == Brightness.dark ? 0.72 : 0.48,
+        ) ??
+        theme.colorScheme.card;
     return shadcn_scaffold.AppBar(
       leading: const [],
       trailing: const [],
@@ -506,7 +519,9 @@ class DocsPageState extends State<DocsPage> {
         horizontal: horizontalPadding * scaling,
         vertical: 12 * scaling,
       ),
-      backgroundColor: theme.colorScheme.background.withValues(alpha: 0.3),
+      backgroundColor: shellSurface.withValues(
+        alpha: theme.brightness == Brightness.dark ? 0.94 : 0.9,
+      ),
       surfaceOpacity: theme.surfaceOpacity,
       surfaceBlur: theme.surfaceBlur,
       child: Row(
@@ -524,7 +539,10 @@ class DocsPageState extends State<DocsPage> {
               child: Text(backLabel).small().semiBold(),
             )
           else
-            const Text('shadcn_flutter_registry').semiBold(),
+            Text(
+              'shadcn_flutter_registry',
+              style: TextStyle(color: theme.colorScheme.foreground),
+            ).semiBold(),
           if (showSearchBar) ...[
             const Spacer(),
             Expanded(
@@ -586,26 +604,38 @@ class DocsPageState extends State<DocsPage> {
                 onPressed: () => controller.setBrightness(Brightness.light),
                 size: shadcn_buttons.ButtonSize.small,
                 density: shadcn_buttons.ButtonDensity.iconDense,
-                icon: const Icon(Icons.light_mode),
+                icon: const Icon(
+                  Icons.light_mode,
+                  semanticLabel: 'Switch to light theme',
+                ),
               )
             : shadcn_buttons.IconButton.secondary(
                 onPressed: () => controller.setBrightness(Brightness.light),
                 size: shadcn_buttons.ButtonSize.small,
                 density: shadcn_buttons.ButtonDensity.iconDense,
-                icon: const Icon(Icons.light_mode),
+                icon: const Icon(
+                  Icons.light_mode,
+                  semanticLabel: 'Switch to light theme',
+                ),
               ),
         isDark
             ? shadcn_buttons.IconButton.secondary(
                 onPressed: () => controller.setBrightness(Brightness.dark),
                 size: shadcn_buttons.ButtonSize.small,
                 density: shadcn_buttons.ButtonDensity.iconDense,
-                icon: const Icon(Icons.dark_mode),
+                icon: const Icon(
+                  Icons.dark_mode,
+                  semanticLabel: 'Switch to dark theme',
+                ),
               )
             : shadcn_buttons.IconButton.ghost(
                 onPressed: () => controller.setBrightness(Brightness.dark),
                 size: shadcn_buttons.ButtonSize.small,
                 density: shadcn_buttons.ButtonDensity.iconDense,
-                icon: const Icon(Icons.dark_mode),
+                icon: const Icon(
+                  Icons.dark_mode,
+                  semanticLabel: 'Switch to dark theme',
+                ),
               ),
       ],
     );
@@ -638,7 +668,10 @@ class DocsPageState extends State<DocsPage> {
                 controller: _drawerSidebarScrollController,
                 startOffset: 20,
                 endOffset: 20,
-                gradient: const [Colors.transparent, Colors.white],
+                gradient: [
+                  Colors.transparent,
+                  theme.colorScheme.background,
+                ],
                 child: SingleChildScrollView(
                   controller: _drawerSidebarScrollController,
                   child: SidebarNav(
@@ -734,7 +767,7 @@ class DocsPageState extends State<DocsPage> {
               ),
             },
             child: Focus(
-              autofocus: true,
+              focusNode: _shortcutFocusNode,
               child: shadcn_scaffold.Scaffold(
                 headers: [
                   _buildHeader(
@@ -753,7 +786,10 @@ class DocsPageState extends State<DocsPage> {
                           controller: _sidebarScrollController,
                           startOffset: 20,
                           endOffset: 20,
-                          gradient: const [Colors.transparent, Colors.white],
+                          gradient: [
+                            Colors.transparent,
+                            theme.colorScheme.background,
+                          ],
                           child: SingleChildScrollView(
                             controller: _sidebarScrollController,
                             key: const PageStorageKey('sidebar'),
@@ -808,46 +844,58 @@ class DocsPageState extends State<DocsPage> {
                                       ) *
                                       theme.scaling) +
                                   MediaQuery.of(context).padding,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Breadcrumb(
-                                    separator: Breadcrumb.arrowSeparator,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          if (widget.sidebarMode ==
-                                              DocsSidebarMode.cli) {
-                                            context.goNamed(
-                                              'cli_reference',
-                                              pathParameters: const {
-                                                'id': 'cli-overview'
-                                              },
-                                            );
-                                            return;
-                                          }
-                                          context.goNamed('introduction');
-                                        },
-                                        child: Text(
-                                          widget.sidebarMode ==
-                                                  DocsSidebarMode.cli
-                                              ? 'CLI'
-                                              : 'Docs',
+                              child: DefaultTextStyle.merge(
+                                style: TextStyle(
+                                  color: theme.colorScheme.foreground,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Breadcrumb(
+                                      separator: Breadcrumb.arrowSeparator,
+                                      children: [
+                                        shadcn_buttons.LinkButton(
+                                          density: shadcn_buttons
+                                              .ButtonDensity.compact,
+                                          onPressed: () {
+                                            if (widget.sidebarMode ==
+                                                DocsSidebarMode.cli) {
+                                              context.goNamed(
+                                                'cli_reference',
+                                                pathParameters: const {
+                                                  'id': 'cli-overview'
+                                                },
+                                              );
+                                              return;
+                                            }
+                                            context.goNamed('introduction');
+                                          },
+                                          child: Text(
+                                            widget.sidebarMode ==
+                                                    DocsSidebarMode.cli
+                                                ? 'CLI'
+                                                : 'Docs',
+                                          ),
                                         ),
-                                      ),
-                                      ...widget.navigationItems,
-                                      if (currentPage != null)
-                                        Text(currentPage.title),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: theme.spacing.lg,
-                                  ),
-                                  widget.child,
-                                ],
+                                        ...widget.navigationItems,
+                                        if (currentPage != null)
+                                          Text(currentPage.title),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: theme.spacing.lg,
+                                    ),
+                                    widget.child,
+                                  ],
+                                ),
                               ),
                             )
-                          : widget.child,
+                          : DefaultTextStyle.merge(
+                              style: TextStyle(
+                                color: theme.colorScheme.foreground,
+                              ),
+                              child: widget.child,
+                            ),
                     ),
                     if (widget.sidebar != null)
                       MediaQueryVisibility(
@@ -875,9 +923,9 @@ class DocsPageState extends State<DocsPage> {
                               controller: _onThisPageScrollController,
                               startOffset: 20,
                               endOffset: 20,
-                              gradient: const [
+                              gradient: [
                                 Colors.transparent,
-                                Colors.white
+                                theme.colorScheme.background,
                               ],
                               child: SingleChildScrollView(
                                 controller: _onThisPageScrollController,
@@ -976,12 +1024,19 @@ class SidebarSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = shadcn_theme.Theme.of(context);
+    final headerColor = theme.brightness == Brightness.dark
+        ? theme.colorScheme.mutedForeground.withValues(alpha: 0.92)
+        : theme.colorScheme.mutedForeground.withValues(alpha: 0.78);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        header.base().semiBold().withPadding(vertical: 4, horizontal: 10),
+        DefaultTextStyle.merge(
+          style: TextStyle(color: headerColor),
+          child: header.base().semiBold(),
+        ).withPadding(vertical: 4, horizontal: 10),
         const Gap(8),
         ...children,
       ],
@@ -1007,8 +1062,9 @@ class DocsNavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
     final selectedText = data.colorScheme.primary;
-    final unselectedText =
-        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final unselectedText = data.brightness == Brightness.dark
+        ? data.colorScheme.mutedForeground.withValues(alpha: 0.84)
+        : data.colorScheme.mutedForeground.withValues(alpha: 0.7);
     final style = shadcn_buttons.ButtonVariance.link
         .copyWith(
           padding: (context, states, value) =>
@@ -1059,8 +1115,9 @@ class SidebarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = shadcn_theme.Theme.of(context);
     final selectedText = data.colorScheme.primary;
-    final unselectedText =
-        data.colorScheme.mutedForeground.withValues(alpha: 0.56);
+    final unselectedText = data.brightness == Brightness.dark
+        ? data.colorScheme.mutedForeground.withValues(alpha: 0.84)
+        : data.colorScheme.mutedForeground.withValues(alpha: 0.7);
     final style = shadcn_buttons.ButtonVariance.link
         .copyWith(
           padding: (context, states, value) =>

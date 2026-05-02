@@ -64,6 +64,7 @@ class ChatBubble extends StatelessWidget {
   /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final alignment = styleValue(
@@ -76,20 +77,24 @@ class ChatBubble extends StatelessWidget {
       themeValue: chatTheme?.type,
       defaultValue: ChatBubbleType.tail,
     );
-    final effectiveData =
-        (Data.maybeOf<ChatBubbleData>(context) ??
-        ChatBubbleData(index: 0, length: 1));
+    final effectiveData = (Data.maybeOf<ChatBubbleData>(context) ??
+        const ChatBubbleData(index: 0, length: 1));
     final widthFactor = styleValue(
       widgetValue: this.widthFactor,
       themeValue: chatTheme?.widthFactor,
       defaultValue: 0.5,
     );
+    final bubbleColor = styleValue(
+      widgetValue: color,
+      themeValue: chatTheme?.color,
+      defaultValue: theme.colorScheme.primary,
+    );
+    final foregroundColor = _chatForegroundColorFor(bubbleColor);
     return ChatConstrainedBox(
       widthFactor: widthFactor,
       alignment: alignment,
       child: ComponentTheme(
-        data:
-            chatTheme?.copyWith(
+        data: chatTheme?.copyWith(
               color: color == null ? null : () => color,
               type: () => type,
               alignment: () => alignment,
@@ -109,7 +114,18 @@ class ChatBubble extends StatelessWidget {
             ),
         child: Builder(
           builder: (context) {
-            return type.wrap(context, child, effectiveData, this);
+            return type.wrap(
+              context,
+              DefaultTextStyle.merge(
+                style: TextStyle(color: foregroundColor),
+                child: IconTheme.merge(
+                  data: IconThemeData(color: foregroundColor),
+                  child: child,
+                ),
+              ),
+              effectiveData,
+              this,
+            );
           },
         ),
       ),

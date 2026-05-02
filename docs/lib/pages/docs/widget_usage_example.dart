@@ -101,7 +101,7 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
         if (widget.installCommand != null) ...[
           const Text('Install via CLI').small().semiBold(),
           SizedBox(height: spacing.sm),
-          DocsCodeBlock(code: widget.installCommand!),
+          DocsCodeBlock(code: widget.installCommand!, mode: 'bash'),
           SizedBox(height: spacing.lg),
         ],
         const Text('Example Preview').small().semiBold(),
@@ -119,8 +119,7 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
                   : _shouldBuildChild
                       ? LayoutBuilder(
                           builder: (context, constraints) {
-                            final minHeight =
-                                widget.previewMinHeight ?? 350;
+                            final minHeight = widget.previewMinHeight ?? 350;
                             final height = constraints.hasBoundedHeight
                                 ? constraints.maxHeight
                                 : minHeight;
@@ -128,7 +127,17 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
                               return SizedBox(
                                 width: constraints.maxWidth,
                                 height: height,
-                                child: Center(child: widget.child),
+                                child: DefaultTextStyle.merge(
+                                  style: TextStyle(
+                                    color: theme.colorScheme.foreground,
+                                  ),
+                                  child: IconTheme.merge(
+                                    data: IconThemeData(
+                                      color: theme.colorScheme.foreground,
+                                    ),
+                                    child: Center(child: widget.child),
+                                  ),
+                                ),
                               );
                             }
                             return SingleChildScrollView(
@@ -141,9 +150,19 @@ class _WidgetUsageExampleState extends State<WidgetUsageExample> {
                                       minHeight: height,
                                       maxWidth: 720,
                                     ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: widget.child,
+                                    child: DefaultTextStyle.merge(
+                                      style: TextStyle(
+                                        color: theme.colorScheme.foreground,
+                                      ),
+                                      child: IconTheme.merge(
+                                        data: IconThemeData(
+                                          color: theme.colorScheme.foreground,
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: widget.child,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),

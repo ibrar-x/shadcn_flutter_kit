@@ -48,7 +48,10 @@ class _CodeSnippetState extends State<CodeSnippet> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: padding,
-                child: widget.code.mono.small.muted,
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(color: theme.colorScheme.foreground),
+                  child: widget.code.mono.small,
+                ),
               ),
             ),
           ),

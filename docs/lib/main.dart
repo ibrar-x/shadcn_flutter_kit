@@ -106,7 +106,12 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
   final themeMode = prefs.getString(kPrefsThemeMode) ?? 'dark';
   final brightness = themeMode == 'dark' ? Brightness.dark : Brightness.light;
   shadcn_colors.ColorScheme scheme;
-  final customRaw = prefs.getString(kPrefsCustomScheme);
+  final customRaw = prefs.getString(
+        brightness == Brightness.dark
+            ? kPrefsCustomSchemeDark
+            : kPrefsCustomSchemeLight,
+      ) ??
+      prefs.getString(kPrefsCustomScheme);
   if (presetId == 'custom' && customRaw != null) {
     scheme = shadcn_colors.ColorScheme.fromMap(
       jsonDecode(customRaw) as Map<String, dynamic>,
@@ -125,7 +130,9 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
     colorScheme: scheme,
     radius: resolvedRadius,
     scaling: prefs.getDouble(kPrefsScaling) ?? 1.0,
-    surfaceOpacity: prefs.getDouble(kPrefsSurfaceOpacity) ?? 1.0,
+    surfaceOpacity: normalizeDocsSurfaceOpacity(
+      prefs.getDouble(kPrefsSurfaceOpacity) ?? 1.0,
+    ),
     surfaceBlur: prefs.getDouble(kPrefsSurfaceBlur) ?? 0.0,
     density: resolvedDensity,
     initialPath: storedPath ?? '/',

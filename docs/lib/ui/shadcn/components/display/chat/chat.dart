@@ -72,3 +72,9 @@ class ChatConstrainedBox extends SingleChildRenderObjectWidget {
       );
   }
 }
+
+Color _chatForegroundColorFor(Color background) {
+  return background.computeLuminance() >= 0.5
+      ? const Color(0xFF111827)
+      : const Color(0xFFF9FAFB);
+}

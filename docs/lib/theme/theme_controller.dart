@@ -11,6 +11,8 @@ import 'docs_theme.dart';
 const String kPrefsThemePresetId = 'themePresetId';
 const String kPrefsThemeMode = 'themeMode';
 const String kPrefsCustomScheme = 'colorScheme';
+const String kPrefsCustomSchemeLight = 'colorSchemeLight';
+const String kPrefsCustomSchemeDark = 'colorSchemeDark';
 const String kPrefsRadius = 'radius';
 const String kPrefsScaling = 'scaling';
 const String kPrefsSurfaceOpacity = 'surfaceOpacity';
@@ -18,6 +20,11 @@ const String kPrefsSurfaceBlur = 'surfaceBlur';
 const String kPrefsDensityBaseContainerPadding = 'densityBaseContainerPadding';
 const String kPrefsDensityBaseGap = 'densityBaseGap';
 const String kPrefsDensityBaseContentPadding = 'densityBaseContentPadding';
+const double kMinReadableSurfaceOpacity = 0.78;
+
+double normalizeDocsSurfaceOpacity(double opacity) {
+  return opacity.clamp(kMinReadableSurfaceOpacity, 1.0);
+}
 
 class DocsThemePreset {
   final String id;
@@ -107,12 +114,13 @@ class DocsThemeController extends ChangeNotifier {
     if (_brightness == brightness) return;
     _brightness = brightness;
     if (_presetId == 'custom') {
-      final colors = _data.colorScheme.toColorMap();
+      final storedScheme = prefs.getString(_customSchemeKey(brightness));
       _data = _data.copyWith(
-        colorScheme: shadcn_colors.ColorScheme.fromColors(
-          colors: colors,
-          brightness: _brightness,
-        ),
+        colorScheme: storedScheme != null
+            ? shadcn_colors.ColorScheme.fromMap(
+                jsonDecode(storedScheme) as Map<String, dynamic>,
+              )
+            : _schemeFor('default', _brightness),
       );
       prefs.setString(kPrefsCustomScheme, _encodeScheme(_data.colorScheme));
     } else {
@@ -139,6 +147,7 @@ class DocsThemeController extends ChangeNotifier {
     _data = _data.copyWith(colorScheme: scheme);
     prefs.setString(kPrefsThemePresetId, _presetId);
     prefs.setString(kPrefsCustomScheme, _encodeScheme(scheme));
+    prefs.setString(_customSchemeKey(scheme.brightness), _encodeScheme(scheme));
     notifyListeners();
   }
 
@@ -155,14 +164,19 @@ class DocsThemeController extends ChangeNotifier {
   }
 
   void setSurfaceOpacity(double surfaceOpacity) {
-    _data = _data.copyWith(surfaceOpacity: surfaceOpacity);
-    prefs.setDouble(kPrefsSurfaceOpacity, surfaceOpacity);
+    final normalized = normalizeDocsSurfaceOpacity(surfaceOpacity);
+    _data = _data.copyWith(surfaceOpacity: normalized);
+    prefs.setDouble(kPrefsSurfaceOpacity, normalized);
     notifyListeners();
   }
 
   void setSurfaceBlur(double surfaceBlur) {
-    _data = _data.copyWith(surfaceBlur: surfaceBlur);
+    _data = _data.copyWith(
+      surfaceBlur: surfaceBlur,
+      surfaceOpacity: normalizeDocsSurfaceOpacity(_data.surfaceOpacity),
+    );
     prefs.setDouble(kPrefsSurfaceBlur, surfaceBlur);
+    prefs.setDouble(kPrefsSurfaceOpacity, _data.surfaceOpacity);
     notifyListeners();
   }
 
@@ -197,13 +211,20 @@ class DocsThemeController extends ChangeNotifier {
     return jsonEncode(scheme.toMap());
   }
 
+  String _customSchemeKey(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? kPrefsCustomSchemeDark
+        : kPrefsCustomSchemeLight;
+  }
+
   void _persistDensity(shadcn_theme.Density density) {
     prefs.setDouble(
       kPrefsDensityBaseContainerPadding,
       density.baseContainerPadding,
     );
     prefs.setDouble(kPrefsDensityBaseGap, density.baseGap);
-    prefs.setDouble(kPrefsDensityBaseContentPadding, density.baseContentPadding);
+    prefs.setDouble(
+        kPrefsDensityBaseContentPadding, density.baseContentPadding);
   }
 }
 

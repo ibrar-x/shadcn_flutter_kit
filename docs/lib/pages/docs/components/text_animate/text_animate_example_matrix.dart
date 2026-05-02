@@ -235,10 +235,11 @@ class _TextAnimateMatrixDemoState extends State<_TextAnimateMatrixDemo> {
     required _AnimationVariant animation,
     required _StreamingMode mode,
   }) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0x22000000)),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -268,7 +269,9 @@ class _TextAnimateMatrixDemoState extends State<_TextAnimateMatrixDemo> {
             constraints: const BoxConstraints(minHeight: 92),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: const Color(0x05000000),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.32,
+              ),
               borderRadius: BorderRadius.circular(10),
             ),
             child: shadcn_text_animate.StreamingText(

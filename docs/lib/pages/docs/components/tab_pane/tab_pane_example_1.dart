@@ -63,19 +63,20 @@ class _TabPaneExample1State extends State<_TabPaneExample1> {
 
   shadcn_tab_container.TabItem _buildTabItem(MyTab data) {
     final theme = shadcn_theme.Theme.of(context);
+    final cs = theme.colorScheme;
     return shadcn_tab_container.TabItem(
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 150),
         child: shadcn_basic.Label(
           leading: shadcn_outlined.OutlinedContainer(
-            backgroundColor: Colors.white,
+            backgroundColor: cs.card,
             width: 18,
             height: 18,
             borderRadius: theme.borderRadiusMd,
             child: Center(
               child: Text(
                 data.count.toString(),
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: cs.foreground),
               ).xSmall().bold(),
             ),
           ),

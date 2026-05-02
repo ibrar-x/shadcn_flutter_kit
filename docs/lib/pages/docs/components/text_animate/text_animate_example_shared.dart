@@ -110,6 +110,7 @@ class _TextAnimateStreamingDemoState extends State<TextAnimateStreamingDemo> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 620),
       child: Column(
@@ -124,7 +125,7 @@ class _TextAnimateStreamingDemoState extends State<TextAnimateStreamingDemo> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0x22000000)),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
               borderRadius: BorderRadius.circular(10),
             ),
             child: shadcn_text_animate.StreamingText(
@@ -377,7 +378,9 @@ class _TextAnimateAnimationModesDemoState
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0x22000000)),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: shadcn_text_animate.StreamingText(

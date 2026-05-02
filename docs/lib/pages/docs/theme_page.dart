@@ -37,10 +37,9 @@ const Map<String, Density> _densityOptions = {
 
 const Map<String, double> _surfaceOpacityOptions = {
   'Solid': 1.0,
-  'Frosted': 0.9,
-  'Translucent': 0.8,
-  'Ghosted': 0.7,
-  'Invisible': 0.0,
+  'Frosted': 0.94,
+  'Translucent': 0.86,
+  'Ghosted': 0.78,
 };
 
 const Map<String, double> _surfaceBlurOptions = {

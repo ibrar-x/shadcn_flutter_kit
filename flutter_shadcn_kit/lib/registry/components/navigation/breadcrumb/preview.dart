@@ -9,7 +9,7 @@ class BreadcrumbPreview extends StatelessWidget {
   const BreadcrumbPreview({super.key});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -20,36 +20,41 @@ class BreadcrumbPreview extends StatelessWidget {
               spacing: 24,
               children: [
                 // Breadcrumb with arrow separator
-/// Creates a `Breadcrumb` instance.
+                /// Creates a `Breadcrumb` instance.
                 Breadcrumb(
                   separator: Breadcrumb.arrowSeparator,
                   children: [
-/// Creates a `TextButton` instance.
-                    TextButton(onPressed: () {}, child: const Text('Home')),
-/// Creates a `MoreDots` instance.
+                    /// Creates a `LinkButton` instance.
+                    LinkButton(onPressed: () {}, child: const Text('Home')),
+
+                    /// Creates a `MoreDots` instance.
                     const MoreDots(),
-/// Creates a `TextButton` instance.
-                    TextButton(
+
+                    /// Creates a `LinkButton` instance.
+                    LinkButton(
                       onPressed: () {},
                       child: const Text('Components'),
                     ),
-/// Creates a `Text` instance.
+
+                    /// Creates a `Text` instance.
                     const Text('Breadcrumb'),
                   ],
                 ),
                 // Breadcrumb with slash separator
-/// Creates a `Breadcrumb` instance.
+                /// Creates a `Breadcrumb` instance.
                 Breadcrumb(
                   separator: Breadcrumb.slashSeparator,
                   children: [
-/// Creates a `TextButton` instance.
-                    TextButton(onPressed: () {}, child: const Text('Docs')),
-/// Creates a `TextButton` instance.
-                    TextButton(
+                    /// Creates a `LinkButton` instance.
+                    LinkButton(onPressed: () {}, child: const Text('Docs')),
+
+                    /// Creates a `LinkButton` instance.
+                    LinkButton(
                       onPressed: () {},
                       child: const Text('UI Components'),
                     ),
-/// Creates a `Text` instance.
+
+                    /// Creates a `Text` instance.
                     const Text('Navigation'),
                   ],
                 ),

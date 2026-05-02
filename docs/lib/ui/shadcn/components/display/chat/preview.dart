@@ -11,7 +11,7 @@ class ChatPreview extends StatelessWidget {
   /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -20,23 +20,19 @@ class ChatPreview extends StatelessWidget {
               color: Colors.blue,
               type: ChatBubbleType.tail,
               alignment: AxisAlignmentDirectional.end,
-              children: const [
+              children: [
                 ChatBubble(child: Text('Did you remember the meeting time?')),
-
                 ChatBubble(child: Text('Please reply ASAP.')),
               ],
             ),
-
-            const SizedBox(height: 12),
-
+            SizedBox(height: 12),
             ChatGroup(
               color: Colors.grey,
-              avatarPrefix: const Avatar(initials: 'JO'),
+              avatarPrefix: Avatar(initials: 'JO'),
               type: ChatBubbleType.tail,
               alignment: AxisAlignmentDirectional.start,
-              children: const [
+              children: [
                 ChatBubble(child: Text('Around 6 or 7?')),
-
                 ChatBubble(child: Text('New phone who dis?')),
               ],
             ),
