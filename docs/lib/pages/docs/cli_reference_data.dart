@@ -49,7 +49,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-overview',
     title: 'CLI Overview',
     summary:
-        'flutter_shadcn is the registry installer and diagnostics toolchain for the docs site and consumer apps. Use it to initialize a project, install components, apply theme payloads, and inspect registry health.',
+        'flutter_shadcn is the registry installer and diagnostics toolchain for the docs site and consumer apps. Use it to initialize a project, install components, apply registry theme presets or advanced theme manifests, and inspect registry health.',
     syntax: <String>[
       'flutter_shadcn <command> [options]',
       'flutter_shadcn <command> @namespace [args]',
@@ -97,8 +97,9 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     behavior: <String>[
       'Namespace selection is resolved before registry loading, theme fetching, or install-plan execution.',
-      'Global theme presets are discovered from a registry theme index. Theme payload installation is delegated to the registry converter.',
-      'Widget theming is intentionally converter-owned. The CLI fetches and caches payload JSON, then invokes the registry converter with project-local paths.',
+      'Global theme presets are discovered from a registry theme index and installed from pre-generated theme artifacts published by the registry.',
+      'Advanced theme --apply-file and --apply-url inputs are experimental declarative manifest entry points. They are not raw preset payloads or runtime code hooks.',
+      'Widget theme support is registry-specific. List, target discovery, and reset can be available without widget manifest apply support.',
       'Most read-only commands can emit JSON for automation or CI usage.',
       'Developer registry overrides and experimental file/URL theme imports require --advanced.',
     ],
@@ -242,7 +243,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-theme',
     title: 'theme',
     summary:
-        'Lists and applies global registry theme presets. Preset IDs come from the registry theme index; installation is performed by the registry converter.',
+        'Lists and applies global registry theme presets and advanced declarative theme manifests.',
     syntax: <String>[
       'flutter_shadcn theme --list',
       'flutter_shadcn theme --apply modern-minimal',
@@ -270,13 +271,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         name: '--apply-file',
         value: 'path',
         description:
-            'Read a theme payload from a local JSON file. Requires --advanced.',
+            'Apply an experimental local theme artifact manifest. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--apply-url',
         value: 'url',
         description:
-            'Fetch a theme payload over HTTP, cache it in the project, and hand it to the registry converter. Requires --advanced.',
+            'Apply an experimental remote theme artifact manifest. Requires --advanced.',
       ),
     ],
     examples: <CliExampleDoc>[
@@ -287,17 +288,18 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
             'Reads the selected namespace theme index and prints the available preset IDs and names.',
       ),
       CliExampleDoc(
-        title: 'Apply a preset payload from a URL',
+        title: 'Apply a theme manifest from a URL',
         command:
-            'flutter_shadcn --advanced theme @shadcn --apply-url https://registry.dev/themes/modern-minimal.json',
+            'flutter_shadcn --advanced theme @shadcn --apply-url https://registry.dev/themes/modern-minimal.manifest.json',
         description:
-            'Downloads the payload, stores it under .shadcn/cache/themes/<namespace>/, and invokes the converter with the cached file path.',
+            'Downloads an experimental manifest and installs the referenced generated theme artifacts for the selected namespace.',
       ),
     ],
     behavior: <String>[
-      'Theme-by-ID still depends on the registry theme index so the CLI can resolve the preset metadata before calling the converter.',
-      'Theme-by-file and theme-by-URL require --advanced and do not parse theme structure in the CLI. The CLI only caches payload JSON and forwards it to the converter.',
-      'A registry can support global themes without supporting widget themes, or vice versa.',
+      'Theme-by-ID depends on the registry theme index so the CLI can resolve preset metadata and install the published artifact set.',
+      'Theme-by-file and theme-by-URL require --advanced and accept experimental declarative manifests only. Raw preset JSON payloads are rejected.',
+      'Each registry owns its theme format and generation pipeline. The CLI consumes only generated theme artifacts.',
+      'A registry can support global themes without supporting widget theme manifests, or vice versa.',
     ],
     related: <String>['cli-theme-widget', 'cli-sync', 'cli-troubleshooting'],
   ),
@@ -305,7 +307,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-theme-widget',
     title: 'theme widget',
     summary:
-        'Delegates per-widget theming to the registry converter. The CLI only handles namespace resolution, payload fetching, project-local caching, and install-plan execution.',
+        'Manages widget-theme discovery and reset flows for registries that publish widget theme support. Advanced manifest apply flows are experimental and can be unavailable per registry.',
     syntax: <String>[
       'flutter_shadcn theme widget --list',
       'flutter_shadcn theme widget button --list-targets',
@@ -317,31 +319,31 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         name: '--list',
         value: 'flag',
         description:
-            'Ask the converter to list themeable widgets for the active namespace and project.',
+            'List themeable widgets for the active namespace and project when the registry exposes widget theme metadata.',
       ),
       DocsOptionRow(
         name: '--list-targets',
         value: 'flag',
         description:
-            'Ask the converter to list the available theme targets for the selected installed component.',
+            'List the available theme targets for the selected installed component when supported by the registry.',
       ),
       DocsOptionRow(
         name: '--apply-file',
         value: 'path',
         description:
-            'Read a widget-theme payload from a local JSON file, cache it under .shadcn/cache/widget_themes/, then invoke the converter. Requires --advanced.',
+            'Apply an experimental local widget theme manifest when the registry publishes widget theme artifacts. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--apply-url',
         value: 'url',
         description:
-            'Fetch a widget-theme payload from a URL, cache it in the current project, then invoke the converter. Requires --advanced.',
+            'Apply an experimental remote widget theme manifest when the registry publishes widget theme artifacts. Requires --advanced.',
       ),
       DocsOptionRow(
         name: '--reset',
         value: 'flag',
         description:
-            'Request that the converter remove widget-specific overrides for the selected component.',
+            'Reset widget-specific overrides for the selected component when the registry supports widget theme reset.',
       ),
     ],
     examples: <CliExampleDoc>[
@@ -349,21 +351,21 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
         title: 'Discover widget theme support',
         command: 'flutter_shadcn theme widget @shadcn --list',
         description:
-            'The converter inspects the current project and reports which installed components expose widget theme config.',
+            'Inspect which installed components expose widget theme metadata for the selected namespace.',
       ),
       CliExampleDoc(
-        title: 'Apply a button theme payload',
+        title: 'Apply a button theme manifest',
         command:
-            'flutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button-primary.json',
+            'flutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button-primary.manifest.json',
         description:
-            'Caches the payload locally and lets the converter patch the installed button theme override files.',
+            'Uses an experimental widget manifest flow. If the registry does not publish widget theme artifacts for button, this command is unavailable.',
       ),
     ],
     behavior: <String>[
-      'Widget theme structure is not hardcoded in the CLI. Unsupported registries should fail through the converter response, not through CLI assumptions.',
-      'The converter decides whether a widget is installed, whether it supports theming, which targets exist, and which files must be written or patched.',
-      'Widget theme file and URL payload imports require --advanced. Listing, target discovery, and reset stay public.',
-      'Reset also goes through the converter so registries can restore their own default theme shape safely.',
+      'The theme widget subcommand supports widget-level list, list-targets, and reset workflows when the registry publishes widget theme metadata.',
+      'Widget theme --apply-file and --apply-url are experimental manifest inputs. They are available only when the registry publishes widget theme artifacts for that component.',
+      'If a registry does not publish widget theme artifacts, widget manifest apply flows should be treated as unsupported rather than assumed to exist.',
+      'Widget theme file and URL imports require --advanced. Listing, target discovery, and reset remain the primary public flows.',
     ],
     related: <String>['cli-theme', 'cli-troubleshooting', 'cli-development'],
   ),
@@ -985,10 +987,10 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     behavior: <String>[
       'If flutter_shadcn is not found, confirm that your pub cache bin directory is on PATH.',
       'If a namespace is missing, run flutter_shadcn registries and check the configured default with flutter_shadcn default.',
-      'If widget theming fails, verify that the selected registry exposes a theme converter and that the installed component actually provides widget theme files.',
-      'If global theme apply-file or apply-url fails, make sure you passed --advanced and that the payload is valid JSON.',
+      'If widget theming fails, verify that the selected registry publishes widget theme metadata or artifacts for the installed component. Some registries support list/reset only and do not support widget manifest apply flows yet.',
+      'If global theme apply-file or apply-url fails, make sure you passed --advanced and that the input is a valid declarative manifest rather than a raw preset payload.',
       'If offline mode fails, rerun once online to warm the registry/theme caches first.',
-      'If a patch anchor is missing, the converter or installed files have drifted. Re-run sync, then audit, then inspect the registry converter output.',
+      'If an installed theme artifact no longer matches the expected files, re-run sync, then audit, then inspect the published theme manifest and generated artifacts.',
     ],
     related: <String>[
       'cli-doctor',
@@ -1001,7 +1003,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     id: 'cli-development',
     title: 'Development Workflow',
     summary:
-        'This is the maintainer workflow for local registry iteration, namespace-aware testing, and theme converter development.',
+        'This is the maintainer workflow for local registry iteration, namespace-aware testing, and generated theme artifact development.',
     examples: <CliExampleDoc>[
       CliExampleDoc(
         title: 'Test against a local registry clone',
@@ -1011,11 +1013,11 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
             'Validate and browse a local registry before using it for installs.',
       ),
       CliExampleDoc(
-        title: 'Exercise converter-driven theme flows',
+        title: 'Exercise generated theme flows',
         command:
-            'flutter_shadcn theme @shadcn --list\nflutter_shadcn --advanced theme @shadcn --apply-file ./theme.json\nflutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button.json',
+            'flutter_shadcn theme @shadcn --list\nflutter_shadcn --advanced theme @shadcn --apply-file ./theme-artifact.manifest.json\nflutter_shadcn --advanced theme widget @shadcn button --apply-url https://registry.dev/widget-theme/button.manifest.json',
         description:
-            'Use the same CLI surface your users will run while keeping all theme semantics inside the registry converter.',
+            'Use the same CLI surface your users will run while validating generated theme manifests and checking whether widget manifest flows are actually published.',
       ),
       CliExampleDoc(
         title: 'Regenerate command docs for the CLI workspace',
@@ -1026,9 +1028,9 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     behavior: <String>[
       'Prefer validate before add, and doctor plus audit after large registry refactors.',
-      'Namespace-aware testing matters: a command that succeeds in the default namespace can still fail in a secondary registry because install roots and converter behavior differ.',
-      'Global theme presets should stay index-driven, while widget theming should remain converter-owned and payload-driven.',
-      'When developing theme converters, keep network fetches in the CLI and hand the converter cached local payload files plus project context.',
+      'Namespace-aware testing matters: a command that succeeds in the default namespace can still fail in a secondary registry because install roots and published theme artifacts differ.',
+      'Global theme presets should stay index-driven, and advanced file/URL inputs should remain experimental manifest-driven workflows.',
+      'When developing theme support, generate artifacts and manifests at publish time rather than relying on runtime theme transformation on the user machine.',
       'Developer registry overrides, generated docs, install-skill, and file/URL theme imports all require --advanced.',
     ],
     related: <String>[
