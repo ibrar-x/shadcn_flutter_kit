@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+const String defaultThemeArtifactSourceRoot = 'shared/theme/generated';
+const String defaultThemeArtifactTargetRoot = 'lib/ui/shadcn/shared/theme';
+
 const List<String> _colorFields = <String>[
   'background',
   'foreground',
@@ -52,54 +55,69 @@ const String _defaultLightShadow =
 const String _defaultDarkShadow =
     'const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))]';
 
+class ThemeArtifactFile {
+  const ThemeArtifactFile({
+    required this.source,
+    required this.target,
+    required this.content,
+  });
+
+  final String source;
+  final String target;
+  final String content;
+}
+
+class ThemeArtifactManifestEntry {
+  const ThemeArtifactManifestEntry({
+    required this.name,
+    required this.label,
+    required this.source,
+    required this.files,
+    this.description,
+  });
+
+  final String name;
+  final String label;
+  final String? description;
+  final String source;
+  final List<ThemeArtifactFile> files;
+}
+
+ThemeArtifactManifestEntry buildThemeArtifactManifestEntry({
+  required Map<String, dynamic> presetJson,
+  required String sourcePath,
+  String artifactSourceRoot = defaultThemeArtifactSourceRoot,
+  String artifactTargetRoot = defaultThemeArtifactTargetRoot,
+}) {
+  final preset = _PresetData.fromJson(presetJson);
+  final generatedBase = '$artifactSourceRoot/${preset.id}';
+  return ThemeArtifactManifestEntry(
+    name: preset.id,
+    label: preset.name,
+    description: preset.description,
+    source: sourcePath,
+    files: <ThemeArtifactFile>[
+      ThemeArtifactFile(
+        source: '$generatedBase/preset_themes.dart',
+        target: '$artifactTargetRoot/preset_themes.dart',
+        content: _buildInstalledPresetThemesFile(preset),
+      ),
+      ThemeArtifactFile(
+        source: '$generatedBase/app_theme_preset.dart',
+        target: '$artifactTargetRoot/app_theme_preset.dart',
+        content: _buildInstalledAppThemePresetFile(),
+      ),
+    ],
+  );
+}
+
 void main(List<String> args) {
   if (args.contains('--help') || args.contains('-h')) {
     _printUsage();
     return;
   }
 
-  if (_tryHandleConverterRequest(args)) {
-    return;
-  }
-
   _runPresetGenerator(args);
-}
-
-bool _tryHandleConverterRequest(List<String> args) {
-  if (args.length != 1) {
-    return false;
-  }
-  final file = File(args.first);
-  if (!file.existsSync()) {
-    return false;
-  }
-  final decoded = jsonDecode(file.readAsStringSync());
-  if (decoded is! Map) {
-    return false;
-  }
-  final request = decoded.map((key, value) => MapEntry(key.toString(), value));
-  if (_isConverterEnvelope(request)) {
-    stdout.write(jsonEncode(_handleConverterEnvelope(request)));
-    return true;
-  }
-  if (_looksLikePresetJson(request)) {
-    stdout.write(jsonEncode(_buildPresetDtoMap(_PresetData.fromJson(request))));
-    return true;
-  }
-  return false;
-}
-
-bool _isConverterEnvelope(Map<String, dynamic> map) {
-  final scope = map['scope']?.toString().trim();
-  final action = map['action']?.toString().trim();
-  return scope != null &&
-      scope.isNotEmpty &&
-      action != null &&
-      action.isNotEmpty;
-}
-
-bool _looksLikePresetJson(Map<String, dynamic> map) {
-  return map['id'] != null && map['light'] is Map && map['dark'] is Map;
 }
 
 void _runPresetGenerator(List<String> args) {
@@ -218,7 +236,7 @@ void _printUsage() {
   );
   stdout.writeln('');
   stdout.writeln(
-    'Converts one preset json into one theme dart file for CLI installation.',
+    'Converts one preset json into local generated theme dart files.',
   );
   stdout.writeln(
     'Also regenerates theme preset models and updates app_theme_preset.dart.',
@@ -290,210 +308,6 @@ Directory? _findRegistryDir(Directory from) {
     }
     current = parent;
   }
-}
-
-Map<String, dynamic> _handleConverterEnvelope(Map<String, dynamic> request) {
-  final scope = request['scope']?.toString().trim() ?? '';
-  final action = request['action']?.toString().trim() ?? '';
-  final namespace = request['namespace']?.toString().trim();
-  final context =
-      (request['context'] as Map?)?.cast<String, dynamic>() ??
-      const <String, dynamic>{};
-
-  if (scope == 'global' && action == 'apply') {
-    return _handleGlobalThemeApply(
-      namespace: namespace,
-      payloadFile: request['payloadFile']?.toString(),
-      context: context,
-    );
-  }
-  if (scope == 'widget') {
-    return _handleWidgetThemeRequest(
-      action: action,
-      namespace: namespace,
-      componentId: request['componentId']?.toString(),
-      payloadFile: request['payloadFile']?.toString(),
-      context: context,
-    );
-  }
-  throw FormatException('Unsupported converter request: $scope/$action');
-}
-
-Map<String, dynamic> _handleGlobalThemeApply({
-  required String? namespace,
-  required String? payloadFile,
-  required Map<String, dynamic> context,
-}) {
-  if (payloadFile == null || payloadFile.trim().isEmpty) {
-    throw FormatException('Global theme apply requires payloadFile.');
-  }
-  final payload = _readJsonFile(payloadFile);
-  final preset = _PresetData.fromJson(payload);
-  final sharedPath = _requireContextPath(context, 'sharedPath');
-  final presetThemesPath = '$sharedPath/theme/preset_themes.dart';
-  final appThemePresetPath = '$sharedPath/theme/app_theme_preset.dart';
-
-  return <String, dynamic>{
-    'scope': 'global',
-    'resolvedNamespace': namespace,
-    'preview': <String, dynamic>{
-      'themeId': preset.id,
-      'themeName': preset.name,
-    },
-    'messages': <Map<String, String>>[
-      <String, String>{
-        'level': 'detail',
-        'text': 'Prepared global theme preset ${preset.id}.',
-      },
-    ],
-    'installPlan': <String, dynamic>{
-      'operations': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'type': 'write_file',
-          'path': presetThemesPath,
-          'content': _buildInstalledPresetThemesFile(preset),
-        },
-        <String, dynamic>{
-          'type': 'write_file',
-          'path': appThemePresetPath,
-          'content': _buildInstalledAppThemePresetFile(),
-        },
-      ],
-    },
-  };
-}
-
-Map<String, dynamic> _handleWidgetThemeRequest({
-  required String action,
-  required String? namespace,
-  required String? componentId,
-  required String? payloadFile,
-  required Map<String, dynamic> context,
-}) {
-  final installPath = _requireContextPath(context, 'installPath');
-  final targetDir = _requireContextPath(context, 'targetDir');
-  final componentsRoot = Directory('$targetDir/$installPath/components');
-
-  if (action == 'list') {
-    final components = _listThemeableComponents(componentsRoot);
-    return <String, dynamic>{
-      'scope': 'widget',
-      'resolvedNamespace': namespace,
-      'preview': <String, dynamic>{
-        'components': components
-            .map(
-              (_WidgetThemeDescriptor item) => <String, dynamic>{
-                'componentId': item.componentId,
-                'targets': item.targets
-                    .map((_WidgetThemeTarget target) => target.typeName)
-                    .toList(),
-              },
-            )
-            .toList(),
-      },
-      'messages': components.isEmpty
-          ? <Map<String, String>>[
-              <String, String>{
-                'level': 'info',
-                'text': 'No themeable widgets found in the current project.',
-              },
-            ]
-          : const <Map<String, String>>[],
-      'installPlan': const <String, dynamic>{
-        'operations': <Map<String, dynamic>>[],
-      },
-    };
-  }
-
-  if (componentId == null || componentId.trim().isEmpty) {
-    throw FormatException('Widget theme requests require componentId.');
-  }
-
-  final descriptor = _findWidgetThemeDescriptor(componentsRoot, componentId);
-  if (descriptor == null) {
-    return <String, dynamic>{
-      'scope': 'widget',
-      'resolvedNamespace': namespace,
-      'resolvedComponent': componentId,
-      'messages': <Map<String, String>>[
-        <String, String>{
-          'level': 'warn',
-          'text':
-              'Widget "$componentId" is not installed or does not expose theme config.',
-        },
-      ],
-      'installPlan': const <String, dynamic>{
-        'operations': <Map<String, dynamic>>[],
-      },
-    };
-  }
-
-  if (action == 'list-targets') {
-    return <String, dynamic>{
-      'scope': 'widget',
-      'resolvedNamespace': namespace,
-      'resolvedComponent': descriptor.componentId,
-      'preview': <String, dynamic>{
-        'componentId': descriptor.componentId,
-        'targets': descriptor.targets
-            .map(
-              (_WidgetThemeTarget target) => <String, dynamic>{
-                'id': target.typeName,
-                'default':
-                    descriptor.targets.length == 1 &&
-                    descriptor.targets.first.typeName == target.typeName,
-              },
-            )
-            .toList(),
-      },
-      'installPlan': const <String, dynamic>{
-        'operations': <Map<String, dynamic>>[],
-      },
-    };
-  }
-
-  if (action == 'reset') {
-    final next = _resetWidgetThemeConfig(descriptor);
-    return <String, dynamic>{
-      'scope': 'widget',
-      'resolvedNamespace': namespace,
-      'resolvedComponent': descriptor.componentId,
-      'installPlan': <String, dynamic>{
-        'operations': <Map<String, dynamic>>[
-          <String, dynamic>{
-            'type': 'write_file',
-            'path': _relativePath(targetDir, descriptor.configFile.path),
-            'content': next,
-          },
-        ],
-      },
-    };
-  }
-
-  if (action != 'apply') {
-    throw FormatException('Unsupported widget theme action: $action');
-  }
-  if (payloadFile == null || payloadFile.trim().isEmpty) {
-    throw FormatException('Widget theme apply requires payloadFile.');
-  }
-  final payload = _readJsonFile(payloadFile);
-  final resolvedTarget = _resolveWidgetThemeTarget(descriptor, payload);
-  final next = _applyWidgetThemeConfig(descriptor, resolvedTarget, payload);
-  return <String, dynamic>{
-    'scope': 'widget',
-    'resolvedNamespace': namespace,
-    'resolvedComponent': descriptor.componentId,
-    'resolvedTargetThemeType': resolvedTarget.typeName,
-    'installPlan': <String, dynamic>{
-      'operations': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'type': 'write_file',
-          'path': _relativePath(targetDir, descriptor.configFile.path),
-          'content': next,
-        },
-      ],
-    },
-  };
 }
 
 String _buildModelsFile() {
@@ -683,15 +497,6 @@ $darkTokens
 ''';
 }
 
-Map<String, dynamic> _buildPresetDtoMap(_PresetData preset) {
-  return <String, dynamic>{
-    'id': preset.id,
-    'name': preset.name,
-    'light': preset.light,
-    'dark': preset.dark,
-  };
-}
-
 File? _resolvePresetFile({
   required String inputDir,
   required String? presetId,
@@ -842,310 +647,11 @@ List<String> _splitPath(String path) {
       .toList();
 }
 
-Map<String, dynamic> _readJsonFile(String path) {
-  final file = File(path);
-  if (!file.existsSync()) {
-    throw FormatException('JSON file not found: $path');
-  }
-  final decoded = jsonDecode(file.readAsStringSync());
-  if (decoded is! Map) {
-    throw FormatException('Expected a JSON object in $path');
-  }
-  return decoded.map((key, value) => MapEntry(key.toString(), value));
-}
-
-String _requireContextPath(Map<String, dynamic> context, String key) {
-  final value = context[key]?.toString().trim();
-  if (value == null || value.isEmpty) {
-    throw FormatException('Converter request is missing context.$key.');
-  }
-  return value;
-}
-
-String _relativePath(String rootPath, String filePath) {
-  final root = _splitPath(Directory(rootPath).absolute.path);
-  final target = _splitPath(File(filePath).absolute.path);
-  if (target.length < root.length) {
-    throw FormatException('Target path is outside project root: $filePath');
-  }
-  for (var index = 0; index < root.length; index++) {
-    if (root[index] != target[index]) {
-      throw FormatException('Target path is outside project root: $filePath');
-    }
-  }
-  return target.sublist(root.length).join('/');
-}
-
-List<_WidgetThemeDescriptor> _listThemeableComponents(
-  Directory componentsRoot,
-) {
-  if (!componentsRoot.existsSync()) {
-    return const <_WidgetThemeDescriptor>[];
-  }
-  final descriptors = <_WidgetThemeDescriptor>[];
-  for (final entity in componentsRoot.listSync()) {
-    if (entity is! Directory) {
-      continue;
-    }
-    final descriptor = _loadWidgetThemeDescriptor(entity);
-    if (descriptor != null) {
-      descriptors.add(descriptor);
-    }
-  }
-  descriptors.sort(
-    (_WidgetThemeDescriptor left, _WidgetThemeDescriptor right) =>
-        left.componentId.compareTo(right.componentId),
-  );
-  return descriptors;
-}
-
-_WidgetThemeDescriptor? _findWidgetThemeDescriptor(
-  Directory componentsRoot,
-  String componentId,
-) {
-  final normalized = componentId.trim().toLowerCase();
-  for (final descriptor in _listThemeableComponents(componentsRoot)) {
-    if (descriptor.componentId.toLowerCase() == normalized) {
-      return descriptor;
-    }
-  }
-  return null;
-}
-
-_WidgetThemeDescriptor? _loadWidgetThemeDescriptor(Directory componentDir) {
-  final configDir = Directory('${componentDir.path}/_impl/themes/config');
-  if (!configDir.existsSync()) {
-    return null;
-  }
-  final configFiles = configDir
-      .listSync()
-      .whereType<File>()
-      .where((File file) => file.path.endsWith('_theme_config.dart'))
-      .toList();
-  if (configFiles.isEmpty) {
-    return null;
-  }
-  final configFile = configFiles.first;
-  final content = configFile.readAsStringSync();
-  final fieldRegex = RegExp(
-    r'^  static const ([A-Za-z0-9_]+)\\? ([A-Za-z0-9_]+) = (.*?);$',
-    multiLine: true,
-    dotAll: true,
-  );
-  final typeRegex = RegExp(
-    r"^  static const String ([A-Za-z0-9_]+)Type = '([^']+)';$",
-    multiLine: true,
-  );
-
-  final fieldByName = <String, _WidgetThemeField>{};
-  for (final match in fieldRegex.allMatches(content)) {
-    final fieldType = match.group(1);
-    final fieldName = match.group(2);
-    final expression = match.group(3);
-    if (fieldType == null || fieldName == null || expression == null) {
-      continue;
-    }
-    fieldByName[fieldName] = _WidgetThemeField(
-      fieldType: fieldType,
-      fieldName: fieldName,
-      expression: expression.trim(),
-      matchedSource: match.group(0) ?? '',
-    );
-  }
-
-  final targets = <_WidgetThemeTarget>[];
-  for (final match in typeRegex.allMatches(content)) {
-    final fieldBase = match.group(1);
-    final typeName = match.group(2);
-    if (fieldBase == null || typeName == null) {
-      continue;
-    }
-    final field = fieldByName[fieldBase];
-    if (field == null) {
-      continue;
-    }
-    targets.add(
-      _WidgetThemeTarget(
-        fieldType: field.fieldType,
-        fieldName: field.fieldName,
-        typeName: typeName,
-        expression: field.expression,
-        matchedSource: field.matchedSource,
-      ),
-    );
-  }
-
-  if (targets.isEmpty) {
-    return null;
-  }
-
-  return _WidgetThemeDescriptor(
-    componentId: componentDir.path
-        .replaceAll('\\', '/')
-        .split('/')
-        .where((String item) => item.isNotEmpty)
-        .last,
-    configFile: configFile,
-    content: content,
-    targets: targets,
-  );
-}
-
-String _resetWidgetThemeConfig(_WidgetThemeDescriptor descriptor) {
-  var next = descriptor.content;
-  for (final target in descriptor.targets) {
-    next = next.replaceFirst(
-      target.matchedSource,
-      '  static const ${target.fieldType}? ${target.fieldName} = null;',
-    );
-  }
-  return next;
-}
-
-_WidgetThemeTarget _resolveWidgetThemeTarget(
-  _WidgetThemeDescriptor descriptor,
-  Map<String, dynamic> payload,
-) {
-  final requested =
-      payload['targetThemeType']?.toString().trim() ??
-      payload['target']?.toString().trim() ??
-      payload['type']?.toString().trim();
-  if (requested == null || requested.isEmpty) {
-    if (descriptor.targets.length == 1) {
-      return descriptor.targets.first;
-    }
-    throw FormatException(
-      'Widget theme payload must include targetThemeType when multiple targets exist.',
-    );
-  }
-  for (final target in descriptor.targets) {
-    if (target.typeName == requested) {
-      return target;
-    }
-  }
-  throw FormatException(
-    'Widget theme target "$requested" is not available for ${descriptor.componentId}.',
-  );
-}
-
-String _applyWidgetThemeConfig(
-  _WidgetThemeDescriptor descriptor,
-  _WidgetThemeTarget target,
-  Map<String, dynamic> payload,
-) {
-  final expression = _buildWidgetThemeExpression(target.typeName, payload);
-  return descriptor.content.replaceFirst(
-    target.matchedSource,
-    '  static const ${target.fieldType}? ${target.fieldName} = $expression;',
-  );
-}
-
-String _buildWidgetThemeExpression(
-  String targetType,
-  Map<String, dynamic> payload,
-) {
-  final themeCode =
-      payload['themeCode']?.toString().trim() ??
-      payload['code']?.toString().trim();
-  if (themeCode != null && themeCode.isNotEmpty) {
-    return themeCode;
-  }
-  final properties =
-      (payload['properties'] as Map?)?.cast<String, dynamic>() ??
-      const <String, dynamic>{};
-  if (properties.isEmpty) {
-    return 'const $targetType()';
-  }
-  final lines = <String>['const $targetType('];
-  final keys = properties.keys.toList()..sort();
-  for (final key in keys) {
-    lines.add('    $key: ${_dartLiteral(properties[key])},');
-  }
-  lines.add('  )');
-  return lines.join('\\n');
-}
-
-String _dartLiteral(Object? value) {
-  if (value == null) {
-    return 'null';
-  }
-  if (value is bool || value is num) {
-    return value.toString();
-  }
-  if (value is String) {
-    return "'${_escape(value)}'";
-  }
-  if (value is List) {
-    final items = value.map(_dartLiteral).join(', ');
-    return 'const [$items]';
-  }
-  if (value is Map) {
-    final typed = value.map(
-      (Object? key, Object? innerValue) => MapEntry(key.toString(), innerValue),
-    );
-    final rawDart = typed['dart']?.toString().trim();
-    if (rawDart != null && rawDart.isNotEmpty) {
-      return rawDart;
-    }
-    final entries = typed.entries
-        .map(
-          (MapEntry<String, Object?> entry) =>
-              "'${_escape(entry.key)}': ${_dartLiteral(entry.value)}",
-        )
-        .join(', ');
-    return 'const {$entries}';
-  }
-  throw FormatException('Unsupported widget theme literal: $value');
-}
-
-class _WidgetThemeDescriptor {
-  const _WidgetThemeDescriptor({
-    required this.componentId,
-    required this.configFile,
-    required this.content,
-    required this.targets,
-  });
-
-  final String componentId;
-  final File configFile;
-  final String content;
-  final List<_WidgetThemeTarget> targets;
-}
-
-class _WidgetThemeField {
-  const _WidgetThemeField({
-    required this.fieldType,
-    required this.fieldName,
-    required this.expression,
-    required this.matchedSource,
-  });
-
-  final String fieldType;
-  final String fieldName;
-  final String expression;
-  final String matchedSource;
-}
-
-class _WidgetThemeTarget {
-  const _WidgetThemeTarget({
-    required this.fieldType,
-    required this.fieldName,
-    required this.typeName,
-    required this.expression,
-    required this.matchedSource,
-  });
-
-  final String fieldType;
-  final String fieldName;
-  final String typeName;
-  final String expression;
-  final String matchedSource;
-}
-
 class _PresetData {
   _PresetData({
     required this.id,
     required this.name,
+    required this.description,
     required this.light,
     required this.dark,
     required this.lightTokens,
@@ -1154,6 +660,7 @@ class _PresetData {
 
   final String id;
   final String name;
+  final String? description;
   final Map<String, String> light;
   final Map<String, String> dark;
   final _TokenData? lightTokens;
@@ -1167,6 +674,7 @@ class _PresetData {
     return _PresetData(
       id: map['id'] as String,
       name: map['name'] as String? ?? map['id'] as String,
+      description: map['description'] as String?,
       light: _readScheme((map['light'] as Map).cast<String, dynamic>()),
       dark: _readScheme((map['dark'] as Map).cast<String, dynamic>()),
       lightTokens: tokens?['light'] == null

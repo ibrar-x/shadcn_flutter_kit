@@ -1,7 +1,7 @@
 # theme_preset_json_to_dart.dart
 
 ## Purpose
-Converts **one selected** theme preset JSON into a Dart preset object file for CLI theme installation.
+Converts **one selected** theme preset JSON into local generated Dart theme files.
 
 It does all of the following in one run:
 - Generates one Dart file for the selected preset (for example, `amber_minimal.dart`).
@@ -57,5 +57,8 @@ dart run tool/theme/theme_preset_json_to_dart.dart \
 ```
 
 ## Notes
-- The script intentionally generates only the selected preset file to match CLI install flow.
+- This script is a local generation utility only. It does not accept or execute
+  CLI runtime converter request envelopes.
+- The script intentionally generates only the selected preset file for local
+  publish-time workflows.
 - Re-run the script whenever the selected preset JSON changes.

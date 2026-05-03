@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json",
-  "title": "Registry Themes Index Schema",
-  "description": "Lightweight index listing available themes for a registry. Used for `theme list` without downloading full theme preset data.",
+  "title": "Registry Theme Artifact Manifest Schema",
+  "description": "Declarative manifest for generated theme install artifacts published by a registry.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -21,67 +21,96 @@
       "type": "string",
       "format": "date-time"
     },
-    "defaultThemeId": {
-      "type": "string",
-      "pattern": "^[a-z0-9][a-z0-9_\\-]{1,63}$",
-      "description": "Optional default theme id for this registry."
-    },
     "themes": {
       "type": "array",
       "minItems": 1,
-      "uniqueItems": true,
       "items": {
-        "$ref": "#/$defs/themeIndexEntry"
+        "$ref": "#/$defs/themeManifestEntry"
       }
     }
   },
   "$defs": {
-    "themeIndexEntry": {
+    "themeManifestEntry": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "id",
         "name",
-        "file"
+        "label",
+        "files"
       ],
       "properties": {
-        "id": {
-          "type": "string",
-          "pattern": "^[a-z0-9][a-z0-9_\\-]{1,63}$",
-          "description": "Stable theme identifier used in CLI commands and config.json."
-        },
         "name": {
           "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_\\-]{1,63}$",
+          "description": "Stable theme identifier used by the CLI."
+        },
+        "label": {
+          "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 120,
+          "description": "Human-readable theme name."
         },
         "description": {
           "type": "string",
           "maxLength": 500
         },
-        "file": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 500,
-          "pattern": "^(?!/)(?!.*\\s)(?!.*\\.\\./)(?!.*\\./\\./)[-a-zA-Z0-9_./]+$",
-          "description": "Registry-relative path to the full theme preset JSON file."
+        "source": {
+          "$ref": "#/$defs/safeRelativePathOrHttpsUrl",
+          "description": "Optional source theme document for inspection or documentation."
         },
-        "preview": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "primary": {
-              "type": "string",
-              "pattern": "^0x[0-9A-Fa-f]{8}$"
-            },
-            "background": {
-              "type": "string",
-              "pattern": "^0x[0-9A-Fa-f]{8}$"
-            }
-          },
-          "description": "Optional lightweight preview colors for CLI display."
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/themeManifestFile"
+          }
         }
       }
+    },
+    "themeManifestFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "target",
+        "sha256"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/safeRelativePathOrHttpsUrl",
+          "description": "Generated artifact source path in the registry, or an absolute HTTPS URL."
+        },
+        "target": {
+          "$ref": "#/$defs/safeProjectRelativePath",
+          "description": "Destination path relative to the consumer project root."
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256Hex64"
+        }
+      }
+    },
+    "safeRelativePathOrHttpsUrl": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "anyOf": [
+        {
+          "pattern": "^(?!/)(?!.*\\s)(?!.*\\.\\./)(?!.*\\./\\./)[-a-zA-Z0-9_./]+$"
+        },
+        {
+          "pattern": "^https://[^\\s]+$"
+        }
+      ]
+    },
+    "safeProjectRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*\\s)(?!.*\\.\\./)(?!.*\\./\\./)[-a-zA-Z0-9_./]+$"
+    },
+    "sha256Hex64": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     }
   }
 }

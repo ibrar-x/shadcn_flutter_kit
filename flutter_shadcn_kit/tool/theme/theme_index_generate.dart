@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
+
+import 'theme_preset_json_to_dart.dart';
+
 void main(List<String> args) {
   if (args.contains('-h') || args.contains('--help')) {
     _printUsage();
@@ -14,20 +18,11 @@ void main(List<String> args) {
     return;
   }
 
-  String? defaultThemeId;
-  String outputFileName = 'manifests/theme.index.json';
-
+  var outputFileName = 'manifests/theme.index.json';
   for (var i = 0; i < args.length; i++) {
-    final arg = args[i];
-    if (arg == '--default' && i + 1 < args.length) {
-      defaultThemeId = args[i + 1].trim();
-      i += 1;
-      continue;
-    }
-    if (arg == '--output' && i + 1 < args.length) {
+    if (args[i] == '--output' && i + 1 < args.length) {
       outputFileName = args[i + 1].trim();
       i += 1;
-      continue;
     }
   }
 
@@ -44,7 +39,7 @@ void main(List<String> args) {
           .whereType<File>()
           .where((file) => file.path.toLowerCase().endsWith('.json'))
           .toList()
-        ..sort((a, b) => a.path.compareTo(b.path));
+        ..sort((left, right) => left.path.compareTo(right.path));
 
   if (presetFiles.isEmpty) {
     stderr.writeln('Error: No JSON files found in ${themesPresetDir.path}.');
@@ -52,71 +47,73 @@ void main(List<String> args) {
     return;
   }
 
-  final themes = <Map<String, dynamic>>[];
-  final seenIds = <String>{};
+  final generatedRoot = Directory(
+    '${registryDir.path}/$defaultThemeArtifactSourceRoot',
+  );
+  if (generatedRoot.existsSync()) {
+    generatedRoot.deleteSync(recursive: true);
+  }
+  generatedRoot.createSync(recursive: true);
+
+  final manifestThemes = <Map<String, dynamic>>[];
+  final seenNames = <String>{};
 
   for (final file in presetFiles) {
-    final content = file.readAsStringSync();
-    final decoded = jsonDecode(content);
+    final decoded = jsonDecode(file.readAsStringSync());
     if (decoded is! Map<String, dynamic>) {
       stderr.writeln('Skipping ${file.path}: top-level JSON is not an object.');
       continue;
     }
 
-    final id = (decoded['id'] as String?)?.trim();
-    final name = (decoded['name'] as String?)?.trim();
-    final description = (decoded['description'] as String?)?.trim();
-    final light = decoded['light'];
+    final entry = buildThemeArtifactManifestEntry(
+      presetJson: decoded,
+      sourcePath: 'themes_preset/${_basename(file.path)}',
+    );
 
-    if (id == null || id.isEmpty || name == null || name.isEmpty) {
-      stderr.writeln('Skipping ${file.path}: missing required id/name.');
+    if (!seenNames.add(entry.name)) {
+      stderr.writeln(
+        'Skipping ${file.path}: duplicate theme name "${entry.name}".',
+      );
       continue;
     }
-    if (seenIds.contains(id)) {
-      stderr.writeln('Skipping ${file.path}: duplicate id "$id".');
-      continue;
+
+    final manifestFiles = <Map<String, dynamic>>[];
+    for (final artifact in entry.files) {
+      final outFile = File('${registryDir.path}/${artifact.source}');
+      outFile.parent.createSync(recursive: true);
+      outFile.writeAsStringSync(_ensureTrailingNewline(artifact.content));
+
+      manifestFiles.add(<String, dynamic>{
+        'source': artifact.source,
+        'target': artifact.target,
+        'sha256': sha256.convert(outFile.readAsBytesSync()).toString(),
+      });
     }
-    seenIds.add(id);
 
-    String? primary;
-    String? background;
-    if (light is Map<String, dynamic>) {
-      primary = light['primary'] as String?;
-      background = light['background'] as String?;
-    }
+    manifestFiles.sort((left, right) {
+      final leftSource = left['source'] as String;
+      final rightSource = right['source'] as String;
+      return leftSource.compareTo(rightSource);
+    });
 
-    final entry = <String, dynamic>{
-      'id': id,
-      'name': name,
-      if (description != null && description.isNotEmpty)
-        'description': description,
-      'file': 'themes_preset/${_basename(file.path)}',
-      if (primary != null || background != null)
-        'preview': {
-          if (primary != null) 'primary': primary,
-          if (background != null) 'background': background,
-        },
-    };
-
-    themes.add(entry);
+    manifestThemes.add(<String, dynamic>{
+      'name': entry.name,
+      'label': entry.label,
+      if (entry.description != null && entry.description!.trim().isNotEmpty)
+        'description': entry.description,
+      'source': entry.source,
+      'files': manifestFiles,
+    });
   }
 
-  themes.sort((a, b) {
-    final left = (a['id'] as String).toLowerCase();
-    final right = (b['id'] as String).toLowerCase();
-    return left.compareTo(right);
+  manifestThemes.sort((left, right) {
+    final leftName = (left['name'] as String).toLowerCase();
+    final rightName = (right['name'] as String).toLowerCase();
+    return leftName.compareTo(rightName);
   });
 
-  if (themes.isEmpty) {
-    stderr.writeln('Error: No valid theme preset entries found.');
-    exitCode = 1;
-    return;
-  }
-
-  if (defaultThemeId != null && !seenIds.contains(defaultThemeId)) {
-    stderr.writeln(
-      'Error: --default "$defaultThemeId" does not exist in themes_preset JSON files.',
-    );
+  if (manifestThemes.isEmpty) {
+    stderr.writeln('Error: No valid theme artifact entries found.');
     exitCode = 1;
     return;
   }
@@ -126,26 +123,26 @@ void main(List<String> args) {
         'https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json',
     'schemaVersion': 1,
     'generatedAt': DateTime.now().toUtc().toIso8601String(),
-    if (defaultThemeId != null) 'defaultThemeId': defaultThemeId,
-    'themes': themes,
+    'themes': manifestThemes,
   };
 
   final outputFile = File('${registryDir.path}/$outputFileName');
+  outputFile.parent.createSync(recursive: true);
   outputFile.writeAsStringSync(
-    const JsonEncoder.withIndent('  ').convert(output),
+    '${const JsonEncoder.withIndent('  ').convert(output)}\n',
   );
   stdout.writeln(
-    'Generated ${outputFile.path} with ${themes.length} theme(s).',
+    'Generated ${outputFile.path} with ${manifestThemes.length} theme artifact entr${manifestThemes.length == 1 ? 'y' : 'ies'}.',
   );
 }
 
 void _printUsage() {
   stdout.writeln(
-    'Usage: dart run tool/theme/theme_index_generate.dart [--default <id>] [--output <filename>]',
+    'Usage: dart run tool/theme/theme_index_generate.dart [--output <filename>]',
   );
   stdout.writeln('');
   stdout.writeln(
-    'Generates lib/registry/manifests/theme.index.json from lib/registry/themes_preset/*.json',
+    'Generates lib/registry/manifests/theme.index.json and per-theme install artifacts from lib/registry/themes_preset/*.json',
   );
 }
 
@@ -168,6 +165,13 @@ Directory? _findRegistryDir(Directory from) {
     }
     current = parent;
   }
+}
+
+String _ensureTrailingNewline(String content) {
+  if (content.endsWith('\n')) {
+    return content;
+  }
+  return '$content\n';
 }
 
 String _basename(String path) {

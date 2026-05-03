@@ -1,385 +1,721 @@
 {
   "$schema": "https://flutter-shadcn.github.io/registry-directory/registry/themes.index.schema.v1.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-03-07T23:08:10.768606Z",
+  "generatedAt": "2026-05-03T05:10:48.624932Z",
   "themes": [
     {
-      "id": "amber-minimal",
-      "name": "Amber Minimal",
-      "file": "themes_preset/amber-minimal.json",
-      "preview": {
-        "primary": "0xFFF59E0B",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "amber-minimal",
+      "label": "Amber Minimal",
+      "source": "themes_preset/amber-minimal.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/amber-minimal/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/amber-minimal/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "b6beac424512b12604e73cea11b6b95085de7217949fabf14cb839fc6d76038a"
+        }
+      ]
     },
     {
-      "id": "amethyst-haze",
-      "name": "Amethyst Haze",
-      "file": "themes_preset/amethyst-haze.json",
-      "preview": {
-        "primary": "0xFF8A79AB",
-        "background": "0xFFF8F7FA"
-      }
+      "name": "amethyst-haze",
+      "label": "Amethyst Haze",
+      "source": "themes_preset/amethyst-haze.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/amethyst-haze/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/amethyst-haze/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "cee8e0f784bb1f6300606ed09ffda61f0dbc12ece1232a2a699c533983bda7e2"
+        }
+      ]
     },
     {
-      "id": "bold-tech",
-      "name": "Bold Tech",
-      "file": "themes_preset/bold-tech.json",
-      "preview": {
-        "primary": "0xFF8B5CF6",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "bold-tech",
+      "label": "Bold Tech",
+      "source": "themes_preset/bold-tech.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/bold-tech/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/bold-tech/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "1e3979d1d4ae20d3f154c3d3bad7c98351473633db83bfdd69851c18489eade9"
+        }
+      ]
     },
     {
-      "id": "bubblegum",
-      "name": "Bubblegum",
-      "file": "themes_preset/bubblegum.json",
-      "preview": {
-        "primary": "0xFFD04F99",
-        "background": "0xFFF6E6EE"
-      }
+      "name": "bubblegum",
+      "label": "Bubblegum",
+      "source": "themes_preset/bubblegum.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/bubblegum/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/bubblegum/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "40c61895c33e006c441900cbb89f2e8d6e4632812c689530916eb4d04ae0e271"
+        }
+      ]
     },
     {
-      "id": "caffeine",
-      "name": "Caffeine",
-      "file": "themes_preset/caffeine.json",
-      "preview": {
-        "primary": "0xFF644A40",
-        "background": "0xFFF9F9F9"
-      }
+      "name": "caffeine",
+      "label": "Caffeine",
+      "source": "themes_preset/caffeine.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/caffeine/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/caffeine/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "b241062a54512511ef155e893f98c496e0d8888431faa4ecb27d7b79170c5fac"
+        }
+      ]
     },
     {
-      "id": "candyland",
-      "name": "Candyland",
-      "file": "themes_preset/candyland.json",
-      "preview": {
-        "primary": "0xFFFFC0CB",
-        "background": "0xFFF7F9FA"
-      }
+      "name": "candyland",
+      "label": "Candyland",
+      "source": "themes_preset/candyland.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/candyland/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/candyland/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "0416e011aa4b1a91d72ffc98b11716e727261f7c16afa279ae731d81c5f2d62f"
+        }
+      ]
     },
     {
-      "id": "catppuccin",
-      "name": "Catppuccin",
-      "file": "themes_preset/catppuccin.json",
-      "preview": {
-        "primary": "0xFF8839EF",
-        "background": "0xFFEFF1F5"
-      }
+      "name": "catppuccin",
+      "label": "Catppuccin",
+      "source": "themes_preset/catppuccin.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/catppuccin/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/catppuccin/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "0a23ba4fb2e6a28bd80eef7cd24731757f2700dbffd26e3f3af3bc993e578cd1"
+        }
+      ]
     },
     {
-      "id": "claude",
-      "name": "Claude",
-      "file": "themes_preset/claude.json",
-      "preview": {
-        "primary": "0xFFC96442",
-        "background": "0xFFFAF9F5"
-      }
+      "name": "claude",
+      "label": "Claude",
+      "source": "themes_preset/claude.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/claude/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/claude/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "a7677a8b913500af5cbe74eaaf9618d34a01bdd4b6e0ccd495cfed2d47cef1f0"
+        }
+      ]
     },
     {
-      "id": "claymorphism",
-      "name": "Claymorphism",
-      "file": "themes_preset/claymorphism.json",
-      "preview": {
-        "primary": "0xFF6366F1",
-        "background": "0xFFE7E5E4"
-      }
+      "name": "claymorphism",
+      "label": "Claymorphism",
+      "source": "themes_preset/claymorphism.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/claymorphism/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/claymorphism/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "5a6a629680819e1d901b0270a7081068b77be26a2f47df65ad763942cc58d4f6"
+        }
+      ]
     },
     {
-      "id": "clean-slate",
-      "name": "Clean Slate",
-      "file": "themes_preset/clean-slate.json",
-      "preview": {
-        "primary": "0xFF6366F1",
-        "background": "0xFFF8FAFC"
-      }
+      "name": "clean-slate",
+      "label": "Clean Slate",
+      "source": "themes_preset/clean-slate.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/clean-slate/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/clean-slate/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "0ee934916fa7f16ebfac8e98b2ed73cdf0432d1eada22c9ee5916f228f481575"
+        }
+      ]
     },
     {
-      "id": "cosmic-night",
-      "name": "Cosmic Night",
-      "file": "themes_preset/cosmic-night.json",
-      "preview": {
-        "primary": "0xFF6E56CF",
-        "background": "0xFFF5F5FF"
-      }
+      "name": "cosmic-night",
+      "label": "Cosmic Night",
+      "source": "themes_preset/cosmic-night.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/cosmic-night/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/cosmic-night/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "9b0282e082485ef756d3ac9e6c0f25f6f92b628e51d1e147822759652d11c009"
+        }
+      ]
     },
     {
-      "id": "cyberpunk",
-      "name": "Cyberpunk",
-      "file": "themes_preset/cyberpunk.json",
-      "preview": {
-        "primary": "0xFFFF00C8",
-        "background": "0xFFF8F9FA"
-      }
+      "name": "cyberpunk",
+      "label": "Cyberpunk",
+      "source": "themes_preset/cyberpunk.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/cyberpunk/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/cyberpunk/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "452e61d7f4bf0d9fb860c012cd9e4037fafa31016e51f326a83df54f91964f09"
+        }
+      ]
     },
     {
-      "id": "darkmatter",
-      "name": "Darkmatter",
-      "file": "themes_preset/darkmatter.json",
-      "preview": {
-        "primary": "0xFFD87943",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "darkmatter",
+      "label": "Darkmatter",
+      "source": "themes_preset/darkmatter.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/darkmatter/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/darkmatter/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "61109c49ff67407fc50d5283c8223c3765cd41c19ea37bf08b2d181a54a58bf1"
+        }
+      ]
     },
     {
-      "id": "doom-64",
-      "name": "Doom 64",
-      "file": "themes_preset/doom-64.json",
-      "preview": {
-        "primary": "0xFFB71C1C",
-        "background": "0xFFCCCCCC"
-      }
+      "name": "doom-64",
+      "label": "Doom 64",
+      "source": "themes_preset/doom-64.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/doom-64/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/doom-64/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "81b1f31a84655cdbf14a4c7bff199dff7256d39db7ffc63a22a52d69779d8831"
+        }
+      ]
     },
     {
-      "id": "elegant-luxury",
-      "name": "Elegant Luxury",
-      "file": "themes_preset/elegant-luxury.json",
-      "preview": {
-        "primary": "0xFF9B2C2C",
-        "background": "0xFFFAF7F5"
-      }
+      "name": "elegant-luxury",
+      "label": "Elegant Luxury",
+      "source": "themes_preset/elegant-luxury.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/elegant-luxury/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/elegant-luxury/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "57d40376e872f7cd8eaa7b789696f611b2730de0ddd3fe5e4a4514f014c71107"
+        }
+      ]
     },
     {
-      "id": "graphite",
-      "name": "Graphite",
-      "file": "themes_preset/graphite.json",
-      "preview": {
-        "primary": "0xFF606060",
-        "background": "0xFFF0F0F0"
-      }
+      "name": "graphite",
+      "label": "Graphite",
+      "source": "themes_preset/graphite.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/graphite/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/graphite/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "d80d4e2ec038888d832d3290a870f83ca74707f992e72e3935ac7a2bab5c4e84"
+        }
+      ]
     },
     {
-      "id": "kodama-grove",
-      "name": "Kodama Grove",
-      "file": "themes_preset/kodama-grove.json",
-      "preview": {
-        "primary": "0xFF8D9D4F",
-        "background": "0xFFE4D7B0"
-      }
+      "name": "kodama-grove",
+      "label": "Kodama Grove",
+      "source": "themes_preset/kodama-grove.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/kodama-grove/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/kodama-grove/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "ead643b3d373b18da1d6e330143562f91d5638c7a08a0d45769ba0895c0649b7"
+        }
+      ]
     },
     {
-      "id": "midnight-bloom",
-      "name": "Midnight Bloom",
-      "file": "themes_preset/midnight-bloom.json",
-      "preview": {
-        "primary": "0xFF6C5CE7",
-        "background": "0xFFF9F9F9"
-      }
+      "name": "midnight-bloom",
+      "label": "Midnight Bloom",
+      "source": "themes_preset/midnight-bloom.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/midnight-bloom/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/midnight-bloom/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "99788f356b678d5abb248cb4c495fde0d7a8393bf23db80b34dbaa024fbd1f3e"
+        }
+      ]
     },
     {
-      "id": "mocha-mousse",
-      "name": "Mocha Mousse",
-      "file": "themes_preset/mocha-mousse.json",
-      "preview": {
-        "primary": "0xFFA37764",
-        "background": "0xFFF1F0E5"
-      }
+      "name": "mocha-mousse",
+      "label": "Mocha Mousse",
+      "source": "themes_preset/mocha-mousse.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/mocha-mousse/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/mocha-mousse/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "a909681e51f3ffcd4989946205f7cc9f0dbe3f498ed35f11754b4e572a732e76"
+        }
+      ]
     },
     {
-      "id": "modern-minimal",
-      "name": "Modern Minimal",
-      "file": "themes_preset/modern-minimal.json",
-      "preview": {
-        "primary": "0xFF3B82F6",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "modern-minimal",
+      "label": "Modern Minimal",
+      "source": "themes_preset/modern-minimal.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/modern-minimal/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/modern-minimal/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "c51ab915f9da90c842bfe2585fb14015b7dadfccc6eb8d863e142b22e812c00d"
+        }
+      ]
     },
     {
-      "id": "mono",
-      "name": "Mono",
-      "file": "themes_preset/mono.json",
-      "preview": {
-        "primary": "0xFF737373",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "mono",
+      "label": "Mono",
+      "source": "themes_preset/mono.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/mono/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/mono/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "3046af1430a7cd39d1e5b2d47232c549e1379d43b5e615b0b65db1a362a89345"
+        }
+      ]
     },
     {
-      "id": "nature",
-      "name": "Nature",
-      "file": "themes_preset/nature.json",
-      "preview": {
-        "primary": "0xFF2E7D32",
-        "background": "0xFFF8F5F0"
-      }
+      "name": "nature",
+      "label": "Nature",
+      "source": "themes_preset/nature.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/nature/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/nature/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "1c75df293581bfffc07e93428715ea8c750994a512099cb6f76089bdf89be858"
+        }
+      ]
     },
     {
-      "id": "neo-brutalism",
-      "name": "Neo Brutalism",
-      "file": "themes_preset/neo-brutalism.json",
-      "preview": {
-        "primary": "0xFFFF3333",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "neo-brutalism",
+      "label": "Neo Brutalism",
+      "source": "themes_preset/neo-brutalism.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/neo-brutalism/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/neo-brutalism/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "2ab0b106f26823d79503e39e6cacd8268795b3e7a8f4bb0f246782854b4d977e"
+        }
+      ]
     },
     {
-      "id": "northern-lights",
-      "name": "Northern Lights",
-      "file": "themes_preset/northern-lights.json",
-      "preview": {
-        "primary": "0xFF34A85A",
-        "background": "0xFFF9F9FA"
-      }
+      "name": "northern-lights",
+      "label": "Northern Lights",
+      "source": "themes_preset/northern-lights.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/northern-lights/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/northern-lights/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "d817e1d9ca9434fd83732cc3542fb6a251108203cad0ad0d44c0c6d0fb8179f1"
+        }
+      ]
     },
     {
-      "id": "notebook",
-      "name": "Notebook",
-      "file": "themes_preset/notebook.json",
-      "preview": {
-        "primary": "0xFF606060",
-        "background": "0xFFF9F9F9"
-      }
+      "name": "notebook",
+      "label": "Notebook",
+      "source": "themes_preset/notebook.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/notebook/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/notebook/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "1b2372de13e06118e02213659e89f3be9a1addad9d99f76240d4417adb2adf05"
+        }
+      ]
     },
     {
-      "id": "ocean-breeze",
-      "name": "Ocean Breeze",
-      "file": "themes_preset/ocean-breeze.json",
-      "preview": {
-        "primary": "0xFF22C55E",
-        "background": "0xFFF0F8FF"
-      }
+      "name": "ocean-breeze",
+      "label": "Ocean Breeze",
+      "source": "themes_preset/ocean-breeze.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/ocean-breeze/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/ocean-breeze/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "c6df24677a98a3fb8f0fe14133df3eb452eba9495ac2a1fbf386d6063f5da661"
+        }
+      ]
     },
     {
-      "id": "pastel-dreams",
-      "name": "Pastel Dreams",
-      "file": "themes_preset/pastel-dreams.json",
-      "preview": {
-        "primary": "0xFFA78BFA",
-        "background": "0xFFF7F3F9"
-      }
+      "name": "pastel-dreams",
+      "label": "Pastel Dreams",
+      "source": "themes_preset/pastel-dreams.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/pastel-dreams/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/pastel-dreams/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "4e0495427cd3a5075af7e1a3e8c32232353e326d89005ccbe241b2d10c6896f6"
+        }
+      ]
     },
     {
-      "id": "perpetuity",
-      "name": "Perpetuity",
-      "file": "themes_preset/perpetuity.json",
-      "preview": {
-        "primary": "0xFF06858E",
-        "background": "0xFFE8F0F0"
-      }
+      "name": "perpetuity",
+      "label": "Perpetuity",
+      "source": "themes_preset/perpetuity.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/perpetuity/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/perpetuity/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "3ce2568675dc951efff867cdc6a82eca5b3becda937c9e8e981efdc0abe4e27f"
+        }
+      ]
     },
     {
-      "id": "quantum-rose",
-      "name": "Quantum Rose",
-      "file": "themes_preset/quantum-rose.json",
-      "preview": {
-        "primary": "0xFFE6067A",
-        "background": "0xFFFFF0F8"
-      }
+      "name": "quantum-rose",
+      "label": "Quantum Rose",
+      "source": "themes_preset/quantum-rose.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/quantum-rose/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/quantum-rose/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "1723401b9f554130c4e6550876aeea7b3aa2bf14c804e54a1016b3fc1c086284"
+        }
+      ]
     },
     {
-      "id": "retro-arcade",
-      "name": "Retro Arcade",
-      "file": "themes_preset/retro-arcade.json",
-      "preview": {
-        "primary": "0xFFD33682",
-        "background": "0xFFFDF6E3"
-      }
+      "name": "retro-arcade",
+      "label": "Retro Arcade",
+      "source": "themes_preset/retro-arcade.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/retro-arcade/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/retro-arcade/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "3196aa8c19e2bf1a7f480ce2282cdb8c5dd1b6bd4e5dd1477e17241264b4000e"
+        }
+      ]
     },
     {
-      "id": "sage-garden",
-      "name": "Sage Garden",
-      "file": "themes_preset/sage-garden.json",
-      "preview": {
-        "primary": "0xFF7C9082",
-        "background": "0xFFF8F7F4"
-      }
+      "name": "sage-garden",
+      "label": "Sage Garden",
+      "source": "themes_preset/sage-garden.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/sage-garden/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/sage-garden/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "3be3859646680fe2ac277bfff4f442a80809a8779303e5962eb01ded860cba24"
+        }
+      ]
     },
     {
-      "id": "soft-pop",
-      "name": "Soft Pop",
-      "file": "themes_preset/soft-pop.json",
-      "preview": {
-        "primary": "0xFF4F46E5",
-        "background": "0xFFF7F9F3"
-      }
+      "name": "soft-pop",
+      "label": "Soft Pop",
+      "source": "themes_preset/soft-pop.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/soft-pop/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/soft-pop/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "346e5e8847bb8f2946882e77508ad4446438ab80c48b3b76f75dd613cb55c04c"
+        }
+      ]
     },
     {
-      "id": "solar-dusk",
-      "name": "Solar Dusk",
-      "file": "themes_preset/solar-dusk.json",
-      "preview": {
-        "primary": "0xFFB45309",
-        "background": "0xFFFDFBF7"
-      }
+      "name": "solar-dusk",
+      "label": "Solar Dusk",
+      "source": "themes_preset/solar-dusk.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/solar-dusk/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/solar-dusk/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "579a7ef88a5648833c567fe91761e5ab58b7dbaf70a9f0fc0a6e46a50baecbac"
+        }
+      ]
     },
     {
-      "id": "starry-night",
-      "name": "Starry Night",
-      "file": "themes_preset/starry-night.json",
-      "preview": {
-        "primary": "0xFF3A5BA0",
-        "background": "0xFFF5F7FA"
-      }
+      "name": "starry-night",
+      "label": "Starry Night",
+      "source": "themes_preset/starry-night.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/starry-night/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/starry-night/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "ac13573e568111212fd332635722c81b632ac8ecdbb8ad418edf6bf776a9cc88"
+        }
+      ]
     },
     {
-      "id": "sunset-horizon",
-      "name": "Sunset Horizon",
-      "file": "themes_preset/sunset-horizon.json",
-      "preview": {
-        "primary": "0xFFFF7E5F",
-        "background": "0xFFFFF9F5"
-      }
+      "name": "sunset-horizon",
+      "label": "Sunset Horizon",
+      "source": "themes_preset/sunset-horizon.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/sunset-horizon/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/sunset-horizon/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "8cfb0e2a66a551bf30e2e588f375ec5a2413a0c66d718a78e3568585b72bde87"
+        }
+      ]
     },
     {
-      "id": "supabase",
-      "name": "Supabase",
-      "file": "themes_preset/supabase.json",
-      "preview": {
-        "primary": "0xFF72E3AD",
-        "background": "0xFFFCFCFC"
-      }
+      "name": "supabase",
+      "label": "Supabase",
+      "source": "themes_preset/supabase.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/supabase/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/supabase/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "3557814f36b1ff2dbcccb6112e2a401aa548dbe94a89eafbbcd96b9bccf3770c"
+        }
+      ]
     },
     {
-      "id": "t3-chat",
-      "name": "T3 Chat",
-      "file": "themes_preset/t3-chat.json",
-      "preview": {
-        "primary": "0xFFA84370",
-        "background": "0xFFFAF5FA"
-      }
+      "name": "t3-chat",
+      "label": "T3 Chat",
+      "source": "themes_preset/t3-chat.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/t3-chat/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/t3-chat/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "55976452515ddb7465f932ad0de6479ea95e87e14fe67edfdec2300fcacfb5ef"
+        }
+      ]
     },
     {
-      "id": "tangerine",
-      "name": "Tangerine",
-      "file": "themes_preset/tangerine.json",
-      "preview": {
-        "primary": "0xFFE05D38",
-        "background": "0xFFE8EBED"
-      }
+      "name": "tangerine",
+      "label": "Tangerine",
+      "source": "themes_preset/tangerine.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/tangerine/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/tangerine/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "6e36e3e4485c7c4b7a400ecf61982af636dcee218826f080147d45b1285f909f"
+        }
+      ]
     },
     {
-      "id": "twitter",
-      "name": "Twitter",
-      "file": "themes_preset/twitter.json",
-      "preview": {
-        "primary": "0xFF1E9DF1",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "twitter",
+      "label": "Twitter",
+      "source": "themes_preset/twitter.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/twitter/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/twitter/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "e83492ea438117dbcfdfdaf74176cae7a65437b5cfe345721579aa73ab7d90a2"
+        }
+      ]
     },
     {
-      "id": "vercel",
-      "name": "Vercel",
-      "file": "themes_preset/vercel.json",
-      "preview": {
-        "primary": "0xFF000000",
-        "background": "0xFFFFFFFF"
-      }
+      "name": "vercel",
+      "label": "Vercel",
+      "source": "themes_preset/vercel.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/vercel/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/vercel/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "54059086400a874b9a38b9935b817f0b5cc598896b0d842dee561006d562c5a0"
+        }
+      ]
     },
     {
-      "id": "vintage-paper",
-      "name": "Vintage Paper",
-      "file": "themes_preset/vintage-paper.json",
-      "preview": {
-        "primary": "0xFFA67C52",
-        "background": "0xFFF5F1E6"
-      }
+      "name": "vintage-paper",
+      "label": "Vintage Paper",
+      "source": "themes_preset/vintage-paper.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/vintage-paper/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/vintage-paper/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "6f561c24625585f233e334867f1e4d88dce5a0346428c98c82ca3012262182b1"
+        }
+      ]
     },
     {
-      "id": "violet-bloom",
-      "name": "Violet Bloom",
-      "file": "themes_preset/violet-bloom.json",
-      "preview": {
-        "primary": "0xFF7033FF",
-        "background": "0xFFFDFDFD"
-      }
+      "name": "violet-bloom",
+      "label": "Violet Bloom",
+      "source": "themes_preset/violet-bloom.json",
+      "files": [
+        {
+          "source": "shared/theme/generated/violet-bloom/app_theme_preset.dart",
+          "target": "lib/ui/shadcn/shared/theme/app_theme_preset.dart",
+          "sha256": "56d85780ebeafebb7645b921c602f6f53cf1bbb7654172f77490408cd2a4111b"
+        },
+        {
+          "source": "shared/theme/generated/violet-bloom/preset_themes.dart",
+          "target": "lib/ui/shadcn/shared/theme/preset_themes.dart",
+          "sha256": "eb75c1d1d1bc369e28a09d6075e321c8aaff2be0f1545f16265de8abacb54f61"
+        }
+      ]
     }
   ]
 }
