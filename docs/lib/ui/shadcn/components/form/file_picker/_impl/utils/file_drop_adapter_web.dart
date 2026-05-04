@@ -168,7 +168,6 @@ class _WebDropTargetViewState extends State<_WebDropTargetView> {
       final dataTransfer = dragEvent.dataTransfer;
       if (dataTransfer == null) return;
       final files = dataTransfer.files;
-      if (files == null) return;
       unawaited(widget.handleDrop(files, widget.withData, widget.onDrop));
     });
     if (widget.onTap != null) {
