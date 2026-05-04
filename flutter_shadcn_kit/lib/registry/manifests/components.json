@@ -5220,24 +5220,24 @@
           "destination": "{installPath}/components/form/file_picker/_impl/themes/config/file_picker_theme_tokens.dart"
         },
         {
+          "source": "registry/components/form/file_picker/_impl/utils/file_drop_adapter.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_drop_adapter.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_drop_adapter_io.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_drop_adapter_io.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_drop_adapter_stub.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_drop_adapter_stub.dart"
+        },
+        {
+          "source": "registry/components/form/file_picker/_impl/utils/file_drop_adapter_web.dart",
+          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_drop_adapter_web.dart"
+        },
+        {
           "source": "registry/components/form/file_picker/_impl/utils/file_like.dart",
           "destination": "{installPath}/components/form/file_picker/_impl/utils/file_like.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_io.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_io.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_stub.dart"
-        },
-        {
-          "source": "registry/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart",
-          "destination": "{installPath}/components/form/file_picker/_impl/utils/file_picker_adapter_web.dart"
         },
         {
           "source": "registry/components/form/file_picker/_impl/utils/file_upload_controller.dart",
@@ -5308,7 +5308,9 @@
         "scaffold"
       ],
       "pubspec": {
-        "dependencies": {}
+        "dependencies": {
+          "web": "^1.1.1"
+        }
       },
       "assets": [],
       "postInstall": [],

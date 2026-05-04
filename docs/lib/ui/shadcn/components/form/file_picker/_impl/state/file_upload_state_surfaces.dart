@@ -38,8 +38,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
   /// Default loading replacement widget when mode is replace and no widget is provided.
   Widget _buildDefaultLoadingWidget(ThemeData theme) {
     final scaling = theme.scaling;
-    final minHeight =
-        widget.minHeight ??
+    final minHeight = widget.minHeight ??
         switch (widget.surface) {
           _FileUploadSurface.dragDrop => 220 * scaling,
           _FileUploadSurface.tile => 48 * scaling,
@@ -62,22 +61,21 @@ extension _FileUploadStateSurfaces on _FileUploadState {
   Widget _buildDragDropContent(ThemeData theme, double scaling) {
     final singleItemContent =
         (!widget.allowMultiple && _effectiveItems.isNotEmpty)
-        ? FileUploadItemsView(
-            items: [_effectiveItems.first],
-            layout: FileUploadItemsLayout.list,
-            showContainer: false,
-            statusLabels: widget.statusLabels,
-            itemLoading: widget.itemLoading,
-            itemBuilder: widget.itemBuilder,
-          )
-        : null;
+            ? FileUploadItemsView(
+                items: [_effectiveItems.first],
+                layout: FileUploadItemsLayout.list,
+                showContainer: false,
+                statusLabels: widget.statusLabels,
+                itemLoading: widget.itemLoading,
+                itemBuilder: widget.itemBuilder,
+              )
+            : null;
 
     if (singleItemContent != null) {
       return singleItemContent;
     }
 
-    final icon =
-        widget.icon ??
+    final icon = widget.icon ??
         Icon(
           RadixIcons.upload,
           size: 28 * scaling,
@@ -146,21 +144,21 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       case FileUploadState.idle:
       case FileUploadState.disabled:
       case FileUploadState.dragging:
-        return widget.enableDragDrop
+        return widget.enableDragDrop && _dropAdapter.supportsDragDrop
             ? (widget.dragDropIdleLabel ??
-                  'Drag files here or click to pick files.')
+                'Drag files here or click to pick files.')
             : (widget.dragDropClickToPickLabel ?? 'Click to pick files.');
     }
   }
 
-  /// Builds full drag-drop surface and wraps native drop target handlers.
+  /// Builds full drag-drop surface and exposes optional custom drop handlers.
   Widget _buildDragDropSurface(
     ThemeData theme,
     FileUploadDropzoneTheme? dropzoneTheme,
   ) {
     final scaling = theme.scaling;
-    final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
     final isEnabled = widget.enabled;
+    final canDrop = widget.enableDragDrop && _dropAdapter.supportsDragDrop;
     final dropzoneMinHeight =
         widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
 
@@ -178,9 +176,10 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       minHeight: dropzoneMinHeight,
     );
 
-    final onTap = widget.enableDropzoneClick && widget.enabled
-        ? _pickFiles
-        : null;
+    final onTap =
+        widget.enableDropzoneClick && widget.enabled && widget.pickFiles != null
+            ? _pickFiles
+            : null;
 
     if (widget.dropTargetBuilder != null) {
       return widget.dropTargetBuilder!(
@@ -193,7 +192,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       );
     }
 
-    return _adapter.buildDropTarget(
+    return _dropAdapter.buildDropTarget(
       enabled: isEnabled && canDrop,
       withData: widget.withData,
       onDragActive: _setDragActive,
@@ -211,8 +210,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
     final scaling = theme.scaling;
     final minHeight = widget.minHeight ?? 48 * scaling;
     final canPick = widget.enabled && widget.pickFiles != null;
-    final backgroundColor =
-        widget.backgroundColor ??
+    final backgroundColor = widget.backgroundColor ??
         dropzoneTheme?.backgroundColor ??
         theme.colorScheme.background;
 
@@ -248,8 +246,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
           onTap: canPick ? _pickFiles : null,
           behavior: HitTestBehavior.opaque,
           child: Padding(
-            padding:
-                widget.padding ??
+            padding: widget.padding ??
                 EdgeInsets.symmetric(
                   horizontal: theme.density.baseContainerPadding * scaling,
                   vertical: theme.density.baseGap * scaling,
@@ -291,22 +288,22 @@ extension _FileUploadStateSurfaces on _FileUploadState {
                               ),
                             )
                           : surfaceSubtitle != null
-                          ? DefaultTextStyle.merge(
-                              style: theme.typography.small.copyWith(
-                                color: fileNameColor,
-                              ),
-                              child: surfaceSubtitle,
-                            )
-                          : DefaultTextStyle.merge(
-                              style: theme.typography.small.copyWith(
-                                color: fileNameColor,
-                              ),
-                              child: Text(
-                                selectedLabel,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                              ? DefaultTextStyle.merge(
+                                  style: theme.typography.small.copyWith(
+                                    color: fileNameColor,
+                                  ),
+                                  child: surfaceSubtitle,
+                                )
+                              : DefaultTextStyle.merge(
+                                  style: theme.typography.small.copyWith(
+                                    color: fileNameColor,
+                                  ),
+                                  child: Text(
+                                    selectedLabel,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                     ),
                   ],
                 ),
@@ -320,9 +317,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
 
   /// Resolves tile value text based on selected files.
   String _tileSelectionLabel() {
-    final files = _effectiveItems
-        .map((item) => item.file)
-        .toList(growable: false);
+    final files =
+        _effectiveItems.map((item) => item.file).toList(growable: false);
     if (widget.tileSelectionTextBuilder != null) {
       final custom = widget.tileSelectionTextBuilder!.call(files);
       if (custom.trim().isNotEmpty) {
