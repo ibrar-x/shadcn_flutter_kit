@@ -108,7 +108,8 @@ class _WebDropTargetView extends StatefulWidget {
     web.FileList files,
     bool withData,
     ValueChanged<List<FileLike>> onDrop,
-  ) handleDrop;
+  )
+  handleDrop;
 
   @override
   State<_WebDropTargetView> createState() => _WebDropTargetViewState();

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-05-01T21:11:48.414116Z",
+  "generatedAt": "2026-05-04T02:47:33.420443Z",
   "components": [
     {
       "id": "accordion",
@@ -2073,7 +2073,9 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "web": "^1.1.1"
+        },
         "shared": [
           "theme",
           "outlined_container",

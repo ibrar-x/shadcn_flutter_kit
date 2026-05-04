@@ -31,6 +31,12 @@ def run(cmd: list[str], cwd: Path, dry_run: bool) -> None:
     subprocess.run(cmd, cwd=str(cwd), check=True)
 
 
+def registry_root_from_components_path(components_path: Path) -> Path:
+    if components_path.parent.name == "manifests":
+        return components_path.parent.parent.resolve()
+    return components_path.parent.resolve()
+
+
 def main() -> None:
     docs_root = Path(__file__).resolve().parents[1]
     default_registry = (
@@ -72,10 +78,17 @@ def main() -> None:
     args = parser.parse_args()
 
     registry_path = Path(args.registry).resolve()
-    registry_root = registry_path.parent.resolve()
+    registry_root = registry_root_from_components_path(registry_path)
     component_ids = load_component_ids(registry_path)
 
-    cli_base = ["dart", "run", str(local_cli)]
+    cli_base = [
+        "dart",
+        "run",
+        str(local_cli),
+        "--advanced",
+        "--registry-path",
+        str(registry_root),
+    ]
 
     if args.reinstall:
         run(
@@ -90,23 +103,10 @@ def main() -> None:
                 *cli_base,
                 "init",
                 "--yes",
-                "--all",
-                "--install-path",
-                "lib/ui/shadcn",
-                "--shared-path",
-                "lib/ui/shadcn/shared",
-                "--include-meta",
-                "--include-preview",
-                "--dev",
-                "--dev-path",
-                str(registry_root),
             ],
             cwd=docs_root,
             dry_run=args.dry_run,
         )
-
-        # init --all already installs every component.
-        return
 
     for batch in chunk(component_ids, args.batch_size):
         run(
@@ -114,10 +114,8 @@ def main() -> None:
                 *cli_base,
                 "add",
                 *batch,
-                "--registry",
-                "local",
-                "--registry-path",
-                str(registry_root),
+                "--include-files",
+                "meta,preview",
             ],
             cwd=docs_root,
             dry_run=args.dry_run,

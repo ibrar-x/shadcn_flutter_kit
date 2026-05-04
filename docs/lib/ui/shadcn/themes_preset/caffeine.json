@@ -1,7 +1,7 @@
 {
   "$schema": "../manifests/themes.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-02-20T02:59:20.595197Z",
+  "generatedAt": "2026-05-04T02:47:31.311787Z",
   "id": "caffeine",
   "name": "Caffeine",
   "light": {

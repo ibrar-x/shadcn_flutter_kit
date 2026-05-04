@@ -16,11 +16,11 @@ void main(List<String> args) {
     return;
   }
 
-  final presetSourceFile = File(
-    '${registryDir.path}/shared/theme/preset_themes.dart',
-  );
-  if (!presetSourceFile.existsSync()) {
-    stderr.writeln('Error: ${presetSourceFile.path} not found.');
+  final presetSourceFiles = _resolvePresetSourceFiles(registryDir);
+  if (presetSourceFiles.isEmpty) {
+    stderr.writeln(
+      'Error: Could not find generated or aggregate theme preset sources.',
+    );
     exitCode = 1;
     return;
   }
@@ -31,9 +31,10 @@ void main(List<String> args) {
   }
 
   final generatedAt = DateTime.now().toUtc().toIso8601String();
-  final presets = parseThemePresetsFromDart(
-    presetSourceFile.readAsStringSync(),
-  );
+  final presets = <Map<String, dynamic>>[
+    for (final sourceFile in presetSourceFiles)
+      ...parseThemePresetsFromDart(sourceFile.readAsStringSync()),
+  ];
   var count = 0;
 
   for (final preset in presets) {
@@ -47,6 +48,27 @@ void main(List<String> args) {
   }
 
   stdout.writeln('Generated $count preset file(s) in ${outputDir.path}');
+}
+
+List<File> _resolvePresetSourceFiles(Directory registryDir) {
+  final generatedDir = Directory('${registryDir.path}/shared/theme/generated');
+  if (generatedDir.existsSync()) {
+    final files =
+        generatedDir
+            .listSync(recursive: true)
+            .whereType<File>()
+            .where((file) => file.path.endsWith('/preset_themes.dart'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    if (files.isNotEmpty) {
+      return files;
+    }
+  }
+
+  final aggregateFile = File(
+    '${registryDir.path}/shared/theme/preset_themes.dart',
+  );
+  return aggregateFile.existsSync() ? [aggregateFile] : <File>[];
 }
 
 void _printUsage() {

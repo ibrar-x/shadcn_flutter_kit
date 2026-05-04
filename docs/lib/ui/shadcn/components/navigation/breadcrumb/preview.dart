@@ -9,7 +9,6 @@ class BreadcrumbPreview extends StatelessWidget {
   const BreadcrumbPreview({super.key});
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +24,13 @@ class BreadcrumbPreview extends StatelessWidget {
                 Breadcrumb(
                   separator: Breadcrumb.arrowSeparator,
                   children: [
-                    /// Creates a `TextButton` instance.
+                    /// Creates a `LinkButton` instance.
                     LinkButton(onPressed: () {}, child: const Text('Home')),
 
                     /// Creates a `MoreDots` instance.
                     const MoreDots(),
 
-                    /// Creates a `TextButton` instance.
+                    /// Creates a `LinkButton` instance.
                     LinkButton(
                       onPressed: () {},
                       child: const Text('Components'),
@@ -46,10 +45,10 @@ class BreadcrumbPreview extends StatelessWidget {
                 Breadcrumb(
                   separator: Breadcrumb.slashSeparator,
                   children: [
-                    /// Creates a `TextButton` instance.
+                    /// Creates a `LinkButton` instance.
                     LinkButton(onPressed: () {}, child: const Text('Docs')),
 
-                    /// Creates a `TextButton` instance.
+                    /// Creates a `LinkButton` instance.
                     LinkButton(
                       onPressed: () {},
                       child: const Text('UI Components'),

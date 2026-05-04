@@ -567,7 +567,7 @@ import '$modelsImport';
 
 final RegistryThemePreset ${preset.variableName} = RegistryThemePreset(
   id: '${preset.id}',
-  name: '${_escape(preset.name)}',
+  name: ${_dartStringLiteral(preset.name)},
 $light
 $dark
 $lightTokens
@@ -627,8 +627,8 @@ import 'dart:ui';
 
 import 'package:flutter/painting.dart';
 
-import 'color_scheme.dart';
-import 'theme.dart';
+import '../../color_scheme.dart';
+import '../../theme.dart';
 
 class RegistryThemePresetTokens {
   final double radius;
@@ -673,7 +673,7 @@ class RegistryThemePreset {
 final List<RegistryThemePreset> registryThemePresets = <RegistryThemePreset>[
   RegistryThemePreset(
     id: '${preset.id}',
-    name: '${_escape(preset.name)}',
+    name: ${_dartStringLiteral(preset.name)},
 $light
 $dark
 $lightTokens
@@ -775,20 +775,20 @@ String _buildTokenScheme(String fieldName, _TokenData? token, bool isLight) {
 
   lines.add('    ),');
   if (t.fontSans != null) {
-    lines.add("    fontSans: '${_escape(t.fontSans!)}',");
+    lines.add('    fontSans: ${_dartStringLiteral(t.fontSans!)},');
   }
   if (t.fontSerif != null) {
-    lines.add("    fontSerif: '${_escape(t.fontSerif!)}',");
+    lines.add('    fontSerif: ${_dartStringLiteral(t.fontSerif!)},');
   }
   if (t.fontMono != null) {
-    lines.add("    fontMono: '${_escape(t.fontMono!)}',");
+    lines.add('    fontMono: ${_dartStringLiteral(t.fontMono!)},');
   }
   lines.add('  ),');
 
   return lines.join('\n');
 }
 
-String _escape(String value) => value.replaceAll(r"'", r"\\'");
+String _dartStringLiteral(String value) => jsonEncode(value);
 
 String _n(num value) {
   if (value == value.roundToDouble()) {
@@ -1096,6 +1096,16 @@ String _dartLiteral(Object? value) {
     return 'const {$entries}';
   }
   throw FormatException('Unsupported widget theme literal: $value');
+}
+
+String _escape(String value) {
+  return value
+      .replaceAll(r'\', r'\\')
+      .replaceAll("'", r"\'")
+      .replaceAll(r'$', r'\$')
+      .replaceAll('\n', r'\n')
+      .replaceAll('\r', r'\r')
+      .replaceAll('\t', r'\t');
 }
 
 class _WidgetThemeDescriptor {

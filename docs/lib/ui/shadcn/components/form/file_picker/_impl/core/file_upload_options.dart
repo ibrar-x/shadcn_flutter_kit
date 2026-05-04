@@ -138,9 +138,9 @@ class FileUploadMobileOptions extends FileUploadOptions {
     this.loading = const FileUploadLoadingOptions(),
     this.itemLoading = const FileUploadItemLoadingOptions(),
   }) : assert(
-          !popover || popoverItems != null,
-          'popoverItems must be provided when popover is true.',
-        );
+         !popover || popoverItems != null,
+         'popoverItems must be provided when popover is true.',
+       );
 
   /// Shows a popover list of [popoverItems] when true.
   final bool popover;
@@ -218,18 +218,19 @@ class FileUploadPickOption {
 }
 
 /// Builder used to customize the drop target wrapper.
-typedef FileUploadDropTargetBuilder = Widget Function({
-  required Widget child,
-  required bool enabled,
-  required bool withData,
-  required ValueChanged<bool> onDragActive,
-  required ValueChanged<List<FileLike>> onDrop,
-  VoidCallback? onTap,
-});
+typedef FileUploadDropTargetBuilder =
+    Widget Function({
+      required Widget child,
+      required bool enabled,
+      required bool withData,
+      required ValueChanged<bool> onDragActive,
+      required ValueChanged<List<FileLike>> onDrop,
+      VoidCallback? onTap,
+    });
 
 /// Wrap builder used in [FileUploadLoadingMode.wrap].
-typedef FileUploadLoadingWrapperBuilder = Widget Function(
-    BuildContext context, Widget child);
+typedef FileUploadLoadingWrapperBuilder =
+    Widget Function(BuildContext context, Widget child);
 
 /// Configures how a surface behaves while loading.
 class FileUploadLoadingOptions {
@@ -258,8 +259,8 @@ class FileUploadLoadingOptions {
 }
 
 /// Builder used in [FileUploadItemLoadingMode.custom].
-typedef FileUploadItemLoadingBuilder = Widget Function(
-    BuildContext context, FileUploadItem item);
+typedef FileUploadItemLoadingBuilder =
+    Widget Function(BuildContext context, FileUploadItem item);
 
 /// Configures loading visuals for file list items.
 class FileUploadItemLoadingOptions {
@@ -280,8 +281,8 @@ class FileUploadItemLoadingOptions {
 }
 
 /// Builder used to control tile text for selected files.
-typedef FileUploadTileSelectionTextBuilder = String Function(
-    List<FileLike> files);
+typedef FileUploadTileSelectionTextBuilder =
+    String Function(List<FileLike> files);
 
 /// Placement options for the optional helpful info text.
 enum FileUploadHelpfulInfoPlacement { automatic, belowSurface, insideSurface }
@@ -313,8 +314,8 @@ class FileUploadHelpfulInfoData {
 }
 
 /// Builder used to render optional helpful info for constraints/limits.
-typedef FileUploadHelpfulInfoBuilder = Widget Function(
-    BuildContext context, FileUploadHelpfulInfoData info);
+typedef FileUploadHelpfulInfoBuilder =
+    Widget Function(BuildContext context, FileUploadHelpfulInfoData info);
 
 /// Customizable labels for status sections and badges.
 class FileUploadStatusLabels {

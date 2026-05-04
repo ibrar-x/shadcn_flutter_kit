@@ -1,7 +1,6 @@
 import 'dart:io';
 
-const _themeSchemaUrl =
-    '../manifests/themes.schema.json';
+const _themeSchemaUrl = '../manifests/themes.schema.json';
 
 const List<String> _colorFields = [
   'background',
@@ -69,16 +68,22 @@ Directory? findRegistryDir(Directory from) {
 }
 
 List<Map<String, dynamic>> parseThemePresetsFromDart(String source) {
-  final listStart = source.indexOf(
-    'final List<RegistryThemePreset> registryThemePresets = [',
-  );
-  if (listStart == -1) {
-    throw FormatException(
+  final listMatch = RegExp(
+    r'final\s+List<RegistryThemePreset>\s+registryThemePresets\s*=\s*(?:<RegistryThemePreset>)?\s*\[',
+  ).firstMatch(source);
+  if (listMatch == null) {
+    throw const FormatException(
       'Could not find registryThemePresets list in preset_themes.dart',
     );
   }
 
-  final openBracket = source.indexOf('[', listStart);
+  final openBracket = source.indexOf('[', listMatch.start);
+  if (openBracket == -1) {
+    throw const FormatException(
+      'Could not find registryThemePresets list opening bracket',
+    );
+  }
+
   final closeBracket = _findMatching(source, openBracket, '[', ']');
   final listContent = source.substring(openBracket + 1, closeBracket);
 
@@ -113,8 +118,8 @@ Map<String, dynamic> withThemeSchema({
 }
 
 Map<String, dynamic> _parsePresetBlock(String block) {
-  final id = _firstMatch(block, RegExp(r"id:\s*'([^']+)'"), 'id');
-  final name = _firstMatch(block, RegExp(r"name:\s*'([^']+)'"), 'name');
+  final id = _requiredString(block, 'id');
+  final name = _requiredString(block, 'name');
 
   final light = _parseColorScheme(
     _extractConstructorBody(block, 'light', 'ColorScheme'),
@@ -256,7 +261,7 @@ String _extractConstructorBody(String source, String field, String typeName) {
 }
 
 String _extractArrayContent(String source, String field) {
-  final pattern = RegExp('$field\\s*:\\s*\\[');
+  final pattern = RegExp('$field\\s*:\\s*(?:const\\s+)?\\[');
   final match = pattern.firstMatch(source);
   if (match == null) {
     throw FormatException('Could not find array field $field');
@@ -274,18 +279,32 @@ String _firstMatch(String source, RegExp regex, String label, {int group = 1}) {
   return match.group(group)!;
 }
 
-String? _optionalString(String source, String field) {
-  final match = RegExp(
-    '$field\\s*:\\s*"((?:\\\\.|[^"\\\\])*)"',
-  ).firstMatch(source);
-  if (match == null) {
-    return null;
+String _requiredString(String source, String field) {
+  final value = _optionalString(source, field);
+  if (value == null) {
+    throw FormatException('Missing $field');
   }
-  return _unescapeDartString(match.group(1)!);
+  return value;
+}
+
+String? _optionalString(String source, String field) {
+  for (final quote in ["'", '"']) {
+    final escapedQuote = RegExp.escape(quote);
+    final match = RegExp(
+      '$field\\s*:\\s*$escapedQuote((?:\\\\.|[^$escapedQuote\\\\])*)$escapedQuote',
+    ).firstMatch(source);
+    if (match != null) {
+      return _unescapeDartString(match.group(1)!);
+    }
+  }
+  return null;
 }
 
 String _unescapeDartString(String value) {
   return value
+      .replaceAll(r'\n', '\n')
+      .replaceAll(r'\r', '\r')
+      .replaceAll(r'\t', '\t')
       .replaceAll(r'\"', '"')
       .replaceAll(r"\'", "'")
       .replaceAll(r'\\', r'\');

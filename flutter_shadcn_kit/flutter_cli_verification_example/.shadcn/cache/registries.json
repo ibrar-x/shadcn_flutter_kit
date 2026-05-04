@@ -13,16 +13,16 @@
       "minCliVersion": "0.1.8",
       "homepage": "https://ibrar-x.github.io/shadcn_flutter_kit/",
       "description": "Official shadcn Flutter registry.",
-      "baseUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib",
+      "baseUrl": "https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib/registry",
       "paths": {
-        "componentsJson": "registry/manifests/components.json",
-        "componentsSchemaJson": "registry/manifests/components.schema.json",
-        "indexJson": "registry/manifests/index.json",
-        "indexSchemaJson": "registry/manifests/index.schema.json",
-        "themesJson": "registry/manifests/theme.index.json",
-        "themesSchemaJson": "registry/manifests/themes.index.schema.json",
+        "componentsJson": "manifests/components.json",
+        "componentsSchemaJson": "manifests/components.schema.json",
+        "indexJson": "manifests/index.json",
+        "indexSchemaJson": "manifests/index.schema.json",
+        "themesJson": "manifests/theme.index.json",
+        "themesSchemaJson": "manifests/themes.index.schema.json",
         "themeConverterDart": "https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/tool/theme/theme_preset_json_to_dart.dart",
-        "folderStructureJson": "registry/manifests/folder_structure.json"
+        "folderStructureJson": "manifests/folder_structure.json"
       },
       "install": {
         "namespace": "shadcn",
@@ -57,7 +57,7 @@
           },
           {
             "type": "copyFiles",
-            "base": "registry/shared",
+            "base": "shared",
             "destBase": "lib/ui/shadcn/shared",
             "overwrite": false,
             "files": [
@@ -113,49 +113,85 @@
           },
           {
             "type": "copyFiles",
+            "optional": true,
+            "promptLabel": "Install font assets?",
+            "promptDescription": "Copies selected font families to assets/fonts/.",
             "from": "shared/fonts",
             "to": "assets/fonts",
             "overwrite": false,
-            "base": "registry",
-            "destBase": ".",
-            "files": [
-              "shared/fonts/bootstrap.otf",
-              "shared/fonts/geist/Geist-Black.otf",
-              "shared/fonts/geist/Geist-BlackItalic.otf",
-              "shared/fonts/geist/Geist-Bold.otf",
-              "shared/fonts/geist/Geist-BoldItalic.otf",
-              "shared/fonts/geist/Geist-ExtraLightItalic.otf",
-              "shared/fonts/geist/Geist-Light.otf",
-              "shared/fonts/geist/Geist-LightItalic.otf",
-              "shared/fonts/geist/Geist-Medium.otf",
-              "shared/fonts/geist/Geist-MediumItalic.otf",
-              "shared/fonts/geist/Geist-Regular.otf",
-              "shared/fonts/geist/Geist-RegularItalic.otf",
-              "shared/fonts/geist/Geist-SemiBold.otf",
-              "shared/fonts/geist/Geist-SemiBoldItalic.otf",
-              "shared/fonts/geist/Geist-Thin.otf",
-              "shared/fonts/geist/Geist-ThinItalic.otf",
-              "shared/fonts/geist/Geist-UltraBlack.otf",
-              "shared/fonts/geist/Geist-UltraLight.otf",
-              "shared/fonts/geist/GeistMono-Black.otf",
-              "shared/fonts/geist/GeistMono-BlackItalic.otf",
-              "shared/fonts/geist/GeistMono-Bold.otf",
-              "shared/fonts/geist/GeistMono-BoldItalic.otf",
-              "shared/fonts/geist/GeistMono-ExtraLightItalic.otf",
-              "shared/fonts/geist/GeistMono-Italic.otf",
-              "shared/fonts/geist/GeistMono-Light.otf",
-              "shared/fonts/geist/GeistMono-LightItalic.otf",
-              "shared/fonts/geist/GeistMono-Medium.otf",
-              "shared/fonts/geist/GeistMono-MediumItalic.otf",
-              "shared/fonts/geist/GeistMono-Regular.otf",
-              "shared/fonts/geist/GeistMono-SemiBold.otf",
-              "shared/fonts/geist/GeistMono-SemiBoldItalic.otf",
-              "shared/fonts/geist/GeistMono-Thin.otf",
-              "shared/fonts/geist/GeistMono-ThinItalic.otf",
-              "shared/fonts/geist/GeistMono-UltraBlack.otf",
-              "shared/fonts/geist/GeistMono-UltraLight.otf",
-              "shared/fonts/lucide.ttf",
-              "shared/fonts/radix.otf"
+            "groups": [
+              {
+                "label": "Geist Sans",
+                "description": "18 weight/style variants - ~3.2 MB",
+                "default": true,
+                "files": [
+                  "geist/Geist-Black.otf",
+                  "geist/Geist-BlackItalic.otf",
+                  "geist/Geist-Bold.otf",
+                  "geist/Geist-BoldItalic.otf",
+                  "geist/Geist-ExtraLightItalic.otf",
+                  "geist/Geist-Light.otf",
+                  "geist/Geist-LightItalic.otf",
+                  "geist/Geist-Medium.otf",
+                  "geist/Geist-MediumItalic.otf",
+                  "geist/Geist-Regular.otf",
+                  "geist/Geist-RegularItalic.otf",
+                  "geist/Geist-SemiBold.otf",
+                  "geist/Geist-SemiBoldItalic.otf",
+                  "geist/Geist-Thin.otf",
+                  "geist/Geist-ThinItalic.otf",
+                  "geist/Geist-UltraBlack.otf",
+                  "geist/Geist-UltraLight.otf"
+                ]
+              },
+              {
+                "label": "Geist Mono",
+                "description": "17 weight/style variants - ~2.8 MB",
+                "default": true,
+                "files": [
+                  "geist/GeistMono-Black.otf",
+                  "geist/GeistMono-BlackItalic.otf",
+                  "geist/GeistMono-Bold.otf",
+                  "geist/GeistMono-BoldItalic.otf",
+                  "geist/GeistMono-ExtraLightItalic.otf",
+                  "geist/GeistMono-Italic.otf",
+                  "geist/GeistMono-Light.otf",
+                  "geist/GeistMono-LightItalic.otf",
+                  "geist/GeistMono-Medium.otf",
+                  "geist/GeistMono-MediumItalic.otf",
+                  "geist/GeistMono-Regular.otf",
+                  "geist/GeistMono-SemiBold.otf",
+                  "geist/GeistMono-SemiBoldItalic.otf",
+                  "geist/GeistMono-Thin.otf",
+                  "geist/GeistMono-ThinItalic.otf",
+                  "geist/GeistMono-UltraBlack.otf",
+                  "geist/GeistMono-UltraLight.otf"
+                ]
+              },
+              {
+                "label": "Bootstrap icon font",
+                "description": "Bootstrap icon font asset.",
+                "default": true,
+                "files": [
+                  "bootstrap.otf"
+                ]
+              },
+              {
+                "label": "Lucide icon font",
+                "description": "Lucide icon font asset.",
+                "default": true,
+                "files": [
+                  "lucide.ttf"
+                ]
+              },
+              {
+                "label": "Radix icon font",
+                "description": "Radix icon font asset.",
+                "default": true,
+                "files": [
+                  "radix.otf"
+                ]
+              }
             ]
           },
           {
@@ -164,45 +200,7 @@
               "data_widget": "^0.0.2",
               "gap": "^3.0.1"
             },
-            "flutterAssets": [
-              "assets/fonts/bootstrap.otf",
-              "assets/fonts/geist/Geist-Black.otf",
-              "assets/fonts/geist/Geist-BlackItalic.otf",
-              "assets/fonts/geist/Geist-Bold.otf",
-              "assets/fonts/geist/Geist-BoldItalic.otf",
-              "assets/fonts/geist/Geist-ExtraLightItalic.otf",
-              "assets/fonts/geist/Geist-Light.otf",
-              "assets/fonts/geist/Geist-LightItalic.otf",
-              "assets/fonts/geist/Geist-Medium.otf",
-              "assets/fonts/geist/Geist-MediumItalic.otf",
-              "assets/fonts/geist/Geist-Regular.otf",
-              "assets/fonts/geist/Geist-RegularItalic.otf",
-              "assets/fonts/geist/Geist-SemiBold.otf",
-              "assets/fonts/geist/Geist-SemiBoldItalic.otf",
-              "assets/fonts/geist/Geist-Thin.otf",
-              "assets/fonts/geist/Geist-ThinItalic.otf",
-              "assets/fonts/geist/Geist-UltraBlack.otf",
-              "assets/fonts/geist/Geist-UltraLight.otf",
-              "assets/fonts/geist/GeistMono-Black.otf",
-              "assets/fonts/geist/GeistMono-BlackItalic.otf",
-              "assets/fonts/geist/GeistMono-Bold.otf",
-              "assets/fonts/geist/GeistMono-BoldItalic.otf",
-              "assets/fonts/geist/GeistMono-ExtraLightItalic.otf",
-              "assets/fonts/geist/GeistMono-Italic.otf",
-              "assets/fonts/geist/GeistMono-Light.otf",
-              "assets/fonts/geist/GeistMono-LightItalic.otf",
-              "assets/fonts/geist/GeistMono-Medium.otf",
-              "assets/fonts/geist/GeistMono-MediumItalic.otf",
-              "assets/fonts/geist/GeistMono-Regular.otf",
-              "assets/fonts/geist/GeistMono-SemiBold.otf",
-              "assets/fonts/geist/GeistMono-SemiBoldItalic.otf",
-              "assets/fonts/geist/GeistMono-Thin.otf",
-              "assets/fonts/geist/GeistMono-ThinItalic.otf",
-              "assets/fonts/geist/GeistMono-UltraBlack.otf",
-              "assets/fonts/geist/GeistMono-UltraLight.otf",
-              "assets/fonts/lucide.ttf",
-              "assets/fonts/radix.otf"
-            ]
+            "deriveFlutterAssets": true
           }
         ]
       }
