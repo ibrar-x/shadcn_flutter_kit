@@ -44,6 +44,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   analyzer: ^6.4.1
+  crypto: ^3.0.6
   glob: ^2.1.2
   file: ^7.0.0
 

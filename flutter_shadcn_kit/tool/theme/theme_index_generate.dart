@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
+
 void main(List<String> args) {
   if (args.contains('-h') || args.contains('--help')) {
     _printUsage();
@@ -90,12 +92,12 @@ void main(List<String> args) {
       'name': name,
       if (description != null && description.isNotEmpty)
         'description': description,
-      'file': 'themes_preset/${_basename(file.path)}',
       if (primary != null || background != null)
         'preview': {
           if (primary != null) 'primary': primary,
           if (background != null) 'background': background,
         },
+      'files': _themeFiles(registryDir: registryDir, themeId: id),
     };
 
     themes.add(entry);
@@ -139,6 +141,74 @@ void main(List<String> args) {
   );
 }
 
+List<Map<String, dynamic>> _themeFiles({
+  required Directory registryDir,
+  required String themeId,
+}) {
+  final generatedDir = Directory(
+    '${registryDir.path}/shared/theme/generated/$themeId',
+  );
+  if (!generatedDir.existsSync()) {
+    generatedDir.createSync(recursive: true);
+  }
+
+  final presetThemesFile = File('${generatedDir.path}/preset_themes.dart');
+  if (!presetThemesFile.existsSync()) {
+    throw StateError('Missing generated theme file: ${presetThemesFile.path}');
+  }
+
+  final appThemePresetFile = File('${generatedDir.path}/app_theme_preset.dart');
+  appThemePresetFile.writeAsStringSync(_appThemePresetSource());
+
+  return [
+    _themeFileEntry(
+      registryDir: registryDir,
+      file: presetThemesFile,
+      target: '{sharedPath}/theme/preset_themes.dart',
+    ),
+    _themeFileEntry(
+      registryDir: registryDir,
+      file: appThemePresetFile,
+      target: '{sharedPath}/theme/app_theme_preset.dart',
+    ),
+  ];
+}
+
+Map<String, dynamic> _themeFileEntry({
+  required Directory registryDir,
+  required File file,
+  required String target,
+}) {
+  final source = _registryRelativePath(registryDir, file);
+  final bytes = file.readAsBytesSync();
+  return {
+    'source': source,
+    'target': target,
+    'sha256': sha256.convert(bytes).toString(),
+  };
+}
+
+String _registryRelativePath(Directory registryDir, File file) {
+  final registryPath = registryDir.absolute.path.replaceAll('\\', '/');
+  final filePath = file.absolute.path.replaceAll('\\', '/');
+  if (!filePath.startsWith('$registryPath/')) {
+    throw StateError('Theme file is outside registry: ${file.path}');
+  }
+  return filePath.substring(registryPath.length + 1);
+}
+
+String _appThemePresetSource() {
+  return '''// GENERATED CODE - DO NOT MODIFY BY HAND.
+// Run `dart run tool/theme/theme_index_generate.dart` to refresh.
+
+import 'preset_themes.dart';
+
+class InstalledThemePreset {
+  static RegistryThemePreset current = registryThemePresets.first;
+}
+''';
+}
+
 void _printUsage() {
   stdout.writeln(
     'Usage: dart run tool/theme/theme_index_generate.dart [--default <id>] [--output <filename>]',
@@ -168,13 +238,4 @@ Directory? _findRegistryDir(Directory from) {
     }
     current = parent;
   }
-}
-
-String _basename(String path) {
-  final normalized = path.replaceAll('\\', '/');
-  final slash = normalized.lastIndexOf('/');
-  if (slash == -1) {
-    return normalized;
-  }
-  return normalized.substring(slash + 1);
 }

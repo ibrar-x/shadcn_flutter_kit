@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-05-04T02:47:33.420443Z",
+  "generatedAt": "2026-05-04T03:05:25.178221Z",
   "components": [
     {
       "id": "accordion",
