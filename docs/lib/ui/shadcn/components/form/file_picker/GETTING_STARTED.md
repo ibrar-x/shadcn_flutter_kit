@@ -50,11 +50,11 @@ Theme data and ThemeExtension integration.
 ### `utils/`
 Small reusable helper functions/models.
 
+- `file_drop_adapter.dart`: Utility helpers used by this widget implementation.
+- `file_drop_adapter_io.dart`: Utility helpers used by this widget implementation.
+- `file_drop_adapter_stub.dart`: Utility helpers used by this widget implementation.
+- `file_drop_adapter_web.dart`: Utility helpers used by this widget implementation.
 - `file_like.dart`: Utility helpers used by this widget implementation.
-- `file_picker_adapter.dart`: Utility helpers used by this widget implementation.
-- `file_picker_adapter_io.dart`: Utility helpers used by this widget implementation.
-- `file_picker_adapter_stub.dart`: Utility helpers used by this widget implementation.
-- `file_picker_adapter_web.dart`: Utility helpers used by this widget implementation.
 - `file_upload_controller.dart`: Utility helpers used by this widget implementation.
 - `file_upload_formatters.dart`: Utility helpers used by this widget implementation.
 - `file_upload_models.dart`: Utility helpers used by this widget implementation.

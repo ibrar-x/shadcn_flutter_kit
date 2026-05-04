@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import '_impl/themes/base/file_upload_dropzone_theme.dart';
+import '_impl/utils/file_drop_adapter.dart';
 import '_impl/utils/file_like.dart';
-import '_impl/utils/file_picker_adapter.dart';
 import '_impl/utils/file_upload_controller.dart';
 import '_impl/utils/file_upload_models.dart';
 import '_impl/utils/file_validation.dart';

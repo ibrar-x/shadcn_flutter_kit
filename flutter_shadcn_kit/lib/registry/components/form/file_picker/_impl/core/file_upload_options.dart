@@ -23,7 +23,7 @@ abstract class FileUploadOptions {
   FileUploadVariant get variant;
 }
 
-/// Options for desktop-style drag-and-drop upload surface.
+/// Options for desktop-style dropzone upload surface.
 class FileUploadDragDropOptions extends FileUploadOptions {
   const FileUploadDragDropOptions({
     this.enableDragDrop = true,
@@ -43,13 +43,13 @@ class FileUploadDragDropOptions extends FileUploadOptions {
     this.itemLoading = const FileUploadItemLoadingOptions(),
   });
 
-  /// Enables native/web drag-and-drop where supported.
+  /// Enables built-in drag/drop intake where the current platform supports it.
   final bool enableDragDrop;
 
   /// Allows tapping the dropzone to invoke [FileUploadPickFiles].
   final bool enableDropzoneClick;
 
-  /// Optional wrapper to replace/customize the drop target container.
+  /// Optional wrapper that can replace the built-in drop target.
   final FileUploadDropTargetBuilder? dropTargetBuilder;
 
   /// Optional icon shown in the drag-drop surface.

@@ -27,7 +27,9 @@
       "linear_progress_indicator",
       "scaffold"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "web": "^1.1.1"
+    }
   },
   "files": [
     "_impl/core/file_item.dart",
@@ -44,11 +46,11 @@
     "_impl/themes/config/file_picker_theme_defaults.dart",
     "_impl/themes/config/file_picker_theme_schema.dart",
     "_impl/themes/config/file_picker_theme_tokens.dart",
+    "_impl/utils/file_drop_adapter.dart",
+    "_impl/utils/file_drop_adapter_io.dart",
+    "_impl/utils/file_drop_adapter_stub.dart",
+    "_impl/utils/file_drop_adapter_web.dart",
     "_impl/utils/file_like.dart",
-    "_impl/utils/file_picker_adapter.dart",
-    "_impl/utils/file_picker_adapter_io.dart",
-    "_impl/utils/file_picker_adapter_stub.dart",
-    "_impl/utils/file_picker_adapter_web.dart",
     "_impl/utils/file_upload_controller.dart",
     "_impl/utils/file_upload_formatters.dart",
     "_impl/utils/file_upload_models.dart",

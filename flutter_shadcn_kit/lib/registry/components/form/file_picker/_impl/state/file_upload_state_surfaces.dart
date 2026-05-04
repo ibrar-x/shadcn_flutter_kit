@@ -146,21 +146,21 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       case FileUploadState.idle:
       case FileUploadState.disabled:
       case FileUploadState.dragging:
-        return widget.enableDragDrop
+        return widget.enableDragDrop && _dropAdapter.supportsDragDrop
             ? (widget.dragDropIdleLabel ??
                   'Drag files here or click to pick files.')
             : (widget.dragDropClickToPickLabel ?? 'Click to pick files.');
     }
   }
 
-  /// Builds full drag-drop surface and wraps native drop target handlers.
+  /// Builds full drag-drop surface and exposes optional custom drop handlers.
   Widget _buildDragDropSurface(
     ThemeData theme,
     FileUploadDropzoneTheme? dropzoneTheme,
   ) {
     final scaling = theme.scaling;
-    final canDrop = widget.enableDragDrop && _adapter.supportsDragDrop;
     final isEnabled = widget.enabled;
+    final canDrop = widget.enableDragDrop && _dropAdapter.supportsDragDrop;
     final dropzoneMinHeight =
         widget.minHeight ?? dropzoneTheme?.minHeight ?? 220 * scaling;
 
@@ -178,7 +178,8 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       minHeight: dropzoneMinHeight,
     );
 
-    final onTap = widget.enableDropzoneClick && widget.enabled
+    final onTap =
+        widget.enableDropzoneClick && widget.enabled && widget.pickFiles != null
         ? _pickFiles
         : null;
 
@@ -193,7 +194,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       );
     }
 
-    return _adapter.buildDropTarget(
+    return _dropAdapter.buildDropTarget(
       enabled: isEnabled && canDrop,
       withData: widget.withData,
       onDragActive: _setDragActive,

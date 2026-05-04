@@ -66,6 +66,9 @@ FileUpload(
 Notes:
 - No browse action button is rendered in drag-drop mode.
 - Dropzone click can still trigger your `pickFiles` callback.
+- Drag/drop intake is built into the web target and does not use
+  `package:file_picker`. Native picker selection still comes from your
+  `pickFiles` callback.
 
 ### 2) Tile Picker (No Drag and Drop)
 

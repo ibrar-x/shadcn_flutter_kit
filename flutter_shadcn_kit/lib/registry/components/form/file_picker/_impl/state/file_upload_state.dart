@@ -5,7 +5,7 @@ part of '../../file_picker.dart';
 /// This class owns the state lifecycle while specialized behaviors are split
 /// into extension files to keep each unit focused and maintainable.
 class _FileUploadState extends State<_FileUpload> {
-  final FilePickerAdapter _adapter = createFilePickerAdapter();
+  final FileDropAdapter _dropAdapter = createFileDropAdapter();
   final PopoverController _compactPickerPopoverController = PopoverController();
 
   /// Field storing `_items` for this form implementation.
